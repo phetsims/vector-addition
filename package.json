@@ -1,0 +1,24 @@
+{
+  "name": "vector-addition",
+  "version": "1.0.0-dev.1",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phetsims/vector-addition.git"
+  },
+  "devDependencies": {
+    "grunt": "~1.0.0"
+  },
+  "phet": {
+    "requirejsNamespace": "VECTOR_ADDITION",
+    "runnable": true,
+    "supportedBrands": [
+      "phet",
+      "adapted-from-phet"
+    ],
+    "simulation": true
+  },
+  "eslintConfig": {
+    "extends": "../chipper/eslint/sim_es6_eslintrc.js"
+  }
+}
