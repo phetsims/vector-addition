@@ -10,10 +10,13 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Screen = require( 'JOIST/Screen' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionModel = require( 'VECTOR_ADDITION/vector-addition/model/VectorAdditionModel' );
-  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/vector-addition/view/VectorAdditionScreenView' );
+  const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
+  const LabScreenView = require( 'VECTOR_ADDITION/lab/view/LabScreenView' );
 
-  class VectorAdditionScreen extends Screen {
+  // strings
+  const screenLabString = require( 'string!VECTOR_ADDITION/screen.lab' );
+
+  class LabScreen extends Screen {
 
     /**
      * @param {Tandem} tandem
@@ -21,17 +24,18 @@ define( require => {
     constructor( tandem ) {
 
       const options = {
+        name: screenLabString,
         backgroundColorProperty: new Property( 'white' ),
         tandem: tandem
       };
 
       super(
-        () => new VectorAdditionModel( tandem.createTandem( 'model' ) ),
-        ( model ) => new VectorAdditionScreenView( model, tandem.createTandem( 'view' ) ),
+        () => new LabModel( tandem.createTandem( 'labModel' ) ),
+        ( labModel ) => new LabScreenView( labModel, tandem.createTandem( 'labView' ) ),
         options
       );
     }
   }
 
-  return vectorAddition.register( 'VectorAdditionScreen', VectorAdditionScreen );
+  return vectorAddition.register( 'LabScreen', LabScreen );
 } );

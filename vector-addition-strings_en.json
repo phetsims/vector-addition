@@ -1,5 +1,17 @@
 {
   "vector-addition.title": {
     "value": "Vector Addition"
+  },
+  "screen.equation": {
+    "value": "Equation"
+  },
+  "screen.explore1D": {
+    "value": "Explore1D"
+  },
+  "screen.explore2D": {
+    "value": "Explore2D"
+  },
+  "screen.lab": {
+    "value": "Lab"
   }
 }

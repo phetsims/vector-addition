@@ -12,7 +12,7 @@ define( require => {
   /**
    * @constructor
    */
-  class VectorAdditionModel  {
+  class Explore1DModel {
 
     /**
      * @param {Tandem} tandem
@@ -32,5 +32,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'VectorAdditionModel', VectorAdditionModel );
+  return vectorAddition.register( 'Explore1DModel', Explore1DModel );
 } );
