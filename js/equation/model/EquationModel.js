@@ -26,10 +26,6 @@ define( require => {
       //TODO Reset things here.
     }
 
-    // @public
-    step( dt ) {
-      //TODO Handle model animation here.
-    }
   }
 
   return vectorAddition.register( 'EquationModel', EquationModel );

@@ -14,7 +14,7 @@ define( function( require ) {
   class LabScreenView extends ScreenView {
 
     /**
-     * @param {VectorAdditionModel} model
+     * @param {LabModel} model
      * @param {Tandem} tandem
      */
     constructor( model, tandem ) {
@@ -32,10 +32,6 @@ define( function( require ) {
       this.addChild( resetAllButton );
     }
 
-    // @public
-    step( dt ) {
-      //TODO Handle view animation here.
-    }
   }
 
   return vectorAddition.register( 'LabScreenView', LabScreenView );

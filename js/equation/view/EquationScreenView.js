@@ -32,10 +32,6 @@ define( function( require ) {
       this.addChild( resetAllButton );
     }
 
-    // @public
-    step( dt ) {
-      //TODO Handle view animation here.
-    }
   }
 
   return vectorAddition.register( 'EquationScreenView', EquationScreenView );
