@@ -11,7 +11,7 @@ define( function( require ) {
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  class VectorAdditionScreenView extends ScreenView {
+  class Explore2DScreenView extends ScreenView {
 
     /**
      * @param {VectorAdditionModel} model
@@ -38,5 +38,5 @@ define( function( require ) {
     }
   }
 
-  return vectorAddition.register( 'VectorAdditionScreenView', VectorAdditionScreenView );
+  return vectorAddition.register( 'Explore2DScreenView', Explore2DScreenView );
 } );
