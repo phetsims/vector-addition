@@ -36,12 +36,8 @@ define( require => {
   const MINOR_GRID_STROKE_WIDTH = VectorAdditionConstants.MINOR_GRID_STROKE_WIDTH;
   const MINOR_GRID_STROKE_COLOR = VectorAdditionConstants.MINOR_GRID_STROKE_COLOR;
 
-  // dimension of grid in model coordinates
-  const GRAPH_MODEL_WIDTH = VectorAdditionConstants.GRAPH_MODEL_WIDTH;
-  const GRAPH_MODEL_HEIGHT = VectorAdditionConstants.GRAPH_MODEL_HEIGHT;
+  // spacing of major grid lines in model coordinates
   const MAJOR_TICK_SPACING = 5;
-
-  const modelBounds = new Bounds2( 0, 0, 60, 40 );
 
   /**
    * @constructor
@@ -50,10 +46,14 @@ define( require => {
 
     /**
      * @param {ModelViewTransform2} modelViewTransform
+     * @param {Bounds2} modelBounds
      */
-    constructor( modelViewTransform ) {
+    constructor( modelViewTransform, modelBounds ) {
 
       super();
+
+      assert && assert( Number.isInteger( modelBounds.minX ) && Number.isInteger( modelBounds.minY ) && //
+      Number.isInteger( modelBounds.maxX ) && Number.isInteger( modelBounds.maxY ) );
 
       const backgroundRectangle = new Rectangle( modelViewTransform.modelToViewBounds( modelBounds ),
         {
@@ -66,31 +66,31 @@ define( require => {
       const minorGridLinesShape = new Shape();
 
       // horizontal grid lines, one line for each unit of grid spacing
-      for ( let j = 0; j < GRAPH_MODEL_HEIGHT; j++ ) {
+      for ( let j = modelBounds.minY; j < modelBounds.maxY; j++ ) {
         if ( j !== 0 ) { // skip origin, x axis will live here
           const isMajor = j % ( MAJOR_TICK_SPACING ) === 0;
           if ( isMajor ) {
-            majorGridLinesShape.moveTo( 0, j )
-              .horizontalLineTo( GRAPH_MODEL_WIDTH );
+            majorGridLinesShape.moveTo( modelBounds.minX, j )
+              .horizontalLineTo( modelBounds.maxX );
           }
           else {
-            minorGridLinesShape.moveTo( 0, j )
-              .horizontalLineTo( GRAPH_MODEL_WIDTH );
+            minorGridLinesShape.moveTo( modelBounds.minX, j )
+              .horizontalLineTo( modelBounds.maxX );
           }
         }
       }
 
       // vertical grid lines, one line for each unit of grid spacing
-      for ( let i = 0; i < GRAPH_MODEL_WIDTH; i++ ) {
+      for ( let i = modelBounds.minX; i < modelBounds.maxX; i++ ) {
         if ( i !== 0 ) { // skip origin, y axis will live here
           const isMajor = i % ( MAJOR_TICK_SPACING ) === 0;
           if ( isMajor ) {
-            majorGridLinesShape.moveTo( i, 0 )
-              .verticalLineTo( GRAPH_MODEL_HEIGHT );
+            majorGridLinesShape.moveTo( i, modelBounds.minY )
+              .verticalLineTo( modelBounds.maxY );
           }
           else {
-            minorGridLinesShape.moveTo( i, 0 )
-              .verticalLineTo( GRAPH_MODEL_HEIGHT );
+            minorGridLinesShape.moveTo( i, modelBounds.minY )
+              .verticalLineTo( modelBounds.maxY );
           }
         }
       }

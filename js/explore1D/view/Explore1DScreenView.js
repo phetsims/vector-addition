@@ -46,7 +46,7 @@ define( function( require ) {
       const screenshotHSlider = new HSlider( mockupOpacityProperty, new Range( 0, 1 ), { top: 0, left: 0 } );
       mockupOpacityProperty.linkAttribute( image, 'opacity' );
 
-      const graphNode = new GraphNode( modelViewTransform );
+      const graphNode = new GraphNode( modelViewTransform, modelBounds );
 
       this.addChild( graphNode );
       this.addChild( image );
