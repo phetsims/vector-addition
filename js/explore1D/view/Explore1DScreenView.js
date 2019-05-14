@@ -23,9 +23,7 @@ define( function( require ) {
 
   // constants
   const modelBounds = new Bounds2( 0, 0, 60, 40 );
-  const viewBounds = new Bounds2( 29, 90, 29 + 764, 90 + 500 );
-
-//  const viewBounds = new Bounds2( 29, 90, 29+750, 90+500 );
+  const viewBounds = new Bounds2( 29, 90, 29 + 750, 90 + 500 );
 
   class Explore1DScreenView extends ScreenView {
 
