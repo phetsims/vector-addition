@@ -9,16 +9,16 @@ define( require => {
   'use strict';
 
   // modules
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   //const Line = require( 'SCENERY/nodes/Line' );
   //const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  //const Text = require( 'SCENERY/nodes/Text' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
-  //const Text = require( 'SCENERY/nodes/Text' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
   //----------------------------------------------------------------------------------------

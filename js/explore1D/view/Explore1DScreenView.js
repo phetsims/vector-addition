@@ -8,15 +8,15 @@ define( function( require ) {
 
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
-  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const HSlider = require( 'SUN/HSlider' );
   const Image = require( 'SCENERY/nodes/Image' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
 
   // images
   const mockupImage = require( 'image!VECTOR_ADDITION/explore1D_screenshot.png' );

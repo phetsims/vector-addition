@@ -7,11 +7,11 @@ define( require => {
   'use strict';
 
   // modules
+  const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
+  const EquationScreenView = require( 'VECTOR_ADDITION/equation/view/EquationScreenView' );
   const Property = require( 'AXON/Property' );
   const Screen = require( 'JOIST/Screen' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
-  const EquationScreenView = require( 'VECTOR_ADDITION/equation/view/EquationScreenView' );
 
   // strings
   const screenEquationString = require( 'string!VECTOR_ADDITION/screen.equation' );

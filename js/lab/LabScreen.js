@@ -7,11 +7,11 @@ define( require => {
   'use strict';
 
   // modules
+  const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
+  const LabScreenView = require( 'VECTOR_ADDITION/lab/view/LabScreenView' );
   const Property = require( 'AXON/Property' );
   const Screen = require( 'JOIST/Screen' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
-  const LabScreenView = require( 'VECTOR_ADDITION/lab/view/LabScreenView' );
 
   // strings
   const screenLabString = require( 'string!VECTOR_ADDITION/screen.lab' );

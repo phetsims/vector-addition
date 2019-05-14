@@ -7,11 +7,11 @@ define( require => {
   'use strict';
 
   // modules
+  const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
+  const Explore2DScreenView = require( 'VECTOR_ADDITION/explore2D/view/Explore2DScreenView' );
   const Property = require( 'AXON/Property' );
   const Screen = require( 'JOIST/Screen' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
-  const Explore2DScreenView = require( 'VECTOR_ADDITION/explore2D/view/Explore2DScreenView' );
 
   // strings
   const screenExplore2DString = require( 'string!VECTOR_ADDITION/screen.explore2D' );

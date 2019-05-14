@@ -11,8 +11,8 @@ define( function( require ) {
 
   // modules
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   const PANEL_CORNER_RADIUS = 5;
   const PANEL_X_MARGIN = 12; // horizontal panel margin
