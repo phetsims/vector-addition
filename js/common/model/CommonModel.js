@@ -7,15 +7,12 @@ define( require => {
   'use strict';
 
   // modules
-  // const Property = require( 'AXON/Property' );
-  // const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
-  // const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   /**
    * @constructor
    */
-  class Explore1DModel {
+  class CommonModel {
 
     /**
      * @param {Tandem} tandem
@@ -31,5 +28,5 @@ define( require => {
 
   }
 
-  return vectorAddition.register( 'Explore1DModel', Explore1DModel );
+  return vectorAddition.register( 'CommonModel', CommonModel );
 } );

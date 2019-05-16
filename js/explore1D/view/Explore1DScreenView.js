@@ -3,26 +3,31 @@
 /**
  * @author Martin Veillette
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
+  const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
   const HSlider = require( 'SUN/HSlider' );
   const Image = require( 'SCENERY/nodes/Image' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
 
   // images
   const mockupImage = require( 'image!VECTOR_ADDITION/explore1D_screenshot.png' );
 
   // constants
-  const modelBounds = new Bounds2( 0, 0, 60, 40 );
+  const modelBounds = new Bounds2( -30, -20, 30, 20 );
   const viewBounds = new Bounds2( 29, 90, 29 + 750, 90 + 500 );
 
   class Explore1DScreenView extends ScreenView {
@@ -44,15 +49,57 @@ define( function( require ) {
       const screenshotHSlider = new HSlider( mockupOpacityProperty, new Range( 0, 1 ), { top: 0, left: 0 } );
       mockupOpacityProperty.linkAttribute( image, 'opacity' );
 
-      const graphNode = new GraphNode( modelViewTransform, modelBounds );
+      const sumVisibleProperty = new BooleanProperty( false );
+      const valuesVisibleProperty = new BooleanProperty( false );
+      const angleVisibleProperty = new BooleanProperty( false );
+      const gridVisibleProperty = new BooleanProperty( false );
+      const horizontalProperty = new BooleanProperty( true );
 
+      const gridPanel = new GridPanel( sumVisibleProperty,
+        valuesVisibleProperty,
+        angleVisibleProperty,
+        gridVisibleProperty, {
+          right: this.layoutBounds.maxX - 4,
+          top: 10
+        } );
+
+      const graphNode = new GraphNode( horizontalProperty, gridVisibleProperty, modelViewTransform, modelBounds );
+
+      const ArrowNodeOptions = { fill: 'black', doubleHead: true, tailWidth: 3, headWidth: 8, headHeight: 10 };
+      // Scene radio buttons
+      const sceneRadioButtonContent = [ {
+        value: true,
+        node: new ArrowNode( 0, 0, 40, 0, ArrowNodeOptions )
+      }, {
+        value: false,
+        node: new ArrowNode( 0, 0, 0, 40, ArrowNodeOptions )
+      } ];
+
+      const sceneRadioButtonGroup = new RadioButtonGroup( horizontalProperty, sceneRadioButtonContent, {
+        baseColor: 'white',
+        selectedStroke: '#419ac9',
+        selectedLineWidth: 2,
+        right: this.layoutBounds.maxX - 4,
+        top: gridPanel.bottom + 10,
+        orientation: 'horizontal'
+      } );
+
+      const vectorPanel = new VectorPanel( modelViewTransform );
       this.addChild( graphNode );
+      this.addChild( gridPanel );
+      this.addChild( vectorPanel );
+      this.addChild( sceneRadioButtonGroup );
       this.addChild( image );
       this.addChild( screenshotHSlider );
+
 
       const resetAllButton = new ResetAllButton( {
         listener: () => {
           explore1DModel.reset();
+          sumVisibleProperty.reset();
+          valuesVisibleProperty.reset();
+          angleVisibleProperty.reset();
+          gridVisibleProperty.reset();
         },
         right: this.layoutBounds.maxX - 10,
         bottom: this.layoutBounds.maxY - 10,

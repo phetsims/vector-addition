@@ -13,5 +13,17 @@
   },
   "screen.lab": {
     "value": "Lab"
+  },
+  "sum": {
+    "value": "Sum"
+  },
+  "values": {
+    "value": "Values"
+  },
+  "components": {
+    "value": "Components"
+  },
+  "selectAVector": {
+    "value": "Select a vector"
   }
 }

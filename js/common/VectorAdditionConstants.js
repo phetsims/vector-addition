@@ -14,6 +14,7 @@ define( function( require ) {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
+  // constants
   const PANEL_CORNER_RADIUS = 5;
   const PANEL_X_MARGIN = 12; // horizontal panel margin
   const PANEL_BACKGROUND_COLOR = 'rgb( 230, 230, 230 )';
@@ -44,8 +45,7 @@ define( function( require ) {
     RED_COMPONENT_COLOR: 'rgb( 255, 113, 96 )',
 
     // Fonts
-    TITLE_FONT: new PhetFont( 14 ),
-    TITLE_FONT_BOLD: new PhetFont( { size: 14, weight: 'bold' } ),
+    PANEL_FONT: new PhetFont( 16 ),
 
     TITLE_MAX_WIDTH: 140,
     TICK_LABEL_MAX_WIDTH: 50,
