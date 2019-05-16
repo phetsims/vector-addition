@@ -28,7 +28,7 @@ define( require => {
 
       super();
 
-      const arrowNode = new ArrowNode( 0, 0, 30, 0, ARROW_OPTIONS );
+      const arrowNode = new ArrowNode( 0, 0, 100, 0, ARROW_OPTIONS );
 
       this.addChild( arrowNode );
 
@@ -38,7 +38,9 @@ define( require => {
       // @public - for forwarding drag events
       this.dragListener = new DragListener( {
         targetNode: this,
-        translateNode: true
+        translateNode: true,
+        transform: modelViewTransform,
+        locationProperty: vector.tailPositionProperty
       } );
 
       this.dragTarget.addInputListener( this.dragListener );
@@ -46,4 +48,5 @@ define( require => {
   }
 
   return vectorAddition.register( 'VectorNode', VectorNode );
-} );
+} )
+;
