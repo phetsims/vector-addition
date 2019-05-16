@@ -16,11 +16,13 @@ define( require => {
   const Image = require( 'SCENERY/nodes/Image' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const NumberProperty = require( 'AXON/NumberProperty' );
+  const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
   const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
 
   // images
@@ -53,7 +55,7 @@ define( require => {
       const valuesVisibleProperty = new BooleanProperty( false );
       const angleVisibleProperty = new BooleanProperty( false );
       const gridVisibleProperty = new BooleanProperty( false );
-      const horizontalProperty = new BooleanProperty( true );
+      const vectorOrientationProperty = new Property( VectorOrientation.HORIZONTAL );
 
       const gridPanel = new GridPanel( sumVisibleProperty,
         valuesVisibleProperty,
@@ -63,19 +65,19 @@ define( require => {
           top: 10
         } );
 
-      const graphNode = new GraphNode( horizontalProperty, gridVisibleProperty, modelViewTransform, modelBounds );
+      const graphNode = new GraphNode( vectorOrientationProperty, gridVisibleProperty, modelViewTransform, modelBounds );
 
       const ArrowNodeOptions = { fill: 'black', doubleHead: true, tailWidth: 3, headWidth: 8, headHeight: 10 };
       // Scene radio buttons
       const sceneRadioButtonContent = [ {
-        value: true,
+        value: VectorOrientation.HORIZONTAL,
         node: new ArrowNode( 0, 0, 40, 0, ArrowNodeOptions )
       }, {
-        value: false,
+        value: VectorOrientation.VERTICAL,
         node: new ArrowNode( 0, 0, 0, 40, ArrowNodeOptions )
       } ];
 
-      const sceneRadioButtonGroup = new RadioButtonGroup( horizontalProperty, sceneRadioButtonContent, {
+      const sceneRadioButtonGroup = new RadioButtonGroup( vectorOrientationProperty, sceneRadioButtonContent, {
         baseColor: 'white',
         selectedStroke: '#419ac9',
         selectedLineWidth: 2,

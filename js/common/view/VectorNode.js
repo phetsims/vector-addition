@@ -48,5 +48,4 @@ define( require => {
   }
 
   return vectorAddition.register( 'VectorNode', VectorNode );
-} )
-;
+} );

@@ -19,6 +19,7 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -59,12 +60,12 @@ define( require => {
   class GraphNode extends Node {
 
     /**
-     * @param {BooleanProperty} horizontalProperty
+     * @param {Property.<VectorOrientation>} vectorOrientationProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {ModelViewTransform2} modelViewTransform
      * @param {Bounds2} modelBounds
      */
-    constructor( horizontalProperty, gridVisibleProperty, modelViewTransform, modelBounds ) {
+    constructor( vectorOrientationProperty, gridVisibleProperty, modelViewTransform, modelBounds ) {
 
       super();
 
@@ -134,9 +135,22 @@ define( require => {
       const horizontalAxis = new ArrowNode( minX, originY, maxX, originY, ARROW_OPTIONS );
       const verticalAxis = new ArrowNode( originX, minY, originX, maxY, ARROW_OPTIONS );
 
-      horizontalProperty.link( horizontal => {
-        horizontalAxis.visible = horizontal;
-        verticalAxis.visible = !horizontal;
+      vectorOrientationProperty.link( vectorOrientation => {
+        // eslint-disable-next-line default-case
+        switch( vectorOrientation ) {
+          case VectorOrientation.HORIZONTAL:
+            horizontalAxis.visible = true;
+            verticalAxis.visible = false;
+            break;
+          case VectorOrientation.VERTICAL:
+            horizontalAxis.visible = false;
+            verticalAxis.visible = true;
+            break;
+          case VectorOrientation.ALL:
+            horizontalAxis.visible = true;
+            verticalAxis.visible = true;
+            break;
+        }
       } );
 
       this.addChild( backgroundRectangle );
