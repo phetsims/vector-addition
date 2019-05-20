@@ -24,6 +24,10 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
   const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
+  const VectorDisplayNode = require( 'VECTOR_ADDITION/common/view/VectorDisplayNode' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
 
   // images
   const mockupImage = require( 'image!VECTOR_ADDITION/explore1D_screenshot.png' );
@@ -65,6 +69,17 @@ define( require => {
           top: 10
         } );
 
+      const modelVector = new Vector( new Vector2Property( new Vector2( 0, 0 ) ),
+        new Vector2Property( new Vector2( 5, 0 ) ),
+        new BooleanProperty( false ),
+        new NumberProperty( 0 ) );
+
+      const vectorDisplayNode = new VectorDisplayNode( modelVector );
+
+      vectorDisplayNode.centerX = this.layoutBounds.maxX / 2;
+      vectorDisplayNode.top = 10;
+      this.addChild( vectorDisplayNode );
+
       const graphNode = new GraphNode( vectorOrientationProperty, gridVisibleProperty, modelViewTransform, modelBounds );
 
       const ArrowNodeOptions = { fill: 'black', doubleHead: true, tailWidth: 3, headWidth: 8, headHeight: 10 };
@@ -86,7 +101,7 @@ define( require => {
         orientation: 'horizontal'
       } );
 
-      const vectorPanel = new VectorPanel( modelViewTransform );
+      const vectorPanel = new VectorPanel( modelViewTransform, modelVector );
       this.addChild( graphNode );
       this.addChild( gridPanel );
       this.addChild( vectorPanel );

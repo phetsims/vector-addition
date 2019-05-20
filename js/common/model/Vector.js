@@ -48,20 +48,25 @@ define( require => {
       // Flag that indicates if the model element is in the play area
       this.isActiveProperty = new BooleanProperty( false );
 
+      // @public {DerivedProperty.<number>} - the magnitude of the vector
+      this.magnitudeProperty = new DerivedProperty( [ vectorProperty ],
+        vector => ( vector.getMagnitude() )
+      );
+
       // @public {DerivedProperty.<number>} - the angle (in degrees) of the vector
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
       this.angleProperty = new DerivedProperty( [ vectorProperty ],
         vector => ( Util.toDegrees( vector.getAngle() ) )
       );
 
-      // @public {DerivedProperty.<number>} - the magnitude of the vector
-      this.yProperty = new DerivedProperty( [ vectorProperty ],
-        vector => ( vector.y )
-      );
-
-      // @public {DerivedProperty.<number>} - the magnitude of the vector
+      // @public {DerivedProperty.<number>} - the horizontal component of the vector
       this.xProperty = new DerivedProperty( [ vectorProperty ],
         vector => ( vector.x )
+      );
+
+      // @public {DerivedProperty.<number>} - the vertical component of the vector
+      this.yProperty = new DerivedProperty( [ vectorProperty ],
+        vector => ( vector.y )
       );
 
       // @public {DerivedProperty.<Boolean>}

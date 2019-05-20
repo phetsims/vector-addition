@@ -24,6 +24,7 @@ require.config( {
     string: '../../chipper/js/requirejs-plugins/string',
     ifphetio: '../../chipper/js/requirejs-plugins/ifphetio',
 
+
     // PhET libs, uppercase names to identify them in require.js imports.
     // IMPORTANT: DO NOT modify. This file is auto-generated. See documentation at the top.
     AXON: '../../axon/js',

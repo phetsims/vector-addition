@@ -14,10 +14,7 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
+
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
@@ -27,16 +24,11 @@ define( require => {
     /**
      * @param {ModelViewTransform2} modelViewTransform
      */
-    constructor( modelViewTransform ) {
+    constructor( modelViewTransform, vector ) {
 
       super();
 
-      const modelVector = new Vector( new Vector2Property( new Vector2( 0, 0 ) ),
-        new Vector2Property( new Vector2( 5, 0 ) ),
-        new BooleanProperty( false ),
-        new NumberProperty( 0 ) );
-
-      const vectorNode = new VectorNode( modelVector, modelViewTransform );
+      const vectorNode = new VectorNode( vector, modelViewTransform );
       vectorNode.visible = false;
 
       this.addChild( vectorNode );
