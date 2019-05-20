@@ -10,9 +10,11 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   const ARROW_OPTIONS = { stroke: 'blue', lineWidth: 3, headWidth: 10, headHeight: 5 };
@@ -28,19 +30,20 @@ define( require => {
 
       super();
 
-      this.arrowNode = new ArrowNode( modelViewTransform.modelToViewDeltaX( 0 ),
-        modelViewTransform.modelToViewDeltaY( 0 ),
-        modelViewTransform.modelToViewDeltaX( vector.vectorProperty.value.x ),
-        modelViewTransform.modelToViewDeltaY( vector.vectorProperty.value.y ), ARROW_OPTIONS );
+      // position {0,0} is the position of the tail of the vector
 
-      this.addChild( this.arrowNode );
+      // position of the tip of the arrow in View coordinates
+      const tipPosition = modelViewTransform.modelToViewDelta( vector.vectorProperty.value );
 
-      // @public (read-only) - Target for drag listeners
-      this.dragTarget = this.arrowNode;
 
-      vector.tailPositionProperty.link( tailPosition => {
-        console.log( tailPosition );
-      } );
+      const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, ARROW_OPTIONS );
+      const tipArrowNode = new Circle( 10, { center: tipPosition, fill: 'yellow' } );
+
+      this.addChild( tipArrowNode );
+      this.addChild( arrowNode );
+
+      // @public (read-only) - Target for the arrow drag listener
+      this.dragTarget = arrowNode;
 
       // @public - for forwarding drag events
       this.dragListener = new DragListener( {
@@ -51,6 +54,24 @@ define( require => {
       } );
 
       this.dragTarget.addInputListener( this.dragListener );
+
+      // locationProperty of the tip of the arrow (with respect to the base of the arrow (0,0))
+      const tipArrowPositionProperty = new Vector2Property( tipPosition );
+
+      // @public - for forwarding drag events
+      const tipDragListener = new DragListener( {
+        targetNode: tipArrowNode,
+        translateNode: true,
+        locationProperty: tipArrowPositionProperty
+      } );
+
+      tipArrowNode.addInputListener( tipDragListener );
+      tipArrowPositionProperty.link( tipArrowPosition => {
+        vector.vectorProperty.value = modelViewTransform.viewToModelDelta( tipArrowPosition );
+        arrowNode.setTip( tipArrowPosition.x, tipArrowPosition.y );
+      } );
+
+
     }
   }
 

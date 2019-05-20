@@ -32,10 +32,9 @@ define( require => {
       super();
 
       const modelVector = new Vector( new Vector2Property( new Vector2( 0, 0 ) ),
-        new Vector2Property( new Vector2( 10, 0 ) ),
+        new Vector2Property( new Vector2( 5, 0 ) ),
         new BooleanProperty( false ),
         new NumberProperty( 0 ) );
-
 
       const vectorNode = new VectorNode( modelVector, modelViewTransform );
       vectorNode.visible = false;
