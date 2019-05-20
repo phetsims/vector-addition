@@ -28,12 +28,19 @@ define( require => {
 
       super();
 
-      const arrowNode = new ArrowNode( 0, 0, 100, 0, ARROW_OPTIONS );
+      this.arrowNode = new ArrowNode( modelViewTransform.modelToViewDeltaX( 0 ),
+        modelViewTransform.modelToViewDeltaY( 0 ),
+        modelViewTransform.modelToViewDeltaX( vector.vectorProperty.value.x ),
+        modelViewTransform.modelToViewDeltaY( vector.vectorProperty.value.y ), ARROW_OPTIONS );
 
-      this.addChild( arrowNode );
+      this.addChild( this.arrowNode );
 
       // @public (read-only) - Target for drag listeners
-      this.dragTarget = arrowNode;
+      this.dragTarget = this.arrowNode;
+
+      vector.tailPositionProperty.link( tailPosition => {
+        console.log( tailPosition );
+      } );
 
       // @public - for forwarding drag events
       this.dragListener = new DragListener( {

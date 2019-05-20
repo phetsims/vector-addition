@@ -31,8 +31,8 @@ define( require => {
 
       super();
 
-      const modelVector = new Vector( new Vector2Property( new Vector2( 0, 100 ) ),
-        new Vector2Property( new Vector2( 0, 100 ) ),
+      const modelVector = new Vector( new Vector2Property( new Vector2( 0, 0 ) ),
+        new Vector2Property( new Vector2( 10, 0 ) ),
         new BooleanProperty( false ),
         new NumberProperty( 0 ) );
 
@@ -59,15 +59,14 @@ define( require => {
         isVectorInPlayAreaProperty.value = true;
       } );
 
-
       const box = new LayoutBox( {
         spacing: 10,
         children: [
           vectorIconNode
         ]
       } );
-      box.right = 900;
-      box.top = 500;
+      box.right = 950;
+      box.top = 300;
       this.addChild( box );
     }
   }
