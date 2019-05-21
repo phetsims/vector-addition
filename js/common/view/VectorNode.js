@@ -48,9 +48,15 @@ define( require => {
       // @public - for forwarding drag events
       this.dragListener = new DragListener( {
         targetNode: this,
-        translateNode: true,
+        translateNode: false,
         transform: modelViewTransform,
-        locationProperty: vector.tailPositionProperty
+        locationProperty: vector.tailPositionProperty,
+        end: () => {
+          this.snapToGridLines( vector.tailPositionProperty );
+        }
+      } );
+      vector.tailPositionProperty.link( tailPosition => {
+        this.translation = modelViewTransform.modelToViewPosition( tailPosition );
       } );
 
       this.dragTarget.addInputListener( this.dragListener );
@@ -61,17 +67,32 @@ define( require => {
       // @public - for forwarding drag events
       const tipDragListener = new DragListener( {
         targetNode: tipArrowNode,
-        translateNode: true,
-        locationProperty: tipArrowPositionProperty
+        translateNode: false,
+        locationProperty: tipArrowPositionProperty,
+        end: () => {
+          const snapToGridVector = modelViewTransform.viewToModelDelta( tipArrowPositionProperty.value ).roundedSymmetric();
+          tipArrowPositionProperty.set( modelViewTransform.modelToViewDelta( snapToGridVector ) );
+        }
       } );
 
       tipArrowNode.addInputListener( tipDragListener );
+
       tipArrowPositionProperty.link( tipArrowPosition => {
         vector.vectorProperty.value = modelViewTransform.viewToModelDelta( tipArrowPosition );
         arrowNode.setTip( tipArrowPosition.x, tipArrowPosition.y );
+        tipArrowNode.center = tipArrowPosition;
       } );
 
 
+    }
+
+    /**
+     *
+     * @param {Vector2Property} positionProperty
+     */
+    snapToGridLines( positionProperty, options ) {
+
+      positionProperty.set( positionProperty.get().roundedSymmetric() );
     }
   }
 
