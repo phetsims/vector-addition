@@ -9,9 +9,12 @@ define( require => {
   'use strict';
 
   // modules
-  //const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
-  //const Text = require( 'SCENERY/nodes/Text' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -53,6 +56,15 @@ define( require => {
     headHeight: HEAD_HEIGHT,
     stroke: null
   };
+
+  const MATH_FONT = new MathSymbolFont( 20 );
+  const TICK_LENGTH = 12;
+
+  // strings
+  const xString = require( 'string!VECTOR_ADDITION/x' );
+  const yString = require( 'string!VECTOR_ADDITION/y' );
+
+  // const TEXT_FONT = new PhetFont( FONT_SIZE );
 
   /**
    * @constructor
@@ -117,7 +129,6 @@ define( require => {
         stroke: MINOR_GRID_STROKE_COLOR
       } );
 
-
       gridVisibleProperty.link( gridVisible => {
         majorGridLinesPath.visible = gridVisible;
         minorGridLinesPath.visible = gridVisible;
@@ -128,27 +139,79 @@ define( require => {
       const minY = modelViewTransform.modelToViewY( modelBounds.minY ) + LINE_EXTENT;
       const maxX = modelViewTransform.modelToViewX( modelBounds.maxX ) + LINE_EXTENT;
       const maxY = modelViewTransform.modelToViewY( modelBounds.maxY ) - LINE_EXTENT;
-
-      const originX = modelViewTransform.modelToViewX( 0 );
       const originY = modelViewTransform.modelToViewY( 0 );
+      const originX = modelViewTransform.modelToViewX( 0 );
 
+
+      const xAxisLayerNode = new Node();
+      const yAxisLayerNode = new Node();
+
+
+      // x-axis
       const horizontalAxis = new ArrowNode( minX, originY, maxX, originY, ARROW_OPTIONS );
+
+      // label at positive (right) end
+      const xLabel = new RichText( xString,
+        { font: MATH_FONT, maxWidth: 30, left: maxX + 10, centerY: originY } );
+
+
+      // y-axis
       const verticalAxis = new ArrowNode( originX, minY, originX, maxY, ARROW_OPTIONS );
+
+      // label above the y axis
+      const yLabel = new RichText( yString,
+        { font: MATH_FONT, maxWidth: 30, centerX: originX, bottom: maxY - 10 } );
+
+      xAxisLayerNode.addChild( horizontalAxis );
+      xAxisLayerNode.addChild( xLabel );
+
+      yAxisLayerNode.addChild( verticalAxis );
+      yAxisLayerNode.addChild( yLabel );
+
+      // origin
+      const originCircle = new Circle( 7, { centerX: originX, centerY: originY, stroke: 'black', fill: 'yellow' } );
+
+
+      const xAxisOriginLayerNode = new Node();
+      const yAxisOriginLayerNode = new Node();
+
+      const xOriginText = new RichText( '0',
+        { font: new PhetFont( 16 ), maxWidth: 30, centerX: originX, top: originY + 20 } );
+      const xOriginTick = new Line( originX, originY - TICK_LENGTH, originX, originY + TICK_LENGTH, {
+        stroke: 'black'
+      } );
+
+      const yOriginText = new RichText( '0',
+        { font: new PhetFont( 16 ), maxWidth: 30, right: originX - 20, centerY: originY } );
+      const yOriginTick = new Line( originX - TICK_LENGTH, originY, originX + TICK_LENGTH, originY, {
+        stroke: 'black'
+      } );
+
+      xAxisOriginLayerNode.addChild( xOriginText );
+      xAxisOriginLayerNode.addChild( xOriginTick );
+      yAxisOriginLayerNode.addChild( yOriginText );
+      yAxisOriginLayerNode.addChild( yOriginTick );
 
       vectorOrientationProperty.link( vectorOrientation => {
         // eslint-disable-next-line default-case
         switch( vectorOrientation ) {
           case VectorOrientation.HORIZONTAL:
-            horizontalAxis.visible = true;
-            verticalAxis.visible = false;
+            xAxisLayerNode.visible = true;
+            yAxisLayerNode.visible = false;
+            xAxisOriginLayerNode.visible = true;
+            yAxisOriginLayerNode.visible = false;
             break;
           case VectorOrientation.VERTICAL:
-            horizontalAxis.visible = false;
-            verticalAxis.visible = true;
+            xAxisLayerNode.visible = false;
+            yAxisLayerNode.visible = true;
+            xAxisOriginLayerNode.visible = false;
+            yAxisOriginLayerNode.visible = true;
             break;
           case VectorOrientation.ALL:
-            horizontalAxis.visible = true;
-            verticalAxis.visible = true;
+            xAxisLayerNode.visible = true;
+            yAxisLayerNode.visible = true;
+            xAxisOriginLayerNode.visible = false;
+            yAxisOriginLayerNode.visible = false;
             break;
         }
       } );
@@ -157,8 +220,12 @@ define( require => {
       this.addChild( majorGridLinesPath );
       this.addChild( minorGridLinesPath );
 
-      this.addChild( horizontalAxis );
-      this.addChild( verticalAxis );
+      this.addChild( xAxisOriginLayerNode );
+      this.addChild( yAxisOriginLayerNode );
+
+      this.addChild( xAxisLayerNode );
+      this.addChild( yAxisLayerNode );
+      this.addChild( originCircle );
     }
 
   }
