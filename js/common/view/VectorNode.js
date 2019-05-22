@@ -9,7 +9,7 @@ define( require => {
   'use strict';
 
   // modules
-  //const Property = require( 'AXON/Property' );
+  const Property = require( 'AXON/Property' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
@@ -58,14 +58,19 @@ define( require => {
       // @public (read-only) - Target for the arrow drag listener
       this.dragTarget = arrowNode;
 
+
+      const vectorDragBoundsProperty = new Property( modelBounds );
       // @public - for forwarding drag events
       this.dragListener = new DragListener( {
         targetNode: this,
+        dragBoundsProperty: vectorDragBoundsProperty,
         translateNode: false,
-        //  dragBoundsProperty: new Property( modelBounds ),
         transform: modelViewTransform,
         locationProperty: tailArrowPositionProperty
+
       } );
+
+      const tipDragBoundsProperty = new Property( modelBounds );
 
       tailArrowPositionProperty.link( tailArrowPosition => {
         if ( modelBounds.containsPoint( tailArrowPosition ) ) {
@@ -76,7 +81,12 @@ define( require => {
         }
         this.translation = modelViewTransform.modelToViewPosition( vector.tailPositionProperty.value );
 
-        this.clipArea = new Shape.rectangle( viewBounds.minX - this.x, viewBounds.minY - this.y, viewBounds.width + 100, viewBounds.height );
+        this.clipArea = new Shape.bounds( viewBounds.shifted( -this.x, -this.y, ) );
+
+        tipDragBoundsProperty.value = modelViewTransform.modelToViewBounds(
+          modelBounds.shifted( -tailArrowPosition.x - 30, -tailArrowPosition.y + 20 ) ).shifted( -viewBounds.minX,
+          -viewBounds.minY );
+        console.log( tipDragBoundsProperty.value );
       } );
 
       this.dragTarget.addInputListener( this.dragListener );
@@ -89,6 +99,7 @@ define( require => {
       const tipDragListener = new DragListener( {
         targetNode: tipArrowNode,
         translateNode: false,
+        dragBoundsProperty: tipDragBoundsProperty,
         locationProperty: tipArrowPositionProperty
       } );
 
@@ -98,10 +109,11 @@ define( require => {
         const snapToGridPosition = modelViewTransform.modelToViewDelta( vector.vectorProperty.value );
         arrowNode.setTip( snapToGridPosition.x, snapToGridPosition.y );
         tipArrowNode.center = snapToGridPosition;
-
         if ( !snapToGridPosition.equals( Vector2.ZERO ) ) {
           labelNode.center = snapToGridPosition.dividedScalar( 2 ).plus( snapToGridPosition.perpendicular.normalized().times( -20 ) );
         }
+
+        vectorDragBoundsProperty.set( modelBounds.shifted( -vector.vectorProperty.value.x / 2, -vector.vectorProperty.value.y / 2 ) );
       } );
 
     }
