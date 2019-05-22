@@ -10,12 +10,18 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  //const Bounds2 = require( 'DOT/Bounds2' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const Vector2Property = require( 'DOT/Vector2Property' );
+  //const Property = require( 'AXON/Property' );
+
+  // constants
+  //const modelBounds = new Bounds2( -30, -20, 30, 20 );
+  // const viewBounds = new Bounds2( 29, 90, 29 + 750, 90 + 500 );
 
   // constants
   const ARROW_OPTIONS = { stroke: 'black', fill: 'blue', lineWidth: 1, headWidth: 10, headHeight: 5 };
@@ -45,21 +51,22 @@ define( require => {
       this.addChild( arrowNode );
       this.addChild( labelNode );
 
+      const tailArrowPositionProperty = new Vector2Property( vector.tailPositionProperty.value );
+
       // @public (read-only) - Target for the arrow drag listener
       this.dragTarget = arrowNode;
       // @public - for forwarding drag events
       this.dragListener = new DragListener( {
         targetNode: this,
         translateNode: false,
+        //  dragBoundsProperty: new Property( modelBounds ),
         transform: modelViewTransform,
-        locationProperty: vector.tailPositionProperty,
-        end: () => {
-          this.snapToGridLines( vector.tailPositionProperty );
-        }
+        locationProperty: tailArrowPositionProperty
       } );
-      vector.tailPositionProperty.link( tailPosition => {
-        this.translation = modelViewTransform.modelToViewPosition( tailPosition );
 
+      tailArrowPositionProperty.link( tailArrowPosition => {
+        vector.tailPositionProperty.value = tailArrowPosition.roundedSymmetric();
+        this.translation = modelViewTransform.modelToViewPosition( vector.tailPositionProperty.value );
       } );
 
       this.dragTarget.addInputListener( this.dragListener );
@@ -67,25 +74,21 @@ define( require => {
       // locationProperty of the tip of the arrow (with respect to the base of the arrow (0,0))
       const tipArrowPositionProperty = new Vector2Property( tipPosition );
 
+
       // @public - for forwarding drag events
       const tipDragListener = new DragListener( {
         targetNode: tipArrowNode,
         translateNode: false,
-        locationProperty: tipArrowPositionProperty,
-        end: () => {
-          const snapToGridVector = modelViewTransform.viewToModelDelta( tipArrowPositionProperty.value ).roundedSymmetric();
-          const tipSnapToGridPosition = modelViewTransform.modelToViewDelta( snapToGridVector );
-          tipArrowPositionProperty.set( tipSnapToGridPosition );
-
-        }
+        locationProperty: tipArrowPositionProperty
       } );
 
       tipArrowNode.addInputListener( tipDragListener );
       tipArrowPositionProperty.link( tipArrowPosition => {
-        vector.vectorProperty.value = modelViewTransform.viewToModelDelta( tipArrowPosition );
-        arrowNode.setTip( tipArrowPosition.x, tipArrowPosition.y );
-        tipArrowNode.center = tipArrowPosition;
-        labelNode.center = tipArrowPosition.dividedScalar( 2 ).plus( tipArrowPosition.perpendicular.normalized().times( -20 ) );
+        vector.vectorProperty.value = modelViewTransform.viewToModelDelta( tipArrowPosition ).roundedSymmetric();
+        const snapToGridPosition = modelViewTransform.modelToViewDelta( vector.vectorProperty.value );
+        arrowNode.setTip( snapToGridPosition.x, snapToGridPosition.y );
+        tipArrowNode.center = snapToGridPosition;
+        labelNode.center = snapToGridPosition.dividedScalar( 2 ).plus( snapToGridPosition.perpendicular.normalized().times( -20 ) );
       } );
 
     }
