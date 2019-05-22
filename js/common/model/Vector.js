@@ -48,6 +48,9 @@ define( require => {
       // Flag that indicates if the model element is in the play area
       this.isActiveProperty = new BooleanProperty( false );
 
+      // @public {BooleanProperty} - indicates whether this is being dragged by the user
+      this.isDraggingProperty = new BooleanProperty( false );
+
       // @public {DerivedProperty.<number>} - the magnitude of the vector
       this.magnitudeProperty = new DerivedProperty( [ vectorProperty ],
         vector => ( vector.getMagnitude() )
