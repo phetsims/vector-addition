@@ -18,9 +18,6 @@ define( require => {
   const RichText = require( 'SCENERY/nodes/RichText' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-
-  const NUMBER_DISPLAY_OPTIONS = { decimalPlaces: 1 };
-
   class VectorDisplayNode extends Node {
 
     /**
@@ -34,10 +31,10 @@ define( require => {
       const angleText = new RichText( 'Θ' );
       const xText = new RichText( 'S<sub>x</sub>' );
       const yText = new RichText( 'S<sub>y</sub>' );
-      const magnitudeDisplay = new NumberDisplay( vector.magnitudeProperty, new Range( 0, 100 ), NUMBER_DISPLAY_OPTIONS );
-      const angleDisplay = new NumberDisplay( vector.angleProperty, new Range( -180, 180 ), NUMBER_DISPLAY_OPTIONS );
-      const xDisplay = new NumberDisplay( vector.xProperty, new Range( 0, 100 ), NUMBER_DISPLAY_OPTIONS );
-      const yDisplay = new NumberDisplay( vector.yProperty, new Range( 0, 100 ), NUMBER_DISPLAY_OPTIONS );
+      const magnitudeDisplay = new NumberDisplay( vector.magnitudeProperty, new Range( 0, 100 ), { decimalPlaces: 1 } );
+      const angleDisplay = new NumberDisplay( vector.angleProperty, new Range( -180, 180 ), { decimalPlaces: 1 } );
+      const xDisplay = new NumberDisplay( vector.xProperty, new Range( -60, 60 ), { decimalPlaces: 0 } );
+      const yDisplay = new NumberDisplay( vector.yProperty, new Range( 40, 40 ), { decimalPlaces: 0 } );
 
 
       const box = new LayoutBox( {
