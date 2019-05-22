@@ -18,7 +18,7 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
-  const ARROW_OPTIONS = { stroke: 'pink', lineWidth: 2, headWidth: 10, headHeight: 5 };
+  const ARROW_OPTIONS = { stroke: 'black', fill: 'blue', lineWidth: 1, headWidth: 10, headHeight: 5 };
 
   class VectorNode extends Node {
 
