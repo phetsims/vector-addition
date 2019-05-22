@@ -9,19 +9,21 @@ define( require => {
   'use strict';
 
   // modules
+  //const Property = require( 'AXON/Property' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  //const Bounds2 = require( 'DOT/Bounds2' );
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
+  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const Shape = require( 'KITE/Shape' );
+  const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
-  //const Property = require( 'AXON/Property' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
-  //const modelBounds = new Bounds2( -30, -20, 30, 20 );
-  // const viewBounds = new Bounds2( 29, 90, 29 + 750, 90 + 500 );
+  const modelBounds = new Bounds2( -30, -20, 30, 20 );
+  const viewBounds = new Bounds2( 29, 90, 29 + 750, 90 + 500 );
 
   // constants
   const ARROW_OPTIONS = { stroke: 'black', fill: 'blue', lineWidth: 1, headWidth: 10, headHeight: 5 };
@@ -55,6 +57,7 @@ define( require => {
 
       // @public (read-only) - Target for the arrow drag listener
       this.dragTarget = arrowNode;
+
       // @public - for forwarding drag events
       this.dragListener = new DragListener( {
         targetNode: this,
@@ -65,8 +68,15 @@ define( require => {
       } );
 
       tailArrowPositionProperty.link( tailArrowPosition => {
-        vector.tailPositionProperty.value = tailArrowPosition.roundedSymmetric();
+        if ( modelBounds.containsPoint( tailArrowPosition ) ) {
+          vector.tailPositionProperty.value = tailArrowPosition.roundedSymmetric();
+        }
+        else {
+          vector.tailPositionProperty.value = tailArrowPosition;
+        }
         this.translation = modelViewTransform.modelToViewPosition( vector.tailPositionProperty.value );
+
+        this.clipArea = new Shape.rectangle( viewBounds.minX - this.x, viewBounds.minY - this.y, viewBounds.width + 100, viewBounds.height );
       } );
 
       this.dragTarget.addInputListener( this.dragListener );
@@ -88,7 +98,10 @@ define( require => {
         const snapToGridPosition = modelViewTransform.modelToViewDelta( vector.vectorProperty.value );
         arrowNode.setTip( snapToGridPosition.x, snapToGridPosition.y );
         tipArrowNode.center = snapToGridPosition;
-        labelNode.center = snapToGridPosition.dividedScalar( 2 ).plus( snapToGridPosition.perpendicular.normalized().times( -20 ) );
+
+        if ( !snapToGridPosition.equals( Vector2.ZERO ) ) {
+          labelNode.center = snapToGridPosition.dividedScalar( 2 ).plus( snapToGridPosition.perpendicular.normalized().times( -20 ) );
+        }
       } );
 
     }

@@ -10,13 +10,13 @@ define( require => {
 
   // modules
 
+  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   const Range = require( 'DOT/Range' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const RichText = require( 'SCENERY/nodes/RichText' );
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
 
   const NUMBER_DISPLAY_OPTIONS = { decimalPlaces: 1 };

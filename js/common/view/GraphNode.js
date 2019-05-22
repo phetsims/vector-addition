@@ -9,15 +9,15 @@ define( require => {
   'use strict';
 
   // modules
-  const RichText = require( 'SCENERY/nodes/RichText' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const Line = require( 'SCENERY/nodes/Line' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
   const Shape = require( 'KITE/Shape' );
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );

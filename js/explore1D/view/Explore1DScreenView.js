@@ -17,17 +17,17 @@ define( require => {
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Property = require( 'AXON/Property' );
-  const Range = require( 'DOT/Range' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const Range = require( 'DOT/Range' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
-  const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
-  const VectorDisplayNode = require( 'VECTOR_ADDITION/common/view/VectorDisplayNode' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorDisplayNode = require( 'VECTOR_ADDITION/common/view/VectorDisplayNode' );
+  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
+  const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
 
   // images
   const mockupImage = require( 'image!VECTOR_ADDITION/explore1D_screenshot.png' );
