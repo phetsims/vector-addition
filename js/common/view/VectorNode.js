@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Factory for creating icons that appear in this sim.
+ * Factory for creating vectors that appear in this sim.
  *
  * @author Martin Veillette
  */
@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -17,7 +18,7 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
-  const ARROW_OPTIONS = { stroke: 'blue', lineWidth: 3, headWidth: 10, headHeight: 5 };
+  const ARROW_OPTIONS = { stroke: 'pink', lineWidth: 2, headWidth: 10, headHeight: 5 };
 
   class VectorNode extends Node {
 
@@ -35,16 +36,17 @@ define( require => {
       // position of the tip of the arrow in View coordinates
       const tipPosition = modelViewTransform.modelToViewDelta( vector.vectorProperty.value );
 
-
       const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, ARROW_OPTIONS );
-      const tipArrowNode = new Circle( 10, { center: tipPosition, fill: 'yellow' } );
+      const labelNode = new FormulaNode( '\\vec{a}' );
 
+      const tipArrowNode = new Circle( 10, { center: tipPosition, fill: 'yellow' } );
       this.addChild( tipArrowNode );
+
       this.addChild( arrowNode );
+      this.addChild( labelNode );
 
       // @public (read-only) - Target for the arrow drag listener
       this.dragTarget = arrowNode;
-
       // @public - for forwarding drag events
       this.dragListener = new DragListener( {
         targetNode: this,
@@ -57,6 +59,7 @@ define( require => {
       } );
       vector.tailPositionProperty.link( tailPosition => {
         this.translation = modelViewTransform.modelToViewPosition( tailPosition );
+
       } );
 
       this.dragTarget.addInputListener( this.dragListener );
@@ -71,18 +74,19 @@ define( require => {
         locationProperty: tipArrowPositionProperty,
         end: () => {
           const snapToGridVector = modelViewTransform.viewToModelDelta( tipArrowPositionProperty.value ).roundedSymmetric();
-          tipArrowPositionProperty.set( modelViewTransform.modelToViewDelta( snapToGridVector ) );
+          const tipSnapToGridPosition = modelViewTransform.modelToViewDelta( snapToGridVector );
+          tipArrowPositionProperty.set( tipSnapToGridPosition );
+
         }
       } );
 
       tipArrowNode.addInputListener( tipDragListener );
-
       tipArrowPositionProperty.link( tipArrowPosition => {
         vector.vectorProperty.value = modelViewTransform.viewToModelDelta( tipArrowPosition );
         arrowNode.setTip( tipArrowPosition.x, tipArrowPosition.y );
         tipArrowNode.center = tipArrowPosition;
+        labelNode.center = tipArrowPosition.dividedScalar( 2 ).plus( tipArrowPosition.perpendicular.normalized().times( -20 ) );
       } );
-
 
     }
 
@@ -90,7 +94,7 @@ define( require => {
      *
      * @param {Vector2Property} positionProperty
      */
-    snapToGridLines( positionProperty, options ) {
+    snapToGridLines( positionProperty ) {
 
       positionProperty.set( positionProperty.get().roundedSymmetric() );
     }
