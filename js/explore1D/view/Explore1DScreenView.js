@@ -125,6 +125,7 @@ define( require => {
       this.addChild( resetAllButton );
     }
 
+
   }
 
   return vectorAddition.register( 'Explore1DScreenView', Explore1DScreenView );

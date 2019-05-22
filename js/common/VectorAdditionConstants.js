@@ -32,9 +32,6 @@ define( function( require ) {
     MAJOR_GRID_STROKE_WIDTH: 2.0,
     MAJOR_GRID_STROKE_COLOR: 'rgb( 230, 230, 230 )',
 
-    GRAPH_MODEL_WIDTH: 60, // width of the graph, in model coordinates
-    GRAPH_MODEL_HEIGHT: 40, // height of the graph, in model coordinates
-
     // Some
     BACKGROUND_COLOR: 'rgb( 255, 250, 227)',
     ORIGIN_DOT_COLOR: 'rgb( 25, 253, 56 )',
