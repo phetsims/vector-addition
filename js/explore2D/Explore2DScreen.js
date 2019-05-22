@@ -25,7 +25,7 @@ define( require => {
 
       const options = {
         name: screenExplore2DString,
-        backgroundColorProperty: new Property( 'white' ),
+        backgroundColorProperty: new Property( 'rgb( 255, 250, 227 )' ),
         tandem: tandem
       };
 
