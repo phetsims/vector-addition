@@ -40,8 +40,8 @@ define( require => {
     const sim = new Sim( vectorAdditionTitleString, [
       new Explore1DScreen( Tandem.rootTandem.createTandem( 'explore1DScreen' ) ),
       new Explore2DScreen( Tandem.rootTandem.createTandem( 'explore2DScreen' ) ),
-      new EquationScreen( Tandem.rootTandem.createTandem( 'equationScreen' ) ),
-      new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) )
+      new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) ),
+      new EquationScreen( Tandem.rootTandem.createTandem( 'equationScreen' ) )
     ], simOptions );
     sim.start();
   } );

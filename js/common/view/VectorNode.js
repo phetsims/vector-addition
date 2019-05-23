@@ -9,21 +9,16 @@ define( require => {
   'use strict';
 
   // modules
-  const Property = require( 'AXON/Property' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const Property = require( 'AXON/Property' );
   const Shape = require( 'KITE/Shape' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-
-  // constants
-  const modelBounds = new Bounds2( -30, -20, 30, 20 );
-  const viewBounds = new Bounds2( 29, 90, 29 + 750, 90 + 500 );
 
   // constants
   const ARROW_OPTIONS = { stroke: 'black', fill: 'blue', lineWidth: 1, headWidth: 10, headHeight: 5 };
@@ -32,10 +27,13 @@ define( require => {
 
     /**
      * @param {Vector} vector
+     * @param {Bounds2} modelBounds
      * @param {ModelViewTransform2} modelViewTransform
      * @param {Tandem} tandem
      */
-    constructor( vector, modelViewTransform, tandem ) {
+    constructor( vector, modelBounds, modelViewTransform, tandem ) {
+
+      const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
 
       super();
 
@@ -84,9 +82,8 @@ define( require => {
         this.clipArea = new Shape.bounds( viewBounds.shifted( -this.x, -this.y, ) );
 
         tipDragBoundsProperty.value = modelViewTransform.modelToViewBounds(
-          modelBounds.shifted( -tailArrowPosition.x - 30, -tailArrowPosition.y + 20 ) ).shifted( -viewBounds.minX,
-          -viewBounds.minY );
-        console.log( tipDragBoundsProperty.value );
+          modelBounds.shifted( -tailArrowPosition.x + modelBounds.minX,
+            -tailArrowPosition.y + modelBounds.maxY ) ).shifted( -viewBounds.minX, -viewBounds.minY );
       } );
 
       this.dragTarget.addInputListener( this.dragListener );

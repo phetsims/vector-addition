@@ -10,17 +10,24 @@ define( require => {
   // const Property = require( 'AXON/Property' );
   // const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   // const Vector2Property = require( 'DOT/Vector2Property' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   /**
    * @constructor
    */
-  class Explore1DModel {
+  class Explore1DModel extends CommonModel {
 
     /**
      * @param {Tandem} tandem
      */
     constructor( tandem ) {
+
+      super();
+
+      this.gridModelBounds = new Bounds2( -30, -20, 30, 20 );
+
       //TODO
     }
 

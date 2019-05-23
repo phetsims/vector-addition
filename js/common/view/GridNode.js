@@ -69,22 +69,27 @@ define( require => {
   /**
    * @constructor
    */
-  class GraphNode extends Node {
+  class GridNode extends Node {
 
     /**
-     * @param {Property.<VectorOrientation>} vectorOrientationProperty
-     * @param {BooleanProperty} gridVisibleProperty
-     * @param {ModelViewTransform2} modelViewTransform
-     * @param {Bounds2} modelBounds
+     * @param {CommonModel} commonModel
+     * @param {ModelViewTransform2} modelViewTransform,
      */
-    constructor( vectorOrientationProperty, gridVisibleProperty, modelViewTransform, modelBounds ) {
+    constructor( commonModel, modelViewTransform ) {
 
       super();
 
-      assert && assert( Util.isInteger( modelBounds.minX ) && Util.isInteger( modelBounds.minY ) && //
-      Util.isInteger( modelBounds.maxX ) && Util.isInteger( modelBounds.maxY ) );
+      const gridMinX = commonModel.gridModelBounds.minX;
+      const gridMaxX = commonModel.gridModelBounds.maxX;
+      const gridMinY = commonModel.gridModelBounds.minY;
+      const gridMaxY = commonModel.gridModelBounds.maxY;
 
-      const backgroundRectangle = new Rectangle( modelViewTransform.modelToViewBounds( modelBounds ),
+      const gridViewBounds = modelViewTransform.modelToViewBounds( commonModel.gridModelBounds );
+
+      assert && assert( Util.isInteger( gridMinX ) && Util.isInteger( gridMinY ) && //
+      Util.isInteger( gridMaxX ) && Util.isInteger( gridMaxY ) );
+
+      const backgroundRectangle = new Rectangle( gridViewBounds,
         {
           fill: GRID_BACKGROUND_FILL,
           stroke: GRID_BACKGROUND_STROKE_COLOR,
@@ -95,28 +100,24 @@ define( require => {
       const minorGridLinesShape = new Shape();
 
       // horizontal grid lines, one line for each unit of grid spacing
-      for ( let j = modelBounds.minY; j < modelBounds.maxY; j++ ) {
+      for ( let j = gridMinY; j < gridMaxY; j++ ) {
         const isMajor = j % ( MAJOR_TICK_SPACING ) === 0;
         if ( isMajor ) {
-          majorGridLinesShape.moveTo( modelBounds.minX, j )
-            .horizontalLineTo( modelBounds.maxX );
+          majorGridLinesShape.moveTo( gridMinX, j ).horizontalLineTo( gridMaxX );
         }
         else {
-          minorGridLinesShape.moveTo( modelBounds.minX, j )
-            .horizontalLineTo( modelBounds.maxX );
+          minorGridLinesShape.moveTo( gridMinX, j ).horizontalLineTo( gridMaxX );
         }
       }
 
       // vertical grid lines, one line for each unit of grid spacing
-      for ( let i = modelBounds.minX; i < modelBounds.maxX; i++ ) {
+      for ( let i = gridMinX; i < gridMaxX; i++ ) {
         const isMajor = i % ( MAJOR_TICK_SPACING ) === 0;
         if ( isMajor ) {
-          majorGridLinesShape.moveTo( i, modelBounds.minY )
-            .verticalLineTo( modelBounds.maxY );
+          majorGridLinesShape.moveTo( i, gridMinY ).verticalLineTo( gridMaxY );
         }
         else {
-          minorGridLinesShape.moveTo( i, modelBounds.minY )
-            .verticalLineTo( modelBounds.maxY );
+          minorGridLinesShape.moveTo( i, gridMinY ).verticalLineTo( gridMaxY );
         }
       }
 
@@ -129,16 +130,16 @@ define( require => {
         stroke: MINOR_GRID_STROKE_COLOR
       } );
 
-      gridVisibleProperty.link( gridVisible => {
+      commonModel.gridVisibleProperty.link( gridVisible => {
         majorGridLinesPath.visible = gridVisible;
         minorGridLinesPath.visible = gridVisible;
       } );
 
       // axis
-      const minX = modelViewTransform.modelToViewX( modelBounds.minX ) - LINE_EXTENT;
-      const minY = modelViewTransform.modelToViewY( modelBounds.minY ) + LINE_EXTENT;
-      const maxX = modelViewTransform.modelToViewX( modelBounds.maxX ) + LINE_EXTENT;
-      const maxY = modelViewTransform.modelToViewY( modelBounds.maxY ) - LINE_EXTENT;
+      const axisMinX = modelViewTransform.modelToViewX( gridMinX ) - LINE_EXTENT;
+      const axisMinY = modelViewTransform.modelToViewY( gridMinY ) + LINE_EXTENT;
+      const axisMaxX = modelViewTransform.modelToViewX( gridMaxX ) + LINE_EXTENT;
+      const axisMaxY = modelViewTransform.modelToViewY( gridMaxY ) - LINE_EXTENT;
       const originY = modelViewTransform.modelToViewY( 0 );
       const originX = modelViewTransform.modelToViewX( 0 );
 
@@ -146,21 +147,19 @@ define( require => {
       const xAxisLayerNode = new Node();
       const yAxisLayerNode = new Node();
 
-
       // x-axis
-      const horizontalAxis = new ArrowNode( minX, originY, maxX, originY, ARROW_OPTIONS );
+      const horizontalAxis = new ArrowNode( axisMinX, originY, axisMaxX, originY, ARROW_OPTIONS );
 
       // label at positive (right) end
       const xLabel = new RichText( xString,
-        { font: MATH_FONT, maxWidth: 30, left: maxX + 10, centerY: originY } );
-
+        { font: MATH_FONT, maxWidth: 30, left: axisMaxX + 10, centerY: originY } );
 
       // y-axis
-      const verticalAxis = new ArrowNode( originX, minY, originX, maxY, ARROW_OPTIONS );
+      const verticalAxis = new ArrowNode( originX, axisMinY, originX, axisMaxY, ARROW_OPTIONS );
 
       // label above the y axis
       const yLabel = new RichText( yString,
-        { font: MATH_FONT, maxWidth: 30, centerX: originX, bottom: maxY - 10 } );
+        { font: MATH_FONT, maxWidth: 30, centerX: originX, bottom: axisMaxY - 10 } );
 
       xAxisLayerNode.addChild( horizontalAxis );
       xAxisLayerNode.addChild( xLabel );
@@ -170,7 +169,6 @@ define( require => {
 
       // origin
       const originCircle = new Circle( 7, { centerX: originX, centerY: originY, stroke: 'black', fill: 'yellow' } );
-
 
       const xAxisOriginLayerNode = new Node();
       const yAxisOriginLayerNode = new Node();
@@ -192,7 +190,7 @@ define( require => {
       yAxisOriginLayerNode.addChild( yOriginText );
       yAxisOriginLayerNode.addChild( yOriginTick );
 
-      vectorOrientationProperty.link( vectorOrientation => {
+      commonModel.vectorOrientationProperty.link( vectorOrientation => {
         // eslint-disable-next-line default-case
         switch( vectorOrientation ) {
           case VectorOrientation.HORIZONTAL:
@@ -230,6 +228,6 @@ define( require => {
 
   }
 
-  return vectorAddition.register( 'GraphNode', GraphNode );
+  return vectorAddition.register( 'GridNode', GridNode );
 } );
 

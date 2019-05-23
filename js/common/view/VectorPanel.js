@@ -24,11 +24,11 @@ define( require => {
     /**
      * @param {ModelViewTransform2} modelViewTransform
      */
-    constructor( modelViewTransform, vector ) {
+    constructor( vector, gridModelBounds, modelViewTransform ) {
 
       super();
 
-      const vectorNode = new VectorNode( vector, modelViewTransform );
+      const vectorNode = new VectorNode( vector, gridModelBounds, modelViewTransform );
       vectorNode.visible = false;
 
       this.addChild( vectorNode );
