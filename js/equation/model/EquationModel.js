@@ -24,7 +24,7 @@ define( require => {
     constructor( tandem ) {
 
       super();
-      this.gridModelBounds = new Bounds2( -20, -20, 20, 20 );
+      this.gridModelBounds = new Bounds2( -5, -5, 35, 35 );
       this.vectorOrientationProperty = new Property( VectorOrientation.ALL );
     }
 
