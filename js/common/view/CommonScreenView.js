@@ -7,25 +7,20 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
+
   const GridNode = require( 'VECTOR_ADDITION/common/view/GridNode' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
-  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorDisplayNode = require( 'VECTOR_ADDITION/common/view/VectorDisplayNode' );
   const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   class CommonScreenView extends ScreenView {
 
     /**
      * @param {Bounds2} gridViewBounds
-     * @param {commonModel} commonModel
+     * @param {CommonModel} commonModel
      * @param {Tandem} tandem
      */
     constructor( gridViewBounds, commonModel, tandem ) {
@@ -38,23 +33,14 @@ define( require => {
 
       this.addChild( gridNode );
 
-      const modelVector = new Vector( new Vector2Property( new Vector2( 0, 0 ) ),
-        new Vector2Property( new Vector2( 5, 0 ) ),
-        new BooleanProperty( false ),
-        new NumberProperty( 0 ) );
-
-      const vectorDisplayNode = new VectorDisplayNode( modelVector );
+      const vectorDisplayNode = new VectorDisplayNode( commonModel.vectors.get( 1 ) );
 
       vectorDisplayNode.centerX = this.layoutBounds.maxX / 2;
       vectorDisplayNode.top = 10;
       this.addChild( vectorDisplayNode );
 
-      const vectorNode = new VectorNode( modelVector, commonModel.gridModelBounds, this.modelViewTransform );
-      vectorNode.visible = false;
+      const vectorPanel = new VectorPanel( commonModel, this.modelViewTransform );
 
-      this.addChild( vectorNode );
-
-      const vectorPanel = new VectorPanel( vectorNode );
       this.addChild( vectorPanel );
 
       const resetAllButton = new ResetAllButton( {

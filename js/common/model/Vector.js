@@ -72,12 +72,21 @@ define( require => {
         vector => ( vector.y )
       );
 
-      // @public {DerivedProperty.<Boolean>}
+
+      //@public {DerivedProperty.<Boolean>}
       // Flag that indicates if the model element is in the play area
       // this.isInPlayAreaProperty = new DerivedProperty( [ tailPositionProperty ],
       //   tailPosition => GRAPH_MODEL_BOUNDS.contains( tailPosition )
       // );
+    }
 
+    // @public resets the vector
+    reset() {
+      this.tailPositionProperty.reset();
+      this.vectorProperty.reset();
+      this.multiplicativeScalarProperty.reset();
+      this.isActiveProperty.reset();
+      this.isDraggingProperty.reset();
     }
   }
 

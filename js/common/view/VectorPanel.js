@@ -14,52 +14,71 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
-
+  const Panel = require( 'SUN/Panel' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
-
+  const VECTOR_BOX_OPTIONS = VectorAdditionConstants.VECTOR_BOX_OPTIONS;
 
   class VectorPanel extends Node {
 
     /**
+     *
      */
-    constructor( vectorNode ) {
+    constructor( model, modelViewTransform ) {
 
       super();
 
-      const vectorIconNode = new ArrowNode( 0, 0, 30, 0, {} );
+      const content = [];
 
-      const isVectorInPlayAreaProperty = new BooleanProperty( false );
+      const vectorLayer = new Node();
+      model.vectors.forEach( vector => {
+        const vectorNode = new VectorNode( vector, model.gridModelBounds, modelViewTransform );
 
-      isVectorInPlayAreaProperty.link( inPlayArea => { vectorNode.visible = inPlayArea; } );
+        vectorLayer.addChild( vectorNode );
+        vectorNode.visible = false;
 
-      // Capture image for icon
-      initializeIcon( vectorIconNode, isVectorInPlayAreaProperty, event => {
+        const vectorIconNode = new ArrowNode( 0, 0, 30, 0 );
 
-        vectorNode.center = this.globalToParentPoint( event.pointer.point );
+        content.push( vectorIconNode );
+        const isVectorInPlayAreaProperty = new BooleanProperty( false );
 
-        // vectorArrow provided as targetNode in the DragListener constructor, so this press will target it
-        vectorNode.dragListener.press( event );
+        isVectorInPlayAreaProperty.link( inPlayArea => { vectorNode.visible = inPlayArea; } );
 
-        isVectorInPlayAreaProperty.value = true;
+        // Capture image for icon
+        initializeIcon( vectorIconNode, isVectorInPlayAreaProperty, event => {
+
+          vectorNode.center = this.globalToParentPoint( event.pointer.point );
+
+          // vectorArrow provided as targetNode in the DragListener constructor, so this press will target it
+          vectorNode.dragListener.press( event );
+
+          isVectorInPlayAreaProperty.value = true;
+        } );
+
       } );
 
       const box = new LayoutBox( {
-        spacing: 10,
-        children: [
-          vectorIconNode
-        ]
+        spacing: 20,
+        children: content
       } );
-      box.right = 950;
-      box.top = 300;
-      this.addChild( box );
+
+      const panel = new Panel( box, VECTOR_BOX_OPTIONS );
+      panel.right = 950;
+      panel.top = 300;
+
+      this.addChild( panel );
+      this.addChild( vectorLayer );
+
     }
+
   }
 
   /**
    * Initialize the icon for use in the toolbox.
    * @param {Node} node
-   * @param {Property.<boolean>} inPlayAreaProperty
+   * @param {BooleanProperty} inPlayAreaProperty
    * @param {Object} forwardingListener
    */
   const initializeIcon = ( node, inPlayAreaProperty, forwardingListener ) => {
@@ -69,6 +88,7 @@ define( require => {
   };
 
   return vectorAddition.register( 'VectorPanel', VectorPanel );
-} );
+} )
+;
 
 

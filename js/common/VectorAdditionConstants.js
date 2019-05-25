@@ -63,10 +63,10 @@ define( function( require ) {
       yMargin: PANEL_Y_MARGIN
     },
 
-    // Options for AccordionBoxes
-    BOX_OPTIONS: {
+    // Options for Vector Boxes
+    VECTOR_BOX_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,
-      fill: PANEL_BACKGROUND_COLOR,
+      fill: 'white',
       contentXMargin: PANEL_X_MARGIN,
       contentYMargin: PANEL_Y_MARGIN
     },
