@@ -33,7 +33,7 @@ define( require => {
 
     // @public resets the model
     reset() {
-      this.gridVisibleProperty.reset();
+      this.sumVisibleProperty.reset();
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
     }
