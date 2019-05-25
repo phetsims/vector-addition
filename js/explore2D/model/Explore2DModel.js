@@ -36,6 +36,7 @@ define( require => {
 
     // @public resets the model
     reset() {
+      super.reset();
       this.angleVisibleProperty.reset();
     }
 
