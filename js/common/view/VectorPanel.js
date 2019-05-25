@@ -76,3 +76,5 @@ define( require => {
 
   return vectorAddition.register( 'VectorPanel', VectorPanel );
 } );
+
+
