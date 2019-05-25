@@ -19,6 +19,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorDisplayNode = require( 'VECTOR_ADDITION/common/view/VectorDisplayNode' );
   const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   class CommonScreenView extends ScreenView {
 
@@ -48,7 +49,12 @@ define( require => {
       vectorDisplayNode.top = 10;
       this.addChild( vectorDisplayNode );
 
-      const vectorPanel = new VectorPanel( modelVector, commonModel.gridModelBounds, this.modelViewTransform );
+      const vectorNode = new VectorNode( modelVector, commonModel.gridModelBounds, this.modelViewTransform );
+      vectorNode.visible = false;
+
+      this.addChild( vectorNode );
+
+      const vectorPanel = new VectorPanel( vectorNode );
       this.addChild( vectorPanel );
 
       const resetAllButton = new ResetAllButton( {

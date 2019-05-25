@@ -16,22 +16,16 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
 
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
+
 
 
   class VectorPanel extends Node {
 
     /**
-     * @param {ModelViewTransform2} modelViewTransform
      */
-    constructor( vector, gridModelBounds, modelViewTransform ) {
+    constructor( vectorNode ) {
 
       super();
-
-      const vectorNode = new VectorNode( vector, gridModelBounds, modelViewTransform );
-      vectorNode.visible = false;
-
-      this.addChild( vectorNode );
 
       const vectorIconNode = new ArrowNode( 0, 0, 30, 0, {} );
 
