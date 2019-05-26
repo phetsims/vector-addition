@@ -9,14 +9,14 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ExpandCollapseButton = require( 'SUN/ExpandCollapseButton' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Panel = require( 'SUN/Panel' );
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Range = require( 'DOT/Range' );
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );

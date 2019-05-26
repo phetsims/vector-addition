@@ -29,9 +29,8 @@ define( require => {
      * @param {Vector} vector
      * @param {Bounds2} modelBounds
      * @param {ModelViewTransform2} modelViewTransform
-     * @param {Tandem} tandem
      */
-    constructor( vector, modelBounds, modelViewTransform, tandem ) {
+    constructor( vector, modelBounds, modelViewTransform ) {
 
       const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
 
@@ -43,12 +42,11 @@ define( require => {
       const tipPosition = modelViewTransform.modelToViewDelta( vector.vectorProperty.value );
 
       const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, ARROW_OPTIONS );
-      const labelNode = new FormulaNode( '\\vec{a}' );
+      const labelNode = new FormulaNode( '\\vec{' + vector.label + '}' );
 
-      const tipArrowNode = new Circle( 10, { center: tipPosition, fill: 'yellow' } );
-      this.addChild( tipArrowNode );
-
+      const tipArrowNode = new Circle( 1, { center: tipPosition, fill: 'red', opacity: 0.5, dilated: 10 } );
       this.addChild( arrowNode );
+      this.addChild( tipArrowNode );
       this.addChild( labelNode );
 
       const tailArrowPositionProperty = new Vector2Property( vector.tailPositionProperty.value );
@@ -56,19 +54,32 @@ define( require => {
       // @public (read-only) - Target for the arrow drag listener
       this.dragTarget = arrowNode;
 
-
       const vectorDragBoundsProperty = new Property( modelBounds );
+      const tipDragBoundsProperty = new Property( modelBounds );
+
+      // locationProperty of the tip of the arrow (with respect to the base of the arrow (0,0))
+      const tipArrowPositionProperty = new Vector2Property( tipPosition );
+
       // @public - for forwarding drag events
-      this.dragListener = new DragListener( {
+      this.bodyDragListener = new DragListener( {
         targetNode: this,
         dragBoundsProperty: vectorDragBoundsProperty,
         translateNode: false,
         transform: modelViewTransform,
-        locationProperty: tailArrowPositionProperty
-
+        locationProperty: tailArrowPositionProperty,
+        start: () => vector.isBodyDraggingProperty.set( true ),
+        end: () => vector.isBodyDraggingProperty.set( false )
       } );
 
-      const tipDragBoundsProperty = new Property( modelBounds );
+      // for forwarding drag events for the tip
+      const tipDragListener = new DragListener( {
+        targetNode: tipArrowNode,
+        translateNode: false,
+        dragBoundsProperty: tipDragBoundsProperty,
+        locationProperty: tipArrowPositionProperty,
+        start: () => vector.isTipDraggingProperty.set( true ),
+        end: () => vector.isTipDraggingProperty.set( false )
+      } );
 
       tailArrowPositionProperty.link( tailArrowPosition => {
         if ( modelBounds.containsPoint( tailArrowPosition ) ) {
@@ -86,19 +97,7 @@ define( require => {
             -tailArrowPosition.y + modelBounds.maxY ) ).shifted( -viewBounds.minX, -viewBounds.minY );
       } );
 
-      this.dragTarget.addInputListener( this.dragListener );
-
-      // locationProperty of the tip of the arrow (with respect to the base of the arrow (0,0))
-      const tipArrowPositionProperty = new Vector2Property( tipPosition );
-
-
-      // @public - for forwarding drag events
-      const tipDragListener = new DragListener( {
-        targetNode: tipArrowNode,
-        translateNode: false,
-        dragBoundsProperty: tipDragBoundsProperty,
-        locationProperty: tipArrowPositionProperty
-      } );
+      this.dragTarget.addInputListener( this.bodyDragListener );
 
       tipArrowNode.addInputListener( tipDragListener );
       tipArrowPositionProperty.link( tipArrowPosition => {

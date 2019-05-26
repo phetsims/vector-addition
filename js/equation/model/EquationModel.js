@@ -7,9 +7,9 @@ define( require => {
   'use strict';
 
   // modules
-  const Property = require( 'AXON/Property' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
+  const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
 

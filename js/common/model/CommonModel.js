@@ -8,14 +8,11 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const ObservableArray = require( 'AXON/ObservableArray' );
   const Property = require( 'AXON/Property' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
-  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const ObservableArray = require( 'AXON/ObservableArray' );
 
   /**
    * @constructor
@@ -42,22 +39,11 @@ define( require => {
       // @public {ObservableArray.<Vector>}
       this.vectors = new ObservableArray();
 
-      const vect1 = new Vector( new Vector2Property( new Vector2( 0, 0 ) ),
-        new Vector2Property( new Vector2( 5, 0 ) ),
-        new BooleanProperty( false ),
-        new NumberProperty( 0 ) );
+      const vectorA = new Vector( 5, 0, { label: 'a' } );
+      const vectorB = new Vector( 5, 0, { label: 'b' } );
+      const vectorC = new Vector( 5, 0, { label: 'c' } );
 
-      const vect2 = new Vector( new Vector2Property( new Vector2( 0, 0 ) ),
-        new Vector2Property( new Vector2( 5, 0 ) ),
-        new BooleanProperty( false ),
-        new NumberProperty( 0 ) );
-
-      const vect3 = new Vector( new Vector2Property( new Vector2( 0, 0 ) ),
-        new Vector2Property( new Vector2( 5, 0 ) ),
-        new BooleanProperty( false ),
-        new NumberProperty( 0 ) );
-
-      this.vectors.addAll( [ vect1, vect2, vect3 ] );
+      this.vectors.addAll( [ vectorA, vectorB, vectorC ] );
     }
 
     // @public resets the model

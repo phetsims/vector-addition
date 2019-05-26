@@ -15,9 +15,9 @@ define( require => {
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   const VECTOR_BOX_OPTIONS = VectorAdditionConstants.VECTOR_BOX_OPTIONS;
 
@@ -52,7 +52,7 @@ define( require => {
           vectorNode.center = this.globalToParentPoint( event.pointer.point );
 
           // vectorArrow provided as targetNode in the DragListener constructor, so this press will target it
-          vectorNode.dragListener.press( event );
+          vectorNode.bodyDragListener.press( event );
 
           isVectorInPlayAreaProperty.value = true;
         } );
