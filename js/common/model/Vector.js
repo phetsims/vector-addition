@@ -60,6 +60,11 @@ define( require => {
       // @public {BooleanProperty} - indicates whether the body is being dragged by the user
       this.isBodyDraggingProperty = new BooleanProperty( false );
 
+      // @public {DerivedProperty.<boolean>} - is any part of the vector being dragged
+      this.isDraggingProperty = new DerivedProperty( [ this.isBodyDraggingProperty, this.isTipDraggingProperty ],
+        ( isBodyDragging, isTipDragging ) => ( isBodyDragging || isTipDragging )
+      );
+
       // @public {DerivedProperty.<number>} - the magnitude of the vector
       this.magnitudeProperty = new DerivedProperty( [ this.vectorProperty ],
         vector => ( vector.getMagnitude() )
