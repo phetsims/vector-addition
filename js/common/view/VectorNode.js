@@ -44,7 +44,7 @@ define( require => {
       const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, ARROW_OPTIONS );
       const labelNode = new FormulaNode( '\\vec{' + vector.label + '}' );
 
-      const tipArrowNode = new Circle( 1, { center: tipPosition, fill: 'red', opacity: 0.5, dilated: 10 } );
+      const tipArrowNode = new Circle( 10, { center: tipPosition, fill: 'red', opacity: 0, dilated: 10 } );
       this.addChild( arrowNode );
       this.addChild( tipArrowNode );
       this.addChild( labelNode );
