@@ -26,6 +26,7 @@ define( require => {
 
     /**
      * @param {Vector} vector
+     * @param {Object} [options]
      * */
     constructor( vector, options ) {
 
