@@ -11,7 +11,6 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Circle = require( 'SCENERY/nodes/Circle' );
-  const Line = require( 'SCENERY/nodes/Line' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -58,7 +57,10 @@ define( require => {
   };
 
   const MATH_FONT = new MathSymbolFont( 20 );
-  const TICK_LENGTH = 12;
+
+  // tick length in model coordinates
+  const TICK_LENGTH = 1;
+  const TICK_WIDTH = 1;
 
   // strings
   const xString = require( 'string!VECTOR_ADDITION/x' );
@@ -170,25 +172,53 @@ define( require => {
       // origin
       const originCircle = new Circle( 7, { centerX: originX, centerY: originY, stroke: 'black', fill: 'yellow' } );
 
-      const xAxisOriginLayerNode = new Node();
-      const yAxisOriginLayerNode = new Node();
-
+      // create the origin label for both axis
       const xOriginText = new RichText( '0',
         { font: new PhetFont( 16 ), maxWidth: 30, centerX: originX, top: originY + 20 } );
-      const xOriginTick = new Line( originX, originY - TICK_LENGTH, originX, originY + TICK_LENGTH, {
-        stroke: 'black'
-      } );
 
       const yOriginText = new RichText( '0',
         { font: new PhetFont( 16 ), maxWidth: 30, right: originX - 20, centerY: originY } );
-      const yOriginTick = new Line( originX - TICK_LENGTH, originY, originX + TICK_LENGTH, originY, {
+
+      //----------------------------------------------------------------------------------------------------------------
+      // create ticks along the x-axis
+      const xAxisTicksShape = new Shape();
+
+      // x-axis ticks, add them on every major ticks
+      for ( let i = gridMinX; i <= gridMaxX; i++ ) {
+        const isMajor = i % ( MAJOR_TICK_SPACING ) === 0;
+        if ( isMajor ) {
+          xAxisTicksShape.moveTo( i, -TICK_LENGTH ).verticalLineTo( TICK_LENGTH );
+        }
+      }
+      const xAxisTicksPath = new Path( modelViewTransform.modelToViewShape( xAxisTicksShape ), {
+        lineWidth: TICK_WIDTH,
         stroke: 'black'
       } );
 
-      xAxisOriginLayerNode.addChild( xOriginText );
-      xAxisOriginLayerNode.addChild( xOriginTick );
-      yAxisOriginLayerNode.addChild( yOriginText );
-      yAxisOriginLayerNode.addChild( yOriginTick );
+      //----------------------------------------------------------------------------------------------------------------
+      // create ticks along the y-axis
+      const yAxisTicksShape = new Shape();
+
+      // y-axis ticks, add them on every major ticks
+      for ( let j = gridMinY; j <= gridMaxY; j++ ) {
+        const isMajor = j % ( MAJOR_TICK_SPACING ) === 0;
+        if ( isMajor ) {
+          yAxisTicksShape.moveTo( -TICK_LENGTH, j ).horizontalLineTo( TICK_LENGTH );
+        }
+      }
+
+      const yAxisTicksPath = new Path( modelViewTransform.modelToViewShape( yAxisTicksShape ), {
+        lineWidth: TICK_WIDTH,
+        stroke: 'black'
+      } );
+
+      // add the ticks paths to their respective layer
+      xAxisLayerNode.addChild( xAxisTicksPath );
+      yAxisLayerNode.addChild( yAxisTicksPath );
+
+      // add the origin labels to their respective layer
+      xAxisLayerNode.addChild( xOriginText );
+      yAxisLayerNode.addChild( yOriginText );
 
       commonModel.vectorOrientationProperty.link( vectorOrientation => {
         // eslint-disable-next-line default-case
@@ -196,20 +226,20 @@ define( require => {
           case VectorOrientation.HORIZONTAL:
             xAxisLayerNode.visible = true;
             yAxisLayerNode.visible = false;
-            xAxisOriginLayerNode.visible = true;
-            yAxisOriginLayerNode.visible = false;
+            yOriginText.visible = false;
+            xOriginText.visible = true;
             break;
           case VectorOrientation.VERTICAL:
             xAxisLayerNode.visible = false;
             yAxisLayerNode.visible = true;
-            xAxisOriginLayerNode.visible = false;
-            yAxisOriginLayerNode.visible = true;
+            yOriginText.visible = true;
+            xOriginText.visible = false;
             break;
           case VectorOrientation.ALL:
             xAxisLayerNode.visible = true;
             yAxisLayerNode.visible = true;
-            xAxisOriginLayerNode.visible = false;
-            yAxisOriginLayerNode.visible = false;
+            yOriginText.visible = false;
+            xOriginText.visible = false;
             break;
         }
       } );
@@ -217,9 +247,6 @@ define( require => {
       this.addChild( backgroundRectangle );
       this.addChild( majorGridLinesPath );
       this.addChild( minorGridLinesPath );
-
-      this.addChild( xAxisOriginLayerNode );
-      this.addChild( yAxisOriginLayerNode );
 
       this.addChild( xAxisLayerNode );
       this.addChild( yAxisLayerNode );
