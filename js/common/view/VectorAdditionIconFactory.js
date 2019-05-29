@@ -13,7 +13,8 @@ define( function( require ) {
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-
+  const Vector2 = require( 'DOT/Vector2' );
+  const Util = require( 'DOT/Util' );
   // constants
 
   // number of grid lines on the grid icon
@@ -22,6 +23,12 @@ define( function( require ) {
   const GRID_LINE_WIDTH = 1;
   // 'eye balled'
   const GRID_COLOR = 'rgb( 120, 120, 120 )';
+
+  const ANGLE_ICON_ANGLE = Util.toRadians( 55 );
+  const ANGLE_LINE_LENGTH = 20;
+  const ANGLE_ICON_CIRCLE_RADIUS = 13;
+  const ARROWHEAD_WIDTH = 5;
+  const ARC_PATH_COLOR = 'rgb( 50, 50, 50 )';
 
   // create a object with methods that return icons
   const VectorAdditionIconFactory = {
@@ -38,7 +45,7 @@ define( function( require ) {
     },
 
     // Creates an icon that shows the grid of a graph
-    createGridIcon: function() {
+    createGridIcon: () => {
       const gridShape = new Shape();
 
       // start with horizontal
@@ -56,6 +63,64 @@ define( function( require ) {
         lineWidth: GRID_LINE_WIDTH,
         stroke: GRID_COLOR
       } );
+    },
+
+    // Creates an icon that shows a angle
+    createAngleIcon: () => {
+      // shape for the outline of the icon
+      const wedgeShape = new Shape();
+
+      // define the origin at the bottom left (tip of the wedge)
+      // start from right and move to the left (origin)
+      wedgeShape.moveTo( ANGLE_LINE_LENGTH, 0 );
+      wedgeShape.horizontalLineTo( 0 );
+
+      // move to top of the wedge
+      wedgeShape.lineTo(
+        Math.cos( ANGLE_ICON_ANGLE ) * ANGLE_LINE_LENGTH,
+        -1 * Math.sin( ANGLE_ICON_ANGLE ) * ANGLE_LINE_LENGTH );
+
+      // create a shape for the arc inside the wedge
+      const arcShape = Shape.arc(
+        0,
+        0,
+        ANGLE_ICON_CIRCLE_RADIUS,
+        0,
+        // negative angle since the y-axis is pointing down
+        -1 * ANGLE_ICON_ANGLE,
+        true
+      );
+
+      // create the arrowhead shape of the arc
+      const arrowheadShape = new Shape();
+
+      // the height of the equilateral triangle 
+      const arrowheadHeight = Math.sin( Util.toRadians( 60 ) ) * ARROWHEAD_WIDTH;
+
+      // define the top point of the triangle at (0, 0), the triangle will be translated/rotated later
+      arrowheadShape.moveTo( 0, 0 );
+      arrowheadShape.lineTo( -1 * ARROWHEAD_WIDTH / 2, arrowheadHeight );
+      arrowheadShape.lineTo( ARROWHEAD_WIDTH / 2, arrowheadHeight );
+      arrowheadShape.close();
+
+      // create the paths for each shape respectively
+      const wedgePath = new Path( wedgeShape, {
+        stroke: 'black'
+      } );
+      const arcPath = new Path( arcShape, {
+        stroke: ARC_PATH_COLOR
+      } );
+      const arrowheadPath = new Path( arrowheadShape, {
+        fill: 'black',
+        // now transform the arrowhead to fit inside the circle
+        rotation: -1 * ANGLE_ICON_ANGLE,
+        translation: new Vector2(
+          Math.cos( ANGLE_ICON_ANGLE ) * ANGLE_ICON_CIRCLE_RADIUS,
+          -1 * Math.sin( ANGLE_ICON_ANGLE ) * ANGLE_ICON_CIRCLE_RADIUS )
+      } );
+
+      // add the paths together
+      return wedgePath.setChildren( [ arcPath, arrowheadPath ] );
     }
   };
 

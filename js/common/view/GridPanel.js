@@ -82,7 +82,7 @@ define( require => {
       const angleCheckbox = new Checkbox( new LayoutBox( {
         orientation: 'horizontal',
         children: [
-          new Text( 'angle', TEXT_OPTIONS )
+          VectorAdditionIconFactory.createAngleIcon()
         ]
       } ), angleVisibleProperty );
 
