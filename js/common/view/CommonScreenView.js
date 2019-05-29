@@ -33,7 +33,7 @@ define( require => {
 
       this.addChild( gridNode );
 
-      const vectorDisplayNode = new VectorDisplayNode( commonModel.vectors.get( 1 ) );
+      const vectorDisplayNode = new VectorDisplayNode( commonModel.vectors );
 
       vectorDisplayNode.centerX = this.layoutBounds.maxX / 2;
       vectorDisplayNode.top = 10;

@@ -25,10 +25,10 @@ define( require => {
   class VectorDisplayNode extends Panel {
 
     /**
-     * @param {Vector} vector
+     * @param {ObservableArray.<Vector>} vectors
      * @param {Object} [options]
      * */
-    constructor( vector, options ) {
+    constructor( vectors, options ) {
 
 
       options = _.extend( {
@@ -38,6 +38,8 @@ define( require => {
 
       }, options );
 
+      // TODO generalize to active vector
+      const vector = vectors.get( 0 );
 
       const expandCollapseButton = new ExpandCollapseButton( options.expandedProperty );
 
