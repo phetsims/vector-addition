@@ -9,13 +9,13 @@ define( require => {
   'use strict';
 
   // modules
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Checkbox = require( 'SUN/Checkbox' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Panel = require( 'SUN/Panel' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // strings
   const sumString = require( 'string!VECTOR_ADDITION/sum' );
@@ -56,7 +56,9 @@ define( require => {
 
       const ICON_SPACING = 15;
 
-      const arrowIconNode = new ArrowNode( 0, 0, 25, 0, { fill: 'green' } );
+      // create the arrow icon with the icon factory
+      // TODO: make the length and the color constants
+      const arrowIconNode = VectorAdditionIconFactory.createArrowIcon( 25, 'blue' );
 
       // 'Sum' checkbox
       const sumCheckbox = new Checkbox( new LayoutBox( {
@@ -90,7 +92,8 @@ define( require => {
         orientation: 'horizontal',
         spacing: ICON_SPACING,
         children: [
-          new Text( 'Grid Icon', TEXT_OPTIONS )
+          // create the grid icon
+          VectorAdditionIconFactory.createGridIcon( 25, 'blue' )
         ]
       } ), gridVisibleProperty );
 
