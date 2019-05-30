@@ -52,7 +52,22 @@ define( function( require ) {
   const AXIS_ICON_SUBBOX_SIZE = 10;
   const AXIS_ICON_LINE_DASH = [ 2, 2 ];
 
-  // create a object with methods that return icons
+
+  const LIGHT_ARROW_OPTIONS = {
+    fill: ARROW_LIGHT_COLOR,
+    headHeight: VECTOR_ICON_HEAD_HEIGHT,
+    headWidth: VECTOR_ICON_HEAD_WIDTH,
+    tailWidth: VECTOR_ICON_TAIL_WIDTH
+  };
+
+  const DARK_ARROW_OPTIONS = {
+    fill: ARROW_DARK_COLOR,
+    headHeight: VECTOR_ICON_HEAD_HEIGHT,
+    headWidth: VECTOR_ICON_HEAD_WIDTH,
+    tailWidth: VECTOR_ICON_TAIL_WIDTH
+  };
+
+// create a object with methods that return icons
   const VectorAdditionIconFactory = {
     // creates an arrow icon node
     createArrowIcon: () => {
@@ -89,14 +104,11 @@ define( function( require ) {
       const wedgeShape = new Shape();
 
       // define the origin at the bottom left (tip of the wedge)
-      // start from right and move to the left (origin)
-      wedgeShape.moveTo( ANGLE_LINE_LENGTH, 0 );
-      wedgeShape.horizontalLineTo( 0 );
-
-      // move to top of the wedge
-      wedgeShape.lineTo(
-        Math.cos( ANGLE_ICON_ANGLE ) * ANGLE_LINE_LENGTH,
-        -1 * Math.sin( ANGLE_ICON_ANGLE ) * ANGLE_LINE_LENGTH );
+      // start from right and move to the left (origin) and then move to the top of the wedge
+      wedgeShape.moveTo( ANGLE_LINE_LENGTH, 0 )
+        .horizontalLineTo( 0 )
+        .lineTo( Math.cos( ANGLE_ICON_ANGLE ) * ANGLE_LINE_LENGTH,
+          -1 * Math.sin( ANGLE_ICON_ANGLE ) * ANGLE_LINE_LENGTH );
 
       // create a shape for the arc inside the wedge
       const arcShape = Shape.arc(
@@ -112,14 +124,15 @@ define( function( require ) {
       // create the arrowhead shape of the arc
       const arrowheadShape = new Shape();
 
-      // the height of the equilateral triangle 
+      // arrowhead is an equilateral triangle
+      // the height of the equilateral triangle
       const arrowheadHeight = Math.sin( Util.toRadians( 60 ) ) * ARROWHEAD_WIDTH;
 
       // define the top point of the triangle at (0, 0), the triangle will be translated/rotated later
-      arrowheadShape.moveTo( 0, 0 );
-      arrowheadShape.lineTo( -1 * ARROWHEAD_WIDTH / 2, arrowheadHeight );
-      arrowheadShape.lineTo( ARROWHEAD_WIDTH / 2, arrowheadHeight );
-      arrowheadShape.close();
+      arrowheadShape.moveTo( 0, 0 )
+        .lineTo( -1 * ARROWHEAD_WIDTH / 2, arrowheadHeight )
+        .lineTo( ARROWHEAD_WIDTH / 2, arrowheadHeight )
+        .close();
 
       // create the paths for each shape respectively
       const wedgePath = new Path( wedgeShape, {
@@ -130,7 +143,7 @@ define( function( require ) {
       } );
       const arrowheadPath = new Path( arrowheadShape, {
         fill: 'black',
-        // now transform the arrowhead to fit inside the circle
+        // now transform the arrowhead to be at the top of the arc path
         rotation: -1 * ANGLE_ICON_ANGLE,
         translation: new Vector2(
           Math.cos( ANGLE_ICON_ANGLE ) * ANGLE_ICON_CIRCLE_RADIUS,
@@ -162,12 +175,7 @@ define( function( require ) {
       } );
 
       // now add a lighter arrow node that points to the right
-      const rightArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, 0, {
-        fill: ARROW_LIGHT_COLOR,
-        headHeight: VECTOR_ICON_HEAD_HEIGHT,
-        headWidth: VECTOR_ICON_HEAD_WIDTH,
-        tailWidth: VECTOR_ICON_TAIL_WIDTH
-      } );
+      const rightArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, 0, LIGHT_ARROW_OPTIONS );
 
       // now add a lighter arrow pointing upwards
       const upArrow = new ArrowNode( 0, 0, 0, -1 * COMPONENT_ICON_SIZE, {
@@ -188,28 +196,14 @@ define( function( require ) {
       const icon = new Node();
 
       // the icon has 3 arrows, start with the 'dark' version that points to the right and up
-      const darkArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, -1 * COMPONENT_ICON_SIZE, {
-        fill: ARROW_DARK_COLOR,
-        headHeight: VECTOR_ICON_HEAD_HEIGHT,
-        headWidth: VECTOR_ICON_HEAD_WIDTH,
-        tailWidth: VECTOR_ICON_TAIL_WIDTH
-      } );
+      const darkArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, -1 * COMPONENT_ICON_SIZE, DARK_ARROW_OPTIONS );
 
       // now add a lighter arrow node that points to the right
-      const rightArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, 0, {
-        fill: ARROW_LIGHT_COLOR,
-        headHeight: VECTOR_ICON_HEAD_HEIGHT,
-        headWidth: VECTOR_ICON_HEAD_WIDTH,
-        tailWidth: VECTOR_ICON_TAIL_WIDTH
-      } );
+      const rightArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, 0, LIGHT_ARROW_OPTIONS );
 
       // now add a lighter arrow pointing upwards but is displaced to the right
-      const upArrow = new ArrowNode( COMPONENT_ICON_SIZE, 0, COMPONENT_ICON_SIZE, -1 * COMPONENT_ICON_SIZE, {
-        fill: ARROW_LIGHT_COLOR,
-        headHeight: VECTOR_ICON_HEAD_HEIGHT,
-        headWidth: VECTOR_ICON_HEAD_WIDTH,
-        tailWidth: VECTOR_ICON_TAIL_WIDTH
-      } );
+      const upArrow = new ArrowNode( COMPONENT_ICON_SIZE, 0, COMPONENT_ICON_SIZE, -1 * COMPONENT_ICON_SIZE,
+        LIGHT_ARROW_OPTIONS );
 
       icon.setChildren( [ rightArrow, upArrow, darkArrow ] );
       return icon;
@@ -226,47 +220,28 @@ define( function( require ) {
         AXIS_ICON_SUBBOX_SIZE,
         -1 * AXIS_ICON_SUBBOX_SIZE,
         COMPONENT_ICON_SIZE,
-        -1 * COMPONENT_ICON_SIZE, {
-          fill: ARROW_DARK_COLOR,
-          headHeight: VECTOR_ICON_HEAD_HEIGHT,
-          headWidth: VECTOR_ICON_HEAD_WIDTH,
-          tailWidth: VECTOR_ICON_TAIL_WIDTH
-        }
+        -1 * COMPONENT_ICON_SIZE,
+        DARK_ARROW_OPTIONS
       );
 
       // now add a lighter arrow node that points to the right
-      const rightArrow = new ArrowNode( AXIS_ICON_SUBBOX_SIZE, 0, COMPONENT_ICON_SIZE, 0, {
-        fill: ARROW_LIGHT_COLOR,
-        headHeight: VECTOR_ICON_HEAD_HEIGHT,
-        headWidth: VECTOR_ICON_HEAD_WIDTH,
-        tailWidth: VECTOR_ICON_TAIL_WIDTH
-      } );
+      const rightArrow = new ArrowNode( AXIS_ICON_SUBBOX_SIZE, 0, COMPONENT_ICON_SIZE, 0, LIGHT_ARROW_OPTIONS );
 
       // now add a lighter arrow pointing upwards but is displaced to the right
-      const upArrow = new ArrowNode(
-        0,
-        -1 * AXIS_ICON_SUBBOX_SIZE,
-        0,
-        -1 * COMPONENT_ICON_SIZE, {
-          fill: ARROW_LIGHT_COLOR,
-          headHeight: VECTOR_ICON_HEAD_HEIGHT,
-          headWidth: VECTOR_ICON_HEAD_WIDTH,
-          tailWidth: VECTOR_ICON_TAIL_WIDTH
-        }
-      );
+      const upArrow = new ArrowNode( 0, -1 * AXIS_ICON_SUBBOX_SIZE, 0, -1 * COMPONENT_ICON_SIZE, LIGHT_ARROW_OPTIONS );
 
       // create a dashed line shape
       const dashedLineShape = new Shape();
 
       // draw the first 2 lines around the subbox
-      dashedLineShape.moveTo( 0, -1 * AXIS_ICON_SUBBOX_SIZE );
-      dashedLineShape.horizontalLineTo( AXIS_ICON_SUBBOX_SIZE );
-      dashedLineShape.verticalLineToRelative( AXIS_ICON_SUBBOX_SIZE );
+      dashedLineShape.moveTo( 0, -1 * AXIS_ICON_SUBBOX_SIZE )
+        .horizontalLineTo( AXIS_ICON_SUBBOX_SIZE )
+        .verticalLineToRelative( AXIS_ICON_SUBBOX_SIZE );
 
       // draw the lines around the sub icon
-      dashedLineShape.moveTo( 0, -1 * COMPONENT_ICON_SIZE );
-      dashedLineShape.horizontalLineTo( COMPONENT_ICON_SIZE );
-      dashedLineShape.verticalLineToRelative( COMPONENT_ICON_SIZE );
+      dashedLineShape.moveTo( 0, -1 * COMPONENT_ICON_SIZE )
+        .horizontalLineTo( COMPONENT_ICON_SIZE )
+        .verticalLineToRelative( COMPONENT_ICON_SIZE );
 
       // create the shape into a path
       const dashedLinePath = new Path( dashedLineShape, {
