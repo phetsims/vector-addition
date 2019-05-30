@@ -33,7 +33,7 @@ define( require => {
       this.valuesVisibleProperty = new BooleanProperty( false );
 
       // @public {BooleanProperty}
-      this.gridVisibleProperty = new BooleanProperty( false );
+      this.gridVisibleProperty = new BooleanProperty( true );
 
       // @public {Property.<VectorOrientation>}
       this.vectorOrientationProperty = new Property( VectorOrientation.HORIZONTAL );
