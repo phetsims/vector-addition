@@ -10,9 +10,11 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const Property = require( 'AXON/Property' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
 
   /**
    * @constructor
@@ -35,6 +37,9 @@ define( require => {
 
       // @public {Property.<VectorOrientation>}
       this.vectorOrientationProperty = new Property( VectorOrientation.HORIZONTAL );
+
+      // @public {EnumerationProperty<ComponentStyles>}
+      this.componentStyleProperty = new EnumerationProperty( ComponentStyles, ComponentStyles.INVISIBLE );
 
       // @public {ObservableArray.<Vector>}
       this.vectors = new ObservableArray();

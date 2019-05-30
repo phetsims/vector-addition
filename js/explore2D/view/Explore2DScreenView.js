@@ -33,8 +33,10 @@ define( function( require ) {
       const gridPanel = new GridPanel( explore2DModel.sumVisibleProperty,
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
-        explore2DModel.gridVisibleProperty, {
-          includesAngle: true,
+        explore2DModel.gridVisibleProperty,
+        explore2DModel.componentStyleProperty,
+        {
+          is1D: false,
           right: this.layoutBounds.maxX - 4,
           top: 10
         } );

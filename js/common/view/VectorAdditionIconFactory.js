@@ -36,7 +36,6 @@ define( function( require ) {
      * Creates an arrow icon node
      * @param {number} length is the length of the arrow (horizontal)
      * @param {string} fill is the stroke of the arrow node
-     * @constructor
      */
     createArrowIcon: ( length, fill ) => {
       return new ArrowNode( 0, 0, length, 0, {

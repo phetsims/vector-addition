@@ -11,13 +11,17 @@ define( require => {
   // modules
   const Checkbox = require( 'SUN/Checkbox' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const Line = require( 'SCENERY/nodes/Line' );
   const Panel = require( 'SUN/Panel' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
 
   // strings
+  const componentsString = require( 'string!VECTOR_ADDITION/components' );
   const sumString = require( 'string!VECTOR_ADDITION/sum' );
   const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
@@ -39,6 +43,7 @@ define( require => {
      * @param {Property.<boolean>} valuesVisibleProperty are the numerical values of the vector visible on the graph
      * @param {Property.<boolean>} angleVisibleProperty is the vector angle visible on the graph
      * @param {Property.<boolean>} gridVisibleProperty is the grid visible on the graph
+     * @param {EnumerationProperty<ComponentStyles>} componentStyleProperty which component style to display.
      * @param {Object} [options]
      * @constructor
      */
@@ -46,11 +51,12 @@ define( require => {
                  valuesVisibleProperty,
                  angleVisibleProperty,
                  gridVisibleProperty,
+                 componentStyleProperty,
                  options ) {
 
 
       options = _.extend( {
-        includesAngle: false
+        is1D: true
       }, PANEL_OPTIONS, options );
 
 
@@ -97,11 +103,45 @@ define( require => {
         ]
       } ), gridVisibleProperty );
 
+      // add a horizontal line that seperates the panel into two sections
+      const horizontalLine = new Line( 0, 0, VectorAdditionConstants.RIGHT_CONTENT_WIDTH, 0, {
+        stroke: 'black'
+      } );
+
+      // add a label for the second section of the panel
+      const componentsLabel = new Text( componentsString, TEXT_OPTIONS );
+
+      // component style radio buttons
+      const componentStyleRadioButtonContent = [ {
+        value: ComponentStyles.INVISIBLE,
+        node: new Text( 'invisi', TEXT_OPTIONS )
+      }, {
+        value: ComponentStyles.PARALLELOGRAM,
+        node: new Text( 'para', TEXT_OPTIONS )
+      }, {
+        value: ComponentStyles.TRIANGLE,
+        node: new Text( 'tri', TEXT_OPTIONS )
+      }, {
+        value: ComponentStyles.ON_AXIS,
+        node: new Text( 'axis', TEXT_OPTIONS )
+      } ];
+
+      const componentStyleRadioButtons = new RadioButtonGroup(
+        componentStyleProperty, componentStyleRadioButtonContent, {
+          baseColor: 'white',
+          selectedStroke: '#419ac9',
+          selectedLineWidth: 2,
+          right: 900,
+          top: 100,
+          orientation: 'vertical'
+        } );
+
+
       // vertical layout
       const contentNode = new LayoutBox( {
-        children: ( options.includesAngle ) ?
-          [ sumCheckbox, valuesCheckbox, angleCheckbox, gridCheckbox ] :
-          [ sumCheckbox, valuesCheckbox, gridCheckbox ],
+        children: ( options.is1D ) ?
+          [ sumCheckbox, valuesCheckbox, gridCheckbox, horizontalLine ] :
+          [ sumCheckbox, valuesCheckbox, angleCheckbox, gridCheckbox, horizontalLine, componentsLabel ],
         orientation: 'vertical',
         spacing: 10,
         align: 'left'

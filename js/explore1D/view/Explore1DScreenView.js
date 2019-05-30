@@ -52,7 +52,8 @@ define( require => {
       const gridPanel = new GridPanel( explore1DModel.sumVisibleProperty,
         explore1DModel.valuesVisibleProperty,
         angleVisibleProperty,
-        explore1DModel.gridVisibleProperty, {
+        explore1DModel.gridVisibleProperty,
+        explore1DModel.componentStyleProperty, {
           right: this.layoutBounds.maxX - 4,
           top: 10
         } );
