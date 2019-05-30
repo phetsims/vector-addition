@@ -52,7 +52,7 @@ define( function( require ) {
   const AXIS_ICON_SUBBOX_SIZE = 10;
   const AXIS_ICON_LINE_DASH = [ 2, 2 ];
 
-
+  // options for light shaded arrow
   const LIGHT_ARROW_OPTIONS = {
     fill: ARROW_LIGHT_COLOR,
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
@@ -60,6 +60,7 @@ define( function( require ) {
     tailWidth: VECTOR_ICON_TAIL_WIDTH
   };
 
+  // options for drak shaded arrow
   const DARK_ARROW_OPTIONS = {
     fill: ARROW_DARK_COLOR,
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
@@ -167,23 +168,13 @@ define( function( require ) {
       const icon = new Node();
 
       // the icon has 3 arrows, start with the 'dark' version that points to the right and up
-      const darkArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, -1 * COMPONENT_ICON_SIZE, {
-        fill: ARROW_DARK_COLOR,
-        headHeight: VECTOR_ICON_HEAD_HEIGHT,
-        headWidth: VECTOR_ICON_HEAD_WIDTH,
-        tailWidth: VECTOR_ICON_TAIL_WIDTH
-      } );
+      const darkArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, -1 * COMPONENT_ICON_SIZE, DARK_ARROW_OPTIONS );
 
       // now add a lighter arrow node that points to the right
       const rightArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, 0, LIGHT_ARROW_OPTIONS );
 
       // now add a lighter arrow pointing upwards
-      const upArrow = new ArrowNode( 0, 0, 0, -1 * COMPONENT_ICON_SIZE, {
-        fill: ARROW_LIGHT_COLOR,
-        headHeight: VECTOR_ICON_HEAD_HEIGHT,
-        headWidth: VECTOR_ICON_HEAD_WIDTH,
-        tailWidth: VECTOR_ICON_TAIL_WIDTH
-      } );
+      const upArrow = new ArrowNode( 0, 0, 0, -1 * COMPONENT_ICON_SIZE, LIGHT_ARROW_OPTIONS );
 
 
       icon.setChildren( [ rightArrow, upArrow, darkArrow ] );
