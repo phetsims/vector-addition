@@ -140,7 +140,7 @@ define( require => {
       // vertical layout
       const contentNode = new LayoutBox( {
         children: ( options.is1D ) ?
-          [ sumCheckbox, valuesCheckbox, gridCheckbox, horizontalLine ] :
+          [ sumCheckbox, valuesCheckbox, gridCheckbox ] :
           [ sumCheckbox, valuesCheckbox, angleCheckbox, gridCheckbox, horizontalLine, componentsLabel ],
         orientation: 'vertical',
         spacing: 10,
