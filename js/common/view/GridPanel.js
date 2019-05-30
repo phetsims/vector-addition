@@ -64,7 +64,7 @@ define( require => {
 
       // create the arrow icon with the icon factory
       // TODO: make the length and the color constants
-      const arrowIconNode = VectorAdditionIconFactory.createArrowIcon( 25, 'blue' );
+      const arrowIconNode = VectorAdditionIconFactory.createArrowIcon();
 
       // 'Sum' checkbox
       const sumCheckbox = new Checkbox( new LayoutBox( {
@@ -114,16 +114,16 @@ define( require => {
       // component style radio buttons
       const componentStyleRadioButtonContent = [ {
         value: ComponentStyles.INVISIBLE,
-        node: new Text( 'invisi', TEXT_OPTIONS )
+        node: VectorAdditionIconFactory.createInvisibleComponentStyleIcon()
       }, {
         value: ComponentStyles.PARALLELOGRAM,
-        node: new Text( 'para', TEXT_OPTIONS )
+        node: VectorAdditionIconFactory.createParallelogramComponentStyleIcon()
       }, {
         value: ComponentStyles.TRIANGLE,
-        node: new Text( 'tri', TEXT_OPTIONS )
+        node: VectorAdditionIconFactory.createTriangleComponentStyleIcon()
       }, {
         value: ComponentStyles.ON_AXIS,
-        node: new Text( 'axis', TEXT_OPTIONS )
+        node: VectorAdditionIconFactory.createAxisIconComponentStyleIcon()
       } ];
 
       const componentStyleRadioButtons = new RadioButtonGroup(
@@ -133,6 +133,7 @@ define( require => {
           selectedLineWidth: 2,
           right: 900,
           top: 100,
+          cornerRadius: 6,
           orientation: 'vertical'
         } );
 
@@ -141,7 +142,7 @@ define( require => {
       const contentNode = new LayoutBox( {
         children: ( options.is1D ) ?
           [ sumCheckbox, valuesCheckbox, gridCheckbox ] :
-          [ sumCheckbox, valuesCheckbox, angleCheckbox, gridCheckbox, horizontalLine, componentsLabel ],
+          [ sumCheckbox, valuesCheckbox, angleCheckbox, gridCheckbox, horizontalLine, componentsLabel, componentStyleRadioButtons ],
         orientation: 'vertical',
         spacing: 10,
         align: 'left'
