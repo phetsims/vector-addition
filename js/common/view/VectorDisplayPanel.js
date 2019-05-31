@@ -39,7 +39,7 @@ define( require => {
   const DISPLAY_VECTOR_NODE_CENTER_Y = -13;
 
 
-  class VectorDisplayNode extends Panel {
+  class VectorDisplayPanel extends Panel {
 
     /**
      * @param {ObservableArray.<Vector>} vectors
@@ -179,6 +179,6 @@ define( require => {
   }
 
 
-  return vectorAddition.register( 'VectorDisplayNode', VectorDisplayNode );
+  return vectorAddition.register( 'VectorDisplayPanel', VectorDisplayPanel );
 } );
 

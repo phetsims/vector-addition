@@ -13,7 +13,7 @@ define( require => {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorDisplayNode = require( 'VECTOR_ADDITION/common/view/VectorDisplayNode' );
+  const VectorDisplayPanel = require( 'VECTOR_ADDITION/common/view/VectorDisplayPanel' );
   const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
 
   class CommonScreenView extends ScreenView {
@@ -33,11 +33,11 @@ define( require => {
 
       this.addChild( gridNode );
 
-      const vectorDisplayNode = new VectorDisplayNode( commonModel.vectors );
+      const vectorDisplayPanel = new VectorDisplayPanel( commonModel.vectors );
 
-      vectorDisplayNode.left = 195;
-      vectorDisplayNode.top = 12;
-      this.addChild( vectorDisplayNode );
+      vectorDisplayPanel.left = 195;
+      vectorDisplayPanel.top = 12;
+      this.addChild( vectorDisplayPanel );
 
       const vectorPanel = new VectorPanel( commonModel, this.modelViewTransform );
 
