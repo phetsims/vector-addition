@@ -134,7 +134,7 @@ define( require => {
           right: 900,
           top: 100,
           cornerRadius: 6,
-          orientation: 'vertical'
+          orientation: 'horizontal'
         } );
 
 

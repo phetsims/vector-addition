@@ -4,7 +4,7 @@
  * Shows a Scenery Node that display the numerical magnitude, angle and components of a vector
  *
  * @author Martin Veillette
- * */
+ */
 define( require => {
   'use strict';
 
@@ -22,66 +22,159 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
+  // constants
+  const VECTOR_PANEL_OPTIONS = {
+    expandedProperty: new BooleanProperty( false ), // {Property.<boolean>}
+    yMargin: 12,
+    cornerRadius: 5,
+    minWidth: 430,
+    resize: false,
+    fill: 'rgb( 230, 230, 230 )',
+    stroke: 'rgb( 190, 190, 190 )'
+  };
+
+  const EXPAND_COLLAPSE_BUTTON_CENTER_Y = -9;
+  const EXPAND_COLLAPSE_BUTTON_LEFT_MARGIN = 5;
+  const INSPECT_VECTOR_TEXT_LEFT_MARGIN = 10;
+  const DISPLAY_VECTOR_NODE_CENTER_Y = -13;
+
+
   class VectorDisplayNode extends Panel {
 
     /**
      * @param {ObservableArray.<Vector>} vectors
      * @param {Object} [options]
-     * */
+     */
     constructor( vectors, options ) {
 
+      options = _.extend( VECTOR_PANEL_OPTIONS, options );
 
-      options = _.extend( {
-
-        // expand/collapse button
-        expandedProperty: new BooleanProperty( false ) // {Property.<boolean>}
-
-      }, options );
-
-      // TODO generalize to active vector
-      const vector = vectors.get( 0 );
-
-      const expandCollapseButton = new ExpandCollapseButton( options.expandedProperty );
-
-      const magnitudeText = new FormulaNode( '\|\\mathbf{\\vec{a}\}|' );
-      const angleText = new RichText( 'Θ' );
-      const xText = new RichText( 'S<sub>x</sub>' );
-      const yText = new RichText( 'S<sub>y</sub>' );
-      const magnitudeDisplay = new NumberDisplay( vector.magnitudeProperty, new Range( 0, 100 ), { decimalPlaces: 1 } );
-      const angleDisplay = new NumberDisplay( vector.angleProperty, new Range( -180, 180 ), { decimalPlaces: 1 } );
-      const xDisplay = new NumberDisplay( vector.xProperty, new Range( -60, 60 ), { decimalPlaces: 0 } );
-      const yDisplay = new NumberDisplay( vector.yProperty, new Range( 40, 40 ), { decimalPlaces: 0 } );
-
-
-      const displayVectorNode = new LayoutBox( {
-        orientation: 'horizontal',
-        spacing: 20,
-        children: [ magnitudeText, magnitudeDisplay, angleText, angleDisplay, xText, xDisplay, yText, yDisplay ]
-      } );
-
-      const inspectVectorText = new Text( 'Inspect Vector', { font: new PhetFont( 20 ) } );
-
+      // node that is passed to the superclass (panel)
       const contentNode = new Node();
 
-      contentNode.addChild( displayVectorNode );
-      contentNode.addChild( inspectVectorText );
-      contentNode.addChild( expandCollapseButton );
 
-      displayVectorNode.left = expandCollapseButton.right + 10;
-      inspectVectorText.left = expandCollapseButton.right + 10;
+      // create a button node to collapse/expand the panel
+      const expandCollapseButton = new ExpandCollapseButton( options.expandedProperty, {
+        sideLength: 21
+      } );
 
-      inspectVectorText.centerY = expandCollapseButton.centerY;
-      displayVectorNode.centerY = expandCollapseButton.centerY;
+      const inspectVectorText = new Text( 'Inspect Vector', { font: new PhetFont( 16 ) } );
+
+      const selectVectorText = new Text( 'Select a Vector', { font: new PhetFont( 16 ) } );
+
+      // create a scenery node that contains the nodes that display the vector
+      // attributes (ie. angle, x and y components, magnitude)
+      const displayVectorNode = new LayoutBox( {
+        spacing: 15,
+        orientation: 'horizontal',
+        children: [ selectVectorText ]
+      } );
+
+      // layout the scenery nodes
+      expandCollapseButton.left = EXPAND_COLLAPSE_BUTTON_LEFT_MARGIN;
+      expandCollapseButton.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
+      inspectVectorText.left = expandCollapseButton.right + INSPECT_VECTOR_TEXT_LEFT_MARGIN;
+      inspectVectorText.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
+      selectVectorText.left = inspectVectorText.left;
+      selectVectorText.centerY = DISPLAY_VECTOR_NODE_CENTER_Y;
+      displayVectorNode.left = inspectVectorText.left;
+      displayVectorNode.centerY = DISPLAY_VECTOR_NODE_CENTER_Y;
+
+
+      // set the children of the content node to be passed to the super class
+      contentNode.setChildren( [
+        expandCollapseButton,
+        inspectVectorText,
+        displayVectorNode
+      ] );
+
 
       super( contentNode, options );
+
+      // @private {LayoutBox} displayVectorNode - create a reference to the layout box
+      this.displayVectorNode = displayVectorNode;
 
       // expand/collapse
       const expandedObserver = ( expanded ) => {
         displayVectorNode.visible = expanded;
         inspectVectorText.visible = !expanded;
+        // TODO: toggle the selectVectorText visiblity
       };
 
       options.expandedProperty.link( expandedObserver );
+
+      vectors.forEach( ( vector ) => {
+        this.linkVectorToPanel( vector );
+      } );
+
+      vectors.addItemAddedListener( ( addedVector ) => {
+        this.linkVectorToPanel( addedVector );
+      } );
+    }
+
+    /**
+     * Add a link so when a vector is dragged, the panel content updates aswell
+     * @param {Vector} vector to be linked
+     * @private
+     */
+    linkVectorToPanel( vector ) {
+      vector.isDraggingProperty.link( ( isDragging ) => {
+        if ( isDragging ) {
+
+          const magnitudeTextNode = new FormulaNode( '\|\\mathbf{\\vec{' + vector.label + '}\}|' );
+          const magnitudeDisplay = new NumberDisplay(
+            vector.magnitudeProperty,
+            new Range( 0, 100 ),
+            { decimalPlaces: 1 }
+          );
+
+          const angleText = new RichText( 'Θ' );
+          const angleDisplay = new NumberDisplay(
+            vector.angleProperty,
+            new Range( -180, 180 ),
+            { decimalPlaces: 1 }
+          );
+
+          const xComponentText = new RichText( vector.label + '<sub>x</sub>' );
+          const xComponentDisplay = new NumberDisplay(
+            vector.xProperty,
+            new Range( -60, 60 ),
+            { decimalPlaces: 0 }
+          );
+
+          const yComponentText = new RichText( vector.label + '<sub>y</sub>' );
+          const yComponentDisplay = new NumberDisplay(
+            vector.yProperty,
+            new Range( -40, 40 ),
+            { decimalPlaces: 0 }
+          );
+
+          this.displayVectorNode.setChildren( [
+            new LayoutBox( {
+              orientation: 'horizontal',
+              spacing: 8,
+              children: [ magnitudeTextNode, magnitudeDisplay ]
+            } ),
+            new LayoutBox( {
+              orientation: 'horizontal',
+              spacing: 8,
+              children: [ angleText, angleDisplay ]
+            } ),
+            new LayoutBox( {
+              orientation: 'horizontal',
+              spacing: 8,
+              children: [ xComponentText, xComponentDisplay ]
+            } ),
+            new LayoutBox( {
+              orientation: 'horizontal',
+              spacing: 8,
+              children: [ yComponentText, yComponentDisplay ]
+            } )
+          ] );
+        }
+      } );
+
+
     }
   }
 

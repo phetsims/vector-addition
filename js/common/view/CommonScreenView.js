@@ -35,8 +35,8 @@ define( require => {
 
       const vectorDisplayNode = new VectorDisplayNode( commonModel.vectors );
 
-      vectorDisplayNode.centerX = this.layoutBounds.maxX / 2;
-      vectorDisplayNode.top = 10;
+      vectorDisplayNode.left = 195;
+      vectorDisplayNode.top = 12;
       this.addChild( vectorDisplayNode );
 
       const vectorPanel = new VectorPanel( commonModel, this.modelViewTransform );
