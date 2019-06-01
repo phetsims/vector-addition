@@ -96,6 +96,7 @@ define( require => {
 
         // unlink the previous style
         vector.vectorProperty.unlinkAll();
+        vector.tailPositionProperty.unlinkAll();
 
         // link the new style
         vector.vectorProperty.link( changeComponentsByComponentStyle[ newValue.name ] );
