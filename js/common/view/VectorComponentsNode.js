@@ -99,6 +99,10 @@ define( require => {
 
         // link the new style
         vector.vectorProperty.link( changeComponentsByComponentStyle[ newValue.name ] );
+
+        if ( newValue.name === 'ON_AXIS' ) {
+          vector.tailPositionProperty.link( changeComponentsByComponentStyle[ newValue.name ] );
+        }
       } );
     }
   }
