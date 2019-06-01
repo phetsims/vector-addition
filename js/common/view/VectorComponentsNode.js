@@ -91,20 +91,31 @@ define( require => {
         }
       };
 
+
+        
       // create a link to the componentStyle enumeration property to toggle the different component styles
-      componentStyleProperty.link( ( newValue ) => {
+      componentStyleProperty.link( ( newValue, oldValue ) => {
 
-        // unlink the previous style
-        vector.vectorProperty.unlinkAll();
-        vector.tailPositionProperty.unlinkAll();
+        // first, if we have changed, remove the old component resize function
+        if ( oldValue ) {
+          vector.vectorProperty.unlink( changeComponentsByComponentStyle[ oldValue.name ] );
 
-        // link the new style
+          // on axis also was linked to the tail position property, so we have to remove it aswell
+          if ( oldValue.name === 'ON_AXIS' ) {
+            vector.tailPositionProperty.unlink( changeComponentsByComponentStyle[ oldValue.name ] );
+          } 
+        }
+        
+        // link the new component resize function based on the new value's name
         vector.vectorProperty.link( changeComponentsByComponentStyle[ newValue.name ] );
 
+        // on axis style needs to be linked to the tail position
         if ( newValue.name === 'ON_AXIS' ) {
           vector.tailPositionProperty.link( changeComponentsByComponentStyle[ newValue.name ] );
-        }
+        } 
       } );
+      
+
     }
   }
 
