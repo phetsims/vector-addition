@@ -19,6 +19,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorComponentsNode = require( 'VECTOR_ADDITION/common/view/VectorComponentsNode' );
 
   // constants
   const ARROW_OPTIONS = { stroke: 'black', fill: 'blue', lineWidth: 1, headWidth: 10, headHeight: 5 };
@@ -29,8 +30,9 @@ define( require => {
      * @param {Vector} vector
      * @param {Bounds2} modelBounds
      * @param {ModelViewTransform2} modelViewTransform
+     * @param {componentStylePropert} componentStyleProperty
      */
-    constructor( vector, modelBounds, modelViewTransform ) {
+    constructor( vector, modelBounds, modelViewTransform, componentStyleProperty ) {
 
       const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
 
@@ -45,6 +47,10 @@ define( require => {
       const labelNode = new FormulaNode( '\\vec{' + vector.label + '}' );
 
       const tipArrowNode = new Circle( 10, { center: tipPosition, fill: 'red', opacity: 0, dilated: 10 } );
+      // @private {VectorComponentsNode} vectorComponentsNode - the scenery nodes for this vectors components
+      this.vectorComponentsNode = new VectorComponentsNode( vector, componentStyleProperty, modelViewTransform );
+
+      this.addChild( this.vectorComponentsNode );
       this.addChild( arrowNode );
       this.addChild( tipArrowNode );
       this.addChild( labelNode );
@@ -111,7 +117,6 @@ define( require => {
 
         vectorDragBoundsProperty.set( modelBounds.shifted( -vector.vectorProperty.value.x / 2, -vector.vectorProperty.value.y / 2 ) );
       } );
-
     }
 
     /**

@@ -34,7 +34,7 @@ define( require => {
 
       const vectorLayer = new Node();
       model.vectors.forEach( vector => {
-        const vectorNode = new VectorNode( vector, model.gridModelBounds, modelViewTransform );
+        const vectorNode = new VectorNode( vector, model.gridModelBounds, modelViewTransform, model.componentStyleProperty );
 
         vectorLayer.addChild( vectorNode );
         vectorNode.visible = false;
