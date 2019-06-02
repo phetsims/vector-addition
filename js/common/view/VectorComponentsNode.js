@@ -4,7 +4,7 @@
  * View for the component vectors of a vector node.
  * Constructed based on many individually passed parameters about the vector node.
  * Listens to the componentStyleProperty to determine which style of components to display.
- * Listens to a vector's vectorProperty to determine resize.
+ * Listens to a model vector's vectorProperty to rescale and reposition the components.
  *
  * @author Brandon Li
  */
@@ -29,7 +29,7 @@ define( require => {
 
     /**
      * @param {Vector} vector - the vector model
-     * @param {componentStyleProperty} - the enumeration property on which style of components to display
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property related to the style of components to display
      * @param {ModelViewTransform2} modelViewTransform
      */
     constructor( vector, componentStyleProperty, modelViewTransform ) {
@@ -92,7 +92,6 @@ define( require => {
       };
 
 
-        
       // create a link to the componentStyle enumeration property to toggle the different component styles
       componentStyleProperty.link( ( newValue, oldValue ) => {
 
@@ -103,18 +102,18 @@ define( require => {
           // on axis also was linked to the tail position property, so we have to remove it aswell
           if ( oldValue.name === 'ON_AXIS' ) {
             vector.tailPositionProperty.unlink( changeComponentsByComponentStyle[ oldValue.name ] );
-          } 
+          }
         }
-        
+
         // link the new component resize function based on the new value's name
         vector.vectorProperty.link( changeComponentsByComponentStyle[ newValue.name ] );
 
         // on axis style needs to be linked to the tail position
         if ( newValue.name === 'ON_AXIS' ) {
           vector.tailPositionProperty.link( changeComponentsByComponentStyle[ newValue.name ] );
-        } 
+        }
       } );
-      
+
 
     }
   }
