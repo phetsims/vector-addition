@@ -42,23 +42,16 @@ define( require => {
 
       this.setChildren( [ XComponentArrow, YComponentArrow ] );
 
-      // function to make components visible
-      const makeComponentsVisible = () => {
-        XComponentArrow.visible = true;
-        YComponentArrow.visible = true;
-      };
-
       // create an object that matches enum value (key) to a function that changes the components to match 
       // the keys style
       const changeComponentsByComponentStyle = {
         'INVISIBLE': () => {
-          XComponentArrow.visible = false;
-          YComponentArrow.visible = false;
+          this.visible = false;
         },
         'TRIANGLE': ( newVector ) => {
 
           // make the components visible
-          makeComponentsVisible();
+          this.visible = true;
 
           // calculate the tip position of the vector based on its current value
           const tipPosition = modelViewTransform.modelToViewDelta( vector.vectorProperty.value );
@@ -69,7 +62,7 @@ define( require => {
         'PARALLELOGRAM': ( newVector ) => {
 
           // make the components visible
-          makeComponentsVisible();
+          this.visible = true;
 
           // calculate the tip position of the vector based on its current value
           const tipPosition = modelViewTransform.modelToViewDelta( vector.vectorProperty.value );
@@ -78,7 +71,7 @@ define( require => {
         },
         'ON_AXIS': ( newVector ) => {
           // make the components visible
-          makeComponentsVisible();
+          this.visible = true;
 
           // calculate the tip position of the vector based on its current value
           const tipPosition = modelViewTransform.modelToViewDelta( vector.vectorProperty.value );
