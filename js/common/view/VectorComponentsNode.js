@@ -15,6 +15,7 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
 
   // constants
   const ARROW_OPTIONS = {
@@ -36,6 +37,7 @@ define( require => {
 
       super();
 
+      // the origin of this node (0,0) is the tail of the vector.
       // Create the 2 component nodes. These will be translated depending on the different component style
       const XComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
       const YComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
@@ -92,8 +94,8 @@ define( require => {
         if ( oldValue ) {
           vector.vectorProperty.unlink( changeComponentsByComponentStyle[ oldValue.name ] );
 
-          // on axis also was linked to the tail position property, so we have to remove it aswell
-          if ( oldValue.name === 'ON_AXIS' ) {
+          // on axis also was linked to the tail position property, so we have to remove it as well
+          if ( oldValue.name === ComponentStyles.ON_AXIS ) {
             vector.tailPositionProperty.unlink( changeComponentsByComponentStyle[ oldValue.name ] );
           }
         }
@@ -102,7 +104,7 @@ define( require => {
         vector.vectorProperty.link( changeComponentsByComponentStyle[ newValue.name ] );
 
         // on axis style needs to be linked to the tail position
-        if ( newValue.name === 'ON_AXIS' ) {
+        if ( newValue.name === ComponentStyles.ON_AXIS ) {
           vector.tailPositionProperty.link( changeComponentsByComponentStyle[ newValue.name ] );
         }
       } );
