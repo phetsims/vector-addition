@@ -9,7 +9,6 @@ define( require => {
   // modules
   // const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   // const Vector2Property = require( 'DOT/Vector2Property' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const Property = require( 'AXON/Property' );
