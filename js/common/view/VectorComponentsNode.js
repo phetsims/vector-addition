@@ -13,10 +13,12 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
+  const Shape = require( 'KITE/Shape' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
   const ARROW_OPTIONS = {
@@ -26,6 +28,7 @@ define( require => {
     headHeight: 4,
     tailWidth: 4
   };
+  const ON_AXIS_LINES_LINE_DASH = [ 3, 10 ];
 
   class VectorComponentsNode extends Node {
 
@@ -43,8 +46,18 @@ define( require => {
       const XComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
       const YComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
 
+      // create a shape that represents the dashed lines corresponding to the on_axis style
+      let onAxisLines = new Shape();
+
+      // turn the shape into a path and add it as a child of the components node
+      const onAxisLinesPath = new Path( onAxisLines, {
+        stroke: 'black',
+        lineDash: ON_AXIS_LINES_LINE_DASH
+      } );
+
+
       // add the components to the scene graph
-      this.setChildren( [ XComponentArrow, YComponentArrow ] );
+      this.setChildren( [ onAxisLinesPath, XComponentArrow, YComponentArrow ] );
 
       // create a function that updates the style of the components and their positions
       const updateComponents = ( componentStyle, modelVector, modelTailPosition ) => {
@@ -58,11 +71,13 @@ define( require => {
         switch( componentStyle ) {
           case ComponentStyles.INVISIBLE: {
             this.visible = false;
+            onAxisLinesPath.visible = false;
             break;
           }
           case ComponentStyles.TRIANGLE: {
             // make the components visible
             this.visible = true;
+            onAxisLinesPath.visible = false;
 
             XComponentArrow.setTailAndTip( 0, 0, viewVector.x, 0 );
             YComponentArrow.setTailAndTip( viewVector.x, 0, viewVector.x, viewVector.y );
@@ -71,17 +86,34 @@ define( require => {
           case ComponentStyles.PARALLELOGRAM: {
             // make the components visible
             this.visible = true;
+            onAxisLinesPath.visible = false;
 
             XComponentArrow.setTailAndTip( 0, 0, viewVector.x, 0 );
             YComponentArrow.setTailAndTip( 0, 0, 0, viewVector.y );
             break;
           }
-          case  ComponentStyles.ON_AXIS: {
+          case ComponentStyles.ON_AXIS: {
             // make the components visible
             this.visible = true;
+            onAxisLinesPath.visible = true;
+
+            onAxisLines = new Shape();
+
+            // create the dotted lines shape
+            // draw the first 2 lines to create the subbox of the tail of the vector
+            onAxisLines.moveTo( -viewTailPosition.x, 0 ).horizontalLineTo( 0 )
+            .verticalLineTo( -viewTailPosition.y );
+
+            // draw the next 2 lines to create the subbox of the tip of the vector
+            onAxisLines.moveTo( -viewTailPosition.x, viewVector.y ).horizontalLineTo( viewVector.x )
+            .verticalLineTo( -viewTailPosition.y );
+
+            // set the shape of the path to update the view
+            onAxisLinesPath.setShape( onAxisLines );
 
             XComponentArrow.setTailAndTip( 0, -viewTailPosition.y, viewVector.x, -viewTailPosition.y );
             YComponentArrow.setTailAndTip( -viewTailPosition.x, 0, -viewTailPosition.x, viewVector.y );
+
             break;
           }
           default: {
