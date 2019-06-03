@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const ArcArrowNode = require( 'VECTOR_ADDITION/common/view/ArcArrowNode' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
   const Util = require( 'DOT/Util' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
@@ -31,11 +31,16 @@ define( function( require ) {
   const GRID_COLOR = 'rgb( 120, 120, 120 )';
 
   // angle icon constants
-  const ANGLE_ICON_ANGLE = Util.toRadians( 55 );
+  const ANGLE_ICON_ANGLE = 55;
   const ANGLE_LINE_LENGTH = 20;
   const ANGLE_ICON_CIRCLE_RADIUS = 13;
-  const ARROWHEAD_WIDTH = 5;
-  const ARC_PATH_COLOR = 'rgb( 50, 50, 50 )';
+  const ANGLE_ICON_OPTIONS = {
+    arrowheadWidth: 5,
+    arrowheadHeight: 3,
+    arcOptions: {
+      stroke: 'rgb( 50, 50, 50 )'
+    }
+  };
 
   // vector icons constants
   const ARROW_LIGHT_COLOR = 'rgb( 100, 100, 100 )';
@@ -101,58 +106,24 @@ define( function( require ) {
 
     // Creates an icon that shows a angle
     createAngleIcon: () => {
-      // shape for the outline of the icon
+      const icon = new Node();
+      // // shape for the outline of the icon
       const wedgeShape = new Shape();
 
+      const angleInRadians = Util.toRadians( ANGLE_ICON_ANGLE );
       // define the origin at the bottom left (tip of the wedge)
       // start from right and move to the left (origin) and then move to the top of the wedge
       wedgeShape.moveTo( ANGLE_LINE_LENGTH, 0 )
         .horizontalLineTo( 0 )
-        .lineTo( Math.cos( ANGLE_ICON_ANGLE ) * ANGLE_LINE_LENGTH,
-          -1 * Math.sin( ANGLE_ICON_ANGLE ) * ANGLE_LINE_LENGTH );
+        .lineTo( Math.cos( angleInRadians ) * ANGLE_LINE_LENGTH,
+          -1 * Math.sin( angleInRadians ) * ANGLE_LINE_LENGTH );
 
-      // create a shape for the arc inside the wedge
-      const arcShape = Shape.arc(
-        0,
-        0,
-        ANGLE_ICON_CIRCLE_RADIUS,
-        0,
-        // negative angle since the y-axis is pointing down
-        -1 * ANGLE_ICON_ANGLE,
-        true
-      );
-
-      // create the arrowhead shape of the arc
-      const arrowheadShape = new Shape();
-
-      // arrowhead is an equilateral triangle
-      // the height of the equilateral triangle
-      const arrowheadHeight = Math.sin( Util.toRadians( 60 ) ) * ARROWHEAD_WIDTH;
-
-      // define the top point of the triangle at (0, 0), the triangle will be translated/rotated later
-      arrowheadShape.moveTo( 0, 0 )
-        .lineTo( -1 * ARROWHEAD_WIDTH / 2, arrowheadHeight )
-        .lineTo( ARROWHEAD_WIDTH / 2, arrowheadHeight )
-        .close();
-
-      // create the paths for each shape respectively
       const wedgePath = new Path( wedgeShape, {
         stroke: 'black'
       } );
-      const arcPath = new Path( arcShape, {
-        stroke: ARC_PATH_COLOR
-      } );
-      const arrowheadPath = new Path( arrowheadShape, {
-        fill: 'black',
-        // now transform the arrowhead to be at the top of the arc path
-        rotation: -1 * ANGLE_ICON_ANGLE,
-        translation: new Vector2(
-          Math.cos( ANGLE_ICON_ANGLE ) * ANGLE_ICON_CIRCLE_RADIUS,
-          -1 * Math.sin( ANGLE_ICON_ANGLE ) * ANGLE_ICON_CIRCLE_RADIUS )
-      } );
 
-      // add the paths together
-      return wedgePath.setChildren( [ arcPath, arrowheadPath ] );
+      const arcArrow = new ArcArrowNode( ANGLE_ICON_ANGLE, ANGLE_ICON_CIRCLE_RADIUS, ANGLE_ICON_OPTIONS );
+      return icon.setChildren( [ wedgePath, arcArrow ] );
     },
 
     // Creates the icon on the radio button for the invisible component style
