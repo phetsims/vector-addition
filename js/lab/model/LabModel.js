@@ -29,14 +29,12 @@ define( require => {
       super();
 
       this.gridModelBounds = new Bounds2( -5, -5, 55, 35 );
-      this.angleVisibleProperty = new BooleanProperty( false );
       this.vectorOrientationProperty = new Property( VectorOrientation.ALL );
     }
 
     // @public resets the model
     reset() {
       super.reset();
-      this.angleVisibleProperty.reset();
     }
 
   }

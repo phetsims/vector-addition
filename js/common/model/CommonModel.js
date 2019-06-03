@@ -38,10 +38,10 @@ define( require => {
       // @public {Property.<VectorOrientation>}
       this.vectorOrientationProperty = new Property( VectorOrientation.HORIZONTAL );
 
-      // @public {EnumerationProperty<ComponentStyles>}
+      // @public {EnumerationProperty<ComponentStyles>} - controls the visibility of the component styles
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, ComponentStyles.INVISIBLE );
 
-      // @piblic {BooleanProperty}
+      // @public {BooleanProperty} - controls the visibility of the angle
       this.angleVisibleProperty = new BooleanProperty( false );
 
       // @public {ObservableArray.<Vector>}
@@ -59,6 +59,7 @@ define( require => {
       this.sumVisibleProperty.reset();
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
+      this.angleVisibleProperty.reset();
     }
   }
 

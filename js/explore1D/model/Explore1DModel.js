@@ -28,7 +28,12 @@ define( require => {
 
       this.gridModelBounds = new Bounds2( -30, -20, 30, 20 );
 
-      //TODO
+      // the angle visibility should be set to false for Explore1D
+      this.angleVisibleProperty.link( ( visible ) => {
+        if ( visible ) {
+          throw new Error( 'Angle Visibility is set to False for Explore1D ' );
+        }
+      } );
     }
 
     // @public resets the model
