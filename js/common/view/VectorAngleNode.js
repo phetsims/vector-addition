@@ -56,7 +56,6 @@ define( require => {
 
       angleVisibleProperty.linkAttribute( this, 'visible' );
 
-      this.addChild( baseLine );
     }
   }
 
