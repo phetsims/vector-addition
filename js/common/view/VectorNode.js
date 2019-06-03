@@ -19,16 +19,17 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
   const VectorComponentsNode = require( 'VECTOR_ADDITION/common/view/VectorComponentsNode' );
 
   // constants
-  const ARROW_OPTIONS = { 
-    stroke: 'black', 
-    fill: 'blue', 
-    lineWidth: 1, 
-    headWidth: 10, 
-    headHeight: 5, 
-    cursor: 'move' 
+  const ARROW_OPTIONS = {
+    stroke: 'black',
+    fill: 'blue',
+    lineWidth: 1,
+    headWidth: 10,
+    headHeight: 5,
+    cursor: 'move'
   };
 
   class VectorNode extends Node {
@@ -37,9 +38,10 @@ define( require => {
      * @param {Vector} vector
      * @param {Bounds2} modelBounds
      * @param {ModelViewTransform2} modelViewTransform
-     * @param {componentStylePropert} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {BooleanProperty} angleVisibleProperty
      */
-    constructor( vector, modelBounds, modelViewTransform, componentStyleProperty ) {
+    constructor( vector, modelBounds, modelViewTransform, componentStyleProperty, angleVisibleProperty ) {
 
       const viewBounds = modelViewTransform.modelToViewBounds( modelBounds );
 
@@ -53,13 +55,25 @@ define( require => {
       const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, ARROW_OPTIONS );
       const labelNode = new FormulaNode( '\\vec{' + vector.label + '}' );
 
-      const tipArrowNode = new Circle( 10, { center: tipPosition, fill: 'red', opacity: 0, dilated: 10, cursor: 'pointer' } );
+      const tipArrowNode = new Circle( 10, {
+        center: tipPosition,
+        fill: 'red',
+        opacity: 0,
+        dilated: 10,
+        cursor: 'pointer'
+      } );
+
       // @private {VectorComponentsNode} vectorComponentsNode - the scenery nodes for this vectors components
       this.vectorComponentsNode = new VectorComponentsNode( vector, componentStyleProperty, modelViewTransform );
+
+      // @private {VectorAngleNode} vectorAngleNode - scenery node for the angle
+      this.vectorAngleNode = new VectorAngleNode( vector, angleVisibleProperty, modelViewTransform );
+
 
       this.addChild( this.vectorComponentsNode );
       this.addChild( arrowNode );
       this.addChild( tipArrowNode );
+      this.addChild( this.vectorAngleNode );
       this.addChild( labelNode );
 
       const tailArrowPositionProperty = new Vector2Property( vector.tailPositionProperty.value );

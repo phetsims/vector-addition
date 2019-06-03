@@ -15,8 +15,8 @@ define( function( require ) {
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
   const Util = require( 'DOT/Util' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const Vector2 = require( 'DOT/Vector2' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
 

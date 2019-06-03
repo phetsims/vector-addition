@@ -34,7 +34,12 @@ define( require => {
 
       const vectorLayer = new Node();
       model.vectors.forEach( vector => {
-        const vectorNode = new VectorNode( vector, model.gridModelBounds, modelViewTransform, model.componentStyleProperty );
+        const vectorNode = new VectorNode(
+          vector,
+          model.gridModelBounds,
+          modelViewTransform,
+          model.componentStyleProperty,
+          model.angleVisibleProperty );
 
         vectorLayer.addChild( vectorNode );
         vectorNode.visible = false;

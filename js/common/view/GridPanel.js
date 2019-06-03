@@ -10,15 +10,15 @@ define( require => {
 
   // modules
   const Checkbox = require( 'SUN/Checkbox' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Panel = require( 'SUN/Panel' );
+  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
 
   // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );
