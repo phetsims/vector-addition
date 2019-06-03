@@ -22,7 +22,14 @@ define( require => {
   const VectorComponentsNode = require( 'VECTOR_ADDITION/common/view/VectorComponentsNode' );
 
   // constants
-  const ARROW_OPTIONS = { stroke: 'black', fill: 'blue', lineWidth: 1, headWidth: 10, headHeight: 5 };
+  const ARROW_OPTIONS = { 
+    stroke: 'black', 
+    fill: 'blue', 
+    lineWidth: 1, 
+    headWidth: 10, 
+    headHeight: 5, 
+    cursor: 'move' 
+  };
 
   class VectorNode extends Node {
 
@@ -46,7 +53,7 @@ define( require => {
       const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, ARROW_OPTIONS );
       const labelNode = new FormulaNode( '\\vec{' + vector.label + '}' );
 
-      const tipArrowNode = new Circle( 10, { center: tipPosition, fill: 'red', opacity: 0, dilated: 10 } );
+      const tipArrowNode = new Circle( 10, { center: tipPosition, fill: 'red', opacity: 0, dilated: 10, cursor: 'pointer' } );
       // @private {VectorComponentsNode} vectorComponentsNode - the scenery nodes for this vectors components
       this.vectorComponentsNode = new VectorComponentsNode( vector, componentStyleProperty, modelViewTransform );
 
