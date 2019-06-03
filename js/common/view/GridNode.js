@@ -59,7 +59,9 @@ define( require => {
   const MATH_FONT = new MathSymbolFont( 20 );
 
   // tick length in model coordinates
-  const TICK_LENGTH = 1;
+  const TICK_LENGTH = 0.5;
+
+  // width of the tick lines (in view coordinates)
   const TICK_WIDTH = 1;
 
   // strings
