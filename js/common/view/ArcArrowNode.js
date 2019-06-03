@@ -56,7 +56,7 @@ define( require => {
       // @public (read-only) {Number} the radius of the arc
       this.radius = radius;
 
-      // create a shape and a path for the arc of the angle
+      // create a shape for the arc of the angle, set to null, shape will be updated later
       const arcShape = new Shape();
 
       // @private {Path} the path for the arc shape
@@ -75,38 +75,48 @@ define( require => {
       // @private {Path} the path for the arrowHead shape
       this.arrowheadPath = new Path( arrowheadShape, options.arrowOptions );
 
-
+      // add children the paths to the scene graphs
       this.setChildren( [ this.arcPath, this.arrowheadPath ] );
 
+      // set the position and rotation of the arrowhead and the sweep of the arc
       this.setAngleAndRadius( angle, radius );
     }
 
     /**
      * @param {Number} angle - the angle of the arc arrow in degrees
-     * @param {Number} radius - the radius of the arc
+     * @param {Number} radius - the radius of the arc in view coordinates
      * @private
      */
     setAngleAndRadius( angle, radius ) {
+
       // reassign the properties
       this.angle = angle;
       this.radius = radius;
+
+      // convenience variable
       const angleInRadians = Util.toRadians( angle );
+
+      // {boolean} is the arc anticlockwise (measured from positive x-axis) or clockwise.
       const isAnticlockwise = angle >= 0;
 
-      // update the arc
+      // create the arc shape
       const arcShape = new Shape().arcPoint(
         this.options.center, radius, 0, -angleInRadians, isAnticlockwise
       );
 
       this.arcPath.setShape( arcShape );
 
-      // update the triangle
-      // translate and rotate the arrowhead into the correct position
-      this.arrowheadPath.setRotation(
-        isAnticlockwise ?
-        -angleInRadians + Math.atan( this.options.arrowheadHeight / radius ) :
-        -angleInRadians - Math.PI - Math.atan( this.options.arrowheadHeight / radius )
+      // geometric convenience variable that represents the tilt of the arrowhead such that it lines up with arc
+      const arrowheadTilt = Math.atan( this.options.arrowheadHeight / radius );
+
+      // adjust the position and angle of arrowhead
+      // rotate the arrowhead from the tip into the correct position
+      this.arrowheadPath.setRotation( isAnticlockwise ?
+                                      -angleInRadians + arrowheadTilt :
+                                      -angleInRadians - arrowheadTilt + Math.PI
       );
+
+      // translate the tip of arrowhead to the tip of the arc.
       this.arrowheadPath.setTranslation(
         this.options.center.x + Math.cos( angleInRadians ) * radius,
         this.options.center.y - Math.sin( angleInRadians ) * radius
@@ -114,7 +124,23 @@ define( require => {
     }
 
     /**
-     * @param {Number} angle - the angle of the arc arrow in degrees
+     * @returns {number} the angle of the arc arrow in degrees
+     * @public (read-only)
+     */
+    getAngle() {
+      return this.angle;
+    }
+
+    /**
+     * @returns {number} the radius of the arc arrow in view coordinates
+     * @public (read-only)
+     */
+    getRadius() {
+      return this.radius;
+    }
+
+    /**
+     * @param {number} angle - the angle of the arc arrow in degrees
      * @public
      */
     setAngle( angle ) {
@@ -122,13 +148,20 @@ define( require => {
     }
 
     /**
-     * @param {Number} radius - the radius of the arc arrow
+     * @param {number} radius - the radius of the arc arrow in view coordinates
      * @public
      */
     setRadius( radius ) {
       this.setAngleAndRadius( this.angle, radius );
     }
 
+    /**
+     * @param {boolean} visible
+     * @public
+     */
+    setArrowheadVisibility( visible ) {
+      this.arrowheadPath.visible = visible;
+    }
 
   }
 

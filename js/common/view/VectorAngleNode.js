@@ -17,6 +17,8 @@ define( require => {
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const Util = require( 'DOT/Util' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
 
   // constants
   const BASE_LINE_WIDTH = 55;
@@ -39,18 +41,32 @@ define( require => {
         stroke: 'black'
       } );
 
-      const arcArrow = new ArcArrowNode( 40, ARC_RADIUS, {
+      // create the arc arrow
+      const arcArrow = new ArcArrowNode( vector.angleProperty.value, ARC_RADIUS, {
         arrowheadWidth: ARROWHEAD_WIDTH
-
       } );
-      this.setChildren( [ baseLine, arcArrow ] );
+
+      const labelText = new RichText( '' );
 
 
+      // add baseline and arc arrow to the parent node
+      this.setChildren( [ baseLine, arcArrow, labelText ] );
+
+
+      // update the arcArrow and the label based on the angle of the vector
       vector.angleProperty.link( ( angle ) => {
 
-        // round the angle
-        // const roundedAngleString = Util.toFixed( angle, 1 );
         arcArrow.setAngle( angle );
+
+        // round the angle
+        const roundedAngleString = Util.toFixed( angle, 1 );
+
+        labelText.setText( roundedAngleString + '<sup>o</sup>' );
+        const angleInRad = Util.toRadians( angle );
+
+        labelText.setTranslation( ( ARC_RADIUS + 20 ) * Math.cos( angleInRad / 2 ),
+          -( ARC_RADIUS + 20 ) * Math.sin( angleInRad / 2 ) );
+
 
       } );
 
