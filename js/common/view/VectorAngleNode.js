@@ -88,6 +88,17 @@ define( require => {
         updateLabel( angle );
       } );
 
+      // update the radius of the arcArrow based on the magnitude of the vector
+      vector.magnitudeProperty.link( ( magnitude ) => {
+
+        // get magnitude of vector in view coordinates
+        const viewMagnitude = modelViewTransform.modelToViewDeltaX( magnitude );
+
+        // set radius of the arcArrow to be viewMagnitude/2 or ARC_RADIUS, whichever is less
+        arcArrow.setRadius( ( viewMagnitude / 2 < ARC_RADIUS ) ? viewMagnitude / 2 : ARC_RADIUS );
+      } );
+
+      // update visibility of this node
       angleVisibleProperty.linkAttribute( this, 'visible' );
 
     }
