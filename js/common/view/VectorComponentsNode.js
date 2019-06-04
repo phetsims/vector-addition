@@ -22,8 +22,8 @@ define( require => {
 
   // constants
   const ARROW_OPTIONS = {
-    stroke: 'rgb( 0, 191, 255 )',
-    fill: 'rgb( 0, 191, 255 )',
+    stroke: 'rgb( 176, 224, 230 )',
+    fill: 'rgb( 176, 224, 230 )',
     headWidth: 8,
     headHeight: 4,
     tailWidth: 4

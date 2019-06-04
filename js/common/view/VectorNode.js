@@ -24,11 +24,11 @@ define( require => {
 
   // constants
   const ARROW_OPTIONS = {
-    stroke: 'black',
-    fill: 'blue',
-    lineWidth: 1,
-    headWidth: 10,
-    headHeight: 5,
+    fill: 'rgb( 0, 191, 255 )',
+    lineWidth: 0,
+    tailWidth: 5,
+    headWidth: 9,
+    headHeight: 6,
     cursor: 'move'
   };
 

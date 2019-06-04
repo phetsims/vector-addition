@@ -43,11 +43,11 @@ define( function( require ) {
   };
 
   // vector icons constants
-  const ARROW_LIGHT_COLOR = 'rgb( 100, 100, 100 )';
-  const ARROW_DARK_COLOR = 'rgb( 0, 0, 0 )';
+  const ARROW_LIGHT_COLOR = 'rgb( 176, 224, 230 )';
+  const ARROW_DARK_COLOR = 'rgb( 0, 191, 255 )';
   const VECTOR_ICON_HEAD_HEIGHT = 3;
-  const VECTOR_ICON_HEAD_WIDTH = 5;
-  const VECTOR_ICON_TAIL_WIDTH = 3;
+  const VECTOR_ICON_HEAD_WIDTH = 6;
+  const VECTOR_ICON_TAIL_WIDTH = 4;
 
   // the scale on the invisible component icon eye
   const INVISIBLE_COMPONENT_ICON_SCALE = 0.7;
@@ -60,6 +60,7 @@ define( function( require ) {
   // options for light shaded arrow
   const LIGHT_ARROW_OPTIONS = {
     fill: ARROW_LIGHT_COLOR,
+    stroke: 'rgb( 150, 150, 150 )',
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
     headWidth: VECTOR_ICON_HEAD_WIDTH,
     tailWidth: VECTOR_ICON_TAIL_WIDTH
@@ -68,6 +69,7 @@ define( function( require ) {
   // options for drak shaded arrow
   const DARK_ARROW_OPTIONS = {
     fill: ARROW_DARK_COLOR,
+    stroke: 'rgb( 150, 150, 150 )',
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
     headWidth: VECTOR_ICON_HEAD_WIDTH,
     tailWidth: VECTOR_ICON_TAIL_WIDTH
