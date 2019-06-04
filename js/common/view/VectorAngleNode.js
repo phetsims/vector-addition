@@ -48,26 +48,44 @@ define( require => {
 
       const labelText = new RichText( '' );
 
-
       // add baseline and arc arrow to the parent node
       this.setChildren( [ baseLine, arcArrow, labelText ] );
 
-
-      // update the arcArrow and the label based on the angle of the vector
-      vector.angleProperty.link( ( angle ) => {
-
-        arcArrow.setAngle( angle );
-
-        // round the angle
+      const updateLabel = ( angle ) => {// round the angle
         const roundedAngleString = Util.toFixed( angle, 1 );
 
         labelText.setText( roundedAngleString + '<sup>o</sup>' );
         const angleInRad = Util.toRadians( angle );
 
-        labelText.setTranslation( ( ARC_RADIUS + 20 ) * Math.cos( angleInRad / 2 ),
-          -( ARC_RADIUS + 20 ) * Math.sin( angleInRad / 2 ) );
+        //TODO: get designer feedback and clean up
+        if ( angle > 20 ) {
+          labelText.setTranslation( ( ARC_RADIUS + 10 ) * Math.cos( angleInRad / 2 ),
+            -( ARC_RADIUS + 10 ) * Math.sin( angleInRad / 2 ) );
+        }
+        else if ( angle > 0 ) {
+          labelText.setTranslation( ARC_RADIUS / 2, +ARC_RADIUS / 2 );
+        }
+        else if ( angle > -20 ) {
+          labelText.setTranslation( ARC_RADIUS / 2, -ARC_RADIUS / 2 );
+        }
+        else {
+          labelText.setTranslation( ( ARC_RADIUS + 10 ) * Math.cos( angleInRad / 2 ),
+            -( ARC_RADIUS + 10 ) * Math.sin( angleInRad / 2 ) );
 
+        }
+      };
 
+      // update the arcArrow and the label based on the angle of the vector
+      vector.angleProperty.link( ( angle ) => {
+
+        // update the angle of the arc
+        arcArrow.setAngle( angle );
+
+        // show arrowhead on angle arc if |angle| is > 10 degrees
+        arcArrow.setArrowheadVisibility( Math.abs( angle ) > 10 );
+
+        // update value of angle and position of label
+        updateLabel( angle );
       } );
 
       angleVisibleProperty.linkAttribute( this, 'visible' );
