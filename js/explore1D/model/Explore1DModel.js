@@ -7,11 +7,9 @@ define( require => {
   'use strict';
 
   // modules
-  // const Property = require( 'AXON/Property' );
-  // const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
-  // const Vector2Property = require( 'DOT/Vector2Property' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   /**
@@ -24,9 +22,10 @@ define( require => {
      */
     constructor( tandem ) {
 
-      super();
+      const gridDimension = new Dimension2( 60, 40 );
+      const upperLeftLocation = new Vector2( -30, 20 );
 
-      this.gridModelBounds = new Bounds2( -30, -20, 30, 20 );
+      super( gridDimension, upperLeftLocation, tandem );
 
       // the angle visibility should be set to false for Explore1D
       this.angleVisibleProperty.link( ( visible ) => {

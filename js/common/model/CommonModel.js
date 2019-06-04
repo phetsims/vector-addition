@@ -7,12 +7,14 @@ define( require => {
   'use strict';
 
   // modules
+  const Bounds2 = require( 'DOT/Bounds2' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const Property = require( 'AXON/Property' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
 
@@ -22,9 +24,11 @@ define( require => {
   class CommonModel {
 
     /**
+     * @param {Dimension2} gridDimension - the dimensions for the graph
+     * @param {Vector2} upperLeftLocation - the location of the upperLeft corner
      * @param {Tandem} tandem
      */
-    constructor( tandem ) {
+    constructor( gridDimension, upperLeftLocation, tandem ) {
 
       // @public {BooleanProperty}
       this.sumVisibleProperty = new BooleanProperty( false );
@@ -43,6 +47,16 @@ define( require => {
 
       // @public {BooleanProperty} - controls the visibility of the angle
       this.angleVisibleProperty = new BooleanProperty( false );
+
+      // @public {VectorProperty} - the location the top left corner of the grid
+      this.upperLeftLocationProperty = new Vector2Property( upperLeftLocation );
+
+      // @public {Bounds2} - the model bounds for the grid
+      this.gridModelBounds = new Bounds2(
+        upperLeftLocation.x,
+        upperLeftLocation.y - gridDimension.height,
+        upperLeftLocation.x + gridDimension.width,
+        upperLeftLocation.y );
 
       // @public {ObservableArray.<Vector>}
       this.vectors = new ObservableArray();

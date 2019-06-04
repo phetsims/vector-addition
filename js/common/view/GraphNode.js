@@ -11,9 +11,11 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Circle = require( 'SCENERY/nodes/Circle' );
+  const DragListener = require( 'SCENERY/listeners/DragListener' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
+  const Property = require( 'AXON/Property' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const RichText = require( 'SCENERY/nodes/RichText' );
@@ -22,7 +24,8 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
-
+  const Vector2Property = require( 'DOT/Vector2Property' );
+  const Vector2 = require( 'DOT/Vector2' );
   //----------------------------------------------------------------------------------------
   // constants
   //----------------------------------------------------------------------------------------
@@ -70,11 +73,11 @@ define( require => {
 
   // const TEXT_FONT = new PhetFont( FONT_SIZE );
 
-  /**
-   * @constructor
-   */
-  class GridNode extends Node {
 
+  class GraphNode extends Node {
+    /**
+     * @constructor
+     */
     /**
      * @param {CommonModel} commonModel
      * @param {ModelViewTransform2} modelViewTransform,
@@ -124,7 +127,7 @@ define( require => {
           minorGridLinesShape.moveTo( i, gridMinY ).verticalLineTo( gridMaxY );
         }
       }
-
+      // modelViewTransformProperty.link( ( modelViewTransform ) => {
       const majorGridLinesPath = new Path( modelViewTransform.modelToViewShape( majorGridLinesShape ), {
         lineWidth: MAJOR_GRID_STROKE_WIDTH,
         stroke: MAJOR_GRID_STROKE_COLOR
@@ -133,6 +136,8 @@ define( require => {
         lineWidth: MINOR_GRID_STROKE_WIDTH,
         stroke: MINOR_GRID_STROKE_COLOR
       } );
+
+      // })
 
       commonModel.gridVisibleProperty.link( gridVisible => {
         majorGridLinesPath.visible = gridVisible;
@@ -171,8 +176,29 @@ define( require => {
       yAxisLayerNode.addChild( verticalAxis );
       yAxisLayerNode.addChild( yLabel );
 
+      const originLocationProperty = new Vector2Property( new Vector2( originX, originY ) );
+
       // origin
-      const originCircle = new Circle( 7, { centerX: originX, centerY: originY, stroke: 'black', fill: 'yellow' } );
+      const originCircle = new Circle( 7, { center: originLocationProperty.get(), stroke: 'black', fill: 'yellow' } );
+
+
+      const restrictedGridBounds = commonModel.gridModelBounds.eroded( 5 );
+      const restrictedGridViewBounds = modelViewTransform.modelToViewBounds( restrictedGridBounds );
+
+      originCircle.addInputListener( new DragListener( {
+        locationProperty: originLocationProperty,
+        translateNode: true,
+        dragBoundsProperty: new Property( restrictedGridViewBounds )
+      } ) );
+
+      originLocationProperty.link( ( originLocation ) => {
+
+        const circleVector = modelViewTransform.viewToModelPosition( originLocation );
+
+        commonModel.upperLeftLocationProperty.set(
+          commonModel.upperLeftLocationProperty.initialValue.minus( circleVector )
+        );
+      } );
 
       // create the origin label for both axis
       const xOriginText = new RichText( '0',
@@ -257,6 +283,7 @@ define( require => {
 
   }
 
-  return vectorAddition.register( 'GridNode', GridNode );
+
+  return vectorAddition.register( 'GraphNode', GraphNode );
 } );
 
