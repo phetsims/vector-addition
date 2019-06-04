@@ -22,7 +22,10 @@ define( require => {
 
   // constants
   const BASE_LINE_WIDTH = 55;
-  const ARROWHEAD_WIDTH = 10;
+  const ARC_ARROW_OPTIONS = {
+    arrowheadWidth: 13,
+    arrowheadHeight: 10
+  };
   const ARC_RADIUS = 40;
 
   class VectorAngleNode extends Node {
@@ -42,9 +45,7 @@ define( require => {
       } );
 
       // create the arc arrow
-      const arcArrow = new ArcArrowNode( vector.angleProperty.value, ARC_RADIUS, {
-        arrowheadWidth: ARROWHEAD_WIDTH
-      } );
+      const arcArrow = new ArcArrowNode( vector.angleProperty.value, ARC_RADIUS, ARC_ARROW_OPTIONS );
 
       const labelText = new RichText( '' );
 
@@ -82,7 +83,7 @@ define( require => {
         arcArrow.setAngle( angle );
 
         // show arrowhead on angle arc if |angle| is > 10 degrees
-        arcArrow.setArrowheadVisibility( Math.abs( angle ) > 10 );
+        arcArrow.setArrowheadVisibility( Math.abs( angle ) > 20 );
 
         // update value of angle and position of label
         updateLabel( angle );

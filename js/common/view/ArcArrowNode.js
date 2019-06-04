@@ -32,7 +32,8 @@ define( require => {
         arrowheadWidth: 7, // {Number} the arrowhead width before translation
         arrowheadHeight: 5, // {Number} the arrowhead height before translation
         arcOptions: null, // {Object} filled in bellow
-        arrrowOptions: null // {Object} filled in bellow
+        arrrowOptions: null, // {Object} filled in bellow,
+        includeArrowhead: true // {Boolean} option to exclude the arrowhead
       }, options );
 
       // overide the arcOptions with the default provided bellow
@@ -65,11 +66,13 @@ define( require => {
       // create the arrowhead shape of the arc
       const arrowheadShape = new Shape();
 
-      // create the triangle 
-      // define the top point of the triangle at (0, 0), the triangle will be translated/rotated later
+      // create the triangle that will be translated/rotated later
+      // define the triangle as a triangle that is upright and the midpoint of the base is defined as (0, 0)
       arrowheadShape.moveTo( 0, 0 )
-        .lineTo( -1 * options.arrowheadWidth / 2, options.arrowheadHeight )
-        .lineTo( options.arrowheadWidth / 2, options.arrowheadHeight )
+        .lineTo( -options.arrowheadWidth / 2, 0 )
+        .lineTo( options.arrowheadWidth / 2, 0 )
+        .lineTo( 0, -options.arrowheadHeight )
+        .lineTo( -options.arrowheadWidth / 2, 0 )
         .close();
 
       // @private {Path} the path for the arrowHead shape
@@ -79,15 +82,16 @@ define( require => {
       this.setChildren( [ this.arcPath, this.arrowheadPath ] );
 
       // set the position and rotation of the arrowhead and the sweep of the arc
-      this.setAngleAndRadius( angle, radius );
+      this.setAngleAndRadius( angle, radius, options.includeArrowhead );
     }
 
     /**
      * @param {Number} angle - the angle of the arc arrow in degrees
      * @param {Number} radius - the radius of the arc in view coordinates
+     * @param {Boolean} includeArrowhead
      * @private
      */
-    setAngleAndRadius( angle, radius ) {
+    setAngleAndRadius( angle, radius, includeArrowhead ) {
 
       // reassign the properties
       this.angle = angle;
@@ -99,27 +103,36 @@ define( require => {
       // {boolean} is the arc anticlockwise (measured from positive x-axis) or clockwise.
       const isAnticlockwise = angle >= 0;
 
+      // the arrowhead subtended angle is defined as the angle between the vector to the tip of the arrow
+      // and the vector to the first point the arc and the triangle intersect
+      const arrowheadSubtentedAngle = Math.asin( this.options.arrowheadHeight / radius );
+
+      // the corrected angle is the angle that is between the vector that goes to the first point the arc
+      // and the triangle intersect and the vector along the baseline (x-axis).
+      // this is used instead the create a more accurate angle excluding the size of the triangle
+      const correctedAngle = isAnticlockwise ?
+                             angleInRadians - arrowheadSubtentedAngle :
+                             angleInRadians + arrowheadSubtentedAngle;
+
+
       // create the arc shape
       const arcShape = new Shape().arcPoint(
-        this.options.center, radius, 0, -angleInRadians, isAnticlockwise
+        this.options.center, radius, 0, includeArrowhead ? -correctedAngle : -angleInRadians, isAnticlockwise
       );
 
       this.arcPath.setShape( arcShape );
 
-      // geometric convenience variable that represents the tilt of the arrowhead such that it lines up with arc
-      const arrowheadTilt = Math.atan( this.options.arrowheadHeight / radius );
-
       // adjust the position and angle of arrowhead
-      // rotate the arrowhead from the tip into the correct position
+      // rotate the arrowhead from the tip into the correct position from the original angle
       this.arrowheadPath.setRotation( isAnticlockwise ?
-                                      -angleInRadians + arrowheadTilt :
-                                      -angleInRadians - arrowheadTilt + Math.PI
+                                      -angleInRadians :
+                                      -angleInRadians + Math.PI
       );
 
       // translate the tip of arrowhead to the tip of the arc.
       this.arrowheadPath.setTranslation(
-        this.options.center.x + Math.cos( angleInRadians ) * radius,
-        this.options.center.y - Math.sin( angleInRadians ) * radius
+        this.options.center.x + Math.cos( includeArrowhead ? correctedAngle : angleInRadians ) * radius,
+        this.options.center.y - Math.sin( includeArrowhead ? correctedAngle : angleInRadians ) * radius
       );
     }
 
@@ -161,7 +174,9 @@ define( require => {
      */
     setArrowheadVisibility( visible ) {
       this.arrowheadPath.visible = visible;
+      this.setAngleAndRadius( this.angle, this.radius, visible );
     }
+
 
   }
 

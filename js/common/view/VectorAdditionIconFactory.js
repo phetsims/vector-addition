@@ -122,7 +122,8 @@ define( function( require ) {
         stroke: 'black'
       } );
 
-      const arcArrow = new ArcArrowNode( ANGLE_ICON_ANGLE, ANGLE_ICON_CIRCLE_RADIUS, ANGLE_ICON_OPTIONS );
+      // subtract 15 because arc arrow uses a subtended angle to caclulate a new angle
+      const arcArrow = new ArcArrowNode( ANGLE_ICON_ANGLE - 15, ANGLE_ICON_CIRCLE_RADIUS, ANGLE_ICON_OPTIONS );
       return icon.setChildren( [ wedgePath, arcArrow ] );
     },
 
