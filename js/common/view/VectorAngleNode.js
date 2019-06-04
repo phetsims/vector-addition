@@ -22,7 +22,7 @@ define( require => {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
-  const BASE_LINE_WIDTH = 55;
+  const BASE_LINE_LENGTH = 55;
   const ARC_ARROW_OPTIONS = {
     arrowheadWidth: 8,
     arrowheadHeight: 6
@@ -42,7 +42,7 @@ define( require => {
       super();
 
       // create the horizontal line
-      const baseLine = new Line( 0, 0, BASE_LINE_WIDTH, 0, {
+      const baseLine = new Line( 0, 0, BASE_LINE_LENGTH, 0, {
         stroke: 'black'
       } );
 
@@ -112,6 +112,11 @@ define( require => {
       // update the radius of the arcArrow based on the magnitude of the vector
       vector.magnitudeProperty.link( ( magnitude ) => {
 
+        // get magnitude of vector in view coordinates
+        const viewMagnitude = modelViewTransform.modelToViewDeltaX( magnitude );
+
+        const arcScaleFactor = getArcScaleFactor( viewMagnitude );
+
         // when the magnitude is 0 don't display the arc arrow node
         if ( magnitude === 0 ) {
           arcArrow.visible = false;
@@ -119,12 +124,11 @@ define( require => {
         else {
           arcArrow.visible = true;
 
-          // get magnitude of vector in view coordinates
-          const viewMagnitude = modelViewTransform.modelToViewDeltaX( magnitude );
-
           // scale the arc arrow so it fits underneath the vector
-          arcArrow.setScaleMagnitude( getArcScaleFactor( viewMagnitude ) );
+          arcArrow.setScaleMagnitude( arcScaleFactor );
         }
+
+        baseLine.setX2( arcScaleFactor * BASE_LINE_LENGTH );
       } );
 
       // update visibility of this node
