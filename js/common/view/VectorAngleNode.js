@@ -18,16 +18,17 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const Util = require( 'DOT/Util' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
   const BASE_LINE_WIDTH = 55;
   const ARC_ARROW_OPTIONS = {
-    arrowheadWidth: 10,
-    arrowheadHeight: 7
+    arrowheadWidth: 8,
+    arrowheadHeight: 6
   };
 
-  const ARC_RADIUS = 20;
+  const ARC_RADIUS = 25;
 
   class VectorAngleNode extends Node {
 
@@ -48,7 +49,9 @@ define( require => {
       // create the arc arrow
       const arcArrow = new ArcArrowNode( vector.angleProperty.value, ARC_RADIUS, ARC_ARROW_OPTIONS );
 
-      const labelText = new RichText( '' );
+      const labelText = new Text( '', {
+        font: new PhetFont({ size: 14, family: 'Times' })
+      } );
 
       // add baseline and arc arrow to the parent node
       this.setChildren( [ baseLine, arcArrow, labelText ] );
@@ -56,18 +59,19 @@ define( require => {
       const updateLabel = ( angle ) => {// round the angle
         const roundedAngleString = Util.toFixed( angle, 1 );
 
-        labelText.setText( roundedAngleString + '<sup>o</sup>' );
+        labelText.setText( roundedAngleString + '\u00B0' );
         const angleInRad = Util.toRadians( angle );
 
+        labelText.visible = ( angle !== 0 );
         //TODO: get designer feedback and clean up
-        if ( angle > 20 ) {
-          labelText.setTranslation( ( ARC_RADIUS + 10 ) * Math.cos( angleInRad / 2 ),
-            -( ARC_RADIUS + 10 ) * Math.sin( angleInRad / 2 ) );
+        if ( angle > 35 ) {
+          labelText.setTranslation( ( ARC_RADIUS + 5 ) * Math.cos( angleInRad / 2 ),
+            -( ARC_RADIUS + 5 ) * Math.sin( angleInRad / 2 ) );
         }
         else if ( angle > 0 ) {
           labelText.setTranslation( ARC_RADIUS / 2, +ARC_RADIUS / 2 );
         }
-        else if ( angle > -20 ) {
+        else if ( angle > -35 ) {
           labelText.setTranslation( ARC_RADIUS / 2, -ARC_RADIUS / 2 );
         }
         else {
