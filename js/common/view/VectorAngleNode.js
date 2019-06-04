@@ -23,10 +23,11 @@ define( require => {
   // constants
   const BASE_LINE_WIDTH = 55;
   const ARC_ARROW_OPTIONS = {
-    arrowheadWidth: 13,
-    arrowheadHeight: 10
+    arrowheadWidth: 10,
+    arrowheadHeight: 7
   };
-  const ARC_RADIUS = 40;
+
+  const ARC_RADIUS = 20;
 
   class VectorAngleNode extends Node {
 
@@ -76,14 +77,29 @@ define( require => {
         }
       };
 
+      // function to the get the scale factor of the arc arrow node when the vector magnitude becomes to small
+      // with respect to the arc arrow radius
+      const getArcScaleFactor = ( viewMagnitude ) => {
+
+        // the maximum percentage that the arc-arrow radius can be when compared to the magnitude of the vector
+        const maximumRadiusScale = 0.59;
+
+        let scaleFactor;
+        if ( viewMagnitude / ARC_RADIUS < 1 / maximumRadiusScale ) {
+          scaleFactor = ( viewMagnitude / ( 1 / maximumRadiusScale * ARC_RADIUS ) );
+        }
+        else {
+          scaleFactor = 1;
+        }
+
+        return scaleFactor;
+      };
+
       // update the arcArrow and the label based on the angle of the vector
       vector.angleProperty.link( ( angle ) => {
 
         // update the angle of the arc
         arcArrow.setAngle( angle );
-
-        // show arrowhead on angle arc if |angle| is > 10 degrees
-        arcArrow.setArrowheadVisibility( Math.abs( angle ) > 20 );
 
         // update value of angle and position of label
         updateLabel( angle );
@@ -92,11 +108,19 @@ define( require => {
       // update the radius of the arcArrow based on the magnitude of the vector
       vector.magnitudeProperty.link( ( magnitude ) => {
 
-        // get magnitude of vector in view coordinates
-        const viewMagnitude = modelViewTransform.modelToViewDeltaX( magnitude );
+        // when the magnitude is 0 don't display the arc arrow node
+        if ( magnitude === 0 ) {
+          arcArrow.visible = false;
+        }
+        else {
+          arcArrow.visible = true;
 
-        // set radius of the arcArrow to be viewMagnitude/2 or ARC_RADIUS, whichever is less
-        arcArrow.setRadius( ( viewMagnitude / 2 < ARC_RADIUS ) ? viewMagnitude / 2 : ARC_RADIUS );
+          // get magnitude of vector in view coordinates
+          const viewMagnitude = modelViewTransform.modelToViewDeltaX( magnitude );
+
+          // scale the arc arrow so it fits underneath the vector
+          arcArrow.setScaleMagnitude( getArcScaleFactor( viewMagnitude ) );
+        }
       } );
 
       // update visibility of this node
