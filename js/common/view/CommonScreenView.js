@@ -7,7 +7,7 @@ define( require => {
   'use strict';
 
   // modules
-  // const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
+  const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Property = require( 'AXON/Property' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -36,9 +36,9 @@ define( require => {
       this.modelViewTransformProperty = new Property( modelViewTransform );
 
 
-      // const graphNode = new GraphNode( commonModel, this.modelViewTransformProperty );
+      const graphNode = new GraphNode( commonModel, this.modelViewTransformProperty );
 
-      // this.addChild( graphNode );
+      this.addChild( graphNode );
 
       const vectorDisplayPanel = new VectorDisplayPanel( commonModel.vectors );
 

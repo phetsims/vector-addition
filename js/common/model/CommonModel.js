@@ -51,12 +51,17 @@ define( require => {
       // @public {VectorProperty} - the location the top left corner of the grid
       this.upperLeftLocationProperty = new Vector2Property( upperLeftLocation );
 
-      // @public {Bounds2} - the model bounds for the grid
-      this.gridModelBounds = new Bounds2(
-        upperLeftLocation.x,
-        upperLeftLocation.y - gridDimension.height,
-        upperLeftLocation.x + gridDimension.width,
-        upperLeftLocation.y );
+      this.gridModelBounds;
+
+      this.upperLeftLocationProperty.link( ( upperLeftLocation ) => {
+        // @public {Bounds2} - the model bounds for the grid
+        this.gridModelBounds = new Bounds2(
+          upperLeftLocation.x,
+          upperLeftLocation.y - gridDimension.height,
+          upperLeftLocation.x + gridDimension.width,
+          upperLeftLocation.y );
+      } );
+      
 
       // @public {ObservableArray.<Vector>}
       this.vectors = new ObservableArray();

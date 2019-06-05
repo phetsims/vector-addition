@@ -22,16 +22,6 @@ define( function( require ) {
 
   const VectorAdditionConstants = {
 
-    // grid
-    GRID_BACKGROUND_STROKE_WIDTH: 1,
-    GRID_BACKGROUND_STROKE_COLOR: 'rgb( 192, 192, 192)',
-    GRID_BACKGROUND_FILL: 'white',
-
-    MINOR_GRID_STROKE_WIDTH: 1.0,
-    MINOR_GRID_STROKE_COLOR: 'rgb( 230, 230, 230 )',
-    MAJOR_GRID_STROKE_WIDTH: 2.0,
-    MAJOR_GRID_STROKE_COLOR: 'rgb( 230, 230, 230 )',
-
     // Some
     BACKGROUND_COLOR: 'rgb( 255, 250, 227)',
     ORIGIN_DOT_COLOR: 'rgb( 25, 253, 56 )',
