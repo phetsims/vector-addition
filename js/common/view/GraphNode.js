@@ -262,7 +262,7 @@ define( require => {
       // convenience variable at the origin in terms of the view
       const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
-      super( 7, _.extend( { center: origin }, ORIGIN_CIRCLE_OPTIONS ) );
+      super( 7, _.extend( { center: origin, cursor: 'move' }, ORIGIN_CIRCLE_OPTIONS ) );
 
 
       // Create a dragBounds to constrain the drag
