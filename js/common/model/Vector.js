@@ -18,6 +18,7 @@ define( require => {
 
   // constants
   const VECTOR_TYPE = new Enumeration( [ 'RED', 'BLUE' ] );
+  const ANGLE_INTERVAL = 5; // interval spacing of vector angle (in degrees) when vector is in polar mode
 
   /**
    * @constructor
@@ -103,6 +104,23 @@ define( require => {
       this.isTipDraggingProperty.reset();
       this.isBodyDraggingProperty.reset();
     }
+
+    //@public
+    roundCartesianForm() {
+      this.vectorProperty.set( this.vectorProperty.value.roundSymmetric() );
+    }
+
+    /**
+     * round vector to have integer values in polar form, i.e.
+     * magnitude has inetger values and angle is a multiple of ANGLE_INTERVAL
+     * @public
+     */
+    roundPolarForm() {
+      const roundedMagnitude = Util.roundSymmetric( this.magnitudeProperty.value );
+      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( this.angleProperty.value / ANGLE_INTERVAL );
+      this.vectorProperty.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+    }
+
   }
 
   return vectorAddition.register( 'Vector', Vector );
