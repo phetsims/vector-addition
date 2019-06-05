@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the component vectors of a vector node.
+ * View for the component vectors of a vector
  * Constructed based on many individually passed parameters about the vector node.
  * Listens to the componentStyleProperty to determine which style of components to display.
  * Listens to a model vector's vectorProperty to rescale and reposition the components.
@@ -46,15 +46,12 @@ define( require => {
       const XComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
       const YComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
 
-      // create a shape that represents the dashed lines corresponding to the on_axis style
-      let onAxisLines = new Shape();
-
-      // turn the shape into a path and add it as a child of the components node
-      const onAxisLinesPath = new Path( onAxisLines, {
+      // create a path  that represents the dashed lines corresponding to the on_axis style
+      // the shape of the path will be updated later
+      const onAxisLinesPath = new Path( new Shape(), {
         stroke: 'black',
         lineDash: ON_AXIS_LINES_LINE_DASH
       } );
-
 
       // add the components to the scene graph
       this.setChildren( [ onAxisLinesPath, XComponentArrow, YComponentArrow ] );
@@ -70,12 +67,15 @@ define( require => {
 
         switch( componentStyle ) {
           case ComponentStyles.INVISIBLE: {
+
+            // make the components invisible
             this.visible = false;
-            onAxisLinesPath.visible = false;
+            onAxisLinesPath.visible = false; // redundant but added for clarity
             break;
           }
           case ComponentStyles.TRIANGLE: {
-            // make the components visible
+
+            // make the components visible but onAxis lines to invisible
             this.visible = true;
             onAxisLinesPath.visible = false;
 
@@ -84,7 +84,8 @@ define( require => {
             break;
           }
           case ComponentStyles.PARALLELOGRAM: {
-            // make the components visible
+
+            // make the components visible but onAxis lines to invisible
             this.visible = true;
             onAxisLinesPath.visible = false;
 
@@ -93,13 +94,15 @@ define( require => {
             break;
           }
           case ComponentStyles.ON_AXIS: {
-            // make the components visible
+
+            // make the components and on axis lines visible
             this.visible = true;
             onAxisLinesPath.visible = true;
 
-            onAxisLines = new Shape();
+            // create new shape for the dashed lines that extend to the axis
+            const onAxisLines = new Shape();
 
-            // create the dotted lines shape
+            // create the dashed lines shape
             // draw the first 2 lines to create the subbox of the tail of the vector
             onAxisLines.moveTo( -viewTailPosition.x, 0 ).horizontalLineTo( 0 )
             .verticalLineTo( -viewTailPosition.y );
