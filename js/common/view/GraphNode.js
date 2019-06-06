@@ -11,7 +11,6 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
@@ -292,15 +291,12 @@ define( require => {
           commonModel.upperLeftLocationProperty.initialValue.minus( modelViewTransform.viewToModelPosition( originLocation ) )
         );
 
-        // TODO: set the modelViewTransformProperty in the model and remove the 3rd argument
+        // TODO: set the modelViewTransformProperty in the model and hoist constant to vectorAdditionConstants
         modelViewTransformProperty.set(
-          new ModelViewTransform2.createRectangleInvertedYMapping(
-            commonModel.gridModelBounds,
-            new Bounds2( 29, 90, 29 + 750, 90 + 500 )
-          )
+          ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+            commonModel.upperLeftLocationProperty.value, new Vector2( 29, 90 ), 12.5 )
         );
       } );
-
     }
   }
 
