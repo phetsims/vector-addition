@@ -26,7 +26,7 @@ define( require => {
 
       super();
 
-      const graphNode = new GraphNode( commonModel, commonModel.modelViewTransformProperty );
+      const graphNode = new GraphNode( commonModel);
 
       this.addChild( graphNode );
 

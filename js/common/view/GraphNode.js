@@ -94,30 +94,27 @@ define( require => {
      * @constructor
      *
      * @param {CommonModel} commonModel - the shared model for all screens
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property that holds the coordinate transform
      * between model coordinates and view coordinates
      */
-    constructor( commonModel, modelViewTransformProperty ) {
-
-      const modelViewTransform = modelViewTransformProperty.value;
+    constructor( commonModel ) {
 
       // Transform the model grid mounds into the view coordinates.
       // This will stay constant as the background rectangle won't move.
-      const gridBounds = modelViewTransform.modelToViewBounds( commonModel.gridModelBounds );
+      const gridBounds = commonModel.modelViewTransformProperty.value.modelToViewBounds( commonModel.gridModelBounds );
 
       // Create a rectangle as the background of the graph.
       const backgroundRectangle = new Rectangle( gridBounds, GRID_BACKGROUND_OPTIONS );
 
-      const xAxisNode = new XAxisNode( commonModel, modelViewTransformProperty );
-      const yAxisNode = new YAxisNode( commonModel, modelViewTransformProperty );
+      const xAxisNode = new XAxisNode( commonModel );
+      const yAxisNode = new YAxisNode( commonModel );
 
       super( {
         children: [
           backgroundRectangle,
-          new GridLinesNode( commonModel, modelViewTransformProperty ),
+          new GridLinesNode( commonModel ),
           xAxisNode,
           yAxisNode,
-          new OriginCircle( commonModel, modelViewTransform )
+          new OriginCircle( commonModel )
         ]
       } );
 
@@ -158,10 +155,9 @@ define( require => {
     /**
      * @constructor
      * @param {CommonModel} commonModel - the shared model for all screens
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property that holds the coordinate transform
      * between model coordinates and view coordinates
      */
-    constructor( commonModel, modelViewTransformProperty ) {
+    constructor( commonModel ) {
 
       super();
 
@@ -178,7 +174,7 @@ define( require => {
 
 
       // Update the grid when the modelViewTransform changes (triggered when the origin is moved)
-      modelViewTransformProperty.link( ( modelViewTransform ) => {
+      commonModel.modelViewTransformProperty.link( ( modelViewTransform ) => {
         this.updateGrid( modelViewTransform );
       } );
 
@@ -255,13 +251,14 @@ define( require => {
      * @constructor
      *
      * @param {CommonModel} commonModel - the shared model for all screens
-     * @param {ModelViewTransform2} modelViewTransform - the initial coordinate transform between model coordinates and
-     * view coordinates. Only needed once since the origin is always at (0, 0).
      *
      */
-    constructor( commonModel, modelViewTransform ) {
+    constructor( commonModel ) {
 
-      // convenience variable at the origin in terms of the view
+      // convenience variable
+      const modelViewTransform = commonModel.modelViewTransformProperty.value;
+
+      // the origin in terms of the view;
       const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
       super( 7, _.extend( { center: origin }, ORIGIN_CIRCLE_OPTIONS ) );
@@ -300,9 +297,8 @@ define( require => {
      * @constructor
      *
      * @param {CommonModel} commonModel - the shared model for all screens
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property that holds the coordinate transform
      */
-    constructor( commonModel, modelViewTransformProperty ) {
+    constructor( commonModel ) {
 
       super();
 
@@ -320,7 +316,7 @@ define( require => {
       this.xOriginText = new Text( '0', ORIGIN_TEXT_OPTIONS );
 
 
-      modelViewTransformProperty.link( ( modelViewTransform ) => {
+      commonModel.modelViewTransformProperty.link( ( modelViewTransform ) => {
 
         // convenience variables for the position of the origin in view coordinates
         const gridViewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
@@ -391,9 +387,8 @@ define( require => {
      * @constructor
      *
      * @param {CommonModel} commonModel - the shared model for all screens
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property that holds the coordinate transform
      */
-    constructor( commonModel, modelViewTransformProperty ) {
+    constructor( commonModel ) {
 
       super();
 
@@ -411,7 +406,7 @@ define( require => {
       this.yOriginText = new Text( '0', ORIGIN_TEXT_OPTIONS );
 
 
-      modelViewTransformProperty.link( ( modelViewTransform ) => {
+      commonModel.modelViewTransformProperty.link( ( modelViewTransform ) => {
 
         // convenience variables for the position of the origin in view coordinates
         const gridViewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
