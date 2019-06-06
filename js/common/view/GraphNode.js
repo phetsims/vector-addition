@@ -194,7 +194,7 @@ define( require => {
      * The modelViewTransform is changed when the origin is dragged. This method updates the grid based on a
      * modelViewTransform and is called when when a new modelViewTransform is created.
      *
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property that holds the coordinate transform
+     * @param {ModelViewTransform2} modelViewTransform - the coordinate transform
      * between model coordinates and view coordinates
      *
      * @private
@@ -230,7 +230,7 @@ define( require => {
 
       // Create the Horizontal Grid Lines
       // Start from the Ceil of the gridMinX to the floor of the gridMaxX because the origin maX be dragged so that the
-      // minX and maxX are decimal points. With the ceil/floor of this also guarentee that we draw 
+      // minX and maxX are decimal points. With the ceil/floor of this also guarantees that we draw
       // all the lines visible in the window
       for ( let i = Math.ceil( gridMinX ); i <= Math.floor( gridMaxX ); i++ ) {
 
@@ -357,7 +357,7 @@ define( require => {
 
         // x-axis ticks, add them on every major ticks
         // Start from the Ceil of the gridMinX to the floor of the gridMaxX because the origin maX be dragged so that the
-        // minX and maxX are decimal points. With the ceil/floor of this also guarentee that we draw 
+        // minX and maxX are decimal points. With the ceil/floor of this also guarantees that we draw
         // all the ticks visible in the window.
         for ( let i = Math.ceil( gridModelBounds.minX ); i <= Math.floor( gridModelBounds.maxX ); i++ ) {
           // increment by model coordinates (1 unit)
@@ -386,8 +386,8 @@ define( require => {
     }
 
     /**
-     * Set the visiblity of the origin label
-     * @param {boolean} visibile
+     * Set the visibility of the origin label
+     * @param {boolean} visible
      * @public
      */
     setOriginLabelVisibility( visible ) {
@@ -448,7 +448,7 @@ define( require => {
 
         // x-axis ticks, add them on every major ticks
         // Start from the Ceil of the gridMinX to the floor of the gridMaxX because the origin maX be dragged so that the
-        // minX and maxX are decimal points. With the ceil/floor of this also guarentee that we draw 
+        // minX and maxX are decimal points. With the ceil/floor of this also guarantees that we draw
         // all the ticks visible in the window.
         for ( let i = Math.ceil( gridModelBounds.minY ); i <= Math.floor( gridModelBounds.maxY ); i++ ) {
           // increment by model coordinates (1 unit)
@@ -477,8 +477,8 @@ define( require => {
     }
 
     /**
-     * Set the visiblity of the origin label
-     * @param {boolean} visibile
+     * Set the visibility of the origin label
+     * @param {boolean} visible
      * @public
      */
     setOriginLabelVisibility( visible ) {
