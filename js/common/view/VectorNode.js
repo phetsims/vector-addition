@@ -158,7 +158,7 @@ define( require => {
         arrowNode.setTip( snapToGridPosition.x, snapToGridPosition.y );
         tipCircle.center = snapToGridPosition;
         if ( !snapToGridPosition.equals( Vector2.ZERO ) ) {
-          labelNode.center = snapToGridPosition.dividedScalar( 2 ).plus( snapToGridPosition.perpendicular.normalized().times( vector.angleProperty.get() > 0 ? 20 : -20 ) );
+          labelNode.center = snapToGridPosition.dividedScalar( 2 ).plus( snapToGridPosition.perpendicular.normalized().times( vector.angleProperty.value > 0 ? 20 : -20 ) );
         }
 
         vectorDragBoundsProperty.set( gridModelBounds.shifted( -vector.attributesVectorProperty.value.x / 2, -vector.attributesVectorProperty.value.y / 2 ) );
