@@ -28,9 +28,10 @@ define( require => {
     /**
      * @param {number} x horizontal component of the vector
      * @param {number} y horizontal component of the vector
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {Object} [options]
      */
-    constructor( x, y, options ) {
+    constructor( x, y, modelViewTransformProperty, options ) {
 
       options = _.extend( {
         vectorType: VECTOR_TYPE.RED,
@@ -45,7 +46,13 @@ define( require => {
       this.tailPositionProperty = new Vector2Property( new Vector2( 0, 0 ) );
 
       // @public {Vector2Property} - The actual vector
-      this.vectorProperty = new Vector2Property( new Vector2( x, y ) );
+      this.attributesVectorProperty = new Vector2Property( new Vector2( x, y ) );
+
+
+      this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
+        ( tailPosition, vector ) => tailPosition.plus( vector )
+      );
+
 
       // @public {numberProperty} - the scalar by which the base vector can be multiplied
       // the scalar value can be negative
@@ -53,9 +60,30 @@ define( require => {
 
       // @public {DerivedProperty.<Boolean>}
       // Flag that indicates if the model element is in the play area
-      this.isActiveProperty = new BooleanProperty( false );
+      this.isInPlayAreaProperty = new BooleanProperty( false );
 
-      // @public {BooleanProperty} - indicates whether the tip being dragged by the user
+
+      // @public {DerivedProperty.<number>} - the magnitude of the vector
+      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( attributesVector.getMagnitude() )
+      );
+
+      // @public {DerivedProperty.<number>} - the angle (in degrees) of the vector
+      // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
+      this.angleProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
+      );
+
+      // @public {DerivedProperty.<number>} - the horizontal component of the vector
+      this.xProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( attributesVector.x )
+      );
+
+      // @public {DerivedProperty.<number>} - the vertical component of the vector
+      this.yProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( attributesVector.y )
+      );
+     // @public {BooleanProperty} - indicates whether the tip being dragged by the user
       this.isTipDraggingProperty = new BooleanProperty( false );
 
       // @public {BooleanProperty} - indicates whether the body is being dragged by the user
@@ -65,40 +93,17 @@ define( require => {
       this.isDraggingProperty = new DerivedProperty( [ this.isBodyDraggingProperty, this.isTipDraggingProperty ],
         ( isBodyDragging, isTipDragging ) => ( isBodyDragging || isTipDragging )
       );
-
-      // @public {DerivedProperty.<number>} - the magnitude of the vector
-      this.magnitudeProperty = new DerivedProperty( [ this.vectorProperty ],
-        vector => ( vector.getMagnitude() )
-      );
-
-      // @public {DerivedProperty.<number>} - the angle (in degrees) of the vector
-      // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
-      this.angleProperty = new DerivedProperty( [ this.vectorProperty ],
-        vector => ( Util.toDegrees( vector.getAngle() ) )
-      );
-
-      // @public {DerivedProperty.<number>} - the horizontal component of the vector
-      this.xProperty = new DerivedProperty( [ this.vectorProperty ],
-        vector => ( vector.x )
-      );
-
-      // @public {DerivedProperty.<number>} - the vertical component of the vector
-      this.yProperty = new DerivedProperty( [ this.vectorProperty ],
-        vector => ( vector.y )
-      );
-
-
-      //@public {DerivedProperty.<Boolean>}
-      // Flag that indicates if the model element is in the play area
-      // this.isInPlayAreaProperty = new DerivedProperty( [ tailPositionProperty ],
-      //   tailPosition => GRAPH_MODEL_BOUNDS.contains( tailPosition )
-      // );
+      
+      modelViewTransformProperty.lazyLink( ( newModelViewTransform, oldModelViewTransform ) => {
+        const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
+        this.tailPositionProperty.set( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
+      } );
     }
 
     // @public resets the vector
     reset() {
       this.tailPositionProperty.reset();
-      this.vectorProperty.reset();
+      this.attributesVectorProperty.reset();
       this.multiplicativeScalarProperty.reset();
       this.isActiveProperty.reset();
       this.isTipDraggingProperty.reset();
@@ -107,7 +112,7 @@ define( require => {
 
     //@public
     roundCartesianForm() {
-      this.vectorProperty.set( this.vectorProperty.value.roundSymmetric() );
+      this.attributesVectorProperty.set( this.attributesVectorProperty.value.roundSymmetric() );
     }
 
     /**
@@ -118,7 +123,7 @@ define( require => {
     roundPolarForm() {
       const roundedMagnitude = Util.roundSymmetric( this.magnitudeProperty.value );
       const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( this.angleProperty.value / ANGLE_INTERVAL );
-      this.vectorProperty.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+      this.attributesVectorProperty.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
     }
 
   }

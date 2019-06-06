@@ -128,9 +128,9 @@ define( require => {
       // @private
       this.updateLayoutMultilink = Property.multilink( [
           componentStyleProperty,
-          vector.vectorProperty,
+          vector.attributesVectorProperty,
           vector.tailPositionProperty ],
-        ( componentStyle, vector, tailPosition ) => updateComponents( componentStyle, vector, tailPosition )
+        ( componentStyle, attributesVector, tailPosition ) => updateComponents( componentStyle, attributesVector, tailPosition )
       );
     }
 

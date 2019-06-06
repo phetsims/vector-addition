@@ -98,7 +98,7 @@ define( require => {
      */
     constructor( commonModel ) {
 
-      // Transform the model grid mounds into the view coordinates.
+      // Transform the model grid bounds into the view coordinates.
       // This will stay constant as the background rectangle won't move.
       const gridBounds = commonModel.modelViewTransformProperty.value.modelToViewBounds( commonModel.gridModelBounds );
 

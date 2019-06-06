@@ -26,7 +26,7 @@ define( require => {
     /**
      *
      */
-    constructor( model, modelViewTransform ) {
+    constructor( model ) {
 
       super();
 
@@ -34,12 +34,13 @@ define( require => {
 
       const vectorLayer = new Node();
       model.vectors.forEach( vector => {
+
         const vectorNode = new VectorNode(
           vector,
           model.gridModelBounds,
-          modelViewTransform,
           model.componentStyleProperty,
-          model.angleVisibleProperty );
+          model.angleVisibleProperty,
+          model.modelViewTransformProperty );
 
         vectorLayer.addChild( vectorNode );
         vectorNode.visible = false;

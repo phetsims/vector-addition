@@ -80,9 +80,9 @@ define( require => {
       // @public {ObservableArray.<Vector>}
       this.vectors = new ObservableArray();
 
-      const vectorA = new Vector( 5, 0, { label: 'a' } );
-      const vectorB = new Vector( 5, 0, { label: 'b' } );
-      const vectorC = new Vector( 5, 0, { label: 'c' } );
+      const vectorA = new Vector( 5, 0, this.modelViewTransformProperty, { label: 'a' } );
+      const vectorB = new Vector( 5, 0, this.modelViewTransformProperty, { label: 'b' } );
+      const vectorC = new Vector( 5, 0, this.modelViewTransformProperty, { label: 'c' } );
 
       this.vectors.addAll( [ vectorA, vectorB, vectorC ] );
     }
