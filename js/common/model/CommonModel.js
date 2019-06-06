@@ -56,11 +56,11 @@ define( require => {
       this.angleVisibleProperty = new BooleanProperty( false );
 
       // @public {VectorProperty} - the location the top left corner of the grid
-      this.upperLeftLocationProperty = new Vector2Property( upperLeftLocation );
+      this.upperLeftPositionProperty = new Vector2Property( upperLeftLocation );
 
       this.gridModelBounds;
 
-      this.upperLeftLocationProperty.link( ( upperLeftLocation ) => {
+      this.upperLeftPositionProperty.link( ( upperLeftLocation ) => {
         // @public {Bounds2} - the model bounds for the grid
         this.gridModelBounds = new Bounds2(
           upperLeftLocation.x,
@@ -72,7 +72,7 @@ define( require => {
 
 
       // @public {Property.<ModelViewTransform2>} - the model-view transform of the simulation
-      this.modelViewTransformProperty = new DerivedProperty( [ this.upperLeftLocationProperty ], ( upperLeftLocation ) =>
+      this.modelViewTransformProperty = new DerivedProperty( [ this.upperLeftPositionProperty ], ( upperLeftLocation ) =>
         ModelViewTransform2.createSinglePointScaleInvertedYMapping(
           upperLeftLocation, UPPER_LEFT_LOCATION, MODEL_VIEW_SCALE )
       );
@@ -94,7 +94,7 @@ define( require => {
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
 
-      this.upperLeftLocationProperty.reset();
+      this.upperLeftPositionProperty.reset();
     }
   }
 
