@@ -10,7 +10,6 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Enumeration = require( 'PHET_CORE/Enumeration' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
@@ -48,20 +47,13 @@ define( require => {
       // @public {Vector2Property} - The actual vector
       this.attributesVectorProperty = new Vector2Property( new Vector2( x, y ) );
 
-
+      // @public {Vector2Property} - the tip position of the vector
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
         ( tailPosition, vector ) => tailPosition.plus( vector )
       );
-
-
-      // @public {numberProperty} - the scalar by which the base vector can be multiplied
-      // the scalar value can be negative
-      this.multiplicativeScalarProperty = new NumberProperty( 1 );
-
       // @public {DerivedProperty.<Boolean>}
       // Flag that indicates if the model element is in the play area
       this.isInPlayAreaProperty = new BooleanProperty( false );
-
 
       // @public {DerivedProperty.<number>} - the magnitude of the vector
       this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
@@ -93,7 +85,8 @@ define( require => {
       this.isDraggingProperty = new DerivedProperty( [ this.isBodyDraggingProperty, this.isTipDraggingProperty ],
         ( isBodyDragging, isTipDragging ) => ( isBodyDragging || isTipDragging )
       );
-      
+
+      //
       modelViewTransformProperty.lazyLink( ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
         this.tailPositionProperty.set( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
@@ -104,10 +97,9 @@ define( require => {
     reset() {
       this.tailPositionProperty.reset();
       this.attributesVectorProperty.reset();
-      this.multiplicativeScalarProperty.reset();
-      this.isActiveProperty.reset();
       this.isTipDraggingProperty.reset();
       this.isBodyDraggingProperty.reset();
+      this.isInPlayAreaProperty.reset();
     }
 
     //@public
@@ -117,7 +109,7 @@ define( require => {
 
     /**
      * round vector to have integer values in polar form, i.e.
-     * magnitude has inetger values and angle is a multiple of ANGLE_INTERVAL
+     * magnitude has integer values and angle is a multiple of ANGLE_INTERVAL
      * @public
      */
     roundPolarForm() {
