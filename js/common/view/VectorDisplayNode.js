@@ -46,7 +46,7 @@ define( require => {
       const xText = new RichText( 'S<sub>x</sub>' );
       const yText = new RichText( 'S<sub>y</sub>' );
       const magnitudeDisplay = new NumberDisplay( vector.magnitudeProperty, new Range( 0, 100 ), { decimalPlaces: 1 } );
-      const angleDisplay = new NumberDisplay( vector.angleProperty, new Range( -180, 180 ), { decimalPlaces: 1 } );
+      const angleDisplay = new NumberDisplay( vector.angleDegreesProperty, new Range( -180, 180 ), { decimalPlaces: 1 } );
       const xDisplay = new NumberDisplay( vector.xProperty, new Range( -60, 60 ), { decimalPlaces: 0 } );
       const yDisplay = new NumberDisplay( vector.yProperty, new Range( 40, 40 ), { decimalPlaces: 0 } );
 

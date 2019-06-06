@@ -130,7 +130,7 @@ define( require => {
 
           const angleText = new RichText( 'Θ' );
           const angleDisplay = new NumberDisplay(
-            vector.angleProperty,
+            vector.angleDegreesProperty,
             new Range( -180, 180 ),
             { decimalPlaces: 1 }
           );

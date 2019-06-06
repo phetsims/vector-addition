@@ -62,7 +62,6 @@ define( require => {
       // @public {BooleanProperty} - indicates whether the body is being dragged by the user
       this.isBodyDraggingProperty = new BooleanProperty( false );
 
-
       // @public {DerivedProperty.<number>} - the magnitude of the vector
       this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         attributesVector => ( attributesVector.getMagnitude() )
@@ -70,7 +69,7 @@ define( require => {
 
       // @public {DerivedProperty.<number>} - the angle (in degrees) of the vector
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
-      this.angleProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+      this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
       );
 
@@ -117,7 +116,7 @@ define( require => {
      */
     roundPolarForm() {
       const roundedMagnitude = Util.roundSymmetric( this.magnitudeProperty.value );
-      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( this.angleProperty.value / ANGLE_INTERVAL );
+      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( this.angleDegreesProperty.value / ANGLE_INTERVAL );
       this.attributesVectorProperty.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
     }
   }

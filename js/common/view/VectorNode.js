@@ -49,7 +49,7 @@ define( require => {
      * @param {Bounds2} gridModelBounds - the bounds to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
-     * @param {Property.<ModelViewTransform2>} - property for the coordinate transform
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
      */
     constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, modelViewTransformProperty ) {
@@ -57,7 +57,7 @@ define( require => {
       const initialModelViewTransform = modelViewTransformProperty.value;
 
       // Define a vector node in which the tail location is (0, 0)
-      // Get the tip position in view cooridnates
+      // Get the tip position in view coordinates
       const tipPosition = initialModelViewTransform.modelToViewDelta( vector.attributesVectorProperty.value );
 
       // Create an arrow node that represents an actual vector.
@@ -91,7 +91,7 @@ define( require => {
       // This will stay constant as the actual graph location in terms of the view will not change.
       const gridViewBounds = initialModelViewTransform.modelToViewBounds( gridModelBounds );
 
-      // Create a property of the grid model bounds that constrants the vector drag.
+      // Create a property of the grid model bounds that constrain the vector drag.
       // This is changed when the vector's magnitude is changed and is set so that you can
       // drag half of the vector out of the graph.
       const vectorDragBoundsProperty = new Property( gridModelBounds );
@@ -99,9 +99,8 @@ define( require => {
       // Create a property of the vectors position. This is needed update the dragBoundsProperty
       // when the vector's tail position is being updated (on the drag) and to ensure the vector stays on the graph
       const tailArrowPositionProperty = new Vector2Property( vector.tailPositionProperty.value );
-      
 
-      // Create a property of the grid model bounds that constrants the vector's TIP drag.
+      // Create a property of the grid model bounds that constrain the vector's TIP drag.
       // This is changed when the vector's tail position is changed.
       const tipDragBoundsProperty = new Property( gridModelBounds );
 
@@ -146,11 +145,6 @@ define( require => {
             -tailArrowPosition.y + gridModelBounds.maxY ) ).shifted( -gridViewBounds.minX, -gridViewBounds.minY );
       } );
 
-      arrowNode.addInputListener( this.bodyDragListener );
-      tipCircle.addInputListener( tipDragListener );
-
-
-
       tipArrowPositionProperty.link( tipArrowPosition => {
 
         vector.attributesVectorProperty.value = initialModelViewTransform.viewToModelDelta( tipArrowPosition ).roundedSymmetric();
@@ -158,12 +152,17 @@ define( require => {
         arrowNode.setTip( snapToGridPosition.x, snapToGridPosition.y );
         tipCircle.center = snapToGridPosition;
         if ( !snapToGridPosition.equals( Vector2.ZERO ) ) {
-          labelNode.center = snapToGridPosition.dividedScalar( 2 ).plus( snapToGridPosition.perpendicular.normalized().times( vector.angleProperty.value > 0 ? 20 : -20 ) );
+          labelNode.center = snapToGridPosition.dividedScalar( 2 ).plus( snapToGridPosition.perpendicular.normalized().times( vector.angleDegreesProperty.value > 0 ? 20 : -20 ) );
         }
 
         vectorDragBoundsProperty.set( gridModelBounds.shifted( -vector.attributesVectorProperty.value.x / 2, -vector.attributesVectorProperty.value.y / 2 ) );
       } );
-   
+
+
+      arrowNode.addInputListener( this.bodyDragListener );
+      tipCircle.addInputListener( tipDragListener );
+
+
     }
   
 

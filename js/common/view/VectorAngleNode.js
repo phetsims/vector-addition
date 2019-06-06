@@ -4,7 +4,7 @@
  * View for the angle underneath/above the vector.
  * Constructed based on many individually passed parameters about the vector node.
  * Listens to the common models angleVisibleProperty to determine when to display the angle node.
- * Listens to a model vector's angleProperty to get the angle.
+ * Listens to a model vector's angleDegreesProperty to get the angle.
  *
  * @author Brandon Li
  */
@@ -47,7 +47,7 @@ define( require => {
       } );
 
       // create the arc arrow
-      const arcArrow = new ArcArrowNode( vector.angleProperty.value, ARC_RADIUS, ARC_ARROW_OPTIONS );
+      const arcArrow = new ArcArrowNode( vector.angleDegreesProperty.value, ARC_RADIUS, ARC_ARROW_OPTIONS );
 
       const labelText = new Text( '', {
         font: new PhetFont({ size: 14, family: 'Times' })
@@ -100,7 +100,7 @@ define( require => {
       };
 
       // update the arcArrow and the label based on the angle of the vector
-      vector.angleProperty.link( ( angle ) => {
+      vector.angleDegreesProperty.link( ( angle ) => {
 
         // update the angle of the arc
         arcArrow.setAngle( angle );
