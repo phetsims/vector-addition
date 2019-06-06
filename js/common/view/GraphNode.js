@@ -14,7 +14,6 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -291,11 +290,6 @@ define( require => {
           commonModel.upperLeftLocationProperty.initialValue.minus( modelViewTransform.viewToModelPosition( originLocation ) )
         );
 
-        // TODO: set the modelViewTransformProperty in the model and hoist constant to vectorAdditionConstants
-        modelViewTransformProperty.set(
-          ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-            commonModel.upperLeftLocationProperty.value, new Vector2( 29, 90 ), 12.5 )
-        );
       } );
     }
   }

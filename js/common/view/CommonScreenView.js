@@ -8,8 +8,6 @@ define( require => {
 
   // modules
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  const Property = require( 'AXON/Property' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -28,15 +26,7 @@ define( require => {
 
       super();
 
-      const modelViewTransform = new ModelViewTransform2.createRectangleInvertedYMapping(
-        commonModel.gridModelBounds,
-        gridViewBounds );
-
-      // @public {Property.<ModelViewTransform2>} the modelViewTransform property
-      this.modelViewTransformProperty = new Property( modelViewTransform );
-
-
-      const graphNode = new GraphNode( commonModel, this.modelViewTransformProperty );
+      const graphNode = new GraphNode( commonModel, commonModel.modelViewTransformProperty );
 
       this.addChild( graphNode );
 
