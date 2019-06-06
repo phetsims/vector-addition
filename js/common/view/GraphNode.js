@@ -117,7 +117,7 @@ define( require => {
           new GridLinesNode( commonModel, modelViewTransformProperty ),
           xAxisNode,
           yAxisNode,
-          new OriginCircle( commonModel, modelViewTransform, modelViewTransformProperty )
+          new OriginCircle( commonModel, modelViewTransform )
         ]
       } );
 
@@ -258,9 +258,8 @@ define( require => {
      * @param {ModelViewTransform2} modelViewTransform - the initial coordinate transform between model coordinates and
      * view coordinates. Only needed once since the origin is always at (0, 0).
      *
-     * TODO: set the modelViewTransformProperty in the model and remove the 3rd argument
      */
-    constructor( commonModel, modelViewTransform, modelViewTransformProperty ) {
+    constructor( commonModel, modelViewTransform ) {
 
       // convenience variable at the origin in terms of the view
       const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
@@ -283,11 +282,12 @@ define( require => {
       } ) );
 
 
+      // TODO: wire a reset on originLocationProperty
       originLocationProperty.link( ( originLocation ) => {
 
         // Update the upperLeftLocation model coordinates
-        commonModel.upperLeftLocationProperty.set(
-          commonModel.upperLeftLocationProperty.initialValue.minus( modelViewTransform.viewToModelPosition( originLocation ) )
+        commonModel.upperLeftPositionProperty.set(
+          commonModel.upperLeftPositionProperty.initialValue.minus( modelViewTransform.viewToModelPosition( originLocation ) )
         );
 
       } );
