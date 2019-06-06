@@ -51,7 +51,8 @@ define( require => {
   // origin circle
   const ORIGIN_CIRCLE_OPTIONS = {
     stroke: 'black',
-    fill: 'yellow'
+    fill: 'yellow',
+    cursor: 'move'
   };
   // in model coordinates
   const DRAG_PADDING_CONSTRAINT = 5;
@@ -121,6 +122,10 @@ define( require => {
           new OriginCircle( commonModel, modelViewTransform, modelViewTransformProperty )
         ]
       } );
+
+      // TODO: remove this as the 1d screen is creating 2 scenes and should toggle
+      // visibility of each scene by itself
+      // Everything else (2d, lab, etc.) will have everything visible
 
       // toggle visibility based on different vector orientations
       commonModel.vectorOrientationProperty.link( ( vectorOrientation ) => {
@@ -262,7 +267,7 @@ define( require => {
       // convenience variable at the origin in terms of the view
       const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
-      super( 7, _.extend( { center: origin, cursor: 'move' }, ORIGIN_CIRCLE_OPTIONS ) );
+      super( 7, _.extend( { center: origin }, ORIGIN_CIRCLE_OPTIONS ) );
 
 
       // Create a dragBounds to constrain the drag
