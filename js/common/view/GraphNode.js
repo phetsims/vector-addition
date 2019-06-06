@@ -274,7 +274,7 @@ define( require => {
 
       this.addInputListener( new DragListener( {
         locationProperty: originLocationProperty,
-        translateNode: true,
+        translateNode: false,
         dragBoundsProperty: new Property( restrictedGridViewBounds )
       } ) );
 
@@ -282,10 +282,16 @@ define( require => {
       // TODO: wire a reset on originLocationProperty
       originLocationProperty.link( ( originLocation ) => {
 
+        // TODO: abstract snap to grid logic in the model
+        const originSnapLocation = modelViewTransform.viewToModelPosition( originLocation ).roundedSymmetric();
+
+
         // Update the upperLeftLocation model coordinates
         commonModel.upperLeftPositionProperty.set(
-          commonModel.upperLeftPositionProperty.initialValue.minus( modelViewTransform.viewToModelPosition( originLocation ) )
+          commonModel.upperLeftPositionProperty.initialValue.minus( originSnapLocation )
         );
+
+        this.center = modelViewTransform.modelToViewPosition( originSnapLocation );
 
       } );
     }
