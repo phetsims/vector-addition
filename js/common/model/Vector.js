@@ -47,13 +47,21 @@ define( require => {
       // @public {Vector2Property} - The actual vector
       this.attributesVectorProperty = new Vector2Property( new Vector2( x, y ) );
 
-      // @public {Vector2Property} - the tip position of the vector
+      // @public {DerivedProperty.<Vector2>} - the tip position of the vector
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
         ( tailPosition, vector ) => tailPosition.plus( vector )
       );
-      // @public {DerivedProperty.<Boolean>}
+
+      // @public {DerivedProperty.<boolean>}
       // Flag that indicates if the model element is in the play area
       this.isInPlayAreaProperty = new BooleanProperty( false );
+
+      // @public {BooleanProperty} - indicates whether the tip being dragged by the user
+      this.isTipDraggingProperty = new BooleanProperty( false );
+
+      // @public {BooleanProperty} - indicates whether the body is being dragged by the user
+      this.isBodyDraggingProperty = new BooleanProperty( false );
+
 
       // @public {DerivedProperty.<number>} - the magnitude of the vector
       this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
@@ -75,18 +83,13 @@ define( require => {
       this.yProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         attributesVector => ( attributesVector.y )
       );
-     // @public {BooleanProperty} - indicates whether the tip being dragged by the user
-      this.isTipDraggingProperty = new BooleanProperty( false );
-
-      // @public {BooleanProperty} - indicates whether the body is being dragged by the user
-      this.isBodyDraggingProperty = new BooleanProperty( false );
 
       // @public {DerivedProperty.<boolean>} - is any part of the vector being dragged
       this.isDraggingProperty = new DerivedProperty( [ this.isBodyDraggingProperty, this.isTipDraggingProperty ],
         ( isBodyDragging, isTipDragging ) => ( isBodyDragging || isTipDragging )
       );
 
-      //
+      // update the position of the tail of the vector
       modelViewTransformProperty.lazyLink( ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
         this.tailPositionProperty.set( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
@@ -102,7 +105,7 @@ define( require => {
       this.isInPlayAreaProperty.reset();
     }
 
-    //@public
+    // @public
     roundCartesianForm() {
       this.attributesVectorProperty.set( this.attributesVectorProperty.value.roundSymmetric() );
     }
@@ -117,7 +120,6 @@ define( require => {
       const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( this.angleProperty.value / ANGLE_INTERVAL );
       this.attributesVectorProperty.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
     }
-
   }
 
   return vectorAddition.register( 'Vector', Vector );
