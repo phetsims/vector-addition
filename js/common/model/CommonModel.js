@@ -32,10 +32,10 @@ define( require => {
 
     /**
      * @param {Dimension2} gridDimension - the dimensions for the graph
-     * @param {Vector2} upperLeftLocation - the location of the upperLeft corner
+     * @param {Vector2} upperLeftCoordinate - the location of the upperLeft corner of the graph
      * @param {Tandem} tandem
      */
-    constructor( gridDimension, upperLeftLocation, tandem ) {
+    constructor( gridDimension, upperLeftCoordinate, tandem ) {
 
       // @public {BooleanProperty}
       this.sumVisibleProperty = new BooleanProperty( false );
@@ -56,25 +56,25 @@ define( require => {
       this.angleVisibleProperty = new BooleanProperty( false );
 
       // @public {VectorProperty} - the location the top left corner of the grid
-      this.upperLeftPositionProperty = new Vector2Property( upperLeftLocation );
+      this.upperLeftPositionProperty = new Vector2Property( upperLeftCoordinate );
 
       this.gridModelBounds;
 
-      this.upperLeftPositionProperty.link( ( upperLeftLocation ) => {
+      this.upperLeftPositionProperty.link( ( upperLeftCoordinate ) => {
+
         // @public {Bounds2} - the model bounds for the grid
         this.gridModelBounds = new Bounds2(
-          upperLeftLocation.x,
-          upperLeftLocation.y - gridDimension.height,
-          upperLeftLocation.x + gridDimension.width,
-          upperLeftLocation.y );
+          upperLeftCoordinate.x,
+          upperLeftCoordinate.y - gridDimension.height,
+          upperLeftCoordinate.x + gridDimension.width,
+          upperLeftCoordinate.y );
 
       } );
 
-
       // @public {Property.<ModelViewTransform2>} - the model-view transform of the simulation
-      this.modelViewTransformProperty = new DerivedProperty( [ this.upperLeftPositionProperty ], ( upperLeftLocation ) =>
+      this.modelViewTransformProperty = new DerivedProperty( [ this.upperLeftPositionProperty ], ( upperLeftCoordinate ) =>
         ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-          upperLeftLocation, UPPER_LEFT_LOCATION, MODEL_VIEW_SCALE )
+          upperLeftCoordinate, UPPER_LEFT_LOCATION, MODEL_VIEW_SCALE )
       );
 
       // @public {ObservableArray.<Vector>}
@@ -93,7 +93,6 @@ define( require => {
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
-
       this.upperLeftPositionProperty.reset();
     }
   }

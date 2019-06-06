@@ -23,9 +23,9 @@ define( require => {
     constructor( tandem ) {
 
       const gridDimension = new Dimension2( 60, 40 );
-      const upperLeftLocation = new Vector2( -30, 20 );
+      const upperLeftCoordinate = new Vector2( -30, 20 );
 
-      super( gridDimension, upperLeftLocation, tandem );
+      super( gridDimension, upperLeftCoordinate, tandem );
 
       // the angle visibility should be set to false for Explore1D
       this.angleVisibleProperty.link( ( visible ) => {
