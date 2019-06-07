@@ -355,27 +355,31 @@ define( require => {
 
       this.setChildren( [ this.axisArrow, this.axisLabel, axisTicksPath, this.originText ] );
     }
-    /** 
+
+    /**
      * Updates the location of the arrow
      * @abstract
      * @param {Bounds2} gridViewBounds - the bounds of the grid in view coordinates
      * @param {Vector2} gridViewOrigin - the origin location in view coordinates
      */
     updateAxisArrow( gridViewBounds, gridViewOrigin ) {}
-    /** 
+
+    /**
      * Updates the location of the labels (origin label and axis label)
      * @abstract
      * @param {Vector2} gridViewOrigin - the origin location in view coordinates
      */
     updateAxisLabels( gridViewOrigin ) {}
-    /** 
+
+    /**
      * Gets a new shape for the updated axis ticks
      * @abstract
      * @param {Bounds2} gridModelBounds - the bounds of the grid in model coordinates
      * @param {ModelViewTransform2} - the new modelViewTransform
-     * @return {Shape} the new axis ticks shape in View coordinates
+     * @returns {Shape} the new axis ticks shape in View coordinates
      */
     getUpdatedTicksShape( gridModelBounds, modelViewTransform ) {}
+
     /**
      * Set the visibility of the origin label
      * @param {boolean} visible
@@ -396,7 +400,8 @@ define( require => {
     constructor( commonModel ) {
       super( commonModel, xString );
     }
-    /** 
+
+    /**
      * Updates the location of the arrow
      * @abstract
      * @param {Bounds2} gridViewBounds - the bounds of the grid in view coordinates
@@ -410,7 +415,8 @@ define( require => {
         gridViewOrigin.y
       );
     }
-    /** 
+
+    /**
      * Updates the location of the labels (origin label and axis label)
      * @abstract
      * @param {Vector2} gridViewOrigin - the origin location in view coordinates
@@ -424,12 +430,13 @@ define( require => {
       this.originText.centerX = gridViewOrigin.x;
       this.originText.top = gridViewOrigin.y + 20;
     }
-    /** 
+
+    /**
      * Gets a new shape for the updated axis ticks
      * @abstract
      * @param {Bounds2} gridModelBounds - the bounds of the grid in model coordinates
-     * @param {ModelViewTransform2} - the new modelViewTransform
-     * @return {Shape} the new axis ticks shape in View coordinates
+     * @param {ModelViewTransform2} modelViewTransform - the new modelViewTransform
+     * @returns {Shape} the new axis ticks shape in View coordinates
      */
     getUpdatedTicksShape( gridModelBounds, modelViewTransform ) {
       // create ticks along the axis
@@ -466,7 +473,8 @@ define( require => {
     constructor( commonModel ) {
       super( commonModel, yString );
     }
-    /** 
+
+    /**
      * Updates the location of the arrow
      * @abstract
      * @param {Bounds2} gridViewBounds - the bounds of the grid in view coordinates
@@ -480,7 +488,8 @@ define( require => {
         gridViewBounds.maxY + LINE_EXTENT_Y
       );
     }
-    /** 
+
+    /**
      * Updates the location of the labels (origin label and axis label)
      * @abstract
      * @param {Vector2} gridViewOrigin - the origin location in view coordinates
@@ -494,12 +503,13 @@ define( require => {
       this.originText.centerY = gridViewOrigin.y;
       this.originText.right = gridViewOrigin.x - 20;
     }
-    /** 
+
+    /**
      * Gets a new shape for the updated axis ticks
      * @abstract
      * @param {Bounds2} gridModelBounds - the bounds of the grid in model coordinates
-     * @param {ModelViewTransform2} - the new modelViewTransform
-     * @return {Shape} the new axis ticks shape in View coordinates
+     * @param {ModelViewTransform2} modelViewTransform - the new modelViewTransform
+     * @returns {Shape} the new axis ticks shape in View coordinates
      */
     getUpdatedTicksShape( gridModelBounds, modelViewTransform ) {
       // create ticks along the axis
