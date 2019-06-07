@@ -20,14 +20,15 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray} - the observable array to add the vector's to.
-     * @param {Property.<ModelViewTransform2>} - the property of the model - view coordinate transformation
+     * @param {ObservableArray.<vector>} vectorArray - the observable array to add the vector's to.
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
     constructor( vectorArray, modelViewTransformProperty ) {
       super( vectorArray, 3, modelViewTransformProperty, {
         labels: [ 'a', 'b', 'c' ]
-      });
+      } );
     }
+
     /**
      * @abstract
      * Create an arrow node that is the vector icon
@@ -38,6 +39,7 @@ define( require => {
     createVectorIcon( slotNumber ) {
       return new ArrowNode( 0, 0, 30, 0 );
     }
+
     /**
      * @abstract
      * Create an arrow node that is the arrow node when dragging onto the screen (vector representation arrow)
@@ -47,6 +49,7 @@ define( require => {
     createVectorRepresentationArrow() {
       return new ArrowNode( 0, 0, 12.5 * 5, 0 );
     }
+
     /**
      * @abstract
      * Get the default vector components for when the vector is released onto the graph (model coordinates)
@@ -54,7 +57,7 @@ define( require => {
      * @public
      */
     getDefaultVectorComponents() {
-      return new Vector2( 0, 5 );
+      return new Vector2( 5, 0 );
     }
 
   }
