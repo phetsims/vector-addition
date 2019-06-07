@@ -18,6 +18,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
+  const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
 
   // constants
@@ -78,6 +79,8 @@ define( require => {
 
       // @public {ObservableArray.<Vector>}
       this.vectors = new ObservableArray();
+
+      this.vectorSum = new VectorSum( this.vectors, this.modelViewTransformProperty );
     }
 
     // @public resets the model
