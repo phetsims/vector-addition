@@ -80,7 +80,6 @@ define( require => {
       displayVectorNode.left = inspectVectorText.left;
       displayVectorNode.centerY = DISPLAY_VECTOR_NODE_CENTER_Y;
 
-
       // set the children of the content node to be passed to the super class
       contentNode.setChildren( [
         expandCollapseButton,

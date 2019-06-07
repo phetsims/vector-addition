@@ -58,7 +58,7 @@ define( require => {
       this.setChildren( [ onAxisLinesPath, XComponentArrow, YComponentArrow ] );
 
       // create a function that updates the style of the components and their locations
-      const updateComponents = ( componentStyle, modelVector, modelTailPosition, modelViewTransform ) => {
+      const updateComponents = ( componentStyle, attributesVector, tailPosition, modelViewTransform ) => {
 
         if ( componentStyle === ComponentStyles.INVISIBLE ) {
           // make the components invisible
@@ -71,26 +71,26 @@ define( require => {
           // make the on axis dashed lines visible
           onAxisLinesPath.visible = true;
 
-          const viewTailPosition = modelViewTransform.modelToViewDelta( modelTailPosition );
+          const tailLocation = modelViewTransform.modelToViewDelta( tailPosition );
 
-          const viewVector = modelViewTransform.modelToViewDelta( modelVector );
+          const viewVector = modelViewTransform.modelToViewDelta( attributesVector );
           // create new shape for the dashed lines that extend to the axis
           const onAxisLines = new Shape();
 
           // create the dashed lines shape
           // draw the first 2 lines to create the subbox of the tail of the vector
-          onAxisLines.moveTo( -viewTailPosition.x, 0 ).horizontalLineTo( 0 )
-            .verticalLineTo( -viewTailPosition.y );
+          onAxisLines.moveTo( -tailLocation.x, 0 ).horizontalLineTo( 0 )
+            .verticalLineTo( -tailLocation.y );
 
           // draw the next 2 lines to create the subbox of the tip of the vector
-          onAxisLines.moveTo( -viewTailPosition.x, viewVector.y ).horizontalLineTo( viewVector.x )
-            .verticalLineTo( -viewTailPosition.y );
+          onAxisLines.moveTo( -tailLocation.x, viewVector.y ).horizontalLineTo( viewVector.x )
+            .verticalLineTo( -tailLocation.y );
 
           // set the shape of the path to update the view
           onAxisLinesPath.setShape( onAxisLines );
         }
 
-        // make the componnets visible
+        // make the components visible
         this.visible = true;
 
         // get the coordinates for each components
@@ -98,10 +98,10 @@ define( require => {
         const yComponentCoordinates = vector.getYComponentCoordinates( componentStyle );
 
         // transform the coordinates into view and defining the tip of the node as (0, 0)
-        const xComponentTail = modelViewTransform.modelToViewDelta( xComponentCoordinates.tail.minus( modelTailPosition ) );
-        const xComponentTip = modelViewTransform.modelToViewDelta( xComponentCoordinates.tip.minus( modelTailPosition ) );
-        const yComponentTail = modelViewTransform.modelToViewDelta( yComponentCoordinates.tail.minus( modelTailPosition ) );
-        const yComponentTip = modelViewTransform.modelToViewDelta( yComponentCoordinates.tip.minus( modelTailPosition ) );
+        const xComponentTail = modelViewTransform.modelToViewDelta( xComponentCoordinates.tail.minus( tailPosition ) );
+        const xComponentTip = modelViewTransform.modelToViewDelta( xComponentCoordinates.tip.minus( tailPosition ) );
+        const yComponentTail = modelViewTransform.modelToViewDelta( yComponentCoordinates.tail.minus( tailPosition ) );
+        const yComponentTip = modelViewTransform.modelToViewDelta( yComponentCoordinates.tip.minus( tailPosition ) );
 
         // update the component arrows
         XComponentArrow.setTailAndTip( xComponentTail.x, xComponentTail.y, xComponentTip.x, xComponentTip.y );
