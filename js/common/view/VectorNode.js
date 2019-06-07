@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Factory for creating vectors that appear in this sim.
+ * Factory for creating scenery node of vectors that appear in this sim.
  *
  * @author Martin Veillette
  */
@@ -14,9 +14,6 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Node = require( 'SCENERY/nodes/Node' );
-  //const Property = require( 'AXON/Property' );
-  //const Shape = require( 'KITE/Shape' );
-  //const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
@@ -58,7 +55,7 @@ define( require => {
       const initialModelViewTransform = modelViewTransformProperty.value;
 
       // Define a vector node in which the tail location is (0, 0)
-      // Get the tip position in view coordinates
+      // Get the tip location  in view coordinates
       const tipPosition = initialModelViewTransform.modelToViewDelta( vector.attributesVectorProperty.value );
 
       // Create an arrow node that represents an actual vector.
@@ -88,35 +85,23 @@ define( require => {
         ]
       } );
 
+      // @private {ModelViewTransformProperty}
       this.modelViewTransformProperty = modelViewTransformProperty;
+
+      //@private {Vector}
       this.vector = vector;
 
-      // Transform the model grid bounds into the view coordinates.
-      // This will stay constant as the actual graph location in terms of the view will not change.
-      // const gridViewBounds = initialModelViewTransform.modelToViewBounds( gridModelBounds );
+      // Create a property for the location of the tail of the vector.
+      const tailLocationProperty = new Vector2Property(
+        modelViewTransformProperty.value.modelToViewPosition( vector.tailPositionProperty.value ) );
 
-      // Create a property of the grid model bounds that constrain the vector drag.
-      // This is changed when the vector's magnitude is changed and is set so that you can
-      // drag half of the vector out of the graph.
-      //  const tailDragBoundsProperty = new Property( gridViewBounds );
 
-      // Create a property of the vectors position. This is needed update the dragBoundsProperty
-      // when the vector's tail position is being updated (on the drag) and to ensure the vector stays on the graph
-      const tailLocationProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewPosition(
-        vector.tailPositionProperty.value ) );
-
-      // Create a property of the grid model bounds that constrain the vector's TIP drag.
-      // This is changed when the vector's tail position is changed.
-      //  const tipDragBoundsProperty = new Property( gridViewBounds );
-
-      // Create a property of the tip's Position. 
+      // Create a property of the location of the tip of the vector. The location of the tip is measured with respect to the tail.
       const tipLocationProperty = new Vector2Property( tipPosition );
-
 
       // @private {DragListener} - for forwarding drag events
       this.bodyDragListener = new DragListener( {
         targetNode: this,
-        // dragBoundsProperty: tailDragBoundsProperty,
         translateNode: false,
         locationProperty: tailLocationProperty,
         start: () => vector.isBodyDraggingProperty.set( true ),
@@ -127,7 +112,6 @@ define( require => {
       const tipDragListener = new DragListener( {
         targetNode: tipCircle,
         translateNode: false,
-        // dragBoundsProperty: tipDragBoundsProperty,
         locationProperty: tipLocationProperty,
         start: () => vector.isTipDraggingProperty.set( true ),
         end: () => vector.isTipDraggingProperty.set( false )
@@ -140,6 +124,7 @@ define( require => {
       tipLocationProperty.link( tipLocation => {
 
         const snapToGridLocation = this.getTipSnapToGrid( tipLocation );
+
         arrowNode.setTip( snapToGridLocation.x, snapToGridLocation.y );
         tipCircle.center = snapToGridLocation;
       } );
@@ -150,6 +135,12 @@ define( require => {
     }
 
 
+    /**
+     * update the model vector to have integer components and return the location associated with the tip
+     * (relative to the tail)
+     * @param {Vector2} tipLocation
+     * @returns {Vector2}
+     */
     getTipSnapToGrid( tipLocation ) {
       const mvt = this.modelViewTransformProperty.value;
       const tipCoordinates = mvt.viewToModelDelta( tipLocation );
@@ -158,6 +149,11 @@ define( require => {
       return roundedTipLocation;
     }
 
+    /**
+     * update the model vector to have integer components and return the location associated with the tail
+     * @param {Vector2} tailLocation
+     * @returns {Vector2}
+     */
     getTailSnapToGrid( tailLocation ) {
       const mvt = this.modelViewTransformProperty.value;
       const tailCoordinates = mvt.viewToModelPosition( tailLocation );
