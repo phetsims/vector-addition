@@ -34,10 +34,10 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray} - the observable array to add the vector's to.
-     * @param {number} numberOfVectorSlots - the number of slots to bring vectos onto the screen
-     * @param {Property.<ModelViewTransform2>} - the property of the model - view coordinate transformation
-     * @param {object} options - the optional arguments for the vector panel
+     * @param {ObservableArray.<Vector>>} vectorArray - the observable array to add the vector's to.
+     * @param {number} numberOfVectorSlots - the number of slots to bring vectors onto the screen
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
+     * @param {Object} [options] - the optional arguments for the vector panel
      */
     constructor( vectorArray, numberOfVectorSlots, modelViewTransformProperty, options ) {
 
@@ -46,14 +46,14 @@ define( require => {
         // Example: labels: ['a', 'b'] would mean that every vector pulled from the first slot would have the 'a' label
         // and every vector pulled from the second slot would have the 'b' label. This length of the array much match
         // the number of vector slots. If labels is null than it doesn't give any vector a label.
-        
+
         observableArrays: null, // {array.<ObservableArray>} - if provided, this will override the vectorArray (1st arugment)
         // This is used when there are multiple observable arrays needed. Example: observableArrays of 2 would mean that
         // every vector pulled from the first slot would be added to the first observableArray in observableArrays.
         // This must be the same length as numberOfVectorSlots if provided
-        
+
         isVectorSlotInfinite: false, // {boolean} - if true, the vector slot will re-add a vector to the slot when removed.
-        
+
         panelOptions: null // below are the defaults
       }, options );
 
@@ -78,18 +78,18 @@ define( require => {
 
 
         vectorIcons.push( vectorIconNode );
-        
+
         // When the vector icon is clicked, add a vector reprentation as a decoy vector to drag onto the screen
         vectorIconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
-          
+
           // create the decoy vector representation for when the user is dragging the vector onto the screen
           const vectorRepresentationArrow = this.createVectorRepresentationArrow();
 
           // create a location property to track the location of where the user dragged the vector representation
           const vectorRepresentationlocationProperty = new Vector2Property( this.globalToParentPoint( event.pointer.point ) );
-          
+
           // create a drag listener for the vector representation node
-          const vectorRepresentationDragListener = new DragListener({
+          const vectorRepresentationDragListener = new DragListener( {
             targetNode: vectorRepresentationArrow,
             translateNode: true,
             locationProperty: vectorRepresentationlocationProperty,
@@ -101,8 +101,8 @@ define( require => {
               vectorRepresentationArrow.dispose();
 
               // get the drag location
-              const vectorRepresentationPosition = modelViewTransformProperty.value.viewToModelPosition( 
-                vectorRepresentationlocationProperty.value 
+              const vectorRepresentationPosition = modelViewTransformProperty.value.viewToModelPosition(
+                vectorRepresentationlocationProperty.value
               );
 
               // get the default vector components to add to the screen, see getDefaultVectorComponents for documentation
@@ -112,29 +112,29 @@ define( require => {
               if ( options.observableArrays ) {
 
                 options.observableArrays.get( slotNumber ).push(
-                  new Vector( 
+                  new Vector(
                     vectorRepresentationPosition,
                     defaultVectorComponents.x,
                     defaultVectorComponents.y,
                     modelViewTransformProperty, {
-                      label: options.labels ? options.labels[ slotNumber ]: null
+                      label: options.labels ? options.labels[ slotNumber ] : null
                     }
                   )
                 );
                 return;
               }
               vectorArray.push(
-                new Vector( 
+                new Vector(
                   vectorRepresentationPosition,
                   defaultVectorComponents.x,
                   defaultVectorComponents.y,
                   modelViewTransformProperty, {
-                    label: options.labels ? options.labels[ slotNumber ]: null
+                    label: options.labels ? options.labels[ slotNumber ] : null
                   }
                 )
               );
-            } 
-          });
+            }
+          } );
 
           vectorRepresentationContainer.addChild( vectorRepresentationArrow );
           vectorRepresentationArrow.addInputListener( vectorRepresentationDragListener );
@@ -159,8 +159,9 @@ define( require => {
       panel.right = 950;
       panel.top = 300;
 
-      this.setChildren([ panel, vectorRepresentationContainer ] );
+      this.setChildren( [ panel, vectorRepresentationContainer ] );
     }
+
     /**
      * @abstract
      * Create an arrow node that is the vector icon
@@ -168,21 +169,29 @@ define( require => {
      * @returns {ArrowNode}
      * @public
      */
-    createVectorIcon( slotNumber ) {}
+    createVectorIcon( slotNumber ) {
+      throw new Error( 'createVectorIcon should be implemented in the descendant class' );
+    }
+
     /**
      * @abstract
      * Create an arrow node that is the arrow node when dragging onto the screen (vector representation arrow)
      * @returns {ArrowNode}
      * @public
      */
-    createVectorRepresentationArrow() {}
+    createVectorRepresentationArrow() {
+      throw new Error( 'createVectorRepresentationArrow should be implemented in the descendant class' );
+    }
+
     /**
      * @abstract
      * Get the default vector components for when the vector is released onto the graph (model coordinates)
      * @returns {Vector2}
      * @public
      */
-    getDefaultVectorComponents() {}
+    getDefaultVectorComponents() {
+      throw new Error( 'getDefaultVectorComponents should be implemented in the descendant class' );
+    }
 
   }
 

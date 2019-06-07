@@ -38,7 +38,6 @@ define( require => {
         // calculate the sum when the vector is added
         this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( addedVector.attributesVectorProperty.value ) );
 
-
         // calculate the sum when the vector is changed
         addedVector.attributesVectorProperty.lazyLink( updateSum );
       } );
