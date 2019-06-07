@@ -18,8 +18,8 @@ define( require => {
   const Range = require( 'DOT/Range' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
 
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const Explore1DVectorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorPanel' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
 
 

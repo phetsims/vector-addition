@@ -16,10 +16,10 @@ define( require => {
   const ArcArrowNode = require( 'VECTOR_ADDITION/common/view/ArcArrowNode' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const Util = require( 'DOT/Util' );
-  const Text = require( 'SCENERY/nodes/Text' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
   const BASE_LINE_LENGTH = 55;

@@ -10,9 +10,9 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
 
   // constants
 

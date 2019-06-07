@@ -8,13 +8,13 @@ define( function( require ) {
 
   // modules
   const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
+  const Explore2DVectorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorPanel' );
   const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
   const HSlider = require( 'SUN/HSlider' );
   const Image = require( 'SCENERY/nodes/Image' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const Explore2DVectorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorPanel' );
 
   // images
   const mockupImage = require( 'image!VECTOR_ADDITION/explore2D_screenshot.png' );

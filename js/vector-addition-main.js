@@ -10,9 +10,9 @@ define( require => {
 
   // modules
   // const EquationScreen = require( 'VECTOR_ADDITION/equation/EquationScreen' );
+  // const LabScreen = require( 'VECTOR_ADDITION/lab/LabScreen' );
   const Explore1DScreen = require( 'VECTOR_ADDITION/explore1D/Explore1DScreen' );
   const Explore2DScreen = require( 'VECTOR_ADDITION/explore2D/Explore2DScreen' );
-  // const LabScreen = require( 'VECTOR_ADDITION/lab/LabScreen' );
   const Sim = require( 'JOIST/Sim' );
   const SimLauncher = require( 'JOIST/SimLauncher' );
   const Tandem = require( 'TANDEM/Tandem' );

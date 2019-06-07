@@ -8,8 +8,8 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const DerivedProperty = require( 'AXON/DerivedProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );

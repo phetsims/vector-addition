@@ -9,8 +9,8 @@ define( require => {
   'use strict';
 
   // modules
-  const Vector2 = require( 'DOT/Vector2' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   class VectorSum extends Vector {
