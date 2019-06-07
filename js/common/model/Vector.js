@@ -47,11 +47,6 @@ define( require => {
       // @public {Vector2Property} - The actual vector
       this.attributesVectorProperty = new Vector2Property( new Vector2( x, y ) );
 
-      // @public {DerivedProperty.<Vector2>} - the tip position of the vector
-      this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
-        ( tailPosition, vector ) => tailPosition.plus( vector )
-      );
-
       // @public {DerivedProperty.<boolean>}
       // Flag that indicates if the model element is in the play area
       this.isInPlayAreaProperty = new BooleanProperty( false );
@@ -61,6 +56,15 @@ define( require => {
 
       // @public {BooleanProperty} - indicates whether the body is being dragged by the user
       this.isBodyDraggingProperty = new BooleanProperty( false );
+
+      //--------------------------
+      // Derived Properties
+      //--------------------------
+
+      // @public {DerivedProperty.<Vector2>} - the tip position of the vector
+      this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
+        ( tailPosition, vector ) => tailPosition.plus( vector )
+      );
 
       // @public {DerivedProperty.<number>} - the magnitude of the vector
       this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
@@ -88,6 +92,8 @@ define( require => {
         ( isBodyDragging, isTipDragging ) => ( isBodyDragging || isTipDragging )
       );
 
+      //---------------------
+
       // update the position of the tail of the vector
       modelViewTransformProperty.lazyLink( ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
@@ -104,77 +110,14 @@ define( require => {
       this.isInPlayAreaProperty.reset();
     }
 
-    // @public
+    /**
+     * round vector to have integer values in cartesian form
+     * @public
+     */
     roundCartesianForm() {
       this.attributesVectorProperty.set( this.attributesVectorProperty.value.roundSymmetric() );
     }
 
-    /**
-     * Get the X component tail/tip position based on a componet style
-     * @param {Enumeration} componentStyle
-     * @public
-     */
-    getXComponentCoordinates( componentStyle ) {
-
-      // convenience variables for the tail and tip positions
-      const tailPosition = this.tailPositionProperty.value;
-      const tipPosition = this.tipPositionProperty.value;
-
-      switch( componentStyle ) {
-        case ComponentStyles.TRIANGLE: {
-          return { 
-            tail: tailPosition, 
-            tip: new Vector2( tipPosition.x, tailPosition.y ) 
-          };
-        }
-        case ComponentStyles.PARALLELOGRAM: {
-          return { 
-            tail: tailPosition, 
-            tip: new Vector2( tipPosition.x, tailPosition.y ) 
-          };
-        }
-        case ComponentStyles.ON_AXIS: {
-          return { 
-            tail: new Vector2( tailPosition.x, 0 ), 
-            tip: new Vector2( tipPosition.x, 0 )
-          };
-        }
-        default: {
-          throw new Error( 'invalid componentStyle: ' + componentStyle );
-        }
-      }
-    }
-
-    getYComponentCoordinates( componentStyle ) {
-
-      // convenience variables for the tail and tip positions
-      const tailPosition = this.tailPositionProperty.value;
-      const tipPosition = this.tipPositionProperty.value;
-
-      switch( componentStyle ) {
-        case ComponentStyles.TRIANGLE: {
-          return { 
-            tail: new Vector2( tipPosition.x, tailPosition.y ), 
-            tip: tipPosition
-          };
-        }
-        case ComponentStyles.PARALLELOGRAM: {
-          return { 
-            tail: tailPosition, 
-            tip: new Vector2( tailPosition.x, tipPosition.y ) 
-          };
-        }
-        case ComponentStyles.ON_AXIS: {
-          return { 
-            tail: new Vector2( 0, tailPosition.y ), 
-            tip: new Vector2( 0, tipPosition.y )
-          };
-        }
-        default: {
-          throw new Error( 'invalid componentStyle: ' + componentStyle );
-        }
-      }
-    }
 
     /**
      * round vector to have integer values in polar form, i.e.
@@ -186,6 +129,81 @@ define( require => {
       const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( this.angleDegreesProperty.value / ANGLE_INTERVAL );
       this.attributesVectorProperty.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
     }
+
+    /**
+     * Get the X component tail/tip position based on a component style
+     * @param {Enumeration} componentStyle
+     * @public
+     * @returns {{tail: Vector2},{tip: Vector2}}
+     */
+    getXComponentCoordinates( componentStyle ) {
+
+      // convenience variables for the tail and tip positions
+      const tailPosition = this.tailPositionProperty.value;
+      const tipPosition = this.tipPositionProperty.value;
+
+      switch( componentStyle ) {
+        case ComponentStyles.TRIANGLE: {
+          return {
+            tail: tailPosition,
+            tip: new Vector2( tipPosition.x, tailPosition.y )
+          };
+        }
+        case ComponentStyles.PARALLELOGRAM: {
+          return {
+            tail: tailPosition,
+            tip: new Vector2( tipPosition.x, tailPosition.y )
+          };
+        }
+        case ComponentStyles.ON_AXIS: {
+          return {
+            tail: new Vector2( tailPosition.x, 0 ),
+            tip: new Vector2( tipPosition.x, 0 )
+          };
+        }
+        default: {
+          throw new Error( 'invalid componentStyle: ' + componentStyle );
+        }
+      }
+    }
+
+    /**
+     * Get the X component tail/tip position based on a component style
+     * @param {Enumeration} componentStyle
+     * @public
+     * @returns {{tail: <Vector2>},{tip: <Vector2>}}
+     */
+    getYComponentCoordinates( componentStyle ) {
+
+      // convenience variables for the tail and tip positions
+      const tailPosition = this.tailPositionProperty.value;
+      const tipPosition = this.tipPositionProperty.value;
+
+      switch( componentStyle ) {
+        case ComponentStyles.TRIANGLE: {
+          return {
+            tail: new Vector2( tipPosition.x, tailPosition.y ),
+            tip: tipPosition
+          };
+        }
+        case ComponentStyles.PARALLELOGRAM: {
+          return {
+            tail: tailPosition,
+            tip: new Vector2( tailPosition.x, tipPosition.y )
+          };
+        }
+        case ComponentStyles.ON_AXIS: {
+          return {
+            tail: new Vector2( 0, tailPosition.y ),
+            tip: new Vector2( 0, tipPosition.y )
+          };
+        }
+        default: {
+          throw new Error( 'invalid componentStyle: ' + componentStyle );
+        }
+      }
+    }
+
   }
 
   return vectorAddition.register( 'Vector', Vector );
