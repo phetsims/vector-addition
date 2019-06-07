@@ -14,9 +14,9 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const Property = require( 'AXON/Property' );
-  const Shape = require( 'KITE/Shape' );
-  const Vector2 = require( 'DOT/Vector2' );
+  //const Property = require( 'AXON/Property' );
+  //const Shape = require( 'KITE/Shape' );
+  //const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
@@ -54,6 +54,7 @@ define( require => {
      */
     constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, modelViewTransformProperty ) {
 
+
       const initialModelViewTransform = modelViewTransformProperty.value;
 
       // Define a vector node in which the tail location is (0, 0)
@@ -77,7 +78,7 @@ define( require => {
       // Create the scenery node that represents the angle
       const vectorAngleNode = new VectorAngleNode( vector, angleVisibleProperty, initialModelViewTransform );
 
-      super({
+      super( {
         children: [
           vectorComponentsNode,
           arrowNode,
@@ -85,36 +86,39 @@ define( require => {
           vectorAngleNode,
           labelNode
         ]
-      });
+      } );
+
+      this.modelViewTransformProperty = modelViewTransformProperty;
+      this.vector = vector;
 
       // Transform the model grid bounds into the view coordinates.
       // This will stay constant as the actual graph location in terms of the view will not change.
-      const gridViewBounds = initialModelViewTransform.modelToViewBounds( gridModelBounds );
+      // const gridViewBounds = initialModelViewTransform.modelToViewBounds( gridModelBounds );
 
       // Create a property of the grid model bounds that constrain the vector drag.
       // This is changed when the vector's magnitude is changed and is set so that you can
       // drag half of the vector out of the graph.
-      const vectorDragBoundsProperty = new Property( gridModelBounds );
+      //  const tailDragBoundsProperty = new Property( gridViewBounds );
 
       // Create a property of the vectors position. This is needed update the dragBoundsProperty
       // when the vector's tail position is being updated (on the drag) and to ensure the vector stays on the graph
-      const tailArrowPositionProperty = new Vector2Property( vector.tailPositionProperty.value );
+      const tailLocationProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewPosition(
+        vector.tailPositionProperty.value ) );
 
       // Create a property of the grid model bounds that constrain the vector's TIP drag.
       // This is changed when the vector's tail position is changed.
-      const tipDragBoundsProperty = new Property( gridModelBounds );
+      //  const tipDragBoundsProperty = new Property( gridViewBounds );
 
       // Create a property of the tip's Position. 
-      const tipArrowPositionProperty = new Vector2Property( tipPosition );
+      const tipLocationProperty = new Vector2Property( tipPosition );
 
 
       // @private {DragListener} - for forwarding drag events
       this.bodyDragListener = new DragListener( {
         targetNode: this,
-        dragBoundsProperty: vectorDragBoundsProperty,
+        // dragBoundsProperty: tailDragBoundsProperty,
         translateNode: false,
-        transform: initialModelViewTransform,
-        locationProperty: tailArrowPositionProperty,
+        locationProperty: tailLocationProperty,
         start: () => vector.isBodyDraggingProperty.set( true ),
         end: () => vector.isBodyDraggingProperty.set( false )
       } );
@@ -123,59 +127,45 @@ define( require => {
       const tipDragListener = new DragListener( {
         targetNode: tipCircle,
         translateNode: false,
-        dragBoundsProperty: tipDragBoundsProperty,
-        locationProperty: tipArrowPositionProperty,
+        // dragBoundsProperty: tipDragBoundsProperty,
+        locationProperty: tipLocationProperty,
         start: () => vector.isTipDraggingProperty.set( true ),
         end: () => vector.isTipDraggingProperty.set( false )
       } );
 
-      tailArrowPositionProperty.link( tailArrowPosition => {
-        if ( gridModelBounds.containsPoint( tailArrowPosition ) ) {
-          vector.tailPositionProperty.value = tailArrowPosition.roundedSymmetric();
-        }
-        else {
-          vector.tailPositionProperty.value = tailArrowPosition;
-        }
-        this.translation = initialModelViewTransform.modelToViewPosition( vector.tailPositionProperty.value );
-
-        this.clipArea = new Shape.bounds( gridViewBounds.shifted( -this.x, -this.y, ) );
-
-        tipDragBoundsProperty.value = initialModelViewTransform.modelToViewBounds(
-          gridModelBounds.shifted( -tailArrowPosition.x + gridModelBounds.minX,
-            -tailArrowPosition.y + gridModelBounds.maxY ) ).shifted( -gridViewBounds.minX, -gridViewBounds.minY );
+      tailLocationProperty.link( tailLocation => {
+        this.translation = this.getTailSnapToGrid( tailLocation );
       } );
 
-      tipArrowPositionProperty.link( tipArrowPosition => {
+      tipLocationProperty.link( tipLocation => {
 
-        vector.attributesVectorProperty.value = initialModelViewTransform.viewToModelDelta( tipArrowPosition ).roundedSymmetric();
-        const snapToGridPosition = initialModelViewTransform.modelToViewDelta( vector.attributesVectorProperty.value );
-        arrowNode.setTip( snapToGridPosition.x, snapToGridPosition.y );
-        tipCircle.center = snapToGridPosition;
-        if ( !snapToGridPosition.equals( Vector2.ZERO ) ) {
-          labelNode.center = snapToGridPosition.dividedScalar( 2 ).plus( snapToGridPosition.perpendicular.normalized().times( vector.angleDegreesProperty.value > 0 ? 20 : -20 ) );
-        }
-
-        vectorDragBoundsProperty.set( gridModelBounds.shifted( -vector.attributesVectorProperty.value.x / 2, -vector.attributesVectorProperty.value.y / 2 ) );
+        const snapToGridLocation = this.getTipSnapToGrid( tipLocation );
+        arrowNode.setTip( snapToGridLocation.x, snapToGridLocation.y );
+        tipCircle.center = snapToGridLocation;
       } );
-
 
       arrowNode.addInputListener( this.bodyDragListener );
       tipCircle.addInputListener( tipDragListener );
 
-
     }
-  
 
+
+    getTipSnapToGrid( tipLocation ) {
+      const mvt = this.modelViewTransformProperty.value;
+      const tipCoordinates = mvt.viewToModelDelta( tipLocation );
+      this.vector.attributesVectorProperty.value = tipCoordinates.roundedSymmetric();
+      const roundedTipLocation = mvt.modelToViewDelta( this.vector.attributesVectorProperty.value );
+      return roundedTipLocation;
+    }
+
+    getTailSnapToGrid( tailLocation ) {
+      const mvt = this.modelViewTransformProperty.value;
+      const tailCoordinates = mvt.viewToModelPosition( tailLocation );
+      this.vector.tailPositionProperty.value = tailCoordinates.roundedSymmetric();
+      const roundedTailLocation = mvt.modelToViewPosition( this.vector.tailPositionProperty.value );
+      return roundedTailLocation;
+    }
   }
-
-
-
-
-
-
-
-
-
 
   return vectorAddition.register( 'VectorNode', VectorNode );
 } );
