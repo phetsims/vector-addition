@@ -35,7 +35,7 @@ define( require => {
     /**
      * @param {Vector} vector - the vector model
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property related to the style of components to display
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the coordinate transformation 
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the coordinate transformation
      * between view and model coordinates
      */
     constructor( vector, componentStyleProperty, modelViewTransformProperty ) {
@@ -68,31 +68,31 @@ define( require => {
         }
         if ( componentStyle === ComponentStyles.ON_AXIS ) {
 
-            // make the on axis dashed lines visible
-            onAxisLinesPath.visible = true;
+          // make the on axis dashed lines visible
+          onAxisLinesPath.visible = true;
 
-            const viewTailPosition = modelViewTransform.modelToViewDelta( modelTailPosition );
+          const viewTailPosition = modelViewTransform.modelToViewDelta( modelTailPosition );
 
-            const viewVector = modelViewTransform.modelToViewDelta( modelVector );
-            // create new shape for the dashed lines that extend to the axis
-            const onAxisLines = new Shape();
+          const viewVector = modelViewTransform.modelToViewDelta( modelVector );
+          // create new shape for the dashed lines that extend to the axis
+          const onAxisLines = new Shape();
 
-            // create the dashed lines shape
-            // draw the first 2 lines to create the subbox of the tail of the vector
-            onAxisLines.moveTo( -viewTailPosition.x, 0 ).horizontalLineTo( 0 )
+          // create the dashed lines shape
+          // draw the first 2 lines to create the subbox of the tail of the vector
+          onAxisLines.moveTo( -viewTailPosition.x, 0 ).horizontalLineTo( 0 )
             .verticalLineTo( -viewTailPosition.y );
 
-            // draw the next 2 lines to create the subbox of the tip of the vector
-            onAxisLines.moveTo( -viewTailPosition.x, viewVector.y ).horizontalLineTo( viewVector.x )
+          // draw the next 2 lines to create the subbox of the tip of the vector
+          onAxisLines.moveTo( -viewTailPosition.x, viewVector.y ).horizontalLineTo( viewVector.x )
             .verticalLineTo( -viewTailPosition.y );
 
-            // set the shape of the path to update the view
-            onAxisLinesPath.setShape( onAxisLines );
-          }
-       
+          // set the shape of the path to update the view
+          onAxisLinesPath.setShape( onAxisLines );
+        }
+
         // make the componnets visible
         this.visible = true;
-        
+
         // get the coordinates for each components
         const xComponentCoordinates = vector.getXComponentCoordinates( componentStyle );
         const yComponentCoordinates = vector.getYComponentCoordinates( componentStyle );
@@ -106,7 +106,7 @@ define( require => {
         // update the component arrows
         XComponentArrow.setTailAndTip( xComponentTail.x, xComponentTail.y, xComponentTip.x, xComponentTip.y );
         YComponentArrow.setTailAndTip( yComponentTail.x, yComponentTail.y, yComponentTip.x, yComponentTip.y );
-          
+
       };
 
       // @private
@@ -115,8 +115,8 @@ define( require => {
           vector.attributesVectorProperty,
           vector.tailPositionProperty,
           modelViewTransformProperty
-       ],
-       updateComponents
+        ],
+        updateComponents
       );
     }
 

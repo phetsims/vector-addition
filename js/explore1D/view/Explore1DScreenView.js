@@ -9,7 +9,6 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
   const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
   const HSlider = require( 'SUN/HSlider' );
@@ -36,8 +35,7 @@ define( require => {
      */
     constructor( explore1DModel, tandem ) {
 
-      const gridViewBounds = new Bounds2( 29, 90, 29 + 750, 90 + 500 );
-      super( gridViewBounds, explore1DModel, tandem );
+      super( explore1DModel, tandem );
 
       // Show the mock-up and a slider to change its transparency
       const mockupOpacityProperty = new NumberProperty( 0.0 );

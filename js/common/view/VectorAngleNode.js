@@ -50,7 +50,7 @@ define( require => {
       const arcArrow = new ArcArrowNode( vector.angleDegreesProperty.value, ARC_RADIUS, ARC_ARROW_OPTIONS );
 
       const labelText = new Text( '', {
-        font: new PhetFont({ size: 14, family: 'Times' })
+        font: new PhetFont( { size: 14, family: 'Times' } )
       } );
 
       // add baseline and arc arrow to the parent node

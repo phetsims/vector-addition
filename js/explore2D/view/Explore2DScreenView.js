@@ -7,7 +7,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const Bounds2 = require( 'DOT/Bounds2' );
   const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
   const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
   const HSlider = require( 'SUN/HSlider' );
@@ -28,8 +27,7 @@ define( function( require ) {
      */
     constructor( explore2DModel, tandem ) {
 
-      const gridViewBounds = new Bounds2( 29, 90, 29 + 750, 90 + 500 );
-      super( gridViewBounds, explore2DModel, tandem );
+      super( explore2DModel, tandem );
 
       const gridPanel = new GridPanel( explore2DModel.sumVisibleProperty,
         explore2DModel.valuesVisibleProperty,

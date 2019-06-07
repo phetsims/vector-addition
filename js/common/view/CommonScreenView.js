@@ -17,15 +17,14 @@ define( require => {
   class CommonScreenView extends ScreenView {
 
     /**
-     * @param {Bounds2} gridViewBounds
      * @param {CommonModel} commonModel
      * @param {Tandem} tandem
      */
-    constructor( gridViewBounds, commonModel, tandem ) {
+    constructor( commonModel, tandem ) {
 
       super();
 
-      const graphNode = new GraphNode( commonModel);
+      const graphNode = new GraphNode( commonModel );
 
       this.addChild( graphNode );
 
@@ -52,7 +51,7 @@ define( require => {
           commonModel.gridModelBounds,
           commonModel.componentStyleProperty,
           commonModel.angleVisibleProperty,
-          commonModel.modelViewTransformProperty 
+          commonModel.modelViewTransformProperty
         );
         this.addChild( vectorNode );
       } );
