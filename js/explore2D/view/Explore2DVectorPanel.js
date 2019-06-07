@@ -25,8 +25,7 @@ define( require => {
      */
     constructor( vectorArray, modelViewTransformProperty ) {
       super( vectorArray, 3, modelViewTransformProperty, {
-        labels: [ 'a', 'b', 'c' ],
-        isVectorSlotInfinite: true
+        labels: [ 'a', 'b', 'c' ]
       });
     }
     /**
