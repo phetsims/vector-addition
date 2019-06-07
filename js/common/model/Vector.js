@@ -25,12 +25,13 @@ define( require => {
     /**
      * Create a vector model
      * @constructor
+
      * @param {number} x horizontal component of the vector
      * @param {number} y horizontal component of the vector
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {Object} [options]
      */
-    constructor( x, y, modelViewTransformProperty, options ) {
+    constructor( tailPosition, x, y, modelViewTransformProperty, options ) {
 
       options = _.extend( {
         vectorType: VECTOR_TYPE.RED,
@@ -42,7 +43,7 @@ define( require => {
       this.label = options.label;
 
       // @public {Vector2Property} - The tail position of the vector.
-      this.tailPositionProperty = new Vector2Property( new Vector2( 0, 0 ) );
+      this.tailPositionProperty = new Vector2Property( tailPosition );
 
       // @public {Vector2Property} - The actual vector
       this.attributesVectorProperty = new Vector2Property( new Vector2( x, y ) );

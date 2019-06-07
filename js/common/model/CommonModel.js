@@ -14,7 +14,6 @@ define( require => {
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const Property = require( 'AXON/Property' );
-  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -79,12 +78,6 @@ define( require => {
 
       // @public {ObservableArray.<Vector>}
       this.vectors = new ObservableArray();
-
-      const vectorA = new Vector( 5, 0, this.modelViewTransformProperty, { label: 'a' } );
-      const vectorB = new Vector( 5, 0, this.modelViewTransformProperty, { label: 'b' } );
-      const vectorC = new Vector( 5, 0, this.modelViewTransformProperty, { label: 'c' } );
-
-      this.vectors.addAll( [ vectorA, vectorB, vectorC ] );
     }
 
     // @public resets the model

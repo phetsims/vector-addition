@@ -12,8 +12,7 @@ define( require => {
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorDisplayPanel = require( 'VECTOR_ADDITION/common/view/VectorDisplayPanel' );
-
-  const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   class CommonScreenView extends ScreenView {
 
@@ -36,9 +35,6 @@ define( require => {
       vectorDisplayPanel.top = 12;
       this.addChild( vectorDisplayPanel );
 
-      const vectorPanel = new VectorPanel( commonModel );
-
-      this.addChild( vectorPanel );
 
       const resetAllButton = new ResetAllButton( {
         listener: () => {
@@ -49,6 +45,18 @@ define( require => {
         tandem: tandem.createTandem( 'resetAllButton' )
       } );
       this.addChild( resetAllButton );
+
+      commonModel.vectors.addItemAddedListener( ( addedVector ) => {
+        const vectorNode = new VectorNode(
+          addedVector,
+          commonModel.gridModelBounds,
+          commonModel.componentStyleProperty,
+          commonModel.angleVisibleProperty,
+          commonModel.modelViewTransformProperty 
+        );
+        this.addChild( vectorNode );
+      } );
+
     }
   }
 

@@ -20,7 +20,7 @@ define( require => {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
 
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-
+  const Explore1DVectorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorPanel' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
 
 
@@ -94,6 +94,11 @@ define( require => {
         tandem: tandem.createTandem( 'resetAllButton' )
       } );
       this.addChild( resetAllButton );
+
+
+      const vectorPanel = new Explore1DVectorPanel( explore1DModel.vectors, explore1DModel.modelViewTransformProperty );
+
+      this.addChild( vectorPanel );
     }
   }
 

@@ -15,6 +15,7 @@ define( function( require ) {
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const Explore2DVectorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorPanel' );
 
   // images
   const mockupImage = require( 'image!VECTOR_ADDITION/explore2D_screenshot.png' );
@@ -52,6 +53,9 @@ define( function( require ) {
       this.addChild( image );
       this.addChild( screenshotHSlider );
 
+      const vectorPanel = new Explore2DVectorPanel( explore2DModel.vectors, explore2DModel.modelViewTransformProperty );
+
+      this.addChild( vectorPanel );
     }
 
   }
