@@ -298,185 +298,234 @@ define( require => {
   }
 
   //----------------------------------------------------------------------------------------
-  class XAxisNode extends Node {
+  class AxisNode extends Node {
     /**
+     * @abstract
+     * Abstract class that is used as a general axis.
+     * This is extended by xAxisNode and yAxisNode which must provide the abstract methods.
      * @constructor
      *
      * @param {CommonModel} commonModel - the shared model for all screens
+     * @param {string} axisLabelText - the label for the axis
      */
-    constructor( commonModel ) {
+    constructor( commonModel, axisLabelText ) {
 
       super();
 
-      // Create an double arrow that represents the axis that is of length 0 but updated when the modelViewTransform is updated.
-      const axisArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
+      // @public {ArrowNode} axisArrow - Create an double arrow that represents the axis that is of length 0 but updated
+      // when the modelViewTransform is updated.
+      this.axisArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
 
-      // Create a label right side of the axis that labels the axis. This will be moved when the modelViewTransform is updated.
-      const axisLabel = new Text( xString, AXIS_LABEL_OPTIONS );
+      // @public {Text} axisLabel - Create a label right side of the axis that labels the axis. This will be moved when
+      // the modelViewTransform is updated.
+      this.axisLabel = new Text( axisLabelText, AXIS_LABEL_OPTIONS );
 
       // Create a path that represents the ticks along the axis with an empty shape which will be updated when the 
       // modelViewTransform is updated.
-      const xAxisTicksPath = new Path( new Shape(), TICKS_OPTIONS );
+      const axisTicksPath = new Path( new Shape(), TICKS_OPTIONS );
 
-      // @private Create a label for the origin that weill be moved when the modelViewTransform is updated.
-      this.xOriginText = new Text( '0', ORIGIN_TEXT_OPTIONS );
+      // @public {Text} originText - create a label for the origin that will be moved when the modelViewTransform is updated.
+      this.originText = new Text( '0', ORIGIN_TEXT_OPTIONS );
 
-
+      // Observe changes to the modelViewTransform and update the axis when changed.
       commonModel.modelViewTransformProperty.link( ( modelViewTransform ) => {
 
-        // convenience variables for the position of the origin in view coordinates
+        // convenience variable for the position of the origin in view coordinates
         const gridViewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
-
 
         // convenience variables for the grid bounds in view/model coordinates
         const gridModelBounds = commonModel.gridModelBounds;
         const gridViewBounds = modelViewTransform.modelToViewBounds( gridModelBounds );
 
         // Update the axis double arrow
-        axisArrow.setTailAndTip(
-          gridViewBounds.minX - LINE_EXTENT_X,
-          gridViewOrigin.y,
-          gridViewBounds.maxX + LINE_EXTENT_X,
-          gridViewOrigin.y
-        );
+        // updateAxisArrow is an ABSTRACT method and MUST be provided
+        this.updateAxisArrow( gridViewBounds, gridViewOrigin );
 
-        // Update the label that is to the left of the axis
-        axisLabel.left = axisArrow.right + 10;
-        axisLabel.centerY = gridViewOrigin.y;
+        // Update the labels of the axis
+        // Also a abstract method
+        this.updateAxisLabels( gridViewOrigin );
 
-        // create ticks along the axis
-        const xAxisTicksShape = new Shape();
-
-        // x-axis ticks, add them on every major ticks
-        // Start from the Ceil of the gridMinX to the floor of the gridMaxX because the origin maX be dragged so that the
-        // minX and maxX are decimal points. With the ceil/floor of this also guarantees that we draw
-        // all the ticks visible in the window.
-        for ( let i = Math.ceil( gridModelBounds.minX ); i <= Math.floor( gridModelBounds.maxX ); i++ ) {
-          // increment by model coordinates (1 unit)
-          const isMajor = i % ( MAJOR_TICK_SPACING ) === 0;
-
-          // the origin has a longer tick
-          if ( i === 0 ) {
-            xAxisTicksShape.moveTo( i, -TICK_LENGTH ).verticalLineTo( TICK_LENGTH );
-          }
-          else if ( isMajor ) {
-            xAxisTicksShape.moveTo( i, -TICK_LENGTH / 2 ).verticalLineTo( TICK_LENGTH / 2 );
-          }
-        }
+        // get the shape of the ticks along the axis (abstract) in view coordinates
+        const newTicksShape = this.getUpdatedTicksShape( gridModelBounds, modelViewTransform );
 
         // Update the axis path
-        xAxisTicksPath.setShape( modelViewTransform.modelToViewShape( xAxisTicksShape ) );
-
-        // Update the origin label
-        this.xOriginText.centerX = gridViewOrigin.x;
-        this.xOriginText.top = gridViewOrigin.y + 20;
+        axisTicksPath.setShape( newTicksShape );
 
       } );
 
-      this.setChildren( [ axisArrow, axisLabel, xAxisTicksPath, this.xOriginText ] );
-
+      this.setChildren( [ this.axisArrow, this.axisLabel, axisTicksPath, this.originText ] );
     }
-
+    /** 
+     * Updates the location of the arrow
+     * @abstract
+     * @param {Bounds2} gridViewBounds - the bounds of the grid in view coordinates
+     * @param {Vector2} gridViewOrigin - the origin location in view coordinates
+     */
+    updateAxisArrow( gridViewBounds, gridViewOrigin ) {}
+    /** 
+     * Updates the location of the labels (origin label and axis label)
+     * @abstract
+     * @param {Vector2} gridViewOrigin - the origin location in view coordinates
+     */
+    updateAxisLabels( gridViewOrigin ) {}
+    /** 
+     * Gets a new shape for the updated axis ticks
+     * @abstract
+     * @param {Bounds2} gridModelBounds - the bounds of the grid in model coordinates
+     * @param {ModelViewTransform2} - the new modelViewTransform
+     * @return {Shape} the new axis ticks shape in View coordinates
+     */
+    getUpdatedTicksShape( gridModelBounds, modelViewTransform ) {}
     /**
      * Set the visibility of the origin label
      * @param {boolean} visible
      * @public
      */
     setOriginLabelVisibility( visible ) {
-      this.xOriginText.visible = visible;
+      this.originText.visible = visible;
     }
   }
 
   //----------------------------------------------------------------------------------------
-  class YAxisNode extends Node {
+  class XAxisNode extends AxisNode {
     /**
      * @constructor
      *
      * @param {CommonModel} commonModel - the shared model for all screens
      */
     constructor( commonModel ) {
-
-      super();
-
-      // Create an double arrow that represents the axis that is of length 0 but updated when the modelViewTransform is updated.
-      const axisArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
-
-      // Create a label right side of the axis that labels the axis. This will be moved when the modelViewTransform is updated.
-      const axisLabel = new Text( yString, AXIS_LABEL_OPTIONS );
-
-      // Create a path that represents the ticks along the axis with an empty shape which will be updated when the 
-      // modelViewTransform is updated.
-      const yAxisTicksPath = new Path( new Shape(), TICKS_OPTIONS );
-
-      // @private Create a label for the origin that weill be moved when the modelViewTransform is updated.
-      this.yOriginText = new Text( '0', ORIGIN_TEXT_OPTIONS );
-
-
-      commonModel.modelViewTransformProperty.link( ( modelViewTransform ) => {
-
-        // convenience variables for the position of the origin in view coordinates
-        const gridViewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
-
-
-        // convenience variables for the grid bounds in view/model coordinates
-        const gridModelBounds = commonModel.gridModelBounds;
-        const gridViewBounds = modelViewTransform.modelToViewBounds( gridModelBounds );
-
-        // Update the axis double arrow
-        axisArrow.setTailAndTip(
-          gridViewOrigin.x,
-          gridViewBounds.minY - LINE_EXTENT_Y,
-          gridViewOrigin.x,
-          gridViewBounds.maxY + LINE_EXTENT_Y
-        );
-
-        // Update the label that is to the left of the axis
-        axisLabel.centerX = gridViewOrigin.x;
-        axisLabel.centerY = axisArrow.top - 10;
-
-        // create ticks along the axis
-        const yAxisTicksShape = new Shape();
-
-        // x-axis ticks, add them on every major ticks
-        // Start from the Ceil of the gridMinX to the floor of the gridMaxX because the origin maX be dragged so that the
-        // minX and maxX are decimal points. With the ceil/floor of this also guarantees that we draw
-        // all the ticks visible in the window.
-        for ( let i = Math.ceil( gridModelBounds.minY ); i <= Math.floor( gridModelBounds.maxY ); i++ ) {
-          // increment by model coordinates (1 unit)
-          const isMajor = i % ( MAJOR_TICK_SPACING ) === 0;
-
-          // the origin has a longer tick
-          if ( i === 0 ) {
-            yAxisTicksShape.moveTo( -TICK_LENGTH, i ).horizontalLineTo( TICK_LENGTH );
-          }
-          else if ( isMajor ) {
-            yAxisTicksShape.moveTo( -TICK_LENGTH / 2, i ).horizontalLineTo( TICK_LENGTH / 2 );
-          }
-        }
-
-        // Update the axis path
-        yAxisTicksPath.setShape( modelViewTransform.modelToViewShape( yAxisTicksShape ) );
-
-        // Update the origin label
-        this.yOriginText.centerY = gridViewOrigin.y;
-        this.yOriginText.right = gridViewOrigin.x - 20;
-
-      } );
-
-      this.setChildren( [ axisArrow, axisLabel, yAxisTicksPath, this.yOriginText ] );
-
+      super( commonModel, xString );
     }
-
-    /**
-     * Set the visibility of the origin label
-     * @param {boolean} visible
-     * @public
+    /** 
+     * Updates the location of the arrow
+     * @abstract
+     * @param {Bounds2} gridViewBounds - the bounds of the grid in view coordinates
+     * @param {Vector2} gridViewOrigin - the origin location in view coordinates
      */
-    setOriginLabelVisibility( visible ) {
-      this.yOriginText.visible = visible;
+    updateAxisArrow( gridViewBounds, gridViewOrigin ) {
+      this.axisArrow.setTailAndTip(
+        gridViewBounds.minX - LINE_EXTENT_X,
+        gridViewOrigin.y,
+        gridViewBounds.maxX + LINE_EXTENT_X,
+        gridViewOrigin.y
+      );
+    }
+    /** 
+     * Updates the location of the labels (origin label and axis label)
+     * @abstract
+     * @param {Vector2} gridViewOrigin - the origin location in view coordinates
+     */
+    updateAxisLabels( gridViewOrigin ) {
+      // Update the label that is to the left of the axis
+      this.axisLabel.left = this.axisArrow.right + 10;
+      this.axisLabel.centerY = gridViewOrigin.y;
+
+      // Update the origin label
+      this.originText.centerX = gridViewOrigin.x;
+      this.originText.top = gridViewOrigin.y + 20;
+    }
+    /** 
+     * Gets a new shape for the updated axis ticks
+     * @abstract
+     * @param {Bounds2} gridModelBounds - the bounds of the grid in model coordinates
+     * @param {ModelViewTransform2} - the new modelViewTransform
+     * @return {Shape} the new axis ticks shape in View coordinates
+     */
+    getUpdatedTicksShape( gridModelBounds, modelViewTransform ) {
+      // create ticks along the axis
+      const xAxisTicksShape = new Shape();
+
+      // x-axis ticks, add them on every major ticks
+      // Start from the Ceil of the gridMinX to the floor of the gridMaxX because the origin maX be dragged so that the
+      // minX and maxX are decimal points. With the ceil/floor of this also guarantees that we draw
+      // all the ticks visible in the window.
+      for ( let i = Math.ceil( gridModelBounds.minX ); i <= Math.floor( gridModelBounds.maxX ); i++ ) {
+        // increment by model coordinates (1 unit)
+        const isMajor = i % ( MAJOR_TICK_SPACING ) === 0;
+
+        // the origin has a longer tick
+        if ( i === 0 ) {
+          xAxisTicksShape.moveTo( i, -TICK_LENGTH ).verticalLineTo( TICK_LENGTH );
+        }
+        else if ( isMajor ) {
+          xAxisTicksShape.moveTo( i, -TICK_LENGTH / 2 ).verticalLineTo( TICK_LENGTH / 2 );
+        }
+      }
+
+      return modelViewTransform.modelToViewShape( xAxisTicksShape );
     }
   }
 
+  //----------------------------------------------------------------------------------------
+  class YAxisNode extends AxisNode {
+    /**
+     * @constructor
+     *
+     * @param {CommonModel} commonModel - the shared model for all screens
+     */
+    constructor( commonModel ) {
+      super( commonModel, yString );
+    }
+    /** 
+     * Updates the location of the arrow
+     * @abstract
+     * @param {Bounds2} gridViewBounds - the bounds of the grid in view coordinates
+     * @param {Vector2} gridViewOrigin - the origin location in view coordinates
+     */
+    updateAxisArrow( gridViewBounds, gridViewOrigin ) {
+      this.axisArrow.setTailAndTip(
+        gridViewOrigin.x,
+        gridViewBounds.minY - LINE_EXTENT_Y,
+        gridViewOrigin.x,
+        gridViewBounds.maxY + LINE_EXTENT_Y
+      );
+    }
+    /** 
+     * Updates the location of the labels (origin label and axis label)
+     * @abstract
+     * @param {Vector2} gridViewOrigin - the origin location in view coordinates
+     */
+    updateAxisLabels( gridViewOrigin ) {
+      // Update the label that is to the left of the axis
+      this.axisLabel.centerX = gridViewOrigin.x;
+      this.axisLabel.centerY = this.axisArrow.top - 10;
+
+      // Update the origin label
+      this.originText.centerY = gridViewOrigin.y;
+      this.originText.right = gridViewOrigin.x - 20;
+    }
+    /** 
+     * Gets a new shape for the updated axis ticks
+     * @abstract
+     * @param {Bounds2} gridModelBounds - the bounds of the grid in model coordinates
+     * @param {ModelViewTransform2} - the new modelViewTransform
+     * @return {Shape} the new axis ticks shape in View coordinates
+     */
+    getUpdatedTicksShape( gridModelBounds, modelViewTransform ) {
+      // create ticks along the axis
+      const yAxisTicksShape = new Shape();
+
+      // y-axis ticks, add them on every major ticks
+      // Start from the Ceil of the gridMinY to the floor of the gridMaxY because the origin maxY be dragged so that the
+      // minY and maxY are decimal points. With the ceil/floor of this also guarantees that we draw
+      // all the ticks visible in the window.
+      for ( let i = Math.ceil( gridModelBounds.minY ); i <= Math.floor( gridModelBounds.maxY ); i++ ) {
+        // increment by model coordinates (1 unit)
+        const isMajor = i % ( MAJOR_TICK_SPACING ) === 0;
+
+        // the origin has a longer tick
+        if ( i === 0 ) {
+          yAxisTicksShape.moveTo( -TICK_LENGTH, i ).horizontalLineTo( TICK_LENGTH );
+        }
+        else if ( isMajor ) {
+          yAxisTicksShape.moveTo( -TICK_LENGTH / 2, i ).horizontalLineTo( TICK_LENGTH / 2 );
+        }
+      }
+
+      return modelViewTransform.modelToViewShape( yAxisTicksShape );
+
+    }
+  }
 
   return vectorAddition.register( 'GraphNode', GraphNode );
 
