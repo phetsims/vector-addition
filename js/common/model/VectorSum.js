@@ -27,25 +27,34 @@ define( require => {
 
       // create a vector at origin of initial length zero
       // TODO: what should be a good tailPosition?
-      super( Vector2.ZERO, 0, 0, modelViewTransformProperty );
+      super( Vector2.ZERO, 0, 0, modelViewTransformProperty, options );
+
+      const updateSum = ( attributesVector, oldAttributesVector ) =>
+        this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( attributesVector ).minus( oldAttributesVector ) );
+
 
       vectors.addItemAddedListener( ( addedVector ) => {
 
         // calculate the sum when the vector is added
         this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( addedVector.attributesVectorProperty.value ) );
 
+
         // calculate the sum when the vector is changed
-        addedVector.attributesVectorProperty.lazyLink( ( attributesVector, oldAttributesVector ) =>
-          this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( attributesVector ).minus( oldAttributesVector ) )
-        );
+        addedVector.attributesVectorProperty.lazyLink( updateSum );
       } );
 
       vectors.addItemRemovedListener( ( removedVector ) => {
 
         // calculate the sum when the vector is removed
         this.attributesVectorProperty.set( this.attributesVectorProperty.value.minus( removedVector.attributesVectorProperty.value ) );
+
+        // remove listener
+        removedVector.attributesVectorProperty.unlink( updateSum );
       } );
 
+      this.attributesVectorProperty.link( attributesVector => {
+        console.log( 'the sum is', attributesVector );
+      } );
 
     }
 
@@ -56,5 +65,4 @@ define( require => {
   }
 
   return vectorAddition.register( 'VectorSum', VectorSum );
-} )
-;
+} );
