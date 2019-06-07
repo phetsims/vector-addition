@@ -9,6 +9,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -19,12 +20,11 @@ define( require => {
   const VECTOR_TYPE = new Enumeration( [ 'RED', 'BLUE' ] );
   const ANGLE_INTERVAL = 5; // interval spacing of vector angle (in degrees) when vector is in polar mode
 
-  /**
-   * @constructor
-   */
   class Vector {
 
     /**
+     * Create a vector model
+     * @constructor
      * @param {number} x horizontal component of the vector
      * @param {number} y horizontal component of the vector
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
@@ -107,6 +107,73 @@ define( require => {
     // @public
     roundCartesianForm() {
       this.attributesVectorProperty.set( this.attributesVectorProperty.value.roundSymmetric() );
+    }
+
+    /**
+     * Get the X component tail/tip position based on a componet style
+     * @param {Enumeration} componentStyle
+     * @public
+     */
+    getXComponentCoordinates( componentStyle ) {
+
+      // convenience variables for the tail and tip positions
+      const tailPosition = this.tailPositionProperty.value;
+      const tipPosition = this.tipPositionProperty.value;
+
+      switch( componentStyle ) {
+        case ComponentStyles.TRIANGLE: {
+          return { 
+            tail: tailPosition, 
+            tip: new Vector2( tipPosition.x, tailPosition.y ) 
+          };
+        }
+        case ComponentStyles.PARALLELOGRAM: {
+          return { 
+            tail: tailPosition, 
+            tip: new Vector2( tipPosition.x, tailPosition.y ) 
+          };
+        }
+        case ComponentStyles.ON_AXIS: {
+          return { 
+            tail: new Vector2( tailPosition.x, 0 ), 
+            tip: new Vector2( tipPosition.x, 0 )
+          };
+        }
+        default: {
+          throw new Error( 'invalid componentStyle: ' + componentStyle );
+        }
+      }
+    }
+
+    getYComponentCoordinates( componentStyle ) {
+
+      // convenience variables for the tail and tip positions
+      const tailPosition = this.tailPositionProperty.value;
+      const tipPosition = this.tipPositionProperty.value;
+
+      switch( componentStyle ) {
+        case ComponentStyles.TRIANGLE: {
+          return { 
+            tail: new Vector2( tipPosition.x, tailPosition.y ), 
+            tip: tipPosition
+          };
+        }
+        case ComponentStyles.PARALLELOGRAM: {
+          return { 
+            tail: tailPosition, 
+            tip: new Vector2( tailPosition.x, tipPosition.y ) 
+          };
+        }
+        case ComponentStyles.ON_AXIS: {
+          return { 
+            tail: new Vector2( 0, tailPosition.y ), 
+            tip: new Vector2( 0, tipPosition.y )
+          };
+        }
+        default: {
+          throw new Error( 'invalid componentStyle: ' + componentStyle );
+        }
+      }
     }
 
     /**

@@ -35,14 +35,15 @@ define( require => {
     /**
      * @param {Vector} vector - the vector model
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property related to the style of components to display
-     * @param {ModelViewTransform2} modelViewTransform
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the coordinate transformation 
+     * between view and model coordinates
      */
-    constructor( vector, componentStyleProperty, modelViewTransform ) {
+    constructor( vector, componentStyleProperty, modelViewTransformProperty ) {
 
       super();
 
-      // the origin of this node (0,0) is the tail of the vector.
-      // create the 2 component nodes. These will be translated depending on the component style value
+      // The origin of this node (0, 0) is the tail of the vector.
+      // Create the 2 component nodes. These will be translated depending on the component style value
       const XComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
       const YComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
 
@@ -56,49 +57,23 @@ define( require => {
       // add the components to the scene graph
       this.setChildren( [ onAxisLinesPath, XComponentArrow, YComponentArrow ] );
 
-      // create a function that updates the style of the components and their positions
-      const updateComponents = ( componentStyle, modelVector, modelTailPosition ) => {
+      // create a function that updates the style of the components and their locations
+      const updateComponents = ( componentStyle, modelVector, modelTailPosition, modelViewTransform ) => {
 
-        // calculate the vector (in view coordinates) based on its current value
-        const viewVector = modelViewTransform.modelToViewDelta( modelVector );
+        if ( componentStyle === ComponentStyles.INVISIBLE ) {
+          // make the components invisible
+          this.visible = false;
+          onAxisLinesPath.visible = false;
+          return;
+        }
+        if ( componentStyle === ComponentStyles.ON_AXIS ) {
 
-        // calculate the tail position of the vector
-        const viewTailPosition = modelViewTransform.modelToViewDelta( modelTailPosition );
-
-        switch( componentStyle ) {
-          case ComponentStyles.INVISIBLE: {
-
-            // make the components invisible
-            this.visible = false;
-            onAxisLinesPath.visible = false; // redundant but added for clarity
-            break;
-          }
-          case ComponentStyles.TRIANGLE: {
-
-            // make the components visible but onAxis lines to invisible
-            this.visible = true;
-            onAxisLinesPath.visible = false;
-
-            XComponentArrow.setTailAndTip( 0, 0, viewVector.x, 0 );
-            YComponentArrow.setTailAndTip( viewVector.x, 0, viewVector.x, viewVector.y );
-            break;
-          }
-          case ComponentStyles.PARALLELOGRAM: {
-
-            // make the components visible but onAxis lines to invisible
-            this.visible = true;
-            onAxisLinesPath.visible = false;
-
-            XComponentArrow.setTailAndTip( 0, 0, viewVector.x, 0 );
-            YComponentArrow.setTailAndTip( 0, 0, 0, viewVector.y );
-            break;
-          }
-          case ComponentStyles.ON_AXIS: {
-
-            // make the components and on axis lines visible
-            this.visible = true;
+            // make the on axis dashed lines visible
             onAxisLinesPath.visible = true;
 
+            const viewTailPosition = modelViewTransform.modelToViewDelta( modelTailPosition );
+
+            const viewVector = modelViewTransform.modelToViewDelta( modelVector );
             // create new shape for the dashed lines that extend to the axis
             const onAxisLines = new Shape();
 
@@ -113,24 +88,35 @@ define( require => {
 
             // set the shape of the path to update the view
             onAxisLinesPath.setShape( onAxisLines );
-
-            XComponentArrow.setTailAndTip( 0, -viewTailPosition.y, viewVector.x, -viewTailPosition.y );
-            YComponentArrow.setTailAndTip( -viewTailPosition.x, 0, -viewTailPosition.x, viewVector.y );
-
-            break;
           }
-          default: {
-            throw new Error( 'invalid componentStyle: ' + componentStyle );
-          }
-        }
+       
+        // make the componnets visible
+        this.visible = true;
+        
+        // get the coordinates for each components
+        const xComponentCoordinates = vector.getXComponentCoordinates( componentStyle );
+        const yComponentCoordinates = vector.getYComponentCoordinates( componentStyle );
+
+        // transform the coordinates into view and defining the tip of the node as (0, 0)
+        const xComponentTail = modelViewTransform.modelToViewDelta( xComponentCoordinates.tail.minus( modelTailPosition ) );
+        const xComponentTip = modelViewTransform.modelToViewDelta( xComponentCoordinates.tip.minus( modelTailPosition ) );
+        const yComponentTail = modelViewTransform.modelToViewDelta( yComponentCoordinates.tail.minus( modelTailPosition ) );
+        const yComponentTip = modelViewTransform.modelToViewDelta( yComponentCoordinates.tip.minus( modelTailPosition ) );
+
+        // update the component arrows
+        XComponentArrow.setTailAndTip( xComponentTail.x, xComponentTail.y, xComponentTip.x, xComponentTip.y );
+        YComponentArrow.setTailAndTip( yComponentTail.x, yComponentTail.y, yComponentTip.x, yComponentTip.y );
+          
       };
 
       // @private
       this.updateLayoutMultilink = Property.multilink( [
           componentStyleProperty,
           vector.attributesVectorProperty,
-          vector.tailPositionProperty ],
-        ( componentStyle, attributesVector, tailPosition ) => updateComponents( componentStyle, attributesVector, tailPosition )
+          vector.tailPositionProperty,
+          modelViewTransformProperty
+       ],
+       updateComponents
       );
     }
 

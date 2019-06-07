@@ -73,7 +73,7 @@ define( require => {
       const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipPosition }, TIP_CIRCLE_OPTIONS ) );
 
       // Create the scenery nodes for this vectors components
-      const vectorComponentsNode = new VectorComponentsNode( vector, componentStyleProperty, initialModelViewTransform );
+      const vectorComponentsNode = new VectorComponentsNode( vector, componentStyleProperty, modelViewTransformProperty );
 
       // Create the scenery node that represents the angle
       const vectorAngleNode = new VectorAngleNode( vector, angleVisibleProperty, initialModelViewTransform );
