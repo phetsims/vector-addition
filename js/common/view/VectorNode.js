@@ -94,12 +94,8 @@ define( require => {
       const tailLocationProperty = new Vector2Property(
         modelViewTransformProperty.value.modelToViewPosition( vector.tailPositionProperty.value ) );
 
-
-      // Create a property of the location of the tip of the vector. The location of the tip is measured with respect to the tail.
-      const tipLocationProperty = new Vector2Property( tipPosition );
-
       // @private {DragListener} - for forwarding drag events
-      this.bodyDragListener = new DragListener( {
+      const bodyDragListener = new DragListener( {
         targetNode: this,
         translateNode: false,
         locationProperty: tailLocationProperty,
@@ -107,23 +103,35 @@ define( require => {
         end: () => vector.isBodyDraggingProperty.set( false )
       } );
 
-      // for forwarding drag events for the tip
-      const tipDragListener = new DragListener( {
-        targetNode: tipCircle,
-        translateNode: false,
-        locationProperty: tipLocationProperty,
-        start: () => vector.isTipDraggingProperty.set( true ),
-        end: () => vector.isTipDraggingProperty.set( false )
-      } );
 
       tailLocationProperty.link( tailLocation => {
         this.translation = this.getTailSnapToGridLocation( tailLocation );
       } );
 
-      tipLocationProperty.link( tipLocation => {
-        this.tipSnapToGrid( tipLocation );
-      } );
+      arrowNode.addInputListener( bodyDragListener );
 
+
+      if ( vector.isTipDraggable ) {
+
+        // Create a property of the location of the tip of the vector. The location of the tip is measured with respect to the tail.
+        const tipLocationProperty = new Vector2Property( tipPosition );
+
+        // for forwarding drag events for the tip
+        const tipDragListener = new DragListener( {
+          targetNode: tipCircle,
+          translateNode: false,
+          locationProperty: tipLocationProperty,
+          start: () => vector.isTipDraggingProperty.set( true ),
+          end: () => vector.isTipDraggingProperty.set( false )
+        } );
+
+        tipLocationProperty.link( tipLocation => {
+          this.tipSnapToGrid( tipLocation );
+        } );
+
+
+        tipCircle.addInputListener( tipDragListener );
+      }
 
       // update the position of the arrowNode and the tipCircle
       vector.attributesVectorProperty.link( attributesVector => {
@@ -132,13 +140,7 @@ define( require => {
         tipCircle.center = tipLocation;
       } );
 
-      arrowNode.addInputListener( this.bodyDragListener );
-
-      if ( vector.isTipDraggable ) {
-        tipCircle.addInputListener( tipDragListener );
-      }
     }
-
 
     /**
      * update the model vector to have integer components
