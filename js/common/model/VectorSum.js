@@ -27,6 +27,13 @@ define( require => {
 
       // create a vector at origin of initial length zero
       // TODO: what should be a good tailPosition?
+
+
+      options = _.extend( {
+        label: 'S'
+      }, options );
+
+
       super( Vector2.ZERO, 0, 0, modelViewTransformProperty, options );
 
       const updateSum = ( attributesVector, oldAttributesVector ) =>
@@ -49,10 +56,6 @@ define( require => {
 
         // remove listener
         removedVector.attributesVectorProperty.unlink( updateSum );
-      } );
-
-      this.attributesVectorProperty.link( attributesVector => {
-        console.log( 'the sum is', attributesVector );
       } );
 
     }

@@ -25,7 +25,7 @@ define( require => {
     /**
      * Create a vector model
      * @constructor
-
+     * @param {Vector2} tailPosition
      * @param {number} x horizontal component of the vector
      * @param {number} y horizontal component of the vector
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
@@ -37,7 +37,7 @@ define( require => {
         vectorType: VECTOR_TYPE.RED,
 
         // {string} - label of the vector
-        label: ''
+        label: 'v'
       }, options );
 
       this.label = options.label;

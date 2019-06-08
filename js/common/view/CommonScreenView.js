@@ -28,11 +28,24 @@ define( require => {
 
       this.addChild( graphNode );
 
-      const vectorDisplayPanel = new VectorDisplayPanel( commonModel.vectors );
+      const vectorDisplayPanel = new VectorDisplayPanel( commonModel.vectors, commonModel );
 
       vectorDisplayPanel.left = 195;
       vectorDisplayPanel.top = 12;
       this.addChild( vectorDisplayPanel );
+
+      // create a scenery node for the sum vector
+      const vectorSumNode = new VectorNode( commonModel.vectorSum,
+        commonModel.gridModelBounds,
+        commonModel.componentStyleProperty,
+        commonModel.angleVisibleProperty,
+        commonModel.modelViewTransformProperty );
+
+
+      // link the visibility of the Vector Sum node with the status of the checkbox
+      commonModel.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
+
+      this.addChild( vectorSumNode );
 
 
       const resetAllButton = new ResetAllButton( {

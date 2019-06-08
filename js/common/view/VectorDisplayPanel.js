@@ -45,7 +45,7 @@ define( require => {
      * @param {ObservableArray.<Vector>} vectors
      * @param {Object} [options]
      */
-    constructor( vectors, options ) {
+    constructor( vectors, model, options ) {
 
       options = _.extend( VECTOR_PANEL_OPTIONS, options );
 
@@ -101,6 +101,8 @@ define( require => {
       };
 
       options.expandedProperty.link( expandedObserver );
+
+      this.linkVectorToPanel( model.vectorSum );
 
       vectors.forEach( ( vector ) => {
         this.linkVectorToPanel( vector );

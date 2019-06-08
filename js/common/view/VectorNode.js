@@ -118,15 +118,19 @@ define( require => {
       } );
 
       tailLocationProperty.link( tailLocation => {
-        this.translation = this.getTailSnapToGrid( tailLocation );
+        this.translation = this.getTailSnapToGridLocation( tailLocation );
       } );
 
       tipLocationProperty.link( tipLocation => {
+        this.tipSnapToGrid( tipLocation );
+      } );
 
-        const snapToGridLocation = this.getTipSnapToGrid( tipLocation );
 
-        arrowNode.setTip( snapToGridLocation.x, snapToGridLocation.y );
-        tipCircle.center = snapToGridLocation;
+      // update the position of the arrowNode and the tipCircle
+      vector.attributesVectorProperty.link( attributesVector => {
+        const tipLocation = this.modelViewTransformProperty.value.modelToViewDelta( attributesVector );
+        arrowNode.setTip( tipLocation.x, tipLocation.y );
+        tipCircle.center = tipLocation;
       } );
 
       arrowNode.addInputListener( this.bodyDragListener );
@@ -136,17 +140,13 @@ define( require => {
 
 
     /**
-     * update the model vector to have integer components and return the location associated with the tip
+     * update the model vector to have integer components
      * (relative to the tail)
      * @param {Vector2} tipLocation
-     * @returns {Vector2}
      */
-    getTipSnapToGrid( tipLocation ) {
-      const mvt = this.modelViewTransformProperty.value;
-      const tipCoordinates = mvt.viewToModelDelta( tipLocation );
+    tipSnapToGrid( tipLocation ) {
+      const tipCoordinates = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
       this.vector.attributesVectorProperty.value = tipCoordinates.roundedSymmetric();
-      const roundedTipLocation = mvt.modelToViewDelta( this.vector.attributesVectorProperty.value );
-      return roundedTipLocation;
     }
 
     /**
@@ -154,7 +154,7 @@ define( require => {
      * @param {Vector2} tailLocation
      * @returns {Vector2}
      */
-    getTailSnapToGrid( tailLocation ) {
+    getTailSnapToGridLocation( tailLocation ) {
       const mvt = this.modelViewTransformProperty.value;
       const tailCoordinates = mvt.viewToModelPosition( tailLocation );
       this.vector.tailPositionProperty.value = tailCoordinates.roundedSymmetric();

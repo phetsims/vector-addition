@@ -41,7 +41,7 @@ define( function( require ) {
         } );
 
       // Show the mock-up and a slider to change its transparency
-      const mockupOpacityProperty = new NumberProperty( 0.1 );
+      const mockupOpacityProperty = new NumberProperty( 0 );
       const image = new Image( mockupImage, { pickable: false, scale: 0.67, top: 0, left: 0 } );
 
       const screenshotHSlider = new HSlider( mockupOpacityProperty, new Range( 0, 1 ), { top: 0, left: 0 } );
