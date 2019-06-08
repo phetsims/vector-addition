@@ -37,10 +37,17 @@ define( require => {
         vectorType: VECTOR_TYPE.RED,
 
         // {string} - label of the vector
-        label: 'v'
+        label: 'v',
+
+        // {boolean} - can the tip be dragged
+        isTipDraggable: true
       }, options );
 
+      // @public (read-only) {string}
       this.label = options.label;
+
+      // @public (read-only) {boolean}
+      this.isTipDraggable = options.isTipDraggable;
 
       // @public {Vector2Property} - The tail position of the vector.
       this.tailPositionProperty = new Vector2Property( tailPosition );

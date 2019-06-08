@@ -30,15 +30,14 @@ define( require => {
 
 
       options = _.extend( {
-        label: 'S'
+        label: 'S',
+        isTipDraggable: false
       }, options );
-
 
       super( Vector2.ZERO, 0, 0, modelViewTransformProperty, options );
 
       const updateSum = ( attributesVector, oldAttributesVector ) =>
         this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( attributesVector ).minus( oldAttributesVector ) );
-
 
       vectors.addItemAddedListener( ( addedVector ) => {
 

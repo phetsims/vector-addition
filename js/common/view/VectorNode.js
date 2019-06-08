@@ -51,7 +51,6 @@ define( require => {
      */
     constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, modelViewTransformProperty ) {
 
-
       const initialModelViewTransform = modelViewTransformProperty.value;
 
       // Define a vector node in which the tail location is (0, 0)
@@ -134,8 +133,10 @@ define( require => {
       } );
 
       arrowNode.addInputListener( this.bodyDragListener );
-      tipCircle.addInputListener( tipDragListener );
 
+      if ( vector.isTipDraggable ) {
+        tipCircle.addInputListener( tipDragListener );
+      }
     }
 
 
