@@ -66,6 +66,26 @@ define( require => {
           onAxisLinesPath.visible = false;
           return;
         }
+
+
+        // make the components visible
+        this.visible = true;
+        onAxisLinesPath.visible = false;
+
+        // get the coordinates for each components
+        const xComponentCoordinates = vector.getXComponentCoordinates( componentStyle );
+        const yComponentCoordinates = vector.getYComponentCoordinates( componentStyle );
+
+        // transform the coordinates into view and defining the tip of the node as (0, 0)
+        const xComponentTail = modelViewTransform.modelToViewDelta( xComponentCoordinates.tail.minus( tailPosition ) );
+        const xComponentTip = modelViewTransform.modelToViewDelta( xComponentCoordinates.tip.minus( tailPosition ) );
+        const yComponentTail = modelViewTransform.modelToViewDelta( yComponentCoordinates.tail.minus( tailPosition ) );
+        const yComponentTip = modelViewTransform.modelToViewDelta( yComponentCoordinates.tip.minus( tailPosition ) );
+
+        // update the component arrows
+        XComponentArrow.setTailAndTip( xComponentTail.x, xComponentTail.y, xComponentTip.x, xComponentTip.y );
+        YComponentArrow.setTailAndTip( yComponentTail.x, yComponentTail.y, yComponentTip.x, yComponentTip.y );
+
         if ( componentStyle === ComponentStyles.ON_AXIS ) {
 
           // make the on axis dashed lines visible
@@ -89,24 +109,6 @@ define( require => {
           // set the shape of the path to update the view
           onAxisLinesPath.setShape( onAxisLines );
         }
-
-        // make the components visible
-        this.visible = true;
-
-        // get the coordinates for each components
-        const xComponentCoordinates = vector.getXComponentCoordinates( componentStyle );
-        const yComponentCoordinates = vector.getYComponentCoordinates( componentStyle );
-
-        // transform the coordinates into view and defining the tip of the node as (0, 0)
-        const xComponentTail = modelViewTransform.modelToViewDelta( xComponentCoordinates.tail.minus( tailPosition ) );
-        const xComponentTip = modelViewTransform.modelToViewDelta( xComponentCoordinates.tip.minus( tailPosition ) );
-        const yComponentTail = modelViewTransform.modelToViewDelta( yComponentCoordinates.tail.minus( tailPosition ) );
-        const yComponentTip = modelViewTransform.modelToViewDelta( yComponentCoordinates.tip.minus( tailPosition ) );
-
-        // update the component arrows
-        XComponentArrow.setTailAndTip( xComponentTail.x, xComponentTail.y, xComponentTip.x, xComponentTip.y );
-        YComponentArrow.setTailAndTip( yComponentTail.x, yComponentTail.y, yComponentTip.x, yComponentTip.y );
-
       };
 
       // @private
