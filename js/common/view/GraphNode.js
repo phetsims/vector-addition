@@ -89,6 +89,7 @@ define( require => {
   const xString = require( 'string!VECTOR_ADDITION/x' );
   const yString = require( 'string!VECTOR_ADDITION/y' );
 
+  // TODO: dont pass the entire model
   class GraphNode extends Node {
     /**
      * @constructor
@@ -108,15 +109,21 @@ define( require => {
       const xAxisNode = new XAxisNode( commonModel );
       const yAxisNode = new YAxisNode( commonModel );
 
+
+      const originCircle = new OriginCircle( commonModel );
+
       super( {
         children: [
           backgroundRectangle,
           new GridLinesNode( commonModel ),
           xAxisNode,
           yAxisNode,
-          new OriginCircle( commonModel )
+          originCircle
         ]
       } );
+
+      // @private
+      this.originCircle = originCircle;
 
       // TODO: remove this as the 1d screen is creating 2 scenes and should toggle
       // visibility of each scene by itself
@@ -147,6 +154,11 @@ define( require => {
             throw new Error( 'Vector orientation not handled', vectorOrientation );
         }
       } );
+    }
+
+    // @public
+    reset() {
+      this.originCircle.reset();
     }
   }
 
@@ -269,18 +281,17 @@ define( require => {
         commonModel.gridModelBounds.eroded( DRAG_PADDING_CONSTRAINT )
       );
 
-      // Create a property of to track the view's origin in view coordinates
-      const originLocationProperty = new Vector2Property( origin );
+      // @private Create a property of to track the view's origin in view coordinates
+      this.originLocationProperty = new Vector2Property( origin );
 
       this.addInputListener( new DragListener( {
-        locationProperty: originLocationProperty,
+        locationProperty: this.originLocationProperty,
         translateNode: false,
         dragBoundsProperty: new Property( restrictedGridViewBounds )
       } ) );
 
 
-      // TODO: wire a reset on originLocationProperty
-      originLocationProperty.link( ( originLocation ) => {
+      this.originLocationProperty.link( ( originLocation ) => {
 
         // TODO: abstract snap to grid logic in the model
         const originSnapLocation = modelViewTransform.viewToModelPosition( originLocation ).roundedSymmetric();
@@ -295,7 +306,13 @@ define( require => {
 
       } );
     }
+
+    // @public
+    reset() {
+      this.originLocationProperty.reset();
+    }
   }
+
 
   //----------------------------------------------------------------------------------------
   class AxisNode extends Node {

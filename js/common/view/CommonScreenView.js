@@ -51,6 +51,7 @@ define( require => {
       const resetAllButton = new ResetAllButton( {
         listener: () => {
           commonModel.reset();
+          graphNode.reset();
         },
         right: this.layoutBounds.maxX - 10,
         bottom: this.layoutBounds.maxY - 10,
