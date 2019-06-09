@@ -160,17 +160,17 @@ define( require => {
         } ) );
 
         // Create the actual slot, which contains the label (if neccesary) and the icon
-        const slot = new LayoutBox({
+        const slot = new LayoutBox( {
           orientation: 'horizontal',
-          spacing: LABEL_AND_ICON_SPACING,
-        })
+          spacing: LABEL_AND_ICON_SPACING
+        } );
 
         // add the icon
         slot.addChild( vectorIconNode );
         // create a node next to the icon for the label
-        if ( options.includeLabelsNextToIcons === true ) 
+        if ( options.includeLabelsNextToIcons === true ) {
           slot.addChild( new FormulaNode( '\\vec{' + options.labels[ slotNumber ] + '}' ) );
-        
+        }
 
         slotsChildren.push( slot );
 
