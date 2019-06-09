@@ -16,8 +16,6 @@ define( require => {
   const NumberProperty = require( 'AXON/NumberProperty' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const Range = require( 'DOT/Range' );
-  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-
   const Explore1DVectorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorPanel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
@@ -81,18 +79,6 @@ define( require => {
       this.addChild( sceneRadioButtonGroup );
       this.addChild( image );
       this.addChild( screenshotHSlider );
-
-      const resetAllButton = new ResetAllButton( {
-        listener: () => {
-          explore1DModel.reset();
-          angleVisibleProperty.reset();
-        },
-        right: this.layoutBounds.maxX - 10,
-        bottom: this.layoutBounds.maxY - 10,
-        tandem: tandem.createTandem( 'resetAllButton' )
-      } );
-      this.addChild( resetAllButton );
-
 
       const vectorPanel = new Explore1DVectorPanel( explore1DModel.vectors, explore1DModel.modelViewTransformProperty );
 
