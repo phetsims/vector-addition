@@ -54,6 +54,9 @@ define( require => {
 
         isVectorSlotInfinite: false, // {boolean} - if true, the vector slot will re-add a vector to the slot when removed.
 
+        includeLabelsNextToIcons: true, // {boolean} - if false, the label next to the icon won't appear. 
+        // This can only exist if labels is provided.
+
         panelOptions: null // below are the defaults
       }, options );
 
@@ -61,6 +64,15 @@ define( require => {
       options.panelOptions = _.extend( {
         fill: 'white'
       }, options.panelOptions );
+
+      // the number of labels has to be the same as the number of slots if provided
+      assert && assert( !options.labels || options.labels.length === numberOfVectorSlots,
+        'Labels must be the same length as the number of slots.' );
+
+      // the number of observable arrays must equal the number of slots if provided
+      assert && assert( !options.observableArrays || options.observableArrays.length === numberOfVectorSlots,
+        'Labels must be the same length as the number of slots.' );
+
 
       super();
 
