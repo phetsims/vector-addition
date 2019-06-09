@@ -67,7 +67,6 @@ define( require => {
           return;
         }
 
-
         // make the components visible
         this.visible = true;
         onAxisLinesPath.visible = false;

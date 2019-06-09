@@ -65,7 +65,29 @@ define( function( require ) {
     CHECK_RADIO_SPACING: 7,
 
     // Alignment groups for the left and right panels/boxes
-    LEFT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } )
+    LEFT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
+
+    // Vectors
+    // constants
+    VECTOR_ARROW_OPTIONS: {
+      fill: 'rgb( 0, 191, 255 )',
+      lineWidth: 0,
+      tailWidth: 5,
+      headWidth: 9,
+      headHeight: 6,
+      cursor: 'move'
+    },
+
+    VECTOR_SUM_ARROW_OPTIONS: {
+      fill: 'rgb( 0, 181, 225 )',
+      lineWidth: 1,
+      tailWidth: 5,
+      headWidth: 9,
+      headHeight: 6,
+      cursor: 'move'
+    }
+
+
 
   };
 

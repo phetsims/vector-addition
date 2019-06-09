@@ -13,6 +13,11 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorDisplayPanel = require( 'VECTOR_ADDITION/common/view/VectorDisplayPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+ 
+  // constants
+  const VECTOR_OPTIONS = VectorAdditionConstants.VECTOR_ARROW_OPTIONS;
+  const VECTOR_SUM_OPTIONS = VectorAdditionConstants.VECTOR_SUM_ARROW_OPTIONS;
 
   class CommonScreenView extends ScreenView {
 
@@ -39,7 +44,9 @@ define( require => {
         commonModel.gridModelBounds,
         commonModel.componentStyleProperty,
         commonModel.angleVisibleProperty,
-        commonModel.modelViewTransformProperty );
+        commonModel.modelViewTransformProperty,
+        VECTOR_SUM_OPTIONS
+      );
 
 
       // link the visibility of the Vector Sum node with the status of the checkbox
@@ -65,7 +72,8 @@ define( require => {
           commonModel.gridModelBounds,
           commonModel.componentStyleProperty,
           commonModel.angleVisibleProperty,
-          commonModel.modelViewTransformProperty
+          commonModel.modelViewTransformProperty,
+          VECTOR_OPTIONS
         );
         this.addChild( vectorNode );
 

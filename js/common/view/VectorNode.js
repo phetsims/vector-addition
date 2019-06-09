@@ -20,14 +20,6 @@ define( require => {
   const VectorComponentsNode = require( 'VECTOR_ADDITION/common/view/VectorComponentsNode' );
 
   // constants
-  const ARROW_OPTIONS = {
-    fill: 'rgb( 0, 191, 255 )',
-    lineWidth: 0,
-    tailWidth: 5,
-    headWidth: 9,
-    headHeight: 6,
-    cursor: 'move'
-  };
 
   // tip circle
   const TIP_CIRCLE_RADIUS = 10;
@@ -48,8 +40,9 @@ define( require => {
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
+     * @param {object} arrowOptions - options passed to the arrow node
      */
-    constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, modelViewTransformProperty ) {
+    constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, modelViewTransformProperty, arrowOptions ) {
 
       const initialModelViewTransform = modelViewTransformProperty.value;
 
@@ -58,7 +51,7 @@ define( require => {
       const tipPosition = initialModelViewTransform.modelToViewDelta( vector.attributesVectorProperty.value );
 
       // Create an arrow node that represents an actual vector.
-      const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, ARROW_OPTIONS );
+      const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, arrowOptions );
 
       // Create a label for the vector that is displayed 'next' to the arrow. The location of this depends 
       // on the angle of the vector.
