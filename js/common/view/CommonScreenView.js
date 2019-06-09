@@ -68,14 +68,19 @@ define( require => {
         );
         this.addChild( vectorNode );
 
+        // Add the removal listener in case this vector is removed from the model.
         const removalListener = removedVector => {
           if ( removedVector === addedVector ) {
+
+            // remove its node from the view
             vectorNode.dispose();
+
+            // remove this listener to avoid leaking memory
             commonModel.vectors.removeItemRemovedListener( removalListener );
           }
         };
 
-        // Add the removal listener in case this vector is removed from the model.
+        // link removalListener to the provided ObservableArray
         commonModel.vectors.addItemRemovedListener( removalListener );
       } );
     }
