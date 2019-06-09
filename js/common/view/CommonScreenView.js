@@ -9,12 +9,13 @@ define( require => {
   // modules
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorDisplayPanel = require( 'VECTOR_ADDITION/common/view/VectorDisplayPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
- 
+
   // constants
   const VECTOR_OPTIONS = VectorAdditionConstants.VECTOR_ARROW_OPTIONS;
   const VECTOR_SUM_OPTIONS = VectorAdditionConstants.VECTOR_SUM_ARROW_OPTIONS;
@@ -39,33 +40,10 @@ define( require => {
       vectorDisplayPanel.top = 12;
       this.addChild( vectorDisplayPanel );
 
-      // create a scenery node for the sum vector
-      const vectorSumNode = new VectorNode( commonModel.vectorSum,
-        commonModel.gridModelBounds,
-        commonModel.componentStyleProperty,
-        commonModel.angleVisibleProperty,
-        commonModel.modelViewTransformProperty,
-        VECTOR_SUM_OPTIONS
-      );
+      // create a layer
+      const vectorLayer = new Node();
 
-
-      // link the visibility of the Vector Sum node with the status of the checkbox
-      commonModel.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
-
-      this.addChild( vectorSumNode );
-
-
-      const resetAllButton = new ResetAllButton( {
-        listener: () => {
-          commonModel.reset();
-          graphNode.reset();
-        },
-        right: this.layoutBounds.maxX - 10,
-        bottom: this.layoutBounds.maxY - 10,
-        tandem: tandem.createTandem( 'resetAllButton' )
-      } );
-      this.addChild( resetAllButton );
-
+      this.addChild( vectorLayer );
       commonModel.vectors.addItemAddedListener( ( addedVector ) => {
         const vectorNode = new VectorNode(
           addedVector,
@@ -75,7 +53,9 @@ define( require => {
           commonModel.modelViewTransformProperty,
           VECTOR_OPTIONS
         );
-        this.addChild( vectorNode );
+
+        vectorLayer.addChild( vectorNode );
+
 
         // Add the removal listener in case this vector is removed from the model.
         const removalListener = removedVector => {
@@ -92,6 +72,32 @@ define( require => {
         // link removalListener to the provided ObservableArray
         commonModel.vectors.addItemRemovedListener( removalListener );
       } );
+
+
+      // create a scenery node for the sum vector
+      const vectorSumNode = new VectorNode( commonModel.vectorSum,
+        commonModel.gridModelBounds,
+        commonModel.componentStyleProperty,
+        commonModel.angleVisibleProperty,
+        commonModel.modelViewTransformProperty,
+        VECTOR_SUM_OPTIONS
+      );
+
+      // link the visibility of the Vector Sum node with the status of the checkbox
+      commonModel.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
+
+      this.addChild( vectorSumNode );
+
+      const resetAllButton = new ResetAllButton( {
+        listener: () => {
+          commonModel.reset();
+          graphNode.reset();
+        },
+        right: this.layoutBounds.maxX - 10,
+        bottom: this.layoutBounds.maxY - 10,
+        tandem: tandem.createTandem( 'resetAllButton' )
+      } );
+      this.addChild( resetAllButton );
     }
   }
 
