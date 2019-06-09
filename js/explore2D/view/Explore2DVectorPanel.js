@@ -13,8 +13,10 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // constants
+  const PANEL_OPTIONS = VectorAdditionConstants.VECTOR_BOX_OPTIONS;
 
   class Explore2DVectorPanel extends VectorPanel {
     /**
@@ -25,7 +27,8 @@ define( require => {
      */
     constructor( vectorArray, modelViewTransformProperty ) {
       super( vectorArray, 3, modelViewTransformProperty, {
-        labels: [ 'a', 'b', 'c' ]
+        labels: [ 'a', 'b', 'c' ],
+        panelOptions: PANEL_OPTIONS
       } );
     }
 

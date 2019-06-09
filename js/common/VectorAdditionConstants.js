@@ -57,8 +57,8 @@ define( function( require ) {
     VECTOR_BOX_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,
       fill: 'white',
-      contentXMargin: PANEL_X_MARGIN,
-      contentYMargin: PANEL_Y_MARGIN
+      xMargin: PANEL_X_MARGIN,
+      yMargin: 6
     },
 
     // Spacing between checkboxes, radio buttons, or other items of that nature

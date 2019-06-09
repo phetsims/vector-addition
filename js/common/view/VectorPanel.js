@@ -19,6 +19,7 @@ define( require => {
 
   // modules
   const DragListener = require( 'SCENERY/listeners/DragListener' );
+  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -28,6 +29,7 @@ define( require => {
 
   // constants
   const SLOTS_SPACING = 20;
+  const LABEL_AND_ICON_SPACING = 10;
 
   // TODO: add a option to put the labels next to the icons
   class VectorPanel extends Node {
@@ -77,7 +79,7 @@ define( require => {
       super();
 
       // array for the vector icons to be added
-      const vectorIcons = [];
+      const slotsChildren = [];
 
       // container for the vector representations (node for the vector when dragging onto the screen)
       const vectorRepresentationContainer = new Node();
@@ -88,8 +90,6 @@ define( require => {
         // create the icon node by calling the abstract method, see createVectorIcon for documentation
         const vectorIconNode = this.createVectorIcon( slotNumber );
 
-
-        vectorIcons.push( vectorIconNode );
 
         // When the vector icon is clicked, add a vector reprentation as a decoy vector to drag onto the screen
         vectorIconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
@@ -158,11 +158,27 @@ define( require => {
           vectorRepresentationArrow.center = this.globalToParentPoint( event.pointer.point );
           vectorRepresentationDragListener.press( event );
         } ) );
+
+        // Create the actual slot, which contains the label (if neccesary) and the icon
+        const slot = new LayoutBox({
+          orientation: 'horizontal',
+          spacing: LABEL_AND_ICON_SPACING,
+        })
+
+        // add the icon
+        slot.addChild( vectorIconNode );
+        // create a node next to the icon for the label
+        if ( options.includeLabelsNextToIcons === true ) 
+          slot.addChild( new FormulaNode( '\\vec{' + options.labels[ slotNumber ] + '}' ) );
+        
+
+        slotsChildren.push( slot );
+
       }
 
       const slotsLayoutBox = new LayoutBox( {
         spacing: SLOTS_SPACING,
-        children: vectorIcons
+        children: slotsChildren
       } );
 
       const panel = new Panel( slotsLayoutBox, options.panelOptions );
