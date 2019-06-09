@@ -92,7 +92,10 @@ define( require => {
         targetNode: this,
         translateNode: false,
         locationProperty: tailLocationProperty,
-        start: () => vector.isBodyDraggingProperty.set( true ),
+        start: () => {
+          vector.isBodyDraggingProperty.set( true );
+          this.moveToFront();
+        },
         end: () => vector.isBodyDraggingProperty.set( false )
       } );
 
@@ -114,7 +117,10 @@ define( require => {
           targetNode: tipCircle,
           translateNode: false,
           locationProperty: tipLocationProperty,
-          start: () => vector.isTipDraggingProperty.set( true ),
+          start: () => {
+            vector.isTipDraggingProperty.set( true );
+            this.moveToFront();
+          },
           end: () => vector.isTipDraggingProperty.set( false )
         } );
 
