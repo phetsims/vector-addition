@@ -90,6 +90,7 @@ define( require => {
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
       this.upperLeftPositionProperty.reset();
+      this.vectors.reset();
     }
   }
 

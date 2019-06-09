@@ -67,10 +67,20 @@ define( require => {
           commonModel.modelViewTransformProperty
         );
         this.addChild( vectorNode );
-      } );
 
+        const removalListener = removedVector => {
+          if ( removedVector === addedVector ) {
+            vectorNode.dispose();
+            commonModel.vectors.removeItemRemovedListener( removalListener );
+          }
+        };
+
+        // Add the removal listener in case this vector is removed from the model.
+        commonModel.vectors.addItemRemovedListener( removalListener );
+      } );
     }
   }
 
   return vectorAddition.register( 'CommonScreenView', CommonScreenView );
-} );
+} )
+;
