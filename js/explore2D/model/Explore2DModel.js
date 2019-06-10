@@ -1,6 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * Model for the explore1D screen
+ *
  * @author Martin Veillette
  */
 define( require => {
@@ -9,35 +11,36 @@ define( require => {
   // modules
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const Dimension2 = require( 'DOT/Dimension2' );
-  const Property = require( 'AXON/Property' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
 
-  /**
-   * @constructor
-   */
-  class Explore2DModel extends CommonModel {
-
+  class Explore1DModel extends CommonModel {
     /**
-     * @param {Tandem} tandem
+     * @abstract
+     * @public
+     * Create the graph model(s) (1D has 2 graph scenes)
      */
-    constructor( tandem ) {
+    instantiateGraphs() {
 
-      const gridDimension = new Dimension2( 60, 40 );
-      const upperLeftCoordinate = new Vector2( -5, 35 );
+      // TODO: should this be put into the constants file, it is the same size for 1D 2D and lab
+      const graphDimension = new Dimension2( 60, 40 );
+      const graphUpperLeftPosition = new Vector2( -30, 20 );
 
-      super( gridDimension, upperLeftCoordinate, tandem );
-
-      this.vectorOrientationProperty = new Property( VectorOrientation.ALL );
+      // @public {Graph} the horizontal Graph
+      this.graph = new Graph( graphDimension, graphUpperLeftPosition, this.vectorOrientationProperty.value );
     }
 
-    // @public resets the model
-    reset() {
-      super.reset();
+    /**
+     * @abstract
+     * @public
+     * Reset the graphs to their initial states respectively
+     */
+    resetGraphs() {
+      this.graph.reset();
     }
 
   }
 
-  return vectorAddition.register( 'Explore2DModel', Explore2DModel );
+  return vectorAddition.register( 'Explore1DModel', Explore1DModel );
 } );
