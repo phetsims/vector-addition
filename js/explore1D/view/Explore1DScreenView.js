@@ -16,6 +16,7 @@ define( require => {
   const NumberProperty = require( 'AXON/NumberProperty' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const Range = require( 'DOT/Range' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -37,16 +38,16 @@ define( require => {
 
       const horizontalScene = new SceneNode( explore1DModel, explore1DModel.horizontalGraph );
       const verticalScene = new SceneNode( explore1DModel, explore1DModel.verticalGraph );
-      
+
 
       // create the vector panels
-      const horizontalVectorPanel = new Explore1DVectorPanel( 
+      const horizontalVectorPanel = new Explore1DVectorPanel(
         explore1DModel.horizontalGraph.vectors,
-        explore1DModel.horizontalGraph.modelViewTransformProperty 
+        explore1DModel.horizontalGraph.modelViewTransformProperty
       );
-      const verticalVectorPanel = new Explore1DVectorPanel( 
+      const verticalVectorPanel = new Explore1DVectorPanel(
         explore1DModel.verticalGraph.vectors,
-        explore1DModel.verticalGraph.modelViewTransformProperty 
+        explore1DModel.verticalGraph.modelViewTransformProperty
       );
 
 
@@ -110,17 +111,27 @@ define( require => {
         orientation: 'horizontal'
       } );
 
+      const resetAllButton = new ResetAllButton( {
+        listener: () => {
+          explore1DModel.reset();
+          horizontalScene.reset();
+          verticalScene.reset();
+        },
+        right: this.layoutBounds.maxX - 10,
+        bottom: this.layoutBounds.maxY - 10,
+        tandem: tandem.createTandem( 'resetAllButton' )
+      } );
 
-
-      this.setChildren([ 
-        horizontalScene, 
+      this.setChildren( [
+        horizontalScene,
         verticalScene,
         horizontalVectorPanel,
         verticalVectorPanel,
         gridPanel,
         sceneRadioButtonGroup,
         image,
-        screenshotHSlider ]);
+        resetAllButton,
+        screenshotHSlider ] );
     }
   }
 
