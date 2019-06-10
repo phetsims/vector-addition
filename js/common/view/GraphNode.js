@@ -47,6 +47,7 @@ define( require => {
   const MAJOR_TICK_SPACING = 5;
 
   // origin circle
+  const ORIGIN_CIRCLE_RADIUS = 7;
   const ORIGIN_CIRCLE_OPTIONS = {
     stroke: 'black',
     fill: 'yellow',
@@ -88,6 +89,8 @@ define( require => {
   // strings
   const xString = require( 'string!VECTOR_ADDITION/x' );
   const yString = require( 'string!VECTOR_ADDITION/y' );
+  const number0String = '0';
+
 
   // TODO: dont pass the entire model
   class GraphNode extends Node {
@@ -273,7 +276,8 @@ define( require => {
       // the origin in terms of the view;
       const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
-      super( 7, _.extend( { center: origin }, ORIGIN_CIRCLE_OPTIONS ) );
+
+      super( ORIGIN_CIRCLE_RADIUS, _.extend( { center: origin }, ORIGIN_CIRCLE_OPTIONS ) );
 
 
       // Create a dragBounds to constrain the drag
@@ -342,7 +346,7 @@ define( require => {
       const axisTicksPath = new Path( new Shape(), TICKS_OPTIONS );
 
       // @public {Text} originText - create a label for the origin that will be moved when the modelViewTransform is updated.
-      this.originText = new Text( '0', ORIGIN_TEXT_OPTIONS );
+      this.originText = new Text( number0String, ORIGIN_TEXT_OPTIONS );
 
       // Observe changes to the modelViewTransform and update the axis when changed.
       commonModel.modelViewTransformProperty.link( ( modelViewTransform ) => {

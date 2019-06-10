@@ -56,7 +56,6 @@ define( require => {
 
         vectorLayer.addChild( vectorNode );
 
-
         // Add the removal listener in case this vector is removed from the model.
         const removalListener = removedVector => {
           if ( removedVector === addedVector ) {
