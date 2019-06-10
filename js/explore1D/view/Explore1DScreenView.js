@@ -9,23 +9,23 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
+  const Explore1DVectorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorPanel' );
   const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
   const HSlider = require( 'SUN/HSlider' );
   const Image = require( 'SCENERY/nodes/Image' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const Range = require( 'DOT/Range' );
-  const Explore1DVectorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorPanel' );
+  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
+  const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
-
 
   // images
   const mockupImage = require( 'image!VECTOR_ADDITION/explore1D_screenshot.png' );
 
 
-  class Explore1DScreenView extends CommonScreenView {
+  class Explore1DScreenView extends ScreenView {
 
     /**
      * @param {Explore1DModel} explore1DModel
@@ -33,7 +33,44 @@ define( require => {
      */
     constructor( explore1DModel, tandem ) {
 
-      super( explore1DModel, tandem );
+      super();
+
+      const horizontalScene = new SceneNode( explore1DModel, explore1DModel.horizontalGraph );
+      const verticalScene = new SceneNode( explore1DModel, explore1DModel.verticalGraph );
+      
+
+      // create the vector panels
+      const horizontalVectorPanel = new Explore1DVectorPanel( 
+        explore1DModel.horizontalGraph.vectors,
+        explore1DModel.horizontalGraph.modelViewTransformProperty 
+      );
+      const verticalVectorPanel = new Explore1DVectorPanel( 
+        explore1DModel.verticalGraph.vectors,
+        explore1DModel.verticalGraph.modelViewTransformProperty 
+      );
+
+
+      explore1DModel.vectorOrientationProperty.link( ( vectorOrientation ) => {
+        switch( vectorOrientation ) {
+          case VectorOrientation.HORIZONTAL:
+            verticalScene.visible = false;
+            verticalVectorPanel.visible = false;
+            horizontalScene.visible = true;
+            horizontalVectorPanel.visible = true;
+            break;
+          case VectorOrientation.VERTICAL:
+            verticalScene.visible = true;
+            verticalVectorPanel.visible = true;
+            horizontalVectorPanel.visible = false;
+            horizontalScene.visible = false;
+            break;
+          case VectorOrientation.ALL:
+            throw new Error( 'explore1D cannot support all vector orientation' );
+          default:
+            throw new Error( 'Vector orientation not handled', vectorOrientation );
+        }
+      } );
+
 
       // Show the mock-up and a slider to change its transparency
       const mockupOpacityProperty = new NumberProperty( 0.0 );
@@ -74,15 +111,16 @@ define( require => {
       } );
 
 
-      this.addChild( gridPanel );
 
-      this.addChild( sceneRadioButtonGroup );
-      this.addChild( image );
-      this.addChild( screenshotHSlider );
-
-      const vectorPanel = new Explore1DVectorPanel( explore1DModel.graph.vectors, explore1DModel.graph.modelViewTransformProperty );
-
-      this.addChild( vectorPanel );
+      this.setChildren([ 
+        horizontalScene, 
+        verticalScene,
+        horizontalVectorPanel,
+        verticalVectorPanel,
+        gridPanel,
+        sceneRadioButtonGroup,
+        image,
+        screenshotHSlider ]);
     }
   }
 
