@@ -91,7 +91,7 @@ define( require => {
         const vectorIconNode = this.createVectorIcon( slotNumber );
 
 
-        // When the vector icon is clicked, add a vector reprentation as a decoy vector to drag onto the screen
+        // When the vector icon is clicked, add a vector representation as a decoy vector to drag onto the screen
         vectorIconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
 
           // create the decoy vector representation for when the user is dragging the vector onto the screen
@@ -159,7 +159,7 @@ define( require => {
           vectorRepresentationDragListener.press( event );
         } ) );
 
-        // Create the actual slot, which contains the label (if neccesary) and the icon
+        // Create the actual slot, which contains the label (if necessary) and the icon
         const slot = new LayoutBox( {
           orientation: 'horizontal',
           spacing: LABEL_AND_ICON_SPACING
