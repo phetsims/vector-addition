@@ -13,6 +13,7 @@ define( require => {
   const ExpandCollapseButton = require( 'SUN/ExpandCollapseButton' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   const Panel = require( 'SUN/Panel' );
@@ -136,21 +137,21 @@ define( require => {
             { decimalPlaces: 1 }
           );
 
-          const angleText = new RichText( 'Θ' );
+          const angleText = new RichText( MathSymbols.THETA );
           const angleDisplay = new NumberDisplay(
             vector.angleDegreesProperty,
             new Range( -180, 180 ),
             { decimalPlaces: 1 }
           );
 
-          const xComponentText = new RichText( `${vector.label} <sub>${xString}</sub>` );
+          const xComponentText = new RichText( `${vector.label}<sub>${xString}</sub>` );
           const xComponentDisplay = new NumberDisplay(
             vector.xProperty,
             new Range( -60, 60 ),
             { decimalPlaces: 0 }
           );
 
-          const yComponentText = new RichText( `${vector.label} <sub>${yString}</sub>` );
+          const yComponentText = new RichText( `${vector.label}<sub>${yString}</sub>` );
           const yComponentDisplay = new NumberDisplay(
             vector.yProperty,
             new Range( -40, 40 ),
