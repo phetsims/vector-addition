@@ -51,7 +51,7 @@ define( function( require ) {
       this.addChild( image );
       this.addChild( screenshotHSlider );
 
-      const vectorPanel = new Explore2DVectorPanel( explore2DModel.vectors, explore2DModel.modelViewTransformProperty );
+      const vectorPanel = new Explore2DVectorPanel( explore2DModel.graph.vectors, explore2DModel.graph.modelViewTransformProperty );
 
       this.addChild( vectorPanel );
     }

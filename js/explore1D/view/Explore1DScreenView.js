@@ -80,7 +80,7 @@ define( require => {
       this.addChild( image );
       this.addChild( screenshotHSlider );
 
-      const vectorPanel = new Explore1DVectorPanel( explore1DModel.vectors, explore1DModel.modelViewTransformProperty );
+      const vectorPanel = new Explore1DVectorPanel( explore1DModel.graph.vectors, explore1DModel.graph.modelViewTransformProperty );
 
       this.addChild( vectorPanel );
     }

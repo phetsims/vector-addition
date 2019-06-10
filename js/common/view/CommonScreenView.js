@@ -30,11 +30,11 @@ define( require => {
 
       super();
 
-      const graphNode = new GraphNode( commonModel );
+      const graphNode = new GraphNode( commonModel.graph, commonModel.vectorOrientationProperty.value );
 
       this.addChild( graphNode );
 
-      const vectorDisplayPanel = new VectorDisplayPanel( commonModel.vectors, commonModel );
+      const vectorDisplayPanel = new VectorDisplayPanel( commonModel.graph.vectors, commonModel.graph );
 
       vectorDisplayPanel.left = 195;
       vectorDisplayPanel.top = 12;
@@ -44,13 +44,14 @@ define( require => {
       const vectorLayer = new Node();
 
       this.addChild( vectorLayer );
-      commonModel.vectors.addItemAddedListener( ( addedVector ) => {
+
+      commonModel.graph.vectors.addItemAddedListener( ( addedVector ) => {
         const vectorNode = new VectorNode(
           addedVector,
-          commonModel.gridModelBounds,
+          commonModel.graph.graphModelBounds,
           commonModel.componentStyleProperty,
           commonModel.angleVisibleProperty,
-          commonModel.modelViewTransformProperty,
+          commonModel.graph.modelViewTransformProperty,
           VECTOR_OPTIONS
         );
 
@@ -64,21 +65,21 @@ define( require => {
             vectorNode.dispose();
 
             // remove this listener to avoid leaking memory
-            commonModel.vectors.removeItemRemovedListener( removalListener );
+            commonModel.graph.vectors.removeItemRemovedListener( removalListener );
           }
         };
 
         // link removalListener to the provided ObservableArray
-        commonModel.vectors.addItemRemovedListener( removalListener );
+        commonModel.graph.vectors.addItemRemovedListener( removalListener );
       } );
 
 
       // create a scenery node for the sum vector
-      const vectorSumNode = new VectorNode( commonModel.vectorSum,
-        commonModel.gridModelBounds,
+      const vectorSumNode = new VectorNode( commonModel.graph.vectorSum,
+        commonModel.graph.graphModelBounds,
         commonModel.componentStyleProperty,
         commonModel.angleVisibleProperty,
-        commonModel.modelViewTransformProperty,
+        commonModel.graph.modelViewTransformProperty,
         VECTOR_SUM_OPTIONS
       );
 

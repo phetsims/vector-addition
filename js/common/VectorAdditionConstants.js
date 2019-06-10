@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
@@ -21,6 +22,12 @@ define( function( require ) {
   const PANEL_Y_MARGIN = 12; // vertical panel margin
 
   const VectorAdditionConstants = {
+
+    // Graph
+
+    // The coordinate for the graphNode in view coordinates.
+    UPPER_LEFT_LOCATION: new Vector2( 29, 90 ),
+    GRAPH_TO_VIEW_SCALE: 12.5,
 
     // Some
     BACKGROUND_COLOR: 'rgb( 255, 250, 227)',
