@@ -36,6 +36,12 @@ define( require => {
 
       super( Vector2.ZERO, 0, 0, modelViewTransformProperty, options );
 
+      this.isTipDraggingProperty.link( isTipDragging => {
+        if ( isTipDragging ) {
+          throw new Error( 'the tip of the sum vector should not be draggable' );
+        }
+      } );
+
       const updateSum = ( attributesVector, oldAttributesVector ) =>
         this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( attributesVector ).minus( oldAttributesVector ) );
 
