@@ -43,6 +43,7 @@ define( require => {
 
     /**
      * @param {ObservableArray.<Vector>} vectors
+     * @param {CommonModel} model
      * @param {Object} [options]
      */
     constructor( vectors, model, options ) {
