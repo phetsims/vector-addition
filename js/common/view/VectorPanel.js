@@ -120,31 +120,27 @@ define( require => {
               // get the default vector components to add to the screen, see getDefaultVectorComponents for documentation
               const defaultVectorComponents = this.getDefaultVectorComponents();
 
-              // If there are multiple observable arrays, add a new vector to the slot number
-              if ( options.observableArrays ) {
+              // Create a new Vector to be added to the observbale array
+              const newVectorModel = new Vector(
+                vectorRepresentationPosition,
+                defaultVectorComponents.x,
+                defaultVectorComponents.y,
+                modelViewTransformProperty, {
+                  label: options.labels ? options.labels[ slotNumber ] : null
+                }
+              )
 
-                options.observableArrays.get( slotNumber ).push(
-                  new Vector(
-                    vectorRepresentationPosition,
-                    defaultVectorComponents.x,
-                    defaultVectorComponents.y,
-                    modelViewTransformProperty, {
-                      label: options.labels ? options.labels[ slotNumber ] : null
-                    }
-                  )
-                );
-                return;
-              }
-              vectorArray.push(
-                new Vector(
-                  vectorRepresentationPosition,
-                  defaultVectorComponents.x,
-                  defaultVectorComponents.y,
-                  modelViewTransformProperty, {
-                    label: options.labels ? options.labels[ slotNumber ] : null
-                  }
-                )
-              );
+              // If there are multiple observable array, use the observableArrays index, otherwise use the given vecor array
+              const observableVectorArray = options.observableArray ? options.observableArrays.get( slotNumber ) : vectorArray;
+          
+              observableVectorArray.push( newVectorModel );
+
+              // Add a removed listener to the observable array to reset the icon
+              observableVectorArray.addItemRemovedListener( ( removedVector ) => {
+                if ( removedVector === newVectorModel ) {
+                  vectorIconNode.visible = true;
+                }
+              } );
             }
           } );
 
@@ -188,6 +184,8 @@ define( require => {
       panel.top = 300;
 
       this.setChildren( [ panel, vectorRepresentationContainer ] );
+
+
     }
 
     /**
