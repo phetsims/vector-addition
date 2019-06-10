@@ -392,7 +392,7 @@ define( require => {
      * Gets a new shape for the updated axis ticks
      * @abstract
      * @param {Bounds2} gridModelBounds - the bounds of the grid in model coordinates
-     * @param {ModelViewTransform2} - the new modelViewTransform
+     * @param {ModelViewTransform2} modelViewTransform - the new modelViewTransform
      * @returns {Shape} the new axis ticks shape in View coordinates
      */
     getUpdatedTicksShape( gridModelBounds, modelViewTransform ) {}
