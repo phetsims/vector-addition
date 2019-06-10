@@ -29,7 +29,7 @@ define( require => {
       // TODO: what should be a good tailPosition?
 
       options = _.extend( {
-        label: 'S',
+        label: 's',
         isTipDraggable: false
       }, options );
 
