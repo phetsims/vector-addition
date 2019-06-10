@@ -11,19 +11,12 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Explore1DVectorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorPanel' );
   const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
-  const HSlider = require( 'SUN/HSlider' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
-  const Range = require( 'DOT/Range' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
-
-  // images
-  const mockupImage = require( 'image!VECTOR_ADDITION/explore1D_screenshot.png' );
 
 
   class Explore1DScreenView extends ScreenView {
@@ -49,7 +42,7 @@ define( require => {
       const verticalVectorPanel = new Explore1DVectorPanel(
         explore1DModel.verticalGraph.vectors,
         explore1DModel.verticalGraph.modelViewTransformProperty,
-        [ 'd', 'e', 'f' ]  
+        [ 'd', 'e', 'f' ]
       );
 
 
@@ -73,14 +66,6 @@ define( require => {
             throw new Error( 'Vector orientation not handled', vectorOrientation );
         }
       } );
-
-
-      // Show the mock-up and a slider to change its transparency
-      const mockupOpacityProperty = new NumberProperty( 0.0 );
-      const image = new Image( mockupImage, { pickable: false, scale: 0.67, top: 0, left: 0 } );
-
-      const screenshotHSlider = new HSlider( mockupOpacityProperty, new Range( 0, 1 ), { top: 0, left: 0 } );
-      mockupOpacityProperty.linkAttribute( image, 'opacity' );
 
       // TODO:: find better way to deal with absence of angle
       const angleVisibleProperty = new BooleanProperty( false );
@@ -131,9 +116,8 @@ define( require => {
         verticalVectorPanel,
         gridPanel,
         sceneRadioButtonGroup,
-        image,
-        resetAllButton,
-        screenshotHSlider ] );
+        resetAllButton
+      ] );
     }
   }
 

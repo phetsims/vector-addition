@@ -10,14 +10,8 @@ define( function( require ) {
   const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
   const Explore2DVectorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorPanel' );
   const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
-  const HSlider = require( 'SUN/HSlider' );
-  const Image = require( 'SCENERY/nodes/Image' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const Range = require( 'DOT/Range' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  // images
-  const mockupImage = require( 'image!VECTOR_ADDITION/explore2D_screenshot.png' );
 
   class Explore2DScreenView extends CommonScreenView {
 
@@ -40,16 +34,7 @@ define( function( require ) {
           top: 10
         } );
 
-      // Show the mock-up and a slider to change its transparency
-      const mockupOpacityProperty = new NumberProperty( 0 );
-      const image = new Image( mockupImage, { pickable: false, scale: 0.67, top: 0, left: 0 } );
-
-      const screenshotHSlider = new HSlider( mockupOpacityProperty, new Range( 0, 1 ), { top: 0, left: 0 } );
-      mockupOpacityProperty.linkAttribute( image, 'opacity' );
-
       this.addChild( gridPanel );
-      this.addChild( image );
-      this.addChild( screenshotHSlider );
 
       const vectorPanel = new Explore2DVectorPanel( explore2DModel.graph.vectors, explore2DModel.graph.modelViewTransformProperty );
 
