@@ -33,11 +33,11 @@ define( require => {
   class Graph {
     /**
      * @constructor
-     * @param {Dimension2} gridDimension - the dimensions for the graph (width and height)
+     * @param {Dimension2} graphDimension - the dimensions for the graph (width and height)
      * @param {Vector2} upperLeftPosition - the coordinate of the upperLeft corner of the graph.
      * @public
      */
-    constructor( gridDimension, upperLeftPosition ) {
+    constructor( graphDimension, upperLeftPosition ) {
 
 
       // @public {VectorProperty} - the position (model coordinates) of the top left corner of graph
@@ -49,8 +49,8 @@ define( require => {
         // @public {Bounds2} - the model bounds for the graph
         this.graphModelBounds = new Bounds2(
           upperLeftPosition.x,
-          upperLeftPosition.y - gridDimension.height,
-          upperLeftPosition.x + gridDimension.width,
+          upperLeftPosition.y - graphDimension.height,
+          upperLeftPosition.x + graphDimension.width,
           upperLeftPosition.y );
 
       } );
