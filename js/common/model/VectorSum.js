@@ -28,7 +28,6 @@ define( require => {
       // create a vector at origin of initial length zero
       // TODO: what should be a good tailPosition?
 
-
       options = _.extend( {
         label: 'S',
         isTipDraggable: false

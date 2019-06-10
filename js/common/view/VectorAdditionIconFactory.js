@@ -66,7 +66,7 @@ define( function( require ) {
     tailWidth: VECTOR_ICON_TAIL_WIDTH
   };
 
-  // options for drak shaded arrow
+  // options for dark shaded arrow
   const DARK_ARROW_OPTIONS = {
     fill: ARROW_DARK_COLOR,
     stroke: 'rgb( 150, 150, 150 )',
@@ -124,7 +124,7 @@ define( function( require ) {
         stroke: 'black'
       } );
 
-      // subtract 15 because arc arrow uses a subtended angle to caclulate a new angle
+      // subtract 15 because arc arrow uses a subtended angle to calculate a new angle
       const arcArrow = new ArcArrowNode( ANGLE_ICON_ANGLE, ANGLE_ICON_CIRCLE_RADIUS, ANGLE_ICON_OPTIONS );
       return icon.setChildren( [ wedgePath, arcArrow ] );
     },

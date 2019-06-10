@@ -49,7 +49,7 @@ define( require => {
         // and every vector pulled from the second slot would have the 'b' label. This length of the array much match
         // the number of vector slots. If labels is null than it doesn't give any vector a label.
 
-        observableArrays: null, // {array.<ObservableArray>} - if provided, this will override the vectorArray (1st arugment)
+        observableArrays: null, // {array.<ObservableArray>} - if provided, this will override the vectorArray (1st argument)
         // This is used when there are multiple observable arrays needed. Example: observableArrays of 2 would mean that
         // every vector pulled from the first slot would be added to the first observableArray in observableArrays.
         // This must be the same length as numberOfVectorSlots if provided

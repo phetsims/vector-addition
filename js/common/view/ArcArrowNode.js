@@ -2,7 +2,7 @@
 
 /**
  * Create a node that represents the arrow and arc of an arc-arrow
- * Suppports negative angles
+ * Supports negative angles
  * @author Brandon Li
  */
 define( require => {
@@ -20,23 +20,23 @@ define( require => {
 
   class ArcArrowNode extends Node {
     /**
-     * Create a node that draws a arc-arrow arround the point (0, 0)
-     * @param {Number} angle - the angle of the arc arrow in degrees
-     * @param {Number} radius - the radius of the arc arrow
-     * @param {Object} options
+     * Create a node that draws a arc-arrow around the point (0, 0)
+     * @param {number} angle - the angle of the arc arrow in degrees
+     * @param {number} radius - the radius of the arc arrow
+     * @param {Object} [options]
      */
     constructor( angle, radius, options ) {
 
       options = _.extend( {
         center: Vector2.ZERO, // {Vector2} the coordinates that the arc revolves around
-        arrowheadWidth: 7, // {Number} the arrowhead width before translation
-        arrowheadHeight: 5, // {Number} the arrowhead height before translation
+        arrowheadWidth: 7, // {number} the arrowhead width before translation
+        arrowheadHeight: 5, // {number} the arrowhead height before translation
         arcOptions: null, // {Object} filled in bellow
         arrrowOptions: null, // {Object} filled in bellow,
-        includeArrowhead: true // {Boolean} option to exclude the arrowhead
+        includeArrowhead: true // {boolean} option to exclude the arrowhead
       }, options );
 
-      // overide the arcOptions with the default provided bellow
+      // override the arcOptions with the default provided bellow
       options.arcOptions = _.extend( {
         stroke: 'black'
       }, options.arcOptions );
@@ -51,13 +51,13 @@ define( require => {
       // @public (read-only) {Object} the options provided by the user of the arc arrow
       this.options = options;
 
-      // @public (read-only) {Number} the angle (degrees) that the arc arrow is at
+      // @public (read-only) {number} the angle (degrees) that the arc arrow is at
       this.angle = angle;
 
-      // @public (read-only) {Number} the radius of the arc
+      // @public (read-only) {number} the radius of the arc
       this.radius = radius;
 
-      // @public (read-only) {Boolean} include the arrowhead
+      // @public (read-only) {boolean} include the arrowhead
       this.arrowheadIncluded = options.includeArrowhead;
 
       // create a shape for the arc of the angle, set to null, shape will be updated later
@@ -89,9 +89,9 @@ define( require => {
     }
 
     /**
-     * @param {Number} angle - the angle of the arc arrow in degrees
-     * @param {Number} radius - the radius of the arc in view coordinates
-     * @param {Boolean} includeArrowhead
+     * @param {number} angle - the angle of the arc arrow in degrees
+     * @param {number} radius - the radius of the arc in view coordinates
+     * @param {boolean} includeArrowhead
      * @private
      */
     setAngleAndRadius( angle, radius, includeArrowhead ) {

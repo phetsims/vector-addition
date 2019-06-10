@@ -97,7 +97,7 @@ define( require => {
       const expandedObserver = ( expanded ) => {
         displayVectorNode.visible = expanded;
         inspectVectorText.visible = !expanded;
-        // TODO: toggle the selectVectorText visiblity
+        // TODO: toggle the selectVectorText visibility
       };
 
       options.expandedProperty.link( expandedObserver );
@@ -114,7 +114,7 @@ define( require => {
     }
 
     /**
-     * Add a link so when a vector is dragged, the panel content updates aswell
+     * Add a link so when a vector is dragged, the panel content updates as well
      * @param {Vector} vector to be linked
      * @private
      */
