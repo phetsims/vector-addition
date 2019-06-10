@@ -11,9 +11,11 @@ define( function( require ) {
 
   // modules
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
 
   // constants
   const PANEL_CORNER_RADIUS = 5;
@@ -22,6 +24,11 @@ define( function( require ) {
   const PANEL_Y_MARGIN = 12; // vertical panel margin
 
   const VectorAdditionConstants = {
+
+    // defaults
+    DEFUALT_VECTOR_ORIENTATION: VectorOrientation.ALL,
+    EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION: VectorOrientation.HORIZONTAL,
+    DEFAULT_COMPONENT_STYLE: ComponentStyles.INVISIBLE,
 
     // Graph
 
@@ -92,6 +99,12 @@ define( function( require ) {
       headWidth: 9,
       headHeight: 6,
       cursor: 'move'
+    },
+
+    // vector display panel that displays vector attributes at the top of the screen
+    VECTOR_DISPLAY_PANEL_LOCATION: {
+      left: 195,
+      top: 12
     }
 
 

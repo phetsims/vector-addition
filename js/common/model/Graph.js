@@ -35,9 +35,10 @@ define( require => {
      * @constructor
      * @param {Dimension2} graphDimension - the dimensions for the graph (width and height)
      * @param {Vector2} upperLeftPosition - the coordinate of the upperLeft corner of the graph.
+     * @param {VectorOrientation} vectorOrientation
      * @public
      */
-    constructor( graphDimension, upperLeftPosition ) {
+    constructor( graphDimension, upperLeftPosition, vectorOrientation ) {
 
 
       // @public {VectorProperty} - the position (model coordinates) of the top left corner of graph
@@ -71,6 +72,8 @@ define( require => {
       // @public {Vector} the vector sum model
       this.vectorSum = new VectorSum( this.vectors, this.modelViewTransformProperty );
 
+      // @public (read-only)
+      this.vectorOrientation = vectorOrientation;
     }
 
     /**
