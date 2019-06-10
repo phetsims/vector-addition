@@ -92,15 +92,13 @@ define( require => {
   const number0String = '0';
 
 
-  // TODO: dont pass the entire model
   class GraphNode extends Node {
     /**
      * @constructor
      *
      * @param {Graph} graph - the model graph for the node
-     * @param {VectorOrientation} vectorOreintation
      */
-    constructor( graph, vectorOrientation ) {
+    constructor( graph ) {
 
       // Transform the model grid bounds into the view coordinates.
       // This will stay constant as the background rectangle won't move.
@@ -128,9 +126,7 @@ define( require => {
       // @private
       this.originCircle = originCircle;
 
-      // TODO: remove this? as the 1d screen is creating 2 scenes and should toggle
-      // visibility of each scene by itself
-      // Everything else (2d, lab, etc.) will have everything visible
+      const vectorOrientation = graph.vectorOrientation;
 
       // toggle visibility based on different vector orientations
       switch( vectorOrientation ) {
