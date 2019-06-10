@@ -128,7 +128,7 @@ define( require => {
                 modelViewTransformProperty, {
                   label: options.labels ? options.labels[ slotNumber ] : null
                 }
-              )
+              );
 
               // If there are multiple observable array, use the observableArrays index, otherwise use the given vecor array
               const observableVectorArray = options.observableArray ? options.observableArrays.get( slotNumber ) : vectorArray;
