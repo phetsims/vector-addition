@@ -33,7 +33,7 @@ define( require => {
 
 
       // Create the Graph Node
-      const graphNode = new GraphNode( graph );
+      this.graphNode = new GraphNode( graph );
 
       // Create the vector display panel
       const vectorDisplayPanel = new VectorDisplayPanel(
@@ -90,10 +90,18 @@ define( require => {
       model.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
 
       this.setChildren([
-        graphNode,
+        this.graphNode,
         vectorDisplayPanel,
         vectorSumNode,
         vectorLayer ]);
+    }
+
+    /**
+     * @public 
+     * reset the scene
+     */
+    reset() {
+      this.graphNode.reset();
     }
   }
 

@@ -18,8 +18,8 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
  
   // constants
-  const DEFUALT_VECTOR_ORIENTATION = VectorAdditionConstants.DEFUALT_VECTOR_ORIENTATION;
   const DEFAULT_COMPONENT_STYLE = VectorAdditionConstants.DEFAULT_COMPONENT_STYLE;
+  const DEFUALT_VECTOR_ORIENTATION = VectorAdditionConstants.DEFUALT_VECTOR_ORIENTATION;
 
 
   // @abstract

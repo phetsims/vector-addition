@@ -25,7 +25,7 @@ define( require => {
 
       // TODO: should this be put into the constants file, it is the same size for 1D 2D and lab
       const graphDimension = new Dimension2( 60, 40 );
-      const graphUpperLeftPosition = new Vector2( -30, 20 );
+      const graphUpperLeftPosition = new Vector2( -5, 35 );
 
       // @public {Graph} the horizontal Graph
       this.graph = new Graph( graphDimension, graphUpperLeftPosition, this.vectorOrientationProperty.value );
