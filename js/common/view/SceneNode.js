@@ -22,10 +22,10 @@ define( require => {
   const VECTOR_OPTIONS = VectorAdditionConstants.VECTOR_ARROW_OPTIONS;
   const VECTOR_SUM_OPTIONS = VectorAdditionConstants.VECTOR_SUM_ARROW_OPTIONS;
 
-  class Scene extends Node {
+  class SceneNode extends Node {
     /**
-     * @param {Graph} graph - the graph the scene represents
      * @param {CommonModel} model
+     * @param {Graph} graph - the graph the scene represents
      */
     constructor( model, graph ) {
 
@@ -105,5 +105,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'Scene', Scene );
+  return vectorAddition.register( 'SceneNode', SceneNode );
 } );
