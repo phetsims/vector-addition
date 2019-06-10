@@ -38,6 +38,12 @@ define( require => {
   const INSPECT_VECTOR_TEXT_LEFT_MARGIN = 10;
   const DISPLAY_VECTOR_NODE_CENTER_Y = -13;
 
+  // strings
+  const selectAVectorString = require( 'string!VECTOR_ADDITION/selectAVector' );
+  const inspectAVectorString = require( 'string!VECTOR_ADDITION/inspectAVector' );
+  const xString = require( 'string!VECTOR_ADDITION/x' );
+  const yString = require( 'string!VECTOR_ADDITION/y' );
+
 
   class VectorDisplayPanel extends Panel {
 
@@ -59,9 +65,9 @@ define( require => {
         sideLength: 21
       } );
 
-      const inspectVectorText = new Text( 'Inspect Vector', { font: new PhetFont( 16 ) } );
+      const inspectVectorText = new Text( inspectAVectorString, { font: new PhetFont( 16 ) } );
 
-      const selectVectorText = new Text( 'Select a Vector', { font: new PhetFont( 16 ) } );
+      const selectVectorText = new Text( selectAVectorString, { font: new PhetFont( 16 ) } );
 
       // create a scenery node that contains the nodes that display the vector
       // attributes (ie. angle, x and y components, magnitude)
@@ -137,14 +143,14 @@ define( require => {
             { decimalPlaces: 1 }
           );
 
-          const xComponentText = new RichText( vector.label + '<sub>x</sub>' );
+          const xComponentText = new RichText( `${vector.label} <sub>${xString}</sub>` );
           const xComponentDisplay = new NumberDisplay(
             vector.xProperty,
             new Range( -60, 60 ),
             { decimalPlaces: 0 }
           );
 
-          const yComponentText = new RichText( vector.label + '<sub>y</sub>' );
+          const yComponentText = new RichText( `${vector.label} <sub>${yString}</sub>` );
           const yComponentDisplay = new NumberDisplay(
             vector.yProperty,
             new Range( -40, 40 ),

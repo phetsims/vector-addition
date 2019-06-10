@@ -26,6 +26,9 @@
   "selectAVector": {
     "value": "Select a vector"
   },
+  "inspectAVector": {
+    "value": "Inspect a vector"
+  },
   "x": {
     "value": "x"
   },
