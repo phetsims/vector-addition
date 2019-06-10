@@ -15,7 +15,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  class Explore1DModel extends CommonModel {
+  class Explore2DModel extends CommonModel {
     /**
      * @abstract
      * @public
@@ -42,5 +42,5 @@ define( require => {
 
   }
 
-  return vectorAddition.register( 'Explore1DModel', Explore1DModel );
+  return vectorAddition.register( 'Explore2DModel', Explore2DModel );
 } );
