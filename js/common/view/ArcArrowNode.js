@@ -32,7 +32,7 @@ define( require => {
         arrowheadWidth: 7, // {number} the arrowhead width before translation
         arrowheadHeight: 5, // {number} the arrowhead height before translation
         arcOptions: null, // {Object} filled in bellow
-        arrrowOptions: null, // {Object} filled in bellow,
+        arrowOptions: null, // {Object} filled in bellow,
         includeArrowhead: true // {boolean} option to exclude the arrowhead
       }, options );
 
@@ -41,7 +41,7 @@ define( require => {
         stroke: 'black'
       }, options.arcOptions );
 
-      // overide the arrowOptions with the default provided bellow
+      // override the arrowOptions with the default provided bellow
       options.arrowOptions = _.extend( {
         fill: 'black'
       }, options.arrowOptions );

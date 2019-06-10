@@ -219,7 +219,7 @@ define( require => {
 
       // Create the Horizontal Grid Lines
       // Start from the Ceil of the gridMinY to the floor of the gridMaxY because the origin may be dragged so that the
-      // minY and maxY are decimal points. With the ceil/floor of this also guarentee that we draw 
+      // minY and maxY are decimal points. With the ceil/floor of this also guarantees that we draw
       // all the lines visible in the window
       for ( let j = Math.ceil( gridMinY ); j <= Math.floor( gridMaxY ); j++ ) {
 

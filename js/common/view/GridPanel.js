@@ -103,7 +103,7 @@ define( require => {
         ]
       } ), gridVisibleProperty );
 
-      // add a horizontal line that seperates the panel into two sections
+      // add a horizontal line that separates the panel into two sections
       const horizontalLine = new Line( 0, 0, VectorAdditionConstants.RIGHT_CONTENT_WIDTH, 0, {
         stroke: 'black'
       } );
