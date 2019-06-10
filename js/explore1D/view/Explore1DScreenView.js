@@ -43,11 +43,13 @@ define( require => {
       // create the vector panels
       const horizontalVectorPanel = new Explore1DVectorPanel(
         explore1DModel.horizontalGraph.vectors,
-        explore1DModel.horizontalGraph.modelViewTransformProperty
+        explore1DModel.horizontalGraph.modelViewTransformProperty,
+        [ 'a', 'b', 'c' ] // TODO: is this the cleanist way to do this? I can't think of any other way
       );
       const verticalVectorPanel = new Explore1DVectorPanel(
         explore1DModel.verticalGraph.vectors,
-        explore1DModel.verticalGraph.modelViewTransformProperty
+        explore1DModel.verticalGraph.modelViewTransformProperty,
+        [ 'd', 'e', 'f' ]  
       );
 
 
