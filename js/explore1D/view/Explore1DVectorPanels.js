@@ -14,7 +14,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
 
   // constants
   const PANEL_OPTIONS = VectorAdditionConstants.VECTOR_BOX_OPTIONS;
