@@ -9,6 +9,7 @@ define( require => {
   'use strict';
 
   // modules
+  const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -91,11 +92,18 @@ define( require => {
       // link the visibility of the Vector Sum node with the status of the checkbox
       model.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
 
+      const eraserButton = new EraserButton({
+        listener: () => {
+          graph.vectors.clear();
+        }
+      });
+
       this.setChildren([
         this.graphNode,
         vectorDisplayPanel,
         vectorSumNode,
-        vectorLayer ]);
+        vectorLayer,
+        eraserButton ]);
     }
 
     /**
