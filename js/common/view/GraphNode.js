@@ -48,17 +48,17 @@ define( require => {
   const MAJOR_TICK_SPACING = 5;
 
   // origin circle
-  const ORIGIN_CRICLE_COLOR = Color.toColor( 'rgb( 204, 204, 0 )' );
+  const ORIGIN_CIRCLE_COLOR = Color.toColor( 'rgb( 204, 204, 0 )' );
   const ORIGIN_CIRCLE_RADIUS = 15;
   const ORIGIN_CIRCLE_OPTIONS = {
     renderer: 'canvas',
     cursor: 'move',
-    fill: ORIGIN_CRICLE_COLOR.withAlpha( 0.15 ),
-    mainColor: ORIGIN_CRICLE_COLOR,
+    fill: ORIGIN_CIRCLE_COLOR.withAlpha( 0.15 ),
+    mainColor: ORIGIN_CIRCLE_COLOR,
     highlightColor: Color.WHITE,
-    shadowColor: ORIGIN_CRICLE_COLOR.colorUtilsBrighter( 0.9 ),
+    shadowColor: ORIGIN_CIRCLE_COLOR.colorUtilsBrighter( 0.9 ),
     lineWidth: 1,
-    stroke: ORIGIN_CRICLE_COLOR.darkerColor()
+    stroke: ORIGIN_CIRCLE_COLOR.darkerColor()
   };
   // in model coordinates
   const DRAG_PADDING_CONSTRAINT = 5;

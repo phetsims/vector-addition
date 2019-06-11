@@ -98,13 +98,13 @@ define( require => {
           const vectorRepresentationArrow = this.createVectorRepresentationArrow();
 
           // create a location property to track the location of where the user dragged the vector representation
-          const vectorRepresentationlocationProperty = new Vector2Property( this.globalToParentPoint( event.pointer.point ) );
+          const vectorRepresentationLocationProperty = new Vector2Property( this.globalToParentPoint( event.pointer.point ) );
 
           // create a drag listener for the vector representation node
           const vectorRepresentationDragListener = new DragListener( {
             targetNode: vectorRepresentationArrow,
             translateNode: true,
-            locationProperty: vectorRepresentationlocationProperty,
+            locationProperty: vectorRepresentationLocationProperty,
             // TODO: add a drag bounds?
             end: () => {
               // TODO: what should we do if the user dragged it off the grid
@@ -114,7 +114,7 @@ define( require => {
 
               // get the drag location
               const vectorRepresentationPosition = modelViewTransformProperty.value.viewToModelPosition(
-                vectorRepresentationlocationProperty.value
+                vectorRepresentationLocationProperty.value
               );
 
               // get the default vector components to add to the screen, see getDefaultVectorComponents for documentation
