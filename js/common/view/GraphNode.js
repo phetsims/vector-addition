@@ -345,7 +345,7 @@ define( require => {
       graph.modelViewTransformProperty.link( ( modelViewTransform ) => {
 
         // convenience variable for the position of the origin in view coordinates
-        const graphVieworigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
+        const graphViewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
         // convenience variables for the grid bounds in view/model coordinates
         const graphModelBounds = graph.graphModelBounds;
@@ -353,11 +353,11 @@ define( require => {
 
         // Update the axis double arrow
         // updateAxisArrow is an ABSTRACT method and MUST be provided
-        this.updateAxisArrow( graphViewBounds, graphVieworigin );
+        this.updateAxisArrow( graphViewBounds, graphViewOrigin );
 
         // Update the labels of the axis
         // Also a abstract method
-        this.updateAxisLabels( graphVieworigin );
+        this.updateAxisLabels( graphViewOrigin );
 
         // get the shape of the ticks along the axis (abstract) in view coordinates
         const newTicksShape = this.getUpdatedTicksShape( graphModelBounds, modelViewTransform );
@@ -374,16 +374,16 @@ define( require => {
      * Updates the location of the arrow
      * @abstract
      * @param {Bounds2} graphViewBounds - the bounds of the grid in view coordinates
-     * @param {Vector2} graphVieworigin - the origin location in view coordinates
+     * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      */
-    updateAxisArrow( graphViewBounds, graphVieworigin ) {}
+    updateAxisArrow( graphViewBounds, graphViewOrigin ) {}
 
     /**
      * Updates the location of the labels (origin label and axis label)
      * @abstract
-     * @param {Vector2} graphVieworigin - the origin location in view coordinates
+     * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      */
-    updateAxisLabels( graphVieworigin ) {}
+    updateAxisLabels( graphViewOrigin ) {}
 
     /**
      * Gets a new shape for the updated axis ticks
@@ -419,30 +419,30 @@ define( require => {
      * Updates the location of the arrow
      * @abstract
      * @param {Bounds2} graphViewBounds - the bounds of the grid in view coordinates
-     * @param {Vector2} graphVieworigin - the origin location in view coordinates
+     * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      */
-    updateAxisArrow( graphViewBounds, graphVieworigin ) {
+    updateAxisArrow( graphViewBounds, graphViewOrigin ) {
       this.axisArrow.setTailAndTip(
         graphViewBounds.minX - LINE_EXTENT_X,
-        graphVieworigin.y,
+        graphViewOrigin.y,
         graphViewBounds.maxX + LINE_EXTENT_X,
-        graphVieworigin.y
+        graphViewOrigin.y
       );
     }
 
     /**
      * Updates the location of the labels (origin label and axis label)
      * @abstract
-     * @param {Vector2} graphVieworigin - the origin location in view coordinates
+     * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      */
-    updateAxisLabels( graphVieworigin ) {
+    updateAxisLabels( graphViewOrigin ) {
       // Update the label that is to the left of the axis
       this.axisLabel.left = this.axisArrow.right + 10;
-      this.axisLabel.centerY = graphVieworigin.y;
+      this.axisLabel.centerY = graphViewOrigin.y;
 
       // Update the origin label
-      this.originText.centerX = graphVieworigin.x;
-      this.originText.top = graphVieworigin.y + 20;
+      this.originText.centerX = graphViewOrigin.x;
+      this.originText.top = graphViewOrigin.y + 20;
     }
 
     /**
@@ -492,13 +492,13 @@ define( require => {
      * Updates the location of the arrow
      * @abstract
      * @param {Bounds2} graphViewBounds - the bounds of the grid in view coordinates
-     * @param {Vector2} graphVieworigin - the origin location in view coordinates
+     * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      */
-    updateAxisArrow( graphViewBounds, graphVieworigin ) {
+    updateAxisArrow( graphViewBounds, graphViewOrigin ) {
       this.axisArrow.setTailAndTip(
-        graphVieworigin.x,
+        graphViewOrigin.x,
         graphViewBounds.minY - LINE_EXTENT_Y,
-        graphVieworigin.x,
+        graphViewOrigin.x,
         graphViewBounds.maxY + LINE_EXTENT_Y
       );
     }
@@ -506,16 +506,16 @@ define( require => {
     /**
      * Updates the location of the labels (origin label and axis label)
      * @abstract
-     * @param {Vector2} graphVieworigin - the origin location in view coordinates
+     * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      */
-    updateAxisLabels( graphVieworigin ) {
+    updateAxisLabels( graphViewOrigin ) {
       // Update the label that is to the left of the axis
-      this.axisLabel.centerX = graphVieworigin.x;
+      this.axisLabel.centerX = graphViewOrigin.x;
       this.axisLabel.centerY = this.axisArrow.top - 10;
 
       // Update the origin label
-      this.originText.centerY = graphVieworigin.y;
-      this.originText.right = graphVieworigin.x - 20;
+      this.originText.centerY = graphViewOrigin.y;
+      this.originText.right = graphViewOrigin.x - 20;
     }
 
     /**
