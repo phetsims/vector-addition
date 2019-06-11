@@ -40,7 +40,7 @@ define( require => {
       // @public {BooleanProperty}
       this.gridVisibleProperty = new BooleanProperty( true );
 
-      // @public {Property.<VectorOrientation>}
+      // @public {Property.<VectorOrientations>}
       this.vectorOrientationProperty = new Property( DEFAULT_VECTOR_ORIENTATION );
 
       // @public {EnumerationProperty<ComponentStyles>} - controls the visibility of the component styles

@@ -25,7 +25,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
+  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -137,19 +137,19 @@ define( require => {
 
       // toggle visibility based on different vector orientations
       switch( vectorOrientation ) {
-        case VectorOrientation.HORIZONTAL:
+        case VectorOrientations.HORIZONTAL:
           xAxisNode.visible = true;
           yAxisNode.visible = false;
           xAxisNode.setOriginLabelVisibility( true );
           yAxisNode.setOriginLabelVisibility( true );
           break;
-        case VectorOrientation.VERTICAL:
+        case VectorOrientations.VERTICAL:
           xAxisNode.visible = false;
           yAxisNode.visible = true;
           xAxisNode.setOriginLabelVisibility( true );
           yAxisNode.setOriginLabelVisibility( true );
           break;
-        case VectorOrientation.ALL:
+        case VectorOrientations.ALL:
           xAxisNode.visible = true;
           yAxisNode.visible = true;
           xAxisNode.setOriginLabelVisibility( false );

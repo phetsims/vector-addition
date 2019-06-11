@@ -15,7 +15,7 @@ define( function( require ) {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
+  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
   // constants
   const PANEL_CORNER_RADIUS = 5;
@@ -26,8 +26,8 @@ define( function( require ) {
   const VectorAdditionConstants = {
 
     // defaults
-    DEFAULT_VECTOR_ORIENTATION: VectorOrientation.ALL,
-    EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION: VectorOrientation.HORIZONTAL,
+    DEFAULT_VECTOR_ORIENTATION: VectorOrientations.ALL,
+    EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION: VectorOrientations.HORIZONTAL,
     DEFAULT_COMPONENT_STYLE: ComponentStyles.INVISIBLE,
 
     // Graph

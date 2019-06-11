@@ -11,7 +11,7 @@ define( require => {
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
+  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
   /**
    * @constructor
@@ -25,7 +25,7 @@ define( require => {
 
       super();
       this.gridModelBounds = new Bounds2( -5, -5, 35, 35 );
-      this.vectorOrientationProperty = new Property( VectorOrientation.ALL );
+      this.vectorOrientationProperty = new Property( VectorOrientations.ALL );
     }
 
     // @public resets the model

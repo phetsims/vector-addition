@@ -15,7 +15,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
+  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
   // constants
   const EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION = VectorAdditionConstants.EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION;
@@ -45,10 +45,10 @@ define( require => {
       const graphUpperLeftPosition = new Vector2( -30, 20 );
 
       // @public {Graph} the horizontal Graph
-      this.horizontalGraph = new Graph( graphDimension, graphUpperLeftPosition, VectorOrientation.HORIZONTAL );
+      this.horizontalGraph = new Graph( graphDimension, graphUpperLeftPosition, VectorOrientations.HORIZONTAL );
 
       // @public {Graph} the vertical graph
-      this.verticalGraph = new Graph( graphDimension, graphUpperLeftPosition, VectorOrientation.VERTICAL );
+      this.verticalGraph = new Graph( graphDimension, graphUpperLeftPosition, VectorOrientations.VERTICAL );
     }
 
     /**

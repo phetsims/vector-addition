@@ -17,7 +17,7 @@ define( require => {
    * or be unconstrained (ALL)
    * @public
    */
-  const VectorOrientation = new Enumeration( [ 'HORIZONTAL', 'VERTICAL', 'ALL' ] );
+  const VectorOrientations = new Enumeration( [ 'HORIZONTAL', 'VERTICAL', 'ALL' ] );
 
-  return vectorAddition.register( 'VectorOrientation', VectorOrientation );
+  return vectorAddition.register( 'VectorOrientations', VectorOrientations );
 } );

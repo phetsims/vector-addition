@@ -18,7 +18,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
   const VectorComponentsNode = require( 'VECTOR_ADDITION/common/view/VectorComponentsNode' );
-  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
+  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
   // constants
 
@@ -39,7 +39,7 @@ define( require => {
      * @param {Bounds2} gridModelBounds - the bounds to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
-     * @param {VectorOrientation} vectorOrientation - Orientation mode of the vectors
+     * @param {VectorOrientations} vectorOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
      * @param {object} arrowOptions - options passed to the arrow node
@@ -82,7 +82,7 @@ define( require => {
       // @private {Property.<ModelViewTransform>}
       this.modelViewTransformProperty = modelViewTransformProperty;
 
-      // @private {VectorOrientation}
+      // @private {VectorOrientations}
       this.vectorOrientation = vectorOrientation;
 
       //@private {Vector}
@@ -155,15 +155,15 @@ define( require => {
       const tipCoordinates = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
 
       switch( this.vectorOrientation ) {
-        case VectorOrientation.HORIZONTAL: {
+        case VectorOrientations.HORIZONTAL: {
           tipCoordinates.setY( 0 );
           break;
         }
-        case VectorOrientation.VERTICAL: {
+        case VectorOrientations.VERTICAL: {
           tipCoordinates.setX( 0 );
           break;
         }
-        case VectorOrientation.ALL: {
+        case VectorOrientations.ALL: {
           break;
         }
         default: {

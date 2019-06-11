@@ -16,7 +16,7 @@ define( require => {
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
+  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
 
   class Explore1DScreenView extends ScreenView {
@@ -46,19 +46,19 @@ define( require => {
 
       explore1DModel.vectorOrientationProperty.link( ( vectorOrientation ) => {
         switch( vectorOrientation ) {
-          case VectorOrientation.HORIZONTAL:
+          case VectorOrientations.HORIZONTAL:
             verticalScene.visible = false;
             verticalVectorPanel.visible = false;
             horizontalScene.visible = true;
             horizontalVectorPanel.visible = true;
             break;
-          case VectorOrientation.VERTICAL:
+          case VectorOrientations.VERTICAL:
             verticalScene.visible = true;
             verticalVectorPanel.visible = true;
             horizontalVectorPanel.visible = false;
             horizontalScene.visible = false;
             break;
-          case VectorOrientation.ALL:
+          case VectorOrientations.ALL:
             throw new Error( 'explore1D cannot support all vector orientation' );
           default:
             throw new Error( 'Vector orientation not handled', vectorOrientation );
@@ -80,10 +80,10 @@ define( require => {
       const ArrowNodeOptions = { fill: 'black', doubleHead: true, tailWidth: 3, headWidth: 8, headHeight: 10 };
       // Scene radio buttons
       const sceneRadioButtonContent = [ {
-        value: VectorOrientation.HORIZONTAL,
+        value: VectorOrientations.HORIZONTAL,
         node: new ArrowNode( 0, 0, 40, 0, ArrowNodeOptions )
       }, {
-        value: VectorOrientation.VERTICAL,
+        value: VectorOrientations.VERTICAL,
         node: new ArrowNode( 0, 0, 0, 40, ArrowNodeOptions )
       } ];
 
