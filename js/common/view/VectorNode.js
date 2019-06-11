@@ -18,6 +18,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
   const VectorComponentsNode = require( 'VECTOR_ADDITION/common/view/VectorComponentsNode' );
+  const VectorOrientation = require( 'VECTOR_ADDITION/common/model/VectorOrientation' );
 
   // constants
 
@@ -42,7 +43,7 @@ define( require => {
      * between model coordinates and view coordinates
      * @param {object} arrowOptions - options passed to the arrow node
      */
-    constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, modelViewTransformProperty, arrowOptions ) {
+    constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, vectorOrientationProperty, modelViewTransformProperty, arrowOptions ) {
 
       const initialModelViewTransform = modelViewTransformProperty.value;
 
@@ -79,6 +80,8 @@ define( require => {
 
       // @private {ModelViewTransformProperty}
       this.modelViewTransformProperty = modelViewTransformProperty;
+
+      this.vectorOrientation = vectorOrientationProperty.value;
 
       //@private {Vector}
       this.vector = vector;
@@ -142,12 +145,29 @@ define( require => {
     }
 
     /**
-     * update the model vector to have integer components
+     * update the model vector to have integer components and correct vector orientation
      * (relative to the tail)
      * @param {Vector2} tipLocation
      */
     tipSnapToGrid( tipLocation ) {
       const tipCoordinates = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
+
+      switch( this.vectorOrientation ) {
+        case VectorOrientation.HORIZONTAL: {
+          tipCoordinates.setY( 0 );
+          break;
+        }
+        case VectorOrientation.VERTICAL: {
+          tipCoordinates.setX( 0 );
+          break;
+        }
+        case VectorOrientation.ALL: {
+          break;
+        }
+        default: {
+          throw new Error( `vectorOrientation not handled: ${this.vectorOrientation}` );
+        }
+      }
       this.vector.attributesVectorProperty.value = tipCoordinates.roundedSymmetric();
     }
 
