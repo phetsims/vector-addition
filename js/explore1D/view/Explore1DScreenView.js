@@ -9,7 +9,7 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Explore1DVectorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorPanel' );
+  const Explore1DVectorPanels = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorPanels' );
   const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -33,17 +33,15 @@ define( require => {
       const verticalScene = new SceneNode( explore1DModel, explore1DModel.verticalGraph );
 
 
-      // create the vector panels
-      const horizontalVectorPanel = new Explore1DVectorPanel(
+      const explore1DVectorPanels = new Explore1DVectorPanels( 
         explore1DModel.horizontalGraph.vectors,
         explore1DModel.horizontalGraph.modelViewTransformProperty,
-        [ 'a', 'b', 'c' ] // TODO: is this the cleanist way to do this? I can't think of any other way
-      );
-      const verticalVectorPanel = new Explore1DVectorPanel(
         explore1DModel.verticalGraph.vectors,
-        explore1DModel.verticalGraph.modelViewTransformProperty,
-        [ 'd', 'e', 'f' ]
-      );
+        explore1DModel.verticalGraph.modelViewTransformProperty );
+
+      // create the vector panels
+      const horizontalVectorPanel = explore1DVectorPanels.horizontalVectorPanel;
+      const verticalVectorPanel = explore1DVectorPanels.verticalVectorPanel;
 
 
       explore1DModel.vectorOrientationProperty.link( ( vectorOrientation ) => {

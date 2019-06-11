@@ -26,8 +26,8 @@ define( require => {
   // constants
 
   // The coordinate for the graphNode in view coordinates.
-  const UPPER_LEFT_LOCATION = VectorAdditionConstants.UPPER_LEFT_LOCATION;
   const GRAPH_TO_VIEW_SCALE = VectorAdditionConstants.GRAPH_TO_VIEW_SCALE;
+  const UPPER_LEFT_LOCATION = VectorAdditionConstants.UPPER_LEFT_LOCATION;
 
 
   class Graph {
