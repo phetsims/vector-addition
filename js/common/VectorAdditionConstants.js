@@ -16,6 +16,7 @@ define( function( require ) {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
   // constants
@@ -39,13 +40,6 @@ define( function( require ) {
     GRAPH_TO_VIEW_SCALE: 12.5,
 
     // Some
-    BACKGROUND_COLOR: 'rgb( 255, 250, 227)',
-    ORIGIN_DOT_COLOR: 'rgb( 25, 253, 56 )',
-
-    BLUE_VECTOR_COLOR: 'rgb( 20, 122, 240 )',
-    BLUE_COMPONENT_COLOR: 'rgb( 75, 173, 240 )',
-    RED_VECTOR_COLOR: 'rgb( 254, 53, 46 )',
-    RED_COMPONENT_COLOR: 'rgb( 255, 113, 96 )',
 
     // Fonts
     PANEL_FONT: new PhetFont( 16 ),
@@ -72,7 +66,7 @@ define( function( require ) {
     // Options for Vector Boxes
     VECTOR_BOX_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,
-      fill: 'white',
+      fill: VectorAdditionColors.VECTOR_CREATOR_BACKGROUND,
       xMargin: PANEL_X_MARGIN,
       yMargin: 6
     },

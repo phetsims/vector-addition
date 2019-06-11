@@ -19,6 +19,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );
@@ -99,13 +100,13 @@ define( require => {
         spacing: ICON_SPACING,
         children: [
           // create the grid icon
-          VectorAdditionIconFactory.createGridIcon( 25, 'blue' )
+          VectorAdditionIconFactory.createGridIcon( 25 )
         ]
       } ), gridVisibleProperty );
 
       // add a horizontal line that separates the panel into two sections
       const horizontalLine = new Line( 0, 0, VectorAdditionConstants.RIGHT_CONTENT_WIDTH, 0, {
-        stroke: 'black'
+        stroke: VectorAdditionColors.GRAPH_CONTROL_PANEL_LINE_COLOR
       } );
 
       // add a label for the second section of the panel
@@ -127,15 +128,13 @@ define( require => {
       } ];
 
       const componentStyleRadioButtons = new RadioButtonGroup(
-        componentStyleProperty, componentStyleRadioButtonContent, {
-          baseColor: 'white',
-          selectedStroke: '#419ac9',
+        componentStyleProperty, componentStyleRadioButtonContent, _.extend({
           selectedLineWidth: 2,
           right: 900,
           top: 100,
           cornerRadius: 6,
           orientation: 'horizontal'
-        } );
+        }, VectorAdditionColors.COMPONENTS_RADIO_BUTTON_COLORS ) );
 
 
       // vertical layout

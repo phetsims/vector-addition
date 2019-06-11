@@ -27,9 +27,11 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
+
   // constants
   const SLOTS_SPACING = 20;
   const LABEL_AND_ICON_SPACING = 10;
+
 
   // TODO: add a option to put the labels next to the icons
   class VectorPanel extends Node {
@@ -59,13 +61,9 @@ define( require => {
         includeLabelsNextToIcons: true, // {boolean} - if false, the label next to the icon won't appear. 
         // This can only exist if labels is provided.
 
-        panelOptions: null // below are the defaults
+        panelOptions: null
       }, options );
 
-
-      options.panelOptions = _.extend( {
-        fill: 'white'
-      }, options.panelOptions );
 
       // the number of labels has to be the same as the number of slots if provided
       assert && assert( !options.labels || options.labels.length === numberOfVectorSlots,

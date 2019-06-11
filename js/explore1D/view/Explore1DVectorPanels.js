@@ -14,9 +14,18 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   // constants
   const PANEL_OPTIONS = VectorAdditionConstants.VECTOR_BOX_OPTIONS;
+  const ICON_ARROW_OPTIONS = {
+    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
+    lineWidth: 0,
+    tailWidth: 4,
+    headWidth: 10.5,
+    headHeight: 6,
+    cursor: 'pointer'
+  };
 
   class Explore1DVectorPanels {
     /**
@@ -44,7 +53,7 @@ define( require => {
         panelOptions: PANEL_OPTIONS
       } );
     }
-    createVectorIcon( slotNumber ) { return new ArrowNode( 0, 0, 30, 0 ); }
+    createVectorIcon( slotNumber ) { return new ArrowNode( 0, 0, 30, 0, ICON_ARROW_OPTIONS ); }
     createVectorRepresentationArrow() {return new ArrowNode( 0, 0, 12.5 * 5, 0 ); }
     getDefaultVectorComponents() { return new Vector2( 5, 0 ); }
 
@@ -63,7 +72,7 @@ define( require => {
         panelOptions: PANEL_OPTIONS
       } );
     }
-    createVectorIcon( slotNumber ) { return new ArrowNode( 0, 0, 0, -30 ); }
+    createVectorIcon( slotNumber ) { return new ArrowNode( 0, 0, 0, -30, ICON_ARROW_OPTIONS ); }
     createVectorRepresentationArrow() {return new ArrowNode( 0, 0, 0, -12.5 * 5, ); }
     getDefaultVectorComponents() { return new Vector2( 0, 5 ); }
 

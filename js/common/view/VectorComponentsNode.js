@@ -18,15 +18,16 @@ define( require => {
   const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
   const Shape = require( 'KITE/Shape' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
   const ARROW_OPTIONS = {
-    stroke: 'rgb( 176, 224, 230 )',
-    fill: 'rgb( 176, 224, 230 )',
-    headWidth: 8,
-    headHeight: 4,
-    tailWidth: 4
+    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COMPONENT_COLOR,
+    headWidth: 10.5,
+    headHeight: 6,
+    tailWidth: 4,
+    lineWidth: 0
   };
   const ON_AXIS_LINES_LINE_DASH = [ 3, 10 ];
 

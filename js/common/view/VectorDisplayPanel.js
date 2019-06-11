@@ -22,6 +22,8 @@ define( require => {
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+
 
   // constants
   const VECTOR_PANEL_OPTIONS = {
@@ -30,8 +32,8 @@ define( require => {
     cornerRadius: 5,
     minWidth: 430,
     resize: false,
-    fill: 'rgb( 230, 230, 230 )',
-    stroke: 'rgb( 190, 190, 190 )'
+    fill: VectorAdditionColors.INSPECT_VECTOR_BACKGROUND,
+    stroke: VectorAdditionColors.INSPECT_VECTOR_BORDER_COLOR
   };
 
   const EXPAND_COLLAPSE_BUTTON_CENTER_Y = -9;

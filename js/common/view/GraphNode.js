@@ -24,6 +24,7 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
@@ -32,23 +33,21 @@ define( require => {
   //----------------------------------------------------------------------------------------
 
   // grid
-  const GRID_BACKGROUND_OPTIONS = {
-    fill: 'white',
-    stroke: 'rgb( 192, 192, 192)',
-    lineWidth: 1
+  const GRAPH_OPTIONS = {
+    fill: VectorAdditionColors.GRAPH_BACKGROUND
   };
   const MAJOR_GRID_LINES_OPTIONS = {
     lineWidth: 2,
-    stroke: 'rgb( 220, 220, 220 )'
+    stroke: VectorAdditionColors.GRAPH_MAJOR_LINE_COLOR
   };
   const MINOR_GRID_LINES_OPTIONS = {
     lineWidth: 1,
-    stroke: 'rgb( 230, 230, 230 )'
+    stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR
   };
   const MAJOR_TICK_SPACING = 5;
 
   // origin circle
-  const ORIGIN_CIRCLE_COLOR = Color.toColor( 'rgb( 204, 204, 0 )' );
+  const ORIGIN_CIRCLE_COLOR = Color.toColor( VectorAdditionColors.ORIGIN_DOT_COLOR );
   const ORIGIN_CIRCLE_RADIUS = 15;
   const ORIGIN_CIRCLE_OPTIONS = {
     renderer: 'canvas',
@@ -56,7 +55,7 @@ define( require => {
     fill: ORIGIN_CIRCLE_COLOR.withAlpha( 0.15 ),
     mainColor: ORIGIN_CIRCLE_COLOR,
     highlightColor: Color.WHITE,
-    shadowColor: ORIGIN_CIRCLE_COLOR.colorUtilsBrighter( 0.9 ),
+    shadowColor: ORIGIN_CIRCLE_COLOR.darkerColor(),
     lineWidth: 1,
     stroke: ORIGIN_CIRCLE_COLOR.darkerColor()
   };
@@ -82,7 +81,7 @@ define( require => {
   const TICK_LENGTH = 1;
   const TICKS_OPTIONS = {
     lineWidth: 1,
-    stroke: 'black'
+    stroke: VectorAdditionColors.TICKS_COLOR
   };
   const ORIGIN_TEXT_OPTIONS = {
     font: new PhetFont( 16 ),
@@ -112,7 +111,7 @@ define( require => {
       const graphBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
 
       // Create a rectangle as the background of the graph.
-      const backgroundRectangle = new Rectangle( graphBounds, GRID_BACKGROUND_OPTIONS );
+      const backgroundRectangle = new Rectangle( graphBounds, GRAPH_OPTIONS );
 
       const xAxisNode = new XAxisNode( graph );
       const yAxisNode = new YAxisNode( graph );

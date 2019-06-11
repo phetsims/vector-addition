@@ -19,19 +19,20 @@ define( function( require ) {
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
 
   // arrow icon constants
   const ARROW_ICON_LENGTH = 28;
-  const ARROW_ICON_COLOR = 'rgb( 40, 40, 120 )';
+  // const ARROW_ICON_COLOR = VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR;
 
   // number of grid lines on the grid icon
   const GRID_LINES = 3;
   const GRID_SPACING = 7;
   const GRID_LINE_WIDTH = 1;
-  const GRID_COLOR = 'rgb( 120, 120, 120 )';
+  const GRID_COLOR = VectorAdditionColors.GRID_ICON_COLOR;
 
   // angle icon constants
   const ANGLE_ICON_ANGLE = 55;
@@ -41,15 +42,14 @@ define( function( require ) {
     arrowheadWidth: 5,
     arrowheadHeight: 3,
     arcOptions: {
-      stroke: 'rgb( 0, 0, 0 )'
+      stroke: VectorAdditionColors.ANGLE_ICON_COLOR
     }
   };
 
   // vector icons constants
-  const ARROW_LIGHT_COLOR = 'rgb( 176, 224, 230 )';
-  const ARROW_DARK_COLOR = 'rgb( 0, 191, 255 )';
-  const VECTOR_ICON_HEAD_HEIGHT = 3;
-  const VECTOR_ICON_HEAD_WIDTH = 6;
+  // const ARROW_DARK_COLOR = VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR;
+  const VECTOR_ICON_HEAD_HEIGHT = 5;
+  const VECTOR_ICON_HEAD_WIDTH = 9;
   const VECTOR_ICON_TAIL_WIDTH = 4;
 
   // the scale on the invisible component icon eye
@@ -65,18 +65,19 @@ define( function( require ) {
 
   // options for light shaded arrow
   const LIGHT_ARROW_OPTIONS = {
-    fill: ARROW_LIGHT_COLOR,
-    stroke: 'rgb( 100, 100, 100 )',
+    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
+    stroke: VectorAdditionColors.VECTOR_BORDER_COLOR,
     lineWidth: 0.5,
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
     headWidth: VECTOR_ICON_HEAD_WIDTH,
-    tailWidth: VECTOR_ICON_TAIL_WIDTH
+    tailWidth: VECTOR_ICON_TAIL_WIDTH,
+    opacity: 0.35
   };
 
   // options for dark shaded arrow
   const DARK_ARROW_OPTIONS = {
-    fill: ARROW_DARK_COLOR,
-    stroke: 'rgb( 100, 100, 100 )',
+    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
+    stroke: VectorAdditionColors.VECTOR_BORDER_COLOR,
     lineWidth: 0.5,
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
     headWidth: VECTOR_ICON_HEAD_WIDTH,
@@ -84,15 +85,15 @@ define( function( require ) {
   };
 
   const CARTESIAN_DARK_ARROW_OPTIONS = {
-    fill: 'black',
-    stroke: 'black',
+    stroke: VectorAdditionColors.BLACK_VECTOR_COLOR,
+    lineWidth: 0,
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
     headWidth: VECTOR_ICON_HEAD_WIDTH,
     tailWidth: 2
   };
   const POLAR_ARROW_OPTIONS = {
-    fill: 'purple',
-    stroke: 'purple',
+    fill: VectorAdditionColors.PURPLE_VECTOR_COLOR,
+    lineWidth: 0,
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
     headWidth: VECTOR_ICON_HEAD_WIDTH,
     tailWidth: 2
@@ -102,9 +103,7 @@ define( function( require ) {
   const VectorAdditionIconFactory = {
     // creates an arrow icon node
     createArrowIcon: () => {
-      return new ArrowNode( 0, 0, ARROW_ICON_LENGTH, 0, {
-        fill: ARROW_ICON_COLOR
-      } );
+      return new ArrowNode( 0, 0, ARROW_ICON_LENGTH, 0, DARK_ARROW_OPTIONS );
     },
 
     // creates an icon that shows the grid of a graph
