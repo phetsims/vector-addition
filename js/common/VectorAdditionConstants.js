@@ -26,7 +26,7 @@ define( function( require ) {
   const VectorAdditionConstants = {
 
     // defaults
-    DEFUALT_VECTOR_ORIENTATION: VectorOrientation.ALL,
+    DEFAULT_VECTOR_ORIENTATION: VectorOrientation.ALL,
     EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION: VectorOrientation.HORIZONTAL,
     DEFAULT_COMPONENT_STYLE: ComponentStyles.INVISIBLE,
 

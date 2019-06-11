@@ -19,7 +19,7 @@ define( require => {
  
   // constants
   const DEFAULT_COMPONENT_STYLE = VectorAdditionConstants.DEFAULT_COMPONENT_STYLE;
-  const DEFUALT_VECTOR_ORIENTATION = VectorAdditionConstants.DEFUALT_VECTOR_ORIENTATION;
+  const DEFAULT_VECTOR_ORIENTATION = VectorAdditionConstants.DEFAULT_VECTOR_ORIENTATION;
 
 
   // @abstract
@@ -41,7 +41,7 @@ define( require => {
       this.gridVisibleProperty = new BooleanProperty( true );
 
       // @public {Property.<VectorOrientation>}
-      this.vectorOrientationProperty = new Property( DEFUALT_VECTOR_ORIENTATION );
+      this.vectorOrientationProperty = new Property( DEFAULT_VECTOR_ORIENTATION );
 
       // @public {EnumerationProperty<ComponentStyles>} - controls the visibility of the component styles
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, DEFAULT_COMPONENT_STYLE );
