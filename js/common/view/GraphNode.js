@@ -11,7 +11,7 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const Circle = require( 'SCENERY/nodes/Circle' );
+  const Color = require( 'SCENERY/util/Color' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -19,6 +19,7 @@ define( require => {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -47,11 +48,17 @@ define( require => {
   const MAJOR_TICK_SPACING = 5;
 
   // origin circle
-  const ORIGIN_CIRCLE_RADIUS = 7;
+  const ORIGIN_CRICLE_COLOR = Color.toColor( 'rgb( 204, 204, 0 )' );
+  const ORIGIN_CIRCLE_RADIUS = 15;
   const ORIGIN_CIRCLE_OPTIONS = {
-    stroke: 'black',
-    fill: 'yellow',
-    cursor: 'move'
+    renderer: 'canvas',
+    cursor: 'move',
+    fill: ORIGIN_CRICLE_COLOR.withAlpha( 0.15 ),
+    mainColor: ORIGIN_CRICLE_COLOR,
+    highlightColor: Color.WHITE,
+    shadowColor: ORIGIN_CRICLE_COLOR.colorUtilsBrighter( 0.9 ),
+    lineWidth: 1,
+    stroke: ORIGIN_CRICLE_COLOR.darkerColor()
   };
   // in model coordinates
   const DRAG_PADDING_CONSTRAINT = 5;
@@ -254,7 +261,7 @@ define( require => {
   }
 
   //----------------------------------------------------------------------------------------
-  class OriginCircle extends Circle {
+  class OriginCircle extends ShadedSphereNode {
     /**
      * @constructor
      *
