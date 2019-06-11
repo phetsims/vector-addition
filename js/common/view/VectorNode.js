@@ -39,11 +39,12 @@ define( require => {
      * @param {Bounds2} gridModelBounds - the bounds to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
+     * @param {VectorOrientation} vectorOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
      * @param {object} arrowOptions - options passed to the arrow node
      */
-    constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, vectorOrientationProperty, modelViewTransformProperty, arrowOptions ) {
+    constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, vectorOrientation, modelViewTransformProperty, arrowOptions ) {
 
       const initialModelViewTransform = modelViewTransformProperty.value;
 
@@ -78,10 +79,11 @@ define( require => {
         ]
       } );
 
-      // @private {ModelViewTransformProperty}
+      // @private {Property.<ModelViewTransform>}
       this.modelViewTransformProperty = modelViewTransformProperty;
 
-      this.vectorOrientation = vectorOrientationProperty.value;
+      // @private {VectorOrientation}
+      this.vectorOrientation = vectorOrientation;
 
       //@private {Vector}
       this.vector = vector;

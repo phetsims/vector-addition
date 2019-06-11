@@ -53,7 +53,7 @@ define( require => {
           graph.graphModelBounds,
           model.componentStyleProperty,
           model.angleVisibleProperty,
-          model.vectorOrientationProperty,
+          model.vectorOrientationProperty.value,
           graph.modelViewTransformProperty,
           VECTOR_OPTIONS
         );
@@ -83,7 +83,7 @@ define( require => {
         graph.graphModelBounds,
         model.componentStyleProperty,
         model.angleVisibleProperty,
-        model.vectorOrientationProperty,
+        model.vectorOrientationProperty.value,
         graph.modelViewTransformProperty,
         VECTOR_SUM_OPTIONS
       );
