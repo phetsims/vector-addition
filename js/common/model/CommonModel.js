@@ -12,6 +12,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -20,7 +21,7 @@ define( require => {
   // constants
   const DEFAULT_COMPONENT_STYLE = VectorAdditionConstants.DEFAULT_COMPONENT_STYLE;
   const DEFAULT_VECTOR_ORIENTATION = VectorAdditionConstants.DEFAULT_VECTOR_ORIENTATION;
-
+  const DEFAULT_COORDINATE_SNAP_MODE = VectorAdditionConstants.DEFAULT_COORDINATE_SNAP_MODE;
 
   // @abstract
   class CommonModel {
@@ -45,6 +46,9 @@ define( require => {
 
       // @public {EnumerationProperty<ComponentStyles>} - controls the visibility of the component styles
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, DEFAULT_COMPONENT_STYLE );
+
+      // @public {EnumerationProperty<CoordinateSnapModes>} - controls the snapping mode for the vectors
+      this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, DEFAULT_COORDINATE_SNAP_MODE );
 
       // @public {BooleanProperty} - controls the visibility of the angle
       this.angleVisibleProperty = new BooleanProperty( false );

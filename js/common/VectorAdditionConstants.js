@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -29,6 +30,7 @@ define( function( require ) {
     DEFAULT_VECTOR_ORIENTATION: VectorOrientations.ALL,
     EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION: VectorOrientations.HORIZONTAL,
     DEFAULT_COMPONENT_STYLE: ComponentStyles.INVISIBLE,
+    DEFAULT_COORDINATE_SNAP_MODE: CoordinateSnapModes.CARTESIAN,
 
     // Graph
 

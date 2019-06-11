@@ -11,6 +11,7 @@ define( require => {
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
+  const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
 
   class CommonScreenView extends ScreenView {
 
@@ -24,7 +25,7 @@ define( require => {
 
       const scene = new SceneNode( commonModel, commonModel.graph );
 
-      this.addChild( scene );
+      const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup( commonModel.coordinateSnapModeProperty );
 
       const resetAllButton = new ResetAllButton( {
         listener: () => {
@@ -35,7 +36,8 @@ define( require => {
         bottom: this.layoutBounds.maxY - 10,
         tandem: tandem.createTandem( 'resetAllButton' )
       } );
-      this.addChild( resetAllButton );
+
+      this.setChildren([ scene, coordinateSnapRadioButtonGroup, resetAllButton ]);
     }
   }
 

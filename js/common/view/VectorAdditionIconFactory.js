@@ -12,9 +12,12 @@ define( function( require ) {
   const ArcArrowNode = require( 'VECTOR_ADDITION/common/view/ArcArrowNode' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const Line = require( 'SCENERY/nodes/Line' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
@@ -38,7 +41,7 @@ define( function( require ) {
     arrowheadWidth: 5,
     arrowheadHeight: 3,
     arcOptions: {
-      stroke: 'rgb( 50, 50, 50 )'
+      stroke: 'rgb( 0, 0, 0 )'
     }
   };
 
@@ -54,13 +57,17 @@ define( function( require ) {
 
   // the icon size for the component icons
   const COMPONENT_ICON_SIZE = 25;
+  const CARTESIAN_ARROW_WIDTH = 20;
+  const CARTESIAN_ARROW_HEIGHT = 18;
+  const POLAR_ICON_SIZE = 23;
   const AXIS_ICON_SUBBOX_SIZE = 10;
   const AXIS_ICON_LINE_DASH = [ 2, 2 ];
 
   // options for light shaded arrow
   const LIGHT_ARROW_OPTIONS = {
     fill: ARROW_LIGHT_COLOR,
-    stroke: 'rgb( 150, 150, 150 )',
+    stroke: 'rgb( 100, 100, 100 )',
+    lineWidth: 0.5,
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
     headWidth: VECTOR_ICON_HEAD_WIDTH,
     tailWidth: VECTOR_ICON_TAIL_WIDTH
@@ -69,13 +76,29 @@ define( function( require ) {
   // options for dark shaded arrow
   const DARK_ARROW_OPTIONS = {
     fill: ARROW_DARK_COLOR,
-    stroke: 'rgb( 150, 150, 150 )',
+    stroke: 'rgb( 100, 100, 100 )',
+    lineWidth: 0.5,
     headHeight: VECTOR_ICON_HEAD_HEIGHT,
     headWidth: VECTOR_ICON_HEAD_WIDTH,
     tailWidth: VECTOR_ICON_TAIL_WIDTH
   };
 
-// create a object with methods that return icons
+  const CARTESIAN_DARK_ARROW_OPTIONS = {
+    fill: 'black',
+    stroke: 'black',
+    headHeight: VECTOR_ICON_HEAD_HEIGHT,
+    headWidth: VECTOR_ICON_HEAD_WIDTH,
+    tailWidth: 2
+  };
+  const POLAR_ARROW_OPTIONS = {
+    fill: 'purple',
+    stroke: 'purple',
+    headHeight: VECTOR_ICON_HEAD_HEIGHT,
+    headWidth: VECTOR_ICON_HEAD_WIDTH,
+    tailWidth: 2
+  };
+
+  // create a object with methods that return icons
   const VectorAdditionIconFactory = {
     // creates an arrow icon node
     createArrowIcon: () => {
@@ -216,7 +239,50 @@ define( function( require ) {
 
       icon.setChildren( [ rightArrow, upArrow, darkArrow, dashedLinePath ] );
       return icon;
+    },
+
+    // Creates the icon on the radio button for the Triangle component style
+    createCartesianIcon: () => {
+      // create a container for the arrow nodes
+      const icon = new Node();
+
+      // the icon has 3 arrows, start with the 'dark' version that points to the right 
+      const darkArrowRight = new ArrowNode( 0, 0, CARTESIAN_ARROW_WIDTH, 0, CARTESIAN_DARK_ARROW_OPTIONS );
+
+      const darkArrowUp = new ArrowNode( CARTESIAN_ARROW_WIDTH, 0, CARTESIAN_ARROW_WIDTH, -CARTESIAN_ARROW_HEIGHT, CARTESIAN_DARK_ARROW_OPTIONS );
+
+      const cartesianArrow = new ArrowNode( 0, 0, CARTESIAN_ARROW_WIDTH, -CARTESIAN_ARROW_HEIGHT, DARK_ARROW_OPTIONS );
+      
+      const rightLabel = new Text( '1', {
+         font: new PhetFont( { size: 8, family: 'Times' } )
+      } );
+
+      rightLabel.center = darkArrowUp.center;
+      rightLabel.left = darkArrowUp.right - 2;
+
+
+      icon.setChildren( [ darkArrowRight, darkArrowUp, cartesianArrow, rightLabel ] );
+      return icon;
+    },
+
+    // Creates the icon on the radio button for the Triangle component style
+    createPolarIcon: () => {
+      // create a container for the arrow nodes
+      const icon = new Node();
+
+      const arrow = new ArrowNode( 0, 0, POLAR_ICON_SIZE, -POLAR_ICON_SIZE, POLAR_ARROW_OPTIONS );
+
+
+      const arcArrow = new ArcArrowNode( 45, ANGLE_ICON_CIRCLE_RADIUS, ANGLE_ICON_OPTIONS );
+      
+      const line = new Line( 0, 0, POLAR_ICON_SIZE, 0, {
+        stroke: 'black'
+      } );
+
+      icon.setChildren( [ arrow, arcArrow, line ] );
+      return icon;
     }
+
   };
 
   vectorAddition.register( 'VectorAdditionIconFactory', VectorAdditionIconFactory );
