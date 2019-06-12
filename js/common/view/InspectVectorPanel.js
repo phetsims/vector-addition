@@ -39,7 +39,6 @@ define( require => {
   const EXPAND_COLLAPSE_BUTTON_CENTER_Y = -9;
   const EXPAND_COLLAPSE_BUTTON_LEFT_MARGIN = 5;
   const INSPECT_VECTOR_TEXT_LEFT_MARGIN = 10;
-  const DISPLAY_VECTOR_NODE_CENTER_Y = -13;
 
   // strings
   const selectAVectorString = require( 'string!VECTOR_ADDITION/selectAVector' );
@@ -73,7 +72,7 @@ define( require => {
       const selectVectorText = new Text( selectAVectorString, { font: new PhetFont( 16 ) } );
 
       // create a scenery node that contains the nodes that display the vector
-      // attributes (ie. angle, x and y components, magnitude)
+      // attributes (i.e. magnitude, angle, x and y components)
       const displayVectorNode = new LayoutBox( {
         spacing: 15,
         orientation: 'horizontal',
@@ -86,9 +85,9 @@ define( require => {
       inspectVectorText.left = expandCollapseButton.right + INSPECT_VECTOR_TEXT_LEFT_MARGIN;
       inspectVectorText.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
       selectVectorText.left = inspectVectorText.left;
-      selectVectorText.centerY = DISPLAY_VECTOR_NODE_CENTER_Y;
+      selectVectorText.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
       displayVectorNode.left = inspectVectorText.left;
-      displayVectorNode.centerY = DISPLAY_VECTOR_NODE_CENTER_Y;
+      displayVectorNode.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
 
       // set the children of the content node to be passed to the super class
       contentNode.setChildren( [
@@ -182,6 +181,8 @@ define( require => {
               children: [ yComponentText, yComponentDisplay ]
             } )
           ] );
+
+          this.displayVectorNode.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
         }
       } );
 
