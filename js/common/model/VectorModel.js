@@ -146,7 +146,7 @@ define( require => {
 
     /**
      * Get the X component tail/tip position based on a component style
-     * @param {Enumeration} componentStyle
+     * @param {ComponentStyles} componentStyle
      * @public
      * @returns {{tail: Vector2},{tip: Vector2}}
      */
@@ -183,7 +183,7 @@ define( require => {
 
     /**
      * Get the X component tail/tip position based on a component style
-     * @param {Enumeration} componentStyle
+     * @param {ComponentStyles} componentStyle
      * @public
      * @returns {{tail: <Vector2>},{tip: <Vector2>}}
      */
