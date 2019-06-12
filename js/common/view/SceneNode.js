@@ -95,7 +95,9 @@ define( require => {
       const eraserButton = new EraserButton({
         listener: () => {
           graph.vectors.clear();
-        }
+        },
+        left: this.graphNode.right,
+        bottom: this.graphNode.bottom
       });
 
       this.setChildren([
