@@ -100,17 +100,16 @@ define( require => {
       };
 
       // update the arcArrow and the label based on the angle of the vector
-      vectorModel.angleDegreesProperty.link( ( angle ) => {
+      const updateAngle = ( angle ) => {
 
         // update the angle of the arc
         arcArrow.setAngle( angle );
 
         // update value of angle and position of label
         updateLabel( angle );
-      } );
+      };
 
-      // update the radius of the arcArrow based on the magnitude of the vector
-      vectorModel.magnitudeProperty.link( ( magnitude ) => {
+      const updateRadius = ( magnitude ) => {
 
         // get magnitude of vector in view coordinates
         const viewMagnitude = modelViewTransform.modelToViewDeltaX( magnitude );
@@ -129,11 +128,27 @@ define( require => {
         }
 
         baseLine.setX2( arcScaleFactor * BASE_LINE_LENGTH );
-      } );
+      };
+
+
+      vectorModel.angleDegreesProperty.link( updateAngle );
+
+      // update the radius of the arcArrow based on the magnitude of the vector
+      vectorModel.magnitudeProperty.link( updateRadius );
 
       // update visibility of this node
-      angleVisibleProperty.linkAttribute( this, 'visible' );
+      const toggleVisiblityListener = angleVisibleProperty.linkAttribute( this, 'visible' );
 
+      this.unlinkProperties = () => {
+        vectorModel.angleDegreesProperty.unlink( updateAngle );
+        vectorModel.magnitudeProperty.unlink( updateRadius );
+        angleVisibleProperty.unlink( toggleVisiblityListener );
+      };
+    }
+
+    dispose() {
+      this.unlinkProperties();
+      super.dispose();
     }
   }
 
