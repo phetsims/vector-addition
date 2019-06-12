@@ -11,10 +11,10 @@ define( function( require ) {
   // modules
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  // constants
+  // shared colors
   const WHITE = 'rgb( 255, 255, 255 )';
   const BLACK = 'rgb( 0, 0, 0 )';
-  const LIGHT_GREY = 'rgb( 235, 235, 235 )'; // shared color for various panels
+  const LIGHT_GREY = 'rgb( 235, 235, 235 )';  // panel color
 
   const VectorAdditionColors = {
 
@@ -25,6 +25,13 @@ define( function( require ) {
     INSPECT_VECTOR_BACKGROUND: LIGHT_GREY,
     VECTOR_CREATOR_BACKGROUND: WHITE,
     GRAPH_BACKGROUND: WHITE,
+
+    //----------------------------------------------------------------------------------------
+    // General   
+    RADIO_BUTTON_COLORS: {
+      baseColor: WHITE,
+      selectedStroke: '#419ac9'
+    },
 
     //----------------------------------------------------------------------------------------
     // Graph colors
@@ -42,10 +49,6 @@ define( function( require ) {
     //----------------------------------------------------------------------------------------
     // Graph Control Panel
     GRAPH_CONTROL_PANEL_LINE_COLOR: BLACK,
-    COMPONENTS_RADIO_BUTTON_COLORS: {
-      baseColor: WHITE,
-      selectedStroke: '#419ac9'
-    },
     GRID_ICON_COLOR: 'rgb( 120, 120, 120 )',
     ANGLE_ICON_COLOR: BLACK,
 
@@ -58,9 +61,6 @@ define( function( require ) {
     BLACK_VECTOR_COLOR: BLACK,
     PURPLE_VECTOR_COLOR: 'rgb( 188, 3, 255 )',
     VECTOR_SUM_COLOR: 'rgb( 0, 181, 225 )'
-
-
-
 
   };
 

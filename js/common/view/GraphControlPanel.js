@@ -34,6 +34,7 @@ define( require => {
   };
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
 
+  const RADIO_BUTTON_OPTIONS = VectorAdditionColors.RADIO_BUTTON_COLORS;
   /**
    * @constructor
    */
@@ -134,7 +135,7 @@ define( require => {
           top: 100,
           cornerRadius: 6,
           orientation: 'horizontal'
-        }, VectorAdditionColors.COMPONENTS_RADIO_BUTTON_COLORS ) );
+        }, RADIO_BUTTON_OPTIONS ) );
 
 
       // vertical layout

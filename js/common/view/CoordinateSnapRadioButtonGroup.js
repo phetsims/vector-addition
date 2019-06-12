@@ -12,11 +12,20 @@ define( require => {
   const CoordinateSnapModes= require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  // const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
 
   // constants
+  const RADIO_BUTTON_OPTIONS = _.extend( {
+    left: 900,
+    top: 455,
+    selectedLineWidth: 2,
+    cornerRadius: VectorAdditionConstants.PANEL_CORNER_RADIUS,
+    orientation: 'vertical'
+  }, VectorAdditionColors.RADIO_BUTTON_COLORS );
+
 
   class CoordinateSnapRadioButtonGroup extends RadioButtonGroup {
 
@@ -27,7 +36,8 @@ define( require => {
      * @constructor
      */
     constructor( coordinateSnapModeProperty, options ) {
-       // component style radio buttons
+      
+      // component style radio buttons
       const coordinateSnapModesRadioButtonContent = [ {
         value: CoordinateSnapModes.CARTESIAN,
         node: VectorAdditionIconFactory.createCartesianIcon()
@@ -35,18 +45,8 @@ define( require => {
         value: CoordinateSnapModes.POLAR,
         node: VectorAdditionIconFactory.createPolarIcon()
       } ];    
-      super(
-        coordinateSnapModeProperty, 
-        coordinateSnapModesRadioButtonContent,
-        {
-          baseColor: 'white',
-          selectedStroke: '#419ac9',
-          selectedLineWidth: 2,
-          cornerRadius: 6,
-          orientation: 'vertical',
-          left: 850,
-          top: 500
-        } );
+
+      super( coordinateSnapModeProperty, coordinateSnapModesRadioButtonContent, RADIO_BUTTON_OPTIONS );
 
     }
   }

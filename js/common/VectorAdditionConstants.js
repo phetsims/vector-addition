@@ -81,7 +81,7 @@ define( function( require ) {
     // Vectors
     // constants
     VECTOR_ARROW_OPTIONS: {
-      fill: 'rgb( 0, 191, 255 )',
+      fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
       lineWidth: 0,
       tailWidth: 5,
       headWidth: 9,
@@ -90,7 +90,7 @@ define( function( require ) {
     },
 
     VECTOR_SUM_ARROW_OPTIONS: {
-      fill: 'rgb( 0, 181, 225 )',
+      fill: VectorAdditionColors.VECTOR_SUM_COLOR,
       lineWidth: 1,
       tailWidth: 5,
       headWidth: 9,
