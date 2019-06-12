@@ -45,6 +45,7 @@ define( require => {
       this.upperLeftPositionProperty = new Vector2Property( upperLeftPosition );
 
       // When the GraphNode changes the upperLeftPosition (when origin is dragged) the graph bounds changes
+      // doesn't need an unlink because the graph always exist in the sim an can always be translated
       this.upperLeftPositionProperty.link( ( upperLeftPosition ) => {
 
         // @public {Bounds2} - the model bounds for the graph

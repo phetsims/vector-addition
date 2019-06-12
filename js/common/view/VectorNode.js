@@ -144,8 +144,6 @@ define( require => {
 
       // Create a method to dispose children
       this.disposeChildren = () => {
-        tipCircle.dispose();
-        labelNode.dispose();
         vectorComponentsNode.dispose();
         vectorAngleNode.dispose();
         super.dispose();

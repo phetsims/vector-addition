@@ -103,10 +103,15 @@ define( require => {
       //---------------------
 
       // update the position of the tail of the vector
-      modelViewTransformProperty.lazyLink( ( newModelViewTransform, oldModelViewTransform ) => {
+      const updateTail = ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
         this.tailPositionProperty.set( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
-      } );
+      }; 
+      modelViewTransformProperty.lazyLink( updateTail );
+
+      this.unlink = () => {
+        modelViewTransformProperty.unlink( updateTail );
+      };
     }
 
     // @public dispose
@@ -122,6 +127,7 @@ define( require => {
       this.isInPlayAreaProperty.dispose();
       this.attributesVectorProperty.dispose();
       this.tailPositionProperty.dispose();
+      this.unlink();
     }
 
     /**
