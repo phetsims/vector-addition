@@ -127,6 +127,7 @@ define( require => {
      */
     dispose() {
       this.updateLayoutMultilink.dispose();
+      super.dispose();
     }
   }
 

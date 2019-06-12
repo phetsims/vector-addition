@@ -146,7 +146,6 @@ define( require => {
       this.disposeChildren = () => {
         vectorComponentsNode.dispose();
         vectorAngleNode.dispose();
-        super.dispose();
       };
 
     }
@@ -195,6 +194,7 @@ define( require => {
      */
     dispose() {
       this.disposeChildren();
+      super.dispose();
     }
   }
 

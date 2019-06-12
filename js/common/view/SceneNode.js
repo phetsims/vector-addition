@@ -67,6 +67,7 @@ define( require => {
 
             // remove its node from the view
             vectorNode.dispose();
+            removedVector.dispose();
 
             // remove this listener to avoid leaking memory
             graph.vectors.removeItemRemovedListener( removalListener );
