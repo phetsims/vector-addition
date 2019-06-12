@@ -9,7 +9,7 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Explore1DVectorPanels = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorPanels' );
+  const Explore1DVectorCreatorPanels = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanels' );
   const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -33,29 +33,29 @@ define( require => {
       const verticalScene = new SceneNode( explore1DModel, explore1DModel.verticalGraph );
 
 
-      const explore1DVectorPanels = new Explore1DVectorPanels( 
+      const explore1DVectorCreatorPanels = new Explore1DVectorCreatorPanels(
         explore1DModel.horizontalGraph.vectors,
         explore1DModel.horizontalGraph.modelViewTransformProperty,
         explore1DModel.verticalGraph.vectors,
         explore1DModel.verticalGraph.modelViewTransformProperty );
 
       // create the vector panels
-      const horizontalVectorPanel = explore1DVectorPanels.horizontalVectorPanel;
-      const verticalVectorPanel = explore1DVectorPanels.verticalVectorPanel;
+      const horizontalVectorCreatorPanel = explore1DVectorCreatorPanels.horizontalVectorCreatorPanel;
+      const verticalVectorCreatorPanel = explore1DVectorCreatorPanels.verticalVectorCreatorPanel;
 
 
       explore1DModel.vectorOrientationProperty.link( ( vectorOrientation ) => {
         switch( vectorOrientation ) {
           case VectorOrientations.HORIZONTAL:
             verticalScene.visible = false;
-            verticalVectorPanel.visible = false;
+            verticalVectorCreatorPanel.visible = false;
             horizontalScene.visible = true;
-            horizontalVectorPanel.visible = true;
+            horizontalVectorCreatorPanel.visible = true;
             break;
           case VectorOrientations.VERTICAL:
             verticalScene.visible = true;
-            verticalVectorPanel.visible = true;
-            horizontalVectorPanel.visible = false;
+            verticalVectorCreatorPanel.visible = true;
+            horizontalVectorCreatorPanel.visible = false;
             horizontalScene.visible = false;
             break;
           case VectorOrientations.ALL:
@@ -110,8 +110,8 @@ define( require => {
       this.setChildren( [
         horizontalScene,
         verticalScene,
-        horizontalVectorPanel,
-        verticalVectorPanel,
+        horizontalVectorCreatorPanel,
+        verticalVectorCreatorPanel,
         gridPanel,
         sceneRadioButtonGroup,
         resetAllButton

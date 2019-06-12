@@ -27,20 +27,27 @@ define( require => {
     cursor: 'pointer'
   };
 
-  class Explore1DVectorPanels {
+  class Explore1DVectorCreatorPanels {
     /**
      * @constructor
      * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
-    constructor( horizontalVectorArray, horizontalModelViewTransformProperty, verticalVectorArray, verticalModelViewTransformProperty  ) {
-      this.horizontalVectorPanel = new HorizontalVectorPanel( horizontalVectorArray, horizontalModelViewTransformProperty );
-      this.verticalVectorPanel = new VerticalVectorPanel( verticalVectorArray, verticalModelViewTransformProperty );
+    constructor( horizontalVectorArray,
+                 horizontalModelViewTransformProperty,
+                 verticalVectorArray,
+                 verticalModelViewTransformProperty ) {
+
+      this.horizontalVectorCreatorPanel = new HorizontalVectorCreatorPanel( horizontalVectorArray,
+        horizontalModelViewTransformProperty );
+
+      this.verticalVectorCreatorPanel = new VerticalVectorCreatorPanel( verticalVectorArray,
+        verticalModelViewTransformProperty );
     }
 
   }
 
-  class HorizontalVectorPanel extends VectorCreatorPanel {
+  class HorizontalVectorCreatorPanel extends VectorCreatorPanel {
     /**
      * @abstract
      * @constructor
@@ -54,13 +61,16 @@ define( require => {
         panelOptions: PANEL_OPTIONS
       } );
     }
+
     createVectorIcon( slotNumber ) { return new ArrowNode( 0, 0, 30, 0, ICON_ARROW_OPTIONS ); }
+
     createVectorRepresentationArrow() {return new ArrowNode( 0, 0, 12.5 * 5, 0 ); }
+
     getDefaultVectorComponents() { return new Vector2( 5, 0 ); }
 
   }
 
-  class VerticalVectorPanel extends VectorCreatorPanel {
+  class VerticalVectorCreatorPanel extends VectorCreatorPanel {
     /**
      * @abstract
      * @constructor
@@ -74,11 +84,15 @@ define( require => {
         panelOptions: PANEL_OPTIONS
       } );
     }
+
     createVectorIcon( slotNumber ) { return new ArrowNode( 0, 0, 0, -30, ICON_ARROW_OPTIONS ); }
+
     createVectorRepresentationArrow() {return new ArrowNode( 0, 0, 0, -12.5 * 5, ); }
+
     getDefaultVectorComponents() { return new Vector2( 0, 5 ); }
 
   }
-  return vectorAddition.register( 'Explore1DVectorPanels', Explore1DVectorPanels );
+
+  return vectorAddition.register( 'Explore1DVectorCreatorPanels', Explore1DVectorCreatorPanels );
 } );
 

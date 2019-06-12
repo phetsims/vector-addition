@@ -8,7 +8,7 @@ define( function( require ) {
 
   // modules
   const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
-  const Explore2DVectorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorPanel' );
+  const Explore2DVectorCreatorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorCreatorPanel' );
   const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
@@ -36,9 +36,9 @@ define( function( require ) {
 
       this.addChild( gridPanel );
 
-      const vectorPanel = new Explore2DVectorPanel( explore2DModel.graph.vectors, explore2DModel.graph.modelViewTransformProperty );
+      const vectorCreatorPanel = new Explore2DVectorCreatorPanel( explore2DModel.graph.vectors, explore2DModel.graph.modelViewTransformProperty );
 
-      this.addChild( vectorPanel );
+      this.addChild( vectorCreatorPanel );
     }
 
   }

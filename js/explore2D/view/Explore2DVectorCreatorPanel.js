@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the panel with vectors to drag into the screen. This class extends the common abstract vector panel.
+ * View for the panel with vectors to drag into the screen. This class extends the common abstract vectorCreator panel.
  *
  * @author Brandon Li
  */
@@ -27,7 +27,7 @@ define( require => {
   };
   const PANEL_OPTIONS = VectorAdditionConstants.VECTOR_BOX_OPTIONS;
 
-  class Explore2DVectorPanel extends VectorCreatorPanel {
+  class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
     /**
      * @abstract
      * @constructor
@@ -74,6 +74,6 @@ define( require => {
 
   }
 
-  return vectorAddition.register( 'Explore2DVectorPanel', Explore2DVectorPanel );
+  return vectorAddition.register( 'Explore2DVectorCreatorPanel', Explore2DVectorCreatorPanel );
 } );
 
