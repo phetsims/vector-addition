@@ -48,7 +48,7 @@ define( require => {
   const yString = require( 'string!VECTOR_ADDITION/y' );
 
 
-  class VectorDisplayPanel extends Panel {
+  class InspectVectorPanel extends Panel {
 
     /**
      * @param {ObservableArray.<VectorModel>} vectors
@@ -125,7 +125,7 @@ define( require => {
 
     /**
      * Add a link so when a vector is dragged, the panel content updates as well
-     * @param {VectorModel} vectorModelto be linked
+     * @param {VectorModel} vectorModel to be linked
      * @private
      */
     linkVectorToPanel( vectorModel ) {
@@ -190,6 +190,6 @@ define( require => {
   }
 
 
-  return vectorAddition.register( 'VectorDisplayPanel', VectorDisplayPanel );
+  return vectorAddition.register( 'InspectVectorPanel', InspectVectorPanel );
 } );
 

@@ -14,7 +14,7 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorDisplayPanel = require( 'VECTOR_ADDITION/common/view/VectorDisplayPanel' );
+  const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   // constants
@@ -37,13 +37,13 @@ define( require => {
       this.graphNode = new GraphNode( graph );
 
       // Create the vector display panel
-      const vectorDisplayPanel = new VectorDisplayPanel(
+      const inspectVectorPanel = new InspectVectorPanel(
         graph.vectors,
         graph );
 
       // set the panel in the correct location
-      vectorDisplayPanel.left = VECTOR_DISPLAY_PANEL_LOCATION_LEFT;
-      vectorDisplayPanel.top = VECTOR_DISPLAY_PANEL_LOCATION_TOP;
+      inspectVectorPanel.left = VECTOR_DISPLAY_PANEL_LOCATION_LEFT;
+      inspectVectorPanel.top = VECTOR_DISPLAY_PANEL_LOCATION_TOP;
 
       // create the vector layer
       const vectorLayer = new Node();
@@ -100,7 +100,7 @@ define( require => {
 
       this.setChildren([
         this.graphNode,
-        vectorDisplayPanel,
+        inspectVectorPanel,
         vectorSumNode,
         vectorLayer,
         eraserButton ]);
