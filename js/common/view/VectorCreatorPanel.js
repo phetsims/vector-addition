@@ -34,7 +34,7 @@ define( require => {
 
 
   // TODO: add a option to put the labels next to the icons
-  class VectorPanel extends Node {
+  class VectorCreatorPanel extends Node {
     /**
      * @abstract
      * @constructor
@@ -219,6 +219,6 @@ define( require => {
 
   }
 
-  return vectorAddition.register( 'VectorPanel', VectorPanel );
+  return vectorAddition.register( 'VectorCreatorPanel', VectorCreatorPanel );
 } );
 

@@ -12,7 +12,7 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorPanel = require( 'VECTOR_ADDITION/common/view/VectorPanel' );
+  const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
@@ -39,7 +39,8 @@ define( require => {
     }
 
   }
-  class HorizontalVectorPanel extends VectorPanel {
+
+  class HorizontalVectorPanel extends VectorCreatorPanel {
     /**
      * @abstract
      * @constructor
@@ -58,7 +59,8 @@ define( require => {
     getDefaultVectorComponents() { return new Vector2( 5, 0 ); }
 
   }
-  class VerticalVectorPanel extends VectorPanel {
+
+  class VerticalVectorPanel extends VectorCreatorPanel {
     /**
      * @abstract
      * @constructor
