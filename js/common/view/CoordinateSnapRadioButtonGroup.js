@@ -23,6 +23,7 @@ define( require => {
     /**
      * @param {EnumerationProperty<CoordinateSnapModes>} coordinateSnapModeProperty - property of the possible modes of
      * snapping vectors to the graph.
+     * @param {Object} [options]
      * @constructor
      */
     constructor( coordinateSnapModeProperty, options ) {
