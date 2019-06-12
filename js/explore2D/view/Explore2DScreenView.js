@@ -9,7 +9,7 @@ define( function( require ) {
   // modules
   const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
   const Explore2DVectorCreatorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorCreatorPanel' );
-  const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
+  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
 
@@ -23,7 +23,7 @@ define( function( require ) {
 
       super( explore2DModel, tandem );
 
-      const gridPanel = new GridPanel( explore2DModel.sumVisibleProperty,
+      const graphControlPanel = new GraphControlPanel( explore2DModel.sumVisibleProperty,
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
         explore2DModel.gridVisibleProperty,
@@ -34,7 +34,7 @@ define( function( require ) {
           top: 10
         } );
 
-      this.addChild( gridPanel );
+      this.addChild( graphControlPanel );
 
       const vectorCreatorPanel = new Explore2DVectorCreatorPanel( explore2DModel.graph.vectors, explore2DModel.graph.modelViewTransformProperty );
 

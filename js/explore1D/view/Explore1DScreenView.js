@@ -10,7 +10,7 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Explore1DVectorCreatorPanels = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanels' );
-  const GridPanel = require( 'VECTOR_ADDITION/common/view/GridPanel' );
+  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
@@ -68,7 +68,7 @@ define( require => {
       // TODO:: find better way to deal with absence of angle
       const angleVisibleProperty = new BooleanProperty( false );
 
-      const gridPanel = new GridPanel( explore1DModel.sumVisibleProperty,
+      const graphControlPanel = new GraphControlPanel( explore1DModel.sumVisibleProperty,
         explore1DModel.valuesVisibleProperty,
         angleVisibleProperty,
         explore1DModel.gridVisibleProperty,
@@ -92,7 +92,7 @@ define( require => {
         selectedStroke: '#419ac9',
         selectedLineWidth: 2,
         right: this.layoutBounds.maxX - 4,
-        top: gridPanel.bottom + 10,
+        top: graphControlPanel.bottom + 10,
         orientation: 'horizontal'
       } );
 
@@ -112,7 +112,7 @@ define( require => {
         verticalScene,
         horizontalVectorCreatorPanel,
         verticalVectorCreatorPanel,
-        gridPanel,
+        graphControlPanel,
         sceneRadioButtonGroup,
         resetAllButton
       ] );

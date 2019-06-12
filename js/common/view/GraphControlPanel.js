@@ -37,7 +37,7 @@ define( require => {
   /**
    * @constructor
    */
-  class GridPanel extends Panel {
+  class GraphControlPanel extends Panel {
 
     /**
      * @param {Property.<boolean>} sumVisibleProperty is the sum visible on the graph
@@ -151,5 +151,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'GridPanel', GridPanel );
+  return vectorAddition.register( 'GraphControlPanel', GraphControlPanel );
 } );
