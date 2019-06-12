@@ -144,6 +144,15 @@ define( require => {
         tipCircle.center = tipLocation;
       } );
 
+      // Create a method to dispose children
+      this.disposeChildren = () => {
+        tipCircle.dispose();
+        labelNode.dispose();
+        vectorComponentsNode.dispose();
+        vectorAngleNode.dispose();
+        super.dispose();
+      };
+
     }
 
     /**
@@ -184,6 +193,12 @@ define( require => {
       this.vectorModel.tailPositionProperty.value = tailCoordinates.roundedSymmetric();
       const roundedTailLocation = mvt.modelToViewPosition( this.vectorModel.tailPositionProperty.value );
       return roundedTailLocation;
+    }
+    /**
+     * Dispose the vector
+     */
+    dispose() {
+      this.disposeChildren();
     }
   }
 
