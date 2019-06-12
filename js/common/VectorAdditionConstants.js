@@ -18,11 +18,12 @@ define( function( require ) {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
-
+  
+  //----------------------------------------------------------------------------------------
   // constants
   const PANEL_CORNER_RADIUS = 5;
   const PANEL_X_MARGIN = 12; // horizontal panel margin
-  const PANEL_BACKGROUND_COLOR = 'rgb( 230, 230, 230 )';
+  const PANEL_BACKGROUND_COLOR = VectorAdditionColors.INSPECT_VECTOR_BACKGROUND;
   const PANEL_Y_MARGIN = 12; // vertical panel margin
 
   const VectorAdditionConstants = {

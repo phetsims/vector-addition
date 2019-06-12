@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Factory for creating icons that appear in Vector addition Simulation
+ * Factory for creating icons that appear in this project
  *
  * @author Brandon Li
  */
@@ -22,20 +22,58 @@ define( function( require ) {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
+  //----------------------------------------------------------------------------------------
   // constants
 
-  // arrow icon constants
-  const ARROW_ICON_LENGTH = 28;
-  // const ARROW_ICON_COLOR = VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR;
+  // arrow icons
+  const ARROW_ICON_SIZE = 25;
+  // template for other arrow
+  const ARROW_ICON_OPTIONS = {
+    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
+    stroke: VectorAdditionColors.VECTOR_BORDER_COLOR,
+    lineWidth: 0.5,
+    headHeight: 5,
+    headWidth: 9,
+    tailWidth: 4,
+    opacity: 1
+  };
+  // semi opaque arrow for the components
+  const OPAQUE_ARROW_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
+    opacity: 0.4
+  } );
+  // sum icon
+  const SUM_ARROW_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
+    fill: VectorAdditionColors.VECTOR_SUM_COLOR,
+    lineWidth: 0.5
+  } );
+  // Cartesian Black Arrow
+  const CARTESIAN_DARK_ARROW_OPTIONS = _.extend( 
+    _.clone( ARROW_ICON_OPTIONS ),
+    {
+      fill: VectorAdditionColors.BLACK_VECTOR_COLOR,
+      tailWidth: 2,
+      lineWidth: 0
+    }
+  );
+  // Polar arrow
+  const POLAR_ARROW_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
+    fill: VectorAdditionColors.PURPLE_VECTOR_COLOR,
+    lineWidth: 0
+  } );
 
+  //----------------------------------------------------------------------------------------
+  // grid constants
   // number of grid lines on the grid icon
   const GRID_LINES = 3;
   const GRID_SPACING = 7;
-  const GRID_LINE_WIDTH = 1;
-  const GRID_COLOR = VectorAdditionColors.GRID_ICON_COLOR;
+  const GRID_ICON_OPTIONS = {
+    lineWidth: 1,
+    stroke: VectorAdditionColors.GRID_ICON_COLOR
+  };
 
+  //----------------------------------------------------------------------------------------
   // angle icon constants
-  const ANGLE_ICON_ANGLE = 55;
+  const ANGLE_ICON_ANGLE = 55; // degrees
   const ANGLE_LINE_LENGTH = 20;
   const ANGLE_ICON_CIRCLE_RADIUS = 13;
   const ANGLE_ICON_OPTIONS = {
@@ -45,69 +83,27 @@ define( function( require ) {
       stroke: VectorAdditionColors.ANGLE_ICON_COLOR
     }
   };
-
-  // vector icons constants
-  // const ARROW_DARK_COLOR = VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR;
-  const VECTOR_ICON_HEAD_HEIGHT = 5;
-  const VECTOR_ICON_HEAD_WIDTH = 9;
-  const VECTOR_ICON_TAIL_WIDTH = 4;
-
-  // the scale on the invisible component icon eye
+  //----------------------------------------------------------------------------------------
+  // invisible icon
   const INVISIBLE_COMPONENT_ICON_SCALE = 0.7;
 
-  // the icon size for the component icons
-  const COMPONENT_ICON_SIZE = 25;
-  const CARTESIAN_ARROW_WIDTH = 20;
-  const CARTESIAN_ARROW_HEIGHT = 18;
-  const POLAR_ICON_SIZE = 23;
+  //----------------------------------------------------------------------------------------
+  // on axis icon
   const AXIS_ICON_SUBBOX_SIZE = 10;
   const AXIS_ICON_LINE_DASH = [ 2, 2 ];
 
-  // options for light shaded arrow
-  const LIGHT_ARROW_OPTIONS = {
-    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
-    stroke: VectorAdditionColors.VECTOR_BORDER_COLOR,
-    lineWidth: 0.5,
-    headHeight: VECTOR_ICON_HEAD_HEIGHT,
-    headWidth: VECTOR_ICON_HEAD_WIDTH,
-    tailWidth: VECTOR_ICON_TAIL_WIDTH,
-    opacity: 0.35
-  };
+  // strings
+  const oneString = require( 'string!VECTOR_ADDITION/one' );
 
-  // options for dark shaded arrow
-  const DARK_ARROW_OPTIONS = {
-    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
-    stroke: VectorAdditionColors.VECTOR_BORDER_COLOR,
-    lineWidth: 0.5,
-    headHeight: VECTOR_ICON_HEAD_HEIGHT,
-    headWidth: VECTOR_ICON_HEAD_WIDTH,
-    tailWidth: VECTOR_ICON_TAIL_WIDTH
-  };
 
-  const CARTESIAN_DARK_ARROW_OPTIONS = {
-    stroke: VectorAdditionColors.BLACK_VECTOR_COLOR,
-    lineWidth: 0,
-    headHeight: VECTOR_ICON_HEAD_HEIGHT,
-    headWidth: VECTOR_ICON_HEAD_WIDTH,
-    tailWidth: 2
-  };
-  const POLAR_ARROW_OPTIONS = {
-    fill: VectorAdditionColors.PURPLE_VECTOR_COLOR,
-    lineWidth: 0,
-    headHeight: VECTOR_ICON_HEAD_HEIGHT,
-    headWidth: VECTOR_ICON_HEAD_WIDTH,
-    tailWidth: 2
-  };
+  class VectorAdditionIconFactory {
+    // Creates an arrow icon node
+    static createSumIcon() {
+      return new ArrowNode( 0, 0, ARROW_ICON_SIZE, 0, SUM_ARROW_OPTIONS );
+    }
 
-  // create a object with methods that return icons
-  const VectorAdditionIconFactory = {
-    // creates an arrow icon node
-    createArrowIcon: () => {
-      return new ArrowNode( 0, 0, ARROW_ICON_LENGTH, 0, DARK_ARROW_OPTIONS );
-    },
-
-    // creates an icon that shows the grid of a graph
-    createGridIcon: () => {
+    // Creates an icon that shows the grid of a graph
+    static createGridIcon() {
       // create a shape for the grid
       const gridShape = new Shape();
 
@@ -122,14 +118,11 @@ define( function( require ) {
           .verticalLineTo( ( GRID_LINES + 1 ) * GRID_SPACING );
       }
       // return a path as a node
-      return new Path( gridShape, {
-        lineWidth: GRID_LINE_WIDTH,
-        stroke: GRID_COLOR
-      } );
-    },
+      return new Path( gridShape, GRID_ICON_OPTIONS );
+    }
 
     // Creates an icon that shows a angle
-    createAngleIcon: () => {
+    static createAngleIcon() {
       const icon = new Node();
       // // shape for the outline of the icon
       const wedgeShape = new Shape();
@@ -149,55 +142,55 @@ define( function( require ) {
       // subtract 15 because arc arrow uses a subtended angle to calculate a new angle
       const arcArrow = new ArcArrowNode( ANGLE_ICON_ANGLE, ANGLE_ICON_CIRCLE_RADIUS, ANGLE_ICON_OPTIONS );
       return icon.setChildren( [ wedgePath, arcArrow ] );
-    },
+    }
 
     // Creates the icon on the radio button for the invisible component style
-    createInvisibleComponentStyleIcon: () => {
+    static createInvisibleComponentStyleIcon() {
       const icon = new FontAwesomeNode( 'eye_close' );
       icon.scale( INVISIBLE_COMPONENT_ICON_SCALE );
       return icon;
-    },
+    }
 
     // Creates the icon on the radio button for the Parallelogram component style
-    createParallelogramComponentStyleIcon: () => {
+    static createParallelogramComponentStyleIcon() {
       // create a container for the arrow nodes
       const icon = new Node();
 
-      // the icon has 3 arrows, start with the 'dark' version that points to the right and up
-      const darkArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, -1 * COMPONENT_ICON_SIZE, DARK_ARROW_OPTIONS );
+      // the icon has 3 arrows, start with a arrow, the 2 opaque arrows
+      const darkArrow = new ArrowNode( 0, 0, ARROW_ICON_SIZE, -ARROW_ICON_SIZE, ARROW_ICON_OPTIONS );
 
       // now add a lighter arrow node that points to the right
-      const rightArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, 0, LIGHT_ARROW_OPTIONS );
+      const rightArrow = new ArrowNode( 0, 0, ARROW_ICON_SIZE, 0, OPAQUE_ARROW_OPTIONS );
 
       // now add a lighter arrow pointing upwards
-      const upArrow = new ArrowNode( 0, 0, 0, -1 * COMPONENT_ICON_SIZE, LIGHT_ARROW_OPTIONS );
+      const upArrow = new ArrowNode( 0, 0, 0, -1 * ARROW_ICON_SIZE, OPAQUE_ARROW_OPTIONS );
 
 
       icon.setChildren( [ rightArrow, upArrow, darkArrow ] );
       return icon;
-    },
+    }
 
     // Creates the icon on the radio button for the Triangle component style
-    createTriangleComponentStyleIcon: () => {
+    static createTriangleComponentStyleIcon() {
       // create a container for the arrow nodes
       const icon = new Node();
 
       // the icon has 3 arrows, start with the 'dark' version that points to the right and up
-      const darkArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, -1 * COMPONENT_ICON_SIZE, DARK_ARROW_OPTIONS );
+      const darkArrow = new ArrowNode( 0, 0, ARROW_ICON_SIZE, -1 * ARROW_ICON_SIZE, ARROW_ICON_OPTIONS );
 
       // now add a lighter arrow node that points to the right
-      const rightArrow = new ArrowNode( 0, 0, COMPONENT_ICON_SIZE, 0, LIGHT_ARROW_OPTIONS );
+      const rightArrow = new ArrowNode( 0, 0, ARROW_ICON_SIZE, 0, OPAQUE_ARROW_OPTIONS );
 
       // now add a lighter arrow pointing upwards but is displaced to the right
-      const upArrow = new ArrowNode( COMPONENT_ICON_SIZE, 0, COMPONENT_ICON_SIZE, -1 * COMPONENT_ICON_SIZE,
-        LIGHT_ARROW_OPTIONS );
+      const upArrow = new ArrowNode( ARROW_ICON_SIZE, 0, ARROW_ICON_SIZE, -1 * ARROW_ICON_SIZE,
+        OPAQUE_ARROW_OPTIONS );
 
       icon.setChildren( [ rightArrow, upArrow, darkArrow ] );
       return icon;
-    },
+    }
 
     // Creates the icon on the radio button for the Triangle component style
-    createAxisIconComponentStyleIcon: () => {
+    static createAxisIconComponentStyleIcon() {
       // create a container for the arrow nodes
       const icon = new Node();
 
@@ -206,29 +199,29 @@ define( function( require ) {
       const darkArrow = new ArrowNode(
         AXIS_ICON_SUBBOX_SIZE,
         -1 * AXIS_ICON_SUBBOX_SIZE,
-        COMPONENT_ICON_SIZE,
-        -1 * COMPONENT_ICON_SIZE,
-        DARK_ARROW_OPTIONS
+        ARROW_ICON_SIZE,
+        -1 * ARROW_ICON_SIZE,
+        ARROW_ICON_OPTIONS
       );
 
       // now add a lighter arrow node that points to the right
-      const rightArrow = new ArrowNode( AXIS_ICON_SUBBOX_SIZE, 0, COMPONENT_ICON_SIZE, 0, LIGHT_ARROW_OPTIONS );
+      const rightArrow = new ArrowNode( AXIS_ICON_SUBBOX_SIZE, 0, ARROW_ICON_SIZE, 0, OPAQUE_ARROW_OPTIONS );
 
       // now add a lighter arrow pointing upwards but is displaced to the right
-      const upArrow = new ArrowNode( 0, -1 * AXIS_ICON_SUBBOX_SIZE, 0, -1 * COMPONENT_ICON_SIZE, LIGHT_ARROW_OPTIONS );
+      const upArrow = new ArrowNode( 0, -1 * AXIS_ICON_SUBBOX_SIZE, 0, -1 * ARROW_ICON_SIZE, OPAQUE_ARROW_OPTIONS );
 
       // create a dashed line shape
       const dashedLineShape = new Shape();
 
-      // draw the first 2 lines around the subbox
+      // draw the first 2 lines around the sub box
       dashedLineShape.moveTo( 0, -1 * AXIS_ICON_SUBBOX_SIZE )
         .horizontalLineTo( AXIS_ICON_SUBBOX_SIZE )
         .verticalLineToRelative( AXIS_ICON_SUBBOX_SIZE );
 
       // draw the lines around the sub icon
-      dashedLineShape.moveTo( 0, -1 * COMPONENT_ICON_SIZE )
-        .horizontalLineTo( COMPONENT_ICON_SIZE )
-        .verticalLineToRelative( COMPONENT_ICON_SIZE );
+      dashedLineShape.moveTo( 0, -1 * ARROW_ICON_SIZE )
+        .horizontalLineTo( ARROW_ICON_SIZE )
+        .verticalLineToRelative( ARROW_ICON_SIZE );
 
       // create the shape into a path
       const dashedLinePath = new Path( dashedLineShape, {
@@ -238,52 +231,54 @@ define( function( require ) {
 
       icon.setChildren( [ rightArrow, upArrow, darkArrow, dashedLinePath ] );
       return icon;
-    },
+    }
 
     // Creates the icon on the radio button for the Triangle component style
-    createCartesianIcon: () => {
+    static createCartesianIcon() {
+
       // create a container for the arrow nodes
       const icon = new Node();
 
-      // the icon has 3 arrows, start with the 'dark' version that points to the right 
-      const darkArrowRight = new ArrowNode( 0, 0, CARTESIAN_ARROW_WIDTH, 0, CARTESIAN_DARK_ARROW_OPTIONS );
+      // the icon has 3 arrows, start with the vector then draw the black vectors as components
+      const darkArrowRight = new ArrowNode( 0, 0, ARROW_ICON_SIZE, 0, CARTESIAN_DARK_ARROW_OPTIONS );
 
-      const darkArrowUp = new ArrowNode( CARTESIAN_ARROW_WIDTH, 0, CARTESIAN_ARROW_WIDTH, -CARTESIAN_ARROW_HEIGHT, CARTESIAN_DARK_ARROW_OPTIONS );
+      const darkArrowUp = new ArrowNode( 
+        ARROW_ICON_SIZE, 0, ARROW_ICON_SIZE, -ARROW_ICON_SIZE, CARTESIAN_DARK_ARROW_OPTIONS );
 
-      const cartesianArrow = new ArrowNode( 0, 0, CARTESIAN_ARROW_WIDTH, -CARTESIAN_ARROW_HEIGHT, DARK_ARROW_OPTIONS );
+      const cartesianArrow = new ArrowNode( 0, 0, ARROW_ICON_SIZE, -ARROW_ICON_SIZE, ARROW_ICON_OPTIONS );
       
-      const rightLabel = new Text( '1', {
+      // create a label
+      const label = new Text( oneString, {
          font: new PhetFont( { size: 8, family: 'Times' } )
       } );
 
-      rightLabel.center = darkArrowUp.center;
-      rightLabel.left = darkArrowUp.right - 2;
+      label.center = darkArrowUp.center;
+      label.left = darkArrowUp.right - 2;
 
-
-      icon.setChildren( [ darkArrowRight, darkArrowUp, cartesianArrow, rightLabel ] );
+      icon.setChildren( [ darkArrowRight, darkArrowUp, cartesianArrow, label ] );
       return icon;
-    },
+    }
 
     // Creates the icon on the radio button for the Triangle component style
-    createPolarIcon: () => {
+    static createPolarIcon() {
       // create a container for the arrow nodes
       const icon = new Node();
 
-      const arrow = new ArrowNode( 0, 0, POLAR_ICON_SIZE, -POLAR_ICON_SIZE, POLAR_ARROW_OPTIONS );
+      // create an arrow
+      const arrow = new ArrowNode( 0, 0, ARROW_ICON_SIZE, -ARROW_ICON_SIZE, POLAR_ARROW_OPTIONS );
 
-
+      // create an arc arrow
       const arcArrow = new ArcArrowNode( 45, ANGLE_ICON_CIRCLE_RADIUS, ANGLE_ICON_OPTIONS );
       
-      const line = new Line( 0, 0, POLAR_ICON_SIZE, 0, {
+      // create a baseline
+      const line = new Line( 0, 0, ARROW_ICON_SIZE, 0, {
         stroke: 'black'
       } );
 
       icon.setChildren( [ arrow, arcArrow, line ] );
       return icon;
     }
-
-  };
-
+  }
   vectorAddition.register( 'VectorAdditionIconFactory', VectorAdditionIconFactory );
 
   return VectorAdditionIconFactory;

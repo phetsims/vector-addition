@@ -88,7 +88,7 @@ define( require => {
         graph.modelViewTransformProperty,
         VECTOR_SUM_OPTIONS
       );
-
+      
       // link the visibility of the Vector Sum node with the status of the checkbox
       model.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
 

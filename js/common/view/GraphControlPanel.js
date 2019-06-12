@@ -59,13 +59,13 @@ define( require => {
       options = _.extend( {
         is1D: true
       }, PANEL_OPTIONS, options );
-
+ 
 
       const ICON_SPACING = 15;
 
       // create the arrow icon with the icon factory
       // TODO: make the length and the color constants
-      const arrowIconNode = VectorAdditionIconFactory.createArrowIcon();
+      const arrowIconNode = VectorAdditionIconFactory.createSumIcon();
 
       // 'Sum' checkbox
       const sumCheckbox = new Checkbox( new LayoutBox( {
