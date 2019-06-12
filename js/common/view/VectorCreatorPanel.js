@@ -137,6 +137,7 @@ define( require => {
               observableVectorArray.addItemRemovedListener( ( removedVector ) => {
                 if ( removedVector === newVectorModel ) {
                   vectorIconNode.visible = true;
+                  removedVector.dispose();
                 }
               } );
             }

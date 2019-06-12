@@ -109,13 +109,19 @@ define( require => {
       } );
     }
 
-    // @public resets the vector
-    reset() {
-      this.tailPositionProperty.reset();
-      this.attributesVectorProperty.reset();
-      this.isTipDraggingProperty.reset();
-      this.isBodyDraggingProperty.reset();
-      this.isInPlayAreaProperty.reset();
+    // @public dispose
+    dispose() {
+      this.isDraggingProperty.dispose();
+      this.yProperty.dispose();
+      this.xProperty.dispose();
+      this.angleDegreesProperty.dispose();
+      this.magnitudeProperty.dispose();
+      this.tipPositionProperty.dispose();
+      this.isBodyDraggingProperty.dispose();
+      this.isTipDraggingProperty.dispose();
+      this.isInPlayAreaProperty.dispose();
+      this.attributesVectorProperty.dispose();
+      this.tailPositionProperty.dispose();
     }
 
     /**
