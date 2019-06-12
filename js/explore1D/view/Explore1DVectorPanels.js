@@ -30,7 +30,7 @@ define( require => {
   class Explore1DVectorPanels {
     /**
      * @constructor
-     * @param {ObservableArray.<Vector>} vectorArray - the observable array to add the vector's to.
+     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
     constructor( horizontalVectorArray, horizontalModelViewTransformProperty, verticalVectorArray, verticalModelViewTransformProperty  ) {
@@ -43,7 +43,7 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray.<Vector>} vectorArray - the observable array to add the vector's to.
+     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
     constructor( vectorArray, modelViewTransformProperty ) {
@@ -62,7 +62,7 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray.<Vector>} vectorArray - the observable array to add the vector's to.
+     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
     constructor( vectorArray, modelViewTransformProperty ) {

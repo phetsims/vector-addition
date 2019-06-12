@@ -66,10 +66,10 @@ define( require => {
             GRAPH_TO_VIEW_SCALE )
       );
 
-      // @public {ObservableArray.<Vector>} - the vectors that appear on the graph (not including the sum vector)
+      // @public {ObservableArray.<VectorModel>} - the vectors that appear on the graph (not including the sum vector)
       this.vectors = new ObservableArray();
 
-      // @public {Vector} the vector sum model
+      // @public {VectorModel} the vector sum model
       this.vectorSum = new VectorSum( this.vectors, this.modelViewTransformProperty );
 
       // @public (read-only)

@@ -34,12 +34,12 @@ define( require => {
   class VectorComponentsNode extends Node {
 
     /**
-     * @param {Vector} vector - the vector model
+     * @param {VectorModel} vectorModel- the vector model
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property related to the style of components to display
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the coordinate transformation
      * between view and model coordinates
      */
-    constructor( vector, componentStyleProperty, modelViewTransformProperty ) {
+    constructor( vectorModel, componentStyleProperty, modelViewTransformProperty ) {
 
       super();
 
@@ -73,8 +73,8 @@ define( require => {
         onAxisLinesPath.visible = false;
 
         // get the coordinates for each components
-        const xComponentCoordinates = vector.getXComponentCoordinates( componentStyle );
-        const yComponentCoordinates = vector.getYComponentCoordinates( componentStyle );
+        const xComponentCoordinates = vectorModel.getXComponentCoordinates( componentStyle );
+        const yComponentCoordinates = vectorModel.getYComponentCoordinates( componentStyle );
 
         // transform the coordinates into view and defining the tip of the node as (0, 0)
         const xComponentTail = modelViewTransform.modelToViewDelta( xComponentCoordinates.tail.minus( tailPosition ) );
@@ -114,8 +114,8 @@ define( require => {
       // @private
       this.updateLayoutMultilink = Property.multilink( [
           componentStyleProperty,
-          vector.attributesVectorProperty,
-          vector.tailPositionProperty,
+          vectorModel.attributesVectorProperty,
+          vectorModel.tailPositionProperty,
           modelViewTransformProperty
         ],
         updateComponents

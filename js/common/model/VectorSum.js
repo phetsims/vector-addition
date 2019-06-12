@@ -18,7 +18,7 @@ define( require => {
     /**
      * Create a model for the sum of vector
      * @constructor
-     * @param {ObservableArray.<Vector>} vectors
+     * @param {ObservableArray.<VectorModel>} vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {Object} [options]
      *

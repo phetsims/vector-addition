@@ -33,11 +33,11 @@ define( require => {
   class VectorAngleNode extends Node {
 
     /**
-     * @param {Vector} vector - the vector model
+     * @param {VectorModel} vectorModel- the vector model
      * @param {BooleanProperty} angleVisibleProperty
      * @param {ModelViewTransform2} modelViewTransform
      */
-    constructor( vector, angleVisibleProperty, modelViewTransform ) {
+    constructor( vectorModel, angleVisibleProperty, modelViewTransform ) {
 
       super();
 
@@ -47,7 +47,7 @@ define( require => {
       } );
 
       // create the arc arrow
-      const arcArrow = new ArcArrowNode( vector.angleDegreesProperty.value, ARC_RADIUS, ARC_ARROW_OPTIONS );
+      const arcArrow = new ArcArrowNode( vectorModel.angleDegreesProperty.value, ARC_RADIUS, ARC_ARROW_OPTIONS );
 
       const labelText = new Text( '', {
         font: new PhetFont( { size: 14, family: 'Times' } )
@@ -100,7 +100,7 @@ define( require => {
       };
 
       // update the arcArrow and the label based on the angle of the vector
-      vector.angleDegreesProperty.link( ( angle ) => {
+      vectorModel.angleDegreesProperty.link( ( angle ) => {
 
         // update the angle of the arc
         arcArrow.setAngle( angle );
@@ -110,7 +110,7 @@ define( require => {
       } );
 
       // update the radius of the arcArrow based on the magnitude of the vector
-      vector.magnitudeProperty.link( ( magnitude ) => {
+      vectorModel.magnitudeProperty.link( ( magnitude ) => {
 
         // get magnitude of vector in view coordinates
         const viewMagnitude = modelViewTransform.modelToViewDeltaX( magnitude );

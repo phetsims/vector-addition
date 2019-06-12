@@ -51,7 +51,7 @@ define( require => {
   class VectorDisplayPanel extends Panel {
 
     /**
-     * @param {ObservableArray.<Vector>} vectors
+     * @param {ObservableArray.<VectorModel>} vectors
      * @param {Graph} graph
      * @param {Object} [options]
      */
@@ -114,8 +114,8 @@ define( require => {
 
       this.linkVectorToPanel( graph.vectorSum );
 
-      vectors.forEach( ( vector ) => {
-        this.linkVectorToPanel( vector );
+      vectors.forEach( ( vectorModel ) => {
+        this.linkVectorToPanel( vectorModel );
       } );
 
       vectors.addItemAddedListener( ( addedVector ) => {
@@ -125,37 +125,37 @@ define( require => {
 
     /**
      * Add a link so when a vector is dragged, the panel content updates as well
-     * @param {Vector} vector to be linked
+     * @param {VectorModel} vectorModelto be linked
      * @private
      */
-    linkVectorToPanel( vector ) {
-      vector.isDraggingProperty.link( ( isDragging ) => {
+    linkVectorToPanel( vectorModel ) {
+      vectorModel.isDraggingProperty.link( ( isDragging ) => {
         if ( isDragging ) {
 
-          const magnitudeTextNode = new FormulaNode( '\|\\mathbf{\\vec{' + vector.label + '}\}|' );
+          const magnitudeTextNode = new FormulaNode( '\|\\mathbf{\\vec{' + vectorModel.label + '}\}|' );
           const magnitudeDisplay = new NumberDisplay(
-            vector.magnitudeProperty,
+            vectorModel.magnitudeProperty,
             new Range( 0, 100 ),
             { decimalPlaces: 1 }
           );
 
           const angleText = new RichText( MathSymbols.THETA );
           const angleDisplay = new NumberDisplay(
-            vector.angleDegreesProperty,
+            vectorModel.angleDegreesProperty,
             new Range( -180, 180 ),
             { decimalPlaces: 1 }
           );
 
-          const xComponentText = new RichText( `${vector.label}<sub>${xString}</sub>` );
+          const xComponentText = new RichText( `${vectorModel.label}<sub>${xString}</sub>` );
           const xComponentDisplay = new NumberDisplay(
-            vector.xProperty,
+            vectorModel.xProperty,
             new Range( -60, 60 ),
             { decimalPlaces: 0 }
           );
 
-          const yComponentText = new RichText( `${vector.label}<sub>${yString}</sub>` );
+          const yComponentText = new RichText( `${vectorModel.label}<sub>${yString}</sub>` );
           const yComponentDisplay = new NumberDisplay(
-            vector.yProperty,
+            vectorModel.yProperty,
             new Range( -40, 40 ),
             { decimalPlaces: 0 }
           );

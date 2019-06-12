@@ -35,7 +35,7 @@ define( require => {
 
     /**
      * @constructor
-     * @param {Vector} vector - the vector model
+     * @param {VectorModel} vectorModel- the vector model
      * @param {Bounds2} gridModelBounds - the bounds to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
@@ -44,30 +44,30 @@ define( require => {
      * between model coordinates and view coordinates
      * @param {object} arrowOptions - options passed to the arrow node
      */
-    constructor( vector, gridModelBounds, componentStyleProperty, angleVisibleProperty, vectorOrientation, modelViewTransformProperty, arrowOptions ) {
+    constructor( vectorModel, gridModelBounds, componentStyleProperty, angleVisibleProperty, vectorOrientation, modelViewTransformProperty, arrowOptions ) {
 
       const initialModelViewTransform = modelViewTransformProperty.value;
 
       // Define a vector node in which the tail location is (0, 0)
       // Get the tip location  in view coordinates
-      const tipPosition = initialModelViewTransform.modelToViewDelta( vector.attributesVectorProperty.value );
+      const tipPosition = initialModelViewTransform.modelToViewDelta( vectorModel.attributesVectorProperty.value );
 
       // Create an arrow node that represents an actual vector.
       const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, arrowOptions );
 
       // Create a label for the vector that is displayed 'next' to the arrow. The location of this depends 
       // on the angle of the vector.
-      const labelNode = new FormulaNode( '\\vec{' + vector.label + '}' );
+      const labelNode = new FormulaNode( '\\vec{' + vectorModel.label + '}' );
 
       // Create a circle at the tip of the vector. This is used to allow the user to only change the 
       // angle of the arrowNode by only dragging the tip
       const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipPosition }, TIP_CIRCLE_OPTIONS ) );
 
       // Create the scenery nodes for this vectors components
-      const vectorComponentsNode = new VectorComponentsNode( vector, componentStyleProperty, modelViewTransformProperty );
+      const vectorComponentsNode = new VectorComponentsNode( vectorModel, componentStyleProperty, modelViewTransformProperty );
 
       // Create the scenery node that represents the angle
-      const vectorAngleNode = new VectorAngleNode( vector, angleVisibleProperty, initialModelViewTransform );
+      const vectorAngleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, initialModelViewTransform );
 
       super( {
         children: [
@@ -85,12 +85,12 @@ define( require => {
       // @private {VectorOrientations}
       this.vectorOrientation = vectorOrientation;
 
-      //@private {Vector}
-      this.vector = vector;
+      //@private {VectorModel}
+      this.vectorModel = vectorModel;
 
       // Create a property for the location of the tail of the vector.
       const tailLocationProperty = new Vector2Property(
-        modelViewTransformProperty.value.modelToViewPosition( vector.tailPositionProperty.value ) );
+        modelViewTransformProperty.value.modelToViewPosition( vectorModel.tailPositionProperty.value ) );
 
       // @private {DragListener} - for forwarding drag events
       const bodyDragListener = new DragListener( {
@@ -98,10 +98,10 @@ define( require => {
         translateNode: false,
         locationProperty: tailLocationProperty,
         start: () => {
-          vector.isBodyDraggingProperty.set( true );
+          vectorModel.isBodyDraggingProperty.set( true );
           this.moveToFront();
         },
-        end: () => vector.isBodyDraggingProperty.set( false )
+        end: () => vectorModel.isBodyDraggingProperty.set( false )
       } );
 
 
@@ -112,7 +112,7 @@ define( require => {
       arrowNode.addInputListener( bodyDragListener );
 
 
-      if ( vector.isTipDraggable ) {
+      if ( vectorModel.isTipDraggable ) {
 
         // Create a property of the location of the tip of the vector. The location of the tip is measured with respect to the tail.
         const tipLocationProperty = new Vector2Property( tipPosition );
@@ -123,10 +123,10 @@ define( require => {
           translateNode: false,
           locationProperty: tipLocationProperty,
           start: () => {
-            vector.isTipDraggingProperty.set( true );
+            vectorModel.isTipDraggingProperty.set( true );
             this.moveToFront();
           },
-          end: () => vector.isTipDraggingProperty.set( false )
+          end: () => vectorModel.isTipDraggingProperty.set( false )
         } );
 
         tipLocationProperty.link( tipLocation => {
@@ -138,7 +138,7 @@ define( require => {
       }
 
       // update the position of the arrowNode and the tipCircle
-      vector.attributesVectorProperty.link( attributesVector => {
+      vectorModel.attributesVectorProperty.link( attributesVector => {
         const tipLocation = this.modelViewTransformProperty.value.modelToViewDelta( attributesVector );
         arrowNode.setTip( tipLocation.x, tipLocation.y );
         tipCircle.center = tipLocation;
@@ -170,7 +170,7 @@ define( require => {
           throw new Error( `vectorOrientation not handled: ${this.vectorOrientation}` );
         }
       }
-      this.vector.attributesVectorProperty.value = tipCoordinates.roundedSymmetric();
+      this.vectorModel.attributesVectorProperty.value = tipCoordinates.roundedSymmetric();
     }
 
     /**
@@ -181,8 +181,8 @@ define( require => {
     getTailSnapToGridLocation( tailLocation ) {
       const mvt = this.modelViewTransformProperty.value;
       const tailCoordinates = mvt.viewToModelPosition( tailLocation );
-      this.vector.tailPositionProperty.value = tailCoordinates.roundedSymmetric();
-      const roundedTailLocation = mvt.modelToViewPosition( this.vector.tailPositionProperty.value );
+      this.vectorModel.tailPositionProperty.value = tailCoordinates.roundedSymmetric();
+      const roundedTailLocation = mvt.modelToViewPosition( this.vectorModel.tailPositionProperty.value );
       return roundedTailLocation;
     }
   }
