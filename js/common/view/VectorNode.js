@@ -95,7 +95,6 @@ define( require => {
       // @private {DragListener} - for forwarding drag events
       const bodyDragListener = new DragListener( {
         targetNode: this,
-        translateNode: false,
         locationProperty: tailLocationProperty,
         start: () => {
           vectorModel.isBodyDraggingProperty.set( true );
@@ -120,7 +119,6 @@ define( require => {
         // for forwarding drag events for the tip
         const tipDragListener = new DragListener( {
           targetNode: tipCircle,
-          translateNode: false,
           locationProperty: tipLocationProperty,
           start: () => {
             vectorModel.isTipDraggingProperty.set( true );
