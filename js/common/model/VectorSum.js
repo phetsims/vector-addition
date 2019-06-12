@@ -20,20 +20,21 @@ define( require => {
      * @constructor
      * @param {ObservableArray.<VectorModel>} vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {Bounds2} graphModelBounds
      * @param {Object} [options]
      *
      */
-    constructor( vectors, modelViewTransformProperty, options ) {
+    constructor( vectors, modelViewTransformProperty, graphModelBounds, options ) {
 
-      // create a vector at origin of initial length zero
-      // TODO: what should be a good tailPosition?
+      // get the position of where to put the vector initially
+      const spawnPosition = new Vector2( graphModelBounds.centerX, graphModelBounds.centerY );
 
       options = _.extend( {
         label: 's',
         isTipDraggable: false
       }, options );
 
-      super( Vector2.ZERO, 0, 0, modelViewTransformProperty, options );
+      super( spawnPosition, 0, 0, modelViewTransformProperty, options );
 
       this.isTipDraggingProperty.link( isTipDragging => {
         if ( isTipDragging ) {
