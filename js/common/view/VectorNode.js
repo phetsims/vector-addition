@@ -42,7 +42,7 @@ define( require => {
      * @param {VectorOrientations} vectorOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
-     * @param {object} arrowOptions - options passed to the arrow node
+     * @param {object} [arrowOptions] - options passed to the arrow node
      */
     constructor( vectorModel, gridModelBounds, componentStyleProperty, angleVisibleProperty, vectorOrientation, modelViewTransformProperty, arrowOptions ) {
 
@@ -95,7 +95,6 @@ define( require => {
       // @private {DragListener} - for forwarding drag events
       const bodyDragListener = new DragListener( {
         targetNode: this,
-        translateNode: false,
         locationProperty: tailLocationProperty,
         start: () => {
           vectorModel.isBodyDraggingProperty.set( true );
@@ -120,7 +119,6 @@ define( require => {
         // for forwarding drag events for the tip
         const tipDragListener = new DragListener( {
           targetNode: tipCircle,
-          translateNode: false,
           locationProperty: tipLocationProperty,
           start: () => {
             vectorModel.isTipDraggingProperty.set( true );
