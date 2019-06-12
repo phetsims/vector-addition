@@ -45,7 +45,6 @@ define( require => {
       this.upperLeftPositionProperty = new Vector2Property( upperLeftPosition );
 
       // When the GraphNode changes the upperLeftPosition (when origin is dragged) the graph bounds changes
-      // doesn't need an unlink because the graph always exist in the sim an can always be translated
       this.upperLeftPositionProperty.link( ( upperLeftPosition ) => {
 
         // @public {Bounds2} - the model bounds for the graph
@@ -56,10 +55,11 @@ define( require => {
           upperLeftPosition.y );
 
       } );
+      // Graphs last for the life time of the sim, so no need to unlink the because the origin is is always movable
+
 
       // @public {Property.<ModelViewTransform2>} - the coordinate transform between model (graph coordinates) and view
       // coordinates. It is calculated from the upperLeftPosition of both the view and the model.
-      // this property doesn't need a dispose as it exist for the entire duration of the simulation
       this.modelViewTransformProperty = new DerivedProperty(
         [ this.upperLeftPositionProperty ], ( upperLeftPosition ) =>
           ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -67,12 +67,14 @@ define( require => {
             UPPER_LEFT_LOCATION,
             GRAPH_TO_VIEW_SCALE )
       );
+      // Graphs last for the life time of the sim, so no need to dispose
+
 
       // @public {ObservableArray.<VectorModel>} - the vectors that appear on the graph (not including the sum vector)
       this.vectors = new ObservableArray();
 
       // @public {VectorModel} the vector sum model
-      this.vectorSum = new VectorSum( this.vectors, this.modelViewTransformProperty );
+      this.vectorSum = new VectorSum( this.vectors, this.modelViewTransformProperty, this.graphModelBounds );
 
       // @public (read-only)
       this.vectorOrientation = vectorOrientation;

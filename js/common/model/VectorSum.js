@@ -36,19 +36,25 @@ define( require => {
 
       super( spawnPosition, 0, 0, modelViewTransformProperty, options );
 
+      // isTipDraggingProperty shouldn't ever change
       this.isTipDraggingProperty.link( isTipDragging => {
         if ( isTipDragging ) {
           throw new Error( 'the tip of the sum vector should not be draggable' );
         }
       } );
+      // Doesn't need to be unlinked because the Vector Sum exist throughout the lifetime of the simulation.
 
+      // Function to update the sum Vector
       const updateSum = ( attributesVector, oldAttributesVector ) =>
-        this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( attributesVector ).minus( oldAttributesVector ) );
+        this.attributesVectorProperty.set( this.attributesVectorProperty.value
+          .plus( attributesVector )
+          .minus( oldAttributesVector ) );
 
       vectors.addItemAddedListener( ( addedVector ) => {
 
         // calculate the sum when the vector is added
-        this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( addedVector.attributesVectorProperty.value ) );
+        this.attributesVectorProperty.set( 
+          this.attributesVectorProperty.value.plus( addedVector.attributesVectorProperty.value ) );
 
         // calculate the sum when the vector is changed
         addedVector.attributesVectorProperty.lazyLink( updateSum );
@@ -62,12 +68,7 @@ define( require => {
         // remove listener
         removedVector.attributesVectorProperty.unlink( updateSum );
       } );
-
-    }
-
-// @public resets the vector
-    reset() {
-      super.reset();
+      // No need to remove the vector add/remove listeners because the sum exists throughout the entirety of the sim.
     }
   }
 

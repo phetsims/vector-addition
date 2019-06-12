@@ -65,9 +65,8 @@ define( require => {
       // @public {BooleanProperty} - indicates whether the body is being dragged by the user
       this.isBodyDraggingProperty = new BooleanProperty( false );
 
-      //--------------------------
+      //----------------------------------------------------------------------------------------
       // Derived Properties
-      //--------------------------
 
       // @public {DerivedProperty.<Vector2>} - the tip position of the vector
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
@@ -100,22 +99,28 @@ define( require => {
         ( isBodyDragging, isTipDragging ) => ( isBodyDragging || isTipDragging )
       );
 
-      //---------------------
+      //----------------------------------------------------------------------------------------
 
       // update the position of the tail of the vector
-      const updateTail = ( newModelViewTransform, oldModelViewTransform ) => {
+      const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
         this.tailPositionProperty.set( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
       }; 
-      modelViewTransformProperty.lazyLink( updateTail );
+      modelViewTransformProperty.lazyLink( updateTailPosition );
 
-      this.unlink = () => {
-        modelViewTransformProperty.unlink( updateTail );
+      // @private - unlinke the modelViewTransform link
+      this.unlinkTailUpdate = () => {
+        modelViewTransformProperty.unlink( updateTailPosition );
       };
     }
 
-    // @public dispose
+    /**
+     * @public
+     * Dispose the vector model's properties. Called when the vector is removed from the graph.
+     */
     dispose() {
+
+      // dispose all properties
       this.isDraggingProperty.dispose();
       this.yProperty.dispose();
       this.xProperty.dispose();
@@ -127,7 +132,7 @@ define( require => {
       this.isInPlayAreaProperty.dispose();
       this.attributesVectorProperty.dispose();
       this.tailPositionProperty.dispose();
-      this.unlink();
+      this.unlinkTailUpdate();
     }
 
     /**
