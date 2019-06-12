@@ -58,6 +58,7 @@ define( require => {
 
       // @public {Property.<ModelViewTransform2>} - the coordinate transform between model (graph coordinates) and view
       // coordinates. It is calculated from the upperLeftPosition of both the view and the model.
+      // this property doesn't need a dispose as it exist for the entire duration of the simulation
       this.modelViewTransformProperty = new DerivedProperty(
         [ this.upperLeftPositionProperty ], ( upperLeftPosition ) =>
           ModelViewTransform2.createSinglePointScaleInvertedYMapping(
