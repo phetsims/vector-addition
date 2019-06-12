@@ -129,7 +129,7 @@ define( require => {
               );
 
               // If there are multiple observable array, use the observableArrays index, otherwise use the given vector array
-              const observableVectorArray = options.observableArray ? options.observableArrays.get( slotNumber ) : vectorArray;
+              const observableVectorArray = options.observableArrays ? options.observableArrays[ slotNumber ] : vectorArray;
           
               observableVectorArray.push( newVectorModel );
 

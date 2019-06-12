@@ -1,41 +1,48 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * Model for the Lab screen
+ *
  * @author Martin Veillette
  */
 define( require => {
   'use strict';
 
   // modules
-  const Vector2 = require( 'DOT/Vector2' );
-  const Dimension2 = require( 'DOT/Dimension2' );
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
-  const Property = require( 'AXON/Property' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const ObservableArray = require( 'AXON/ObservableArray' );
+  const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
-  /**
-   * @constructor
-   */
   class LabModel extends CommonModel {
-
     /**
-     * @param {Tandem} tandem
+     * @abstract
+     * @public
+     * Create the graph model(s)
      */
-    constructor( tandem ) {
+    instantiateGraphs() {
 
-      const gridDimension = new Dimension2( 60, 40 );
+      // TODO: should this be put into the constants file, it is the same size for 1D 2D and lab
+      const graphDimension = new Dimension2( 60, 40 );
+      const graphUpperLeftPosition = new Vector2( -5, 35 );
 
-      const upperLeftCoordinate = new Vector2( -5, 35 );
+      // @public {Graph} the horizontal Graph
+      this.graph = new Graph( graphDimension, graphUpperLeftPosition, this.vectorOrientationProperty.value );
+      this.graph.vectors2 = new ObservableArray();
 
-      super( gridDimension, upperLeftCoordinate, tandem );
-
-      this.vectorOrientationProperty = new Property( VectorOrientations.ALL );
+      this.graph.vectorSum2 = new VectorSum( this.graph.vectors2, this.graph.modelViewTransformProperty, this.graph.graphModelBounds );
     }
 
-    // @public resets the model
-    reset() {
-      super.reset();
+    /**
+     * @abstract
+     * @public
+     * Reset the graphs to their initial states respectively
+     */
+    resetGraphs() {
+      this.graph.reset();
     }
 
   }

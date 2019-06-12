@@ -4,6 +4,9 @@
  * Common model is the shared model for every screen respectively. Its main responsibility is to control the state
  * of the simulation.
  *
+ * The model is not specific for an individual scene as it toggles global 'settings' of the simulation. For example,
+ * turning on the 'angle visible' option on the control panel means the angle is visible for every scene.
+ *
  * @author Martin Veillette
  */
 define( require => {

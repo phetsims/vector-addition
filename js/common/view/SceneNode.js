@@ -107,6 +107,7 @@ define( require => {
         vectorSumNode,
         vectorLayer,
         eraserButton ]);
+      this.vectorLayer = vectorLayer;
     }
 
     /**

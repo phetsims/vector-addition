@@ -24,7 +24,7 @@ define( require => {
       super();
 
       const scene = new SceneNode( commonModel, commonModel.graph );
-
+      this.scene = scene;
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup( commonModel.coordinateSnapModeProperty );
 
       const resetAllButton = new ResetAllButton( {

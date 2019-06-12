@@ -1,8 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Create a node that represents the arrow and arc of an arc-arrow
+ * Create a node that represents a curved arrow node.
+ *
  * Supports negative angles
+ *
+ * Used in various views throughout the simulation.
  * @author Brandon Li
  */
 define( require => {

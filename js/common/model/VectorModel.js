@@ -10,14 +10,14 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
-  const Enumeration = require( 'PHET_CORE/Enumeration' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
-  const VECTOR_TYPE = new Enumeration( [ 'RED', 'BLUE' ] );
+  const VECTOR_TYPES = VectorAdditionConstants.VECTOR_TYPES;
   const ANGLE_INTERVAL = 5; // interval spacing of vector angle (in degrees) when vector is in polar mode
 
   class VectorModel {
@@ -34,7 +34,7 @@ define( require => {
     constructor( tailPosition, x, y, modelViewTransformProperty, options ) {
 
       options = _.extend( {
-        vectorType: VECTOR_TYPE.RED,
+        vectorType: VECTOR_TYPES.BLUE,
 
         // {string} - label of the vector
         label: 'v',
