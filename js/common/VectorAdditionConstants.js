@@ -18,7 +18,7 @@ define( function( require ) {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
-  
+
   //----------------------------------------------------------------------------------------
   // constants
   const PANEL_CORNER_RADIUS = 5;
@@ -103,7 +103,6 @@ define( function( require ) {
       left: 195,
       top: 12
     }
-
 
 
   };
