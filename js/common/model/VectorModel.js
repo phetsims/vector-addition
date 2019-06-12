@@ -20,7 +20,7 @@ define( require => {
   const VECTOR_TYPE = new Enumeration( [ 'RED', 'BLUE' ] );
   const ANGLE_INTERVAL = 5; // interval spacing of vector angle (in degrees) when vector is in polar mode
 
-  class Vector {
+  class VectorModel {
 
     /**
      * Create a vector model
@@ -214,5 +214,5 @@ define( require => {
 
   }
 
-  return vectorAddition.register( 'Vector', Vector );
+  return vectorAddition.register( 'VectorModel', VectorModel );
 } );

@@ -23,7 +23,7 @@ define( require => {
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
-  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
@@ -119,7 +119,7 @@ define( require => {
               const defaultVectorComponents = this.getDefaultVectorComponents();
 
               // Create a new Vector to be added to the observbale array
-              const newVectorModel = new Vector(
+              const newVectorModel = new VectorModel(
                 vectorRepresentationPosition,
                 defaultVectorComponents.x,
                 defaultVectorComponents.y,
