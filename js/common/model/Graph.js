@@ -1,8 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the a graph (a scene). Explore1D has 2 graphs (horizontal and vertical) and the other screens each have one
- * respectively.
+ * Model for a graph. Each screen can have multiple scenes, but each scene can only have one graph.
  *
  * A Graph can be described by a width and a height (Dimension2) and the coordinate of the upperLeftLocation corner of
  * the graph. With this information, the bounds can be determined.
@@ -17,29 +16,30 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  const ObservableArray = require( 'AXON/ObservableArray' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
   // constants
 
   // The coordinate for the graphNode in view coordinates.
   const GRAPH_TO_VIEW_SCALE = VectorAdditionConstants.GRAPH_TO_VIEW_SCALE;
   const UPPER_LEFT_LOCATION = VectorAdditionConstants.UPPER_LEFT_LOCATION;
-
+  const DEFAULT_ORIENTATION = VectorAdditionConstants.DEFAULT_VECTOR_ORIENTATION;
 
   class Graph {
     /**
      * @constructor
      * @param {Dimension2} graphDimension - the dimensions for the graph (width and height)
      * @param {Vector2} upperLeftPosition - the coordinate of the upperLeft corner of the graph.
-     * @param {VectorOrientations} vectorOrientation
+     * @param {object} [options]
      * @public
      */
-    constructor( graphDimension, upperLeftPosition, vectorOrientation ) {
+    constructor( graphDimension, upperLeftPosition, options ) {
 
+      options = _.extend( {
+        orientation: DEFAULT_ORIENTATION
+      }, options );
 
       // @public {VectorProperty} - the position (model coordinates) of the top left corner of graph
       this.upperLeftPositionProperty = new Vector2Property( upperLeftPosition );
@@ -70,14 +70,8 @@ define( require => {
       // Graphs last for the life time of the sim, so no need to dispose
 
 
-      // @public {ObservableArray.<VectorModel>} - the vectors that appear on the graph (not including the sum vector)
-      this.vectors = new ObservableArray();
-
-      // @public {VectorModel} the vector sum model
-      this.vectorSum = new VectorSum( this.vectors, this.modelViewTransformProperty, this.graphModelBounds );
-
       // @public (read-only)
-      this.vectorOrientation = vectorOrientation;
+      this.orientation = options.orientation;
     }
 
     /**
@@ -86,7 +80,6 @@ define( require => {
      */
     reset() {
       this.upperLeftPositionProperty.reset();
-      this.vectors.reset();
     }
   }
 

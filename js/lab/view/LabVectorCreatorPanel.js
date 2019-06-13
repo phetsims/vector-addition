@@ -38,7 +38,8 @@ define( require => {
       super( _, 2, modelViewTransformProperty, {
         panelOptions: PANEL_OPTIONS,
         observableArrays: [ vectorArray1, vectorArray2 ],
-        includeLabelsNextToIcons: false
+        includeLabelsNextToIcons: false,
+        isVectorSlotInfinite: true
       } );
     }
 

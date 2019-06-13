@@ -13,8 +13,6 @@ define( require => {
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-
-  // constants
   
   class VectorSet {
 
@@ -38,15 +36,7 @@ define( require => {
      * reset the vector set
      */
     reset() {
-
-      // reset each vector in this.vectors
-      while ( this.vectors.length ) {
-        this.vectors.pop().reset();
-      }
-
-      // reset the vector sum
-      this.vectorSum.reset();
-      
+      this.vectors.clear();
     }
 
   }

@@ -36,7 +36,9 @@ define( function( require ) {
 
       this.addChild( graphControlPanel );
 
-      const vectorCreatorPanel = new Explore2DVectorCreatorPanel( explore2DModel.graph.vectors, explore2DModel.graph.modelViewTransformProperty );
+      const vectorCreatorPanel = new Explore2DVectorCreatorPanel( 
+        explore2DModel.scenes[ 0 ].vectorSets[ 0 ].vectors,
+        explore2DModel.scenes[ 0 ].graph.modelViewTransformProperty );
 
       this.addChild( vectorCreatorPanel );
     }

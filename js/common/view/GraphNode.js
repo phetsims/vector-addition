@@ -132,7 +132,7 @@ define( require => {
       // @private
       this.originCircle = originCircle;
 
-      const vectorOrientation = graph.vectorOrientation;
+      const vectorOrientation = graph.orientation;
 
       // toggle visibility based on different vector orientations
       switch( vectorOrientation ) {

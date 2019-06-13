@@ -20,19 +20,20 @@ define( require => {
      * @param {Dimension2} graphDimension - the dimensions (width and height) of the graph
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {number} numberOfVectorSets - scenes can have multiple vectorSets
+     * @param {object} [options]
      */
-     constructor( graphDimension, graphUpperLeftPosition, numberOfVectorSets ) {
+     constructor( graphDimension, graphUpperLeftPosition, numberOfVectorSets, options ) {
 
-        // @public graph - the graph for this scene (each scene can only have one graph)
-        this.graph = new Graph( graphDimension, graphUpperLeftPosition );
+        // @public {graph} graph - the graph for this scene (each scene can only have one graph)
+        this.graph = new Graph( graphDimension, graphUpperLeftPosition, options );
 
-        // @public (read-only) vectorSets - array for the vector sets (each scene can have a different number of
-        // vectorSets)
+        // @public (read-only) {array.<VectorSet>} vectorSets - array for the vector sets (each scene can have a 
+        // different number of vectorSets)
         this.vectorSets = [];
 
-        // Create the vector Sets and push it to this.vectorSets
+        // Create the Vector Sets and push it to this.vectorSets
         for ( let i = 0; i < numberOfVectorSets; i++ ) {
-            this.vectorSets.push( new VectorSet( this.graph.modelViewTransformProperty, this.graph.graphModelBounds ) );
+          this.vectorSets.push( new VectorSet( this.graph.modelViewTransformProperty, this.graph.graphModelBounds ) );
         }
 
      }
@@ -44,12 +45,18 @@ define( require => {
 
       // reset the graph
       this.graph.reset();
+      this.resetVectorSets();
+    }
 
+    /** 
+     * @public 
+     * Reset the vectorSets only
+     */
+    resetVectorSets() {
       // reset the each vectorSet in vectorSets
-      while ( this.vectorSets.length ) {
-        this.vectorSets.pop().reset();
+      for ( let i = 0; i < this.vectorSets.length; i++ ) {
+        this.vectorSets[ i ].reset();
       }
-
     }
   }
 

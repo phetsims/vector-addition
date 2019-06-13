@@ -25,21 +25,22 @@ define( require => {
 
   class SceneNode extends Node {
     /**
+     * @constructor
+     * @param {Scene} scene
      * @param {CommonModel} model
-     * @param {Graph} graph - the graph the scene represents
      */
-    constructor( model, graph ) {
+    constructor( scene, model ) {
 
       super();
 
-
-      // Create the Graph Node
-      this.graphNode = new GraphNode( graph );
+      // @public (read-only) {scene}
+      this.scene = scene;
+      
+      // @public (read-only) {GraphNode} Create the Graph Node
+      this.graphNode = new GraphNode( scene.graph );
 
       // Create the vector display panel
-      const inspectVectorPanel = new InspectVectorPanel(
-        graph.vectors,
-        graph );
+      const inspectVectorPanel = new InspectVectorPanel( scene.vectorSets );
 
       // set the panel in the correct location
       inspectVectorPanel.left = VECTOR_DISPLAY_PANEL_LOCATION_LEFT;
@@ -47,55 +48,63 @@ define( require => {
 
       // create the vector layer
       const vectorLayer = new Node();
+      // create the vector sum layer
+      const vectorSumLayer = new Node();
 
-      graph.vectors.addItemAddedListener( ( addedVector ) => {
-        const vectorNode = new VectorNode(
-          addedVector,
-          graph.graphModelBounds,
+      // loop through each vector set
+      for ( let i = 0; i < scene.vectorSets.length; i++ ) {
+
+        const currentVectorSet = scene.vectorSets[ i ];
+
+        // on the vector set, add a listener to the vectors attribute to add the vector to the scene
+        currentVectorSet.vectors.addItemAddedListener( ( addedVector ) => {
+          const vectorNode = new VectorNode(
+            addedVector,
+            scene.graph.graphModelBounds,
+            model.componentStyleProperty,
+            model.angleVisibleProperty,
+            model.vectorOrientationProperty.value,
+            scene.graph.modelViewTransformProperty,
+            VECTOR_OPTIONS
+          );
+          vectorLayer.addChild( vectorNode );
+
+          // Add the removal listener in case this vector is removed.
+          const removalListener = removedVector => {
+            if ( removedVector === addedVector ) {
+
+              // remove its node from the view
+              vectorNode.dispose();
+              removedVector.dispose();
+
+              // remove this listener to avoid leaking memory
+              currentVectorSet.vectors.removeItemRemovedListener( removalListener );
+            }
+          };
+
+          // link removalListener to the provided ObservableArray
+          currentVectorSet.vectors.addItemRemovedListener( removalListener );
+        } );
+
+        // create a scenery node for the sum vector
+        const vectorSumNode = new VectorNode( 
+          currentVectorSet.vectorSum,
+          scene.graph.graphModelBounds,
           model.componentStyleProperty,
           model.angleVisibleProperty,
           model.vectorOrientationProperty.value,
-          graph.modelViewTransformProperty,
-          VECTOR_OPTIONS
+          scene.graph.modelViewTransformProperty,
+          VECTOR_SUM_OPTIONS
         );
+        vectorSumLayer.addChild( vectorSumNode );
 
-        vectorLayer.addChild( vectorNode );
-
-        // Add the removal listener in case this vector is removed from the model.
-        const removalListener = removedVector => {
-          if ( removedVector === addedVector ) {
-
-            // remove its node from the view
-            vectorNode.dispose();
-            removedVector.dispose();
-
-            // remove this listener to avoid leaking memory
-            graph.vectors.removeItemRemovedListener( removalListener );
-          }
-        };
-
-        // link removalListener to the provided ObservableArray
-        graph.vectors.addItemRemovedListener( removalListener );
-      } );
-
-
-      // create a scenery node for the sum vector
-      const vectorSumNode = new VectorNode( 
-        graph.vectorSum,
-        graph.graphModelBounds,
-        model.componentStyleProperty,
-        model.angleVisibleProperty,
-        model.vectorOrientationProperty.value,
-        graph.modelViewTransformProperty,
-        VECTOR_SUM_OPTIONS
-      );
-      
-      // link the visibility of the Vector Sum node with the status of the checkbox
-      model.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
+        // link the visibility of the Vector Sum node with the status of the checkbox
+        model.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
+      }
 
       const eraserButton = new EraserButton({
         listener: () => {
-          graph.vectors.clear();
+          scene.resetVectorSets();
         },
         left: this.graphNode.right,
         bottom: this.graphNode.bottom
@@ -103,11 +112,10 @@ define( require => {
 
       this.setChildren([
         this.graphNode,
-        inspectVectorPanel,
-        vectorSumNode,
+        vectorSumLayer,
         vectorLayer,
+        inspectVectorPanel,
         eraserButton ]);
-      this.vectorLayer = vectorLayer;
     }
 
     /**
@@ -116,6 +124,7 @@ define( require => {
      */
     reset() {
       this.graphNode.reset();
+      this.scene.reset();
     }
   }
 

@@ -50,20 +50,15 @@ define( require => {
   class InspectVectorPanel extends Panel {
 
     /**
-     * @param {ObservableArray.<VectorModel>} vectors
-     * @param {Graph} graph
-     * @param {Object} [options]
+     * @param {array.<VectorSet>}
      */
-    constructor( vectors, graph, options ) {
-
-      options = _.extend( VECTOR_PANEL_OPTIONS, options );
+    constructor( vectorSets ) {
 
       // node that is passed to the superclass (panel)
       const contentNode = new Node();
 
-
       // create a button node to collapse/expand the panel
-      const expandCollapseButton = new ExpandCollapseButton( options.expandedProperty, {
+      const expandCollapseButton = new ExpandCollapseButton( VECTOR_PANEL_OPTIONS.expandedProperty, {
         sideLength: 21
       } );
 
@@ -97,7 +92,7 @@ define( require => {
       ] );
 
 
-      super( contentNode, options );
+      super( contentNode, VECTOR_PANEL_OPTIONS );
 
       // @private {LayoutBox} displayVectorNode - create a reference to the layout box
       this.displayVectorNode = displayVectorNode;
@@ -109,83 +104,91 @@ define( require => {
         // TODO: toggle the selectVectorText visibility
       };
 
-      options.expandedProperty.link( expandedObserver );
+      VECTOR_PANEL_OPTIONS.expandedProperty.link( expandedObserver );
 
-      this.linkVectorToPanel( graph.vectorSum );
-
-      vectors.forEach( ( vectorModel ) => {
-        this.linkVectorToPanel( vectorModel );
-      } );
-
-      vectors.addItemAddedListener( ( addedVector ) => {
-        this.linkVectorToPanel( addedVector );
-      } );
+      // loop through each vector set, and add link it
+      for ( let i = 0; i < vectorSets.length; i ++ ) {
+        this.linkVectorSetToPanel( vectorSets[ i ] );
+      }
     }
 
     /**
      * Add a link so when a vector is dragged, the panel content updates as well
-     * @param {VectorModel} vectorModel to be linked
+     * @param {VectorSet} vectorSet to be linked, all vectors in the set (including sum) will be linked
      * @private
      */
-    linkVectorToPanel( vectorModel ) {
-      vectorModel.isDraggingProperty.link( ( isDragging ) => {
-        if ( isDragging ) {
+    linkVectorSetToPanel( vectorSet ) {
 
-          const magnitudeTextNode = new FormulaNode( `\|\\mathbf{\\vec{${vectorModel.label}\}\}|` );
-          const magnitudeDisplay = new NumberDisplay(
-            vectorModel.magnitudeProperty,
-            new Range( 0, 100 ),
-            { decimalPlaces: 1 }
-          );
+      const linkVectorModelToPanel = ( vectorModel ) => {
+        vectorModel.isDraggingProperty.link( ( isDragging ) => {
+          if ( isDragging ) {
 
-          const angleText = new RichText( MathSymbols.THETA );
-          const angleDisplay = new NumberDisplay(
-            vectorModel.angleDegreesProperty,
-            new Range( -180, 180 ),
-            { decimalPlaces: 1 }
-          );
+            const magnitudeTextNode = new FormulaNode( `\|\\mathbf{\\vec{${vectorModel.label}\}\}|` );
+            const magnitudeDisplay = new NumberDisplay(
+              vectorModel.magnitudeProperty,
+              new Range( 0, 100 ),
+              { decimalPlaces: 1 }
+            );
 
-          const xComponentText = new RichText( `${vectorModel.label}<sub>${xString}</sub>` );
-          const xComponentDisplay = new NumberDisplay(
-            vectorModel.xProperty,
-            new Range( -60, 60 ),
-            { decimalPlaces: 0 }
-          );
+            const angleText = new RichText( MathSymbols.THETA );
+            const angleDisplay = new NumberDisplay(
+              vectorModel.angleDegreesProperty,
+              new Range( -180, 180 ),
+              { decimalPlaces: 1 }
+            );
 
-          const yComponentText = new RichText( `${vectorModel.label}<sub>${yString}</sub>` );
-          const yComponentDisplay = new NumberDisplay(
-            vectorModel.yProperty,
-            new Range( -40, 40 ),
-            { decimalPlaces: 0 }
-          );
+            const xComponentText = new RichText( `${vectorModel.label}<sub>${xString}</sub>` );
+            const xComponentDisplay = new NumberDisplay(
+              vectorModel.xProperty,
+              new Range( -60, 60 ),
+              { decimalPlaces: 0 }
+            );
 
-          this.displayVectorNode.setChildren( [
-            new LayoutBox( {
-              orientation: 'horizontal',
-              spacing: 8,
-              children: [ magnitudeTextNode, magnitudeDisplay ]
-            } ),
-            new LayoutBox( {
-              orientation: 'horizontal',
-              spacing: 8,
-              children: [ angleText, angleDisplay ]
-            } ),
-            new LayoutBox( {
-              orientation: 'horizontal',
-              spacing: 8,
-              children: [ xComponentText, xComponentDisplay ]
-            } ),
-            new LayoutBox( {
-              orientation: 'horizontal',
-              spacing: 8,
-              children: [ yComponentText, yComponentDisplay ]
-            } )
-          ] );
+            const yComponentText = new RichText( `${vectorModel.label}<sub>${yString}</sub>` );
+            const yComponentDisplay = new NumberDisplay(
+              vectorModel.yProperty,
+              new Range( -40, 40 ),
+              { decimalPlaces: 0 }
+            );
 
-          this.displayVectorNode.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
-        }
+            this.displayVectorNode.setChildren( [
+              new LayoutBox( {
+                orientation: 'horizontal',
+                spacing: 8,
+                children: [ magnitudeTextNode, magnitudeDisplay ]
+              } ),
+              new LayoutBox( {
+                orientation: 'horizontal',
+                spacing: 8,
+                children: [ angleText, angleDisplay ]
+              } ),
+              new LayoutBox( {
+                orientation: 'horizontal',
+                spacing: 8,
+                children: [ xComponentText, xComponentDisplay ]
+              } ),
+              new LayoutBox( {
+                orientation: 'horizontal',
+                spacing: 8,
+                children: [ yComponentText, yComponentDisplay ]
+              } )
+            ] );
+
+            this.displayVectorNode.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
+          }
+        } );
+      };
+
+      // link the vector sum
+      linkVectorModelToPanel( vectorSet.vectorSum );
+      
+      vectorSet.vectors.forEach( ( vectorModel ) => {
+        linkVectorModelToPanel( vectorModel );
       } );
 
+      vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
+        linkVectorModelToPanel( addedVector );
+      } );
 
     }
   }

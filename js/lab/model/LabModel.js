@@ -11,38 +11,30 @@ define( require => {
   // modules
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const Dimension2 = require( 'DOT/Dimension2' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Vector2 = require( 'DOT/Vector2' );
+  const Property = require( 'AXON/Property' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const ObservableArray = require( 'AXON/ObservableArray' );
-  const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
+
+  const NUMBER_OF_SCENES = 1;
+  const NUMBER_OF_VECTOR_SETS = 2;
+  const DEFAULT_VECTOR_ORIENTATION = VectorAdditionConstants.DEFAULT_VECTOR_ORIENTATION;
 
   class LabModel extends CommonModel {
     /**
-     * @abstract
-     * @public
-     * Create the graph model(s)
+     * @constructor
+     * @param {Tandem} tandem
      */
-    instantiateGraphs() {
+    constructor( tandem ) {
 
       // TODO: should this be put into the constants file, it is the same size for 1D 2D and lab
       const graphDimension = new Dimension2( 60, 40 );
       const graphUpperLeftPosition = new Vector2( -5, 35 );
 
-      // @public {Graph} the horizontal Graph
-      this.graph = new Graph( graphDimension, graphUpperLeftPosition, this.vectorOrientationProperty.value );
-      this.graph.vectors2 = new ObservableArray();
+      super( graphDimension, graphUpperLeftPosition, NUMBER_OF_SCENES, NUMBER_OF_VECTOR_SETS, tandem );
 
-      this.graph.vectorSum2 = new VectorSum( this.graph.vectors2, this.graph.modelViewTransformProperty, this.graph.graphModelBounds );
-    }
-
-    /**
-     * @abstract
-     * @public
-     * Reset the graphs to their initial states respectively
-     */
-    resetGraphs() {
-      this.graph.reset();
+      // @public {EnumerationProperty.<VectorOrientations>}
+      this.vectorOrientationProperty = new Property( DEFAULT_VECTOR_ORIENTATION );
     }
 
   }
