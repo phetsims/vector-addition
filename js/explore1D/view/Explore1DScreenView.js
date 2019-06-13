@@ -59,9 +59,9 @@ define( require => {
             horizontalScene.visible = false;
             break;
           case VectorOrientations.ALL:
-            throw new Error( 'explore1D cannot support all vector orientation' );
+            throw new Error( `Explore1D does not support vector orientation: ${vectorOrientation}` );
           default:
-            throw new Error( 'Vector orientation not handled', vectorOrientation );
+            throw new Error( `Vector orientation not handled: ${vectorOrientation}` );
         }
       } );
 

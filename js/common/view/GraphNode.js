@@ -155,7 +155,7 @@ define( require => {
           yAxisNode.setOriginLabelVisibility( false );
           break;
         default:
-          throw new Error( 'Vector orientation not handled', vectorOrientation );
+          throw new Error( `Vector orientation not handled: ${vectorOrientation}` );
       }
     }
 

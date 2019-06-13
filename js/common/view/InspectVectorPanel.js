@@ -131,7 +131,7 @@ define( require => {
       vectorModel.isDraggingProperty.link( ( isDragging ) => {
         if ( isDragging ) {
 
-          const magnitudeTextNode = new FormulaNode( '\|\\mathbf{\\vec{' + vectorModel.label + '}\}|' );
+          const magnitudeTextNode = new FormulaNode( `\|\\mathbf{\\vec{${vectorModel.label}\}\}|` );
           const magnitudeDisplay = new NumberDisplay(
             vectorModel.magnitudeProperty,
             new Range( 0, 100 ),
