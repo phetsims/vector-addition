@@ -188,6 +188,7 @@ define( require => {
 
 
       // Update the grid when the modelViewTransform changes (triggered when the origin is moved)
+      // link present for the lifetime of the simulation
       graph.modelViewTransformProperty.link( ( modelViewTransform ) => {
         this.updateGrid( modelViewTransform );
       } );
@@ -294,6 +295,7 @@ define( require => {
       } ) );
 
 
+      // link present for the lifetime of the simulation
       this.originLocationProperty.link( ( originLocation ) => {
 
         // TODO: abstract snap to grid logic in the model
