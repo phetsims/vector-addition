@@ -55,6 +55,8 @@ define( require => {
       // @public {BooleanProperty} - controls the visibility of the angle
       this.angleVisibleProperty = new BooleanProperty( false );
 
+      this.instantiateGraphs();
+
     }
 
     /**
