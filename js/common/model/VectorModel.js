@@ -108,7 +108,7 @@ define( require => {
       }; 
       modelViewTransformProperty.lazyLink( updateTailPosition );
 
-      // @private - unlinke the modelViewTransform link
+      // @private - unlink the modelViewTransform link
       this.unlinkTailUpdate = () => {
         modelViewTransformProperty.unlink( updateTailPosition );
       };
@@ -187,7 +187,7 @@ define( require => {
           };
         }
         default: {
-          throw new Error( 'invalid componentStyle: ' + componentStyle );
+          throw new Error( `invalid componentStyle: ${componentStyle}` );
         }
       }
     }
@@ -224,7 +224,7 @@ define( require => {
           };
         }
         default: {
-          throw new Error( 'invalid componentStyle: ' + componentStyle );
+          throw new Error( `invalid componentStyle: ${componentStyle}` );
         }
       }
     }
