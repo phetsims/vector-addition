@@ -91,6 +91,7 @@ define( require => {
       );
       
       // link the visibility of the Vector Sum node with the status of the checkbox
+      // link is present for the lifetime of the simulation
       model.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
 
       const eraserButton = new EraserButton({
