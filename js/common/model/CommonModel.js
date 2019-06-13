@@ -55,9 +55,6 @@ define( require => {
       // @public {BooleanProperty} - controls the visibility of the angle
       this.angleVisibleProperty = new BooleanProperty( false );
 
-      // the Graph model(s) is instantiated in each model respectively to support multiple screens
-      // this is an abstract method, see instantiateGraphs for documentation
-      this.instantiateGraphs();
     }
 
     /**
@@ -69,29 +66,10 @@ define( require => {
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
-
+      
       // reset the graph(s) (abstract method)
       this.resetGraphs();
     }
-
-    /**
-     * @abstract
-     * @public
-     * Create the graph model(s) (1D has 2 graph scenes)
-     */
-    instantiateGraphs() {
-      throw new Error( 'instantiateGraphs is an abstract method and must be implemented' );
-    }
-
-    /**
-     * @abstract
-     * @public
-     * Reset the graphs to their initial states respectively
-     */
-    resetGraphs() {
-      throw new Error( 'resetGraphs is an abstract method and must be implemented' );
-    }
-
   }
 
   return vectorAddition.register( 'CommonModel', CommonModel );
