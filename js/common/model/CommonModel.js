@@ -7,6 +7,8 @@
  * The model is not specific for an individual scene as it toggles global 'settings' of the simulation. For example,
  * turning on the 'angle visible' option on the control panel means the angle is visible for every scene.
  *
+ * The model can also have an unknown amount of scenes (see Scene.js for documentation). 
+ *
  * @author Martin Veillette
  */
 define( require => {
