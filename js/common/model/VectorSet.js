@@ -23,7 +23,7 @@ define( require => {
       // VECTOR_TYPES.BLUE
       // TODO: find better names for these types of variables, having the color in the name is bad.
 
-      @public {ObservableArray.<VectorModel>} - the vectors that appear on the graph (not including the sum vector)
+      // @public {ObservableArray.<VectorModel>} - the vectors that appear on the graph (not including the sum vector)
       this.vectors = new ObservableArray();
 
       // @public {VectorModel} the vector sum model
