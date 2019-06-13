@@ -130,7 +130,7 @@ define( require => {
 
               // If there are multiple observable array, use the observableArrays index, otherwise use the given vector array
               const observableVectorArray = options.observableArrays ? options.observableArrays[ slotNumber ] : vectorArray;
-          
+
               observableVectorArray.push( newVectorModel );
 
               // Add a removed listener to the observable array to reset the icon

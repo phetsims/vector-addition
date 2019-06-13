@@ -57,7 +57,7 @@ define( require => {
 
       // Create a label for the vector that is displayed 'next' to the arrow. The location of this depends 
       // on the angle of the vector.
-      const labelNode = new FormulaNode( '\\vec{' + vectorModel.label + '}' );
+      const labelNode = new FormulaNode( `\\vec{ ${vectorModel.label} \}` );
 
       // Create a circle at the tip of the vector. This is used to allow the user to only change the 
       // angle of the arrowNode by only dragging the tip
@@ -103,10 +103,11 @@ define( require => {
         end: () => vectorModel.isBodyDraggingProperty.set( false )
       } );
 
-
-      tailLocationProperty.link( tailLocation => {
+      const tailListener = tailLocation => {
         this.translation = this.getTailSnapToGridLocation( tailLocation );
-      } );
+      };
+
+      tailLocationProperty.link( tailListener );
 
       arrowNode.addInputListener( bodyDragListener );
 
@@ -127,25 +128,33 @@ define( require => {
           end: () => vectorModel.isTipDraggingProperty.set( false )
         } );
 
-        tipLocationProperty.link( tipLocation => {
+        const tipListener = tipLocation => {
           this.tipSnapToGrid( tipLocation );
-        } );
+        };
 
+        tipLocationProperty.link( tipListener );
 
         tipCircle.addInputListener( tipDragListener );
       }
 
+      const attributesVectorListener =
+        attributesVector => {
+          const tipLocation = this.modelViewTransformProperty.value.modelToViewDelta( attributesVector );
+          arrowNode.setTip( tipLocation.x, tipLocation.y );
+          tipCircle.center = tipLocation;
+        };
+
       // update the position of the arrowNode and the tipCircle
-      vectorModel.attributesVectorProperty.link( attributesVector => {
-        const tipLocation = this.modelViewTransformProperty.value.modelToViewDelta( attributesVector );
-        arrowNode.setTip( tipLocation.x, tipLocation.y );
-        tipCircle.center = tipLocation;
-      } );
+      vectorModel.attributesVectorProperty.link( attributesVectorListener );
 
       // Create a method to dispose children
       this.disposeChildren = () => {
         vectorComponentsNode.dispose();
         vectorAngleNode.dispose();
+        tailLocationProperty.unlink( tailListener );
+        vectorModel.attributesVectorProperty.unlink( attributesVectorListener );
+        arrowNode.removeInputListener( bodyDragListener );
+        arrowNode.dispose();
       };
 
     }
@@ -189,6 +198,7 @@ define( require => {
       const roundedTailLocation = mvt.modelToViewPosition( this.vectorModel.tailPositionProperty.value );
       return roundedTailLocation;
     }
+
     /**
      * Dispose the vector
      */
