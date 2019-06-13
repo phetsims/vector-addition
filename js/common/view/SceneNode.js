@@ -35,7 +35,7 @@ define( require => {
 
       // @public (read-only) {scene}
       this.scene = scene;
-      
+
       // @public (read-only) {GraphNode} Create the Graph Node
       this.graphNode = new GraphNode( scene.graph );
 
@@ -87,7 +87,7 @@ define( require => {
         } );
 
         // create a scenery node for the sum vector
-        const vectorSumNode = new VectorNode( 
+        const vectorSumNode = new VectorNode(
           currentVectorSet.vectorSum,
           scene.graph.graphModelBounds,
           model.componentStyleProperty,
@@ -102,24 +102,24 @@ define( require => {
         model.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
       }
 
-      const eraserButton = new EraserButton({
+      const eraserButton = new EraserButton( {
         listener: () => {
           scene.resetVectorSets();
         },
         left: this.graphNode.right,
         bottom: this.graphNode.bottom
-      });
+      } );
 
-      this.setChildren([
+      this.setChildren( [
         this.graphNode,
         vectorSumLayer,
         vectorLayer,
         inspectVectorPanel,
-        eraserButton ]);
+        eraserButton ] );
     }
 
     /**
-     * @public 
+     * @public
      * reset the scene
      */
     reset() {

@@ -9,7 +9,7 @@ define( require => {
   'use strict';
 
   // modules
-  const CoordinateSnapModes= require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
@@ -36,7 +36,7 @@ define( require => {
      * @constructor
      */
     constructor( coordinateSnapModeProperty, options ) {
-      
+
       // component style radio buttons
       const coordinateSnapModesRadioButtonContent = [ {
         value: CoordinateSnapModes.CARTESIAN,
@@ -44,7 +44,7 @@ define( require => {
       }, {
         value: CoordinateSnapModes.POLAR,
         node: VectorAdditionIconFactory.createPolarIcon()
-      } ];    
+      } ];
 
       super( coordinateSnapModeProperty, coordinateSnapModesRadioButtonContent, RADIO_BUTTON_OPTIONS );
 

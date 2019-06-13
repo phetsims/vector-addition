@@ -13,12 +13,12 @@ define( require => {
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  
+
   class VectorSet {
 
     /**
      * @constructor
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the view/model coordinate 
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the view/model coordinate
      * transform of the graph
      * @param {Bounds2} graphModelBounds - the graph bounds (model coordinates)
      */
@@ -31,6 +31,7 @@ define( require => {
       this.vectorSum = new VectorSum( this.vectors, modelViewTransformProperty, graphModelBounds );
 
     }
+
     /**
      * @public
      * reset the vector set

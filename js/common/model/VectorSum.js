@@ -54,7 +54,7 @@ define( require => {
       vectors.addItemAddedListener( ( addedVector ) => {
 
         // calculate the sum when the vector is added
-        this.attributesVectorProperty.set( 
+        this.attributesVectorProperty.set(
           this.attributesVectorProperty.value.plus( addedVector.attributesVectorProperty.value ) );
 
         // calculate the sum when the vector is changed

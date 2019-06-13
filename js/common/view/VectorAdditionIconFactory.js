@@ -47,7 +47,7 @@ define( function( require ) {
     lineWidth: 0.5
   } );
   // Cartesian Black Arrow
-  const CARTESIAN_DARK_ARROW_OPTIONS = _.extend( 
+  const CARTESIAN_DARK_ARROW_OPTIONS = _.extend(
     _.clone( ARROW_ICON_OPTIONS ),
     {
       fill: VectorAdditionColors.BLACK_VECTOR_COLOR,
@@ -242,14 +242,14 @@ define( function( require ) {
       // the icon has 3 arrows, start with the vector then draw the black vectors as components
       const darkArrowRight = new ArrowNode( 0, 0, ARROW_ICON_SIZE, 0, CARTESIAN_DARK_ARROW_OPTIONS );
 
-      const darkArrowUp = new ArrowNode( 
+      const darkArrowUp = new ArrowNode(
         ARROW_ICON_SIZE, 0, ARROW_ICON_SIZE, -ARROW_ICON_SIZE, CARTESIAN_DARK_ARROW_OPTIONS );
 
       const cartesianArrow = new ArrowNode( 0, 0, ARROW_ICON_SIZE, -ARROW_ICON_SIZE, ARROW_ICON_OPTIONS );
-      
+
       // create a label
       const label = new Text( oneString, {
-         font: new PhetFont( { size: 8, family: 'Times' } )
+        font: new PhetFont( { size: 8, family: 'Times' } )
       } );
 
       label.center = darkArrowUp.center;
@@ -269,7 +269,7 @@ define( function( require ) {
 
       // create an arc arrow
       const arcArrow = new ArcArrowNode( 45, ANGLE_ICON_CIRCLE_RADIUS, ANGLE_ICON_OPTIONS );
-      
+
       // create a baseline
       const line = new Line( 0, 0, ARROW_ICON_SIZE, 0, {
         stroke: 'black'
@@ -279,6 +279,7 @@ define( function( require ) {
       return icon;
     }
   }
+
   vectorAddition.register( 'VectorAdditionIconFactory', VectorAdditionIconFactory );
 
   return VectorAdditionIconFactory;

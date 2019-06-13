@@ -105,7 +105,7 @@ define( require => {
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
         this.tailPositionProperty.set( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
-      }; 
+      };
       modelViewTransformProperty.lazyLink( updateTailPosition );
 
       // @private - unlink the modelViewTransform link

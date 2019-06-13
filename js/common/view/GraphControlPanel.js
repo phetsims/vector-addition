@@ -35,6 +35,7 @@ define( require => {
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
 
   const RADIO_BUTTON_OPTIONS = VectorAdditionColors.RADIO_BUTTON_COLORS;
+
   /**
    * @constructor
    */
@@ -60,7 +61,7 @@ define( require => {
       options = _.extend( {
         is1D: true
       }, PANEL_OPTIONS, options );
- 
+
 
       const ICON_SPACING = 15;
 
@@ -129,7 +130,7 @@ define( require => {
       } ];
 
       const componentStyleRadioButtons = new RadioButtonGroup(
-        componentStyleProperty, componentStyleRadioButtonContent, _.extend({
+        componentStyleProperty, componentStyleRadioButtonContent, _.extend( {
           selectedLineWidth: 2,
           right: 900,
           top: 100,

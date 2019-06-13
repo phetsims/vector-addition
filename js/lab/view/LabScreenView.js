@@ -36,7 +36,7 @@ define( function( require ) {
 
       this.addChild( graphControlPanel );
 
-      const vectorCreatorPanel = new LabVectorCreatorPanel( 
+      const vectorCreatorPanel = new LabVectorCreatorPanel(
         labModel.scenes[ 0 ].vectorSets[ 0 ].vectors,
         labModel.scenes[ 0 ].vectorSets[ 1 ].vectors,
         labModel.scenes[ 0 ].graph.modelViewTransformProperty );

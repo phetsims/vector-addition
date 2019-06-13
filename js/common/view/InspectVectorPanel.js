@@ -166,13 +166,13 @@ define( require => {
       };
 
 
-      vectorSets.forEach( (vectorSet)=> {
+      vectorSets.forEach( ( vectorSet ) => {
 
         const isVectorSumDraggingListener = ( isDragging ) => {
           isDraggingListener( isDragging, vectorSet.vectorSum );
         };
 
-        vectorSet.vectorSum.isDraggingProperty.link( isVectorSumDraggingListener);
+        vectorSet.vectorSum.isDraggingProperty.link( isVectorSumDraggingListener );
 
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
 
@@ -188,7 +188,7 @@ define( require => {
             }
           } );
         } );
-      });
+      } );
     }
   }
 

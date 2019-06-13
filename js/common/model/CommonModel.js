@@ -96,6 +96,7 @@ define( require => {
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {number} numberOfScenes - each model can have multiple scenes
      * @param {number} numberOfVectorSets - scenes can have multiple vectorSets
+     * @param {Tandem} tandem
      */
     createScenes(
       graphDimension,
@@ -109,7 +110,9 @@ define( require => {
       for ( let i = 0; i < numberOfScenes; i++ ) {
         this.scenes.push( new Scene( graphDimension, graphUpperLeftPosition, numberOfVectorSets ) );
       }
+
     }
   }
+
   return vectorAddition.register( 'CommonModel', CommonModel );
 } );

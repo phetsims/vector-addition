@@ -41,16 +41,16 @@ define( require => {
       // @public {EnumerationProperty.<VectorOrientations>}
       this.vectorOrientationProperty = new Property( EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION );
     }
-    
+
     /**
      * @override
      * Create the scenes
      * 1D scenes can have different vector orientations (horizontal and vertical)
      */
-    createScenes(         
-      graphDimension, 
-      graphUpperLeftPosition, 
-      numberOfScenes, 
+    createScenes(
+      graphDimension,
+      graphUpperLeftPosition,
+      numberOfScenes,
       numberOfVectorSets ) {
 
       // @public {array.<Scene>} scenes - array of the scenes
@@ -60,25 +60,26 @@ define( require => {
       const orientations = [ VectorOrientations.HORIZONTAL, VectorOrientations.VERTICAL ];
 
       for ( let i = 0; i < numberOfScenes; i++ ) {
-        this.scenes.push( 
+        this.scenes.push(
           new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, {
-            orientation: orientations[ i ] 
-          } ) 
+            orientation: orientations[ i ]
+          } )
         );
       }
     }
+
     /**
      * Get the scene based on orientation
      * This is not an override, rather a method specific to explore1D
      * @public
      */
     getScene( orientation ) {
-      for ( let i = 0; i < this.scenes.length; i ++ ) {
+      for ( let i = 0; i < this.scenes.length; i++ ) {
         if ( this.scenes[ i ].graph.orientation === orientation ) {
           return this.scenes[ i ];
         }
       }
-      throw new Error( `${ orientation } is not a scene of 1d` );
+      throw new Error( `${orientation} is not a scene of 1d` );
     }
 
   }
