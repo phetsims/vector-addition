@@ -7,7 +7,7 @@
  * The model is not specific for an individual scene as it toggles global 'settings' of the simulation. For example,
  * turning on the 'angle visible' option on the control panel means the angle is visible for every scene.
  *
- * The model can also have an unknown amount of scenes (see Scene.js for documentation). 
+ * The model can also have an unknown amount of scenes (see Scene.js for documentation).
  *
  * @author Martin Veillette
  */
@@ -36,11 +36,11 @@ define( require => {
      * @param {number} numberOfVectorSets - scenes can have multiple vectorSets
      * @param {Tandem} tandem
      */
-    constructor( 
-      graphDimension, 
-      graphUpperLeftPosition, 
-      numberOfScenes, 
-      numberOfVectorSets, 
+    constructor(
+      graphDimension,
+      graphUpperLeftPosition,
+      numberOfScenes,
+      numberOfVectorSets,
       tandem ) {
 
       // @public {BooleanProperty}
@@ -64,10 +64,10 @@ define( require => {
 
       // Method to create scenes, make this a separate method so sub-classes can override.
       // Currently, 1D model overrides this to give vector orientations for each scene.
-      this.createScenes(       
-        graphDimension, 
-        graphUpperLeftPosition, 
-        numberOfScenes, 
+      this.createScenes(
+        graphDimension,
+        graphUpperLeftPosition,
+        numberOfScenes,
         numberOfVectorSets );
 
     }
@@ -81,7 +81,7 @@ define( require => {
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
-      
+
       // reset every scene in this.scenes
       for ( let i = 0; i < this.scenes.length; i++ ) {
         this.scenes[ i ].reset();
@@ -96,13 +96,12 @@ define( require => {
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {number} numberOfScenes - each model can have multiple scenes
      * @param {number} numberOfVectorSets - scenes can have multiple vectorSets
-     * @param {Tandem} tandem
      */
-    createScenes( 
-        graphDimension, 
-        graphUpperLeftPosition, 
-        numberOfScenes, 
-        numberOfVectorSets ) {
+    createScenes(
+      graphDimension,
+      graphUpperLeftPosition,
+      numberOfScenes,
+      numberOfVectorSets ) {
 
       // @public {array.<Scene>} scenes - array of the scenes
       this.scenes = [];
@@ -110,9 +109,7 @@ define( require => {
       for ( let i = 0; i < numberOfScenes; i++ ) {
         this.scenes.push( new Scene( graphDimension, graphUpperLeftPosition, numberOfVectorSets ) );
       }
-      
     }
   }
-
   return vectorAddition.register( 'CommonModel', CommonModel );
 } );

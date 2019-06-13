@@ -132,9 +132,9 @@ define( require => {
           this.tipSnapToGrid( tipLocation );
         };
 
-        tipLocationProperty.link( tipListener );
+    //    tipLocationProperty.link( tipListener );
 
-        tipCircle.addInputListener( tipDragListener );
+    //    tipCircle.addInputListener( tipDragListener );
       }
 
       const attributesVectorListener =
@@ -155,6 +155,8 @@ define( require => {
         vectorModel.attributesVectorProperty.unlink( attributesVectorListener );
         arrowNode.removeInputListener( bodyDragListener );
         arrowNode.dispose();
+        tipCircle.dispose();
+        labelNode.dispose();
       };
 
     }
