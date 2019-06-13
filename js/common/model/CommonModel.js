@@ -74,6 +74,24 @@ define( require => {
       // reset the graph(s) (abstract method)
       this.resetGraphs();
     }
+
+    /**
+     * @abstract
+     * @public
+     * Create the graph model(s) (1D has 2 graph scenes)
+     */
+    instantiateGraphs() {
+      throw new Error( 'instantiateGraphs should be implemented in the descendant class' );
+    }
+
+    /**
+     * @abstract
+     * @public
+     * Reset the graph model(s)
+     */
+    resetGraphs() {
+      throw new Error( 'resetGraphs should be implemented in the descendant class' );
+    }
   }
 
   return vectorAddition.register( 'CommonModel', CommonModel );
