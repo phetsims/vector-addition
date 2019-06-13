@@ -1,6 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * Model for a vectorSet. A vectorSet has two things: the vectors (ObservableArray), and a vectorSum.
+ * Each scene, has an unknown amount of vectorSets.
+ *
  * @author Brandon Li
  */
 define( require => {
@@ -17,11 +20,11 @@ define( require => {
 
     /**
      * @constructor
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the view/model coordinate 
+     * transform of the graph
+     * @param {Bounds2} graphModelBounds - the graph bounds (model coordinates)
      */
     constructor( modelViewTransformProperty, graphModelBounds ) {
-      // TODO: make a model enumeration for the different types of vectors
-      // VECTOR_TYPES.BLUE
-      // TODO: find better names for these types of variables, having the color in the name is bad.
 
       // @public {ObservableArray.<VectorModel>} - the vectors that appear on the graph (not including the sum vector)
       this.vectors = new ObservableArray();
@@ -29,8 +32,21 @@ define( require => {
       // @public {VectorModel} the vector sum model
       this.vectorSum = new VectorSum( this.vectors, modelViewTransformProperty, graphModelBounds );
 
-      // @public (read-only)
-      // this.vectorOrientation = vectorOrientation;
+    }
+    /**
+     * @public
+     * reset the vector set
+     */
+    reset() {
+
+      // reset each vector in this.vectors
+      while ( this.vectors.length ) {
+        this.vectors.pop().reset();
+      }
+
+      // reset the vector sum
+      this.vectorSum.reset();
+      
     }
 
   }

@@ -18,7 +18,7 @@ define( require => {
     /** 
      * @constructor
      * @param {Dimension2} graphDimension - the dimensions (width and height) of the graph
-     * @param {Vector2} graphUppderLeftPosition - the model coordinates of the top left corner of the graph
+     * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {number} numberOfVectorSets - scenes can have multiple vectorSets
      */
      constructor( graphDimension, graphUpperLeftPosition, numberOfVectorSets ) {
