@@ -74,50 +74,58 @@ define( require => {
       this.tipPositionProperty.dispose();
       this.magnitudeProperty.dispose();
     }
-    /** 
-     * @public
-     * Get the X magnitude
-     */
-    get xMagnitude() {
-      return this.attributesVectorProperty.value.x;
+     
+    // @public Get the X magnitude.
+    get xMagnitude() { return this.attributesVectorProperty.value.x; }
+    // @public Get the y magnitude.
+    get yMagnitude() { return this.attributesVectorProperty.value.y; }
+
+  
+    // @public Set the X magnitude. Tail position and the Y magnitude stays the same.
+    set xMagnitude( magnitude ) {
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.setX( magnitude );
     }
-    /** 
-     * @public
-     * Get the Y magnitude
-     */
-    get yMagnitude() {
-      return this.attributesVectorProperty.value.y;
+    // @public Set the y magnitude. Tail position and the x magnitude stays the same.
+    set yMagnitude( magnitude ) {
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.setY( magnitude );
     }
-    /** 
-     * @public
-     * Get the X Coordinate of the tail
-     */
+
+
+    // @public Get the magnitude.
+    get magnitude() { return this.attributesVectorProperty.magnitude; }
+
+    // @public Multiplies vector by a scalar.
+    // Keeps tail position and angle the same
+    multiplyScalar( scalar ) {
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.multiplyScalar( scalar );
+    }
+
+    // @public Get the X Coordinate of the tail
     get tailX() {
       return this.tailPositionProperty.value.x;
     }
-    /** 
-     * @public
-     * Get the Y Coordinate of the tail
-     */
+    // @public Get the Y Coordinate of the tail
     get tailY() {
       return this.tailPositionProperty.value.y;
     }
-    /** 
-     * @public
-     * Get the X Coordinate of the tip
-     */
+
+    // @public Set the X coordinate of the tail
+    set tailX( x ) {
+      this.tailPositionProperty.value = this.tailPositionProperty.value.setX( x );
+    }
+    // @public
+    set tailY( y ) {
+      this.tailPositionProperty.value = this.tailPositionProperty.value.setY( y );
+    }
+
+    // @public Get the X Coordinate of the tip
     get tipX() {
       return this.tipPositionProperty.value.x;
     }
-    /** 
-     * @public
-     * Get the Y Coordinate of the tip
-     */
+    // @public Get the Y Coordinate of the tip
     get tipY() {
-      return this.tipPositionProperty.value.y;
+      return this.tipPositionProperty.value.x;
     }
-
-
   }
 
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );

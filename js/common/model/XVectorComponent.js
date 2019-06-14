@@ -32,19 +32,19 @@ define( require => {
         case ComponentStyles.TRIANGLE: {
           // start from the tail, and go horizontally to the tip
           this.tailPositionProperty.value = parentTailPosition;
-          this.attributesVectorProperty.value = new Vector2( parentVector.xMagnitude, 0 );
+          this.xMagnitude = parentVector.xMagnitude;
           break;
         }
         case ComponentStyles.PARALLELOGRAM: {
           // start from the tail, and go horizontally to the tip
           this.tailPositionProperty.value = parentTailPosition;
-          this.attributesVectorProperty.value = new Vector2( parentVector.xMagnitude, 0 );
+          this.xMagnitude = parentVector.xMagnitude;
           break;
         }
         case ComponentStyles.ON_AXIS: {        
           // start from the tail, but on the x-axis, and go horizontally to the tip
           this.tailPositionProperty.value = new Vector2( parentTailPosition.x, 0 );
-          this.attributesVectorProperty.value = new Vector2( parentVector.xMagnitude, 0 );
+          this.xMagnitude = parentVector.xMagnitude;
           break;
         }
         default: {
