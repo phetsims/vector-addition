@@ -29,8 +29,8 @@ define( function( require ) {
   const ARROW_ICON_SIZE = 25;
   // template for other arrow
   const ARROW_ICON_OPTIONS = {
-    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
-    stroke: VectorAdditionColors.VECTOR_BORDER_COLOR,
+    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill,
+    stroke: VectorAdditionColors.VECTOR_ICON_STROKE_COLOR,
     lineWidth: 0.5,
     headHeight: 5,
     headWidth: 9,
@@ -43,21 +43,21 @@ define( function( require ) {
   } );
   // sum icon
   const SUM_ARROW_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
-    fill: VectorAdditionColors.VECTOR_SUM_COLOR,
+    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum,
     lineWidth: 0.5
   } );
   // Cartesian Black Arrow
   const CARTESIAN_DARK_ARROW_OPTIONS = _.extend(
     _.clone( ARROW_ICON_OPTIONS ),
     {
-      fill: VectorAdditionColors.BLACK_VECTOR_COLOR,
+      fill: VectorAdditionColors.CARTESIAN_ICON_COLOR,
       tailWidth: 2,
       lineWidth: 0
     }
   );
   // Polar arrow
   const POLAR_ARROW_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
-    fill: VectorAdditionColors.PURPLE_VECTOR_COLOR,
+    fill: VectorAdditionColors.POLAR_ICON_VECTOR_COLOR,
     lineWidth: 0
   } );
 

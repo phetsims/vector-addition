@@ -27,8 +27,26 @@ define( function( require ) {
   const PANEL_BACKGROUND_COLOR = VectorAdditionColors.INSPECT_VECTOR_BACKGROUND;
   const PANEL_Y_MARGIN = 12; // vertical panel margin
 
+  const VECTOR_TEMPLATE = {
+    lineWidth: 0,
+    tailWidth: 5,
+    headWidth: 9,
+    headHeight: 6,
+    cursor: 'move'
+  };
+  const VECTOR_SUM_TEMPALTE = _.extend( _.clone( VECTOR_TEMPLATE ), {
+    lineWidth: 1
+  } );
+  const VECTOR_COMPONENT_TEMPLATE = {
+    headWidth: 10.5,
+    headHeight: 6,
+    tailWidth: 4,
+    lineWidth: 0
+  };
+
   const VectorAdditionConstants = {
-    VECTOR_TYPES: new Enumeration( [ 'RED', 'BLUE' ] ),
+
+    VECTOR_TYPES: new Enumeration([ 'ONE', 'TWO' ]),
     // defaults
     DEFAULT_VECTOR_ORIENTATION: VectorOrientations.ALL,
     EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION: VectorOrientations.HORIZONTAL,
@@ -79,31 +97,36 @@ define( function( require ) {
     // Alignment groups for the left and right panels/boxes
     LEFT_CONTENT_ALIGN_GROUP: new AlignGroup( { matchVertical: false } ),
 
-    // Vectors
-    // constants
-    VECTOR_ARROW_OPTIONS: {
-      fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
-      lineWidth: 0,
-      tailWidth: 5,
-      headWidth: 9,
-      headHeight: 6,
-      cursor: 'move'
-    },
-
-    VECTOR_SUM_ARROW_OPTIONS: {
-      fill: VectorAdditionColors.VECTOR_SUM_COLOR,
-      lineWidth: 1,
-      tailWidth: 5,
-      headWidth: 9,
-      headHeight: 6,
-      cursor: 'move'
-    },
-
     // vector display panel that displays vector attributes at the top of the screen
     VECTOR_DISPLAY_PANEL_LOCATION: {
       left: 195,
       top: 12
+    },
+
+    //----------------------------------------------------------------------------------------
+    VECTOR_GROUP_1: {
+      vectorOptions: _.extend( _.clone( VECTOR_TEMPLATE ), {
+        fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
+      } ),
+      sumOptions: _.extend( _.clone( VECTOR_SUM_TEMPALTE ), {
+        fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum
+      } ),
+      componentOptions: _.extend( _.clone( VECTOR_COMPONENT_TEMPLATE ), {
+        fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.component
+      } )
+    },
+    VECTOR_GROUP_2: {
+      vectorOptions: _.extend( _.clone( VECTOR_TEMPLATE ), {
+        fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
+      } ),
+      sumOptions: _.extend( _.clone( VECTOR_SUM_TEMPALTE ), {
+        fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum
+      } ),
+      componentOptions: _.extend( _.clone( VECTOR_COMPONENT_TEMPLATE ), {
+        fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.component
+      } )
     }
+
 
 
   };

@@ -13,7 +13,6 @@ define( require => {
   const Dimension2 = require( 'DOT/Dimension2' );
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const Vector2 = require( 'DOT/Vector2' );
-  const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
@@ -37,9 +36,7 @@ define( require => {
 
       super( graphDimension, graphUpperLeftPosition, NUMBER_OF_SCENES, NUMBER_OF_VECTOR_SETS, tandem );
 
-
-      // @public {EnumerationProperty.<VectorOrientations>}
-      this.vectorOrientationProperty = new Property( EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION );
+      this.vectorOrientationProperty.set( EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION );
     }
 
     /**
@@ -53,18 +50,23 @@ define( require => {
       numberOfScenes,
       numberOfVectorSets ) {
 
-      // @public {array.<Scene>} scenes - array of the scenes
-      this.scenes = [];
+      // create an object with the orientation as the key, and the scene as the value
+      this.orientationToSceneObject = {};
 
       // Possible orientations for this screen, order of this array doesn't matter since the visibility is toggled
       const orientations = [ VectorOrientations.HORIZONTAL, VectorOrientations.VERTICAL ];
 
       for ( let i = 0; i < numberOfScenes; i++ ) {
-        this.scenes.push(
-          new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, {
+
+        const newScene = new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, {
+          graphOptions: {
             orientation: orientations[ i ]
-          } )
-        );
+          }
+        } );
+
+        this.orientationToSceneObject[ orientations[ i ] ] = newScene;
+
+        this.scenes.push( newScene );
       }
     }
 
@@ -74,12 +76,10 @@ define( require => {
      * @public
      */
     getScene( orientation ) {
-      for ( let i = 0; i < this.scenes.length; i++ ) {
-        if ( this.scenes[ i ].graph.orientation === orientation ) {
-          return this.scenes[ i ];
-        }
-      }
-      throw new Error( `${orientation} is not a scene of 1d` );
+      const scene = this.orientationToSceneObject[ orientation ];
+      assert && assert( scene, `${orientation} is not a valid orientation` );
+
+      return scene;
     }
 
   }

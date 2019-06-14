@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Possible orientations for a vector
+ * Possible orientations for a vector (mirrors orientation of the graph)
  *
  * @author Martin Veillette
  */
@@ -13,11 +13,12 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   /**
-   * A vector can be constrained to point along x-axis (HORIZONTAL), along the y-axis (VERTICAL)
-   * or be unconstrained (ALL)
-   * @public
+   * There are 3 different types orientations of a vector:
+   * 'HORIZONTAL': 1D, vector is constrained horizontally along the x-axis
+   * 'VERTICAL': 1D, vector is constrained vertically along the y-axis
+   * 'TWO_DIMENSIONAL': 2D, unconstrained
    */
-  const VectorOrientations = new Enumeration( [ 'HORIZONTAL', 'VERTICAL', 'ALL' ] );
+  const VectorOrientations = new Enumeration( [ 'HORIZONTAL', 'VERTICAL', 'TWO_DIMENSIONAL' ] );
 
   return vectorAddition.register( 'VectorOrientations', VectorOrientations );
 } );

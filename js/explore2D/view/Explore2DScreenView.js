@@ -11,6 +11,7 @@ define( function( require ) {
   const Explore2DVectorCreatorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorCreatorPanel' );
   const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
   class Explore2DScreenView extends CommonScreenView {
@@ -21,7 +22,7 @@ define( function( require ) {
      */
     constructor( explore2DModel, tandem ) {
 
-      super( explore2DModel, tandem );
+      super( explore2DModel, tandem, VectorAdditionConstants.VECTOR_TYPES.ONE );
 
       const graphControlPanel = new GraphControlPanel( explore2DModel.sumVisibleProperty,
         explore2DModel.valuesVisibleProperty,

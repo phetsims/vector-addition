@@ -27,16 +27,18 @@ define( require => {
       // @public (read-only) {array.<SceneNode>}
       this.sceneNodes = [];
 
-      // loop through each scene in the model and add a scene node
-      for ( let i = 0; i < commonModel.scenes.length; i++ ) {
+      commonModel.forEachScene( ( scene ) => {
 
         // create a scene node and add it as a child
-        const sceneNode = new SceneNode( commonModel.scenes[ i ], commonModel );
-        this.addChild( sceneNode );
+        const newSceneNode = new SceneNode( scene, commonModel );
+        this.addChild( newSceneNode );
+
 
         // add it to the sceneNode array
-        this.sceneNodes.push( sceneNode );
-      }
+        this.sceneNodes.push( newSceneNode );
+
+      } );
+
 
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         commonModel.coordinateSnapModeProperty );

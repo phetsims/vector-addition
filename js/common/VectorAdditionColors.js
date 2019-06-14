@@ -55,12 +55,20 @@ define( function( require ) {
 
     //----------------------------------------------------------------------------------------
     // Vector colors
-    VECTOR_BORDER_COLOR: BLACK,
-    LIGHT_BLUE_VECTOR_COLOR: 'rgb( 0, 185, 255 )',
-    LIGHT_BLUE_VECTOR_COMPONENT_COLOR: 'rgb( 155, 222, 255 )',
-    BLACK_VECTOR_COLOR: BLACK,
-    PURPLE_VECTOR_COLOR: 'rgb( 188, 3, 255 )',
-    VECTOR_SUM_COLOR: 'rgb( 0, 181, 225 )'
+    VECTOR_GROUP_1_COLORS: {
+      fill: 'rgb( 0, 185, 255 )',
+      sum: 'rgb( 0, 181, 225 )',
+      component: 'rgb( 155, 222, 255 )'
+    },
+    VECTOR_GROUP_2_COLORS: {
+      fill: '#E81909',
+      sum: '#5B1909',
+      component: '#FF0C2D'
+    },
+    POLAR_ICON_VECTOR_COLOR: 'rgb( 188, 3, 255 )',
+    CARTESIAN_ICON_COLOR: BLACK,
+    VECTOR_ICON_STROKE_COLOR: BLACK
+
 
   };
 

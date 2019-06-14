@@ -14,11 +14,10 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   // constants
   const ICON_ARROW_OPTIONS = {
-    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COLOR,
+    fill: 'black',
     lineWidth: 0,
     tailWidth: 4,
     headWidth: 10.5,

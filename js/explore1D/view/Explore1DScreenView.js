@@ -15,6 +15,7 @@ define( require => {
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
   class Explore1DScreenView extends CommonScreenView {
@@ -25,7 +26,9 @@ define( require => {
      */
     constructor( explore1DModel, tandem ) {
 
-      super( explore1DModel, tandem );
+      super( explore1DModel, tandem, _, {
+        vectorTypes: [ VectorAdditionConstants.VECTOR_TYPES.ONE, VectorAdditionConstants.VECTOR_TYPES.TWO ]
+      } );
 
       // function to the sceneNode based on orientation
       const getSceneNode = ( orientation ) => {
@@ -57,7 +60,7 @@ define( require => {
       const horizontalVectorCreatorPanel = explore1DVectorCreatorPanels.horizontalVectorCreatorPanel;
       const verticalVectorCreatorPanel = explore1DVectorCreatorPanels.verticalVectorCreatorPanel;
 
-
+      
       explore1DModel.vectorOrientationProperty.link( ( vectorOrientation ) => {
         switch( vectorOrientation ) {
           case VectorOrientations.HORIZONTAL:
@@ -75,7 +78,7 @@ define( require => {
           case VectorOrientations.ALL:
             throw new Error( `Explore1D does not support vector orientation: ${vectorOrientation}` );
           default:
-            console.log( vectorOrientation );
+          console.log( vectorOrientation );
             throw new Error( `Vector orientation not handled: ${vectorOrientation}` );
         }
       } );
@@ -111,7 +114,7 @@ define( require => {
         orientation: 'horizontal'
       } );
 
-      this.addChild( horizontalVectorCreatorPanel );
+      this.addChild( horizontalVectorCreatorPanel);
       this.addChild( verticalVectorCreatorPanel );
       this.addChild( graphControlPanel );
       this.addChild( sceneRadioButtonGroup );

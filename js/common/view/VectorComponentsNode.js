@@ -18,17 +18,12 @@ define( require => {
   const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
   const Shape = require( 'KITE/Shape' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
-  const ARROW_OPTIONS = {
-    fill: VectorAdditionColors.LIGHT_BLUE_VECTOR_COMPONENT_COLOR,
-    headWidth: 10.5,
-    headHeight: 6,
-    tailWidth: 4,
-    lineWidth: 0
-  };
+  // const VECTOR_GROUP_1_COMPONENT = VectorAdditionConstants.VECTOR_GROUP_1.componentOptions;
+  // const VECTOR_GROUP_2_COMPONENT = VectorAdditionConstants.VECTOR_GROUP_2.componentOptions;
   const ON_AXIS_LINES_LINE_DASH = [ 3, 10 ];
 
   class VectorComponentsNode extends Node {
@@ -39,14 +34,22 @@ define( require => {
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the coordinate transformation
      * between view and model coordinates
      */
-    constructor( vectorModel, componentStyleProperty, modelViewTransformProperty ) {
+    constructor( vectorModel, componentStyleProperty, modelViewTransformProperty, vectorType ) {
 
       super();
 
+      let arrowOptions;
+      if ( vectorType === VectorAdditionConstants.VECTOR_TYPES.ONE ) {
+        arrowOptions = VectorAdditionConstants.VECTOR_GROUP_1.componentOptions;
+      }
+      if ( vectorType === VectorAdditionConstants.VECTOR_TYPES.TWO ) {
+        arrowOptions = VectorAdditionConstants.VECTOR_GROUP_2.componentOptions;
+      }
+
       // The origin of this node (0, 0) is the tail of the vector.
       // Create the 2 component nodes. These will be translated depending on the component style value
-      const XComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
-      const YComponentArrow = new ArrowNode( 0, 0, 0, 0, ARROW_OPTIONS );
+      const XComponentArrow = new ArrowNode( 0, 0, 0, 0, arrowOptions );
+      const YComponentArrow = new ArrowNode( 0, 0, 0, 0, arrowOptions );
 
       // create a path  that represents the dashed lines corresponding to the on_axis style
       // the shape of the path will be updated later

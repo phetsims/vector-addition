@@ -19,8 +19,14 @@ define( require => {
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
   const VectorComponentsNode = require( 'VECTOR_ADDITION/common/view/VectorComponentsNode' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
+  const VECTOR_GROUP_1_OPTIONS = VectorAdditionConstants.VECTOR_GROUP_1.vectorOptions;
+  const VECTOR_GROUP_1_SUM = VectorAdditionConstants.VECTOR_GROUP_1.sumOptions;
+  const VECTOR_GROUP_2_OPTIONS = VectorAdditionConstants.VECTOR_GROUP_2.vectorOptions;
+  const VECTOR_GROUP_2_SUM = VectorAdditionConstants.VECTOR_GROUP_2.sumOptions;
 
   // tip circle
   const TIP_CIRCLE_RADIUS = 10;
@@ -42,10 +48,40 @@ define( require => {
      * @param {VectorOrientations} vectorOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
-     * @param {object} [arrowOptions] - options passed to the arrow node
+     * @param {VectorTypes}
+     * @param {object} [options]
      */
-    constructor( vectorModel, gridModelBounds, componentStyleProperty, angleVisibleProperty, vectorOrientation, modelViewTransformProperty, arrowOptions ) {
+    constructor( vectorModel, gridModelBounds, componentStyleProperty, angleVisibleProperty, vectorOrientation, modelViewTransformProperty, vectorType, options ) {
 
+      options = _.extend( {
+        isSum: false // {boolean}, true it needs the sum appearance
+      });
+      // TODO: we should find a better way to do this kind of thing. I think we should make a vectorNode class, and make a class hierarchy.
+      // We can make a vectorSumNode that extends vectorNode, and we should do the same with components. 
+
+      // Next we should create a vectorComponent model, and the vectorModel would create 2 of these. The vector model should update its "positioning"
+      // automatically based on the componentStyleProperty
+      let arrowOptions;
+      switch( vectorType ) {
+        case VectorTypes.ONE:
+          if ( options.isSum ) {
+            arrowOptions = VECTOR_GROUP_1_SUM;
+                    }
+          else {
+            arrowOptions = VECTOR_GROUP_1_OPTIONS;
+          }
+          break;
+        case VectorTypes.TWO:
+          if ( options.isSum ) {
+            arrowOptions = VECTOR_GROUP_2_SUM;
+          }
+          else {
+            arrowOptions = VECTOR_GROUP_2_OPTIONS;
+          }
+          break;
+        default:
+          throw new Error( `${vectorType}` );
+      }
       const initialModelViewTransform = modelViewTransformProperty.value;
 
       // Define a vector node in which the tail location is (0, 0)
@@ -64,7 +100,7 @@ define( require => {
       const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipPosition }, TIP_CIRCLE_OPTIONS ) );
 
       // Create the scenery nodes for this vectors components
-      const vectorComponentsNode = new VectorComponentsNode( vectorModel, componentStyleProperty, modelViewTransformProperty );
+      const vectorComponentsNode = new VectorComponentsNode( vectorModel, componentStyleProperty, modelViewTransformProperty, vectorType );
 
       // Create the scenery node that represents the angle
       const vectorAngleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, initialModelViewTransform );

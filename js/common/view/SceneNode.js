@@ -20,17 +20,18 @@ define( require => {
   // constants
   const VECTOR_DISPLAY_PANEL_LOCATION_LEFT = VectorAdditionConstants.VECTOR_DISPLAY_PANEL_LOCATION.left;
   const VECTOR_DISPLAY_PANEL_LOCATION_TOP = VectorAdditionConstants.VECTOR_DISPLAY_PANEL_LOCATION.top;
-  const VECTOR_OPTIONS = VectorAdditionConstants.VECTOR_ARROW_OPTIONS;
-  const VECTOR_SUM_OPTIONS = VectorAdditionConstants.VECTOR_SUM_ARROW_OPTIONS;
 
   class SceneNode extends Node {
     /**
      * @constructor
      * @param {Scene} scene
      * @param {CommonModel} model
+     * @param {Enumeration Value} vector Type
+     * options
      */
-    constructor( scene, model ) {
+    constructor( scene, model, vectorType ) {
 
+      
       super();
 
       // @public (read-only) {scene}
@@ -51,13 +52,10 @@ define( require => {
       // create the vector sum layer
       const vectorSumLayer = new Node();
 
-      // loop through each vector set
-      for ( let i = 0; i < scene.vectorSets.length; i++ ) {
-
-        const currentVectorSet = scene.vectorSets[ i ];
+      scene.forEachVectorSet( ( vectorSet ) => {
 
         // on the vector set, add a listener to the vectors attribute to add the vector to the scene
-        currentVectorSet.vectors.addItemAddedListener( ( addedVector ) => {
+        vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           const vectorNode = new VectorNode(
             addedVector,
             scene.graph.graphModelBounds,
@@ -65,7 +63,7 @@ define( require => {
             model.angleVisibleProperty,
             model.vectorOrientationProperty.value,
             scene.graph.modelViewTransformProperty,
-            VECTOR_OPTIONS
+            vectorSet.vectorType
           );
           vectorLayer.addChild( vectorNode );
 
@@ -78,29 +76,31 @@ define( require => {
               removedVector.dispose();
 
               // remove this listener to avoid leaking memory
-              currentVectorSet.vectors.removeItemRemovedListener( removalListener );
+              vectorSet.vectors.removeItemRemovedListener( removalListener );
             }
           };
 
           // link removalListener to the provided ObservableArray
-          currentVectorSet.vectors.addItemRemovedListener( removalListener );
+          vectorSet.vectors.addItemRemovedListener( removalListener );
         } );
 
         // create a scenery node for the sum vector
         const vectorSumNode = new VectorNode(
-          currentVectorSet.vectorSum,
+          vectorSet.vectorSum,
           scene.graph.graphModelBounds,
           model.componentStyleProperty,
           model.angleVisibleProperty,
           model.vectorOrientationProperty.value,
           scene.graph.modelViewTransformProperty,
-          VECTOR_SUM_OPTIONS
+          vectorSet.vectorType, {
+            isSum: true
+          }
         );
         vectorSumLayer.addChild( vectorSumNode );
 
         // link the visibility of the Vector Sum node with the status of the checkbox
         model.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
-      }
+      } );
 
       const eraserButton = new EraserButton( {
         listener: () => {
