@@ -28,25 +28,24 @@ define( require => {
        // convenience variables for the tail and tip positions of the parent
       const parentTailPosition = parentVector.tailPositionProperty.value;
       const parentTipPosition = parentVector.tipPositionProperty.value;
-      const parentAttributes = parentVector.attributesVectorProperty.value;
 
       switch( componentStyle ) {
         case ComponentStyles.TRIANGLE: {
           // start from the tip X, and go Vertically to the tip
           this.tailPositionProperty.value = new Vector2( parentTipPosition.x, parentTailPosition.y );
-          this.attributesVectorProperty.value = new Vector2( 0, parentAttributes.y );
+          this.attributesVectorProperty.value = new Vector2( 0, parentVector.yMagnitude );
           break;
         }
         case ComponentStyles.PARALLELOGRAM: {
           // start from the tail, and go Vertically to the tip Y
           this.tailPositionProperty.value = parentTailPosition;
-          this.attributesVectorProperty.value = new Vector2( 0, parentAttributes.y );
+          this.attributesVectorProperty.value = new Vector2( 0, parentVector.yMagnitude );
           break;
         }
         case ComponentStyles.ON_AXIS: {        
           // start from the tail y, but on the y-axis, and go vertically to the tip y
           this.tailPositionProperty.value = new Vector2( 0, parentTailPosition.y );
-          this.attributesVectorProperty.value = new Vector2( 0, parentAttributes.y );
+          this.attributesVectorProperty.value = new Vector2( 0, parentVector.yMagnitude );
           break;
         }
         default: {

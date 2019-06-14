@@ -16,6 +16,7 @@ define( require => {
 
   // modules
   const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -55,6 +56,13 @@ define( require => {
         attributesVector => ( attributesVector.getMagnitude() )
       );
 
+      // @public {DerivedProperty.<number>} - the angle (in degrees) of the vector
+      // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
+      this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
+      );
+
+
     }
     /**
      * Dispose of the vector
@@ -65,6 +73,20 @@ define( require => {
       this.attributesVectorProperty.dispose();
       this.tipPositionProperty.dispose();
       this.magnitudeProperty.dispose();
+    }
+    /** 
+     * @public
+     * Get the X magnitude
+     */
+    get xMagnitude() {
+      return this.attributesVectorProperty.value.x;
+    }
+    /** 
+     * @public
+     * Get the Y magnitude
+     */
+    get yMagnitude() {
+      return this.attributesVectorProperty.value.y;
     }
   }
 
