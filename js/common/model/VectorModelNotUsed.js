@@ -21,6 +21,8 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
+  const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
   // constants
 
   // interval spacing of vector angle (in degrees) when vector is in polar mode
@@ -34,10 +36,18 @@ define( require => {
      * @param {number} xMagnitude horizontal component of the vector
      * @param {number} yMagnitude vertical component of the vector
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {EnumerationProperty.<ComponentStyles>} componentStylesProperty
      * @param {VectorTypes} vectorType - see VectorTypes.js for documentation
      * @param {Object} [options]
      */
-    constructor( tailPosition, xMagnitude, yMagnitude, modelViewTransformProperty, vectorType, options ) {
+    constructor( 
+      tailPosition, 
+      xMagnitude, 
+      yMagnitude, 
+      modelViewTransformProperty, 
+      componentStylesProperty,
+      vectorType, 
+      options ) {
 
       options = _.extend( {
 
@@ -58,7 +68,8 @@ define( require => {
       assert && assert( vectorType instanceof VectorTypes, `invalid vectorType: ${vectorType}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid isTipDraggable: ${options.isTipDraggable}` );
-
+      // component styles property is checked in VectorComponent
+      
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {boolean}
@@ -92,6 +103,14 @@ define( require => {
       this.unlinkTailUpdate = () => {
         modelViewTransformProperty.unlink( updateTailPosition );
       };
+
+      //----------------------------------------------------------------------------------------
+
+      // @public (read only) {XVectorComponent}
+      this.xVectorComponent = new XVectorComponent( this, componentStylesProperty, this.label );
+
+      // @public (read only) {YVectorComponent}
+      this.yVectorComponent = new YVectorComponent( this, componentStylesProperty, this.label );
     }
 
     /**
@@ -100,12 +119,17 @@ define( require => {
      */
     dispose() {
 
+      // dispose properties
       this.isDraggingProperty.dispose();
       this.isBodyDraggingProperty.dispose();
       this.isTipDraggingProperty.dispose();
       this.isDraggingProperty.dispose();
       this.isInPlayAreaProperty.dispose();
+
       this.unlinkTailUpdate();
+
+      this.xVectorComponent.dispose();
+      this.yVectorComponent.dispose();
 
       super.dispose();
     }
