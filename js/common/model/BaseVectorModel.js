@@ -7,7 +7,6 @@
  * - tip and tail position
  * - 'attributes property' (x and y, or in other words the actual vector <x, y>)
  * - label
- * - update of tail and tip position when the origin is dragged (modelViewTransformProperty is changed)
  *
  * @author Brandon Li
  */
@@ -17,7 +16,6 @@ define( require => {
 
   // modules
   const DerivedProperty = require( 'AXON/DerivedProperty' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -28,18 +26,14 @@ define( require => {
      * @param {Vector2} tailPosition
      * @param {number} xMagnitude horizontal component of the vector
      * @param {number} yMagnitude vertical component of the vector
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {string} label
      */
-    constructor( tailPosition, xMagnitude, yMagnitude, modelViewTransformProperty, label ) {
+    constructor( tailPosition, xMagnitude, yMagnitude, label ) {
 
       // Type check arguments
       assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
       assert && assert( typeof xMagnitude === 'number', `invalid xMagnitude: ${xMagnitude}` );
       assert && assert( typeof yMagnitude === 'number', `invalid yMagnitude: ${yMagnitude}` );
-      assert && assert( modelViewTransformProperty instanceof DerivedProperty 
-        && modelViewTransformProperty.value instanceof ModelViewTransform2, 
-        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
 
 
@@ -61,17 +55,6 @@ define( require => {
         attributesVector => ( attributesVector.getMagnitude() )
       );
 
-      // function to update the position of the tail of the vector
-      const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
-        const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
-        this.tailPositionProperty.set( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
-      };
-      modelViewTransformProperty.lazyLink( updateTailPosition );
-
-      // @private - unlink the modelViewTransform link
-      this.unlinkModelViewTransformProperty = () => {
-        modelViewTransformProperty.unlink( updateTailPosition );
-      };
     }
     /**
      * Dispose of the vector
@@ -82,7 +65,6 @@ define( require => {
       this.attributesVectorProperty.dispose();
       this.tipPositionProperty.dispose();
       this.magnitudeProperty.dispose();
-      this.unlinkModelViewTransformProperty();
     }
   }
 
