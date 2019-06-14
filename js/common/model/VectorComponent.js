@@ -20,9 +20,7 @@ define( require => {
   // modules
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const ComponentStyles = require ( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const DerivedProperty = require( 'AXON/DerivedProperty' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' ); 
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Property = require( 'AXON/Property' );  
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require ( 'VECTOR_ADDITION/common/model/VectorModel' );
@@ -33,20 +31,16 @@ define( require => {
      * @constructor
      * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
-     * @param {Property.<ModelViewTransfrom2>} modelViewTransformProperty - property of the view-model coordinate 
      * transform
      * @param {string} label
      */
-    constructor( parentVector, componentStyleProperty, modelViewTransformProperty, label ) {
+    constructor( parentVector, componentStyleProperty, label ) {
 
       // Type check arguments
       assert && assert( parentVector instanceof VectorModel, `invalid parentVector: ${parentVector}` );
       assert && assert ( componentStyleProperty instanceof EnumerationProperty
         && componentStyleProperty.value instanceof ComponentStyles,
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( modelViewTransformProperty instanceof DerivedProperty 
-        && modelViewTransformProperty.value instanceof ModelViewTransform2, 
-        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
 
       super( parentVector.tailPositionProperty.value, 0, 0, label );
@@ -56,10 +50,13 @@ define( require => {
       this.updateLayoutMultilink = Property.multilink( [
           componentStyleProperty,
           parentVector.attributesVectorProperty,
-          parentVector.tailPositionProperty,
-          modelViewTransformProperty
+          parentVector.tailPositionProperty
+          // No need to listen to the modelViewTransformProperty since the parentVector will update its position when 
+          // this changes
         ],
-        this.updateComponent
+        ( componentStyle, parentAttributesVector, parentTailPosition ) => {
+          this.updateComponent( parentVector, componentStyle );
+        }
       );
     }
     /**
@@ -72,13 +69,12 @@ define( require => {
     }
     /**
      * Update the tail, and attributes vector (which will update the tip and magnitude)
+     * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
+     * @param {ComponentStyles} componentStyle 
      * @abstract
-     * @param {ComponentStyles} componentStyle
-     * @param {Vector2Property} parentAttributesVector - x and y component of the parent
-     * @param {Vector2Property} parentTailPosition - the tail position of the parent vector
-     * @param {Property.<ModelViewTransform2>} modelViewTransform
+     * @private
      */
-    updateComponent( componentStyle, parentAttributesVector, parentTailPosition, modelViewTransform ) {
+    updateComponent( parentVector, componentStyle ) {
       throw new Error( 'Update Component must be implemented by sub-classes of VectorComponent' );
     }
   }
