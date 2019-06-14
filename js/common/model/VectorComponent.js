@@ -1,0 +1,87 @@
+// Copyright 2019, University of Colorado Boulder
+
+/**
+ * Model for a Vector Component. There are 2 types of components: the X Component and the Y Component.
+ * 
+ * This is an abstract class, meaning that the it has methods that must sub-classes must implement.
+ * Currently XVectorComponent and YVectorComponent extend this class.
+ *
+ * This is designed to be a component of a parent vector.
+ *
+ * This vector component updates its tail/tip based on the:
+ *  1. The component style enumeration property
+ *  2. Parent vector's changing tail/tip
+ * @author Brandon Li
+ */
+
+define( require => {
+  'use strict';
+
+  // modules
+  const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
+  const ComponentStyles = require ( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' ); 
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const Property = require( 'AXON/Property' );  
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorModel = require ( 'VECTOR_ADDITION/common/model/VectorModel' );
+
+  // @abstract
+  class VectorComponent extends BaseVectorModel {
+    /**
+     * @constructor
+     * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
+     * @param {Property.<ModelViewTransfrom2>} modelViewTransformProperty - property of the view-model coordinate 
+     * transform
+     * @param {string} label
+     */
+    constructor( parentVector, componentStyleProperty, modelViewTransformProperty, label ) {
+
+      // Type check arguments
+      assert && assert( parentVector instanceof VectorModel, `invalid parentVector: ${parentVector}` );
+      assert && assert ( componentStyleProperty instanceof EnumerationProperty
+        && componentStyleProperty.value instanceof ComponentStyles,
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( modelViewTransformProperty instanceof DerivedProperty 
+        && modelViewTransformProperty.value instanceof ModelViewTransform2, 
+        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+      assert && assert( typeof label === 'string', `invalid label: ${label}` );
+
+      super( parentVector.tailPositionProperty.value, 0, 0, label );
+
+
+      // @private observe changes to update component (abstract)
+      this.updateLayoutMultilink = Property.multilink( [
+          componentStyleProperty,
+          parentVector.attributesVectorProperty,
+          parentVector.tailPositionProperty,
+          modelViewTransformProperty
+        ],
+        this.updateComponent
+      );
+    }
+    /**
+     * Dispose of the vector
+     * @public
+     */
+    dispose() {
+      this.updateLayoutMultilink.dispose();
+      super.dispose();
+    }
+    /**
+     * Update the tail, and attributes vector (which will update the tip and magnitude)
+     * @abstract
+     * @param {ComponentStyles} componentStyle
+     * @param {Vector2Property} parentAttributesVector - x and y component of the parent
+     * @param {Vector2Property} parentTailPosition - the tail position of the parent vector
+     * @param {Property.<ModelViewTransform2>} modelViewTransform
+     */
+    updateComponent( componentStyle, parentAttributesVector, parentTailPosition, modelViewTransform ) {
+      throw new Error( 'Update Component must be implemented by sub-classes of VectorComponent' );
+    }
+  }
+
+  return vectorAddition.register( 'VectorComponent', VectorComponent );
+} );
