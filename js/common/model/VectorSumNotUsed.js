@@ -95,6 +95,8 @@ define( require => {
       } );
       // No need to remove the vector add/remove listeners because the sum exists throughout the entirety of the sim.
     }
+    
+    // No need to add a dispose for the new properties since the sum exists the entire sim
   }
 
   return vectorAddition.register( 'VectorSum', VectorSum );

@@ -88,6 +88,36 @@ define( require => {
     get yMagnitude() {
       return this.attributesVectorProperty.value.y;
     }
+    /** 
+     * @public
+     * Get the X Coordinate of the tail
+     */
+    get tailX() {
+      return this.tailPositionProperty.value.x;
+    }
+    /** 
+     * @public
+     * Get the Y Coordinate of the tail
+     */
+    get tailY() {
+      return this.tailPositionProperty.value.y;
+    }
+    /** 
+     * @public
+     * Get the X Coordinate of the tip
+     */
+    get tipX() {
+      return this.tipPositionProperty.value.x;
+    }
+    /** 
+     * @public
+     * Get the Y Coordinate of the tip
+     */
+    get tipY() {
+      return this.tipPositionProperty.value.y;
+    }
+
+
   }
 
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );
