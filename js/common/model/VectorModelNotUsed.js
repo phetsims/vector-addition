@@ -86,6 +86,28 @@ define( require => {
       );
 
       //----------------------------------------------------------------------------------------
+      // Properties for the inspectPanel
+
+      // @public (read-only) {DerivedProperty.<number>} - the magnitude of the vector
+      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( this.magnitude )
+      );
+
+      // @public (read-only) {DerivedProperty.<number>} - the angle (in degrees) of the vector
+      // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
+      this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
+      );
+
+      // @public (read-only) {DerivedProperty.<number>} - the xMagnitude property
+      this.xMagnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( this.xMagnitude ) );
+
+      // @public (read-only) {DerivedProperty.<number>} - the yMagnitude property
+      this.yMagnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( this.yMagnitude ) );
+
+      //----------------------------------------------------------------------------------------
 
       // update the position of the tail of the vector
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
@@ -121,6 +143,10 @@ define( require => {
       this.isTipDraggingProperty.dispose();
       this.isDraggingProperty.dispose();
       this.isInPlayAreaProperty.dispose();
+      this.magnitudeProperty.dispose();
+      this.angleDegreesProperty.dispose();
+      this.xMagnitudeProperty.dispose();
+      this.yMagnitudeProperty.dispose();
 
       this.unlinkTailUpdate();
 

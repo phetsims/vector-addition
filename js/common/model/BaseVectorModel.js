@@ -16,7 +16,6 @@ define( require => {
 
   // modules
   const DerivedProperty = require( 'AXON/DerivedProperty' );
-  const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -45,31 +44,15 @@ define( require => {
       // @public (read-only) {string}
       this.label = label;
 
-      // @private {Vector2Property} - The tail position of the vector on the graph.
-      // Read/Write Access to the tail position documented below in get tail();
+      // @public (read-only) {Vector2Property} - The tail position of the vector on the graph.
       this.tailPositionProperty = new Vector2Property( tailPosition );
 
-      // @private {Vector2Property} - (x and y, or in other words the actual vector <x, y>)
-      // Read/Write Access to the tail x and y magnitudes documented below;
+      // @public (read-only) {Vector2Property} - (x and y, or in other words the actual vector <x, y>)
       this.attributesVectorProperty = new Vector2Property( new Vector2( xMagnitude, yMagnitude ) );
 
-      // @private {DerivedProperty.<Vector2>} - the tip position of the vector
-      // Read Access to the tip position documented below in get tip(); (there is no write access)
+      // @public (read-only) {DerivedProperty.<Vector2>} - the tip position of the vector
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
         ( tailPosition, vector ) => tailPosition.plus( vector ) );
-
-      // @private {DerivedProperty.<number>} - the magnitude of the vector
-      // Read/Write Access to the  magnitudes documented below in get magnitude();
-      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( attributesVector.getMagnitude() )
-      );
-
-      // @private {DerivedProperty.<number>} - the angle (in degrees) of the vector
-      // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
-      // Read Access to the angle documented below in get tip(); (there is no write access)
-      this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
-      );
 
       // @public (read-only) VectorTypes
       this.vectorType = vectorType;
@@ -83,8 +66,6 @@ define( require => {
       this.tailPositionProperty.dispose();
       this.attributesVectorProperty.dispose();
       this.tipPositionProperty.dispose();
-      this.magnitudeProperty.dispose();
-      this.angleDegreesProperty.dispose();
     }
      
     /*---------------------------------------------------------------------------*
