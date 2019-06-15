@@ -42,7 +42,7 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
 
-      super( parentVector.tailPositionProperty.value, 0, 0, label );
+      super( parentVector.tailPositionProperty.value, 0, 0, label, parentVector.vectorType );
 
 
       // @private observe changes to update component (abstract)

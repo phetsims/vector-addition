@@ -48,7 +48,7 @@ define( require => {
         `invalid vectors: ${vectors}` );
       // modelViewTransformProperty checked in vectorModel
       // componentStylesProperty checked in vectorModel
-      // vectorType checked in vectorModel
+      // vectorType checked in baseModel
       assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds ${graphModelBounds}` );
 
 

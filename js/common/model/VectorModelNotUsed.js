@@ -20,7 +20,6 @@ define( require => {
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
   // constants
@@ -55,7 +54,7 @@ define( require => {
         isTipDraggable: true
       }, options );
 
-      super( tailPosition, xMagnitude, yMagnitude, options.label );
+      super( tailPosition, xMagnitude, yMagnitude, vectorType, options.label );
      
       //----------------------------------------------------------------------------------------
 
@@ -63,7 +62,6 @@ define( require => {
       assert && assert( modelViewTransformProperty instanceof DerivedProperty
         && modelViewTransformProperty.value instanceof ModelViewTransform2, 
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
-      assert && assert( vectorType instanceof VectorTypes, `invalid vectorType: ${vectorType}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid isTipDraggable: ${options.isTipDraggable}` );
       

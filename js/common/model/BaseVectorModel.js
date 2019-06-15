@@ -20,6 +20,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   class BaseVectorModel {
     /**
@@ -29,13 +30,15 @@ define( require => {
      * @param {number} yMagnitude vertical component of the vector
      * @param {string} label
      */
-    constructor( tailPosition, xMagnitude, yMagnitude, label ) {
+    constructor( tailPosition, xMagnitude, yMagnitude, label, vectorType ) {
 
       // Type check arguments
       assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
       assert && assert( typeof xMagnitude === 'number', `invalid xMagnitude: ${xMagnitude}` );
       assert && assert( typeof yMagnitude === 'number', `invalid yMagnitude: ${yMagnitude}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
+      assert && assert( vectorType instanceof VectorTypes, `invalid vectorType: ${vectorType}` );
+
     
       //----------------------------------------------------------------------------------------
 
@@ -67,6 +70,9 @@ define( require => {
       this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
       );
+
+      // @public (read-only) VectorTypes
+      this.vectorType = vectorType;
 
     }
     /**
