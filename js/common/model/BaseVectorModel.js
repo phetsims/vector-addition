@@ -51,18 +51,19 @@ define( require => {
       this.attributesVectorProperty = new Vector2Property( new Vector2( xMagnitude, yMagnitude ) );
 
       // @private {DerivedProperty.<Vector2>} - the tip position of the vector
-      // Read/Write Access to the tail position documented below in get tip();
+      // Read Access to the tip position documented below in get tip(); (there is no write access)
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
         ( tailPosition, vector ) => tailPosition.plus( vector ) );
 
       // @private {DerivedProperty.<number>} - the magnitude of the vector
-      // Read/Write Access to the tail magnitudes documented below in get magnitude();
+      // Read/Write Access to the  magnitudes documented below in get magnitude();
       this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         attributesVector => ( attributesVector.getMagnitude() )
       );
 
-      // @public {DerivedProperty.<number>} - the angle (in degrees) of the vector
+      // @private {DerivedProperty.<number>} - the angle (in degrees) of the vector
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
+      // Read Access to the angle documented below in get tip(); (there is no write access)
       this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
       );
@@ -207,6 +208,14 @@ define( require => {
     get tip() { return this.tipPositionProperty.value; }
     get tipX() { return this.tipPositionProperty.value.x; }
     get tipY() { return this.tipPositionProperty.value.x; }
+
+    //----------------------------------------------------------------------------------------
+    // angle
+    /**
+     * @public Read access to the angle
+     * @returns {number}
+     */
+    get angle() { return this.attributesVectorProperty.value.angle; }
   }
 
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );
