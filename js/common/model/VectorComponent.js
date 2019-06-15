@@ -51,7 +51,7 @@ define( require => {
           parentVector.attributesVectorProperty,
           parentVector.tailPositionProperty
           // No need to listen to the modelViewTransformProperty since the parentVector will update its position when 
-          //  modelViewTransformProperty changes
+          // modelViewTransformProperty changes
         ],
         ( componentStyle, parentAttributesVector, parentTailPosition ) => {
           this.updateComponent( parentVector, componentStyle );
