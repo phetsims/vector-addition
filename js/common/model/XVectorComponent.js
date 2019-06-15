@@ -11,7 +11,6 @@ define( require => {
 
   // modules
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' ); 
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
 
@@ -25,32 +24,35 @@ define( require => {
      */
     updateComponent( parentVector, componentStyle ) {
 
-       // convenience variables for the tail and tip positions of the parent
-      const parentTailPosition = parentVector.tailPositionProperty.value;
+      // In all cases, the xMagnitude is always matching the parent
+      this.xMagnitude = parentVector.xMagnitude;
 
+      // switch case to update the tail position of the component based on component style
       switch( componentStyle ) {
         case ComponentStyles.TRIANGLE: {
-          // start from the tail, and go horizontally to the tip
-          this.tailPositionProperty.value = parentTailPosition;
-          this.xMagnitude = parentVector.xMagnitude;
+
+          // shared tail position
+          this.tail = parentVector.tail;
           break;
         }
         case ComponentStyles.PARALLELOGRAM: {
-          // start from the tail, and go horizontally to the tip
-          this.tailPositionProperty.value = parentTailPosition;
-          this.xMagnitude = parentVector.xMagnitude;
+
+          // shared tail position
+          this.tail = parentVector.tail;
           break;
         }
         case ComponentStyles.ON_AXIS: {        
-          // start from the tail, but on the x-axis, and go horizontally to the tip
-          this.tailPositionProperty.value = new Vector2( parentTailPosition.x, 0 );
-          this.xMagnitude = parentVector.xMagnitude;
+          
+          // same tail x, however its y value is 0 since it is on the x-axis
+          this.tailX = parentVector.tailX;
+          this.tailY = 0;
           break;
         }
         default: {
           throw new Error( `invalid componentStyle: ${componentStyle}` );
         }
       }
+      
     }
   }
 

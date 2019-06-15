@@ -11,7 +11,6 @@ define( require => {
 
   // modules
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' ); 
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
 
@@ -25,26 +24,27 @@ define( require => {
      */
     updateComponent( parentVector, componentStyle ) {
 
-       // convenience variables for the tail and tip positions of the parent
-      const parentTailPosition = parentVector.tailPositionProperty.value;
+      // In all cases, the yMagnitude is always matching the parent
+      this.yMagnitude = parentVector.yMagnitude;
 
       switch( componentStyle ) {
         case ComponentStyles.TRIANGLE: {
-          // start from the tail X, and go Vertically to the tip
-          this.tailPositionProperty.value = parentTailPosition;
-          this.yMagnitude = parentVector.yMagnitude;
+
+          // shared tail position
+          this.tail = parentVector.tail;
           break;
         }
         case ComponentStyles.PARALLELOGRAM: {
-          // start from the tail, and go Vertically to the tip Y
-          this.tailPositionProperty.value = parentTailPosition;
-          this.yMagnitude = parentVector.yMagnitude;
+
+          // shared tail position
+          this.tail = parentVector.tail;
           break;
         }
         case ComponentStyles.ON_AXIS: {        
-          // start from the tail y, but on the y-axis, and go vertically to the tip y
-          this.tailPositionProperty.value = new Vector2( 0, parentVector.tailY );
-          this.yMagnitude = parentVector.yMagnitude;
+            
+          // same tail y, however its x value is 0 since it is on the y-axis
+          this.tailY = parentVector.tailY;
+          this.tailX = 0;
           break;
         }
         default: {

@@ -36,22 +36,27 @@ define( require => {
       assert && assert( typeof xMagnitude === 'number', `invalid xMagnitude: ${xMagnitude}` );
       assert && assert( typeof yMagnitude === 'number', `invalid yMagnitude: ${yMagnitude}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
-
+    
+      //----------------------------------------------------------------------------------------
 
       // @public (read-only) {string}
       this.label = label;
 
-      // @public {Vector2Property} - The tail position of the vector on the graph.
+      // @private {Vector2Property} - The tail position of the vector on the graph.
+      // Read/Write Access to the tail position documented below in get tail();
       this.tailPositionProperty = new Vector2Property( tailPosition );
 
-      // @public {Vector2Property} - (x and y, or in other words the actual vector <x, y>)
+      // @private {Vector2Property} - (x and y, or in other words the actual vector <x, y>)
+      // Read/Write Access to the tail x and y magnitudes documented below;
       this.attributesVectorProperty = new Vector2Property( new Vector2( xMagnitude, yMagnitude ) );
 
-      // @public {DerivedProperty.<Vector2>} - the tip position of the vector
+      // @private {DerivedProperty.<Vector2>} - the tip position of the vector
+      // Read/Write Access to the tail position documented below in get tip();
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
         ( tailPosition, vector ) => tailPosition.plus( vector ) );
 
-      // @public {DerivedProperty.<number>} - the magnitude of the vector
+      // @private {DerivedProperty.<number>} - the magnitude of the vector
+      // Read/Write Access to the tail magnitudes documented below in get magnitude();
       this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         attributesVector => ( attributesVector.getMagnitude() )
       );
@@ -61,7 +66,6 @@ define( require => {
       this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
       );
-
 
     }
     /**
@@ -73,59 +77,136 @@ define( require => {
       this.attributesVectorProperty.dispose();
       this.tipPositionProperty.dispose();
       this.magnitudeProperty.dispose();
+      this.angleDegreesProperty.dispose();
     }
      
-    // @public Get the X magnitude.
-    get xMagnitude() { return this.attributesVectorProperty.value.x; }
-    // @public Get the y magnitude.
-    get yMagnitude() { return this.attributesVectorProperty.value.y; }
+    /*---------------------------------------------------------------------------*
+     * The Following are convenience Read/Write methods since most of the
+     * properties above are private.
+     *---------------------------------------------------------------------------*/
 
-  
-    // @public Set the X magnitude. Tail position and the Y magnitude stays the same.
+    /**
+     * @public Convenience method to multiply the vector by a scalar. Keeps tail position and angle the same.
+     */
+    multiplyScalar( scalar ) {
+      assert && assert ( typeof scalar === 'number', `invalid scalar: ${scalar}` );
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.multiplyScalar( scalar );
+    }
+
+    //----------------------------------------------------------------------------------------
+    // Magnitude
+    /**
+     * @public read access to the magnitude
+     * @returns {Vector2}
+     */
+    get magnitude() { return this.attributesVectorProperty.magnitude; }
+    /**
+     * @public write access to the magnitude. This keeps the tail position and the angle constant.
+     */
+    set magnitude( magnitude ) { 
+      assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.setMagntude( magnitude );
+    }
+
+    //----------------------------------------------------------------------------------------
+    // xMagnitude
+    /**
+     * @public convenience method to access to the x magnitude
+     * @returns {number}
+     */
+    get xMagnitude() { return this.attributesVectorProperty.value.x; }
+    /**
+     * @public convenience method to set to the x magnitude
+     * Keeps the yMagnitude, tailPosition constant
+     */
     set xMagnitude( magnitude ) {
+      assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.setX( magnitude );
     }
-    // @public Set the y magnitude. Tail position and the x magnitude stays the same.
+
+    //----------------------------------------------------------------------------------------
+    // yMagnitude
+    /**
+     * @public convenience method to access to the y magnitude
+     * @returns {number}
+     */
+    get yMagnitude() { return this.attributesVectorProperty.value.y; }
+    /**
+     * @public convenience method to set to the y magnitude
+     * Keeps the xMagnitude, tailPosition constant
+     */
     set yMagnitude( magnitude ) {
+      assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.setY( magnitude );
     }
 
 
-    // @public Get the magnitude.
-    get magnitude() { return this.attributesVectorProperty.magnitude; }
-
-    // @public Multiplies vector by a scalar.
-    // Keeps tail position and angle the same
-    multiplyScalar( scalar ) {
-      this.attributesVectorProperty.value = this.attributesVectorProperty.value.multiplyScalar( scalar );
+    //----------------------------------------------------------------------------------------
+    // Tail Position
+    /**
+     * @public Read access to tail position
+     * @returns {Vector2}
+     */
+    get tail() { return this.tailPositionProperty.value; }
+    /**
+     * @public Write access to tail position
+     * Sets the tail position (this will update the tip as well to keep magnitude/angle the same)
+     */
+    set tail( point ) { 
+      assert && assert( point instanceof Vector2, `invalid point: ${point}` );
+      this.tailPositionProperty.value = point; 
+    }
+    /**
+     * @public Write access to tail position
+     * Sets the tail position (this will update the tip as well to keep magnitude/angle the same)
+     */
+    setTailXY( x, y ) { 
+      this.tailX = x; // see documentation below
+      this.tailY = y; // see documentation below
     }
 
-    // @public Get the X Coordinate of the tail
-    get tailX() {
-      return this.tailPositionProperty.value.x;
-    }
-    // @public Get the Y Coordinate of the tail
-    get tailY() {
-      return this.tailPositionProperty.value.y;
-    }
 
-    // @public Set the X coordinate of the tail
+    //----------------------------------------------------------------------------------------
+    // Tail X Position
+    /**
+     * @public Read access to tail x
+     * @returns {number}
+     */
+    get tailX() { return this.tailPositionProperty.value.x; }
+    /**
+     * @public Write access to tail x
+     * Sets the tail position (this will update the tip as well to keep magnitude/angle the same)
+     */
     set tailX( x ) {
+      assert && assert ( typeof x === 'number', `invalid x: ${x}` );
       this.tailPositionProperty.value = this.tailPositionProperty.value.setX( x );
     }
-    // @public
+
+    //----------------------------------------------------------------------------------------
+    // Tail Y Position
+    /**
+     * @public Read access to tail Y
+     * @returns {number}
+     */
+    get tailY() { return this.tailPositionProperty.value.y; }
+    /**
+     * @public Write access to tail Y
+     * Sets the tail position (this will update the tip as well to keep magnitude/angle the same)
+     */
     set tailY( y ) {
+      assert && assert ( typeof y === 'number', `invalid y: ${y}` );
       this.tailPositionProperty.value = this.tailPositionProperty.value.setY( y );
     }
 
-    // @public Get the X Coordinate of the tip
-    get tipX() {
-      return this.tipPositionProperty.value.x;
-    }
-    // @public Get the Y Coordinate of the tip
-    get tipY() {
-      return this.tipPositionProperty.value.x;
-    }
+    //----------------------------------------------------------------------------------------
+    // Tip Position
+    /**
+     * @public Read access to tip position
+     * @returns {Vector2}
+     */
+    get tip() { return this.tipPositionProperty.value; }
+    get tipX() { return this.tipPositionProperty.value.x; }
+    get tipY() { return this.tipPositionProperty.value.x; }
   }
 
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );

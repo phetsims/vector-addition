@@ -31,7 +31,6 @@ define( require => {
      * @constructor
      * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
-     * transform
      * @param {string} label
      */
     constructor( parentVector, componentStyleProperty, label ) {
@@ -52,7 +51,7 @@ define( require => {
           parentVector.attributesVectorProperty,
           parentVector.tailPositionProperty
           // No need to listen to the modelViewTransformProperty since the parentVector will update its position when 
-          // this changes
+          //  modelViewTransformProperty changes
         ],
         ( componentStyle, parentAttributesVector, parentTailPosition ) => {
           this.updateComponent( parentVector, componentStyle );
