@@ -96,7 +96,7 @@ define( require => {
       // @public (read-only) {DerivedProperty.<number>} - the angle (in degrees) of the vector
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
       this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
+        attributesVector => ( Util.toDegrees( this.angle ) )
       );
 
       // @public (read-only) {DerivedProperty.<number>} - the xMagnitude property
