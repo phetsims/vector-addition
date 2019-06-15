@@ -34,6 +34,7 @@ define( require => {
         isTipDraggable: false
       }, options );
 
+      // types checked in VectorModel
       super( spawnPosition, 0, 0, modelViewTransformProperty, options );
 
       // isTipDraggingProperty shouldn't ever change

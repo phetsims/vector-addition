@@ -50,9 +50,7 @@ define( require => {
       options ) {
 
       options = _.extend( {
-
         label: 'v',
-
         // {boolean} - can the tip be dragged
         isTipDraggable: true
       }, options );
@@ -68,7 +66,6 @@ define( require => {
       assert && assert( vectorType instanceof VectorTypes, `invalid vectorType: ${vectorType}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid isTipDraggable: ${options.isTipDraggable}` );
-      // component styles property is checked in VectorComponent
       
       //----------------------------------------------------------------------------------------
 
@@ -115,6 +112,7 @@ define( require => {
 
     /**
      * @public
+     * @override
      * Dispose the vector model's properties. Called when the vector is removed from the graph.
      */
     dispose() {

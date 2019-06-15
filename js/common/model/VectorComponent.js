@@ -61,6 +61,7 @@ define( require => {
     /**
      * Dispose of the vector
      * @public
+     * @override
      */
     dispose() {
       this.updateLayoutMultilink.dispose();
