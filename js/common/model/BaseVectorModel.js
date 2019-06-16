@@ -141,11 +141,11 @@ define( require => {
     /**
      * @public Write access to tail position
      * Sets the tail position (magnitude/angle constant, tip position changes)
-     * @param
+     * @param {Vector2} position
      */
-    set tail( point ) { 
-      assert && assert( point instanceof Vector2, `invalid point: ${point}` );
-      this.tailPositionProperty.value = point; 
+    set tail( position ) {
+      assert && assert( position instanceof Vector2, `invalid position: ${position}` );
+      this.tailPositionProperty.value = position;
     }
     /**
      * @public Write access to tail position
