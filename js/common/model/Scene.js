@@ -10,7 +10,7 @@ define( require => {
   'use strict';
 
   // modules
-  const Dimension2 = require( 'DOT/Dimension2' );  
+  const Dimension2 = require( 'DOT/Dimension2' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -22,6 +22,7 @@ define( require => {
      * @param {Dimension2} graphDimension - the dimensions (width and height) of the graph
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {number} numberOfVectorSets - scenes can have multiple vectorSets
+     * @param {Object} [options]
      */
     constructor( graphDimension, graphUpperLeftPosition, numberOfVectorSets, options ) {
 
@@ -36,7 +37,7 @@ define( require => {
         `invalid graphDimension: ${graphDimension}` );
       assert && assert( graphUpperLeftPosition instanceof Vector2,
         `invalid graphUpperLeftPosition: ${graphUpperLeftPosition}` );
-      assert && assert( typeof numberOfVectorSets === 'number' && numberOfVectorSets > 0, 
+      assert && assert( typeof numberOfVectorSets === 'number' && numberOfVectorSets > 0,
         `invalid numberOfVectorSets: ${numberOfVectorSets}` );
 
 
@@ -49,7 +50,7 @@ define( require => {
 
       // Create the Vector Sets and push it to this.vectorSets
       for ( let i = 0; i < numberOfVectorSets; i++ ) {
-        this.vectorSets.push( 
+        this.vectorSets.push(
           new VectorSet( this.graph.modelViewTransformProperty, this.graph.graphModelBounds, options.vectorSetOptions )
         );
       }
@@ -82,7 +83,7 @@ define( require => {
 
     /**
      * Convenience method: Applies a callback function to each vectorSet
-     * @param {function( <VectorSet> ) callback 
+     * @param {function( <VectorSet> )} callback
      * @public
      */
     forEachVectorSet( callback ) {
