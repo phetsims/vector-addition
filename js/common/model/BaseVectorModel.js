@@ -83,16 +83,20 @@ define( require => {
       assert && assert ( typeof scalar === 'number', `invalid scalar: ${scalar}` );
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.multiplyScalar( scalar );
     }
+
     /**
-     * @public read access to the magnitude
+     * get the magnitude of the vector
+     * @public
      * @returns {number}
      */
     get magnitude() { return this.attributesVectorProperty.magnitude; }
+
     /**
-     * @public write access to the magnitude. This keeps the tail position and the angle constant.
+     * set the magnitude of the vector. This keeps the tail position and the angle constant.
+     * @public
      * @param {number} magnitude
      */
-    set magnitude( magnitude ) { 
+    set magnitude( magnitude ) {
       assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.setMagnitude( magnitude );
     }

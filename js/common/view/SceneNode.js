@@ -26,7 +26,7 @@ define( require => {
      * @constructor
      * @param {Scene} scene
      * @param {CommonModel} model
-     * @param {Enumeration Value} vector Type
+     * @param {Enumeration Value} vectorType
      * options
      */
     constructor( scene, model, vectorType ) {

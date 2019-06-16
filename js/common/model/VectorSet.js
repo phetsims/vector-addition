@@ -47,9 +47,10 @@ define( require => {
     reset() {
       this.vectors.clear();
     }
+
     /**
      * Convenience method: Applies a callback function to iterate through each vector
-     * @param {function( <Scene>, <boolean> (true when the vector is the sum) ) callback 
+     * @param {function( <VectorModel>, <boolean>)} callback
      * @public
      */
     forEachVector( callback ) {

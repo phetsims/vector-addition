@@ -29,18 +29,20 @@ define( require => {
   class Explore1DVectorCreatorPanels {
     /**
      * @constructor
-     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
+     * @param {ObservableArray.<VectorModel>} horizontalVectors - the observable array to add the horizontal vector's to.
+     * @param {Property.<ModelViewTransform2>} horizontalModelViewTransformProperty - the property of the model - view coordinate transformation
+     * @param {ObservableArray.<VectorModel>} verticalVectors - the observable array to add the vertical vector's to.
+     *  @param {Property.<ModelViewTransform2>} verticalModelViewTransformProperty - the property of the model - view coordinate transformation
      */
-    constructor( horizontalVectorArray,
+    constructor( horizontalVectors,
                  horizontalModelViewTransformProperty,
-                 verticalVectorArray,
+                 verticalVectors,
                  verticalModelViewTransformProperty ) {
 
-      this.horizontalVectorCreatorPanel = new HorizontalVectorCreatorPanel( horizontalVectorArray,
+      this.horizontalVectorCreatorPanel = new HorizontalVectorCreatorPanel( horizontalVectors,
         horizontalModelViewTransformProperty );
 
-      this.verticalVectorCreatorPanel = new VerticalVectorCreatorPanel( verticalVectorArray,
+      this.verticalVectorCreatorPanel = new VerticalVectorCreatorPanel( verticalVectors,
         verticalModelViewTransformProperty );
     }
 
@@ -50,12 +52,12 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
+     * @param {ObservableArray.<VectorModel>} vectors - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
-    constructor( vectorArray, modelViewTransformProperty ) {
+    constructor( vectors, modelViewTransformProperty ) {
 
-      super( vectorArray, 3, modelViewTransformProperty, {
+      super( vectors, 3, modelViewTransformProperty, {
         labels: [ 'a', 'b', 'c' ],
         panelOptions: PANEL_OPTIONS
       } );
@@ -73,12 +75,12 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
+     * @param {ObservableArray.<VectorModel>} vectors - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
-    constructor( vectorArray, modelViewTransformProperty ) {
+    constructor( vectors, modelViewTransformProperty ) {
 
-      super( vectorArray, 3, modelViewTransformProperty, {
+      super( vectors, 3, modelViewTransformProperty, {
         labels: [ 'd', 'e', 'f' ],
         panelOptions: PANEL_OPTIONS
       } );
