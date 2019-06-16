@@ -30,7 +30,8 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
+     * @param {ObservableArray.<VectorModel>} vectorArray1 - the observable array for vector1.
+     * @param {ObservableArray.<VectorModel>} vectorArray2 - the observable array for vector2
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
     constructor( vectorArray1, vectorArray2, modelViewTransformProperty ) {
