@@ -94,7 +94,7 @@ define( require => {
      */
     set magnitude( magnitude ) { 
       assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
-      this.attributesVectorProperty.value = this.attributesVectorProperty.value.setMagntude( magnitude );
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.setMagnitude( magnitude );
     }
 
     //----------------------------------------------------------------------------------------
