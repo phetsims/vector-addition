@@ -24,10 +24,10 @@ define( require => {
 
       super();
 
-      // @public (read-only) {array.<SceneNode>}
+      // @public (read-only) {Array.<SceneNode>}
       this.sceneNodes = [];
 
-      commonModel.forEachScene( ( scene ) => {
+      commonModel.scenes.forEach( ( scene ) => {
 
         // create a scene node and add it as a child
         const newSceneNode = new SceneNode( scene, commonModel );
@@ -47,10 +47,12 @@ define( require => {
       const resetAllButton = new ResetAllButton( {
         listener: () => {
           commonModel.reset();
-          // loop through and reset each scene Node
-          for ( let i = 0; i < this.sceneNodes.length; i++ ) {
-            this.sceneNodes[ i ].reset();
-          }
+
+          // loop through SceneNodes and reset each sceneNode
+          this.sceneNodes.forEach( ( sceneNode ) =>
+            sceneNode.reset()
+          );
+
         },
         right: this.layoutBounds.maxX - 10,
         bottom: this.layoutBounds.maxY - 10,

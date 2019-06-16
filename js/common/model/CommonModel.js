@@ -113,7 +113,7 @@ define( require => {
       this.angleVisibleProperty.reset();
 
       // reset every scene in this.scenes
-      this.forEachScene( ( scene ) => {
+      this.scenes.forEach( ( scene ) => {
         scene.reset();
       } );
     }
@@ -137,15 +137,6 @@ define( require => {
         this.scenes.push( new Scene( graphDimension, graphUpperLeftPosition, numberOfVectorSets ) );
       }
 
-    }
-
-    /**
-     * Convenience method: Applies a callback function to iterate through each scene
-     * @param {function( <Scene> )} callback
-     * @public
-     */
-    forEachScene( callback ) {
-      this.scenes.forEach( callback );
     }
   }
 
