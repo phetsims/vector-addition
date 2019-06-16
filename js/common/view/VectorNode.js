@@ -48,10 +48,17 @@ define( require => {
      * @param {VectorOrientations} vectorOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
-     * @param {VectorTypes}
-     * @param {object} [options]
+     * @param {VectorTypes} vectorType
+     * @param {Object} [options]
      */
-    constructor( vectorModel, gridModelBounds, componentStyleProperty, angleVisibleProperty, vectorOrientation, modelViewTransformProperty, vectorType, options ) {
+    constructor( vectorModel,
+                 gridModelBounds,
+                 componentStyleProperty,
+                 angleVisibleProperty,
+                 vectorOrientation,
+                 modelViewTransformProperty,
+                 vectorType,
+                 options ) {
 
       options = _.extend( {
         isSum: false // {boolean}, true it needs the sum appearance
