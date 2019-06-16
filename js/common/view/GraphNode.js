@@ -148,7 +148,7 @@ define( require => {
           xAxisNode.setOriginLabelVisibility( true );
           yAxisNode.setOriginLabelVisibility( true );
           break;
-        case VectorOrientations.ALL:
+        case VectorOrientations.TWO_DIMENSIONAL:
           xAxisNode.visible = true;
           yAxisNode.visible = true;
           xAxisNode.setOriginLabelVisibility( false );

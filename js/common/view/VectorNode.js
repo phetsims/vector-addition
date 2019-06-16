@@ -62,7 +62,7 @@ define( require => {
 
       options = _.extend( {
         isSum: false // {boolean}, true it needs the sum appearance
-      });
+      } );
       // TODO: we should find a better way to do this kind of thing. I think we should make a vectorNode class, and make a class hierarchy.
       // We can make a vectorSumNode that extends vectorNode, and we should do the same with components. 
 
@@ -73,7 +73,7 @@ define( require => {
         case VectorTypes.ONE:
           if ( options.isSum ) {
             arrowOptions = VECTOR_GROUP_1_SUM;
-                    }
+          }
           else {
             arrowOptions = VECTOR_GROUP_1_OPTIONS;
           }
@@ -221,7 +221,7 @@ define( require => {
           tipCoordinates.setX( 0 );
           break;
         }
-        case VectorOrientations.ALL: {
+        case VectorOrientations.TWO_DIMENSIONAL: {
           break;
         }
         default: {

@@ -25,7 +25,7 @@ define( require => {
 
       super();
       this.gridModelBounds = new Bounds2( -5, -5, 35, 35 );
-      this.vectorOrientationProperty = new Property( VectorOrientations.ALL );
+      this.vectorOrientationProperty = new Property( VectorOrientations.TWO_DIMENSIONAL );
     }
 
     // @public resets the model

@@ -48,7 +48,7 @@ define( function( require ) {
 
     VECTOR_TYPES: new Enumeration([ 'ONE', 'TWO' ]),
     // defaults
-    DEFAULT_VECTOR_ORIENTATION: VectorOrientations.ALL,
+    DEFAULT_VECTOR_ORIENTATION: VectorOrientations.TWO_DIMENSIONAL,
     EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION: VectorOrientations.HORIZONTAL,
     DEFAULT_COMPONENT_STYLE: ComponentStyles.INVISIBLE,
     DEFAULT_COORDINATE_SNAP_MODE: CoordinateSnapModes.CARTESIAN,

@@ -75,7 +75,7 @@ define( require => {
             horizontalVectorCreatorPanel.visible = false;
             horizontalSceneNode.visible = false;
             break;
-          case VectorOrientations.ALL:
+          case VectorOrientations.TWO_DIMENSIONAL:
             throw new Error( `Explore1D does not support vector orientation: ${vectorOrientation}` );
           default:
           console.log( vectorOrientation );
