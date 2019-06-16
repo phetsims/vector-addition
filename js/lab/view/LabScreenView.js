@@ -17,7 +17,7 @@ define( function( require ) {
   class LabScreenView extends CommonScreenView {
 
     /**
-     * @param {Explore2DModel} explore2DModel
+     * @param {LabModel} labModel
      * @param {Tandem} tandem
      */
     constructor( labModel, tandem ) {
