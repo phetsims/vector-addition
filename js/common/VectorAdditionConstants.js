@@ -34,7 +34,7 @@ define( function( require ) {
     headHeight: 6,
     cursor: 'move'
   };
-  const VECTOR_SUM_TEMPALTE = _.extend( _.clone( VECTOR_TEMPLATE ), {
+  const VECTOR_SUM_TEMPLATE = _.extend( _.clone( VECTOR_TEMPLATE ), {
     lineWidth: 1
   } );
   const VECTOR_COMPONENT_TEMPLATE = {
@@ -108,7 +108,7 @@ define( function( require ) {
       vectorOptions: _.extend( _.clone( VECTOR_TEMPLATE ), {
         fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
       } ),
-      sumOptions: _.extend( _.clone( VECTOR_SUM_TEMPALTE ), {
+      sumOptions: _.extend( _.clone( VECTOR_SUM_TEMPLATE ), {
         fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum
       } ),
       componentOptions: _.extend( _.clone( VECTOR_COMPONENT_TEMPLATE ), {
@@ -119,7 +119,7 @@ define( function( require ) {
       vectorOptions: _.extend( _.clone( VECTOR_TEMPLATE ), {
         fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
       } ),
-      sumOptions: _.extend( _.clone( VECTOR_SUM_TEMPALTE ), {
+      sumOptions: _.extend( _.clone( VECTOR_SUM_TEMPLATE ), {
         fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum
       } ),
       componentOptions: _.extend( _.clone( VECTOR_COMPONENT_TEMPLATE ), {
