@@ -76,18 +76,9 @@ define( require => {
      */
     resetVectorSets() {
       // reset the each vectorSet in vectorSets
-      for ( let i = 0; i < this.vectorSets.length; i++ ) {
-        this.vectorSets[ i ].reset();
-      }
-    }
-
-    /**
-     * Convenience method: Applies a callback function to each vectorSet
-     * @param {function( <VectorSet> )} callback
-     * @public
-     */
-    forEachVectorSet( callback ) {
-      this.vectorSets.forEach( callback );
+      this.vectorSets.forEach( vectorSet =>
+        vectorSet.reset()
+      );
     }
   }
 

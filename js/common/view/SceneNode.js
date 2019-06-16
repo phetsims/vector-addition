@@ -26,12 +26,12 @@ define( require => {
      * @constructor
      * @param {Scene} scene
      * @param {CommonModel} model
-     * @param {Enumeration Value} vectorType
+     * @param {VectorTypes} vectorType
      * options
      */
     constructor( scene, model, vectorType ) {
 
-      
+
       super();
 
       // @public (read-only) {scene}
@@ -52,7 +52,7 @@ define( require => {
       // create the vector sum layer
       const vectorSumLayer = new Node();
 
-      scene.forEachVectorSet( ( vectorSet ) => {
+      scene.vectorSets.forEach( ( vectorSet ) => {
 
         // on the vector set, add a listener to the vectors attribute to add the vector to the scene
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
