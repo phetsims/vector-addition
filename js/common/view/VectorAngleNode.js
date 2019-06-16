@@ -137,12 +137,12 @@ define( require => {
       vectorModel.magnitudeProperty.link( updateRadius );
 
       // update visibility of this node
-      const toggleVisiblityListener = angleVisibleProperty.linkAttribute( this, 'visible' );
+      const toggleVisibilityListener = angleVisibleProperty.linkAttribute( this, 'visible' );
 
       this.unlinkProperties = () => {
         vectorModel.angleDegreesProperty.unlink( updateAngle );
         vectorModel.magnitudeProperty.unlink( updateRadius );
-        angleVisibleProperty.unlink( toggleVisiblityListener );
+        angleVisibleProperty.unlink( toggleVisibilityListener );
       };
     }
 
