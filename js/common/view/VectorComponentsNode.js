@@ -33,6 +33,7 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property related to the style of components to display
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the coordinate transformation
      * between view and model coordinates
+     * @param {VectorType} vectorType
      */
     constructor( vectorModel, componentStyleProperty, modelViewTransformProperty, vectorType ) {
 
