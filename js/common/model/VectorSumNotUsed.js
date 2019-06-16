@@ -21,7 +21,7 @@ define( require => {
      * @param {ObservableArray.<VectorModel>} vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStylesProperty
-     * @param {VectorType} vectorType
+     * @param {VectorTypes} vectorType
      * @param {Bounds2} graphModelBounds
      * @param {Object} [options]
      *
