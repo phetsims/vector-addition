@@ -22,8 +22,8 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
+  
   // constants
-
   // interval spacing of vector angle (in degrees) when vector is in polar mode
   const ANGLE_INTERVAL = 5;
 
@@ -49,29 +49,28 @@ define( require => {
       options ) {
 
       options = _.extend( {
-        label: 'v',
-        // {boolean} - can the tip be dragged
-        isTipDraggable: true
+        label: 'v',// {string} - the label of the vector
+        isTipDraggable: true // {boolean} - can the tip be dragged
       }, options );
 
-      super( tailPosition, xMagnitude, yMagnitude, vectorType, options.label );
-     
       //----------------------------------------------------------------------------------------
 
-      // Type check arguments (some are type checked in the base vector model)
+      // Type check arguments
       assert && assert( modelViewTransformProperty instanceof DerivedProperty
         && modelViewTransformProperty.value instanceof ModelViewTransform2, 
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid isTipDraggable: ${options.isTipDraggable}` );
-      
-      //----------------------------------------------------------------------------------------
+      // The rest are checked in base vector model
 
+      //----------------------------------------------------------------------------------------
+      
+      super( tailPosition, xMagnitude, yMagnitude, vectorType, options.label );
+     
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
 
-      // @public {Boolean property}
-      // Flag that indicates if the model element is in the play area
+      // @public {BooleanProperty} flag that indicates if the model element is in the play area
       this.isInPlayAreaProperty = new BooleanProperty( false );
 
       // @public {BooleanProperty} - indicates whether the tip being dragged by the user
@@ -116,7 +115,7 @@ define( require => {
       };
       modelViewTransformProperty.lazyLink( updateTailPosition );
 
-      // @private - unlink the modelViewTransform link
+      // @private - unlink the modelViewTransform link, called in the dispose method
       this.unlinkTailUpdate = () => {
         modelViewTransformProperty.unlink( updateTailPosition );
       };
@@ -138,11 +137,12 @@ define( require => {
     dispose() {
 
       // dispose properties
-      this.isDraggingProperty.dispose();
       this.isBodyDraggingProperty.dispose();
       this.isTipDraggingProperty.dispose();
       this.isDraggingProperty.dispose();
+
       this.isInPlayAreaProperty.dispose();
+
       this.magnitudeProperty.dispose();
       this.angleDegreesProperty.dispose();
       this.xMagnitudeProperty.dispose();
@@ -161,9 +161,8 @@ define( require => {
      * @public
      */
     roundCartesianForm() {
-      this.attributesVectorProperty.set( this.attributesVectorProperty.value.roundSymmetric() );
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.roundSymmetric();
     }
-
 
     /**
      * round vector to have integer values in polar form, i.e.

@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for vectorial sum of all the vectors in observable array
+ * Model for vectorial sum of all the vectors in an observable array
  *
  * @author Martin Veillette
  */
@@ -10,15 +10,13 @@ define( require => {
 
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
 
   class VectorSum extends VectorModel {
-
     /**
-     * Create a model for the sum of vector
      * @constructor
      * @param {ObservableArray.<VectorModel>} vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
@@ -37,27 +35,24 @@ define( require => {
       options ) {
 
       options = _.extend( {
-        label: 's',
-        isTipDraggable: false
+        label: 's',// {string} - the label of the vector
+        isTipDraggable: true // {boolean} - can the tip be dragged
       }, options );
 
+      //----------------------------------------------------------------------------------------
 
-      // type check
+      // Type check arguments
       assert && assert( vectors instanceof ObservableArray 
         && vectors.filter( vector => ! ( vector instanceof VectorModel ) ).length === 0,
         `invalid vectors: ${vectors}` );
-      // modelViewTransformProperty checked in vectorModel
-      // componentStylesProperty checked in vectorModel
-      // vectorType checked in baseModel
       assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds ${graphModelBounds}` );
+      // The rest are checked in super classes
 
+      //----------------------------------------------------------------------------------------
 
       // get the position of where to put the vector initially
       const spawnPosition = new Vector2( graphModelBounds.centerX, graphModelBounds.centerY );
 
-      // options checked in vector model
-
-      // super( spawnPosition, 0, 0, modelViewTransformProperty, options );
       super( spawnPosition, 0, 0, modelViewTransformProperty, componentStylesProperty, vectorType, options );
 
       // isTipDraggingProperty shouldn't ever change for the sum
@@ -97,6 +92,10 @@ define( require => {
     }
     
     // No need to add a dispose for the new properties since the sum exists the entire sim
+    // @override
+    dispose() {
+      throw new Error( 'Vector Sums are never disposed' );
+    }
   }
 
   return vectorAddition.register( 'VectorSum', VectorSum );

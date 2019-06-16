@@ -6,7 +6,7 @@
  * 
  * - tip and tail position
  * - 'attributes property' (x and y, or in other words the actual vector <x, y>)
- * - label
+ * - label / vector type (one or two)
  *
  * @author Brandon Li
  */
@@ -25,9 +25,10 @@ define( require => {
     /**
      * @constructor
      * @param {Vector2} tailPosition
-     * @param {number} xMagnitude horizontal component of the vector
-     * @param {number} yMagnitude vertical component of the vector
+     * @param {number} xMagnitude - horizontal component of the vector
+     * @param {number} yMagnitude - vertical component of the vector
      * @param {string} label
+     * @param {VectorTypes} vectorType - the type of vector
      */
     constructor( tailPosition, xMagnitude, yMagnitude, label, vectorType ) {
 
@@ -38,11 +39,13 @@ define( require => {
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
       assert && assert( vectorType instanceof VectorTypes, `invalid vectorType: ${vectorType}` );
 
-    
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {string}
       this.label = label;
+
+      // @public (read-only) VectorTypes
+      this.vectorType = vectorType;
 
       // @public (read-only) {Vector2Property} - The tail position of the vector on the graph.
       this.tailPositionProperty = new Vector2Property( tailPosition );
@@ -54,9 +57,7 @@ define( require => {
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
         ( tailPosition, vector ) => tailPosition.plus( vector ) );
 
-      // @public (read-only) VectorTypes
-      this.vectorType = vectorType;
-
+      // Write access to these properties are found below
     }
     /**
      * Dispose of the vector
@@ -69,27 +70,27 @@ define( require => {
     }
      
     /*---------------------------------------------------------------------------*
-     * The Following are convenience Read/Write methods since most of the
-     * properties above are private.
+     * The Following are convenience Read/Write methods for ease of use.
      *---------------------------------------------------------------------------*/
 
+    //----------------------------------------------------------------------------------------
+    // Magnitude
     /**
-     * @public Convenience method to multiply the vector by a scalar. Keeps tail position and angle the same.
+     * @public Multiply the vector by a scalar. Keeps tail position and angle the same.
+     * @param {number} scalar
      */
     multiplyScalar( scalar ) {
       assert && assert ( typeof scalar === 'number', `invalid scalar: ${scalar}` );
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.multiplyScalar( scalar );
     }
-
-    //----------------------------------------------------------------------------------------
-    // Magnitude
     /**
      * @public read access to the magnitude
-     * @returns {Vector2}
+     * @returns {number}
      */
     get magnitude() { return this.attributesVectorProperty.magnitude; }
     /**
      * @public write access to the magnitude. This keeps the tail position and the angle constant.
+     * @param {number} magnitude
      */
     set magnitude( magnitude ) { 
       assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
@@ -106,6 +107,7 @@ define( require => {
     /**
      * @public convenience method to set to the x magnitude
      * Keeps the yMagnitude, tailPosition constant
+     * @param {number} magnitude
      */
     set xMagnitude( magnitude ) {
       assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
@@ -122,12 +124,12 @@ define( require => {
     /**
      * @public convenience method to set to the y magnitude
      * Keeps the xMagnitude, tailPosition constant
+     * @param {number} magnitude
      */
     set yMagnitude( magnitude ) {
       assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.setY( magnitude );
     }
-
 
     //----------------------------------------------------------------------------------------
     // Tail Position
@@ -138,7 +140,8 @@ define( require => {
     get tail() { return this.tailPositionProperty.value; }
     /**
      * @public Write access to tail position
-     * Sets the tail position (this will update the tip as well to keep magnitude/angle the same)
+     * Sets the tail position (magnitude/angle constant, tip position changes)
+     * @param
      */
     set tail( point ) { 
       assert && assert( point instanceof Vector2, `invalid point: ${point}` );
@@ -146,7 +149,7 @@ define( require => {
     }
     /**
      * @public Write access to tail position
-     * Sets the tail position (this will update the tip as well to keep magnitude/angle the same)
+     * Sets the tail position (magnitude/angle constant, tip position changes)
      */
     setTailXY( x, y ) { 
       this.tailX = x; // see documentation below
@@ -163,7 +166,8 @@ define( require => {
     get tailX() { return this.tailPositionProperty.value.x; }
     /**
      * @public Write access to tail x
-     * Sets the tail position (this will update the tip as well to keep magnitude/angle the same)
+     * @param {number} x
+     * Sets the tail position (magnitude/angle constant, tip position changes)
      */
     set tailX( x ) {
       assert && assert ( typeof x === 'number', `invalid x: ${x}` );
@@ -179,7 +183,8 @@ define( require => {
     get tailY() { return this.tailPositionProperty.value.y; }
     /**
      * @public Write access to tail Y
-     * Sets the tail position (this will update the tip as well to keep magnitude/angle the same)
+     * @param {number} y
+     * Sets the tail position (magnitude/angle constant, tip position changes)
      */
     set tailY( y ) {
       assert && assert ( typeof y === 'number', `invalid y: ${y}` );

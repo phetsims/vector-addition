@@ -41,19 +41,19 @@ define( require => {
         && componentStyleProperty.value instanceof ComponentStyles,
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
+     
+      //----------------------------------------------------------------------------------------
 
       super( parentVector.tailPositionProperty.value, 0, 0, label, parentVector.vectorType );
 
-
-      // @private observe changes to update component (abstract)
+      // @private observe changes of the parent to update component (abstract)
       this.updateLayoutMultilink = Property.multilink( [
           componentStyleProperty,
           parentVector.attributesVectorProperty,
           parentVector.tailPositionProperty
           // No need to listen to the modelViewTransformProperty since the parentVector will update its position when 
           // modelViewTransformProperty changes
-        ],
-        ( componentStyle, parentAttributesVector, parentTailPosition ) => {
+        ], ( componentStyle ) => {
           this.updateComponent( parentVector, componentStyle );
         }
       );
