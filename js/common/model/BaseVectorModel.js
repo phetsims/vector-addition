@@ -203,7 +203,8 @@ define( require => {
      */
     get tip() { return this.tipPositionProperty.value; }
     get tipX() { return this.tipPositionProperty.value.x; }
-    get tipY() { return this.tipPositionProperty.value.x; }
+
+    get tipY() { return this.tipPositionProperty.value.y; }
 
     //----------------------------------------------------------------------------------------
     // angle
