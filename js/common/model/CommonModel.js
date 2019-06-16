@@ -18,7 +18,7 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const Dimension2 = require( 'DOT/Dimension2' );  
+  const Dimension2 = require( 'DOT/Dimension2' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -51,9 +51,9 @@ define( require => {
         `invalid graphDimension: ${graphDimension}` );
       assert && assert( graphUpperLeftPosition instanceof Vector2,
         `invalid graphUpperLeftPosition: ${graphUpperLeftPosition}` );
-      assert && assert( typeof numberOfScenes === 'number' && numberOfScenes > 0, 
+      assert && assert( typeof numberOfScenes === 'number' && numberOfScenes > 0,
         `invalid numberOfScenes: ${numberOfScenes}` );
-      assert && assert( typeof numberOfVectorSets === 'number' && numberOfVectorSets > 0, 
+      assert && assert( typeof numberOfVectorSets === 'number' && numberOfVectorSets > 0,
         `invalid numberOfVectorSets: ${numberOfVectorSets}` );
 
 
@@ -77,8 +77,8 @@ define( require => {
 
 
       // @public {EnumerationProperty.<VectorOrientations>} - controls the orientation of the vectors
-      this.vectorOrientationProperty = new EnumerationProperty( 
-        VectorOrientations, 
+      this.vectorOrientationProperty = new EnumerationProperty(
+        VectorOrientations,
         VectorOrientations.TWO_DIMENSIONAL );
 
 
@@ -114,7 +114,7 @@ define( require => {
 
       // reset every scene in this.scenes
       this.forEachScene( ( scene ) => {
-        scene.reset(); 
+        scene.reset();
       } );
     }
 
@@ -138,9 +138,10 @@ define( require => {
       }
 
     }
+
     /**
      * Convenience method: Applies a callback function to iterate through each scene
-     * @param {function( <Scene> ) callback 
+     * @param {function( <Scene> )} callback
      * @public
      */
     forEachScene( callback ) {
