@@ -10,7 +10,6 @@ define( require => {
 
   // modules
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   class VectorSum extends VectorModel {
@@ -26,8 +25,8 @@ define( require => {
      */
     constructor( vectors, modelViewTransformProperty, graphModelBounds, options ) {
 
-      // get the position of where to put the vector initially
-      const spawnPosition = new Vector2( graphModelBounds.centerX, graphModelBounds.centerY );
+      // get the position of where to put the tail vector initially
+      const tailPosition = graphModelBounds.center;
 
       options = _.extend( {
         label: 's',
@@ -35,7 +34,7 @@ define( require => {
       }, options );
 
       // types checked in VectorModel
-      super( spawnPosition, 0, 0, modelViewTransformProperty, options );
+      super( tailPosition, 0, 0, modelViewTransformProperty, options );
 
       // isTipDraggingProperty shouldn't ever change
       // link exists for the lifetime of the simulation
