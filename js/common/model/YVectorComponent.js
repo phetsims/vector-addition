@@ -24,9 +24,9 @@ define( require => {
      */
     updateComponent( parentVector, componentStyle ) {
 
-      // In all cases, the yMagnitude is always matching the parent and the xMagnitude is 0
-      this.yMagnitude = parentVector.yMagnitude;
-      this.xMagnitude = 0;
+      // In all cases, the yComponent is always matching the parent and the xComponent is 0
+      this.yComponent = parentVector.yComponent;
+      this.xComponent = 0;
 
       switch( componentStyle ) {
         case ComponentStyles.TRIANGLE: {

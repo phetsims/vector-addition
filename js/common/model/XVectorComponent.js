@@ -24,9 +24,9 @@ define( require => {
      */
     updateComponent( parentVector, componentStyle ) {
 
-      // In all cases, the xMagnitude is always matching the parent and the yMagnitude is 0
-      this.xMagnitude = parentVector.xMagnitude;
-      this.yMagnitude = 0;
+      // In all cases, the xComponent is always matching the parent and the yComponent is 0
+      this.xComponent = parentVector.xComponent;
+      this.yComponent = 0;
       
       // switch case to update the tail position of the component based on component style
       switch( componentStyle ) {

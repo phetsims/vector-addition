@@ -25,17 +25,17 @@ define( require => {
     /**
      * @constructor
      * @param {Vector2} tailPosition
-     * @param {number} xMagnitude - horizontal component of the vector
-     * @param {number} yMagnitude - vertical component of the vector
+     * @param {number} xComponent - horizontal component of the vector
+     * @param {number} yComponent - vertical component of the vector
      * @param {string} label
      * @param {VectorTypes} vectorType - the type of vector
      */
-    constructor( tailPosition, xMagnitude, yMagnitude, label, vectorType ) {
+    constructor( tailPosition, xComponent, yComponent, label, vectorType ) {
 
       // Type check arguments
       assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
-      assert && assert( typeof xMagnitude === 'number', `invalid xMagnitude: ${xMagnitude}` );
-      assert && assert( typeof yMagnitude === 'number', `invalid yMagnitude: ${yMagnitude}` );
+      assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
+      assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
       assert && assert( vectorType instanceof VectorTypes, `invalid vectorType: ${vectorType}` );
 
@@ -51,7 +51,7 @@ define( require => {
       this.tailPositionProperty = new Vector2Property( tailPosition );
 
       // @public (read-only) {Vector2Property} - (x and y, or in other words the actual vector <x, y>)
-      this.attributesVectorProperty = new Vector2Property( new Vector2( xMagnitude, yMagnitude ) );
+      this.attributesVectorProperty = new Vector2Property( new Vector2( xComponent, yComponent ) );
 
       // @public (read-only) {DerivedProperty.<Vector2>} - the tip position of the vector
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
@@ -102,35 +102,35 @@ define( require => {
     }
 
     //----------------------------------------------------------------------------------------
-    // xMagnitude
+    // xComponent
     /**
      * @public convenience method to access to the x magnitude
      * @returns {number}
      */
-    get xMagnitude() { return this.attributesVectorProperty.value.x; }
+    get xComponent() { return this.attributesVectorProperty.value.x; }
     /**
      * @public convenience method to set to the x magnitude
-     * Keeps the yMagnitude, tailPosition constant
+     * Keeps the yComponent, tailPosition constant
      * @param {number} magnitude
      */
-    set xMagnitude( magnitude ) {
+    set xComponent( magnitude ) {
       assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.setX( magnitude );
     }
 
     //----------------------------------------------------------------------------------------
-    // yMagnitude
+    // yComponent
     /**
      * @public convenience method to access to the y magnitude
      * @returns {number}
      */
-    get yMagnitude() { return this.attributesVectorProperty.value.y; }
+    get yComponent() { return this.attributesVectorProperty.value.y; }
     /**
      * @public convenience method to set to the y magnitude
-     * Keeps the xMagnitude, tailPosition constant
+     * Keeps the xComponent, tailPosition constant
      * @param {number} magnitude
      */
-    set yMagnitude( magnitude ) {
+    set yComponent( magnitude ) {
       assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.setY( magnitude );
     }

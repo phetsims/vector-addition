@@ -32,8 +32,8 @@ define( require => {
      * Create a vector model
      * @constructor
      * @param {Vector2} tailPosition
-     * @param {number} xMagnitude horizontal component of the vector
-     * @param {number} yMagnitude vertical component of the vector
+     * @param {number} xComponent horizontal component of the vector
+     * @param {number} yComponent vertical component of the vector
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStylesProperty
      * @param {VectorTypes} vectorType - see VectorTypes.js for documentation
@@ -41,8 +41,8 @@ define( require => {
      */
     constructor( 
       tailPosition, 
-      xMagnitude, 
-      yMagnitude, 
+      xComponent, 
+      yComponent, 
       modelViewTransformProperty, 
       componentStylesProperty,
       vectorType, 
@@ -65,7 +65,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       
-      super( tailPosition, xMagnitude, yMagnitude, vectorType, options.label );
+      super( tailPosition, xComponent, yComponent, vectorType, options.label );
      
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
@@ -98,13 +98,13 @@ define( require => {
         attributesVector => ( Util.toDegrees( this.angle ) )
       );
 
-      // @public (read-only) {DerivedProperty.<number>} - the xMagnitude property
-      this.xMagnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( this.xMagnitude ) );
+      // @public (read-only) {DerivedProperty.<number>} - the xComponent property
+      this.xComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( this.xComponent ) );
 
-      // @public (read-only) {DerivedProperty.<number>} - the yMagnitude property
-      this.yMagnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( this.yMagnitude ) );
+      // @public (read-only) {DerivedProperty.<number>} - the yComponent property
+      this.yComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( this.yComponent ) );
 
       //----------------------------------------------------------------------------------------
 
@@ -145,8 +145,8 @@ define( require => {
 
       this.magnitudeProperty.dispose();
       this.angleDegreesProperty.dispose();
-      this.xMagnitudeProperty.dispose();
-      this.yMagnitudeProperty.dispose();
+      this.xComponentProperty.dispose();
+      this.yComponentProperty.dispose();
 
       this.unlinkTailUpdate();
 
