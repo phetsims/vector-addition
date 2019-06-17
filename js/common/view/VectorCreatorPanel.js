@@ -43,6 +43,7 @@ define( require => {
      * @param {number} numberOfVectorSlots - the number of slots to bring vectors onto the screen
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      * @param {Property.<ComponentStyles>} componentStyleProperty
+     * @param {VectorTypes} vectorType
      * @param {Object} [options] - the optional arguments for the vector panel
      */
     constructor( vectorArray, numberOfVectorSlots, modelViewTransformProperty, componentStyleProperty, vectorType, options ) {
