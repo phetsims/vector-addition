@@ -43,6 +43,7 @@ define( require => {
      * @param {ObservableArray.<VectorModel>} vectorArray1 - the observable array for vector1.
      * @param {ObservableArray.<VectorModel>} vectorArray2 - the observable array for vector2
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
+     * @param {Property.<ComponentStyles>} componentStyleProperty
      */
     constructor( vectorArray1, vectorArray2, modelViewTransformProperty, componentStyleProperty ) {
 
