@@ -25,12 +25,12 @@ define( require => {
      * @param {Object} [options]
      *
      */
-    constructor( 
-      vectors, 
-      modelViewTransformProperty, 
-      componentStyleProperty, 
-      vectorType, 
-      graphModelBounds, 
+    constructor(
+      vectors,
+      modelViewTransformProperty,
+      componentStyleProperty,
+      vectorType,
+      graphModelBounds,
       options ) {
 
       options = _.extend( {
@@ -42,18 +42,18 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Type check arguments
-      assert && assert( vectors instanceof ObservableArray 
-        && vectors.filter( vector => ! ( vector instanceof VectorModel ) ).length === 0,
+      assert && assert( vectors instanceof ObservableArray
+      && vectors.filter( vector => !( vector instanceof VectorModel ) ).length === 0,
         `invalid vectors: ${vectors}` );
       assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds ${graphModelBounds}` );
       // The rest are checked in super classes
 
       //----------------------------------------------------------------------------------------
 
-      // get the position of where to put the vector initially
-      const spawnPosition = graphModelBounds.center;
+      // {Vector2} initial position of the tail of the vector sum
+      const initialPosition = graphModelBounds.center;
 
-      super( spawnPosition, 0, 0, modelViewTransformProperty, componentStyleProperty, vectorType, options );
+      super( initialPosition, 0, 0, modelViewTransformProperty, componentStyleProperty, vectorType, options );
 
       // isTipDraggingProperty shouldn't ever change for the sum
       // link exists for the lifetime of the simulation
@@ -63,37 +63,47 @@ define( require => {
         }
       } );
 
-      // Function to update the sum Vector
-      const updateSum = ( attributesVector, oldAttributesVector ) =>
-        this.attributesVectorProperty.set( this.attributesVectorProperty.value
-          .plus( attributesVector )
-          .minus( oldAttributesVector ) );
+      // Function to update the sum Vector when a vector is added or modified.
+      const updateSum = ( attributesVector, oldAttributesVector ) => {
+
+        // add the current value of the new vector
+        this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( attributesVector ) );
+
+        // remove the old value of the vector to get the change in the vector.
+        if ( oldAttributesVector ) {
+          this.attributesVectorProperty.set( this.attributesVectorProperty.value.minus( oldAttributesVector ) );
+        }
+      };
+
 
       vectors.addItemAddedListener( ( addedVector ) => {
 
-        // calculate the sum when the vector is added
-        this.attributesVectorProperty.set(
-          this.attributesVectorProperty.value.plus( addedVector.attributesVectorProperty.value ) );
+        // calculate the sum when the vector is changed or added
+        addedVector.attributesVectorProperty.link( updateSum );
 
-        // calculate the sum when the vector is changed
-        addedVector.attributesVectorProperty.lazyLink( updateSum );
+        const removalListener = ( removedVector ) => {
+          if ( removedVector === addedVector ) {
+
+            // recalculate the sum when the vector is removed
+            this.attributesVectorProperty.set(
+              this.attributesVectorProperty.value.minus( removedVector.attributesVectorProperty.value )
+            );
+
+            // remove listener
+            removedVector.attributesVectorProperty.unlink( updateSum );
+
+            vectors.removeItemRemovedListener( removalListener );
+          }
+        };
+
+        vectors.addItemRemovedListener( removalListener );
       } );
-
-      vectors.addItemRemovedListener( ( removedVector ) => {
-
-        // calculate the sum when the vector is removed
-        this.attributesVectorProperty.set( this.attributesVectorProperty.value.minus( removedVector.attributesVectorProperty.value ) );
-
-        // remove listener
-        removedVector.attributesVectorProperty.unlink( updateSum );
-      } );
-      // No need to remove the vector add/remove listeners because the sum exists throughout the entirety of the sim.
     }
-    
+
     // No need to add a dispose for the new properties since the sum exists the entire sim
     // @override
     dispose() {
-      throw new Error( 'Vector Sums are never disposed' );
+      throw new Error( 'Vector Sum is never disposed' );
     }
   }
 
