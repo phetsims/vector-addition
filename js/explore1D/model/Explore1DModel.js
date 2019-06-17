@@ -37,7 +37,7 @@ define( require => {
 
       super( graphDimension, graphUpperLeftPosition, NUMBER_OF_SCENES, NUMBER_OF_VECTOR_SETS, tandem );
 
-      this.vectorOrientationProperty.set( EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION );
+      this.vectorOrientationProperty.value = EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION;
     }
 
     /**
@@ -56,7 +56,7 @@ define( require => {
 
       // Possible orientations for this screen, order of this array doesn't matter since the visibility is toggled
       const orientations = [ VectorOrientations.HORIZONTAL, VectorOrientations.VERTICAL ];
-      
+
       for ( let i = 0; i < numberOfScenes; i++ ) {
 
         const newScene = new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, this.componentStyleProperty, VectorTypes.ONE, {

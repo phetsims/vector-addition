@@ -67,11 +67,11 @@ define( require => {
       const updateSum = ( attributesVector, oldAttributesVector ) => {
 
         // add the current value of the new vector
-        this.attributesVectorProperty.set( this.attributesVectorProperty.value.plus( attributesVector ) );
+        this.attributesVectorProperty.value = this.attributesVectorProperty.value.plus( attributesVector );
 
         // remove the old value of the vector to get the change in the vector.
         if ( oldAttributesVector ) {
-          this.attributesVectorProperty.set( this.attributesVectorProperty.value.minus( oldAttributesVector ) );
+          this.attributesVectorProperty.value = this.attributesVectorProperty.value.minus( oldAttributesVector );
         }
       };
 
@@ -85,9 +85,8 @@ define( require => {
           if ( removedVector === addedVector ) {
 
             // recalculate the sum when the vector is removed
-            this.attributesVectorProperty.set(
-              this.attributesVectorProperty.value.minus( removedVector.attributesVectorProperty.value )
-            );
+            this.attributesVectorProperty.value =
+              this.attributesVectorProperty.value.minus( removedVector.attributesVectorProperty.value );
 
             // remove listener
             removedVector.attributesVectorProperty.unlink( updateSum );
