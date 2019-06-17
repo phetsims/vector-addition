@@ -19,6 +19,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   class BaseVectorModel {
     /**
@@ -27,7 +28,7 @@ define( require => {
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
      * @param {string} label
-     * @param {Enumeration Value} vectorType - the type of vector
+     * @param {VectorTypes} vectorType - the type of vector
      */
     constructor( tailPosition, xComponent, yComponent, label, vectorType ) {
 
@@ -36,13 +37,14 @@ define( require => {
       assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
       assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
-
+      assert && assert( VectorTypes.includes( vectorType ), `invalid vectorType: ${vectorType}` );
+      
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {string}
       this.label = label;
 
-      // @public (read-only) VectorTypes
+      // @public (read-only) {VectorTypes}
       this.vectorType = vectorType;
 
       // @public (read-only) {Vector2Property} - The tail position of the vector on the graph.
@@ -77,16 +79,25 @@ define( require => {
      * @public
      * @returns {Vector2} - the attributes vector
      */
-    get components() {
-      return this.attributesVectorProperty.value;
+    get components() { return this.attributesVectorProperty.value; }
+    
+    //----------------------------------------------------------------------------------------
+    // Magnitude
+    /**
+     * Multiply the vector by a scalar. Keeps tail position and angle the same.
+     * @public
+     * @param {number} scalar
+     */
+    multiplyScalar( scalar ) {
+      assert && assert( typeof scalar === 'number', `invalid scalar: ${scalar}` );
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.timesScalar( scalar );
     }
-
     /**
      * get the magnitude of the vector
      * @public
      * @returns {number}
      */
-    get magnitude() {  return this.attributesVectorProperty.value.magnitude; }
+    get magnitude() { return this.attributesVectorProperty.value.magnitude; }
 
     /**
      * set the magnitude of the vector. This keeps the tail position and the angle constant.
@@ -98,6 +109,7 @@ define( require => {
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.setMagnitude( magnitude );
     }
 
+    //----------------------------------------------------------------------------------------
     // yComponent
     /**
      * convenience method to access the y magnitude
@@ -105,6 +117,15 @@ define( require => {
      * @returns {number}
      */
     get yComponent() { return this.attributesVectorProperty.value.y; }
+    /**
+     * @public convenience method to set to the y component
+     * Keeps the xComponent, tailPosition constant
+     * @param {number} component
+     */
+    set yComponent( component ) {
+      assert && assert ( typeof component === 'number', `invalid component: ${component}` );
+      this.attributesVectorProperty.value.y = component;
+    }
 
     //----------------------------------------------------------------------------------------
     // xComponent
@@ -121,25 +142,6 @@ define( require => {
     set xComponent( component ) {
       assert && assert ( typeof component === 'number', `invalid component: ${component}` );
       this.attributesVectorProperty.value.x = component;
-    }
-
-    //----------------------------------------------------------------------------------------
-
-    // Tail Y Position
-    /**
-     * Getter for the y component of the tail position
-     * @public
-     * @returns {number}
-     */
-    get tailY() { return this.tailPositionProperty.value.y; }
-    /**
-     * @public convenience method to set to the y component
-     * Keeps the xComponent, tailPosition constant
-     * @param {number} component
-     */
-    set yComponent( component ) {
-      assert && assert ( typeof component === 'number', `invalid component: ${component}` );
-      this.attributesVectorProperty.value.y = component;
     }
 
     //----------------------------------------------------------------------------------------
@@ -187,17 +189,22 @@ define( require => {
     }
 
     //----------------------------------------------------------------------------------------
-
+    // Tail Y Position
     /**
-     * Setter for the y position of the tail. Wil translate the vector to the new position.
+     * Getter for the y component of the tail position
+     * @public
+     * @returns {number}
+     */
+    get tailY() { return this.tailPositionProperty.value.y; }
+    /**
+     * Setter for the y position of the tail. Will translate the vector to the new position.
      * @public
      * @param {number} y
-     *
      */
     set tailY( y ) {
       this.setTailXY( this.tailPositionProperty.value.x, y );
     }
-
+    //----------------------------------------------------------------------------------------
     // Tip Position
     /**
      * Getters for tip position and components
@@ -206,8 +213,11 @@ define( require => {
      */
     get tip() { return this.tipPositionProperty.value; }
 
-    //----------------------------------------------------------------------------------------
+    get tipX() { return this.tipPositionProperty.value.x; }
 
+    get tipY() { return this.tipPositionProperty.value.y; }
+
+    //----------------------------------------------------------------------------------------
     // angle
     /**
      * Returns the angle in radians of the vector between $\theta\in(-\pi,\pi]$
@@ -216,22 +226,6 @@ define( require => {
      */
     get angle() { return this.attributesVectorProperty.value.angle; }
 
-    get tipX() { return this.tipPositionProperty.value.x; }
-
-    get tipY() { return this.tipPositionProperty.value.y; }
-
-    //----------------------------------------------------------------------------------------
-
-    // Magnitude
-    /**
-     * Multiply the vector by a scalar. Keeps tail position and angle the same.
-     * @public
-     * @param {number} scalar
-     */
-    multiplyScalar( scalar ) {
-      assert && assert( typeof scalar === 'number', `invalid scalar: ${scalar}` );
-      this.attributesVectorProperty.value = this.attributesVectorProperty.value.timesScalar( scalar );
-    }
   }
 
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );
