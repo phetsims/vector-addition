@@ -9,9 +9,9 @@ define( require => {
   'use strict';
 
   // modules
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants

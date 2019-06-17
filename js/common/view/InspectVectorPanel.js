@@ -41,8 +41,8 @@ define( require => {
   const INSPECT_VECTOR_TEXT_LEFT_MARGIN = 10;
 
   // strings
-  const selectAVectorString = require( 'string!VECTOR_ADDITION/selectAVector' );
   const inspectAVectorString = require( 'string!VECTOR_ADDITION/inspectAVector' );
+  const selectAVectorString = require( 'string!VECTOR_ADDITION/selectAVector' );
   const xString = require( 'string!VECTOR_ADDITION/x' );
   const yString = require( 'string!VECTOR_ADDITION/y' );
 

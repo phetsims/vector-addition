@@ -12,15 +12,15 @@ define( function( require ) {
   const ArcArrowNode = require( 'VECTOR_ADDITION/common/view/ArcArrowNode' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const Node = require( 'SCENERY/nodes/Node' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   //----------------------------------------------------------------------------------------
   // constants

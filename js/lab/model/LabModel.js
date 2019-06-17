@@ -11,10 +11,10 @@ define( require => {
   // modules
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const Dimension2 = require( 'DOT/Dimension2' );
-  const Vector2 = require( 'DOT/Vector2' );
   const Property = require( 'AXON/Property' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   const NUMBER_OF_SCENES = 1;
   const NUMBER_OF_VECTOR_SETS = 2;

@@ -23,9 +23,9 @@ define( require => {
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
 
