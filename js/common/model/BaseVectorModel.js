@@ -72,14 +72,13 @@ define( require => {
      *---------------------------------------------------------------------------*/
 
     //----------------------------------------------------------------------------------------
-    // Magnitude
     /**
-     * @public Multiply the vector by a scalar. Keeps tail position and angle the same.
-     * @param {number} scalar
+     * Get the components
+     * @public
+     * @returns {Vector2} - the attributes vector
      */
-    multiplyScalar( scalar ) {
-      assert && assert ( typeof scalar === 'number', `invalid scalar: ${scalar}` );
-      this.attributesVectorProperty.value = this.attributesVectorProperty.value.multiplyScalar( scalar );
+    get components() {
+      return this.attributesVectorProperty.value;
     }
 
     /**
@@ -99,13 +98,13 @@ define( require => {
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.setMagnitude( magnitude );
     }
 
+    // yComponent
     /**
-     * Get the components
-     * @returns {Vector2} - the attributes vector
+     * convenience method to access the y magnitude
+     * @public
+     * @returns {number}
      */
-    get components() {
-      return this.attributesVectorProperty.value;
-    }
+    get yComponent() { return this.attributesVectorProperty.value.y; }
 
     //----------------------------------------------------------------------------------------
     // xComponent
@@ -125,12 +124,14 @@ define( require => {
     }
 
     //----------------------------------------------------------------------------------------
-    // yComponent
+
+    // Tail Y Position
     /**
-     * @public convenience method to access to the y magnitude
+     * Getter for the y component of the tail position
+     * @public
      * @returns {number}
      */
-    get yComponent() { return this.attributesVectorProperty.value.y; }
+    get tailY() { return this.tailPositionProperty.value.y; }
     /**
      * @public convenience method to set to the y component
      * Keeps the xComponent, tailPosition constant
@@ -186,39 +187,51 @@ define( require => {
     }
 
     //----------------------------------------------------------------------------------------
-    // Tail Y Position
+
     /**
-     * @public Read access to tail Y
-     * @returns {number}
-     */
-    get tailY() { return this.tailPositionProperty.value.y; }
-    /**
-     * @public Write access to tail Y
+     * Setter for the y position of the tail. Wil translate the vector to the new position.
+     * @public
      * @param {number} y
-     * Sets the tail position (magnitude/angle constant, tip position changes)
+     *
      */
     set tailY( y ) {
       this.setTailXY( this.tailPositionProperty.value.x, y );
     }
 
-    //----------------------------------------------------------------------------------------
     // Tip Position
     /**
-     * @public Read access to tip position
+     * Getters for tip position and components
+     * @public
      * @returns {Vector2}
      */
     get tip() { return this.tipPositionProperty.value; }
+
+    //----------------------------------------------------------------------------------------
+
+    // angle
+    /**
+     * Returns the angle in radians of the vector between $\theta\in(-\pi,\pi]$
+     * @public
+     * @returns {number}
+     */
+    get angle() { return this.attributesVectorProperty.value.angle; }
+
     get tipX() { return this.tipPositionProperty.value.x; }
 
     get tipY() { return this.tipPositionProperty.value.y; }
 
     //----------------------------------------------------------------------------------------
-    // angle
+
+    // Magnitude
     /**
-     * @public Read access to the angle
-     * @returns {number}
+     * Multiply the vector by a scalar. Keeps tail position and angle the same.
+     * @public
+     * @param {number} scalar
      */
-    get angle() { return this.attributesVectorProperty.value.angle; }
+    multiplyScalar( scalar ) {
+      assert && assert( typeof scalar === 'number', `invalid scalar: ${scalar}` );
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.timesScalar( scalar );
+    }
   }
 
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );

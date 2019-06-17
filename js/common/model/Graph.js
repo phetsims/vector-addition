@@ -34,7 +34,7 @@ define( require => {
      * @constructor
      * @param {Dimension2} graphDimension - the dimensions for the graph (width and height)
      * @param {Vector2} upperLeftPosition - the coordinate of the upperLeft corner of the graph.
-     * @param {object} [options]
+     * @param {Object} [options]
      * @public
      */
     constructor( graphDimension, upperLeftPosition, options ) {

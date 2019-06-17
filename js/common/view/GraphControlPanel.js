@@ -17,9 +17,9 @@ define( require => {
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );

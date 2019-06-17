@@ -17,8 +17,8 @@ define( require => {
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  const Node = require( 'SCENERY/nodes/Node' );
   const Multilink = require( 'AXON/Multilink' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   class BaseVectorNode extends Node {
