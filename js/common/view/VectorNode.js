@@ -9,7 +9,7 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVectorNode = require ( 'VECTOR_ADDITION/common/view/BaseVectorNode' );
+  const BaseVectorNode = require( 'VECTOR_ADDITION/common/view/BaseVectorNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
@@ -20,7 +20,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
-  const VectorModel = require ( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
@@ -47,7 +47,7 @@ define( require => {
      * between model coordinates and view coordinates
      * @param  {Object} [arrowOptions]
      */
-    constructor( vectorModel, 
+    constructor( vectorModel,
                  graphModelBounds,
                  componentStyleProperty,
                  angleVisibleProperty,
@@ -74,11 +74,11 @@ define( require => {
           break;
         }
         case VectorTypes.TWO: {
-          arrowOptions = _.extend(  _.clone( VECTOR_GROUP_2 ), arrowOptions );
+          arrowOptions = _.extend( _.clone( VECTOR_GROUP_2 ), arrowOptions );
           break;
         }
         default: {
-          throw new Error( `Vector Type : ${ vectorModel.vectorType } not handled` );
+          throw new Error( `Vector Type : ${vectorModel.vectorType} not handled` );
         }
       }
       super( vectorModel, modelViewTransformProperty, arrowOptions );
@@ -90,9 +90,12 @@ define( require => {
 
       // @public (read-only) {VectorComponentNode}
       this.xComponentNode = new VectorComponentNode( vectorModel.xVectorComponent, modelViewTransformProperty, componentStyleProperty );
+
       this.addChild( this.xComponentNode );
 
+      // @public (read-only) {VectorComponentNode}
       this.yComponentNode = new VectorComponentNode( vectorModel.yVectorComponent, modelViewTransformProperty, componentStyleProperty );
+
       this.addChild( this.yComponentNode );
 
       this.arrowNode.moveToFront();
@@ -100,13 +103,14 @@ define( require => {
       this.angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, modelViewTransformProperty.value );
       this.addChild( this.angleNode );
 
-      // @public (read-only) {node} Create a circle at the tip of the vector. This is used to allow the user to only 
+      // @public (read-only) {Node} Create a circle at the tip of the vector. This is used to allow the user to only
       // change the angle of the arrowNode by only dragging the tip
       this.tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
+
       this.addChild( this.tipCircle );
 
       //----------------------------------------------------------------------------------------
-      // @private {Property.<ModelViewTransform>}
+      // @private {Property.<ModelViewTransform2>}
       this.modelViewTransformProperty = modelViewTransformProperty;
 
       // @private {VectorOrientations}
@@ -172,6 +176,11 @@ define( require => {
         tipLocationProperty.link( tipListener );
 
         this.tipCircle.addInputListener( tipDragListener );
+
+        this.disposeTipDrag = () => {
+          this.tipCircle.removeInputListener( tipDragListener );
+          tipLocationProperty.unlink( tipListener );
+        };
       }
 
 
@@ -184,17 +193,28 @@ define( require => {
       vectorModel.attributesVectorProperty.link( updateTip );
 
       // Create a method to dispose children
-      // this.disposeChildren = () => {
-      //   vectorComponentsNode.dispose();
-      //   vectorAngleNode.dispose();
-      //   tailLocationProperty.unlink( tailListener );
-      //   vectorModel.attributesVectorProperty.unlink( attributesVectorListener );
-      //   this.arrowNode.removeInputListener( bodyDragListener );
-      //   arrowNode.dispose();
-      //   this.tipCircle.dispose();
-      //   labelNode.dispose();
-      // };
+      this.disposeChildren = () => {
+        if ( vectorModel.isTipDraggable ) {
+          this.disposeTipDrag();
+        }
 
+        this.xComponentNode.dispose();
+        this.yComponentNode.dispose();
+        this.angleNode.dispose();
+        tailLocationProperty.unlink( tailListener );
+        vectorModel.attributesVectorProperty.unlink( updateTip );
+        this.arrowNode.removeInputListener( bodyDragListener );
+        this.tipCircle.dispose();
+      };
+
+    }
+
+    /**
+     * Dispose the vector
+     */
+    dispose() {
+      this.disposeChildren();
+      super.dispose();
     }
 
     /**
@@ -233,12 +253,7 @@ define( require => {
       this.vectorModel.tail = tailPosition.roundedSymmetric();
     }
 
-    /**
-     * Dispose the vector
-     */
-    dispose() {
-      super.dispose();
-    }
+
   }
 
   return vectorAddition.register( 'VectorNode', VectorNode );
