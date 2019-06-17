@@ -126,14 +126,14 @@ define( require => {
 
           const xComponentText = new RichText( `${vectorModel.label}<sub>${xString}</sub>` );
           const xComponentDisplay = new NumberDisplay(
-            vectorModel.xProperty,
+            vectorModel.xComponentProperty,
             new Range( -60, 60 ),
             { decimalPlaces: 0 }
           );
 
           const yComponentText = new RichText( `${vectorModel.label}<sub>${yString}</sub>` );
           const yComponentDisplay = new NumberDisplay(
-            vectorModel.yProperty,
+            vectorModel.yComponentProperty,
             new Range( -40, 40 ),
             { decimalPlaces: 0 }
           );

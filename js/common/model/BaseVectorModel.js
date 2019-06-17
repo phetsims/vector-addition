@@ -19,7 +19,6 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   class BaseVectorModel {
     /**
@@ -28,7 +27,7 @@ define( require => {
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
      * @param {string} label
-     * @param {VectorTypes} vectorType - the type of vector
+     * @param {Enumeration Value} vectorType - the type of vector
      */
     constructor( tailPosition, xComponent, yComponent, label, vectorType ) {
 
@@ -37,7 +36,6 @@ define( require => {
       assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
       assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
-      assert && assert( vectorType instanceof VectorTypes, `invalid vectorType: ${vectorType}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -89,7 +87,7 @@ define( require => {
      * @public
      * @returns {number}
      */
-    get magnitude() { return this.attributesVectorProperty.magnitude; }
+    get magnitude() {  return this.attributesVectorProperty.value.magnitude; }
 
     /**
      * set the magnitude of the vector. This keeps the tail position and the angle constant.
@@ -101,6 +99,14 @@ define( require => {
       this.attributesVectorProperty.value = this.attributesVectorProperty.value.setMagnitude( magnitude );
     }
 
+    /**
+     * Get the components
+     * @returns {Vector2} - the attributes vector
+     */
+    get components() {
+      return this.attributesVectorProperty.value;
+    }
+
     //----------------------------------------------------------------------------------------
     // xComponent
     /**
@@ -109,13 +115,13 @@ define( require => {
      */
     get xComponent() { return this.attributesVectorProperty.value.x; }
     /**
-     * @public convenience method to set to the x magnitude
+     * @public convenience method to set to the x component
      * Keeps the yComponent, tailPosition constant
-     * @param {number} magnitude
+     * @param {number} component
      */
-    set xComponent( magnitude ) {
-      assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
-      this.attributesVectorProperty.value = this.attributesVectorProperty.value.setX( magnitude );
+    set xComponent( component ) {
+      assert && assert ( typeof component === 'number', `invalid component: ${component}` );
+      this.attributesVectorProperty.value.x = component;
     }
 
     //----------------------------------------------------------------------------------------
@@ -126,13 +132,13 @@ define( require => {
      */
     get yComponent() { return this.attributesVectorProperty.value.y; }
     /**
-     * @public convenience method to set to the y magnitude
+     * @public convenience method to set to the y component
      * Keeps the xComponent, tailPosition constant
-     * @param {number} magnitude
+     * @param {number} component
      */
-    set yComponent( magnitude ) {
-      assert && assert ( typeof magnitude === 'number', `invalid magnitude: ${magnitude}` );
-      this.attributesVectorProperty.value = this.attributesVectorProperty.value.setY( magnitude );
+    set yComponent( component ) {
+      assert && assert ( typeof component === 'number', `invalid component: ${component}` );
+      this.attributesVectorProperty.value.y = component;
     }
 
     //----------------------------------------------------------------------------------------
@@ -149,15 +155,17 @@ define( require => {
      */
     set tail( position ) {
       assert && assert( position instanceof Vector2, `invalid position: ${position}` );
-      this.tailPositionProperty.value = position;
+      this.setTailXY( position.x, position.y );
     }
     /**
      * @public Write access to tail position
      * Sets the tail position (magnitude/angle constant, tip position changes)
      */
     setTailXY( x, y ) { 
-      this.tailX = x; // see documentation below
-      this.tailY = y; // see documentation below
+      assert && assert ( typeof x === 'number', `invalid x: ${x}` );
+      assert && assert ( typeof y === 'number', `invalid y: ${y}` );
+
+      this.tailPositionProperty.value = new Vector2( x, y );
     }
 
 
@@ -174,8 +182,7 @@ define( require => {
      * Sets the tail position (magnitude/angle constant, tip position changes)
      */
     set tailX( x ) {
-      assert && assert ( typeof x === 'number', `invalid x: ${x}` );
-      this.tailPositionProperty.value = this.tailPositionProperty.value.setX( x );
+      this.setTailXY( x, this.tailPositionProperty.value.y );
     }
 
     //----------------------------------------------------------------------------------------
@@ -191,8 +198,7 @@ define( require => {
      * Sets the tail position (magnitude/angle constant, tip position changes)
      */
     set tailY( y ) {
-      assert && assert ( typeof y === 'number', `invalid y: ${y}` );
-      this.tailPositionProperty.value = this.tailPositionProperty.value.setY( y );
+      this.setTailXY( this.tailPositionProperty.value.x, y );
     }
 
     //----------------------------------------------------------------------------------------

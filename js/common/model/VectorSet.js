@@ -22,9 +22,10 @@ define( require => {
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the view/model coordinate
      * transform of the graph
      * @param {Bounds2} graphModelBounds - the graph bounds (model coordinates)
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {object} [options]
      */
-    constructor( modelViewTransformProperty, graphModelBounds, options ) {
+    constructor( modelViewTransformProperty, graphModelBounds, componentStyleProperty, options ) {
 
       options = _.extend( {
         vectorType: VectorTypes.ONE
@@ -34,7 +35,7 @@ define( require => {
       this.vectors = new ObservableArray();
 
       // @public {VectorModel} the vector sum model
-      this.vectorSum = new VectorSum( this.vectors, modelViewTransformProperty, graphModelBounds );
+      this.vectorSum = new VectorSum( this.vectors, modelViewTransformProperty, componentStyleProperty, options.vectorType, graphModelBounds );
 
       // @public {VectorTypes}
       this.vectorType = options.vectorType;

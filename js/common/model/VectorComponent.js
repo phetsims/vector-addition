@@ -19,11 +19,9 @@ define( require => {
 
   // modules
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
-  const ComponentStyles = require ( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' ); 
   const Property = require( 'AXON/Property' );  
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorModel = require ( 'VECTOR_ADDITION/common/model/VectorModel' );
 
   // @abstract
   class VectorComponent extends BaseVectorModel {
@@ -36,9 +34,7 @@ define( require => {
     constructor( parentVector, componentStyleProperty, label ) {
 
       // Type check arguments
-      assert && assert( parentVector instanceof VectorModel, `invalid parentVector: ${parentVector}` );
-      assert && assert ( componentStyleProperty instanceof EnumerationProperty
-        && componentStyleProperty.value instanceof ComponentStyles,
+      assert && assert ( componentStyleProperty instanceof EnumerationProperty,
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
      
@@ -57,6 +53,9 @@ define( require => {
           this.updateComponent( parentVector, componentStyle );
         }
       );
+
+      // @public (read-only) reference to the parent vector
+      this.parentVector = parentVector;
     }
     /**
      * Dispose of the vector

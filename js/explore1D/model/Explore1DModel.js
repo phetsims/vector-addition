@@ -55,10 +55,10 @@ define( require => {
 
       // Possible orientations for this screen, order of this array doesn't matter since the visibility is toggled
       const orientations = [ VectorOrientations.HORIZONTAL, VectorOrientations.VERTICAL ];
-
+      
       for ( let i = 0; i < numberOfScenes; i++ ) {
 
-        const newScene = new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, {
+        const newScene = new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, this.componentStyleProperty, {
           graphOptions: {
             orientation: orientations[ i ]
           }

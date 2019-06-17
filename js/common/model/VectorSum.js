@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for vectorial sum of all the vectors in observable array
+ * Model for vectorial sum of all the vectors in an observable array
  *
  * @author Martin Veillette
  */
@@ -9,41 +9,59 @@ define( require => {
   'use strict';
 
   // modules
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const ObservableArray = require( 'AXON/ObservableArray' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
 
   class VectorSum extends VectorModel {
-
     /**
-     * Create a model for the sum of vector
      * @constructor
      * @param {ObservableArray.<VectorModel>} vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {VectorTypes} vectorType
      * @param {Bounds2} graphModelBounds
      * @param {Object} [options]
      *
      */
-    constructor( vectors, modelViewTransformProperty, graphModelBounds, options ) {
-
-      // get the position of where to put the tail vector initially
-      const tailPosition = graphModelBounds.center;
+    constructor( 
+      vectors, 
+      modelViewTransformProperty, 
+      componentStyleProperty, 
+      vectorType, 
+      graphModelBounds, 
+      options ) {
 
       options = _.extend( {
-        label: 's',
-        isTipDraggable: false
+        label: 's',// {string} - the label of the vector
+        isTipDraggable: false // {boolean} - can the tip be dragged
       }, options );
 
-      // types checked in VectorModel
-      super( tailPosition, 0, 0, modelViewTransformProperty, options );
 
-      // isTipDraggingProperty shouldn't ever change
+      //----------------------------------------------------------------------------------------
+
+      // Type check arguments
+      assert && assert( vectors instanceof ObservableArray 
+        && vectors.filter( vector => ! ( vector instanceof VectorModel ) ).length === 0,
+        `invalid vectors: ${vectors}` );
+      assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds ${graphModelBounds}` );
+      // The rest are checked in super classes
+
+      //----------------------------------------------------------------------------------------
+
+      // get the position of where to put the vector initially
+      const spawnPosition = graphModelBounds.center;
+
+      super( spawnPosition, 0, 0, modelViewTransformProperty, componentStyleProperty, vectorType, options );
+
+      // isTipDraggingProperty shouldn't ever change for the sum
       // link exists for the lifetime of the simulation
       this.isTipDraggingProperty.link( isTipDragging => {
         if ( isTipDragging ) {
           throw new Error( 'the tip of the sum vector should not be draggable' );
         }
       } );
-
 
       // Function to update the sum Vector
       const updateSum = ( attributesVector, oldAttributesVector ) =>
@@ -70,6 +88,12 @@ define( require => {
         removedVector.attributesVectorProperty.unlink( updateSum );
       } );
       // No need to remove the vector add/remove listeners because the sum exists throughout the entirety of the sim.
+    }
+    
+    // No need to add a dispose for the new properties since the sum exists the entire sim
+    // @override
+    dispose() {
+      throw new Error( 'Vector Sums are never disposed' );
     }
   }
 

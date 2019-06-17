@@ -15,7 +15,6 @@ define( require => {
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
   class Explore1DScreenView extends CommonScreenView {
@@ -26,9 +25,7 @@ define( require => {
      */
     constructor( explore1DModel, tandem ) {
 
-      super( explore1DModel, tandem, _, {
-        vectorTypes: [ VectorAdditionConstants.VECTOR_TYPES.ONE, VectorAdditionConstants.VECTOR_TYPES.TWO ]
-      } );
+      super( explore1DModel, tandem );
 
       // function to the sceneNode based on orientation
       const getSceneNode = ( orientation ) => {
@@ -54,7 +51,8 @@ define( require => {
         horizontalScene.vectorSets[ 0 ].vectors, //TODO: find a better way than index 0, we can index 0 right now since there is only 1 vector set per scene for 1d
         horizontalScene.graph.modelViewTransformProperty,
         verticalScene.vectorSets[ 0 ].vectors,
-        verticalScene.graph.modelViewTransformProperty );
+        verticalScene.graph.modelViewTransformProperty,
+        explore1DModel.componentStyleProperty );
 
       // create the vector panels
       const horizontalVectorCreatorPanel = explore1DVectorCreatorPanels.horizontalVectorCreatorPanel;

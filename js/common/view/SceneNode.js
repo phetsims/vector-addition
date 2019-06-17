@@ -16,6 +16,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
+  const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
 
   // constants
   const VECTOR_DISPLAY_PANEL_LOCATION_LEFT = VectorAdditionConstants.VECTOR_DISPLAY_PANEL_LOCATION.left;
@@ -54,6 +55,18 @@ define( require => {
 
       scene.vectorSets.forEach( ( vectorSet ) => {
 
+        // create a scenery node for the sum vector
+        const vectorSumNode = new VectorSumNode(
+          vectorSet.vectorSum,
+          scene.graph.graphModelBounds,
+          model.componentStyleProperty,
+          model.angleVisibleProperty,
+          model.vectorOrientationProperty.value,
+          scene.graph.modelViewTransformProperty,
+        );
+        vectorSumLayer.addChild( vectorSumNode );
+
+
         // on the vector set, add a listener to the vectors attribute to add the vector to the scene
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           const vectorNode = new VectorNode(
@@ -63,8 +76,8 @@ define( require => {
             model.angleVisibleProperty,
             model.vectorOrientationProperty.value,
             scene.graph.modelViewTransformProperty,
-            vectorSet.vectorType
           );
+
           vectorLayer.addChild( vectorNode );
 
           // Add the removal listener in case this vector is removed.
@@ -83,20 +96,6 @@ define( require => {
           // link removalListener to the provided ObservableArray
           vectorSet.vectors.addItemRemovedListener( removalListener );
         } );
-
-        // create a scenery node for the sum vector
-        const vectorSumNode = new VectorNode(
-          vectorSet.vectorSum,
-          scene.graph.graphModelBounds,
-          model.componentStyleProperty,
-          model.angleVisibleProperty,
-          model.vectorOrientationProperty.value,
-          scene.graph.modelViewTransformProperty,
-          vectorSet.vectorType, {
-            isSum: true
-          }
-        );
-        vectorSumLayer.addChild( vectorSumNode );
 
         // link the visibility of the Vector Sum node with the status of the checkbox
         model.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );

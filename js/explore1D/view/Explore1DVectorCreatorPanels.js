@@ -37,13 +37,14 @@ define( require => {
     constructor( horizontalVectors,
                  horizontalModelViewTransformProperty,
                  verticalVectors,
-                 verticalModelViewTransformProperty ) {
+                 verticalModelViewTransformProperty,
+                 componentStyleProperty ) {
 
       this.horizontalVectorCreatorPanel = new HorizontalVectorCreatorPanel( horizontalVectors,
-        horizontalModelViewTransformProperty );
+        horizontalModelViewTransformProperty, componentStyleProperty );
 
       this.verticalVectorCreatorPanel = new VerticalVectorCreatorPanel( verticalVectors,
-        verticalModelViewTransformProperty );
+        verticalModelViewTransformProperty, componentStyleProperty );
     }
 
   }
@@ -55,9 +56,9 @@ define( require => {
      * @param {ObservableArray.<VectorModel>} vectors - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
-    constructor( vectors, modelViewTransformProperty ) {
+    constructor( vectors, modelViewTransformProperty, componentStyleProperty ) {
 
-      super( vectors, 3, modelViewTransformProperty, {
+      super( vectors, 3, modelViewTransformProperty, componentStyleProperty, {
         labels: [ 'a', 'b', 'c' ],
         panelOptions: PANEL_OPTIONS
       } );
@@ -78,9 +79,9 @@ define( require => {
      * @param {ObservableArray.<VectorModel>} vectors - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
-    constructor( vectors, modelViewTransformProperty ) {
+    constructor( vectors, modelViewTransformProperty, componentStyleProperty ) {
 
-      super( vectors, 3, modelViewTransformProperty, {
+      super( vectors, 3, modelViewTransformProperty, componentStyleProperty, {
         labels: [ 'd', 'e', 'f' ],
         panelOptions: PANEL_OPTIONS
       } );

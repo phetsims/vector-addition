@@ -15,7 +15,6 @@ define( function( require ) {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Vector2 = require( 'DOT/Vector2' );
-  const Enumeration = require( 'PHET_CORE/Enumeration' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
@@ -46,7 +45,6 @@ define( function( require ) {
 
   const VectorAdditionConstants = {
 
-    VECTOR_TYPES: new Enumeration([ 'ONE', 'TWO' ]),
     // defaults
     DEFAULT_VECTOR_ORIENTATION: VectorOrientations.TWO_DIMENSIONAL,
     EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION: VectorOrientations.HORIZONTAL,

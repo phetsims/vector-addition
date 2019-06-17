@@ -33,8 +33,8 @@ define( require => {
      * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
-    constructor( vectorArray, modelViewTransformProperty ) {
-      super( vectorArray, 3, modelViewTransformProperty, {
+    constructor( vectorArray, modelViewTransformProperty, componentStyleProperty ) {
+      super( vectorArray, 3, modelViewTransformProperty, componentStyleProperty, {
         labels: [ 'a', 'b', 'c' ],
         panelOptions: PANEL_OPTIONS
       } );

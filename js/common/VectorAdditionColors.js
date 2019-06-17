@@ -69,7 +69,6 @@ define( function( require ) {
     CARTESIAN_ICON_COLOR: BLACK,
     VECTOR_ICON_STROKE_COLOR: BLACK
 
-
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );

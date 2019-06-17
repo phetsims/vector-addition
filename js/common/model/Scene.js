@@ -22,9 +22,10 @@ define( require => {
      * @param {Dimension2} graphDimension - the dimensions (width and height) of the graph
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {number} numberOfVectorSets - scenes can have multiple vectorSets
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options]
      */
-    constructor( graphDimension, graphUpperLeftPosition, numberOfVectorSets, options ) {
+    constructor( graphDimension, graphUpperLeftPosition, numberOfVectorSets, componentStyleProperty, options ) {
 
 
       options = _.extend( {
@@ -51,7 +52,7 @@ define( require => {
       // Create the Vector Sets and push it to this.vectorSets
       for ( let i = 0; i < numberOfVectorSets; i++ ) {
         this.vectorSets.push(
-          new VectorSet( this.graph.modelViewTransformProperty, this.graph.graphModelBounds, options.vectorSetOptions )
+          new VectorSet( this.graph.modelViewTransformProperty, this.graph.graphModelBounds, componentStyleProperty, options.vectorSetOptions )
         );
       }
 

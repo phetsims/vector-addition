@@ -30,7 +30,6 @@ define( require => {
 
       switch( componentStyle ) {
         case ComponentStyles.TRIANGLE: {
-
           this.setTailXY( parentVector.tipX, parentVector.tailY );
           break;
         }
@@ -45,6 +44,9 @@ define( require => {
           // same tail y, however its x value is 0 since it is on the y-axis
           this.tailY = parentVector.tailY;
           this.tailX = 0;
+          break;
+        }
+        case ComponentStyles.INVISIBLE: {
           break;
         }
         default: {

@@ -1,62 +1,76 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * Model for a Vector that is dragged onto the graph.
+ *
+ * This extends BaseVector and adds dragging features as well as updating the tail
+ * when the origin is moved. 
+ *
+ * This vector also instantiates the XVectorComponent and YVectorComponent models.
+ *
  * @author Martin Veillette
  */
 define( require => {
   'use strict';
 
   // modules
+  const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Util = require( 'DOT/Util' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-
+  const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
+  const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
+  
   // constants
-  const VECTOR_TYPES = VectorAdditionConstants.VECTOR_TYPES;
-  const ANGLE_INTERVAL = 5; // interval spacing of vector angle (in degrees) when vector is in polar mode
+  // interval spacing of vector angle (in degrees) when vector is in polar mode
+  const ANGLE_INTERVAL = 5;
 
-  class VectorModel {
-
+  class VectorModel extends BaseVectorModel {
     /**
      * Create a vector model
      * @constructor
      * @param {Vector2} tailPosition
-     * @param {number} x horizontal component of the vector
-     * @param {number} y horizontal component of the vector
+     * @param {number} xComponent horizontal component of the vector
+     * @param {number} yComponent vertical component of the vector
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {VectorTypes} vectorType - see VectorTypes.js for documentation
      * @param {Object} [options]
      */
-    constructor( tailPosition, x, y, modelViewTransformProperty, options ) {
+    constructor( 
+      tailPosition, 
+      xComponent, 
+      yComponent, 
+      modelViewTransformProperty, 
+      componentStyleProperty,
+      vectorType, 
+      options ) {
 
       options = _.extend( {
-        vectorType: VECTOR_TYPES.BLUE,
-
-        // {string} - label of the vector
-        label: 'v',
-
-        // {boolean} - can the tip be dragged
-        isTipDraggable: true
+        label: 'v',// {string} - the label of the vector
+        isTipDraggable: true // {boolean} - can the tip be dragged
       }, options );
 
-      // @public (read-only) {string}
-      this.label = options.label;
+      //----------------------------------------------------------------------------------------
 
+      // Type check arguments
+      assert && assert( modelViewTransformProperty instanceof DerivedProperty
+        && modelViewTransformProperty.value instanceof ModelViewTransform2, 
+        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+      assert && assert( typeof options.isTipDraggable === 'boolean',
+        `invalid isTipDraggable: ${options.isTipDraggable}` );
+      // The rest are checked in base vector model
+
+      //----------------------------------------------------------------------------------------
+      
+      super( tailPosition, xComponent, yComponent, options.label, vectorType );
+     
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
 
-      // @public {Vector2Property} - The tail position of the vector.
-      this.tailPositionProperty = new Vector2Property( tailPosition );
-
-      // @public {Vector2Property} - The actual vector
-      this.attributesVectorProperty = new Vector2Property( new Vector2( x, y ) );
-
-      // @public {DerivedProperty.<boolean>}
-      // Flag that indicates if the model element is in the play area
+      // @public {BooleanProperty} flag that indicates if the model element is in the play area
       this.isInPlayAreaProperty = new BooleanProperty( false );
 
       // @public {BooleanProperty} - indicates whether the tip being dragged by the user
@@ -65,39 +79,32 @@ define( require => {
       // @public {BooleanProperty} - indicates whether the body is being dragged by the user
       this.isBodyDraggingProperty = new BooleanProperty( false );
 
-      //----------------------------------------------------------------------------------------
-      // Derived Properties
-
-      // @public {DerivedProperty.<Vector2>} - the tip position of the vector
-      this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
-        ( tailPosition, vector ) => tailPosition.plus( vector )
-      );
-
-      // @public {DerivedProperty.<number>} - the magnitude of the vector
-      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( attributesVector.getMagnitude() )
-      );
-
-      // @public {DerivedProperty.<number>} - the angle (in degrees) of the vector
-      // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
-      this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( Util.toDegrees( attributesVector.getAngle() ) )
-      );
-
-      // @public {DerivedProperty.<number>} - the horizontal component of the vector
-      this.xProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( attributesVector.x )
-      );
-
-      // @public {DerivedProperty.<number>} - the vertical component of the vector
-      this.yProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( attributesVector.y )
-      );
-
       // @public {DerivedProperty.<boolean>} - is any part of the vector being dragged
       this.isDraggingProperty = new DerivedProperty( [ this.isBodyDraggingProperty, this.isTipDraggingProperty ],
         ( isBodyDragging, isTipDragging ) => ( isBodyDragging || isTipDragging )
       );
+
+      //----------------------------------------------------------------------------------------
+      // Properties for the inspectPanel
+
+      // @public (read-only) {DerivedProperty.<number>} - the magnitude of the vector
+      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( this.magnitude )
+      );
+
+      // @public (read-only) {DerivedProperty.<number>} - the angle (in degrees) of the vector
+      // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
+      this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( Util.toDegrees( this.angle ) )
+      );
+
+      // @public (read-only) {DerivedProperty.<number>} - the xComponent property
+      this.xComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( this.xComponent ) );
+
+      // @public (read-only) {DerivedProperty.<number>} - the yComponent property
+      this.yComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ],
+        attributesVector => ( this.yComponent ) );
 
       //----------------------------------------------------------------------------------------
 
@@ -108,31 +115,45 @@ define( require => {
       };
       modelViewTransformProperty.lazyLink( updateTailPosition );
 
-      // @private - unlink the modelViewTransform link
+      // @private - unlink the modelViewTransform link, called in the dispose method
       this.unlinkTailUpdate = () => {
         modelViewTransformProperty.unlink( updateTailPosition );
       };
+
+      //----------------------------------------------------------------------------------------
+
+      // @public (read only) {XVectorComponent}
+      this.xVectorComponent = new XVectorComponent( this, componentStyleProperty, this.label );
+
+      // @public (read only) {YVectorComponent}
+      this.yVectorComponent = new YVectorComponent( this, componentStyleProperty, this.label );
     }
 
     /**
      * @public
+     * @override
      * Dispose the vector model's properties. Called when the vector is removed from the graph.
      */
     dispose() {
 
-      // dispose all properties
-      this.isDraggingProperty.dispose();
-      this.yProperty.dispose();
-      this.xProperty.dispose();
-      this.angleDegreesProperty.dispose();
-      this.magnitudeProperty.dispose();
-      this.tipPositionProperty.dispose();
+      // dispose properties
       this.isBodyDraggingProperty.dispose();
       this.isTipDraggingProperty.dispose();
+      this.isDraggingProperty.dispose();
+
       this.isInPlayAreaProperty.dispose();
-      this.attributesVectorProperty.dispose();
-      this.tailPositionProperty.dispose();
+
+      this.magnitudeProperty.dispose();
+      this.angleDegreesProperty.dispose();
+      this.xComponentProperty.dispose();
+      this.yComponentProperty.dispose();
+
       this.unlinkTailUpdate();
+
+      this.xVectorComponent.dispose();
+      this.yVectorComponent.dispose();
+
+      super.dispose();
     }
 
     /**
@@ -140,9 +161,8 @@ define( require => {
      * @public
      */
     roundCartesianForm() {
-      this.attributesVectorProperty.set( this.attributesVectorProperty.value.roundSymmetric() );
+      this.attributesVectorProperty.value = this.attributesVectorProperty.value.roundSymmetric();
     }
-
 
     /**
      * round vector to have integer values in polar form, i.e.
@@ -153,80 +173,6 @@ define( require => {
       const roundedMagnitude = Util.roundSymmetric( this.magnitudeProperty.value );
       const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( this.angleDegreesProperty.value / ANGLE_INTERVAL );
       this.attributesVectorProperty.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
-    }
-
-    /**
-     * Get the X component tail/tip position based on a component style
-     * @param {ComponentStyles} componentStyle
-     * @public
-     * @returns {{tail: Vector2},{tip: Vector2}}
-     */
-    getXComponentCoordinates( componentStyle ) {
-
-      // convenience variables for the tail and tip positions
-      const tailPosition = this.tailPositionProperty.value;
-      const tipPosition = this.tipPositionProperty.value;
-
-      switch( componentStyle ) {
-        case ComponentStyles.TRIANGLE: {
-          return {
-            tail: tailPosition,
-            tip: new Vector2( tipPosition.x, tailPosition.y )
-          };
-        }
-        case ComponentStyles.PARALLELOGRAM: {
-          return {
-            tail: tailPosition,
-            tip: new Vector2( tipPosition.x, tailPosition.y )
-          };
-        }
-        case ComponentStyles.ON_AXIS: {
-          return {
-            tail: new Vector2( tailPosition.x, 0 ),
-            tip: new Vector2( tipPosition.x, 0 )
-          };
-        }
-        default: {
-          throw new Error( `invalid componentStyle: ${componentStyle}` );
-        }
-      }
-    }
-
-    /**
-     * Get the X component tail/tip position based on a component style
-     * @param {ComponentStyles} componentStyle
-     * @public
-     * @returns {{tail: <Vector2>},{tip: <Vector2>}}
-     */
-    getYComponentCoordinates( componentStyle ) {
-
-      // convenience variables for the tail and tip positions
-      const tailPosition = this.tailPositionProperty.value;
-      const tipPosition = this.tipPositionProperty.value;
-
-      switch( componentStyle ) {
-        case ComponentStyles.TRIANGLE: {
-          return {
-            tail: new Vector2( tipPosition.x, tailPosition.y ),
-            tip: tipPosition
-          };
-        }
-        case ComponentStyles.PARALLELOGRAM: {
-          return {
-            tail: tailPosition,
-            tip: new Vector2( tailPosition.x, tipPosition.y )
-          };
-        }
-        case ComponentStyles.ON_AXIS: {
-          return {
-            tail: new Vector2( 0, tailPosition.y ),
-            tip: new Vector2( 0, tipPosition.y )
-          };
-        }
-        default: {
-          throw new Error( `invalid componentStyle: ${componentStyle}` );
-        }
-      }
     }
 
   }

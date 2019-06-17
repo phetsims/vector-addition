@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Factory for creating scenery node of vectors that appear in this sim.
+ * View for a vector.
  *
  * @author Martin Veillette
  */
@@ -9,26 +9,22 @@ define( require => {
   'use strict';
 
   // modules
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const BaseVectorNode = require ( 'VECTOR_ADDITION/common/view/BaseVectorNode' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
-  const Node = require( 'SCENERY/nodes/Node' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
-  const VectorComponentsNode = require( 'VECTOR_ADDITION/common/view/VectorComponentsNode' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
+  const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
+  const VectorModel = require ( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
-  const VECTOR_GROUP_1_OPTIONS = VectorAdditionConstants.VECTOR_GROUP_1.vectorOptions;
-  const VECTOR_GROUP_1_SUM = VectorAdditionConstants.VECTOR_GROUP_1.sumOptions;
-  const VECTOR_GROUP_2_OPTIONS = VectorAdditionConstants.VECTOR_GROUP_2.vectorOptions;
-  const VECTOR_GROUP_2_SUM = VectorAdditionConstants.VECTOR_GROUP_2.sumOptions;
-
-  // tip circle
   const TIP_CIRCLE_RADIUS = 10;
   const TIP_CIRCLE_OPTIONS = {
     fill: 'red',
@@ -36,92 +32,79 @@ define( require => {
     dilated: 10,
     cursor: 'pointer'
   };
+  const VECTOR_GROUP_1 = VectorAdditionConstants.VECTOR_GROUP_1.vectorOptions;
+  const VECTOR_GROUP_2 = VectorAdditionConstants.VECTOR_GROUP_2.vectorOptions;
 
-  class VectorNode extends Node {
-
+  class VectorNode extends BaseVectorNode {
     /**
      * @constructor
      * @param {VectorModel} vectorModel- the vector model
-     * @param {Bounds2} gridModelBounds - the bounds to the graph
+     * @param {Bounds2} graphModelBounds - the bounds to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
      * @param {VectorOrientations} vectorOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
-     * @param {VectorTypes} vectorType
-     * @param {Object} [options]
      */
-    constructor( vectorModel,
-                 gridModelBounds,
+    constructor( vectorModel, 
+                 graphModelBounds,
                  componentStyleProperty,
                  angleVisibleProperty,
                  vectorOrientation,
                  modelViewTransformProperty,
-                 vectorType,
-                 options ) {
+                 arrowOptions ) {
 
-      options = _.extend( {
-        isSum: false // {boolean}, true it needs the sum appearance
-      } );
-      // TODO: we should find a better way to do this kind of thing. I think we should make a vectorNode class, and make a class hierarchy.
-      // We can make a vectorSumNode that extends vectorNode, and we should do the same with components. 
+      // Type check arguments
+      assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
+      assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds ${graphModelBounds}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty,
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( angleVisibleProperty instanceof BooleanProperty,
+        `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      // modelViewTransformProperty checked in super class
 
-      // Next we should create a vectorComponent model, and the vectorModel would create 2 of these. The vector model should update its "positioning"
-      // automatically based on the componentStyleProperty
-      let arrowOptions;
-      switch( vectorType ) {
-        case VectorTypes.ONE:
-          if ( options.isSum ) {
-            arrowOptions = VECTOR_GROUP_1_SUM;
-          }
-          else {
-            arrowOptions = VECTOR_GROUP_1_OPTIONS;
-          }
+
+      //----------------------------------------------------------------------------------------
+      // Get the arrow options for the specific vector type
+
+      switch( vectorModel.vectorType ) {
+        case VectorTypes.ONE: {
+          arrowOptions = _.extend( _.clone( VECTOR_GROUP_1 ), arrowOptions );
           break;
-        case VectorTypes.TWO:
-          if ( options.isSum ) {
-            arrowOptions = VECTOR_GROUP_2_SUM;
-          }
-          else {
-            arrowOptions = VECTOR_GROUP_2_OPTIONS;
-          }
+        }
+        case VectorTypes.TWO: {
+          arrowOptions = _.extend(  _.clone( VECTOR_GROUP_2 ), arrowOptions );
           break;
-        default:
-          throw new Error( `${vectorType}` );
+        }
+        default: {
+          throw new Error( `Vector Type : ${ vectorModel.vectorType } not handled` );
+        }
       }
-      const initialModelViewTransform = modelViewTransformProperty.value;
+      super( vectorModel, modelViewTransformProperty, arrowOptions );
 
-      // Define a vector node in which the tail location is (0, 0)
-      // Get the tip location  in view coordinates
-      const tipPosition = initialModelViewTransform.modelToViewDelta( vectorModel.attributesVectorProperty.value );
 
-      // Create an arrow node that represents an actual vector.
-      const arrowNode = new ArrowNode( 0, 0, tipPosition.x, tipPosition.y, arrowOptions );
+      //----------------------------------------------------------------------------------------
 
-      // Create a label for the vector that is displayed 'next' to the arrow. The location of this depends 
-      // on the angle of the vector.
-      const labelNode = new FormulaNode( `\\vec{ ${vectorModel.label} \}` );
+      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.components );
 
-      // Create a circle at the tip of the vector. This is used to allow the user to only change the 
-      // angle of the arrowNode by only dragging the tip
-      const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipPosition }, TIP_CIRCLE_OPTIONS ) );
+      // @public (read-only) {VectorComponentNode}
+      this.xComponentNode = new VectorComponentNode( vectorModel.xVectorComponent, modelViewTransformProperty, componentStyleProperty );
+      this.addChild( this.xComponentNode );
 
-      // Create the scenery nodes for this vectors components
-      const vectorComponentsNode = new VectorComponentsNode( vectorModel, componentStyleProperty, modelViewTransformProperty, vectorType );
+      this.yComponentNode = new VectorComponentNode( vectorModel.yVectorComponent, modelViewTransformProperty, componentStyleProperty );
+      this.addChild( this.yComponentNode );
 
-      // Create the scenery node that represents the angle
-      const vectorAngleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, initialModelViewTransform );
+      this.arrowNode.moveToFront();
 
-      super( {
-        children: [
-          vectorComponentsNode,
-          arrowNode,
-          tipCircle,
-          vectorAngleNode,
-          labelNode
-        ]
-      } );
+      this.angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, modelViewTransformProperty.value );
+      this.addChild( this.angleNode );
 
+      // @public (read-only) {node} Create a circle at the tip of the vector. This is used to allow the user to only 
+      // change the angle of the arrowNode by only dragging the tip
+      this.tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
+      this.addChild( this.tipCircle );
+
+      //----------------------------------------------------------------------------------------
       // @private {Property.<ModelViewTransform>}
       this.modelViewTransformProperty = modelViewTransformProperty;
 
@@ -131,44 +114,54 @@ define( require => {
       //@private {VectorModel}
       this.vectorModel = vectorModel;
 
+
+      //----------------------------------------------------------------------------------------
+      // Create Body Drag
+
       // Create a property for the location of the tail of the vector.
       const tailLocationProperty = new Vector2Property(
-        modelViewTransformProperty.value.modelToViewPosition( vectorModel.tailPositionProperty.value ) );
+        modelViewTransformProperty.value.modelToViewPosition( vectorModel.tail ) );
 
-      // @private {DragListener} - for forwarding drag events
+      // drag listener for the dragging of the body
       const bodyDragListener = new DragListener( {
         targetNode: this,
         locationProperty: tailLocationProperty,
         start: () => {
-          vectorModel.isBodyDraggingProperty.set( true );
+          vectorModel.isBodyDraggingProperty.value = true;
           this.moveToFront();
         },
-        end: () => vectorModel.isBodyDraggingProperty.set( false )
+        end: () => {
+          vectorModel.isBodyDraggingProperty.value = false;
+        }
       } );
 
       const tailListener = tailLocation => {
-        this.translation = this.getTailSnapToGridLocation( tailLocation );
+        this.tailSnapToGrid( tailLocation );
       };
 
       tailLocationProperty.link( tailListener );
 
-      arrowNode.addInputListener( bodyDragListener );
+      this.arrowNode.addInputListener( bodyDragListener );
 
 
+      //----------------------------------------------------------------------------------------
+      // Create Tip Drag
       if ( vectorModel.isTipDraggable ) {
 
         // Create a property of the location of the tip of the vector. The location of the tip is measured with respect to the tail.
-        const tipLocationProperty = new Vector2Property( tipPosition );
+        const tipLocationProperty = new Vector2Property( tipDeltaLocation );
 
         // for forwarding drag events for the tip
         const tipDragListener = new DragListener( {
-          targetNode: tipCircle,
+          targetNode: this.tipCircle,
           locationProperty: tipLocationProperty,
           start: () => {
-            vectorModel.isTipDraggingProperty.set( true );
+            vectorModel.isTipDraggingProperty.value = true;
             this.moveToFront();
           },
-          end: () => vectorModel.isTipDraggingProperty.set( false )
+          end: () => {
+            vectorModel.isTipDraggingProperty.value = false;
+          }
         } );
 
         const tipListener = tipLocation => {
@@ -177,30 +170,29 @@ define( require => {
 
         tipLocationProperty.link( tipListener );
 
-        tipCircle.addInputListener( tipDragListener );
+        this.tipCircle.addInputListener( tipDragListener );
       }
 
-      const attributesVectorListener =
-        attributesVector => {
-          const tipLocation = this.modelViewTransformProperty.value.modelToViewDelta( attributesVector );
-          arrowNode.setTip( tipLocation.x, tipLocation.y );
-          tipCircle.center = tipLocation;
-        };
 
-      // update the position of the arrowNode and the tipCircle
-      vectorModel.attributesVectorProperty.link( attributesVectorListener );
+      const updateTip = () => {
+        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.components );
+        this.tipCircle.center = tipDeltaLocation;
+      };
+
+      // update the position of the  this.tipCircle
+      vectorModel.attributesVectorProperty.link( updateTip );
 
       // Create a method to dispose children
-      this.disposeChildren = () => {
-        vectorComponentsNode.dispose();
-        vectorAngleNode.dispose();
-        tailLocationProperty.unlink( tailListener );
-        vectorModel.attributesVectorProperty.unlink( attributesVectorListener );
-        arrowNode.removeInputListener( bodyDragListener );
-        arrowNode.dispose();
-        tipCircle.dispose();
-        labelNode.dispose();
-      };
+      // this.disposeChildren = () => {
+      //   vectorComponentsNode.dispose();
+      //   vectorAngleNode.dispose();
+      //   tailLocationProperty.unlink( tailListener );
+      //   vectorModel.attributesVectorProperty.unlink( attributesVectorListener );
+      //   this.arrowNode.removeInputListener( bodyDragListener );
+      //   arrowNode.dispose();
+      //   this.tipCircle.dispose();
+      //   labelNode.dispose();
+      // };
 
     }
 
@@ -214,11 +206,11 @@ define( require => {
 
       switch( this.vectorOrientation ) {
         case VectorOrientations.HORIZONTAL: {
-          tipCoordinates.setY( 0 );
+          // tipCoordinates.setY( 0 );
           break;
         }
         case VectorOrientations.VERTICAL: {
-          tipCoordinates.setX( 0 );
+          // tipCoordinates.setX( 0 );
           break;
         }
         case VectorOrientations.TWO_DIMENSIONAL: {
@@ -236,19 +228,15 @@ define( require => {
      * @param {Vector2} tailLocation
      * @returns {Vector2}
      */
-    getTailSnapToGridLocation( tailLocation ) {
-      const mvt = this.modelViewTransformProperty.value;
-      const tailCoordinates = mvt.viewToModelPosition( tailLocation );
-      this.vectorModel.tailPositionProperty.value = tailCoordinates.roundedSymmetric();
-      const roundedTailLocation = mvt.modelToViewPosition( this.vectorModel.tailPositionProperty.value );
-      return roundedTailLocation;
+    tailSnapToGrid( tailLocation ) {
+      const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
+      this.vectorModel.tail = tailPosition.roundedSymmetric();
     }
 
     /**
      * Dispose the vector
      */
     dispose() {
-      this.disposeChildren();
       super.dispose();
     }
   }

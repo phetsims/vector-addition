@@ -23,11 +23,11 @@ define( require => {
      * @param {ComponentStyles} componentStyle 
      */
     updateComponent( parentVector, componentStyle ) {
-
+      
       // In all cases, the xComponent is always matching the parent and the yComponent is 0
       this.xComponent = parentVector.xComponent;
       this.yComponent = 0;
-      
+
       // switch case to update the tail position of the component based on component style
       switch( componentStyle ) {
         case ComponentStyles.TRIANGLE: {
@@ -49,11 +49,13 @@ define( require => {
           this.tailY = 0;
           break;
         }
+        case ComponentStyles.INVISIBLE: {
+          break;
+        }
         default: {
           throw new Error( `invalid componentStyle: ${componentStyle}` );
         }
-      }
-      
+      } 
     }
   }
 

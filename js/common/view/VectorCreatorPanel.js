@@ -26,6 +26,7 @@ define( require => {
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
 
   // constants
@@ -43,7 +44,7 @@ define( require => {
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      * @param {Object} [options] - the optional arguments for the vector panel
      */
-    constructor( vectorArray, numberOfVectorSlots, modelViewTransformProperty, options ) {
+    constructor( vectorArray, numberOfVectorSlots, modelViewTransformProperty, componentStyleProperty, options ) {
 
       options = _.extend( {
         labels: null, // {array.<string>} - array to give a label to the vectors pulled from each slot.
@@ -123,7 +124,9 @@ define( require => {
                 vectorRepresentationPosition,
                 defaultVectorComponents.x,
                 defaultVectorComponents.y,
-                modelViewTransformProperty, {
+                modelViewTransformProperty, 
+                componentStyleProperty,
+                VectorTypes.ONE, {
                   label: options.labels ? options.labels[ slotNumber ] : null
                 }
               );

@@ -134,7 +134,7 @@ define( require => {
       numberOfVectorSets ) {
 
       for ( let i = 0; i < numberOfScenes; i++ ) {
-        this.scenes.push( new Scene( graphDimension, graphUpperLeftPosition, numberOfVectorSets ) );
+        this.scenes.push( new Scene( graphDimension, graphUpperLeftPosition, numberOfVectorSets, this.componentStyleProperty ) );
       }
 
     }
