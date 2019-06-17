@@ -14,10 +14,19 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
-  const BLUE_ICON_OPTIONS = {
-    fill: 'black',
+  const BLUE_ICON_OPTIONS = { // this should be in constants file
+    fill: 'blue',
+    lineWidth: 0,
+    tailWidth: 4,
+    headWidth: 10.5,
+    headHeight: 6,
+    cursor: 'pointer'
+  };
+  const RED_ICON_OPTIONS = {
+    fill: 'red',
     lineWidth: 0,
     tailWidth: 4,
     headWidth: 10.5,
@@ -25,6 +34,7 @@ define( require => {
     cursor: 'pointer'
   };
   const PANEL_OPTIONS = VectorAdditionConstants.VECTOR_BOX_OPTIONS;
+  const VECTOR_TYPES = [ VectorTypes.ONE, VectorTypes.TWO ];
 
   class LabVectorCreatorPanel extends VectorCreatorPanel {
     /**
@@ -34,12 +44,14 @@ define( require => {
      * @param {ObservableArray.<VectorModel>} vectorArray2 - the observable array for vector2
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
-    constructor( vectorArray1, vectorArray2, modelViewTransformProperty ) {
-      super( _, 2, modelViewTransformProperty, {
+    constructor( vectorArray1, vectorArray2, modelViewTransformProperty, componentStyleProperty ) {
+
+      super( _, 2, modelViewTransformProperty,componentStyleProperty, _, {
         panelOptions: PANEL_OPTIONS,
         observableArrays: [ vectorArray1, vectorArray2 ],
         includeLabelsNextToIcons: false,
-        isVectorSlotInfinite: true
+        isVectorSlotInfinite: true,
+        vectorTypes: VECTOR_TYPES
       } );
     }
 
@@ -51,7 +63,13 @@ define( require => {
      * @public
      */
     createVectorIcon( slotNumber ) {
-      return new ArrowNode( 0, 0, 30, -30, BLUE_ICON_OPTIONS );
+      // TODO find a better way to do this
+      if ( slotNumber === 0 ) {
+        return new ArrowNode( 0, 0, 30, -30, BLUE_ICON_OPTIONS );
+      }
+      else {
+        return new ArrowNode( 0, 0, 30, -30, RED_ICON_OPTIONS );
+      }
     }
 
     /**

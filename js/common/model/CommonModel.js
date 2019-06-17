@@ -25,6 +25,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
   const DEFAULT_COMPONENT_STYLE = VectorAdditionConstants.DEFAULT_COMPONENT_STYLE;
@@ -134,7 +135,7 @@ define( require => {
       numberOfVectorSets ) {
 
       for ( let i = 0; i < numberOfScenes; i++ ) {
-        this.scenes.push( new Scene( graphDimension, graphUpperLeftPosition, numberOfVectorSets, this.componentStyleProperty ) );
+        this.scenes.push( new Scene( graphDimension, graphUpperLeftPosition, numberOfVectorSets, this.componentStyleProperty, VectorTypes.ONE ) );
       }
 
     }

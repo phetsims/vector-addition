@@ -14,6 +14,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
   const PANEL_OPTIONS = VectorAdditionConstants.VECTOR_BOX_OPTIONS;
@@ -58,7 +59,7 @@ define( require => {
      */
     constructor( vectors, modelViewTransformProperty, componentStyleProperty ) {
 
-      super( vectors, 3, modelViewTransformProperty, componentStyleProperty, {
+      super( vectors, 3, modelViewTransformProperty, componentStyleProperty, VectorTypes.ONE, {
         labels: [ 'a', 'b', 'c' ],
         panelOptions: PANEL_OPTIONS
       } );
@@ -81,7 +82,7 @@ define( require => {
      */
     constructor( vectors, modelViewTransformProperty, componentStyleProperty ) {
 
-      super( vectors, 3, modelViewTransformProperty, componentStyleProperty, {
+      super( vectors, 3, modelViewTransformProperty, componentStyleProperty, VectorTypes.ONE, {
         labels: [ 'd', 'e', 'f' ],
         panelOptions: PANEL_OPTIONS
       } );

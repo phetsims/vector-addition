@@ -16,6 +16,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
   const EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION = VectorAdditionConstants.EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION;
@@ -58,7 +59,7 @@ define( require => {
       
       for ( let i = 0; i < numberOfScenes; i++ ) {
 
-        const newScene = new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, this.componentStyleProperty, {
+        const newScene = new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, this.componentStyleProperty, VectorTypes.ONE, {
           graphOptions: {
             orientation: orientations[ i ]
           }

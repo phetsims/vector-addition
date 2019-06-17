@@ -14,6 +14,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
   const ICON_ARROW_OPTIONS = {
@@ -34,7 +35,7 @@ define( require => {
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
     constructor( vectorArray, modelViewTransformProperty, componentStyleProperty ) {
-      super( vectorArray, 3, modelViewTransformProperty, componentStyleProperty, {
+      super( vectorArray, 3, modelViewTransformProperty, componentStyleProperty, VectorTypes.ONE, {
         labels: [ 'a', 'b', 'c' ],
         panelOptions: PANEL_OPTIONS
       } );

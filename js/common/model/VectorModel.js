@@ -52,6 +52,10 @@ define( require => {
         label: 'v',// {string} - the label of the vector
         isTipDraggable: true // {boolean} - can the tip be dragged
       }, options );
+      // TODO: fix this
+      if ( !options.label ) {
+        options.label = 'v';
+      }
 
       //----------------------------------------------------------------------------------------
 

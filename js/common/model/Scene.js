@@ -25,12 +25,12 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options]
      */
-    constructor( graphDimension, graphUpperLeftPosition, numberOfVectorSets, componentStyleProperty, options ) {
+    constructor( graphDimension, graphUpperLeftPosition, numberOfVectorSets, componentStyleProperty, vectorType, options ) {
 
 
       options = _.extend( {
         graphOptions: null, // {object} see Graph.js for documentation
-        vectorSetOptions: null // {object} see VectorSet.js for documentation
+        vectorTypes: null
       }, options );
 
       // check that the arguments are correct types
@@ -52,7 +52,7 @@ define( require => {
       // Create the Vector Sets and push it to this.vectorSets
       for ( let i = 0; i < numberOfVectorSets; i++ ) {
         this.vectorSets.push(
-          new VectorSet( this.graph.modelViewTransformProperty, this.graph.graphModelBounds, componentStyleProperty, options.vectorSetOptions )
+          new VectorSet( this.graph.modelViewTransformProperty, this.graph.graphModelBounds, componentStyleProperty, options.vectorTypes ? options.vectorTypes[ i ] : vectorType )
         );
       }
 

@@ -206,11 +206,11 @@ define( require => {
 
       switch( this.vectorOrientation ) {
         case VectorOrientations.HORIZONTAL: {
-          // tipCoordinates.setY( 0 );
+          tipCoordinates.setY( 0 );
           break;
         }
         case VectorOrientations.VERTICAL: {
-          // tipCoordinates.setX( 0 );
+          tipCoordinates.setX( 0 );
           break;
         }
         case VectorOrientations.TWO_DIMENSIONAL: {

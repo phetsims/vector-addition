@@ -11,7 +11,6 @@ define( function( require ) {
   const LabVectorCreatorPanel = require( 'VECTOR_ADDITION/lab/view/LabVectorCreatorPanel' );
   const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
   class LabScreenView extends CommonScreenView {
@@ -22,8 +21,7 @@ define( function( require ) {
      */
     constructor( labModel, tandem ) {
 
-      super( labModel, tandem, _, {
-        vectorTypes: [ VectorAdditionConstants.VECTOR_TYPES.ONE, VectorAdditionConstants.VECTOR_TYPES.TWO ] });
+      super( labModel, tandem );
 
       const graphControlPanel = new GraphControlPanel( labModel.sumVisibleProperty,
         labModel.valuesVisibleProperty,
@@ -41,7 +39,8 @@ define( function( require ) {
       const vectorCreatorPanel = new LabVectorCreatorPanel(
         labModel.scenes[ 0 ].vectorSets[ 0 ].vectors,
         labModel.scenes[ 0 ].vectorSets[ 1 ].vectors,
-        labModel.scenes[ 0 ].graph.modelViewTransformProperty );
+        labModel.scenes[ 0 ].graph.modelViewTransformProperty,
+        labModel.componentStyleProperty );
 
       this.addChild( vectorCreatorPanel );
     }

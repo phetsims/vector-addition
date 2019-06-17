@@ -26,7 +26,7 @@ define( require => {
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  // const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
 
   // constants
@@ -44,7 +44,7 @@ define( require => {
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      * @param {Object} [options] - the optional arguments for the vector panel
      */
-    constructor( vectorArray, numberOfVectorSlots, modelViewTransformProperty, componentStyleProperty, options ) {
+    constructor( vectorArray, numberOfVectorSlots, modelViewTransformProperty, componentStyleProperty, vectorType, options ) {
 
       options = _.extend( {
         labels: null, // {array.<string>} - array to give a label to the vectors pulled from each slot.
@@ -56,6 +56,10 @@ define( require => {
         // This is used when there are multiple observable arrays needed. Example: observableArrays of 2 would mean that
         // every vector pulled from the first slot would be added to the first observableArray in observableArrays.
         // This must be the same length as numberOfVectorSlots if provided
+
+        vectorTypes: null, // {array<VectorType>} - if provided, this will override the vectorType. This is used when
+        // there are multiple vectorTypes. Example: vecotrTypes" [ '1', '2' ] would mean that every vector pulled from 
+        // first slot would have vector type 1, and every vector pulled from the second slot would have vector type 2.
 
         isVectorSlotInfinite: false, // {boolean} - if true, the vector slot will re-add a vector to the slot when removed.
 
@@ -74,6 +78,9 @@ define( require => {
       assert && assert( !options.observableArrays || options.observableArrays.length === numberOfVectorSlots,
         'Labels must be the same length as the number of slots.' );
 
+      // the number of vector types must equal the number of slots if provided
+      assert && assert( !options.vectorTypes || options.vectorTypes.length === numberOfVectorSlots,
+        'vectorTypes must be the same length as the number of slots.' );
 
       super();
 
@@ -126,7 +133,7 @@ define( require => {
                 defaultVectorComponents.y,
                 modelViewTransformProperty, 
                 componentStyleProperty,
-                VectorTypes.ONE, {
+                options.vectorTypes ? options.vectorTypes[ slotNumber ] : vectorType, {
                   label: options.labels ? options.labels[ slotNumber ] : null
                 }
               );
