@@ -27,7 +27,7 @@ define( require => {
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
      * @param {string} label
-     * @param {Enumeration Value} vectorType - the type of vector
+     * @param {VectorTypes} vectorType - the type of vector
      */
     constructor( tailPosition, xComponent, yComponent, label, vectorType ) {
 
