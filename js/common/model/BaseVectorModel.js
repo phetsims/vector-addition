@@ -42,7 +42,7 @@ define( require => {
       // @public (read-only) {string}
       this.label = label;
 
-      // @public (read-only) VectorTypes
+      // @public (read-only) {VectorTypes}
       this.vectorType = vectorType;
 
       // @public (read-only) {Vector2Property} - The tail position of the vector on the graph.

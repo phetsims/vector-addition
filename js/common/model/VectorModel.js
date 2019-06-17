@@ -111,7 +111,7 @@ define( require => {
       // update the position of the tail of the vector
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
-        this.tailPositionProperty.set( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
+        this.tailPositionProperty.value =  newModelViewTransform.viewToModelPosition( oldTailViewPosition );
       };
       modelViewTransformProperty.lazyLink( updateTailPosition );
 

@@ -303,9 +303,7 @@ define( require => {
 
 
         // Update the upperLeftPosition model coordinates
-        graph.upperLeftPositionProperty.set(
-          graph.upperLeftPositionProperty.initialValue.minus( originSnapLocation )
-        );
+        graph.upperLeftPositionProperty.value =  graph.upperLeftPositionProperty.initialValue.minus( originSnapLocation );
 
         this.center = modelViewTransform.modelToViewPosition( originSnapLocation );
 
