@@ -127,6 +127,9 @@ define( require => {
               // get the default vector components to add to the screen, see getDefaultVectorComponents for documentation
               const defaultVectorComponents = this.getDefaultVectorComponents();
 
+              const vectorModelOptions =  options.labels ? {
+                label: options.labels[ slotNumber ]
+              } : null;
               // Create a new Vector to be added to the observable array
               const newVectorModel = new VectorModel(
                 vectorRepresentationPosition,
@@ -134,9 +137,8 @@ define( require => {
                 defaultVectorComponents.y,
                 modelViewTransformProperty, 
                 componentStyleProperty,
-                options.vectorTypes ? options.vectorTypes[ slotNumber ] : vectorType, {
-                  label: options.labels ? options.labels[ slotNumber ] : null
-                }
+                options.vectorTypes ? options.vectorTypes[ slotNumber ] : vectorType,
+                vectorModelOptions
               );
 
               // If there are multiple observable array, use the observableArrays index, otherwise use the given vector array
