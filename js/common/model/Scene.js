@@ -23,6 +23,7 @@ define( require => {
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {number} numberOfVectorSets - scenes can have multiple vectorSets
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {VectorTypes} vectorType
      * @param {Object} [options]
      */
     constructor( graphDimension, graphUpperLeftPosition, numberOfVectorSets, componentStyleProperty, vectorType, options ) {
