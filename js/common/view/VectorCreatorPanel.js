@@ -60,7 +60,7 @@ define( require => {
         // This must be the same length as numberOfVectorSlots if provided
 
         vectorTypes: null, // {array<VectorType>} - if provided, this will override the vectorType. This is used when
-        // there are multiple vectorTypes. Example: vecotrTypes" [ '1', '2' ] would mean that every vector pulled from 
+        // there are multiple vectorTypes. Example: vectorTypes" [ '1', '2' ] would mean that every vector pulled from
         // first slot would have vector type 1, and every vector pulled from the second slot would have vector type 2.
 
         isVectorSlotInfinite: false, // {boolean} - if true, the vector slot will re-add a vector to the slot when removed.
