@@ -41,7 +41,8 @@ define( require => {
 
       // Type check arguments
       assert && assert( vectorComponent instanceof VectorComponent, `invalid vectorComponent: ${vectorComponent}` );
-      // modelViewTransformProperty checked inBbaseVectorNode
+
+      // modelViewTransformProperty checked in BaseVectorNode
       assert && assert ( componentStyleProperty instanceof EnumerationProperty,
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
@@ -94,12 +95,14 @@ define( require => {
      * must adjust the update (since (0, 0) is defined as the tail on vectorNode)
      * @param {VectorComponent} vectorComponent
      * @param {ModelViewTransform2} modelViewTransform
+     * @param {ComponentStyles} componentStyle
      * @public
      * @override
      */
     updateVector( vectorComponent, modelViewTransform, componentStyle ) {
       const tailLocation = modelViewTransform.modelToViewDelta( vectorComponent.tail.minus( vectorComponent.parentVector.tail ) );
       const tipLocation = modelViewTransform.modelToViewDelta( vectorComponent.tip.minus( vectorComponent.parentVector.tail ) );
+
       // update the  arrows
       this.arrowNode.setTailAndTip( tailLocation.x, tailLocation.y, tipLocation.x, tipLocation.y );
 

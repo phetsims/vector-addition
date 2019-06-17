@@ -45,6 +45,7 @@ define( require => {
      * @param {VectorOrientations} vectorOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
+     * @param  {Object} [arrowOptions]
      */
     constructor( vectorModel, 
                  graphModelBounds,
@@ -226,7 +227,6 @@ define( require => {
     /**
      * update the model vector to have integer components and return the location associated with the tail
      * @param {Vector2} tailLocation
-     * @returns {Vector2}
      */
     tailSnapToGrid( tailLocation ) {
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );

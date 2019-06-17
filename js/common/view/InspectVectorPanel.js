@@ -50,7 +50,7 @@ define( require => {
   class InspectVectorPanel extends Panel {
 
     /**
-     * @param {array.<VectorSet>} vectorSets
+     * @param {Array.<VectorSet>} vectorSets
      */
     constructor( vectorSets ) {
 
