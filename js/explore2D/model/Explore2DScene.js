@@ -12,7 +12,6 @@ define( require => {
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
 
