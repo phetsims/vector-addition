@@ -20,12 +20,26 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
+
   // constants
-  const VECTOR_GROUP_1_COMPONENT = VectorAdditionConstants.VECTOR_GROUP_1.componentOptions;
-  const VECTOR_GROUP_2_COMPONENT = VectorAdditionConstants.VECTOR_GROUP_2.componentOptions;
+  const VECTOR_GROUP_1_COMPONENT = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+    fill:  VectorAdditionColors.VECTOR_GROUP_1_COLORS.component,
+    headWidth: 10.5,
+    headHeight: 6,
+    tailWidth: 4,
+    lineWidth: 0
+  } );
+  const VECTOR_GROUP_2_COMPONENT = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+    fill:  VectorAdditionColors.VECTOR_GROUP_1_COLORS.component,
+    headWidth: 10.5,
+    headHeight: 6,
+    tailWidth: 4,
+    lineWidth: 0
+  } );
   const ON_AXIS_LINES_LINE_DASH = [ 3, 10 ];
 
   class VectorComponentNode extends BaseVectorNode {

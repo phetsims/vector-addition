@@ -24,6 +24,7 @@ define( require => {
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   // constants
   const TIP_CIRCLE_RADIUS = 10;
@@ -33,9 +34,12 @@ define( require => {
     dilated: 10,
     cursor: 'pointer'
   };
-  const VECTOR_GROUP_1 = VectorAdditionConstants.VECTOR_GROUP_1.vectorOptions;
-  const VECTOR_GROUP_2 = VectorAdditionConstants.VECTOR_GROUP_2.vectorOptions;
-
+  const VECTOR_GROUP_1 = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
+  } );
+  const VECTOR_GROUP_2 = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+    fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
+  } );
   class VectorNode extends BaseVectorNode {
     /**
      * @constructor

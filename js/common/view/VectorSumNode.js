@@ -13,10 +13,17 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   // constants
-  const VECTOR_GROUP_1_SUM = VectorAdditionConstants.VECTOR_GROUP_1.sumOptions;
-  const VECTOR_GROUP_2_SUM = VectorAdditionConstants.VECTOR_GROUP_2.sumOptions;
+  const VECTOR_GROUP_1_SUM =   _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum,
+    lineWidth: 1
+  } );
+  const VECTOR_GROUP_2_SUM =   _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+    fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum,
+    lineWidth: 1
+  } );
 
   class VectorSumNode extends VectorNode {
     /**

@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the explore1D screen
+ * Model for the Explore1D screen
  *
  * @author Martin Veillette
  */
@@ -10,69 +10,80 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
-  const Dimension2 = require( 'DOT/Dimension2' );
-  const HorizontalScene = require( 'VECTOR_ADDITION/explore1D/model/HorizontalScene' );
-  const VerticalScene = require( 'VECTOR_ADDITION/explore1D/model/VerticalScene' ); 
-  const Vector2 = require( 'DOT/Vector2' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const Explore1DScene = require( 'VECTOR_ADDITION/explore1D/model/Explore1DScene' ); 
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  // const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
-  const EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION = VectorAdditionConstants.EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION;
-  const NUMBER_OF_SCENES = 2;
-  const NUMBER_OF_VECTOR_SETS = 1;
+  const DEFAULT_VECTOR_ORIENTATION = VectorOrientations.HORIZONTAL;
+  const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
+  const GRAPH_UPPER_LEFT_COORDINATE = VectorAdditionConstants.GRAPH_UPPER_LEFT_COORDINATE;
 
-  class Explore1DModel extends CommonModel {
-
+  class Explore1DModel extends VectorAdditionModel {
     /**
      * @constructor
      * @param {Tandem} tandem
      */
     constructor( tandem ) {
 
-      // TODO: should this be put into the constants file, it is the same size for 1D 2D and lab
-      const graphDimension = new Dimension2( 60, 40 );
-      const graphUpperLeftPosition = new Vector2( -30, 20 );
+      super(tandem );
 
-      super( graphDimension, graphUpperLeftPosition, NUMBER_OF_SCENES, NUMBER_OF_VECTOR_SETS, tandem );
+      // @public {EnumerationProperty.<VectorOrientations>} - controls the orientation of the vectors
+      this.vectorOrientationProperty = new EnumerationProperty( VectorOrientations, DEFAULT_VECTOR_ORIENTATION );
 
-      this.vectorOrientationProperty.value = EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION;
+      // @public (read-only) {VectorTypes} vectorType - the vector type used on the explore1D screen
       this.vectorType = VectorTypes.ONE;
 
+    }
+    
+    /**
+     * @override
+     * @private
+     * Create the Sum Visibility properties. Explore1D only has one shared sum visible property
+     */
+    createSumVisiblityProperties() { 
+
+      // @public (read-only) {BooleanProperty} sumVisibleProperty
+      this.sumVisibleProperty = new BooleanProperty( false );
     }
 
     /**
      * @override
-     * Create the scenes
-     * 1D scenes can have different vector orientations (horizontal and vertical)
+     * @private
+     * Reset the Sum Visibility properties. Explore1D only has one shared sum visible property
      */
-    createScenes(
-      graphDimension,
-      graphUpperLeftPosition,
-      numberOfScenes,
-      numberOfVectorSets ) {
+    resetSumVisibilityProperties() {
+      this.sumVisibleProperty.reset();
+    }
 
-      this.sumVisibleProperty = new BooleanProperty( false );
-      
-      this.horizontalScene = new HorizontalScene(
-        graphDimension,
-        graphUpperLeftPosition,
-        NUMBER_OF_VECTOR_SETS,
+    /**
+     * @override
+     * Create the scenes for Explore1D
+     * Explore1D has two (horizontal and vertical)
+     */
+    createScenes() {
+
+      // @public (read-only) {HorizontalScene} - the horizontal scene
+      this.horizontalScene = new Explore1DScene(
+        GRAPH_DIMENSION,
+        GRAPH_UPPER_LEFT_COORDINATE,
         this.componentStyleProperty,
-        this.sumVisibleProperty );
+        this.sumVisibleProperty,
+        VectorOrientations.HORIZONTAL );
 
-      this.verticalScene = new VerticalScene(
-        graphDimension,
-        graphUpperLeftPosition,
-        NUMBER_OF_VECTOR_SETS,
+      // @public (read-only) {VerticalScene} - the vertical scene
+      this.verticalScene = new Explore1DScene(
+        GRAPH_DIMENSION,
+        GRAPH_UPPER_LEFT_COORDINATE,
         this.componentStyleProperty,
-        this.sumVisibleProperty );
+        this.sumVisibleProperty,
+        VectorOrientations.VERTICAL );
 
-      this.scenes.push( this.horizontalScene );
-      this.scenes.push( this.verticalScene );
+      this.scenes.push( this.horizontalScene, this.verticalScene );
     }
 
   }

@@ -20,14 +20,13 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
   // constants
 
   // The coordinate for the graphNode in view coordinates.
-  const GRAPH_TO_VIEW_SCALE = VectorAdditionConstants.GRAPH_TO_VIEW_SCALE;
-  const UPPER_LEFT_LOCATION = VectorAdditionConstants.UPPER_LEFT_LOCATION;
+  const GRAPH_TO_VIEW_SCALE = 12.5;
+  const UPPER_LEFT_LOCATION = new Vector2( 29, 90 );
 
   class Graph {
     /**

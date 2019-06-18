@@ -8,15 +8,15 @@ define( require => {
 
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
-  const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
 
   /**
    * @constructor
    */
-  class EquationModel extends CommonModel {
+  class EquationModel extends VectorAdditionModel {
 
     /**
      * @param {Tandem} tandem

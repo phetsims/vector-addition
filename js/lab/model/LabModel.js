@@ -10,17 +10,17 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
+  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   // const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
   const LabScene = require( 'VECTOR_ADDITION/lab/model/LabScene');
   
-  const NUMBER_OF_SCENES = 1;
+  // const NUMBER_OF_SCENES = 1;
   const NUMBER_OF_VECTOR_SETS = 2;
 
-  class LabModel extends CommonModel {
+  class LabModel extends VectorAdditionModel {
     /**
      * @constructor
      * @param {Tandem} tandem
@@ -31,7 +31,7 @@ define( require => {
       const graphDimension = new Dimension2( 60, 40 );
       const graphUpperLeftPosition = new Vector2( -5, 35 );
 
-      super( graphDimension, graphUpperLeftPosition, NUMBER_OF_SCENES, NUMBER_OF_VECTOR_SETS, tandem );
+      super( graphDimension, graphUpperLeftPosition, tandem );
 
 
 
@@ -44,9 +44,7 @@ define( require => {
      */
     createScenes(
       graphDimension,
-      graphUpperLeftPosition,
-      numberOfScenes,
-      numberOfVectorSets ) {
+      graphUpperLeftPosition ) {
 
       // @public {BooleanProperty}
       this.sumGroup1VisibleProperty = new BooleanProperty( false );

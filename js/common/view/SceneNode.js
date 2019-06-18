@@ -14,13 +14,12 @@ define( require => {
   const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
 
   // constants
-  const VECTOR_DISPLAY_PANEL_LOCATION_LEFT = VectorAdditionConstants.VECTOR_DISPLAY_PANEL_LOCATION.left;
-  const VECTOR_DISPLAY_PANEL_LOCATION_TOP = VectorAdditionConstants.VECTOR_DISPLAY_PANEL_LOCATION.top;
+  const VECTOR_DISPLAY_PANEL_LOCATION_LEFT = 195;
+  const VECTOR_DISPLAY_PANEL_LOCATION_TOP = 12;
 
   class SceneNode extends Node {
     /**

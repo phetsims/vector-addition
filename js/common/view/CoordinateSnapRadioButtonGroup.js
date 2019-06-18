@@ -13,7 +13,6 @@ define( require => {
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
@@ -21,7 +20,7 @@ define( require => {
     left: 900,
     top: 455,
     selectedLineWidth: 2,
-    cornerRadius: VectorAdditionConstants.PANEL_CORNER_RADIUS,
+    cornerRadius: 5,
     orientation: 'vertical'
   }, VectorAdditionColors.RADIO_BUTTON_COLORS );
 
