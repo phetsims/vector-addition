@@ -85,7 +85,7 @@ define( function( require ) {
       fill: VectorAdditionColors.PANEL_BACKGROUND,
       stroke: VectorAdditionColors.PANEL_STROKE_COLOR
     },
-    PANEL_FONT: new PhetFont( 25 ),
+    PANEL_FONT: new PhetFont( 18 ),
     PANEL_WIDTH: 135,
     ICON_SPACING: 10,
     // Options for Vector Boxes

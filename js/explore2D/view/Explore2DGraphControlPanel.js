@@ -76,7 +76,7 @@ define( require => {
           new ValuesCheckbox( valuesVisibleProperty ),
           new AngleCheckbox( angleVisibleProperty ),
           new GridCheckbox( gridVisibleProperty ),
-          new Line( 0, 0, 200, 0, {
+          new Line( 0, 0, VectorAdditionConstants.PANEL_WIDTH, 0, {
             stroke: VectorAdditionColors.GRAPH_CONTROL_PANEL_LINE_COLOR
           } ),
           new Text( componentsString, {

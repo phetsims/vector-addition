@@ -21,7 +21,7 @@ define( require => {
     right: 900,
     top: 100,
     cornerRadius: 6,
-    orientation: 'horizontal'
+    orientation: 'vertical'
   }, VectorAdditionColors.RADIO_BUTTON_COLORS );
 
   class ComponentStyleRadioButtonGroup extends RadioButtonGroup {
