@@ -188,7 +188,7 @@ define( require => {
       const panel = new Panel( slotsLayoutBox, options.panelOptions );
 
       // TODO: hoist?
-      panel.right = 950;
+      panel.right = 860;
       panel.top = 300;
 
       this.setChildren( [ panel, vectorRepresentationContainer ] );
