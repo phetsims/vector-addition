@@ -15,6 +15,7 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const Property = require( 'AXON/Property' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -124,9 +125,12 @@ define( require => {
       const tailLocationProperty = new Vector2Property(
         modelViewTransformProperty.value.modelToViewPosition( vectorModel.tail ) );
 
+      const tailDragBoundsProperty = new Property( modelViewTransformProperty.value.modelToViewBounds( graphModelBounds ) );
+
       // drag listener for the dragging of the body
       const bodyDragListener = new DragListener( {
         targetNode: this,
+        dragBoundsProperty: tailDragBoundsProperty,
         locationProperty: tailLocationProperty,
         start: () => {
           vectorModel.isBodyDraggingProperty.value = true;
