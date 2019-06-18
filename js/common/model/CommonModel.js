@@ -112,6 +112,7 @@ define( require => {
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
+      this.componentStyleProperty.reset();
 
       // reset every scene in this.scenes
       this.scenes.forEach( ( scene ) => {
