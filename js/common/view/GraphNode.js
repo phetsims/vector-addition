@@ -103,8 +103,9 @@ define( require => {
      * @constructor
      *
      * @param {Graph} graph - the model graph for the node
+     * @param {BooleanProperty} gridVisibilityProperty
      */
-    constructor( graph ) {
+    constructor( graph, gridVisibilityProperty ) {
 
       // Transform the model grid bounds into the view coordinates.
       // This will stay constant as the background rectangle won't move.
@@ -115,14 +116,17 @@ define( require => {
 
       const xAxisNode = new XAxisNode( graph );
       const yAxisNode = new YAxisNode( graph );
-
-
       const originCircle = new OriginCircle( graph );
+
+      const gridLinesNode = new GridLinesNode( graph );
+
+      // present for the lifetime of the simulation
+      gridVisibilityProperty.linkAttribute( gridLinesNode, 'visible' );
 
       super( {
         children: [
           backgroundRectangle,
-          new GridLinesNode( graph ),
+          gridLinesNode,
           xAxisNode,
           yAxisNode,
           originCircle
@@ -303,7 +307,7 @@ define( require => {
 
 
         // Update the upperLeftPosition model coordinates
-        graph.upperLeftPositionProperty.value =  graph.upperLeftPositionProperty.initialValue.minus( originSnapLocation );
+        graph.upperLeftPositionProperty.value = graph.upperLeftPositionProperty.initialValue.minus( originSnapLocation );
 
         this.center = modelViewTransform.modelToViewPosition( originSnapLocation );
 

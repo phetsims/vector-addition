@@ -39,7 +39,7 @@ define( require => {
       this.scene = scene;
 
       // @public (read-only) {GraphNode} Create the Graph Node
-      this.graphNode = new GraphNode( scene.graph );
+      this.graphNode = new GraphNode( scene.graph, model.gridVisibleProperty );
 
       // Create the vector display panel
       const inspectVectorPanel = new InspectVectorPanel( scene.vectorSets );
