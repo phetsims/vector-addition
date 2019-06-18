@@ -173,7 +173,7 @@ define( require => {
         slot.addChild( vectorIconNode );
         // create a node next to the icon for the label
         if ( options.includeLabelsNextToIcons === true ) {
-          slot.addChild( new FormulaNode( '\\vec{' + options.labels[ slotNumber ] + '}' ) );
+          slot.addChild( new FormulaNode( `\\vec{${options.labels[ slotNumber ]}}` ) );
         }
 
         slotsChildren.push( slot );
