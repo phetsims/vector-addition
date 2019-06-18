@@ -113,6 +113,7 @@ define( require => {
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
       this.componentStyleProperty.reset();
+      this.coordinateSnapModeProperty.reset();
 
       // reset every scene in this.scenes
       this.scenes.forEach( ( scene ) => {
