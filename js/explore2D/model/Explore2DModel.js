@@ -9,6 +9,7 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const Property = require( 'AXON/Property' );
@@ -16,6 +17,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const Explore2DScene = require( 'VECTOR_ADDITION/explore2D/model/Explore2DScene' );
 
   const NUMBER_OF_SCENES = 1;
   const NUMBER_OF_VECTOR_SETS = 1;
@@ -39,7 +41,28 @@ define( require => {
 
       this.vectorType = VectorTypes.ONE;
     }
+    /**
+     * @override
+     * Create the scenes
+     * 1D scenes can have different vector orientations (horizontal and vertical)
+     */
+    createScenes(
+      graphDimension,
+      graphUpperLeftPosition,
+      numberOfScenes,
+      numberOfVectorSets ) {
 
+      this.sumVisibleProperty = new BooleanProperty( false );
+
+      this.scene = new Explore2DScene(
+        graphDimension,
+        graphUpperLeftPosition,
+        NUMBER_OF_VECTOR_SETS,
+        this.componentStyleProperty,
+        this.sumVisibleProperty );
+
+      this.scenes.push( this.scene );
+    }
   }
 
   return vectorAddition.register( 'Explore2DModel', Explore2DModel );

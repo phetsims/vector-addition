@@ -9,13 +9,14 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const Vector2 = require( 'DOT/Vector2' );
-  const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
-
+  // const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const LabScene = require( 'VECTOR_ADDITION/lab/model/LabScene');
+  
   const NUMBER_OF_SCENES = 1;
   const NUMBER_OF_VECTOR_SETS = 2;
 
@@ -32,6 +33,8 @@ define( require => {
 
       super( graphDimension, graphUpperLeftPosition, NUMBER_OF_SCENES, NUMBER_OF_VECTOR_SETS, tandem );
 
+
+
     }
 
     /**
@@ -45,18 +48,20 @@ define( require => {
       numberOfScenes,
       numberOfVectorSets ) {
 
+      // @public {BooleanProperty}
+      this.sumGroup1VisibleProperty = new BooleanProperty( false );
+      // @public {BooleanProperty}
+      this.sumGroup2VisibleProperty = new BooleanProperty( false );
 
-      // Possible orientations for this screen, order of this array doesn't matter since the visibility is toggled
-      const vectorTypes = [ VectorTypes.ONE, VectorTypes.TWO ];
+      this.scene = new LabScene(
+        graphDimension,
+        graphUpperLeftPosition,
+        NUMBER_OF_VECTOR_SETS,
+        this.componentStyleProperty,
+        this.sumGroup1VisibleProperty,
+        this.sumGroup2VisibleProperty );
 
-      for ( let i = 0; i < numberOfScenes; i++ ) {
-
-        const newScene = new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, this.componentStyleProperty, _, {
-          vectorTypes: vectorTypes
-        } );
-
-        this.scenes.push( newScene );
-      }
+      this.scenes.push( this.scene );
     }
 
   }

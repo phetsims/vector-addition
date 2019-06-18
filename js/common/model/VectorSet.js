@@ -26,7 +26,7 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options]
      */
-    constructor( modelViewTransformProperty, graphModelBounds, componentStyleProperty, vectorType ) {
+    constructor( modelViewTransformProperty, graphModelBounds, componentStyleProperty, sumVisibleProperty, vectorType ) {
 
       // @public {ObservableArray.<VectorModel>} - the vectors that appear on the graph (not including the sum vector)
       this.vectors = new ObservableArray();
@@ -36,6 +36,8 @@ define( require => {
 
       // @public {VectorTypes}
       this.vectorType = vectorType;
+
+      this.sumVisibleProperty = sumVisibleProperty;
     }
 
     /**

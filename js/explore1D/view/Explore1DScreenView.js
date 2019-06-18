@@ -27,11 +27,10 @@ define( require => {
 
       super( explore1DModel, tandem );
 
-      // function to the sceneNode based on orientation
-      const getSceneNode = ( orientation ) => {
+      // function to the sceneNode based on scene model
+      const getSceneNode = ( sceneModel ) => {
         for ( let i = 0; i < explore1DModel.scenes.length; i++ ) {
 
-          const sceneModel = explore1DModel.getScene( orientation );
           if ( this.sceneNodes[ i ].scene === sceneModel ) {
             return this.sceneNodes[ i ];
           }
@@ -39,11 +38,11 @@ define( require => {
       };
 
       // convenience variables for the scenes and the scene nodes
-      const horizontalScene = explore1DModel.getScene( VectorOrientations.HORIZONTAL );
-      const verticalScene = explore1DModel.getScene( VectorOrientations.VERTICAL );
+      const horizontalScene = explore1DModel.horizontalScene;
+      const verticalScene = explore1DModel.verticalScene;
 
-      const horizontalSceneNode = getSceneNode( VectorOrientations.HORIZONTAL );
-      const verticalSceneNode = getSceneNode( VectorOrientations.VERTICAL );
+      const horizontalSceneNode = getSceneNode( horizontalScene );
+      const verticalSceneNode = getSceneNode( verticalScene );
 
 
       // create the creator panel for each scene

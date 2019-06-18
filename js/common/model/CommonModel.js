@@ -25,7 +25,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  // const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
   const DEFAULT_COMPONENT_STYLE = VectorAdditionConstants.DEFAULT_COMPONENT_STYLE;
@@ -56,10 +56,6 @@ define( require => {
         `invalid numberOfScenes: ${numberOfScenes}` );
       assert && assert( typeof numberOfVectorSets === 'number' && numberOfVectorSets > 0,
         `invalid numberOfVectorSets: ${numberOfVectorSets}` );
-
-
-      // @public {BooleanProperty}
-      this.sumVisibleProperty = new BooleanProperty( false );
 
       // @public {BooleanProperty}
       this.valuesVisibleProperty = new BooleanProperty( false );
@@ -108,7 +104,6 @@ define( require => {
      * Reset the common model.
      */
     reset() {
-      this.sumVisibleProperty.reset();
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
@@ -122,6 +117,7 @@ define( require => {
     }
 
     /**
+     * @abstract
      * @private
      * Create the scenes
      * Make a separate method (can be overridden if the scenes need a specific orientation, see Explore1DModel)
@@ -135,11 +131,7 @@ define( require => {
       graphUpperLeftPosition,
       numberOfScenes,
       numberOfVectorSets ) {
-
-      for ( let i = 0; i < numberOfScenes; i++ ) {
-        this.scenes.push( new Scene( graphDimension, graphUpperLeftPosition, numberOfVectorSets, this.componentStyleProperty, VectorTypes.ONE ) );
-      }
-
+      throw new Error( 'Create scenes must be implemented by sub classes' );
     }
   }
 

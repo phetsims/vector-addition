@@ -9,13 +9,15 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CommonModel = require( 'VECTOR_ADDITION/common/model/CommonModel' );
   const Dimension2 = require( 'DOT/Dimension2' );
-  const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
+  const HorizontalScene = require( 'VECTOR_ADDITION/explore1D/model/HorizontalScene' );
+  const VerticalScene = require( 'VECTOR_ADDITION/explore1D/model/VerticalScene' ); 
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  // const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
@@ -39,6 +41,7 @@ define( require => {
 
       this.vectorOrientationProperty.value = EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION;
       this.vectorType = VectorTypes.ONE;
+
     }
 
     /**
@@ -52,36 +55,24 @@ define( require => {
       numberOfScenes,
       numberOfVectorSets ) {
 
-      // create an object with the orientation as the key, and the scene as the value
-      this.orientationToSceneObject = {};
+      this.sumVisibleProperty = new BooleanProperty( false );
+      
+      this.horizontalScene = new HorizontalScene(
+        graphDimension,
+        graphUpperLeftPosition,
+        NUMBER_OF_VECTOR_SETS,
+        this.componentStyleProperty,
+        this.sumVisibleProperty );
 
-      // Possible orientations for this screen, order of this array doesn't matter since the visibility is toggled
-      const orientations = [ VectorOrientations.HORIZONTAL, VectorOrientations.VERTICAL ];
+      this.verticalScene = new VerticalScene(
+        graphDimension,
+        graphUpperLeftPosition,
+        NUMBER_OF_VECTOR_SETS,
+        this.componentStyleProperty,
+        this.sumVisibleProperty );
 
-      for ( let i = 0; i < numberOfScenes; i++ ) {
-
-        const newScene = new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, this.componentStyleProperty, VectorTypes.ONE, {
-          graphOptions: {
-            orientation: orientations[ i ]
-          }
-        } );
-
-        this.orientationToSceneObject[ orientations[ i ] ] = newScene;
-
-        this.scenes.push( newScene );
-      }
-    }
-
-    /**
-     * Get the scene based on orientation
-     * This is not an override, rather a method specific to explore1D
-     * @public
-     */
-    getScene( orientation ) {
-      const scene = this.orientationToSceneObject[ orientation ];
-      assert && assert( scene, `${orientation} is not a valid orientation` );
-
-      return scene;
+      this.scenes.push( this.horizontalScene );
+      this.scenes.push( this.verticalScene );
     }
 
   }

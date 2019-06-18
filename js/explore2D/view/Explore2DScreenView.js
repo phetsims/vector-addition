@@ -34,7 +34,7 @@ define( function( require ) {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
-
+      
       this.addChild( graphControlPanel );
 
       const vectorCreatorPanel = new Explore2DVectorCreatorPanel(
