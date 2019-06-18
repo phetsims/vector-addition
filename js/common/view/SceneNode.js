@@ -25,7 +25,7 @@ define( require => {
     /**
      * @constructor
      * @param {Scene} scene
-     * @param {CommonModel} model
+     * @param {VectorAdditionModel} model
      * @param {VectorTypes} vectorType
      * options
      */

@@ -17,20 +17,20 @@ define( require => {
   class CommonScreenView extends ScreenView {
 
     /**
-     * @param {CommonModel} commonModel
+     * @param {VectorAdditionModel} vectorAdditionModel
      * @param {Tandem} tandem
      */
-    constructor( commonModel, tandem ) {
+    constructor( vectorAdditionModel, tandem ) {
 
       super();
 
       // @public (read-only) {Array.<SceneNode>}
       this.sceneNodes = [];
 
-      commonModel.scenes.forEach( ( scene ) => {
+      vectorAdditionModel.scenes.forEach( ( scene ) => {
 
         // create a scene node and add it as a child
-        const newSceneNode = new SceneNode( scene, commonModel );
+        const newSceneNode = new SceneNode( scene, vectorAdditionModel );
         this.addChild( newSceneNode );
 
         // add it to the sceneNode array
@@ -39,12 +39,12 @@ define( require => {
       } );
 
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
-        commonModel.coordinateSnapModeProperty );
+        vectorAdditionModel.coordinateSnapModeProperty );
       this.addChild( coordinateSnapRadioButtonGroup );
 
       const resetAllButton = new ResetAllButton( {
         listener: () => {
-          commonModel.reset();
+          vectorAdditionModel.reset();
 
           // loop through SceneNodes and reset each sceneNode
           this.sceneNodes.forEach( ( sceneNode ) =>
