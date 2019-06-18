@@ -130,7 +130,6 @@ define( require => {
         baseLine.setX2( arcScaleFactor * BASE_LINE_LENGTH );
       };
 
-
       vectorModel.angleDegreesProperty.link( updateAngle );
 
       // update the radius of the arcArrow based on the magnitude of the vector

@@ -16,7 +16,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
-
   // constants
   const RADIO_BUTTON_OPTIONS = _.extend( {
     left: 900,
@@ -25,7 +24,6 @@ define( require => {
     cornerRadius: VectorAdditionConstants.PANEL_CORNER_RADIUS,
     orientation: 'vertical'
   }, VectorAdditionColors.RADIO_BUTTON_COLORS );
-
 
   class CoordinateSnapRadioButtonGroup extends RadioButtonGroup {
 

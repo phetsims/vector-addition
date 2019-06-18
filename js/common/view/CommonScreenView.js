@@ -33,12 +33,10 @@ define( require => {
         const newSceneNode = new SceneNode( scene, commonModel );
         this.addChild( newSceneNode );
 
-
         // add it to the sceneNode array
         this.sceneNodes.push( newSceneNode );
 
       } );
-
 
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         commonModel.coordinateSnapModeProperty );

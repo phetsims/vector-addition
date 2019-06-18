@@ -47,7 +47,7 @@ define( require => {
      */
     constructor( vectorArray1, vectorArray2, modelViewTransformProperty, componentStyleProperty ) {
 
-      super( _, 2, modelViewTransformProperty,componentStyleProperty, _, {
+      super( _, 2, modelViewTransformProperty, componentStyleProperty, _, {
         panelOptions: PANEL_OPTIONS,
         observableArrays: [ vectorArray1, vectorArray2 ],
         includeLabelsNextToIcons: false,

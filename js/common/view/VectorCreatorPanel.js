@@ -28,11 +28,9 @@ define( require => {
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   // const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
-
   // constants
   const SLOTS_SPACING = 20;
   const LABEL_AND_ICON_SPACING = 10;
-
 
   // TODO: add a option to put the labels next to the icons
   class VectorCreatorPanel extends Node {
@@ -71,7 +69,6 @@ define( require => {
         panelOptions: null
       }, options );
 
-
       // the number of labels has to be the same as the number of slots if provided
       assert && assert( !options.labels || options.labels.length === numberOfVectorSlots,
         'Labels must be the same length as the number of slots.' );
@@ -97,7 +94,6 @@ define( require => {
 
         // create the icon node by calling the abstract method, see createVectorIcon for documentation
         const vectorIconNode = this.createVectorIcon( slotNumber );
-
 
         // When the vector icon is clicked, add a vector representation as a decoy vector to drag onto the screen
         vectorIconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
@@ -128,7 +124,7 @@ define( require => {
               // get the default vector components to add to the screen, see getDefaultVectorComponents for documentation
               const defaultVectorComponents = this.getDefaultVectorComponents();
 
-              const vectorModelOptions =  options.labels ? {
+              const vectorModelOptions = options.labels ? {
                 label: options.labels[ slotNumber ]
               } : null;
               // Create a new Vector to be added to the observable array
@@ -136,7 +132,7 @@ define( require => {
                 vectorRepresentationPosition,
                 defaultVectorComponents.x,
                 defaultVectorComponents.y,
-                modelViewTransformProperty, 
+                modelViewTransformProperty,
                 componentStyleProperty,
                 options.vectorTypes ? options.vectorTypes[ slotNumber ] : vectorType,
                 vectorModelOptions
@@ -196,7 +192,6 @@ define( require => {
       panel.top = 300;
 
       this.setChildren( [ panel, vectorRepresentationContainer ] );
-
 
     }
 

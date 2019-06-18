@@ -24,7 +24,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
-
   // constants
   const VECTOR_PANEL_OPTIONS = {
     expandedProperty: new BooleanProperty( false ), // {Property.<boolean>}
@@ -45,7 +44,6 @@ define( require => {
   const selectAVectorString = require( 'string!VECTOR_ADDITION/selectAVector' );
   const xString = require( 'string!VECTOR_ADDITION/x' );
   const yString = require( 'string!VECTOR_ADDITION/y' );
-
 
   class InspectVectorPanel extends Panel {
 
@@ -91,7 +89,6 @@ define( require => {
         displayVectorNode
       ] );
 
-
       super( contentNode, VECTOR_PANEL_OPTIONS );
 
       // @private {LayoutBox} displayVectorNode - create a reference to the layout box
@@ -103,7 +100,6 @@ define( require => {
         inspectVectorText.visible = !expanded;
         // TODO: toggle the selectVectorText visibility
       };
-
 
       VECTOR_PANEL_OPTIONS.expandedProperty.link( expandedObserver );
 
@@ -165,7 +161,6 @@ define( require => {
         }
       };
 
-
       vectorSets.forEach( ( vectorSet ) => {
 
         const isVectorSumDraggingListener = ( isDragging ) => {
@@ -175,7 +170,6 @@ define( require => {
         vectorSet.vectorSum.isDraggingProperty.link( isVectorSumDraggingListener );
 
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
-
 
           const isDragListener = ( isDragging ) => {
             isDraggingListener( isDragging, addedVector );
@@ -191,16 +185,14 @@ define( require => {
       } );
     }
 
-
     /**
      * reset the status of the Inspect Vector Panel
      * @public
      */
-    reset(){
+    reset() {
       VECTOR_PANEL_OPTIONS.expandedProperty.reset();
     }
   }
-
 
   return vectorAddition.register( 'InspectVectorPanel', InspectVectorPanel );
 } );

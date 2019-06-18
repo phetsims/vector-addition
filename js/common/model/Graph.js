@@ -15,7 +15,7 @@ define( require => {
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
-  const Dimension2 = require( 'DOT/Dimension2' );  
+  const Dimension2 = require( 'DOT/Dimension2' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
@@ -72,9 +72,9 @@ define( require => {
       // Graphs last for the life time of the sim, so no need to dispose
       this.modelViewTransformProperty = new DerivedProperty( [ this.upperLeftPositionProperty ],
         upperLeftPosition => ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-            upperLeftPosition,
-            UPPER_LEFT_LOCATION,
-            GRAPH_TO_VIEW_SCALE 
+          upperLeftPosition,
+          UPPER_LEFT_LOCATION,
+          GRAPH_TO_VIEW_SCALE
         ), {
           valueType: ModelViewTransform2
         } );

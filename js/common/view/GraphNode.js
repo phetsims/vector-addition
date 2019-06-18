@@ -97,7 +97,6 @@ define( require => {
   const yString = require( 'string!VECTOR_ADDITION/y' );
   const number0String = '0';
 
-
   class GraphNode extends Node {
     /**
      * @constructor
@@ -190,16 +189,13 @@ define( require => {
       // modelViewTransformProperty link.
       this.minorGridLinesPath = new Path( new Shape(), MINOR_GRID_LINES_OPTIONS );
 
-
       // Update the grid when the modelViewTransform changes (triggered when the origin is moved)
       // link present for the lifetime of the simulation
       graph.modelViewTransformProperty.link( ( modelViewTransform ) => {
         this.updateGrid( modelViewTransform );
       } );
 
-
       this.setChildren( [ this.majorGridLinesPath, this.minorGridLinesPath ] );
-
 
     }
 
@@ -280,9 +276,7 @@ define( require => {
       // the origin in terms of the view;
       const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
-
       super( ORIGIN_CIRCLE_RADIUS, _.extend( { center: origin }, ORIGIN_CIRCLE_OPTIONS ) );
-
 
       // Create a dragBounds to constrain the drag
       const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds(
@@ -298,13 +292,11 @@ define( require => {
         dragBoundsProperty: new Property( restrictedGraphViewBounds )
       } ) );
 
-
       // link present for the lifetime of the simulation
       this.originLocationProperty.link( ( originLocation ) => {
 
         // TODO: abstract snap to grid logic in the model
         const originSnapLocation = modelViewTransform.viewToModelPosition( originLocation ).roundedSymmetric();
-
 
         // Update the upperLeftPosition model coordinates
         graph.upperLeftPositionProperty.value = graph.upperLeftPositionProperty.initialValue.minus( originSnapLocation );
@@ -319,7 +311,6 @@ define( require => {
       this.originLocationProperty.reset();
     }
   }
-
 
   //----------------------------------------------------------------------------------------
   class AxisNode extends Node {

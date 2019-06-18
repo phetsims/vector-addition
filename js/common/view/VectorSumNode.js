@@ -29,13 +29,13 @@ define( require => {
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
      */
-    constructor( vectorModel, 
+    constructor( vectorModel,
                  graphModelBounds,
                  componentStyleProperty,
                  angleVisibleProperty,
                  vectorOrientation,
                  modelViewTransformProperty
-                 ) {
+    ) {
 
       let arrowOptions;
       switch( vectorModel.vectorType ) {
@@ -48,17 +48,16 @@ define( require => {
           break;
         }
         default: {
-          throw new Error( `Vector Type : ${ vectorModel.vectorType } not handled` );
+          throw new Error( `Vector Type : ${vectorModel.vectorType} not handled` );
         }
       }
-      super( vectorModel, 
-             graphModelBounds,
-             componentStyleProperty,
-             angleVisibleProperty,
-             vectorOrientation,
-             modelViewTransformProperty,
-             arrowOptions ); 
-      
+      super( vectorModel,
+        graphModelBounds,
+        componentStyleProperty,
+        angleVisibleProperty,
+        vectorOrientation,
+        modelViewTransformProperty,
+        arrowOptions );
 
     }
   }

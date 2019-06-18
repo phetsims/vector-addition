@@ -32,7 +32,6 @@ define( require => {
      */
     constructor( scene, model, vectorType ) {
 
-
       super();
 
       // @public (read-only) {scene}
@@ -65,7 +64,6 @@ define( require => {
           scene.graph.modelViewTransformProperty,
         );
         vectorSumLayer.addChild( vectorSumNode );
-
 
         // on the vector set, add a listener to the vectors attribute to add the vector to the scene
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {

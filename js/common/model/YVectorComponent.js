@@ -2,7 +2,7 @@
 
 /**
  * Model for a Y Vector Component.
- * 
+ *
  * @author Brandon Li
  */
 
@@ -10,7 +10,7 @@ define( require => {
   'use strict';
 
   // modules
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' ); 
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
 
@@ -20,7 +20,7 @@ define( require => {
      * Update the tail, and attributes vector (which will update the tip and magnitude)
      * @override
      * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
-     * @param {ComponentStyles} componentStyle 
+     * @param {ComponentStyles} componentStyle
      */
     updateComponent( parentVector, componentStyle ) {
 
@@ -39,8 +39,8 @@ define( require => {
           this.tail = parentVector.tail;
           break;
         }
-        case ComponentStyles.ON_AXIS: {        
-            
+        case ComponentStyles.ON_AXIS: {
+
           // same tail y, however its x value is 0 since it is on the y-axis
           this.tailY = parentVector.tailY;
           this.tailX = 0;

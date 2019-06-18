@@ -2,7 +2,7 @@
 
 /**
  * Model for a Vector Component. There are 2 types of components: the X Component and the Y Component.
- * 
+ *
  * This is an abstract class, meaning that the it has methods that must sub-classes must implement.
  * Currently XVectorComponent and YVectorComponent extend this class.
  *
@@ -19,8 +19,8 @@ define( require => {
 
   // modules
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' ); 
-  const Property = require( 'AXON/Property' );  
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // @abstract
@@ -34,10 +34,10 @@ define( require => {
     constructor( parentVector, componentStyleProperty, label ) {
 
       // Type check arguments
-      assert && assert ( componentStyleProperty instanceof EnumerationProperty,
+      assert && assert( componentStyleProperty instanceof EnumerationProperty,
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( typeof label === 'string', `invalid label: ${label}` );
-     
+
       //----------------------------------------------------------------------------------------
 
       super( parentVector.tailPositionProperty.value, 0, 0, label, parentVector.vectorType );
@@ -57,6 +57,7 @@ define( require => {
       // @public (read-only) reference to the parent vector
       this.parentVector = parentVector;
     }
+
     /**
      * Dispose of the vector
      * @public
@@ -66,10 +67,11 @@ define( require => {
       this.updateLayoutMultilink.dispose();
       super.dispose();
     }
+
     /**
      * Update the tail, and attributes vector (which will update the tip and magnitude)
      * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
-     * @param {ComponentStyles} componentStyle 
+     * @param {ComponentStyles} componentStyle
      * @abstract
      * @private
      */

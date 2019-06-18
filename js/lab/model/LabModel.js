@@ -33,6 +33,7 @@ define( require => {
       super( graphDimension, graphUpperLeftPosition, NUMBER_OF_SCENES, NUMBER_OF_VECTOR_SETS, tandem );
 
     }
+
     /**
      * @override
      * Create the scenes
@@ -44,10 +45,10 @@ define( require => {
       numberOfScenes,
       numberOfVectorSets ) {
 
-    
+
       // Possible orientations for this screen, order of this array doesn't matter since the visibility is toggled
       const vectorTypes = [ VectorTypes.ONE, VectorTypes.TWO ];
-      
+
       for ( let i = 0; i < numberOfScenes; i++ ) {
 
         const newScene = new Scene( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, this.componentStyleProperty, _, {

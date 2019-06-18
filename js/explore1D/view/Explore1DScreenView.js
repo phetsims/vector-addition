@@ -58,7 +58,7 @@ define( require => {
       const horizontalVectorCreatorPanel = explore1DVectorCreatorPanels.horizontalVectorCreatorPanel;
       const verticalVectorCreatorPanel = explore1DVectorCreatorPanels.verticalVectorCreatorPanel;
 
-      
+
       explore1DModel.vectorOrientationProperty.link( ( vectorOrientation ) => {
         switch( vectorOrientation ) {
           case VectorOrientations.HORIZONTAL:
@@ -76,7 +76,7 @@ define( require => {
           case VectorOrientations.TWO_DIMENSIONAL:
             throw new Error( `Explore1D does not support vector orientation: ${vectorOrientation}` );
           default:
-          console.log( vectorOrientation );
+            console.log( vectorOrientation );
             throw new Error( `Vector orientation not handled: ${vectorOrientation}` );
         }
       } );
@@ -112,7 +112,7 @@ define( require => {
         orientation: 'horizontal'
       } );
 
-      this.addChild( horizontalVectorCreatorPanel);
+      this.addChild( horizontalVectorCreatorPanel );
       this.addChild( verticalVectorCreatorPanel );
       this.addChild( graphControlPanel );
       this.addChild( sceneRadioButtonGroup );

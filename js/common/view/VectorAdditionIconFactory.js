@@ -95,7 +95,6 @@ define( function( require ) {
   // strings
   const oneString = require( 'string!VECTOR_ADDITION/one' );
 
-
   class VectorAdditionIconFactory {
     // Creates an arrow icon node
     static createSumIcon() {
@@ -164,7 +163,6 @@ define( function( require ) {
 
       // now add a lighter arrow pointing upwards
       const upArrow = new ArrowNode( 0, 0, 0, -1 * ARROW_ICON_SIZE, OPAQUE_ARROW_OPTIONS );
-
 
       icon.setChildren( [ rightArrow, upArrow, darkArrow ] );
       return icon;

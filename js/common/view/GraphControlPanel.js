@@ -57,11 +57,9 @@ define( require => {
                  componentStyleProperty,
                  options ) {
 
-
       options = _.extend( {
         is1D: true
       }, PANEL_OPTIONS, options );
-
 
       const ICON_SPACING = 15;
 
@@ -137,7 +135,6 @@ define( require => {
           cornerRadius: 6,
           orientation: 'horizontal'
         }, RADIO_BUTTON_OPTIONS ) );
-
 
       // vertical layout
       const contentNode = new LayoutBox( {

@@ -124,9 +124,6 @@ define( function( require ) {
         fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.component
       } )
     }
-
-
-
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

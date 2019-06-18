@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Base class for vector views for all types of vectors (sum, component, etc.). 
+ * Base class for vector views for all types of vectors (sum, component, etc.).
  * Primarily responsibilities are:
  *  - Create an Arrow Node that mirrors a vector models tail/tip position
  *  - Create Other Nodes that ALL vectors in the sim have (ie. labels etc.)
@@ -13,7 +13,7 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const BaseVectorModel = require ( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
+  const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -33,8 +33,8 @@ define( require => {
 
       // Type check arguments
       assert && assert( vectorModel instanceof BaseVectorModel, `invalid vectorModel: ${vectorModel}` );
-      assert && assert( modelViewTransformProperty instanceof DerivedProperty 
-        && modelViewTransformProperty.value instanceof ModelViewTransform2, 
+      assert && assert( modelViewTransformProperty instanceof DerivedProperty
+      && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( typeof arrowOptions === 'object', `invalid arrowOptions: ${arrowOptions}` );
 
@@ -53,9 +53,7 @@ define( require => {
       // The location of this depends on the angle of the vector.
       this.labelNode = new FormulaNode( `\\vec{ ${vectorModel.label} \}` );
 
-
-      this.setChildren([ this.arrowNode, this.labelNode ]);
-
+      this.setChildren( [ this.arrowNode, this.labelNode ] );
 
       //----------------------------------------------------------------------------------------
       // update the tail/tip location when the vector's tail/tip position changes
@@ -66,7 +64,8 @@ define( require => {
         () => { this.updateVector( vectorModel, modelViewTransformProperty.value ); } );
 
     }
-    /** 
+
+    /**
      * Update the tail and tip position of the view
      * @param {BaseVectorModel} vectorModel
      * @param {ModelViewTransform2} modelViewTransform
@@ -81,6 +80,7 @@ define( require => {
       const tipDeltaLocation = modelViewTransform.modelToViewDelta( vectorModel.components );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
     }
+
     /**
      * Dispose the vector
      * @public

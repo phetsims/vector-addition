@@ -64,7 +64,6 @@ define( require => {
         `invalid angleVisibleProperty: ${angleVisibleProperty}` );
       // modelViewTransformProperty checked in super class
 
-
       //----------------------------------------------------------------------------------------
       // Get the arrow options for the specific vector type
 
@@ -82,7 +81,6 @@ define( require => {
         }
       }
       super( vectorModel, modelViewTransformProperty, arrowOptions );
-
 
       //----------------------------------------------------------------------------------------
 
@@ -119,7 +117,6 @@ define( require => {
       //@private {VectorModel}
       this.vectorModel = vectorModel;
 
-
       //----------------------------------------------------------------------------------------
       // Create Body Drag
 
@@ -147,7 +144,6 @@ define( require => {
       tailLocationProperty.link( tailListener );
 
       this.arrowNode.addInputListener( bodyDragListener );
-
 
       //----------------------------------------------------------------------------------------
       // Create Tip Drag
@@ -182,7 +178,6 @@ define( require => {
           tipLocationProperty.unlink( tipListener );
         };
       }
-
 
       const updateTip = () => {
         const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.components );
@@ -252,7 +247,6 @@ define( require => {
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
       this.vectorModel.tail = tailPosition.roundedSymmetric();
     }
-
 
   }
 

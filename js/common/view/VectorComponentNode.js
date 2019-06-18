@@ -11,9 +11,9 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVectorNode = require ( 'VECTOR_ADDITION/common/view/BaseVectorNode' );
-  const ComponentStyles = require ( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' ); 
+  const BaseVectorNode = require( 'VECTOR_ADDITION/common/view/BaseVectorNode' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Multilink = require( 'AXON/Multilink' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
@@ -43,7 +43,7 @@ define( require => {
       assert && assert( vectorComponent instanceof VectorComponent, `invalid vectorComponent: ${vectorComponent}` );
 
       // modelViewTransformProperty checked in BaseVectorNode
-      assert && assert ( componentStyleProperty instanceof EnumerationProperty,
+      assert && assert( componentStyleProperty instanceof EnumerationProperty,
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
@@ -60,11 +60,11 @@ define( require => {
           break;
         }
         default: {
-          throw new Error( `Vector Type : ${ vectorComponent.vectorType } not handled` );
+          throw new Error( `Vector Type : ${vectorComponent.vectorType} not handled` );
         }
       }
-      super( vectorComponent, modelViewTransformProperty, arrowOptions ); 
-      
+      super( vectorComponent, modelViewTransformProperty, arrowOptions );
+
       //----------------------------------------------------------------------------------------
       // Create a path  that represents the dashed lines corresponding to the on_axis style.
       // The shape of the path will be updated later
@@ -81,17 +81,17 @@ define( require => {
 
       // @public {Multilink} - observe changes to the tail/tip
       this.vectorObserver = new Multilink(
-        [ vectorComponent.parentVector.tailPositionProperty, 
+        [ vectorComponent.parentVector.tailPositionProperty,
           vectorComponent.parentVector.tipPositionProperty,
           componentStyleProperty ],
-        () => { 
-          this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value ); 
-          } );
-      
+        () => {
+          this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value );
+        } );
 
     }
-    /** 
-     * Update the tail and tip position of the component. Since the component is a child of the vectorNode, we 
+
+    /**
+     * Update the tail and tip position of the component. Since the component is a child of the vectorNode, we
      * must adjust the update (since (0, 0) is defined as the tail on vectorNode)
      * @param {VectorComponent} vectorComponent
      * @param {ModelViewTransform2} modelViewTransform
@@ -134,7 +134,8 @@ define( require => {
         }
       }
     }
-    /** 
+
+    /**
      * Create the shape from of lines that go from the components tail/tip to the parents tail/tip
      * @param {VectorComponent} vectorComponent
      * @param {ModelViewTransform2} modelViewTransform
@@ -148,7 +149,6 @@ define( require => {
 
       const parentTailLocation = modelViewTransform.modelToViewDelta( Vector2.ZERO );
       const parentTipLocation = modelViewTransform.modelToViewDelta( vectorComponent.parentVector.tip.minus( vectorComponent.parentVector.tail ) );
-      
 
       // create new shape for the dashed lines that extend to the axis
       const onAxisLines = new Shape();
@@ -158,7 +158,7 @@ define( require => {
       onAxisLines.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
 
       return onAxisLines;
-      
+
     }
   }
 

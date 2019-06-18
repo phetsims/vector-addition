@@ -13,6 +13,7 @@ define( require => {
   const ObservableArray = require( 'AXON/ObservableArray' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
+
   // const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   class VectorSet {
@@ -58,7 +59,7 @@ define( require => {
       this.vectors.forEach( ( vector ) => {
         const isSum = this.vectorSum === vector;
         callback( vector, isSum );
-      });
+      } );
     }
 
   }

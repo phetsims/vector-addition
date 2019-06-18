@@ -4,7 +4,7 @@
  * Model for a Vector that is dragged onto the graph.
  *
  * This extends BaseVector and adds dragging features as well as updating the tail
- * when the origin is moved. 
+ * when the origin is moved.
  *
  * This vector also instantiates the XVectorComponent and YVectorComponent models.
  *
@@ -22,7 +22,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
-  
+
   // constants
   // interval spacing of vector angle (in degrees) when vector is in polar mode
   const ANGLE_INTERVAL = 5;
@@ -39,13 +39,13 @@ define( require => {
      * @param {VectorTypes} vectorType - see VectorTypes.js for documentation
      * @param {Object} [options]
      */
-    constructor( 
-      tailPosition, 
-      xComponent, 
-      yComponent, 
-      modelViewTransformProperty, 
+    constructor(
+      tailPosition,
+      xComponent,
+      yComponent,
+      modelViewTransformProperty,
       componentStyleProperty,
-      vectorType, 
+      vectorType,
       options ) {
 
       options = _.extend( {
@@ -57,16 +57,16 @@ define( require => {
 
       // Type check arguments
       assert && assert( modelViewTransformProperty instanceof DerivedProperty
-        && modelViewTransformProperty.value instanceof ModelViewTransform2, 
+      && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid isTipDraggable: ${options.isTipDraggable}` );
       // The rest are checked in base vector model
 
       //----------------------------------------------------------------------------------------
-      
+
       super( tailPosition, xComponent, yComponent, options.label, vectorType );
-     
+
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
 
@@ -111,7 +111,7 @@ define( require => {
       // update the position of the tail of the vector
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
-        this.tailPositionProperty.value =  newModelViewTransform.viewToModelPosition( oldTailViewPosition );
+        this.tailPositionProperty.value = newModelViewTransform.viewToModelPosition( oldTailViewPosition );
       };
       modelViewTransformProperty.lazyLink( updateTailPosition );
 
