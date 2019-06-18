@@ -147,7 +147,7 @@ define( require => {
 
       tailLocationProperty.link( tailListener );
 
-      this.arrowNode.addInputListener( bodyDragListener );
+      this.addInputListener( bodyDragListener );
 
       //----------------------------------------------------------------------------------------
       // Create Tip Drag
@@ -202,7 +202,7 @@ define( require => {
         this.angleNode.dispose();
         tailLocationProperty.unlink( tailListener );
         vectorModel.attributesVectorProperty.unlink( updateTip );
-        this.arrowNode.removeInputListener( bodyDragListener );
+        this.removeInputListener( bodyDragListener );
         this.tipCircle.dispose();
       };
 
