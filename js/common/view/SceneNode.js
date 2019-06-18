@@ -41,12 +41,12 @@ define( require => {
       // @public (read-only) {GraphNode} Create the Graph Node
       this.graphNode = new GraphNode( scene.graph, model.gridVisibleProperty );
 
-      // Create the vector display panel
-      const inspectVectorPanel = new InspectVectorPanel( scene.vectorSets );
+      // @private {InspectVectorPanel} Create the vector display panel
+      this.inspectVectorPanel = new InspectVectorPanel( scene.vectorSets );
 
       // set the panel in the correct location
-      inspectVectorPanel.left = VECTOR_DISPLAY_PANEL_LOCATION_LEFT;
-      inspectVectorPanel.top = VECTOR_DISPLAY_PANEL_LOCATION_TOP;
+      this.inspectVectorPanel.left = VECTOR_DISPLAY_PANEL_LOCATION_LEFT;
+      this.inspectVectorPanel.top = VECTOR_DISPLAY_PANEL_LOCATION_TOP;
 
       // create the vector layer
       const vectorLayer = new Node();
@@ -113,7 +113,7 @@ define( require => {
         this.graphNode,
         vectorSumLayer,
         vectorLayer,
-        inspectVectorPanel,
+        this.inspectVectorPanel,
         eraserButton ] );
     }
 
@@ -124,6 +124,7 @@ define( require => {
     reset() {
       this.graphNode.reset();
       this.scene.reset();
+      this.inspectVectorPanel.reset();
     }
   }
 

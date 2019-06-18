@@ -190,6 +190,15 @@ define( require => {
         } );
       } );
     }
+
+
+    /**
+     * reset the status of the Inspect Vector Panel
+     * @public
+     */
+    reset(){
+      VECTOR_PANEL_OPTIONS.expandedProperty.reset();
+    }
   }
 
 
