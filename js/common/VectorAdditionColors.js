@@ -22,6 +22,7 @@ define( function( require ) {
     // Various backgrounds
     SCREEN_BACKGROUND: 'rgb( 255, 250, 227 )',
     CONTROL_PANEL_BACKGROUND: LIGHT_GREY,
+    PANEL_BACKGROUND: LIGHT_GREY,
     INSPECT_VECTOR_BACKGROUND: LIGHT_GREY,
     VECTOR_CREATOR_BACKGROUND: WHITE,
     GRAPH_BACKGROUND: WHITE,
@@ -32,6 +33,7 @@ define( function( require ) {
       baseColor: WHITE,
       selectedStroke: '#419ac9'
     },
+    PANEL_STROKE_COLOR: 'rgb( 190, 190, 190 )',
 
     //----------------------------------------------------------------------------------------
     // Graph colors
@@ -39,11 +41,6 @@ define( function( require ) {
     GRAPH_MAJOR_LINE_COLOR: 'rgb( 220, 220, 220 )',
     GRAPH_MINOR_LINE_COLOR: 'rgb( 230, 230, 230 )',
     TICKS_COLOR: BLACK,
-
-
-    //----------------------------------------------------------------------------------------
-    // Vector Inspect Panel
-    INSPECT_VECTOR_BORDER_COLOR: 'rgb( 190, 190, 190 )',
 
 
     //----------------------------------------------------------------------------------------

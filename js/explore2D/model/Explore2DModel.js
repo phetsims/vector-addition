@@ -15,6 +15,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   const NUMBER_OF_SCENES = 1;
   const NUMBER_OF_VECTOR_SETS = 1;
@@ -35,6 +36,8 @@ define( require => {
 
       // @public {EnumerationProperty.<VectorOrientations>}
       this.vectorOrientationProperty = new Property( DEFAULT_VECTOR_ORIENTATION );
+
+      this.vectorType = VectorTypes.ONE;
     }
 
   }

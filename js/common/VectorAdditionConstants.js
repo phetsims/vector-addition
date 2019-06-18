@@ -23,7 +23,6 @@ define( function( require ) {
   // constants
   const PANEL_CORNER_RADIUS = 5;
   const PANEL_X_MARGIN = 12; // horizontal panel margin
-  const PANEL_BACKGROUND_COLOR = VectorAdditionColors.INSPECT_VECTOR_BACKGROUND;
   const PANEL_Y_MARGIN = 12; // vertical panel margin
 
   const VECTOR_TEMPLATE = {
@@ -45,6 +44,11 @@ define( function( require ) {
 
   const VectorAdditionConstants = {
 
+
+    // margins for all ScreenView instances
+    SCREEN_VIEW_X_MARGIN: 6,
+    SCREEN_VIEW_Y_MARGIN: 6,
+
     // defaults
     DEFAULT_VECTOR_ORIENTATION: VectorOrientations.TWO_DIMENSIONAL,
     EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION: VectorOrientations.HORIZONTAL,
@@ -59,9 +63,6 @@ define( function( require ) {
 
     // Some
 
-    // Fonts
-    PANEL_FONT: new PhetFont( 16 ),
-
     TITLE_MAX_WIDTH: 140,
     TICK_LABEL_MAX_WIDTH: 50,
 
@@ -73,14 +74,20 @@ define( function( require ) {
     // Corner radius of our normal panels
     PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
 
-    // Options for all top-level Panels
-    PANEL_OPTIONS: {
-      cornerRadius: PANEL_CORNER_RADIUS,
-      fill: PANEL_BACKGROUND_COLOR,
-      xMargin: PANEL_X_MARGIN,
-      yMargin: PANEL_Y_MARGIN
-    },
 
+    //----------------------------------------------------------------------------------------
+    // Defaults for all Panel instances
+    PANEL_OPTIONS: {
+      align: 'left',
+      cornerRadius: PANEL_CORNER_RADIUS,
+      xMargin: PANEL_X_MARGIN,
+      yMargin: PANEL_Y_MARGIN,
+      fill: VectorAdditionColors.PANEL_BACKGROUND,
+      stroke: VectorAdditionColors.PANEL_STROKE_COLOR
+    },
+    PANEL_FONT: new PhetFont( 25 ),
+    PANEL_WIDTH: 135,
+    ICON_SPACING: 10,
     // Options for Vector Boxes
     VECTOR_BOX_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,

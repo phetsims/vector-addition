@@ -21,6 +21,7 @@ define( function( require ) {
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -42,10 +43,15 @@ define( function( require ) {
     opacity: 0.4
   } );
   // sum icon
-  const SUM_ARROW_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
+  const SUM_ARROW_GROUP_ONE_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
     fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum,
     lineWidth: 0.5
   } );
+  const SUM_ARROW_GROUP_TWO_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
+    fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum,
+    lineWidth: 0.5
+  } );
+
   // Cartesian Black Arrow
   const CARTESIAN_DARK_ARROW_OPTIONS = _.extend(
     _.clone( ARROW_ICON_OPTIONS ),
@@ -97,8 +103,20 @@ define( function( require ) {
 
   class VectorAdditionIconFactory {
     // Creates an arrow icon node
-    static createSumIcon() {
-      return new ArrowNode( 0, 0, ARROW_ICON_SIZE, 0, SUM_ARROW_OPTIONS );
+    static createSumIcon( vectorType ) {
+      let arrowOptions;
+      switch( vectorType ) {
+        case VectorTypes.ONE:
+          arrowOptions = SUM_ARROW_GROUP_ONE_OPTIONS;
+          break;
+        case VectorTypes.TWO:
+          arrowOptions = SUM_ARROW_GROUP_TWO_OPTIONS;
+          break;
+        default: 
+          throw new Error( 'vector type not handled' );
+
+      }
+      return new ArrowNode( 0, 0, ARROW_ICON_SIZE, 0, arrowOptions );
     }
 
     // Creates an icon that shows the grid of a graph

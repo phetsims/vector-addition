@@ -38,6 +38,7 @@ define( require => {
       super( graphDimension, graphUpperLeftPosition, NUMBER_OF_SCENES, NUMBER_OF_VECTOR_SETS, tandem );
 
       this.vectorOrientationProperty.value = EXPLORE_1D_DEFAULT_VECTOR_ORIENTATION;
+      this.vectorType = VectorTypes.ONE;
     }
 
     /**

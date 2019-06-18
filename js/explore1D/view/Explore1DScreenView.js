@@ -8,13 +8,13 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
   const Explore1DVectorCreatorPanels = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanels' );
-  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
+  const Explore1DGraphControlPanel = require( 'VECTOR_ADDITION/Explore1D/view/Explore1DGraphControlPanel' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
   class Explore1DScreenView extends CommonScreenView {
@@ -81,16 +81,13 @@ define( require => {
         }
       } );
 
-      // TODO:: find better way to deal with absence of angle
-      const angleVisibleProperty = new BooleanProperty( false );
-
-      const graphControlPanel = new GraphControlPanel( explore1DModel.sumVisibleProperty,
+      const explore1DGraphControlPanel = new Explore1DGraphControlPanel( 
+        explore1DModel.sumVisibleProperty,
         explore1DModel.valuesVisibleProperty,
-        angleVisibleProperty,
         explore1DModel.gridVisibleProperty,
-        explore1DModel.componentStyleProperty, {
-          right: this.layoutBounds.maxX - 4,
-          top: 10
+        explore1DModel.vectorType, {
+          right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
+          top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
 
       const ArrowNodeOptions = { fill: 'black', doubleHead: true, tailWidth: 3, headWidth: 8, headHeight: 10 };
@@ -108,13 +105,13 @@ define( require => {
         selectedStroke: '#419ac9',
         selectedLineWidth: 2,
         right: this.layoutBounds.maxX - 4,
-        top: graphControlPanel.bottom + 10,
+        top: explore1DGraphControlPanel.bottom + 10,
         orientation: 'horizontal'
       } );
 
       this.addChild( horizontalVectorCreatorPanel );
       this.addChild( verticalVectorCreatorPanel );
-      this.addChild( graphControlPanel );
+      this.addChild( explore1DGraphControlPanel );
       this.addChild( sceneRadioButtonGroup );
 
     }

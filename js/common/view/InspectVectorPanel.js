@@ -32,7 +32,7 @@ define( require => {
     minWidth: 430,
     resize: false,
     fill: VectorAdditionColors.INSPECT_VECTOR_BACKGROUND,
-    stroke: VectorAdditionColors.INSPECT_VECTOR_BORDER_COLOR
+    stroke: VectorAdditionColors.PANEL_STROKE_COLOR
   };
 
   const EXPAND_COLLAPSE_BUTTON_CENTER_Y = -9;
