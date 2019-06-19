@@ -9,34 +9,37 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
-  // const BooleanProperty = require( 'AXON/BooleanProperty' );
 
   class LabScene extends Scene {
     /**
      * @constructor
      * @param {Dimension2} graphDimension - the dimensions (width and height) of the graph
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
-     * @param {number} numberOfVectorSets - scenes can have multiple vectorSets
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty
      */
     constructor( 
       graphDimension,
       graphUpperLeftPosition,
-      numberOfVectorSets,
       componentStyleProperty,
       sum1VisibleProperty,
       sum2VisibleProperty ) {
 
       //----------------------------------------------------------------------------------------
-      // assert && assert( sumVisibleProperty instanceof BooleanProperty,
-      //   `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-
-      super( graphDimension, graphUpperLeftPosition, numberOfVectorSets, componentStyleProperty );
+      // Type check arguments
+      assert && assert( sum1VisibleProperty instanceof BooleanProperty,
+        `invalid sum1VisibleProperty: ${sum1VisibleProperty}` );
+      assert && assert( sum2VisibleProperty instanceof BooleanProperty,
+        `invalid sum2VisibleProperty: ${sum2VisibleProperty}` );
+      // The rest are checked in super-classes
+      
+      //-------------------------------------------
+      super( graphDimension, graphUpperLeftPosition, componentStyleProperty );
 
 
       // @private {Boolean Property} this scene shares one property for the sum visibility
@@ -53,22 +56,25 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      */
     createVectorSets( componentStyleProperty ) {
-      // Create the vector set
-      this.vectorSets.push(
-        new VectorSet( 
-          this.graph.modelViewTransformProperty, 
-          this.graph.graphModelBounds, 
-          componentStyleProperty, 
-          this.sumGroup1VisibleProperty, 
-          VectorTypes.ONE ) );
-         // Create the vector set
-      this.vectorSets.push(
-        new VectorSet( 
-          this.graph.modelViewTransformProperty, 
-          this.graph.graphModelBounds, 
-          componentStyleProperty, 
-          this.sumGroup2VisibleProperty, 
-          VectorTypes.TWO ) );
+      
+      // @public (read-only) {VectorSet} - the group one vector set
+      this.groupOneVectorSet = new VectorSet( 
+        this.graph.modelViewTransformProperty, 
+        this.graph.graphModelBounds, 
+        componentStyleProperty, 
+        this.sumGroup1VisibleProperty, 
+        VectorTypes.ONE );
+
+
+      // @public (read-only) {VectorSet} - the group two vector set
+      this.groupTwoVectorSet = new VectorSet( 
+        this.graph.modelViewTransformProperty, 
+        this.graph.graphModelBounds, 
+        componentStyleProperty, 
+        this.sumGroup2VisibleProperty, 
+        VectorTypes.TWO );
+
+      this.vectorSets.push( this.groupOneVectorSet, this.groupTwoVectorSet );
 
     }
   }
