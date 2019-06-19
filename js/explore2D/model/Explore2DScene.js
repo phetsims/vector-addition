@@ -13,7 +13,7 @@ define( require => {
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-
+  
   class Explore2DScene extends Scene {
     /**
      * @constructor

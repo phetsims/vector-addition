@@ -10,15 +10,15 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const Dimension2 = require( 'DOT/Dimension2' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  // const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
   const LabScene = require( 'VECTOR_ADDITION/lab/model/LabScene');
-  
-  // const NUMBER_OF_SCENES = 1;
-  const NUMBER_OF_VECTOR_SETS = 2;
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+
+  // constants
+  const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
+  const GRAPH_UPPER_LEFT_COORDINATE = VectorAdditionConstants.GRAPH_UPPER_LEFT_COORDINATE;
+
 
   class LabModel extends VectorAdditionModel {
     /**
@@ -27,34 +27,41 @@ define( require => {
      */
     constructor( tandem ) {
 
-      // TODO: should this be put into the constants file, it is the same size for 1D 2D and lab
-      const graphDimension = new Dimension2( 60, 40 );
-      const graphUpperLeftPosition = new Vector2( -5, 35 );
-
-      super( graphDimension, graphUpperLeftPosition, tandem );
-
-
-
+      super( tandem );
     }
-
     /**
      * @override
-     * Create the scenes
-     * 1D scenes can have different vector orientations (horizontal and vertical)
+     * @private
+     * Create the Sum Visibility properties. Lab has 2 sum visible properties
      */
-    createScenes(
-      graphDimension,
-      graphUpperLeftPosition ) {
+    createSumVisiblityProperties() {
 
       // @public {BooleanProperty}
       this.sumGroup1VisibleProperty = new BooleanProperty( false );
       // @public {BooleanProperty}
       this.sumGroup2VisibleProperty = new BooleanProperty( false );
+    }
 
+    /**
+     * @override
+     * @private
+     * Reset the Sum Visibility properties.
+     */
+    resetSumVisibilityProperties() {
+      this.sumGroup1VisibleProperty.reset();
+      this.sumGroup2VisibleProperty.reset();
+    }
+
+    /**
+     * @override
+     * Create the scenes for Lab
+     * Lab has one scene
+     */
+    createScenes() {
+      // @public (read-only) {Explore2DScene} - the horizontal scene
       this.scene = new LabScene(
-        graphDimension,
-        graphUpperLeftPosition,
-        NUMBER_OF_VECTOR_SETS,
+        GRAPH_DIMENSION,
+        GRAPH_UPPER_LEFT_COORDINATE,
         this.componentStyleProperty,
         this.sumGroup1VisibleProperty,
         this.sumGroup2VisibleProperty );
