@@ -10,91 +10,77 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
+  const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
   // constants
-  const BLUE_ICON_OPTIONS = { // this should be in constants file
-    fill: 'blue',
-    lineWidth: 0,
-    tailWidth: 4,
-    headWidth: 10.5,
-    headHeight: 6,
-    cursor: 'pointer'
-  };
-  const RED_ICON_OPTIONS = {
-    fill: 'red',
-    lineWidth: 0,
-    tailWidth: 4,
-    headWidth: 10.5,
-    headHeight: 6,
-    cursor: 'pointer'
-  };
-  const PANEL_OPTIONS = VectorAdditionConstants.VECTOR_BOX_OPTIONS;
-  const VECTOR_TYPES = [ VectorTypes.ONE, VectorTypes.TWO ];
+  const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend(
+    _.clone( VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS ), {
+      fill: 'blue' // TODO: move this to colors
+    } );
+  const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend(
+    _.clone( VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS ), {
+      fill: 'red' // TODO: move this to colors
+    } );
+
 
   class LabVectorCreatorPanel extends VectorCreatorPanel {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray.<VectorModel>} vectorArray1 - the observable array for vector1.
-     * @param {ObservableArray.<VectorModel>} vectorArray2 - the observable array for vector2
+     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
-     * @param {Property.<ComponentStyles>} componentStyleProperty
      */
-    constructor( vectorArray1, vectorArray2, modelViewTransformProperty, componentStyleProperty ) {
+    constructor( vectorSetGroupOne, vectorSetGroupTwo, modelViewTransformProperty ) {
 
-      super( _, 2, modelViewTransformProperty, componentStyleProperty, _, {
-        panelOptions: PANEL_OPTIONS,
-        observableArrays: [ vectorArray1, vectorArray2 ],
-        includeLabelsNextToIcons: false,
-        isVectorSlotInfinite: true,
-        vectorTypes: VECTOR_TYPES
-      } );
+
+      const panelSlots = [];
+
+      panelSlots.push( new LabVectorCreatorPanelSlot( modelViewTransformProperty, vectorSetGroupOne, GROUP_ONE_ICON_ARROW_OPTIONS ) );
+      panelSlots.push( new LabVectorCreatorPanelSlot( modelViewTransformProperty, vectorSetGroupTwo, GROUP_TWO_ICON_ARROW_OPTIONS ) );
+
+
+      super( panelSlots, VectorAdditionConstants.VECTOR_CREATOR_PANEL_OPTIONS );
     }
 
+  }
+  //----------------------------------------------------------------------------------------
+  /*---------------------------------------------------------------------------*
+   * Panel Slots
+   *---------------------------------------------------------------------------*/
+ 
+
+  class LabVectorCreatorPanelSlot extends VectorCreatorPanelSlot {
     /**
-     * @abstract
-     * Create an arrow node that is the vector icon
-     * @param {number} slotNumber
-     * @returns {ArrowNode}
-     * @public
+     * @constructor
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
      */
-    createVectorIcon( slotNumber ) {
-      // TODO find a better way to do this
-      if ( slotNumber === 0 ) {
-        return new ArrowNode( 0, 0, 30, -30, BLUE_ICON_OPTIONS );
-      }
-      else {
-        return new ArrowNode( 0, 0, 30, -30, RED_ICON_OPTIONS );
-      }
-    }
+    constructor( modelViewTransformProperty, vectorSet, arrowOptions ) {
 
+      super( 
+        new ArrowNode( 0, 0, 30, -30, arrowOptions ),
+        new ArrowNode( 0, 0, 12.5 * 5, -12.5 * 5 ),
+        modelViewTransformProperty,
+        vectorSet );
+    }
     /**
-     * @abstract
-     * Create an arrow node that is the arrow node when dragging onto the screen (vector representation arrow)
-     * @returns {ArrowNode}
+     * Called when the vectorRepresentation is dropped. This should add the vector to the model.
      * @public
+     * @override
+     * @param {Vector2} - droppedPosition (model coordinates)
+     * @returns {VectorModel} - the model added
      */
-    createVectorRepresentationArrow() {
-      return new ArrowNode( 0, 0, 12.5 * 5, -12.5 * 5 );
+    addVectorToModel( droppedPosition ) { 
+      return this.vectorSet.addVector( droppedPosition, 5, 5 );
     }
-
-    /**
-     * @abstract
-     * Get the default vector components for when the vector is released onto the graph (model coordinates)
-     * @returns {Vector2}
-     * @public
-     */
-    getDefaultVectorComponents() {
-      return new Vector2( 5, 5 );
-    }
-
+    
   }
 
   return vectorAddition.register( 'LabVectorCreatorPanel', LabVectorCreatorPanel );
 } );
+
+
 
