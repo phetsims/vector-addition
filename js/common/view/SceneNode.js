@@ -85,6 +85,8 @@ define( require => {
           const removalListener = removedVector => {
             if ( removedVector === addedVector ) {
 
+              removedVector.isActiveProperty.value = false;
+
               // remove its node from the view
               vectorNode.dispose();
               removedVector.dispose();
