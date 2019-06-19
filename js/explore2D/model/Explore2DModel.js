@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the explore1D screen
+ * Model for the explore2D screen
  *
  * @author Martin Veillette
  */
@@ -10,16 +10,19 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const Dimension2 = require( 'DOT/Dimension2' );
-  const Property = require( 'AXON/Property' );
-  const Vector2 = require( 'DOT/Vector2' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const Explore2DScene = require( 'VECTOR_ADDITION/explore2D/model/Explore2DScene' ); 
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
-  const Explore2DScene = require( 'VECTOR_ADDITION/explore2D/model/Explore2DScene' );
 
-  const DEFAULT_VECTOR_ORIENTATION = VectorAdditionConstants.DEFAULT_VECTOR_ORIENTATION;
+  // constants
+  const DEFAULT_VECTOR_ORIENTATION = VectorOrientations.HORIZONTAL;
+  const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
+  const GRAPH_UPPER_LEFT_COORDINATE = VectorAdditionConstants.GRAPH_UPPER_LEFT_COORDINATE;
+  const VECTOR_TYPE = VectorAdditionConstants.VECTOR_TYPE;
 
   class Explore2DModel extends VectorAdditionModel {
     /**
@@ -28,36 +31,50 @@ define( require => {
      */
     constructor( tandem ) {
 
-      // TODO: should this be put into the constants file, it is the same size for 1D 2D and lab
-      const graphDimension = new Dimension2( 60, 40 );
-      const graphUpperLeftPosition = new Vector2( -5, 35 );
+      super( tandem );
 
-      super( graphDimension, graphUpperLeftPosition, tandem );
-
-      // @public {EnumerationProperty.<VectorOrientations>}
-      this.vectorOrientationProperty = new Property( DEFAULT_VECTOR_ORIENTATION );
-
-      this.vectorType = VectorTypes.ONE;
+      // @public (read-only) {VectorTypes} vectorType - the vector type used on the explore1D screen
+      this.vectorType = VECTOR_TYPE;
     }
+    
     /**
      * @override
-     * Create the scenes
-     * 1D scenes can have different vector orientations (horizontal and vertical)
+     * @private
+     * Create the Sum Visibility properties. Explore2D only has one shared sum visible property
      */
-    createScenes(
-      graphDimension,
-      graphUpperLeftPosition ) {
+    createSumVisiblityProperties() { 
 
+      // @public (read-only) {BooleanProperty} sumVisibleProperty
       this.sumVisibleProperty = new BooleanProperty( false );
+    }
 
+    /**
+     * @override
+     * @private
+     * Reset the Sum Visibility properties. Explore2D only has one shared sum visible property
+     */
+    resetSumVisibilityProperties() {
+      this.sumVisibleProperty.reset();
+    }
+
+    /**
+     * @override
+     * Create the scenes for Explore2D
+     * Explore2D has one scene
+     */
+    createScenes() {
+
+      // @public (read-only) {Explore2DScene} - the horizontal scene
       this.scene = new Explore2DScene(
-        graphDimension,
-        graphUpperLeftPosition,
+        GRAPH_DIMENSION,
+        GRAPH_UPPER_LEFT_COORDINATE,
         this.componentStyleProperty,
-        this.sumVisibleProperty );
+        this.sumVisibleProperty,
+        VECTOR_TYPE );
 
       this.scenes.push( this.scene );
     }
+
   }
 
   return vectorAddition.register( 'Explore2DModel', Explore2DModel );

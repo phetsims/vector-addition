@@ -55,7 +55,7 @@ define( function( require ) {
     //----------------------------------------------------------------------------------------
     // Defaults for graph location
     GRAPH_DIMENSION: new Dimension2( 60, 40 ),
-    GRAPH_UPPER_LEFT_COORDINATE: new Vector2( -30, 20 ),
+    GRAPH_UPPER_LEFT_COORDINATE: new Vector2( -5, 35 ),
 
     //----------------------------------------------------------------------------------------
     // Defaults for all vector arrow nodes

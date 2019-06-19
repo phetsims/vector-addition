@@ -1,8 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the scene on the Explore2D scene. 
- * This scene only has one vectorSet.
+ * Model for a Scene on the Explore2D scene. Scenes on Explore2D only have one vectorSet.
  *
  * @author Brandon Li
  */
@@ -13,11 +12,8 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
-
-  // constants
-  const NUMBER_OF_VECTOR_SETS = 1;
 
   class Explore2DScene extends Scene {
     /**
@@ -25,43 +21,40 @@ define( require => {
      * @param {Dimension2} graphDimension - the dimensions (width and height) of the graph
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty
+     * @param {BooleanProperty} sumVisibleProperty - explore2D only has one shared sumVisibleProperty
+     * @param {VectorTypes} vectorType - the vectorType for explore2D
      */
-    constructor( graphDimension, graphUpperLeftPosition, componentStyleProperty, sumVisibleProperty ) {
+    constructor(
+      graphDimension,
+      graphUpperLeftPosition,
+      componentStyleProperty,
+      sumVisibleProperty,
+      vectorType ) {
 
-      //----------------------------------------------------------------------------------------
+      // Type check arguments
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      // The rest are checked in super
+      // The rest are checked in super-classes
+      
+      //----------------------------------------------------------------------------------------
 
-      super( graphDimension, graphUpperLeftPosition, NUMBER_OF_VECTOR_SETS, componentStyleProperty );
+      super( graphDimension, graphUpperLeftPosition, componentStyleProperty );
 
       // @private {Boolean Property} this scene shares one property for the sum visibility
       this.sumVisibleProperty = sumVisibleProperty;
 
-      // Create the vector set
-      this.createVectorSets( componentStyleProperty );
-    }
-
-    /**
-     * @override
-     * @public
-     * Create the vector sets
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     */
-    createVectorSets( componentStyleProperty ) {
-
-      // @public (read-only) the vectorSet for explore2D
+      // @public (read-only) {VectorSet} - the vector set for this screen 
       this.vectorSet = new VectorSet( 
         this.graph.modelViewTransformProperty, 
         this.graph.graphModelBounds, 
         componentStyleProperty, 
         this.sumVisibleProperty, 
-        VectorTypes.ONE );
-
-      this.vectorSets.push( this.VectorSet );
-
+        vectorType
+      );
+      
+      this.vectorSets.push( this.vectorSet );
     }
+
   }
 
   return vectorAddition.register( 'Explore2DScene', Explore2DScene );

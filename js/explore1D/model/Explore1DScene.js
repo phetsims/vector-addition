@@ -16,9 +16,6 @@ define( require => {
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  // constants
-  const VECTOR_TYPE = VectorAdditionConstants.VECTOR_TYPE;
-
   class Explore1DScene extends Scene {
     /**
      * @constructor
@@ -27,8 +24,15 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - explore1D only has one shared sumVisibleProperty
      * @param {VectorOrientations} vectorOrientation - the orientation for this scene
+     * @param {VectorTypes} vectorType - the vectorType for explore1D
      */
-    constructor( graphDimension, graphUpperLeftPosition, componentStyleProperty, sumVisibleProperty, vectorOrientation ) {
+    constructor(
+      graphDimension,
+      graphUpperLeftPosition,
+      componentStyleProperty,
+      sumVisibleProperty,
+      vectorOrientation,
+      vectorType ) {
 
       // Type check arguments
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
@@ -52,7 +56,7 @@ define( require => {
         this.graph.graphModelBounds, 
         componentStyleProperty, 
         this.sumVisibleProperty, 
-        VECTOR_TYPE
+        vectorType
       );
       
       this.vectorSets.push( this.vectorSet );
