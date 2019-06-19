@@ -157,7 +157,7 @@ define( require => {
         ] );
 
         this.displayVectorNode.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
-      
+
       };
 
       vectorSets.forEach( ( vectorSet ) => {
@@ -180,11 +180,15 @@ define( require => {
 
           addedVector.isActiveProperty.link( vectorActiveListener );
 
-          vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
+
+          const vectorRemovedListener = function( removedVector ) {
             if ( removedVector === addedVector ) {
               removedVector.isActiveProperty.unlink( vectorActiveListener );
+              vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
             }
-          } );
+          };
+
+          vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
         } );
       } );
     }
