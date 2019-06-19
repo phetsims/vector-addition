@@ -148,6 +148,7 @@ define( require => {
               // Add a removed listener to the observable array to reset the icon
               observableVectorArray.addItemRemovedListener( ( removedVector ) => {
                 if ( removedVector === newVectorModel ) {
+                  removedVector.isActiveProperty.value = false;
                   vectorIconNode.visible = true;
                 }
               } );
