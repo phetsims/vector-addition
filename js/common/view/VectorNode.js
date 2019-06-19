@@ -137,11 +137,11 @@ define( require => {
         dragBoundsProperty: tailDragBoundsProperty,
         locationProperty: tailLocationProperty,
         start: () => {
-          vectorModel.isBodyDraggingProperty.value = true;
+          vectorModel.isActiveProperty.value = true;
           this.moveToFront();
         },
         end: () => {
-          vectorModel.isBodyDraggingProperty.value = false;
+          vectorModel.isActiveProperty.value = false;
         }
       } );
 
@@ -166,11 +166,11 @@ define( require => {
           targetNode: this.tipCircle,
           locationProperty: tipLocationProperty,
           start: () => {
-            vectorModel.isTipDraggingProperty.value = true;
+            vectorModel.isActiveProperty.value = true;
             this.moveToFront();
           },
           end: () => {
-            vectorModel.isTipDraggingProperty.value = false;
+            vectorModel.isActiveProperty.value = false;
           }
         } );
 

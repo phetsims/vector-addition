@@ -55,13 +55,6 @@ define( require => {
 
       super( initialPosition, 0, 0, modelViewTransformProperty, componentStyleProperty, vectorType, options );
 
-      // isTipDraggingProperty shouldn't ever change for the sum
-      // link exists for the lifetime of the simulation
-      this.isTipDraggingProperty.link( isTipDragging => {
-        if ( isTipDragging ) {
-          throw new Error( 'the tip of the sum vector should not be draggable' );
-        }
-      } );
 
       // Function to update the sum Vector when a vector is added or modified.
       const updateSum = ( attributesVector, oldAttributesVector ) => {

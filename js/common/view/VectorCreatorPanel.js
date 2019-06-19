@@ -137,6 +137,8 @@ define( require => {
                 options.vectorTypes ? options.vectorTypes[ slotNumber ] : vectorType,
                 vectorModelOptions
               );
+              // Activate the new vector
+              newVectorModel.isActiveProperty.value = true;
 
               // If there are multiple observable array, use the observableArrays index, otherwise use the given vector array
               const observableVectorArray = options.observableArrays ? options.observableArrays[ slotNumber ] : vectorArray;

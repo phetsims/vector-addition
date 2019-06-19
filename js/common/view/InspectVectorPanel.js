@@ -103,82 +103,86 @@ define( require => {
 
       VECTOR_PANEL_OPTIONS.expandedProperty.link( expandedObserver );
 
-      const isDraggingListener = ( isDragging, vectorModel ) => {
-        if ( isDragging ) {
+      const updateInspectVectorPanel = ( activeVector ) => {
 
-          const magnitudeTextNode = new FormulaNode( `\|\\mathbf{\\vec{${vectorModel.label}\}\}|` );
-          const magnitudeDisplay = new NumberDisplay(
-            vectorModel.magnitudeProperty,
-            new Range( 0, 100 ),
-            { decimalPlaces: 1 }
-          );
+        const magnitudeTextNode = new FormulaNode( `\|\\mathbf{\\vec{${activeVector.label}\}\}|` );
+        const magnitudeDisplay = new NumberDisplay(
+          activeVector.magnitudeProperty,
+          new Range( 0, 100 ),
+          { decimalPlaces: 1 }
+        );
 
-          const angleText = new RichText( MathSymbols.THETA );
-          const angleDisplay = new NumberDisplay(
-            vectorModel.angleDegreesProperty,
-            new Range( -180, 180 ),
-            { decimalPlaces: 1 }
-          );
+        const angleText = new RichText( MathSymbols.THETA );
+        const angleDisplay = new NumberDisplay(
+          activeVector.angleDegreesProperty,
+          new Range( -180, 180 ),
+          { decimalPlaces: 1 }
+        );
 
-          const xComponentText = new RichText( `${vectorModel.label}<sub>${xString}</sub>` );
-          const xComponentDisplay = new NumberDisplay(
-            vectorModel.xComponentProperty,
-            new Range( -60, 60 ),
-            { decimalPlaces: 0 }
-          );
+        const xComponentText = new RichText( `${activeVector.label}<sub>${xString}</sub>` );
+        const xComponentDisplay = new NumberDisplay(
+          activeVector.xComponentProperty,
+          new Range( -60, 60 ),
+          { decimalPlaces: 0 }
+        );
 
-          const yComponentText = new RichText( `${vectorModel.label}<sub>${yString}</sub>` );
-          const yComponentDisplay = new NumberDisplay(
-            vectorModel.yComponentProperty,
-            new Range( -40, 40 ),
-            { decimalPlaces: 0 }
-          );
+        const yComponentText = new RichText( `${activeVector.label}<sub>${yString}</sub>` );
+        const yComponentDisplay = new NumberDisplay(
+          activeVector.yComponentProperty,
+          new Range( -40, 40 ),
+          { decimalPlaces: 0 }
+        );
 
-          this.displayVectorNode.setChildren( [
-            new LayoutBox( {
-              orientation: 'horizontal',
-              spacing: 8,
-              children: [ magnitudeTextNode, magnitudeDisplay ]
-            } ),
-            new LayoutBox( {
-              orientation: 'horizontal',
-              spacing: 8,
-              children: [ angleText, angleDisplay ]
-            } ),
-            new LayoutBox( {
-              orientation: 'horizontal',
-              spacing: 8,
-              children: [ xComponentText, xComponentDisplay ]
-            } ),
-            new LayoutBox( {
-              orientation: 'horizontal',
-              spacing: 8,
-              children: [ yComponentText, yComponentDisplay ]
-            } )
-          ] );
+        this.displayVectorNode.setChildren( [
+          new LayoutBox( {
+            orientation: 'horizontal',
+            spacing: 8,
+            children: [ magnitudeTextNode, magnitudeDisplay ]
+          } ),
+          new LayoutBox( {
+            orientation: 'horizontal',
+            spacing: 8,
+            children: [ angleText, angleDisplay ]
+          } ),
+          new LayoutBox( {
+            orientation: 'horizontal',
+            spacing: 8,
+            children: [ xComponentText, xComponentDisplay ]
+          } ),
+          new LayoutBox( {
+            orientation: 'horizontal',
+            spacing: 8,
+            children: [ yComponentText, yComponentDisplay ]
+          } )
+        ] );
 
-          this.displayVectorNode.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
-        }
+        this.displayVectorNode.centerY = EXPAND_COLLAPSE_BUTTON_CENTER_Y;
+      
       };
 
       vectorSets.forEach( ( vectorSet ) => {
 
-        const isVectorSumDraggingListener = ( isDragging ) => {
-          isDraggingListener( isDragging, vectorSet.vectorSum );
+        const vectorSumActiveListener = ( isActive ) => {
+          if ( isActive ) {
+            updateInspectVectorPanel( vectorSet.vectorSum );
+          }
         };
 
-        vectorSet.vectorSum.isDraggingProperty.link( isVectorSumDraggingListener );
+        vectorSet.vectorSum.isActiveProperty.link( vectorSumActiveListener );
 
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
 
-          const isDragListener = ( isDragging ) => {
-            isDraggingListener( isDragging, addedVector );
+          const vectorActiveListener = ( isActive ) => {
+            if ( isActive ) {
+              updateInspectVectorPanel( addedVector );
+            }
           };
-          addedVector.isDraggingProperty.link( isDragListener );
+
+          addedVector.isActiveProperty.link( vectorActiveListener );
 
           vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
             if ( removedVector === addedVector ) {
-              removedVector.isDraggingProperty.unlink( isDragListener );
+              removedVector.isActiveProperty.unlink( vectorActiveListener );
             }
           } );
         } );

@@ -70,19 +70,10 @@ define( require => {
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
 
-      // @public {BooleanProperty} flag that indicates if the model element is in the play area
-      this.isInPlayAreaProperty = new BooleanProperty( false );
 
-      // @public {BooleanProperty} - indicates whether the tip being dragged by the user
-      this.isTipDraggingProperty = new BooleanProperty( false );
-
-      // @public {BooleanProperty} - indicates whether the body is being dragged by the user
-      this.isBodyDraggingProperty = new BooleanProperty( false );
-
-      // @public {DerivedProperty.<boolean>} - is any part of the vector being dragged
-      this.isDraggingProperty = new DerivedProperty( [ this.isBodyDraggingProperty, this.isTipDraggingProperty ],
-        ( isBodyDragging, isTipDragging ) => ( isBodyDragging || isTipDragging )
-      );
+      // @public {BooleanProperty} - indicates if the vector is active. An active vector is a vector that is being
+      // dragged by the body or the tip.
+      this.isActiveProperty = new BooleanProperty( false );
 
       //----------------------------------------------------------------------------------------
       // Properties for the inspectPanel
@@ -137,11 +128,7 @@ define( require => {
     dispose() {
 
       // dispose properties
-      this.isBodyDraggingProperty.dispose();
-      this.isTipDraggingProperty.dispose();
-      this.isDraggingProperty.dispose();
-
-      this.isInPlayAreaProperty.dispose();
+      this.isActiveProperty.dispose();
 
       this.magnitudeProperty.dispose();
       this.angleDegreesProperty.dispose();
