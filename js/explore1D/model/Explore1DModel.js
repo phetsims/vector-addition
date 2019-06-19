@@ -16,7 +16,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants

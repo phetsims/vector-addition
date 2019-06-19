@@ -95,8 +95,8 @@ define( require => {
 
       // @public {Multilink} - observe changes to the tail/tip
       this.vectorObserver = new Multilink(
-        [ vectorComponent.parentVector.tailPositionProperty,
-          vectorComponent.parentVector.tipPositionProperty,
+        [ vectorComponent.tailPositionProperty,
+          vectorComponent.tipPositionProperty,
           componentStyleProperty ],
         () => {
           this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value );

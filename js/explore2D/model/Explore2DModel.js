@@ -10,16 +10,13 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Explore2DScene = require( 'VECTOR_ADDITION/explore2D/model/Explore2DScene' ); 
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
-  const DEFAULT_VECTOR_ORIENTATION = VectorOrientations.HORIZONTAL;
   const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
   const GRAPH_UPPER_LEFT_COORDINATE = VectorAdditionConstants.GRAPH_UPPER_LEFT_COORDINATE;
   const VECTOR_TYPE = VectorAdditionConstants.VECTOR_TYPE;
