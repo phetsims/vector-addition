@@ -47,11 +47,10 @@ define( require => {
 
       // create the creator panel for each scene
       const explore1DVectorCreatorPanels = new Explore1DVectorCreatorPanels(
-        horizontalScene.vectorSet.vectors, //TODO: find a better way than index 0, we can index 0 right now since there is only 1 vector set per scene for 1d
+        horizontalScene.vectorSet, //TODO: find a better way than index 0, we can index 0 right now since there is only 1 vector set per scene for 1d
         horizontalScene.graph.modelViewTransformProperty,
-        verticalScene.vectorSet.vectors,
-        verticalScene.graph.modelViewTransformProperty,
-        explore1DModel.componentStyleProperty );
+        verticalScene.vectorSet,
+        verticalScene.graph.modelViewTransformProperty );
 
       // create the vector panels
       const horizontalVectorCreatorPanel = explore1DVectorCreatorPanels.horizontalVectorCreatorPanel;

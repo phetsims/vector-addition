@@ -38,9 +38,8 @@ define( function( require ) {
       this.addChild( graphControlPanel );
 
       const vectorCreatorPanel = new Explore2DVectorCreatorPanel(
-        explore2DModel.scenes[ 0 ].vectorSets[ 0 ].vectors,
-        explore2DModel.scenes[ 0 ].graph.modelViewTransformProperty,
-        explore2DModel.componentStyleProperty );
+        explore2DModel.scene.graph.modelViewTransformProperty,
+        explore2DModel.scene.vectorSet );
 
       this.addChild( vectorCreatorPanel );
     }

@@ -10,14 +10,15 @@ define( require => {
   'use strict';
 
   // modules
-  const Bounds2 = require( 'DOT/Bounds2' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
@@ -65,7 +66,45 @@ define( require => {
 
       // @public {BooleanProperty}
       this.sumVisibleProperty = sumVisibleProperty;
+
+
+      //----------------------------------------------------------------------------------------
+      // Create references
+
+      // @private {Property.<ModelViewTransform>}
+      this.modelViewTransformProperty = modelViewTransformProperty;
+
+      // @private {Property.<ComponentStyles>}
+      this.componentStyleProperty = componentStyleProperty;
+
+
     }
+    /**
+     * @public
+     * Add a vector to this.vectors
+     * @param {Vector2} tailPosition
+     * @param {number} xComponent
+     * @param {number} yComponent
+     * @param {Object} [options]
+     * @returns {VectorModel} the vector model added
+     */
+     addVector( tailPosition, xComponent, yComponent, options ) {
+
+      const newVector = new VectorModel(
+        tailPosition,
+        xComponent,
+        yComponent,
+        this.modelViewTransformProperty,
+        this.componentStyleProperty,
+        this.vectorType,
+        options );
+
+      // Active the new vector
+      newVector.isActiveProperty.value = true;
+      
+      this.vectors.push( newVector );
+      return newVector;
+     }
 
     /**
      * @public
