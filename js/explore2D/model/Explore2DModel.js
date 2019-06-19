@@ -10,11 +10,10 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Explore2DScene = require( 'VECTOR_ADDITION/explore2D/model/Explore2DScene' ); 
+  const Explore2DScene = require( 'VECTOR_ADDITION/explore2D/model/Explore2DScene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
 
   // constants
   const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
@@ -33,13 +32,13 @@ define( require => {
       // @public (read-only) {VectorTypes} vectorType - the vector type used on the explore1D screen
       this.vectorType = VECTOR_TYPE;
     }
-    
+
     /**
      * @override
      * @private
      * Create the Sum Visibility properties. Explore2D only has one shared sum visible property
      */
-    createSumVisiblityProperties() { 
+    createSumVisiblityProperties() {
 
       // @public (read-only) {BooleanProperty} sumVisibleProperty
       this.sumVisibleProperty = new BooleanProperty( false );
