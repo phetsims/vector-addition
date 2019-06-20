@@ -118,7 +118,7 @@ define( require => {
       this.addChild( this.iconNode );
 
       if ( options.label ) {
-        this.addChild( new FormulaNode( `\\vec{${options.label}}` ) );
+        this.addChild( new FormulaNode( `\\vec{\\mathbf{${options.label}}}` ) );
       }
 
       //----------------------------------------------------------------------------------------
