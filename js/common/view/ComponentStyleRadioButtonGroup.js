@@ -19,16 +19,13 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
-  const RADIO_BUTTON_OPTIONS = _.extend( VectorAdditionColors.RADIO_BUTTON_COLORS, {
-    disabledBaseColor: 'rgb( 100, 100, 100)',
-    selectedStroke: '#419ac9',
-    deselectedStroke: 'rgb( 50, 50, 50 )',
+  const RADIO_BUTTON_OPTIONS = _.extend( {
     deselectedLineWidth: 1,
     cornerRadius: 6,
     deselectedButtonOpacity: 0.4,
     yMargin: 6,
     xMargin: 6
-  } );
+  }, VectorAdditionColors.RADIO_BUTTON_COLORS );
 
   class ComponentStyleRadioButtonGroup extends Node {
 

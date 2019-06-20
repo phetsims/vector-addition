@@ -31,7 +31,8 @@ define( function( require ) {
     // General   
     RADIO_BUTTON_COLORS: {
       baseColor: WHITE,
-      selectedStroke: '#419ac9'
+      selectedStroke: '#419ac9',
+      deselectedStroke: 'rgb( 50, 50, 50 )'
     },
     PANEL_STROKE_COLOR: 'rgb( 190, 190, 190 )',
 
