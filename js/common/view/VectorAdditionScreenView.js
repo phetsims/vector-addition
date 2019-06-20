@@ -14,7 +14,7 @@ define( require => {
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  class CommonScreenView extends ScreenView {
+  class VectorAdditionScreenView extends ScreenView {
 
     /**
      * @param {VectorAdditionModel} vectorAdditionModel
@@ -60,6 +60,6 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'CommonScreenView', CommonScreenView );
+  return vectorAddition.register( 'VectorAdditionScreenView', VectorAdditionScreenView );
 } )
 ;

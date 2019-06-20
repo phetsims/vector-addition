@@ -7,10 +7,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
+  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  class EquationScreenView extends CommonScreenView {
+  class EquationScreenView extends VectorAdditionScreenView {
 
     /**
      * @param {EquationModel} equationModel

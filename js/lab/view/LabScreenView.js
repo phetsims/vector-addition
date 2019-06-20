@@ -7,14 +7,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
+  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const LabGraphControlPanel = require( 'VECTOR_ADDITION/lab/view/LabGraphControlPanel' );
   const LabVectorCreatorPanel = require( 'VECTOR_ADDITION/lab/view/LabVectorCreatorPanel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
-  class LabScreenView extends CommonScreenView {
+  class LabScreenView extends VectorAdditionScreenView {
 
     /**
      * @param {LabModel} labModel

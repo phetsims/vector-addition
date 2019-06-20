@@ -7,14 +7,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
+  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const Explore2DVectorCreatorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorCreatorPanel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const Explore2DGraphControlPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DGraphControlPanel' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
-  class Explore2DScreenView extends CommonScreenView {
+  class Explore2DScreenView extends VectorAdditionScreenView {
 
     /**
      * @param {Explore2DModel} explore2DModel

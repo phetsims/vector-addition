@@ -8,7 +8,7 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const CommonScreenView = require( 'VECTOR_ADDITION/common/view/CommonScreenView' );
+  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const Explore1DVectorCreatorPanels = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanels' );
   const Explore1DGraphControlPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DGraphControlPanel' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
@@ -17,7 +17,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
-  class Explore1DScreenView extends CommonScreenView {
+  class Explore1DScreenView extends VectorAdditionScreenView {
 
     /**
      * @param {Explore1DModel} explore1DModel
