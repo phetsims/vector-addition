@@ -38,7 +38,7 @@ define( require => {
      * @private
      * Create the Sum Visibility properties. Explore2D only has one shared sum visible property
      */
-    createSumVisiblityProperties() {
+    createSumVisibilityProperties() {
 
       // @public (read-only) {BooleanProperty} sumVisibleProperty
       this.sumVisibleProperty = new BooleanProperty( false );

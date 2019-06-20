@@ -50,7 +50,7 @@ define( require => {
 
       // The Sum Visibility Property is created in sub-classes since there is an unknown amount of sum visibility
       // properties. Example: the Lab screen has two sum visibility properties
-      this.createSumVisiblityProperties();
+      this.createSumVisibilityProperties();
 
 
       //----------------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ define( require => {
      * Create the Sum Visibility properties. Since there is an unknown amount of sum visibility, use an abstract method to create them.
      * Sub-classes MUST implement this method
      */
-    createSumVisiblityProperties() { throw new Error( 'createSumVisiblityProperties must be implemented by sub classes' ); }
+    createSumVisibilityProperties() { throw new Error( 'createSumVisibilityProperties must be implemented by sub classes' ); }
 
     /**
      * @abstract

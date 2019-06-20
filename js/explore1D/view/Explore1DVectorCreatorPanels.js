@@ -49,7 +49,7 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
+     * @param {ObservableArray.<VectorModel>} vectorSet - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
     constructor( modelViewTransformProperty, vectorSet ) {
@@ -115,7 +115,7 @@ define( require => {
      * Called when the vectorRepresentation is dropped. This should add the vector to the model.
      * @public
      * @override
-     * @param {Vector2} - droppedPosition (model coordinates)
+     * @param {Vector2} droppedPosition (model coordinates)
      * @returns {VectorModel} - the model added
      */
     addVectorToModel( droppedPosition ) {

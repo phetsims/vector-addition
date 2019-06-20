@@ -35,7 +35,7 @@ define( require => {
      * @private
      * Create the Sum Visibility properties. Lab has 2 sum visible properties
      */
-    createSumVisiblityProperties() {
+    createSumVisibilityProperties() {
 
       // @public {BooleanProperty}
       this.sumGroup1VisibleProperty = new BooleanProperty( false );
