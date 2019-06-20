@@ -59,9 +59,9 @@ define( function( require ) {
       component: 'rgb( 155, 222, 255 )'
     },
     VECTOR_GROUP_2_COLORS: {
-      fill: '#E81909',
-      sum: '#5B1909',
-      component: 'rgb( 255, 160, 122 )'
+      fill: 'rgb( 232, 25, 9 )',
+      sum: 'rgb( 196, 2, 51 )',
+      component: 'rgb( 245, 120, 120 )'
     },
     POLAR_ICON_VECTOR_COLOR: 'rgb( 188, 3, 255 )',
     CARTESIAN_ICON_COLOR: BLACK,
