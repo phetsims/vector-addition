@@ -16,9 +16,12 @@ define( require => {
   const RadioButtonGroupMember = require( 'SUN/buttons/RadioButtonGroupMember' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
 
   // constants
+  const PANEL_WIDTH = VectorAdditionConstants.PANEL_WIDTH;
   const RADIO_BUTTON_OPTIONS = _.extend( {
     deselectedLineWidth: 1,
     cornerRadius: 6,
@@ -27,7 +30,7 @@ define( require => {
     xMargin: 6
   }, VectorAdditionColors.RADIO_BUTTON_COLORS );
 
-  class ComponentStyleRadioButtonGroup extends Node {
+  class ComponentStyleRadioButtonGroup extends FixedWidthNode {
 
     /**
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
@@ -82,8 +85,8 @@ define( require => {
           content: onAxisIcon
          }, options ) );
 
-      super( {
-        children: [ new GridLayoutBox( [ invisibleButton, parallelogramButton, triangleButton, onAxisButton ] ) ]
+      super( PANEL_WIDTH,  new GridLayoutBox( [ invisibleButton, parallelogramButton, triangleButton, onAxisButton ] ), {
+        align: 'center'
       } );
 
     }
