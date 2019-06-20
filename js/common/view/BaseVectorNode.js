@@ -24,15 +24,15 @@ define( require => {
   class BaseVectorNode extends Node {
     /**
      * @constructor
-     * @param {BaseVectorModel} vectorModel - the vector model
+     * @param {BaseVectorModel} baseVectorModel - the vector model
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
      * @param {Object} arrowOptions - options passed to the arrow node for specific / specialized styling
      */
-    constructor( vectorModel, modelViewTransformProperty, arrowOptions ) {
+    constructor( baseVectorModel, modelViewTransformProperty, arrowOptions ) {
 
       // Type check arguments
-      assert && assert( vectorModel instanceof BaseVectorModel, `invalid vectorModel: ${vectorModel}` );
+      assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
       assert && assert( modelViewTransformProperty instanceof DerivedProperty
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
@@ -44,14 +44,14 @@ define( require => {
 
       // Define a vector node in which the tail location (view coordinates) 
       // is (0, 0). Get the tip location in view coordinates
-      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.components );
+      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.components );
 
       // @public (read-only) {Node} arrowNode - Create an arrow node that represents an actual vector.
       this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, arrowOptions );
 
       // @public (read-only) {Node} labelNode - Create a label for the vector that is displayed 'next' to the arrow. 
       // The location of this depends on the angle of the vector.
-      this.labelNode = new FormulaNode( `\\vec{ ${vectorModel.label} \}` );
+      this.labelNode = new FormulaNode( `\\vec{ ${baseVectorModel.label} \}` );
 
       this.setChildren( [ this.arrowNode, this.labelNode ] );
 
@@ -60,24 +60,24 @@ define( require => {
 
       // @public {Multilink} - observe changes to the tail/tip
       this.vectorObserver = new Multilink(
-        [ vectorModel.tailPositionProperty, vectorModel.tipPositionProperty ],
-        () => { this.updateVector( vectorModel, modelViewTransformProperty.value ); } );
+        [ baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty ],
+        () => { this.updateVector( baseVectorModel, modelViewTransformProperty.value ); } );
 
     }
 
     /**
      * Update the tail and tip position of the view
-     * @param {BaseVectorModel} vectorModel
+     * @param {BaseVectorModel} baseVectorModel
      * @param {ModelViewTransform2} modelViewTransform
      * @public
      */
-    updateVector( vectorModel, modelViewTransform ) {
+    updateVector( baseVectorModel, modelViewTransform ) {
 
       // Since the tail is defined at (0, 0) for the vector, we must translate.
-      this.translation = modelViewTransform.modelToViewPosition( vectorModel.tail );
+      this.translation = modelViewTransform.modelToViewPosition( baseVectorModel.tail );
 
       // Get the tip location in view coordinates
-      const tipDeltaLocation = modelViewTransform.modelToViewDelta( vectorModel.components );
+      const tipDeltaLocation = modelViewTransform.modelToViewDelta( baseVectorModel.components );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
     }
 
