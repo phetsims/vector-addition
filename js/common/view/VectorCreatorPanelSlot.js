@@ -61,6 +61,9 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
+      // make the iconNode easier to grab
+      iconNode.mouseArea = iconNode.bounds.dilated( 10 );
+
       super( {
         spacing: options.labelIconSpacing,
         children: [ iconNode ]
