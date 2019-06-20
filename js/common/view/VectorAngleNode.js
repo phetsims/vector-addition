@@ -62,7 +62,6 @@ define( require => {
         labelText.setText( roundedAngleString + '\u00B0' );
         const angleInRad = Util.toRadians( angle );
 
-        labelText.visible = ( angle !== 0 );
         //TODO: get designer feedback and clean up
         if ( angle > 35 ) {
           labelText.setTranslation( ( ARC_RADIUS + 5 ) * Math.cos( angleInRad / 2 ),
