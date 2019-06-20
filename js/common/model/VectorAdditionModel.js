@@ -28,7 +28,7 @@ define( require => {
   // constants
   const STARTING_COMPONENT_STYLE = ComponentStyles.INVISIBLE;
   const STARTING_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
-  const STARTING_VECTOR_ORIENTAION = VectorOrientations.TWO_DIMENSIONAL;
+  const STARTING_VECTOR_ORIENTATION = VectorOrientations.TWO_DIMENSIONAL;
 
   class VectorAdditionModel {
     /**
@@ -62,7 +62,7 @@ define( require => {
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
 
       // @public {EnumerationProperty.<VectorOrientations>} - controls the orientation of the vectors
-      this.vectorOrientationProperty = new EnumerationProperty( VectorOrientations, STARTING_VECTOR_ORIENTAION );
+      this.vectorOrientationProperty = new EnumerationProperty( VectorOrientations, STARTING_VECTOR_ORIENTATION );
 
 
       //----------------------------------------------------------------------------------------
