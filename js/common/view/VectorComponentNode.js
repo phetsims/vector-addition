@@ -34,7 +34,7 @@ define( require => {
     lineWidth: 0
   } );
   const VECTOR_GROUP_2_COMPONENT = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
-    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.component,
+    fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.component,
     headWidth: 10.5,
     headHeight: 6,
     tailWidth: 4,
