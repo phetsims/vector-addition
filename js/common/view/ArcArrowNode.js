@@ -1,11 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Create a node that represents a curved arrow node.
+ * Create a node that represents a curved arrow node. Used in various icons throughout the simulation and the vector
+ * angle node.
  *
- * Supports negative angles
+ * Supports negative angles.
  *
- * Used in various views throughout the simulation.
  * @author Brandon Li
  */
 define( require => {
@@ -19,11 +19,9 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  // constants
-
   class ArcArrowNode extends Node {
     /**
-     * Create a node that draws a arc-arrow around the point (0, 0)
+     * Create a node that draws a curved curved arrow
      * @param {number} angle - the angle of the arc arrow in degrees
      * @param {number} radius - the radius of the arc arrow
      * @param {Object} [options]
@@ -39,20 +37,31 @@ define( require => {
         includeArrowhead: true // {boolean} option to exclude the arrowhead
       }, options );
 
-      // override the arcOptions with the default provided bellow
       options.arcOptions = _.extend( {
         stroke: 'black'
       }, options.arcOptions );
 
-      // override the arrowOptions with the default provided bellow
       options.arrowOptions = _.extend( {
         fill: 'black'
       }, options.arrowOptions );
 
+      //----------------------------------------------------------------------------------------
+      // Type check
+      assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
+      assert && assert( typeof radius === 'number', `invalid radius: ${radius}` );
+      assert && assert( options.center instanceof Vector2, `invalid options.center: ${options.center}` );
+      assert && assert( typeof options.arrowheadWidth === 'number' && options.arrowheadWidth > 0,
+        `invalid options.arrowheadWidth: ${options.arrowheadWidth}` );
+      assert && assert( typeof options.arrowheadHeight === 'number' && options.arrowheadHeight > 0,
+        `invalid options.arrowheadHeight: ${options.arrowheadHeight}` );
+      assert && assert( typeof options.includeArrowhead === 'boolean',
+        `invalid options.includeArrowhead: ${options.includeArrowhead}` );
+
+      //----------------------------------------------------------------------------------------
       super();
 
-      // @public (read-only) {Object} the options provided by the user of the arc arrow
-      this.options = options;
+      // @public (read-only) {Vector2} the center that the arc revolves around
+      this.revolvedPoint = options.center;
 
       // @public (read-only) {number} the angle (degrees) that the arc arrow is at
       this.angle = angle;
@@ -63,17 +72,23 @@ define( require => {
       // @public (read-only) {boolean} include the arrowhead
       this.arrowheadIncluded = options.includeArrowhead;
 
-      // create a shape for the arc of the angle, set to null, shape will be updated later
+      // @private {number}
+      this.arrowheadHeight = options.arrowheadHeight;
+      //----------------------------------------------------------------------------------------
+
+      // Create a shape for the arc of the angle, set to and empty shape, shape will be updated later.
       const arcShape = new Shape();
 
       // @private {Path} the path for the arc shape
       this.arcPath = new Path( arcShape, options.arcOptions );
 
-      // create the arrowhead shape of the arc
+      //----------------------------------------------------------------------------------------
+
+      // Create the arrowhead shape of the arc
       const arrowheadShape = new Shape();
 
-      // create the triangle that will be translated/rotated later
-      // define the triangle as a triangle that is upright and the midpoint of the base is defined as (0, 0)
+      // Create the triangle that will be translated/rotated later
+      // Define the triangle as a triangle that is upright and the midpoint of the base is defined as (0, 0)
       arrowheadShape.moveTo( 0, 0 )
         .lineTo( -options.arrowheadWidth / 2, 0 )
         .lineTo( options.arrowheadWidth / 2, 0 )
@@ -84,10 +99,12 @@ define( require => {
       // @private {Path} the path for the arrowHead shape
       this.arrowheadPath = new Path( arrowheadShape, options.arrowOptions );
 
-      // add children the paths to the scene graphs
+      //----------------------------------------------------------------------------------------
+
+      // Add children the paths to the scene graphs
       this.setChildren( [ this.arcPath, this.arrowheadPath ] );
 
-      // set the position and rotation of the arrowhead and the sweep of the arc
+      // Set the position and rotation of the arrowhead and the sweep of the arc
       this.setAngleAndRadius( angle, radius, this.arrowheadIncluded );
     }
 
@@ -98,6 +115,11 @@ define( require => {
      * @private
      */
     setAngleAndRadius( angle, radius, includeArrowhead ) {
+
+      assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
+      assert && assert( typeof radius === 'number', `invalid radius: ${radius}` );
+      assert && assert( typeof includeArrowhead === 'boolean',
+        `invalid options.includeArrowhead: ${includeArrowhead}` );
 
       // reassign the properties
       this.angle = angle;
@@ -111,7 +133,7 @@ define( require => {
 
       // the arrowhead subtended angle is defined as the angle between the vector to the tip of the arrow
       // and the vector to the first point the arc and the triangle intersect
-      const arrowheadSubtentedAngle = Math.asin( this.options.arrowheadHeight / radius );
+      const arrowheadSubtentedAngle = Math.asin( this.arrowheadHeight / radius );
 
       // change the arrowhead visibility to false when the angle is too small relative to the 
       // subtended angle and true otherwise
@@ -126,7 +148,7 @@ define( require => {
 
       // create the arc shape
       const arcShape = new Shape().arcPoint(
-        this.options.center, radius, 0, this.arrowheadIncluded ? -correctedAngle : -angleInRadians, isAnticlockwise
+        this.revolvedPoint, radius, 0, this.arrowheadIncluded ? -correctedAngle : -angleInRadians, isAnticlockwise
       );
 
       this.arcPath.setShape( arcShape );
@@ -140,25 +162,9 @@ define( require => {
 
       // translate the tip of arrowhead to the tip of the arc.
       this.arrowheadPath.setTranslation(
-        this.options.center.x + Math.cos( this.arrowheadIncluded ? correctedAngle : angleInRadians ) * radius,
-        this.options.center.y - Math.sin( this.arrowheadIncluded ? correctedAngle : angleInRadians ) * radius
+        this.revolvedPoint.x + Math.cos( this.arrowheadIncluded ? correctedAngle : angleInRadians ) * radius,
+        this.revolvedPoint.y - Math.sin( this.arrowheadIncluded ? correctedAngle : angleInRadians ) * radius
       );
-    }
-
-    /**
-     * @returns {number} the angle of the arc arrow in degrees
-     * @public (read-only)
-     */
-    getAngle() {
-      return this.angle;
-    }
-
-    /**
-     * @returns {number} the radius of the arc arrow in view coordinates
-     * @public (read-only)
-     */
-    getRadius() {
-      return this.radius;
     }
 
     /**
