@@ -32,7 +32,6 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty
      * @param {VectorTypes} vectorType
-     * @param {Object} [options]
      */
     constructor( modelViewTransformProperty, graphModelBounds, componentStyleProperty, sumVisibleProperty, vectorType ) {
 

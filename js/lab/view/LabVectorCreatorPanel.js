@@ -30,7 +30,8 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray.<VectorModel>} vectorArray - the observable array to add the vector's to.
+     * @param {VectorSet} vectorSetGroupOne - the observable array to add the vector's to.
+     * @param {VectorSet} vectorSetGroupTwo - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
     constructor( vectorSetGroupOne, vectorSetGroupTwo, modelViewTransformProperty ) {
@@ -58,11 +59,12 @@ define( require => {
      * @constructor
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
+     * @param {Object} [options]
      */
-    constructor( modelViewTransformProperty, vectorSet, arrowOptions ) {
+    constructor( modelViewTransformProperty, vectorSet, options ) {
 
       super(
-        new ArrowNode( 0, 0, 30, -30, arrowOptions ),
+        new ArrowNode( 0, 0, 30, -30, options ),
         new ArrowNode( 0, 0, 12.5 * 5, -12.5 * 5 ),
         modelViewTransformProperty,
         vectorSet );
@@ -72,7 +74,7 @@ define( require => {
      * Called when the vectorRepresentation is dropped. This should add the vector to the model.
      * @public
      * @override
-     * @param {Vector2} - droppedPosition (model coordinates)
+     * @param {Vector2} droppedPosition (model coordinates)
      * @returns {VectorModel} - the model added
      */
     addVectorToModel( droppedPosition ) {

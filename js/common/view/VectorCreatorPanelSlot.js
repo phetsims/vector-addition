@@ -151,7 +151,7 @@ define( require => {
      * Called when the vectorRepresentation is dropped. This should add the vector to the model.
      * @public
      * @abstract
-     * @param {Vector2} - droppedPosition (model coordinates)
+     * @param {Vector2} droppedPosition in model coordinates
      * @returns {VectorModel} - the model added
      */
     addVectorToModel( droppedPosition ) { throw new Error( 'addVectorToModel must be implemented by sub classes' ); }

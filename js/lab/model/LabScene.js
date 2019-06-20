@@ -21,7 +21,8 @@ define( require => {
      * @param {Dimension2} graphDimension - the dimensions (width and height) of the graph
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty
+     * @param {BooleanProperty} sum1VisibleProperty - visibility of sum for group 1 vector set
+     * @param {BooleanProperty} sum2VisibleProperty - visibility of sum for group 2 vector set
      */
     constructor(
       graphDimension,

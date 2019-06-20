@@ -36,12 +36,12 @@ define( require => {
   class LabGraphControlPanel extends Panel {
     /**
      * @constructor
-     * @param {BooleanProperty} sumVisibleProperty
+     * @param {BooleanProperty} sum1VisibleProperty - visibility of sum for group 1 vector set
+     * @param {BooleanProperty} sum2VisibleProperty - visibility of sum for group 2 vector set
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorTypes} vectorType
      * @param {Object} [options]
      */
     constructor(
