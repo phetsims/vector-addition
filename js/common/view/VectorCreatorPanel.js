@@ -36,8 +36,8 @@ define( require => {
         yMargin: 4,
         fixedWidth: 80, // {number} - the width of the panel,
         slotSpacing: 40, // {number} - the spacing between slots
-        right: 840, // {number}
-        top: 300 // {number}
+        right: 940, // {number}
+        top: 350 // {number}
       }, PANEL_OPTIONS, options );
 
       // Type check

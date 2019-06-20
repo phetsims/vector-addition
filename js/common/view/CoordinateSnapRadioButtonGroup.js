@@ -17,7 +17,7 @@ define( require => {
 
   // constants
   const RADIO_BUTTON_OPTIONS = _.extend( {
-    left: 900,
+    left: 950,
     top: 455,
     selectedLineWidth: 2,
     cornerRadius: 5,
