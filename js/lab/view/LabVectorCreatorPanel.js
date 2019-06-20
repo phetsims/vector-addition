@@ -67,7 +67,9 @@ define( require => {
         new ArrowNode( 0, 0, 30, -30, options ),
         new ArrowNode( 0, 0, 12.5 * 5, -12.5 * 5 ),
         modelViewTransformProperty,
-        vectorSet );
+        vectorSet, {
+          isInfinite: true
+        } );
     }
 
     /**
