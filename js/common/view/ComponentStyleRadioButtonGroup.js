@@ -82,7 +82,8 @@ define( require => {
   class GridLayoutBox extends LayoutBox {
     /**
      * @constructor
-     * @param [options]
+     * @param {Array.<Node>} content
+     * @param {Object} [options]
      * Create a grid layout box
      */
     constructor( content, options ) {
