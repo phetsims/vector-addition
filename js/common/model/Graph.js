@@ -21,12 +21,14 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // constants
 
   // The coordinate for the graphNode in view coordinates.
-  const GRAPH_TO_VIEW_SCALE = 12.5;
-  const UPPER_LEFT_LOCATION = new Vector2( 29, 90 );
+  const MODEL_TO_VIEW_SCALE_FACTOR = VectorAdditionConstants.MODEL_TO_VIEW_SCALE_FACTOR;
+  const GRAPH_UPPER_LEFT_LOCATION = VectorAdditionConstants.GRAPH_UPPER_LEFT_LOCATION;
+
 
   class Graph {
     /**
@@ -72,8 +74,8 @@ define( require => {
       this.modelViewTransformProperty = new DerivedProperty( [ this.upperLeftPositionProperty ],
         upperLeftPosition => ModelViewTransform2.createSinglePointScaleInvertedYMapping(
           upperLeftPosition,
-          UPPER_LEFT_LOCATION,
-          GRAPH_TO_VIEW_SCALE
+          GRAPH_UPPER_LEFT_LOCATION,
+          MODEL_TO_VIEW_SCALE_FACTOR
         ), {
           valueType: ModelViewTransform2
         } );

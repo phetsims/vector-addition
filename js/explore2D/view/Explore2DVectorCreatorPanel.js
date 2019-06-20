@@ -14,8 +14,10 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
+  const INITIAL_ARROW_SIDE_LENGTH = VectorAdditionConstants.INITIAL_ARROW_SIDE_LENGTH;
   const ICON_ARROW_OPTIONS = _.extend(
     VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
       fill: 'black' // TODO: move this to colors
@@ -58,9 +60,13 @@ define( require => {
      */
     constructor( modelViewTransformProperty, vectorSet, label ) {
 
+      const initialModelVector = new Vector2( 1, 1 ).multiplyScalar( INITIAL_ARROW_SIDE_LENGTH );
+
+      const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialModelVector );
+
       super(
         new ArrowNode( 0, 0, 30, -30, ICON_ARROW_OPTIONS ),
-        new ArrowNode( 0, 0, 12.5 * 5, -12.5 * 5 ),
+        new ArrowNode( 0, 0, initialViewVector.x, initialViewVector.y ),
         modelViewTransformProperty,
         vectorSet, {
           label: label

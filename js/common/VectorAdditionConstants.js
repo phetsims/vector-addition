@@ -25,6 +25,14 @@ define( function( require ) {
 
   const VectorAdditionConstants = {
 
+    // scale conversion factor from model to view coordinates
+    MODEL_TO_VIEW_SCALE_FACTOR: 12.5,
+
+    // location of the upper left of the graph in view coordinates
+    GRAPH_UPPER_LEFT_LOCATION: new Vector2( 29, 90 ),
+
+    // side length of the arrow when initially dropped onto the graph.
+    INITIAL_ARROW_SIDE_LENGTH: 5,
     //----------------------------------------------------------------------------------------
     // Margins for all ScreenView instances
     SCREEN_VIEW_X_MARGIN: 6,
