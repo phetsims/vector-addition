@@ -90,10 +90,6 @@ define( function( require ) {
     }
   };
   //----------------------------------------------------------------------------------------
-  // invisible icon
-  const INVISIBLE_COMPONENT_ICON_SCALE = 0.7;
-
-  //----------------------------------------------------------------------------------------
   // on axis icon
   const AXIS_ICON_SUBBOX_SIZE = 10;
   const AXIS_ICON_LINE_DASH = [ 2, 2 ];
@@ -163,8 +159,9 @@ define( function( require ) {
 
     // Creates the icon on the radio button for the invisible component style
     static createInvisibleComponentStyleIcon() {
-      const icon = new FontAwesomeNode( 'eye_close' );
-      icon.scale( INVISIBLE_COMPONENT_ICON_SCALE );
+      const icon = new FontAwesomeNode( 'eye_close', {
+        maxWidth: ARROW_ICON_SIZE // same size as the other component icons
+      } );
       return icon;
     }
 

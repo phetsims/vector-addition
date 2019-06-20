@@ -10,65 +10,80 @@ define( require => {
 
   // modules
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const Property = require( 'AXON/Property' );
   const RadioButtonGroupMember = require( 'SUN/buttons/RadioButtonGroupMember' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
 
   // constants
   const RADIO_BUTTON_OPTIONS = _.extend( VectorAdditionColors.RADIO_BUTTON_COLORS, {
-    minWidth: 50, // TODO, calculate the max width in code
-    maxWidth: 50,
-    minHeight: 45,
-    maxHeight: 45,
-    
     disabledBaseColor: 'rgb( 100, 100, 100)',
-
     selectedStroke: '#419ac9',
     deselectedStroke: 'rgb( 50, 50, 50 )',
     deselectedLineWidth: 1,
-
     cornerRadius: 6,
-    deselectedButtonOpacity: 0.4
+    deselectedButtonOpacity: 0.4,
+    yMargin: 6,
+    xMargin: 6
   } );
 
   class ComponentStyleRadioButtonGroup extends Node {
 
     /**
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {Object} [options]
      * @constructor
      */
-    constructor( componentStyleProperty ) {
+    constructor( componentStyleProperty, options ) {
 
-      const invisibleButton = new RadioButtonGroupMember(
-        componentStyleProperty,
-        ComponentStyles.INVISIBLE, _.extend( {
+      assert && assert( componentStyleProperty instanceof Property
+      && ComponentStyles.includes( componentStyleProperty.value ),
+      `invalid componentStyleProperty: ${componentStyleProperty}` );
+  
+      //----------------------------------------------------------------------------------------
+      // Create the icons
+      const invisibleIcon = VectorAdditionIconFactory.createInvisibleComponentStyleIcon();
+      const parallelogramIcon = VectorAdditionIconFactory.createParallelogramComponentStyleIcon();
+      const triangleIcon =  VectorAdditionIconFactory.createTriangleComponentStyleIcon();
+      const onAxisIcon = VectorAdditionIconFactory.createAxisIconComponentStyleIcon();
 
-          content: VectorAdditionIconFactory.createInvisibleComponentStyleIcon()
-         }, _.clone( RADIO_BUTTON_OPTIONS ) ) );
+      const icons = [ invisibleIcon, parallelogramIcon, triangleIcon, onAxisIcon ];
 
-      const parallelogramButton = new RadioButtonGroupMember(
-        componentStyleProperty,
-        ComponentStyles.PARALLELOGRAM, _.extend( {
+      //----------------------------------------------------------------------------------------
+      // Gather the options and the max width
+      options = _.extend( _.clone( RADIO_BUTTON_OPTIONS ), options );
 
-          content: VectorAdditionIconFactory.createParallelogramComponentStyleIcon()
-         }, _.clone( RADIO_BUTTON_OPTIONS ) ) );
+      // Get the largest width / height
+      const widestContentWidth = _.maxBy( icons, node => node.width ).width + 2 * options.xMargin;
+      const tallestContentHeight = _.maxBy( icons, node => node.height ).height + 2 * options.yMargin;
 
-      const triangleButton = new RadioButtonGroupMember(
-        componentStyleProperty,
-        ComponentStyles.TRIANGLE, _.extend( {
+      options = _.extend( options, {
+        maxWidth: widestContentWidth,
+        minWidth: widestContentWidth,
+        maxHeight: tallestContentHeight,
+        minHeight: tallestContentHeight
+      } );
 
-          content: VectorAdditionIconFactory.createTriangleComponentStyleIcon()
-         }, _.clone( RADIO_BUTTON_OPTIONS ) ) );
-
-      const onAxisButton = new RadioButtonGroupMember(
-        componentStyleProperty,
-        ComponentStyles.ON_AXIS, _.extend( {
-          content: VectorAdditionIconFactory.createAxisIconComponentStyleIcon()
-        }, _.clone( RADIO_BUTTON_OPTIONS ) ) );
-
+      //----------------------------------------------------------------------------------------
+      // Create the Radio Buttons
+      const invisibleButton = new RadioButtonGroupMember( componentStyleProperty, ComponentStyles.INVISIBLE, _.extend( {
+        content: invisibleIcon
+       }, options ) );
+      const parallelogramButton = new RadioButtonGroupMember( componentStyleProperty, ComponentStyles.PARALLELOGRAM,
+        _.extend( {
+          content: parallelogramIcon
+         }, options ) );
+      const triangleButton = new RadioButtonGroupMember( componentStyleProperty, ComponentStyles.TRIANGLE,
+        _.extend( {
+          content: triangleIcon
+         }, options ) );
+      const onAxisButton = new RadioButtonGroupMember( componentStyleProperty, ComponentStyles.ON_AXIS,
+        _.extend( {
+          content: onAxisIcon
+         }, options ) );
 
       super( {
         children: [ new GridLayoutBox( [ invisibleButton, parallelogramButton, triangleButton, onAxisButton ] ) ]
@@ -89,38 +104,45 @@ define( require => {
     constructor( content, options ) {
 
       options = _.extend( {
-        rows: 2,
-        cols: 2,
-        horizontalSpacing: 5,
-        verticalSpacing: 5,
-        horizontalOptions: {
-          align: 'center'
-        },
-        verticalOptions: {
-          align: 'center'
-        }
+        rows: 2, // {number}
+        cols: 2, // {number}
+        horizontalSpacing: 5, // {number}
+        verticalSpacing: 5, // {number}
+        horizontalOptions: null, // {null} see defaults below
+        verticalOptions: null // {null} see defaults below
       }, options );
 
+      options.verticalOptions = _.extend( {
+        align: 'center'
+      }, options.verticalOptions );
+
+      options.horizontalOptions = _.extend( {
+        align: 'center'
+      }, options.horizontalOptions );
+
+      //----------------------------------------------------------------------------------------
       super( _.extend( {
         spacing: options.verticalSpacing,
         orientation: 'vertical'
       }, options.verticalOptions ) );
     
+
+      // Convenience references
       const rows = options.rows;
       const cols = options.cols;
+  
 
+      //----------------------------------------------------------------------------------------
+      // Check arguments
       assert && assert( typeof rows === 'number' && typeof cols === 'number',
         `invalid rows: ${rows} and cols: ${cols}`);
       assert && assert( content && rows * cols === content.length,
         `content doesn't match rows and cols: ${content}` );
+      assert && assert( content.filter( node => !( node instanceof Node ) ).length === 0,
+        `invalid content: ${content}` );
+
       //----------------------------------------------------------------------------------------
-
-      content.forEach( ( node ) => {
-
-        assert && assert( node instanceof Node, `invalid content: ${content}` );
-
-
-      } );
+      // Loop through each node and add it to the grid
       let contentIndex = 0;
 
       for ( let row = 0; row < rows; row++ ) {
@@ -136,7 +158,7 @@ define( require => {
 
           horizontalLayout.addChild( node );
 
-          contentIndex++;
+          contentIndex ++;
         }
         this.addChild( horizontalLayout );
       }
