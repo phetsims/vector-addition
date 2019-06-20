@@ -82,7 +82,8 @@ define( require => {
   class GridLayoutBox extends LayoutBox {
     /**
      * @constructor
-     * @param [options]
+     * @param {Array.<Node>} content
+     * @param {Object} [options]
      * Create a grid layout box
      */
     constructor( content, options ) {
@@ -92,7 +93,7 @@ define( require => {
         cols: 2,
         horizontalSpacing: 5,
         verticalSpacing: 5,
-        horiozntalOptions: {
+        horizontalOptions: {
           align: 'center'
         },
         verticalOptions: {
@@ -127,7 +128,7 @@ define( require => {
         const horizontalLayout = new LayoutBox( _.extend( {
           spacing: options.horizontalSpacing,
           orientation: 'horizontal'
-        }, options.horiozntalOptions ) );
+        }, options.horizontalOptions ) );
 
         for ( let col = 0; col < cols; col++ ) {
 
