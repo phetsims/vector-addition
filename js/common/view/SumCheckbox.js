@@ -22,8 +22,8 @@ define( require => {
   const TEXT_OPTIONS = {
     font: VectorAdditionConstants.PANEL_FONT
   };
-  const ICON_SPACING = VectorAdditionConstants.ICON_SPACING;
-
+  const CHECKBOX_LABEL_SPACING = VectorAdditionConstants.CHECKBOX_LABEL_SPACING;
+  
   // strings
   const sumString = require( 'string!VECTOR_ADDITION/sum' );
 
@@ -44,7 +44,7 @@ define( require => {
 
       super( new LayoutBox( {
         orientation: 'horizontal',
-        spacing: ICON_SPACING,
+        spacing: CHECKBOX_LABEL_SPACING,
         children: [
           new Text( sumString, TEXT_OPTIONS ),
           VectorAdditionIconFactory.createSumIcon( vectorType )

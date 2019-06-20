@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * 'Angle' check box, used to control visibility of the angle node
+ * 'Angle' Visibility check box, used to control visibility of the angle underneath vectors.
  *
  * @author Brandon Li
  */
@@ -17,7 +17,7 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
-  const ICON_SPACING = VectorAdditionConstants.ICON_SPACING;
+  const CHECKBOX_LABEL_SPACING = VectorAdditionConstants.CHECKBOX_LABEL_SPACING;
 
 
   class AngleCheckbox extends Checkbox {
@@ -36,7 +36,7 @@ define( require => {
 
       super( new LayoutBox( {
         orientation: 'horizontal',
-        spacing: ICON_SPACING,
+        spacing: CHECKBOX_LABEL_SPACING,
         children: [
           VectorAdditionIconFactory.createAngleIcon()
         ]
