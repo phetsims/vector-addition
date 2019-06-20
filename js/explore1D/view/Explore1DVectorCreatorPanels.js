@@ -49,8 +49,8 @@ define( require => {
     /**
      * @abstract
      * @constructor
-     * @param {ObservableArray.<VectorModel>} vectorSet - the observable array to add the vector's to.
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the modelViewTransform
+     * @param {VectorSet} vectorSet - the observable array to add the vector's to.
      */
     constructor( modelViewTransformProperty, vectorSet ) {
 
