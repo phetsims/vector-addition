@@ -60,7 +60,7 @@ define( function( require ) {
     VECTOR_GROUP_2_COLORS: {
       fill: '#E81909',
       sum: '#5B1909',
-      component: '#FF0C2D'
+      component: 'rgb( 255, 160, 122 )'
     },
     POLAR_ICON_VECTOR_COLOR: 'rgb( 188, 3, 255 )',
     CARTESIAN_ICON_COLOR: BLACK,
