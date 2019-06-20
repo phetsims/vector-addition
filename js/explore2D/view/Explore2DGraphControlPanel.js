@@ -14,9 +14,8 @@ define( require => {
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const GridCheckbox = require( 'VECTOR_ADDITION/common/view/GridCheckbox' );
-  const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
   const Line = require( 'SCENERY/nodes/Line' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -25,11 +24,14 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
+  const Panel = require( 'SUN/Panel');
 
-  // strings
+  // constants
+  const PANEL_WIDTH = VectorAdditionConstants.PANEL_WIDTH;
   const componentsString = require( 'string!VECTOR_ADDITION/components' );
 
-  class Explore2DGraphControlPanel extends GraphControlPanel {
+  class Explore2DGraphControlPanel extends Panel {
     /**
      * @constructor
      * @param {BooleanProperty} sumVisibleProperty
@@ -67,10 +69,9 @@ define( require => {
 
       options = _.extend( VectorAdditionConstants.PANEL_OPTIONS, options );
 
-      const content = new LayoutBox( {
+      const content = new FixedWidthNode( PANEL_WIDTH, new VBox( {
         spacing: 10,
         align: 'left',
-        orientation: 'vertical',
         children: [
           new SumCheckbox( sumVisibleProperty, vectorType ),
           new ValuesCheckbox( valuesVisibleProperty ),
@@ -84,7 +85,7 @@ define( require => {
           } ),
           new ComponentStyleRadioButtonGroup( componentStyleProperty )
         ]
-      } );
+      } ) );
 
       super( content, options );
     }

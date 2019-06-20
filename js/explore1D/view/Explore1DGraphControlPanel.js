@@ -10,16 +10,20 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const GridCheckbox = require( 'VECTOR_ADDITION/common/view/GridCheckbox' );
-  const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
+  const Panel = require( 'SUN/Panel');
 
-  class Explore1DGraphControlPanel extends GraphControlPanel {
+  // constants
+  const PANEL_WIDTH = VectorAdditionConstants.PANEL_WIDTH;
+
+  class Explore1DGraphControlPanel extends Panel {
     /**
      * @constructor
      * @param {BooleanProperty} sumVisibleProperty
@@ -43,16 +47,16 @@ define( require => {
 
       options = _.extend( VectorAdditionConstants.PANEL_OPTIONS, options );
 
-      const content = new LayoutBox( {
+
+      const content = new FixedWidthNode( PANEL_WIDTH, new VBox( {
         spacing: 10,
         align: 'left',
-        orientation: 'vertical',
         children: [
           new SumCheckbox( sumVisibleProperty, vectorType ),
           new ValuesCheckbox( valuesVisibleProperty ),
           new GridCheckbox( gridVisibleProperty )
         ]
-      } );
+      } ) );
 
       super( content, options );
     }
