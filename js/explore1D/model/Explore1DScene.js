@@ -38,7 +38,7 @@ define( require => {
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( VectorOrientations.includes( vectorOrientation ), `invalid vectorOrientation: ${vectorOrientation}` );
       // The rest are checked in super-classes
-      
+
       //----------------------------------------------------------------------------------------
 
       super( graphDimension, graphUpperLeftPosition, componentStyleProperty );
@@ -50,14 +50,14 @@ define( require => {
       this.sumVisibleProperty = sumVisibleProperty;
 
       // @public (read-only) {VectorSet} - the vector set for this screen 
-      this.vectorSet = new VectorSet( 
-        this.graph.modelViewTransformProperty, 
-        this.graph.graphModelBounds, 
-        componentStyleProperty, 
-        this.sumVisibleProperty, 
+      this.vectorSet = new VectorSet(
+        this.graph.modelViewTransformProperty,
+        this.graph.graphModelBounds,
+        componentStyleProperty,
+        this.sumVisibleProperty,
         vectorType
       );
-      
+
       this.vectorSets.push( this.vectorSet );
     }
 

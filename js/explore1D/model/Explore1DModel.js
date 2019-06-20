@@ -11,7 +11,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Explore1DScene = require( 'VECTOR_ADDITION/explore1D/model/Explore1DScene' ); 
+  const Explore1DScene = require( 'VECTOR_ADDITION/explore1D/model/Explore1DScene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
@@ -31,7 +31,7 @@ define( require => {
      */
     constructor( tandem ) {
 
-      super(tandem );
+      super( tandem );
 
       // @public {EnumerationProperty.<VectorOrientations>} - controls the orientation of the vectors
       this.vectorOrientationProperty = new EnumerationProperty( VectorOrientations, DEFAULT_VECTOR_ORIENTATION );
@@ -40,13 +40,13 @@ define( require => {
       this.vectorType = VECTOR_TYPE;
 
     }
-    
+
     /**
      * @override
      * @private
      * Create the Sum Visibility properties. Explore1D only has one shared sum visible property
      */
-    createSumVisiblityProperties() { 
+    createSumVisiblityProperties() {
 
       // @public (read-only) {BooleanProperty} sumVisibleProperty
       this.sumVisibleProperty = new BooleanProperty( false );

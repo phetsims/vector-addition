@@ -46,11 +46,12 @@ define( require => {
     }
 
   }
+
   //----------------------------------------------------------------------------------------
   /*---------------------------------------------------------------------------*
    * Panel Slots
    *---------------------------------------------------------------------------*/
- 
+
 
   class LabVectorCreatorPanelSlot extends VectorCreatorPanelSlot {
     /**
@@ -60,12 +61,13 @@ define( require => {
      */
     constructor( modelViewTransformProperty, vectorSet, arrowOptions ) {
 
-      super( 
+      super(
         new ArrowNode( 0, 0, 30, -30, arrowOptions ),
         new ArrowNode( 0, 0, 12.5 * 5, -12.5 * 5 ),
         modelViewTransformProperty,
         vectorSet );
     }
+
     /**
      * Called when the vectorRepresentation is dropped. This should add the vector to the model.
      * @public
@@ -73,10 +75,10 @@ define( require => {
      * @param {Vector2} - droppedPosition (model coordinates)
      * @returns {VectorModel} - the model added
      */
-    addVectorToModel( droppedPosition ) { 
+    addVectorToModel( droppedPosition ) {
       return this.vectorSet.addVector( droppedPosition, 5, 5 );
     }
-    
+
   }
 
   return vectorAddition.register( 'LabVectorCreatorPanel', LabVectorCreatorPanel );

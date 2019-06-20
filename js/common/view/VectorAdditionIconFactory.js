@@ -112,7 +112,7 @@ define( function( require ) {
         case VectorTypes.TWO:
           arrowOptions = SUM_ARROW_GROUP_TWO_OPTIONS;
           break;
-        default: 
+        default:
           throw new Error( 'vector type not handled' );
 
       }

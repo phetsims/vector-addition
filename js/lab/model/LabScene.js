@@ -23,7 +23,7 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty
      */
-    constructor( 
+    constructor(
       graphDimension,
       graphUpperLeftPosition,
       componentStyleProperty,
@@ -37,7 +37,7 @@ define( require => {
       assert && assert( sum2VisibleProperty instanceof BooleanProperty,
         `invalid sum2VisibleProperty: ${sum2VisibleProperty}` );
       // The rest are checked in super-classes
-      
+
       //-------------------------------------------
       super( graphDimension, graphUpperLeftPosition, componentStyleProperty );
 
@@ -50,28 +50,29 @@ define( require => {
 
       this.createVectorSets( componentStyleProperty );
     }
+
     /**
      * @public
      * Create the vector sets
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      */
     createVectorSets( componentStyleProperty ) {
-      
+
       // @public (read-only) {VectorSet} - the group one vector set
-      this.groupOneVectorSet = new VectorSet( 
-        this.graph.modelViewTransformProperty, 
-        this.graph.graphModelBounds, 
-        componentStyleProperty, 
-        this.sumGroup1VisibleProperty, 
+      this.groupOneVectorSet = new VectorSet(
+        this.graph.modelViewTransformProperty,
+        this.graph.graphModelBounds,
+        componentStyleProperty,
+        this.sumGroup1VisibleProperty,
         VectorTypes.ONE );
 
 
       // @public (read-only) {VectorSet} - the group two vector set
-      this.groupTwoVectorSet = new VectorSet( 
-        this.graph.modelViewTransformProperty, 
-        this.graph.graphModelBounds, 
-        componentStyleProperty, 
-        this.sumGroup2VisibleProperty, 
+      this.groupTwoVectorSet = new VectorSet(
+        this.graph.modelViewTransformProperty,
+        this.graph.graphModelBounds,
+        componentStyleProperty,
+        this.sumGroup2VisibleProperty,
         VectorTypes.TWO );
 
       this.vectorSets.push( this.groupOneVectorSet, this.groupTwoVectorSet );

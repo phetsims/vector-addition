@@ -18,7 +18,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
   const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
-  const Panel = require( 'SUN/Panel');
+  const Panel = require( 'SUN/Panel' );
 
   // constants
   const PANEL_WIDTH = VectorAdditionConstants.PANEL_WIDTH;

@@ -10,7 +10,7 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const LabScene = require( 'VECTOR_ADDITION/lab/model/LabScene');
+  const LabScene = require( 'VECTOR_ADDITION/lab/model/LabScene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
@@ -29,6 +29,7 @@ define( require => {
 
       super( tandem );
     }
+
     /**
      * @override
      * @private

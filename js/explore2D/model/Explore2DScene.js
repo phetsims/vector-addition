@@ -13,7 +13,7 @@ define( require => {
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-  
+
   class Explore2DScene extends Scene {
     /**
      * @constructor
@@ -34,7 +34,7 @@ define( require => {
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       // The rest are checked in super-classes
-      
+
       //----------------------------------------------------------------------------------------
 
       super( graphDimension, graphUpperLeftPosition, componentStyleProperty );
@@ -43,14 +43,14 @@ define( require => {
       this.sumVisibleProperty = sumVisibleProperty;
 
       // @public (read-only) {VectorSet} - the vector set for this screen 
-      this.vectorSet = new VectorSet( 
-        this.graph.modelViewTransformProperty, 
-        this.graph.graphModelBounds, 
-        componentStyleProperty, 
-        this.sumVisibleProperty, 
+      this.vectorSet = new VectorSet(
+        this.graph.modelViewTransformProperty,
+        this.graph.graphModelBounds,
+        componentStyleProperty,
+        this.sumVisibleProperty,
         vectorType
       );
-      
+
       this.vectorSets.push( this.vectorSet );
     }
 

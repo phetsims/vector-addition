@@ -24,7 +24,7 @@ define( function( require ) {
 
       super( explore2DModel, tandem );
 
-      const graphControlPanel = new Explore2DGraphControlPanel( 
+      const graphControlPanel = new Explore2DGraphControlPanel(
         explore2DModel.sumVisibleProperty,
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
@@ -34,7 +34,7 @@ define( function( require ) {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
-      
+
       this.addChild( graphControlPanel );
 
       const vectorCreatorPanel = new Explore2DVectorCreatorPanel(

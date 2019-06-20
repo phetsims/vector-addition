@@ -79,7 +79,7 @@ define( require => {
         }
       } );
 
-      const explore1DGraphControlPanel = new Explore1DGraphControlPanel( 
+      const explore1DGraphControlPanel = new Explore1DGraphControlPanel(
         explore1DModel.sumVisibleProperty,
         explore1DModel.valuesVisibleProperty,
         explore1DModel.gridVisibleProperty,

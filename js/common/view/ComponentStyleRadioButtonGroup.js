@@ -27,7 +27,7 @@ define( require => {
   class ComponentStyleRadioButtonGroup extends RadioButtonGroup {
 
     /**
-     * @param {EnumerationProperty<ComponentStyles>} componentStyleProperty 
+     * @param {EnumerationProperty<ComponentStyles>} componentStyleProperty
      * @constructor
      */
     constructor( componentStyleProperty ) {

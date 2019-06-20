@@ -24,7 +24,7 @@ define( function( require ) {
 
       super( labModel, tandem );
 
-      const graphControlPanel = new LabGraphControlPanel( 
+      const graphControlPanel = new LabGraphControlPanel(
         labModel.sumGroup1VisibleProperty,
         labModel.sumGroup2VisibleProperty,
         labModel.valuesVisibleProperty,

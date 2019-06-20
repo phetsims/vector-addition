@@ -50,8 +50,8 @@ define( require => {
       assert && assert( vectorRepresentationNode instanceof Node,
         `invalid vectorRepresentationNode: ${vectorRepresentationNode}` );
       assert && assert( modelViewTransformProperty instanceof Property
-        && modelViewTransformProperty.value instanceof ModelViewTransform2,
-          `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+      && modelViewTransformProperty.value instanceof ModelViewTransform2,
+        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
       assert && assert( !options.label || typeof options.label === 'string',
         `invalid options.label: ${options.label}` );
@@ -67,7 +67,7 @@ define( require => {
       } );
 
       if ( options.label ) {
-        this.addChild( new FormulaNode( `\\vec{${ options.label }}` ) );
+        this.addChild( new FormulaNode( `\\vec{${options.label}}` ) );
       }
 
       // @public (read-only) {Node}
@@ -97,7 +97,7 @@ define( require => {
       this.iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
 
         // Create a location property to track the location of where the user dragged the vector representation
-        const vectorRepresentationLocationProperty = new Vector2Property( 
+        const vectorRepresentationLocationProperty = new Vector2Property(
           this.vectorRepresentationNode.globalToParentPoint( event.pointer.point ) );
 
         // Create a drag listener for the vector representation node
@@ -141,7 +141,7 @@ define( require => {
         }
 
         this.vectorRepresentationNode.center = this.vectorRepresentationNode.globalToParentPoint( event.pointer.point );
-        
+
         vectorRepresentationDragListener.press( event );
       } ) );
 
@@ -155,7 +155,8 @@ define( require => {
      * @returns {VectorModel} - the model added
      */
     addVectorToModel( droppedPosition ) { throw new Error( 'addVectorToModel must be implemented by sub classes' ); }
-    
+
   }
+
   return vectorAddition.register( 'VectorCreatorPanelSlot', VectorCreatorPanelSlot );
 } );

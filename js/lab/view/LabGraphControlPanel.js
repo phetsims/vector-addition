@@ -25,7 +25,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
   const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
-  const Panel = require( 'SUN/Panel');
+  const Panel = require( 'SUN/Panel' );
 
   // constants
   const PANEL_WIDTH = VectorAdditionConstants.PANEL_WIDTH;
@@ -40,17 +40,17 @@ define( require => {
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty 
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {VectorTypes} vectorType
      * @param {Object} [options]
      */
-    constructor( 
-      sum1VisibleProperty, 
+    constructor(
+      sum1VisibleProperty,
       sum2VisibleProperty,
-      valuesVisibleProperty, 
-      angleVisibleProperty, 
-      gridVisibleProperty, 
-      componentStyleProperty, 
+      valuesVisibleProperty,
+      angleVisibleProperty,
+      gridVisibleProperty,
+      componentStyleProperty,
       options ) {
 
       // Type check arguments
@@ -63,7 +63,7 @@ define( require => {
       assert && assert( gridVisibleProperty instanceof BooleanProperty,
         `invalid gridVisibleProperty: ${gridVisibleProperty}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
-        && ComponentStyles.includes( componentStyleProperty.value ),
+      && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       // assert && assert( VectorTypes.includes( vectorType ), `invalid vectorType: ${vectorType}` );
 

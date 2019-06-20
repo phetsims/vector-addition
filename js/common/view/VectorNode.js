@@ -40,6 +40,7 @@ define( require => {
   const VECTOR_GROUP_2 = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
     fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
   } );
+
   class VectorNode extends BaseVectorNode {
     /**
      * @constructor

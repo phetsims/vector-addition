@@ -38,11 +38,11 @@ define( require => {
 
       // Type check arguments
       assert && assert( modelViewTransformProperty instanceof Property
-        && modelViewTransformProperty.value instanceof ModelViewTransform2,
+      && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds: ${graphModelBounds}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
-        && ComponentStyles.includes( componentStyleProperty.value ),
+      && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
@@ -54,7 +54,7 @@ define( require => {
       this.vectors = new ObservableArray();
 
       // @public {VectorModel} the vector sum model
-      this.vectorSum = new VectorSum( 
+      this.vectorSum = new VectorSum(
         this.vectors,
         modelViewTransformProperty,
         componentStyleProperty,
@@ -79,6 +79,7 @@ define( require => {
 
 
     }
+
     /**
      * @public
      * Add a vector to this.vectors
@@ -88,7 +89,7 @@ define( require => {
      * @param {Object} [options]
      * @returns {VectorModel} the vector model added
      */
-     addVector( tailPosition, xComponent, yComponent, options ) {
+    addVector( tailPosition, xComponent, yComponent, options ) {
 
       const newVector = new VectorModel(
         tailPosition,
@@ -101,10 +102,10 @@ define( require => {
 
       // Active the new vector
       newVector.isActiveProperty.value = true;
-      
+
       this.vectors.push( newVector );
       return newVector;
-     }
+    }
 
     /**
      * @public

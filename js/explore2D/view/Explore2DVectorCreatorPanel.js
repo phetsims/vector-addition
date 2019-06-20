@@ -42,11 +42,12 @@ define( require => {
     }
 
   }
+
   //----------------------------------------------------------------------------------------
   /*---------------------------------------------------------------------------*
    * Panel Slot
    *---------------------------------------------------------------------------*/
- 
+
 
   class Explore2DVectorCreatorPanelSlot extends VectorCreatorPanelSlot {
     /**
@@ -57,7 +58,7 @@ define( require => {
      */
     constructor( modelViewTransformProperty, vectorSet, label ) {
 
-      super( 
+      super(
         new ArrowNode( 0, 0, 30, -30, ICON_ARROW_OPTIONS ),
         new ArrowNode( 0, 0, 12.5 * 5, -12.5 * 5 ),
         modelViewTransformProperty,
@@ -65,6 +66,7 @@ define( require => {
           label: label
         } );
     }
+
     /**
      * Called when the vectorRepresentation is dropped. This should add the vector to the model.
      * @public
@@ -72,12 +74,12 @@ define( require => {
      * @param {Vector2} - droppedPosition (model coordinates)
      * @returns {VectorModel} - the model added
      */
-    addVectorToModel( droppedPosition ) { 
+    addVectorToModel( droppedPosition ) {
       return this.vectorSet.addVector( droppedPosition, 5, 5, {
         label: this.label
       } );
     }
-    
+
   }
 
   return vectorAddition.register( 'Explore2DVectorCreatorPanel', Explore2DVectorCreatorPanel );

@@ -53,7 +53,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      
+
       // Create a container for the vectorRepresentation nodes, which are in a zLayer above the slots
       const vectorRepresentationContainer = new Node();
 
@@ -64,8 +64,8 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       const vectorCreatorPanelWidth = options.fixedWidth - ( 2 * options.xMargin );
-      
-      const vectorCreatorPanelSlots = new FixedWidthNode( 
+
+      const vectorCreatorPanelSlots = new FixedWidthNode(
         vectorCreatorPanelWidth,
         new VBox( {
           align: 'center',
@@ -76,9 +76,9 @@ define( require => {
         } );
 
       super( {
-        children: [ 
+        children: [
           new Panel( vectorCreatorPanelSlots, options ),
-          vectorRepresentationContainer 
+          vectorRepresentationContainer
         ]
       } );
     }

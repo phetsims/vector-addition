@@ -21,7 +21,7 @@ define( require => {
       fill: 'black' // TODO: move this to colors
     } );
 
-  class Explore1DVectorCreatorPanels  {
+  class Explore1DVectorCreatorPanels {
     /**
      * @constructor
      * @param {VectorSet} horizontalVectorSet
@@ -35,10 +35,10 @@ define( require => {
                  verticalModelViewTransformProperty ) {
 
       this.horizontalVectorCreatorPanel = new HorizontalVectorCreatorPanel(
-      horizontalModelViewTransformProperty, horizontalVectorSet );
+        horizontalModelViewTransformProperty, horizontalVectorSet );
 
-      this.verticalVectorCreatorPanel = new VerticalVectorCreatorPanel( 
-      verticalModelViewTransformProperty, verticalVectorSet );
+      this.verticalVectorCreatorPanel = new VerticalVectorCreatorPanel(
+        verticalModelViewTransformProperty, verticalVectorSet );
     }
   }
 
@@ -93,7 +93,7 @@ define( require => {
   /*---------------------------------------------------------------------------*
    * Panel Slots
    *---------------------------------------------------------------------------*/
- 
+
   class HorizontalVectorCreatorPanelSlot extends VectorCreatorPanelSlot {
     /**
      * @constructor
@@ -102,7 +102,7 @@ define( require => {
      * @param {string} label
      */
     constructor( modelViewTransformProperty, vectorSet, label ) {
-      super( 
+      super(
         new ArrowNode( 0, 0, 30, 0, ICON_ARROW_OPTIONS ),
         new ArrowNode( 0, 0, 12.5 * 5, 0 ), // TODO: should this be in the constants file
         modelViewTransformProperty,
@@ -118,13 +118,13 @@ define( require => {
      * @param {Vector2} - droppedPosition (model coordinates)
      * @returns {VectorModel} - the model added
      */
-    addVectorToModel( droppedPosition ) { 
+    addVectorToModel( droppedPosition ) {
       return this.vectorSet.addVector( droppedPosition, 5, 0, {
         label: this.label
       } );
     }
   }
-    
+
   //----------------------------------------------------------------------------------------
   class VerticalVectorCreatorPanelSlot extends VectorCreatorPanelSlot {
     /**
@@ -135,7 +135,7 @@ define( require => {
      */
     constructor( modelViewTransformProperty, vectorSet, label ) {
 
-      super( 
+      super(
         new ArrowNode( 0, 0, 0, 30, ICON_ARROW_OPTIONS ),
         new ArrowNode( 0, 0, 0, 12.5 * 5 ), // TODO: should this be in the constants file
         modelViewTransformProperty,
@@ -151,7 +151,7 @@ define( require => {
      * @param {Vector2} - droppedPosition (model coordinates)
      * @returns {VectorModel} - the model added
      */
-    addVectorToModel( droppedPosition ) { 
+    addVectorToModel( droppedPosition ) {
       return this.vectorSet.addVector( droppedPosition, 0, 5, {
         label: this.label
       } );

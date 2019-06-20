@@ -62,10 +62,10 @@ define( require => {
           model.vectorOrientationProperty.value,
           scene.graph.modelViewTransformProperty,
         );
-        
+
         // link the visibility of the Vector Sum node with the status of the checkbox
         vectorSet.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
-        
+
         vectorSumLayer.addChild( vectorSumNode );
 
         // on the vector set, add a listener to the vectors attribute to add the vector to the scene

@@ -8,7 +8,7 @@
  * turning on the 'angle visible' option on the control panel means the angle is visible for every scene.
  *
  * The model can also have an unknown amount of scenes (see Scene.js for more documentation).
- * 
+ *
  * This is an abstract class that requires sub-class instances to define the scenes.
  *
  * @author Martin Veillette
@@ -105,6 +105,7 @@ define( require => {
         scene.reset();
       } );
     }
+
     /**
      * @abstract
      * @private
@@ -112,6 +113,7 @@ define( require => {
      * Sub-classes MUST implement this method
      */
     createSumVisiblityProperties() { throw new Error( 'createSumVisiblityProperties must be implemented by sub classes' ); }
+
     /**
      * @abstract
      * @private
@@ -119,6 +121,7 @@ define( require => {
      * Sub-classes MUST implement this method
      */
     createScenes() { throw new Error( 'createScenes must be implemented by sub classes' ); }
+
     /**
      * @abstract
      * @private

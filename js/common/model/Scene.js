@@ -33,7 +33,7 @@ define( require => {
       assert && assert( graphUpperLeftPosition instanceof Vector2,
         `invalid graphUpperLeftPosition: ${graphUpperLeftPosition}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
-        && ComponentStyles.includes( componentStyleProperty.value ),
+      && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
@@ -51,6 +51,7 @@ define( require => {
        *---------------------------------------------------------------------------*/
 
     }
+
     /**
      * @public
      * Reset the scene
