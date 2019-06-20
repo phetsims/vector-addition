@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * 'Angle' Visibility check box, used to control visibility of the angle underneath vectors.
+ * View for the 'Angle' Visibility check box, used to control visibility of the angle underneath vectors.
  *
  * @author Brandon Li
  */
@@ -24,9 +24,10 @@ define( require => {
     /**
      * @constructor
      * @param {BooleanProperty} angleVisibleProperty
-     * @param {VectorTypes} vectorType
+     * @param {Object} [options]
+     * Create the angle visibility checkbox
      */
-    constructor( angleVisibleProperty, vectorType ) {
+    constructor( angleVisibleProperty, options ) {
 
       // Type check arguments
       assert && assert( angleVisibleProperty instanceof BooleanProperty,
@@ -34,13 +35,12 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( new LayoutBox( {
-        orientation: 'horizontal',
-        spacing: CHECKBOX_LABEL_SPACING,
-        children: [
-          VectorAdditionIconFactory.createAngleIcon()
-        ]
-      } ), angleVisibleProperty );
+      options = _.extend( {
+        spacing: CHECKBOX_LABEL_SPACING
+      }, options );
+      
+      super( VectorAdditionIconFactory.createAngleIcon(), angleVisibleProperty, options );
+   
     }
 
   }

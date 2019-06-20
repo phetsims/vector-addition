@@ -42,7 +42,7 @@ define( function( require ) {
     },
     PANEL_FONT: new PhetFont( 18 ),
     PANEL_WIDTH: 135,
-    CHECKBOX_LABEL_SPACING: 10,
+    CHECKBOX_LABEL_SPACING: 5,
 
     //----------------------------------------------------------------------------------------
     // Vector Creator Panels
