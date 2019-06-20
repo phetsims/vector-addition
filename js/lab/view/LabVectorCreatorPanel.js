@@ -9,22 +9,14 @@ define( require => {
   'use strict';
 
   // modules
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend(
-    _.clone( VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS ), {
-      fill: 'blue' // TODO: move this to colors
-    } );
-  const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend(
-    _.clone( VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS ), {
-      fill: 'red' // TODO: move this to colors
-    } );
-
+  const INITIAL_ARROW_SIDE_LENGTH = VectorAdditionConstants.INITIAL_ARROW_SIDE_LENGTH;
 
   class LabVectorCreatorPanel extends VectorCreatorPanel {
     /**
@@ -39,8 +31,8 @@ define( require => {
 
       const panelSlots = [];
 
-      panelSlots.push( new LabVectorCreatorPanelSlot( modelViewTransformProperty, vectorSetGroupOne, GROUP_ONE_ICON_ARROW_OPTIONS ) );
-      panelSlots.push( new LabVectorCreatorPanelSlot( modelViewTransformProperty, vectorSetGroupTwo, GROUP_TWO_ICON_ARROW_OPTIONS ) );
+      panelSlots.push( new LabVectorCreatorPanelSlot( modelViewTransformProperty, vectorSetGroupOne ) );
+      panelSlots.push( new LabVectorCreatorPanelSlot( modelViewTransformProperty, vectorSetGroupTwo ) );
 
 
       super( panelSlots, VectorAdditionConstants.VECTOR_CREATOR_PANEL_OPTIONS );
@@ -64,8 +56,7 @@ define( require => {
     constructor( modelViewTransformProperty, vectorSet, options ) {
 
       super(
-        new ArrowNode( 0, 0, 30, -30, options ),
-        new ArrowNode( 0, 0, 12.5 * 5, -12.5 * 5 ),
+        new Vector2( INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH ),
         modelViewTransformProperty,
         vectorSet, {
           isInfinite: true
@@ -80,7 +71,7 @@ define( require => {
      * @returns {VectorModel} - the model added
      */
     addVectorToModel( droppedPosition ) {
-      return this.vectorSet.addVector( droppedPosition, 5, 5 );
+      return this.vectorSet.addVector( droppedPosition, INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH );
     }
 
   }

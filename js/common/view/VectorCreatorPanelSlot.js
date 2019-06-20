@@ -14,30 +14,46 @@ define( require => {
   'use strict';
 
   // modules
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
+  const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
   const LABEL_AND_ICON_SPACING = 6;
+  // const ICON_DILATION = 10;
+  const ICON_ARROW_SIZE = 6;
+
+  const MODEL_TO_VIEW_SCALE_FACTOR = VectorAdditionConstants.MODEL_TO_VIEW_SCALE_FACTOR;
+
+  const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend(
+    _.clone( VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS ), {
+      fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
+    } );
+  const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend(
+    _.clone( VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS ), {
+      fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
+    } );
 
   class VectorCreatorPanelSlot extends HBox {
     /**
      * @constructor
-     * @param {Node} iconNode
-     * @param {Node} vectorRepresentationNode
+     * @param {Vector2} initialVector - the direction, and length of the modelVector
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
      * @param {Object} options
      */
-    constructor( iconNode, vectorRepresentationNode, modelViewTransformProperty, vectorSet, options ) {
+    constructor( initialVector, modelViewTransformProperty, vectorSet, options ) {
 
       options = _.extend( {
         label: null, // {string|null} the label for the vector at the slot
@@ -46,9 +62,7 @@ define( require => {
       }, options );
 
       // Type Check
-      assert && assert( iconNode instanceof Node, `invalid iconNode: ${iconNode}` );
-      assert && assert( vectorRepresentationNode instanceof Node,
-        `invalid vectorRepresentationNode: ${vectorRepresentationNode}` );
+      assert && assert( initialVector instanceof Vector2, `invalid initialVector: ${initialVector}` );
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
@@ -61,23 +75,51 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // make the iconNode easier to grab
-      iconNode.mouseArea = iconNode.bounds.dilated( 10 );
-
       super( {
-        spacing: options.labelIconSpacing,
-        children: [ iconNode ]
+        spacing: options.labelIconSpacing
       } );
+
+      //----------------------------------------------------------------------------------------
+
+      const vectorType = vectorSet.vectorType;
+
+      let arrowOptions;
+      switch( vectorType ) {
+        case VectorTypes.ONE:
+          arrowOptions = GROUP_ONE_ICON_ARROW_OPTIONS;
+          break;
+        case VectorTypes.TWO:
+          arrowOptions = GROUP_TWO_ICON_ARROW_OPTIONS;
+          break;
+        default: 
+          throw new Error( `Vector type ${vectorType} doesn't exists ` );
+      }
+
+      //----------------------------------------------------------------------------------------
+
+      initialVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
+
+      // @public (read-only) {Node}
+      this.iconNode = new ArrowNode( 
+        0, 
+        0, 
+        ICON_ARROW_SIZE * initialVector.x / MODEL_TO_VIEW_SCALE_FACTOR, 
+        ICON_ARROW_SIZE * initialVector.y / MODEL_TO_VIEW_SCALE_FACTOR,
+        arrowOptions );
+
+
+      // @public (read-only) {Node}
+      this.vectorRepresentationNode = new ArrowNode( 
+        0, 
+        0, 
+        initialVector.x, 
+        initialVector.y, arrowOptions );
+
+      this.addChild( this.iconNode );
 
       if ( options.label ) {
         this.addChild( new FormulaNode( `\\vec{${options.label}}` ) );
       }
-
-      // @public (read-only) {Node}
-      this.iconNode = iconNode;
-
-      // @public (read-only) {Node}
-      this.vectorRepresentationNode = vectorRepresentationNode;
 
       //----------------------------------------------------------------------------------------
 
@@ -91,7 +133,6 @@ define( require => {
       this.vectorSet = vectorSet;
 
       //----------------------------------------------------------------------------------------
-
 
       // Set the representation node to invisible
       this.vectorRepresentationNode.visible = false;
@@ -149,6 +190,10 @@ define( require => {
           vectorRepresentationDragListener.press( event );
         },
         { allowTouchSnag: true } ) );
+
+      // Make the iconNode easier to grab. TODO: this feels broken
+      // this.iconNode.mouseArea = this.iconNode.bounds.dilated( ICON_DILATION );
+
 
     }
 

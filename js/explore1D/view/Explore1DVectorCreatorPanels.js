@@ -9,17 +9,14 @@ define( require => {
   'use strict';
 
   // modules
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
   // constants
-  const ICON_ARROW_OPTIONS = _.extend(
-    VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
-      fill: 'black' // TODO: move this to colors
-    } );
+  const INITIAL_ARROW_SIDE_LENGTH = VectorAdditionConstants.INITIAL_ARROW_SIDE_LENGTH;
 
   class Explore1DVectorCreatorPanels {
     /**
@@ -103,8 +100,7 @@ define( require => {
      */
     constructor( modelViewTransformProperty, vectorSet, label ) {
       super(
-        new ArrowNode( 0, 0, 30, 0, ICON_ARROW_OPTIONS ),
-        new ArrowNode( 0, 0, 12.5 * 5, 0 ), // TODO: should this be in the constants file
+        new Vector2( INITIAL_ARROW_SIDE_LENGTH, 0 ),
         modelViewTransformProperty,
         vectorSet, {
           label: label
@@ -119,7 +115,7 @@ define( require => {
      * @returns {VectorModel} - the model added
      */
     addVectorToModel( droppedPosition ) {
-      return this.vectorSet.addVector( droppedPosition, 5, 0, {
+      return this.vectorSet.addVector( droppedPosition, INITIAL_ARROW_SIDE_LENGTH, 0, {
         label: this.label
       } );
     }
@@ -136,8 +132,7 @@ define( require => {
     constructor( modelViewTransformProperty, vectorSet, label ) {
 
       super(
-        new ArrowNode( 0, 0, 0, 30, ICON_ARROW_OPTIONS ),
-        new ArrowNode( 0, 0, 0, 12.5 * 5 ), // TODO: should this be in the constants file
+        new Vector2( 0, INITIAL_ARROW_SIDE_LENGTH ),
         modelViewTransformProperty,
         vectorSet, {
           label: label
@@ -152,7 +147,7 @@ define( require => {
      * @returns {VectorModel} the vector model added
      */
     addVectorToModel( droppedPosition ) {
-      return this.vectorSet.addVector( droppedPosition, 0, 5, {
+      return this.vectorSet.addVector( droppedPosition, 0, INITIAL_ARROW_SIDE_LENGTH, {
         label: this.label
       } );
     }
