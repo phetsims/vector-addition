@@ -34,10 +34,10 @@ define( require => {
     dilated: 10,
     cursor: 'pointer'
   };
-  const VECTOR_GROUP_1 = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+  const VECTOR_GROUP_1 = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
   } );
-  const VECTOR_GROUP_2 = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+  const VECTOR_GROUP_2 = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
   } );
 
@@ -75,11 +75,11 @@ define( require => {
 
       switch( vectorModel.vectorType ) {
         case VectorTypes.ONE: {
-          arrowOptions = _.extend( _.clone( VECTOR_GROUP_1 ), arrowOptions );
+          arrowOptions = _.extend( {}, VECTOR_GROUP_1, arrowOptions );
           break;
         }
         case VectorTypes.TWO: {
-          arrowOptions = _.extend( _.clone( VECTOR_GROUP_2 ), arrowOptions );
+          arrowOptions = _.extend( {}, VECTOR_GROUP_2, arrowOptions );
           break;
         }
         default: {

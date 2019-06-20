@@ -26,14 +26,14 @@ define( require => {
 
 
   // constants
-  const VECTOR_GROUP_1_COMPONENT = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+  const VECTOR_GROUP_1_COMPONENT = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.component,
     headWidth: 10.5,
     headHeight: 6,
     tailWidth: 4,
     lineWidth: 0
   } );
-  const VECTOR_GROUP_2_COMPONENT = _.extend( _.clone( VectorAdditionConstants.VECTOR_OPTIONS ), {
+  const VECTOR_GROUP_2_COMPONENT = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.component,
     headWidth: 10.5,
     headHeight: 6,

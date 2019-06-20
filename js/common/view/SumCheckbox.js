@@ -23,7 +23,7 @@ define( require => {
     font: VectorAdditionConstants.PANEL_FONT
   };
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-  
+
   // strings
   const sumString = require( 'string!VECTOR_ADDITION/sum' );
 

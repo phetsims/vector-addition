@@ -39,30 +39,28 @@ define( function( require ) {
     opacity: 1
   };
   // semi opaque arrow for the components
-  const OPAQUE_ARROW_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
+  const OPAQUE_ARROW_OPTIONS = _.extend( {}, ARROW_ICON_OPTIONS, {
     opacity: 0.4
   } );
   // sum icon
-  const SUM_ARROW_GROUP_ONE_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
+  const SUM_ARROW_GROUP_ONE_OPTIONS = _.extend( {}.ARROW_ICON_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum,
     lineWidth: 0.5
   } );
-  const SUM_ARROW_GROUP_TWO_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
+  const SUM_ARROW_GROUP_TWO_OPTIONS = _.extend( {}.ARROW_ICON_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum,
     lineWidth: 0.5
   } );
 
   // Cartesian Black Arrow
-  const CARTESIAN_DARK_ARROW_OPTIONS = _.extend(
-    _.clone( ARROW_ICON_OPTIONS ),
-    {
-      fill: VectorAdditionColors.CARTESIAN_ICON_COLOR,
-      tailWidth: 2,
-      lineWidth: 0
-    }
-  );
+  const CARTESIAN_DARK_ARROW_OPTIONS = _.extend( {}.ARROW_ICON_OPTIONS, {
+    fill: VectorAdditionColors.CARTESIAN_ICON_COLOR,
+    tailWidth: 2,
+    lineWidth: 0
+  } );
+
   // Polar arrow
-  const POLAR_ARROW_OPTIONS = _.extend( _.clone( ARROW_ICON_OPTIONS ), {
+  const POLAR_ARROW_OPTIONS = _.extend( {}.ARROW_ICON_OPTIONS, {
     fill: VectorAdditionColors.POLAR_ICON_VECTOR_COLOR,
     lineWidth: 0
   } );

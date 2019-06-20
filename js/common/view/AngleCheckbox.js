@@ -34,9 +34,9 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       options = _.extend( CHECKBOX_OPTIONS, options );
-      
+
       super( VectorAdditionIconFactory.createAngleIcon(), angleVisibleProperty, options );
-   
+
     }
 
   }

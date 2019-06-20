@@ -22,7 +22,7 @@ define( require => {
   const VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // constants
-  const PANEL_OPTIONS = _.clone( VectorAdditionConstants.PANEL_OPTIONS );
+  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
   const ALIGN_VALUES = [ 'top', 'bottom', 'center' ];
 
   class VectorCreatorPanel extends Node {
@@ -33,15 +33,15 @@ define( require => {
      */
     constructor( panelSlots, options ) {
 
-      options = _.extend( {
+      options = _.extend( {}, PANEL_OPTIONS, {
         xMargin: 8, // {number} - the margins on the left and ride side of the panel
-        yMargin: 4,
+        yMargin: 12,
         fixedWidth: 80, // {number} - the width of the panel,
         fixedHeight: 120, // {number} - the height of the panel,
         slotSpacing: 20, // {number} - the spacing between slots
         right: 940, // {number}
         top: 320 // {number}
-      }, PANEL_OPTIONS, options );
+      }, options );
 
       // Type check
       assert && assert( panelSlots.filter(

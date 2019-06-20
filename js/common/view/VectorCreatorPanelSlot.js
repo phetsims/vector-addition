@@ -35,14 +35,12 @@ define( require => {
   const LABEL_RESIZE_SCALE = 0.8;
   const ICON_ARROW_SIZE = 30;
 
-  const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend(
-    _.clone( VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS ), {
-      fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
-    } );
-  const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend(
-    _.clone( VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS ), {
-      fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
-    } );
+  const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
+    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
+  } );
+  const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
+    fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
+  } );
 
   class VectorCreatorPanelSlot extends HBox {
     /**
@@ -107,7 +105,7 @@ define( require => {
         arrowOptions );
 
       // Make the iconNode easier to grab
-      this.iconNode.mouseArea = this.iconNode.shape.getOffsetShape( 3 );
+      this.iconNode.mouseArea = this.iconNode.shape.getOffsetShape( 8 );
 
       // @public (read-only) {Node}
       this.vectorRepresentationNode = new ArrowNode(
