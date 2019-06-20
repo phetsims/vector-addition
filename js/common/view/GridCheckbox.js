@@ -17,7 +17,7 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
-  const CHECKBOX_LABEL_SPACING = VectorAdditionConstants.CHECKBOX_LABEL_SPACING;
+  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
 
 
   class GridCheckbox extends Checkbox {
@@ -35,11 +35,11 @@ define( require => {
 
       super( new LayoutBox( {
         orientation: 'horizontal',
-        spacing: CHECKBOX_LABEL_SPACING,
+        spacing: CHECKBOX_OPTIONS.spacing,
         children: [
           VectorAdditionIconFactory.createGridIcon()
         ]
-      } ), gridVisibleProperty );
+      } ), gridVisibleProperty, CHECKBOX_OPTIONS );
 
     }
 

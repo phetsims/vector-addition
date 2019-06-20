@@ -40,7 +40,7 @@ define( require => {
         fixedHeight: 120, // {number} - the height of the panel,
         slotSpacing: 20, // {number} - the spacing between slots
         right: 940, // {number}
-        top: 350 // {number}
+        top: 320 // {number}
       }, PANEL_OPTIONS, options );
 
       // Type check

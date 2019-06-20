@@ -40,9 +40,15 @@ define( function( require ) {
       fill: VectorAdditionColors.PANEL_BACKGROUND,
       stroke: VectorAdditionColors.PANEL_STROKE_COLOR
     },
-    PANEL_FONT: new PhetFont( 18 ),
-    PANEL_WIDTH: 135,
-    CHECKBOX_LABEL_SPACING: 5,
+    PANEL_FONT: new PhetFont( 15 ),
+    PANEL_WIDTH: 130,
+
+    //----------------------------------------------------------------------------------------
+    // Defaults for all check boxes
+    CHECKBOX_OPTIONS: {
+      boxWidth: 17,
+      spacing: 5
+    },
 
     //----------------------------------------------------------------------------------------
     // Vector Creator Panels

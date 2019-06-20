@@ -16,8 +16,7 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
-  const CHECKBOX_LABEL_SPACING = VectorAdditionConstants.CHECKBOX_LABEL_SPACING;
-
+  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
 
   class AngleCheckbox extends Checkbox {
     /**
@@ -34,9 +33,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {
-        spacing: CHECKBOX_LABEL_SPACING
-      }, options );
+      options = _.extend( CHECKBOX_OPTIONS, options );
       
       super( VectorAdditionIconFactory.createAngleIcon(), angleVisibleProperty, options );
    
