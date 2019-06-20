@@ -25,14 +25,6 @@ define( function( require ) {
 
   const VectorAdditionConstants = {
 
-    // scale conversion factor from model to view coordinates
-    MODEL_TO_VIEW_SCALE_FACTOR: 12.5,
-
-    // location of the upper left of the graph in view coordinates
-    GRAPH_UPPER_LEFT_LOCATION: new Vector2( 29, 90 ),
-
-    // side length of the arrow when initially dropped onto the graph.
-    INITIAL_ARROW_SIDE_LENGTH: 5,
     //----------------------------------------------------------------------------------------
     // Margins for all ScreenView instances
     SCREEN_VIEW_X_MARGIN: 6,
@@ -65,6 +57,12 @@ define( function( require ) {
     GRAPH_DIMENSION: new Dimension2( 60, 40 ),
     GRAPH_UPPER_LEFT_COORDINATE: new Vector2( -5, 35 ),
 
+    // location of the upper left of the graph in view coordinates
+    GRAPH_UPPER_LEFT_LOCATION: new Vector2( 29, 90 ),
+
+    // scale conversion factor from model to view coordinates
+    MODEL_TO_VIEW_SCALE_FACTOR: 12.5,
+
     //----------------------------------------------------------------------------------------
     // Defaults for all vector arrow nodes
     VECTOR_OPTIONS: {
@@ -85,9 +83,11 @@ define( function( require ) {
       cursor: 'pointer'
     },
 
-    //----------------------------------------------------------------------------------------
     // Default vector type for Explore1D, Explore2D and Equation.
-    VECTOR_TYPE: VectorTypes.ONE
+    VECTOR_TYPE: VectorTypes.ONE,
+
+    // side length of the arrow when initially dropped onto the graph.
+    INITIAL_ARROW_SIDE_LENGTH: 5
 
   };
 
