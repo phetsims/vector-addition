@@ -16,6 +16,7 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
+  const Util = require( 'DOT/Util' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -32,10 +33,7 @@ define( require => {
   // constants
   const LABEL_AND_ICON_SPACING = 6;
   const LABEL_RESIZE_SCALE = 0.8;
-  // const ICON_DILATION = 10;
-  const ICON_ARROW_SIZE = 6;
-
-  const MODEL_TO_VIEW_SCALE_FACTOR = VectorAdditionConstants.MODEL_TO_VIEW_SCALE_FACTOR;
+  const ICON_ARROW_SIZE = 30;
 
   const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend(
     _.clone( VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS ), {
@@ -92,29 +90,31 @@ define( require => {
         case VectorTypes.TWO:
           arrowOptions = GROUP_TWO_ICON_ARROW_OPTIONS;
           break;
-        default: 
+        default:
           throw new Error( `Vector type ${vectorType} doesn't exists ` );
       }
 
       //----------------------------------------------------------------------------------------
 
-      initialVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
+      const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
 
       // @public (read-only) {Node}
-      this.iconNode = new ArrowNode( 
-        0, 
-        0, 
-        ICON_ARROW_SIZE * initialVector.x / MODEL_TO_VIEW_SCALE_FACTOR, 
-        ICON_ARROW_SIZE * initialVector.y / MODEL_TO_VIEW_SCALE_FACTOR,
+      this.iconNode = new ArrowNode(
+        0,
+        0,
+        ICON_ARROW_SIZE * Util.sign( initialViewVector.x ),
+        ICON_ARROW_SIZE * Util.sign( initialViewVector.y ),
         arrowOptions );
 
+      // Make the iconNode easier to grab
+      this.iconNode.mouseArea = this.iconNode.shape.getOffsetShape( 3 );
 
       // @public (read-only) {Node}
-      this.vectorRepresentationNode = new ArrowNode( 
-        0, 
-        0, 
-        initialVector.x, 
-        initialVector.y, arrowOptions );
+      this.vectorRepresentationNode = new ArrowNode(
+        0,
+        0,
+        initialViewVector.x,
+        initialViewVector.y, arrowOptions );
 
       this.addChild( this.iconNode );
 
@@ -124,6 +124,7 @@ define( require => {
         label.scale( LABEL_RESIZE_SCALE );
 
         this.addChild( label );
+
       }
 
       //----------------------------------------------------------------------------------------
@@ -141,6 +142,7 @@ define( require => {
 
       // Set the representation node to invisible
       this.vectorRepresentationNode.visible = false;
+
 
       // When the vector icon is clicked, add the vector representation as a decoy vector to drag onto the screen
       this.iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
@@ -195,10 +197,6 @@ define( require => {
           vectorRepresentationDragListener.press( event );
         },
         { allowTouchSnag: true } ) );
-
-      // Make the iconNode easier to grab. TODO: this feels broken
-      // this.iconNode.mouseArea = this.iconNode.bounds.dilated( ICON_DILATION );
-
 
     }
 
