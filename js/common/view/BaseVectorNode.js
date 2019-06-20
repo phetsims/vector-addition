@@ -14,11 +14,11 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
-  const DerivedProperty = require( 'AXON/DerivedProperty' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   class BaseVectorNode extends Node {
@@ -33,7 +33,7 @@ define( require => {
 
       // Type check arguments
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
-      assert && assert( modelViewTransformProperty instanceof DerivedProperty
+      assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( typeof arrowOptions === 'object', `invalid arrowOptions: ${arrowOptions}` );
@@ -69,7 +69,7 @@ define( require => {
      * Update the tail and tip position of the view
      * @param {BaseVectorModel} baseVectorModel
      * @param {ModelViewTransform2} modelViewTransform
-     * @public
+     * @private
      */
     updateVector( baseVectorModel, modelViewTransform ) {
 
