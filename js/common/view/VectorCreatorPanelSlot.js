@@ -31,6 +31,7 @@ define( require => {
 
   // constants
   const LABEL_AND_ICON_SPACING = 6;
+  const LABEL_RESIZE_SCALE = 0.8;
   // const ICON_DILATION = 10;
   const ICON_ARROW_SIZE = 6;
 
@@ -118,7 +119,11 @@ define( require => {
       this.addChild( this.iconNode );
 
       if ( options.label ) {
-        this.addChild( new FormulaNode( `\\vec{\\mathbf{${options.label}}}` ) );
+
+        const label = new FormulaNode( `\\vec{\\mathrm{${options.label}}}` );
+        label.scale( LABEL_RESIZE_SCALE );
+
+        this.addChild( label );
       }
 
       //----------------------------------------------------------------------------------------

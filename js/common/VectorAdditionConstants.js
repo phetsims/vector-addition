@@ -47,9 +47,7 @@ define( function( require ) {
     //----------------------------------------------------------------------------------------
     // Vector Creator Panels
     VECTOR_CREATOR_PANEL_OPTIONS: {
-      fill: VectorAdditionColors.VECTOR_CREATOR_BACKGROUND,
-      xMargin: 8,
-      yMargin: 4
+      fill: VectorAdditionColors.VECTOR_CREATOR_BACKGROUND
     },
 
     //----------------------------------------------------------------------------------------
