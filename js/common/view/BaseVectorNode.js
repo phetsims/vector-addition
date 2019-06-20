@@ -79,6 +79,9 @@ define( require => {
       // Get the tip location in view coordinates
       const tipDeltaLocation = modelViewTransform.modelToViewDelta( baseVectorModel.components );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
+
+      // make the arrow easier to grab
+      this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( 3 );
     }
 
     /**

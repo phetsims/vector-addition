@@ -99,54 +99,56 @@ define( require => {
       // When the vector icon is clicked, add the vector representation as a decoy vector to drag onto the screen
       this.iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
 
-        // Create a location property to track the location of where the user dragged the vector representation
-        const vectorRepresentationLocationProperty = new Vector2Property(
-          this.vectorRepresentationNode.globalToParentPoint( event.pointer.point ) );
+          // Create a location property to track the location of where the user dragged the vector representation
+          const vectorRepresentationLocationProperty = new Vector2Property(
+            this.vectorRepresentationNode.globalToParentPoint( event.pointer.point ) );
 
-        // Create a drag listener for the vector representation node
-        const vectorRepresentationDragListener = new DragListener( {
-          targetNode: this.vectorRepresentationNode,
-          translateNode: true,
-          locationProperty: vectorRepresentationLocationProperty,
-          start: () => { this.vectorRepresentationNode.visible = true; },
-          end: () => {
+          // Create a drag listener for the vector representation node
+          const vectorRepresentationDragListener = new DragListener( {
+            targetNode: this.vectorRepresentationNode,
+            allowTouchSnag: true,
+            translateNode: true,
+            locationProperty: vectorRepresentationLocationProperty,
+            start: () => { this.vectorRepresentationNode.visible = true; },
+            end: () => {
 
-            // TODO: what should we do if the user dragged it off the grid
+              // TODO: what should we do if the user dragged it off the grid
 
-            this.vectorRepresentationNode.visible = false;
+              this.vectorRepresentationNode.visible = false;
 
-            // Get the drag location in model coordinates
-            const vectorRepresentationPosition = modelViewTransformProperty.value.viewToModelPosition(
-              vectorRepresentationLocationProperty.value
-            );
+              // Get the drag location in model coordinates
+              const vectorRepresentationPosition = modelViewTransformProperty.value.viewToModelPosition(
+                vectorRepresentationLocationProperty.value
+              );
 
-            // Call the abstract method to add the vector to the model. See addVectorToModel for documentation
-            const newVectorModel = this.addVectorToModel( vectorRepresentationPosition );
+              // Call the abstract method to add the vector to the model. See addVectorToModel for documentation
+              const newVectorModel = this.addVectorToModel( vectorRepresentationPosition );
 
-            // Check that the new vector model was implemented correctly
-            assert && assert( newVectorModel instanceof VectorModel,
-              `this.addVectorToModel should return a VectorModel, not a ${newVectorModel}` );
+              // Check that the new vector model was implemented correctly
+              assert && assert( newVectorModel instanceof VectorModel,
+                `this.addVectorToModel should return a VectorModel, not a ${newVectorModel}` );
 
-            // Add a removed listener to the observable array to reset the icon
-            this.vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
-              if ( removedVector === newVectorModel ) {
-                this.iconNode.visible = true;
-              }
-            } );
+              // Add a removed listener to the observable array to reset the icon
+              this.vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
+                if ( removedVector === newVectorModel ) {
+                  this.iconNode.visible = true;
+                }
+              } );
+            }
+
+          } );
+
+          this.vectorRepresentationNode.addInputListener( vectorRepresentationDragListener );
+
+          if ( !options.isInfinite ) {
+            this.iconNode.visible = false;
           }
 
-        } );
+          this.vectorRepresentationNode.center = this.vectorRepresentationNode.globalToParentPoint( event.pointer.point );
 
-        this.vectorRepresentationNode.addInputListener( vectorRepresentationDragListener );
-
-        if ( !options.isInfinite ) {
-          this.iconNode.visible = false;
-        }
-
-        this.vectorRepresentationNode.center = this.vectorRepresentationNode.globalToParentPoint( event.pointer.point );
-
-        vectorRepresentationDragListener.press( event );
-      } ) );
+          vectorRepresentationDragListener.press( event );
+        },
+        { allowTouchSnag: true } ) );
 
     }
 
