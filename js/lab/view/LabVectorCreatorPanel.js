@@ -37,38 +37,27 @@ define( require => {
     constructor( vectorSetGroupOne, vectorSetGroupTwo, modelViewTransformProperty ) {
 
 
-      const panelSlots = [];
+      // create a 45 degree vector2 representing the vector that will be dropped onto the graph
+      const initialVector = new Vector2( INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH );
 
-      panelSlots.push( new LabVectorCreatorPanelSlot( modelViewTransformProperty, vectorSetGroupOne ) );
-      panelSlots.push( new LabVectorCreatorPanelSlot( modelViewTransformProperty, vectorSetGroupTwo ) );
+      const vectorGroupOneSlot = new VectorCreatorPanelSlot(
+        initialVector,
+        modelViewTransformProperty,
+        vectorSetGroupOne, {
+          isInfinite: true
+        } );
+
+      const vectorGroupTwoSlot = new VectorCreatorPanelSlot(
+        initialVector,
+        modelViewTransformProperty,
+        vectorSetGroupTwo, {
+          isInfinite: true
+        } );
+
+      const panelSlots = [ vectorGroupOneSlot, vectorGroupTwoSlot ];
 
 
       super( panelSlots, CREATOR_PANEL_OPTIONS );
-    }
-
-  }
-
-  //----------------------------------------------------------------------------------------
-  /*---------------------------------------------------------------------------*
-   * Panel Slots
-   *---------------------------------------------------------------------------*/
-
-
-  class LabVectorCreatorPanelSlot extends VectorCreatorPanelSlot {
-    /**
-     * @constructor
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
-     * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
-     * @param {Object} [options]
-     */
-    constructor( modelViewTransformProperty, vectorSet, options ) {
-
-      super(
-        new Vector2( INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH ),
-        modelViewTransformProperty,
-        vectorSet, {
-          isInfinite: true
-        } );
     }
 
   }

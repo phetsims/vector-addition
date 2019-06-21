@@ -57,12 +57,17 @@ define( require => {
      */
     constructor( modelViewTransformProperty, vectorSet ) {
 
+      // create labels for each vector slot
       const labels = [ 'a', 'b', 'c' ];
 
       const panelSlots = [];
 
+      // create a horizontal vector pointing along positive x
+      const initialVector = new Vector2( INITIAL_ARROW_SIDE_LENGTH, 0 );
+
       labels.forEach( ( label ) => {
-        panelSlots.push( new HorizontalVectorCreatorPanelSlot( modelViewTransformProperty, vectorSet, label ) );
+        panelSlots.push( new VectorCreatorPanelSlot( initialVector, modelViewTransformProperty, vectorSet,
+          { label: label } ) );
       } );
 
       super( panelSlots, VectorAdditionConstants.VECTOR_CREATOR_PANEL_OPTIONS );
@@ -80,59 +85,23 @@ define( require => {
      */
     constructor( modelViewTransformProperty, vectorSet ) {
 
+      // create labels for each vector slot
       const labels = [ 'd', 'e', 'f' ];
 
       const panelSlots = [];
 
+      // create a vertical vector pointing along positive y
+      const initialVerticalVector = new Vector2( 0, INITIAL_ARROW_SIDE_LENGTH );
+
       labels.forEach( ( label ) => {
-        panelSlots.push( new VerticalVectorCreatorPanelSlot( modelViewTransformProperty, vectorSet, label ) );
+        panelSlots.push( new VectorCreatorPanelSlot( initialVerticalVector, modelViewTransformProperty, vectorSet,
+          { label: label } ) );
       } );
 
       super( panelSlots, VERTICAL_CREATOR_PANEL_OPTIONS );
     }
   }
 
-  //----------------------------------------------------------------------------------------
-  /*---------------------------------------------------------------------------*
-   * Panel Slots
-   *---------------------------------------------------------------------------*/
-
-  class HorizontalVectorCreatorPanelSlot extends VectorCreatorPanelSlot {
-    /**
-     * @constructor
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
-     * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
-     * @param {string} label
-     */
-    constructor( modelViewTransformProperty, vectorSet, label ) {
-      super(
-        new Vector2( INITIAL_ARROW_SIDE_LENGTH, 0 ),
-        modelViewTransformProperty,
-        vectorSet, {
-          label: label
-        } );
-    }
-  }
-
-  //----------------------------------------------------------------------------------------
-  class VerticalVectorCreatorPanelSlot extends VectorCreatorPanelSlot {
-    /**
-     * @constructor
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
-     * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
-     * @param {string} label
-     */
-    constructor( modelViewTransformProperty, vectorSet, label ) {
-
-      super(
-        new Vector2( 0, INITIAL_ARROW_SIDE_LENGTH ),
-        modelViewTransformProperty,
-        vectorSet, {
-          label: label
-        } );
-    }
-
-  }
 
   return vectorAddition.register( 'Explore1DVectorCreatorPanels', Explore1DVectorCreatorPanels );
 } );
