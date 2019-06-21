@@ -41,7 +41,8 @@ define( require => {
                  componentStyleProperty,
                  angleVisibleProperty,
                  vectorOrientation,
-                 modelViewTransformProperty
+                 modelViewTransformProperty,
+                 valuesVisibleProperty
     ) {
 
       let arrowOptions;
@@ -64,6 +65,7 @@ define( require => {
         angleVisibleProperty,
         vectorOrientation,
         modelViewTransformProperty,
+        valuesVisibleProperty,
         arrowOptions );
 
     }

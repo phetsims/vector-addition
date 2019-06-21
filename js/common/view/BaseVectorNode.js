@@ -14,12 +14,13 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
 
   class BaseVectorNode extends Node {
     /**
@@ -29,7 +30,7 @@ define( require => {
      * between model coordinates and view coordinates
      * @param {Object} arrowOptions - options passed to the arrow node for specific / specialized styling
      */
-    constructor( baseVectorModel, modelViewTransformProperty, arrowOptions ) {
+    constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, arrowOptions ) {
 
       // Type check arguments
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
@@ -37,6 +38,8 @@ define( require => {
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( typeof arrowOptions === 'object', `invalid arrowOptions: ${arrowOptions}` );
+      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
+        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -51,7 +54,7 @@ define( require => {
 
       // @public (read-only) {Node} labelNode - Create a label for the vector that is displayed 'next' to the arrow. 
       // The location of this depends on the angle of the vector.
-      this.labelNode = new FormulaNode( `\\vec{ \\mathrm{${baseVectorModel.label}} \}` );
+      this.labelNode = new VectorLabelNode( baseVectorModel, valuesVisibleProperty );
 
       this.setChildren( [ this.arrowNode, this.labelNode ] );
 

@@ -51,7 +51,7 @@ define( require => {
      * between model coordinates and view coordinates
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      */
-    constructor( vectorComponent, modelViewTransformProperty, componentStyleProperty ) {
+    constructor( vectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty ) {
 
       // Type check arguments
       assert && assert( vectorComponent instanceof VectorComponent, `invalid vectorComponent: ${vectorComponent}` );
@@ -77,7 +77,7 @@ define( require => {
           throw new Error( `Vector Type : ${vectorComponent.vectorType} not handled` );
         }
       }
-      super( vectorComponent, modelViewTransformProperty, arrowOptions );
+      super( vectorComponent, modelViewTransformProperty, valuesVisibleProperty, arrowOptions );
 
       //----------------------------------------------------------------------------------------
       // Create a path  that represents the dashed lines corresponding to the on_axis style.

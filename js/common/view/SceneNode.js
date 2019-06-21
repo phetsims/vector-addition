@@ -61,6 +61,7 @@ define( require => {
           model.angleVisibleProperty,
           model.vectorOrientationProperty.value,
           scene.graph.modelViewTransformProperty,
+          model.valuesVisibleProperty
         );
 
         // link the visibility of the Vector Sum node with the status of the checkbox
@@ -77,6 +78,7 @@ define( require => {
             model.angleVisibleProperty,
             model.vectorOrientationProperty.value,
             scene.graph.modelViewTransformProperty,
+            model.valuesVisibleProperty
           );
 
           vectorLayer.addChild( vectorNode );

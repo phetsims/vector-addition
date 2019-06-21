@@ -59,6 +59,7 @@ define( require => {
                  angleVisibleProperty,
                  vectorOrientation,
                  modelViewTransformProperty,
+                 valuesVisibleProperty,
                  arrowOptions ) {
 
       // Type check arguments
@@ -86,19 +87,19 @@ define( require => {
           throw new Error( `Vector Type : ${vectorModel.vectorType} not handled` );
         }
       }
-      super( vectorModel, modelViewTransformProperty, arrowOptions );
+      super( vectorModel, modelViewTransformProperty, valuesVisibleProperty, arrowOptions );
 
       //----------------------------------------------------------------------------------------
 
       const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.components );
 
       // @public (read-only) {VectorComponentNode}
-      this.xComponentNode = new VectorComponentNode( vectorModel.xVectorComponent, modelViewTransformProperty, componentStyleProperty );
+      this.xComponentNode = new VectorComponentNode( vectorModel.xVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
 
       this.addChild( this.xComponentNode );
 
       // @public (read-only) {VectorComponentNode}
-      this.yComponentNode = new VectorComponentNode( vectorModel.yVectorComponent, modelViewTransformProperty, componentStyleProperty );
+      this.yComponentNode = new VectorComponentNode( vectorModel.yVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
 
       this.addChild( this.yComponentNode );
 

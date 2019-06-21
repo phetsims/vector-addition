@@ -56,12 +56,14 @@ define( function( require ) {
     VECTOR_GROUP_1_COLORS: {
       fill: 'rgb( 0, 185, 255 )',
       sum: 'rgb( 0, 181, 225 )',
-      component: 'rgb( 155, 222, 255 )'
+      component: 'rgb( 155, 222, 255 )',
+      labelBackground: 'rgb( 155, 222, 255 )'
     },
     VECTOR_GROUP_2_COLORS: {
       fill: 'rgb( 232, 25, 9 )',
       sum: 'rgb( 196, 2, 51 )',
-      component: 'rgb( 245, 120, 120 )'
+      component: 'rgb( 245, 120, 120 )',
+      labelBackground: 'rgb( 245, 120, 120 )'
     },
     POLAR_ICON_VECTOR_COLOR: 'rgb( 188, 3, 255 )',
     CARTESIAN_ICON_COLOR: BLACK,
