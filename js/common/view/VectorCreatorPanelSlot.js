@@ -35,12 +35,14 @@ define( require => {
   const LABEL_RESIZE_SCALE = 0.8;
   const ICON_ARROW_SIZE = 30;
 
-  const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
-  } );
-  const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
-  } );
+  const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend( {},
+    VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
+      fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
+    } );
+  const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend( {},
+    VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
+      fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
+    } );
 
   class VectorCreatorPanelSlot extends HBox {
     /**
@@ -96,7 +98,10 @@ define( require => {
 
       const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
 
-      // @public (read-only) {Node}
+      // @private {Vector2}
+      this.initialVector = initialVector;
+
+      //  {Node}
       const iconNode = new ArrowNode(
         0,
         0,
@@ -200,13 +205,17 @@ define( require => {
 
     /**
      * Called when the vectorRepresentation is dropped. This should add the vector to the model.
-     * @public
-     * @abstract
-     * @param {Vector2} droppedPosition in model coordinates
+     * @private
+     * @param {Vector2} droppedPosition (model coordinates)
      * @returns {VectorModel} - the model added
      */
-    addVectorToModel( droppedPosition ) { throw new Error( 'addVectorToModel must be implemented by sub classes' ); }
+    addVectorToModel( droppedPosition ) {
 
+
+      const options = ( this.label ) ? { label: this.label } : {};
+
+      return this.vectorSet.addVector( droppedPosition, this.initialVector.x, this.initialVector.y, options );
+    }
   }
 
   return vectorAddition.register( 'VectorCreatorPanelSlot', VectorCreatorPanelSlot );

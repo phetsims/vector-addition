@@ -69,18 +69,6 @@ define( require => {
         } );
     }
 
-    /**
-     * Called when the vectorRepresentation is dropped. This should add the vector to the model.
-     * @public
-     * @override
-     * @param {Vector2} droppedPosition  in model coordinates
-     * @returns {VectorModel} the vector model added
-     */
-    addVectorToModel( droppedPosition ) {
-      return this.vectorSet.addVector( droppedPosition, INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH, {
-        label: this.label
-      } );
-    }
 
   }
 
