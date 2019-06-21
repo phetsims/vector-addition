@@ -33,7 +33,6 @@ define( require => {
   // constants
   const LABEL_AND_ICON_SPACING = 6;
   const LABEL_RESIZE_SCALE = 0.8;
-  const ICON_ARROW_SIZE = 30;
 
   const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend( {},
     VectorAdditionConstants.VECTOR_OPTIONS, {
@@ -108,16 +107,15 @@ define( require => {
         initialViewVector.x,
         initialViewVector.y, arrowOptions );
 
-
-
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
-        initialViewVector.normalized().timesScalar( ICON_ARROW_SIZE ),
+        initialViewVector,
         vectorType );
 
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( 8 );
       this.addChild( iconNode );
+
 
       if ( options.label ) {
 
