@@ -40,6 +40,8 @@ define( function( require ) {
     opacity: 1
   };
 
+  const ARROW_SIZE = 30;
+
   // Semi opaque arrow for the components on the component radio button icons
   const OPAQUE_ARROW_OPTIONS = _.extend( {}, ARROW_ICON_OPTIONS, {
     opacity: 0.4
@@ -52,7 +54,7 @@ define( function( require ) {
   class VectorAdditionIconFactory {
     /**
      * Create the Vector Icon that appears on the vector creator panel
-     * @param {Vector2} initialVector - the vector in view coordinates
+     * @param {Vector2} initialVector - in model coordinates
      * @param {VectorTypes} vectorType
      * @param {Object} [options]
      * @public
@@ -76,7 +78,9 @@ define( function( require ) {
       }, options );
 
 
-      return new ArrowNode( 0, 0, initialVector.x, initialVector.y, options );
+      const iconVector = initialVector.normalized().timesScalar( ARROW_SIZE );
+
+      return new ArrowNode( 0, 0, iconVector.x, iconVector.y, options );
     }
 
     /*---------------------------------------------------------------------------*
@@ -95,7 +99,7 @@ define( function( require ) {
         `invalid vectorType: ${vectorType}` );
 
       //----------------------------------------------------------------------------------------
-     
+
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
         lineWidth: 1,
         headHeight: 10,
@@ -103,7 +107,7 @@ define( function( require ) {
               VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum
       }, options );
 
-      return new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, options );
+      return new ArrowNode( 0, 0, ARROW_SIZE, 0, options );
     }
 
     /**
@@ -150,9 +154,9 @@ define( function( require ) {
       } );
 
       const arcArrow = new ArcArrowNode( options.angle, options.arcRadius, options.arcArrowOptions );
-      
+
       return new Node( {
-        children: [ wedgePath, arcArrow ] 
+        children: [ wedgePath, arcArrow ]
       } );
     }
 
@@ -175,7 +179,7 @@ define( function( require ) {
         lineWidth: 1, // {number}
         stroke: VectorAdditionColors.GRID_ICON_COLOR // {string}
       }, options.gridPathOptions );
-      
+
       //----------------------------------------------------------------------------------------
 
       // Create a shape for the grid
@@ -206,15 +210,20 @@ define( function( require ) {
      */
     static createComponentStyleIcon( componentStyle, options ) {
 
-      assert && assert( componentStyle && ComponentStyles.includes( componentStyle ), 
+      assert && assert( componentStyle && ComponentStyles.includes( componentStyle ),
         `invalid componentStyle: ${componentStyle}` );
 
       switch( componentStyle ) {
-        case ComponentStyles.INVISIBLE: return this.createInvisibleComponentStyleIcon( options );
-        case ComponentStyles.PARALLELOGRAM: return this.createParallelogramComponentStyleIcon( options );
-        case ComponentStyles.TRIANGLE: return this.createTriangleComponentStyleIcon( options );
-        case ComponentStyles.ON_AXIS: return this.createOnAxisComponentStyleIcon( options );
-        default: throw new Error( `invalid componentStyle: ${componentStyle}` );
+        case ComponentStyles.INVISIBLE:
+          return this.createInvisibleComponentStyleIcon( options );
+        case ComponentStyles.PARALLELOGRAM:
+          return this.createParallelogramComponentStyleIcon( options );
+        case ComponentStyles.TRIANGLE:
+          return this.createTriangleComponentStyleIcon( options );
+        case ComponentStyles.ON_AXIS:
+          return this.createOnAxisComponentStyleIcon( options );
+        default:
+          throw new Error( `invalid componentStyle: ${componentStyle}` );
       }
     }
 
@@ -254,7 +263,7 @@ define( function( require ) {
      * @public
      */
     static createTriangleComponentStyleIcon( options ) {
-      
+
       // The icon has three arrows, a vector arrow and its 2 components (opaque)
       const vectorArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, ARROW_ICON_OPTIONS );
 
@@ -364,7 +373,7 @@ define( function( require ) {
      */
     static createPolarIcon( options ) {
 
-      options = _.extend(  {}, ARROW_ICON_OPTIONS, {
+      options = _.extend( {}, ARROW_ICON_OPTIONS, {
         fill: VectorAdditionColors.POLAR_ICON_VECTOR_COLOR,
         lineWidth: 0,
         arcRadius: ARC_ARROW_RADIUS,
