@@ -33,42 +33,22 @@ define( require => {
      */
     constructor( modelViewTransformProperty, vectorSet ) {
 
+      // create labels for each vector slot
       const labels = [ 'a', 'b', 'c' ];
 
       const panelSlots = [];
 
+      // create a 45 degree vector2 representing the vector that will be dropped onto the graph
+      const initialVector = new Vector2( INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH );
+
       labels.forEach( ( label ) => {
-        panelSlots.push( new Explore2DVectorCreatorPanelSlot( modelViewTransformProperty, vectorSet, label ) );
+
+        panelSlots.push( new VectorCreatorPanelSlot( initialVector, modelViewTransformProperty, vectorSet,
+          { label: label } ) );
       } );
 
       super( panelSlots, CREATOR_PANEL_OPTIONS );
     }
-
-  }
-
-  //----------------------------------------------------------------------------------------
-  /*---------------------------------------------------------------------------*
-   * Panel Slot
-   *---------------------------------------------------------------------------*/
-
-
-  class Explore2DVectorCreatorPanelSlot extends VectorCreatorPanelSlot {
-    /**
-     * @constructor
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
-     * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
-     * @param {string} label
-     */
-    constructor( modelViewTransformProperty, vectorSet, label ) {
-
-      super(
-        new Vector2( INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH ),
-        modelViewTransformProperty,
-        vectorSet, {
-          label: label
-        } );
-    }
-
 
   }
 
