@@ -97,7 +97,7 @@ define( require => {
       const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
 
       // @public (read-only) {Node}
-      this.iconNode = new ArrowNode(
+      const iconNode = new ArrowNode(
         0,
         0,
         ICON_ARROW_SIZE * Util.sign( initialViewVector.x ),
@@ -105,7 +105,7 @@ define( require => {
         arrowOptions );
 
       // Make the iconNode easier to grab
-      this.iconNode.mouseArea = this.iconNode.shape.getOffsetShape( 8 );
+      iconNode.mouseArea = iconNode.shape.getOffsetShape( 8 );
 
       // @public (read-only) {Node}
       this.vectorRepresentationNode = new ArrowNode(
@@ -114,7 +114,7 @@ define( require => {
         initialViewVector.x,
         initialViewVector.y, arrowOptions );
 
-      this.addChild( this.iconNode );
+      this.addChild( iconNode );
 
       if ( options.label ) {
 
@@ -143,7 +143,7 @@ define( require => {
 
 
       // When the vector icon is clicked, add the vector representation as a decoy vector to drag onto the screen
-      this.iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
+      iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
 
           // Create a location property to track the location of where the user dragged the vector representation
           const vectorRepresentationLocationProperty = new Vector2Property(
@@ -177,7 +177,7 @@ define( require => {
               // Add a removed listener to the observable array to reset the icon
               this.vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
                 if ( removedVector === newVectorModel ) {
-                  this.iconNode.visible = true;
+                  iconNode.visible = true;
                 }
               } );
             }
@@ -187,7 +187,7 @@ define( require => {
           this.vectorRepresentationNode.addInputListener( vectorRepresentationDragListener );
 
           if ( !options.isInfinite ) {
-            this.iconNode.visible = false;
+            iconNode.visible = false;
           }
 
           this.vectorRepresentationNode.center = this.vectorRepresentationNode.globalToParentPoint( event.pointer.point );
