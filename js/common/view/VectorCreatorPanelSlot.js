@@ -16,7 +16,6 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
-  const Util = require( 'DOT/Util' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -102,16 +101,6 @@ define( require => {
       // @private {Vector2}
       this.initialVector = initialVector;
 
-
-      const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
-        new Vector2( ICON_ARROW_SIZE * Util.sign( initialViewVector.x ),
-          ICON_ARROW_SIZE * Util.sign( initialViewVector.y ), Util.sign() * initialViewVector.y ),
-        vectorType );
-
-
-      // Make the iconNode easier to grab
-      iconNode.mouseArea = iconNode.shape.getOffsetShape( 8 );
-
       // @public (read-only) {Node}
       this.vectorRepresentationNode = new ArrowNode(
         0,
@@ -119,6 +108,15 @@ define( require => {
         initialViewVector.x,
         initialViewVector.y, arrowOptions );
 
+
+
+      const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
+        initialViewVector.normalized().timesScalar( ICON_ARROW_SIZE ),
+        vectorType );
+
+
+      // Make the iconNode easier to grab
+      iconNode.mouseArea = iconNode.shape.getOffsetShape( 8 );
       this.addChild( iconNode );
 
       if ( options.label ) {

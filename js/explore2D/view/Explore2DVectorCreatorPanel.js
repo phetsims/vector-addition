@@ -20,7 +20,7 @@ define( require => {
 
   const CREATOR_PANEL_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_CREATOR_PANEL_OPTIONS, {
     xMargin: 10,
-    yMargin: 6,
+    yMargin: 10,
     slotSpacing: 14
   } );
 
@@ -39,7 +39,7 @@ define( require => {
       const panelSlots = [];
 
       // create a 45 degree vector2 representing the vector that will be dropped onto the graph
-      const initialVector = new Vector2( 1, 1 ).normalized().timesScalar( INITIAL_ARROW_SIDE_LENGTH );
+      const initialVector = new Vector2( INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH );
 
       labels.forEach( ( label ) => {
 
