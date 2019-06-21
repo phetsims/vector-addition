@@ -30,19 +30,15 @@ define( require => {
      * @param {string} label
      * @param {VectorTypes} vectorType - the type of vector
      */
-    constructor( tailPosition, xComponent, yComponent, label, vectorType ) {
+    constructor( tailPosition, xComponent, yComponent, vectorType ) {
 
       // Type check arguments
       assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
       assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
       assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
-      assert && assert( typeof label === 'string', `invalid label: ${label}` );
       assert && assert( VectorTypes.includes( vectorType ), `invalid vectorType: ${vectorType}` );
 
       //----------------------------------------------------------------------------------------
-
-      // @public (read-only) {string}
-      this.label = label;
 
       // @public (read-only) {VectorTypes}
       this.vectorType = vectorType;

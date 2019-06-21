@@ -29,18 +29,16 @@ define( require => {
      * @constructor
      * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
-     * @param {string} label
      */
-    constructor( parentVector, componentStyleProperty, label ) {
+    constructor( parentVector, componentStyleProperty ) {
 
       // Type check arguments
       assert && assert( componentStyleProperty instanceof EnumerationProperty,
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( typeof label === 'string', `invalid label: ${label}` );
 
       //----------------------------------------------------------------------------------------
 
-      super( parentVector.tailPositionProperty.value, 0, 0, label, parentVector.vectorType );
+      super( parentVector.tailPositionProperty.value, 0, 0, parentVector.vectorType );
 
       // @private observe changes of the parent to update component (abstract)
       this.updateLayoutMultilink = Property.multilink( [

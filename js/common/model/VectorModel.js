@@ -61,15 +61,17 @@ define( require => {
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid isTipDraggable: ${options.isTipDraggable}` );
-      // The rest are checked in base vector model
+      assert && assert( typeof options.label === 'string', `invalid options.label: ${options.label}` );
 
       //----------------------------------------------------------------------------------------
 
-      super( tailPosition, xComponent, yComponent, options.label, vectorType );
+      super( tailPosition, xComponent, yComponent, vectorType );
 
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
 
+      // @public (read-only)
+      this.label = options.label;
 
       // @public {BooleanProperty} - indicates if the vector is active. An active vector is a vector that is being
       // dragged by the body or the tip.
