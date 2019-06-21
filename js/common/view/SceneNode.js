@@ -112,8 +112,8 @@ define( require => {
 
       this.setChildren( [
         this.graphNode,
-        vectorSumLayer,
         vectorLayer,
+        vectorSumLayer,
         this.inspectVectorPanel,
         eraserButton ] );
     }

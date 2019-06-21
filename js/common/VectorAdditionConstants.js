@@ -77,15 +77,6 @@ define( function( require ) {
       cursor: 'move'
     },
 
-    //----------------------------------------------------------------------------------------
-    // Defaults for the vector creator panel icon
-    VECTOR_CREATOR_PANEL_ARROW_OPTIONS: {
-      lineWidth: 0,
-      tailWidth: 4,
-      headWidth: 10.5,
-      headHeight: 6,
-      cursor: 'pointer'
-    },
 
     // Default vector type for Explore1D, Explore2D and Equation.
     VECTOR_TYPE: VectorTypes.ONE,

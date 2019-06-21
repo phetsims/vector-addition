@@ -45,10 +45,10 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Create the icons
-      const invisibleIcon = VectorAdditionIconFactory.createInvisibleComponentStyleIcon();
-      const parallelogramIcon = VectorAdditionIconFactory.createParallelogramComponentStyleIcon();
-      const triangleIcon = VectorAdditionIconFactory.createTriangleComponentStyleIcon();
-      const onAxisIcon = VectorAdditionIconFactory.createAxisIconComponentStyleIcon();
+      const invisibleIcon = VectorAdditionIconFactory.createComponentStyleIcon( ComponentStyles.INVISIBLE );
+      const parallelogramIcon = VectorAdditionIconFactory.createComponentStyleIcon( ComponentStyles.PARALLELOGRAM );
+      const triangleIcon = VectorAdditionIconFactory.createComponentStyleIcon( ComponentStyles.TRIANGLE );
+      const onAxisIcon = VectorAdditionIconFactory.createComponentStyleIcon( ComponentStyles.ON_AXIS );
 
       const icons = [ invisibleIcon, parallelogramIcon, triangleIcon, onAxisIcon ];
 

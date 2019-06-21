@@ -29,6 +29,7 @@ define( require => {
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
   const LABEL_AND_ICON_SPACING = 6;
@@ -36,11 +37,11 @@ define( require => {
   const ICON_ARROW_SIZE = 30;
 
   const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend( {},
-    VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
+    VectorAdditionConstants.VECTOR_OPTIONS, {
       fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
     } );
   const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend( {},
-    VectorAdditionConstants.VECTOR_CREATOR_PANEL_ARROW_OPTIONS, {
+    VectorAdditionConstants.VECTOR_OPTIONS, {
       fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
     } );
 
@@ -101,13 +102,12 @@ define( require => {
       // @private {Vector2}
       this.initialVector = initialVector;
 
-      //  {Node}
-      const iconNode = new ArrowNode(
-        0,
-        0,
-        ICON_ARROW_SIZE * Util.sign( initialViewVector.x ),
-        ICON_ARROW_SIZE * Util.sign( initialViewVector.y ),
-        arrowOptions );
+
+      const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
+        new Vector2( ICON_ARROW_SIZE * Util.sign( initialViewVector.x ),
+          ICON_ARROW_SIZE * Util.sign( initialViewVector.y ), Util.sign() * initialViewVector.y ),
+        vectorType );
+
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( 8 );
