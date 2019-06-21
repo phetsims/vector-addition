@@ -40,8 +40,6 @@ define( function( require ) {
     opacity: 1
   };
 
-  const ARROW_SIZE = 30;
-
   // Semi opaque arrow for the components on the component radio button icons
   const OPAQUE_ARROW_OPTIONS = _.extend( {}, ARROW_ICON_OPTIONS, {
     opacity: 0.4
@@ -73,12 +71,13 @@ define( function( require ) {
         headWidth: 10.5,
         headHeight: 6,
         cursor: 'pointer',
+        arrowSize: 30,
         fill: vectorType === VectorTypes.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill :
               VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
       }, options );
 
 
-      const iconVector = initialVector.normalized().timesScalar( ARROW_SIZE );
+      const iconVector = initialVector.normalized().timesScalar( options.arrowSize );
 
       return new ArrowNode( 0, 0, iconVector.x, iconVector.y, options );
     }
@@ -103,11 +102,12 @@ define( function( require ) {
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
         lineWidth: 1,
         headHeight: 10,
+        arrowSize: 24,
         fill: vectorType === VectorTypes.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum :
               VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum
       }, options );
 
-      return new ArrowNode( 0, 0, ARROW_SIZE, 0, options );
+      return new ArrowNode( 0, 0, options.arrowSize, 0, options );
     }
 
     /**
