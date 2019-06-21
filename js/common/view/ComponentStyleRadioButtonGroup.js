@@ -24,10 +24,10 @@ define( require => {
   const PANEL_WIDTH = VectorAdditionConstants.PANEL_WIDTH;
   const RADIO_BUTTON_OPTIONS = _.extend( {
     deselectedLineWidth: 1,
-    cornerRadius: 6,
+    cornerRadius: VectorAdditionConstants.PANEL_OPTIONS.cornerRadius,
     deselectedButtonOpacity: 0.4,
-    yMargin: 6,
-    xMargin: 6
+    yMargin: 4.5,
+    xMargin: 4.5
   }, VectorAdditionColors.RADIO_BUTTON_COLORS );
 
   class ComponentStyleRadioButtonGroup extends FixedWidthNode {
@@ -44,13 +44,12 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
-      // Create the icons
-      const invisibleIcon = VectorAdditionIconFactory.createComponentStyleIcon( ComponentStyles.INVISIBLE );
-      const parallelogramIcon = VectorAdditionIconFactory.createComponentStyleIcon( ComponentStyles.PARALLELOGRAM );
-      const triangleIcon = VectorAdditionIconFactory.createComponentStyleIcon( ComponentStyles.TRIANGLE );
-      const onAxisIcon = VectorAdditionIconFactory.createComponentStyleIcon( ComponentStyles.ON_AXIS );
+      // Get the largest icon
+      const icons = [];
 
-      const icons = [ invisibleIcon, parallelogramIcon, triangleIcon, onAxisIcon ];
+      ComponentStyles.VALUES.forEach( componentStyle => {
+        icons.push( VectorAdditionIconFactory.createComponentStyleIcon( componentStyle ) );
+      } );
 
       //----------------------------------------------------------------------------------------
       // Gather the options and the max width
@@ -69,23 +68,19 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Create the Radio Buttons
-      const invisibleButton = new RadioButtonGroupMember( componentStyleProperty, ComponentStyles.INVISIBLE, _.extend( {
-        content: invisibleIcon
-      }, options ) );
-      const parallelogramButton = new RadioButtonGroupMember( componentStyleProperty, ComponentStyles.PARALLELOGRAM,
-        _.extend( {
-          content: parallelogramIcon
-        }, options ) );
-      const triangleButton = new RadioButtonGroupMember( componentStyleProperty, ComponentStyles.TRIANGLE,
-        _.extend( {
-          content: triangleIcon
-        }, options ) );
-      const onAxisButton = new RadioButtonGroupMember( componentStyleProperty, ComponentStyles.ON_AXIS,
-        _.extend( {
-          content: onAxisIcon
+      const radioButtons = [];
+
+      ComponentStyles.VALUES.forEach( componentStyle => {
+
+        const button =  new RadioButtonGroupMember( componentStyleProperty, componentStyle, _.extend( {
+          content: VectorAdditionIconFactory.createComponentStyleIcon( componentStyle )
         }, options ) );
 
-      super( PANEL_WIDTH, new GridLayoutBox( [ invisibleButton, parallelogramButton, triangleButton, onAxisButton ] ), {
+        radioButtons.push( button );
+      } );
+
+
+      super( PANEL_WIDTH, new GridLayoutBox( radioButtons ), {
         align: 'center'
       } );
 
@@ -106,8 +101,8 @@ define( require => {
       options = _.extend( {
         rows: 2, // {number}
         cols: 2, // {number}
-        horizontalSpacing: 5, // {number}
-        verticalSpacing: 5, // {number}
+        horizontalSpacing: 8, // {number}
+        verticalSpacing: 8, // {number}
         horizontalOptions: null, // {null} see defaults below
         verticalOptions: null // {null} see defaults below
       }, options );
