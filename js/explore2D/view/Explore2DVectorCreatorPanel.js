@@ -18,12 +18,6 @@ define( require => {
   // constants
   const INITIAL_ARROW_SIDE_LENGTH = VectorAdditionConstants.INITIAL_ARROW_SIDE_LENGTH;
 
-  const CREATOR_PANEL_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_CREATOR_PANEL_OPTIONS, {
-    xMargin: 10,
-    yMargin: 10,
-    slotSpacing: 14
-  } );
-
   class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
     /**
      * @abstract
@@ -47,7 +41,7 @@ define( require => {
           { label: label } ) );
       } );
 
-      super( panelSlots, CREATOR_PANEL_OPTIONS );
+      super( panelSlots );
     }
 
   }

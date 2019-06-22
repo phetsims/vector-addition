@@ -18,13 +18,16 @@ define( require => {
   // constants
   const INITIAL_ARROW_SIDE_LENGTH = VectorAdditionConstants.INITIAL_ARROW_SIDE_LENGTH;
 
-  const CREATOR_PANEL_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_CREATOR_PANEL_OPTIONS, {
-    xMargin: 5,
-    yMargin: 18,
-    slotSpacing: 18,
-    fixedWidth: 70,
-    fixedHeight: 110
-  } );
+  const CREATOR_PANEL_OPTIONS = {
+    contentHeight: 110 // {number} fixed height of the panel
+  };
+
+  const VECTOR_SLOT_OPTIONS = {
+    iconOptions: {
+      arrowSize: 40
+    },
+    isInfinite: true
+  };
 
   class LabVectorCreatorPanel extends VectorCreatorPanel {
     /**
@@ -43,16 +46,14 @@ define( require => {
       const vectorGroupOneSlot = new VectorCreatorPanelSlot(
         initialVector,
         modelViewTransformProperty,
-        vectorSetGroupOne, {
-          isInfinite: true
-        } );
+        vectorSetGroupOne,
+        VECTOR_SLOT_OPTIONS );
 
       const vectorGroupTwoSlot = new VectorCreatorPanelSlot(
         initialVector,
         modelViewTransformProperty,
-        vectorSetGroupTwo, {
-          isInfinite: true
-        } );
+        vectorSetGroupTwo,
+        VECTOR_SLOT_OPTIONS );
 
       const panelSlots = [ vectorGroupOneSlot, vectorGroupTwoSlot ];
 

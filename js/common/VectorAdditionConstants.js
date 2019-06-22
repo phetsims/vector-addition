@@ -22,6 +22,7 @@ define( function( require ) {
   const PANEL_CORNER_RADIUS = 5;
   const PANEL_X_MARGIN = 12;
   const PANEL_Y_MARGIN = 12;
+  const PANEL_WIDTH = 150; // fixed size
 
   const VectorAdditionConstants = {
 
@@ -38,22 +39,19 @@ define( function( require ) {
       xMargin: PANEL_X_MARGIN,
       yMargin: PANEL_Y_MARGIN,
       fill: VectorAdditionColors.PANEL_BACKGROUND,
-      stroke: VectorAdditionColors.PANEL_STROKE_COLOR
+      stroke: VectorAdditionColors.PANEL_STROKE_COLOR,
+      minWidth: PANEL_WIDTH,
+      maxWidth: PANEL_WIDTH,
+      width: PANEL_WIDTH,
+      contentWidth: PANEL_WIDTH - 2 * PANEL_X_MARGIN
     },
     PANEL_FONT: new PhetFont( 15 ),
-    PANEL_WIDTH: 130,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all check boxes
     CHECKBOX_OPTIONS: {
-      boxWidth: 17,
+      boxWidth: 19,
       spacing: 5
-    },
-
-    //----------------------------------------------------------------------------------------
-    // Vector Creator Panels
-    VECTOR_CREATOR_PANEL_OPTIONS: {
-      fill: VectorAdditionColors.VECTOR_CREATOR_BACKGROUND
     },
 
     //----------------------------------------------------------------------------------------

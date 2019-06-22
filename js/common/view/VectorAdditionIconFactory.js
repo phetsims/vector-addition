@@ -67,9 +67,9 @@ define( function( require ) {
 
       options = _.extend( {
         lineWidth: 0,
-        tailWidth: 4,
-        headWidth: 10.5,
-        headHeight: 6,
+        tailWidth: 2.5,
+        headWidth: 12,
+        headHeight: 8,
         cursor: 'pointer',
         arrowSize: 30,
         fill: vectorType === VectorTypes.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill :

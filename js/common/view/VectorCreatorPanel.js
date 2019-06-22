@@ -12,18 +12,15 @@ define( require => {
   'use strict';
 
   // modules
-  const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
-  const VStrut = require( 'SCENERY/nodes/VStrut' );
-
-  // constants
-  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
-  const ALIGN_VALUES = [ 'top', 'bottom', 'center' ];
 
   class VectorCreatorPanel extends Node {
     /**
@@ -33,28 +30,24 @@ define( require => {
      */
     constructor( panelSlots, options ) {
 
-      options = _.extend( {}, PANEL_OPTIONS, {
-        xMargin: 8, // {number} - the margins on the left and ride side of the panel
-        yMargin: 12,
-        fixedWidth: 80, // {number} - the width of the panel,
-        fixedHeight: 120, // {number} - the height of the panel,
+      options = _.extend( {}, _.clone( VectorAdditionConstants.PANEL_OPTIONS ), {
+        minWidth: null,
+        maxWidth: null,
+        fill: VectorAdditionColors.VECTOR_CREATOR_BACKGROUND,
+        xMargin: 0, // {number} - the margins on the left and ride side of the panel
+        yMargin: 8, // {number} - the margins on the top and bottom of the panel
         slotSpacing: 20, // {number} - the spacing between slots
+        align: 'center', // {string} - the alignment of the panel slots inside the panel
         right: 940, // {number}
-        top: 320 // {number}
+        top: 320, // {number}
+        contentWidth: 87, // {number} fixed width of the panel
+        contentHeight: 125 // {number} fixed height of the panel
       }, options );
 
       // Type check
       assert && assert( panelSlots.filter(
         slot => !( slot instanceof VectorCreatorPanelSlot ) ).length === 0,
         `panels slots where not created correctly: ${panelSlots}` );
-      assert && assert( typeof options.fixedWidth === 'number' && options.fixedWidth > 0,
-        `invalid options.fixedWidth: ${options.fixedWidth}` );
-      assert && assert( typeof options.fixedHeight === 'number' && options.fixedHeight > 0,
-        `invalid options.fixedHeight: ${options.fixedHeight}` );
-      assert && assert( typeof options.xMargin === 'number' && options.xMargin > 0,
-        `invalid options.xMargin: ${options.xMargin}` );
-      assert && assert( typeof options.slotSpacing === 'number' && options.slotSpacing > 0,
-        `invalid options.slotSpacing: ${options.slotSpacing}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -68,81 +61,32 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      const vectorCreatorPanelWidth = options.fixedWidth - ( 2 * options.xMargin );
-      const vectorCreatorPanelHeight = options.fixedHeight - ( 2 * options.yMargin );
+      const slotsContainer = new VBox( {
+        align: 'center',
+        spacing: options.slotSpacing,
+        children: panelSlots
+      } );
 
-      let vectorCreatorPanelSlots = new FixedHeightNode(
-        vectorCreatorPanelHeight,
-        new VBox( {
-          align: 'center',
-          spacing: options.slotSpacing,
-          children: panelSlots
-        } ), {
-          align: 'center'
-        } );
-
-      vectorCreatorPanelSlots = new FixedWidthNode(
-        vectorCreatorPanelWidth,
-        vectorCreatorPanelSlots, {
-          align: 'center'
-        } );
-
+      const fixedSizeSlotsContainer = new AlignBox( slotsContainer, {
+        alignBounds: new Bounds2( 0, 0, options.contentWidth, options.contentHeight ),
+        xAlign: 'center',
+        yAlign: 'center',
+        maxWidth: options.contentWidth,
+        maxHeight: options.contentHeight,
+        xMargin: 0,
+        yMargin: 0
+      } );
 
       super( {
         children: [
-          new Panel( vectorCreatorPanelSlots, options ),
+          new Panel( fixedSizeSlotsContainer, _.extend( options, {
+
+          } ) ),
           vectorRepresentationContainer
         ]
       } );
     }
   }
-
-  //----------------------------------------------------------------------------------------
-  // Fixed height node
-
-  class FixedHeightNode extends Node {
-
-    /**
-     * @param {number} fixedHeight - this Node will be exactly this height
-     * @param {Node} content - Node wrapped by this Node
-     * @param {Object} [options]
-     */
-    constructor( fixedHeight, content, options ) {
-
-      assert && assert( typeof fixedHeight === 'number' && fixedHeight > 0, `invalid fixedHeight: ${fixedHeight}` );
-      assert && assert( content instanceof Node, `invalid content: ${content}` );
-
-      options = _.extend( {
-        align: 'center' // vertical alignment of content in fixedWidth, see ALIGN_VALUES
-      }, options );
-
-      assert && assert( _.includes( ALIGN_VALUES, options.align ), `invalid align: ${options.align}` );
-
-      // prevents the content from getting narrower than fixedHeight
-      const strut = new VStrut( fixedHeight, { pickable: false } );
-
-      assert && assert( options.maxHeight === undefined, 'FixedHeightNode sets maxHeight' );
-      assert && assert( !options.children, 'FixedWidthNode sets children' );
-      options = _.extend( {
-        maxHeight: fixedHeight, // prevents the content from getting bigger than fixedHeight
-        children: [ strut, content ]
-      }, options );
-
-      // align content in fixedWidth
-      if ( options.align === 'top' ) {
-        content.top = strut.top;
-      }
-      else if ( options.align === 'bottom' ) {
-        content.bottom = strut.bottom;
-      }
-      else {
-        content.centerX = strut.centerX;
-      }
-
-      super( options );
-    }
-  }
-
 
   return vectorAddition.register( 'VectorCreatorPanel', VectorCreatorPanel );
 } );

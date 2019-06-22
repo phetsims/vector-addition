@@ -15,20 +15,22 @@ define( require => {
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GridCheckbox = require( 'VECTOR_ADDITION/common/view/GridCheckbox' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const Text = require( 'SCENERY/nodes/Text' );
   const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
-  const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
-  const Panel = require( 'SUN/Panel' );
 
   // constants
-  const PANEL_WIDTH = VectorAdditionConstants.PANEL_WIDTH;
+  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
+  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+
+  // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );
 
   class Explore2DGraphControlPanel extends Panel {
@@ -67,9 +69,10 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( VectorAdditionConstants.PANEL_OPTIONS, options );
+      options = _.extend( PANEL_OPTIONS, options );
 
-      const content = new FixedWidthNode( PANEL_WIDTH, new VBox( {
+
+      const content = new VBox( {
         spacing: 10,
         align: 'left',
         children: [
@@ -77,15 +80,15 @@ define( require => {
           new ValuesCheckbox( valuesVisibleProperty ),
           new AngleCheckbox( angleVisibleProperty ),
           new GridCheckbox( gridVisibleProperty ),
-          new Line( 0, 0, VectorAdditionConstants.PANEL_WIDTH, 0, {
+          new Line( 0, 0, PANEL_OPTIONS.contentWidth, 0, {
             stroke: VectorAdditionColors.GRAPH_CONTROL_PANEL_LINE_COLOR
           } ),
           new Text( componentsString, {
-            font: VectorAdditionConstants.PANEL_FONT
+            font: PANEL_FONT
           } ),
           new ComponentStyleRadioButtonGroup( componentStyleProperty )
         ]
-      } ) );
+      } );
 
       super( content, options );
     }

@@ -56,7 +56,9 @@ define( require => {
       options = _.extend( {
         label: null, // {string|null} the label for the vector at the slot
         isInfinite: false, // {boolean} true means the slot will regenerate vectors to be dragged
-        labelIconSpacing: LABEL_AND_ICON_SPACING
+        labelIconSpacing: LABEL_AND_ICON_SPACING,
+        iconOptions: null,
+        xMargin: 0
       }, options );
 
       // Type Check
@@ -74,7 +76,8 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       super( {
-        spacing: options.labelIconSpacing
+        spacing: options.labelIconSpacing,
+        xMargin: options.xMargin
       } );
 
       //----------------------------------------------------------------------------------------
@@ -109,7 +112,8 @@ define( require => {
 
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
         initialViewVector,
-        vectorType );
+        vectorType,
+        options.iconOptions );
 
 
       // Make the iconNode easier to grab

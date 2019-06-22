@@ -9,6 +9,8 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -18,10 +20,9 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
 
   // constants
-  const PANEL_WIDTH = VectorAdditionConstants.PANEL_WIDTH;
+  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.contentWidth;
   const RADIO_BUTTON_OPTIONS = _.extend( {
     deselectedLineWidth: 1,
     cornerRadius: VectorAdditionConstants.PANEL_OPTIONS.cornerRadius,
@@ -30,7 +31,7 @@ define( require => {
     xMargin: 4.5
   }, VectorAdditionColors.RADIO_BUTTON_COLORS );
 
-  class ComponentStyleRadioButtonGroup extends FixedWidthNode {
+  class ComponentStyleRadioButtonGroup extends AlignBox {
 
     /**
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
@@ -68,7 +69,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Create the Radio Buttons
-      const radioButtons = [];
+      const radioButtonsContent = [];
 
       ComponentStyles.VALUES.forEach( componentStyle => {
 
@@ -76,14 +77,17 @@ define( require => {
           content: VectorAdditionIconFactory.createComponentStyleIcon( componentStyle )
         }, options ) );
 
-        radioButtons.push( button );
+        radioButtonsContent.push( button );
       } );
 
+      const radioButtons = new GridLayoutBox( radioButtonsContent );
 
-      super( PANEL_WIDTH, new GridLayoutBox( radioButtons ), {
-        align: 'center'
+      super( radioButtons, {
+        maxWidth: PANEL_WIDTH,
+        alignBounds: new Bounds2( 0, 0, PANEL_WIDTH, radioButtons.height ),
+        xAlign: 'center',
+        yAlign: 'center'
       } );
-
     }
   }
 

@@ -17,11 +17,10 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
-  const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
   const Panel = require( 'SUN/Panel' );
 
   // constants
-  const PANEL_WIDTH = VectorAdditionConstants.PANEL_WIDTH;
+  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
 
   class Explore1DGraphControlPanel extends Panel {
     /**
@@ -45,10 +44,10 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( VectorAdditionConstants.PANEL_OPTIONS, options );
+      options = _.extend( PANEL_OPTIONS, options );
 
 
-      const content = new FixedWidthNode( PANEL_WIDTH, new VBox( {
+      const content = new VBox( {
         spacing: 10,
         align: 'left',
         children: [
@@ -56,7 +55,7 @@ define( require => {
           new ValuesCheckbox( valuesVisibleProperty ),
           new GridCheckbox( gridVisibleProperty )
         ]
-      } ) );
+      } );
 
       super( content, options );
     }

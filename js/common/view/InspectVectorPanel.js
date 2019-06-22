@@ -11,7 +11,6 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ExpandCollapseButton = require( 'SUN/ExpandCollapseButton' );
-  const FixedWidthNode = require( 'VECTOR_ADDITION/common/view/FixedWidthNode' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
@@ -41,7 +40,6 @@ define( require => {
   const INSPECT_VECTOR_TEXT_LEFT_MARGIN = 10;
 
   const MAGNITUDE_LENGTH = 20; // length of the text of the magnitude label
-  const COMPONENT_LENGTH = 16;
   const ANGLE_LENGTH = 10;
 
   // strings
@@ -110,7 +108,7 @@ define( require => {
 
       const updateInspectVectorPanel = ( activeVector ) => {
 
-
+ // TODO: make these fix width with alignGroup
         const magnitudeTextNode = new FormulaNode( `\|\\mathbf{\\vec{${activeVector.label}\}\}|`, {
           maxWidth: MAGNITUDE_LENGTH
         } );
@@ -132,16 +130,14 @@ define( require => {
           { decimalPlaces: 1 }
         );
 
-        const xComponentText = new FixedWidthNode( COMPONENT_LENGTH,
-          new RichText( `${activeVector.label}<sub>${xString}</sub>` ) );
+        const xComponentText = new RichText( `${activeVector.label}<sub>${xString}</sub>` );
         const xComponentDisplay = new NumberDisplay(
           activeVector.xComponentProperty,
           new Range( -60, 60 ),
           { decimalPlaces: 0 }
         );
 
-        const yComponentText = new FixedWidthNode( COMPONENT_LENGTH,
-          new RichText( `${activeVector.label}<sub>${yString}</sub>` ) );
+        const yComponentText = new RichText( `${activeVector.label}<sub>${yString}</sub>` );
         const yComponentDisplay = new NumberDisplay(
           activeVector.yComponentProperty,
           new Range( -40, 40 ),
