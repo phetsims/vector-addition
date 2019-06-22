@@ -19,6 +19,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const Vector2 = require( 'DOT/Vector2' );
 
 
   class VectorLabelNode extends Node {
@@ -26,14 +27,15 @@ define( require => {
      * @constructor
      * @param {BaseVectorModel} baseVectorModel
      * @param {BooleanProperty} valuesVisibleProperty
+     * @param {ModelViewTransform2} modelViewTransformProperty
      * @param {Object} [options]
      */
-    constructor( baseVectorModel, valuesVisibleProperty, options ) {
-      
+    constructor( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty, options ) {
+
       options = _.extend( {
         fill: baseVectorModel.vectorType === VectorTypes.ONE ?
-          VectorAdditionColors.VECTOR_GROUP_1_COLORS.labelBackground :
-          VectorAdditionColors.VECTOR_GROUP_2_COLORS.labelBackground,
+              VectorAdditionColors.VECTOR_GROUP_1_COLORS.labelBackground :
+              VectorAdditionColors.VECTOR_GROUP_2_COLORS.labelBackground,
         scale: 0.67, // {number} - scale resize of the formula node
         opacity: 0.75, // {number} - opacity of the background,
         cornerRadius: 5, // {number}
@@ -46,21 +48,23 @@ define( require => {
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
 
       //----------------------------------------------------------------------------------------
-    
+
       super();
 
-      // @private {Rectangle} - the background rectangle, set as an empty rectangle for now
-      this.backgroundRectangle = new Rectangle( 0, 0, 50, 50, options );
+      // @private {Rectangle} - the background rectangle, set as arbitrary rectangle for now
+      this.backgroundRectangle = new Rectangle( -25, -25, 25, 25, options );
 
       // @private {FormulaNode} - the label, set as empty for now
       this.label = new FormulaNode( '' );
       this.label.scale( options.scale );
 
-      this.setChildren([ this.backgroundRectangle, this.label ]);
+      this.setChildren( [ this.backgroundRectangle, this.label ] );
 
       // @public - create references to the xMargin and yMargin
       this.xMargin = options.xMargin;
       this.yMargin = options.yMargin;
+
+      this.modelViewTransformProperty = modelViewTransformProperty;
 
       //----------------------------------------------------------------------------------------
 
@@ -71,6 +75,7 @@ define( require => {
           this.updateLabel( baseVectorModel, valuesVisible );
         } );
     }
+
     /**
      * Dispose the label node
      * @public
@@ -79,8 +84,9 @@ define( require => {
       this.vectorObserver.dispose();
       super.dispose();
     }
+
     /**
-     * Update the label when the model vector changes or the values visiblity checkbox is clicked
+     * Update the label when the model vector changes or the values visibility checkbox is clicked
      * @param {BaseVectorModel} baseVectorModel
      * @param {boolean} valuesVisible
      * @private
@@ -89,21 +95,35 @@ define( require => {
 
       this.setRotation( 0 );
 
-      if ( !baseVectorModel.label && valuesVisible ){
+      if ( !baseVectorModel.label && valuesVisible ) {
         this.label.setFormula( `${Util.toFixed( baseVectorModel.magnitude, 1 )}` );
       }
       if ( baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
+        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.attributesVectorProperty.value.timesScalar( 0.5 ) );
       }
-      else if ( !baseVectorModel.label && !valuesVisible ){
+      else if ( !baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( '' );
       }
       else if ( baseVectorModel.label && valuesVisible ) {
-        this.setRotation( -baseVectorModel.angle );
         this.label.setFormula( `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${Util.toFixed( baseVectorModel.magnitude, 1 )}}` );
+
+        // TODO: explain thought process
+        const rotation = Math.abs( baseVectorModel.angle ) < Math.PI / 2 ? -baseVectorModel.angle : Math.PI - baseVectorModel.angle;
+          this.setRotation( rotation );
+
+        const vector = new Vector2.createPolar( 2, -rotation + Math.PI / 2 );
+        const offset = ( baseVectorModel.angle >= 0 ) ? vector : vector.negated();
+
+        this.label.center =
+          this.modelViewTransformProperty.value.modelToViewDelta(
+            baseVectorModel.attributesVectorProperty.value.timesScalar( 0.5 ).plus( offset ).rotated( rotation ) );
+
+
       }
       this.resizeBackground();
     }
+
     /**
      * Resize the background rectangle
      * @public

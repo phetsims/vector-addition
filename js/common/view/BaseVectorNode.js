@@ -54,7 +54,7 @@ define( require => {
 
       // @public (read-only) {Node} labelNode - Create a label for the vector that is displayed 'next' to the arrow. 
       // The location of this depends on the angle of the vector.
-      this.labelNode = new VectorLabelNode( baseVectorModel, valuesVisibleProperty );
+      this.labelNode = new VectorLabelNode( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty );
 
       this.setChildren( [ this.arrowNode, this.labelNode ] );
 
