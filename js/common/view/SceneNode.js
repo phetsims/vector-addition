@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * A node for a scene. Explore1D has 2 scenes.
+ * A node for a scene.
  *
  * @author Brandon Li
  */
@@ -24,23 +24,22 @@ define( require => {
   class SceneNode extends Node {
     /**
      * @constructor
-     * @param {Scene} scene
+     * @param {Graph} graph
      * @param {VectorAdditionModel} model
-     * @param {VectorTypes} vectorType
      * options
      */
-    constructor( scene, model, vectorType ) {
+    constructor( graph, model ) {
 
       super();
 
-      // @public (read-only) {scene}
-      this.scene = scene;
+      // @public (read-only) {graph}
+      this.graph = graph;
 
       // @public (read-only) {GraphNode} Create the Graph Node
-      this.graphNode = new GraphNode( scene.graph, model.gridVisibleProperty );
+      this.graphNode = new GraphNode( graph, model.gridVisibleProperty );
 
       // @private {InspectVectorPanel} Create the vector display panel
-      this.inspectVectorPanel = new InspectVectorPanel( scene.vectorSets );
+      this.inspectVectorPanel = new InspectVectorPanel( graph.vectorSets );
 
       // set the panel in the correct location
       this.inspectVectorPanel.left = VECTOR_DISPLAY_PANEL_LOCATION_LEFT;
@@ -51,16 +50,16 @@ define( require => {
       // create the vector sum layer
       const vectorSumLayer = new Node();
 
-      scene.vectorSets.forEach( ( vectorSet ) => {
+      graph.vectorSets.forEach( ( vectorSet ) => {
 
         // create a scenery node for the sum vector
         const vectorSumNode = new VectorSumNode(
           vectorSet.vectorSum,
-          scene.graph.graphModelBounds,
+          graph.graphModelBounds,
           model.componentStyleProperty,
           model.angleVisibleProperty,
-          scene.graph.orientation,
-          scene.graph.modelViewTransformProperty,
+          graph.orientation,
+          graph.modelViewTransformProperty,
           model.valuesVisibleProperty
         );
 
@@ -73,11 +72,11 @@ define( require => {
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           const vectorNode = new VectorNode(
             addedVector,
-            scene.graph.graphModelBounds,
+            graph.graphModelBounds,
             model.componentStyleProperty,
             model.angleVisibleProperty,
-            scene.graph.orientation,
-            scene.graph.modelViewTransformProperty,
+            graph.orientation,
+            graph.modelViewTransformProperty,
             model.valuesVisibleProperty
           );
 
@@ -106,7 +105,7 @@ define( require => {
 
       const eraserButton = new EraserButton( {
         listener: () => {
-          scene.resetVectorSets();
+          graph.erase();
         },
         left: this.graphNode.right,
         bottom: this.graphNode.bottom
@@ -126,7 +125,7 @@ define( require => {
      */
     reset() {
       this.graphNode.reset();
-      this.scene.reset();
+      this.graph.reset();
       this.inspectVectorPanel.reset();
     }
   }

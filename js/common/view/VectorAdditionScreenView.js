@@ -24,18 +24,16 @@ define( require => {
 
       super();
 
-      // @public (read-only) {Array.<SceneNode>}
       this.sceneNodes = [];
 
-      vectorAdditionModel.scenes.forEach( ( scene ) => {
+      vectorAdditionModel.graphs.forEach( ( graph ) => {
 
         // create a scene node and add it as a child
-        const newSceneNode = new SceneNode( scene, vectorAdditionModel );
+        const newSceneNode = new SceneNode( graph, vectorAdditionModel );
         this.addChild( newSceneNode );
 
-        // add it to the sceneNode array
+        graph.sceneNode = newSceneNode;
         this.sceneNodes.push( newSceneNode );
-
       } );
 
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(

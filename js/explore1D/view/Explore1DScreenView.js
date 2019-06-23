@@ -29,30 +29,21 @@ define( require => {
 
       super( explore1DModel, tandem );
 
-      // function to the sceneNode based on scene model
-      const getSceneNode = ( sceneModel ) => {
-        for ( let i = 0; i < explore1DModel.scenes.length; i++ ) {
-
-          if ( this.sceneNodes[ i ].scene === sceneModel ) {
-            return this.sceneNodes[ i ];
-          }
-        }
-      };
 
       // convenience variables for the scenes and the scene nodes
-      const horizontalScene = explore1DModel.horizontalScene;
-      const verticalScene = explore1DModel.verticalScene;
+      const horizontalGraph = explore1DModel.horizontalGraph;
+      const verticalGraph = explore1DModel.verticalGraph;
 
-      const horizontalSceneNode = getSceneNode( horizontalScene );
-      const verticalSceneNode = getSceneNode( verticalScene );
+      const horizontalSceneNode = horizontalGraph.sceneNode;
+      const verticalSceneNode = verticalGraph.sceneNode;
 
 
       // create the creator panel for each scene
       const explore1DVectorCreatorPanels = new Explore1DVectorCreatorPanels(
-        horizontalScene.vectorSet, //TODO: find a better way than index 0, we can index 0 right now since there is only 1 vector set per scene for 1d
-        horizontalScene.graph.modelViewTransformProperty,
-        verticalScene.vectorSet,
-        verticalScene.graph.modelViewTransformProperty );
+        horizontalGraph.vectorSet,
+        horizontalGraph.modelViewTransformProperty,
+        verticalGraph.vectorSet,
+        verticalGraph.modelViewTransformProperty );
 
       // create the vector panels
       const horizontalVectorCreatorPanel = explore1DVectorCreatorPanels.horizontalVectorCreatorPanel;

@@ -4,15 +4,17 @@
  * The shared model for every Screen respectively. Its main responsibility is to control the state
  * of the simulation.
  *
- * The model is not specific for an individual scene as it toggles global 'settings' of the simulation. For example,
- * turning on the 'angle visible' option on the control panel means the angle is visible for every scene.
+ * The model is not specific for an individual graph as it toggles global 'settings' of the simulation. For example,
+ * turning on the 'angle visible' option on the control panel means the angle is visible for every graph.
  *
- * The model can also have an unknown amount of scenes (see Scene.js for more documentation).
+ * The model can also have an unknown amount of graphs (see Graph.js for more documentation).
  *
- * This is an abstract class that requires sub-class instances to define the scenes.
+ * The model also has an unknown amount of sum visible properties: there could be one global sum visible property or
+ * a sum visible property for each vector set.
  *
  * @author Martin Veillette
  */
+
 define( require => {
   'use strict';
 
@@ -21,7 +23,7 @@ define( require => {
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
@@ -31,12 +33,18 @@ define( require => {
   class VectorAdditionModel {
     /**
      * @constructor
+     * @param {array.<BooleanProperty>} sumVisibleProperties - an array of the sim visible properties
      * @param {Tandem} tandem
      */
-    constructor( tandem ) {
+    constructor( sumVisibleProperties, tandem ) {
+
+      assert && assert( sumVisibleProperties.filter( 
+        sumVisibleProperty => !( sumVisibleProperty instanceof BooleanProperty) ).length === 0,
+        `invalid sumVisibleProperties: ${sumVisibleProperties}` );
 
       //----------------------------------------------------------------------------------------
       // Visibility Properties
+
       // @public {BooleanProperty}
       this.valuesVisibleProperty = new BooleanProperty( false );
 
@@ -46,13 +54,14 @@ define( require => {
       // @public {BooleanProperty} - controls the visibility of the angle
       this.angleVisibleProperty = new BooleanProperty( false );
 
-      // The Sum Visibility Property is created in sub-classes since there is an unknown amount of sum visibility
-      // properties. Example: the Lab screen has two sum visibility properties
-      this.createSumVisibilityProperties();
+      // @private {array.<BooleanProperty>} - private because sub classes should create their own references to the
+      // individual properties
+      this.sumVisibleProperties = sumVisibleProperties;
 
 
       //----------------------------------------------------------------------------------------
       // Enumeration Properties
+
       // @public {EnumerationProperty<ComponentStyles>} - controls the visibility of the component styles
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, STARTING_COMPONENT_STYLE );
 
@@ -60,21 +69,26 @@ define( require => {
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
 
       //----------------------------------------------------------------------------------------
-      // Create the scenes
+      // Graphs
 
-      // @public {array.<Scene>} scenes - array of the scenes
-      this.scenes = [];
-
-      // Method to create scenes. Since there is an unknown amount of scenes, call an abstract method to create the
-      // scenes. Example: Explore1D has a vertical and a horizontal scene.
-      this.createScenes();
-
-      // Make sure that that the scenes were added correctly
-      assert && assert( this.scenes.filter( scene => !( scene instanceof Scene ) ).length === 0,
-        'Invalid scenes created at this.createScenes' );
-
+      // @public {array.<Graph>} graphs - array of the graphs, see addGraph for documentation to add a graph
+      this.graphs = [];
     }
 
+    /**
+     * Add a graph to the model
+     * @param {Dimension2} graphDimension - the dimensions for the graph (width and height)
+     * @param {Vector2} upperLeftPosition - the coordinate of the upperLeft corner of the graph.
+     * @param {GraphOrientations} orientation - the orientation of the graph
+     * @returns {Graph} - the graph added
+     * @public
+     */
+    addGraph( graphDimension, upperLeftPosition, orientation ) {
+
+      const newGraph = new Graph( graphDimension, upperLeftPosition, orientation );
+      this.graphs.push( newGraph );
+      return newGraph;
+    }
     /**
      * @public
      * Reset the VectorAdditionModel
@@ -85,45 +99,17 @@ define( require => {
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
-
-      // Call an abstract method to reset the sum visibility properties
-      this.resetSumVisibilityProperties();
+      this.sumVisibleProperties.forEach( ( sumVisibleProperty ) => sumVisibleProperty.reset() );
 
       // Reset the enumeration properties
       this.componentStyleProperty.reset();
       this.coordinateSnapModeProperty.reset();
 
-      // Reset every scene
-      this.scenes.forEach( ( scene ) => {
-        scene.reset();
+      // Reset every graph
+      this.graphs.forEach( ( graph ) => {
+        graph.reset();
       } );
     }
-
-    /**
-     * @abstract
-     * @private
-     * Create the Sum Visibility properties. Since there is an unknown amount of sum visibility, use an abstract method to create them.
-     * Sub-classes MUST implement this method
-     */
-    createSumVisibilityProperties() { throw new Error( 'createSumVisibilityProperties must be implemented by sub classes' ); }
-
-    /**
-     * @abstract
-     * @private
-     * Create the scenes. Since there is an unknown amount of scenes, use an abstract method to create them.
-     * Sub-classes MUST implement this method
-     */
-    createScenes() { throw new Error( 'createScenes must be implemented by sub classes' ); }
-
-    /**
-     * @abstract
-     * @private
-     * Reset the sum visibility properties. Since there is an unknown amount of properties, use an abstract method to
-     * reset them.
-     * Sub-classes MUST implement this method
-     */
-    resetSumVisibilityProperties() { throw new Error( 'resetSumVisibilityProperties( must be implemented by sub classes' ); }
-
   }
 
   return vectorAddition.register( 'VectorAdditionModel', VectorAdditionModel );

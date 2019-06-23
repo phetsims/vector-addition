@@ -11,7 +11,6 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Explore1DScene = require( 'VECTOR_ADDITION/explore1D/model/Explore1DScene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
@@ -31,72 +30,54 @@ define( require => {
      */
     constructor( tandem ) {
 
-      super( tandem );
+      // Create the one and only (shared between graphs) sum visible property for explore1D
+      const sumVisibleProperty = new BooleanProperty( false );
+
+      super( [ sumVisibleProperty ], tandem );
+
+      // @public (read-only) {BooleanProperty} sumVisibleProperty
+      this.sumVisibleProperty = sumVisibleProperty;
 
       // @public {EnumerationProperty.<GraphOrientations>} - controls the orientation of the vectors
       this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, DEFAULT_VECTOR_ORIENTATION );
 
-      // @public (read-only) {VectorTypes} vectorType - the vector type used on the explore1D screen
+      // @public (read-only) {VectorTypes} vectorType - the only vector type used on the explore1D screen
       this.vectorType = VECTOR_TYPE;
+
+      //----------------------------------------------------------------------------------------
+      // Add the graphs
+
+      // @public (read-only)
+      this.horizontalGraph = this.addGraph( 
+        GRAPH_DIMENSION,
+        GRAPH_UPPER_LEFT_COORDINATE,
+        GraphOrientations.HORIZONTAL );
+
+      // @public (read-only)
+      this.verticalGraph = this.addGraph( 
+        GRAPH_DIMENSION,
+        GRAPH_UPPER_LEFT_COORDINATE,
+        GraphOrientations.VERTICAL );
+
+      //----------------------------------------------------------------------------------------
+      // Each graph has one vector set for explore1D
+
+      this.horizontalGraph.vectorSet = this.horizontalGraph.addVectorSet(
+        this.componentStyleProperty, this.sumVisibleProperty, this.vectorType );
+
+      this.verticalGraph.vectorSet = this.verticalGraph.addVectorSet(
+        this.componentStyleProperty, this.sumVisibleProperty, this.vectorType );
 
     }
 
     /**
      * @public
-     * Reset the VectorAdditionModel
+     * @override
+     * Reset the Explore1D model
      */
     reset() {
       this.graphOrientationProperty.reset();
       super.reset();
-    }
-
-    /**
-     * @override
-     * @private
-     * Create the Sum Visibility properties. Explore1D only has one shared sum visible property
-     */
-    createSumVisibilityProperties() {
-
-      // @public (read-only) {BooleanProperty} sumVisibleProperty
-      this.sumVisibleProperty = new BooleanProperty( false );
-    }
-
-
-    /**
-     * @override
-     * @private
-     * Reset the Sum Visibility properties. Explore1D only has one shared sum visible property
-     */
-    resetSumVisibilityProperties() {
-      this.sumVisibleProperty.reset();
-    }
-
-    /**
-     * @override
-     * Create the scenes for Explore1D
-     * Explore1D has two (horizontal and vertical)
-     */
-    createScenes() {
-
-      // @public (read-only) {Explore1DScene} - the horizontal scene
-      this.horizontalScene = new Explore1DScene(
-        GRAPH_DIMENSION,
-        GRAPH_UPPER_LEFT_COORDINATE,
-        this.componentStyleProperty,
-        GraphOrientations.HORIZONTAL,
-        this.sumVisibleProperty,
-        VECTOR_TYPE );
-
-      // @public (read-only) {Explore1DScene} - the vertical scene
-      this.verticalScene = new Explore1DScene(
-        GRAPH_DIMENSION,
-        GRAPH_UPPER_LEFT_COORDINATE,
-        this.componentStyleProperty,
-        GraphOrientations.VERTICAL,
-        this.sumVisibleProperty,
-        VECTOR_TYPE );
-
-      this.scenes.push( this.horizontalScene, this.verticalScene );
     }
 
   }

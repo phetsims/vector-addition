@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a graph. Each screen can have multiple scenes, but each scene can only have one graph.
+ * Model for a graph. Graphs have an unknown amount of vectorSets.
  *
  * A Graph can be described by a width and a height (Dimension2) and the coordinate of the upperLeftLocation corner of
  * the graph. With this information, the bounds can be determined.
@@ -22,6 +22,7 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
 
@@ -47,6 +48,9 @@ define( require => {
         `invalid orientation: ${orientation}` );
 
       //----------------------------------------------------------------------------------------
+
+      // @public (read-only) {array.<VectorSet>} - the vectorSets for this graph
+      this.vectorSets = [];
 
       // @public (read-only) {GraphOrientations}
       this.orientation = orientation;
@@ -79,13 +83,45 @@ define( require => {
           valueType: ModelViewTransform2
         } );
     }
+    /**
+     * Add a vectorSet to the graph
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {BooleanPropert} sumVisibleProperty - the sum visible property for this vector set
+     * @param {VectorTypes} vectorType
+     * @returns {VectorSet} - the vector set that was added
+     * @public
+     */
+    addVectorSet( componentStyleProperty, sumVisibleProperty, vectorType ) {
 
+      // argument types checked in vectorSet
+
+      const newVectorSet = new VectorSet(
+        this.modelViewTransformProperty,
+        this.graphModelBounds,
+        componentStyleProperty,
+        sumVisibleProperty,
+        vectorType );
+      
+      this.vectorSets.push( newVectorSet );
+      return newVectorSet;
+    }
     /**
      * Reset the graph
      * @public
      */
     reset() {
+      this.erase();
       this.upperLeftPositionProperty.reset();
+    }
+    /**
+     * @public
+     * Reset the vectorSets only, called when the eraser button is clicked
+     */
+    erase() {
+      // reset each vectorSet in vectorSets
+      this.vectorSets.forEach( vectorSet =>
+        vectorSet.reset()
+      );
     }
   }
 
