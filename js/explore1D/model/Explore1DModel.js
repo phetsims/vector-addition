@@ -42,6 +42,15 @@ define( require => {
     }
 
     /**
+     * @public
+     * Reset the VectorAdditionModel
+     */
+    reset() {
+      this.graphOrientationProperty.reset();
+      super.reset();
+    }
+
+    /**
      * @override
      * @private
      * Create the Sum Visibility properties. Explore1D only has one shared sum visible property
@@ -51,6 +60,7 @@ define( require => {
       // @public (read-only) {BooleanProperty} sumVisibleProperty
       this.sumVisibleProperty = new BooleanProperty( false );
     }
+
 
     /**
      * @override

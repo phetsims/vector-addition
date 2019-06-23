@@ -92,7 +92,6 @@ define( require => {
       // Reset the enumeration properties
       this.componentStyleProperty.reset();
       this.coordinateSnapModeProperty.reset();
-      this.graphOrientationProperty.reset();
 
       // Reset every scene
       this.scenes.forEach( ( scene ) => {
