@@ -17,19 +17,13 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const RadioButtonGroupMember = require( 'SUN/buttons/RadioButtonGroupMember' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
   const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.contentWidth;
-  const RADIO_BUTTON_OPTIONS = _.extend( {
-    deselectedLineWidth: 1,
-    cornerRadius: VectorAdditionConstants.PANEL_OPTIONS.cornerRadius,
-    deselectedButtonOpacity: 0.4,
-    yMargin: 4.5,
-    xMargin: 4.5
-  }, VectorAdditionColors.RADIO_BUTTON_COLORS );
+  const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
+
 
   class ComponentStyleRadioButtonGroup extends AlignBox {
 

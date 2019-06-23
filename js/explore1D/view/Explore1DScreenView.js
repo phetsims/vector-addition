@@ -16,6 +16,8 @@ define( require => {
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
+  // constants
+  const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
 
   class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -98,14 +100,11 @@ define( require => {
         node: new ArrowNode( 0, 0, 0, 40, ArrowNodeOptions )
       } ];
 
-      const sceneRadioButtonGroup = new RadioButtonGroup( explore1DModel.graphOrientationProperty, sceneRadioButtonContent, {
-        baseColor: 'white',
-        selectedStroke: '#419ac9',
-        selectedLineWidth: 2,
-        right: this.layoutBounds.maxX - 4,
+      const sceneRadioButtonGroup = new RadioButtonGroup( explore1DModel.graphOrientationProperty, sceneRadioButtonContent, _.extend( RADIO_BUTTON_OPTIONS, {
+        centerX: explore1DGraphControlPanel.centerX,
         top: explore1DGraphControlPanel.bottom + 10,
         orientation: 'horizontal'
-      } );
+      } ) );
 
       this.addChild( horizontalVectorCreatorPanel );
       this.addChild( verticalVectorCreatorPanel );

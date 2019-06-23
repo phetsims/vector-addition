@@ -30,19 +30,19 @@ define( require => {
      */
     constructor( panelSlots, options ) {
 
-      options = _.extend( {}, _.clone( VectorAdditionConstants.PANEL_OPTIONS ), {
+      options = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
         minWidth: null,
         maxWidth: null,
-        fill: VectorAdditionColors.VECTOR_CREATOR_BACKGROUND,
+        lineWidth: 0.8,
         xMargin: 0, // {number} - the margins on the left and ride side of the panel
         yMargin: 8, // {number} - the margins on the top and bottom of the panel
         slotSpacing: 20, // {number} - the spacing between slots
         align: 'center', // {string} - the alignment of the panel slots inside the panel
-        right: 940, // {number}
+        right: 950, // {number}
         top: 320, // {number}
-        contentWidth: 87, // {number} fixed width of the panel
-        contentHeight: 125 // {number} fixed height of the panel
-      }, options );
+        contentWidth: 75, // {number} fixed width of the panel
+        contentHeight: 118 // {number} fixed height of the panel
+      }, VectorAdditionColors.VECTOR_CREATOR_COLORS, options );
 
       // Type check
       assert && assert( panelSlots.filter(

@@ -12,17 +12,14 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
-  const RADIO_BUTTON_OPTIONS = _.extend( {
+  const RADIO_BUTTON_OPTIONS = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, {
     left: 950,
-    top: 455,
-    selectedLineWidth: 2,
-    cornerRadius: 5,
-    orientation: 'vertical'
-  }, VectorAdditionColors.RADIO_BUTTON_COLORS );
+    top: 455
+  } );
 
   class CoordinateSnapRadioButtonGroup extends RadioButtonGroup {
 

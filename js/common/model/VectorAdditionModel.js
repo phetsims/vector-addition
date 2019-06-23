@@ -23,12 +23,10 @@ define( require => {
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
 
   // constants
   const STARTING_COMPONENT_STYLE = ComponentStyles.INVISIBLE;
   const STARTING_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
-  const STARTING_VECTOR_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
 
   class VectorAdditionModel {
     /**

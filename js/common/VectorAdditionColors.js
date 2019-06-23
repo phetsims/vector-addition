@@ -24,7 +24,6 @@ define( function( require ) {
     CONTROL_PANEL_BACKGROUND: LIGHT_GREY,
     PANEL_BACKGROUND: LIGHT_GREY,
     INSPECT_VECTOR_BACKGROUND: LIGHT_GREY,
-    VECTOR_CREATOR_BACKGROUND: WHITE,
     GRAPH_BACKGROUND: WHITE,
 
     //----------------------------------------------------------------------------------------
@@ -49,6 +48,13 @@ define( function( require ) {
     GRAPH_CONTROL_PANEL_LINE_COLOR: BLACK,
     GRID_ICON_COLOR: 'rgb( 80, 80, 80 )',
     ANGLE_ICON_COLOR: BLACK,
+
+    //----------------------------------------------------------------------------------------
+    // Vector Creator Panel
+    VECTOR_CREATOR_COLORS: {
+      fill: WHITE,
+      stroke: BLACK
+    },
 
 
     //----------------------------------------------------------------------------------------

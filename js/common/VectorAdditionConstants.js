@@ -19,10 +19,10 @@ define( function( require ) {
 
   //----------------------------------------------------------------------------------------
   // for all panel-like containers
-  const PANEL_CORNER_RADIUS = 5;
+  const PANEL_CORNER_RADIUS = 7;
   const PANEL_X_MARGIN = 12;
   const PANEL_Y_MARGIN = 12;
-  const PANEL_WIDTH = 150; // fixed size
+  const PANEL_WIDTH = 140; // fixed size
 
   const VectorAdditionConstants = {
 
@@ -53,6 +53,17 @@ define( function( require ) {
       boxWidth: 18,
       spacing: 7.5
     },
+
+    //----------------------------------------------------------------------------------------
+    // Defaults for all radio buttons
+    RADIO_BUTTON_OPTIONS: _.extend( {
+      deselectedLineWidth: 0.8,
+      selectedLineWidth: 1.5,
+      cornerRadius: PANEL_CORNER_RADIUS,
+      deselectedButtonOpacity: 0.4,
+      yMargin: 4.5,
+      xMargin: 4.5
+    }, VectorAdditionColors.RADIO_BUTTON_COLORS ),
 
     //----------------------------------------------------------------------------------------
     // Defaults for graph location

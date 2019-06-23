@@ -16,14 +16,18 @@ define( function( require ) {
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
-  //----------------------------------------------------------------------------------------
+  // strings
+  const oneString = require( 'string!VECTOR_ADDITION/one' );
+
   // constants
 
   // Size of ALL icons created in this factory that are for radio buttons
@@ -34,9 +38,9 @@ define( function( require ) {
     fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill,
     stroke: VectorAdditionColors.VECTOR_ICON_STROKE_COLOR,
     lineWidth: 0.5,
-    headHeight: 5,
+    headHeight: 6,
     headWidth: 10,
-    tailWidth: 4,
+    tailWidth: 3.5,
     opacity: 1
   };
 
@@ -44,9 +48,6 @@ define( function( require ) {
   const OPAQUE_ARROW_OPTIONS = _.extend( {}, ARROW_ICON_OPTIONS, {
     opacity: 0.4
   } );
-
-  // Radius for all arc arrow instances
-  const ARC_ARROW_RADIUS = 14;
 
 
   class VectorAdditionIconFactory {
@@ -121,7 +122,7 @@ define( function( require ) {
       options = _.extend( {
         angle: 50, // {number} in degrees
         iconSize: 20, // {number}
-        arcRadius: ARC_ARROW_RADIUS, // {number}
+        arcRadius: 14, // {number}
         color: VectorAdditionColors.ANGLE_ICON_COLOR, // {string}
         arcArrowOptions: null // {object} see defaults bellow
       }, options );
@@ -342,24 +343,31 @@ define( function( require ) {
     static createCartesianIcon( options ) {
 
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
-        fill: VectorAdditionColors.CARTESIAN_ICON_COLOR,
-        tailWidth: 2.5,
-        lineWidth: 0
+        tailWidth: 4.5,
+        lineWidth: 0,
+        headHeight: 7,
+        headWidth: 10,
+        componentArrowOptions: null
       }, options );
+
+      options.componentArrowOptions = _.extend( {}, options, {
+        fill: VectorAdditionColors.CARTESIAN_ICON_COLOR,
+        tailWidth: 2.5   
+      }, options.componentArrowOptions );
 
       //----------------------------------------------------------------------------------------
 
       // The icon has 3 arrows, start with the vector then its 2 components
-      const xComponentArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, options );
+      const xComponentArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, options.componentArrowOptions );
 
       const yComponentArrow = new ArrowNode(
         RADIO_BUTTON_ICON_SIZE,
         0,
         RADIO_BUTTON_ICON_SIZE,
         -RADIO_BUTTON_ICON_SIZE,
-        options );
+        options.componentArrowOptions );
 
-      const cartesianArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, ARROW_ICON_OPTIONS );
+      const cartesianArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, options );
 
       return new Node( {
         children: [ xComponentArrow, yComponentArrow, cartesianArrow ]
@@ -376,13 +384,14 @@ define( function( require ) {
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
         fill: VectorAdditionColors.POLAR_ICON_VECTOR_COLOR,
         lineWidth: 0,
-        arcRadius: ARC_ARROW_RADIUS,
+        arcRadius: 17,
+        tailWidth: 4,
         arcArrowOptions: null
       }, options );
 
       options.arcArrowOptions = _.extend( {
-        arrowheadWidth: 4, // {number}
-        arrowheadHeight: 3, // {number}
+        arrowheadWidth: 5.5, // {number}
+        arrowheadHeight: 5, // {number}
         arcOptions: {
           stroke: 'black' // {string}
         }
@@ -394,13 +403,20 @@ define( function( require ) {
       // Create an arc arrow
       const arcArrow = new ArcArrowNode( 45, options.arcRadius, options.arcArrowOptions );
 
-      // create a baseline
+      // Create a baseline
       const line = new Line( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, {
         stroke: 'black'
       } );
 
+      // Create a label for the arrowVector
+      const arrowLabel = new Text( oneString, {
+        bottom: arrowVector.centerY,
+        right: arrowVector.centerX - 2,
+        font: new PhetFont( { size: 12, family: 'Times', weight: '600' } )
+      } );
+
       return new Node( {
-        children: [ arrowVector, arcArrow, line ]
+        children: [ arrowLabel, arrowVector, arcArrow, line ]
       } );
     }
   }
