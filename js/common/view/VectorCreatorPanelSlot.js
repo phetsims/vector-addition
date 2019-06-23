@@ -101,6 +101,7 @@ define( require => {
 
       const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
 
+      // @public {Node} (read-only)
       this.vectorRepresentationNode = this.getVectorRepresentation( initialViewVector, arrowOptions );
 
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
