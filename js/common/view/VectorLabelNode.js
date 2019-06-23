@@ -98,12 +98,32 @@ define( require => {
 
       this.setRotation( 0 );
 
+      // TODO: consolidate positioning
+
       if ( !baseVectorModel.label && valuesVisible ) {
         this.label.setFormula( `${Util.toFixed( baseVectorModel.magnitude, 1 )}` );
       }
       if ( baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
-        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.attributesVector.timesScalar( 0.5 ) );
+        
+        const modelAngle = baseVectorModel.angle; // angle in the model in radians (ranging from -Pi to Pi)
+
+        // add a flip (180 degrees) if the angle is in quadrant III and IV (that is, y is negative)
+        const yFlip = ( modelAngle >= 0 ) ? 0 : Math.PI;
+
+        // add a flip (180 degrees) if the angle is in quadrant II and III (that is, x is negative)
+        const xFlip = ( modelAngle <= Math.PI / 2 && modelAngle >= -Math.PI / 2 ) ? 0 : Math.PI;
+
+        // create an offset that is perpendicular to the vector, 2 model unit long about
+        // and is pointing in the positive theta for quadrants I and III and negative theta for quadrants II and IV
+        const offset = Vector2.createPolar( 2, modelAngle + Math.PI / 2 + yFlip + xFlip );
+
+        // create label halfway above the vector
+        const midPoint = baseVectorModel.attributesVectorProperty.value.timesScalar( 0.5 );
+
+        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( midPoint.plus( offset ) );
+
+
       }
       else if ( !baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( '' );
@@ -111,20 +131,29 @@ define( require => {
       else if ( baseVectorModel.label && valuesVisible ) {
         this.label.setFormula( `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${Util.toFixed( baseVectorModel.magnitude, 1 )}}` );
 
-        // TODO: explain thought process
-        const rotation = Math.abs( baseVectorModel.angle ) < Math.PI / 2 ? -baseVectorModel.angle : Math.PI - baseVectorModel.angle;
-        this.setRotation( rotation );
+        const modelAngle = baseVectorModel.angle; // angle in the model in radians (ranging from -Pi to Pi)
 
-        const vector = new Vector2.createPolar( 2, -rotation + Math.PI / 2 );
-        const offset = ( baseVectorModel.angle >= 0 ) ? vector : vector.negated();
+        // since the y-axis is inverted, the angle is the view is opposite to the model
+        const viewAngle = -modelAngle;
 
-        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( 
-          baseVectorModel.attributesVector
-            .timesScalar( 0.5 )
-            .plus( offset )
-            .rotated( rotation ) );
+        // add a flip (180 degrees) if the angle is in quadrant II and III (that is, x is negative)
+        const xFlip = ( modelAngle <= Math.PI / 2 && modelAngle >= -Math.PI / 2 ) ? 0 : Math.PI;
 
+        // add a flip (180 degrees) if the angle is in quadrant III and IV (that is, y is negative)
+        const yFlip = ( modelAngle >= 0 ) ? 0 : Math.PI;
 
+        // rotate label along the angle for quadrants I and IV, but flipped for quadrants II and III
+        this.setRotation( viewAngle + xFlip );
+
+        // create a vector at the mid point of the vector, remembering the entire node has already been rotated
+        const midPosition = Vector2.createPolar( baseVectorModel.magnitude / 2, xFlip );
+
+        // create an offset that is perpendicular to the vector, 2 model unit long about
+        // and is pointing above if y>=0 but below is y<0
+        const offset = Vector2.createPolar( 2, Math.PI / 2 + yFlip );
+
+        this.label.center =
+          this.modelViewTransformProperty.value.modelToViewDelta( midPosition.plus( offset ) );
       }
       this.label.invalidateDOM();
       this.resizeBackground();
