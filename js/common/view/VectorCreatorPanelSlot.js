@@ -18,6 +18,7 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -100,21 +101,12 @@ define( require => {
 
       const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
 
-      // @private {Vector2}
-      this.initialVector = initialVector;
-
-      // @public (read-only) {Node}
-      this.vectorRepresentationNode = new ArrowNode(
-        0,
-        0,
-        initialViewVector.x,
-        initialViewVector.y, arrowOptions );
+      this.vectorRepresentationNode = this.getVectorRepresentation( initialViewVector, arrowOptions );
 
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
         initialViewVector,
         vectorType,
         options.iconOptions );
-
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( 8 );
@@ -173,7 +165,7 @@ define( require => {
               );
 
               // Call the abstract method to add the vector to the model. See addVectorToModel for documentation
-              const newVectorModel = this.addVectorToModel( vectorRepresentationPosition );
+              const newVectorModel = this.addVectorToModel( vectorRepresentationPosition, initialVector );
 
               // Check that the new vector model was implemented correctly
               assert && assert( newVectorModel instanceof VectorModel,
@@ -206,15 +198,50 @@ define( require => {
     /**
      * Called when the vectorRepresentation is dropped. This should add the vector to the model.
      * @private
-     * @param {Vector2} droppedPosition (model coordinates)
-     * @returns {VectorModel} - the model added
+     * @param {Vector2} droppedPosition - position  (model coordinates)
+     * @param {Vector2} initialVector - direction and length of initial vector to be dropped
+     * @returns {VectorModel} the model added
      */
-    addVectorToModel( droppedPosition ) {
+    addVectorToModel( droppedPosition, initialVector ) {
 
 
       const options = ( this.label ) ? { label: this.label } : {};
 
-      return this.vectorSet.addVector( droppedPosition, this.initialVector.x, this.initialVector.y, options );
+      return this.vectorSet.addVector( droppedPosition, initialVector.x, initialVector.y, options );
+    }
+
+    /**
+     * returns a scenery representation of a vector arrow with a dropped shadow
+     * @private
+     * @param {Vector2} initialViewVector
+     * @param {Object} options
+     * @returns {Node}
+     */
+    getVectorRepresentation( initialViewVector, options ) {
+
+      // convenience variables
+      const x = initialViewVector.x;
+      const y = initialViewVector.y;
+
+      // create the scenery node for the vector representation
+      const vectorRepresentationNode = new Node();
+
+      // create the vector arrow in the foreground
+      const frontArrow = new ArrowNode( 0, 0, x, y, options );
+
+      // create the background options in the same style as the frontArrow
+      const backgroundOptions = _.extend( {}, options, {
+        fill: 'black'
+      } );
+
+      // create the dropped shadow arrow with different decoration
+      const droppedShadow = new ArrowNode( 0, 0, x, y, backgroundOptions );
+
+      // set the position of the dropped shadow to be slightly below and to the right
+      droppedShadow.left = frontArrow.left + 1;
+      droppedShadow.top = frontArrow.top + 1;
+
+      return vectorRepresentationNode.setChildren( [ droppedShadow, frontArrow ] );
     }
   }
 
