@@ -39,8 +39,8 @@ define( require => {
         scale: 0.67, // {number} - scale resize of the formula node
         opacity: 0.75, // {number} - opacity of the background,
         cornerRadius: 5, // {number}
-        xMargin: 5.5, // {number}
-        yMargin: 0.5 // {number}
+        xMargin: 5, // {number}
+        yMargin: 1 // {number}
       }, options );
 
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
@@ -51,26 +51,30 @@ define( require => {
 
       super();
 
-      // @private {Rectangle} - the background rectangle, set as arbitrary rectangle for now
-      this.backgroundRectangle = new Rectangle( -25, -25, 25, 25, options );
+      // @private {Rectangle} - the background rectangle, set of size zero to start with
+      this.backgroundRectangle = new Rectangle( 0, 0, 0, 0, options );
 
       // @private {FormulaNode} - the label, set as empty for now
       this.label = new FormulaNode( '' );
       this.label.scale( options.scale );
 
-      this.setChildren( [ this.backgroundRectangle, this.label ] );
-
-      // @public - create references to the xMargin and yMargin
+      // @private {number} - create references to the xMargin and yMargin
       this.xMargin = options.xMargin;
       this.yMargin = options.yMargin;
 
+      // @private
       this.modelViewTransformProperty = modelViewTransformProperty;
+
+      this.setChildren( [ this.backgroundRectangle, this.label ] );
 
       //----------------------------------------------------------------------------------------
 
       // @private {Multilink} - observe changes to the model vector to update the label
       this.vectorObserver = new Multilink(
-        [ valuesVisibleProperty, baseVectorModel.attributesVectorProperty, baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty ],
+        [ valuesVisibleProperty,
+          baseVectorModel.attributesVectorProperty,
+          baseVectorModel.tailPositionProperty,
+          baseVectorModel.tipPositionProperty ],
         ( valuesVisible ) => {
           this.updateLabel( baseVectorModel, valuesVisible );
         } );
@@ -110,7 +114,7 @@ define( require => {
 
         // TODO: explain thought process
         const rotation = Math.abs( baseVectorModel.angle ) < Math.PI / 2 ? -baseVectorModel.angle : Math.PI - baseVectorModel.angle;
-          this.setRotation( rotation );
+        this.setRotation( rotation );
 
         const vector = new Vector2.createPolar( 2, -rotation + Math.PI / 2 );
         const offset = ( baseVectorModel.angle >= 0 ) ? vector : vector.negated();
@@ -126,7 +130,7 @@ define( require => {
 
     /**
      * Resize the background rectangle
-     * @public
+     * @private
      */
     resizeBackground() {
 
