@@ -125,11 +125,8 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public (read-only) {string|null}
+      // @private {string|null}
       this.label = options.label;
-
-      // @public (read-only) {boolean}
-      this.isInfinite = options.isInfinite;
 
       // @public (read-only) {vectorSet}
       this.vectorSet = vectorSet;
@@ -138,7 +135,6 @@ define( require => {
 
       // Set the representation node to invisible
       this.vectorRepresentationNode.visible = false;
-
 
       // When the vector icon is clicked, add the vector representation as a decoy vector to drag onto the screen
       iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
@@ -204,7 +200,6 @@ define( require => {
      * @returns {VectorModel} the model added
      */
     addVectorToModel( droppedPosition, initialVector ) {
-
 
       const options = ( this.label ) ? { label: this.label } : {};
 
