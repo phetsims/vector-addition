@@ -18,7 +18,7 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const Vector2 = require( 'DOT/Vector2' );
 
 
@@ -33,7 +33,7 @@ define( require => {
     constructor( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty, options ) {
 
       options = _.extend( {
-        fill: baseVectorModel.vectorType === VectorTypes.ONE ?
+        fill: baseVectorModel.vectorGroup === VectorGroups.ONE ?
               VectorAdditionColors.VECTOR_GROUP_1_COLORS.labelBackground :
               VectorAdditionColors.VECTOR_GROUP_2_COLORS.labelBackground,
         scale: 0.67, // {number} - scale resize of the formula node

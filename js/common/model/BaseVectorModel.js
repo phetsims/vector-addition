@@ -6,7 +6,7 @@
  *
  *  - tip and tail position properties
  *  - 'attributes property' (x and y, or in other words the actual vector <x, y>)
- *  - vector type (see vectorTypes.js for documentation)
+ *  - vector group (see VectorGroups.js for documentation)
  *
  * @author Brandon Li
  */
@@ -19,7 +19,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   class BaseVectorModel {
     /**
@@ -27,19 +27,19 @@ define( require => {
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
-     * @param {VectorTypes} vectorType - the type of vector. See VectorTypes.js for documentation
+     * @param {VectorGroups} vectorGroup - the vector group. (See VectorGroups.js)
      */
-    constructor( initialTailPosition, xComponent, yComponent, vectorType ) {
+    constructor( initialTailPosition, xComponent, yComponent, vectorGroup ) {
 
       assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
       assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
       assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
-      assert && assert( VectorTypes.includes( vectorType ), `invalid vectorType: ${vectorType}` );
+      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
-      // @public (read-only) {VectorTypes}
-      this.vectorType = vectorType;
+      // @public (read-only) {VectorGroups}
+      this.vectorGroup = vectorGroup;
 
       // @public (read-only) {Vector2Property} - The tail position of the vector on the graph.
       this.tailPositionProperty = new Vector2Property( initialTailPosition );

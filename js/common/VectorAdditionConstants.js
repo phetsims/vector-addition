@@ -13,7 +13,7 @@ define( function( require ) {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -84,8 +84,8 @@ define( function( require ) {
     },
 
 
-    // Default vector type for Explore1D, Explore2D and Equation.
-    VECTOR_TYPE: VectorTypes.ONE,
+    // Default vector group for Explore1D, Explore2D and Equation.
+    DEFAULT_VECTOR_GROUP: VectorGroups.ONE,
 
     // side length of the arrow when initially dropped onto the graph.
     INITIAL_ARROW_SIDE_LENGTH: 5

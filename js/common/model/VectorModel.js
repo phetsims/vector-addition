@@ -36,7 +36,7 @@ define( require => {
      * @param {number} yComponent vertical component of the vector
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorTypes} vectorType - see VectorTypes.js for documentation
+     * @param {VectorGroups} vectorGroup - see VectorGroups.js for documentation
      * @param {Object} [options]
      */
     constructor(
@@ -45,7 +45,7 @@ define( require => {
       yComponent,
       modelViewTransformProperty,
       componentStyleProperty,
-      vectorType,
+      vectorGroup,
       options ) {
 
       options = _.extend( {
@@ -65,7 +65,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( tailPosition, xComponent, yComponent, vectorType );
+      super( tailPosition, xComponent, yComponent, vectorGroup );
 
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;

@@ -76,7 +76,7 @@ define( require => {
         explore1DModel.sumVisibleProperty,
         explore1DModel.valuesVisibleProperty,
         explore1DModel.gridVisibleProperty,
-        explore1DModel.vectorType, {
+        explore1DModel.vectorGroup, {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );

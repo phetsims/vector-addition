@@ -23,7 +23,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const Panel = require( 'SUN/Panel' );
 
   // strings
@@ -65,7 +65,7 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      // assert && assert( VectorTypes.includes( vectorType ), `invalid vectorType: ${vectorType}` );
+      // assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -75,8 +75,8 @@ define( require => {
         spacing: 10,
         align: 'left',
         children: [
-          new SumCheckbox( sum1VisibleProperty, VectorTypes.ONE ),
-          new SumCheckbox( sum2VisibleProperty, VectorTypes.TWO ),
+          new SumCheckbox( sum1VisibleProperty, VectorGroups.ONE ),
+          new SumCheckbox( sum2VisibleProperty, VectorGroups.TWO ),
           new ValuesCheckbox( valuesVisibleProperty ),
           new AngleCheckbox( angleVisibleProperty ),
           new GridCheckbox( gridVisibleProperty ),

@@ -26,7 +26,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
@@ -81,18 +81,18 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      const vectorType = vectorSet.vectorType;
+      const vectorGroup = vectorSet.vectorGroup;
 
       let arrowOptions;
-      switch( vectorType ) {
-        case VectorTypes.ONE:
+      switch( vectorGroup ) {
+        case VectorGroups.ONE:
           arrowOptions = GROUP_ONE_ICON_ARROW_OPTIONS;
           break;
-        case VectorTypes.TWO:
+        case VectorGroups.TWO:
           arrowOptions = GROUP_TWO_ICON_ARROW_OPTIONS;
           break;
         default:
-          throw new Error( `Vector type ${vectorType} doesn't exists ` );
+          throw new Error( `Vector type ${vectorGroup} doesn't exists ` );
       }
 
       //----------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ define( require => {
 
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
         initialViewVector,
-        vectorType,
+        vectorGroup,
         options.iconOptions );
 
       // Make the iconNode easier to grab

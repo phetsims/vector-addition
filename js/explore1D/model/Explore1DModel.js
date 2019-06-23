@@ -21,7 +21,7 @@ define( require => {
   const DEFAULT_VECTOR_ORIENTATION = GraphOrientations.HORIZONTAL;
   const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
   const GRAPH_UPPER_LEFT_COORDINATE = new Vector2( -30, 20 );
-  const VECTOR_TYPE = VectorAdditionConstants.VECTOR_TYPE;
+  const DEFAULT_VECTOR_GROUP = VectorAdditionConstants.DEFAULT_VECTOR_GROUP;
 
   class Explore1DModel extends VectorAdditionModel {
     /**
@@ -41,8 +41,8 @@ define( require => {
       // @public {EnumerationProperty.<GraphOrientations>} - controls the orientation of the vectors
       this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, DEFAULT_VECTOR_ORIENTATION );
 
-      // @public (read-only) {VectorTypes} vectorType - the only vector type used on the explore1D screen
-      this.vectorType = VECTOR_TYPE;
+      // @public (read-only) {VectorGroups} VectorGroups - the only vector group used on the explore1D screen
+      this.vectorGroup = DEFAULT_VECTOR_GROUP;
 
       //----------------------------------------------------------------------------------------
       // Add the graphs
@@ -63,10 +63,10 @@ define( require => {
       // Each graph has one vector set for explore1D
 
       this.horizontalGraph.vectorSet = this.horizontalGraph.addVectorSet(
-        this.componentStyleProperty, this.sumVisibleProperty, this.vectorType );
+        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
 
       this.verticalGraph.vectorSet = this.verticalGraph.addVectorSet(
-        this.componentStyleProperty, this.sumVisibleProperty, this.vectorType );
+        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
 
     }
 

@@ -23,7 +23,7 @@ define( function( require ) {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // strings
   const oneString = require( 'string!VECTOR_ADDITION/one' );
@@ -54,15 +54,15 @@ define( function( require ) {
     /**
      * Create the Vector Icon that appears on the vector creator panel
      * @param {Vector2} initialVector - in model coordinates
-     * @param {VectorTypes} vectorType
+     * @param {VectorGroups} vectorGroup
      * @param {Object} [options]
      * @public
      */
-    static createVectorCreatorPanelIcon( initialVector, vectorType, options ) {
+    static createVectorCreatorPanelIcon( initialVector, vectorGroup, options ) {
 
       assert && assert( initialVector instanceof Vector2, `invalid initialVector: ${initialVector}` );
-      assert && assert( vectorType && VectorTypes.includes( vectorType ),
-        `invalid vectorType: ${vectorType}` );
+      assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ),
+        `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -73,7 +73,7 @@ define( function( require ) {
         headHeight: 8,
         cursor: 'pointer',
         arrowSize: 30,
-        fill: vectorType === VectorTypes.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill :
+        fill: vectorGroup === VectorGroups.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill :
               VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
       }, options );
 
@@ -88,15 +88,15 @@ define( function( require ) {
      *---------------------------------------------------------------------------*/
     /**
      * Creates the icon that appears next to the 'Sum' visibility checkbox
-     * @param {VectorTypes} vectorType
+     * @param {VectorGroups} vectorGroup
      * @param {Object} [options]
      * @returns {Node}
      * @public
      */
-    static createSumIcon( vectorType, options ) {
+    static createSumIcon( vectorGroup, options ) {
 
-      assert && assert( vectorType && VectorTypes.includes( vectorType ),
-        `invalid vectorType: ${vectorType}` );
+      assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ),
+        `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -104,7 +104,7 @@ define( function( require ) {
         lineWidth: 1,
         headHeight: 7,
         arrowSize: 22,
-        fill: vectorType === VectorTypes.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum :
+        fill: vectorGroup === VectorGroups.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum :
               VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum
       }, options );
 

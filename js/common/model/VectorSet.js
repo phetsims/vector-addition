@@ -20,7 +20,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   class VectorSet {
 
@@ -31,9 +31,9 @@ define( require => {
      * @param {Bounds2} graphModelBounds - the graph bounds (model coordinates)
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty
-     * @param {VectorTypes} vectorType
+     * @param {VectorGroups} vectorGroup
      */
-    constructor( modelViewTransformProperty, graphModelBounds, componentStyleProperty, sumVisibleProperty, vectorType ) {
+    constructor( modelViewTransformProperty, graphModelBounds, componentStyleProperty, sumVisibleProperty, vectorGroup ) {
 
       // Type check arguments
       assert && assert( modelViewTransformProperty instanceof Property
@@ -45,7 +45,7 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorTypes.includes( vectorType ), `invalid vectorType: ${vectorType}` );
+      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -57,11 +57,11 @@ define( require => {
         this.vectors,
         modelViewTransformProperty,
         componentStyleProperty,
-        vectorType,
+        vectorGroup,
         graphModelBounds );
 
-      // @public {VectorTypes} vectorType - one vectorSet can only represent one vectorType
-      this.vectorType = vectorType;
+      // @public {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
+      this.vectorGroup = vectorGroup;
 
       // @public {BooleanProperty}
       this.sumVisibleProperty = sumVisibleProperty;
@@ -96,7 +96,7 @@ define( require => {
         yComponent,
         this.modelViewTransformProperty,
         this.componentStyleProperty,
-        this.vectorType,
+        this.vectorGroup,
         options );
 
       // Active the new vector

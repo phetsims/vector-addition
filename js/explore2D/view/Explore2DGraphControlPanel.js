@@ -24,7 +24,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
@@ -41,7 +41,7 @@ define( require => {
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorTypes} vectorType
+     * @param {VectorGroups} vectorGroup
      * @param {Object} [options]
      */
     constructor(
@@ -50,7 +50,7 @@ define( require => {
       angleVisibleProperty,
       gridVisibleProperty,
       componentStyleProperty,
-      vectorType,
+      vectorGroup,
       options ) {
 
       // Type check arguments
@@ -65,7 +65,7 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( VectorTypes.includes( vectorType ), `invalid vectorType: ${vectorType}` );
+      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ define( require => {
         spacing: 10,
         align: 'left',
         children: [
-          new SumCheckbox( sumVisibleProperty, vectorType ),
+          new SumCheckbox( sumVisibleProperty, vectorGroup ),
           new ValuesCheckbox( valuesVisibleProperty ),
           new AngleCheckbox( angleVisibleProperty ),
           new GridCheckbox( gridVisibleProperty ),

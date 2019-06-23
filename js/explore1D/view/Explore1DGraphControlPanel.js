@@ -16,7 +16,7 @@ define( require => {
   const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const Panel = require( 'SUN/Panel' );
 
   // constants
@@ -28,10 +28,10 @@ define( require => {
      * @param {BooleanProperty} sumVisibleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
-     * @param {VectorTypes} vectorType
+     * @param {VectorGroups} vectorGroup
      * @param {Object} [options]
      */
-    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorType, options ) {
+    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorGroup, options ) {
 
       // Type check arguments
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
@@ -40,7 +40,7 @@ define( require => {
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( gridVisibleProperty instanceof BooleanProperty,
         `invalid gridVisibleProperty: ${gridVisibleProperty}` );
-      assert && assert( VectorTypes.includes( vectorType ), `invalid vectorType: ${vectorType}` );
+      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ define( require => {
         spacing: 10,
         align: 'left',
         children: [
-          new SumCheckbox( sumVisibleProperty, vectorType ),
+          new SumCheckbox( sumVisibleProperty, vectorGroup ),
           new ValuesCheckbox( valuesVisibleProperty ),
           new GridCheckbox( gridVisibleProperty )
         ]

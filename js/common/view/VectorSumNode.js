@@ -12,7 +12,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   // constants
@@ -47,17 +47,17 @@ define( require => {
     ) {
 
       let arrowOptions;
-      switch( vectorModel.vectorType ) {
-        case VectorTypes.ONE: {
+      switch( vectorModel.vectorGroup ) {
+        case VectorGroups.ONE: {
           arrowOptions = VECTOR_GROUP_1_SUM;
           break;
         }
-        case VectorTypes.TWO: {
+        case VectorGroups.TWO: {
           arrowOptions = VECTOR_GROUP_2_SUM;
           break;
         }
         default: {
-          throw new Error( `Vector Type : ${vectorModel.vectorType} not handled` );
+          throw new Error( `Vector Group : ${vectorModel.vectorGroup} not handled` );
         }
       }
       super( vectorModel,

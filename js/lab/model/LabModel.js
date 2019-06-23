@@ -14,7 +14,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
   const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
@@ -55,10 +55,10 @@ define( require => {
       // The graph has TWO vector sets
 
       this.graph.group1VectorSet = this.graph.addVectorSet(
-        this.componentStyleProperty, this.group1SumVisibleProperty, VectorTypes.ONE );
+        this.componentStyleProperty, this.group1SumVisibleProperty, VectorGroups.ONE );
 
       this.graph.group2VectorSet = this.graph.addVectorSet(
-        this.componentStyleProperty, this.group2SumVisibleProperty, VectorTypes.TWO );
+        this.componentStyleProperty, this.group2SumVisibleProperty, VectorGroups.TWO );
 
     }
   }

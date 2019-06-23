@@ -20,7 +20,7 @@ define( require => {
      * @param {ObservableArray.<VectorModel>} vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorTypes} vectorType
+     * @param {VectorGroups} vectorGroup
      * @param {Bounds2} graphModelBounds
      * @param {Object} [options]
      *
@@ -29,7 +29,7 @@ define( require => {
       vectors,
       modelViewTransformProperty,
       componentStyleProperty,
-      vectorType,
+      vectorGroup,
       graphModelBounds,
       options ) {
 
@@ -53,7 +53,7 @@ define( require => {
       // {Vector2} initial position of the tail of the vector sum
       const initialPosition = graphModelBounds.center;
 
-      super( initialPosition, 0, 0, modelViewTransformProperty, componentStyleProperty, vectorType, options );
+      super( initialPosition, 0, 0, modelViewTransformProperty, componentStyleProperty, vectorGroup, options );
 
 
       // Function to update the sum Vector when a vector is added or modified.

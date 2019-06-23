@@ -23,7 +23,7 @@ define( require => {
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   // constants
@@ -74,17 +74,17 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Get the arrow options for the specific vector type
 
-      switch( vectorModel.vectorType ) {
-        case VectorTypes.ONE: {
+      switch( vectorModel.vectorGroup ) {
+        case VectorGroups.ONE: {
           arrowOptions = _.extend( {}, VECTOR_GROUP_1, arrowOptions );
           break;
         }
-        case VectorTypes.TWO: {
+        case VectorGroups.TWO: {
           arrowOptions = _.extend( {}, VECTOR_GROUP_2, arrowOptions );
           break;
         }
         default: {
-          throw new Error( `Vector Type : ${vectorModel.vectorType} not handled` );
+          throw new Error( `Vector Group : ${vectorModel.vectorGroup} not handled` );
         }
       }
       super( vectorModel, modelViewTransformProperty, valuesVisibleProperty, arrowOptions );

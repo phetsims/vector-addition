@@ -15,7 +15,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
@@ -31,14 +31,14 @@ define( require => {
     /**
      * @constructor
      * @param {BooleanProperty} sumVisibleProperty
-     * @param {VectorTypes} vectorType
+     * @param {VectorGroups} vectorGroup
      */
-    constructor( sumVisibleProperty, vectorType ) {
+    constructor( sumVisibleProperty, vectorGroup ) {
 
       // Type check arguments
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorTypes.includes( vectorType ), `invalid vectorType: ${vectorType}` );
+      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ define( require => {
         spacing: CHECKBOX_OPTIONS.spacing,
         children: [
           new Text( sumString, TEXT_OPTIONS ),
-          VectorAdditionIconFactory.createSumIcon( vectorType )
+          VectorAdditionIconFactory.createSumIcon( vectorGroup )
         ]
       } ), sumVisibleProperty, CHECKBOX_OPTIONS );
     }

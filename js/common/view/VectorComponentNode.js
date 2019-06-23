@@ -22,7 +22,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
-  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
 
   // constants
@@ -65,17 +65,17 @@ define( require => {
       // Get the arrow options for the specific vector type
 
       let arrowOptions;
-      switch( vectorComponent.vectorType ) {
-        case VectorTypes.ONE: {
+      switch( vectorComponent.vectorGroup ) {
+        case VectorGroups.ONE: {
           arrowOptions = VECTOR_GROUP_1_COMPONENT;
           break;
         }
-        case VectorTypes.TWO: {
+        case VectorGroups.TWO: {
           arrowOptions = VECTOR_GROUP_2_COMPONENT;
           break;
         }
         default: {
-          throw new Error( `Vector Type : ${vectorComponent.vectorType} not handled` );
+          throw new Error( `Vector Type : ${vectorComponent.vectorGroup} not handled` );
         }
       }
       super( vectorComponent, modelViewTransformProperty, valuesVisibleProperty, arrowOptions );

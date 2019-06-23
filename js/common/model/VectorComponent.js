@@ -38,7 +38,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( parentVector.tailPositionProperty.value, 0, 0, parentVector.vectorType );
+      super( parentVector.tailPositionProperty.value, 0, 0, parentVector.vectorGroup );
 
       // @private observe changes of the parent to update component (abstract)
       this.updateLayoutMultilink = Property.multilink( [

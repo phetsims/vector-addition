@@ -87,11 +87,11 @@ define( require => {
      * Add a vectorSet to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - the sum visible property for this vector set
-     * @param {VectorTypes} vectorType
+     * @param {VectorGroups} vectorGroup
      * @returns {VectorSet} - the vector set that was added
      * @public
      */
-    addVectorSet( componentStyleProperty, sumVisibleProperty, vectorType ) {
+    addVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup ) {
 
       // argument types checked in vectorSet
 
@@ -100,7 +100,7 @@ define( require => {
         this.graphModelBounds,
         componentStyleProperty,
         sumVisibleProperty,
-        vectorType );
+        vectorGroup );
       
       this.vectorSets.push( newVectorSet );
       return newVectorSet;

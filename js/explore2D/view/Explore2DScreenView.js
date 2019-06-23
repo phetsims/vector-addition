@@ -30,7 +30,7 @@ define( function( require ) {
         explore2DModel.angleVisibleProperty,
         explore2DModel.gridVisibleProperty,
         explore2DModel.componentStyleProperty,
-        explore2DModel.vectorType, {
+        explore2DModel.vectorGroup, {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
