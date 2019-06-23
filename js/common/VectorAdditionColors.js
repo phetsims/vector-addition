@@ -73,7 +73,13 @@ define( function( require ) {
     },
     POLAR_ICON_VECTOR_COLOR: 'rgb( 188, 3, 255 )',
     CARTESIAN_ICON_COLOR: BLACK,
-    VECTOR_ICON_STROKE_COLOR: BLACK
+    VECTOR_ICON_STROKE_COLOR: BLACK,
+
+    //----------------------------------------------------------------------------------------
+    // References
+    WHITE: WHITE,
+    BLACK: BLACK,
+    LIGHT_GREY: LIGHT_GREY
 
   };
 

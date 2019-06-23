@@ -99,7 +99,9 @@ define( require => {
       this.setRotation( 0 );
 
       // TODO: consolidate positioning
-
+      // TODO: i think that positioning can be done inside of vectorNode. We can have a method for it and in this way
+      // component can override it (because their positioning is slightly different)
+      
       if ( !baseVectorModel.label && valuesVisible ) {
         this.label.setFormula( `${Util.toFixed( baseVectorModel.magnitude, 1 )}` );
       }
@@ -119,7 +121,7 @@ define( require => {
         const offset = Vector2.createPolar( 2, modelAngle + Math.PI / 2 + yFlip + xFlip );
 
         // create label halfway above the vector
-        const midPoint = baseVectorModel.attributesVectorProperty.value.timesScalar( 0.5 );
+        const midPoint = baseVectorModel.attributesVector.timesScalar( 0.5 );
 
         this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( midPoint.plus( offset ) );
 

@@ -231,15 +231,19 @@ define( require => {
 
       // create the background options in the same style as the frontArrow
       const backgroundOptions = _.extend( {}, options, {
-        fill: 'black'
+        fill: VectorAdditionColors.BLACK,
+        opacity: 0.4
       } );
 
       // create the dropped shadow arrow with different decoration
       const droppedShadow = new ArrowNode( 0, 0, x, y, backgroundOptions );
 
-      // set the position of the dropped shadow to be slightly below and to the right
-      droppedShadow.left = frontArrow.left + 1;
-      droppedShadow.top = frontArrow.top + 1;
+      // set the position of the dropped shadow on the front arrow
+      droppedShadow.left = frontArrow.left;
+      droppedShadow.top = frontArrow.top;
+
+      // add offset to the front arrow, the shadow is where the vector should be dropped
+      frontArrow.left -= 4;
 
       return vectorRepresentationNode.setChildren( [ droppedShadow, frontArrow ] );
     }
