@@ -86,7 +86,7 @@ define( require => {
     /**
      * Add a vectorSet to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanPropert} sumVisibleProperty - the sum visible property for this vector set
+     * @param {BooleanProperty} sumVisibleProperty - the sum visible property for this vector set
      * @param {VectorTypes} vectorType
      * @returns {VectorSet} - the vector set that was added
      * @public

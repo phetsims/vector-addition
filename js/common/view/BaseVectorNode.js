@@ -28,6 +28,7 @@ define( require => {
      * @param {BaseVectorModel} baseVectorModel - the vector model
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
+     * @param {BooleanProperty} valuesVisibleProperty
      * @param {Object} arrowOptions - options passed to the arrow node for specific / specialized styling
      */
     constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, arrowOptions ) {

@@ -50,7 +50,8 @@ define( require => {
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
-     */
+     * @param {BooleanProperty} valuesVisibleProperty
+     * /
     constructor( vectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty ) {
 
       // Type check arguments

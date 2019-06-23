@@ -35,6 +35,7 @@ define( require => {
      * @param {GraphOrientations} graphOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
+     * @param {BooleanProperty} valuesVisibleProperty
      */
     constructor( vectorModel,
                  graphModelBounds,
