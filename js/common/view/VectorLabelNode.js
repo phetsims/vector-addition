@@ -100,7 +100,7 @@ define( require => {
       }
       if ( baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
-        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.attributesVectorProperty.value.timesScalar( 0.5 ) );
+        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.components.timesScalar( 0.5 ) );
       }
       else if ( !baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( '' );
@@ -115,12 +115,15 @@ define( require => {
         const vector = new Vector2.createPolar( 2, -rotation + Math.PI / 2 );
         const offset = ( baseVectorModel.angle >= 0 ) ? vector : vector.negated();
 
-        this.label.center =
-          this.modelViewTransformProperty.value.modelToViewDelta(
-            baseVectorModel.attributesVectorProperty.value.timesScalar( 0.5 ).plus( offset ).rotated( rotation ) );
+        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( 
+          baseVectorModel.components
+            .timesScalar( 0.5 )
+            .plus( offset )
+            .rotated( rotation ) );
 
 
       }
+      this.label.invalidateDOM();
       this.resizeBackground();
     }
 

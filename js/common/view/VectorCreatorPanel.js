@@ -79,9 +79,7 @@ define( require => {
 
       super( {
         children: [
-          new Panel( fixedSizeSlotsContainer, _.extend( options, {
-
-          } ) ),
+          new Panel( fixedSizeSlotsContainer, options ),
           vectorRepresentationContainer
         ]
       } );

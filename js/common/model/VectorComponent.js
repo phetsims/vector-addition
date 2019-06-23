@@ -43,7 +43,7 @@ define( require => {
       // @private observe changes of the parent to update component (abstract)
       this.updateLayoutMultilink = Property.multilink( [
           componentStyleProperty,
-          parentVector.attributesVectorProperty,
+          parentVector.tipPositionProperty,
           parentVector.tailPositionProperty
           // No need to listen to the modelViewTransformProperty since the parentVector will update its position when 
           // modelViewTransformProperty changes
