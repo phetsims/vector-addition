@@ -4,9 +4,7 @@
  * View for a single slot that is on a vectorCreatorPanel. A slot should allow the user to drag a 'decoy' vector
  * on to the graph, in which this view will call an abstract method to add a vector to the model.
  *
- * Slots vary from screen to screen, slot to slot. This module requires:
- *  - Node for the icon
- *  - Node for the vectorRepresentation (the 'decoy icon')
+ * Slots vary from screen to screen, slot to slot
  *
  * @author Brandon Li
  */
