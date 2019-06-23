@@ -28,8 +28,8 @@ define( function( require ) {
 
     //----------------------------------------------------------------------------------------
     // Margins for all ScreenView instances
-    SCREEN_VIEW_X_MARGIN: 6,
-    SCREEN_VIEW_Y_MARGIN: 6,
+    SCREEN_VIEW_X_MARGIN: 10,
+    SCREEN_VIEW_Y_MARGIN: 14,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all Panel instances
@@ -50,8 +50,8 @@ define( function( require ) {
     //----------------------------------------------------------------------------------------
     // Defaults for all check boxes
     CHECKBOX_OPTIONS: {
-      boxWidth: 19,
-      spacing: 5
+      boxWidth: 18,
+      spacing: 7.5
     },
 
     //----------------------------------------------------------------------------------------
@@ -61,9 +61,6 @@ define( function( require ) {
 
     // location of the upper left of the graph in view coordinates
     GRAPH_UPPER_LEFT_LOCATION: new Vector2( 29, 90 ),
-
-    // scale conversion factor from model to view coordinates
-    MODEL_TO_VIEW_SCALE_FACTOR: 12.5,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all vector arrow nodes

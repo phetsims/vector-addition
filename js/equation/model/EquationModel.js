@@ -10,7 +10,7 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
 
   /**
@@ -25,13 +25,13 @@ define( require => {
 
       super();
       this.gridModelBounds = new Bounds2( -5, -5, 35, 35 );
-      this.vectorOrientationProperty = new Property( VectorOrientations.TWO_DIMENSIONAL );
+      this.graphOrientationProperty = new Property( GraphOrientations.TWO_DIMENSIONAL );
     }
 
     // @public resets the model
     reset() {
       super.reset();
-      this.vectorOrientationProperty.reset();
+      this.graphOrientationProperty.reset();
     }
 
   }

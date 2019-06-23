@@ -22,7 +22,7 @@ define( require => {
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
@@ -48,7 +48,7 @@ define( require => {
      * @param {Bounds2} graphModelBounds - the bounds to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
-     * @param {VectorOrientations} vectorOrientation - Orientation mode of the vectors
+     * @param {GraphOrientations} vectorOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
      * @param  {Object} [arrowOptions]
@@ -118,7 +118,7 @@ define( require => {
       // @private {Property.<ModelViewTransform2>}
       this.modelViewTransformProperty = modelViewTransformProperty;
 
-      // @private {VectorOrientations}
+      // @private {GraphOrientations}
       this.vectorOrientation = vectorOrientation;
 
       //@private {VectorModel}
@@ -233,15 +233,15 @@ define( require => {
       const tipCoordinates = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
 
       switch( this.vectorOrientation ) {
-        case VectorOrientations.HORIZONTAL: {
+        case GraphOrientations.HORIZONTAL: {
           tipCoordinates.setY( 0 );
           break;
         }
-        case VectorOrientations.VERTICAL: {
+        case GraphOrientations.VERTICAL: {
           tipCoordinates.setX( 0 );
           break;
         }
-        case VectorOrientations.TWO_DIMENSIONAL: {
+        case GraphOrientations.TWO_DIMENSIONAL: {
           break;
         }
         default: {

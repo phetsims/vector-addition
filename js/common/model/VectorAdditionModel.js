@@ -23,12 +23,12 @@ define( require => {
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
 
   // constants
   const STARTING_COMPONENT_STYLE = ComponentStyles.INVISIBLE;
   const STARTING_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
-  const STARTING_VECTOR_ORIENTATION = VectorOrientations.TWO_DIMENSIONAL;
+  const STARTING_VECTOR_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
 
   class VectorAdditionModel {
     /**
@@ -61,8 +61,8 @@ define( require => {
       // @public {EnumerationProperty<CoordinateSnapModes>} - controls the snapping mode for the vectors
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
 
-      // @public {EnumerationProperty.<VectorOrientations>} - controls the orientation of the vectors
-      this.vectorOrientationProperty = new EnumerationProperty( VectorOrientations, STARTING_VECTOR_ORIENTATION );
+      // @public {EnumerationProperty.<GraphOrientations>} - controls the orientation of the vectors
+      this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, STARTING_VECTOR_ORIENTATION );
 
 
       //----------------------------------------------------------------------------------------
@@ -98,7 +98,7 @@ define( require => {
       // Reset the enumeration properties
       this.componentStyleProperty.reset();
       this.coordinateSnapModeProperty.reset();
-      this.vectorOrientationProperty.reset();
+      this.graphOrientationProperty.reset();
 
       // Reset every scene
       this.scenes.forEach( ( scene ) => {

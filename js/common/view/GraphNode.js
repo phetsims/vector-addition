@@ -26,8 +26,8 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
-
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  
   //----------------------------------------------------------------------------------------
   // constants
   //----------------------------------------------------------------------------------------
@@ -135,30 +135,30 @@ define( require => {
       // @private
       this.originCircle = originCircle;
 
-      const vectorOrientation = graph.orientation;
+      const graphOrientation = graph.orientation;
 
       // toggle visibility based on different vector orientations
-      switch( vectorOrientation ) {
-        case VectorOrientations.HORIZONTAL:
+      switch( graphOrientation ) {
+        case GraphOrientations.HORIZONTAL:
           xAxisNode.visible = true;
           yAxisNode.visible = false;
           xAxisNode.setOriginLabelVisibility( true );
           yAxisNode.setOriginLabelVisibility( true );
           break;
-        case VectorOrientations.VERTICAL:
+        case GraphOrientations.VERTICAL:
           xAxisNode.visible = false;
           yAxisNode.visible = true;
           xAxisNode.setOriginLabelVisibility( true );
           yAxisNode.setOriginLabelVisibility( true );
           break;
-        case VectorOrientations.TWO_DIMENSIONAL:
+        case GraphOrientations.TWO_DIMENSIONAL:
           xAxisNode.visible = true;
           yAxisNode.visible = true;
           xAxisNode.setOriginLabelVisibility( false );
           yAxisNode.setOriginLabelVisibility( false );
           break;
         default:
-          throw new Error( `Vector orientation not handled: ${vectorOrientation}` );
+          throw new Error( `Graph orientation not handled: ${graphOrientation}` );
       }
     }
 

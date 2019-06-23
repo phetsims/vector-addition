@@ -35,7 +35,7 @@ define( function( require ) {
     stroke: VectorAdditionColors.VECTOR_ICON_STROKE_COLOR,
     lineWidth: 0.5,
     headHeight: 5,
-    headWidth: 9,
+    headWidth: 10,
     tailWidth: 4,
     opacity: 1
   };
@@ -101,8 +101,8 @@ define( function( require ) {
 
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
         lineWidth: 1,
-        headHeight: 10,
-        arrowSize: 24,
+        headHeight: 7,
+        arrowSize: 22,
         fill: vectorType === VectorTypes.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum :
               VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum
       }, options );

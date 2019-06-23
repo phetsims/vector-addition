@@ -15,11 +15,11 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  const DEFAULT_VECTOR_ORIENTATION = VectorOrientations.HORIZONTAL;
+  const DEFAULT_VECTOR_ORIENTATION = GraphOrientations.HORIZONTAL;
   const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
   const GRAPH_UPPER_LEFT_COORDINATE = new Vector2( -30, 20 );
   const VECTOR_TYPE = VectorAdditionConstants.VECTOR_TYPE;
@@ -33,8 +33,8 @@ define( require => {
 
       super( tandem );
 
-      // @public {EnumerationProperty.<VectorOrientations>} - controls the orientation of the vectors
-      this.vectorOrientationProperty = new EnumerationProperty( VectorOrientations, DEFAULT_VECTOR_ORIENTATION );
+      // @public {EnumerationProperty.<GraphOrientations>} - controls the orientation of the vectors
+      this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, DEFAULT_VECTOR_ORIENTATION );
 
       // @public (read-only) {VectorTypes} vectorType - the vector type used on the explore1D screen
       this.vectorType = VECTOR_TYPE;
@@ -74,7 +74,7 @@ define( require => {
         GRAPH_UPPER_LEFT_COORDINATE,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorOrientations.HORIZONTAL,
+        GraphOrientations.HORIZONTAL,
         VECTOR_TYPE );
 
       // @public (read-only) {Explore1DScene} - the vertical scene
@@ -83,7 +83,7 @@ define( require => {
         GRAPH_UPPER_LEFT_COORDINATE,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorOrientations.VERTICAL,
+        GraphOrientations.VERTICAL,
         VECTOR_TYPE );
 
       this.scenes.push( this.horizontalScene, this.verticalScene );

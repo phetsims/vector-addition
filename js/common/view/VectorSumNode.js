@@ -32,7 +32,7 @@ define( require => {
      * @param {Bounds2} graphModelBounds - the bounds to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
-     * @param {VectorOrientations} vectorOrientation - Orientation mode of the vectors
+     * @param {GraphOrientations} graphOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
      */
@@ -40,7 +40,7 @@ define( require => {
                  graphModelBounds,
                  componentStyleProperty,
                  angleVisibleProperty,
-                 vectorOrientation,
+                 graphOrientation,
                  modelViewTransformProperty,
                  valuesVisibleProperty
     ) {
@@ -63,7 +63,7 @@ define( require => {
         graphModelBounds,
         componentStyleProperty,
         angleVisibleProperty,
-        vectorOrientation,
+        graphOrientation,
         modelViewTransformProperty,
         valuesVisibleProperty,
         arrowOptions );

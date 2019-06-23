@@ -13,7 +13,7 @@ define( require => {
   const Explore1DGraphControlPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DGraphControlPanel' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
@@ -57,21 +57,21 @@ define( require => {
       const verticalVectorCreatorPanel = explore1DVectorCreatorPanels.verticalVectorCreatorPanel;
 
 
-      explore1DModel.vectorOrientationProperty.link( ( vectorOrientation ) => {
+      explore1DModel.graphOrientationProperty.link( ( vectorOrientation ) => {
         switch( vectorOrientation ) {
-          case VectorOrientations.HORIZONTAL:
+          case GraphOrientations.HORIZONTAL:
             verticalSceneNode.visible = false;
             verticalVectorCreatorPanel.visible = false;
             horizontalSceneNode.visible = true;
             horizontalVectorCreatorPanel.visible = true;
             break;
-          case VectorOrientations.VERTICAL:
+          case GraphOrientations.VERTICAL:
             verticalSceneNode.visible = true;
             verticalVectorCreatorPanel.visible = true;
             horizontalVectorCreatorPanel.visible = false;
             horizontalSceneNode.visible = false;
             break;
-          case VectorOrientations.TWO_DIMENSIONAL:
+          case GraphOrientations.TWO_DIMENSIONAL:
             throw new Error( `Explore1D does not support vector orientation: ${vectorOrientation}` );
           default:
             console.log( vectorOrientation );
@@ -91,14 +91,14 @@ define( require => {
       const ArrowNodeOptions = { fill: 'black', doubleHead: true, tailWidth: 3, headWidth: 8, headHeight: 10 };
       // Scene radio buttons
       const sceneRadioButtonContent = [ {
-        value: VectorOrientations.HORIZONTAL,
+        value: GraphOrientations.HORIZONTAL,
         node: new ArrowNode( 0, 0, 40, 0, ArrowNodeOptions )
       }, {
-        value: VectorOrientations.VERTICAL,
+        value: GraphOrientations.VERTICAL,
         node: new ArrowNode( 0, 0, 0, 40, ArrowNodeOptions )
       } ];
 
-      const sceneRadioButtonGroup = new RadioButtonGroup( explore1DModel.vectorOrientationProperty, sceneRadioButtonContent, {
+      const sceneRadioButtonGroup = new RadioButtonGroup( explore1DModel.graphOrientationProperty, sceneRadioButtonContent, {
         baseColor: 'white',
         selectedStroke: '#419ac9',
         selectedLineWidth: 2,

@@ -20,15 +20,16 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorOrientations = require( 'VECTOR_ADDITION/common/model/VectorOrientations' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
 
   // constants
 
-  // The coordinate for the graphNode in view coordinates.
-  const MODEL_TO_VIEW_SCALE_FACTOR = VectorAdditionConstants.MODEL_TO_VIEW_SCALE_FACTOR;
+  // The view coordinates for the graph node location
   const GRAPH_UPPER_LEFT_LOCATION = VectorAdditionConstants.GRAPH_UPPER_LEFT_LOCATION;
 
+  // Scale conversion factor from model to view coordinates
+  const MODEL_TO_VIEW_SCALE_FACTOR = 12.5;
 
   class Graph {
     /**
@@ -40,14 +41,13 @@ define( require => {
      */
     constructor( graphDimension, upperLeftPosition, options ) {
 
-      // check that the arguments are correct types
-      assert && assert( graphDimension instanceof Dimension2,
-        `invalid graphDimension: ${graphDimension}` );
-      assert && assert( upperLeftPosition instanceof Vector2,
-        `invalid upperLeftPosition: ${upperLeftPosition}` );
+      assert && assert( graphDimension instanceof Dimension2, `invalid graphDimension: ${graphDimension}` );
+      assert && assert( upperLeftPosition instanceof Vector2, `invalid upperLeftPosition: ${upperLeftPosition}` );
+
+      //----------------------------------------------------------------------------------------
 
       options = _.extend( {
-        orientation: VectorOrientations.TWO_DIMENSIONAL // {VectorOrientations} - the orientation of the graph
+        orientation: GraphOrientations.TWO_DIMENSIONAL // {GraphOrientations} - the orientation of the graph
       }, options );
 
 
@@ -80,7 +80,7 @@ define( require => {
           valueType: ModelViewTransform2
         } );
 
-      // @public (read-only) {VectorOrientations}
+      // @public (read-only) {GraphOrientations}
       this.orientation = options.orientation;
 
     }
