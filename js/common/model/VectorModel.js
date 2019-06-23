@@ -81,23 +81,23 @@ define( require => {
       // Properties for the inspectPanel
 
       // @public (read-only) {DerivedProperty.<number>} - the magnitude of the vector
-      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( this.magnitude )
+      this.magnitudeProperty = new DerivedProperty( [ this.tipPositionProperty ],
+        tipPosition => ( this.magnitude )
       );
 
       // @public (read-only) {DerivedProperty.<number>} - the angle (in degrees) of the vector
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
-      this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( Util.toDegrees( this.angle ) )
+      this.angleDegreesProperty = new DerivedProperty( [ this.tipPositionProperty ],
+        tipPosition => ( Util.toDegrees( this.angle ) )
       );
 
       // @public (read-only) {DerivedProperty.<number>} - the xComponent property
-      this.xComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( this.xComponent ) );
+      this.xComponentProperty = new DerivedProperty( [ this.tipPositionProperty ],
+        tipPosition => ( this.xComponent ) );
 
       // @public (read-only) {DerivedProperty.<number>} - the yComponent property
-      this.yComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        attributesVector => ( this.yComponent ) );
+      this.yComponentProperty = new DerivedProperty( [ this.tipPositionProperty ],
+        tipPosition => ( this.yComponent ) );
 
       //----------------------------------------------------------------------------------------
 
@@ -150,7 +150,7 @@ define( require => {
      * @public
      */
     roundCartesianForm() {
-      this.attributesVectorProperty.value = this.attributesVectorProperty.value.roundSymmetric();
+      this.attributesVector = this.attributesVector.roundSymmetric();
     }
 
     /**
@@ -161,7 +161,7 @@ define( require => {
     roundPolarForm() {
       const roundedMagnitude = Util.roundSymmetric( this.magnitudeProperty.value );
       const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( this.angleDegreesProperty.value / ANGLE_INTERVAL );
-      this.attributesVectorProperty.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+      this.attributesVector = this.attributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
     }
 
   }

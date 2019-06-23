@@ -91,7 +91,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.components );
+      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
 
       // @public (read-only) {VectorComponentNode}
       this.xComponentNode = new VectorComponentNode( vectorModel.xVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
@@ -191,7 +191,7 @@ define( require => {
       }
 
       const updateTip = () => {
-        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.components );
+        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
         this.tipCircle.center = tipDeltaLocation;
       };
 
@@ -248,7 +248,7 @@ define( require => {
           throw new Error( `vectorOrientation not handled: ${this.vectorOrientation}` );
         }
       }
-      this.vectorModel.attributesVectorProperty.value = tipCoordinates.roundedSymmetric();
+      this.vectorModel.attributesVector = tipCoordinates.roundedSymmetric();
     }
 
     /**

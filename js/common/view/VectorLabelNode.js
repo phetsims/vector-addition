@@ -72,7 +72,6 @@ define( require => {
       // @private {Multilink} - observe changes to the model vector to update the label
       this.vectorObserver = new Multilink(
         [ valuesVisibleProperty,
-          baseVectorModel.attributesVectorProperty,
           baseVectorModel.tailPositionProperty,
           baseVectorModel.tipPositionProperty ],
         ( valuesVisible ) => {
@@ -104,7 +103,7 @@ define( require => {
       }
       if ( baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
-        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.components.timesScalar( 0.5 ) );
+        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.attributesVector.timesScalar( 0.5 ) );
       }
       else if ( !baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( '' );
@@ -120,7 +119,7 @@ define( require => {
         const offset = ( baseVectorModel.angle >= 0 ) ? vector : vector.negated();
 
         this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( 
-          baseVectorModel.components
+          baseVectorModel.attributesVector
             .timesScalar( 0.5 )
             .plus( offset )
             .rotated( rotation ) );
