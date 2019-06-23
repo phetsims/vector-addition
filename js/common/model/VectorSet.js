@@ -110,24 +110,10 @@ define( require => {
      * @public
      * Reset the vector set
      */
-    reset() { this.vectors.clear(); }
-
-    /**
-     * Convenience method: Applies a callback function to iterate through each vector
-     * @param {function( <VectorModel>, <boolean> )} callback
-     * @public
-     */
-    forEachVector( callback ) {
-
-      // Combine the vectors and the vector sum into one array.
-      const combinedArray = this.vectors.getArray();
-      combinedArray.push( this.vectorSum );
-
-      this.vectors.forEach( ( vector ) => {
-        const isSum = this.vectorSum === vector;
-        callback( vector, isSum );
-      } );
+    reset() {
+      this.vectors.clear();
     }
+
 
   }
 
