@@ -48,7 +48,7 @@ define( require => {
      * @param {Bounds2} graphModelBounds - the bounds to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
-     * @param {GraphOrientations} vectorOrientation - Orientation mode of the vectors
+     * @param {GraphOrientations} graphOrientation - Orientation mode of the vectors
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
      * @param  {Object} [arrowOptions]
@@ -57,7 +57,7 @@ define( require => {
                  graphModelBounds,
                  componentStyleProperty,
                  angleVisibleProperty,
-                 vectorOrientation,
+                 graphOrientation,
                  modelViewTransformProperty,
                  valuesVisibleProperty,
                  arrowOptions ) {
@@ -119,7 +119,7 @@ define( require => {
       this.modelViewTransformProperty = modelViewTransformProperty;
 
       // @private {GraphOrientations}
-      this.vectorOrientation = vectorOrientation;
+      this.graphOrientation = graphOrientation;
 
       //@private {VectorModel}
       this.vectorModel = vectorModel;
@@ -232,7 +232,7 @@ define( require => {
     tipSnapToGrid( tipLocation ) {
       const tipCoordinates = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
 
-      switch( this.vectorOrientation ) {
+      switch( this.graphOrientation ) {
         case GraphOrientations.HORIZONTAL: {
           tipCoordinates.setY( 0 );
           break;
@@ -245,7 +245,7 @@ define( require => {
           break;
         }
         default: {
-          throw new Error( `vectorOrientation not handled: ${this.vectorOrientation}` );
+          throw new Error( `graphOrientation not handled: ${this.graphOrientation}` );
         }
       }
       this.vectorModel.attributesVector = tipCoordinates.roundedSymmetric();

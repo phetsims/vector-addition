@@ -28,6 +28,7 @@ define( require => {
       graphDimension,
       graphUpperLeftPosition,
       componentStyleProperty,
+      graphOrientation,
       sum1VisibleProperty,
       sum2VisibleProperty ) {
 
@@ -40,7 +41,7 @@ define( require => {
       // The rest are checked in super-classes
 
       //-------------------------------------------
-      super( graphDimension, graphUpperLeftPosition, componentStyleProperty );
+      super( graphDimension, graphUpperLeftPosition, graphOrientation );
 
 
       // @private {Boolean Property} this scene shares one property for the sum visibility

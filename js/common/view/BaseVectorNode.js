@@ -80,7 +80,7 @@ define( require => {
       this.translation = modelViewTransform.modelToViewPosition( baseVectorModel.tail );
 
       // Get the tip location in view coordinates
-      const tipDeltaLocation = modelViewTransform.modelToViewDelta( baseVectorModel.attributesVector);
+      const tipDeltaLocation = modelViewTransform.modelToViewDelta( baseVectorModel.attributesVector );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
 
       // make the arrow easier to grab

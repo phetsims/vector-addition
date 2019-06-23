@@ -108,7 +108,7 @@ define( require => {
 
       const updateInspectVectorPanel = ( activeVector ) => {
 
- // TODO: make these fix width with alignGroup
+        // TODO: make these fix width with alignGroup
         const magnitudeTextNode = new FormulaNode( `\|\\mathbf{\\vec{${activeVector.label}\}\}|`, {
           maxWidth: MAGNITUDE_LENGTH
         } );

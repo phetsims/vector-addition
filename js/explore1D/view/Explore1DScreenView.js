@@ -57,8 +57,8 @@ define( require => {
       const verticalVectorCreatorPanel = explore1DVectorCreatorPanels.verticalVectorCreatorPanel;
 
 
-      explore1DModel.graphOrientationProperty.link( ( vectorOrientation ) => {
-        switch( vectorOrientation ) {
+      explore1DModel.graphOrientationProperty.link( ( graphOrientation ) => {
+        switch( graphOrientation ) {
           case GraphOrientations.HORIZONTAL:
             verticalSceneNode.visible = false;
             verticalVectorCreatorPanel.visible = false;
@@ -72,10 +72,10 @@ define( require => {
             horizontalSceneNode.visible = false;
             break;
           case GraphOrientations.TWO_DIMENSIONAL:
-            throw new Error( `Explore1D does not support vector orientation: ${vectorOrientation}` );
+            throw new Error( `Explore1D does not support vector orientation: ${graphOrientation}` );
           default:
-            console.log( vectorOrientation );
-            throw new Error( `Vector orientation not handled: ${vectorOrientation}` );
+            console.log( graphOrientation );
+            throw new Error( `Vector orientation not handled: ${graphOrientation}` );
         }
       } );
 

@@ -12,7 +12,6 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Scene = require( 'VECTOR_ADDITION/common/model/Scene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   class Explore1DScene extends Scene {
@@ -22,29 +21,25 @@ define( require => {
      * @param {Vector2} graphUpperLeftPosition - the model coordinates of the top left corner of the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - explore1D only has one shared sumVisibleProperty
-     * @param {GraphOrientations} vectorOrientation - the orientation for this scene
+     * @param {GraphOrientations} graphOrientation - the orientation for this scene
      * @param {VectorTypes} vectorType - the vectorType for explore1D
      */
     constructor(
       graphDimension,
       graphUpperLeftPosition,
       componentStyleProperty,
+      graphOrientation,
       sumVisibleProperty,
-      vectorOrientation,
       vectorType ) {
 
       // Type check arguments
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( GraphOrientations.includes( vectorOrientation ), `invalid vectorOrientation: ${vectorOrientation}` );
       // The rest are checked in super-classes
 
       //----------------------------------------------------------------------------------------
 
-      super( graphDimension, graphUpperLeftPosition, componentStyleProperty );
-
-      // Set the graph's orientation to horizontal
-      this.graph.orientation = vectorOrientation;
+      super( graphDimension, graphUpperLeftPosition, graphOrientation );
 
       // @private {Boolean Property} this scene shares one property for the sum visibility
       this.sumVisibleProperty = sumVisibleProperty;

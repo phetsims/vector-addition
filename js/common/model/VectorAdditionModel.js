@@ -61,10 +61,6 @@ define( require => {
       // @public {EnumerationProperty<CoordinateSnapModes>} - controls the snapping mode for the vectors
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
 
-      // @public {EnumerationProperty.<GraphOrientations>} - controls the orientation of the vectors
-      this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, STARTING_VECTOR_ORIENTATION );
-
-
       //----------------------------------------------------------------------------------------
       // Create the scenes
 

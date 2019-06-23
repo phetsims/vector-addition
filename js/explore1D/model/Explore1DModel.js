@@ -73,8 +73,8 @@ define( require => {
         GRAPH_DIMENSION,
         GRAPH_UPPER_LEFT_COORDINATE,
         this.componentStyleProperty,
-        this.sumVisibleProperty,
         GraphOrientations.HORIZONTAL,
+        this.sumVisibleProperty,
         VECTOR_TYPE );
 
       // @public (read-only) {Explore1DScene} - the vertical scene
@@ -82,8 +82,8 @@ define( require => {
         GRAPH_DIMENSION,
         GRAPH_UPPER_LEFT_COORDINATE,
         this.componentStyleProperty,
-        this.sumVisibleProperty,
         GraphOrientations.VERTICAL,
+        this.sumVisibleProperty,
         VECTOR_TYPE );
 
       this.scenes.push( this.horizontalScene, this.verticalScene );

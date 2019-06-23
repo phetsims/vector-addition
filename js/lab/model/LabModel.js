@@ -14,6 +14,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
 
   // constants
   const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
@@ -64,6 +65,7 @@ define( require => {
         GRAPH_DIMENSION,
         GRAPH_UPPER_LEFT_COORDINATE,
         this.componentStyleProperty,
+        GraphOrientations.TWO_DIMENSIONAL,
         this.sumGroup1VisibleProperty,
         this.sumGroup2VisibleProperty );
 

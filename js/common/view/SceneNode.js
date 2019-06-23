@@ -59,7 +59,7 @@ define( require => {
           scene.graph.graphModelBounds,
           model.componentStyleProperty,
           model.angleVisibleProperty,
-          model.graphOrientationProperty.value,
+          scene.graph.orientation,
           scene.graph.modelViewTransformProperty,
           model.valuesVisibleProperty
         );
@@ -76,7 +76,7 @@ define( require => {
             scene.graph.graphModelBounds,
             model.componentStyleProperty,
             model.angleVisibleProperty,
-            model.graphOrientationProperty.value,
+            scene.graph.orientation,
             scene.graph.modelViewTransformProperty,
             model.valuesVisibleProperty
           );

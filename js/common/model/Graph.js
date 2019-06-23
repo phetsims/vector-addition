@@ -16,12 +16,12 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Dimension2 = require( 'DOT/Dimension2' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
 
   // constants
 
@@ -36,20 +36,20 @@ define( require => {
      * @constructor
      * @param {Dimension2} graphDimension - the dimensions for the graph (width and height)
      * @param {Vector2} upperLeftPosition - the coordinate of the upperLeft corner of the graph.
-     * @param {Object} [options]
+     * @param {GraphOrientations} orientation - the orientation of the graph
      * @public
      */
-    constructor( graphDimension, upperLeftPosition, options ) {
+    constructor( graphDimension, upperLeftPosition, orientation ) {
 
       assert && assert( graphDimension instanceof Dimension2, `invalid graphDimension: ${graphDimension}` );
       assert && assert( upperLeftPosition instanceof Vector2, `invalid upperLeftPosition: ${upperLeftPosition}` );
+      assert && assert( GraphOrientations.includes( orientation ),
+        `invalid orientation: ${orientation}` );
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {
-        orientation: GraphOrientations.TWO_DIMENSIONAL // {GraphOrientations} - the orientation of the graph
-      }, options );
-
+      // @public (read-only) {GraphOrientations}
+      this.orientation = orientation;
 
       // @public {VectorProperty} - the position (model coordinates) of the top left corner of graph
       this.upperLeftPositionProperty = new Vector2Property( upperLeftPosition );
@@ -67,10 +67,9 @@ define( require => {
 
       } );
 
-
       // @public {Property.<ModelViewTransform2>} - the coordinate transform between model (graph coordinates) and view
       // coordinates. It is calculated from the upperLeftPosition of both the view and the model.
-      // Graphs last for the life time of the sim, so no need to dispose
+      // Graphs last for the life time of the sim, so this will never need to be disposed.
       this.modelViewTransformProperty = new DerivedProperty( [ this.upperLeftPositionProperty ],
         upperLeftPosition => ModelViewTransform2.createSinglePointScaleInvertedYMapping(
           upperLeftPosition,
@@ -79,10 +78,6 @@ define( require => {
         ), {
           valueType: ModelViewTransform2
         } );
-
-      // @public (read-only) {GraphOrientations}
-      this.orientation = options.orientation;
-
     }
 
     /**

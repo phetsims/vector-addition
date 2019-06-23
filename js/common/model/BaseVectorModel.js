@@ -63,6 +63,7 @@ define( require => {
       this.attributesVectorProperty.dispose();
       this.tipPositionProperty.dispose();
     }
+
     /*---------------------------------------------------------------------------*
      * The Following are convenience Read/Write methods for ease of use.
      *---------------------------------------------------------------------------*/
@@ -73,7 +74,7 @@ define( require => {
      * @returns {Vector2} - the attributes vector
      */
     get attributesVector() { return this.attributesVectorProperty.value; }
-    
+
     /**
      * Set the attributes vector
      * @public
@@ -84,7 +85,7 @@ define( require => {
       assert && assert( attributesVector instanceof Vector2, `invalid attributesVector: ${attributesVector}` );
       this.attributesVectorProperty.value = attributesVector;
     }
-    
+
     //----------------------------------------------------------------------------------------
 
     /**
@@ -93,7 +94,7 @@ define( require => {
      * @returns {number}
      */
     get magnitude() { return this.attributesVector.magnitude; }
-    
+
     //----------------------------------------------------------------------------------------
     // Y component
 
