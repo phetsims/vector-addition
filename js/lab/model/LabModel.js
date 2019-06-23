@@ -10,16 +10,15 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const LabScene = require( 'VECTOR_ADDITION/lab/model/LabScene' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const VectorTypes = require( 'VECTOR_ADDITION/common/model/VectorTypes' );
 
   // constants
   const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
   const GRAPH_UPPER_LEFT_COORDINATE = VectorAdditionConstants.GRAPH_UPPER_LEFT_COORDINATE;
-
 
   class LabModel extends VectorAdditionModel {
     /**
@@ -28,50 +27,40 @@ define( require => {
      */
     constructor( tandem ) {
 
-      super( tandem );
-    }
+      // Create the TWO sum visible properties for lab
 
-    /**
-     * @override
-     * @private
-     * Create the Sum Visibility properties. Lab has 2 sum visible properties
-     */
-    createSumVisibilityProperties() {
+      const group1SumVisibleProperty = new BooleanProperty( false );
+      const group2SumVisibleProperty = new BooleanProperty( false );
 
-      // @public {BooleanProperty}
-      this.sumGroup1VisibleProperty = new BooleanProperty( false );
-      // @public {BooleanProperty}
-      this.sumGroup2VisibleProperty = new BooleanProperty( false );
-    }
+      super( [ group1SumVisibleProperty, group2SumVisibleProperty ], tandem );
 
-    /**
-     * @override
-     * @private
-     * Reset the Sum Visibility properties.
-     */
-    resetSumVisibilityProperties() {
-      this.sumGroup1VisibleProperty.reset();
-      this.sumGroup2VisibleProperty.reset();
-    }
+      // @public (read-only) {BooleanProperty} group1SumVisibleProperty
+      this.group1SumVisibleProperty = group1SumVisibleProperty;
 
-    /**
-     * @override
-     * Create the scenes for Lab
-     * Lab has one scene
-     */
-    createScenes() {
-      // @public (read-only) {Explore2DScene} - the horizontal scene
-      this.scene = new LabScene(
+      // @public (read-only) {BooleanProperty} group2SumVisibleProperty
+      this.group2SumVisibleProperty = group2SumVisibleProperty;
+
+
+      //----------------------------------------------------------------------------------------
+      // Add the only graph on lab
+
+      // @public (read-only)
+      this.graph = this.addGraph( 
         GRAPH_DIMENSION,
         GRAPH_UPPER_LEFT_COORDINATE,
-        this.componentStyleProperty,
-        GraphOrientations.TWO_DIMENSIONAL,
-        this.sumGroup1VisibleProperty,
-        this.sumGroup2VisibleProperty );
+        GraphOrientations.TWO_DIMENSIONAL );
 
-      this.scenes.push( this.scene );
+
+      //----------------------------------------------------------------------------------------
+      // The graph has TWO vector sets
+
+      this.graph.group1VectorSet = this.graph.addVectorSet(
+        this.componentStyleProperty, this.group1SumVisibleProperty, VectorTypes.ONE );
+
+      this.graph.group2VectorSet = this.graph.addVectorSet(
+        this.componentStyleProperty, this.group2SumVisibleProperty, VectorTypes.TWO );
+
     }
-
   }
 
   return vectorAddition.register( 'LabModel', LabModel );

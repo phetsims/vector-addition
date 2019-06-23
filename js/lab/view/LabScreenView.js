@@ -25,8 +25,8 @@ define( function( require ) {
       super( labModel, tandem );
 
       const graphControlPanel = new LabGraphControlPanel(
-        labModel.sumGroup1VisibleProperty,
-        labModel.sumGroup2VisibleProperty,
+        labModel.group1SumVisibleProperty,
+        labModel.group2SumVisibleProperty,
         labModel.valuesVisibleProperty,
         labModel.angleVisibleProperty,
         labModel.gridVisibleProperty,
@@ -39,9 +39,9 @@ define( function( require ) {
       this.addChild( graphControlPanel );
 
       const vectorCreatorPanel = new LabVectorCreatorPanel(
-        labModel.scene.groupOneVectorSet,
-        labModel.scene.groupTwoVectorSet,
-        labModel.scene.graph.modelViewTransformProperty );
+        labModel.graph.group1VectorSet,
+        labModel.graph.group2VectorSet,
+        labModel.graph.modelViewTransformProperty );
 
       this.addChild( vectorCreatorPanel );
     }
