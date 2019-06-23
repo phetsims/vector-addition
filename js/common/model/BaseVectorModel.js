@@ -78,8 +78,8 @@ define( require => {
     /**
      * Set the attributes vector
      * @public
-     * @param {Vector2} - attributesVector
-     * @returns {Vector2} - the attributes vector
+     * @param {Vector2} attributesVector
+     * @returns {Vector2} the attributes vector
      */
     set attributesVector( attributesVector ) {
       assert && assert( attributesVector instanceof Vector2, `invalid attributesVector: ${attributesVector}` );
