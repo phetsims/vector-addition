@@ -26,7 +26,7 @@ define( require => {
      * @constructor
      * @param {Graph} graph
      * @param {VectorAdditionModel} model
-     * @param {Object} [options]
+     * @param {Object} [inspectVectorPanelOption]
      */
     constructor( graph, model, inspectVectorPanelOptions ) {
 
