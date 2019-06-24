@@ -311,7 +311,7 @@ define( require => {
       ] );
     }
     /**
-     * reset the status of the Inspect Vector Panel
+     * Resets the status of the Inspect Vector Panel
      * @public
      */
     reset() {

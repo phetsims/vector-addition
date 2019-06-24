@@ -23,7 +23,7 @@ define( function( require ) {
     constructor( labModel, tandem ) {
 
       super( labModel, tandem, {
-        isOpen: true
+        isExpandedInitially: true
       } );
 
       const graphControlPanel = new LabGraphControlPanel(
