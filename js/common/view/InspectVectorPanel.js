@@ -74,8 +74,6 @@ define( require => {
       assert && assert( typeof options.isExpandedInitially === 'boolean',
         `invalid options.isExpandedInitially: ${options.isExpandedInitially}` );
 
-      //----------------------------------------------------------------------------------------
-
       // Create an arbitrary node as a reference to the content in the panel
       const panelContent = new Node();
 
@@ -97,7 +95,6 @@ define( require => {
       const panelContentWidth = CREATOR_PANEL_WIDTH
                                 - this.expandCollapseButton.right
                                 - EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN;
-
 
       // @private {Text}
       this.inspectVectorText = new Text( inspectAVectorString, {
@@ -131,11 +128,7 @@ define( require => {
         new AlignBox( this.vectorAttributesDisplayContainer, {
           xAlign: 'left',
           yAlign: 'center',
-          alignBounds: new Bounds2(
-            0,
-            0,
-            panelContentWidth,
-            CREATOR_PANEL_HEIGHT - 2 * CREATOR_PANEL_OPTIONS.yMargin ),
+          alignBounds: new Bounds2( 0, 0, panelContentWidth, CREATOR_PANEL_HEIGHT - 2 * CREATOR_PANEL_OPTIONS.yMargin ),
           centerY: this.centerY,
           left: this.expandCollapseButton.right + EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN
         } )
@@ -177,9 +170,7 @@ define( require => {
               this.displayVectorsAttributes( addedVector );
             }
           };
-
           addedVector.isActiveProperty.link( vectorActiveListener );
-
 
           const vectorRemovedListener = function( removedVector ) {
             if ( removedVector === addedVector ) {
@@ -187,7 +178,6 @@ define( require => {
               vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
             }
           };
-
           vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
         } );
       } );
@@ -204,61 +194,36 @@ define( require => {
       // text and create the new Nodes.
       if ( !this.hasDisplayedVectorAttributes ) {
         this.hasDisplayedVectorAttributes = true;
-
         this.selectVectorText.dispose();
 
         this.createDisplayVectorNodes();
       }
 
-      //----------------------------------------------------------------------------------------
-      // Magnitude
-
       this.magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${activeVector.label}\}\}|` );
 
       this.magnitudeDisplayNode.setChildren( [
-        new NumberDisplay(
-          activeVector.magnitudeProperty,
-          new Range( 0, 100 ), {
-            decimalPlaces: 1
-          } )
-      ] );
-
-      //----------------------------------------------------------------------------------------
-      // Angle
+        new NumberDisplay( activeVector.magnitudeProperty, new Range( 0, 100 ), {
+          decimalPlaces: 1
+        } ) ] );
 
       this.angleDisplayNode.setChildren( [
-        new NumberDisplay(
-          activeVector.angleDegreesProperty,
-          new Range( -180, 180 ), {
-            decimalPlaces: 1
-          } )
-      ] );
-
-      //----------------------------------------------------------------------------------------
-      // X component
+        new NumberDisplay( activeVector.angleDegreesProperty, new Range( -180, 180 ), {
+          decimalPlaces: 1
+        } ) ] );
 
       this.xComponentText.setText( `${activeVector.label}<sub>${xString}</sub>` );
 
       this.xComponentDisplayNode.setChildren( [
-        new NumberDisplay(
-          activeVector.xComponentProperty,
-          new Range( -60, 60 ), {
-            decimalPlaces: 0
-          } )
-      ] );
-
-      //----------------------------------------------------------------------------------------
-      // Y component 
+        new NumberDisplay( activeVector.xComponentProperty, new Range( -60, 60 ), {
+          decimalPlaces: 0
+        } ) ] );
 
       this.yComponentText.setText( `${activeVector.label}<sub>${yString}</sub>` );
 
       this.yComponentDisplayNode.setChildren( [
-        new NumberDisplay(
-          activeVector.yComponentProperty,
-          new Range( -40, 40 ), {
-            decimalPlaces: 0
-          } )
-      ] );
+        new NumberDisplay( activeVector.yComponentProperty, new Range( -40, 40 ), {
+          decimalPlaces: 0
+        } ) ] );
     }
 
     /**
@@ -267,57 +232,33 @@ define( require => {
      */
     createDisplayVectorNodes( activeVector ) {
 
-      //----------------------------------------------------------------------------------------
-      // Magnitude
-
       // @private {FormulaNode}
-      this.magnitudeTextNode = new FormulaNode( '', {
-        maxWidth: LABEL_WIDTH
-      } );
+      this.magnitudeTextNode = new FormulaNode( '', { maxWidth: LABEL_WIDTH } );
 
       // @private {Node} - arbitrary node for now
       this.magnitudeDisplayNode = new Node();
 
-      this.addNumberDisplayAndLabel( this.magnitudeTextNode, this.magnitudeDisplayNode );
-
-      //----------------------------------------------------------------------------------------
-      // Angle
-
       // @private {RichText}
-      this.angleText = new RichText( MathSymbols.THETA, {
-        maxWidth: LABEL_WIDTH
-      } );
+      this.angleText = new RichText( MathSymbols.THETA, { maxWidth: LABEL_WIDTH } );
 
       // @private {Node}
       this.angleDisplayNode = new Node();
 
-      this.addNumberDisplayAndLabel( this.angleText, this.angleDisplayNode );
-
-
-      //----------------------------------------------------------------------------------------
-      // X Component
-
       // @private {RichText}
-      this.xComponentText = new RichText( '', {
-        maxWidth: LABEL_WIDTH
-      } );
+      this.xComponentText = new RichText( '', { maxWidth: LABEL_WIDTH } );
 
       // @private {Node}
       this.xComponentDisplayNode = new Node();
 
-      this.addNumberDisplayAndLabel( this.xComponentText, this.xComponentDisplayNode );
-
-      //----------------------------------------------------------------------------------------
-      // Y Component
-
       // @private {RichText}
-      this.yComponentText = new RichText( '', {
-        maxWidth: LABEL_WIDTH
-      } );
+      this.yComponentText = new RichText( '', { maxWidth: LABEL_WIDTH } );
 
       // @private {Node}
       this.yComponentDisplayNode = new Node();
 
+      this.addNumberDisplayAndLabel( this.magnitudeTextNode, this.magnitudeDisplayNode );
+      this.addNumberDisplayAndLabel( this.angleText, this.angleDisplayNode );
+      this.addNumberDisplayAndLabel( this.xComponentText, this.xComponentDisplayNode );
       this.addNumberDisplayAndLabel( this.yComponentText, this.yComponentDisplayNode );
     }
 
@@ -327,26 +268,16 @@ define( require => {
      * @private
      */
     addNumberDisplayAndLabel( label, numberDisplayContainer ) {
-
-      //----------------------------------------------------------------------------------------
       // Make the label have a 'fixed' width
       const fixedWidthLabel = new AlignBox( label, {
         xAlign: 'center',
         yAlign: 'center',
-        alignBounds: new Bounds2(
-          0,
-          0,
-          LABEL_WIDTH,
-          this.height ),
+        alignBounds: new Bounds2( 0, 0, LABEL_WIDTH, this.height ),
         maxWidth: LABEL_WIDTH
       } );
-
       this.vectorAttributesDisplayContainer.addChild( new HBox( {
         spacing: LABEL_RIGHT_MARGIN,
-        children: [
-          fixedWidthLabel,
-          numberDisplayContainer
-        ]
+        children: [ fixedWidthLabel, numberDisplayContainer ]
       } ) );
     }
 
@@ -360,10 +291,7 @@ define( require => {
       // See https://github.com/phetsims/vector-addition/issues/38, remove the nodes
       this.hasDisplayedVectorAttributes = false;
 
-      this.selectVectorText = new Text( selectAVectorString, {
-        font: PANEL_FONT
-      } );
-
+      this.selectVectorText = new Text( selectAVectorString, { font: PANEL_FONT } );
       this.vectorAttributesDisplayContainer.setChildren( [ this.selectVectorText ] );
     }
   }
