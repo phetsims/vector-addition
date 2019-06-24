@@ -35,9 +35,8 @@ define( require => {
   const yString = require( 'string!VECTOR_ADDITION/y' );
 
   // constants
-  const CREATOR_PANEL_WIDTH = 430;
+  const CREATOR_PANEL_WIDTH = 450;
   const CREATOR_PANEL_HEIGHT = 50;
-
   const CREATOR_PANEL_OPTIONS = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
     cornerRadius: 5,
     xMargin: 7,
@@ -48,12 +47,15 @@ define( require => {
     fill: VectorAdditionColors.INSPECT_VECTOR_BACKGROUND,
     stroke: VectorAdditionColors.PANEL_STROKE_COLOR
   } );
-
   const EXPAND_COLLAPSE_BUTTON_OPTIONS = {
     sideLength: 21
   };
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-  const EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN = 10;
+  const EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN = 15;
+  const LABEL_RIGHT_MARGIN = 9;
+  const LABEL_LEFT_MARGIN = 21;
+
+  const LABEL_WIDTH = 16;
 
   class InspectVectorPanel extends Panel {
     /**
@@ -74,10 +76,8 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      const panelContent = new AlignBox( new Node(), {
-        xAlign: 'center',
-        yAlign: 'center'
-      } );
+      // Create an arbitrary node as a reference to the content in the panel
+      const panelContent = new Node();
 
       super( panelContent, CREATOR_PANEL_OPTIONS );
 
@@ -93,24 +93,33 @@ define( require => {
           centerY: this.centerY
         } ) );
 
+      // Convenience variable of the panel content width (width of the creator panel excluding the collapse button)
+      const panelContentWidth = CREATOR_PANEL_WIDTH
+                                - this.expandCollapseButton.right
+                                - EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN;
+
+
       // @private {Text}
       this.inspectVectorText = new Text( inspectAVectorString, {
         font: PANEL_FONT,
         centerY: this.centerY,
-        left: this.expandCollapseButton.right + EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN
+        left: this.expandCollapseButton.right + EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN,
+        maxWidth: panelContentWidth
       } );
 
       // @private {Text}
       this.selectVectorText = new Text( selectAVectorString, {
-        font: PANEL_FONT
+        font: PANEL_FONT,
+        maxWidth: panelContentWidth
       } );
 
       // @private {HBox} - this is the container for the attributes of the vector (i.e. magnitude, angle, x and
       // y components)
       this.vectorAttributesDisplayContainer = new HBox( {
-        spacing: 15,
+        spacing: LABEL_LEFT_MARGIN,
         align: 'center',
-        children: [ this.selectVectorText ]
+        children: [ this.selectVectorText ],
+        maxWidth: panelContentWidth
       } );
 
       //----------------------------------------------------------------------------------------
@@ -118,14 +127,14 @@ define( require => {
       panelContent.setChildren( [
         this.expandCollapseButton,
         this.inspectVectorText,
-        // Constrain the size of this.vectorAttributesDisplayContainer
+        // Constrain the size of vectorAttributesDisplayContainer
         new AlignBox( this.vectorAttributesDisplayContainer, {
           xAlign: 'left',
           yAlign: 'center',
           alignBounds: new Bounds2(
             0,
             0,
-            CREATOR_PANEL_WIDTH - this.expandCollapseButton.right - EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN,
+            panelContentWidth,
             CREATOR_PANEL_HEIGHT - 2 * CREATOR_PANEL_OPTIONS.yMargin ),
           centerY: this.centerY,
           left: this.expandCollapseButton.right + EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN
@@ -140,7 +149,7 @@ define( require => {
         this.vectorAttributesDisplayContainer.visible = isExpanded;
       } );
 
-      // @private {boolean} flag to indicate if this panel has displayed a vector's attributes
+      // @private {boolean} flag to indicate if this panel has ever displayed a vector's attributes
       this.hasDisplayedVectorAttributes = false;
     
 
@@ -259,56 +268,82 @@ define( require => {
       // Magnitude
 
       // @private {FormulaNode}
-      this.magnitudeTextNode = new FormulaNode( '' );
+      this.magnitudeTextNode = new FormulaNode( '', {
+        maxWidth: LABEL_WIDTH
+      } );
 
       // @private {Node} - arbitrary node for now
       this.magnitudeDisplayNode = new Node();
+
+      this.addNumberDisplayAndLabel( this.magnitudeTextNode, this.magnitudeDisplayNode );
 
       //----------------------------------------------------------------------------------------
       // Angle
 
       // @private {RichText}
-      this.angleText = new RichText( MathSymbols.THETA );
+      this.angleText = new RichText( MathSymbols.THETA, {
+        maxWidth: LABEL_WIDTH
+      } );
 
       // @private {Node}
       this.angleDisplayNode = new Node();
+
+      this.addNumberDisplayAndLabel( this.angleText, this.angleDisplayNode );
+
 
       //----------------------------------------------------------------------------------------
       // X Component
 
       // @private {RichText}
-      this.xComponentText = new RichText( '' );
+      this.xComponentText = new RichText( '', {
+        maxWidth: LABEL_WIDTH
+      } );
      
       // @private {Node}
       this.xComponentDisplayNode = new Node();
+
+      this.addNumberDisplayAndLabel( this.xComponentText, this.xComponentDisplayNode );
+
       //----------------------------------------------------------------------------------------
       // Y Component
 
       // @private {RichText}
-      this.yComponentText = new RichText( '' );
+      this.yComponentText = new RichText( '', {
+        maxWidth: LABEL_WIDTH
+      } );
 
       // @private {Node}
       this.yComponentDisplayNode = new Node();
 
+      this.addNumberDisplayAndLabel( this.yComponentText, this.yComponentDisplayNode );
+    }
+    /**
+     * Adds a HBox of the label and the number display container
+     * Makes the label have a 'fixed' width
+     * @private
+     */
+    addNumberDisplayAndLabel( label, numberDisplayContainer ) {
 
-      this.vectorAttributesDisplayContainer.setChildren( [
-        new HBox( {
-          spacing: 8,
-          children: [ this.magnitudeTextNode, this.magnitudeDisplayNode ]
-        } ),
-        new HBox( {
-          spacing: 8,
-          children: [ this.angleText, this.angleDisplayNode ]
-        } ),
-        new HBox( {
-          spacing: 8,
-          children: [ this.xComponentText, this.xComponentDisplayNode ]
-        } ),
-        new HBox( {
-          spacing: 8,
-          children: [ this.yComponentText, this.yComponentDisplayNode ]
-        } )
-      ] );
+      //----------------------------------------------------------------------------------------
+      // Make the label have a 'fixed' width
+      const fixedWidthLabel = new AlignBox( label, {
+        xAlign: 'center',
+        yAlign: 'center',
+        alignBounds: new Bounds2(
+          0,
+          0,
+          LABEL_WIDTH,
+          this.height ),
+        maxWidth: LABEL_WIDTH
+      } );
+
+      this.vectorAttributesDisplayContainer.addChild( new HBox( {
+        spacing: LABEL_RIGHT_MARGIN,
+        children: [
+          fixedWidthLabel,
+          numberDisplayContainer
+        ]
+      } ) );
     }
     /**
      * Resets the status of the Inspect Vector Panel
@@ -325,7 +360,6 @@ define( require => {
       } );
 
       this.vectorAttributesDisplayContainer.setChildren( [ this.selectVectorText ] );
-
     }
   }
 
