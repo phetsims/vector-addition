@@ -163,10 +163,12 @@ define( require => {
           }
         };
 
-        // Observe changes to the vector sum, when it is active, display it
+        // Observe changes to the vector sum, when it is active, display it.
+        // Doesn't need to be unlinked because 1. VectorSets cannot be disposed and 2. vectorSums are never disposed
         vectorSet.vectorSum.isActiveProperty.link( vectorSumActiveListener );
 
         // Observe changes to the vectors, when an item is added, add a link to display the vector when it's active
+        // No need to remove itemAddedListener because VectorSets cannot be disposed
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
 
           const vectorActiveListener = ( isActive ) => {
@@ -365,4 +367,3 @@ define( require => {
 
   return vectorAddition.register( 'InspectVectorPanel', InspectVectorPanel );
 } );
-
