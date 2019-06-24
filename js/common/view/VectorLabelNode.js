@@ -157,7 +157,7 @@ define( require => {
         this.label.center =
           this.modelViewTransformProperty.value.modelToViewDelta( midPosition.plus( offset ) );
       }
-      this.label.invalidateDOM();
+
       this.resizeBackground();
     }
 
@@ -167,7 +167,7 @@ define( require => {
      */
     resizeBackground() {
 
-      const labelBounds = this.label.calculateDOMBounds();
+      const labelBounds = this.label.getSafeSelfBounds();
 
       const labelWidth = labelBounds.width;
       const labelHeight = labelBounds.height;
