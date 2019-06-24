@@ -11,6 +11,7 @@
  * This vector component updates its tail/tip based on the:
  *  1. The component style enumeration property
  *  2. Parent vector's changing tail/tip
+ *
  * @author Brandon Li
  */
 
@@ -23,7 +24,6 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  // @abstract
   class VectorComponent extends BaseVectorModel {
     /**
      * @constructor
@@ -33,12 +33,16 @@ define( require => {
     constructor( parentVector, componentStyleProperty ) {
 
       // Type check arguments
+      assert && assert( parentVector instanceof BaseVectorModel, `invalid parentVector: ${parentVector}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty,
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
 
-      super( parentVector.tailPositionProperty.value, 0, 0, parentVector.vectorGroup );
+      super( parentVector.tail, 0, 0, parentVector.vectorGroup );
+
+      // @public (read-only) {BaseVectorModel} parentVector - reference the parent vector
+      this.parentVector = parentVector;
 
       // @private observe changes of the parent to update component (abstract)
       this.updateLayoutMultilink = Property.multilink( [
@@ -48,16 +52,12 @@ define( require => {
           // No need to listen to the modelViewTransformProperty since the parentVector will update its position when 
           // modelViewTransformProperty changes
         ], ( componentStyle ) => {
-          this.updateComponent( parentVector, componentStyle );
-        }
-      );
-
-      // @public (read-only) reference to the parent vector
-      this.parentVector = parentVector;
+          this.updateComponent( componentStyle );
+        } );
     }
 
     /**
-     * Dispose of the vector
+     * Disposes the vector component
      * @public
      * @override
      */
@@ -67,14 +67,14 @@ define( require => {
     }
 
     /**
-     * Update the tail, and attributes vector (which will update the tip and magnitude)
-     * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
-     * @param {ComponentStyles} componentStyle
      * @abstract
+     * Updates the tail, and attributes vector (which will update the tip and magnitude) when the component style changes
+     * or the parent's tail/tip changes
+     * @param {ComponentStyles} componentStyle
      * @private
      */
-    updateComponent( parentVector, componentStyle ) {
-      throw new Error( 'Update Component must be implemented by sub-classes of VectorComponent' );
+    updateComponent( componentStyle ) {
+      throw new Error( 'updateComponent must be implemented by sub-classes of VectorComponent' );
     }
   }
 

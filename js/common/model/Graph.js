@@ -103,7 +103,7 @@ define( require => {
     }
 
     /**
-     * Reset the graph
+     * Resets the graph
      * @public
      */
     reset() {

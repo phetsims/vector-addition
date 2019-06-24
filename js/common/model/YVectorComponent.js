@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a Y Vector Component.
+ * Model for a vector's y component, which is also a vector.
  *
  * @author Brandon Li
  */
@@ -14,35 +14,38 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
 
-
   class YVectorComponent extends VectorComponent {
+
     /**
-     * Update the tail, and attributes vector (which will update the tip and magnitude)
      * @override
-     * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
+     * Updates the tail, and attributes vector (which will update the tip and magnitude) when the component style changes
+     * or the parent's tail/tip changes
      * @param {ComponentStyles} componentStyle
+     * @private
      */
-    updateComponent( parentVector, componentStyle ) {
+    updateComponent( componentStyle ) {
 
       // In all cases, the yComponent is always matching the parent and the xComponent is 0
-      this.yComponent = parentVector.yComponent;
+      this.yComponent = this.parentVector.yComponent;
       this.xComponent = 0;
 
       switch( componentStyle ) {
         case ComponentStyles.TRIANGLE: {
-          this.setTailXY( parentVector.tipX, parentVector.tailY );
+
+          // Creates the triangle, tipX to tailY
+          this.setTailXY( this.parentVector.tipX, this.parentVector.tailY );
           break;
         }
         case ComponentStyles.PARALLELOGRAM: {
 
-          // shared tail position
-          this.tail = parentVector.tail;
+          // Shared tail position as parent
+          this.tail = this.parentVector.tail;
           break;
         }
         case ComponentStyles.ON_AXIS: {
 
-          // same tail y, however its x value is 0 since it is on the y-axis
-          this.tailY = parentVector.tailY;
+          // Same tailY, however its x value is 0 since it is on the y-axis
+          this.tailY = this.parentVector.tailY;
           this.tailX = 0;
           break;
         }

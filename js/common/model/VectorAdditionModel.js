@@ -71,12 +71,12 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Graphs
 
-      // @public {array.<Graph>} graphs - array of the graphs, see addGraph for documentation to add a graph
+      // @public {array.<Graph>} graphs - array of the graphs, see addGraph() to add a graph
       this.graphs = [];
     }
 
     /**
-     * Add a graph to the model
+     * Adds a graph to the model
      * @param {Dimension2} graphDimension - the dimensions for the graph (width and height)
      * @param {Vector2} upperLeftPosition - the coordinate of the upperLeft corner of the graph.
      * @param {GraphOrientations} orientation - the orientation of the graph
@@ -86,13 +86,14 @@ define( require => {
     addGraph( graphDimension, upperLeftPosition, orientation ) {
 
       const newGraph = new Graph( graphDimension, upperLeftPosition, orientation );
+
       this.graphs.push( newGraph );
       return newGraph;
     }
 
     /**
      * @public
-     * Reset the VectorAdditionModel
+     * Resets the VectorAdditionModel
      */
     reset() {
 
