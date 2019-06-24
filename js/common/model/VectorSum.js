@@ -80,7 +80,7 @@ define( require => {
     }
 
     /**
-     * The sum is never disposed. Check to make sure the sum isn't disposed. 
+     * The sum is never disposed. Check to make sure the sum isn't disposed.
      * @public
      * @override
      */

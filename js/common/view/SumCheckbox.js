@@ -12,11 +12,11 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Checkbox = require( 'SUN/Checkbox' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   const TEXT_OPTIONS = {

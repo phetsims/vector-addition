@@ -10,10 +10,10 @@ define( require => {
 
   // modules
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   // constants
   const VECTOR_GROUP_1_SUM = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {

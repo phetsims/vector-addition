@@ -10,10 +10,10 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants

@@ -9,10 +9,10 @@ define( require => {
   'use strict';
 
   // modules
-  // const EquationScreen = require( 'VECTOR_ADDITION/equation/EquationScreen' );
-  const LabScreen = require( 'VECTOR_ADDITION/lab/LabScreen' );
+  const EquationScreen = require( 'VECTOR_ADDITION/equation/EquationScreen' );
   const Explore1DScreen = require( 'VECTOR_ADDITION/explore1D/Explore1DScreen' );
   const Explore2DScreen = require( 'VECTOR_ADDITION/explore2D/Explore2DScreen' );
+  const LabScreen = require( 'VECTOR_ADDITION/lab/LabScreen' );
   const Sim = require( 'JOIST/Sim' );
   const SimLauncher = require( 'JOIST/SimLauncher' );
   const Tandem = require( 'TANDEM/Tandem' );
@@ -39,8 +39,8 @@ define( require => {
     const sim = new Sim( vectorAdditionTitleString, [
       new Explore1DScreen( Tandem.rootTandem.createTandem( 'explore1DScreen' ) ),
       new Explore2DScreen( Tandem.rootTandem.createTandem( 'explore2DScreen' ) ),
-      new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) )
-      // new EquationScreen( Tandem.rootTandem.createTandem( 'equationScreen' ) )
+      new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) ),
+      new EquationScreen( Tandem.rootTandem.createTandem( 'equationScreen' ) )
     ], simOptions );
     sim.start();
   } );

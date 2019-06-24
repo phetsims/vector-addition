@@ -11,13 +11,13 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const GridCheckbox = require( 'VECTOR_ADDITION/common/view/GridCheckbox' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
+  const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const Panel = require( 'SUN/Panel' );
 
   // constants
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;

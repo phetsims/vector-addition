@@ -39,12 +39,9 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
-      // Get the largest icon
-      const icons = [];
-
-      ComponentStyles.VALUES.forEach( componentStyle => {
-        icons.push( VectorAdditionIconFactory.createComponentStyleIcon( componentStyle ) );
-      } );
+      // content array for all the scenery component style icons
+      const icons = ComponentStyles.VALUES.map( componentStyle =>
+        VectorAdditionIconFactory.createComponentStyleIcon( componentStyle ) );
 
       //----------------------------------------------------------------------------------------
       // Gather the options and the max width
