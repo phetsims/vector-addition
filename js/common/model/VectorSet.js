@@ -1,11 +1,12 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a vectorSet. A vectorSet has two things: the vectors (ObservableArray), and a vectorSum.
- * Each scene, has an unknown amount of vectorSets.
+ * Model for a 'VectorSet,' which contains two things: a vector observable array, and a vectorSum of those vectors.
+ * Each graph has an unknown amount of vectorSets.
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -18,9 +19,9 @@ define( require => {
   const ObservableArray = require( 'AXON/ObservableArray' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   class VectorSet {
 
@@ -30,12 +31,16 @@ define( require => {
      * transform of the graph
      * @param {Bounds2} graphModelBounds - the graph bounds (model coordinates)
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty
+     * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible property
      * @param {VectorGroups} vectorGroup
      */
-    constructor( modelViewTransformProperty, graphModelBounds, componentStyleProperty, sumVisibleProperty, vectorGroup ) {
+    constructor( 
+      modelViewTransformProperty,
+      graphModelBounds,
+      componentStyleProperty,
+      sumVisibleProperty,
+      vectorGroup ) {
 
-      // Type check arguments
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
@@ -49,7 +54,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public {ObservableArray.<VectorModel>} - the vectors that appear on the graph (not including the sum vector)
+      // @public {ObservableArray.<VectorModel>} vectors
       this.vectors = new ObservableArray();
 
       // @public {VectorModel} the vector sum model
@@ -63,25 +68,22 @@ define( require => {
       // @public {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
       this.vectorGroup = vectorGroup;
 
-      // @public {BooleanProperty}
+      // @public {BooleanProperty} sumVisibleProperty - one vectorSet can only have on sum visible property
       this.sumVisibleProperty = sumVisibleProperty;
 
-
       //----------------------------------------------------------------------------------------
-      // Create references
+      // Create references to parameters
 
       // @private {Property.<ModelViewTransform>}
       this.modelViewTransformProperty = modelViewTransformProperty;
 
       // @private {Property.<ComponentStyles>}
       this.componentStyleProperty = componentStyleProperty;
-
-
     }
 
     /**
      * @public
-     * Add a vector to this.vectors
+     * Adds a 'normal' VectorModel to the vector observable array.
      * @param {Vector2} tailPosition
      * @param {number} xComponent
      * @param {number} yComponent
@@ -99,8 +101,7 @@ define( require => {
         this.vectorGroup,
         options );
 
-      // Active the new vector
-      newVector.isActiveProperty.value = true;
+      newVector.activate();
 
       this.vectors.push( newVector );
       return newVector;
@@ -108,13 +109,11 @@ define( require => {
 
     /**
      * @public
-     * Reset the vector set
+     * Resets the vector set
      */
     reset() {
       this.vectors.clear();
     }
-
-
   }
 
   return vectorAddition.register( 'VectorSet', VectorSet );

@@ -5,6 +5,7 @@
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -23,7 +24,6 @@ define( require => {
      * @constructor
      * @param {BooleanProperty} angleVisibleProperty
      * @param {Object} [options]
-     * Create the angle visibility checkbox
      */
     constructor( angleVisibleProperty, options ) {
 
@@ -38,7 +38,6 @@ define( require => {
       super( VectorAdditionIconFactory.createAngleIcon(), angleVisibleProperty, options );
 
     }
-
   }
 
   return vectorAddition.register( 'AngleCheckbox', AngleCheckbox );

@@ -10,12 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const Dimension2 = require( 'DOT/Dimension2' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const Dimension2 = require( 'DOT/Dimension2' );
-  const Vector2 = require( 'DOT/Vector2' );
 
   //----------------------------------------------------------------------------------------
   // for all panel-like containers
@@ -70,7 +70,6 @@ define( function( require ) {
     GRAPH_DIMENSION: new Dimension2( 60, 40 ),
     GRAPH_UPPER_LEFT_COORDINATE: new Vector2( -5, 35 ),
 
-
     //----------------------------------------------------------------------------------------
     // Defaults for all vector arrow nodes
     VECTOR_OPTIONS: {
@@ -81,13 +80,11 @@ define( function( require ) {
       cursor: 'move'
     },
 
-
     // Default vector group for Explore1D, Explore2D and Equation.
     DEFAULT_VECTOR_GROUP: VectorGroups.ONE,
 
     // side length of the arrow when initially dropped onto the graph.
     INITIAL_ARROW_SIDE_LENGTH: 5
-
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );
