@@ -62,20 +62,20 @@ define( require => {
 
       super();
 
+      // @private {number}
+      this.radiusOfArc = radius;
+      
+      // @private {number}
+      this.angleOfArc = angle;
+
       // @private {Vector2} the center that the arc revolves around
-      this._revolvedPoint = options.center;
-
-      // @private {number} the angle (degrees) that the arc arrow is at
-      this._angle = angle;
-
-      // @private {number} the radius of the arc
-      this._radius = radius;
+      this.revolvedPoint = options.center;
 
       // @private {boolean} include the arrowhead
-      this._arrowheadIncluded = options.includeArrowhead;
+      this.arrowheadIncluded = options.includeArrowhead;
 
       // @private {number}
-      this._arrowheadHeight = options.arrowheadHeight;
+      this.arrowheadHeight = options.arrowheadHeight;
 
       //----------------------------------------------------------------------------------------
 
@@ -83,7 +83,7 @@ define( require => {
       const arcShape = new Shape();
 
       // @private {Path} the path for the arc shape
-      this._arcPath = new Path( arcShape, options.arcOptions );
+      this.arcPath = new Path( arcShape, options.arcOptions );
 
       //----------------------------------------------------------------------------------------
 
@@ -100,15 +100,15 @@ define( require => {
         .close();
 
       // @private {Path} the path for the arrowHead shape
-      this._arrowheadPath = new Path( arrowheadShape, options.arrowOptions );
+      this.arrowheadPath = new Path( arrowheadShape, options.arrowOptions );
 
       //----------------------------------------------------------------------------------------
 
       // Add children the paths to the scene graphs
-      this.setChildren( [ this._arcPath, this._arrowheadPath ] );
+      this.setChildren( [ this.arcPath, this.arrowheadPath ] );
 
       // Set the position and rotation of the arrowhead and the sweep of the arc
-      this.setAngleAndRadius( angle, radius, this._arrowheadIncluded );
+      this.setAngleAndRadius( angle, radius, this.arrowheadIncluded );
     }
 
     /**
@@ -117,7 +117,7 @@ define( require => {
      * @public
      */
     set angle( angle ) {
-      this.setAngleAndRadius( angle, this._radius );
+      this.setAngleAndRadius( angle, this.radiusOfArc );
     }
 
     /**
@@ -126,7 +126,7 @@ define( require => {
      * @public
      */
     set radius( radius ) {
-      this.setAngleAndRadius( this._angle, radius );
+      this.setAngleAndRadius( this.angleOfArc, radius );
     }
 
     /**
@@ -135,8 +135,8 @@ define( require => {
      * @private
      */
     set arrowheadVisibility( visible ) {
-      this._arrowheadIncluded = visible;
-      this._arrowheadPath.visible = visible;
+      this.arrowheadIncluded = visible;
+      this.arrowheadPath.visible = visible;
     }
 
     /**
@@ -150,10 +150,9 @@ define( require => {
       assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
 
-      // Reassign angle and radius
-      this._angle = angle;
-      this._radius = radius;
-
+      this.radiusOfArc = radius;
+      this.angleOfArc = radius;
+      
       // Convert the angle to radians
       const angleInRadians = Util.toRadians( angle );
 
@@ -162,7 +161,7 @@ define( require => {
 
       // The arrowhead subtended angle is defined as the angle between the vector from the center to the tip of the
       // arrow and the vector of the center to first point the arc and the triangle intersect
-      const arrowheadSubtentedAngle = Math.asin( this._arrowheadHeight / radius );
+      const arrowheadSubtentedAngle = Math.asin( this.arrowheadHeight / radius );
 
       // Change the arrowhead visibility to false when the angle is too small relative to the subtended angle and true
       // otherwise
@@ -177,23 +176,23 @@ define( require => {
 
       // Create the arc shape
       const arcShape = new Shape().arcPoint(
-        this._revolvedPoint,
+        this.revolvedPoint,
         radius,
         0,
-        this._arrowheadIncluded ? -correctedAngle : -angleInRadians, isAnticlockwise );
+        this.arrowheadIncluded ? -correctedAngle : -angleInRadians, isAnticlockwise );
 
-      this._arcPath.setShape( arcShape );
+      this.arcPath.setShape( arcShape );
 
       // Adjust the position and angle of arrowhead. Rotate the arrowhead from the tip into the correct position from
       // the original angle
-      this._arrowheadPath.setRotation( isAnticlockwise ?
-                                       -angleInRadians :
-                                       -angleInRadians + Math.PI );
+      this.arrowheadPath.setRotation( isAnticlockwise ?
+                                      -angleInRadians :
+                                      -angleInRadians + Math.PI );
 
       // Translate the tip of arrowhead to the tip of the arc.
-      this._arrowheadPath.setTranslation(
-        this._revolvedPoint.x + Math.cos( this._arrowheadIncluded ? correctedAngle : angleInRadians ) * radius,
-        this._revolvedPoint.y - Math.sin( this._arrowheadIncluded ? correctedAngle : angleInRadians ) * radius
+      this.arrowheadPath.setTranslation(
+        this.revolvedPoint.x + Math.cos( this.arrowheadIncluded ? correctedAngle : angleInRadians ) * radius,
+        this.revolvedPoint.y - Math.sin( this.arrowheadIncluded ? correctedAngle : angleInRadians ) * radius
       );
     }
   }
