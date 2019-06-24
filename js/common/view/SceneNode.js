@@ -28,7 +28,7 @@ define( require => {
      * @param {VectorAdditionModel} model
      * options
      */
-    constructor( graph, model ) {
+    constructor( graph, model, inspectVectorPanelPptions ) {
 
       super();
 
@@ -39,7 +39,7 @@ define( require => {
       this.graphNode = new GraphNode( graph, model.gridVisibleProperty );
 
       // @private {InspectVectorPanel} Create the vector display panel
-      this.inspectVectorPanel = new InspectVectorPanel( graph.vectorSets );
+      this.inspectVectorPanel = new InspectVectorPanel( graph.vectorSets, inspectVectorPanelPptions );
 
       // set the panel in the correct location
       this.inspectVectorPanel.left = VECTOR_DISPLAY_PANEL_LOCATION_LEFT;

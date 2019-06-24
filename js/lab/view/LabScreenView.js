@@ -22,7 +22,9 @@ define( function( require ) {
      */
     constructor( labModel, tandem ) {
 
-      super( labModel, tandem );
+      super( labModel, tandem, {
+        isOpen: true
+      } );
 
       const graphControlPanel = new LabGraphControlPanel(
         labModel.group1SumVisibleProperty,

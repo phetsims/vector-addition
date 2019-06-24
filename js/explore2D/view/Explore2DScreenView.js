@@ -22,7 +22,9 @@ define( function( require ) {
      */
     constructor( explore2DModel, tandem ) {
 
-      super( explore2DModel, tandem );
+      super( explore2DModel, tandem, {
+        isOpen: true
+      } );
 
       const graphControlPanel = new Explore2DGraphControlPanel(
         explore2DModel.sumVisibleProperty,

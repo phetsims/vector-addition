@@ -26,7 +26,6 @@ define( require => {
 
   // constants
   const VECTOR_PANEL_OPTIONS = {
-    expandedProperty: new BooleanProperty( false ), // {Property.<boolean>}
     yMargin: 12,
     cornerRadius: 5,
     minWidth: 430,
@@ -52,14 +51,21 @@ define( require => {
 
     /**
      * @param {Array.<VectorSet>} vectorSets
+     * @param {Object} [options]
      */
-    constructor( vectorSets ) {
+    constructor( vectorSets, options ) {
+
+      options = _.extend( {
+        isOpen: false
+      }, options );
 
       // node that is passed to the superclass (panel)
       const contentNode = new Node();
 
+      const expandedProperty = new BooleanProperty( options.isOpen );
+
       // create a button node to collapse/expand the panel
-      const expandCollapseButton = new ExpandCollapseButton( VECTOR_PANEL_OPTIONS.expandedProperty, {
+      const expandCollapseButton = new ExpandCollapseButton( expandedProperty, {
         sideLength: 21
       } );
 
@@ -92,8 +98,10 @@ define( require => {
         displayVectorNode
       ] );
 
+
       super( contentNode, VECTOR_PANEL_OPTIONS );
 
+      this.expandedProperty = expandedProperty;
       // @private {LayoutBox} displayVectorNode - create a reference to the layout box
       this.displayVectorNode = displayVectorNode;
 
@@ -104,7 +112,7 @@ define( require => {
         // TODO: toggle the selectVectorText visibility
       };
 
-      VECTOR_PANEL_OPTIONS.expandedProperty.link( expandedObserver );
+      expandedProperty.link( expandedObserver );
 
       const updateInspectVectorPanel = ( activeVector ) => {
 
@@ -209,7 +217,7 @@ define( require => {
      * @public
      */
     reset() {
-      VECTOR_PANEL_OPTIONS.expandedProperty.reset();
+      this.expandedProperty.reset();
     }
   }
 

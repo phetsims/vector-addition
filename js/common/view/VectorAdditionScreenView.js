@@ -20,7 +20,7 @@ define( require => {
      * @param {VectorAdditionModel} vectorAdditionModel
      * @param {Tandem} tandem
      */
-    constructor( vectorAdditionModel, tandem ) {
+    constructor( vectorAdditionModel, tandem, sceneNodeOptions ) {
 
       super();
 
@@ -29,7 +29,7 @@ define( require => {
       vectorAdditionModel.graphs.forEach( ( graph ) => {
 
         // create a scene node and add it as a child
-        const newSceneNode = new SceneNode( graph, vectorAdditionModel );
+        const newSceneNode = new SceneNode( graph, vectorAdditionModel, sceneNodeOptions );
         this.addChild( newSceneNode );
 
         graph.sceneNode = newSceneNode;
