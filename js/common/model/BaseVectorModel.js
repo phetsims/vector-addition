@@ -6,7 +6,7 @@
  *
  *  - tip and tail position properties
  *  - 'attributes property' (x and y, or in other words the actual vector <x, y>)
- *  - vector group (see VectorGroups.js for documentation)
+ *  - vector group (See VectorGroups.js)
  *
  * @author Brandon Li
  */
@@ -27,7 +27,7 @@ define( require => {
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
-     * @param {VectorGroups} vectorGroup - the vector group. (See VectorGroups.js)
+     * @param {VectorGroups} vectorGroup - the vector group (see VectorGroups.js)
      */
     constructor( initialTailPosition, xComponent, yComponent, vectorGroup ) {
 
@@ -41,7 +41,7 @@ define( require => {
       // @public (read-only) {VectorGroups}
       this.vectorGroup = vectorGroup;
 
-      // @public (read-only) {Vector2Property} - The tail position of the vector on the graph.
+      // @public (read-only) {Vector2Property} - the tail position of the vector on the graph
       this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
       // @public (read-only) {Vector2Property} - (x and y, or in other words the actual vector <x, y>)
@@ -55,7 +55,7 @@ define( require => {
     }
 
     /**
-     * Dispose of the vector
+     * Disposes the vector
      * @public
      */
     dispose() {
@@ -99,7 +99,7 @@ define( require => {
     // Y component
 
     /**
-     * convenience method to access the y magnitude
+     * convenience method to access the y component
      * @public
      * @returns {number}
      */
@@ -194,7 +194,7 @@ define( require => {
     // Tip Position
 
     /**
-     * Getters for tip position and components
+     * Getters for tip position
      * @public
      * @returns {Vector2}
      */

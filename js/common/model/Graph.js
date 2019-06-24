@@ -1,10 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a graph. Graphs have an unknown amount of vectorSets.
+ * Model for a graph. Graphs have an unknown amount of VectorSets.
  *
  * A Graph can be described by a width and a height (Dimension2) and the coordinate of the upperLeftLocation corner of
- * the graph. With this information, the bounds can be determined.
+ * the graph. With this information, the bounds (Bounds2) can be determined.
  *
  * @author Brandon Li
  */
@@ -21,13 +21,12 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
 
   // The view coordinates for the graph node location
-  const GRAPH_UPPER_LEFT_LOCATION = VectorAdditionConstants.GRAPH_UPPER_LEFT_LOCATION;
+  const GRAPH_UPPER_LEFT_LOCATION = new Vector2( 29, 90 );
 
   // Scale conversion factor from model to view coordinates
   const MODEL_TO_VIEW_SCALE_FACTOR = 12.5;

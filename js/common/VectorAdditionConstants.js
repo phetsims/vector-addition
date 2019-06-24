@@ -66,12 +66,10 @@ define( function( require ) {
     }, VectorAdditionColors.RADIO_BUTTON_COLORS ),
 
     //----------------------------------------------------------------------------------------
-    // Defaults for graph location
+    // Defaults for graphs
     GRAPH_DIMENSION: new Dimension2( 60, 40 ),
     GRAPH_UPPER_LEFT_COORDINATE: new Vector2( -5, 35 ),
 
-    // location of the upper left of the graph in view coordinates
-    GRAPH_UPPER_LEFT_LOCATION: new Vector2( 29, 90 ),
 
     //----------------------------------------------------------------------------------------
     // Defaults for all vector arrow nodes
