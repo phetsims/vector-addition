@@ -120,7 +120,7 @@ define( require => {
     }
 
     /**
-     * Diposes the vector. Called when the vector is removed from the graph.
+     * Disposes the vector. Called when the vector is removed from the graph.
      * @public
      * @override
      */
