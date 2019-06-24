@@ -38,8 +38,8 @@ define( require => {
      */
     constructor( sumVisibleProperties, tandem ) {
 
-      assert && assert( sumVisibleProperties.filter( 
-        sumVisibleProperty => !( sumVisibleProperty instanceof BooleanProperty) ).length === 0,
+      assert && assert( sumVisibleProperties.filter(
+        sumVisibleProperty => !( sumVisibleProperty instanceof BooleanProperty ) ).length === 0,
         `invalid sumVisibleProperties: ${sumVisibleProperties}` );
 
       //----------------------------------------------------------------------------------------
@@ -89,6 +89,7 @@ define( require => {
       this.graphs.push( newGraph );
       return newGraph;
     }
+
     /**
      * @public
      * Reset the VectorAdditionModel

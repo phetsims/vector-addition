@@ -37,14 +37,12 @@ define( require => {
      * @param {Dimension2} graphDimension - the dimensions for the graph (width and height)
      * @param {Vector2} upperLeftPosition - the coordinate of the upperLeft corner of the graph.
      * @param {GraphOrientations} orientation - the orientation of the graph
-     * @public
      */
     constructor( graphDimension, upperLeftPosition, orientation ) {
 
       assert && assert( graphDimension instanceof Dimension2, `invalid graphDimension: ${graphDimension}` );
       assert && assert( upperLeftPosition instanceof Vector2, `invalid upperLeftPosition: ${upperLeftPosition}` );
-      assert && assert( GraphOrientations.includes( orientation ),
-        `invalid orientation: ${orientation}` );
+      assert && assert( GraphOrientations.includes( orientation ), `invalid orientation: ${orientation}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -58,7 +56,7 @@ define( require => {
       this.upperLeftPositionProperty = new Vector2Property( upperLeftPosition );
 
       // When the GraphNode changes the upperLeftPosition (when origin is dragged) the graph bounds changes
-      // Graphs last for the life time of the sim, so no need to unlink the because the origin is is always movable
+      // Graphs last for the life time of the sim, so no need to unlink (the origin is is always movable)
       this.upperLeftPositionProperty.link( ( upperLeftPosition ) => {
 
         // @public {Bounds2} - the model bounds for the graph
@@ -82,8 +80,9 @@ define( require => {
           valueType: ModelViewTransform2
         } );
     }
+
     /**
-     * Add a vectorSet to the graph
+     * Adds a VectorSet to the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - the sum visible property for this vector set
      * @param {VectorGroups} vectorGroup
@@ -92,18 +91,17 @@ define( require => {
      */
     addVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup ) {
 
-      // argument types checked in vectorSet
-
       const newVectorSet = new VectorSet(
         this.modelViewTransformProperty,
         this.graphModelBounds,
         componentStyleProperty,
         sumVisibleProperty,
         vectorGroup );
-      
+
       this.vectorSets.push( newVectorSet );
       return newVectorSet;
     }
+
     /**
      * Reset the graph
      * @public
@@ -112,12 +110,13 @@ define( require => {
       this.erase();
       this.upperLeftPositionProperty.reset();
     }
+
     /**
+     * 'Erases' the graph by resetting the vectorSets. Called when the eraser button is clicked.
      * @public
-     * Reset the vectorSets only, called when the eraser button is clicked
      */
     erase() {
-      // reset each vectorSet in vectorSets
+      // reset each vectorSet
       this.vectorSets.forEach( vectorSet =>
         vectorSet.reset()
       );

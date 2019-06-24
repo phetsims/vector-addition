@@ -15,7 +15,7 @@ define( require => {
   /**
    * There are 2 groups of vectors. A vector set can only be one group.
    * 'ONE' - currently used in all screens except for lab
-   * 'TWO' - only used in the lab screen as a second set of vectors 
+   * 'TWO' - only used in the lab screen as a second set of vectors
    */
   const VectorGroups = new Enumeration( [ 'ONE', 'TWO' ] );
 

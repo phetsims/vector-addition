@@ -48,13 +48,13 @@ define( require => {
       // Add the graphs
 
       // @public (read-only)
-      this.horizontalGraph = this.addGraph( 
+      this.horizontalGraph = this.addGraph(
         GRAPH_DIMENSION,
         GRAPH_UPPER_LEFT_COORDINATE,
         GraphOrientations.HORIZONTAL );
 
       // @public (read-only)
-      this.verticalGraph = this.addGraph( 
+      this.verticalGraph = this.addGraph(
         GRAPH_DIMENSION,
         GRAPH_UPPER_LEFT_COORDINATE,
         GraphOrientations.VERTICAL );

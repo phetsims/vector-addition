@@ -42,7 +42,7 @@ define( require => {
       // Add the only graph on explore 2d
 
       // @public (read-only)
-      this.graph = this.addGraph( 
+      this.graph = this.addGraph(
         GRAPH_DIMENSION,
         GRAPH_UPPER_LEFT_COORDINATE,
         GraphOrientations.TWO_DIMENSIONAL );

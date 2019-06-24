@@ -101,13 +101,13 @@ define( require => {
       // TODO: consolidate positioning
       // TODO: i think that positioning can be done inside of vectorNode. We can have a method for it and in this way
       // component can override it (because their positioning is slightly different)
-      
+
       if ( !baseVectorModel.label && valuesVisible ) {
         this.label.setFormula( `${Util.toFixed( baseVectorModel.magnitude, 1 )}` );
       }
       if ( baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
-        
+
         const modelAngle = baseVectorModel.angle; // angle in the model in radians (ranging from -Pi to Pi)
 
         // add a flip (180 degrees) if the angle is in quadrant III and IV (that is, y is negative)

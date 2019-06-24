@@ -352,7 +352,7 @@ define( function( require ) {
 
       options.componentArrowOptions = _.extend( {}, options, {
         fill: VectorAdditionColors.CARTESIAN_ICON_COLOR,
-        tailWidth: 2.5   
+        tailWidth: 2.5
       }, options.componentArrowOptions );
 
       //----------------------------------------------------------------------------------------
