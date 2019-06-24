@@ -64,7 +64,7 @@ define( require => {
 
       // @private {number}
       this.radiusOfArc = radius;
-      
+
       // @private {number}
       this.angleOfArc = angle;
 
@@ -152,7 +152,7 @@ define( require => {
 
       this.radiusOfArc = radius;
       this.angleOfArc = radius;
-      
+
       // Convert the angle to radians
       const angleInRadians = Util.toRadians( angle );
 

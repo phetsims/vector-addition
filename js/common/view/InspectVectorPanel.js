@@ -152,7 +152,7 @@ define( require => {
 
       // @private {boolean} flag to indicate if this panel has ever displayed a vector's attributes
       this.hasDisplayedVectorAttributes = false;
-    
+
 
       //----------------------------------------------------------------------------------------
 
@@ -218,7 +218,7 @@ define( require => {
       this.magnitudeDisplayNode.setChildren( [
         new NumberDisplay(
           activeVector.magnitudeProperty,
-          new Range( 0, 100 ), { 
+          new Range( 0, 100 ), {
             decimalPlaces: 1
           } )
       ] );
@@ -229,7 +229,7 @@ define( require => {
       this.angleDisplayNode.setChildren( [
         new NumberDisplay(
           activeVector.angleDegreesProperty,
-          new Range( -180, 180 ), { 
+          new Range( -180, 180 ), {
             decimalPlaces: 1
           } )
       ] );
@@ -238,11 +238,11 @@ define( require => {
       // X component
 
       this.xComponentText.setText( `${activeVector.label}<sub>${xString}</sub>` );
-      
+
       this.xComponentDisplayNode.setChildren( [
         new NumberDisplay(
           activeVector.xComponentProperty,
-          new Range( -60, 60 ), { 
+          new Range( -60, 60 ), {
             decimalPlaces: 0
           } )
       ] );
@@ -255,7 +255,7 @@ define( require => {
       this.yComponentDisplayNode.setChildren( [
         new NumberDisplay(
           activeVector.yComponentProperty,
-          new Range( -40, 40 ), { 
+          new Range( -40, 40 ), {
             decimalPlaces: 0
           } )
       ] );
@@ -301,7 +301,7 @@ define( require => {
       this.xComponentText = new RichText( '', {
         maxWidth: LABEL_WIDTH
       } );
-     
+
       // @private {Node}
       this.xComponentDisplayNode = new Node();
 
@@ -320,6 +320,7 @@ define( require => {
 
       this.addNumberDisplayAndLabel( this.yComponentText, this.yComponentDisplayNode );
     }
+
     /**
      * Adds a HBox of the label and the number display container
      * Makes the label have a 'fixed' width
@@ -348,6 +349,7 @@ define( require => {
         ]
       } ) );
     }
+
     /**
      * Resets the status of the Inspect Vector Panel
      * @public
