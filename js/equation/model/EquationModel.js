@@ -7,8 +7,8 @@ define( require => {
   'use strict';
 
   // modules
-  const Bounds2 = require( 'DOT/Bounds2' );
   const Property = require( 'AXON/Property' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
@@ -23,8 +23,13 @@ define( require => {
      */
     constructor( tandem ) {
 
-      super();
-      this.gridModelBounds = new Bounds2( -5, -5, 35, 35 );
+      // Create the TWO sum visible properties for equation
+
+      const group1SumVisibleProperty = new BooleanProperty( false );
+      const group2SumVisibleProperty = new BooleanProperty( false );
+
+      super( [ group1SumVisibleProperty, group2SumVisibleProperty ], tandem );
+
       this.graphOrientationProperty = new Property( GraphOrientations.TWO_DIMENSIONAL );
     }
 
