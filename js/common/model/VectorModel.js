@@ -81,7 +81,7 @@ define( require => {
       // Properties for the inspectPanel
 
       // @public (read-only) {DerivedProperty.<number>} - the magnitude of the vector
-      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.magnitude ));
+      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.magnitude ) );
 
       // @public (read-only) {DerivedProperty.<number>} - the angle (in degrees) of the vector
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
