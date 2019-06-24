@@ -12,6 +12,8 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
@@ -57,6 +59,7 @@ define( require => {
         isInfinite: false, // {boolean} true means the slot will regenerate vectors to be dragged
         labelIconSpacing: LABEL_AND_ICON_SPACING,
         iconOptions: null,
+        arrowIconContainerWidth: 35, // {number} the fixed size of the container containing the icon
         xMargin: 0
       }, options );
 
@@ -113,7 +116,11 @@ define( require => {
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( 8 );
-      this.addChild( iconNode );
+      this.addChild( new AlignBox( iconNode, {
+        alignBounds: new Bounds2( 0, 0, options.arrowIconContainerWidth, iconNode.height ),
+        xAlign: 'center',
+        yAlign: 'center'
+      } ) );
 
 
       if ( options.label ) {
