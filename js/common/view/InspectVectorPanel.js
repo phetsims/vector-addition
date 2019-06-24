@@ -144,6 +144,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // observe changes to the expanded property (when the expanded collapse button is clicked)
+      // Doesn't need to be unlinked because the inspect vector panel always exists
       this.expandedProperty.link( ( isExpanded ) => {
         this.inspectVectorText.visible = !isExpanded;
         this.vectorAttributesDisplayContainer.visible = isExpanded;

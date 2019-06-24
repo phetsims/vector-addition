@@ -106,6 +106,7 @@ define( require => {
       const eraserButton = new EraserButton( {
         listener: () => {
           graph.erase();
+          this.inspectVectorPanel.reset();
         },
         left: this.graphNode.right,
         bottom: this.graphNode.bottom
