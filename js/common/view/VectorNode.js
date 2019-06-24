@@ -15,16 +15,16 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Property = require( 'AXON/Property' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
 
   // constants
   const TIP_CIRCLE_RADIUS = 10;

@@ -19,8 +19,8 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 

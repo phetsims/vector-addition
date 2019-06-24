@@ -7,10 +7,10 @@ define( require => {
   'use strict';
 
   // modules
-  const Property = require( 'AXON/Property' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const Property = require( 'AXON/Property' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
 
   /**

@@ -14,12 +14,12 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
 
   class BaseVectorNode extends Node {

@@ -16,18 +16,18 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const Node = require( 'SCENERY/nodes/Node' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
   const LABEL_AND_ICON_SPACING = 6;

@@ -16,10 +16,10 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const Vector2 = require( 'DOT/Vector2' );
 
 
   class VectorLabelNode extends Node {

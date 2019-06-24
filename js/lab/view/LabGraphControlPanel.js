@@ -15,16 +15,16 @@ define( require => {
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GridCheckbox = require( 'VECTOR_ADDITION/common/view/GridCheckbox' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const Text = require( 'SCENERY/nodes/Text' );
   const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const Panel = require( 'SUN/Panel' );
 
   // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );

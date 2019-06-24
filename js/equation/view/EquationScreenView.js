@@ -7,8 +7,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
   class EquationScreenView extends VectorAdditionScreenView {
 

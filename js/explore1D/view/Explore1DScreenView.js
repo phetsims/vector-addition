@@ -8,13 +8,13 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
-  const Explore1DVectorCreatorPanels = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanels' );
   const Explore1DGraphControlPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DGraphControlPanel' );
+  const Explore1DVectorCreatorPanels = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanels' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
   // constants
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
