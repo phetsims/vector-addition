@@ -25,6 +25,7 @@ define( require => {
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   const TIP_CIRCLE_RADIUS = 10;
@@ -233,6 +234,7 @@ define( require => {
     tipSnapToGrid( tipLocation ) {
       const tipCoordinates = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
 
+
       switch( this.graphOrientation ) {
         case GraphOrientations.HORIZONTAL: {
           tipCoordinates.setY( 0 );
@@ -249,7 +251,16 @@ define( require => {
           throw new Error( `graphOrientation not handled: ${this.graphOrientation}` );
         }
       }
-      this.vectorModel.attributesVector = tipCoordinates.roundedSymmetric();
+
+      // determine the vector in model coordinates
+      const attributesVector = tipCoordinates.roundedSymmetric();
+
+      // the client should not be able to set the vector to zero length,
+      // if so the vector is zero, do not change the modelVector length
+      if ( !attributesVector.equals( Vector2.ZERO ) ) {
+        this.vectorModel.attributesVector = attributesVector;
+      }
+
     }
 
     /**
