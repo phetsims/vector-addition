@@ -230,5 +230,6 @@ define( require => {
       }
     }
   }
+
   return vectorAddition.register( 'VectorCreatorPanelSlot', VectorCreatorPanelSlot );
 } );

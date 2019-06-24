@@ -102,7 +102,7 @@ define( require => {
       const updateAngle = ( angle ) => {
 
         // update the angle of the arc
-        arcArrow.angle = angle ;
+        arcArrow.angle = angle;
 
         // update value of angle and position of label
         updateLabel( angle );

@@ -59,7 +59,7 @@ define( require => {
         `invalid options.includeArrowhead: ${options.includeArrowhead}` );
 
       //----------------------------------------------------------------------------------------
-      
+
       super();
 
       // @private {Vector2} the center that the arc revolves around
@@ -76,7 +76,7 @@ define( require => {
 
       // @private {number}
       this._arrowheadHeight = options.arrowheadHeight;
-      
+
       //----------------------------------------------------------------------------------------
 
       // Create a shape for the arc of the angle, set to and empty shape, shape will be updated later.
@@ -109,6 +109,34 @@ define( require => {
 
       // Set the position and rotation of the arrowhead and the sweep of the arc
       this.setAngleAndRadius( angle, radius, this._arrowheadIncluded );
+    }
+
+    /**
+     * Change the angle of the arc
+     * @param {number} angle - the angle of the arc arrow in degrees
+     * @public
+     */
+    set angle( angle ) {
+      this.setAngleAndRadius( angle, this._radius );
+    }
+
+    /**
+     * Change the radius of the arc
+     * @param {number} radius - the radius of the arc arrow in view coordinates
+     * @public
+     */
+    set radius( radius ) {
+      this.setAngleAndRadius( this._angle, radius );
+    }
+
+    /**
+     * Change the visibility of the arrowhead
+     * @param {boolean} visible
+     * @private
+     */
+    set arrowheadVisibility( visible ) {
+      this._arrowheadIncluded = visible;
+      this._arrowheadPath.visible = visible;
     }
 
     /**
@@ -159,42 +187,14 @@ define( require => {
       // Adjust the position and angle of arrowhead. Rotate the arrowhead from the tip into the correct position from
       // the original angle
       this._arrowheadPath.setRotation( isAnticlockwise ?
-                                      -angleInRadians :
-                                      -angleInRadians + Math.PI );
+                                       -angleInRadians :
+                                       -angleInRadians + Math.PI );
 
       // Translate the tip of arrowhead to the tip of the arc.
       this._arrowheadPath.setTranslation(
         this._revolvedPoint.x + Math.cos( this._arrowheadIncluded ? correctedAngle : angleInRadians ) * radius,
         this._revolvedPoint.y - Math.sin( this._arrowheadIncluded ? correctedAngle : angleInRadians ) * radius
       );
-    }
-
-    /**
-     * Change the angle of the arc
-     * @param {number} angle - the angle of the arc arrow in degrees
-     * @public
-     */
-    set angle( angle ) {
-      this.setAngleAndRadius( angle, this._radius );
-    }
-
-    /**
-     * Change the radius of the arc
-     * @param {number} radius - the radius of the arc arrow in view coordinates
-     * @public
-     */
-    set radius( radius ) {
-      this.setAngleAndRadius( this._angle, radius );
-    }
-
-    /**
-     * Change the visibility of the arrowhead
-     * @param {boolean} visible
-     * @private
-     */
-    set arrowheadVisibility( visible ) {
-      this._arrowheadIncluded = visible;
-      this._arrowheadPath.visible = visible;
     }
   }
 
