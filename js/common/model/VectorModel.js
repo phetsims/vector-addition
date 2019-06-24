@@ -81,18 +81,18 @@ define( require => {
       // Properties for the inspectPanel
 
       // @public (read-only) {DerivedProperty.<number>} - the magnitude of the vector
-      this.magnitudeProperty = new DerivedProperty( [ this.tipPositionProperty ], () => ( this.magnitude ));
+      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.magnitude ));
 
       // @public (read-only) {DerivedProperty.<number>} - the angle (in degrees) of the vector
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
-      this.angleDegreesProperty = new DerivedProperty( [ this.tipPositionProperty ],
+      this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         () => ( Util.toDegrees( this.angle ) ) );
 
       // @public (read-only) {DerivedProperty.<number>} - the xComponent property
-      this.xComponentProperty = new DerivedProperty( [ this.tipPositionProperty ], () => ( this.xComponent ) );
+      this.xComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.xComponent ) );
 
       // @public (read-only) {DerivedProperty.<number>} - the yComponent property
-      this.yComponentProperty = new DerivedProperty( [ this.tipPositionProperty ], () => ( this.yComponent ) );
+      this.yComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.yComponent ) );
 
       //----------------------------------------------------------------------------------------
 
