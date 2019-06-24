@@ -100,8 +100,12 @@ define( require => {
       const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
 
       // @public {Node} (read-only)
-      this.vectorRepresentationNode = this.getVectorRepresentation( initialViewVector, arrowOptions );
+      this.vectorRepresentationNode = getVectorRepresentation( initialViewVector, arrowOptions );
 
+      // Set the representation node to invisible
+      this.vectorRepresentationNode.visible = false;
+
+      // create an icon
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
         initialViewVector,
         vectorGroup,
@@ -120,19 +124,6 @@ define( require => {
         this.addChild( label );
 
       }
-
-      //----------------------------------------------------------------------------------------
-
-      // @private {string|null}
-      this.label = options.label;
-
-      // @public (read-only) {vectorSet}
-      this.vectorSet = vectorSet;
-
-      //----------------------------------------------------------------------------------------
-
-      // Set the representation node to invisible
-      this.vectorRepresentationNode.visible = false;
 
       // When the vector icon is clicked, add the vector representation as a decoy vector to drag onto the screen
       iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
@@ -160,14 +151,14 @@ define( require => {
               );
 
               // Call the abstract method to add the vector to the model. See addVectorToModel for documentation
-              const newVectorModel = this.addVectorToModel( vectorRepresentationPosition, initialVector );
+              const newVectorModel = addVectorToModel( vectorRepresentationPosition, initialVector );
 
               // Check that the new vector model was implemented correctly
               assert && assert( newVectorModel instanceof VectorModel,
-                `this.addVectorToModel should return a VectorModel, not a ${newVectorModel}` );
+                `addVectorToModel should return a VectorModel, not a ${newVectorModel}` );
 
               // Add a removed listener to the observable array to reset the icon
-              this.vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
+              vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
                 if ( removedVector === newVectorModel ) {
                   iconNode.visible = true;
                 }
@@ -188,60 +179,56 @@ define( require => {
         },
         { allowTouchSnag: true } ) );
 
-    }
+      /**
+       * returns a scenery representation of a vector arrow with a dropped shadow
+       * @param {Vector2} initialViewVector
+       * @param {Object} options
+       * @returns {Node}
+       */
+      function getVectorRepresentation( initialViewVector, options ) {
 
-    /**
-     * Called when the vectorRepresentation is dropped. This should add the vector to the model.
-     * @private
-     * @param {Vector2} droppedPosition - position  (model coordinates)
-     * @param {Vector2} initialVector - direction and length of initial vector to be dropped
-     * @returns {VectorModel} the model added
-     */
-    addVectorToModel( droppedPosition, initialVector ) {
+        // convenience variables
+        const x = initialViewVector.x;
+        const y = initialViewVector.y;
 
-      const options = ( this.label ) ? { label: this.label } : {};
+        // create the scenery node for the vector representation
+        const vectorRepresentationNode = new Node();
 
-      return this.vectorSet.addVector( droppedPosition, initialVector.x, initialVector.y, options );
-    }
+        // create the vector arrow in the foreground
+        const frontArrow = new ArrowNode( 0, 0, x, y, options );
 
-    /**
-     * returns a scenery representation of a vector arrow with a dropped shadow
-     * @private
-     * @param {Vector2} initialViewVector
-     * @param {Object} options
-     * @returns {Node}
-     */
-    getVectorRepresentation( initialViewVector, options ) {
+        // create the background options in the same style as the frontArrow
+        const backgroundOptions = _.extend( {}, options, {
+          fill: VectorAdditionColors.BLACK,
+          opacity: 0.4
+        } );
 
-      // convenience variables
-      const x = initialViewVector.x;
-      const y = initialViewVector.y;
+        // create the dropped shadow arrow with different decoration
+        const droppedShadow = new ArrowNode( 0, 0, x, y, backgroundOptions );
 
-      // create the scenery node for the vector representation
-      const vectorRepresentationNode = new Node();
+        // set the position of the dropped shadow on the front arrow
+        droppedShadow.left = frontArrow.left;
+        droppedShadow.top = frontArrow.top;
 
-      // create the vector arrow in the foreground
-      const frontArrow = new ArrowNode( 0, 0, x, y, options );
+        // add offset to the front arrow, the shadow is where the vector should be dropped
+        frontArrow.left -= 4;
 
-      // create the background options in the same style as the frontArrow
-      const backgroundOptions = _.extend( {}, options, {
-        fill: VectorAdditionColors.BLACK,
-        opacity: 0.4
-      } );
+        return vectorRepresentationNode.setChildren( [ droppedShadow, frontArrow ] );
+      }
 
-      // create the dropped shadow arrow with different decoration
-      const droppedShadow = new ArrowNode( 0, 0, x, y, backgroundOptions );
+      /**
+       * Called when the vectorRepresentation is dropped. This should add the vector to the model.
+       * @param {Vector2} droppedPosition - position  (model coordinates)
+       * @param {Vector2} initialVector - direction and length of initial vector to be dropped
+       * @returns {VectorModel} the model added
+       */
+      function addVectorToModel( droppedPosition, initialVector ) {
 
-      // set the position of the dropped shadow on the front arrow
-      droppedShadow.left = frontArrow.left;
-      droppedShadow.top = frontArrow.top;
+        const labelOptions = ( options.label ) ? { label: options.label } : {};
 
-      // add offset to the front arrow, the shadow is where the vector should be dropped
-      frontArrow.left -= 4;
-
-      return vectorRepresentationNode.setChildren( [ droppedShadow, frontArrow ] );
+        return vectorSet.addVector( droppedPosition, initialVector.x, initialVector.y, labelOptions );
+      }
     }
   }
-
   return vectorAddition.register( 'VectorCreatorPanelSlot', VectorCreatorPanelSlot );
 } );
