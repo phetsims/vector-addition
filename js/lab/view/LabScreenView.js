@@ -13,6 +13,7 @@ define( function( require ) {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
 
 
   class LabScreenView extends VectorAdditionScreenView {
@@ -41,12 +42,40 @@ define( function( require ) {
 
       this.addChild( graphControlPanel );
 
-      const vectorCreatorPanel = new LabVectorCreatorPanel(
-        labModel.graph.group1VectorSet,
-        labModel.graph.group2VectorSet,
-        labModel.graph.modelViewTransformProperty );
+      //----------------------------------------------------------------------------------------
+      const polarVectorCreatorPanel = new LabVectorCreatorPanel(
+        labModel.polarGraph.group1VectorSet,
+        labModel.polarGraph.group2VectorSet,
+        labModel.polarGraph.modelViewTransformProperty );
 
-      this.addChild( vectorCreatorPanel );
+      this.addChild( polarVectorCreatorPanel );
+
+      const cartesianVectorCreatorPanel = new LabVectorCreatorPanel(
+        labModel.cartesianGraph.group1VectorSet,
+        labModel.cartesianGraph.group2VectorSet,
+        labModel.cartesianGraph.modelViewTransformProperty );
+
+      this.addChild( cartesianVectorCreatorPanel );
+
+      // toggle visible
+      labModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+
+        if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+          polarVectorCreatorPanel.visible = false;
+          cartesianVectorCreatorPanel.visible = true;
+          labModel.polarGraph.sceneNode = false;
+          labModel.cartesianGraph.sceneNode.visible = true;
+        }
+
+
+        if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+          polarVectorCreatorPanel.visible = true;
+          cartesianVectorCreatorPanel.visible = false;
+          labModel.polarGraph.sceneNode = true;
+          labModel.cartesianGraph.sceneNode. visible = false;
+        }
+      } );
+
 
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         labModel.coordinateSnapModeProperty );

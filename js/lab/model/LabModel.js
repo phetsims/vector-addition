@@ -15,6 +15,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
 
   // constants
   const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
@@ -45,20 +46,32 @@ define( require => {
       // Add the only graph on lab
 
       // @public (read-only)
-      this.graph = this.addGraph(
+      this.polarGraph = this.addGraph(
+        GRAPH_DIMENSION,
+        GRAPH_UPPER_LEFT_COORDINATE,
+        GraphOrientations.TWO_DIMENSIONAL );
+
+      this.cartesianGraph = this.addGraph(
         GRAPH_DIMENSION,
         GRAPH_UPPER_LEFT_COORDINATE,
         GraphOrientations.TWO_DIMENSIONAL );
 
 
       //----------------------------------------------------------------------------------------
-      // The graph has TWO vector sets
+      // Each graph has TWO vector sets
 
-      this.graph.group1VectorSet = this.graph.addVectorSet(
-        this.componentStyleProperty, this.group1SumVisibleProperty, VectorGroups.ONE );
+      this.polarGraph.group1VectorSet = this.polarGraph.addVectorSet(
+        this.componentStyleProperty, this.group1SumVisibleProperty, VectorGroups.ONE, CoordinateSnapModes.POLAR );
 
-      this.graph.group2VectorSet = this.graph.addVectorSet(
-        this.componentStyleProperty, this.group2SumVisibleProperty, VectorGroups.TWO );
+      this.polarGraph.group2VectorSet = this.polarGraph.addVectorSet(
+        this.componentStyleProperty, this.group2SumVisibleProperty, VectorGroups.TWO, CoordinateSnapModes.POLAR );
+
+
+      this.cartesianGraph.group1VectorSet = this.cartesianGraph.addVectorSet(
+        this.componentStyleProperty, this.group1SumVisibleProperty, VectorGroups.ONE, CoordinateSnapModes.CARTESIAN );
+
+      this.cartesianGraph.group2VectorSet = this.cartesianGraph.addVectorSet(
+        this.componentStyleProperty, this.group2SumVisibleProperty, VectorGroups.TWO, CoordinateSnapModes.CARTESIAN );
 
     }
   }
