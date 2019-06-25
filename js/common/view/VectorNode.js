@@ -15,7 +15,6 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Property = require( 'AXON/Property' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -241,30 +240,9 @@ define( require => {
     tipSnapToGrid( tipLocation ) {
 
       // The actual tip coordinates on the graph
-      const tipCoordinates = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ).plus( this.vectorModel.tail );
+      const attributesVector = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
 
-      // Get a new tip thats on the graph
-      const newTip = this.graph.graphModelBounds.closestPointTo( tipCoordinates );
-     
-      // Calculate the attributesVector based on the new tip
-      const attributesVector = newTip.minus( this.vectorModel.tail );
 
-      switch( this.graphOrientation ) {
-        case GraphOrientations.HORIZONTAL: {
-          attributesVector.setY( 0 );
-          break;
-        }
-        case GraphOrientations.VERTICAL: {
-          attributesVector.setX( 0 );
-          break;
-        }
-        case GraphOrientations.TWO_DIMENSIONAL: {
-          break;
-        }
-        default: {
-          throw new Error( `graphOrientation not handled: ${this.graphOrientation}` );
-        }
-      }
       
       if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
         this.vectorModel.roundPolarForm( attributesVector );

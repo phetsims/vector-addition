@@ -12,12 +12,9 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const ObservableArray = require( 'AXON/ObservableArray' );
-  const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
@@ -36,17 +33,16 @@ define( require => {
      * @param {VectorGroups} vectorGroup
      */
     constructor(
-      modelViewTransformProperty,
-      graphModelBounds,
+      graph,
       componentStyleProperty,
       sumVisibleProperty,
       vectorGroup,
       coordinateSnapMode ) {
 
-      assert && assert( modelViewTransformProperty instanceof Property
-      && modelViewTransformProperty.value instanceof ModelViewTransform2,
-        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
-      assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds: ${graphModelBounds}` );
+      // assert && assert( modelViewTransformProperty instanceof Property
+      // && modelViewTransformProperty.value instanceof ModelViewTransform2,
+      //   `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+      // assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds: ${graphModelBounds}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
@@ -63,10 +59,9 @@ define( require => {
       // @public {VectorModel} the vector sum model
       this.vectorSum = new VectorSum(
         this.vectors,
-        modelViewTransformProperty,
+        graph,
         componentStyleProperty,
-        vectorGroup,
-        graphModelBounds );
+        vectorGroup );
 
       // @public {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
       this.vectorGroup = vectorGroup;
@@ -80,7 +75,7 @@ define( require => {
       // Create references to parameters
 
       // @private {Property.<ModelViewTransform>}
-      this.modelViewTransformProperty = modelViewTransformProperty;
+      this.graph = graph;
 
       // @private {Property.<ComponentStyles>}
       this.componentStyleProperty = componentStyleProperty;
@@ -101,7 +96,7 @@ define( require => {
         tailPosition,
         xComponent,
         yComponent,
-        this.modelViewTransformProperty,
+        this.graph,
         this.componentStyleProperty,
         this.vectorGroup,
         options );

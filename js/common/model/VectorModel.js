@@ -24,6 +24,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
 
 
   // constants
@@ -46,7 +47,7 @@ define( require => {
       tailPosition,
       xComponent,
       yComponent,
-      modelViewTransformProperty,
+      graph,
       componentStyleProperty,
       vectorGroup,
       options ) {
@@ -56,6 +57,7 @@ define( require => {
         isTipDraggable: true // {boolean} - can the tip be dragged
       }, options );
 
+      const modelViewTransformProperty = graph.modelViewTransformProperty;
 
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
@@ -118,6 +120,8 @@ define( require => {
 
       // @public (read only) {YVectorComponent}
       this.yVectorComponent = new YVectorComponent( this, componentStyleProperty, this.label );
+      
+      this.graph = graph;
     }
 
     /**
@@ -156,8 +160,27 @@ define( require => {
      */
     roundCartesianForm( attributesVector ) {
 
-      const roundedVector = attributesVector.roundSymmetric();
+      const inBoundsAttributesVector = this.getInBoundsAttributesVector( attributesVector );
+      const roundedVector = inBoundsAttributesVector.roundSymmetric();
+
       this.setAttributesVector( roundedVector );
+
+      switch( this.graph.orientation ) {
+        case GraphOrientations.HORIZONTAL: {
+          this.yComponent = 0;
+          break;
+        }
+        case GraphOrientations.VERTICAL: {
+          this.xComponent = 0;
+          break;
+        }
+        case GraphOrientations.TWO_DIMENSIONAL: {
+          break;
+        }
+        default: {
+          throw new Error( `graphOrientation not handled: ${this.graphOrientation}` );
+        }
+      }
 
     }
 
@@ -167,9 +190,11 @@ define( require => {
      * @public
      */
     roundPolarForm( attributesVector ) {
-      const roundedMagnitude = Util.roundSymmetric( attributesVector.magnitude );
-      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( Util.toDegrees( attributesVector.angle ) / ANGLE_INTERVAL );
-      const roundedVector = attributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+      const inBoundsAttributesVector = this.getInBoundsAttributesVector( attributesVector );
+
+      const roundedMagnitude = Util.roundSymmetric( inBoundsAttributesVector.magnitude );
+      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( Util.toDegrees( inBoundsAttributesVector.angle ) / ANGLE_INTERVAL );
+      const roundedVector = inBoundsAttributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
       this.setAttributesVector( roundedVector );
     }
 
@@ -184,6 +209,18 @@ define( require => {
       if ( vector.magnitude > 0 ) {
         this.attributesVector = vector;
       }
+    }
+
+    getInBoundsAttributesVector( attributesVector ) {
+
+      const tipPosition = this.tail.plus( attributesVector );
+
+      // Get the tip thats on the graph
+      const newTip = this.graph.graphModelBounds.eroded( 1 ).closestPointTo( tipPosition );
+     
+      // Calculate the attributesVector based on the new tip
+      return newTip.minus( this.tail );
+
     }
   }
 

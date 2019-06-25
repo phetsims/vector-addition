@@ -92,8 +92,7 @@ define( require => {
     addVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
 
       const newVectorSet = new VectorSet(
-        this.modelViewTransformProperty,
-        this.graphModelBounds,
+        this,
         componentStyleProperty,
         sumVisibleProperty,
         vectorGroup,

@@ -24,8 +24,9 @@ define( require => {
      * @param {Bounds2} graphModelBounds
      * @param {Object} [options]
      */
-    constructor( vectors, modelViewTransformProperty, componentStyleProperty, vectorGroup, graphModelBounds, options ) {
+    constructor( vectors, graph, componentStyleProperty, vectorGroup, options ) {
 
+      const graphModelBounds = graph.graphModelBounds;
       options = _.extend( {
         label: 's',// {string} - the label of the vector
         isTipDraggable: false // {boolean} - can the tip be dragged
@@ -41,7 +42,7 @@ define( require => {
       // Get the initial position for the tail of the vector, which is the graphs center
       const initialPosition = graphModelBounds.center;
 
-      super( initialPosition, 0, 0, modelViewTransformProperty, componentStyleProperty, vectorGroup, options );
+      super( initialPosition, 0, 0, graph, componentStyleProperty, vectorGroup, options );
 
       //----------------------------------------------------------------------------------------
       // Function to update the Sum when a vector is added or modified.
