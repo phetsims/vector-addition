@@ -185,7 +185,7 @@ define( require => {
 
     /**
      * Displays a vectors attributes
-     * @param {VectorModel} - activeVector
+     * @param {VectorModel} activeVector
      * @private
      */
     displayVectorsAttributes( activeVector ) {
@@ -230,7 +230,7 @@ define( require => {
      * Creates the scenery nodes for displaying a vectors attributes
      * @private
      */
-    createDisplayVectorNodes( activeVector ) {
+    createDisplayVectorNodes() {
 
       // @private {FormulaNode}
       this.magnitudeTextNode = new FormulaNode( '', { maxWidth: LABEL_WIDTH } );
@@ -265,6 +265,8 @@ define( require => {
     /**
      * Adds a HBox of the label and the number display container
      * Makes the label have a 'fixed' width
+     * @param {string} label
+     * @param {Node} numberDisplayContainer
      * @private
      */
     addNumberDisplayAndLabel( label, numberDisplayContainer ) {
