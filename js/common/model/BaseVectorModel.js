@@ -255,10 +255,12 @@ define( require => {
       assert && assert( typeof x === 'number', `invalid x: ${x}` );
       assert && assert( typeof y === 'number', `invalid y: ${y}` );
 
+      // Keep a reference to the original tip
       const tip = this.tip;
 
       this.tailPositionProperty.value = new Vector2( x, y );
 
+      // Set the tip back
       this.tip = tip;
     }
 
