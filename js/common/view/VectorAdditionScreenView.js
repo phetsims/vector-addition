@@ -8,7 +8,6 @@ define( require => {
   'use strict';
 
   // modules
-  const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const ScreenView = require( 'JOIST/ScreenView' );
@@ -35,10 +34,6 @@ define( require => {
         graph.sceneNode = newSceneNode;
         this.sceneNodes.push( newSceneNode );
       } );
-
-      const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
-        vectorAdditionModel.coordinateSnapModeProperty );
-      this.addChild( coordinateSnapRadioButtonGroup );
 
       const resetAllButton = new ResetAllButton( {
         listener: () => {

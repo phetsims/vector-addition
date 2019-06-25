@@ -12,6 +12,7 @@ define( function( require ) {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
+  const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
 
 
   class Explore2DScreenView extends VectorAdditionScreenView {
@@ -44,6 +45,10 @@ define( function( require ) {
         explore2DModel.graph.vectorSet );
 
       this.addChild( vectorCreatorPanel );
+
+      const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
+        explore2DModel.coordinateSnapModeProperty );
+      this.addChild( coordinateSnapRadioButtonGroup );
     }
 
   }

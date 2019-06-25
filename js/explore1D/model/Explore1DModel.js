@@ -68,6 +68,11 @@ define( require => {
       this.verticalGraph.vectorSet = this.verticalGraph.addVectorSet(
         this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
 
+      // Disable polar / cartesian mode
+      this.coordinateSnapModeProperty.dispose();
+
+      // Disable angle
+      this.angleVisibleProperty.dispose();
     }
 
     /**

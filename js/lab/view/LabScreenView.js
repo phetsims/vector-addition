@@ -12,6 +12,7 @@ define( function( require ) {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
+  const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
 
 
   class LabScreenView extends VectorAdditionScreenView {
@@ -46,6 +47,10 @@ define( function( require ) {
         labModel.graph.modelViewTransformProperty );
 
       this.addChild( vectorCreatorPanel );
+
+      const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
+        labModel.coordinateSnapModeProperty );
+      this.addChild( coordinateSnapRadioButtonGroup );
     }
 
   }
