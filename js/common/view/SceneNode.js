@@ -87,7 +87,9 @@ define( require => {
               removedVector.isActiveProperty.value = false;
 
               // remove its node from the view
+              vectorLayer.removeChild( vectorNode );
               vectorNode.dispose();
+
               removedVector.dispose();
 
               // remove this listener to avoid leaking memory
