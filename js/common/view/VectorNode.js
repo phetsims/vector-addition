@@ -253,10 +253,9 @@ define( require => {
       //
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
 
-      const inBoundsTail = this.vectorModel.getInBoundsTail( tailPosition );
+      this.vectorModel.tail = tailPosition;
 
-      //TODO: this should be done in the model
-      this.vectorModel.tail = inBoundsTail.roundedSymmetric();
+      this.vectorModel.moveVectorToFitInGraph();
     }
 
   }

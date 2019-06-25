@@ -201,17 +201,16 @@ define( require => {
       this.attributesVector = this.attributesVector.copy().setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
 
       while ( !this.graph.graphModelBounds.containsPoint( this.tip ) ) {
-        this.magnitude = this.magnitude - 1;
+        this.magnitude -= 1;
       }
     }
 
     /**
      * Function that returns a model position for the tail such that both tail and tip of the vector remain with the graphBounds
      * @public
-     * @param {Vector2} tailVector - position of the unconstrained tailVector in model Coordinates
-     * @returns {Vector2}
+     * // TODO: check with designers to make sure this is what we want
      */
-    getInBoundsTail( tailVector ) {
+    moveVectorToFitInGraph() {
 
       // determine the bounds of the tails
       const tailBounds = this.graph.graphModelBounds;
@@ -223,7 +222,7 @@ define( require => {
       const constrainedBounds = tailBounds.intersection( tipBounds );
 
       // return the tail vector constrained to the these bounds
-      return constrainedBounds.closestPointTo( tailVector );
+      this.tail = constrainedBounds.closestPointTo( this.tail );
     }
   }
 
