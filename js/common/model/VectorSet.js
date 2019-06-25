@@ -22,6 +22,7 @@ define( require => {
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
 
   class VectorSet {
 
@@ -39,7 +40,8 @@ define( require => {
       graphModelBounds,
       componentStyleProperty,
       sumVisibleProperty,
-      vectorGroup ) {
+      vectorGroup,
+      coordinateSnapMode ) {
 
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
@@ -51,6 +53,7 @@ define( require => {
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -71,6 +74,8 @@ define( require => {
       // @public {BooleanProperty} sumVisibleProperty - one vectorSet can only have on sum visible property
       this.sumVisibleProperty = sumVisibleProperty;
 
+      // @public (read-only)
+      this.coordinateSnapMode = coordinateSnapMode;
       //----------------------------------------------------------------------------------------
       // Create references to parameters
 

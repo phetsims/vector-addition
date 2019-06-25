@@ -89,14 +89,15 @@ define( require => {
      * @returns {VectorSet} - the vector set that was added
      * @public
      */
-    addVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup ) {
+    addVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
 
       const newVectorSet = new VectorSet(
         this.modelViewTransformProperty,
         this.graphModelBounds,
         componentStyleProperty,
         sumVisibleProperty,
-        vectorGroup );
+        vectorGroup,
+        coordinateSnapMode );
 
       this.vectorSets.push( newVectorSet );
       return newVectorSet;

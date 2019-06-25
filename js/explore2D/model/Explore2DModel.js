@@ -14,6 +14,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
 
   // constants
   const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
@@ -39,20 +40,28 @@ define( require => {
       this.vectorGroup = DEFAULT_VECTOR_GROUP;
 
       //----------------------------------------------------------------------------------------
-      // Add the only graph on explore 2d
+      // Add the graphs on explore 2d
 
       // @public (read-only)
-      this.graph = this.addGraph(
+      this.polarGraph = this.addGraph(
+        GRAPH_DIMENSION,
+        GRAPH_UPPER_LEFT_COORDINATE,
+        GraphOrientations.TWO_DIMENSIONAL );
+
+      this.cartesianGraph = this.addGraph(
         GRAPH_DIMENSION,
         GRAPH_UPPER_LEFT_COORDINATE,
         GraphOrientations.TWO_DIMENSIONAL );
 
 
       //----------------------------------------------------------------------------------------
-      // The graph has one vector set
+      //  Each graph has one vector set
 
-      this.graph.vectorSet = this.graph.addVectorSet(
-        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
+      this.polarGraph.vectorSet = this.polarGraph.addVectorSet(
+        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup, CoordinateSnapModes.POLAR );
+
+      this.cartesianGraph.vectorSet = this.cartesianGraph.addVectorSet(
+        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup, CoordinateSnapModes.CARTESIAN );
 
 
     }

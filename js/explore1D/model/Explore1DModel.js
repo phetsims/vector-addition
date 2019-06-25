@@ -64,10 +64,10 @@ define( require => {
       // Each graph has one vector set for explore1D
 
       this.horizontalGraph.vectorSet = this.horizontalGraph.addVectorSet(
-        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
+        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup, CoordinateSnapModes.CARTESIAN );
 
       this.verticalGraph.vectorSet = this.verticalGraph.addVectorSet(
-        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
+        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup, CoordinateSnapModes.CARTESIAN );
 
       // Disable polar / cartesian mode
       this.coordinateSnapModeProperty.link( coordinateSnapMode => {

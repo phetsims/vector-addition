@@ -13,6 +13,7 @@ define( function( require ) {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
 
 
   class Explore2DScreenView extends VectorAdditionScreenView {
@@ -40,11 +41,39 @@ define( function( require ) {
 
       this.addChild( graphControlPanel );
 
-      const vectorCreatorPanel = new Explore2DVectorCreatorPanel(
-        explore2DModel.graph.modelViewTransformProperty,
-        explore2DModel.graph.vectorSet );
+      const polarVectorCreatorPanel = new Explore2DVectorCreatorPanel(
+        explore2DModel.polarGraph.modelViewTransformProperty,
+        explore2DModel.polarGraph.vectorSet );
 
-      this.addChild( vectorCreatorPanel );
+      this.addChild( polarVectorCreatorPanel );
+
+
+      const cartesianVectorCreatorPanel = new Explore2DVectorCreatorPanel(
+        explore2DModel.cartesianGraph.modelViewTransformProperty,
+        explore2DModel.cartesianGraph.vectorSet );
+
+      this.addChild( cartesianVectorCreatorPanel );
+
+
+      // toggle visible
+      explore2DModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+
+        if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+          polarVectorCreatorPanel.visible = false;
+          cartesianVectorCreatorPanel.visible = true;
+          explore2DModel.polarGraph.sceneNode = false;
+          explore2DModel.cartesianGraph.sceneNode.visible = true;
+        }
+
+
+        if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+          polarVectorCreatorPanel.visible = true;
+          cartesianVectorCreatorPanel.visible = false;
+          explore2DModel.polarGraph.sceneNode = true;
+          explore2DModel.cartesianGraph.sceneNode. visible = false;
+        }
+      } );
+
 
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         explore2DModel.coordinateSnapModeProperty );
