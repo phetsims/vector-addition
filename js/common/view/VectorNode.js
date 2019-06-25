@@ -255,11 +255,7 @@ define( require => {
           throw new Error( `graphOrientation not handled: ${this.graphOrientation}` );
         }
       }
-
-      // determine the vector in model coordinates
-      // the client should not be able to set the vector to zero length,
-      // if so the vector is zero, do not change the modelVector length
-     
+      
       if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
         this.vectorModel.roundPolarForm( tipCoordinates );
       }

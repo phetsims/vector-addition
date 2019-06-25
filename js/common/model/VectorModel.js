@@ -154,7 +154,13 @@ define( require => {
      * @public
      */
     roundCartesianForm( attributesVector ) {
-      this.attributesVector = attributesVector.roundSymmetric();
+
+      // determine the vector in model coordinates
+      // the client should not be able to set the vector to zero length,
+      // if so the vector is zero, do not change the modelVector length
+      if ( attributesVector.roundSymmetric().magnitude !== 0 ) {
+        this.attributesVector = attributesVector.roundSymmetric();
+      }
     }
 
     /**
