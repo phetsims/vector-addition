@@ -20,6 +20,7 @@ define( require => {
 
   // modules
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -34,7 +35,8 @@ define( require => {
 
       // Type check arguments
       assert && assert( parentVector instanceof BaseVectorModel, `invalid parentVector: ${parentVector}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty,
+      assert && assert( componentStyleProperty instanceof EnumerationProperty
+        && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------

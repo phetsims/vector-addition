@@ -85,6 +85,7 @@ define( require => {
      */
     addGraph( graphDimension, upperLeftPosition, orientation ) {
 
+      // Keep a reference.
       const newGraph = new Graph( graphDimension, upperLeftPosition, orientation );
 
       this.graphs.push( newGraph );
@@ -93,7 +94,7 @@ define( require => {
 
     /**
      * @public
-     * Resets the VectorAdditionModel
+     * Resets the Model. Called when the reset all button is clicked.
      */
     reset() {
 
