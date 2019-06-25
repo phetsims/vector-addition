@@ -15,7 +15,6 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Property = require( 'AXON/Property' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
@@ -139,12 +138,9 @@ define( require => {
       const tailLocationProperty = new Vector2Property(
         modelViewTransformProperty.value.modelToViewPosition( vectorModel.tail ) );
 
-      const tailDragBoundsProperty = new Property( modelViewTransformProperty.value.modelToViewBounds( graphModelBounds ) );
-
       // drag listener for the dragging of the body
       const bodyDragListener = new DragListener( {
         targetNode: this,
-        dragBoundsProperty: tailDragBoundsProperty,
         locationProperty: tailLocationProperty,
         start: () => {
           vectorModel.isActiveProperty.value = true;
@@ -242,8 +238,6 @@ define( require => {
       // The actual tip coordinates on the graph
       const attributesVector = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
 
-
-      
       if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
         this.vectorModel.roundPolarForm( attributesVector );
       }
@@ -253,13 +247,21 @@ define( require => {
 
     }
 
+    //TODO: the name of this function is misleading since it does much more than snap to grid
     /**
+     * @private
      * update the model vector to have integer components and return the location associated with the tail
      * @param {Vector2} tailLocation
      */
     tailSnapToGrid( tailLocation ) {
+
+      //
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
-      this.vectorModel.tail = tailPosition.roundedSymmetric();
+
+      const inBoundsTail = this.vectorModel.getInBoundsTail( tailPosition );
+
+      //TODO: this should be done in the model
+      this.vectorModel.tail = inBoundsTail.roundedSymmetric();
     }
 
   }

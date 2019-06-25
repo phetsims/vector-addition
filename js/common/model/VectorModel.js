@@ -120,7 +120,7 @@ define( require => {
 
       // @public (read only) {YVectorComponent}
       this.yVectorComponent = new YVectorComponent( this, componentStyleProperty, this.label );
-      
+
       this.graph = graph;
     }
 
@@ -164,7 +164,7 @@ define( require => {
 
       // Get the tip thats on the graph
       const newTip = this.graph.graphModelBounds.closestPointTo( tipPosition );
-     
+
       // Calculate the attributesVector based on the new tip
       const inBoundsAttributesVector = newTip.minus( this.tail );
 
@@ -202,8 +202,7 @@ define( require => {
       const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( Util.toDegrees( attributesVector.angle ) / ANGLE_INTERVAL );
       const roundedVector = attributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
 
-    
-  
+
       let tipPosition = this.tail.plus( roundedVector );
       while ( !this.graph.graphModelBounds.containsPoint( tipPosition ) ) {
         roundedVector.setMagnitude( roundedVector.magnitude - 1 );
@@ -231,7 +230,38 @@ define( require => {
       }
     }
 
+    getInBoundsAttributesVector( attributesVector ) {
 
+      const tipPosition = this.tail.plus( attributesVector );
+
+      // Get the tip thats on the graph
+      const newTip = this.graph.graphModelBounds.eroded( 1 ).closestPointTo( tipPosition );
+
+      // Calculate the attributesVector based on the new tip
+      return newTip.minus( this.tail );
+
+    }
+
+    /**
+     * Function that returns a model position for the tail such that both tail and tip of the vector remain with the graphBounds
+     * @public
+     * @param {vector2} tailVector - position of the unconstrained tailVector in model Coordinates
+     * @returns {Vector2}
+     */
+    getInBoundsTail( tailVector ) {
+
+      // determine the bounds of the tails
+      const tailBounds = this.graph.graphModelBounds;
+
+      // determine the bounds such for tip would remain within the graph
+      const tipBounds = this.graph.graphModelBounds.shifted( -this.attributesVector.x, -this.attributesVector.y );
+
+      // find the intersection of the two previous bounds
+      const constrainedBounds = tailBounds.intersection( tipBounds );
+
+      // return the tail vector constrained to the these bounds
+      return constrainedBounds.closestPointTo( tailVector );
+    }
   }
 
   return vectorAddition.register( 'VectorModel', VectorModel );
