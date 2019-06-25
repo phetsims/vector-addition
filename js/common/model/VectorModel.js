@@ -153,8 +153,8 @@ define( require => {
      * Rounds vector to have integer values
      * @public
      */
-    roundCartesianForm() {
-      this.attributesVector = this.attributesVector.roundSymmetric();
+    roundCartesianForm( attributesVector ) {
+      this.attributesVector = attributesVector.roundSymmetric();
     }
 
     /**
@@ -162,10 +162,10 @@ define( require => {
      * ANGLE_INTERVAL
      * @public
      */
-    roundPolarForm() {
-      const roundedMagnitude = Util.roundSymmetric( this.magnitudeProperty.value );
-      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( this.angleDegreesProperty.value / ANGLE_INTERVAL );
-      this.attributesVector = this.attributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+    roundPolarForm( attributesVector ) {
+      const roundedMagnitude = Util.roundSymmetric( attributesVector.magnitude );
+      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( Util.toDegrees( attributesVector.angle ) / ANGLE_INTERVAL );
+      this.attributesVector = attributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
     }
   }
 

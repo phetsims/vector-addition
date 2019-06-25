@@ -25,7 +25,6 @@ define( require => {
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
-  const Vector2 = require( 'DOT/Vector2' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
 
   // constants
@@ -127,6 +126,9 @@ define( require => {
 
       //@private {VectorModel}
       this.vectorModel = vectorModel;
+
+      // @private
+      this.coordinateSnapMode = coordinateSnapMode;
 
       //----------------------------------------------------------------------------------------
       // Create Body Drag
@@ -255,12 +257,14 @@ define( require => {
       }
 
       // determine the vector in model coordinates
-      const attributesVector = tipCoordinates.roundedSymmetric();
-
       // the client should not be able to set the vector to zero length,
       // if so the vector is zero, do not change the modelVector length
-      if ( !attributesVector.equals( Vector2.ZERO ) ) {
-        this.vectorModel.attributesVector = attributesVector;
+     
+      if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+        this.vectorModel.roundPolarForm( tipCoordinates );
+      }
+      else if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+        this.vectorModel.roundCartesianForm( tipCoordinates );
       }
 
     }
