@@ -55,11 +55,9 @@ define( require => {
         // create a scenery node for the sum vector
         const vectorSumNode = new VectorSumNode(
           vectorSet.vectorSum,
-          graph.graphModelBounds,
+          graph,
           model.componentStyleProperty,
           model.angleVisibleProperty,
-          graph.orientation,
-          graph.modelViewTransformProperty,
           model.valuesVisibleProperty
         );
 
@@ -72,11 +70,9 @@ define( require => {
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           const vectorNode = new VectorNode(
             addedVector,
-            graph.graphModelBounds,
+            graph,
             model.componentStyleProperty,
             model.angleVisibleProperty,
-            graph.orientation,
-            graph.modelViewTransformProperty,
             model.valuesVisibleProperty
           );
 

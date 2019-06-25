@@ -46,23 +46,22 @@ define( require => {
     /**
      * @constructor
      * @param {VectorModel} vectorModel- the vector model
-     * @param {Bounds2} graphModelBounds - the bounds to the graph
+     * @param {Graph} graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
-     * @param {GraphOrientations} graphOrientation - Orientation mode of the vectors
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
-     * between model coordinates and view coordinates
      * @param {BooleanProperty} valuesVisibleProperty
      * @param  {Object} [arrowOptions]
      */
     constructor( vectorModel,
-                 graphModelBounds,
+                 graph,
                  componentStyleProperty,
                  angleVisibleProperty,
-                 graphOrientation,
-                 modelViewTransformProperty,
                  valuesVisibleProperty,
                  arrowOptions ) {
+
+      const graphOrientation = graph.orientation;
+      const modelViewTransformProperty = graph.modelViewTransformProperty;
+      const graphModelBounds = graph.graphModelBounds;
 
       // Type check arguments
       assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
