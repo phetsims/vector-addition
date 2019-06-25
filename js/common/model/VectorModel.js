@@ -160,7 +160,14 @@ define( require => {
      */
     roundCartesianForm( attributesVector ) {
 
-      const inBoundsAttributesVector = this.getInBoundsAttributesVector( attributesVector );
+      const tipPosition = this.tail.plus( attributesVector );
+
+      // Get the tip thats on the graph
+      const newTip = this.graph.graphModelBounds.closestPointTo( tipPosition );
+     
+      // Calculate the attributesVector based on the new tip
+      const inBoundsAttributesVector = newTip.minus( this.tail );
+
       const roundedVector = inBoundsAttributesVector.roundSymmetric();
 
       this.setAttributesVector( roundedVector );
@@ -190,12 +197,25 @@ define( require => {
      * @public
      */
     roundPolarForm( attributesVector ) {
-      const inBoundsAttributesVector = this.getInBoundsAttributesVector( attributesVector );
 
-      const roundedMagnitude = Util.roundSymmetric( inBoundsAttributesVector.magnitude );
-      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( Util.toDegrees( inBoundsAttributesVector.angle ) / ANGLE_INTERVAL );
-      const roundedVector = inBoundsAttributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
-      this.setAttributesVector( roundedVector );
+      const roundedMagnitude = Util.roundSymmetric( attributesVector.magnitude );
+      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( Util.toDegrees( attributesVector.angle ) / ANGLE_INTERVAL );
+      const roundedVector = attributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+
+    
+  
+      let tipPosition = this.tail.plus( roundedVector );
+      while ( !this.graph.graphModelBounds.containsPoint( tipPosition ) ) {
+        roundedVector.setMagnitude( roundedVector.magnitude - 1 );
+        tipPosition = this.tail.plus( roundedVector );
+      }
+
+
+      // Calculate the attributesVector based on the new tip
+      const inBoundsAttributesVector = tipPosition.minus( this.tail );
+
+
+      this.setAttributesVector( inBoundsAttributesVector );
     }
 
     /**
@@ -211,17 +231,7 @@ define( require => {
       }
     }
 
-    getInBoundsAttributesVector( attributesVector ) {
 
-      const tipPosition = this.tail.plus( attributesVector );
-
-      // Get the tip thats on the graph
-      const newTip = this.graph.graphModelBounds.eroded( 1 ).closestPointTo( tipPosition );
-     
-      // Calculate the attributesVector based on the new tip
-      return newTip.minus( this.tail );
-
-    }
   }
 
   return vectorAddition.register( 'VectorModel', VectorModel );
