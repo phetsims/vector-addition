@@ -163,9 +163,7 @@ define( require => {
       const tipPosition = this.tail.plus( attributesVector );
 
       // Get the tip thats on the graph
-      const newTip = this.graph.graphModelBounds.closestPointTo( tipPosition );
-
-      this.setTipXY( newTip.x, newTip.y );
+      this.tip = this.graph.graphModelBounds.closestPointTo( tipPosition );
 
       switch( this.graph.orientation ) {
         case GraphOrientations.HORIZONTAL: {
@@ -204,37 +202,7 @@ define( require => {
         tipPosition = this.tail.plus( roundedVector );
       }
 
-
-      // Calculate the attributesVector based on the new tip
-      const inBoundsAttributesVector = tipPosition.minus( this.tail );
-
-
-      this.setAttributesVector( inBoundsAttributesVector );
-    }
-
-    /**
-     * Set the attributes of the vector
-     * @private
-     * @param {Vector2} vector
-     */
-    setAttributesVector( vector ) {
-
-      // prevent setting the vector to magnitude of zero
-      if ( vector.magnitude > 0 ) {
-        this.attributesVector = vector;
-      }
-    }
-
-    getInBoundsAttributesVector( attributesVector ) {
-
-      const tipPosition = this.tail.plus( attributesVector );
-
-      // Get the tip thats on the graph
-      const newTip = this.graph.graphModelBounds.eroded( 1 ).closestPointTo( tipPosition );
-
-      // Calculate the attributesVector based on the new tip
-      return newTip.minus( this.tail );
-
+      this.tip = tipPosition;
     }
 
     /**
