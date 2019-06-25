@@ -38,7 +38,8 @@ define( require => {
                  graph,
                  componentStyleProperty,
                  angleVisibleProperty,
-                 valuesVisibleProperty
+                 valuesVisibleProperty,
+                 coordinateSnapMode
     ) {
 
       let arrowOptions;
@@ -60,6 +61,7 @@ define( require => {
         componentStyleProperty,
         angleVisibleProperty,
         valuesVisibleProperty,
+        coordinateSnapMode,
         arrowOptions );
 
     }

@@ -26,6 +26,7 @@ define( require => {
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const Vector2 = require( 'DOT/Vector2' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
 
   // constants
   const TIP_CIRCLE_RADIUS = 10;
@@ -57,11 +58,13 @@ define( require => {
                  componentStyleProperty,
                  angleVisibleProperty,
                  valuesVisibleProperty,
+                 coordinateSnapMode,
                  arrowOptions ) {
 
       const graphOrientation = graph.orientation;
       const modelViewTransformProperty = graph.modelViewTransformProperty;
       const graphModelBounds = graph.graphModelBounds;
+
 
       // Type check arguments
       assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
@@ -71,7 +74,7 @@ define( require => {
       assert && assert( angleVisibleProperty instanceof BooleanProperty,
         `invalid angleVisibleProperty: ${angleVisibleProperty}` );
       // modelViewTransformProperty checked in super class
-
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       //----------------------------------------------------------------------------------------
       // Get the arrow options for the specific vector type
 

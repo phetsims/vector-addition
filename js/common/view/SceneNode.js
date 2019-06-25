@@ -58,7 +58,8 @@ define( require => {
           graph,
           model.componentStyleProperty,
           model.angleVisibleProperty,
-          model.valuesVisibleProperty
+          model.valuesVisibleProperty,
+          vectorSet.coordinateSnapMode
         );
 
         // link the visibility of the Vector Sum node with the status of the checkbox
@@ -73,7 +74,8 @@ define( require => {
             graph,
             model.componentStyleProperty,
             model.angleVisibleProperty,
-            model.valuesVisibleProperty
+            model.valuesVisibleProperty,
+            vectorSet.coordinateSnapMode
           );
 
           vectorLayer.addChild( vectorNode );
