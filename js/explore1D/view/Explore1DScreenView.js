@@ -67,7 +67,6 @@ define( require => {
           case GraphOrientations.TWO_DIMENSIONAL:
             throw new Error( `Explore1D does not support vector orientation: ${graphOrientation}` );
           default:
-            console.log( graphOrientation );
             throw new Error( `Vector orientation not handled: ${graphOrientation}` );
         }
       } );
