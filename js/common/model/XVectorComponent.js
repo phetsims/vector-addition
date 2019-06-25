@@ -30,21 +30,21 @@ define( require => {
 
           // Shared tail position as parent
           this.tail = this.parentVector.tail;
-          this.setTipXY( this.parentVector.tip.x, this.parentVector.tailY );
+          this.setTipXY( this.parentVector.tipX, this.parentVector.tailY );
           break;
         }
         case ComponentStyles.PARALLELOGRAM: {
 
           // Shared tail position as parent
           this.tail = this.parentVector.tail;
-          this.setTipXY( this.parentVector.tip.x, this.parentVector.tailY );
+          this.setTipXY( this.parentVector.tipX, this.parentVector.tailY );
           break;
         }
         case ComponentStyles.ON_AXIS: {
 
           // Same tailX, however its y value is 0 since it is on the x-axis
           this.setTailXY( this.parentVector.tailX, 0 );
-          this.setTipXY( this.parentVector.tip.x, 0 );
+          this.setTipXY( this.parentVector.tipX, 0 );
           break;
         }
         case ComponentStyles.INVISIBLE: {

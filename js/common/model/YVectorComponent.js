@@ -29,7 +29,7 @@ define( require => {
         case ComponentStyles.TRIANGLE: {
 
           // Creates the triangle, tipX to tailY
-          this.setTailXY( this.parentVector.tip.x, this.parentVector.tailY );
+          this.setTailXY( this.parentVector.tipX, this.parentVector.tailY );
           this.tip = this.parentVector.tip;
           break;
         }
@@ -37,14 +37,14 @@ define( require => {
 
           // Shared tail position as parent
           this.tail = this.parentVector.tail;
-          this.setTipXY( this.parentVector.tailX, this.parentVector.tip.y );
+          this.setTipXY( this.parentVector.tailX, this.parentVector.tipY );
           break;
         }
         case ComponentStyles.ON_AXIS: {
 
           // Same tailY, however its x value is 0 since it is on the y-axis
           this.setTailXY( 0, this.parentVector.tailY );
-          this.setTipXY( 0, this.parentVector.tip.y );
+          this.setTipXY( 0, this.parentVector.tipY );
 
           break;
         }

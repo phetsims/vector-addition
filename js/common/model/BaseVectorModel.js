@@ -68,7 +68,7 @@ define( require => {
      *---------------------------------------------------------------------------*/
     
     /**
-     * Get the attributes vector
+     * Gets the attributes vector
      * @public
      * @returns {Vector2} - the attributes vector
      */
@@ -99,7 +99,6 @@ define( require => {
     set magnitude( number ) {
 
       assert && assert( typeof number === 'number', `invalid number: ${number}` );
-
       this.attributesVector = this.attributesVector.copy().setMagnitude( number );
     }
 
@@ -116,7 +115,7 @@ define( require => {
 
     /**
      * @public
-     * Sets the yComponent. Keeps the xComponent, tailPosition constant
+     * Sets the yComponent. Keeps the xComponent, tailPosition constant.
      * @param {number} component
      */
     set yComponent( component ) {
@@ -128,15 +127,15 @@ define( require => {
     // X component
 
     /**
-     * @public
      * Gets the xComponent
+     * @public
      * @returns {number}
      */
     get xComponent() { return this.attributesVector.x; }
 
     /**
+     * Sets the xComponent. Keeps the yComponent, tailPosition constant.
      * @public
-     * Sets the xComponent. Keeps the yComponent, tailPosition constant
      * @param {number} component
      */
     set xComponent( component ) {
@@ -148,15 +147,15 @@ define( require => {
     // Tail Position
 
     /**
-     * @public
      * Gets the tail
+     * @public
      * @returns {Vector2}
      */
     get tail() { return this.tailPositionProperty.value; }
 
     /**
+     * Sets the tail position. This will change the magnitude but keep the tip position the same.
      * @public
-     * Sets the tail position. This will change the magnitude but keep the tip the same
      * @param {Vector2} position
      */
     set tail( position ) {
@@ -168,15 +167,15 @@ define( require => {
     // Tail X Position
 
     /**
-     * @public
      * Gets the tailX
+     * @public
      * @returns {number}
      */
     get tailX() { return this.tailPositionProperty.value.x; }
 
     /**
+     * Sets the tailX. This changes the magnitude but will keep the tip position the same.
      * @public
-     * Sets the tailX. This changes the magnitude but will keep the tip the same.
      * @param {number} x
      */
     set tailX( x ) {
@@ -223,10 +222,24 @@ define( require => {
       this.setTipXY( position.x, position.y );
     }
 
+    /**
+     * Gets the tipX
+     * @public
+     * @returns {number}
+     */
+    get tipX() { return this.tipPositionProperty.value.x; }
+
+    /**
+     * Gets the tipY
+     * @public
+     * @returns {number}
+     */
+    get tipY() { return this.tipPositionProperty.value.y; }
+
     //----------------------------------------------------------------------------------------
 
     /**
-     * Returns the angle in radians of the vector between $\theta\in(-\pi,\pi]$
+     * Gets the angle in radians of the vector between $\theta\in(-\pi,\pi]$
      * @public
      * @returns {number}
      */
