@@ -251,14 +251,8 @@ define( require => {
     tailSnapToGrid( tailLocation ) {
 
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
-
-      // The distance the user has dragged
-      const deltaDrag = tailPosition.minus( this.vectorModel.tail );
-
-      this.vectorModel.tail = tailPosition;
-
-      // Translate the tip
-      this.vectorModel.tip = this.vectorModel.tip.plus( deltaDrag );
+      
+      this.vectorModel.translateToPoint( tailPosition );
 
 
       this.vectorModel.moveVectorToFitInGraph();

@@ -245,17 +245,6 @@ define( require => {
      */
     get angle() { return this.attributesVector.angle; }
 
-
-    /**
-     * Multiply the vector by a scalar. Keeps tail position and angle the same.
-     * @public
-     * @param {number} scalar
-     */
-    multiplyScalar( scalar ) {
-      assert && assert( typeof scalar === 'number', `invalid scalar: ${scalar}` );
-      this.attributesVector = this.attributesVector.timesScalar( scalar );
-    }
-
     /**
      * @public
      * Sets the tail position. This will change the magnitude of the vector, but the tip will remain constant.
@@ -290,6 +279,15 @@ define( require => {
 
       this.attributesVector = this.attributesVector.plus( newTip.minus( this.tip ) );
 
+    }
+
+    /**
+     * Translates the tail to this point. This keeps the magnitude constant, and changes the tip position.
+     * @param {Vector2} position
+     * @public
+     */
+    translateToPoint( position ) {
+      this.tailPositionProperty.value = position;
     }
   }
 

@@ -222,7 +222,7 @@ define( require => {
       const constrainedBounds = tailBounds.intersection( tipBounds );
 
       // return the tail vector constrained to the these bounds
-      this.tail = constrainedBounds.closestPointTo( this.tail );
+      this.translateToPoint( constrainedBounds.closestPointTo( this.tail ) );
     }
   }
 
