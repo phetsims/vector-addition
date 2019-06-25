@@ -18,6 +18,7 @@ define( require => {
     /**
      * @param {VectorAdditionModel} vectorAdditionModel
      * @param {Tandem} tandem
+     * @param {Object} [sceneNodeOptions]
      */
     constructor( vectorAdditionModel, tandem, sceneNodeOptions ) {
 
@@ -31,6 +32,7 @@ define( require => {
         const newSceneNode = new SceneNode( graph, vectorAdditionModel, sceneNodeOptions );
         this.addChild( newSceneNode );
 
+        // TODO: do we need a reference to sceneNode in the model graph?
         graph.sceneNode = newSceneNode;
         this.sceneNodes.push( newSceneNode );
       } );
