@@ -130,6 +130,9 @@ define( require => {
       // @private
       this.coordinateSnapMode = coordinateSnapMode;
 
+      // @private 
+      this.graph = graph;
+
       //----------------------------------------------------------------------------------------
       // Create Body Drag
 
@@ -236,16 +239,23 @@ define( require => {
      * @param {Vector2} tipLocation
      */
     tipSnapToGrid( tipLocation ) {
-      const tipCoordinates = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
 
+      // The actual tip coordinates on the graph
+      const tipCoordinates = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ).plus( this.vectorModel.tail );
+
+      // Get a new tip thats on the graph
+      const newTip = this.graph.graphModelBounds.closestPointTo( tipCoordinates );
+     
+      // Calculate the attributesVector based on the new tip
+      const attributesVector = newTip.minus( this.vectorModel.tail );
 
       switch( this.graphOrientation ) {
         case GraphOrientations.HORIZONTAL: {
-          tipCoordinates.setY( 0 );
+          attributesVector.setY( 0 );
           break;
         }
         case GraphOrientations.VERTICAL: {
-          tipCoordinates.setX( 0 );
+          attributesVector.setX( 0 );
           break;
         }
         case GraphOrientations.TWO_DIMENSIONAL: {
@@ -257,10 +267,10 @@ define( require => {
       }
       
       if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-        this.vectorModel.roundPolarForm( tipCoordinates );
+        this.vectorModel.roundPolarForm( attributesVector );
       }
       else if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-        this.vectorModel.roundCartesianForm( tipCoordinates );
+        this.vectorModel.roundCartesianForm( attributesVector );
       }
 
     }
