@@ -50,7 +50,7 @@ define( require => {
      * @param {Vector2} initialVector - the direction, and length of the modelVector
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
-     * @param {Object} options
+     * @param {Object} [options]
      */
     constructor( initialVector, modelViewTransformProperty, vectorSet, options ) {
 
@@ -189,7 +189,7 @@ define( require => {
       /**
        * returns a scenery representation of a vector arrow with a dropped shadow
        * @param {Vector2} initialViewVector
-       * @param {Object} options
+       * @param {Object} [options]
        * @returns {Node}
        */
       function getVectorRepresentation( initialViewVector, options ) {

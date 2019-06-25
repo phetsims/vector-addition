@@ -206,7 +206,7 @@ define( function( require ) {
     /**
      * Convenience method to get a component style radio button icon
      * @param {ComponentStyles} componentStyle
-     * @param {Object} options
+     * @param {Object} [options]
      * @public
      */
     static createComponentStyleIcon( componentStyle, options ) {
