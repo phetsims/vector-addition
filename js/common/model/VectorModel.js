@@ -25,6 +25,7 @@ define( require => {
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
 
+
   // constants
 
   // interval spacing of vector angle (in degrees) when vector is in polar mode
@@ -155,12 +156,9 @@ define( require => {
      */
     roundCartesianForm( attributesVector ) {
 
-      // determine the vector in model coordinates
-      // the client should not be able to set the vector to zero length,
-      // if so the vector is zero, do not change the modelVector length
-      if ( attributesVector.roundSymmetric().magnitude !== 0 ) {
-        this.attributesVector = attributesVector.roundSymmetric();
-      }
+      const roundedVector = attributesVector.roundSymmetric();
+      this.setAttributesVector( roundedVector );
+
     }
 
     /**
@@ -171,7 +169,21 @@ define( require => {
     roundPolarForm( attributesVector ) {
       const roundedMagnitude = Util.roundSymmetric( attributesVector.magnitude );
       const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( Util.toDegrees( attributesVector.angle ) / ANGLE_INTERVAL );
-      this.attributesVector = attributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+      const roundedVector = attributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+      this.setAttributesVector( roundedVector );
+    }
+
+    /**
+     * Set the attributes of the vector
+     * @private
+     * @param {Vector2} vector
+     */
+    setAttributesVector( vector ) {
+
+      // prevent setting the vector to magnitude of zero
+      if ( vector.magnitude > 0 ) {
+        this.attributesVector = vector;
+      }
     }
   }
 
