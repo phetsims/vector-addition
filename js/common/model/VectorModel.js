@@ -17,15 +17,15 @@ define( require => {
   // modules
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-
 
   // constants
 
@@ -38,30 +38,22 @@ define( require => {
      * @param {Vector2} tailPosition
      * @param {number} xComponent horizontal component of the vector
      * @param {number} yComponent vertical component of the vector
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {Graph} graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {VectorGroups} vectorGroup - (see VectorGroups.js)
      * @param {Object} [options]
      */
-    constructor(
-      tailPosition,
-      xComponent,
-      yComponent,
-      graph,
-      componentStyleProperty,
-      vectorGroup,
-      options ) {
+    constructor( tailPosition, xComponent, yComponent, graph, componentStyleProperty, vectorGroup, options ) {
 
       options = _.extend( {
         label: 'v',// {string} - the label of the vector
         isTipDraggable: true // {boolean} - can the tip be dragged
       }, options );
 
-      const modelViewTransformProperty = graph.modelViewTransformProperty;
-
-      assert && assert( modelViewTransformProperty instanceof Property
-      && modelViewTransformProperty.value instanceof ModelViewTransform2,
-        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+      assert && assert( componentStyleProperty instanceof Property
+        && ComponentStyles.includes( componentStyleProperty.value ),
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( VectorGroups.includes( vectorGroup ) , `invalid vectorGroup: ${vectorGroup}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid isTipDraggable: ${options.isTipDraggable}` );
       assert && assert( typeof options.label === 'string', `invalid options.label: ${options.label}` );
@@ -76,9 +68,12 @@ define( require => {
       // @public (read-only)
       this.label = options.label;
 
-      // @public {BooleanProperty} - indicates if the vector is active. An active vector is a vector that is being
-      // dragged by the body or the tip.
+      // @public (read-only) {BooleanProperty} - indicates if the vector is active. An active vector is a vector that is
+      // being dragged by the body or the tip.
       this.isActiveProperty = new BooleanProperty( false );
+
+      // @private {Graph}
+      this.graph = graph;
 
       //----------------------------------------------------------------------------------------
       // Properties for the inspectPanel
@@ -86,7 +81,7 @@ define( require => {
       // @public (read-only) {DerivedProperty.<number>} - the magnitude of the vector
       this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.magnitude ) );
 
-      // @public (read-only) {DerivedProperty.<number>} - the angle (in degrees) of the vector
+      // @public (read-only) {DerivedProperty.<number>} - the angle (in degrees) of the vector.
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
       this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         () => ( Util.toDegrees( this.angle ) ) );
@@ -105,11 +100,11 @@ define( require => {
         this.tailPositionProperty.value = newModelViewTransform.viewToModelPosition( oldTailViewPosition );
       };
 
-      modelViewTransformProperty.lazyLink( updateTailPosition );
+      this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
 
       // @private - unlink the modelViewTransform link, called in the dispose method
       this.unlinkTailUpdate = () => {
-        modelViewTransformProperty.unlink( updateTailPosition );
+        this.graph.modelViewTransformProperty.unlink( updateTailPosition );
       };
 
       //----------------------------------------------------------------------------------------
@@ -121,7 +116,6 @@ define( require => {
       // @public (read only) {YVectorComponent}
       this.yVectorComponent = new YVectorComponent( this, componentStyleProperty, this.label );
 
-      this.graph = graph;
     }
 
     /**
@@ -155,7 +149,7 @@ define( require => {
     }
 
     /**
-     * Rounds vector to have integer values
+     * Rounds vector to have integer values. Called when the tip is dragged in the cartesian scene
      * @public
      */
     roundCartesianForm() {
@@ -166,30 +160,18 @@ define( require => {
       // Round the tip
       this.tip = this.tip.copy().roundSymmetric();
 
-      // Based on the vector orientation, constrain the components
-      switch( this.graph.orientation ) {
-        case GraphOrientations.HORIZONTAL: {
-          this.yComponent = 0;
-          break;
-        }
-        case GraphOrientations.VERTICAL: {
-          this.xComponent = 0;
-          break;
-        }
-        case GraphOrientations.TWO_DIMENSIONAL: {
-          // Do nothing
-          break;
-        }
-        default: {
-          throw new Error( `graphOrientation not handled: ${this.graphOrientation}` );
-        }
+      // Based on the vector orientation, constrain the dragging components
+      if ( this.graph.orientation === GraphOrientations.HORIZONTAL ) {
+        this.yComponent = 0;
       }
-
+      else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
+        this.xComponent = 0;
+      }
     }
 
     /**
-     * Round vectors to have integer values in polar form, i.e. magnitude has integer values and angle is a multiple of
-     * ANGLE_INTERVAL
+     * Rounds vector magnitude to an integer and angle to a multiple of ANGLE_INTERVAL. Called when the tip is dragged
+     * in the Polar scene
      * @public
      */
     roundPolarForm() {
@@ -200,28 +182,30 @@ define( require => {
 
       this.attributesVector = this.attributesVector.copy().setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
 
+      // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside.
       while ( !this.graph.graphModelBounds.containsPoint( this.tip ) ) {
         this.magnitude -= 1;
       }
     }
 
     /**
-     * Function that returns a model position for the tail such that both tail and tip of the vector remain with the graphBounds
+     * Updates the tail such that both tail and tip of the vector remain with the graphBounds. Called when the vector
+     * body is being translated.
      * @public
-     * // TODO: check with designers to make sure this is what we want
+     * TODO: check with designers to make sure this is what we want
      */
     moveVectorToFitInGraph() {
 
-      // determine the bounds of the tails
+      // Determine the bounds of the tails
       const tailBounds = this.graph.graphModelBounds;
 
-      // determine the bounds such for tip would remain within the graph
+      // Determine the bounds such for tip would remain within the graph
       const tipBounds = this.graph.graphModelBounds.shifted( -this.attributesVector.x, -this.attributesVector.y );
 
-      // find the intersection of the two previous bounds
+      // Find the intersection of the two previous bounds
       const constrainedBounds = tailBounds.intersection( tipBounds );
 
-      // return the tail vector constrained to the these bounds
+      // Translate the tail to ensure it stays in the contained bounds
       this.translateToPoint( constrainedBounds.closestPointTo( this.tail ) );
     }
   }
