@@ -58,10 +58,9 @@ define( require => {
                  coordinateSnapMode,
                  arrowOptions ) {
 
-      const graphOrientation = graph.orientation;
+
       const modelViewTransformProperty = graph.modelViewTransformProperty;
       const graphModelBounds = graph.graphModelBounds;
-
 
       // Type check arguments
       assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
@@ -94,42 +93,37 @@ define( require => {
 
       const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
 
-      // @public (read-only) {VectorComponentNode}
-      this.xComponentNode = new VectorComponentNode( vectorModel.xVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
+      // create the xComponentNode for the projection of the vectors along the horizontal
+      const xComponentNode = new VectorComponentNode( vectorModel.xVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
 
-      this.addChild( this.xComponentNode );
+      // create the yComponent for the projection of the vector along the vertical
+      const yComponentNode = new VectorComponentNode( vectorModel.yVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
 
-      // @public (read-only) {VectorComponentNode}
-      this.yComponentNode = new VectorComponentNode( vectorModel.yVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
+      // create a scenery node representing the arc of an angle and the numerical display of the angle
+      const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, modelViewTransformProperty.value );
 
-      this.addChild( this.yComponentNode );
+      // {Node} Create a circle at the tip of the vector. This is used to allow the user to only
+      // change the angle of the arrowNode by only dragging the tip
+      const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
+
+
+      this.addChild( xComponentNode );
+      this.addChild( yComponentNode );
+      this.addChild( tipCircle );
+      this.addChild( angleNode );
+
 
       this.arrowNode.moveToFront();
-
-      this.angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, modelViewTransformProperty.value );
-      this.addChild( this.angleNode );
-
-      // @public (read-only) {Node} Create a circle at the tip of the vector. This is used to allow the user to only
-      // change the angle of the arrowNode by only dragging the tip
-      this.tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
-
-      this.addChild( this.tipCircle );
 
       //----------------------------------------------------------------------------------------
       // @private {Property.<ModelViewTransform2>}
       this.modelViewTransformProperty = modelViewTransformProperty;
 
-      // @private {GraphOrientations}
-      this.graphOrientation = graphOrientation;
-
-      //@private {VectorModel}
+      // @private {VectorModel}
       this.vectorModel = vectorModel;
 
       // @private
       this.coordinateSnapMode = coordinateSnapMode;
-
-      // @private 
-      this.graph = graph;
 
       //----------------------------------------------------------------------------------------
       // Create Body Drag
@@ -169,7 +163,7 @@ define( require => {
 
         // for forwarding drag events for the tip
         const tipDragListener = new DragListener( {
-          targetNode: this.tipCircle,
+          targetNode: tipCircle,
           locationProperty: tipLocationProperty,
           start: () => {
             vectorModel.isActiveProperty.value = true;
@@ -186,20 +180,20 @@ define( require => {
 
         tipLocationProperty.link( tipListener );
 
-        this.tipCircle.addInputListener( tipDragListener );
+        tipCircle.addInputListener( tipDragListener );
 
         this.disposeTipDrag = () => {
-          this.tipCircle.removeInputListener( tipDragListener );
+          tipCircle.removeInputListener( tipDragListener );
           tipLocationProperty.unlink( tipListener );
         };
       }
 
       const updateTip = () => {
         const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
-        this.tipCircle.center = tipDeltaLocation;
+        tipCircle.center = tipDeltaLocation;
       };
 
-      // update the position of the  this.tipCircle
+      // update the position of the  tipCircle
       vectorModel.attributesVectorProperty.link( updateTip );
 
       // Create a method to dispose children
@@ -208,14 +202,14 @@ define( require => {
           this.disposeTipDrag();
         }
 
-        this.xComponentNode.dispose();
-        this.yComponentNode.dispose();
-        this.angleNode.dispose();
+        xComponentNode.dispose();
+        yComponentNode.dispose();
+        angleNode.dispose();
         tailLocationProperty.unlink( tailListener );
         vectorModel.attributesVectorProperty.unlink( updateTip );
         this.arrowNode.removeInputListener( bodyDragListener );
         this.labelNode.removeInputListener( bodyDragListener );
-        this.tipCircle.dispose();
+        tipCircle.dispose();
       };
 
     }
