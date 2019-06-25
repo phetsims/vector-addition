@@ -108,7 +108,7 @@ define( require => {
       this.setChildren( [ this.arcPath, this.arrowheadPath ] );
 
       // Set the position and rotation of the arrowhead and the sweep of the arc
-      this.setAngleAndRadius( angle, radius, this.arrowheadIncluded );
+      this.setAngleAndRadius( angle, radius );
     }
 
     /**
