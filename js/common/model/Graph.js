@@ -59,7 +59,7 @@ define( require => {
       // Graphs last for the life time of the sim, so no need to unlink (the origin is is always movable)
       this.upperLeftPositionProperty.link( ( upperLeftPosition ) => {
 
-        // @public {Bounds2} - the model bounds for the graph
+        // @public (read-only) {Bounds2} - the model bounds for the graph
         this.graphModelBounds = new Bounds2(
           upperLeftPosition.x,
           upperLeftPosition.y - graphDimension.height,
@@ -68,9 +68,9 @@ define( require => {
 
       } );
 
-      // @public {Property.<ModelViewTransform2>} - the coordinate transform between model (graph coordinates) and view
-      // coordinates. It is calculated from the upperLeftPosition of both the view and the model.
-      // Graphs last for the life time of the sim, so this will never need to be disposed.
+      // @public (read-only) {Property.<ModelViewTransform2>} - the coordinate transform between model
+      // (graph coordinates) and view coordinates. It is calculated from the upperLeftPosition of both the view and the
+      // model. Graphs last for the life time of the sim, so this will never need to be disposed.
       this.modelViewTransformProperty = new DerivedProperty( [ this.upperLeftPositionProperty ],
         upperLeftPosition => ModelViewTransform2.createSinglePointScaleInvertedYMapping(
           upperLeftPosition,
@@ -91,6 +91,7 @@ define( require => {
      */
     addVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
 
+      // Keep a reference
       const newVectorSet = new VectorSet(
         this,
         componentStyleProperty,
@@ -103,7 +104,7 @@ define( require => {
     }
 
     /**
-     * Resets the graph
+     * Resets the graph. Called when the reset all button is clicked.
      * @public
      */
     reset() {
@@ -116,7 +117,7 @@ define( require => {
      * @public
      */
     erase() {
-      // reset each vectorSet
+      // Reset each vectorSet
       this.vectorSets.forEach( vectorSet =>
         vectorSet.reset()
       );

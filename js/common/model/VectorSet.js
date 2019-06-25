@@ -20,6 +20,7 @@ define( require => {
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  // const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
 
   class VectorSet {
 
@@ -39,10 +40,7 @@ define( require => {
       vectorGroup,
       coordinateSnapMode ) {
 
-      // assert && assert( modelViewTransformProperty instanceof Property
-      // && modelViewTransformProperty.value instanceof ModelViewTransform2,
-      //   `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
-      // assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds: ${graphModelBounds}` );
+      // assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
