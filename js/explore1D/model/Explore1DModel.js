@@ -16,6 +16,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
 
   // constants
   const DEFAULT_VECTOR_ORIENTATION = GraphOrientations.HORIZONTAL;
@@ -69,10 +70,18 @@ define( require => {
         this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
 
       // Disable polar / cartesian mode
-      this.coordinateSnapModeProperty.dispose();
+      this.coordinateSnapModeProperty.link( coordinateSnapMode => {
+        if ( coordinateSnapMode !== CoordinateSnapModes.CARTESIAN ) {
+          throw new Error( 'Explore1D only uses cartesian' );
+        }
+      } );
 
       // Disable angle
-      this.angleVisibleProperty.dispose();
+      this.angleVisibleProperty.link( angleVisible => {
+        if ( angleVisible ) {
+          throw new Error( 'Angles are never visible for Explore1D' );
+        }
+      } );
     }
 
     /**
