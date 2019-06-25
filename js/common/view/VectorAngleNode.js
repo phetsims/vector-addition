@@ -33,7 +33,7 @@ define( require => {
   class VectorAngleNode extends Node {
 
     /**
-     * @param {VectorModel} vectorModel- the vector model
+     * @param {VectorModel} vectorModel - the vector model
      * @param {BooleanProperty} angleVisibleProperty
      * @param {ModelViewTransform2} modelViewTransform
      */

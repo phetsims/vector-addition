@@ -24,6 +24,7 @@ define( require => {
 
       super();
 
+      // TODO: do we need an instance or is a constant sufficient
       this.sceneNodes = [];
 
       vectorAdditionModel.graphs.forEach( ( graph ) => {
