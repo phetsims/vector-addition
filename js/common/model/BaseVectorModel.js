@@ -90,6 +90,18 @@ define( require => {
      * @returns {number}
      */
     get magnitude() { return this.attributesVector.magnitude; }
+    
+    /**
+     * Sets the magnitude of the vector. This keeps the tail constant, but changes the tail.
+     * @public
+     * @param {number} magnitude
+     */
+    set magnitude( number ) {
+
+      assert && assert( typeof number === 'number', `invalid number: ${number}` );
+
+      this.attributesVector = this.attributesVector.copy().setMagnitude( number );
+    }
 
     //----------------------------------------------------------------------------------------
     // Y component

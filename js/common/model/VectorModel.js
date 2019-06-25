@@ -158,13 +158,15 @@ define( require => {
      * Rounds vector to have integer values
      * @public
      */
-    roundCartesianForm( attributesVector ) {
+    roundCartesianForm() {
 
-      const tipPosition = this.tail.plus( attributesVector );
+      // Move the tip to inside the graph
+      this.tip = this.graph.graphModelBounds.closestPointTo( this.tip );
 
-      // Get the tip thats on the graph
-      this.tip = this.graph.graphModelBounds.closestPointTo( tipPosition );
+      // Round the tip
+      this.tip = this.tip.copy().roundSymmetric();
 
+      // Based on the vector orientation, constrain the components
       switch( this.graph.orientation ) {
         case GraphOrientations.HORIZONTAL: {
           this.yComponent = 0;
@@ -175,6 +177,7 @@ define( require => {
           break;
         }
         case GraphOrientations.TWO_DIMENSIONAL: {
+          // Do nothing
           break;
         }
         default: {
@@ -189,26 +192,23 @@ define( require => {
      * ANGLE_INTERVAL
      * @public
      */
-    roundPolarForm( attributesVector ) {
+    roundPolarForm() {
 
-      const roundedMagnitude = Util.roundSymmetric( attributesVector.magnitude );
-      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( Util.toDegrees( attributesVector.angle ) / ANGLE_INTERVAL );
-      const roundedVector = attributesVector.setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+      const roundedMagnitude = Util.roundSymmetric( this.magnitude );
+      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric(
+        Util.toDegrees( this.angle ) / ANGLE_INTERVAL );
 
+      this.attributesVector = this.attributesVector.copy().setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
 
-      let tipPosition = this.tail.plus( roundedVector );
-      while ( !this.graph.graphModelBounds.containsPoint( tipPosition ) ) {
-        roundedVector.setMagnitude( roundedVector.magnitude - 1 );
-        tipPosition = this.tail.plus( roundedVector );
+      while ( !this.graph.graphModelBounds.containsPoint( this.tip ) ) {
+        this.magnitude = this.magnitude - 1;
       }
-
-      this.tip = tipPosition;
     }
 
     /**
      * Function that returns a model position for the tail such that both tail and tip of the vector remain with the graphBounds
      * @public
-     * @param {vector2} tailVector - position of the unconstrained tailVector in model Coordinates
+     * @param {Vector2} tailVector - position of the unconstrained tailVector in model Coordinates
      * @returns {Vector2}
      */
     getInBoundsTail( tailVector ) {

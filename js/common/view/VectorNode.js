@@ -235,14 +235,15 @@ define( require => {
      */
     tipSnapToGrid( tipLocation ) {
 
-      // The actual tip coordinates on the graph
-      const attributesVector = this.modelViewTransformProperty.value.viewToModelDelta( tipLocation );
-
+      // Update the model vector
+      this.vectorModel.tip = this.vectorModel.tail.plus( this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
+      
+      // Round the tip position according to the coordinateSnapMode
       if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-        this.vectorModel.roundPolarForm( attributesVector );
+        this.vectorModel.roundPolarForm();
       }
       else if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-        this.vectorModel.roundCartesianForm( attributesVector );
+        this.vectorModel.roundCartesianForm();
       }
 
     }
