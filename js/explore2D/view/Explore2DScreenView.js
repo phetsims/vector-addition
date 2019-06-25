@@ -61,7 +61,7 @@ define( function( require ) {
         if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
           polarVectorCreatorPanel.visible = false;
           cartesianVectorCreatorPanel.visible = true;
-          explore2DModel.polarGraph.sceneNode = false;
+          explore2DModel.polarGraph.sceneNode.visible = false;
           explore2DModel.cartesianGraph.sceneNode.visible = true;
         }
 
@@ -69,8 +69,8 @@ define( function( require ) {
         if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
           polarVectorCreatorPanel.visible = true;
           cartesianVectorCreatorPanel.visible = false;
-          explore2DModel.polarGraph.sceneNode = true;
-          explore2DModel.cartesianGraph.sceneNode. visible = false;
+          explore2DModel.polarGraph.sceneNode.visible = true;
+          explore2DModel.cartesianGraph.sceneNode.visible = false;
         }
       } );
 
