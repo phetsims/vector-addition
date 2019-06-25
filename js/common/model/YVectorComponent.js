@@ -25,28 +25,27 @@ define( require => {
      */
     updateComponent( componentStyle ) {
 
-      // In all cases, the yComponent is always matching the parent and the xComponent is 0
-      this.yComponent = this.parentVector.yComponent;
-      this.xComponent = 0;
-
       switch( componentStyle ) {
         case ComponentStyles.TRIANGLE: {
 
           // Creates the triangle, tipX to tailY
-          this.setTailXY( this.parentVector.tipX, this.parentVector.tailY );
+          this.setTailXY( this.parentVector.tip.x, this.parentVector.tailY );
+          this.tip = this.parentVector.tip;
           break;
         }
         case ComponentStyles.PARALLELOGRAM: {
 
           // Shared tail position as parent
           this.tail = this.parentVector.tail;
+          this.setTipXY( this.parentVector.tailX, this.parentVector.tip.y );
           break;
         }
         case ComponentStyles.ON_AXIS: {
 
           // Same tailY, however its x value is 0 since it is on the y-axis
-          this.tailY = this.parentVector.tailY;
-          this.tailX = 0;
+          this.setTailXY( 0, this.parentVector.tailY );
+          this.setTipXY( 0, this.parentVector.tip.y );
+
           break;
         }
         case ComponentStyles.INVISIBLE: {

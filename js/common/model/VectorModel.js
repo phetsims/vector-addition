@@ -165,12 +165,7 @@ define( require => {
       // Get the tip thats on the graph
       const newTip = this.graph.graphModelBounds.closestPointTo( tipPosition );
 
-      // Calculate the attributesVector based on the new tip
-      const inBoundsAttributesVector = newTip.minus( this.tail );
-
-      const roundedVector = inBoundsAttributesVector.roundSymmetric();
-
-      this.setAttributesVector( roundedVector );
+      this.setTipXY( newTip.x, newTip.y );
 
       switch( this.graph.orientation ) {
         case GraphOrientations.HORIZONTAL: {

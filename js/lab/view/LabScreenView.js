@@ -72,7 +72,7 @@ define( function( require ) {
           polarVectorCreatorPanel.visible = true;
           cartesianVectorCreatorPanel.visible = false;
           labModel.polarGraph.sceneNode.visible = true;
-          labModel.cartesianGraph.sceneNode. visible = false;
+          labModel.cartesianGraph.sceneNode.visible = false;
         }
       } );
 
