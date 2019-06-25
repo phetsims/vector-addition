@@ -215,14 +215,14 @@ define( require => {
 
       this.xComponentDisplayNode.setChildren( [
         new NumberDisplay( activeVector.xComponentProperty, new Range( -60, 60 ), {
-          decimalPlaces: 0
+          decimalPlaces: 1
         } ) ] );
 
       this.yComponentText.setText( `${activeVector.label}<sub>${yString}</sub>` );
 
       this.yComponentDisplayNode.setChildren( [
         new NumberDisplay( activeVector.yComponentProperty, new Range( -40, 40 ), {
-          decimalPlaces: 0
+          decimalPlaces: 1
         } ) ] );
     }
 
