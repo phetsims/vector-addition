@@ -162,10 +162,10 @@ define( require => {
 
       // Based on the vector orientation, constrain the dragging components
       if ( this.graph.orientation === GraphOrientations.HORIZONTAL ) {
-        vectorInCartesianForm.setX( 0 );
+        vectorInCartesianForm.setY( 0 );
       }
       else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
-        vectorInCartesianForm.setY( 0 );
+        vectorInCartesianForm.setX( 0 );
       }
       if ( vectorInCartesianForm.magnitude ) { // ensure that it isn't length 0
         this.attributesVector = vectorInCartesianForm;
