@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a vector sum.
+ * View for a vector sum. Vector Sum Nodes have a distinct appearance for each vector group.
  *
  * @author Brandon Li
  */
@@ -30,7 +30,8 @@ define( require => {
      * @constructor
      * @param {VectorModel} vectorModel- the vector model
      * @param {Graph} graph
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component
+     *                                                                         styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {CoordinateSnapModes} coordinateSnapMode
@@ -43,27 +44,13 @@ define( require => {
                  coordinateSnapMode
     ) {
 
-      let arrowOptions;
-      switch( vectorModel.vectorGroup ) {
-        case VectorGroups.ONE: {
-          arrowOptions = VECTOR_GROUP_1_SUM;
-          break;
-        }
-        case VectorGroups.TWO: {
-          arrowOptions = VECTOR_GROUP_2_SUM;
-          break;
-        }
-        default: {
-          throw new Error( `Vector Group : ${vectorModel.vectorGroup} not handled` );
-        }
-      }
       super( vectorModel,
         graph,
         componentStyleProperty,
         angleVisibleProperty,
         valuesVisibleProperty,
         coordinateSnapMode,
-        arrowOptions );
+        vectorModel.vectorGroup === VectorGroups.ONE ? VECTOR_GROUP_1_SUM : VECTOR_GROUP_2_SUM );
 
     }
   }
