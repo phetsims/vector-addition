@@ -86,6 +86,7 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - the sum visible property for this vector set
      * @param {VectorGroups} vectorGroup
+     * @param {CoordinateSnapModes} coordinateSnapMode
      * @returns {VectorSet} - the vector set that was added
      * @public
      */
