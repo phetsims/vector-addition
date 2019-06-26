@@ -44,7 +44,7 @@ define( require => {
   } );
 
   // Offset of the label
-  // const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
+  const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
   
   // Passed to the shape for the on axis dashed lines
   const ON_AXIS_OPTIONS = {
@@ -191,30 +191,53 @@ define( require => {
         this.labelNode.visible = false;
         return;
       }
-      const tailDeltaPosition = vectorComponent.tail.minus( vectorComponent.parentVector.tail );
-      const tipDeltaPosition = vectorComponent.tip.minus( vectorComponent.parentVector.tip );
 
-      const midPoint = tipDeltaPosition.minus( tailDeltaPosition ).timesScalar( 0.5 );
-      // const offset = new Vector2( 0, 0 );
-      // console.log( midPoint, vectorComponent.componentType )
-      // if ( vectorComponent.componentType === VectorComponent.Types.X_COMPONENT ) {
-      //   if ( vectorComponent.parentVector.yComponent > 0 ) { // position above
-      //     offset.setXY( 0, COMPONENT_LABEL_OFFSET );
-      //   }
-      //   if ( vectorComponent.parentVector.yComponent < 0 ) { // position below
-      //     offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
-      //   }
-      // }
-      // else if ( vectorComponent.componentType === VectorComponent.Types.Y_COMPONENT ) {
-      //   if ( vectorComponent.parentVector.xComponent > 0 ) { // position to the left
-      //     offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
-      //   }
-      //   if ( vectorComponent.parentVector.xComponent < 0 ) { // position to the left
-      //     offset.setXY( +COMPONENT_LABEL_OFFSET, 0 );
-      //   }
-      // }
+      // Flags to indicate the angle translation. Declared below on and depends on the vector.
+      const offset = new Vector2( 0, 0 );
 
-      this.labelNode.center = modelViewTransform.modelToViewPosition( midPoint );
+      const yComponent = vectorComponent.parentVector.yComponent;
+      const xComponent = vectorComponent.parentVector.xComponent;
+
+      if ( vectorComponent.componentType === VectorComponent.Types.X_COMPONENT ) { // if its an x component
+        if ( yComponent < 0 && xComponent < 0 ) {
+          offset.setXY( 0, COMPONENT_LABEL_OFFSET );
+        }
+
+        else if ( yComponent > 0 && xComponent < 0 ) {
+          offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
+        }
+
+        else if ( yComponent < 0 && xComponent > 0 ) {
+          offset.setXY( 0, COMPONENT_LABEL_OFFSET );
+        }
+
+        else if ( yComponent > 0 && xComponent > 0 ) {
+          offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
+        }
+      }       
+      else if ( vectorComponent.componentType === VectorComponent.Types.Y_COMPONENT ) { // if its an y component
+
+        if ( yComponent < 0 && xComponent < 0 ) {
+          offset.setXY( COMPONENT_LABEL_OFFSET, 0 );
+        }
+
+        else if ( yComponent > 0 && xComponent < 0 ) {
+          offset.setXY( COMPONENT_LABEL_OFFSET, 0 );
+        }
+
+        else if ( yComponent < 0 && xComponent > 0 ) {
+          offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
+        }
+
+        else if ( yComponent > 0 && xComponent > 0 ) {
+          offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
+        }
+      }
+
+      // Create label halfway above the vector
+      const midPoint = vectorComponent.attributesVector.timesScalar( 0.5 );
+
+      this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
 
     }
   }
