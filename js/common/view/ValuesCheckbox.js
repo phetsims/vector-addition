@@ -11,19 +11,18 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Checkbox = require( 'SUN/Checkbox' );
-  const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+
+  // strings
+  const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
   // constants
   const TEXT_OPTIONS = {
     font: VectorAdditionConstants.PANEL_FONT
   };
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-
-  // strings
-  const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
   class ValuesCheckbox extends Checkbox {
     /**
@@ -38,13 +37,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( new LayoutBox( {
-        orientation: 'horizontal',
-        spacing: CHECKBOX_OPTIONS.spacing,
-        children: [
-          new Text( valuesString, TEXT_OPTIONS )
-        ]
-      } ), valuesVisibleProperty, CHECKBOX_OPTIONS );
+      super( new Text( valuesString, TEXT_OPTIONS ), valuesVisibleProperty, CHECKBOX_OPTIONS );
     }
   }
 
