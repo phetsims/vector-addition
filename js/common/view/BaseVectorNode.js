@@ -21,6 +21,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   class BaseVectorNode extends Node {
     /**
@@ -64,9 +65,12 @@ define( require => {
 
       // @private {Multilink} - observe changes to the tail/tip
       this.vectorObserver = new Multilink(
-        [ baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty ],
-        () => { this.updateVector( baseVectorModel, modelViewTransformProperty.value ); } );
-
+        [ baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty, valuesVisibleProperty ],
+        () => {
+          this.updateVector( baseVectorModel, modelViewTransformProperty.value ); 
+          this.updateLabelPositioning( baseVectorModel, modelViewTransformProperty.value, valuesVisibleProperty.value );
+        } );
+      
     }
 
     /**
@@ -87,7 +91,60 @@ define( require => {
       // make the arrow easier to grab
       this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( 3 );
     }
+    /**
+     * Update the label positioning
+     * @param {BaseVectorModel} baseVectorModel
+     * @param {ModelViewTransform2} modelViewTransform
+     * @param {Boolean} valuesVisible
+     * @private
+     */
+    updateLabelPositioning( baseVectorModel, modelViewTransform, valuesVisible ) {
 
+      this.labelNode.setRotation( 0 );
+
+      const modelAngle = baseVectorModel.angle; // angle in the model in radians (ranging from -Pi to Pi)
+
+      if ( !valuesVisible ) {
+
+        // add a flip (180 degrees) if the angle is in quadrant III and IV (that is, y is negative)
+        const yFlip = ( modelAngle >= 0 ) ? 0 : Math.PI;
+
+        // add a flip (180 degrees) if the angle is in quadrant II and III (that is, x is negative)
+        const xFlip = ( modelAngle <= Math.PI / 2 && modelAngle >= -Math.PI / 2 ) ? 0 : Math.PI;
+
+        // create an offset that is perpendicular to the vector, 2 model unit long about
+        // and is pointing in the positive theta for quadrants I and III and negative theta for quadrants II and IV
+        const offset = Vector2.createPolar( 2, modelAngle + Math.PI / 2 + yFlip + xFlip );
+
+        // create label halfway above the vector
+        const midPoint = baseVectorModel.attributesVector.timesScalar( 0.5 );
+
+        this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
+
+      }       
+      else {
+        // since the y-axis is inverted, the angle is the view is opposite to the model
+        const viewAngle = -modelAngle;
+
+        // add a flip (180 degrees) if the angle is in quadrant II and III (that is, x is negative)
+        const xFlip = ( modelAngle <= Math.PI / 2 && modelAngle >= -Math.PI / 2 ) ? 0 : Math.PI;
+
+        // add a flip (180 degrees) if the angle is in quadrant III and IV (that is, y is negative)
+        const yFlip = ( modelAngle >= 0 ) ? 0 : Math.PI;
+
+        // rotate label along the angle for quadrants I and IV, but flipped for quadrants II and III
+        this.labelNode.setRotation( viewAngle + xFlip );
+
+        // create an offset that is perpendicular to the vector, 2 model unit long about
+        // and is pointing in the positive theta for quadrants I and III and negative theta for quadrants II and IV
+        const offset = Vector2.createPolar( 2, modelAngle + Math.PI / 2 + yFlip + xFlip );
+
+        // create label halfway above the vector
+        const midPoint = baseVectorModel.attributesVector.timesScalar( 0.5 );
+
+        this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
+      }
+    }
     /**
      * Dispose the vector
      * @public

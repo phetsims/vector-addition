@@ -40,6 +40,7 @@ define( require => {
     lineWidth: 0
   } );
   const ON_AXIS_LINES_LINE_DASH = [ 3, 10 ];
+  const COMPONENT_LABEL_OFFSET = 30;
 
   class VectorComponentNode extends BaseVectorNode {
 
@@ -97,9 +98,11 @@ define( require => {
       this.vectorObserver = new Multilink(
         [ vectorComponent.tailPositionProperty,
           vectorComponent.tipPositionProperty,
-          componentStyleProperty ],
+          componentStyleProperty,
+          valuesVisibleProperty ],
         () => {
           this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value );
+          this.updateLabelPositioning( vectorComponent, modelViewTransformProperty.value, valuesVisibleProperty.value );
         } );
 
     }
@@ -172,6 +175,50 @@ define( require => {
       onAxisLines.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
 
       return onAxisLines;
+
+    }
+    /**
+     * Update the label positioning
+     * @param {VectorComponent} vectorComponent
+     * @param {ModelViewTransform2} modelViewTransform
+     * @param {Boolean} valuesVisible
+     * @override
+     * @private
+     */
+    updateLabelPositioning( vectorComponent, modelViewTransform, valuesVisible ) {
+
+      if ( valuesVisible ) {
+        this.labelNode.visible = true;
+      }
+      else {
+        this.labelNode.visible = false;
+        return;
+      }
+      const tailLocation = modelViewTransform.modelToViewDelta( vectorComponent.tail.minus( vectorComponent.parentVector.tail ) );
+      const tipLocation = modelViewTransform.modelToViewDelta( vectorComponent.tip.minus( vectorComponent.parentVector.tail ) );
+        
+
+      const midPoint = tipLocation.minus( tailLocation ).timesScalar( 0.5 );
+      const offset = new Vector2( 0, 0 );
+
+      if ( vectorComponent.componentType === VectorComponent.Types.X_COMPONENT ) {
+        if ( vectorComponent.parentVector.yComponent > 0 ) { // position above
+          offset.setXY( 0, COMPONENT_LABEL_OFFSET );
+        }
+        if ( vectorComponent.parentVector.yComponent < 0 ) { // position below
+          offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
+        }
+      }
+      else if ( vectorComponent.componentType === VectorComponent.Types.Y_COMPONENT ) {
+        if ( vectorComponent.parentVector.xComponent > 0 ) { // position to the left
+          offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
+        }
+        if ( vectorComponent.parentVector.xComponent < 0 ) { // position to the left
+          offset.setXY( +COMPONENT_LABEL_OFFSET, 0 );
+        }
+      }
+
+      this.labelNode.center = midPoint.plus( offset );
 
     }
   }

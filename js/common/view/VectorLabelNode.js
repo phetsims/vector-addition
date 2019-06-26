@@ -17,14 +17,12 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Util = require( 'DOT/Util' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
-  // const COMPONENT_LABEL_OFFSET = 5;
 
   class VectorLabelNode extends Node {
     /**
@@ -71,30 +69,17 @@ define( require => {
 
       this.setChildren( [ this.backgroundRectangle, this.label ] );
 
-      //----------------------------------------------------------------------------------------
-      // If the model is a component, the labeling is different
-      if ( baseVectorModel.componentType && VectorComponent.Types.includes( baseVectorModel.componentType ) ) {
 
-        // @private {Multilink} - observe changes to the model vector to update the label
-        this.vectorObserver = new Multilink(
-          [ valuesVisibleProperty,
-            baseVectorModel.tailPositionProperty,
-            baseVectorModel.tipPositionProperty ],
-          ( valuesVisible, componentStyle ) => {
-            this.updateComponentLabel( baseVectorModel, valuesVisible );
-          } );
-      }
-      else { // sum and normal vectors
-
-        // @private {Multilink} - observe changes to the model vector to update the label
-        this.vectorObserver = new Multilink(
-          [ valuesVisibleProperty,
-            baseVectorModel.tailPositionProperty,
-            baseVectorModel.tipPositionProperty ],
-          ( valuesVisible ) => {
-            this.updateLabel( baseVectorModel, valuesVisible );
-          } );
-      }
+      // @private {Multilink} - observe changes to the model vector to update the label
+      this.vectorObserver = new Multilink(
+        [ valuesVisibleProperty,
+          baseVectorModel.tailPositionProperty,
+          baseVectorModel.tipPositionProperty ],
+        ( valuesVisible ) => {
+          this.updateLabel( baseVectorModel,
+            valuesVisible,
+            VectorComponent.Types.includes( baseVectorModel.componentType ) );
+        } );
 
     }
 
@@ -111,101 +96,28 @@ define( require => {
      * Update the label when the model vector changes or the values visibility checkbox is clicked
      * @param {BaseVectorModel} baseVectorModel
      * @param {boolean} valuesVisible
+     * @param {boolean} isComponent - whether the model is a component
      * @private
      */
-    updateLabel( baseVectorModel, valuesVisible ) {
+    updateLabel( baseVectorModel, valuesVisible, isComponent ) {
 
-      this.setRotation( 0 );
+      if ( !valuesVisible ) {
 
-      if ( baseVectorModel.label && !valuesVisible ) {
-        this.label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
-
-        const modelAngle = baseVectorModel.angle; // angle in the model in radians (ranging from -Pi to Pi)
-
-        // add a flip (180 degrees) if the angle is in quadrant III and IV (that is, y is negative)
-        const yFlip = ( modelAngle >= 0 ) ? 0 : Math.PI;
-
-        // add a flip (180 degrees) if the angle is in quadrant II and III (that is, x is negative)
-        const xFlip = ( modelAngle <= Math.PI / 2 && modelAngle >= -Math.PI / 2 ) ? 0 : Math.PI;
-
-        // create an offset that is perpendicular to the vector, 2 model unit long about
-        // and is pointing in the positive theta for quadrants I and III and negative theta for quadrants II and IV
-        const offset = Vector2.createPolar( 2, modelAngle + Math.PI / 2 + yFlip + xFlip );
-
-        // create label halfway above the vector
-        const midPoint = baseVectorModel.attributesVector.timesScalar( 0.5 );
-
-        this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( midPoint.plus( offset ) );
+        if ( !isComponent ) {
+          this.label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
+        }
 
       }
-      else if ( baseVectorModel.label && valuesVisible ) {
-        this.label.setFormula( `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${Util.toFixed( baseVectorModel.magnitude, 1 )}}` );
-
-        const modelAngle = baseVectorModel.angle; // angle in the model in radians (ranging from -Pi to Pi)
-
-        // since the y-axis is inverted, the angle is the view is opposite to the model
-        const viewAngle = -modelAngle;
-
-        // add a flip (180 degrees) if the angle is in quadrant II and III (that is, x is negative)
-        const xFlip = ( modelAngle <= Math.PI / 2 && modelAngle >= -Math.PI / 2 ) ? 0 : Math.PI;
-
-        // add a flip (180 degrees) if the angle is in quadrant III and IV (that is, y is negative)
-        const yFlip = ( modelAngle >= 0 ) ? 0 : Math.PI;
-
-        // rotate label along the angle for quadrants I and IV, but flipped for quadrants II and III
-        this.setRotation( viewAngle + xFlip );
-
-        // create a vector at the mid point of the vector, remembering the entire node has already been rotated
-        const midPosition = Vector2.createPolar( baseVectorModel.magnitude / 2, xFlip );
-
-        // create an offset that is perpendicular to the vector, 2 model unit long about
-        // and is pointing above if y>=0 but below is y<0
-        const offset = Vector2.createPolar( 2, Math.PI / 2 + yFlip );
-
-        this.label.center =
-          this.modelViewTransformProperty.value.modelToViewDelta( midPosition.plus( offset ) );
+      else if ( valuesVisible ) {
+        if ( !isComponent ) {
+          this.label.setFormula( `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${Util.toFixed( baseVectorModel.magnitude, 1 )}}` );
+        }
+        else {
+          this.label.setFormula( `${baseVectorModel.magnitude}` );
+        }
       }
 
       this.resizeBackground();
-    }
-
-    /**
-     * Update the label when the model vector changes or the values visibility checkbox is clicked.
-     * This is specifically only for components
-     * @param {BaseVectorModel} baseVectorModel
-     * @param {boolean} valuesVisible
-     * @private
-     */
-    updateComponentLabel( baseVectorModel, valuesVisible ) {
-      
-
-      this.label.setFormula( `${baseVectorModel.magnitude}` );
-
-      // const tailLocation = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.tail.minus( baseVectorModel.parentVector.tail ) );
-      // const tipLocation = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.tip.minus( baseVectorModel.parentVector.tail ) );
-
-      // const attributesVector = tipLocation.minus( tailLocation );
-      // const midPosition = attributesVector.multiplyScalar( 0.5 );
-      // // console.log( midPosition )
-
-      // // if ( baseVectorModel.componentType === VectorComponent.Types.X_COMPONENT ) {
-        
-      // //   const offset = new Vector2( 0, COMPONENT_LABEL_OFFSET )
-      // //   this.label.center =
-      // //     this.modelViewTransformProperty.value.modelToViewDelta( midPosition.plus( offset ) );
-      // // }
-      // if ( baseVectorModel.componentType === VectorComponent.Types.Y_COMPONENT ) {
-      //     // console.log( baseVectorModel.tail, baseVectorModel.tip, midPosition )
-      //   if ( baseVectorModel.xComponent > 0 ) { // position to the left
-      //     this.label.center = midPosition
-      //     // this.right = - COMPONENT_LABEL_OFFSET;
-      //   }
-      //   // this.label.center =
-      //   //   this.modelViewTransformProperty.value.modelToViewDelta( midPosition.plus( offset ) );
-      // }
-
-      this.resizeBackground();
-
     }
 
     /**
