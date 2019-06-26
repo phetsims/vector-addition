@@ -51,9 +51,9 @@ define( require => {
       }, options );
 
       assert && assert( componentStyleProperty instanceof Property
-        && ComponentStyles.includes( componentStyleProperty.value ),
+      && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( VectorGroups.includes( vectorGroup ) , `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid isTipDraggable: ${options.isTipDraggable}` );
       assert && assert( typeof options.label === 'string', `invalid options.label: ${options.label}` );

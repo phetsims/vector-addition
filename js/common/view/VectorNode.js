@@ -232,7 +232,7 @@ define( require => {
       // Update the model vector
       this.vectorModel.tip = this.vectorModel.tail.plus(
         this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
-      
+
       // Round the tip position according to the coordinateSnapMode
       if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
         this.vectorModel.roundPolarForm();
@@ -256,7 +256,7 @@ define( require => {
     tailSnapToGrid( tailLocation ) {
 
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
-      
+
       this.vectorModel.translateToPoint( tailPosition );
 
       this.vectorModel.moveVectorToFitInGraph();

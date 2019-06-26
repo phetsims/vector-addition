@@ -27,7 +27,7 @@ define( require => {
 
       // Triangle and Parallelogram are the same for x component
       if ( componentStyle === ComponentStyles.TRIANGLE || componentStyle === ComponentStyles.PARALLELOGRAM ) {
-        
+
         // Shared tail position as parent
         this.tail = this.parentVector.tail;
         this.setTipXY( this.parentVector.tipX, this.parentVector.tailY );

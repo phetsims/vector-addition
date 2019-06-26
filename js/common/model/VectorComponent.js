@@ -36,7 +36,7 @@ define( require => {
       // Type check arguments
       assert && assert( parentVector instanceof BaseVectorModel, `invalid parentVector: ${parentVector}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
-        && ComponentStyles.includes( componentStyleProperty.value ),
+      && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------

@@ -32,13 +32,13 @@ define( require => {
         this.tip = this.parentVector.tip;
       }
       else if ( componentStyle === ComponentStyles.PARALLELOGRAM ) {
-        
+
         // Shared tail position as parent
         this.tail = this.parentVector.tail;
         this.setTipXY( this.parentVector.tailX, this.parentVector.tipY );
       }
       else if ( componentStyle === ComponentStyles.ON_AXIS ) {
-        
+
         // Same tailY, however its x value is 0 since it is on the y-axis
         this.setTailXY( 0, this.parentVector.tailY );
         this.setTipXY( 0, this.parentVector.tipY );

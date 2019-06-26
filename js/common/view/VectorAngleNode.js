@@ -25,7 +25,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
- 
+
   // constants
 
   const BASE_LINE_LENGTH = 55;
@@ -59,12 +59,12 @@ define( require => {
     constructor( vectorModel, angleVisibleProperty, modelViewTransformProperty ) {
 
       assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty, 
+      assert && assert( angleVisibleProperty instanceof BooleanProperty,
         `invalid angleVisibleProperty: ${angleVisibleProperty}` );
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
-      `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
-     
+        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+
       //----------------------------------------------------------------------------------------
 
       super();
@@ -79,16 +79,16 @@ define( require => {
 
       // @private {Text}
       this.labelText = new Text( '', { font: ANGLE_LABEL_FONT } );
-      
+
       this.setChildren( [ this.baseLine, this.arcArrow, this.labelText ] );
 
       //----------------------------------------------------------------------------------------
-      
+
       const updateAngleListener = angle => this.updateAngleNode( angle );
       vectorModel.angleDegreesProperty.link( updateAngleListener );
 
       const updateScaleListener = magnitude => this.scaleArc( magnitude, modelViewTransformProperty.value );
-      vectorModel.magnitudeProperty.link( updateScaleListener  );
+      vectorModel.magnitudeProperty.link( updateScaleListener );
 
       // Observe when the angle visible property is changing and update the visibility of the angle node
       const toggleVisibilityListener = angleVisibleProperty.linkAttribute( this, 'visible' );
@@ -111,7 +111,7 @@ define( require => {
     }
 
     /**
-     * Updates the label and arc arrow. Called when the vector model's angle is changed 
+     * Updates the label and arc arrow. Called when the vector model's angle is changed
      * @param {number} angle - in degrees
      * @private
      */
@@ -120,7 +120,7 @@ define( require => {
       this.arcArrow.angle = angle;
 
       this.labelText.setText( Util.toFixed( angle, ANGLE_ROUNDING ) + '\u00B0' );
-      
+
       const angleInRadians = Util.toRadians( angle );
 
       //----------------------------------------------------------------------------------------
@@ -137,12 +137,12 @@ define( require => {
       }
       else if ( angle > -MAX_ANGLE_UNDER_BASELINE ) {
         // Position the label halfway across, but on the other side of the baseline
-        this.labelText.setTranslation( ARC_RADIUS / 2, -ARC_RADIUS / 2 + + this.labelText.height / 2 );
+        this.labelText.setTranslation( ARC_RADIUS / 2, -ARC_RADIUS / 2 + +this.labelText.height / 2 );
       }
       else {
         // Position the label next to the arc, halfway across the arc
         this.labelText.setTranslation( ( ARC_RADIUS + LABEL_OFFSET ) * Math.cos( angleInRadians / 2 ),
-          -( ARC_RADIUS + LABEL_OFFSET ) * Math.sin( angleInRadians / 2 ) + this.labelText.height / 2  );
+          -( ARC_RADIUS + LABEL_OFFSET ) * Math.sin( angleInRadians / 2 ) + this.labelText.height / 2 );
       }
     }
 
@@ -166,7 +166,7 @@ define( require => {
           return 1;
         }
       };
-      
+
       const viewMagnitude = modelViewTransform.modelToViewDeltaX( magnitude );
 
       const arcScaleFactor = getArcScaleFactor( viewMagnitude );
