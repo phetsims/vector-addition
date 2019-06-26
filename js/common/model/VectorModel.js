@@ -162,10 +162,10 @@ define( require => {
 
       // Based on the vector orientation, constrain the dragging components
       if ( this.graph.orientation === GraphOrientations.HORIZONTAL ) {
-        this.yComponent = 0;
+        this.setTipXY( this.tipX, this.tailY );
       }
       else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
-        this.xComponent = 0;
+        this.setTipXY( this.tailX, this.tipY );
       }
     }
 
