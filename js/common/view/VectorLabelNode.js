@@ -12,7 +12,6 @@ define( require => {
   // modules
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -24,6 +23,9 @@ define( require => {
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
+  // constants
+  // const COMPONENT_LABEL_OFFSET = 5;
+
   class VectorLabelNode extends Node {
     /**
      * @constructor
@@ -32,7 +34,7 @@ define( require => {
      * @param {ModelViewTransform2} modelViewTransformProperty
      * @param {Object} [options]
      */
-    constructor( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty, componentStyleProeprty, options ) {
+    constructor( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty, options ) {
 
       options = _.extend( {
         fill: baseVectorModel.vectorGroup === VectorGroups.ONE ?
@@ -76,11 +78,10 @@ define( require => {
         // @private {Multilink} - observe changes to the model vector to update the label
         this.vectorObserver = new Multilink(
           [ valuesVisibleProperty,
-            componentStyleProeprty,
             baseVectorModel.tailPositionProperty,
             baseVectorModel.tipPositionProperty ],
           ( valuesVisible, componentStyle ) => {
-            this.updateComponentLabel( baseVectorModel, valuesVisible, componentStyle );
+            this.updateComponentLabel( baseVectorModel, valuesVisible );
           } );
       }
       else { // sum and normal vectors
@@ -173,29 +174,37 @@ define( require => {
      * This is specifically only for components
      * @param {BaseVectorModel} baseVectorModel
      * @param {boolean} valuesVisible
-     * @param {ComponentStyles} componentStyle
      * @private
      */
-    updateComponentLabel( baseVectorModel, valuesVisible, componentStyle ) {
+    updateComponentLabel( baseVectorModel, valuesVisible ) {
       
-      if ( componentStyle === ComponentStyles.INVISIBLE ) {
-        this.visible = false;
-        return;
-      }
-
-      this.visible = true;
 
       this.label.setFormula( `${baseVectorModel.magnitude}` );
 
-      // TODO: position based on which component
-      // if ( baseVectorModel.componentType === VectorComponent.Types.X_COMPONENT ) {
-      //   // do nothing
+      // const tailLocation = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.tail.minus( baseVectorModel.parentVector.tail ) );
+      // const tipLocation = this.modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.tip.minus( baseVectorModel.parentVector.tail ) );
+
+      // const attributesVector = tipLocation.minus( tailLocation );
+      // const midPosition = attributesVector.multiplyScalar( 0.5 );
+      // // console.log( midPosition )
+
+      // // if ( baseVectorModel.componentType === VectorComponent.Types.X_COMPONENT ) {
+        
+      // //   const offset = new Vector2( 0, COMPONENT_LABEL_OFFSET )
+      // //   this.label.center =
+      // //     this.modelViewTransformProperty.value.modelToViewDelta( midPosition.plus( offset ) );
+      // // }
+      // if ( baseVectorModel.componentType === VectorComponent.Types.Y_COMPONENT ) {
+      //     // console.log( baseVectorModel.tail, baseVectorModel.tip, midPosition )
+      //   if ( baseVectorModel.xComponent > 0 ) { // position to the left
+      //     this.label.center = midPosition
+      //     // this.right = - COMPONENT_LABEL_OFFSET;
+      //   }
+      //   // this.label.center =
+      //   //   this.modelViewTransformProperty.value.modelToViewDelta( midPosition.plus( offset ) );
       // }
-      // else if ( baseVectorModel.componentType === VectorComponent.Types.Y_COMPONENT ) {
 
-      // }
-
-
+      this.resizeBackground();
 
     }
 
