@@ -112,7 +112,7 @@ define( require => {
       this.addChild( angleNode );
       this.addChild( tipCircle );
 
-
+      this.arrowNode.moveToFront(); // put the arrow node on top of components
       tipCircle.moveToFront();
 
       //----------------------------------------------------------------------------------------
