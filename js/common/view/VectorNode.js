@@ -109,11 +109,11 @@ define( require => {
 
       this.addChild( xComponentNode );
       this.addChild( yComponentNode );
-      this.addChild( tipCircle );
       this.addChild( angleNode );
+      this.addChild( tipCircle );
 
 
-      this.arrowNode.moveToFront();
+      tipCircle.moveToFront();
 
       //----------------------------------------------------------------------------------------
       // @private {Property.<ModelViewTransform2>}
