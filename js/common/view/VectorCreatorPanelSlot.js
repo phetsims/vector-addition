@@ -122,7 +122,6 @@ define( require => {
         yAlign: 'center'
       } ) );
 
-
       if ( options.label ) {
 
         const label = new FormulaNode( `\\vec{\\mathrm{${options.label}}}` );

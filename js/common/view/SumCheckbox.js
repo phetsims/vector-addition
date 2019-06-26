@@ -51,7 +51,6 @@ define( require => {
         ]
       } ), sumVisibleProperty, CHECKBOX_OPTIONS );
     }
-
   }
 
   return vectorAddition.register( 'SumCheckbox', SumCheckbox );

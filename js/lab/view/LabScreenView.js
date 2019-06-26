@@ -15,7 +15,6 @@ define( function( require ) {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
-
   class LabScreenView extends VectorAdditionScreenView {
 
     /**
@@ -67,7 +66,6 @@ define( function( require ) {
           labModel.cartesianGraph.sceneNode.visible = true;
         }
 
-
         if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
           polarVectorCreatorPanel.visible = true;
           cartesianVectorCreatorPanel.visible = false;
@@ -76,12 +74,10 @@ define( function( require ) {
         }
       } );
 
-
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         labModel.coordinateSnapModeProperty );
       this.addChild( coordinateSnapRadioButtonGroup );
     }
-
   }
 
   return vectorAddition.register( 'LabScreenView', LabScreenView );

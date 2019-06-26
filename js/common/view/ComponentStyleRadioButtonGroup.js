@@ -24,7 +24,6 @@ define( require => {
   const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.contentWidth;
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
 
-
   class ComponentStyleRadioButtonGroup extends AlignBox {
 
     /**
@@ -116,11 +115,9 @@ define( require => {
         orientation: 'vertical'
       }, options.verticalOptions ) );
 
-
       // Convenience references
       const rows = options.rows;
       const cols = options.cols;
-
 
       //----------------------------------------------------------------------------------------
       // Check arguments
@@ -153,7 +150,6 @@ define( require => {
         this.addChild( horizontalLayout );
       }
     }
-
   }
 
   return vectorAddition.register( 'ComponentStyleRadioButtonGroup', ComponentStyleRadioButtonGroup );

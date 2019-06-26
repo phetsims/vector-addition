@@ -24,7 +24,6 @@ define( require => {
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
-
   // constants
   const VECTOR_GROUP_1_COMPONENT = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.component,

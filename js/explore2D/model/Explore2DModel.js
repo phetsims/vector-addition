@@ -53,7 +53,6 @@ define( require => {
         GRAPH_UPPER_LEFT_COORDINATE,
         GraphOrientations.TWO_DIMENSIONAL );
 
-
       //----------------------------------------------------------------------------------------
       //  Each graph has one vector set
 
@@ -62,7 +61,6 @@ define( require => {
 
       this.cartesianGraph.vectorSet = this.cartesianGraph.addVectorSet(
         this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup, CoordinateSnapModes.CARTESIAN );
-
 
     }
   }

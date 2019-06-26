@@ -21,7 +21,6 @@ define( function( require ) {
       super( equationModel, tandem );
 
     }
-
   }
 
   return vectorAddition.register( 'EquationScreenView', EquationScreenView );

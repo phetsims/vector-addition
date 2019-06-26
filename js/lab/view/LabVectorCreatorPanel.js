@@ -39,7 +39,6 @@ define( require => {
      */
     constructor( vectorSetGroupOne, vectorSetGroupTwo, modelViewTransformProperty ) {
 
-
       // create a 45 degree vector2 representing the vector that will be dropped onto the graph
       const initialVector = new Vector2( INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH );
 
@@ -57,14 +56,11 @@ define( require => {
 
       const panelSlots = [ vectorGroupOneSlot, vectorGroupTwoSlot ];
 
-
       super( panelSlots, CREATOR_PANEL_OPTIONS );
     }
-
   }
 
   return vectorAddition.register( 'LabVectorCreatorPanel', LabVectorCreatorPanel );
 } );
-
 
 

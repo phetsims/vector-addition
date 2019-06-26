@@ -71,7 +71,6 @@ define( require => {
 
       options = _.extend( PANEL_OPTIONS, options );
 
-
       const content = new VBox( {
         spacing: 10,
         align: 'left',
@@ -92,7 +91,6 @@ define( require => {
 
       super( content, options );
     }
-
   }
 
   return vectorAddition.register( 'Explore2DGraphControlPanel', Explore2DGraphControlPanel );

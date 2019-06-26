@@ -21,7 +21,6 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
-
   class VectorLabelNode extends Node {
     /**
      * @constructor
@@ -125,7 +124,6 @@ define( require => {
 
         this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( midPoint.plus( offset ) );
 
-
       }
       else if ( !baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( '' );
@@ -176,7 +174,6 @@ define( require => {
       this.backgroundRectangle.setRectHeight( labelHeight + 2 * this.yMargin );
       this.backgroundRectangle.center = this.label.center;
     }
-
   }
 
   return vectorAddition.register( 'VectorLabelNode', VectorLabelNode );

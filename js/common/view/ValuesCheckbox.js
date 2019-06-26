@@ -25,7 +25,6 @@ define( require => {
   // strings
   const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
-
   class ValuesCheckbox extends Checkbox {
     /**
      * @constructor
@@ -47,7 +46,6 @@ define( require => {
         ]
       } ), valuesVisibleProperty, CHECKBOX_OPTIONS );
     }
-
   }
 
   return vectorAddition.register( 'ValuesCheckbox', ValuesCheckbox );

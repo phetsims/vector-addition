@@ -51,7 +51,6 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-
       // Create a container for the vectorRepresentation nodes, which are in a zLayer above the slots
       const vectorRepresentationContainer = new Node();
 

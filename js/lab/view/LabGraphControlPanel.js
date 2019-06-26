@@ -92,7 +92,6 @@ define( require => {
 
       super( content, options );
     }
-
   }
 
   return vectorAddition.register( 'LabGraphControlPanel', LabGraphControlPanel );

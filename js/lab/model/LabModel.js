@@ -41,7 +41,6 @@ define( require => {
       // @public (read-only) {BooleanProperty} group2SumVisibleProperty
       this.group2SumVisibleProperty = group2SumVisibleProperty;
 
-
       //----------------------------------------------------------------------------------------
       // Add the only graph on lab
 
@@ -56,7 +55,6 @@ define( require => {
         GRAPH_UPPER_LEFT_COORDINATE,
         GraphOrientations.TWO_DIMENSIONAL );
 
-
       //----------------------------------------------------------------------------------------
       // Each graph has TWO vector sets
 
@@ -65,7 +63,6 @@ define( require => {
 
       this.polarGraph.group2VectorSet = this.polarGraph.addVectorSet(
         this.componentStyleProperty, this.group2SumVisibleProperty, VectorGroups.TWO, CoordinateSnapModes.POLAR );
-
 
       this.cartesianGraph.group1VectorSet = this.cartesianGraph.addVectorSet(
         this.componentStyleProperty, this.group1SumVisibleProperty, VectorGroups.ONE, CoordinateSnapModes.CARTESIAN );

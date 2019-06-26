@@ -112,7 +112,6 @@ define( require => {
      */
     get yComponent() { return this.attributesVector.y; }
 
-
     /**
      * @public
      * Sets the yComponent. Keeps the xComponent, tailPosition constant.
@@ -200,7 +199,6 @@ define( require => {
     set tailY( y ) {
       this.setTailXY( this.tailPositionProperty.value.x, y );
     }
-
 
     //----------------------------------------------------------------------------------------
     // Tip Position

@@ -29,14 +29,12 @@ define( require => {
 
       super( explore1DModel, tandem );
 
-
       // convenience variables for the scenes and the scene nodes
       const horizontalGraph = explore1DModel.horizontalGraph;
       const verticalGraph = explore1DModel.verticalGraph;
 
       const horizontalSceneNode = horizontalGraph.sceneNode;
       const verticalSceneNode = verticalGraph.sceneNode;
-
 
       // create the creator panel for each scene
       const explore1DVectorCreatorPanels = new Explore1DVectorCreatorPanels(
@@ -48,7 +46,6 @@ define( require => {
       // create the vector panels
       const horizontalVectorCreatorPanel = explore1DVectorCreatorPanels.horizontalVectorCreatorPanel;
       const verticalVectorCreatorPanel = explore1DVectorCreatorPanels.verticalVectorCreatorPanel;
-
 
       explore1DModel.graphOrientationProperty.link( ( graphOrientation ) => {
         switch( graphOrientation ) {

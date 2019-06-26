@@ -93,7 +93,6 @@ define( require => {
       this.graphOrientationProperty.reset();
       super.reset();
     }
-
   }
 
   return vectorAddition.register( 'Explore1DModel', Explore1DModel );

@@ -49,7 +49,6 @@ define( function( require ) {
     opacity: 0.4
   } );
 
-
   class VectorAdditionIconFactory {
     /**
      * Create the Vector Icon that appears on the vector creator panel
@@ -76,7 +75,6 @@ define( function( require ) {
         fill: vectorGroup === VectorGroups.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill :
               VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
       }, options );
-
 
       const iconVector = initialVector.normalized().timesScalar( options.arrowSize );
 

@@ -44,7 +44,6 @@ define( function( require ) {
     GRAPH_MINOR_LINE_COLOR: 'rgb( 230, 230, 230 )',
     TICKS_COLOR: BLACK,
 
-
     //----------------------------------------------------------------------------------------
     // Graph Control Panel
     GRAPH_CONTROL_PANEL_LINE_COLOR: BLACK,

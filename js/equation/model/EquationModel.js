@@ -38,7 +38,6 @@ define( require => {
       super.reset();
       this.graphOrientationProperty.reset();
     }
-
   }
 
   return vectorAddition.register( 'EquationModel', EquationModel );

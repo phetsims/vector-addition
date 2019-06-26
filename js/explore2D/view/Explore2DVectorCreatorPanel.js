@@ -43,7 +43,6 @@ define( require => {
 
       super( panelSlots );
     }
-
   }
 
   return vectorAddition.register( 'Explore2DVectorCreatorPanel', Explore2DVectorCreatorPanel );

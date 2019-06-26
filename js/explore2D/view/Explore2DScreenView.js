@@ -15,7 +15,6 @@ define( function( require ) {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
-
   class Explore2DScreenView extends VectorAdditionScreenView {
 
     /**
@@ -47,13 +46,11 @@ define( function( require ) {
 
       this.addChild( polarVectorCreatorPanel );
 
-
       const cartesianVectorCreatorPanel = new Explore2DVectorCreatorPanel(
         explore2DModel.cartesianGraph.modelViewTransformProperty,
         explore2DModel.cartesianGraph.vectorSet );
 
       this.addChild( cartesianVectorCreatorPanel );
-
 
       // toggle visible
       explore2DModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
@@ -65,7 +62,6 @@ define( function( require ) {
           explore2DModel.cartesianGraph.sceneNode.visible = true;
         }
 
-
         if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
           polarVectorCreatorPanel.visible = true;
           cartesianVectorCreatorPanel.visible = false;
@@ -74,12 +70,10 @@ define( function( require ) {
         }
       } );
 
-
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         explore2DModel.coordinateSnapModeProperty );
       this.addChild( coordinateSnapRadioButtonGroup );
     }
-
   }
 
   return vectorAddition.register( 'Explore2DScreenView', Explore2DScreenView );

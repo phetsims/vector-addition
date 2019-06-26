@@ -19,7 +19,6 @@ define( require => {
   // constants
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
 
-
   class GridCheckbox extends Checkbox {
     /**
      * @constructor
@@ -42,7 +41,6 @@ define( require => {
       } ), gridVisibleProperty, CHECKBOX_OPTIONS );
 
     }
-
   }
 
   return vectorAddition.register( 'GridCheckbox', GridCheckbox );

@@ -147,7 +147,6 @@ define( require => {
       // @private {boolean} flag to indicate if this panel has ever displayed a vector's attributes
       this.hasDisplayedVectorAttributes = false;
 
-
       //----------------------------------------------------------------------------------------
 
       vectorSets.forEach( ( vectorSet ) => {

@@ -58,7 +58,6 @@ define( require => {
       // individual properties
       this.sumVisibleProperties = sumVisibleProperties;
 
-
       //----------------------------------------------------------------------------------------
       // Enumeration Properties
 

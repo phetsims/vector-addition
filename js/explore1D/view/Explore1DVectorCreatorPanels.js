@@ -100,6 +100,5 @@ define( require => {
     }
   }
 
-
   return vectorAddition.register( 'Explore1DVectorCreatorPanels', Explore1DVectorCreatorPanels );
 } );

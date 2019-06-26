@@ -58,7 +58,6 @@ define( require => {
                  coordinateSnapMode,
                  arrowOptions ) {
 
-
       const modelViewTransformProperty = graph.modelViewTransformProperty;
       const graphModelBounds = graph.graphModelBounds;
 
@@ -105,7 +104,6 @@ define( require => {
       // {Node} Create a circle at the tip of the vector. This is used to allow the user to only
       // change the angle of the arrowNode by only dragging the tip
       const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
-
 
       this.addChild( xComponentNode );
       this.addChild( yComponentNode );
@@ -212,7 +210,6 @@ define( require => {
         this.labelNode.removeInputListener( bodyDragListener );
         tipCircle.dispose();
       };
-
     }
 
     /**
@@ -264,7 +261,6 @@ define( require => {
 
       this.vectorModel.moveVectorToFitInGraph();
     }
-
   }
 
   return vectorAddition.register( 'VectorNode', VectorNode );
