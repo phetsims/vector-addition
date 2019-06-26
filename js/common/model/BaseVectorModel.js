@@ -87,10 +87,10 @@ define( require => {
      * @public
      * @param {number} magnitude
      */
-    set magnitude( number ) {
+    set magnitude( magnitude ) {
 
-      assert && assert( typeof number === 'number', `invalid number: ${number}` );
-      this.attributesVector = this.attributesVector.copy().setMagnitude( number );
+      assert && assert( typeof magnitude === 'number', `invalid number: ${magnitude}` );
+      this.attributesVector = this.attributesVector.copy().setMagnitude( magnitude );
     }
 
     /**
