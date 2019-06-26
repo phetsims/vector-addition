@@ -25,34 +25,17 @@ define( require => {
      */
     updateComponent( componentStyle ) {
 
-      switch( componentStyle ) {
-        case ComponentStyles.TRIANGLE: {
-
-          // Shared tail position as parent
-          this.tail = this.parentVector.tail;
-          this.setTipXY( this.parentVector.tipX, this.parentVector.tailY );
-          break;
-        }
-        case ComponentStyles.PARALLELOGRAM: {
-
-          // Shared tail position as parent
-          this.tail = this.parentVector.tail;
-          this.setTipXY( this.parentVector.tipX, this.parentVector.tailY );
-          break;
-        }
-        case ComponentStyles.ON_AXIS: {
-
-          // Same tailX, however its y value is 0 since it is on the x-axis
-          this.setTailXY( this.parentVector.tailX, 0 );
-          this.setTipXY( this.parentVector.tipX, 0 );
-          break;
-        }
-        case ComponentStyles.INVISIBLE: {
-          break;
-        }
-        default: {
-          throw new Error( `invalid componentStyle: ${componentStyle}` );
-        }
+      // Triangle and Parallelogram are the same for x component
+      if ( componentStyle === ComponentStyles.TRIANGLE || componentStyle === ComponentStyles.PARALLELOGRAM ) {
+        
+        // Shared tail position as parent
+        this.tail = this.parentVector.tail;
+        this.setTipXY( this.parentVector.tipX, this.parentVector.tailY );
+      }
+      else if ( componentStyle === ComponentStyles.ON_AXIS ) {
+        // Same tailX, however its y value is 0 since it is on the x-axis
+        this.setTailXY( this.parentVector.tailX, 0 );
+        this.setTipXY( this.parentVector.tipX, 0 );
       }
     }
   }
