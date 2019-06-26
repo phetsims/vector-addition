@@ -24,6 +24,9 @@ define( require => {
      * @private
      */
     updateComponent( componentStyle ) {
+      
+      // @public (read-only)
+      this.componentType = VectorComponent.Types.Y_COMPONENT;
 
       if ( componentStyle === ComponentStyles.TRIANGLE ) {
 

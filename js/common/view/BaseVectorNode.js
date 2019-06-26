@@ -15,6 +15,8 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -31,7 +33,11 @@ define( require => {
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Object} [arrowOptions] - options passed to the arrow node for specific / specialized styling
      */
-    constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, arrowOptions ) {
+    constructor( baseVectorModel,
+      modelViewTransformProperty,
+      valuesVisibleProperty,
+      componentStyleProperty,
+      arrowOptions ) {
 
       // Type check arguments
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
@@ -41,6 +47,9 @@ define( require => {
       assert && assert( typeof arrowOptions === 'object', `invalid arrowOptions: ${arrowOptions}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty
+        && ComponentStyles.includes( componentStyleProperty.value ),
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -55,7 +64,11 @@ define( require => {
 
       // @protected {Node} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
       // The location of this depends on the angle of the vector.
-      this.labelNode = new VectorLabelNode( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty );
+      this.labelNode = new VectorLabelNode(
+        baseVectorModel,
+        valuesVisibleProperty,
+        modelViewTransformProperty,
+        componentStyleProperty );
 
       this.setChildren( [ this.arrowNode, this.labelNode ] );
 

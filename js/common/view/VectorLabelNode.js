@@ -1,10 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the label of a vector
+ * View for the label of a vector. This is different from the component label
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -19,6 +20,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   class VectorLabelNode extends Node {
@@ -29,7 +31,7 @@ define( require => {
      * @param {ModelViewTransform2} modelViewTransformProperty
      * @param {Object} [options]
      */
-    constructor( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty, options ) {
+    constructor( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty, componentStyleProeprty, options ) {
 
       options = _.extend( {
         fill: baseVectorModel.vectorGroup === VectorGroups.ONE ?
@@ -67,15 +69,31 @@ define( require => {
       this.setChildren( [ this.backgroundRectangle, this.label ] );
 
       //----------------------------------------------------------------------------------------
+      // If the model is a component, the labeling is different
+      if ( baseVectorModel.componentType && VectorComponent.Types.includes( baseVectorModel.componentType ) ) {
 
-      // @private {Multilink} - observe changes to the model vector to update the label
-      this.vectorObserver = new Multilink(
-        [ valuesVisibleProperty,
-          baseVectorModel.tailPositionProperty,
-          baseVectorModel.tipPositionProperty ],
-        ( valuesVisible ) => {
-          this.updateLabel( baseVectorModel, valuesVisible );
-        } );
+        // @private {Multilink} - observe changes to the model vector to update the label
+        this.vectorObserver = new Multilink(
+          [ valuesVisibleProperty,
+            componentStyleProeprty,
+            baseVectorModel.tailPositionProperty,
+            baseVectorModel.tipPositionProperty ],
+          ( valuesVisible, componentStyle ) => {
+            this.updateComponentLabel( baseVectorModel, valuesVisible, componentStyle );
+          } );
+      }
+      else { // sum and normal vectors
+
+        // @private {Multilink} - observe changes to the model vector to update the label
+        this.vectorObserver = new Multilink(
+          [ valuesVisibleProperty,
+            baseVectorModel.tailPositionProperty,
+            baseVectorModel.tipPositionProperty ],
+          ( valuesVisible ) => {
+            this.updateLabel( baseVectorModel, valuesVisible );
+          } );
+      }
+
     }
 
     /**
@@ -97,13 +115,6 @@ define( require => {
 
       this.setRotation( 0 );
 
-      // TODO: consolidate positioning
-      // TODO: i think that positioning can be done inside of vectorNode. We can have a method for it and in this way
-      // component can override it (because their positioning is slightly different)
-
-      if ( !baseVectorModel.label && valuesVisible ) {
-        this.label.setFormula( `${Util.toFixed( baseVectorModel.magnitude, 1 )}` );
-      }
       if ( baseVectorModel.label && !valuesVisible ) {
         this.label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
 
@@ -124,9 +135,6 @@ define( require => {
 
         this.label.center = this.modelViewTransformProperty.value.modelToViewDelta( midPoint.plus( offset ) );
 
-      }
-      else if ( !baseVectorModel.label && !valuesVisible ) {
-        this.label.setFormula( '' );
       }
       else if ( baseVectorModel.label && valuesVisible ) {
         this.label.setFormula( `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${Util.toFixed( baseVectorModel.magnitude, 1 )}}` );
@@ -157,6 +165,18 @@ define( require => {
       }
 
       this.resizeBackground();
+    }
+
+    /**
+     * Update the label when the model vector changes or the values visibility checkbox is clicked.
+     * This is specifically only for components
+     * @param {BaseVectorModel} baseVectorModel
+     * @param {boolean} valuesVisible
+     * @param {ComponentStyles} componentStyle
+     * @private
+     */
+    updateComponentLabel( baseVectorModel, valuesVisible, componentStyle ) {
+      // do nothing for now
     }
 
     /**

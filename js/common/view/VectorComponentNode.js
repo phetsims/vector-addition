@@ -77,7 +77,7 @@ define( require => {
           throw new Error( `Vector Type : ${vectorComponent.vectorGroup} not handled` );
         }
       }
-      super( vectorComponent, modelViewTransformProperty, valuesVisibleProperty, arrowOptions );
+      super( vectorComponent, modelViewTransformProperty, valuesVisibleProperty, componentStyleProperty, arrowOptions );
 
       //----------------------------------------------------------------------------------------
       // Create a path  that represents the dashed lines corresponding to the on_axis style.

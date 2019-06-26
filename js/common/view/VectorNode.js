@@ -87,7 +87,7 @@ define( require => {
           throw new Error( `Vector Group : ${vectorModel.vectorGroup} not handled` );
         }
       }
-      super( vectorModel, modelViewTransformProperty, valuesVisibleProperty, arrowOptions );
+      super( vectorModel, modelViewTransformProperty, valuesVisibleProperty, componentStyleProperty, arrowOptions );
 
       //----------------------------------------------------------------------------------------
 

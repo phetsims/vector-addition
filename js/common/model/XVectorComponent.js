@@ -15,7 +15,6 @@ define( require => {
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
 
   class XVectorComponent extends VectorComponent {
-
     /**
      * @override
      * Updates the tail, and attributes vector (which will update the tip and magnitude) when the component style changes
@@ -25,6 +24,9 @@ define( require => {
      */
     updateComponent( componentStyle ) {
 
+      // @public (read-only)
+      this.componentType = VectorComponent.Types.X_COMPONENT;
+      
       // Triangle and Parallelogram are the same for x component
       if ( componentStyle === ComponentStyles.TRIANGLE || componentStyle === ComponentStyles.PARALLELOGRAM ) {
 

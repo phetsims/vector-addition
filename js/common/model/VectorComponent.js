@@ -21,6 +21,7 @@ define( require => {
   // modules
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const Enumeration = require( 'PHET_CORE/Enumeration' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -38,7 +39,6 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-
       //----------------------------------------------------------------------------------------
 
       super( parentVector.tail, 0, 0, parentVector.vectorGroup );
@@ -79,6 +79,9 @@ define( require => {
       throw new Error( 'updateComponent must be implemented by sub-classes of VectorComponent' );
     }
   }
+
+  // @public
+  VectorComponent.Types =  new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
 
   return vectorAddition.register( 'VectorComponent', VectorComponent );
 } );
