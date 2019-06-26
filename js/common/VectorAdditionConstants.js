@@ -84,7 +84,12 @@ define( function( require ) {
     DEFAULT_VECTOR_GROUP: VectorGroups.ONE,
 
     // side length of the arrow when initially dropped onto the graph.
-    INITIAL_ARROW_SIDE_LENGTH: 5
+    INITIAL_ARROW_SIDE_LENGTH: 5,
+
+    //----------------------------------------------------------------------------------------
+    // Rounding: TODO add more here
+    ANGLE_ROUNDING: 1 // in decimal points, used in inspectVectorPanel and vectorAngleNode
+
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

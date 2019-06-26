@@ -56,6 +56,7 @@ define( require => {
   const LABEL_LEFT_MARGIN = 21;
 
   const LABEL_WIDTH = 16;
+  const ANGLE_ROUNDING = VectorAdditionConstants.ANGLE_ROUNDING;
 
   class InspectVectorPanel extends Panel {
     /**
@@ -208,7 +209,7 @@ define( require => {
 
       this.angleDisplayNode.setChildren( [
         new NumberDisplay( activeVector.angleDegreesProperty, new Range( -180, 180 ), {
-          decimalPlaces: 1
+          decimalPlaces: ANGLE_ROUNDING
         } ) ] );
 
       this.xComponentText.setText( `${activeVector.label}<sub>${xString}</sub>` );

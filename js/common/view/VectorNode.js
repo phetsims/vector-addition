@@ -109,10 +109,11 @@ define( require => {
 
       this.addChild( xComponentNode );
       this.addChild( yComponentNode );
-      this.addChild( angleNode );
       this.addChild( tipCircle );
-
       this.arrowNode.moveToFront(); // put the arrow node on top of components
+
+      this.addChild( angleNode );
+
       tipCircle.moveToFront();
 
       //----------------------------------------------------------------------------------------
