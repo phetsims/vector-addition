@@ -76,8 +76,15 @@ define( require => {
         vectorComponentSumLayer.addChild( xComponentSumNode );
         vectorComponentSumLayer.addChild( yComponentSumNode );
 
-        // link the visibility of the Vector Sum node with the status of the checkbox
         vectorSet.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
+
+        // TODO, this should be passed to the node and the node handles visibility
+        vectorSet.sumVisibleProperty.link( visible => {
+          vectorSumNode.visible = visible;
+          xComponentSumNode.visible = visible;
+          yComponentSumNode.visible = visible;
+        })
+
 
         vectorSumLayer.addChild( vectorSumNode );
 
