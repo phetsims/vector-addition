@@ -73,6 +73,15 @@ define( require => {
 
     /**
      * @public
+     * Resets the vector set, by clearing the vectors array and reset the vectorSum
+     */
+    reset() {
+      this.vectors.clear();
+      this.vectorSum.reset();
+    }
+
+    /**
+     * @public
      * Adds a VectorModel to the vector observable array.
      * @param {Vector2} tailPosition
      * @param {number} xComponent
@@ -99,14 +108,6 @@ define( require => {
 
       this.vectors.push( newVector );
       return newVector;
-    }
-
-    /**
-     * @public
-     * Resets the vector set. Called when the reset all button is clicked
-     */
-    reset() {
-      this.vectors.clear();
     }
   }
 

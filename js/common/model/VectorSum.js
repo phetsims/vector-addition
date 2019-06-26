@@ -85,6 +85,16 @@ define( require => {
      * @override
      */
     dispose() { throw new Error( 'Vector Sum is never disposed' ); }
+
+    /**
+     * Reset the position of the tail of the vector sum
+     * @public
+     * @override
+     */
+    reset() {
+      this.tailPositionProperty.reset();
+    }
+
   }
 
   return vectorAddition.register( 'VectorSum', VectorSum );
