@@ -113,7 +113,7 @@ define( require => {
           this.label.setFormula( `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${Util.toFixed( baseVectorModel.magnitude, 1 )}}` );
         }
         else {
-          this.label.setFormula( `${baseVectorModel.magnitude}` );
+          this.label.setFormula( `${Util.toFixed( baseVectorModel.magnitude, 1 )}` );
         }
       }
 

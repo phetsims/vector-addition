@@ -53,6 +53,8 @@ define( require => {
 
       const vectorComponentLayer = new Node();
 
+      const vectorComponentSumLayer = new Node();
+
       graph.vectorSets.forEach( ( vectorSet ) => {
 
         // create a scenery node for the sum vector
@@ -64,6 +66,15 @@ define( require => {
           model.valuesVisibleProperty,
           vectorSet.coordinateSnapMode
         );
+        
+        // create the xComponentNode for the projection of the vectors along the horizontal
+        const xComponentSumNode = new VectorComponentNode( vectorSet.vectorSum.xVectorComponent, graph.modelViewTransformProperty, model.componentStyleProperty, model.valuesVisibleProperty );
+
+        // create the yComponent for the projection of the vector along the vertical
+        const yComponentSumNode = new VectorComponentNode( vectorSet.vectorSum.yVectorComponent, graph.modelViewTransformProperty, model.componentStyleProperty, model.valuesVisibleProperty );
+
+        vectorComponentSumLayer.addChild( xComponentSumNode );
+        vectorComponentSumLayer.addChild( yComponentSumNode );
 
         // link the visibility of the Vector Sum node with the status of the checkbox
         vectorSet.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
@@ -127,6 +138,7 @@ define( require => {
       this.setChildren( [
         this.graphNode,
         vectorComponentLayer,
+        vectorComponentSumLayer,
         vectorLayer,
         vectorSumLayer,
         this.inspectVectorPanel,
