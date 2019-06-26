@@ -212,7 +212,7 @@ define( require => {
       const constrainedBounds = tailBounds.intersection( tipBounds );
 
       // Translate the tail to ensure it stays in the contained bounds
-      this.translateToPoint( constrainedBounds.closestPointTo( this.tail ) );
+      this.translateToPoint( constrainedBounds.closestPointTo( this.tail ).copy().roundSymmetric() );
     }
   }
 
