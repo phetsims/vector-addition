@@ -12,6 +12,7 @@ define( require => {
   // modules
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -176,7 +177,26 @@ define( require => {
      * @private
      */
     updateComponentLabel( baseVectorModel, valuesVisible, componentStyle ) {
-      // do nothing for now
+      
+      if ( componentStyle === ComponentStyles.INVISIBLE ) {
+        this.visible = false;
+        return;
+      }
+
+      this.visible = true;
+
+      this.label.setFormula( `${baseVectorModel.magnitude}` );
+
+      // TODO: position based on which component
+      // if ( baseVectorModel.componentType === VectorComponent.Types.X_COMPONENT ) {
+      //   // do nothing
+      // }
+      // else if ( baseVectorModel.componentType === VectorComponent.Types.Y_COMPONENT ) {
+
+      // }
+
+
+
     }
 
     /**
