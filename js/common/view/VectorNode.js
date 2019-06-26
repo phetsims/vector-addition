@@ -228,8 +228,6 @@ define( require => {
      */
     tipSnapToGrid( tipLocation ) {
 
-      const tipCopy = this.vectorModel.tip;
-
       // Update the model vector
       this.vectorModel.tip = this.vectorModel.tail.plus(
         this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
@@ -240,11 +238,6 @@ define( require => {
       }
       else if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
         this.vectorModel.roundCartesianForm();
-      }
-
-      //----------------------------------------------------------------------------------------
-      if ( !this.vectorModel.magnitude ) { // prevent setting the vector to length 0
-        this.vectorModel.tip = tipCopy;
       }
     }
 

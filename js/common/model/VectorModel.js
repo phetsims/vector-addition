@@ -154,18 +154,21 @@ define( require => {
      */
     roundCartesianForm() {
 
-      // Move the tip to inside the graph
-      this.tip = this.graph.graphModelBounds.closestPointTo( this.tip );
+      const tipOnGraph = this.graph.graphModelBounds.closestPointTo( this.tip );
 
-      // Round the tip
-      this.tip = this.tip.copy().roundSymmetric();
+      const cartesianTip = tipOnGraph.copy().roundSymmetric();
+
+      const vectorInCartesianForm = cartesianTip.minus( this.tail );
 
       // Based on the vector orientation, constrain the dragging components
       if ( this.graph.orientation === GraphOrientations.HORIZONTAL ) {
-        this.setTipXY( this.tipX, this.tailY );
+        vectorInCartesianForm.setX( 0 );
       }
       else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
-        this.setTipXY( this.tailX, this.tipY );
+        vectorInCartesianForm.setY( 0 );
+      }
+      if ( vectorInCartesianForm.magnitude ) { // ensure that it isn't length 0
+        this.attributesVector = vectorInCartesianForm;
       }
     }
 
@@ -180,11 +183,14 @@ define( require => {
       const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric(
         Util.toDegrees( this.angle ) / ANGLE_INTERVAL );
 
-      this.attributesVector = this.attributesVector.copy().setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
+      const polarVector = this.attributesVector.copy().setPolar( roundedMagnitude, Util.toRadians( roundedAngle ) );
 
       // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside.
-      while ( !this.graph.graphModelBounds.containsPoint( this.tip ) ) {
-        this.magnitude -= 1;
+      while ( !this.graph.graphModelBounds.containsPoint( this.tail.plus( polarVector ) ) ) {
+        polarVector.setMagnitude( polarVector.magnitude - 1 );
+      }
+      if ( polarVector.magnitude ) { // ensure it is not length 0
+        this.attributesVector = polarVector;
       }
     }
 
