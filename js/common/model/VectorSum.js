@@ -5,11 +5,11 @@
  *
  * @author Martin Veillette
  */
+
 define( require => {
   'use strict';
 
   // modules
-  const Bounds2 = require( 'DOT/Bounds2' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
@@ -18,16 +18,16 @@ define( require => {
     /**
      * @constructor
      * @param {ObservableArray.<VectorModel>} vectors
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {Graph} graph - the graph the sum belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {VectorGroups} vectorGroup
-     * @param {Bounds2} graphModelBounds
      * @param {Object} [options]
      */
     constructor( vectors, graph, componentStyleProperty, vectorGroup, options ) {
 
-      const graphModelBounds = graph.graphModelBounds;
       options = _.extend( {
+
+        // Passed to super class
         label: 's',// {string} - the label of the vector
         isTipDraggable: false // {boolean} - can the tip be dragged
       }, options );
@@ -35,12 +35,11 @@ define( require => {
       assert && assert( vectors instanceof ObservableArray
       && vectors.filter( vector => !( vector instanceof VectorModel ) ).length === 0,
         `invalid vectors: ${vectors}` );
-      assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds ${graphModelBounds}` );
 
       //----------------------------------------------------------------------------------------
 
       // Get the initial position for the tail of the vector, which is the graphs center
-      const initialPosition = graphModelBounds.center;
+      const initialPosition = graph.graphModelBounds.center;
 
       super( initialPosition, 0, 0, graph, componentStyleProperty, vectorGroup, options );
 
