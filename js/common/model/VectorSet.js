@@ -13,41 +13,34 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  // const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
 
   class VectorSet {
 
     /**
      * @constructor
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property of the view/model coordinate
-     * transform of the graph
-     * @param {Bounds2} graphModelBounds - the graph bounds (model coordinates)
+     * @param {Graph} graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible property
-     * @param {VectorGroups} vectorGroup
+     * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
+     * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
      */
-    constructor(
-      graph,
-      componentStyleProperty,
-      sumVisibleProperty,
-      vectorGroup,
-      coordinateSnapMode ) {
+    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
 
-      // assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
+        `invalid coordinateSnapMode: ${coordinateSnapMode}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -55,11 +48,7 @@ define( require => {
       this.vectors = new ObservableArray();
 
       // @public {VectorModel} the vector sum model
-      this.vectorSum = new VectorSum(
-        this.vectors,
-        graph,
-        componentStyleProperty,
-        vectorGroup );
+      this.vectorSum = new VectorSum( this.vectors, graph, componentStyleProperty, vectorGroup );
 
       // @public {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
       this.vectorGroup = vectorGroup;
@@ -69,6 +58,7 @@ define( require => {
 
       // @public (read-only)
       this.coordinateSnapMode = coordinateSnapMode;
+
       //----------------------------------------------------------------------------------------
       // Create references to parameters
 
@@ -81,7 +71,7 @@ define( require => {
 
     /**
      * @public
-     * Adds a 'normal' VectorModel to the vector observable array.
+     * Adds a VectorModel to the vector observable array.
      * @param {Vector2} tailPosition
      * @param {number} xComponent
      * @param {number} yComponent
@@ -90,6 +80,7 @@ define( require => {
      */
     addVector( tailPosition, xComponent, yComponent, options ) {
 
+      // Keep a reference
       const newVector = new VectorModel(
         tailPosition,
         xComponent,
@@ -99,6 +90,7 @@ define( require => {
         this.vectorGroup,
         options );
 
+      // Activate the new vector
       newVector.activate();
 
       this.vectors.push( newVector );
@@ -107,7 +99,7 @@ define( require => {
 
     /**
      * @public
-     * Resets the vector set
+     * Resets the vector set. Called when the reset all button is clicked
      */
     reset() {
       this.vectors.clear();
