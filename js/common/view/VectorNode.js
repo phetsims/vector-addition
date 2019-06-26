@@ -254,7 +254,6 @@ define( require => {
       
       this.vectorModel.translateToPoint( tailPosition );
 
-
       this.vectorModel.moveVectorToFitInGraph();
     }
 

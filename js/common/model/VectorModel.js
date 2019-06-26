@@ -196,6 +196,8 @@ define( require => {
      */
     moveVectorToFitInGraph() {
 
+      this.translateToPoint( this.tail.copy().roundSymmetric() );
+
       // Determine the bounds of the tails
       const tailBounds = this.graph.graphModelBounds;
 
