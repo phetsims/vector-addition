@@ -100,7 +100,7 @@ define( require => {
       const yComponentNode = new VectorComponentNode( vectorModel.yVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
 
       // create a scenery node representing the arc of an angle and the numerical display of the angle
-      const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, modelViewTransformProperty.value );
+      const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, modelViewTransformProperty );
 
       // {Node} Create a circle at the tip of the vector. This is used to allow the user to only
       // change the angle of the arrowNode by only dragging the tip
@@ -229,8 +229,11 @@ define( require => {
      */
     tipSnapToGrid( tipLocation ) {
 
+      const tipCopy = this.vectorModel.tip;
+
       // Update the model vector
-      this.vectorModel.tip = this.vectorModel.tail.plus( this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
+      this.vectorModel.tip = this.vectorModel.tail.plus(
+        this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
       
       // Round the tip position according to the coordinateSnapMode
       if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
@@ -240,6 +243,10 @@ define( require => {
         this.vectorModel.roundCartesianForm();
       }
 
+      //----------------------------------------------------------------------------------------
+      if ( !this.vectorModel.magnitude ) { // prevent setting the vector to length 0
+        this.vectorModel.tip = tipCopy;
+      }
     }
 
     //TODO: the name of this function is misleading since it does much more than snap to grid
