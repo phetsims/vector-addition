@@ -109,9 +109,7 @@ define( require => {
       this.coordinateSnapModeProperty.reset();
 
       // Reset every graph
-      this.graphs.forEach( ( graph ) => {
-        graph.reset();
-      } );
+      this.graphs.forEach( ( graph ) => {graph.reset();} );
     }
   }
 

@@ -13,6 +13,7 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Vector2Property = require( 'DOT/Vector2Property' );
@@ -23,7 +24,6 @@ define( require => {
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
 
   // constants
   const TIP_CIRCLE_RADIUS = 10;

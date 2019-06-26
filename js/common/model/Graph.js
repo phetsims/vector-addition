@@ -118,9 +118,7 @@ define( require => {
      */
     erase() {
       // Reset each vectorSet
-      this.vectorSets.forEach( vectorSet =>
-        vectorSet.reset()
-      );
+      this.vectorSets.forEach( vectorSet => vectorSet.reset() );
     }
   }
 
