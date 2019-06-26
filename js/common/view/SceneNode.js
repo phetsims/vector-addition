@@ -83,7 +83,7 @@ define( require => {
           vectorSumNode.visible = visible;
           xComponentSumNode.visible = visible;
           yComponentSumNode.visible = visible;
-        })
+        });
 
 
         vectorSumLayer.addChild( vectorSumNode );
