@@ -51,7 +51,6 @@ define( require => {
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
         ( tailPosition, vector ) => tailPosition.plus( vector ) );
 
-      // Write access to these properties are found below
     }
 
     /**

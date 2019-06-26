@@ -29,7 +29,7 @@ define( require => {
   class VectorComponent extends BaseVectorModel {
     /**
      * @constructor
-     * @param {VectorModel} parentVector - a vectorComponent is a component of a parentVector
+     * @param {VectorModel} parentVector - the vector to which the componenst are assocciated
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
      */
     constructor( parentVector, componentStyleProperty ) {
@@ -47,15 +47,13 @@ define( require => {
       this.parentVector = parentVector;
 
       // @private observe changes of the parent to update component (abstract)
+      // No need to listen to the modelViewTransformProperty since the parentVector will update its position when
+      // modelViewTransformProperty changes
       this.updateLayoutMultilink = Property.multilink( [
-        componentStyleProperty,
-        parentVector.tipPositionProperty,
-        parentVector.tailPositionProperty
-        // No need to listen to the modelViewTransformProperty since the parentVector will update its position when
-        // modelViewTransformProperty changes
-      ], ( componentStyle ) => {
-        this.updateComponent( componentStyle );
-      } );
+          componentStyleProperty,
+          parentVector.tipPositionProperty,
+          parentVector.tailPositionProperty ],
+        ( componentStyle ) => {this.updateComponent( componentStyle );} );
     }
 
     /**
@@ -81,7 +79,7 @@ define( require => {
   }
 
   // @public
-  VectorComponent.Types =  new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
+  VectorComponent.Types = new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
 
   return vectorAddition.register( 'VectorComponent', VectorComponent );
 } );

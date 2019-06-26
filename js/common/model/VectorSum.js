@@ -87,7 +87,7 @@ define( require => {
     dispose() { throw new Error( 'Vector Sum is never disposed' ); }
 
     /**
-     * Reset the position of the tail of the vector sum
+     * Resets the position of the tail of the vector sum
      * @public
      * @override
      */
