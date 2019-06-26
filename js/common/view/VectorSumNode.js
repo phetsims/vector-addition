@@ -33,6 +33,7 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
      * @param {BooleanProperty} valuesVisibleProperty
+     * @param {CoordinateSnapModes} coordinateSnapMode
      */
     constructor( vectorModel,
                  graph,
