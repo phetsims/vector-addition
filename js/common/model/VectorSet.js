@@ -2,7 +2,7 @@
 
 /**
  * Model for a 'VectorSet,' which contains two things: a vector observable array, and a vectorSum of those vectors.
- * Each graph has an unknown amount of vectorSets.
+ * A model graph can support multiple vectorSets.
  *
  * @author Brandon Li
  */
@@ -53,15 +53,17 @@ define( require => {
       // @public {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
       this.vectorGroup = vectorGroup;
 
-      // @public {BooleanProperty} sumVisibleProperty - one vectorSet can only have on sum visible property
+      // @public {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible property
       this.sumVisibleProperty = sumVisibleProperty;
 
+      // TODO: indicate type
       // @public (read-only)
       this.coordinateSnapMode = coordinateSnapMode;
 
       //----------------------------------------------------------------------------------------
       // Create references to parameters
 
+      // TODO wrong type
       // @private {Property.<ModelViewTransform>}
       this.graph = graph;
 
@@ -90,6 +92,8 @@ define( require => {
         this.vectorGroup,
         options );
 
+      //TODO: this is not a good practice since this method is returning an object AND has a side effect
+      //TODO: break down into two function
       // Activate the new vector
       newVector.activate();
 
