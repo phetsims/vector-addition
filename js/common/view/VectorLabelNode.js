@@ -32,7 +32,7 @@ define( require => {
      * @param {ModelViewTransform2} modelViewTransformProperty
      * @param {Object} [options]
      */
-    constructor( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty, options ) {
+    constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, options ) {
 
       options = _.extend( {
         fill: baseVectorModel.vectorGroup === VectorGroups.ONE ?

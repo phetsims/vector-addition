@@ -21,7 +21,6 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
-  const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
 
@@ -93,12 +92,6 @@ define( require => {
 
       const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
 
-      // create the xComponentNode for the projection of the vectors along the horizontal
-      const xComponentNode = new VectorComponentNode( vectorModel.xVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
-
-      // create the yComponent for the projection of the vector along the vertical
-      const yComponentNode = new VectorComponentNode( vectorModel.yVectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
-
       // create a scenery node representing the arc of an angle and the numerical display of the angle
       const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, modelViewTransformProperty );
 
@@ -106,8 +99,6 @@ define( require => {
       // change the angle of the arrowNode by only dragging the tip
       const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
 
-      this.addChild( xComponentNode );
-      this.addChild( yComponentNode );
       this.addChild( tipCircle );
       this.arrowNode.moveToFront(); // put the arrow node on top of components
 
@@ -202,8 +193,7 @@ define( require => {
           this.disposeTipDrag();
         }
 
-        xComponentNode.dispose();
-        yComponentNode.dispose();
+
         angleNode.dispose();
         tailLocationProperty.unlink( tailListener );
         vectorModel.attributesVectorProperty.unlink( updateTip );

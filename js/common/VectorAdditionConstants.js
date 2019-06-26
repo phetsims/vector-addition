@@ -83,11 +83,14 @@ define( function( require ) {
     // Default vector group for Explore1D, Explore2D and Equation.
     DEFAULT_VECTOR_GROUP: VectorGroups.ONE,
 
-    // side length of the arrow when initially dropped onto the graph.
+    // Side length of the arrow when initially dropped onto the graph.
     INITIAL_ARROW_SIDE_LENGTH: 5,
 
+    // The offset in model coordinates of the label with respect to the vector
+    VECTOR_LABEL_OFFSET: 2,
+
     //----------------------------------------------------------------------------------------
-    // Rounding: TODO add more here
+    // Rounding: TODO// add more here
     ANGLE_ROUNDING: 1 // in decimal points, used in inspectVectorPanel and vectorAngleNode
 
   };

@@ -16,6 +16,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
+  const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
 
   // constants
   const VECTOR_DISPLAY_PANEL_LOCATION_LEFT = 195;
@@ -50,6 +51,8 @@ define( require => {
       // create the vector sum layer
       const vectorSumLayer = new Node();
 
+      const vectorComponentLayer = new Node();
+
       graph.vectorSets.forEach( ( vectorSet ) => {
 
         // create a scenery node for the sum vector
@@ -79,6 +82,15 @@ define( require => {
           );
 
           vectorLayer.addChild( vectorNode );
+          
+          // create the xComponentNode for the projection of the vectors along the horizontal
+          const xComponentNode = new VectorComponentNode( addedVector.xVectorComponent, graph.modelViewTransformProperty, model.componentStyleProperty, model.valuesVisibleProperty );
+
+          // create the yComponent for the projection of the vector along the vertical
+          const yComponentNode = new VectorComponentNode( addedVector.yVectorComponent, graph.modelViewTransformProperty, model.componentStyleProperty, model.valuesVisibleProperty );
+
+          vectorComponentLayer.addChild( xComponentNode );
+          vectorComponentLayer.addChild( yComponentNode );
 
           // Add the removal listener in case this vector is removed.
           const removalListener = removedVector => {
@@ -114,6 +126,7 @@ define( require => {
 
       this.setChildren( [
         this.graphNode,
+        vectorComponentLayer,
         vectorLayer,
         vectorSumLayer,
         this.inspectVectorPanel,

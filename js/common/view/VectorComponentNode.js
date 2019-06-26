@@ -7,6 +7,7 @@
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -25,22 +26,31 @@ define( require => {
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
-  const VECTOR_GROUP_1_COMPONENT = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+
+  // Different appearances for vector components based on vectorGroup
+  const VECTOR_GROUP_1_COMPONENT_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.component,
     headWidth: 10.5,
     headHeight: 6,
     tailWidth: 4,
     lineWidth: 0
   } );
-  const VECTOR_GROUP_2_COMPONENT = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+  const VECTOR_GROUP_2_COMPONENT_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.component,
     headWidth: 10.5,
     headHeight: 6,
     tailWidth: 4,
     lineWidth: 0
   } );
-  const ON_AXIS_LINES_LINE_DASH = [ 3, 10 ];
-  const COMPONENT_LABEL_OFFSET = 30;
+
+  // Offset of the label
+  // const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
+  
+  // Passed to the shape for the on axis dashed lines
+  const ON_AXIS_OPTIONS = {
+    stroke: VectorAdditionColors.BLACK,
+    lineDash:[ 3, 10 ]
+  };
 
   class VectorComponentNode extends BaseVectorNode {
 
@@ -49,82 +59,66 @@ define( require => {
      * @param {VectorComponent} vectorComponent - the vector model for the component
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
      * between model coordinates and view coordinates
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component styles
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component
+     * styles
      * @param {BooleanProperty} valuesVisibleProperty
      */
     constructor( vectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty ) {
 
-      // Type check arguments
+      // Type check unique arguments
       assert && assert( vectorComponent instanceof VectorComponent, `invalid vectorComponent: ${vectorComponent}` );
-
-      // modelViewTransformProperty checked in BaseVectorNode
-      assert && assert( componentStyleProperty instanceof EnumerationProperty,
+      assert && assert( componentStyleProperty instanceof EnumerationProperty
+      && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
-      // Get the arrow options for the specific vector type
 
-      let arrowOptions;
-      switch( vectorComponent.vectorGroup ) {
-        case VectorGroups.ONE: {
-          arrowOptions = VECTOR_GROUP_1_COMPONENT;
-          break;
-        }
-        case VectorGroups.TWO: {
-          arrowOptions = VECTOR_GROUP_2_COMPONENT;
-          break;
-        }
-        default: {
-          throw new Error( `Vector Type : ${vectorComponent.vectorGroup} not handled` );
-        }
-      }
-      super( vectorComponent, modelViewTransformProperty, valuesVisibleProperty, arrowOptions );
+      super(
+        vectorComponent,
+        modelViewTransformProperty,
+        valuesVisibleProperty,
+        vectorComponent.vectorGroup === VectorGroups.ONE ?
+        VECTOR_GROUP_1_COMPONENT_OPTIONS :
+        VECTOR_GROUP_2_COMPONENT_OPTIONS );
 
       //----------------------------------------------------------------------------------------
       // Create a path  that represents the dashed lines corresponding to the on_axis style.
       // The shape of the path will be updated later
-      this.onAxisLinesPath = new Path( new Shape(), {
-        stroke: 'black',
-        lineDash: ON_AXIS_LINES_LINE_DASH
-      } );
+
+      // @private
+      this.onAxisLinesPath = new Path( new Shape(), ON_AXIS_OPTIONS );
 
       this.addChild( this.onAxisLinesPath );
 
       //----------------------------------------------------------------------------------------
+      // Update the tail/tip location when the vector's tail/tip position changes and when the componentStyleProperty
+      // changes
 
-      this.vectorObserver.dispose();
-
-      // @public {Multilink} - observe changes to the tail/tip
+      // @private {Multilink}
       this.vectorObserver = new Multilink(
-        [ vectorComponent.tailPositionProperty,
+        [ valuesVisibleProperty,
+          vectorComponent.tailPositionProperty,
           vectorComponent.tipPositionProperty,
-          componentStyleProperty,
-          valuesVisibleProperty ],
-        () => {
-          this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value );
-          this.updateLabelPositioning( vectorComponent, modelViewTransformProperty.value, valuesVisibleProperty.value );
+          componentStyleProperty ],
+        ( valuesVisible ) => {
+          
+          // Update the appearance of the vector
+          this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value ); 
+          
+          // Update the appearance of the label
+          this.updateLabelPositioning( vectorComponent, modelViewTransformProperty.value, valuesVisible );
         } );
 
     }
-
     /**
-     * Update the tail and tip position of the component. Since the component is a child of the vectorNode, we
-     * must adjust the update (since (0, 0) is defined as the tail on vectorNode)
+     * Updates the tail and tip position of the view. Called when the model changes tail/tip.
+     * Does the same as super class but draws lines and toggles visibility based on componentStyleProperty
      * @param {VectorComponent} vectorComponent
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
-     * @public
-     * @override
+     * @private
      */
     updateVector( vectorComponent, modelViewTransform, componentStyle ) {
-      const tailLocation = modelViewTransform.modelToViewDelta( vectorComponent.tail.minus( vectorComponent.parentVector.tail ) );
-      const tipLocation = modelViewTransform.modelToViewDelta( vectorComponent.tip.minus( vectorComponent.parentVector.tail ) );
-
-      // update the  arrows
-      this.arrowNode.setTailAndTip( tailLocation.x, tailLocation.y, tipLocation.x, tipLocation.y );
-
-      //----------------------------------------------------------------------------------------
-      // Toggle visibility based on component Style
 
       // Since this isn't a lazy link, and onAxisLinesPath doesn't exist in super class, we must handle the first call
       if ( !this.onAxisLinesPath ) {
@@ -139,7 +133,6 @@ define( require => {
         }
         case ComponentStyles.ON_AXIS: {
           this.visible = true;
-          // make the on axis dashed lines visible
           this.onAxisLinesPath.visible = true;
 
           this.onAxisLinesPath.setShape( this.getOnAxisLinesShape( vectorComponent, modelViewTransform ) );
@@ -150,10 +143,11 @@ define( require => {
           this.visible = true;
         }
       }
+      super.updateVector( vectorComponent, modelViewTransform );
     }
 
     /**
-     * Create the shape from of lines that go from the components tail/tip to the parents tail/tip
+     * Creates the shape of lines that go from the components tail/tip to the parents tail/tip
      * @param {VectorComponent} vectorComponent
      * @param {ModelViewTransform2} modelViewTransform
      * @public
@@ -161,22 +155,25 @@ define( require => {
      */
     getOnAxisLinesShape( vectorComponent, modelViewTransform ) {
 
-      const tailLocation = modelViewTransform.modelToViewDelta( vectorComponent.tail.minus( vectorComponent.parentVector.tail ) );
-      const tipLocation = modelViewTransform.modelToViewDelta( vectorComponent.tip.minus( vectorComponent.parentVector.tail ) );
+      const tipLocation = modelViewTransform.modelToViewDelta(
+        vectorComponent.tip.minus( vectorComponent.tail ) );
 
-      const parentTailLocation = modelViewTransform.modelToViewDelta( Vector2.ZERO );
-      const parentTipLocation = modelViewTransform.modelToViewDelta( vectorComponent.parentVector.tip.minus( vectorComponent.parentVector.tail ) );
+      const parentTailLocation = modelViewTransform.modelToViewDelta(
+        vectorComponent.parentVector.tail.minus( vectorComponent.tail ) );
+      
+      const parentTipLocation = modelViewTransform.modelToViewDelta(
+        vectorComponent.parentVector.tip.minus( vectorComponent.tail ) );
 
       // create new shape for the dashed lines that extend to the axis
       const onAxisLines = new Shape();
 
       // create the dashed lines shape
-      onAxisLines.moveToPoint( tailLocation ).lineToPoint( parentTailLocation );
+      onAxisLines.moveToPoint( Vector2.ZERO ).lineToPoint( parentTailLocation );
       onAxisLines.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
 
       return onAxisLines;
-
     }
+
     /**
      * Update the label positioning
      * @param {VectorComponent} vectorComponent
@@ -194,31 +191,30 @@ define( require => {
         this.labelNode.visible = false;
         return;
       }
-      const tailLocation = modelViewTransform.modelToViewDelta( vectorComponent.tail.minus( vectorComponent.parentVector.tail ) );
-      const tipLocation = modelViewTransform.modelToViewDelta( vectorComponent.tip.minus( vectorComponent.parentVector.tail ) );
-        
+      const tailDeltaPosition = vectorComponent.tail.minus( vectorComponent.parentVector.tail );
+      const tipDeltaPosition = vectorComponent.tip.minus( vectorComponent.parentVector.tip );
 
-      const midPoint = tipLocation.minus( tailLocation ).timesScalar( 0.5 );
-      const offset = new Vector2( 0, 0 );
+      const midPoint = tipDeltaPosition.minus( tailDeltaPosition ).timesScalar( 0.5 );
+      // const offset = new Vector2( 0, 0 );
+      // console.log( midPoint, vectorComponent.componentType )
+      // if ( vectorComponent.componentType === VectorComponent.Types.X_COMPONENT ) {
+      //   if ( vectorComponent.parentVector.yComponent > 0 ) { // position above
+      //     offset.setXY( 0, COMPONENT_LABEL_OFFSET );
+      //   }
+      //   if ( vectorComponent.parentVector.yComponent < 0 ) { // position below
+      //     offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
+      //   }
+      // }
+      // else if ( vectorComponent.componentType === VectorComponent.Types.Y_COMPONENT ) {
+      //   if ( vectorComponent.parentVector.xComponent > 0 ) { // position to the left
+      //     offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
+      //   }
+      //   if ( vectorComponent.parentVector.xComponent < 0 ) { // position to the left
+      //     offset.setXY( +COMPONENT_LABEL_OFFSET, 0 );
+      //   }
+      // }
 
-      if ( vectorComponent.componentType === VectorComponent.Types.X_COMPONENT ) {
-        if ( vectorComponent.parentVector.yComponent > 0 ) { // position above
-          offset.setXY( 0, COMPONENT_LABEL_OFFSET );
-        }
-        if ( vectorComponent.parentVector.yComponent < 0 ) { // position below
-          offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
-        }
-      }
-      else if ( vectorComponent.componentType === VectorComponent.Types.Y_COMPONENT ) {
-        if ( vectorComponent.parentVector.xComponent > 0 ) { // position to the left
-          offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
-        }
-        if ( vectorComponent.parentVector.xComponent < 0 ) { // position to the left
-          offset.setXY( +COMPONENT_LABEL_OFFSET, 0 );
-        }
-      }
-
-      this.labelNode.center = midPoint.plus( offset );
+      this.labelNode.center = modelViewTransform.modelToViewPosition( midPoint );
 
     }
   }

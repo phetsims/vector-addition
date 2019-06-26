@@ -8,6 +8,7 @@
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -19,9 +20,14 @@ define( require => {
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
   const Vector2 = require( 'DOT/Vector2' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
+
+  // constants
+  const ARROW_MOUSEAREA_OFFSET = 3; // off set to make the arrow easier to grab
+  const LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
   class BaseVectorNode extends Node {
     /**
@@ -47,106 +53,111 @@ define( require => {
 
       super();
 
-      // Define a vector node in which the tail location (view coordinates) 
-      // is (0, 0). Get the tip location in view coordinates
+      // Define a vector node in which the tail location (view coordinates) is (0, 0). Get the tip location in view
+      // coordinates
       const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.attributesVector );
 
       // @protected {Node} arrowNode - Create an arrow node that represents an actual vector.
       this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, arrowOptions );
 
       // @protected {Node} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
-      // The location of this depends on the angle of the vector.
-      this.labelNode = new VectorLabelNode( baseVectorModel, valuesVisibleProperty, modelViewTransformProperty );
+      // The location of this depends on the angle of the vector. Since the positioning of 'next' is different for every
+      // vector, use an overridable method to position it. ( updateLabelPositioning() )
+      this.labelNode = new VectorLabelNode( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty );
+
 
       this.setChildren( [ this.arrowNode, this.labelNode ] );
 
       //----------------------------------------------------------------------------------------
-      // update the tail/tip location when the vector's tail/tip position changes
+      // Update the tail/tip location when the vector's tail/tip position changes
 
-      // @private {Multilink} - observe changes to the tail/tip
+      // @private {Multilink} - observe changes to the tail/tip and mirror the positioning. If the values visibility
+      // changes, update the view as well
       this.vectorObserver = new Multilink(
-        [ baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty, valuesVisibleProperty ],
-        () => {
+        [  valuesVisibleProperty, baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty ],
+        ( valuesVisible ) => {
+          
+          // Update the appearance of the vector
           this.updateVector( baseVectorModel, modelViewTransformProperty.value ); 
-          this.updateLabelPositioning( baseVectorModel, modelViewTransformProperty.value, valuesVisibleProperty.value );
+          
+          // Update the appearance of the label
+          this.updateLabelPositioning( baseVectorModel, modelViewTransformProperty.value, valuesVisible );
         } );
       
     }
 
     /**
-     * Update the tail and tip position of the view
+     * Updates the tail and tip position of the view. Called when the model changes tail/tip.
      * @param {BaseVectorModel} baseVectorModel
      * @param {ModelViewTransform2} modelViewTransform
-     * @private
+     * @protected
      */
     updateVector( baseVectorModel, modelViewTransform ) {
 
-      // Since the tail is defined at (0, 0) for the vector, we must translate.
+      // Since the tail is defined at (0, 0) for the vector, the vector must be translated.
       this.translation = modelViewTransform.modelToViewPosition( baseVectorModel.tail );
 
       // Get the tip location in view coordinates
       const tipDeltaLocation = modelViewTransform.modelToViewDelta( baseVectorModel.attributesVector );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
 
-      // make the arrow easier to grab
-      this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( 3 );
+      // Make the arrow easier to grab
+      this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( ARROW_MOUSEAREA_OFFSET );
     }
+
     /**
-     * Update the label positioning
+     * Updates the label positioning, called when the vector is changing of the value checkbox is clicked.
+     * This can be overridden if the positioning isn't appropriate (e.g. component nodes have different positioning)
      * @param {BaseVectorModel} baseVectorModel
      * @param {ModelViewTransform2} modelViewTransform
-     * @param {Boolean} valuesVisible
-     * @private
+     * @param {boolean} valuesVisible
+     * @protected
      */
     updateLabelPositioning( baseVectorModel, modelViewTransform, valuesVisible ) {
 
+      // Reset the rotation
       this.labelNode.setRotation( 0 );
 
-      const modelAngle = baseVectorModel.angle; // angle in the model in radians (ranging from -Pi to Pi)
+      // Angle of the vector in radians (ranging from -Pi to Pi)
+      const modelAngle = baseVectorModel.angle;
+
+      // Flags to indicate the angle translation. Declared below on and depends on the vector.
+      let yFlip;
+      let xFlip;
 
       if ( !valuesVisible ) {
+        // Add a flip if y is negative
+        yFlip = ( baseVectorModel.yComponent > 0 ) ? 0 : Math.PI;
 
-        // add a flip (180 degrees) if the angle is in quadrant III and IV (that is, y is negative)
-        const yFlip = ( modelAngle >= 0 ) ? 0 : Math.PI;
-
-        // add a flip (180 degrees) if the angle is in quadrant II and III (that is, x is negative)
-        const xFlip = ( modelAngle <= Math.PI / 2 && modelAngle >= -Math.PI / 2 ) ? 0 : Math.PI;
-
-        // create an offset that is perpendicular to the vector, 2 model unit long about
-        // and is pointing in the positive theta for quadrants I and III and negative theta for quadrants II and IV
-        const offset = Vector2.createPolar( 2, modelAngle + Math.PI / 2 + yFlip + xFlip );
-
-        // create label halfway above the vector
-        const midPoint = baseVectorModel.attributesVector.timesScalar( 0.5 );
-
-        this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
-
+        // Add a flip if x is negative
+        xFlip = ( baseVectorModel.xComponent > 0 ) ? 0 : Math.PI;
       }       
       else {
-        // since the y-axis is inverted, the angle is the view is opposite to the model
+        // Since the y-axis is inverted, the angle is the view is opposite to the model
         const viewAngle = -modelAngle;
 
-        // add a flip (180 degrees) if the angle is in quadrant II and III (that is, x is negative)
-        const xFlip = ( modelAngle <= Math.PI / 2 && modelAngle >= -Math.PI / 2 ) ? 0 : Math.PI;
+        // Add a flip if x is negative
+        xFlip = ( baseVectorModel.xComponent > 0 ) ? 0 : Math.PI;
 
-        // add a flip (180 degrees) if the angle is in quadrant III and IV (that is, y is negative)
-        const yFlip = ( modelAngle >= 0 ) ? 0 : Math.PI;
+        // Add a flip if y is negative
+        yFlip = ( baseVectorModel.yComponent > 0 ) ? 0 : Math.PI;
 
-        // rotate label along the angle for quadrants I and IV, but flipped for quadrants II and III
+        // Rotate label along the angle for quadrants I and IV, but flipped if x is negative
         this.labelNode.setRotation( viewAngle + xFlip );
-
-        // create an offset that is perpendicular to the vector, 2 model unit long about
-        // and is pointing in the positive theta for quadrants I and III and negative theta for quadrants II and IV
-        const offset = Vector2.createPolar( 2, modelAngle + Math.PI / 2 + yFlip + xFlip );
-
-        // create label halfway above the vector
-        const midPoint = baseVectorModel.attributesVector.timesScalar( 0.5 );
-
-        this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
       }
+
+      // Create an offset that is perpendicular to the vector, and is pointing in the positive theta if x is positive
+      // and negative theta if x is positive
+      const offset = Vector2.createPolar( LABEL_OFFSET, modelAngle + Math.PI / 2 + yFlip + xFlip );
+
+      // Create label halfway above the vector
+      const midPoint = baseVectorModel.attributesVector.timesScalar( 0.5 );
+
+      this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
     }
+
     /**
-     * Dispose the vector
+     * Disposes the vector
      * @public
      * @override
      */
