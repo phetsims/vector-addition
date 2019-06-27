@@ -70,10 +70,7 @@ define( require => {
 
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      const inspectVectorPanel = new Node( _.extend( {
-        children: [ new InspectVectorPanel( graph.vectorSets, options.inspectVectorPanelOptions ) ],
-      }, options.inspectVectorPanelLocation ) );
-
+      const inspectVectorPanel = new InspectVectorPanel( graph.vectorSets, options.inspectVectorPanelOptions );
 
       const eraserButton = new EraserButton( {
         listener: () => {
@@ -93,7 +90,9 @@ define( require => {
       super( {
         children: [
           graphNode,
-          inspectVectorPanel,
+          new Node( _.extend( {
+            children: [ inspectVectorPanel ]
+          }, options.inspectVectorPanelLocation ) ),
           eraserButton,
           vectorComponentContainer,
           vectorSumComponentContainer,
