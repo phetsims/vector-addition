@@ -197,46 +197,33 @@ define( require => {
       // Flags to indicate the angle translation. Declared below on and depends on the vector.
       const offset = new Vector2( 0, 0 );
 
-      const yComponent = vectorComponent.parentVector.yComponent;
-      const xComponent = vectorComponent.parentVector.xComponent;
+      //----------------------------------------------------------------------------------------
+      // Convenience variables
+      const componentMidPoint = vectorComponent.attributesVector.timesScalar( 0.5 ).plus( vectorComponent.tail );
+      const parentMidPoint = vectorComponent.parentVector.attributesVector.timesScalar( 0.5 ).plus( vectorComponent.parentVector.tail );
+
 
       if ( vectorComponent.componentType === VectorComponent.Types.X_COMPONENT ) { // if its an x component
-        if ( yComponent < 0 && xComponent < 0 ) {
-          offset.setXY( 0, COMPONENT_LABEL_OFFSET );
-        }
-
-        else if ( yComponent > 0 && xComponent < 0 ) {
+      
+        if ( componentMidPoint.y <= parentMidPoint.y ) { // below the vector
           offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
         }
 
-        else if ( yComponent < 0 && xComponent > 0 ) {
+        else { // above
           offset.setXY( 0, COMPONENT_LABEL_OFFSET );
-        }
-
-        else if ( yComponent > 0 && xComponent > 0 ) {
-          offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
         }
       }       
       else if ( vectorComponent.componentType === VectorComponent.Types.Y_COMPONENT ) { // if its an y component
 
-        if ( yComponent < 0 && xComponent < 0 ) {
-          offset.setXY( COMPONENT_LABEL_OFFSET, 0 );
-        }
-
-        else if ( yComponent > 0 && xComponent < 0 ) {
-          offset.setXY( COMPONENT_LABEL_OFFSET, 0 );
-        }
-
-        else if ( yComponent < 0 && xComponent > 0 ) {
+        if ( componentMidPoint.x <= parentMidPoint.x ) { // to the left of the vector
           offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
         }
 
-        else if ( yComponent > 0 && xComponent > 0 ) {
-          offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
+        else {
+          offset.setXY( COMPONENT_LABEL_OFFSET, 0 );
         }
       }
 
-      // Create label halfway above the vector
       const midPoint = vectorComponent.attributesVector.timesScalar( 0.5 );
 
       this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
