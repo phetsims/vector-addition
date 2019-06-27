@@ -94,6 +94,8 @@ define( require => {
       // Update the tail/tip location when the vector's tail/tip position changes and when the componentStyleProperty
       // changes
 
+      this.vectorObserver.dispose();
+      
       // @private {Multilink}
       this.vectorObserver = new Multilink(
         [ valuesVisibleProperty,

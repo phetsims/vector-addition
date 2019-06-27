@@ -35,13 +35,15 @@ define( require => {
      * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {CoordinateSnapModes} coordinateSnapMode
+     * @param {sumVisibleProperty} sumVisibleProperty
      */
     constructor( vectorModel,
                  graph,
                  componentStyleProperty,
                  angleVisibleProperty,
                  valuesVisibleProperty,
-                 coordinateSnapMode
+                 coordinateSnapMode,
+                 sumVisibleProperty
     ) {
 
       super( vectorModel,
@@ -52,6 +54,15 @@ define( require => {
         coordinateSnapMode,
         vectorModel.vectorGroup === VectorGroups.ONE ? VECTOR_GROUP_1_SUM : VECTOR_GROUP_2_SUM );
 
+      // Doesn't need to be unlinked since vector sums are never disposed
+      sumVisibleProperty.linkAttribute( this, 'visible' );
+    }
+
+    /**
+     * Double check to make sure vector sums are never disposed
+     */
+    dispose() {
+      assert && assert( false, 'vector sums are never disposed' );
     }
   }
 
