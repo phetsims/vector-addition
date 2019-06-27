@@ -156,7 +156,7 @@ define( require => {
 
       const tipOnGraph = this.graph.graphModelBounds.closestPointTo( this.tip );
 
-      const cartesianTip = tipOnGraph.copy().roundSymmetric();
+      const cartesianTip = tipOnGraph.roundedSymmetric();
 
       const vectorInCartesianForm = cartesianTip.minus( this.tail );
 
@@ -208,7 +208,7 @@ define( require => {
       const constrainedBounds = tailBounds.intersection( tipBounds );
 
       // Translate the tail to ensure it stays in the contained bounds
-      this.translateToPoint( constrainedBounds.closestPointTo( this.tail ).copy().roundSymmetric() );
+      this.translateToPoint( constrainedBounds.closestPointTo( this.tail ).roundedSymmetric() );
     }
   }
 
