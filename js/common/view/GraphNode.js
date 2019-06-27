@@ -34,7 +34,7 @@ define( require => {
 
   // grid
   const GRAPH_OPTIONS = {
-    fill: VectorAdditionColors.GRAPH_BACKGROUND
+    fill: VectorAdditionColors.WHITE
   };
   const MAJOR_GRID_LINES_OPTIONS = {
     lineWidth: 2,

@@ -20,13 +20,7 @@ define( function( require ) {
 
   const VectorAdditionColors = {
 
-    //----------------------------------------------------------------------------------------
-    // Various backgrounds
     SCREEN_BACKGROUND: 'rgb( 255, 250, 227 )',
-    CONTROL_PANEL_BACKGROUND: LIGHT_GREY,
-    PANEL_BACKGROUND: LIGHT_GREY,
-    INSPECT_VECTOR_BACKGROUND: LIGHT_GREY,
-    GRAPH_BACKGROUND: WHITE,
 
     //----------------------------------------------------------------------------------------
     // General   

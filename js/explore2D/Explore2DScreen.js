@@ -12,6 +12,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Screen = require( 'JOIST/Screen' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   // strings
   const screenExplore2DString = require( 'string!VECTOR_ADDITION/screen.explore2D' );
@@ -25,7 +26,7 @@ define( require => {
 
       const options = {
         name: screenExplore2DString,
-        backgroundColorProperty: new Property( 'rgb( 255, 250, 227 )' ),
+        backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
         tandem: tandem
       };
 

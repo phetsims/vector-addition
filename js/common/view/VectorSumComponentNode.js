@@ -3,7 +3,7 @@
 /**
  * View for a the component of the sum vector
  *
- * Listens to the a sumVisibleProperty to determine visibility
+ * Listens to a SumVisibleProperty to determine visibility.
  *
  * @author Brandon Li
  */
@@ -19,14 +19,11 @@ define( require => {
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
 
   class VectorSumComponentNode extends VectorComponentNode {
-
     /**
      * @constructor
      * @param {VectorComponent} vectorComponent - the vector model for the component
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
-     * between model coordinates and view coordinates
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component
-     * styles
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
      */
@@ -73,6 +70,7 @@ define( require => {
         } );
 
     }
+    
     /**
      * Does the same as the super class, except handles the visibility based on the sum checkbox
      * @param {VectorComponent} vectorComponent

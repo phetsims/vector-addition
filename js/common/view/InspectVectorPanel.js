@@ -44,7 +44,6 @@ define( require => {
     minWidth: CREATOR_PANEL_WIDTH,
     maxWidth: CREATOR_PANEL_WIDTH,
     maxHeight: CREATOR_PANEL_HEIGHT,
-    fill: VectorAdditionColors.INSPECT_VECTOR_BACKGROUND,
     stroke: VectorAdditionColors.PANEL_STROKE_COLOR
   } );
   const EXPAND_COLLAPSE_BUTTON_OPTIONS = {

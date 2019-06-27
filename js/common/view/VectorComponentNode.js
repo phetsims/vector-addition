@@ -115,6 +115,7 @@ define( require => {
         } );
 
     }
+    
     /**
      * Updates the tail and tip position of the view. Called when the model changes tail/tip.
      * Does the same as super class but draws lines and toggles visibility based on componentStyleProperty

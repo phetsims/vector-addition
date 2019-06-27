@@ -38,7 +38,7 @@ define( function( require ) {
       cornerRadius: PANEL_CORNER_RADIUS,
       xMargin: PANEL_X_MARGIN,
       yMargin: PANEL_Y_MARGIN,
-      fill: VectorAdditionColors.PANEL_BACKGROUND,
+      fill: VectorAdditionColors.LIGHT_GREY,
       stroke: VectorAdditionColors.PANEL_STROKE_COLOR,
       minWidth: PANEL_WIDTH,
       maxWidth: PANEL_WIDTH,
