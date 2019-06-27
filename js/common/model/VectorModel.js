@@ -167,9 +167,7 @@ define( require => {
       else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
         vectorInCartesianForm.setX( 0 );
       }
-      if ( vectorInCartesianForm.magnitude ) { // ensure that it isn't length 0
-        this.attributesVector = vectorInCartesianForm;
-      }
+      this.attributesVector = vectorInCartesianForm;
     }
 
     /**
@@ -189,9 +187,7 @@ define( require => {
       while ( !this.graph.graphModelBounds.containsPoint( this.tail.plus( polarVector ) ) ) {
         polarVector.setMagnitude( polarVector.magnitude - 1 );
       }
-      if ( polarVector.magnitude ) { // ensure it is not length 0
-        this.attributesVector = polarVector;
-      }
+      this.attributesVector = polarVector;
     }
 
     /**
