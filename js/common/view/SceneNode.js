@@ -119,7 +119,8 @@ define( require => {
               // remove its node from the view
               vectorLayer.removeChild( vectorNode );
               vectorNode.dispose();
-
+              xComponentNode.dispose();
+              yComponentNode.dispose();
               removedVector.dispose();
 
               // remove this listener to avoid leaking memory

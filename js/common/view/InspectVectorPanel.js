@@ -1,4 +1,4 @@
-// Copyright 2019, University of Colorado Boulder
+ // Copyright 2019, University of Colorado Boulder
 
 /**
  * View for the 'Inspect a Vector' Panel at the top of the scene. Displays vector attributes (i.e label, magnitude etc.)
