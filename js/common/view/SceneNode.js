@@ -1,166 +1,203 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * A node for a scene.
+ * A node for a scene. A scene represents one graph and its vectors. Screens can have multiple
+ * scenes (e.g. explore 1D has a horizontal scene and a vertical scene)
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
-  const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
-
-  // constants
-  const VECTOR_DISPLAY_PANEL_LOCATION_LEFT = 195;
-  const VECTOR_DISPLAY_PANEL_LOCATION_TOP = 12;
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
+  const VectorSumComponentNode = require( 'VECTOR_ADDITION/common/view/VectorSumComponentNode' );
+  const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
 
   class SceneNode extends Node {
     /**
      * @constructor
      * @param {Graph} graph
-     * @param {VectorAdditionModel} model
-     * @param {Object} [inspectVectorPanelOptions]
+     * @param {BooleanProperty} gridVisibleProperty,
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} valuesVisibleProperty
+     * @param {Object} [options]
      */
-    constructor( graph, model, inspectVectorPanelOptions ) {
+    constructor( graph,
+      gridVisibleProperty,
+      componentStyleProperty,
+      angleVisibleProperty,
+      valuesVisibleProperty,
+      options
+    ) {
 
-      super();
+      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      assert && assert( gridVisibleProperty instanceof BooleanProperty, `invalid gridVisibleProperty: ${gridVisibleProperty}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty
+      && ComponentStyles.includes( componentStyleProperty.value ),
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( angleVisibleProperty instanceof BooleanProperty, `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
-      // @public (read-only) {graph}
-      this.graph = graph;
+      //----------------------------------------------------------------------------------------
+     
+      options = _.extend( {
+        inspectVectorPanelLocation: null, // {object|null}
+        inspectVectorPanelOptions: null // {object|null}
+      }, options );
 
-      // @public (read-only) {GraphNode} Create the Graph Node
-      this.graphNode = new GraphNode( graph, model.gridVisibleProperty );
+      options.inspectVectorPanelLocation = _.extend( {
+        left: 195,
+        top: 12
+      }, options.inspectVectorPanelLocation );
 
-      // @private {InspectVectorPanel} Create the vector display panel
-      this.inspectVectorPanel = new InspectVectorPanel( graph.vectorSets, inspectVectorPanelOptions );
+      //----------------------------------------------------------------------------------------
+      // Create the scenery nodes
 
-      // set the panel in the correct location
-      this.inspectVectorPanel.left = VECTOR_DISPLAY_PANEL_LOCATION_LEFT;
-      this.inspectVectorPanel.top = VECTOR_DISPLAY_PANEL_LOCATION_TOP;
+      const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      // create the vector layer
-      const vectorLayer = new Node();
-      // create the vector sum layer
-      const vectorSumLayer = new Node();
+      const inspectVectorPanel = new InspectVectorPanel( graph.vectorSets, options.inspectVectorPanelOptions );
 
-      const vectorComponentLayer = new Node();
+      const eraserButton = new EraserButton( {
+        listener: () => {
+          graph.erase();
+          inspectVectorPanel.reset();
+        },
+        left: graphNode.right,
+        bottom: graphNode.bottom
+      } );
 
-      const vectorComponentSumLayer = new Node();
+      // Create the containers for each vector type
+      const vectorContainer = new Node();
+      const vectorSumContainer = new Node();
+      const vectorComponentContainer = new Node();
+      const vectorSumComponentContainer = new Node();
 
+      super( {
+        children: [
+          graphNode,
+          new Node( _.extend( {
+            children: [ inspectVectorPanel ]
+          }, options.inspectVectorPanelLocation ) ),
+          eraserButton,
+          vectorComponentContainer,
+          vectorSumComponentContainer,
+          vectorContainer,
+          vectorSumContainer
+        ]
+      } );
+
+      /*---------------------------------------------------------------------------*
+       * Loop through each vector set, observing changes and updating the scene
+       *---------------------------------------------------------------------------*/
       graph.vectorSets.forEach( ( vectorSet ) => {
 
-        // create a scenery node for the sum vector
-        const vectorSumNode = new VectorSumNode(
-          vectorSet.vectorSum,
+        // Create the node for the one and only sum node per vector set and its components
+        const vectorSumNode = new VectorSumNode( vectorSet.vectorSum,
           graph,
-          model.componentStyleProperty,
-          model.angleVisibleProperty,
-          model.valuesVisibleProperty,
-          vectorSet.coordinateSnapMode
+          componentStyleProperty,
+          angleVisibleProperty,
+          valuesVisibleProperty,
+          vectorSet.coordinateSnapMode,
+          vectorSet.sumVisibleProperty
         );
-        
-        // create the xComponentNode for the projection of the vectors along the horizontal
-        const xComponentSumNode = new VectorComponentNode( vectorSet.vectorSum.xVectorComponent, graph.modelViewTransformProperty, model.componentStyleProperty, model.valuesVisibleProperty );
 
-        // create the yComponent for the projection of the vector along the vertical
-        const yComponentSumNode = new VectorComponentNode( vectorSet.vectorSum.yVectorComponent, graph.modelViewTransformProperty, model.componentStyleProperty, model.valuesVisibleProperty );
+        const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xVectorComponent,
+          graph.modelViewTransformProperty,
+          componentStyleProperty,
+          valuesVisibleProperty,
+          vectorSet.sumVisibleProperty );
 
-        vectorComponentSumLayer.addChild( xComponentSumNode );
-        vectorComponentSumLayer.addChild( yComponentSumNode );
+        const yComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.yVectorComponent,
+          graph.modelViewTransformProperty,
+          componentStyleProperty,
+          valuesVisibleProperty,
+          vectorSet.sumVisibleProperty );
 
-        vectorSet.sumVisibleProperty.linkAttribute( vectorSumNode, 'visible' );
-
-        // TODO, this should be passed to the node and the node handles visibility
-        vectorSet.sumVisibleProperty.link( visible => {
-          vectorSumNode.visible = visible;
-          xComponentSumNode.visible = visible;
-          yComponentSumNode.visible = visible;
-        });
+        vectorSumComponentContainer.addChild( xComponentSumNode );
+        vectorSumComponentContainer.addChild( yComponentSumNode );
+        vectorSumContainer.addChild( vectorSumNode );
 
 
-        vectorSumLayer.addChild( vectorSumNode );
-
-        // on the vector set, add a listener to the vectors attribute to add the vector to the scene
+        /*---------------------------------------------------------------------------*
+         * Observe changes to the vector set, and update the scene
+         *---------------------------------------------------------------------------*/
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
-          const vectorNode = new VectorNode(
-            addedVector,
+          // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
+          
+          // Create the node for the newly added model vector and its components
+          const vectorNode = new VectorNode( addedVector,
             graph,
-            model.componentStyleProperty,
-            model.angleVisibleProperty,
-            model.valuesVisibleProperty,
+            componentStyleProperty,
+            angleVisibleProperty,
+            valuesVisibleProperty,
             vectorSet.coordinateSnapMode
           );
 
-          vectorLayer.addChild( vectorNode );
-          
-          // create the xComponentNode for the projection of the vectors along the horizontal
-          const xComponentNode = new VectorComponentNode( addedVector.xVectorComponent, graph.modelViewTransformProperty, model.componentStyleProperty, model.valuesVisibleProperty );
+          const xComponentNode = new VectorComponentNode( addedVector.xVectorComponent,
+            graph.modelViewTransformProperty,
+            componentStyleProperty,
+            valuesVisibleProperty );
 
-          // create the yComponent for the projection of the vector along the vertical
-          const yComponentNode = new VectorComponentNode( addedVector.yVectorComponent, graph.modelViewTransformProperty, model.componentStyleProperty, model.valuesVisibleProperty );
+          const yComponentNode = new VectorComponentNode( addedVector.yVectorComponent,
+            graph.modelViewTransformProperty,
+            componentStyleProperty,
+            valuesVisibleProperty );
 
-          vectorComponentLayer.addChild( xComponentNode );
-          vectorComponentLayer.addChild( yComponentNode );
+          vectorContainer.addChild( vectorNode );
+          vectorComponentContainer.addChild( xComponentNode );
+          vectorComponentContainer.addChild( yComponentNode );
 
-          // Add the removal listener in case this vector is removed.
+          //----------------------------------------------------------------------------------------
+          // Add the removal listener for when the vector is removed
           const removalListener = removedVector => {
             if ( removedVector === addedVector ) {
 
+              // deactivate
               removedVector.isActiveProperty.value = false;
 
-              // remove its node from the view
-              vectorLayer.removeChild( vectorNode );
+              // Dispose of the vector and its model
               vectorNode.dispose();
               xComponentNode.dispose();
               yComponentNode.dispose();
               removedVector.dispose();
 
-              // remove this listener to avoid leaking memory
               vectorSet.vectors.removeItemRemovedListener( removalListener );
             }
           };
 
-          // link removalListener to the provided ObservableArray
           vectorSet.vectors.addItemRemovedListener( removalListener );
         } );
-
       } );
 
-      const eraserButton = new EraserButton( {
-        listener: () => {
-          graph.erase();
-          this.inspectVectorPanel.reset();
-        },
-        left: this.graphNode.right,
-        bottom: this.graphNode.bottom
-      } );
-
-      this.setChildren( [
-        this.graphNode,
-        vectorComponentLayer,
-        vectorComponentSumLayer,
-        vectorLayer,
-        vectorSumLayer,
-        this.inspectVectorPanel,
-        eraserButton ] );
+      // @private, {function} function to reset the scene
+      this.resetScene = () => {
+        graphNode.reset();
+        graph.reset();
+        inspectVectorPanel.reset();
+      };
     }
 
     /**
+     * Resets the scene
      * @public
-     * reset the scene
      */
     reset() {
-      this.graphNode.reset();
-      this.graph.reset();
-      this.inspectVectorPanel.reset();
+      this.resetScene();
     }
   }
 

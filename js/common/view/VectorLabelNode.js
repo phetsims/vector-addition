@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the label of a vector. This is different from the component label
+ * View for the label of a vector. Vector labels depend on the type of vector.
  *
  * @author Brandon Li
  */
@@ -13,16 +13,16 @@ define( require => {
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const Property = require( 'AXON/Property' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-
-  // constants
 
   class VectorLabelNode extends Node {
     /**
@@ -46,94 +46,76 @@ define( require => {
       }, options );
 
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
+      assert && assert( modelViewTransformProperty instanceof Property
+      && modelViewTransformProperty.value instanceof ModelViewTransform2,
+      `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 
-      super();
+      // Create the background rectangle, set as an arbitrary rectangle for now
+      const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options );
 
-      // @private {Rectangle} - the background rectangle, set of size zero to start with
-      this.backgroundRectangle = new Rectangle( 0, 0, 0, 0, options );
+      // Create the Formula Node for the label and scale it to the correct size
+      const label = new FormulaNode( '' );
+      label.scale( options.scale );
 
-      // @private {FormulaNode} - the label, set as empty for now
-      this.label = new FormulaNode( '' );
-      this.label.scale( options.scale );
+      super( {
+        children: [ backgroundRectangle, label ]
+      } );
 
-      // @private {number} - create references to the xMargin and yMargin
-      this.xMargin = options.xMargin;
-      this.yMargin = options.yMargin;
+      //----------------------------------------------------------------------------------------
+      
+      // Function to change the label value and the background rectangle
+      const updateLabelNode = ( valuesVisible ) => {
 
-      // @private
-      this.modelViewTransformProperty = modelViewTransformProperty;
+        // Flag to indicate if the model represents component, which means the labeling is different
+        const isComponentModel = VectorComponent.Types.includes( baseVectorModel.componentType );
 
-      this.setChildren( [ this.backgroundRectangle, this.label ] );
+        const roundedMagnitude = Util.toFixed( baseVectorModel.magnitude, 1 );
 
+        if ( valuesVisible ) {
+          label.setFormula( isComponentModel ? roundedMagnitude :
+            `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${roundedMagnitude}}` );
+        }
+        else if ( !valuesVisible && !isComponentModel ) {
+          label.setFormula( `\\vec{ \\mathrm{ ${roundedMagnitude} } \}` );
+        }
 
-      // @private {Multilink} - observe changes to the model vector to update the label
-      this.vectorObserver = new Multilink(
-        [ valuesVisibleProperty,
+        //----------------------------------------------------------------------------------------
+        // Update the background
+        
+        // Calculate the bounds using getSafeSelfBounds. See https://github.com/phetsims/vector-addition/issues/40.
+        const labelBounds = label.getSafeSelfBounds();
+
+        backgroundRectangle.setRectWidth( labelBounds.width + 2 * options.xMargin );
+        backgroundRectangle.setRectHeight( labelBounds.height + 2 * options.yMargin );
+        backgroundRectangle.center = label.center;
+      };
+
+      //----------------------------------------------------------------------------------------
+
+      // Observe changes to the model vector, and update the label node
+      this.vectorObserver = new Multilink( [ valuesVisibleProperty,
           baseVectorModel.tailPositionProperty,
           baseVectorModel.tipPositionProperty ],
-        ( valuesVisible ) => {
-          this.updateLabel( baseVectorModel,
-            valuesVisible,
-            VectorComponent.Types.includes( baseVectorModel.componentType ) );
-        } );
+          updateLabelNode );
 
+      // @private
+      this.disposeListeners = () => {
+        this.vectorObserver.dispose();
+      };
     }
-
     /**
-     * Dispose the label node
+     * Disposes the label node
      * @public
      */
     dispose() {
-      this.vectorObserver.dispose();
+      this.disposeListeners();
       super.dispose();
-    }
-
-    /**
-     * Update the label when the model vector changes or the values visibility checkbox is clicked
-     * @param {BaseVectorModel} baseVectorModel
-     * @param {boolean} valuesVisible
-     * @param {boolean} isComponent - whether the model is a component
-     * @private
-     */
-    updateLabel( baseVectorModel, valuesVisible, isComponent ) {
-
-      if ( !valuesVisible ) {
-
-        if ( !isComponent ) {
-          this.label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
-        }
-
-      }
-      else if ( valuesVisible ) {
-        if ( !isComponent ) {
-          this.label.setFormula( `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${Util.toFixed( baseVectorModel.magnitude, 1 )}}` );
-        }
-        else {
-          this.label.setFormula( `${Util.toFixed( baseVectorModel.magnitude, 1 )}` );
-        }
-      }
-
-      this.resizeBackground();
-    }
-
-    /**
-     * Resize the background rectangle
-     * @private
-     */
-    resizeBackground() {
-
-      const labelBounds = this.label.getSafeSelfBounds();
-
-      const labelWidth = labelBounds.width;
-      const labelHeight = labelBounds.height;
-
-      this.backgroundRectangle.setRectWidth( labelWidth + 2 * this.xMargin );
-      this.backgroundRectangle.setRectHeight( labelHeight + 2 * this.yMargin );
-      this.backgroundRectangle.center = this.label.center;
     }
   }
 

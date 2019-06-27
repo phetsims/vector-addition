@@ -28,9 +28,15 @@ define( require => {
       this.sceneNodes = [];
 
       vectorAdditionModel.graphs.forEach( ( graph ) => {
-
+        
         // create a scene node and add it as a child
-        const newSceneNode = new SceneNode( graph, vectorAdditionModel, sceneNodeOptions );
+        const newSceneNode = new SceneNode( graph,
+          vectorAdditionModel.gridVisibleProperty,
+          vectorAdditionModel.componentStyleProperty,
+          vectorAdditionModel.angleVisibleProperty,
+          vectorAdditionModel.valuesVisibleProperty, {
+            inspectVectorPanelOptions: sceneNodeOptions
+          } );
         this.addChild( newSceneNode );
 
         // TODO: do we need a reference to sceneNode in the model graph?
