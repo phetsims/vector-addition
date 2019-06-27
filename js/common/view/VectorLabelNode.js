@@ -82,7 +82,7 @@ define( require => {
             `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${roundedMagnitude}}` );
         }
         else if ( !valuesVisible && !isComponentModel ) {
-          label.setFormula( `\\vec{ \\mathrm{ ${roundedMagnitude} } \}` );
+          label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
         }
 
         //----------------------------------------------------------------------------------------
