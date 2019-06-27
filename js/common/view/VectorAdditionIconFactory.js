@@ -52,7 +52,7 @@ define( function( require ) {
 
   class VectorAdditionIconFactory {
     /**
-     * Create the Vector Icon that appears on the vector creator panel
+     * Creates the Vector Icon that appears on the vector creator panel
      * @param {Vector2} initialVector - in model coordinates
      * @param {VectorGroups} vectorGroup
      * @param {Object} [options]
@@ -63,6 +63,8 @@ define( function( require ) {
       assert && assert( initialVector instanceof Vector2, `invalid initialVector: ${initialVector}` );
       assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ),
         `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -95,6 +97,8 @@ define( function( require ) {
 
       assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ),
         `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -115,6 +119,9 @@ define( function( require ) {
      * @public
      */
     static createAngleIcon( options ) {
+     
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
         angle: 50, // {number} in degrees
@@ -165,6 +172,9 @@ define( function( require ) {
      * @public
      */
     static createGridIcon( options ) {
+      
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
         rows: 3, // {number}
@@ -210,6 +220,8 @@ define( function( require ) {
 
       assert && assert( componentStyle && ComponentStyles.includes( componentStyle ),
         `invalid componentStyle: ${componentStyle}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       switch( componentStyle ) {
         case ComponentStyles.INVISIBLE:
@@ -231,18 +243,24 @@ define( function( require ) {
      * @public
      */
     static createInvisibleComponentStyleIcon( options ) {
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
+
       return new FontAwesomeNode( 'eye_close', _.extend( {
         maxWidth: RADIO_BUTTON_ICON_SIZE + 10
       }, options ) );
     }
 
     /**
-     * Create the Icon for the parallelogram component radio button
+     * Creates the Icon for the parallelogram component radio button
      * @param {Object} [options]
      * @public
      */
     static createParallelogramComponentStyleIcon( options ) {
-
+      
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
+   
       // The icon has three arrows, a vector arrow and its 2 components (opaque)
       const vectorArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, ARROW_ICON_OPTIONS );
 
@@ -256,11 +274,14 @@ define( function( require ) {
     }
 
     /**
-     * Create the Icon for the triangle component radio button
+     * Creates the Icon for the triangle component radio button
      * @param {Object} [options]
      * @public
      */
     static createTriangleComponentStyleIcon( options ) {
+      
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       // The icon has three arrows, a vector arrow and its 2 components (opaque)
       const vectorArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, ARROW_ICON_OPTIONS );
@@ -280,11 +301,14 @@ define( function( require ) {
     }
 
     /**
-     * Create the Icon for the on axis component radio button
+     * Creates the Icon for the on axis component radio button
      * @param {Object} [options]
      * @public
      */
     static createOnAxisComponentStyleIcon( options ) {
+
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
         subBoxSize: 10, // The Icon draws a sub box at the bottom left
@@ -333,11 +357,14 @@ define( function( require ) {
      * The Following are icons that appear in the Coordinate Snap Modes Radio Buttons
      *---------------------------------------------------------------------------*/
     /**
-     * Create the Icon for the cartesian coordinate snap mode radio button
+     * Creates the Icon for the cartesian coordinate snap mode radio button
      * @param {Object} [options]
      * @public
      */
     static createCartesianIcon( options ) {
+
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
         tailWidth: 4.5,
@@ -372,11 +399,14 @@ define( function( require ) {
     }
 
     /**
-     * Create the Icon for the cartesian coordinate polar mode radio button
+     * Creates the Icon for the cartesian coordinate polar mode radio button
      * @param {Object} [options]
      * @public
      */
     static createPolarIcon( options ) {
+
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
         fill: VectorAdditionColors.PURPLE,
@@ -418,7 +448,7 @@ define( function( require ) {
     }
 
     /**
-     * Create a doubleheaded arrow icon asociated with the graph orientation
+     * Creates a double headed arrow icon associated with the graph orientation
      * @param (GraphOrientations} graphOrientation
      * @param {Object} [options]
      * @public
@@ -427,6 +457,8 @@ define( function( require ) {
 
       assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation ),
         `invalid componentStyle: ${graphOrientation}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
         fill: 'black',
