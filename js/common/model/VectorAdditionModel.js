@@ -61,10 +61,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Enumeration Properties
 
-      // @public {EnumerationProperty<ComponentStyles>} - controls the visibility of the component styles
+      // @public {EnumerationProperty.<ComponentStyles>} - controls the visibility of the component styles
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, STARTING_COMPONENT_STYLE );
 
-      // @public {EnumerationProperty<CoordinateSnapModes>} - controls the snapping mode for the vectors
+      // @public {EnumerationProperty.<CoordinateSnapModes>} - controls the snapping mode for the vectors
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
 
       //----------------------------------------------------------------------------------------
