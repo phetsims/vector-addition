@@ -137,7 +137,9 @@ define( require => {
       } );
 
       // tail listener that updates the tail in the model
-      const tailListener = tailLocation => {this.updateTailPosition( tailLocation );};
+      const tailListener = tailLocation => {
+        this.updateTailPosition( tailLocation );
+      };
 
       tailLocationProperty.link( tailListener );
 
@@ -165,7 +167,7 @@ define( require => {
         } );
 
         const tipListener = tipLocation => {
-          this.tipSnapToGrid( tipLocation );
+          this.updateTipPosition( tipLocation );
         };
 
         tipLocationProperty.link( tipListener );
@@ -192,7 +194,6 @@ define( require => {
           this.disposeTipDrag();
         }
 
-
         angleNode.dispose();
         tailLocationProperty.unlink( tailListener );
         vectorModel.attributesVectorProperty.unlink( updateTip );
@@ -215,7 +216,7 @@ define( require => {
      * (relative to the tail)
      * @param {Vector2} tipLocation
      */
-    tipSnapToGrid( tipLocation ) {
+    updateTipPosition( tipLocation ) {
 
       const vectorTip = this.vectorModel.tip;
 
