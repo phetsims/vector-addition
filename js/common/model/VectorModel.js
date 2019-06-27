@@ -193,10 +193,11 @@ define( require => {
     /**
      * Updates the tail such that both tail and tip of the vector remain with the graphBounds. Called when the vector
      * body is being translated.
+     * @param {Vector2} tailPosition
      * @public
      * TODO: check with designers to make sure this is what we want
      */
-    moveVectorToFitInGraph() {
+    moveVectorToFitInGraph( tailPosition ) {
 
       // Determine the bounds of the tails
       const tailBounds = this.graph.graphModelBounds;
@@ -208,7 +209,7 @@ define( require => {
       const constrainedBounds = tailBounds.intersection( tipBounds );
 
       // Translate the tail to ensure it stays in the contained bounds
-      this.translateToPoint( constrainedBounds.closestPointTo( this.tail ).roundedSymmetric() );
+      this.translateToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
     }
   }
 

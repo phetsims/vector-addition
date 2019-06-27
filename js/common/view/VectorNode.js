@@ -136,9 +136,8 @@ define( require => {
         }
       } );
 
-      const tailListener = tailLocation => {
-        this.tailSnapToGrid( tailLocation );
-      };
+      // tail listener that updates the tail in the model
+      const tailListener = tailLocation => {this.updateTailPosition( tailLocation );};
 
       tailLocationProperty.link( tailListener );
 
@@ -237,19 +236,18 @@ define( require => {
       }
     }
 
-    //TODO: the name of this function is misleading since it does much more than snap to grid
     /**
      * @private
-     * update the model vector to have integer components and return the location associated with the tail
+     * update the model vector tail position
      * @param {Vector2} tailLocation
      */
-    tailSnapToGrid( tailLocation ) {
+    updateTailPosition( tailLocation ) {
 
+      // find the nominal tailPosition after a modelView transformation
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
 
-      this.vectorModel.translateToPoint( tailPosition );
-
-      this.vectorModel.moveVectorToFitInGraph();
+      // update the model tail position, subject to symmetric rounding, and fit inside the graph bounds
+      this.vectorModel.moveVectorToFitInGraph( tailPosition );
     }
   }
 
