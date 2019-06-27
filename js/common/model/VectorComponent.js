@@ -29,7 +29,7 @@ define( require => {
   class VectorComponent extends BaseVectorModel {
     /**
      * @constructor
-     * @param {VectorModel} parentVector - the vector to which the componenst are assocciated
+     * @param {VectorModel} parentVector - the vector to which the component are associated
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
      */
     constructor( parentVector, componentStyleProperty ) {

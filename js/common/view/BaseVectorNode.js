@@ -65,7 +65,7 @@ define( require => {
       // vector, use an overridable method to position it. ( updateLabelPositioning() )
       this.labelNode = new VectorLabelNode( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty );
 
-
+      // add children to this node
       this.setChildren( [ this.arrowNode, this.labelNode ] );
 
       //----------------------------------------------------------------------------------------
@@ -74,16 +74,16 @@ define( require => {
       // @private {Multilink} - observe changes to the tail/tip and mirror the positioning. If the values visibility
       // changes, update the view as well
       this.vectorObserver = new Multilink(
-        [  valuesVisibleProperty, baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty ],
+        [ valuesVisibleProperty, baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty ],
         ( valuesVisible ) => {
-          
+
           // Update the appearance of the vector
-          this.updateVector( baseVectorModel, modelViewTransformProperty.value ); 
-          
+          this.updateVector( baseVectorModel, modelViewTransformProperty.value );
+
           // Update the appearance of the label
           this.updateLabelPositioning( baseVectorModel, modelViewTransformProperty.value, valuesVisible );
         } );
-      
+
     }
 
     /**
@@ -121,26 +121,17 @@ define( require => {
       // Angle of the vector in radians (ranging from -Pi to Pi)
       const modelAngle = baseVectorModel.angle;
 
-      // Flags to indicate the angle translation. Declared below on and depends on the vector.
-      let yFlip;
-      let xFlip;
+      // convenience variables
+      // Add a flip if x is negative
+      const xFlip = ( baseVectorModel.xComponent > 0 ) ? 0 : Math.PI;
 
-      if ( !valuesVisible ) {
-        // Add a flip if y is negative
-        yFlip = ( baseVectorModel.yComponent > 0 ) ? 0 : Math.PI;
+      // Add a flip if y is negative
+      const yFlip = ( baseVectorModel.yComponent > 0 ) ? 0 : Math.PI;
 
-        // Add a flip if x is negative
-        xFlip = ( baseVectorModel.xComponent > 0 ) ? 0 : Math.PI;
-      }       
-      else {
+      if ( valuesVisible ) {
+
         // Since the y-axis is inverted, the angle is the view is opposite to the model
         const viewAngle = -modelAngle;
-
-        // Add a flip if x is negative
-        xFlip = ( baseVectorModel.xComponent > 0 ) ? 0 : Math.PI;
-
-        // Add a flip if y is negative
-        yFlip = ( baseVectorModel.yComponent > 0 ) ? 0 : Math.PI;
 
         // Rotate label along the angle for quadrants I and IV, but flipped if x is negative
         this.labelNode.setRotation( viewAngle + xFlip );
