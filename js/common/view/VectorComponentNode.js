@@ -69,7 +69,7 @@ define( require => {
       options.onAxisLinesOptions = _.extend( {
         stroke: VectorAdditionColors.BLACK,
         lineDash:[ 3, 10 ]
-      } );
+      }, options.onAxisLinesOptions );
 
       options.arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
         fill: vectorComponent.vectorGroup === VectorGroups.ONE ?
@@ -78,7 +78,7 @@ define( require => {
         headWidth: 10.5,
         headHeight: 6,
         tailWidth: 4
-      } );
+      }, options.arrowOptions );
 
       super( vectorComponent, modelViewTransformProperty, valuesVisibleProperty, options.arrowOptions );
 

@@ -43,7 +43,12 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( vectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty );
+      super( vectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty, {
+        arrowOptions: {
+          tailWidth: 4.5,
+          lineWidth: 0.5
+        }
+      } );
         
       // Create a new observer
       this.vectorObserver.dispose();
