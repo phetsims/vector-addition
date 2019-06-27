@@ -35,7 +35,7 @@ define( function( require ) {
 
   // Defaults for all arrow instances
   const ARROW_ICON_OPTIONS = {
-    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill,
+    fill: VectorAdditionColors[ VectorGroups.ONE ].fill,
     stroke: VectorAdditionColors.BLACK,
     lineWidth: 0.5,
     headHeight: 6,
@@ -72,8 +72,7 @@ define( function( require ) {
         headHeight: 8,
         cursor: 'pointer',
         arrowSize: 30,
-        fill: vectorGroup === VectorGroups.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill :
-              VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
+        fill: VectorAdditionColors[ vectorGroup ].fill
       }, options );
 
       const iconVector = initialVector.normalized().timesScalar( options.arrowSize );
@@ -102,8 +101,7 @@ define( function( require ) {
         lineWidth: 1,
         headHeight: 7,
         arrowSize: 22,
-        fill: vectorGroup === VectorGroups.ONE ? VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum :
-              VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum
+        fill: VectorAdditionColors[ vectorGroup ].sum
       }, options );
 
       return new ArrowNode( 0, 0, options.arrowSize, 0, options );

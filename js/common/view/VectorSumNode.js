@@ -17,11 +17,11 @@ define( require => {
 
   // constants
   const VECTOR_GROUP_1_SUM = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.sum,
+    fill: VectorAdditionColors[ VectorGroups.ONE ].sum,
     lineWidth: 1
   } );
   const VECTOR_GROUP_2_SUM = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.sum,
+    fill: VectorAdditionColors[ VectorGroups.TWO ].sum,
     lineWidth: 1
   } );
 

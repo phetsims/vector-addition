@@ -22,7 +22,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   class VectorLabelNode extends Node {
     /**
@@ -35,9 +34,7 @@ define( require => {
     constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, options ) {
 
       options = _.extend( {
-        fill: baseVectorModel.vectorGroup === VectorGroups.ONE ?
-              VectorAdditionColors.VECTOR_GROUP_1_COLORS.labelBackground :
-              VectorAdditionColors.VECTOR_GROUP_2_COLORS.labelBackground,
+        fill: VectorAdditionColors[ baseVectorModel.vectorGroup ].labelBackground,
         scale: 0.67, // {number} - scale resize of the formula node
         opacity: 0.75, // {number} - opacity of the background,
         cornerRadius: 5, // {number}

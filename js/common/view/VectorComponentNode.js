@@ -26,7 +26,6 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
         
@@ -72,9 +71,7 @@ define( require => {
       }, options.onAxisLinesOptions );
 
       options.arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: vectorComponent.vectorGroup === VectorGroups.ONE ?
-          VectorAdditionColors.VECTOR_GROUP_1_COLORS.component :
-          VectorAdditionColors.VECTOR_GROUP_2_COLORS.component,
+        fill: VectorAdditionColors[ vectorComponent.vectorGroup ].fill,
         headWidth: 10.5,
         headHeight: 6,
         tailWidth: 4

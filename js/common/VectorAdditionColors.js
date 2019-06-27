@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // shared colors
   const WHITE = 'rgb( 255, 255, 255 )';
@@ -56,33 +57,6 @@ define( function( require ) {
     },
 
     //----------------------------------------------------------------------------------------
-    // Vector colors
-    VECTOR_GROUP_1_COLORS: {
-      fill: 'rgb( 0, 185, 255 )',
-      sum: 'rgb( 0, 181, 225 )',
-      component: LIGHT_BLUE,
-      labelBackground: LIGHT_BLUE
-    },
-    VECTOR_GROUP_2_COLORS: {
-      fill: 'rgb( 232, 25, 9 )',
-      sum: 'rgb( 196, 2, 51 )',
-      component: LIGHT_RED,
-      labelBackground: LIGHT_RED
-    },
-    VECTOR_GROUP_3_COLORS: {
-      fill: PURPLE,
-      sum: 'rgb( 128, 0, 128 )',
-      component: LIGHT_PURPLE,
-      labelBackground: LIGHT_PURPLE
-    },
-    VECTOR_GROUP_4_COLORS: {
-      fill: 'rgb( 0, 255, 0 )',
-      sum: 'rgb( 0, 102, 0 )',
-      component: LIGHT_GREEN,
-      labelBackground: LIGHT_GREEN
-    },
-
-    //----------------------------------------------------------------------------------------
     // References, see https://github.com/phetsims/sun/issues/312
     WHITE: WHITE,
     BLACK: BLACK,
@@ -93,6 +67,33 @@ define( function( require ) {
     PURPLE: PURPLE,
     LIGHT_PURPLE: LIGHT_PURPLE,
     LIGHT_GREEN: LIGHT_GREEN
+  };
+
+  //----------------------------------------------------------------------------------------
+  // Vector colors by groups (See VectorGroups.js)
+  VectorAdditionColors[ VectorGroups.ONE ] = {
+    fill: 'rgb( 0, 185, 255 )',
+    sum: 'rgb( 0, 181, 225 )',
+    component: LIGHT_BLUE,
+    labelBackground: LIGHT_BLUE
+  };
+  VectorAdditionColors[ VectorGroups.TWO ] = {
+    fill: 'rgb( 232, 25, 9 )',
+    sum: 'rgb( 196, 2, 51 )',
+    component: LIGHT_RED,
+    labelBackground: LIGHT_RED
+  };
+  VectorAdditionColors[ VectorGroups.THREE ] = {
+    fill: PURPLE,
+    sum: 'rgb( 128, 0, 128 )',
+    component: LIGHT_PURPLE,
+    labelBackground: LIGHT_PURPLE
+  };
+  VectorAdditionColors[ VectorGroups.FOUR ] = {
+    fill: 'rgb( 0, 255, 0 )',
+    sum: 'rgb( 0, 102, 0 )',
+    component: LIGHT_GREEN,
+    labelBackground: LIGHT_GREEN
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );

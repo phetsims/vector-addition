@@ -33,10 +33,10 @@ define( require => {
     cursor: 'pointer'
   };
   const VECTOR_GROUP_1 = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill
+    fill: VectorAdditionColors[ VectorGroups.ONE ].fill
   } );
   const VECTOR_GROUP_2 = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_GROUP_2_COLORS.fill
+    fill: VectorAdditionColors[ VectorGroups.TWO ].fill
   } );
 
   class VectorNode extends BaseVectorNode {
