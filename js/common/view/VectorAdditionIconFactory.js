@@ -36,7 +36,7 @@ define( function( require ) {
   // Defaults for all arrow instances
   const ARROW_ICON_OPTIONS = {
     fill: VectorAdditionColors.VECTOR_GROUP_1_COLORS.fill,
-    stroke: VectorAdditionColors.VECTOR_ICON_STROKE_COLOR,
+    stroke: VectorAdditionColors.BLACK,
     lineWidth: 0.5,
     headHeight: 6,
     headWidth: 10,
@@ -349,7 +349,7 @@ define( function( require ) {
       }, options );
 
       options.componentArrowOptions = _.extend( {}, options, {
-        fill: VectorAdditionColors.CARTESIAN_ICON_COLOR,
+        fill: VectorAdditionColors.BLACK,
         tailWidth: 2.5
       }, options.componentArrowOptions );
 
@@ -380,7 +380,7 @@ define( function( require ) {
     static createPolarIcon( options ) {
 
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
-        fill: VectorAdditionColors.POLAR_ICON_VECTOR_COLOR,
+        fill: VectorAdditionColors.PURPLE,
         lineWidth: 0,
         arcRadius: 17,
         tailWidth: 4,

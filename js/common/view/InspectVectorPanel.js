@@ -24,7 +24,6 @@ define( require => {
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
@@ -43,8 +42,7 @@ define( require => {
     yMargin: 2,
     minWidth: CREATOR_PANEL_WIDTH,
     maxWidth: CREATOR_PANEL_WIDTH,
-    maxHeight: CREATOR_PANEL_HEIGHT,
-    stroke: VectorAdditionColors.PANEL_STROKE_COLOR
+    maxHeight: CREATOR_PANEL_HEIGHT
   } );
   const EXPAND_COLLAPSE_BUTTON_OPTIONS = {
     sideLength: 21

@@ -15,18 +15,22 @@ define( function( require ) {
   const WHITE = 'rgb( 255, 255, 255 )';
   const BLACK = 'rgb( 0, 0, 0 )';
   const LIGHT_GREY = 'rgb( 240, 240, 240 )';
+  const GREY = 'rgb( 190, 190, 190 )';
   const LIGHT_RED = 'rgb( 245, 120, 120 )';
   const LIGHT_BLUE = 'rgb( 155, 222, 255 )';
+  const PURPLE = 'rgb( 188, 3, 255 )';
+  const LIGHT_PURPLE = 'rgb( 216, 191, 216 )';
+  const LIGHT_GREEN = 'rgb( 204, 255, 204 )';
 
   const VectorAdditionColors = {
-
-    SCREEN_BACKGROUND: 'rgb( 255, 250, 227 )',
-
+    
     //----------------------------------------------------------------------------------------
-    // General   
+    // General
+    SCREEN_BACKGROUND: 'rgb( 255, 250, 227 )',
+  
     RADIO_BUTTON_COLORS: {
       baseColor: WHITE,
-      selectedStroke: '#419ac9',
+      selectedStroke: 'rgb( 65, 154, 201 )',
       deselectedStroke: 'rgb( 50, 50, 50 )'
     },
     PANEL_STROKE_COLOR: 'rgb( 190, 190, 190 )',
@@ -65,17 +69,30 @@ define( function( require ) {
       component: LIGHT_RED,
       labelBackground: LIGHT_RED
     },
-    POLAR_ICON_VECTOR_COLOR: 'rgb( 188, 3, 255 )',
-    CARTESIAN_ICON_COLOR: BLACK,
-    VECTOR_ICON_STROKE_COLOR: BLACK,
+    VECTOR_GROUP_3_COLORS: {
+      fill: PURPLE,
+      sum: 'rgb( 128, 0, 128 )',
+      component: LIGHT_PURPLE,
+      labelBackground: LIGHT_PURPLE
+    },
+    VECTOR_GROUP_4_COLORS: {
+      fill: 'rgb( 0, 255, 0 )',
+      sum: 'rgb( 0, 102, 0 )',
+      component: LIGHT_GREEN,
+      labelBackground: LIGHT_GREEN
+    },
 
     //----------------------------------------------------------------------------------------
     // References, see https://github.com/phetsims/sun/issues/312
     WHITE: WHITE,
     BLACK: BLACK,
     LIGHT_GREY: LIGHT_GREY,
+    GREY: GREY,
     LIGHT_RED: LIGHT_RED,
-    LIGHT_BLUE: LIGHT_BLUE
+    LIGHT_BLUE: LIGHT_BLUE,
+    PURPLE: PURPLE,
+    LIGHT_PURPLE: LIGHT_PURPLE,
+    LIGHT_GREEN: LIGHT_GREEN
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );
