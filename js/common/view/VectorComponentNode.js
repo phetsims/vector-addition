@@ -103,9 +103,7 @@ define( require => {
         ( valuesVisible ) => {
           
           // Update the appearance of the vector only when it is visible
-          if ( componentStyleProperty.value !== ComponentStyles.INVISIBLE ) {
-            this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value ); 
-          }
+          this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value ); 
 
           // Update the appearance of the label
           this.updateLabelPositioning( vectorComponent, modelViewTransformProperty.value, valuesVisible );
@@ -127,7 +125,6 @@ define( require => {
       if ( !this.onAxisLinesPath ) {
         return;
       }
-
       if ( componentStyle === ComponentStyles.INVISIBLE ) {
         this.visible = false;
         this.onAxisLinesPath.visible = false;
