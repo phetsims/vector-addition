@@ -7,7 +7,6 @@ define( require => {
   'use strict';
 
   // modules
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Explore1DGraphControlPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DGraphControlPanel' );
   const Explore1DVectorCreatorPanels = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanels' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
@@ -15,6 +14,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
+  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
@@ -77,26 +77,27 @@ define( require => {
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
 
-      const ArrowNodeOptions = { fill: 'black', doubleHead: true, tailWidth: 3, headWidth: 8, headHeight: 10 };
-      // Scene radio buttons
-      const sceneRadioButtonContent = [ {
+      // create content for graphOrientation radio buttons
+      const graphOrientationRadioButtonContent = [ {
         value: GraphOrientations.HORIZONTAL,
-        node: new ArrowNode( 0, 0, 40, 0, ArrowNodeOptions )
+        node: VectorAdditionIconFactory.createGraphOrientationIcon(GraphOrientations.HORIZONTAL )
       }, {
         value: GraphOrientations.VERTICAL,
-        node: new ArrowNode( 0, 0, 0, 40, ArrowNodeOptions )
+        node: VectorAdditionIconFactory.createGraphOrientationIcon(GraphOrientations.VERTICAL )
       } ];
 
-      const sceneRadioButtonGroup = new RadioButtonGroup( explore1DModel.graphOrientationProperty, sceneRadioButtonContent, _.extend( RADIO_BUTTON_OPTIONS, {
-        centerX: explore1DGraphControlPanel.centerX,
-        top: explore1DGraphControlPanel.bottom + 10,
-        orientation: 'horizontal'
-      } ) );
+      // create the graph orientation radio buttons
+      const graphOrientationRadioButtonGroup = new RadioButtonGroup( explore1DModel.graphOrientationProperty,
+        graphOrientationRadioButtonContent, _.extend( RADIO_BUTTON_OPTIONS, {
+          centerX: explore1DGraphControlPanel.centerX,
+          top: explore1DGraphControlPanel.bottom + 10,
+          orientation: 'horizontal'
+        } ) );
 
       this.addChild( horizontalVectorCreatorPanel );
       this.addChild( verticalVectorCreatorPanel );
       this.addChild( explore1DGraphControlPanel );
-      this.addChild( sceneRadioButtonGroup );
+      this.addChild( graphOrientationRadioButtonGroup );
 
     }
   }

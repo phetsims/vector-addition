@@ -13,6 +13,7 @@ define( function( require ) {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -415,6 +416,37 @@ define( function( require ) {
         children: [ arrowLabel, arrowVector, arcArrow, line ]
       } );
     }
+
+    /**
+     * Create a doubleheaded arrow icon asociated with the graph orientation
+     * @param (GraphOrientations} graphOrientation
+     * @param {Object} [options]
+     * @public
+     */
+    static createGraphOrientationIcon( graphOrientation, options ) {
+
+      assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation ),
+        `invalid componentStyle: ${graphOrientation}` );
+
+      options = _.extend( {
+        fill: 'black',
+        doubleHead: true,
+        tailWidth: 3,
+        headWidth: 8,
+        headHeight: 10,
+        arrowLength: 40
+      }, options );
+
+      let iconNode;
+      if ( graphOrientation === GraphOrientations.HORIZONTAL ) {
+        iconNode = new ArrowNode( 0, 0, options.arrowLength, 0, options );
+      }
+      else if ( graphOrientation === GraphOrientations.VERTICAL ) {
+        iconNode = new ArrowNode( 0, 0, 0, options.arrowLength, options );
+      }
+      return iconNode;
+    }
+
   }
 
   vectorAddition.register( 'VectorAdditionIconFactory', VectorAdditionIconFactory );
