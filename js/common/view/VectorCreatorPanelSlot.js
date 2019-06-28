@@ -1,13 +1,14 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a single slot that is on a vectorCreatorPanel. A slot should allow the user to drag a 'decoy' vector
- * on to the graph, in which this view will call an abstract method to add a vector to the model.
+ * View for a single slot that is on a vectorCreatorPanel. A slot should allow the user to drag a vector
+ * on to the graph.
  *
  * Slots vary from screen to screen, slot to slot
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -30,19 +31,12 @@ define( require => {
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   // constants
   const LABEL_AND_ICON_SPACING = 6;
   const LABEL_RESIZE_SCALE = 0.8;
 
-  const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend( {},
-    VectorAdditionConstants.VECTOR_OPTIONS, {
-      fill: VectorAdditionColors[ VectorGroups.ONE ].fill
-    } );
-  const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend( {},
-    VectorAdditionConstants.VECTOR_OPTIONS, {
-      fill: VectorAdditionColors[ VectorGroups.TWO ].fill
-    } );
 
   class VectorCreatorPanelSlot extends HBox {
     /**
@@ -52,7 +46,7 @@ define( require => {
      * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
      * @param {Object} [options]
      */
-    constructor( initialVector, modelViewTransformProperty, vectorSet, options ) {
+    constructor( vectorAdditionModel, initialVector, graph, vectorSet, vectorContainer, options ) {
 
       options = _.extend( {
         label: null, // {string|null} the label for the vector at the slot
@@ -62,18 +56,18 @@ define( require => {
         arrowIconContainerWidth: 35, // {number} the fixed size of the container containing the icon
         xMargin: 0
       }, options );
-
+      const modelViewTransformProperty = graph.modelViewTransformProperty;
       // Type Check
-      assert && assert( initialVector instanceof Vector2, `invalid initialVector: ${initialVector}` );
-      assert && assert( modelViewTransformProperty instanceof Property
-      && modelViewTransformProperty.value instanceof ModelViewTransform2,
-        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
-      assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
-      assert && assert( !options.label || typeof options.label === 'string',
-        `invalid options.label: ${options.label}` );
-      assert && assert( typeof options.isInfinite === 'boolean', `invalid options.isInfinite: ${options.isInfinite}` );
-      assert && assert( typeof options.labelIconSpacing === 'number' && options.labelIconSpacing > 0,
-        `invalid options.labelIconSpacing: ${options.labelIconSpacing}` );
+      // assert && assert( initialVector instanceof Vector2, `invalid initialVector: ${initialVector}` );
+      // assert && assert( modelViewTransformProperty instanceof Property
+      // && modelViewTransformProperty.value instanceof ModelViewTransform2,
+      //   `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+      // assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
+      // assert && assert( !options.label || typeof options.label === 'string',
+      //   `invalid options.label: ${options.label}` );
+      // assert && assert( typeof options.isInfinite === 'boolean', `invalid options.isInfinite: ${options.isInfinite}` );
+      // assert && assert( typeof options.labelIconSpacing === 'number' && options.labelIconSpacing > 0,
+      //   `invalid options.labelIconSpacing: ${options.labelIconSpacing}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -84,38 +78,18 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      const vectorGroup = vectorSet.vectorGroup;
-
-      let arrowOptions;
-      switch( vectorGroup ) {
-        case VectorGroups.ONE:
-          arrowOptions = GROUP_ONE_ICON_ARROW_OPTIONS;
-          break;
-        case VectorGroups.TWO:
-          arrowOptions = GROUP_TWO_ICON_ARROW_OPTIONS;
-          break;
-        default:
-          throw new Error( `Vector type ${vectorGroup} doesn't exists ` );
-      }
-
-      //----------------------------------------------------------------------------------------
-
       const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
-
-      // @public {Node} (read-only)
-      this.vectorRepresentationNode = getVectorRepresentation( initialViewVector, arrowOptions );
-
-      // Set the representation node to invisible
-      this.vectorRepresentationNode.visible = false;
 
       // create an icon
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
         initialViewVector,
-        vectorGroup,
+        vectorSet.vectorGroup,
         options.iconOptions );
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( 8 );
+
+      // Create a fixed size box for the icon, allowing the label to stay in the same spot
       this.addChild( new AlignBox( iconNode, {
         alignBounds: new Bounds2( 0, 0, options.arrowIconContainerWidth, iconNode.height ),
         xAlign: 'center',
@@ -131,57 +105,74 @@ define( require => {
 
       }
 
+      //----------------------------------------------------------------------------------------
       // When the vector icon is clicked, add the vector representation as a decoy vector to drag onto the screen
       iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
+        
+        const clickedLocation = event.pointer.trail.get(1).globalToLocalPoint(event.pointer.point);
+        const clickedPosition = modelViewTransformProperty.value.viewToModelPosition( clickedLocation);
 
-          // Create a location property to track the location of where the user dragged the vector representation
-          const vectorRepresentationLocationProperty = new Vector2Property(
-            this.vectorRepresentationNode.globalToParentPoint( event.pointer.point ) );
+        const vectorModel = vectorSet.addVector( clickedPosition, initialVector.x, initialVector.y, ( options.label ) ? { label: options.label } : {} );
+       
 
-          // Create a drag listener for the vector representation node
-          const vectorRepresentationDragListener = new DragListener( {
-            targetNode: this.vectorRepresentationNode,
-            allowTouchSnag: true,
-            translateNode: true,
-            locationProperty: vectorRepresentationLocationProperty,
-            start: () => { this.vectorRepresentationNode.visible = true; },
-            end: () => {
+        const vectorNode = new VectorNode( vectorModel,
+          graph,
+          vectorAdditionModel.componentStyleProperty,
+          vectorAdditionModel.angleVisibleProperty,
+          vectorAdditionModel.valuesVisibleProperty,
+          vectorSet.coordinateSnapMode
+        );
 
-              // TODO: what should we do if the user dragged it off the grid
+        vectorContainer.addChild( vectorNode );
+        // console.log( clickedLocation, clickedPosition)
+          // // Create a location property to track the location of where the user dragged the vector representation
+          // const vectorRepresentationLocationProperty = new Vector2Property(
+          //   this.vectorRepresentationNode.globalToParentPoint( event.pointer.point ) );
 
-              this.vectorRepresentationNode.visible = false;
+          // // Create a drag listener for the vector representation node
+          // const vectorRepresentationDragListener = new DragListener( {
+          //   targetNode: this.vectorRepresentationNode,
+          //   allowTouchSnag: true,
+          //   translateNode: true,
+          //   locationProperty: vectorRepresentationLocationProperty,
+          //   start: () => { this.vectorRepresentationNode.visible = true; },
+          //   end: () => {
 
-              // Get the drag location in model coordinates
-              const vectorRepresentationPosition = modelViewTransformProperty.value.viewToModelPosition(
-                vectorRepresentationLocationProperty.value
-              );
+          //     // TODO: what should we do if the user dragged it off the grid
 
-              // Call the abstract method to add the vector to the model. See addVectorToModel for documentation
-              const addedVectorModel = addVectorToModel( vectorRepresentationPosition, initialVector );
+          //     this.vectorRepresentationNode.visible = false;
 
-              // Check that the new vector model was implemented correctly
-              assert && assert( addedVectorModel instanceof VectorModel,
-                `addVectorToModel should return a VectorModel, not a ${addedVectorModel}` );
+          //     // Get the drag location in model coordinates
+          //     const vectorRepresentationPosition = modelViewTransformProperty.value.viewToModelPosition(
+          //       vectorRepresentationLocationProperty.value
+          //     );
 
-              // Add a removed listener to the observable array to reset the icon
-              vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
-                if ( removedVector === addedVectorModel ) {
-                  iconNode.visible = true;
-                }
-              } );
-            }
+          //     // Call the abstract method to add the vector to the model. See addVectorToModel for documentation
+          //     const addedVectorModel = addVectorToModel( vectorRepresentationPosition, initialVector );
 
-          } );
+          //     // Check that the new vector model was implemented correctly
+          //     assert && assert( addedVectorModel instanceof VectorModel,
+          //       `addVectorToModel should return a VectorModel, not a ${addedVectorModel}` );
 
-          this.vectorRepresentationNode.addInputListener( vectorRepresentationDragListener );
+          //     // Add a removed listener to the observable array to reset the icon
+          //     vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
+          //       if ( removedVector === addedVectorModel ) {
+          //         iconNode.visible = true;
+          //       }
+          //     } );
+          //   }
 
-          if ( !options.isInfinite ) {
-            iconNode.visible = false;
-          }
+          // } );
 
-          this.vectorRepresentationNode.center = this.vectorRepresentationNode.globalToParentPoint( event.pointer.point );
+          // this.vectorRepresentationNode.addInputListener( vectorRepresentationDragListener );
 
-          vectorRepresentationDragListener.press( event );
+          // if ( !options.isInfinite ) {
+          //   iconNode.visible = false;
+          // }
+
+          // this.vectorRepresentationNode.center = this.vectorRepresentationNode.globalToParentPoint( event.pointer.point );
+
+          // vectorRepresentationDragListener.press( event );
         },
         { allowTouchSnag: true } ) );
 

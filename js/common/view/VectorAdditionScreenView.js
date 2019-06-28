@@ -27,6 +27,7 @@ define( require => {
       // TODO: do we need an instance or is a constant sufficient
       this.sceneNodes = [];
 
+      this.graphToSceneNode = {};
       vectorAdditionModel.graphs.forEach( ( graph ) => {
         
         // create a scene node and add it as a child
@@ -39,8 +40,8 @@ define( require => {
           } );
         this.addChild( sceneNode );
 
-        // TODO: do we need a reference to sceneNode in the model graph?
-        graph.sceneNode = sceneNode;
+        this.graphToSceneNode[ graph ] = sceneNode;
+        
         this.sceneNodes.push( sceneNode );
       } );
 

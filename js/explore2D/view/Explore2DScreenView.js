@@ -38,17 +38,25 @@ define( function( require ) {
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
 
+      const polarScene = this.graphToSceneNode[ explore2DModel.polarGraph ];
+      const cartesianScene = this.graphToSceneNode[ explore2DModel.polarGraph ];
+
+
       this.addChild( graphControlPanel );
 
       const polarVectorCreatorPanel = new Explore2DVectorCreatorPanel(
-        explore2DModel.polarGraph.modelViewTransformProperty,
-        explore2DModel.polarGraph.vectorSet );
+        explore2DModel,
+        explore2DModel.polarGraph,
+        explore2DModel.polarGraph.vectorSet,
+        polarScene.vectorContainer );
 
       this.addChild( polarVectorCreatorPanel );
 
       const cartesianVectorCreatorPanel = new Explore2DVectorCreatorPanel(
-        explore2DModel.cartesianGraph.modelViewTransformProperty,
-        explore2DModel.cartesianGraph.vectorSet );
+        explore2DModel,
+        explore2DModel.cartesianGraph,
+        explore2DModel.cartesianGraph.vectorSet,
+        cartesianScene.vectorContainer );
 
       this.addChild( cartesianVectorCreatorPanel );
 
@@ -58,15 +66,15 @@ define( function( require ) {
         if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
           polarVectorCreatorPanel.visible = false;
           cartesianVectorCreatorPanel.visible = true;
-          explore2DModel.polarGraph.sceneNode.visible = false;
-          explore2DModel.cartesianGraph.sceneNode.visible = true;
+          polarScene.visible = false;
+          cartesianScene.visible = true;
         }
 
         if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
           polarVectorCreatorPanel.visible = true;
           cartesianVectorCreatorPanel.visible = false;
-          explore2DModel.polarGraph.sceneNode.visible = true;
-          explore2DModel.cartesianGraph.sceneNode.visible = false;
+          polarScene.visible = true;
+          cartesianScene.visible = false;
         }
       } );
 

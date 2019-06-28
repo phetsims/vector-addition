@@ -101,6 +101,9 @@ define( require => {
         ]
       } );
 
+      // @public (read-only)
+      this.vectorContainer = vectorContainer;
+      
       /*---------------------------------------------------------------------------*
        * Loop through each vector set, observing changes and updating the scene
        *---------------------------------------------------------------------------*/
@@ -138,16 +141,6 @@ define( require => {
          *---------------------------------------------------------------------------*/
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
-          
-          // Create the node for the newly added model vector and its components
-          const vectorNode = new VectorNode( addedVector,
-            graph,
-            componentStyleProperty,
-            angleVisibleProperty,
-            valuesVisibleProperty,
-            vectorSet.coordinateSnapMode
-          );
-
           const xComponentNode = new VectorComponentNode( addedVector.xVectorComponent,
             graph.modelViewTransformProperty,
             componentStyleProperty,
@@ -158,7 +151,6 @@ define( require => {
             componentStyleProperty,
             valuesVisibleProperty );
 
-          vectorContainer.addChild( vectorNode );
           vectorComponentContainer.addChild( xComponentNode );
           vectorComponentContainer.addChild( yComponentNode );
 
