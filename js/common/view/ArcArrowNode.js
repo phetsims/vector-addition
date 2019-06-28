@@ -150,6 +150,11 @@ define( require => {
       assert && assert( typeof angle === 'number' || angle === null, `invalid angle: ${angle}` );
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
 
+      // assign angle to zero is angle is set to null
+      if ( angle === null ) {
+        angle = 0;
+      }
+
       this.radiusOfArc = radius;
       this.angleOfArc = angle;
 

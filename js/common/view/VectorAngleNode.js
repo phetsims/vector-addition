@@ -118,37 +118,47 @@ define( require => {
 
     /**
      * Updates the label and arc arrow. Called when the vector model's angle is changed
-     * @param {number} angle - in degrees
+     * @param {number|null} angle - in degrees
      * @private
      */
     updateAngleNode( angle ) {
 
+      assert && assert( typeof angle === 'number' || angle === null, `invalid angle: ${angle}` );
+
       this.arcArrow.angle = angle;
 
-      this.labelText.setText( Util.toFixed( angle, ANGLE_ROUNDING ) + '\u00B0' );
+      if ( angle === null ) {
 
-      const angleInRadians = Util.toRadians( angle );
-
-      //----------------------------------------------------------------------------------------
-      // Position the label text
-
-      if ( angle > MAX_ANGLE_UNDER_BASELINE ) {
-        // Position the label next to the arc, halfway across the arc
-        this.labelText.setTranslation( ( ARC_RADIUS + LABEL_OFFSET ) * Math.cos( angleInRadians / 2 ),
-          -( ARC_RADIUS + LABEL_OFFSET ) * Math.sin( angleInRadians / 2 ) );
-      }
-      else if ( angle > 0 ) {
-        // Position the label halfway across, but on the other side of the baseline
-        this.labelText.setTranslation( ARC_RADIUS / 2, ARC_RADIUS / 2 );
-      }
-      else if ( angle > -MAX_ANGLE_UNDER_BASELINE ) {
-        // Position the label halfway across, but on the other side of the baseline
-        this.labelText.setTranslation( ARC_RADIUS / 2, -ARC_RADIUS / 2 + +this.labelText.height / 2 );
+        // do not display angle
+        this.labelText.setText( '' );
       }
       else {
-        // Position the label next to the arc, halfway across the arc
-        this.labelText.setTranslation( ( ARC_RADIUS + LABEL_OFFSET ) * Math.cos( angleInRadians / 2 ),
-          -( ARC_RADIUS + LABEL_OFFSET ) * Math.sin( angleInRadians / 2 ) + this.labelText.height / 2 );
+
+        this.labelText.setText( Util.toFixed( angle, ANGLE_ROUNDING ) + '\u00B0' );
+
+        const angleInRadians = Util.toRadians( angle );
+
+        //----------------------------------------------------------------------------------------
+        // Position the label text
+
+        if ( angle > MAX_ANGLE_UNDER_BASELINE ) {
+          // Position the label next to the arc, halfway across the arc
+          this.labelText.setTranslation( ( ARC_RADIUS + LABEL_OFFSET ) * Math.cos( angleInRadians / 2 ),
+            -( ARC_RADIUS + LABEL_OFFSET ) * Math.sin( angleInRadians / 2 ) );
+        }
+        else if ( angle > 0 ) {
+          // Position the label halfway across, but on the other side of the baseline
+          this.labelText.setTranslation( ARC_RADIUS / 2, ARC_RADIUS / 2 );
+        }
+        else if ( angle > -MAX_ANGLE_UNDER_BASELINE ) {
+          // Position the label halfway across, but on the other side of the baseline
+          this.labelText.setTranslation( ARC_RADIUS / 2, -ARC_RADIUS / 2 + +this.labelText.height / 2 );
+        }
+        else {
+          // Position the label next to the arc, halfway across the arc
+          this.labelText.setTranslation( ( ARC_RADIUS + LABEL_OFFSET ) * Math.cos( angleInRadians / 2 ),
+            -( ARC_RADIUS + LABEL_OFFSET ) * Math.sin( angleInRadians / 2 ) + this.labelText.height / 2 );
+        }
       }
     }
 
