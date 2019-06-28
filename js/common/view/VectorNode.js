@@ -119,88 +119,91 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create Body Drag
 
-      // // Create a property for the location of the tail of the vector.
-      // const tailLocationProperty = new Vector2Property(
-      //   modelViewTransformProperty.value.modelToViewPosition( vectorModel.tail ) );
+      // Create a property for the location of the tail of the vector.
+      const tailLocationProperty = new Vector2Property(
+        modelViewTransformProperty.value.modelToViewPosition( vectorModel.tail ) );
 
-      // // drag listener for the dragging of the body
-      // const bodyDragListener = new DragListener( {
-      //   targetNode: this,
-      //   locationProperty: tailLocationProperty,
-      //   start: () => {
-      //     vectorModel.isActiveProperty.value = true;
-      //     this.moveToFront();
-      //   },
-      //   end: () => {
-      //     vectorModel.isActiveProperty.value = false;
-      //   }
-      // } );
+      // drag listener for the dragging of the body
+      const bodyDragListener = new DragListener( {
+        targetNode: this,
+        locationProperty: tailLocationProperty,
+        start: () => {
+          vectorModel.isActiveProperty.value = true;
+          this.moveToFront();
+        },
+        end: () => {
+          vectorModel.isActiveProperty.value = false;
+        }
+      } );
 
-      // // tail listener that updates the tail in the model
-      // const tailListener = tailLocation => {
-      //   this.updateTailPosition( tailLocation );
-      // };
+      // @public
+      this.bodyDragListener = bodyDragListener;
 
-      // tailLocationProperty.link( tailListener );
+      // tail listener that updates the tail in the model
+      const tailListener = tailLocation => {
+        this.updateTailPosition( tailLocation );
+      };
 
-      // this.arrowNode.addInputListener( bodyDragListener );
-      // this.labelNode.addInputListener( bodyDragListener );
+      tailLocationProperty.link( tailListener );
+
+      this.arrowNode.addInputListener( bodyDragListener );
+      this.labelNode.addInputListener( bodyDragListener );
 
       //----------------------------------------------------------------------------------------
       // Create Tip Drag
-      // if ( vectorModel.isTipDraggable ) {
+      if ( vectorModel.isTipDraggable ) {
 
-      //   // Create a property of the location of the tip of the vector. The location of the tip is measured with respect to the tail.
-      //   const tipLocationProperty = new Vector2Property( tipDeltaLocation );
+        // Create a property of the location of the tip of the vector. The location of the tip is measured with respect to the tail.
+        const tipLocationProperty = new Vector2Property( tipDeltaLocation );
 
-      //   // for forwarding drag events for the tip
-      //   const tipDragListener = new DragListener( {
-      //     targetNode: tipCircle,
-      //     locationProperty: tipLocationProperty,
-      //     start: () => {
-      //       vectorModel.isActiveProperty.value = true;
-      //       this.moveToFront();
-      //     },
-      //     end: () => {
-      //       vectorModel.isActiveProperty.value = false;
-      //     }
-      //   } );
+        // for forwarding drag events for the tip
+        const tipDragListener = new DragListener( {
+          targetNode: tipCircle,
+          locationProperty: tipLocationProperty,
+          start: () => {
+            vectorModel.isActiveProperty.value = true;
+            this.moveToFront();
+          },
+          end: () => {
+            vectorModel.isActiveProperty.value = false;
+          }
+        } );
 
-      //   const tipListener = tipLocation => {
-      //     this.updateTipPosition( tipLocation );
-      //   };
+        const tipListener = tipLocation => {
+          this.updateTipPosition( tipLocation );
+        };
 
-      //   tipLocationProperty.link( tipListener );
+        tipLocationProperty.link( tipListener );
 
-      //   tipCircle.addInputListener( tipDragListener );
+        tipCircle.addInputListener( tipDragListener );
 
-      //   this.disposeTipDrag = () => {
-      //     tipCircle.removeInputListener( tipDragListener );
-      //     tipLocationProperty.unlink( tipListener );
-      //   };
-      // }
+        this.disposeTipDrag = () => {
+          tipCircle.removeInputListener( tipDragListener );
+          tipLocationProperty.unlink( tipListener );
+        };
+      }
 
-      // const updateTip = () => {
-      //   const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
-      //   tipCircle.center = tipDeltaLocation;
-      // };
+      const updateTip = () => {
+        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
+        tipCircle.center = tipDeltaLocation;
+      };
 
-      // // update the position of the  tipCircle
-      // vectorModel.attributesVectorProperty.link( updateTip );
+      // update the position of the  tipCircle
+      vectorModel.attributesVectorProperty.link( updateTip );
 
-      // // Create a method to dispose children
-      // this.disposeChildren = () => {
-      //   if ( vectorModel.isTipDraggable ) {
-      //     this.disposeTipDrag();
-      //   }
+      // Create a method to dispose children
+      this.disposeChildren = () => {
+        if ( vectorModel.isTipDraggable ) {
+          this.disposeTipDrag();
+        }
 
-      //   angleNode.dispose();
-      //   tailLocationProperty.unlink( tailListener );
-      //   vectorModel.attributesVectorProperty.unlink( updateTip );
-      //   this.arrowNode.removeInputListener( bodyDragListener );
-      //   this.labelNode.removeInputListener( bodyDragListener );
-      //   tipCircle.dispose();
-      // };
+        angleNode.dispose();
+        tailLocationProperty.unlink( tailListener );
+        vectorModel.attributesVectorProperty.unlink( updateTip );
+        this.arrowNode.removeInputListener( bodyDragListener );
+        this.labelNode.removeInputListener( bodyDragListener );
+        tipCircle.dispose();
+      };
     }
 
     /**
@@ -217,6 +220,10 @@ define( require => {
      * @param {Vector2} tipLocation
      */
     updateTipPosition( tipLocation ) {
+
+      if ( this.vectorModel.isOnGraphProperty.value === false ) {
+        return;
+      }
 
       const vectorTip = this.vectorModel.tip;
 
@@ -243,10 +250,14 @@ define( require => {
      * @param {Vector2} tailLocation
      */
     updateTailPosition( tailLocation ) {
-
+      
       // find the nominal tailPosition after a modelView transformation
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
 
+      if ( this.vectorModel.isOnGraphProperty.value === false ) {
+        this.vectorModel.translateToPoint( tailPosition );
+        return;
+      }
       // update the model tail position, subject to symmetric rounding, and fit inside the graph bounds
       this.vectorModel.moveVectorToFitInGraph( tailPosition );
     }

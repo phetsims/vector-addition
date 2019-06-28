@@ -124,6 +124,8 @@ define( require => {
         );
 
         vectorContainer.addChild( vectorNode );
+
+        vectorNode.bodyDragListener.press( event, vectorNode );
         // console.log( clickedLocation, clickedPosition)
           // // Create a location property to track the location of where the user dragged the vector representation
           // const vectorRepresentationLocationProperty = new Vector2Property(
