@@ -15,16 +15,18 @@ define( require => {
   'use strict';
 
   // modules
+  const Animation = require( 'TWIXT/Animation' );
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Easing = require( 'TWIXT/Easing' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const Vector2 = require( 'DOT/Vector2' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
 
@@ -32,6 +34,9 @@ define( require => {
 
   // interval spacing of vector angle (in degrees) when vector is in polar mode
   const ANGLE_INTERVAL = 5;
+
+  const AVERAGE_ANIMATION_SPEED = 1000;
+  const MIN_ANIMATION_TIME = 10;
 
   class VectorModel extends BaseVectorModel {
     /**
@@ -69,12 +74,10 @@ define( require => {
       // @public (read-only)
       this.label = options.label;
 
+      // TODO: remove this and add a activeVectorProperty in scene.js
       // @public (read-only) {BooleanProperty} - indicates if the vector is active. An active vector is a vector that is
       // being dragged by the body or the tip.
       this.isActiveProperty = new BooleanProperty( false );
-
-      // @public (read-only) {BooleanProperty} - indicates if the vector is on the graphModelBounds
-      this.isOnGraphProperty = new BooleanProperty( false );
 
       // @private {Graph}
       this.graph = graph;
@@ -121,6 +124,17 @@ define( require => {
 
       // @public (read only) {YVectorComponent}
       this.yVectorComponent = new YVectorComponent( this, componentStyleProperty, this.label );
+    
+      //----------------------------------------------------------------------------------------
+      // Vector state
+
+      // @public (read-only) {BooleanProperty} - indicates if the vector is in the play area
+      this.isOnGraphProperty = new BooleanProperty( false );
+
+      // @public (read-only) {Animation|null} - tracks any animation that is currently in progress.
+      this.inProgressAnimationProperty = new Property( null, {
+        validValues: [ Animation, null ]
+      } );
     }
 
     /**
@@ -131,7 +145,6 @@ define( require => {
     dispose() {
 
       this.isActiveProperty.dispose();
-      this.isOnGraphProperty.dispose();
 
       this.magnitudeProperty.dispose();
       this.angleDegreesProperty.dispose();
@@ -142,6 +155,9 @@ define( require => {
 
       this.xVectorComponent.dispose();
       this.yVectorComponent.dispose();
+
+      this.isOnGraphProperty.dispose();
+      this.inProgressAnimationProperty.dispose();
 
       super.dispose();
     }
@@ -216,6 +232,45 @@ define( require => {
 
       // Translate the tail to ensure it stays in the contained bounds
       this.translateToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
+    }
+
+    /**
+     * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
+     * @param {Vector2} Position - center of the vector of where to animate to
+     * @public
+     */
+    animateToPosition( position ) {
+
+      assert && assert( position instanceof Vector2, `invalid position: ${position}` );
+      assert && assert( !this.inProgressAnimationProperty,
+        'Can\'t animate to position when we are in animation currently' );
+
+      // Convert the parameter into where the tail would be in that position
+      const tailPosition = position.minus( this.attributesVector.timesScalar( 0.5 ) );
+
+      // Animate the vector
+      const animation = new Animation( {
+        duration: Math.max(
+          MIN_ANIMATION_TIME,
+          this.tail.distance( tailPosition ) / AVERAGE_ANIMATION_SPEED
+        ),
+        targets: [ {
+          property: this.tailPositionProperty,
+          easing: Easing.CUBIC_IN_OUT,
+          to: tailPosition
+        } ]
+      } );
+
+      this.inProgressAnimationProperty.set( animation );
+      animation.start();
+
+      // Remove the animation from the list when it finishes or is stopped
+      animation.finishEmitter.addListener( () => {
+        this.inProgressAnimationProperty.set( null );
+      } );
+      animation.stopEmitter.addListener( () => {
+        this.inProgressAnimationProperty.set( null );
+      } );
     }
   }
 
