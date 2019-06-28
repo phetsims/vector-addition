@@ -52,24 +52,23 @@ define( require => {
      */
     constructor( vectorModel,
                  graph,
-                 componentStyleProperty,
-                 angleVisibleProperty,
-                 valuesVisibleProperty,
+                componentStyleProperty,
+                angleVisibleProperty,
+                valuesVisibleProperty,
                  coordinateSnapMode,
                  arrowOptions ) {
 
       const modelViewTransformProperty = graph.modelViewTransformProperty;
       const graphModelBounds = graph.graphModelBounds;
-
-      // Type check arguments
-      assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
-      assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds ${graphModelBounds}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty,
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty,
-        `invalid angleVisibleProperty: ${angleVisibleProperty}` );
-      // modelViewTransformProperty checked in super class
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+      // // Type check arguments
+      // assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
+      // assert && assert( graphModelBounds instanceof Bounds2, `invalid graphModelBounds ${graphModelBounds}` );
+      // assert && assert( componentStyleProperty instanceof EnumerationProperty,
+      //   `invalid componentStyleProperty: ${componentStyleProperty}` );
+      // assert && assert( angleVisibleProperty instanceof BooleanProperty,
+      //   `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      // // modelViewTransformProperty checked in super class
+      // assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       //----------------------------------------------------------------------------------------
       // Get the arrow options for the specific vector type
 
@@ -132,6 +131,21 @@ define( require => {
           this.moveToFront();
         },
         end: () => {
+          if ( this.vectorModel.isOnGraphProperty.value === false ) {
+            const tailPosition = modelViewTransformProperty.value.viewToModelPosition( tailLocationProperty.value );
+
+
+            const dropVector = graph.graphModelBounds.containsPoint( tailPosition.plus( this.vectorModel.attributesVector.timesScalar( 0.5 ) )  );
+
+            if ( !dropVector ) {
+              this.vectorModel.returnToVectorCreatorPanel();
+
+            }
+            else {
+              this.vectorModel.dropOntoGraph();
+              this.updateTailPosition( tailLocationProperty.value )
+            }
+          }
           vectorModel.isActiveProperty.value = false;
         }
       } );

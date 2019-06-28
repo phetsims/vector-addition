@@ -36,7 +36,7 @@ define( require => {
   const ANGLE_INTERVAL = 5;
 
   const AVERAGE_ANIMATION_SPEED = 1000;
-  const MIN_ANIMATION_TIME = 10;
+  const MIN_ANIMATION_TIME = 1;
 
   class VectorModel extends BaseVectorModel {
     /**
@@ -132,9 +132,9 @@ define( require => {
       this.isOnGraphProperty = new BooleanProperty( false );
 
       // @public (read-only) {Animation|null} - tracks any animation that is currently in progress.
-      this.inProgressAnimationProperty = new Property( null, {
-        validValues: [ Animation, null ]
-      } );
+      this.inProgressAnimationProperty = new Property( null );
+
+      this.returnToVectorCreatorPanelProperty = new BooleanProperty( false );
     }
 
     /**
@@ -236,17 +236,18 @@ define( require => {
 
     /**
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
-     * @param {Vector2} Position - center of the vector of where to animate to
      * @public
      */
-    animateToPosition( position ) {
+    returnToVectorCreatorPanel() {
+
+      const position = this.tailPositionProperty.initialValue;
 
       assert && assert( position instanceof Vector2, `invalid position: ${position}` );
-      assert && assert( !this.inProgressAnimationProperty,
+      assert && assert( !this.inProgressAnimationProperty.value,
         'Can\'t animate to position when we are in animation currently' );
 
       // Convert the parameter into where the tail would be in that position
-      const tailPosition = position.minus( this.attributesVector.timesScalar( 0.5 ) );
+      const tailPosition = position;
 
       // Animate the vector
       const animation = new Animation( {
@@ -261,16 +262,29 @@ define( require => {
         } ]
       } );
 
-      this.inProgressAnimationProperty.set( animation );
+      this.inProgressAnimationProperty.value = animation;
       animation.start();
 
       // Remove the animation from the list when it finishes or is stopped
       animation.finishEmitter.addListener( () => {
         this.inProgressAnimationProperty.set( null );
+        this.returnToVectorCreatorPanelProperty.value = true;
       } );
-      animation.stopEmitter.addListener( () => {
-        this.inProgressAnimationProperty.set( null );
-      } );
+
+    }
+
+    /**
+     * Drops the vector onto the graph. Called at the end of the drag if the user drops the vector onto the graph.
+     * @public
+     */
+    dropOntoGraph() {
+
+
+      assert && assert( this.isOnGraphProperty.value === false, 'vector is already on the graph' );
+      assert && assert( this.inProgressAnimationProperty.value === null, `cannot drop vector when its animating` );
+
+
+      this.isOnGraphProperty.value = true;
     }
   }
 

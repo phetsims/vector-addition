@@ -128,7 +128,6 @@ define( require => {
           initialVector.x,
           initialVector.y,
           ( options.label ) ? { label: options.label } : {} );
-
         //----------------------------------------------------------------------------------------
         // Create the vector node and add it to the container
         const vectorNode = new VectorNode( vectorModel,
@@ -138,6 +137,8 @@ define( require => {
           vectorAdditionModel.valuesVisibleProperty,
           vectorSet.coordinateSnapMode
         );
+
+
         vectorContainer.addChild( vectorNode );
 
         // Active the body drag
@@ -148,9 +149,20 @@ define( require => {
           iconNode.visible = false;
         }
 
+        vectorModel.returnToVectorCreatorPanelProperty.link( ( isBack ) => {
+          if ( isBack ) {
+            iconNode.visible = true;
+            vectorModel.dispose();
+            vectorNode.dispose();
+          }
+        } );
+
+
         }, {
           allowTouchSnag: true
         } ) );
+
+
 
     }
   }

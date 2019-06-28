@@ -51,6 +51,7 @@ define( function( require ) {
         polarScene.vectorContainer );
 
       this.addChild( polarVectorCreatorPanel );
+      polarVectorCreatorPanel.moveToBack();
 
       const cartesianVectorCreatorPanel = new Explore2DVectorCreatorPanel(
         explore2DModel,
@@ -59,6 +60,7 @@ define( function( require ) {
         cartesianScene.vectorContainer );
 
       this.addChild( cartesianVectorCreatorPanel );
+      cartesianVectorCreatorPanel.moveToBack();
 
       // toggle visible
       explore2DModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
