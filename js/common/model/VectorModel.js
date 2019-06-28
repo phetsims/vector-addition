@@ -24,6 +24,7 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const Vector2 = require( 'DOT/Vector2' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
 
@@ -88,7 +89,7 @@ define( require => {
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
       this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
         () => {
-          return ( this.magnitude > 0 ) ? ( Util.toDegrees( this.angle ) ) : null;
+          return ( this.attributesVector.equalsEpsilon( Vector2.ZERO, 1e-7 ) ) ? null : Util.toDegrees( this.angle );
         } );
 
       // @public (read-only) {DerivedProperty.<number>} - the xComponent property
