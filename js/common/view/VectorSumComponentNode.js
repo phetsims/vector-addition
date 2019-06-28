@@ -76,6 +76,7 @@ define( require => {
      * @param {VectorComponent} vectorComponent
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
+     * @param {boolean} sumVisible
      * @private
      */
     updateVector( vectorComponent, modelViewTransform, componentStyle, sumVisible ) {
