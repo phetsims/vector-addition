@@ -23,7 +23,7 @@ define( require => {
   class ArcArrowNode extends Node {
     /**
      * @constructor
-     * @param {number} angle - the angle of the arc arrow in degrees
+     * @param {number|null} angle - the angle of the arc arrow in degrees
      * @param {number} radius - the radius of the arc arrow
      * @param {Object} [options]
      */
@@ -48,7 +48,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
+      assert && assert( typeof angle === 'number' || angle === null, `invalid angle: ${angle}` );
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
       assert && assert( options.center instanceof Vector2, `invalid options.center: ${options.center}` );
       assert && assert( typeof options.arrowheadWidth === 'number' && options.arrowheadWidth > 0,
@@ -65,7 +65,7 @@ define( require => {
       // @private {number}
       this.radiusOfArc = radius;
 
-      // @private {number}
+      // @private {number|null}
       this.angleOfArc = angle;
 
       // @private {Vector2} the center that the arc revolves around
@@ -113,7 +113,7 @@ define( require => {
 
     /**
      * Change the angle of the arc
-     * @param {number} angle - the angle of the arc arrow in degrees
+     * @param {number|null} angle - the angle of the arc arrow in degrees
      * @public
      */
     set angle( angle ) {
@@ -141,17 +141,17 @@ define( require => {
 
     /**
      * Change both the radius and the angle of the arc
-     * @param {number} angle - the angle of the arc arrow in degrees
+     * @param {number|null} angle - the angle of the arc arrow in degrees
      * @param {number} radius - the radius of the arc in view coordinates
      * @private
      */
     setAngleAndRadius( angle, radius ) {
 
-      assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
+      assert && assert( typeof angle === 'number' || angle === null, `invalid angle: ${angle}` );
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
 
       this.radiusOfArc = radius;
-      this.angleOfArc = radius;
+      this.angleOfArc = angle;
 
       // Convert the angle to radians
       const angleInRadians = Util.toRadians( angle );

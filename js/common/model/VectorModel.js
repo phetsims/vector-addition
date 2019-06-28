@@ -84,10 +84,12 @@ define( require => {
       // @public (read-only) {DerivedProperty.<number>} - the magnitude of the vector
       this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.magnitude ) );
 
-      // @public (read-only) {DerivedProperty.<number>} - the angle (in degrees) of the vector.
+      // @public (read-only) {DerivedProperty.<number|null>} - the angle (in degrees) of the vector.
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
       this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ],
-        () => ( Util.toDegrees( this.angle ) ) );
+        () => {
+          return ( this.magnitude > 0 ) ? ( Util.toDegrees( this.angle ) ) : null;
+        } );
 
       // @public (read-only) {DerivedProperty.<number>} - the xComponent property
       this.xComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.xComponent ) );
