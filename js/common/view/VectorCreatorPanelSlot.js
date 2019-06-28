@@ -145,18 +145,29 @@ define( require => {
         vectorNode.bodyDragListener.press( event, vectorNode );
         
 
-        if ( !options.isInfinite ) {
-          iconNode.visible = false;
-        }
+        // Observe when the vector node says its time to animate back.
+        vectorNode.animateBackProperty.link( ( animateBack ) => {
+         
+          if ( animateBack ) {
 
-        vectorModel.returnToVectorCreatorPanelProperty.link( ( isBack ) => {
-          if ( isBack ) {
-            iconNode.visible = true;
-            vectorModel.dispose();
-            vectorNode.dispose();
+            const myMatrix= iconNode.getUniqueTrail().getMatrixTo(iconNode.getUniqueTrail().nodes[1].getUniqueTrail())
+
+
+
+            const iconAttributesVector = modelViewTransformProperty.value.viewToModelDelta(
+                                          new Vector2( iconNode.width, -iconNode.height ) );
+
+            vectorModel.animateToPoint( modelViewTransformProperty.value.viewToModelPosition( myMatrix.timesVector2(iconNode.centerTop) ), iconAttributesVector , () => {
+              iconNode.visible = true;
+              vectorModel.dispose();
+              vectorNode.dispose();
+            } );
           }
         } );
 
+        if ( !options.isInfinite ) {
+          iconNode.visible = false;
+        }
 
         }, {
           allowTouchSnag: true

@@ -122,6 +122,7 @@ define( require => {
       const tailLocationProperty = new Vector2Property(
         modelViewTransformProperty.value.modelToViewPosition( vectorModel.tail ) );
 
+      this.animateBackProperty = new BooleanProperty( false );
       // drag listener for the dragging of the body
       const bodyDragListener = new DragListener( {
         targetNode: this,
@@ -138,7 +139,7 @@ define( require => {
             const dropVector = graph.graphModelBounds.containsPoint( tailPosition.plus( this.vectorModel.attributesVector.timesScalar( 0.5 ) )  );
 
             if ( !dropVector ) {
-              this.vectorModel.returnToVectorCreatorPanel();
+              this.animateBackProperty.value = true;
 
             }
             else {
@@ -150,11 +151,16 @@ define( require => {
         }
       } );
 
+      this.vectorModel.isOnGraphProperty.link( ( isOnGraph ) => {
+        this.labelNode.visible = isOnGraph;
+      })
+
       // @public
       this.bodyDragListener = bodyDragListener;
 
       // tail listener that updates the tail in the model
       const tailListener = tailLocation => {
+
         this.updateTailPosition( tailLocation );
       };
 

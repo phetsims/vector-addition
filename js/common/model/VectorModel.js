@@ -25,6 +25,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
@@ -131,10 +132,9 @@ define( require => {
       // @public (read-only) {BooleanProperty} - indicates if the vector is in the play area
       this.isOnGraphProperty = new BooleanProperty( false );
 
-      // @public (read-only) {Animation|null} - tracks any animation that is currently in progress.
-      this.inProgressAnimationProperty = new Property( null );
+      // @public (read-only) {BooleanProperty} - tracks any animation that is currently in progress.
+      this.isAnimatingBackProperty = new BooleanProperty( false );
 
-      this.returnToVectorCreatorPanelProperty = new BooleanProperty( false );
     }
 
     /**
@@ -157,7 +157,7 @@ define( require => {
       this.yVectorComponent.dispose();
 
       this.isOnGraphProperty.dispose();
-      this.inProgressAnimationProperty.dispose();
+      this.isAnimatingBackProperty.dispose();
 
       super.dispose();
     }
@@ -217,7 +217,6 @@ define( require => {
      * body is being translated.
      * @param {Vector2} tailPosition
      * @public
-     * TODO: check with designers to make sure this is what we want
      */
     moveVectorToFitInGraph( tailPosition ) {
 
@@ -234,20 +233,25 @@ define( require => {
       this.translateToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
     }
 
+
     /**
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
+     * @param {Vector2} position
+     * @param {Vector2} iconAttributesVector
+     * @param {function} callBack - callback when the animation is over
      * @public
      */
-    returnToVectorCreatorPanel() {
+    animateToPoint( position, iconAttributesVector, callback ) {
 
-      const position = this.tailPositionProperty.initialValue;
 
       assert && assert( position instanceof Vector2, `invalid position: ${position}` );
-      assert && assert( !this.inProgressAnimationProperty.value,
+      assert && assert( !this.isAnimatingBackProperty.value,
         'Can\'t animate to position when we are in animation currently' );
 
+      this.isAnimatingBackProperty.value = true;
+
       // Convert the parameter into where the tail would be in that position
-      const tailPosition = position;
+      const tailPosition = position.setXY( position.x - iconAttributesVector.x, position.y );
 
       // Animate the vector
       const animation = new Animation( {
@@ -262,17 +266,16 @@ define( require => {
         }, {
           property: this.attributesVectorProperty,
           easing: Easing.CUBIC_IN_OUT,
-          to: this.attributesVectorProperty.initialValue
+          to: iconAttributesVector
         } ]
       } );
 
-      this.inProgressAnimationProperty.value = animation;
       animation.start();
 
       // Remove the animation from the list when it finishes or is stopped
       animation.finishEmitter.addListener( () => {
-        this.inProgressAnimationProperty.set( null );
-        this.returnToVectorCreatorPanelProperty.value = true;
+        this.isAnimatingBackProperty.value = false;
+        callback();
       } );
 
     }
@@ -283,10 +286,8 @@ define( require => {
      */
     dropOntoGraph() {
 
-
       assert && assert( this.isOnGraphProperty.value === false, 'vector is already on the graph' );
-      assert && assert( this.inProgressAnimationProperty.value === null, `cannot drop vector when its animating` );
-
+      assert && assert( this.isAnimatingBackProperty.value === false, `cannot drop vector when its animating` );
 
       this.isOnGraphProperty.value = true;
     }
