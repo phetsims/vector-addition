@@ -28,9 +28,6 @@ define( require => {
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
 
-  const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
-
-
   // constants
 
   // interval spacing of vector angle (in degrees) when vector is in polar mode
@@ -75,6 +72,9 @@ define( require => {
       // @public (read-only) {BooleanProperty} - indicates if the vector is active. An active vector is a vector that is
       // being dragged by the body or the tip.
       this.isActiveProperty = new BooleanProperty( false );
+
+      // @public (read-only) {BooleanProperty} - indicates if the vector is on the graphModelBounds
+      this.isOnGraphProperty = new BooleanProperty( false );
 
       // @private {Graph}
       this.graph = graph;
@@ -121,9 +121,6 @@ define( require => {
 
       // @public (read only) {YVectorComponent}
       this.yVectorComponent = new YVectorComponent( this, componentStyleProperty, this.label );
-
-
-      console.log( VectorAdditionQueryParameters.vectorDragThreshold );
     }
 
     /**
@@ -134,6 +131,7 @@ define( require => {
     dispose() {
 
       this.isActiveProperty.dispose();
+      this.isOnGraphProperty.dispose();
 
       this.magnitudeProperty.dispose();
       this.angleDegreesProperty.dispose();
@@ -149,7 +147,7 @@ define( require => {
     }
 
     /**
-     * Activate the vector for the inspect panel. Called when the vector is first dropped onto the graph.
+     * Activates the vector for the inspect panel. Called when the vector is first dropped onto the graph.
      * @public
      */
     activate() {

@@ -84,20 +84,26 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
+      // Update the angle when the model changes
       const updateAngleListener = angle => this.updateAngleNode( angle );
       vectorModel.angleDegreesProperty.link( updateAngleListener );
 
+      // Update the scale when the vector becomes too small
       const updateScaleListener = magnitude => this.scaleArc( magnitude, modelViewTransformProperty.value );
       vectorModel.magnitudeProperty.link( updateScaleListener );
 
-      // Observe when the angle visible property is changing and update the visibility of the angle node
-      const toggleVisibilityListener = angleVisibleProperty.linkAttribute( this, 'visible' );
+      // Observe when the angle visible property is changing and update the visibility of the angle node. The angle is
+      // only visible when the vector is both active and the angle checkbox is clicked
+      const visibilityObserver = Property.multilink( [ angleVisibleProperty, vectorModel.isActiveProperty ],
+        ( angleVisible, isActive ) => {
+          this.visible = angleVisible && isActive;
+        } );
 
       // @private {function} - function to unlink listeners, called in dispose()
       this.unlinkListeners = () => {
         vectorModel.angleDegreesProperty.unlink( updateAngleListener );
         vectorModel.magnitudeProperty.unlink( updateScaleListener );
-        angleVisibleProperty.unlink( toggleVisibilityListener );
+        visibilityObserver.dispose();
       };
     }
 
