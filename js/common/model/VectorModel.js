@@ -27,6 +27,9 @@ define( require => {
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
 
+  const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
+
+
   // constants
 
   // interval spacing of vector angle (in degrees) when vector is in polar mode
@@ -116,6 +119,8 @@ define( require => {
       // @public (read only) {YVectorComponent}
       this.yVectorComponent = new YVectorComponent( this, componentStyleProperty, this.label );
 
+
+      console.log( VectorAdditionQueryParameters.vectorDragThreshold );
     }
 
     /**
