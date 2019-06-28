@@ -361,10 +361,10 @@ define( require => {
         this.updateAxisLabels( graphViewOrigin );
 
         // get the shape of the ticks along the axis (abstract) in view coordinates
-        const newTicksShape = this.getUpdatedTicksShape( graphModelBounds, modelViewTransform );
+        const ticksShape = this.getUpdatedTicksShape( graphModelBounds, modelViewTransform );
 
         // Update the axis path
-        axisTicksPath.setShape( newTicksShape );
+        axisTicksPath.setShape( ticksShape );
 
       } );
 

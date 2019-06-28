@@ -157,15 +157,15 @@ define( require => {
               );
 
               // Call the abstract method to add the vector to the model. See addVectorToModel for documentation
-              const newVectorModel = addVectorToModel( vectorRepresentationPosition, initialVector );
+              const addedVectorModel = addVectorToModel( vectorRepresentationPosition, initialVector );
 
               // Check that the new vector model was implemented correctly
-              assert && assert( newVectorModel instanceof VectorModel,
-                `addVectorToModel should return a VectorModel, not a ${newVectorModel}` );
+              assert && assert( addedVectorModel instanceof VectorModel,
+                `addVectorToModel should return a VectorModel, not a ${addedVectorModel}` );
 
               // Add a removed listener to the observable array to reset the icon
               vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
-                if ( removedVector === newVectorModel ) {
+                if ( removedVector === addedVectorModel ) {
                   iconNode.visible = true;
                 }
               } );

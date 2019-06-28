@@ -93,15 +93,15 @@ define( require => {
     addVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
 
       // Keep a reference
-      const newVectorSet = new VectorSet(
+      const vectorSet = new VectorSet(
         this,
         componentStyleProperty,
         sumVisibleProperty,
         vectorGroup,
         coordinateSnapMode );
 
-      this.vectorSets.push( newVectorSet );
-      return newVectorSet;
+      this.vectorSets.push( vectorSet );
+      return vectorSet;
     }
 
     /**

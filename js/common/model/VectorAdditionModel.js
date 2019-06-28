@@ -85,10 +85,10 @@ define( require => {
     addGraph( graphDimension, upperLeftPosition, orientation ) {
 
       // Keep a reference.
-      const newGraph = new Graph( graphDimension, upperLeftPosition, orientation );
+      const graph = new Graph( graphDimension, upperLeftPosition, orientation );
 
-      this.graphs.push( newGraph );
-      return newGraph;
+      this.graphs.push( graph );
+      return graph;
     }
 
     /**

@@ -92,7 +92,7 @@ define( require => {
     addVector( tailPosition, xComponent, yComponent, options ) {
 
       // Keep a reference
-      const newVector = new VectorModel(
+      const vector = new VectorModel(
         tailPosition,
         xComponent,
         yComponent,
@@ -104,10 +104,10 @@ define( require => {
       //TODO: this is not a good practice since this method is returning an object AND has a side effect
       //TODO: break down into two function
       // Activate the new vector
-      newVector.activate();
+      vector.activate();
 
-      this.vectors.push( newVector );
-      return newVector;
+      this.vectors.push( vector );
+      return vector;
     }
   }
 
