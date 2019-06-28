@@ -259,6 +259,10 @@ define( require => {
           property: this.tailPositionProperty,
           easing: Easing.CUBIC_IN_OUT,
           to: tailPosition
+        }, {
+          property: this.attributesVectorProperty,
+          easing: Easing.CUBIC_IN_OUT,
+          to: this.attributesVectorProperty.initialValue
         } ]
       } );
 
