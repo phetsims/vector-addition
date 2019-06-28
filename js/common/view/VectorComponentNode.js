@@ -71,7 +71,7 @@ define( require => {
       }, options.onAxisLinesOptions );
 
       options.arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors[ vectorComponent.vectorGroup ].fill,
+        fill: VectorAdditionColors[ vectorComponent.vectorGroup ].component,
         headWidth: 10.5,
         headHeight: 6,
         tailWidth: 4
