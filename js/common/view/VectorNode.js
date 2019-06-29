@@ -17,6 +17,7 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const Property = require( 'AXON/Property' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
@@ -35,6 +36,7 @@ define( require => {
     fill: VectorAdditionColors.BLACK,
     opacity: 0.4
   } );
+  const VECTOR_SHADOW_OFFSET = 6.2;
 
   class VectorNode extends BaseVectorNode {
     /**
@@ -207,12 +209,24 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // Function to update the appearance of the vector node depending on if it's on or off the graph
-      const onGraphListener = ( isOnGraph ) => {
+      // Function to update the appearance of the vector node depending on if it's on or off the graph or when the
+      // vector model changes
+      const onGraphListener = ( isOnGraph, attributesVectorProperty ) => {
         this.labelNode.visible = isOnGraph;
-        // TODO: add a vector shadow
+        
+        vectorShadowNode.visible = !isOnGraph;
+
+        this.arrowNode.resetTransform();
+        if ( !isOnGraph ) {
+          this.arrowNode.left = -VECTOR_SHADOW_OFFSET;
+        }
+
+        // Get the tip location in view coordinates
+        const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
+        vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
       };
-      this.vectorModel.isOnGraphProperty.link( onGraphListener );
+      const vectorOnGraphObserver = Property.multilink(
+        [ vectorModel.isOnGraphProperty, vectorModel.attributesVectorProperty ], onGraphListener)
 
       //----------------------------------------------------------------------------------------
       // Create a method to dispose children
@@ -230,7 +244,7 @@ define( require => {
 
         tipCircle.dispose();
 
-        this.vectorModel.isOnGraphProperty.unlink( onGraphListener );
+        vectorOnGraphObserver.dispose();
       };
     }
 
