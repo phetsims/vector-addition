@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the 'main' vectors (the vectors that are dragged onto the graph). The vectors are created in
+ * View for the 'main' vector (the vectors that are dragged onto the graph). These vectors are created in
  * VectorCreatorPanelSlot.js and support tip dragging and tail translation dragging.
  *
  * @author Martin Veillette
@@ -290,8 +290,7 @@ define( require => {
       }
       else {
         // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds
-        this.vectorModel.moveVectorToFitInGraph( tailPosition );
-
+        this.vectorModel.dragTailToPosition( tailPosition );
       }
     }
   }

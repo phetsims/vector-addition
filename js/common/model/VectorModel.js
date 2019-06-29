@@ -30,19 +30,22 @@ define( require => {
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
 
+  //----------------------------------------------------------------------------------------
   // constants
+  const AVERAGE_ANIMATION_SPEED = 1500; // view coordinates per second
+  const MIN_ANIMATION_TIME = 0.9; // in seconds
 
-  // interval spacing of vector angle (in degrees) when vector is in polar mode
+  // Interval spacing of vector angle (in degrees) when vector is in polar mode
   const ANGLE_INTERVAL = 5;
 
   // The label of the vector when its active if and only if the user doesn't provide the label option.
   // The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
   const FALLBACK_VECTOR_LABEL = 'v';
 
-  const AVERAGE_ANIMATION_SPEED = 1500; // view coordinates per second
-  const MIN_ANIMATION_TIME = 0.9; // in seconds
+  // The maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
+  // See https://github.com/phetsims/vector-addition/issues/46
+  const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 
-  const DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 
   class VectorModel extends BaseVectorModel {
     /**
@@ -60,7 +63,9 @@ define( require => {
         label: null, // {string|null} - the label of the vector. If null, the vector will display a the fallback label
         // when its active
 
-        isTipDraggable: true // {boolean} - false means the tip won't be draggable
+        isTipDraggable: true, // {boolean} - false means the tip won't be draggable
+
+        isRemovable: true // {boolean} - false means the user will not be able to drag a vector off the graph
       }, options );
 
 
@@ -68,6 +73,8 @@ define( require => {
         `invalid options.label: ${options.label}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid options.isTipDraggable: ${options.isTipDraggable}` );
+      assert && assert( typeof options.isRemovable === 'boolean',
+        `invalid options.isRemovable: ${options.isRemovable}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -76,10 +83,13 @@ define( require => {
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
 
+      // @public (read-only) {boolean}
+      this.isRemovable = options.isRemovable;
+
       // @public (read-only)
       this.label = options.label;
 
-      // @protected
+      // @public (read-only)
       this.fallbackLabel = FALLBACK_VECTOR_LABEL;
 
       // @private {Graph}
@@ -142,7 +152,6 @@ define( require => {
           return value === null || value instanceof Animation;
         }
       } );
-
     }
 
     /**
@@ -171,9 +180,11 @@ define( require => {
       super.dispose();
     }
 
+    /*---------------------------------------------------------------------------*
+     * The following are methods to drag the vector
+     *---------------------------------------------------------------------------*/
     /**
-     * Called when the tip is dragged in the cartesian scene. Depending on the coordinate snap mode, it will round the
-     * tip.
+     * Called when the tip is being dragged.
      * @param {Vector2} tipPosition - attempts to drag the tip to this position, but rounds it in cartesian/polar style
      * and updates the model tip
      * @public
@@ -226,39 +237,69 @@ define( require => {
     }
 
     /**
-     * Updates the tail such that both tail and tip of the vector remain with the graphBounds. Called when the vector
-     * body is being translated.
-     * @param {Vector2} tailPosition - attempts to place the vector's tail to this point, but ensures it's validity
+     * Called when the tail is being dragged.
+     * @param {Vector2} tailPosition - attempts to drag the tail to this position, but rounds it and ensures validity of
+     * the vector after the drag.
      * @public
      */
-    moveVectorToFitInGraph( tailPosition ) {
-
-      assert && assert( this.isOnGraphProperty.value === true , 'should be in graph when moving' );
+    dragTailToPosition( tailPosition ) {
       
-      // Determine the bounds of the tails
-      const tailBounds = this.graph.graphModelBounds;
+      assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
+      assert && assert( this.isOnGraphProperty.value === true , 'should be in graph to drag' );
+      assert && assert( !this.inProgressAnimationProperty.value, 'can\'t drag vector when animating' );
 
-      // Determine the bounds such for tip would remain within the graph
-      const tipBounds = this.graph.graphModelBounds.shifted( -this.attributesVector.x, -this.attributesVector.y );
-
-      // Find the intersection of the two previous bounds
-      const constrainedBounds = tailBounds.intersection( tipBounds );
-   
-      // Translate the tail to ensure it stays in the contained bounds
-      this.translateToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
+      // Ensure that the tail is on the graph
+      this.moveVectorTailToFitInGraph( tailPosition );
 
       //----------------------------------------------------------------------------------------
+      const constrainedBounds = this.getConstrainedTailBounds();
 
       // Offset of the cursor to the vector. This is users will remove vector according to displacement of the cursor.
       // See https://github.com/phetsims/vector-addition/issues/46
       const dragOffset = constrainedBounds.closestPointTo( tailPosition ).minus( tailPosition );
 
-      if ( Math.abs( dragOffset.x ) > DRAG_THRESHOLD || Math.abs( dragOffset.y ) > DRAG_THRESHOLD ) {
+      if ( Math.abs( dragOffset.x ) > VECTOR_DRAG_THRESHOLD || Math.abs( dragOffset.y ) > VECTOR_DRAG_THRESHOLD ) {
         this.isOnGraphProperty.value = false;
-        return;
       }
     }
 
+    /*---------------------------------------------------------------------------*
+     * Private helper methods
+     *---------------------------------------------------------------------------*/
+    /**
+     * Updates the tail such that both tail and tip of the vector remain with the graphBounds. 
+     * @param {Vector2} tailPosition - attempts to place the vector's tail to this point, but ensures it's validity
+     * @private
+     */
+    moveVectorTailToFitInGraph( tailPosition ) {
+
+      assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
+      assert && assert( this.isOnGraphProperty.value === true , 'should be in graph to fit in to graph' );
+      assert && assert( !this.inProgressAnimationProperty.value, 'can\'t move vector when animating' );
+
+      const constrainedBounds = this.getConstrainedTailBounds();
+      // Translate the tail to ensure it stays in the contained bounds
+      this.translateToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
+    }
+
+    /**
+     * Gets the constrained bounds of the tail. In other words, based on the tip and the components of the vector, this
+     * return a new bounds that are for the tail and ensures that in this bounds the vector will stay in the graph.
+     * @private
+     */
+    getConstrainedTailBounds() {
+
+      // Sift the bounds the attributes vector. This is the furthest the vector tail can drag.
+      const constrainedBounds = this.graph.graphModelBounds.shifted( -this.attributesVector.x,
+        -this.attributesVector.y );
+
+      // Since it was shifted, return the intersection
+      return this.graph.graphModelBounds.intersection( constrainedBounds );
+    }
+
+    /*---------------------------------------------------------------------------*
+     * The following are methods to control the state of the vector (animate, drop, etc.)
+     *---------------------------------------------------------------------------*/
     /**
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
      * @param {Vector2} point
@@ -267,7 +308,6 @@ define( require => {
      * @public
      */
     animateToPoint( point, iconAttributesVector, finishedCallback ) {
-
 
       assert && assert( !this.inProgressAnimationProperty.value,
         'Can\'t animate to position when we are in animation currently' );
@@ -334,20 +374,7 @@ define( require => {
 
       this.isOnGraphProperty.value = true;
 
-      //----------------------------------------------------------------------------------------
-      // Move into the graph
-      // Determine the bounds of the tails
-      const tailBounds = this.graph.graphModelBounds;
-
-      // Determine the bounds such for tip would remain within the graph
-      const tipBounds = this.graph.graphModelBounds.shifted( -this.attributesVector.x, -this.attributesVector.y );
-
-      // Find the intersection of the two previous bounds
-      const constrainedBounds = tailBounds.intersection( tipBounds );
-   
-      // Translate the tail to ensure it stays in the contained bounds
-      this.translateToPoint( constrainedBounds.closestPointTo( this.tail ).roundedSymmetric() );
-
+      this.moveVectorTailToFitInGraph( this.tail );
     }
   }
 
