@@ -32,7 +32,7 @@ define( require => {
       options = _.extend( {
 
         // Passed to super class
-        label: null, // {string|null} - the label of the vector. If null, the vector will display a the fallback label
+        label: 's', // {string|null} - the label of the vector. If null, the vector will display a the fallback label
         // when its active
 
         isTipDraggable: true // {boolean} - false means the tip won't be draggable
@@ -80,11 +80,11 @@ define( require => {
             removedVector.attributesVectorProperty.unlink( attributesVectorListener );
             removedVector.isOnGraphProperty.unlink( isOnGraphListener );
 
-            vectors.removeItemRemovedListener( vectorRemovedListener );
+            vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
           }
         };
 
-        vectors.addItemRemovedListener( vectorRemovedListener );
+        vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
       } );
     }
     /** 
@@ -105,9 +105,8 @@ define( require => {
      */
     updateSum( attributesVector, oldAttributesVector, isOnGraph ) {
 
-      assert && assert( attributesVectorProperty instanceof Vector2,
-        `invalid attributesVectorProperty: ${attributesVectorProperty}` );
-      assert && assert( oldAttributesVector instanceof Vector2,
+      assert && assert( attributesVector instanceof Vector2, `invalid attributesVector: ${attributesVector}` );
+      assert && assert( !oldAttributesVector || oldAttributesVector instanceof Vector2,
         `invalid oldAttributesVector: ${oldAttributesVector}` );
       assert && assert( typeof isOnGraph === 'boolean', `invalid isOnGraph: ${isOnGraph}` );
 

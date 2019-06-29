@@ -20,37 +20,22 @@ define( require => {
      * @param {Tandem} tandem
      * @param {Object} [sceneNodeOptions]
      */
-    constructor( vectorAdditionModel, tandem, sceneNodeOptions ) {
+    constructor( vectorAdditionModel, sceneNodes, tandem ) {
 
       super();
 
       // TODO: do we need an instance or is a constant sufficient
-      this.sceneNodes = [];
-
-      this.graphToSceneNode = {};
-      vectorAdditionModel.graphs.forEach( ( graph ) => {
-        
-        // create a scene node and add it as a child
-        const sceneNode = new SceneNode( graph,
-          vectorAdditionModel.gridVisibleProperty,
-          vectorAdditionModel.componentStyleProperty,
-          vectorAdditionModel.angleVisibleProperty,
-          vectorAdditionModel.valuesVisibleProperty, {
-            inspectVectorPanelOptions: sceneNodeOptions
-          } );
-        this.addChild( sceneNode );
-
-        this.graphToSceneNode[ graph ] = sceneNode;
-        
-        this.sceneNodes.push( sceneNode );
+      sceneNodes.forEach( ( sceneNode ) => {
+        this.addChild( sceneNode )
       } );
+
 
       const resetAllButton = new ResetAllButton( {
         listener: () => {
           vectorAdditionModel.reset();
 
           // loop through SceneNodes and reset each sceneNode
-          this.sceneNodes.forEach( ( sceneNode ) =>
+          sceneNodes.forEach( ( sceneNode ) =>
             sceneNode.reset()
           );
 

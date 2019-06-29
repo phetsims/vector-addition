@@ -247,16 +247,15 @@ define( require => {
 
       const vectorTip = this.vectorModel.tip;
 
-      // Update the model vector
-      this.vectorModel.tip = this.vectorModel.tail.plus(
+      const vectorTipPosition = this.vectorModel.tail.plus(
         this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
 
       // Round the tip position according to the coordinateSnapMode
       if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-        this.vectorModel.roundPolarForm();
+        this.vectorModel.dragTipInPolar( vectorTipPosition );
       }
       else if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-        this.vectorModel.roundCartesianForm();
+        this.vectorModel.dragTipInCartesian( vectorTipPosition );
       }
 
       if ( !this.vectorModel.magnitude ) {

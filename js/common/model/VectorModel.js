@@ -105,7 +105,7 @@ define( require => {
       // Function to update the position of the tail of the vector based on the modelViewTransform
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
-        this.tail = newModelViewTransform.viewToModelPosition( oldTailViewPosition );
+        this.translateToPoint( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
       };
 
       this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
@@ -214,7 +214,9 @@ define( require => {
       const vectorAttributes = tipPosition.minus( this.tail );
 
       const roundedMagnitude = Util.roundSymmetric( vectorAttributes.magnitude );
-      const roundedAngle = ANGLE_INTERVAL * Util.roundSymmetric( vectorAttributes.angle / ANGLE_INTERVAL );
+
+      const angleInRadians = Util.toRadians( ANGLE_INTERVAL );
+      const roundedAngle = angleInRadians * Util.roundSymmetric( vectorAttributes.angle / angleInRadians );
 
       // Calculate the rounded polar vector
       const polarVector = vectorAttributes.setPolar( roundedMagnitude, roundedAngle );
@@ -223,7 +225,6 @@ define( require => {
       while ( !this.graph.graphModelBounds.containsPoint( this.tail.plus( polarVector ) ) ) {
         polarVector.setMagnitude( polarVector.magnitude - 1 );
       }
-
       // Update the model tip
       this.tip = this.tail.plus( polarVector );
     }
@@ -299,7 +300,7 @@ define( require => {
         // Remove listeners
         animation.finishEmitter.removeListener( animationFinished );
         animation.stopEmitter.removeListener( animationFinished );
-      }
+      };
 
       animation.finishEmitter.addListener( animationFinished );
       animation.stopEmitter.addListener( animationFinished );
@@ -323,7 +324,7 @@ define( require => {
     dropOntoGraph() {
 
       assert && assert( !this.isOnGraphProperty.value, 'vector is already on the graph' );
-      assert && assert( !this.inProgressAnimationProperty.value, `cannot drop vector when it\'s animating` );
+      assert && assert( !this.inProgressAnimationProperty.value, 'cannot drop vector when it\'s animating' );
 
       this.isOnGraphProperty.value = true;
     }

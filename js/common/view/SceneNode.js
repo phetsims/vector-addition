@@ -159,12 +159,8 @@ define( require => {
           const removalListener = removedVector => {
             if ( removedVector === addedVector ) {
 
-              // deactivate
-              removedVector.isActiveProperty.value = false;
-
               xComponentNode.dispose();
               yComponentNode.dispose();
-              removedVector.dispose();
 
               vectorSet.vectors.removeItemRemovedListener( removalListener );
             }

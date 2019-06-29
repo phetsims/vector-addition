@@ -140,6 +140,7 @@ define( require => {
         const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, {
           label: options.label
         } );
+        vectorSet.vectors.push( vectorModel );
         
         //----------------------------------------------------------------------------------------
         // Create the vector node and add it to the container
@@ -177,7 +178,7 @@ define( require => {
             vectorModel.animateToPoint( iconPosition, iconAttributesVector, () => {
               
               iconNode.visible = true;
-
+              
               // Remove the vector model
               vectorSet.vectors.remove( vectorModel );
               vectorModel.dispose();
