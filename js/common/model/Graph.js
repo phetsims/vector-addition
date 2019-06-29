@@ -22,7 +22,9 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Property = require( 'AXON/Property' );
+  
   // constants
 
   // The view coordinates for the graph node location
@@ -46,7 +48,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public (read-only) {array.<VectorSet>} - the vectorSets for this graph
+      // @public {array.<VectorSet>} - the vectorSets for this graph
       this.vectorSets = [];
 
       // @public (read-only) {GraphOrientations}
@@ -79,29 +81,30 @@ define( require => {
         ), {
           valueType: ModelViewTransform2
         } );
+
+      // @public {Property.<VectorModel|null>} - the active vector.
+      this.activeVectorProperty = new Property( null, {
+        isValidValue: ( value ) => {
+          return value === null || value instanceof VectorModel;
+        }
+      } );
     }
 
     /**
-     * Adds a VectorSet to the graph
+     * Creates a VectorSet
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - the sum visible property for this vector set
      * @param {VectorGroups} vectorGroup
      * @param {CoordinateSnapModes} coordinateSnapMode
-     * @returns {VectorSet} - the vector set that was added
+     * @returns {VectorSet} - the vector set that was created
      * @public
      */
-    addVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
-
-      // Keep a reference
-      const vectorSet = new VectorSet(
-        this,
+    createVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
+      return new VectorSet( this,
         componentStyleProperty,
         sumVisibleProperty,
         vectorGroup,
         coordinateSnapMode );
-
-      this.vectorSets.push( vectorSet );
-      return vectorSet;
     }
 
     /**
