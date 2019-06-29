@@ -165,6 +165,7 @@ define( require => {
         // Add the removal listener for when the vector is removed
         const removalListener = removedVector => {
           if ( removedVector === vectorModel ) {
+            removedVector.isOnGraphProperty.value = false;
             vectorNode.dispose()
             iconNode.visible = true;
             vectorSet.vectors.removeItemRemovedListener( removalListener );

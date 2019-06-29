@@ -1,7 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for vectorial sum of all the vectors of a vector set
+ * Model for vectorial sum of all the vectors of a vector set. Only calculates the sum of the vectors
+ * that are on the graph.
  *
  * @author Martin Veillette
  */
@@ -10,14 +11,17 @@ define( require => {
   'use strict';
 
   // modules
+  const Property = require( 'AXON/Property' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
-  const Vector2 = require( 'DOT/Vector2' );
+
   // constants
 
   // The label of the vector when its active if and only if the user doesn't provide the label option.
   // The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
   const FALLBACK_VECTOR_LABEL = 'v';
+
 
   class VectorSum extends VectorModel {
     /**
@@ -48,47 +52,27 @@ define( require => {
       // @public (read-only)
       this.fallbackLabel = FALLBACK_VECTOR_LABEL;
 
+      // Vector sums are always on the graph
       this.isOnGraphProperty.value = true;
+
+      // @private {ObservableArray.<VectorModel>}
+      this.vectors = vectorSet.vectors;
+
       //----------------------------------------------------------------------------------------
 
       // Observe changes to the vector array. Never removed because the vector sum exists throughout the entire sim.
       vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
 
-        //----------------------------------------------------------------------------------------
-        // Since vectors are created the second the creator icon is clicked, but still aren't on the graph, this is also
-        // called when the vector's isOnGraph Property changes. Vectors are also not removed until animated back, but
-        // those vectors shouldn't be calculated in the sum
-        //----------------------------------------------------------------------------------------
-
-        // ** a multilink doesn't work for this situation since we need the old attributes vector ** //
-       
-        const attributesVectorListener = ( attributesVector, oldAttributesVector ) => {
-          this.updateSum( attributesVector, oldAttributesVector );
-        }
-
-        const isOnGraphListener = ( isOnGraph ) => {
-          if ( isOnGraph ) {
-            // Calculate the sum when the vector is changed or added. Unable to use a multilink because the old value is
-            // needed
-            addedVector.attributesVectorProperty.link( attributesVectorListener );
-          }
-          else {
-            addedVector.attributesVectorProperty.unlink( attributesVectorListener );
-          } 
-        }
-
-        addedVector.isOnGraphProperty.lazyLink( isOnGraphListener );
-
-
+        const vectorObserver = Property.multilink(
+          [ addedVector.attributesVectorProperty, addedVector.isOnGraphProperty ], () => {
+            this.updateSum();
+          } );
+        
         const vectorRemovedListener = ( removedVector ) => {
           if ( removedVector === addedVector ) {
 
-            // Recalculate the sum when the vector is removed
-            this.attributesVector = this.attributesVector.minus( removedVector.attributesVector );
-
-            // Remove listeners
-            removedVector.isOnGraphProperty.unlink( isOnGraphListener );
-
+            this.updateSum();
+            vectorObserver.dispose();
             vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
           }
         };
@@ -105,24 +89,25 @@ define( require => {
     dispose() { throw new Error( 'Vector Sum is never disposed' ); }
 
     /**
-     * Updates the sum. Called when either a vector is added, removed. This assumes the vector isOnGraph is true.
-     * @param {Vector2} attributesVector - the attributesVector of the updated vector
-     * @param {Vector2} oldAttributesVector - needed to subtract the previous value
+     * Updates the sum. Since vectors are created the second the creator icon is clicked, but still aren't on the graph
+     * and shouldn't be apart of the sum, create a multilink. Vectors are also not removed until animated back, but also
+     * those vectors shouldn't be calculated in the sum.
+     * In short, this calculates the sum based on the sum of the vectors that are on graph
+     * @public
      */
-    updateSum( attributesVector, oldAttributesVector ) {
+    updateSum() {
 
-      assert && assert( attributesVector instanceof Vector2, `invalid attributesVector: ${attributesVector}` );
-      assert && assert( !oldAttributesVector || oldAttributesVector instanceof Vector2,
-        `invalid oldAttributesVector: ${oldAttributesVector}` );
+      const onGraphVectors = this.vectors.filter( ( vector ) => {
+        return vector.isOnGraphProperty.value;
+      } );
 
-      // Add the current value of the new vector
-      this.attributesVector = this.attributesVector.plus( attributesVector );
+      let sumVector = Vector2.ZERO;
 
-      // Remove the old value of the vector to get the change in the vector.
-      if ( oldAttributesVector ) {
-        this.attributesVector = this.attributesVector.minus( oldAttributesVector );
-      }
- 
+      onGraphVectors.forEach( ( vector ) => {
+        sumVector = sumVector.plus( vector.attributesVector );
+      } );
+
+      this.attributesVector = sumVector;
     }
 
 
