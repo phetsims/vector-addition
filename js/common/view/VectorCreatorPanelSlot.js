@@ -160,8 +160,20 @@ define( require => {
         // Change the visibility to allow / not allow infinite slots
         iconNode.visible = options.isInfinite;
 
-        //----------------------------------------------------------------------------------------
 
+        //----------------------------------------------------------------------------------------
+        // Add the removal listener for when the vector is removed
+        const removalListener = removedVector => {
+          if ( removedVector === vectorModel ) {
+            vectorNode.dispose()
+            iconNode.visible = true;
+            vectorSet.vectors.removeItemRemovedListener( removalListener );
+          }
+        };
+
+        vectorSet.vectors.addItemRemovedListener( removalListener );
+
+        //----------------------------------------------------------------------------------------
         // Observe when the vector node says its time to animate back.
         vectorNode.animateBackProperty.link( ( animateBack ) => {
          
@@ -183,20 +195,16 @@ define( require => {
               // Remove the vector model
               vectorSet.vectors.remove( vectorModel );
               vectorModel.dispose();
-              vectorNode.dispose();
             } 
-            const animationStoppedListener = () => {
 
-               iconNode.visible = true;
-               vectorNode.dispose();
-            }
-
-            vectorModel.animateToPoint( iconPosition, iconAttributesVector, animationFinishedListener, animationStoppedListener );
+            vectorModel.animateToPoint( iconPosition, iconAttributesVector, animationFinishedListener );
           }
+
         } );
-        }, {
-          allowTouchSnag: true
-        } ) );
+
+      }, {
+        allowTouchSnag: true
+      } ) );
     }
   }
 

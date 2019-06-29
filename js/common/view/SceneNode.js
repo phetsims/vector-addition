@@ -158,7 +158,7 @@ define( require => {
           // Add the removal listener for when the vector is removed
           const removalListener = removedVector => {
             if ( removedVector === addedVector ) {
-
+              
               xComponentNode.dispose();
               yComponentNode.dispose();
 

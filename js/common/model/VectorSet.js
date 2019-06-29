@@ -77,11 +77,11 @@ define( require => {
      * Resets the vector set, by clearing the vectors array and reset the vectorSum
      */
     reset() {
-      // Dispose every vector
+
+      // Dispose each vector
       while ( this.vectors.length ) {
         this.vectors.pop().dispose();
       }
-
       this.vectorSum.reset();
     }
 

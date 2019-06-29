@@ -137,9 +137,10 @@ define( require => {
 
 
             const dropVector = graph.graphModelBounds.containsPoint( tailPosition.plus( this.vectorModel.attributesVector.timesScalar( 0.5 ) )  );
-            this.arrowNode.cursor = 'default';
+
             if ( !dropVector ) {
               this.animateBackProperty.value = true;
+              this.arrowNode.cursor = 'default';
 
             }
             else {

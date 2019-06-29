@@ -13,7 +13,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const Vector2 = require( 'DOT/Vector2' );
-
   // constants
 
   // The label of the vector when its active if and only if the user doesn't provide the label option.
@@ -35,7 +34,7 @@ define( require => {
         label: 's', // {string|null} - the label of the vector. If null, the vector will display a the fallback label
         // when its active
 
-        isTipDraggable: true // {boolean} - false means the tip won't be draggable
+        isTipDraggable: false // {boolean} - false means the tip won't be draggable
       }, options );
 
 
@@ -49,35 +48,45 @@ define( require => {
       // @public (read-only)
       this.fallbackLabel = FALLBACK_VECTOR_LABEL;
 
+      this.isOnGraphProperty.value = true;
       //----------------------------------------------------------------------------------------
 
       // Observe changes to the vector array. Never removed because the vector sum exists throughout the entire sim.
       vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
 
+        //----------------------------------------------------------------------------------------
+        // Since vectors are created the second the creator icon is clicked, but still aren't on the graph, this is also
+        // called when the vector's isOnGraph Property changes. Vectors are also not removed until animated back, but
+        // those vectors shouldn't be calculated in the sum
+        //----------------------------------------------------------------------------------------
+
+        // ** a multilink doesn't work for this situation since we need the old attributes vector ** //
+       
         const attributesVectorListener = ( attributesVector, oldAttributesVector ) => {
-          this.updateSum( attributesVector, oldAttributesVector, addedVector.isOnGraphProperty.value );
+          this.updateSum( attributesVector, oldAttributesVector );
         }
-        // Calculate the sum when the vector is changed or added. Unable to use a multilink because the old value is
-        // needed
-        addedVector.attributesVectorProperty.link( attributesVectorListener );
-        
 
         const isOnGraphListener = ( isOnGraph ) => {
-          this.updateSum( addedVector.attributesVector, addedVector.attributesVector, isOnGraph );
+          if ( isOnGraph ) {
+            // Calculate the sum when the vector is changed or added. Unable to use a multilink because the old value is
+            // needed
+            addedVector.attributesVectorProperty.link( attributesVectorListener );
+          }
+          else {
+            addedVector.attributesVectorProperty.unlink( attributesVectorListener );
+          } 
         }
-        // Calculate the sum when the vector is taken off or dropped. Unable to use a multilink because the old value is
-        // needed
-        addedVector.isOnGraphProperty.link( isOnGraphListener );
+
+        addedVector.isOnGraphProperty.lazyLink( isOnGraphListener );
 
 
         const vectorRemovedListener = ( removedVector ) => {
           if ( removedVector === addedVector ) {
 
             // Recalculate the sum when the vector is removed
-            this.attributesVector = this.attributesVector.minus( removedVector.attributesVectorProperty.value );
+            this.attributesVector = this.attributesVector.minus( removedVector.attributesVector );
 
             // Remove listeners
-            removedVector.attributesVectorProperty.unlink( attributesVectorListener );
             removedVector.isOnGraphProperty.unlink( isOnGraphListener );
 
             vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
@@ -87,6 +96,7 @@ define( require => {
         vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
       } );
     }
+
     /** 
      * The sum is never disposed. Check to make sure the sum isn't disposed.
      * @public
@@ -95,33 +105,24 @@ define( require => {
     dispose() { throw new Error( 'Vector Sum is never disposed' ); }
 
     /**
-     * Updates the sum. Called when either a vector is added, removed. Since vectors are created the second
-     * the creator icon is clicked, but still aren't on the graph, this is also called when the vector's isOnGraph
-     * Property changes. Vectors are also not removed until animated back, but those vectors shouldn't be calculated
-     * in the sum
+     * Updates the sum. Called when either a vector is added, removed. This assumes the vector isOnGraph is true.
      * @param {Vector2} attributesVector - the attributesVector of the updated vector
      * @param {Vector2} oldAttributesVector - needed to subtract the previous value
-     * @param {boolean} isOnGraph
      */
-    updateSum( attributesVector, oldAttributesVector, isOnGraph ) {
+    updateSum( attributesVector, oldAttributesVector ) {
 
       assert && assert( attributesVector instanceof Vector2, `invalid attributesVector: ${attributesVector}` );
       assert && assert( !oldAttributesVector || oldAttributesVector instanceof Vector2,
         `invalid oldAttributesVector: ${oldAttributesVector}` );
-      assert && assert( typeof isOnGraph === 'boolean', `invalid isOnGraph: ${isOnGraph}` );
 
-      if ( isOnGraph ) {
-        // Add the current value of the new vector
-        this.attributesVector = this.attributesVector.plus( attributesVector );
+      // Add the current value of the new vector
+      this.attributesVector = this.attributesVector.plus( attributesVector );
 
-        // Remove the old value of the vector to get the change in the vector.
-        if ( oldAttributesVector ) {
-          this.attributesVector = this.attributesVector.minus( oldAttributesVector );
-        }
+      // Remove the old value of the vector to get the change in the vector.
+      if ( oldAttributesVector ) {
+        this.attributesVector = this.attributesVector.minus( oldAttributesVector );
       }
-      else {
-        this.attributesVector = this.attributesVector.minus( attributesVector );
-      }
+ 
     }
 
 

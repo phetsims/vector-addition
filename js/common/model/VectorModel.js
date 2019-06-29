@@ -256,11 +256,10 @@ define( require => {
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
      * @param {Vector2} point
      * @param {Vector2} iconAttributesVector
-     * @param {function} finishedCallback - callback when the animation is over or stopped
-     * @param {function} stoppedCallback - callback when the animation is suddenly stopped
+     * @param {function} finishedCallback - callback if and only if the animation finishes
      * @public
      */
-    animateToPoint( point, iconAttributesVector, finishedCallback, stoppedCallback ) {
+    animateToPoint( point, iconAttributesVector, finishedCallback ) {
 
 
       assert && assert( !this.inProgressAnimationProperty.value,
@@ -271,7 +270,6 @@ define( require => {
       assert && assert( iconAttributesVector instanceof Vector2,
         `invalid iconAttributesVector: ${iconAttributesVector}` );
       assert && assert( typeof finishedCallback === 'function', `invalid finishedCallback: ${finishedCallback}` );
-      assert && assert( typeof stoppedCallback === 'function', `invalid stoppedCallback: ${stoppedCallback}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -304,16 +302,7 @@ define( require => {
         animation.finishEmitter.removeListener( animationFinished );
       };
 
-      const animationStopped = () => {
-        this.inProgressAnimationProperty.value = null;
-
-        stoppedCallback();
-
-        animation.stopEmitter.removeListener( animationStopped );
-      }
-
       animation.finishEmitter.addListener( animationFinished );
-      animation.stopEmitter.addListener( animationStopped);
     }
 
     /**
