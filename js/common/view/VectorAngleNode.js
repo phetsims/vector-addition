@@ -94,9 +94,9 @@ define( require => {
 
       // Observe when the angle visible property is changing and update the visibility of the angle node. The angle is
       // only visible when the vector is both active and the angle checkbox is clicked
-      const visibilityObserver = Property.multilink( [ angleVisibleProperty, vectorModel.isActiveProperty ],
-        ( angleVisible, isActive ) => {
-          this.visible = angleVisible && isActive;
+      const visibilityObserver = Property.multilink( [ angleVisibleProperty ],
+        ( angleVisible ) => {
+          this.visible = angleVisible;
         } );
 
       // @private {function} - function to unlink listeners, called in dispose()

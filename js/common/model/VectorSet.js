@@ -22,7 +22,6 @@ define( require => {
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
   class VectorSet {
-
     /**
      * @constructor
      * @param {Graph} graph
@@ -47,28 +46,30 @@ define( require => {
       // @public {ObservableArray.<VectorModel>} vectors
       this.vectors = new ObservableArray();
 
-      // @public {VectorModel} the vector sum model
-      this.vectorSum = new VectorSum( this.vectors, graph, componentStyleProperty, vectorGroup );
-
-      // @public {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
+      // @public (read-only) {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
       this.vectorGroup = vectorGroup;
 
-      // @public {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible property
+      // @public (read-only) {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible property
       this.sumVisibleProperty = sumVisibleProperty;
 
-      // TODO: indicate type
-      // @public (read-only)
+      // @public (read-only) {CoordinateSnapModes}
       this.coordinateSnapMode = coordinateSnapMode;
 
       //----------------------------------------------------------------------------------------
       // Create references to parameters
 
-      // TODO wrong type
-      // @private {Property.<ModelViewTransform>}
+      // @private {Graph}
       this.graph = graph;
 
       // @private {Property.<ComponentStyles>}
       this.componentStyleProperty = componentStyleProperty;
+
+      //----------------------------------------------------------------------------------------
+      // Create the sum
+
+      // @public (read-only) {VectorModel} the vector sum model
+      this.vectorSum = new VectorSum( graph, this );
+
     }
 
     /**
@@ -76,39 +77,27 @@ define( require => {
      * Resets the vector set, by clearing the vectors array and reset the vectorSum
      */
     reset() {
-      this.vectors.clear();
+      // Dispose every vector
+      while ( this.vectors.length ) {
+        this.vectors.pop().dispose();
+      }
+
       this.vectorSum.reset();
     }
 
     /**
      * @public
-     * Adds a VectorModel to the vector observable array.
+     * Creates a vector model. This doesn't get added to the vector ObservableArray
      * @param {Vector2} tailPosition
      * @param {number} xComponent
      * @param {number} yComponent
      * @param {Object} [options]
-     * @returns {VectorModel} the vector model added
+     * @returns {VectorModel} the created vector model
      */
-    addVector( tailPosition, xComponent, yComponent, options ) {
-
-      // Keep a reference
-      const vector = new VectorModel(
-        tailPosition,
-        xComponent,
-        yComponent,
-        this.graph,
-        this.componentStyleProperty,
-        this.vectorGroup,
-        options );
-
-      //TODO: this is not a good practice since this method is returning an object AND has a side effect
-      //TODO: break down into two function
-      // Activate the new vector
-      vector.activate();
-
-      this.vectors.push( vector );
-      return vector;
+    createVector( tailPosition, xComponent, yComponent, options ) {
+      return new VectorModel( tailPosition, xComponent, yComponent, this.graph, this, options );
     }
+
   }
 
   return vectorAddition.register( 'VectorSet', VectorSet );

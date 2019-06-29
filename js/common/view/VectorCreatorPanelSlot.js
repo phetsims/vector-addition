@@ -19,23 +19,23 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
+  const ScreenView = require( 'JOIST/ScreenView' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-
 
   // constants
   const LABEL_AND_ICON_SPACING = 6;
@@ -114,8 +114,22 @@ define( require => {
       // When the vector icon is clicked, create a new vector model
       iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
         
-        // TODO: use JBPhets area-build approach to get the screen view
-        const globalPoint = event.pointer.trail.get( 1 ).globalToLocalPoint( event.pointer.point );
+        // Get the parent screen view
+        let parentScreenView;
+
+        let testNode = this;
+        while ( testNode ) {
+          if ( testNode instanceof ScreenView ) {
+            parentScreenView = testNode;
+            break;
+          }
+          testNode = testNode.parent; // move up the scene graph by one level
+        }
+        assert && assert( parentScreenView, 'unable to find parent screen view' );
+        
+        //----------------------------------------------------------------------------------------
+
+        const globalPoint = parentScreenView.globalToLocalPoint( event.pointer.point );
        
         const vectorCenterPosition = modelViewTransformProperty.value.viewToModelPosition( globalPoint );
 
@@ -123,11 +137,10 @@ define( require => {
         const vectorTailPosition = vectorCenterPosition.minus( initialVector.timesScalar( 0.5 ) );
 
         // Create the new Vector Model
-        const vectorModel = vectorSet.addVector(
-          vectorTailPosition,
-          initialVector.x,
-          initialVector.y,
-          ( options.label ) ? { label: options.label } : {} );
+        const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, {
+          label: options.label
+        } );
+        
         //----------------------------------------------------------------------------------------
         // Create the vector node and add it to the container
         const vectorNode = new VectorNode( vectorModel,
@@ -138,43 +151,43 @@ define( require => {
           vectorSet.coordinateSnapMode
         );
 
-
         vectorContainer.addChild( vectorNode );
 
         // Active the body drag
         vectorNode.bodyDragListener.press( event, vectorNode );
         
+        // Change the visibility to allow / not allow infinite slots
+        iconNode.visible = options.isInfinite;
+
+        //----------------------------------------------------------------------------------------
 
         // Observe when the vector node says its time to animate back.
         vectorNode.animateBackProperty.link( ( animateBack ) => {
          
           if ( animateBack ) {
 
-            const myMatrix= iconNode.getUniqueTrail().getMatrixTo(iconNode.getUniqueTrail().nodes[1].getUniqueTrail())
-
-
+            // Get the location of the icon node relative to the screen view
+            const iconPosition = modelViewTransformProperty.value.viewToModelBounds(
+                                  parentScreenView.boundsOf( iconNode ) ).center;
 
             const iconAttributesVector = modelViewTransformProperty.value.viewToModelDelta(
                                           new Vector2( iconNode.width, -iconNode.height ) );
 
-            vectorModel.animateToPoint( modelViewTransformProperty.value.viewToModelPosition( myMatrix.timesVector2(iconNode.centerTop) ), iconAttributesVector , () => {
+            //----------------------------------------------------------------------------------------
+            vectorModel.animateToPoint( iconPosition, iconAttributesVector, () => {
+              
               iconNode.visible = true;
+
+              // Remove the vector model
+              vectorSet.vectors.remove( vectorModel );
               vectorModel.dispose();
               vectorNode.dispose();
             } );
           }
         } );
-
-        if ( !options.isInfinite ) {
-          iconNode.visible = false;
-        }
-
         }, {
           allowTouchSnag: true
         } ) );
-
-
-
     }
   }
 

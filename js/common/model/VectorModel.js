@@ -37,8 +37,8 @@ define( require => {
   // The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
   const FALLBACK_VECTOR_LABEL = 'v';
 
-  const AVERAGE_ANIMATION_SPEED = 1000; // view coordinates per second
-  const MIN_ANIMATION_TIME = 10; // in seconds
+  const AVERAGE_ANIMATION_SPEED = 1500; // view coordinates per second
+  const MIN_ANIMATION_TIME = 0.9; // in seconds
 
 
   class VectorModel extends BaseVectorModel {
@@ -48,9 +48,10 @@ define( require => {
      * @param {number} xComponent horizontal component of the vector
      * @param {number} yComponent vertical component of the vector
      * @param {VectorSet} the vectorSet that the vector belongs to
+     * @param {Graph} the graph the vector belongs to
      * @param {Object} [options]
      */
-    constructor( tailPosition, xComponent, yComponent, vectorSet, options ) {
+    constructor( tailPosition, xComponent, yComponent, graph, vectorSet, options ) {
 
       options = _.extend( {
         label: null, // {string|null} - the label of the vector. If null, the vector will display a the fallback label
@@ -118,10 +119,10 @@ define( require => {
       // Vector Components
 
       // @public (read only) {XVectorComponent}
-      this.xVectorComponent = new XVectorComponent( this, componentStyleProperty, this.label );
+      this.xVectorComponent = new XVectorComponent( this, vectorSet.componentStyleProperty );
 
       // @public (read only) {YVectorComponent}
-      this.yVectorComponent = new YVectorComponent( this, componentStyleProperty, this.label );
+      this.yVectorComponent = new YVectorComponent( this, vectorSet.componentStyleProperty );
     
       //----------------------------------------------------------------------------------------
       // Vector states
@@ -262,7 +263,7 @@ define( require => {
         'Can\'t animate to position when we are in animation currently' );
       assert && assert ( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the graph' );
 
-      assert && assert( point instanceof Vector2, `invalid position: ${position}` );
+      assert && assert( point instanceof Vector2, `invalid point: ${point}` );
       assert && assert( iconAttributesVector instanceof Vector2,
         `invalid iconAttributesVector: ${iconAttributesVector}` );
       assert && assert( typeof callback === 'function', `invalid callback: ${callback}` );
@@ -270,7 +271,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Convert the parameter into where the tail would be in that position
-      const tailPosition = point.minus( iconAttributesVector );
+      const tailPosition = point.minus( iconAttributesVector.timesScalar( 0.5 ) );
 
       // Animate the vector
       const animation = new Animation( {
@@ -289,6 +290,8 @@ define( require => {
       } ).start();
 
 
+      // Reset properties and call the callback when the animation is either over
+
       const animationFinished = () => {
         this.inProgressAnimationProperty.value = null;
         callback();
@@ -298,10 +301,8 @@ define( require => {
         animation.stopEmitter.removeListener( animationFinished );
       }
 
-      // Reset properties and call the callback when the animation is either over
       animation.finishEmitter.addListener( animationFinished );
       animation.stopEmitter.addListener( animationFinished );
-
     }
 
     /**
@@ -321,8 +322,8 @@ define( require => {
      */
     dropOntoGraph() {
 
-      assert && assert( this.isOnGraphProperty.value === false, 'vector is already on the graph' );
-      assert && assert( this.isAnimatingBackProperty.value === false, `cannot drop vector when its animating` );
+      assert && assert( !this.isOnGraphProperty.value, 'vector is already on the graph' );
+      assert && assert( !this.inProgressAnimationProperty.value, `cannot drop vector when it\'s animating` );
 
       this.isOnGraphProperty.value = true;
     }

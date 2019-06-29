@@ -128,7 +128,7 @@ define( require => {
         targetNode: this,
         locationProperty: tailLocationProperty,
         start: () => {
-          vectorModel.isActiveProperty.value = true;
+          // vectorModel.isActiveProperty.value = true;
           this.moveToFront();
         },
         end: () => {
@@ -147,7 +147,7 @@ define( require => {
               this.updateTailPosition( tailLocationProperty.value )
             }
           }
-          vectorModel.isActiveProperty.value = false;
+          // vectorModel.isActiveProperty.value = false;
         }
       } );
 
@@ -181,11 +181,11 @@ define( require => {
           targetNode: tipCircle,
           locationProperty: tipLocationProperty,
           start: () => {
-            vectorModel.isActiveProperty.value = true;
+            // vectorModel.isActiveProperty.value = true;
             this.moveToFront();
           },
           end: () => {
-            vectorModel.isActiveProperty.value = false;
+            // vectorModel.isActiveProperty.value = false;
           }
         } );
 

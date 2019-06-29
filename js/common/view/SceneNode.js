@@ -70,7 +70,7 @@ define( require => {
 
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      const inspectVectorPanel = new InspectVectorPanel( graph.vectorSets, options.inspectVectorPanelOptions );
+      // const inspectVectorPanel = new InspectVectorPanel( graph.vectorSets, options.inspectVectorPanelOptions );
 
       const eraserButton = new EraserButton( {
         listener: () => {
@@ -90,9 +90,9 @@ define( require => {
       super( {
         children: [
           graphNode,
-          new Node( _.extend( {
-            children: [ inspectVectorPanel ]
-          }, options.inspectVectorPanelLocation ) ),
+          // new Node( _.extend( {
+          //   children: [ inspectVectorPanel ]
+          // }, options.inspectVectorPanelLocation ) ),
           eraserButton,
           vectorComponentContainer,
           vectorSumComponentContainer,
@@ -162,8 +162,6 @@ define( require => {
               // deactivate
               removedVector.isActiveProperty.value = false;
 
-              // Dispose of the vector and its model
-              vectorNode.dispose();
               xComponentNode.dispose();
               yComponentNode.dispose();
               removedVector.dispose();
