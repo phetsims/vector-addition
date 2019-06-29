@@ -38,7 +38,9 @@ define( require => {
         label: 's', // {string|null} - the label of the vector. If null, the vector will display a the fallback label
         // when its active
 
-        isTipDraggable: false // {boolean} - false means the tip won't be draggable
+        isTipDraggable: false, // {boolean} - false means the tip won't be draggable
+        isRemovable: false // {boolean} - false means the user will not be able to drag a vector off the graph
+
       }, options );
 
 
@@ -55,6 +57,12 @@ define( require => {
       // Vector sums are always on the graph
       this.isOnGraphProperty.value = true;
 
+      this.isOnGraphProperty.link( ( isOnGraph ) => {
+        if ( isOnGraph === false ) {
+          assert && assert( false, 'vector sums should never be off the graph' );
+        }
+      } );
+      
       // @private {ObservableArray.<VectorModel>}
       this.vectors = vectorSet.vectors;
 

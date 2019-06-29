@@ -250,9 +250,15 @@ define( require => {
 
       // Ensure that the tail is on the graph
       this.moveVectorTailToFitInGraph( tailPosition );
-
-      //----------------------------------------------------------------------------------------
+      
       const constrainedBounds = this.getConstrainedTailBounds();
+
+      /*---------------------------------------------------------------------------*
+       * Remove vectors
+       *---------------------------------------------------------------------------*/
+      if ( this.isRemovable === false ) {
+        return;
+      }
 
       // Offset of the cursor to the vector. This is users will remove vector according to displacement of the cursor.
       // See https://github.com/phetsims/vector-addition/issues/46
@@ -365,16 +371,17 @@ define( require => {
 
     /**
      * Drops the vector onto the graph. Called at the end of the drag if the user drops the vector onto the graph.
+     * @param {Vector2} tailPosition - the tail position to drop the vector onto
      * @public
      */
-    dropOntoGraph() {
+    dropOntoGraph( tailPosition ) {
 
       assert && assert( !this.isOnGraphProperty.value, 'vector is already on the graph' );
       assert && assert( !this.inProgressAnimationProperty.value, 'cannot drop vector when it\'s animating' );
 
       this.isOnGraphProperty.value = true;
 
-      this.moveVectorTailToFitInGraph( this.tail );
+      this.moveVectorTailToFitInGraph( tailPosition );
     }
   }
 

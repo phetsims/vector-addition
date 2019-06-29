@@ -34,9 +34,10 @@ define( require => {
   };
   const VECTOR_SHADOW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
     fill: VectorAdditionColors.BLACK,
-    opacity: 0.4
+    opacity: 0.28
   } );
-  const VECTOR_SHADOW_OFFSET = 6.2;
+  const VECTOR_SHADOW_OFFSET_X = 3;
+  const VECTOR_SHADOW_OFFSET_Y = 1.3;
 
   class VectorNode extends BaseVectorNode {
     /**
@@ -125,10 +126,9 @@ define( require => {
             // do nothing
             return;
           }
-
           //----------------------------------------------------------------------------------------
           // If we aren't on the graph, at the end of the drag determine to either drop the vector or animate back 
-          if ( !this.vectorModel.isOnGraphProperty.value ) {
+          if ( !this.vectorModel.isOnGraphProperty.value && this.vectorModel.isRemovable ) {
 
             // Tail position, since the vector center is always on the cursor
             const cursorPosition = modelViewTransformProperty.value.viewToModelDelta(
@@ -140,7 +140,10 @@ define( require => {
               this.arrowNode.cursor = 'default';
             }
             else {
-              this.vectorModel.dropOntoGraph();
+              const shadowTailPosition = vectorModel.tail.plus( modelViewTransformProperty.value.viewToModelDelta(
+                vectorShadowNode.center ).minus( vectorModel.attributesVector.timesScalar( 0.5 ) ) );
+
+              this.vectorModel.dropOntoGraph( shadowTailPosition );
             }
           }
         }
@@ -217,7 +220,8 @@ define( require => {
 
         vectorShadowNode.resetTransform();
         if ( !isOnGraph ) {
-          vectorShadowNode.left = VECTOR_SHADOW_OFFSET;
+          vectorShadowNode.left = VECTOR_SHADOW_OFFSET_X;
+          vectorShadowNode.top += VECTOR_SHADOW_OFFSET_Y;
         }
 
         // Get the tip location in view coordinates
