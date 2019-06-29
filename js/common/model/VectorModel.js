@@ -139,7 +139,7 @@ define( require => {
 
       // @public (read only) {YVectorComponent}
       this.yVectorComponent = new YVectorComponent( this, vectorSet.componentStyleProperty );
-    
+
       //----------------------------------------------------------------------------------------
       // Vector states
 
@@ -243,14 +243,14 @@ define( require => {
      * @public
      */
     dragTailToPosition( tailPosition ) {
-      
+
       assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
-      assert && assert( this.isOnGraphProperty.value === true , 'should be in graph to drag' );
+      assert && assert( this.isOnGraphProperty.value === true, 'should be in graph to drag' );
       assert && assert( !this.inProgressAnimationProperty.value, 'can\'t drag vector when animating' );
 
       // Ensure that the tail is on the graph
       this.moveVectorTailToFitInGraph( tailPosition );
-      
+
       const constrainedBounds = this.getConstrainedTailBounds();
 
       /*---------------------------------------------------------------------------*
@@ -273,14 +273,14 @@ define( require => {
      * Private helper methods
      *---------------------------------------------------------------------------*/
     /**
-     * Updates the tail such that both tail and tip of the vector remain with the graphBounds. 
+     * Updates the tail such that both tail and tip of the vector remain with the graphBounds.
      * @param {Vector2} tailPosition - attempts to place the vector's tail to this point, but ensures it's validity
      * @private
      */
     moveVectorTailToFitInGraph( tailPosition ) {
 
       assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
-      assert && assert( this.isOnGraphProperty.value === true , 'should be in graph to fit in to graph' );
+      assert && assert( this.isOnGraphProperty.value === true, 'should be in graph to fit in to graph' );
       assert && assert( !this.inProgressAnimationProperty.value, 'can\'t move vector when animating' );
 
       const constrainedBounds = this.getConstrainedTailBounds();
@@ -317,7 +317,7 @@ define( require => {
 
       assert && assert( !this.inProgressAnimationProperty.value,
         'Can\'t animate to position when we are in animation currently' );
-      assert && assert ( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the graph' );
+      assert && assert( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the graph' );
 
       assert && assert( point instanceof Vector2, `invalid point: ${point}` );
       assert && assert( iconAttributesVector instanceof Vector2,

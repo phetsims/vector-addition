@@ -41,7 +41,7 @@ define( require => {
       //   `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
-     
+
       options = _.extend( {
         inspectVectorPanelLocation: null, // {object|null}
         inspectVectorPanelOptions: null // {object|null}
@@ -90,7 +90,7 @@ define( require => {
 
       // @public (read-only)
       this.vectorContainer = vectorContainer;
-      
+
       /*---------------------------------------------------------------------------*
        * Loop through each vector set, observing changes and updating the scene
        *---------------------------------------------------------------------------*/
@@ -141,7 +141,7 @@ define( require => {
           // Add the removal listener for when the vector is removed
           const removalListener = removedVector => {
             if ( removedVector === addedVector ) {
-              
+
               // xComponentNode.dispose();
               // yComponentNode.dispose();
 

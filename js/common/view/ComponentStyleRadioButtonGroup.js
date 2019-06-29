@@ -2,7 +2,7 @@
 
 /**
  * Radio Button Group for the component styles
- *
+ *https://github.com/phetsims/sun/issues/513
  * @author Brandon Li
  */
 define( require => {

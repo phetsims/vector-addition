@@ -24,7 +24,7 @@ define( require => {
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const Property = require( 'AXON/Property' );
-  
+
   // constants
 
   // The view coordinates for the graph node location

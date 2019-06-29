@@ -45,7 +45,7 @@ define( require => {
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
-      `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
@@ -65,7 +65,7 @@ define( require => {
       } );
 
       //----------------------------------------------------------------------------------------
-      
+
       // Function to change the label value and the background rectangle
       const updateLabelNode = ( valuesVisible ) => {
 
@@ -76,7 +76,7 @@ define( require => {
 
         if ( valuesVisible ) {
           label.setFormula( isComponentModel ? roundedMagnitude :
-            `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${roundedMagnitude}}` );
+                            `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${roundedMagnitude}}` );
         }
         else if ( !valuesVisible && !isComponentModel ) {
           label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
@@ -84,7 +84,7 @@ define( require => {
 
         //----------------------------------------------------------------------------------------
         // Update the background
-        
+
         // Calculate the bounds using getSafeSelfBounds. See https://github.com/phetsims/vector-addition/issues/40.
         const labelBounds = label.getSafeSelfBounds();
 
@@ -99,13 +99,14 @@ define( require => {
       this.vectorObserver = new Multilink( [ valuesVisibleProperty,
           baseVectorModel.tailPositionProperty,
           baseVectorModel.tipPositionProperty ],
-          updateLabelNode );
+        updateLabelNode );
 
       // @private
       this.disposeListeners = () => {
         this.vectorObserver.dispose();
       };
     }
+
     /**
      * Disposes the label node
      * @public

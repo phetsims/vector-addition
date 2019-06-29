@@ -28,10 +28,10 @@ define( require => {
      * @param {BooleanProperty} sumVisibleProperty
      */
     constructor( vectorComponent,
-      modelViewTransformProperty,
-      componentStyleProperty,
-      valuesVisibleProperty,
-      sumVisibleProperty
+                 modelViewTransformProperty,
+                 componentStyleProperty,
+                 valuesVisibleProperty,
+                 sumVisibleProperty
     ) {
 
       // Type check unique arguments
@@ -46,10 +46,10 @@ define( require => {
           lineWidth: 0.5
         }
       } );
-        
+
       // Create a new observer
       this.vectorObserver.dispose();
-      
+
       // @private {Multilink}
       this.vectorObserver = new Multilink(
         [ valuesVisibleProperty,
@@ -58,19 +58,19 @@ define( require => {
           componentStyleProperty,
           sumVisibleProperty ],
         ( valuesVisible ) => {
-          
+
           // Update the appearance of the vector
           this.updateVector( vectorComponent,
             modelViewTransformProperty.value,
             componentStyleProperty.value,
-            sumVisibleProperty.value ); 
-          
+            sumVisibleProperty.value );
+
           // Update the appearance of the label
           this.updateLabelPositioning( vectorComponent, modelViewTransformProperty.value, valuesVisible );
         } );
 
     }
-    
+
     /**
      * Does the same as the super class, except handles the visibility based on the sum checkbox
      * @param {VectorComponent} vectorComponent

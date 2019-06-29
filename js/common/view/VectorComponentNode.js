@@ -28,10 +28,10 @@ define( require => {
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
 
   // constants
-        
+
   // Offset of the label
   const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
-  
+
   class VectorComponentNode extends BaseVectorNode {
     /**
      * @constructor
@@ -47,7 +47,7 @@ define( require => {
       assert && assert( vectorComponent instanceof VectorComponent, `invalid vectorComponent: ${vectorComponent}` );
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
-      `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
@@ -58,16 +58,16 @@ define( require => {
 
 
       //----------------------------------------------------------------------------------------
-  
+
       options = _.extend( {
         onAxisLinesOptions: null, // {Object} - options passed to the dashed lines shape. See the defaults below
-        
+
         arrowOptions: null // {Object} - passed to the super class to stylize the arrowOptions. See the defaults below
       }, options );
 
       options.onAxisLinesOptions = _.extend( {
         stroke: VectorAdditionColors.BLACK,
-        lineDash:[ 3, 10 ]
+        lineDash: [ 3, 10 ]
       }, options.onAxisLinesOptions );
 
       options.arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
@@ -101,16 +101,16 @@ define( require => {
           vectorComponent.tipPositionProperty,
           componentStyleProperty ],
         ( valuesVisible ) => {
-          
+
           // Update the appearance of the vector only when it is visible
-          this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value ); 
+          this.updateVector( vectorComponent, modelViewTransformProperty.value, componentStyleProperty.value );
 
           // Update the appearance of the label
           this.updateLabelPositioning( vectorComponent, modelViewTransformProperty.value, valuesVisible );
         } );
 
     }
-    
+
     /**
      * Updates the tail and tip position of the view. Called when the model changes tail/tip.
      * Does the same as super class but draws lines and toggles visibility based on componentStyleProperty
@@ -137,7 +137,7 @@ define( require => {
       }
       else {
         this.onAxisLinesPath.visible = false;
-        this.visible = true;       
+        this.visible = true;
       }
 
       super.updateVector( vectorComponent, modelViewTransform );
@@ -157,7 +157,7 @@ define( require => {
 
       const parentTailLocation = modelViewTransform.modelToViewDelta(
         vectorComponent.parentVector.tail.minus( vectorComponent.tail ) );
-      
+
       const parentTipLocation = modelViewTransform.modelToViewDelta(
         vectorComponent.parentVector.tip.minus( vectorComponent.tail ) );
 
@@ -196,20 +196,20 @@ define( require => {
       // Convenience variables
       const componentMidPoint = vectorComponent.attributesVector.timesScalar( 0.5 ).plus( vectorComponent.tail );
       const parentMidPoint = vectorComponent.parentVector.attributesVector
-                              .timesScalar( 0.5 )
-                              .plus( vectorComponent.parentVector.tail );
+        .timesScalar( 0.5 )
+        .plus( vectorComponent.parentVector.tail );
 
 
       if ( vectorComponent.componentType === VectorComponent.Types.X_COMPONENT ) { // if its an x component
-      
+
         // if the component is below the parent, position the label below, otherwise position it above
         if ( componentMidPoint.y <= parentMidPoint.y ) {
           offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
         }
-        else { 
+        else {
           offset.setXY( 0, COMPONENT_LABEL_OFFSET );
         }
-      }       
+      }
       else if ( vectorComponent.componentType === VectorComponent.Types.Y_COMPONENT ) { // if its an y component
 
         // if the component is to the left of the parent, position the label to the left, otherwise to the right

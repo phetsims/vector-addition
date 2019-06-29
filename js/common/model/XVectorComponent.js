@@ -26,7 +26,7 @@ define( require => {
 
       // @public (read-only)
       this.componentType = VectorComponent.Types.X_COMPONENT;
-      
+
       // Triangle and Parallelogram are the same for x component
       if ( componentStyle === ComponentStyles.TRIANGLE || componentStyle === ComponentStyles.PARALLELOGRAM ) {
 

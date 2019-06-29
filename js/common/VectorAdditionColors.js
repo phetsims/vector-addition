@@ -24,11 +24,11 @@ define( function( require ) {
   const LIGHT_GREEN = 'rgb( 204, 255, 204 )';
 
   const VectorAdditionColors = {
-    
+
     //----------------------------------------------------------------------------------------
     // General
     SCREEN_BACKGROUND: 'rgb( 255, 250, 227 )',
-  
+
     RADIO_BUTTON_COLORS: {
       baseColor: WHITE,
       selectedStroke: 'rgb( 65, 154, 201 )',

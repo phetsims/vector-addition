@@ -91,7 +91,7 @@ define( require => {
       this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode, tipCircle ] );
 
       //----------------------------------------------------------------------------------------
-      
+
       // @private {Property.<ModelViewTransform2>}
       this.modelViewTransformProperty = modelViewTransformProperty;
 
@@ -104,11 +104,11 @@ define( require => {
 
       // Create a property for the location of the tail of the vector.
       const tailLocationProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewPosition(
-                                                                                          vectorModel.tail ) );
+        vectorModel.tail ) );
 
       // @public (read-only) {BooleanProperty} property to indicate when the vector should be animated back to the creator panel
       this.animateBackProperty = new BooleanProperty( false );
-      
+
       // @public (read-only) {DragListener} - drag listener for translating the vector
       this.bodyDragListener = new DragListener( {
         targetNode: this,
@@ -132,8 +132,8 @@ define( require => {
 
             // Tail position, since the vector center is always on the cursor
             const cursorPosition = modelViewTransformProperty.value.viewToModelDelta(
-                                      this.bodyDragListener.localPoint ).plus( this.vectorModel.tail );
-            
+              this.bodyDragListener.localPoint ).plus( this.vectorModel.tail );
+
             // If the graph doesn't contain the center, it is time to animate back, otherwise drop it on the graph
             if ( !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
               this.animateBackProperty.value = true;
@@ -215,7 +215,7 @@ define( require => {
       // vector model changes
       const onGraphListener = ( isOnGraph, attributesVectorProperty ) => {
         this.labelNode.visible = isOnGraph;
-        
+
         vectorShadowNode.visible = !isOnGraph;
 
         vectorShadowNode.resetTransform();
@@ -229,7 +229,7 @@ define( require => {
         vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
       };
       const vectorOnGraphObserver = Property.multilink(
-        [ vectorModel.isOnGraphProperty, vectorModel.attributesVectorProperty ], onGraphListener)
+        [ vectorModel.isOnGraphProperty, vectorModel.attributesVectorProperty ], onGraphListener )
 
       //----------------------------------------------------------------------------------------
       // Create a method to dispose children
@@ -274,7 +274,7 @@ define( require => {
       }
 
       const vectorTipPosition = this.vectorModel.tail.plus(
-                                  this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
+        this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
 
       this.vectorModel.dragTipToPosition( vectorTipPosition );
     }
@@ -285,7 +285,7 @@ define( require => {
      * @private
      */
     updateTailPosition( tailLocation ) {
-      
+
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
 
       // Allow translation to anywhere if it isn't on the graph

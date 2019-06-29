@@ -108,9 +108,9 @@ define( require => {
       // When the vector icon is clicked, create a new vector model
       //----------------------------------------------------------------------------------------
       iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
-        
+
         const globalPoint = parentScreenView.globalToLocalPoint( event.pointer.point );
-       
+
         const vectorCenterPosition = modelViewTransformProperty.value.viewToModelPosition( globalPoint );
 
         // From the center, we can calculate where the tail would be based on the initialVector
@@ -122,7 +122,7 @@ define( require => {
           label: options.label
         } );
         vectorSet.vectors.push( vectorModel );
-        
+
         //----------------------------------------------------------------------------------------
         // Create the vector node and add it to the container
         const vectorNode = new VectorNode( vectorModel,
@@ -133,7 +133,7 @@ define( require => {
 
         // Activate the body drag the body drag
         vectorNode.bodyDragListener.press( event, vectorNode );
-        
+
         // Change the visibility to allow or not allow infinite slots
         iconNode.visible = options.isInfinite;
 
@@ -152,23 +152,23 @@ define( require => {
         //----------------------------------------------------------------------------------------
         // Observe when the vector node says its time to animate back.
         vectorNode.animateBackProperty.link( ( animateBack ) => {
-         
+
           if ( animateBack ) {
             // Get the location of the icon node relative to the screen view
             const iconPosition = modelViewTransformProperty.value.viewToModelBounds(
-                                  parentScreenView.boundsOf( iconNode ) ).center;
+              parentScreenView.boundsOf( iconNode ) ).center;
 
             const iconAttributesVector = modelViewTransformProperty.value.viewToModelDelta(
-                                          new Vector2( iconNode.width, -iconNode.height ) );
+              new Vector2( iconNode.width, -iconNode.height ) );
 
             const animationFinishedListener = () => {
-              
+
               iconNode.visible = true;
-              
+
               // Remove the vector model
               vectorSet.vectors.remove( vectorModel );
               vectorModel.dispose();
-            } 
+            }
             vectorModel.animateToPoint( iconPosition, iconAttributesVector, animationFinishedListener );
           }
         } );

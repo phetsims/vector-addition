@@ -24,7 +24,7 @@ define( require => {
      * @private
      */
     updateComponent( componentStyle ) {
-      
+
       // @public (read-only)
       this.componentType = VectorComponent.Types.Y_COMPONENT;
 

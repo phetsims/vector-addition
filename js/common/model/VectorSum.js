@@ -62,7 +62,7 @@ define( require => {
           assert && assert( false, 'vector sums should never be off the graph' );
         }
       } );
-      
+
       // @private {ObservableArray.<VectorModel>}
       this.vectors = vectorSet.vectors;
 
@@ -75,7 +75,7 @@ define( require => {
           [ addedVector.attributesVectorProperty, addedVector.isOnGraphProperty ], () => {
             this.updateSum();
           } );
-        
+
         const vectorRemovedListener = ( removedVector ) => {
           if ( removedVector === addedVector ) {
 
@@ -89,7 +89,7 @@ define( require => {
       } );
     }
 
-    /** 
+    /**
      * The sum is never disposed. Check to make sure the sum isn't disposed.
      * @public
      * @override
@@ -117,7 +117,6 @@ define( require => {
 
       this.attributesVector = sumVector;
     }
-
 
 
     /**

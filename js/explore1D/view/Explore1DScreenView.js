@@ -80,10 +80,10 @@ define( require => {
       // create content for graphOrientation radio buttons
       const graphOrientationRadioButtonContent = [ {
         value: GraphOrientations.HORIZONTAL,
-        node: VectorAdditionIconFactory.createGraphOrientationIcon(GraphOrientations.HORIZONTAL )
+        node: VectorAdditionIconFactory.createGraphOrientationIcon( GraphOrientations.HORIZONTAL )
       }, {
         value: GraphOrientations.VERTICAL,
-        node: VectorAdditionIconFactory.createGraphOrientationIcon(GraphOrientations.VERTICAL )
+        node: VectorAdditionIconFactory.createGraphOrientationIcon( GraphOrientations.VERTICAL )
       } ];
 
       // create the graph orientation radio buttons
