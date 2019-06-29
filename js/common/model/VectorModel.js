@@ -132,7 +132,9 @@ define( require => {
 
       // @public (read-only) {Property.<Animation|null>} - tracks any animation that is currently in progress.
       this.inProgressAnimationProperty = new Property( null, {
-        validValues: [ null, Animation ]
+        isValidValue: ( value ) => {
+          return value === null || value instanceof Animation;
+        }
       } );
 
     }
@@ -254,10 +256,11 @@ define( require => {
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
      * @param {Vector2} point
      * @param {Vector2} iconAttributesVector
-     * @param {function} callBack - callback when the animation is over or stopped
+     * @param {function} finishedCallback - callback when the animation is over or stopped
+     * @param {function} stoppedCallback - callback when the animation is suddenly stopped
      * @public
      */
-    animateToPoint( point, iconAttributesVector, callback ) {
+    animateToPoint( point, iconAttributesVector, finishedCallback, stoppedCallback ) {
 
 
       assert && assert( !this.inProgressAnimationProperty.value,
@@ -267,7 +270,8 @@ define( require => {
       assert && assert( point instanceof Vector2, `invalid point: ${point}` );
       assert && assert( iconAttributesVector instanceof Vector2,
         `invalid iconAttributesVector: ${iconAttributesVector}` );
-      assert && assert( typeof callback === 'function', `invalid callback: ${callback}` );
+      assert && assert( typeof finishedCallback === 'function', `invalid finishedCallback: ${finishedCallback}` );
+      assert && assert( typeof stoppedCallback === 'function', `invalid stoppedCallback: ${stoppedCallback}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -290,20 +294,26 @@ define( require => {
         } ]
       } ).start();
 
-
-      // Reset properties and call the callback when the animation is either over
+      this.inProgressAnimationProperty.value = animation;
 
       const animationFinished = () => {
         this.inProgressAnimationProperty.value = null;
-        callback();
+        finishedCallback();
 
         // Remove listeners
         animation.finishEmitter.removeListener( animationFinished );
-        animation.stopEmitter.removeListener( animationFinished );
       };
 
+      const animationStopped = () => {
+        this.inProgressAnimationProperty.value = null;
+
+        stoppedCallback();
+
+        animation.stopEmitter.removeListener( animationStopped );
+      }
+
       animation.finishEmitter.addListener( animationFinished );
-      animation.stopEmitter.addListener( animationFinished );
+      animation.stopEmitter.addListener( animationStopped);
     }
 
     /**

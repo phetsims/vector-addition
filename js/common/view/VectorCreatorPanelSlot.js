@@ -175,7 +175,8 @@ define( require => {
                                           new Vector2( iconNode.width, -iconNode.height ) );
 
             //----------------------------------------------------------------------------------------
-            vectorModel.animateToPoint( iconPosition, iconAttributesVector, () => {
+
+            const animationFinishedListener = () => {
               
               iconNode.visible = true;
               
@@ -183,7 +184,14 @@ define( require => {
               vectorSet.vectors.remove( vectorModel );
               vectorModel.dispose();
               vectorNode.dispose();
-            } );
+            } 
+            const animationStoppedListener = () => {
+
+               iconNode.visible = true;
+               vectorNode.dispose();
+            }
+
+            vectorModel.animateToPoint( iconPosition, iconAttributesVector, animationFinishedListener, animationStoppedListener );
           }
         } );
         }, {

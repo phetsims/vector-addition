@@ -75,7 +75,7 @@ define( require => {
       const eraserButton = new EraserButton( {
         listener: () => {
           graph.erase();
-          inspectVectorPanel.reset();
+          // inspectVectorPanel.reset();
         },
         left: graphNode.right,
         bottom: graphNode.bottom
@@ -174,7 +174,7 @@ define( require => {
       this.resetScene = () => {
         graphNode.reset();
         graph.reset();
-        inspectVectorPanel.reset();
+        // inspectVectorPanel.reset();
       };
     }
 
