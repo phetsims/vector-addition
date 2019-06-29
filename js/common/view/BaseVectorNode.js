@@ -17,7 +17,6 @@ define( require => {
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -26,17 +25,17 @@ define( require => {
   const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
 
   // constants
-  const ARROW_MOUSEAREA_OFFSET = 3; // off set to make the arrow easier to grab
+  const ARROW_MOUSEAREA_OFFSET = 3; // offset to make the arrow easier to grab
   const LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
+
 
   class BaseVectorNode extends Node {
     /**
      * @constructor
      * @param {BaseVectorModel} baseVectorModel - the vector model
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - property for the coordinate transform
-     * between model coordinates and view coordinates
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {Object} [arrowOptions] - options passed to the arrow node for specific / specialized styling
+     * @param {Object} [arrowOptions]
      */
     constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, arrowOptions ) {
 
@@ -45,27 +44,31 @@ define( require => {
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
-      assert && assert( typeof arrowOptions === 'object', `invalid arrowOptions: ${arrowOptions}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
+        `Extra prototype on Options: ${arrowOptions}` );
+
+      arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, arrowOptions );
 
       //----------------------------------------------------------------------------------------
 
       super();
 
+
       // Define a vector node in which the tail location (view coordinates) is (0, 0). Get the tip location in view
       // coordinates
       const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.attributesVector );
 
-      // @protected {Node} arrowNode - Create an arrow node that represents an actual vector.
+      // @protected {ArrowNode} arrowNode - Create an arrow node that represents an actual vector.
       this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, arrowOptions );
 
-      // @protected {Node} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
+      // @protected {VectorLabelNode} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
       // The location of this depends on the angle of the vector. Since the positioning of 'next' is different for every
       // vector, use an overridable method to position it. ( updateLabelPositioning() )
       this.labelNode = new VectorLabelNode( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty );
 
-      // add children to this node
+      // Add children to this node
       this.setChildren( [ this.arrowNode, this.labelNode ] );
 
       //----------------------------------------------------------------------------------------
@@ -73,7 +76,7 @@ define( require => {
 
       // @private {Multilink} - observe changes to the tail/tip and mirror the positioning. If the values visibility
       // changes, update the view as well
-      this.vectorObserver = new Multilink(
+      this.vectorObserver = Property.multilink(
         [ valuesVisibleProperty, baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty ],
         ( valuesVisible ) => {
 

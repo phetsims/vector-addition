@@ -18,6 +18,7 @@ define( require => {
   const Animation = require( 'TWIXT/Animation' );
   const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Easing = require( 'TWIXT/Easing' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
@@ -27,7 +28,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
-  
+
   // constants
 
   // interval spacing of vector angle (in degrees) when vector is in polar mode
@@ -81,6 +82,9 @@ define( require => {
 
       // @private {Graph}
       this.graph = graph;
+
+      // @public (read-only)
+      this.coordinateSnapMode = vectorSet.coordinateSnapMode;
 
       //----------------------------------------------------------------------------------------
       // Properties for the 'Inspect a Vector' panel
@@ -166,69 +170,57 @@ define( require => {
     }
 
     /**
-     * Called when the tip is dragged in the cartesian scene. Cartesian mode is defined as having integer x and y
-     * components.
-     * @param {Vector2} tipPosition - attempts to drag the tip to this position, but rounds it in cartesian style and
-     * updates the model tip
+     * Called when the tip is dragged in the cartesian scene. Depending on the coordinate snap mode, it will round the
+     * tip.
+     * @param {Vector2} tipPosition - attempts to drag the tip to this position, but rounds it in cartesian/polar style
+     * and updates the model tip
      * @public
      */
-    dragTipInCartesian( tipPosition ) {
+    dragTipToPosition( tipPosition ) {
 
       assert && assert( !this.inProgressAnimationProperty.value, 'Cannot drag tip when vector is animating' );
       assert && assert( this.isOnGraphProperty.value, 'Cannot drag tip when vector isn\'t on the graph' );
       assert && assert( tipPosition instanceof Vector2, `invalid tipPosition: ${tipPosition}` );
 
+      if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+        // Ensure that the tipPosition is on the graph
+        const tipPositionOnGraph = this.graph.graphModelBounds.closestPointTo( tipPosition );
 
-      // Ensure that the tipPosition is on the graph
-      const tipPositionOnGraph = this.graph.graphModelBounds.closestPointTo( tipPosition );
+        // Rounded the tip to integer grid values
+        const roundedTipPosition = tipPositionOnGraph.roundedSymmetric();
 
-      // Rounded the tip to integer grid values
-      const roundedTipPosition = tipPositionOnGraph.roundedSymmetric();
+        // Get the components of the vector
+        const vectorComponents = roundedTipPosition.minus( this.tail );
 
-      // Get the components of the vector
-      const vectorComponents = roundedTipPosition.minus( this.tail );
+        // Based on the vector orientation, constrain the dragging components
+        if ( this.graph.orientation === GraphOrientations.HORIZONTAL ) {
+          vectorComponents.setY( 0 );
+        }
+        else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
+          vectorComponents.setX( 0 );
+        }
 
-      // Based on the vector orientation, constrain the dragging components
-      if ( this.graph.orientation === GraphOrientations.HORIZONTAL ) {
-        vectorComponents.setY( 0 );
+        // Update the model tip
+        this.tip = this.tail.plus( vectorComponents );
       }
-      else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
-        vectorComponents.setX( 0 );
+      else if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+        const vectorAttributes = tipPosition.minus( this.tail );
+
+        const roundedMagnitude = Util.roundSymmetric( vectorAttributes.magnitude );
+
+        const angleInRadians = Util.toRadians( ANGLE_INTERVAL );
+        const roundedAngle = angleInRadians * Util.roundSymmetric( vectorAttributes.angle / angleInRadians );
+
+        // Calculate the rounded polar vector
+        const polarVector = vectorAttributes.setPolar( roundedMagnitude, roundedAngle );
+
+        // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside.
+        while ( !this.graph.graphModelBounds.containsPoint( this.tail.plus( polarVector ) ) ) {
+          polarVector.setMagnitude( polarVector.magnitude - 1 );
+        }
+        // Update the model tip
+        this.tip = this.tail.plus( polarVector );
       }
-
-      // Update the model tip
-      this.tip = this.tail.plus( vectorComponents );
-    }
-
-    /**
-     * Called when the tip is dragged in the polar scene. Polar mode is defined as having and integer magnitude and
-     * having the angle be a multiple of 5
-     * @param {Vector2} tipPosition - attempts to drag the tip to this position, but rounds it in polar style and
-     * updates the model tip
-     * @public
-     */
-    dragTipInPolar( tipPosition ) {
-
-      assert && assert( !this.inProgressAnimationProperty.value, 'Cannot drag tip when vector is animating' );
-      assert && assert( this.isOnGraphProperty.value, 'Cannot drag tip when vector isn\'t on the graph' );
-      assert && assert( tipPosition instanceof Vector2, `invalid tipPosition: ${tipPosition}` );
-
-      const vectorAttributes = tipPosition.minus( this.tail );
-
-      const roundedMagnitude = Util.roundSymmetric( vectorAttributes.magnitude );
-
-      const angleInRadians = Util.toRadians( ANGLE_INTERVAL );
-      const roundedAngle = angleInRadians * Util.roundSymmetric( vectorAttributes.angle / angleInRadians );
-
-      // Calculate the rounded polar vector
-      const polarVector = vectorAttributes.setPolar( roundedMagnitude, roundedAngle );
-
-      // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside.
-      while ( !this.graph.graphModelBounds.containsPoint( this.tail.plus( polarVector ) ) ) {
-        polarVector.setMagnitude( polarVector.magnitude - 1 );
-      }
-      // Update the model tip
-      this.tip = this.tail.plus( polarVector );
     }
 
     /**

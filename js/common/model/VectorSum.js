@@ -101,10 +101,10 @@ define( require => {
         return vector.isOnGraphProperty.value;
       } );
 
-      let sumVector = Vector2.ZERO;
+      const sumVector = new Vector2( 0, 0 );
 
       onGraphVectors.forEach( ( vector ) => {
-        sumVector = sumVector.plus( vector.attributesVector );
+        sumVector.add( vector.attributesVector );
       } );
 
       this.attributesVector = sumVector;

@@ -56,11 +56,13 @@ define( require => {
       //----------------------------------------------------------------------------------------
       //  Each graph has one vector set
 
-      this.polarGraph.vectorSet = this.polarGraph.addVectorSet(
+      this.polarGraph.vectorSet = this.polarGraph.createVectorSet(
         this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup, CoordinateSnapModes.POLAR );
+      this.polarGraph.vectorSets.push( this.polarGraph.vectorSet );
 
-      this.cartesianGraph.vectorSet = this.cartesianGraph.addVectorSet(
+      this.cartesianGraph.vectorSet = this.cartesianGraph.createVectorSet(
         this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup, CoordinateSnapModes.CARTESIAN );
+      this.cartesianGraph.vectorSets.push( this.cartesianGraph.vectorSet );
 
     }
   }

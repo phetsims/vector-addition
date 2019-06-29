@@ -11,17 +11,16 @@ define( require => {
   'use strict';
 
   // modules
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BaseVectorNode = require( 'VECTOR_ADDITION/common/view/BaseVectorNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Circle = require( 'SCENERY/nodes/Circle' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/VectorAdditionModel' );
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
 
@@ -32,66 +31,69 @@ define( require => {
     dilated: 10,
     cursor: 'pointer'
   };
+  const VECTOR_SHADOW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+    fill: VectorAdditionColors.BLACK,
+    opacity: 0.4
+  } );
 
   class VectorNode extends BaseVectorNode {
     /**
      * @constructor
      * @param {VectorModel} vectorModel- the vector model
-     * @param {VectorAdditionModel} vectorAdditionModel
-     * @param {Graph} graph
-     * @param {CoordinateSnapModes} coordinateSnapMode
+     * @param {Graph} graph - the graph the vector belongs to
+     * @param {BooleanProperty} valuesVisibleProperty
+     * @param {BooleanProperty} angleVisibleProperty
      * @param {Object} [arrowOptions]
      */
-    constructor( vectorModel, vectorAdditionModel, graph, coordinateSnapMode, arrowOptions ) {
+    constructor( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions ) {
 
       assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
-      assert && assert( vectorAdditionModel instanceof VectorAdditionModel,
-        `invalid vectorAdditionModel: ${vectorAdditionModel}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
-        `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
+        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( angleVisibleProperty instanceof BooleanProperty,
+        `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
+        `Extra prototype on arrowOptions: ${arrowOptions}` );
 
       //----------------------------------------------------------------------------------------
 
-      arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+      arrowOptions = _.extend( {
+
+        // Passed to superclass
         fill: VectorAdditionColors[ vectorModel.vectorGroup ].fill
-      } );
+      }, arrowOptions );
 
-      super( vectorModel, graph.modelViewTransformProperty, vectorAdditionModel.valuesVisibleProperty, arrowOptions );
+      super( vectorModel, graph.modelViewTransformProperty, valuesVisibleProperty, arrowOptions );
 
       //----------------------------------------------------------------------------------------
 
-      // Convenience reference
+      // Convenience references
       const modelViewTransformProperty = graph.modelViewTransformProperty;
-
-      // Create a scenery node representing the arc of an angle and the numerical display of the angle
-      const angleNode = new VectorAngleNode( vectorModel, vectorAdditionModel.angleVisibleProperty, graph );
-
       const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
 
-      // {Node} Create a circle at the tip of the vector. This is used to allow the user to only
-      // change the angle of the arrowNode by only dragging the tip
+
+      // Create a scenery node representing the arc of an angle and the numerical display of the angle
+      const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, graph.modelViewTransformProperty );
+
+      // Create an arrow node that represents the shadow of the vector
+      const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, VECTOR_SHADOW_OPTIONS );
+
+      // Create a circle at the tip of the vector. This is used to allow the user to only change the angle of the
+      // arrowNode by only dragging the tip
       const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
 
 
-      this.addChild( tipCircle );
-
-      this.arrowNode.moveToFront();
-
-      this.addChild( angleNode );
-
-      tipCircle.moveToFront();
+      // Reconfigure scene graph z-layering
+      this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode, tipCircle ] );
 
       //----------------------------------------------------------------------------------------
+      
       // @private {Property.<ModelViewTransform2>}
       this.modelViewTransformProperty = modelViewTransformProperty;
 
       // @private {VectorModel}
       this.vectorModel = vectorModel;
-
-      // @private {CoordinateSnapModes}
-      this.coordinateSnapMode = coordinateSnapMode;
-
 
       //----------------------------------------------------------------------------------------
       // Create Body Drag
@@ -111,7 +113,7 @@ define( require => {
         start: () => {
 
           // Activate the vector as it is now the active vector
-          graph.activiveVectorProperty.value = vectorModel;
+          graph.activeVectorProperty.value = vectorModel;
           this.moveToFront();
         },
         end: () => {
@@ -174,7 +176,7 @@ define( require => {
               return;
             }
             // Activate the vector as it is now the active vector
-            graph.activiveVectorProperty.value = vectorModel;
+            graph.activeVectorProperty.value = vectorModel;
             this.moveToFront();
           }
         } );
@@ -257,13 +259,7 @@ define( require => {
       const vectorTipPosition = this.vectorModel.tail.plus(
                                   this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
 
-      // Round the tip position according to the coordinateSnapMode
-      if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-        this.vectorModel.dragTipInPolar( vectorTipPosition );
-      }
-      else if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-        this.vectorModel.dragTipInCartesian( vectorTipPosition );
-      }
+      this.vectorModel.dragTipToPosition( vectorTipPosition );
     }
 
     /**

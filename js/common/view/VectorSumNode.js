@@ -9,57 +9,42 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
-  // constants
-  const VECTOR_GROUP_1_SUM = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-    fill: VectorAdditionColors[ VectorGroups.ONE ].sum,
-    lineWidth: 1
-  } );
-  const VECTOR_GROUP_2_SUM = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-    fill: VectorAdditionColors[ VectorGroups.TWO ].sum,
-    lineWidth: 1
-  } );
-
   class VectorSumNode extends VectorNode {
     /**
      * @constructor
      * @param {VectorModel} vectorModel- the vector model
      * @param {Graph} graph
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property for the different component
-     *                                                                         styles
-     * @param {BooleanProperty} angleVisibleProperty - property for when the angle is visible
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {CoordinateSnapModes} coordinateSnapMode
-     * @param {sumVisibleProperty} sumVisibleProperty
+     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} sumVisibleProperty
+     * @param {Object} [arrowOptions]
      */
-    constructor( vectorModel,
-                 graph,
-                 componentStyleProperty,
-                 angleVisibleProperty,
-                 valuesVisibleProperty,
-                 coordinateSnapMode,
-                 sumVisibleProperty
-    ) {
+    constructor( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, sumVisibleProperty, arrowOptions ) {
 
-      super( vectorModel,
-        graph,
-        componentStyleProperty,
-        angleVisibleProperty,
-        valuesVisibleProperty,
-        coordinateSnapMode,
-        vectorModel.vectorGroup === VectorGroups.ONE ? VECTOR_GROUP_1_SUM : VECTOR_GROUP_2_SUM );
+      arrowOptions = _.extend( {
 
+        // Passed to superclass
+        fill: VectorAdditionColors[ vectorModel.vectorGroup ].sum
+      }, arrowOptions );
+
+      super( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions );
+
+      // Update the visibility of the sum node based on the sum checkbox
       // Doesn't need to be unlinked since vector sums are never disposed
       sumVisibleProperty.linkAttribute( this, 'visible' );
     }
 
     /**
      * Double check to make sure vector sums are never disposed
+     * @public
+     * @override
      */
     dispose() {
       assert && assert( false, 'vector sums are never disposed' );

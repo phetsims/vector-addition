@@ -23,19 +23,13 @@ define( function( require ) {
      * @param {Tandem} tandem
      */
     constructor( explore2DModel, tandem ) {
-      
-      const polarSceneNode = new SceneNode( explore2DModel.polarGraph,
-        explore2DModel.gridVisibleProperty,
-        explore2DModel.componentStyleProperty,
-        explore2DModel.angleVisibleProperty,
-        explore2DModel.valuesVisibleProperty, {
+
+      const polarSceneNode = new SceneNode( explore2DModel.polarGraph, explore2DModel.valuesVisibleProperty, explore2DModel.angleVisibleProperty, explore2DModel.gridVisibleProperty,
+        explore2DModel, {
           isExpandedInitially: true
         } );
-      const cartesianSceneNode = new SceneNode( explore2DModel.cartesianGraph,
-        explore2DModel.gridVisibleProperty,
-        explore2DModel.componentStyleProperty,
-        explore2DModel.angleVisibleProperty,
-        explore2DModel.valuesVisibleProperty, {
+      const cartesianSceneNode = new SceneNode( explore2DModel.cartesianGraph, explore2DModel.valuesVisibleProperty, explore2DModel.angleVisibleProperty, explore2DModel.gridVisibleProperty,
+        explore2DModel, {
           isExpandedInitially: true
         } );
 
@@ -58,7 +52,8 @@ define( function( require ) {
         explore2DModel,
         explore2DModel.polarGraph,
         explore2DModel.polarGraph.vectorSet,
-        polarSceneNode.vectorContainer );
+        polarSceneNode.vectorContainer,
+        this );
 
       this.addChild( polarVectorCreatorPanel );
       polarVectorCreatorPanel.moveToBack();
@@ -67,7 +62,8 @@ define( function( require ) {
         explore2DModel,
         explore2DModel.cartesianGraph,
         explore2DModel.cartesianGraph.vectorSet,
-        cartesianSceneNode.vectorContainer );
+        cartesianSceneNode.vectorContainer,
+        this );
 
       this.addChild( cartesianVectorCreatorPanel );
       cartesianVectorCreatorPanel.moveToBack();

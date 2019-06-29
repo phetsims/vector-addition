@@ -24,34 +24,21 @@ define( require => {
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSumComponentNode = require( 'VECTOR_ADDITION/common/view/VectorSumComponentNode' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
+  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
 
   class SceneNode extends Node {
     /**
      * @constructor
      * @param {Graph} graph
-     * @param {BooleanProperty} gridVisibleProperty,
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} angleVisibleProperty
-     * @param {BooleanProperty} valuesVisibleProperty
+     * @param {VectorAdditionModel} vectorAdditionModel
      * @param {Object} [options]
      */
-    constructor( graph,
-      gridVisibleProperty,
-      componentStyleProperty,
-      angleVisibleProperty,
-      valuesVisibleProperty,
-      options
-    ) {
+    constructor( graph, valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, options ) {
 
-      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( gridVisibleProperty instanceof BooleanProperty, `invalid gridVisibleProperty: ${gridVisibleProperty}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty, `invalid angleVisibleProperty: ${angleVisibleProperty}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      // assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      // assert && assert( vectorAdditionModel instanceof VectorAdditionModel, `invalid vectorAdditionModel: ${vectorAdditionModel}` );
+      // assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
+      //   `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
      
@@ -111,28 +98,24 @@ define( require => {
 
         // Create the node for the one and only sum node per vector set and its components
         const vectorSumNode = new VectorSumNode( vectorSet.vectorSum,
-          graph,
-          componentStyleProperty,
-          angleVisibleProperty,
-          valuesVisibleProperty,
-          vectorSet.coordinateSnapMode,
+          graph, valuesVisibleProperty, angleVisibleProperty,
           vectorSet.sumVisibleProperty
         );
 
-        const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xVectorComponent,
-          graph.modelViewTransformProperty,
-          componentStyleProperty,
-          valuesVisibleProperty,
-          vectorSet.sumVisibleProperty );
+        // const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xVectorComponent,
+        //   graph.modelViewTransformProperty,
+        //   componentStyleProperty,
+        //   valuesVisibleProperty,
+        //   vectorSet.sumVisibleProperty );
 
-        const yComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.yVectorComponent,
-          graph.modelViewTransformProperty,
-          componentStyleProperty,
-          valuesVisibleProperty,
-          vectorSet.sumVisibleProperty );
+        // const yComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.yVectorComponent,
+        //   graph.modelViewTransformProperty,
+        //   componentStyleProperty,
+        //   valuesVisibleProperty,
+        //   vectorSet.sumVisibleProperty );
 
-        vectorSumComponentContainer.addChild( xComponentSumNode );
-        vectorSumComponentContainer.addChild( yComponentSumNode );
+        // vectorSumComponentContainer.addChild( xComponentSumNode );
+        // vectorSumComponentContainer.addChild( yComponentSumNode );
         vectorSumContainer.addChild( vectorSumNode );
 
 
@@ -141,26 +124,26 @@ define( require => {
          *---------------------------------------------------------------------------*/
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
-          const xComponentNode = new VectorComponentNode( addedVector.xVectorComponent,
-            graph.modelViewTransformProperty,
-            componentStyleProperty,
-            valuesVisibleProperty );
+          // const xComponentNode = new VectorComponentNode( addedVector.xVectorComponent,
+          //   graph.modelViewTransformProperty,
+          //   componentStyleProperty,
+          //   valuesVisibleProperty );
 
-          const yComponentNode = new VectorComponentNode( addedVector.yVectorComponent,
-            graph.modelViewTransformProperty,
-            componentStyleProperty,
-            valuesVisibleProperty );
+          // const yComponentNode = new VectorComponentNode( addedVector.yVectorComponent,
+          //   graph.modelViewTransformProperty,
+          //   componentStyleProperty,
+          //   valuesVisibleProperty );
 
-          vectorComponentContainer.addChild( xComponentNode );
-          vectorComponentContainer.addChild( yComponentNode );
+          // vectorComponentContainer.addChild( xComponentNode );
+          // vectorComponentContainer.addChild( yComponentNode );
 
           //----------------------------------------------------------------------------------------
           // Add the removal listener for when the vector is removed
           const removalListener = removedVector => {
             if ( removedVector === addedVector ) {
               
-              xComponentNode.dispose();
-              yComponentNode.dispose();
+              // xComponentNode.dispose();
+              // yComponentNode.dispose();
 
               vectorSet.vectors.removeItemRemovedListener( removalListener );
             }
