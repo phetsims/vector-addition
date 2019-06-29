@@ -6,7 +6,7 @@
  *
  *  - tip and tail position properties
  *  - 'attributes property' (x and y, or in other words the actual vector <x, y>)
- *  - vector group (See VectorGroups.js)
+ *  - vector group (See ./VectorGroups.js)
  *
  * @author Brandon Li
  */
@@ -27,7 +27,7 @@ define( require => {
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
-     * @param {VectorGroups} vectorGroup - the vector group (see VectorGroups.js)
+     * @param {VectorGroups} vectorGroup - the vector group (See ./VectorGroups.js)
      */
     constructor( initialTailPosition, xComponent, yComponent, vectorGroup ) {
 
@@ -59,10 +59,6 @@ define( require => {
      * @returns {Vector2} - the attributes vector
      */
     get attributesVector() { return this.attributesVectorProperty.value; }
-
-    /*---------------------------------------------------------------------------*
-     * The Following are convenience Read/Write methods for ease of use.
-     *---------------------------------------------------------------------------*/
 
     /**
      * Sets the attributes vector
@@ -99,12 +95,9 @@ define( require => {
      */
     get yComponent() { return this.attributesVector.y; }
 
-    //----------------------------------------------------------------------------------------
-    // Y component
-
     /**
-     * @public
      * Sets the yComponent. Keeps the xComponent, tailPosition constant.
+     * @public
      * @param {number} component
      */
     set yComponent( component ) {
@@ -118,9 +111,6 @@ define( require => {
      * @returns {number}
      */
     get xComponent() { return this.attributesVector.x; }
-
-    //----------------------------------------------------------------------------------------
-    // X component
 
     /**
      * Sets the xComponent. Keeps the yComponent, tailPosition constant.
@@ -139,9 +129,6 @@ define( require => {
      */
     get tail() { return this.tailPositionProperty.value; }
 
-    //----------------------------------------------------------------------------------------
-    // Tail Position
-
     /**
      * Sets the tail position. This will change the magnitude but keep the tip position the same.
      * @public
@@ -159,9 +146,6 @@ define( require => {
      */
     get tailX() { return this.tailPositionProperty.value.x; }
 
-    //----------------------------------------------------------------------------------------
-    // Tail X Position
-
     /**
      * Sets the tailX. This changes the magnitude but will keep the tip position the same.
      * @public
@@ -178,8 +162,6 @@ define( require => {
      */
     get tailY() { return this.tailPositionProperty.value.y; }
 
-    //----------------------------------------------------------------------------------------
-    // Tail Y Position
 
     /**
      * Sets the tailY. This changes the magnitude but will keep the tip the same.
@@ -196,9 +178,6 @@ define( require => {
      * @returns {Vector2}
      */
     get tip() { return this.tipPositionProperty.value; }
-
-    //----------------------------------------------------------------------------------------
-    // Tip Position
 
     /**
      * @public
@@ -231,8 +210,6 @@ define( require => {
      */
     get angle() { return this.attributesVector.angle; }
 
-    //----------------------------------------------------------------------------------------
-
     /**
      * Disposes the vector
      * @public
@@ -244,8 +221,8 @@ define( require => {
     }
 
     /**
-     * @public
      * Sets the tail position. This will change the magnitude of the vector, but the tip will remain constant.
+     * @public
      * @param {number} x
      * @param {number} y
      */
@@ -263,8 +240,8 @@ define( require => {
     }
 
     /**
-     * @public
      * Sets the tip position. This will change the magnitude of the vector, but the tail will remain constant.
+     * @public
      * @param {number} x
      * @param {number} y
      */
@@ -283,8 +260,8 @@ define( require => {
 
     /**
      * Translates the tail to this point. This keeps the magnitude constant, and changes the tip position.
-     * @param {Vector2} position
      * @public
+     * @param {Vector2} position
      */
     translateToPoint( position ) {
       this.tailPositionProperty.value = position;
