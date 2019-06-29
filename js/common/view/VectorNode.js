@@ -131,17 +131,16 @@ define( require => {
           if ( !this.vectorModel.isOnGraphProperty.value ) {
 
             // Tail position, since the vector center is always on the cursor
-            const tailPosition = modelViewTransformProperty.value.viewToModelPosition( tailLocationProperty.value );
-            const centerPosition = tailPosition.plus( this.vectorModel.attributesVector.timesScalar( 0.5 ) );
+            const cursorPosition = modelViewTransformProperty.value.viewToModelDelta(
+                                      this.bodyDragListener.localPoint ).plus( this.vectorModel.tail );
             
             // If the graph doesn't contain the center, it is time to animate back, otherwise drop it on the graph
-            if ( !graph.graphModelBounds.containsPoint( centerPosition ) ) {
+            if ( !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
               this.animateBackProperty.value = true;
               this.arrowNode.cursor = 'default';
             }
             else {
               this.vectorModel.dropOntoGraph();
-              this.updateTailPosition( tailLocationProperty.value );
             }
           }
         }
@@ -216,9 +215,9 @@ define( require => {
         
         vectorShadowNode.visible = !isOnGraph;
 
-        this.arrowNode.resetTransform();
+        vectorShadowNode.resetTransform();
         if ( !isOnGraph ) {
-          this.arrowNode.left = -VECTOR_SHADOW_OFFSET;
+          vectorShadowNode.left = VECTOR_SHADOW_OFFSET;
         }
 
         // Get the tip location in view coordinates
@@ -292,6 +291,7 @@ define( require => {
       else {
         // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds
         this.vectorModel.moveVectorToFitInGraph( tailPosition );
+
       }
     }
   }

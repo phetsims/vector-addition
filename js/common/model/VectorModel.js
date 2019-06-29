@@ -26,6 +26,7 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
   const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
   const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
 
@@ -41,6 +42,7 @@ define( require => {
   const AVERAGE_ANIMATION_SPEED = 1500; // view coordinates per second
   const MIN_ANIMATION_TIME = 0.9; // in seconds
 
+  const DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 
   class VectorModel extends BaseVectorModel {
     /**
@@ -231,6 +233,8 @@ define( require => {
      */
     moveVectorToFitInGraph( tailPosition ) {
 
+      assert && assert( this.isOnGraphProperty.value === true , 'should be in graph when moving' );
+      
       // Determine the bounds of the tails
       const tailBounds = this.graph.graphModelBounds;
 
@@ -239,9 +243,20 @@ define( require => {
 
       // Find the intersection of the two previous bounds
       const constrainedBounds = tailBounds.intersection( tipBounds );
-
+   
       // Translate the tail to ensure it stays in the contained bounds
       this.translateToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
+
+      //----------------------------------------------------------------------------------------
+
+      // Offset of the cursor to the vector. This is users will remove vector according to displacement of the cursor.
+      // See https://github.com/phetsims/vector-addition/issues/46
+      const dragOffset = constrainedBounds.closestPointTo( tailPosition ).minus( tailPosition );
+
+      if ( Math.abs( dragOffset.x ) > DRAG_THRESHOLD || Math.abs( dragOffset.y ) > DRAG_THRESHOLD ) {
+        this.isOnGraphProperty.value = false;
+        return;
+      }
     }
 
     /**
@@ -318,6 +333,21 @@ define( require => {
       assert && assert( !this.inProgressAnimationProperty.value, 'cannot drop vector when it\'s animating' );
 
       this.isOnGraphProperty.value = true;
+
+      //----------------------------------------------------------------------------------------
+      // Move into the graph
+      // Determine the bounds of the tails
+      const tailBounds = this.graph.graphModelBounds;
+
+      // Determine the bounds such for tip would remain within the graph
+      const tipBounds = this.graph.graphModelBounds.shifted( -this.attributesVector.x, -this.attributesVector.y );
+
+      // Find the intersection of the two previous bounds
+      const constrainedBounds = tailBounds.intersection( tipBounds );
+   
+      // Translate the tail to ensure it stays in the contained bounds
+      this.translateToPoint( constrainedBounds.closestPointTo( this.tail ).roundedSymmetric() );
+
     }
   }
 
