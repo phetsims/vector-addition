@@ -134,8 +134,6 @@ define( require => {
 
           assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
             'body drag listener should be removed when the vector is animating back.' );
-          // Activate the vector as it is now the active vector
-          graph.activeVectorProperty.value = vectorModel;
           this.moveToFront();
         },
         end: () => {
@@ -181,7 +179,7 @@ define( require => {
       const tailListener = tailLocation => {
         this.updateTailPosition( tailLocation );
       };
-      tailLocationProperty.link( tailListener );
+      tailLocationProperty.lazyLink( tailListener );
 
       // Observe when the vector is animating back
       const removeBodyDragListener = isAnimatingBack => {
@@ -209,9 +207,6 @@ define( require => {
           start: () => {
             assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
               'tip drag listener should be removed when the vector is animating back.' );
-
-            // Activate the vector as it is now the active vector
-            graph.activeVectorProperty.value = vectorModel;
             this.moveToFront();
           }
         } );

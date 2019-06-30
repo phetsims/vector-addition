@@ -93,8 +93,8 @@ define( require => {
   };
 
   // strings
-  const xString = require( 'string!VECTOR_ADDITION/x' );
-  const yString = require( 'string!VECTOR_ADDITION/y' );
+  const symbolXString = require( 'string!VECTOR_ADDITION/symbol.x' );
+  const symbolYString = require( 'string!VECTOR_ADDITION/symbol.y' );
   const number0String = '0';
 
   class GraphNode extends Node {
@@ -413,7 +413,7 @@ define( require => {
      * @param {Graph} graph - the model for the graph
      */
     constructor( graph ) {
-      super( graph, xString );
+      super( graph, symbolXString );
     }
 
     /**
@@ -486,7 +486,7 @@ define( require => {
      * @param {Graph} graph - the model for the graph
      */
     constructor( graph ) {
-      super( graph, yString );
+      super( graph, symbolYString );
     }
 
     /**

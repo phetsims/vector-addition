@@ -29,10 +29,10 @@
   "inspectAVector": {
     "value": "Inspect a vector"
   },
-  "x": {
+  "symbol.x": {
     "value": "x"
   },
-  "y": {
+  "symbol.y": {
     "value": "y"
   },
   "one": {
