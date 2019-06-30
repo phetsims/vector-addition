@@ -1,10 +1,12 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a vector sum. Vector Sum Nodes have a distinct appearance for each vector group.
+ * Vector for the vector sum. Each vector set will have exactly one sum. Vector Sum Nodes have a distinct appearance for
+ * each vector set.
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -12,8 +14,6 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   class VectorSumNode extends VectorNode {
@@ -28,15 +28,21 @@ define( require => {
      */
     constructor( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, sumVisibleProperty, arrowOptions ) {
 
-      arrowOptions = _.extend( {
+      assert && assert( sumVisibleProperty instanceof BooleanProperty,
+        `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
+        `Extra prototype on arrowOptions: ${arrowOptions}` );
 
+      arrowOptions = _.extend( {
         // Passed to superclass
         fill: VectorAdditionColors[ vectorModel.vectorGroup ].sum
       }, arrowOptions );
 
+      //----------------------------------------------------------------------------------------
+
       super( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions );
 
-      // Update the visibility of the sum node based on the sum checkbox
+      // Update the visibility of the sum node based on the sum visible property.
       // Doesn't need to be unlinked since vector sums are never disposed
       sumVisibleProperty.linkAttribute( this, 'visible' );
     }
@@ -46,9 +52,7 @@ define( require => {
      * @public
      * @override
      */
-    dispose() {
-      assert && assert( false, 'vector sums are never disposed' );
-    }
+    dispose() { assert && assert( false, 'vector sums are never disposed' ); }
   }
 
   return vectorAddition.register( 'VectorSumNode', VectorSumNode );

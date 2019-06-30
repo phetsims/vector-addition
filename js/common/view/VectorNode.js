@@ -36,8 +36,8 @@ define( require => {
     fill: VectorAdditionColors.BLACK,
     opacity: 0.28
   } );
-  const VECTOR_SHADOW_OFFSET_X = 3;
-  const VECTOR_SHADOW_OFFSET_Y = 1.3;
+  const VECTOR_SHADOW_OFFSET_X = 3.2;
+  const VECTOR_SHADOW_OFFSET_Y = 2.1;
 
   class VectorNode extends BaseVectorNode {
     /**
@@ -220,16 +220,17 @@ define( require => {
 
         vectorShadowNode.resetTransform();
         if ( !isOnGraph ) {
-          vectorShadowNode.left = VECTOR_SHADOW_OFFSET_X;
-          vectorShadowNode.top += VECTOR_SHADOW_OFFSET_Y;
+          vectorShadowNode.left = this.arrowNode.left + VECTOR_SHADOW_OFFSET_X;
+          vectorShadowNode.top = this.arrowNode.top + VECTOR_SHADOW_OFFSET_Y;
         }
 
         // Get the tip location in view coordinates
         const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
         vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
       };
+
       const vectorOnGraphObserver = Property.multilink(
-        [ vectorModel.isOnGraphProperty, vectorModel.attributesVectorProperty ], onGraphListener )
+        [ vectorModel.isOnGraphProperty, vectorModel.attributesVectorProperty ], onGraphListener );
 
       //----------------------------------------------------------------------------------------
       // Create a method to dispose children

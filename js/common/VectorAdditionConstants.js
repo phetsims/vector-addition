@@ -15,7 +15,6 @@ define( function( require ) {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   //----------------------------------------------------------------------------------------
   // for all panel-like containers

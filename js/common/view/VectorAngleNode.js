@@ -103,9 +103,12 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Observe when the angle visible property is changing and update the visibility of the angle node. The angle is
       // only visible when the vector is both active and the angle checkbox is clicked
-      const visibilityObserver = Property.multilink( [ angleVisibleProperty, graph.activeVectorProperty ],
-        ( angleVisible, activeVector ) => {
-          this.visible = angleVisible && activeVector === vectorModel;
+      const visibilityObserver = Property.multilink(
+        [ angleVisibleProperty, graph.activeVectorProperty, vectorModel.isOnGraphProperty ],
+        ( angleVisible, activeVector, isOnGraph ) => {
+          // Visible if the angle checkbox is clicked, its active, and its on the graph
+          this.visible = angleVisible && activeVector === vectorModel && isOnGraph;
+
 
           this.updateAngleNode( vectorModel.angleDegreesProperty.value );
           this.scaleArc( vectorModel.magnitude, graph.modelViewTransformProperty.value );
