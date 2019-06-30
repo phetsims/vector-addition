@@ -40,6 +40,7 @@ define( function( require ) {
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
         explore2DModel.gridVisibleProperty,
+        explore2DModel.componentStyleProperty,
         explore2DModel, {
           isExpandedInitially: true
         } );
@@ -47,6 +48,7 @@ define( function( require ) {
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
         explore2DModel.gridVisibleProperty,
+        explore2DModel.componentStyleProperty,
         explore2DModel, {
           isExpandedInitially: true
         } );

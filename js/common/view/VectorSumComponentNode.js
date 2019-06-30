@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a the component of the sum vector
+ * View for a the component of the sum vector.
  *
  * Listens to a SumVisibleProperty to determine visibility.
  *
@@ -14,7 +14,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const Multilink = require( 'AXON/Multilink' );
+  const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
 
@@ -22,76 +22,40 @@ define( require => {
     /**
      * @constructor
      * @param {VectorComponent} vectorComponent - the vector model for the component
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {Graph} graph - the graph the component belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
      */
-    constructor( vectorComponent,
-                 modelViewTransformProperty,
-                 componentStyleProperty,
-                 valuesVisibleProperty,
-                 sumVisibleProperty
-    ) {
+    constructor( vectorComponent, graph, componentStyleProperty, valuesVisibleProperty, sumVisibleProperty, options ) {
 
-      // Type check unique arguments
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
+
+      options = _.extend( {
+        arrowOptions: null,
+      }, options );
+
+      options.arrowOptions = _.extend( {
+        tailWidth: 4.5,
+        lineWidth: 0.2
+      }, options.arrowOptions );
 
       //----------------------------------------------------------------------------------------
 
-      super( vectorComponent, modelViewTransformProperty, componentStyleProperty, valuesVisibleProperty, {
-        arrowOptions: {
-          tailWidth: 4.5,
-          lineWidth: 0.5
-        }
-      } );
+      super( vectorComponent, graph, componentStyleProperty, valuesVisibleProperty, options );
 
-      // Create a new observer
-      this.vectorObserver.dispose();
+      // @private {Multilink} observe when either the component style changes or the sum visibility changes.
+      // Doesn't need to be disposed because the sum always exists, and therefore the component always exists
+      this.visibilityObserver = Property.multilink( [ sumVisibleProperty, componentStyleProperty ],
+        ( sumVisible, componentStyle ) => {
 
-      // @private {Multilink}
-      this.vectorObserver = new Multilink(
-        [ valuesVisibleProperty,
-          vectorComponent.tailPositionProperty,
-          vectorComponent.tipPositionProperty,
-          componentStyleProperty,
-          sumVisibleProperty ],
-        ( valuesVisible ) => {
+          // Only visible when the sum is visible and the component style isn't invisible
+          this.visible = sumVisible && componentStyle !== ComponentStyles.INVISIBLE;
 
-          // Update the appearance of the vector
-          this.updateVector( vectorComponent,
-            modelViewTransformProperty.value,
-            componentStyleProperty.value,
-            sumVisibleProperty.value );
-
-          // Update the appearance of the label
-          this.updateLabelPositioning( vectorComponent, modelViewTransformProperty.value, valuesVisible );
         } );
-
-    }
-
-    /**
-     * Does the same as the super class, except handles the visibility based on the sum checkbox
-     * @param {VectorComponent} vectorComponent
-     * @param {ModelViewTransform2} modelViewTransform
-     * @param {ComponentStyles} componentStyle
-     * @param {boolean} sumVisible
-     * @private
-     */
-    updateVector( vectorComponent, modelViewTransform, componentStyle, sumVisible ) {
-      super.updateVector( vectorComponent, modelViewTransform, componentStyle );
-
-      if ( sumVisible ) {
-        this.visible = true;
-
-        if ( componentStyle === ComponentStyles.INVISIBLE ) {
-          this.visible = false;
-        }
-      }
-      else {
-        this.visible = false;
-      }
     }
   }
 

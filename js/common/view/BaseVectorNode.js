@@ -74,7 +74,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Update the tail/tip location when the vector's tail/tip position changes
 
-      // @private {Multilink} - observe changes to the tail/tip and mirror the positioning. If the values visibility
+      // @protected {Multilink} - observe changes to the tail/tip and mirror the positioning. If the values visibility
       // changes, update the view as well
       this.vectorObserver = Property.multilink(
         [ valuesVisibleProperty, baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty ],
