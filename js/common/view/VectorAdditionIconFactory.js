@@ -119,7 +119,7 @@ define( function( require ) {
      * @public
      */
     static createAngleIcon( options ) {
-     
+
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
@@ -172,7 +172,7 @@ define( function( require ) {
      * @public
      */
     static createGridIcon( options ) {
-      
+
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
@@ -257,10 +257,10 @@ define( function( require ) {
      * @public
      */
     static createParallelogramComponentStyleIcon( options ) {
-      
+
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
-   
+
       // The icon has three arrows, a vector arrow and its 2 components (opaque)
       const vectorArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, ARROW_ICON_OPTIONS );
 
@@ -279,7 +279,7 @@ define( function( require ) {
      * @public
      */
     static createTriangleComponentStyleIcon( options ) {
-      
+
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 

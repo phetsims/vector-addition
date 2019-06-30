@@ -9,7 +9,6 @@ define( require => {
 
   // modules
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
@@ -20,36 +19,21 @@ define( require => {
      * @param {Tandem} tandem
      * @param {Object} [sceneNodeOptions]
      */
-    constructor( vectorAdditionModel, tandem, sceneNodeOptions ) {
+    constructor( vectorAdditionModel, sceneNodes, tandem ) {
 
       super();
 
-      // TODO: do we need an instance or is a constant sufficient
-      this.sceneNodes = [];
-
-      vectorAdditionModel.graphs.forEach( ( graph ) => {
-        
-        // create a scene node and add it as a child
-        const sceneNode = new SceneNode( graph,
-          vectorAdditionModel.gridVisibleProperty,
-          vectorAdditionModel.componentStyleProperty,
-          vectorAdditionModel.angleVisibleProperty,
-          vectorAdditionModel.valuesVisibleProperty, {
-            inspectVectorPanelOptions: sceneNodeOptions
-          } );
+      sceneNodes.forEach( ( sceneNode ) => {
         this.addChild( sceneNode );
-
-        // TODO: do we need a reference to sceneNode in the model graph?
-        graph.sceneNode = sceneNode;
-        this.sceneNodes.push( sceneNode );
       } );
+
 
       const resetAllButton = new ResetAllButton( {
         listener: () => {
           vectorAdditionModel.reset();
 
           // loop through SceneNodes and reset each sceneNode
-          this.sceneNodes.forEach( ( sceneNode ) =>
+          sceneNodes.forEach( ( sceneNode ) =>
             sceneNode.reset()
           );
 

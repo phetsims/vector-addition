@@ -18,9 +18,11 @@ define( require => {
   const Dimension2 = require( 'DOT/Dimension2' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
@@ -46,16 +48,16 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public (read-only) {array.<VectorSet>} - the vectorSets for this graph
+      // @public {array.<VectorSet>} - the vectorSets for this graph
       this.vectorSets = [];
 
-      // @public (read-only) {GraphOrientations}
+      // @public (read-only) {GraphOrientations} - orientation for the graph (final variable)
       this.orientation = orientation;
 
       // @public {VectorProperty} - the position (model coordinates) of the top left corner of graph
       this.upperLeftPositionProperty = new Vector2Property( upperLeftPosition );
 
-      // When the GraphNode changes the upperLeftPosition (when origin is dragged) the graph bounds changes
+      // When the GraphNode changes the upperLeftPosition (when origin is dragged) the graph bounds changes.
       // Graphs last for the life time of the sim, so no need to unlink (the origin is is always movable)
       this.upperLeftPositionProperty.link( ( upperLeftPosition ) => {
 
@@ -79,29 +81,27 @@ define( require => {
         ), {
           valueType: ModelViewTransform2
         } );
+
+      // @public {Property.<VectorModel|null>} - the active vector. A graph only has one active vector at a time.
+      this.activeVectorProperty = new Property( null, {
+        isValidValue: ( value ) => {
+          return value === null || value instanceof VectorModel;
+        }
+      } );
     }
 
     /**
-     * Adds a VectorSet to the graph
+     * Creates a VectorSet, passing the graph (this) to the vector set
+     * @public
+     *
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - the sum visible property for this vector set
      * @param {VectorGroups} vectorGroup
      * @param {CoordinateSnapModes} coordinateSnapMode
-     * @returns {VectorSet} - the vector set that was added
-     * @public
+     * @returns {VectorSet} - the vector set that was created
      */
-    addVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
-
-      // Keep a reference
-      const vectorSet = new VectorSet(
-        this,
-        componentStyleProperty,
-        sumVisibleProperty,
-        vectorGroup,
-        coordinateSnapMode );
-
-      this.vectorSets.push( vectorSet );
-      return vectorSet;
+    createVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
+      return new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode );
     }
 
     /**
@@ -120,6 +120,7 @@ define( require => {
     erase() {
       // Reset each vectorSet
       this.vectorSets.forEach( vectorSet => vectorSet.reset() );
+      this.activeVectorProperty.reset();
     }
   }
 

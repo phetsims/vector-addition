@@ -51,12 +51,12 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // Create a container for the vectorRepresentation nodes, which are in a zLayer above the slots
-      const vectorRepresentationContainer = new Node();
+      // // Create a container for the vectorRepresentation nodes, which are in a zLayer above the slots
+      // const vectorRepresentationContainer = new Node();
 
-      panelSlots.forEach( ( slot ) => {
-        vectorRepresentationContainer.addChild( slot.vectorRepresentationNode );
-      } );
+      // panelSlots.forEach( ( slot ) => {
+      //   vectorRepresentationContainer.addChild( slot.vectorRepresentationNode );
+      // } );
 
       //----------------------------------------------------------------------------------------
 
@@ -78,8 +78,8 @@ define( require => {
 
       super( {
         children: [
-          new Panel( fixedSizeSlotsContainer, options ),
-          vectorRepresentationContainer
+          new Panel( fixedSizeSlotsContainer, options )
+          // vectorRepresentationContainer
         ]
       } );
     }

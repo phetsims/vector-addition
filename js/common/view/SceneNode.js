@@ -11,17 +11,12 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
-  const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
+  // const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSumComponentNode = require( 'VECTOR_ADDITION/common/view/VectorSumComponentNode' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
 
@@ -29,32 +24,17 @@ define( require => {
     /**
      * @constructor
      * @param {Graph} graph
-     * @param {BooleanProperty} gridVisibleProperty,
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} angleVisibleProperty
-     * @param {BooleanProperty} valuesVisibleProperty
+     * @param {VectorAdditionModel} vectorAdditionModel
      * @param {Object} [options]
      */
-    constructor( graph,
-      gridVisibleProperty,
-      componentStyleProperty,
-      angleVisibleProperty,
-      valuesVisibleProperty,
-      options
-    ) {
+    constructor( graph, valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty, options ) {
 
-      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( gridVisibleProperty instanceof BooleanProperty, `invalid gridVisibleProperty: ${gridVisibleProperty}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty, `invalid angleVisibleProperty: ${angleVisibleProperty}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      // assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      // assert && assert( vectorAdditionModel instanceof VectorAdditionModel, `invalid vectorAdditionModel: ${vectorAdditionModel}` );
+      // assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
+      //   `Extra prototype on Options: ${options}` );
 
-      //----------------------------------------------------------------------------------------
-     
+
       options = _.extend( {
         inspectVectorPanelLocation: null, // {object|null}
         inspectVectorPanelOptions: null // {object|null}
@@ -70,12 +50,12 @@ define( require => {
 
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      const inspectVectorPanel = new InspectVectorPanel( graph.vectorSets, options.inspectVectorPanelOptions );
+      // const inspectVectorPanel = new InspectVectorPanel( graph.vectorSets, options.inspectVectorPanelOptions );
 
       const eraserButton = new EraserButton( {
         listener: () => {
           graph.erase();
-          inspectVectorPanel.reset();
+          // inspectVectorPanel.reset();
         },
         left: graphNode.right,
         bottom: graphNode.bottom
@@ -90,9 +70,9 @@ define( require => {
       super( {
         children: [
           graphNode,
-          new Node( _.extend( {
-            children: [ inspectVectorPanel ]
-          }, options.inspectVectorPanelLocation ) ),
+          // new Node( _.extend( {
+          //   children: [ inspectVectorPanel ]
+          // }, options.inspectVectorPanelLocation ) ),
           eraserButton,
           vectorComponentContainer,
           vectorSumComponentContainer,
@@ -101,6 +81,9 @@ define( require => {
         ]
       } );
 
+      // @public (read-only)
+      this.vectorContainer = vectorContainer;
+
       /*---------------------------------------------------------------------------*
        * Loop through each vector set, observing changes and updating the scene
        *---------------------------------------------------------------------------*/
@@ -108,22 +91,18 @@ define( require => {
 
         // Create the node for the one and only sum node per vector set and its components
         const vectorSumNode = new VectorSumNode( vectorSet.vectorSum,
-          graph,
-          componentStyleProperty,
-          angleVisibleProperty,
-          valuesVisibleProperty,
-          vectorSet.coordinateSnapMode,
+          graph, valuesVisibleProperty, angleVisibleProperty,
           vectorSet.sumVisibleProperty
         );
 
         const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xVectorComponent,
-          graph.modelViewTransformProperty,
+          graph,
           componentStyleProperty,
           valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
         const yComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.yVectorComponent,
-          graph.modelViewTransformProperty,
+          graph,
           componentStyleProperty,
           valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
@@ -138,27 +117,16 @@ define( require => {
          *---------------------------------------------------------------------------*/
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
-          
-          // Create the node for the newly added model vector and its components
-          const vectorNode = new VectorNode( addedVector,
-            graph,
-            componentStyleProperty,
-            angleVisibleProperty,
-            valuesVisibleProperty,
-            vectorSet.coordinateSnapMode
-          );
-
           const xComponentNode = new VectorComponentNode( addedVector.xVectorComponent,
-            graph.modelViewTransformProperty,
+            graph,
             componentStyleProperty,
             valuesVisibleProperty );
 
           const yComponentNode = new VectorComponentNode( addedVector.yVectorComponent,
-            graph.modelViewTransformProperty,
+            graph,
             componentStyleProperty,
             valuesVisibleProperty );
 
-          vectorContainer.addChild( vectorNode );
           vectorComponentContainer.addChild( xComponentNode );
           vectorComponentContainer.addChild( yComponentNode );
 
@@ -167,14 +135,8 @@ define( require => {
           const removalListener = removedVector => {
             if ( removedVector === addedVector ) {
 
-              // deactivate
-              removedVector.isActiveProperty.value = false;
-
-              // Dispose of the vector and its model
-              vectorNode.dispose();
               xComponentNode.dispose();
               yComponentNode.dispose();
-              removedVector.dispose();
 
               vectorSet.vectors.removeItemRemovedListener( removalListener );
             }
@@ -188,7 +150,7 @@ define( require => {
       this.resetScene = () => {
         graphNode.reset();
         graph.reset();
-        inspectVectorPanel.reset();
+        // inspectVectorPanel.reset();
       };
     }
 
@@ -198,6 +160,13 @@ define( require => {
      */
     reset() {
       this.resetScene();
+    }
+
+    
+    addVectorCreatorPanel( creatorPanel ) {
+
+      this.addChild( creatorPanel );
+      creatorPanel.moveToBack();
     }
   }
 

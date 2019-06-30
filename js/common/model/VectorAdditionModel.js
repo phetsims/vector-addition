@@ -1,8 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * The shared model for every Screen respectively. Its main responsibility is to control the state
- * of the simulation.
+ * The shared model for every Screen respectively. Its main responsibility is to control the state of the simulation.
  *
  * The model is not specific for an individual graph as it toggles global 'settings' of the simulation. For example,
  * turning on the 'angle visible' option on the control panel means the angle is visible for every graph.
@@ -23,7 +22,6 @@ define( require => {
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
@@ -33,7 +31,8 @@ define( require => {
   class VectorAdditionModel {
     /**
      * @constructor
-     * @param {array.<BooleanProperty>} sumVisibleProperties - an array of the sim visible properties
+     * @param {array.<BooleanProperty>} sumVisibleProperties - an array of the sim visible properties. Sub classes
+     * should keep references to individual sumVisible properties
      * @param {Tandem} tandem
      */
     constructor( sumVisibleProperties, tandem ) {
@@ -45,10 +44,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Visibility Properties
 
-      // @public {BooleanProperty}
+      // @public {BooleanProperty} - indicates if the labels should contain the magnitudes
       this.valuesVisibleProperty = new BooleanProperty( false );
 
-      // @public {BooleanProperty}
+      // @public {BooleanProperty} - indicates if the graph background grid is visible
       this.gridVisibleProperty = new BooleanProperty( true );
 
       // @public {BooleanProperty} - controls the visibility of the angle
@@ -70,30 +69,14 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Graphs
 
-      // @public {array.<Graph>} graphs - array of the graphs, see addGraph() to add a graph
+      // @public {array.<Graph>} graphs - array of the graphs
       this.graphs = [];
     }
 
-    /**
-     * Adds a graph to the model
-     * @param {Dimension2} graphDimension - the dimensions for the graph (width and height)
-     * @param {Vector2} upperLeftPosition - the coordinate of the upperLeft corner of the graph.
-     * @param {GraphOrientations} orientation - the orientation of the graph
-     * @returns {Graph} - the graph added
-     * @public
-     */
-    addGraph( graphDimension, upperLeftPosition, orientation ) {
-
-      // Keep a reference.
-      const graph = new Graph( graphDimension, upperLeftPosition, orientation );
-
-      this.graphs.push( graph );
-      return graph;
-    }
 
     /**
-     * @public
      * Resets the Model. Called when the reset all button is clicked.
+     * @public
      */
     reset() {
 
@@ -108,7 +91,7 @@ define( require => {
       this.coordinateSnapModeProperty.reset();
 
       // Reset every graph
-      this.graphs.forEach( ( graph ) => {graph.reset();} );
+      this.graphs.forEach( ( graph ) => { graph.reset(); } );
     }
   }
 

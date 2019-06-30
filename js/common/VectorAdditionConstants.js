@@ -15,7 +15,6 @@ define( function( require ) {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   //----------------------------------------------------------------------------------------
   // for all panel-like containers
@@ -80,9 +79,6 @@ define( function( require ) {
       cursor: 'move'
     },
 
-    // Default vector group for Explore1D, Explore2D and Equation.
-    DEFAULT_VECTOR_GROUP: VectorGroups.ONE,
-
     // Side length of the arrow when initially dropped onto the graph.
     INITIAL_ARROW_SIDE_LENGTH: 5,
 
@@ -90,8 +86,15 @@ define( function( require ) {
     VECTOR_LABEL_OFFSET: 1,
 
     //----------------------------------------------------------------------------------------
-    // Rounding: TODO// add more here
-    ANGLE_ROUNDING: 1 // in decimal points, used in inspectVectorPanel and vectorAngleNode
+    // Rounding
+    ANGLE_ROUNDING: 1, // in decimal points
+
+
+    //----------------------------------------------------------------------------------------
+    // Labels, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
+    // These don't necessarily align with VectorGroups.
+    LABEL_GROUP_1: [ 'a', 'b', 'c' ]
+
 
   };
 

@@ -9,14 +9,12 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Checkbox = require( 'SUN/Checkbox' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
   const TEXT_OPTIONS = {
@@ -33,12 +31,12 @@ define( require => {
      * @param {BooleanProperty} sumVisibleProperty
      * @param {VectorGroups} vectorGroup
      */
-    constructor( sumVisibleProperty, vectorGroup ) {
+    constructor( vectorSet ) {
 
       // Type check arguments
-      assert && assert( sumVisibleProperty instanceof BooleanProperty,
-        `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      // assert && assert( sumVisibleProperty instanceof BooleanProperty,
+      //   `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      // assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -47,9 +45,9 @@ define( require => {
         spacing: CHECKBOX_OPTIONS.spacing,
         children: [
           new Text( sumString, TEXT_OPTIONS ),
-          VectorAdditionIconFactory.createSumIcon( vectorGroup )
+          VectorAdditionIconFactory.createSumIcon( vectorSet.vectorGroup )
         ]
-      } ), sumVisibleProperty, CHECKBOX_OPTIONS );
+      } ), vectorSet.sumVisibleProperty, CHECKBOX_OPTIONS );
     }
   }
 

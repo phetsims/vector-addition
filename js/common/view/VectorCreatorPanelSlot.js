@@ -1,58 +1,63 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a single slot that is on a vectorCreatorPanel. A slot should allow the user to drag a 'decoy' vector
- * on to the graph, in which this view will call an abstract method to add a vector to the model.
+ * View for a single slot that is on a vectorCreatorPanel. A slot creates a vector when the icon is clicked and allows
+ * the user to drag the screen onto graph. If the user doesn't drag the vector onto the graph, animate the vector
+ * back to the panel slot: https://github.com/phetsims/vector-addition/issues/50.
  *
- * Slots vary from screen to screen, slot to slot
+ * Slots vary from screen to screen, slot to slot.
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const Property = require( 'AXON/Property' );
+  const ScreenView = require( 'JOIST/ScreenView' );
   const Vector2 = require( 'DOT/Vector2' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
   const LABEL_AND_ICON_SPACING = 6;
   const LABEL_RESIZE_SCALE = 0.8;
-
-  const GROUP_ONE_ICON_ARROW_OPTIONS = _.extend( {},
-    VectorAdditionConstants.VECTOR_OPTIONS, {
-      fill: VectorAdditionColors[ VectorGroups.ONE ].fill
-    } );
-  const GROUP_TWO_ICON_ARROW_OPTIONS = _.extend( {},
-    VectorAdditionConstants.VECTOR_OPTIONS, {
-      fill: VectorAdditionColors[ VectorGroups.TWO ].fill
-    } );
+  const ICON_OFFSET_MOUSE_AREA = 8;
 
   class VectorCreatorPanelSlot extends HBox {
     /**
      * @constructor
-     * @param {Vector2} initialVector - the direction, and length of the modelVector
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {VectorAdditionModel} vectorAdditionModel
+     * @param {Vector2} initialVector - the initial vector's components, in model coordinates.
+     * @param {Graph} graph - the graph to drop the vector onto
      * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to.
+     * @param {Node} vectorContainer - the container to add new vector nodes to (to keep vectors in a separate z-layer)
+     * @param {ScreenView} parentScreenView - the screen view up the scene graph for the creator panel slot
      * @param {Object} [options]
      */
-    constructor( initialVector, modelViewTransformProperty, vectorSet, options ) {
+    constructor( vectorAdditionModel, initialVector, graph, vectorSet, vectorContainer, parentScreenView, options ) {
+
+      assert && assert( vectorAdditionModel instanceof VectorAdditionModel,
+        `invalid vectorAdditionModel: ${vectorAdditionModel}` );
+      assert && assert( initialVector instanceof Vector2, `invalid initialVector: ${initialVector}` );
+      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
+      assert && assert( vectorContainer instanceof Node, `invalid vectorContainer: ${vectorContainer}` );
+      assert && assert( parentScreenView instanceof ScreenView, `invalid parentScreenView: ${parentScreenView}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
+
+      //----------------------------------------------------------------------------------------
 
       options = _.extend( {
         label: null, // {string|null} the label for the vector at the slot
@@ -63,18 +68,6 @@ define( require => {
         xMargin: 0
       }, options );
 
-      // Type Check
-      assert && assert( initialVector instanceof Vector2, `invalid initialVector: ${initialVector}` );
-      assert && assert( modelViewTransformProperty instanceof Property
-      && modelViewTransformProperty.value instanceof ModelViewTransform2,
-        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
-      assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
-      assert && assert( !options.label || typeof options.label === 'string',
-        `invalid options.label: ${options.label}` );
-      assert && assert( typeof options.isInfinite === 'boolean', `invalid options.isInfinite: ${options.isInfinite}` );
-      assert && assert( typeof options.labelIconSpacing === 'number' && options.labelIconSpacing > 0,
-        `invalid options.labelIconSpacing: ${options.labelIconSpacing}` );
-
       //----------------------------------------------------------------------------------------
 
       super( {
@@ -84,156 +77,105 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      const vectorGroup = vectorSet.vectorGroup;
-
-      let arrowOptions;
-      switch( vectorGroup ) {
-        case VectorGroups.ONE:
-          arrowOptions = GROUP_ONE_ICON_ARROW_OPTIONS;
-          break;
-        case VectorGroups.TWO:
-          arrowOptions = GROUP_TWO_ICON_ARROW_OPTIONS;
-          break;
-        default:
-          throw new Error( `Vector type ${vectorGroup} doesn't exists ` );
-      }
-
-      //----------------------------------------------------------------------------------------
-
+      // convenience variables
+      const modelViewTransformProperty = graph.modelViewTransformProperty;
       const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
 
-      // @public {Node} (read-only)
-      this.vectorRepresentationNode = getVectorRepresentation( initialViewVector, arrowOptions );
-
-      // Set the representation node to invisible
-      this.vectorRepresentationNode.visible = false;
-
-      // create an icon
-      const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon(
-        initialViewVector,
-        vectorGroup,
+      // Create an icon
+      const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( initialViewVector,
+        vectorSet.vectorGroup,
         options.iconOptions );
 
       // Make the iconNode easier to grab
-      iconNode.mouseArea = iconNode.shape.getOffsetShape( 8 );
+      iconNode.mouseArea = iconNode.shape.getOffsetShape( ICON_OFFSET_MOUSE_AREA );
+
+      // Create a fixed size box for the icon, allowing the label to stay in the same spot
       this.addChild( new AlignBox( iconNode, {
         alignBounds: new Bounds2( 0, 0, options.arrowIconContainerWidth, iconNode.height ),
         xAlign: 'center',
         yAlign: 'center'
       } ) );
 
+      // Add the label if provided
       if ( options.label ) {
-
         const label = new FormulaNode( `\\vec{\\mathrm{${options.label}}}` );
         label.scale( LABEL_RESIZE_SCALE );
 
         this.addChild( label );
-
       }
 
-      // When the vector icon is clicked, add the vector representation as a decoy vector to drag onto the screen
+      //----------------------------------------------------------------------------------------
+      // When the vector icon is clicked, create a new vector model
+      //----------------------------------------------------------------------------------------
       iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
 
-          // Create a location property to track the location of where the user dragged the vector representation
-          const vectorRepresentationLocationProperty = new Vector2Property(
-            this.vectorRepresentationNode.globalToParentPoint( event.pointer.point ) );
+        const globalPoint = parentScreenView.globalToLocalPoint( event.pointer.point );
 
-          // Create a drag listener for the vector representation node
-          const vectorRepresentationDragListener = new DragListener( {
-            targetNode: this.vectorRepresentationNode,
-            allowTouchSnag: true,
-            translateNode: true,
-            locationProperty: vectorRepresentationLocationProperty,
-            start: () => { this.vectorRepresentationNode.visible = true; },
-            end: () => {
+        const vectorCenterPosition = modelViewTransformProperty.value.viewToModelPosition( globalPoint );
 
-              // TODO: what should we do if the user dragged it off the grid
+        // From the center, we can calculate where the tail would be based on the initialVector
+        const vectorTailPosition = vectorCenterPosition.minus( initialVector.timesScalar( 0.5 ) );
 
-              this.vectorRepresentationNode.visible = false;
 
-              // Get the drag location in model coordinates
-              const vectorRepresentationPosition = modelViewTransformProperty.value.viewToModelPosition(
-                vectorRepresentationLocationProperty.value
-              );
+        // Create the new Vector Model
+        const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, {
+          label: options.label
+        } );
+        vectorSet.vectors.push( vectorModel );
 
-              // Call the abstract method to add the vector to the model. See addVectorToModel for documentation
-              const addedVectorModel = addVectorToModel( vectorRepresentationPosition, initialVector );
+        //----------------------------------------------------------------------------------------
+        // Create the vector node and add it to the container
+        const vectorNode = new VectorNode( vectorModel,
+          graph,
+          vectorAdditionModel.valuesVisibleProperty,
+          vectorAdditionModel.angleVisibleProperty );
+        vectorContainer.addChild( vectorNode );
 
-              // Check that the new vector model was implemented correctly
-              assert && assert( addedVectorModel instanceof VectorModel,
-                `addVectorToModel should return a VectorModel, not a ${addedVectorModel}` );
+        // Activate the body drag the body drag
+        vectorNode.bodyDragListener.press( event, vectorNode );
 
-              // Add a removed listener to the observable array to reset the icon
-              vectorSet.vectors.addItemRemovedListener( ( removedVector ) => {
-                if ( removedVector === addedVectorModel ) {
-                  iconNode.visible = true;
-                }
-              } );
-            }
+        // Change the visibility to allow or not allow infinite slots
+        iconNode.visible = options.isInfinite;
 
-          } );
-
-          this.vectorRepresentationNode.addInputListener( vectorRepresentationDragListener );
-
-          if ( !options.isInfinite ) {
-            iconNode.visible = false;
+        //----------------------------------------------------------------------------------------
+        // Add the removal listener for when the vector is removed to remove the node.
+        const removalListener = removedVector => {
+          if ( removedVector === vectorModel ) {
+            removedVector.isOnGraphProperty.value = false;
+            vectorNode.dispose();
+            iconNode.visible = true;
+            vectorSet.vectors.removeItemRemovedListener( removalListener );
           }
+        };
+        vectorSet.vectors.addItemRemovedListener( removalListener );
 
-          this.vectorRepresentationNode.center = this.vectorRepresentationNode.globalToParentPoint( event.pointer.point );
+        //----------------------------------------------------------------------------------------
+        // Observe when the vector node says its time to animate back.
+        vectorNode.animateBackProperty.link( ( animateBack ) => {
 
-          vectorRepresentationDragListener.press( event );
-        },
-        { allowTouchSnag: true } ) );
+          if ( animateBack ) {
+            // Get the location of the icon node relative to the screen view
+            const iconPosition = modelViewTransformProperty.value.viewToModelBounds(
+              parentScreenView.boundsOf( iconNode ) ).center;
 
-      /**
-       * returns a scenery representation of a vector arrow with a dropped shadow
-       * @param {Vector2} initialViewVector
-       * @param {Object} [options]
-       * @returns {Node}
-       */
-      function getVectorRepresentation( initialViewVector, options ) {
+            const iconAttributesVector = modelViewTransformProperty.value.viewToModelDelta(
+              new Vector2( iconNode.width, -iconNode.height ) );
 
-        // convenience variables
-        const x = initialViewVector.x;
-        const y = initialViewVector.y;
+            const animationFinishedListener = () => {
 
-        // create the scenery node for the vector representation
-        const vectorRepresentationNode = new Node();
+              iconNode.visible = true;
 
-        // create the vector arrow in the foreground
-        const frontArrow = new ArrowNode( 0, 0, x, y, options );
-
-        // create the background options in the same style as the frontArrow
-        const backgroundOptions = _.extend( {}, options, {
-          fill: VectorAdditionColors.BLACK,
-          opacity: 0.4
+              // Remove the vector model
+              vectorSet.vectors.remove( vectorModel );
+              vectorModel.dispose();
+            };
+            vectorModel.animateToPoint( iconPosition, iconAttributesVector, animationFinishedListener );
+          }
         } );
 
-        // create the dropped shadow arrow with different decoration
-        const droppedShadow = new ArrowNode( 0, 0, x, y, backgroundOptions );
-
-        // set the position of the dropped shadow on the front arrow
-        droppedShadow.left = frontArrow.left;
-        droppedShadow.top = frontArrow.top;
-
-        // add offset to the front arrow, the shadow is where the vector should be dropped
-        frontArrow.left -= 4;
-
-        return vectorRepresentationNode.setChildren( [ droppedShadow, frontArrow ] );
-      }
-
-      /**
-       * Called when the vectorRepresentation is dropped. This should add the vector to the model.
-       * @param {Vector2} droppedPosition - position  (model coordinates)
-       * @param {Vector2} initialVector - direction and length of initial vector to be dropped
-       * @returns {VectorModel} the model added
-       */
-      function addVectorToModel( droppedPosition, initialVector ) {
-
-        const labelOptions = ( options.label ) ? { label: options.label } : {};
-
-        return vectorSet.addVector( droppedPosition, initialVector.x, initialVector.y, labelOptions );
-      }
+      }, {
+        allowTouchSnag: true
+      } ) );
     }
   }
 

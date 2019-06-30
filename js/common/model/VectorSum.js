@@ -1,7 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for vectorial sum of all the vectors in an observable array
+ * Model for vectorial sum of all the vectors of a vector set. Only calculates the sum of the vectors
+ * that are on the graph.
  *
  * @author Martin Veillette
  */
@@ -10,72 +11,81 @@ define( require => {
   'use strict';
 
   // modules
-  const ObservableArray = require( 'AXON/ObservableArray' );
+  const Property = require( 'AXON/Property' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+
+  // constants
+
+  // The label of the vector when its active if and only if the user doesn't provide the label option.
+  // The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
+  const FALLBACK_VECTOR_LABEL = 'v';
+
 
   class VectorSum extends VectorModel {
     /**
      * @constructor
-     * @param {ObservableArray.<VectorModel>} vectors
-     * @param {Graph} graph - the graph the sum belongs to
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorGroups} vectorGroup
+     * @param {Graph} graph - graph to add the vector to
+     * @param {VectorSet} - the vector set that the sum represents
      * @param {Object} [options]
      */
-    constructor( vectors, graph, componentStyleProperty, vectorGroup, options ) {
+    constructor( graph, vectorSet, options ) {
 
       options = _.extend( {
 
         // Passed to super class
-        label: 's',// {string} - the label of the vector
-        isTipDraggable: false // {boolean} - can the tip be dragged
+        label: 's', // {string|null} - the label of the vector. If null, the vector will display a the fallback label
+        // when its active
+
+        isTipDraggable: false, // {boolean} - false means the tip won't be draggable
+        isRemovable: false // {boolean} - false means the user will not be able to drag a vector off the graph
+
       }, options );
 
-      assert && assert( vectors instanceof ObservableArray
-      && vectors.filter( vector => !( vector instanceof VectorModel ) ).length === 0,
-        `invalid vectors: ${vectors}` );
 
       //----------------------------------------------------------------------------------------
 
       // Get the initial position for the tail of the vector, which is the graphs center
       const initialPosition = graph.graphModelBounds.center;
 
-      super( initialPosition, 0, 0, graph, componentStyleProperty, vectorGroup, options );
+      super( initialPosition, 0, 0, graph, vectorSet, options );
+
+      // @public (read-only)
+      this.fallbackLabel = FALLBACK_VECTOR_LABEL;
+
+      // Vector sums are always on the graph
+      this.isOnGraphProperty.value = true;
+
+      this.isOnGraphProperty.link( ( isOnGraph ) => {
+        if ( isOnGraph === false ) {
+          assert && assert( false, 'vector sums should never be off the graph' );
+        }
+      } );
+
+      // @private {ObservableArray.<VectorModel>}
+      this.vectors = vectorSet.vectors;
 
       //----------------------------------------------------------------------------------------
-      // Function to update the Sum when a vector is added or modified.
-      const updateSum = ( attributesVector, oldAttributesVector ) => {
 
-        // Add the current value of the new vector
-        this.attributesVector = this.attributesVector.plus( attributesVector );
+      // Observe changes to the vector array. Never removed because the vector sum exists throughout the entire sim.
+      vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
 
-        // Remove the old value of the vector to get the change in the vector.
-        if ( oldAttributesVector ) {
-          this.attributesVector = this.attributesVector.minus( oldAttributesVector );
-        }
-      };
-
-      // Observe changes to the vector array to update the sum
-      vectors.addItemAddedListener( ( addedVector ) => {
-
-        // Calculate the sum when the vector is changed or added
-        addedVector.attributesVectorProperty.link( updateSum );
+        const vectorObserver = Property.multilink(
+          [ addedVector.attributesVectorProperty, addedVector.isOnGraphProperty ], () => {
+            this.updateSum();
+          } );
 
         const vectorRemovedListener = ( removedVector ) => {
           if ( removedVector === addedVector ) {
 
-            // Recalculate the sum when the vector is removed
-            this.attributesVector = this.attributesVector.minus( removedVector.attributesVectorProperty.value );
-
-            // Remove listener
-            removedVector.attributesVectorProperty.unlink( updateSum );
-
-            vectors.removeItemRemovedListener( vectorRemovedListener );
+            this.updateSum();
+            vectorObserver.dispose();
+            vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
           }
         };
 
-        vectors.addItemRemovedListener( vectorRemovedListener );
+        vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
       } );
     }
 
@@ -87,9 +97,32 @@ define( require => {
     dispose() { throw new Error( 'Vector Sum is never disposed' ); }
 
     /**
-     * Resets the position of the tail of the vector sum
+     * Updates the sum. Since vectors are created the second the creator icon is clicked, but still aren't on the graph
+     * and shouldn't be apart of the sum, create a multilink. Vectors are also not removed until animated back, but also
+     * those vectors shouldn't be calculated in the sum.
+     * In short, this calculates the sum based on the sum of the vectors that are on graph
      * @public
-     * @override
+     */
+    updateSum() {
+
+      const onGraphVectors = this.vectors.filter( ( vector ) => {
+        return vector.isOnGraphProperty.value;
+      } );
+
+      const sumVector = new Vector2( 0, 0 );
+
+      onGraphVectors.forEach( ( vector ) => {
+        sumVector.add( vector.attributesVector );
+      } );
+
+      this.attributesVector = sumVector;
+    }
+
+
+    /**
+     * Resets the position vector sum. This only resets the tail position, as its components depend on the rest of the
+     * vector set.
+     * @public
      */
     reset() {
       this.tailPositionProperty.reset();
