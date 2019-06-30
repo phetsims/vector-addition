@@ -234,6 +234,9 @@ define( require => {
         // Update the model tip
         this.tip = this.tail.plus( polarVector );
       }
+
+      // Declare this vector as active when it's dragging
+      this.graph.activeVectorProperty.value = this;
     }
 
     /**
@@ -253,6 +256,8 @@ define( require => {
 
       const constrainedBounds = this.getConstrainedTailBounds();
 
+      // Declare this vector as active when it's dragging
+      this.graph.activeVectorProperty.value = this;
       /*---------------------------------------------------------------------------*
        * Remove vectors
        *---------------------------------------------------------------------------*/
@@ -266,6 +271,7 @@ define( require => {
 
       if ( Math.abs( dragOffset.x ) > VECTOR_DRAG_THRESHOLD || Math.abs( dragOffset.y ) > VECTOR_DRAG_THRESHOLD ) {
         this.isOnGraphProperty.value = false;
+        this.graph.activeVectorProperty.value = null; // No longer the active vector
       }
     }
 
@@ -382,6 +388,9 @@ define( require => {
       this.isOnGraphProperty.value = true;
 
       this.moveVectorTailToFitInGraph( tailPosition );
+
+      // Declare this vector as active
+      this.graph.activeVectorProperty.value = this;
     }
   }
 
