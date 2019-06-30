@@ -34,7 +34,6 @@ define( require => {
       // assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
       //   `Extra prototype on Options: ${options}` );
 
-      //----------------------------------------------------------------------------------------
 
       options = _.extend( {
         inspectVectorPanelLocation: null, // {object|null}
