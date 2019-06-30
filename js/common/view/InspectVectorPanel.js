@@ -186,8 +186,9 @@ define( require => {
         const vectorLabel = activeVector.label ? activeVector.label : activeVector.fallbackLabel;
         magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${vectorLabel}\}\}|` );
 
+        const maxMagnitude = Math.pow( Math.pow( graph.graphModelBounds.width, 2 ) + Math.pow( graph.graphModelBounds.height, 2 ), 0.5 ) + 1;
         magnitudeNumberDisplayContainer.setChildren( [
-          new NumberDisplay( activeVector.magnitudeProperty, new Range( 0, 100 ), {
+          new NumberDisplay( activeVector.magnitudeProperty, new Range( 0, maxMagnitude ), {
             decimalPlaces: 1
           } ) ] );
 
@@ -197,16 +198,18 @@ define( require => {
           } ) ] );
 
         xComponentText.setText( `${vectorLabel}<sub>${symbolXString}</sub>` );
-
+        
+        const graphWidth = graph.graphModelBounds.width;
         xComponentNumberDisplayContainer.setChildren( [
-          new NumberDisplay( activeVector.xComponentProperty, new Range( -60, 60 ), {
+          new NumberDisplay( activeVector.xComponentProperty, new Range( -graphWidth, graphWidth ), {
             decimalPlaces: 1
           } ) ] );
 
         yComponentText.setText( `${vectorLabel}<sub>${symbolYString}</sub>` );
 
+        const graphHeight = graph.graphModelBounds.height;
         yComponentNumberDisplayContainer.setChildren( [
-          new NumberDisplay( activeVector.yComponentProperty, new Range( -40, 40 ), {
+          new NumberDisplay( activeVector.yComponentProperty, new Range( -graphHeight, graphHeight ), {
             decimalPlaces: 1
           } ) ] );
       };
