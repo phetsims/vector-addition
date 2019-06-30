@@ -3,7 +3,7 @@
 /**
  * View for the angle underneath/above the vector when the angle checkbox is selected.
  *
- * Listens to the common models angleVisibleProperty to determine when to display the angle node.
+ * Listens to the common models angleVisibleProperty and the graphs activeVectorProperty to determine visibility.
  * Listens to a model vector's angleDegreesProperty to get the angle.
  *
  * @author Brandon Li
@@ -15,8 +15,8 @@ define( require => {
   // modules
   const ArcArrowNode = require( 'VECTOR_ADDITION/common/view/ArcArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Line = require( 'SCENERY/nodes/Line' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
@@ -24,17 +24,17 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
 
   // constants
-
   const BASE_LINE_LENGTH = 55;
   const ARC_ARROW_OPTIONS = {
     arrowheadWidth: 8,
     arrowheadHeight: 6
   };
   const ARC_RADIUS = 25;
-  const ANGLE_LABEL_FONT = new PhetFont( { size: 14, family: 'Times' } );
+  const ANGLE_LABEL_FONT = new PhetFont( { size: 14, fontWeight: 'lighter', family: 'serif' } );
 
   // The offset of the angle label from the arc arrow
   const LABEL_OFFSET = 5;
@@ -54,16 +54,15 @@ define( require => {
      * @constructor
      * @param {VectorModel} vectorModel - the vector model
      * @param {BooleanProperty} angleVisibleProperty
-     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+     * @param {Graph} graph
      */
-    constructor( vectorModel, angleVisibleProperty, modelViewTransformProperty ) {
+    constructor( vectorModel, angleVisibleProperty, graph) {
 
       assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
       assert && assert( angleVisibleProperty instanceof BooleanProperty,
         `invalid angleVisibleProperty: ${angleVisibleProperty}` );
-      assert && assert( modelViewTransformProperty instanceof Property
-      && modelViewTransformProperty.value instanceof ModelViewTransform2,
-        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+
 
       //----------------------------------------------------------------------------------------
 
@@ -71,13 +70,13 @@ define( require => {
 
       // @private {Line}
       this.baseLine = new Line( 0, 0, BASE_LINE_LENGTH, 0, {
-        stroke: 'black'
+        stroke: VectorAdditionColors.BLACK
       } );
 
       // @private {ArcArrowNode}
       this.arcArrow = new ArcArrowNode( vectorModel.angleDegreesProperty.value, ARC_RADIUS, ARC_ARROW_OPTIONS );
 
-      // @private {Text}
+      // @private {Text} - to be set later
       this.labelText = new Text( '', { font: ANGLE_LABEL_FONT } );
 
       this.setChildren( [ this.baseLine, this.arcArrow, this.labelText ] );
@@ -85,19 +84,33 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Update the angle when the model changes
-      const updateAngleListener = angle => this.updateAngleNode( angle );
+      const updateAngleListener = angle => {
+        if ( this.visible ) { // only update the angle if we are visible
+          this.updateAngleNode( angle );
+        }
+      }
       vectorModel.angleDegreesProperty.link( updateAngleListener );
 
+      //----------------------------------------------------------------------------------------
       // Update the scale when the vector becomes too small
-      const updateScaleListener = magnitude => this.scaleArc( magnitude, modelViewTransformProperty.value );
+      const updateScaleListener = magnitude => {
+        if ( this.visible ) { // only update the angle if we are visible
+          this.scaleArc( magnitude, graph.modelViewTransformProperty.value );
+        }
+      }
       vectorModel.magnitudeProperty.link( updateScaleListener );
 
+      //----------------------------------------------------------------------------------------
       // Observe when the angle visible property is changing and update the visibility of the angle node. The angle is
       // only visible when the vector is both active and the angle checkbox is clicked
-      const visibilityObserver = Property.multilink( [ angleVisibleProperty ],
-        ( angleVisible ) => {
-          this.visible = angleVisible;
+      const visibilityObserver = Property.multilink( [ angleVisibleProperty, graph.activeVectorProperty ],
+        ( angleVisible, activeVector ) => {
+          this.visible = angleVisible && activeVector === vectorModel;
+
+          this.updateAngleNode( vectorModel.angleDegreesProperty.value );
+          this.scaleArc( vectorModel.magnitude, graph.modelViewTransformProperty.value );
         } );
+
 
       // @private {function} - function to unlink listeners, called in dispose()
       this.unlinkListeners = () => {

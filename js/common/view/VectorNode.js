@@ -77,7 +77,7 @@ define( require => {
 
 
       // Create a scenery node representing the arc of an angle and the numerical display of the angle
-      const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, graph.modelViewTransformProperty );
+      const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, graph );
 
       // Create an arrow node that represents the shadow of the vector
       const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, VECTOR_SHADOW_OPTIONS );
