@@ -1,8 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the 'main' vector (the vectors that are dragged onto the graph). These vectors are created in
- * VectorCreatorPanelSlot.js and support tip dragging and tail translation dragging.
+ * View for the vectors that are dragged onto the graph. These vectors are created in VectorCreatorPanelSlot.js and
+ * support tip dragging and tail translation dragging as well as removing and animating vector back to the creator.
  *
  * @author Martin Veillette
  */
@@ -26,16 +26,22 @@ define( require => {
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
 
   // constants
+
+  // radius of the invisible circle at the tip of the vector
   const TIP_CIRCLE_RADIUS = 10;
   const TIP_CIRCLE_OPTIONS = {
     opacity: 0,
     dilated: 10,
     cursor: 'pointer'
   };
+
+  // arrow options for the vector shadow
   const VECTOR_SHADOW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
     fill: VectorAdditionColors.BLACK,
     opacity: 0.28
   } );
+
+  // offsets for vector shadows in view coordinates
   const VECTOR_SHADOW_OFFSET_X = 3.2;
   const VECTOR_SHADOW_OFFSET_Y = 2.1;
 
@@ -70,11 +76,20 @@ define( require => {
       super( vectorModel, graph.modelViewTransformProperty, valuesVisibleProperty, arrowOptions );
 
       //----------------------------------------------------------------------------------------
+      // Private references
 
-      // Convenience references
-      const modelViewTransformProperty = graph.modelViewTransformProperty;
-      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
+      // @private {Property.<ModelViewTransform2>}
+      this.modelViewTransformProperty = graph.modelViewTransformProperty;
 
+      // @private {VectorModel}
+      this.vectorModel = vectorModel;
+
+      //----------------------------------------------------------------------------------------
+      // Create custom scenery nodes
+      //----------------------------------------------------------------------------------------
+
+      // Since the tail is (0, 0) for the view, the tip is the delta location of the tip
+      const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
 
       // Create a scenery node representing the arc of an angle and the numerical display of the angle
       const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, graph );
@@ -86,69 +101,80 @@ define( require => {
       // arrowNode by only dragging the tip
       const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
 
-
       // Reconfigure scene graph z-layering
       this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode, tipCircle ] );
 
       //----------------------------------------------------------------------------------------
+      // Update the tip circle so the user can indefinitely drag the tip
+      //----------------------------------------------------------------------------------------
 
-      // @private {Property.<ModelViewTransform2>}
-      this.modelViewTransformProperty = modelViewTransformProperty;
-
-      // @private {VectorModel}
-      this.vectorModel = vectorModel;
+      const updateTipCircleLocation = () => {
+        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
+        tipCircle.center = tipDeltaLocation;
+      };
+      vectorModel.attributesVectorProperty.link( updateTipCircleLocation ); // unlinked in this.disposeVectorNode
 
       //----------------------------------------------------------------------------------------
       // Create Body Drag
       //----------------------------------------------------------------------------------------
 
-      // Create a property for the location of the tail of the vector.
-      const tailLocationProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewPosition(
-        vectorModel.tail ) );
-
-      // @public (read-only) {BooleanProperty} property to indicate when the vector should be animated back to the creator panel
+      // @public (read-only) {BooleanProperty} indicates when the vector should be animated back to the creator panel
       this.animateBackProperty = new BooleanProperty( false );
 
-      // @public (read-only) {DragListener} - drag listener for translating the vector
+      // Create a property for the location of the tail of the vector. Used for the tail drag listener.
+      const tailLocationProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
+        vectorModel.tail ) );
+
+      // @public (read-only) {DragListener} - drag listener for translating the vector. Should only be a input listener
+      // when the vector isn't animating back.
       this.bodyDragListener = new DragListener( {
         targetNode: this,
         locationProperty: tailLocationProperty,
         start: () => {
 
+          assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+            'body drag listener should be removed when the vector is animating back.' );
           // Activate the vector as it is now the active vector
           graph.activeVectorProperty.value = vectorModel;
           this.moveToFront();
         },
         end: () => {
 
-          // If we are currently animating back or should be animating back, do not allow drag by doing nothing
-          if ( this.vectorModel.inProgressAnimationProperty.value || this.animateBackProperty.value ) {
-            // do nothing
-            return;
-          }
+          assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+            'body drag listener should be removed when the vector is animating back.' );
           //----------------------------------------------------------------------------------------
-          // If we aren't on the graph, at the end of the drag determine to either drop the vector or animate back 
-          if ( !this.vectorModel.isOnGraphProperty.value && this.vectorModel.isRemovable ) {
+          // Determine to drop the vector or to animate the vector back if we aren't on the graph
+          if ( !this.vectorModel.isOnGraphProperty.value ) {
 
-            // Tail position, since the vector center is always on the cursor
-            const cursorPosition = modelViewTransformProperty.value.viewToModelDelta(
-              this.bodyDragListener.localPoint ).plus( this.vectorModel.tail );
+            // Get the cursor position as this determines to animate back or to drop the vector.
+            // See https://github.com/phetsims/vector-addition/issues/50
+            const cursorPosition = this.modelViewTransformProperty.value
+              .viewToModelDelta( this.bodyDragListener.localPoint ).plus( this.vectorModel.tail );
 
-            // If the graph doesn't contain the center, it is time to animate back, otherwise drop it on the graph
-            if ( !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
-              this.animateBackProperty.value = true;
-              this.arrowNode.cursor = 'default';
-            }
-            else {
-              const shadowTailPosition = vectorModel.tail.plus( modelViewTransformProperty.value.viewToModelDelta(
-                vectorShadowNode.center ).minus( vectorModel.attributesVector.timesScalar( 0.5 ) ) );
+            // If the cursor is on the graph, drop the vector on the graph
+            if ( graph.graphModelBounds.containsPoint( cursorPosition ) ) {
+
+              // Drop the vector where the shadow was positioned
+              const shadowOffset = this.modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
+                .minus( vectorModel.attributesVector.timesScalar( 0.5 ) );
+
+              const shadowTailPosition = vectorModel.tail.plus( shadowOffset );
 
               this.vectorModel.dropOntoGraph( shadowTailPosition );
+            }
+            else { // otherwise, animate the vector back
+              this.animateBackProperty.value = true;
             }
           }
         }
       } );
 
+      // The body can be translated by the arrow or the label
+      this.arrowNode.addInputListener( this.bodyDragListener );
+      this.labelNode.addInputListener( this.bodyDragListener );
+
+      //----------------------------------------------------------------------------------------
+      // Add listeners
       //----------------------------------------------------------------------------------------
 
       // Observe the view location property to call a tail listener that updates the tail in the model
@@ -157,9 +183,15 @@ define( require => {
       };
       tailLocationProperty.link( tailListener );
 
-      // The body can be translated by the arrow or the label
-      this.arrowNode.addInputListener( this.bodyDragListener );
-      this.labelNode.addInputListener( this.bodyDragListener );
+      // Observe when the vector is animating back
+      const removeBodyDragListener = isAnimatingBack => {
+        if ( isAnimatingBack ) {
+          this.arrowNode.removeInputListener( this.bodyDragListener );
+          this.labelNode.removeInputListener( this.bodyDragListener );
+          this.cursor = 'default';
+        }
+      };
+      this.animateBackProperty.lazyLink( removeBodyDragListener );
 
       //----------------------------------------------------------------------------------------
       // Create Tip Drag
@@ -175,48 +207,52 @@ define( require => {
           targetNode: tipCircle,
           locationProperty: tipLocationProperty,
           start: () => {
-            // Don't do anything when the vector isn't on the graph, as you can't drag the tip when it's off the graph
-            if ( vectorModel.isOnGraphProperty.value === false ) {
-              return;
-            }
+            assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+              'tip drag listener should be removed when the vector is animating back.' );
+
             // Activate the vector as it is now the active vector
             graph.activeVectorProperty.value = vectorModel;
             this.moveToFront();
           }
         } );
 
+        tipCircle.addInputListener( tipDragListener );
+
         //----------------------------------------------------------------------------------------
+        // Add listeners
+        //----------------------------------------------------------------------------------------
+
         // Tip location listener that updates the tail in the model
         const tipListener = tipLocation => {
           this.updateTipPosition( tipLocation );
         };
         // Observe the view location property to call a tip listener that updates the tail in the model
-        tipLocationProperty.link( tipListener );
-        tipCircle.addInputListener( tipDragListener );
+        tipLocationProperty.lazyLink( tipListener );
 
-        // @private {function}
+        // Observe when the vector is animating back
+        const removeTipDragListener = isAnimatingBack => {
+          if ( isAnimatingBack ) {
+            tipCircle.removeInputListener( tipDragListener );
+          }
+        };
+        this.animateBackProperty.lazyLink( removeTipDragListener );
+
+        // @private {function} - to dispose tip dragging links
         this.disposeTipDrag = () => {
-          tipCircle.removeInputListener( tipDragListener );
           tipLocationProperty.unlink( tipListener );
+          this.animateBackProperty.unlink( removeTipDragListener );
         };
       }
 
       //----------------------------------------------------------------------------------------
-      // Update the tip circle so the user can indefinitely drag the tip
-      const updateTipCircleLocation = () => {
-        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
-        tipCircle.center = tipDeltaLocation;
-      };
-      vectorModel.attributesVectorProperty.link( updateTipCircleLocation );
-
+      // Update appearance
       //----------------------------------------------------------------------------------------
 
       // Function to update the appearance of the vector node depending on if it's on or off the graph or when the
       // vector model changes
-      const onGraphListener = ( isOnGraph, attributesVectorProperty ) => {
+      const onGraphListener = ( isOnGraph, attributesVectorProperty, animateBack ) => {
         this.labelNode.visible = isOnGraph;
-
-        vectorShadowNode.visible = !isOnGraph;
+        vectorShadowNode.visible = !animateBack && !isOnGraph;
 
         vectorShadowNode.resetTransform();
         if ( !isOnGraph ) {
@@ -225,30 +261,32 @@ define( require => {
         }
 
         // Get the tip location in view coordinates
-        const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
+        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
         vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
       };
 
+      // Observe changes to the vector model.
       const vectorOnGraphObserver = Property.multilink(
-        [ vectorModel.isOnGraphProperty, vectorModel.attributesVectorProperty ], onGraphListener );
+        [ vectorModel.isOnGraphProperty, vectorModel.attributesVectorProperty, this.animateBackProperty ],
+        onGraphListener );
 
       //----------------------------------------------------------------------------------------
-      // Create a method to dispose children
+      // Dispose
+      // @private {function}
       this.disposeVectorNode = () => {
+        vectorOnGraphObserver.dispose();
+
         if ( vectorModel.isTipDraggable ) {
           this.disposeTipDrag();
         }
-        this.arrowNode.removeInputListener( this.bodyDragListener );
-        this.labelNode.removeInputListener( this.bodyDragListener );
-
-        angleNode.dispose();
-
+        this.animateBackProperty.unlink( removeBodyDragListener );
         tailLocationProperty.unlink( tailListener );
+
         vectorModel.attributesVectorProperty.unlink( updateTipCircleLocation );
 
         tipCircle.dispose();
-
-        vectorOnGraphObserver.dispose();
+        angleNode.dispose();
+        vectorShadowNode.dispose();
       };
     }
 
@@ -269,23 +307,25 @@ define( require => {
      */
     updateTipPosition( tipLocation ) {
 
-      // Do nothing as you cannot drag the tip when the vector isn't on the graph
-      if ( this.vectorModel.isOnGraphProperty.value === false ) {
-        return;
-      }
+      assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+        'Cannot drag tip when animating back' );
+      assert && assert( this.vectorModel.isOnGraphProperty.value === true, 'Cannot drag tip when not on graph' );
 
-      const vectorTipPosition = this.vectorModel.tail.plus(
-        this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
+      const vectorTipPosition = this.vectorModel.tail
+        .plus( this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
 
       this.vectorModel.dragTipToPosition( vectorTipPosition );
     }
 
     /**
-     * Updates the model vector's tail position. Called when the vector is being translated
+     * Updates the model vector's tail position. Called when the vector is being translated.
      * @param {Vector2} tailLocation
      * @private
      */
     updateTailPosition( tailLocation ) {
+
+      assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+        'Cannot drag tail when animating back' );
 
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
 

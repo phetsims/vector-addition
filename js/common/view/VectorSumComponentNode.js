@@ -49,8 +49,9 @@ define( require => {
 
       // Create a new observer
       this.vectorObserver.dispose();
-      
-      // @private {Multilink} - observe when the sum visibility changes as well
+
+      // @private {Multilink} - observe when the sum visibility changes as well.
+      // Doesn't need to be disposed since vector sum component are never disposed.
       this.vectorObserver = Property.multilink(
         [ valuesVisibleProperty,
           vectorComponent.tailPositionProperty,
@@ -58,18 +59,18 @@ define( require => {
           componentStyleProperty,
           sumVisibleProperty ],
         ( valuesVisible ) => {
-          
+
           // Update the appearance of the vector
           this.updateVector( vectorComponent,
             graph.modelViewTransformProperty.value,
             componentStyleProperty.value,
-            sumVisibleProperty.value ); 
-          
+            sumVisibleProperty.value );
+
           // Update the appearance of the label
           this.updateLabelPositioning( vectorComponent, graph.modelViewTransformProperty.value, valuesVisible );
         } );
     }
-    
+
     /**
      * Does the same as the super class, except handles the visibility based on the sum checkbox.
      * @param {VectorComponent} vectorComponent
