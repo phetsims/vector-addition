@@ -2,6 +2,7 @@
 
 /**
  * View for the 'Inspect a Vector' Panel at the top of the scene. Displays vector attributes (i.e label, magnitude etc.)
+ * of the graphs active vector.
  *
  * @author Martin Veillette
  */
@@ -15,284 +16,221 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const ExpandCollapseButton = require( 'SUN/ExpandCollapseButton' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   const Panel = require( 'SUN/Panel' );
+  const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
+  //----------------------------------------------------------------------------------------
   // strings
   const inspectAVectorString = require( 'string!VECTOR_ADDITION/inspectAVector' );
   const selectAVectorString = require( 'string!VECTOR_ADDITION/selectAVector' );
-  const xString = require( 'string!VECTOR_ADDITION/x' );
-  const yString = require( 'string!VECTOR_ADDITION/y' );
+  const symbolXString = require( 'string!VECTOR_ADDITION/symbol.x' );
+  const symbolYString = require( 'string!VECTOR_ADDITION/symbol.y' );
 
+  //----------------------------------------------------------------------------------------
   // constants
-  const CREATOR_PANEL_WIDTH = 450;
-  const CREATOR_PANEL_HEIGHT = 50;
-  const CREATOR_PANEL_OPTIONS = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
-    cornerRadius: 5,
-    xMargin: 7,
-    yMargin: 2,
-    minWidth: CREATOR_PANEL_WIDTH,
-    maxWidth: CREATOR_PANEL_WIDTH,
-    maxHeight: CREATOR_PANEL_HEIGHT
-  } );
-  const EXPAND_COLLAPSE_BUTTON_OPTIONS = {
-    sideLength: 21
-  };
+  const INSPECT_PANEL_WIDTH = 450;
+  const INSPECT_PANEL_HEIGHT = 50;
+  const EXPAND_COLLAPSE_BUTTON_SIZE = 21;
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-  const EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN = 15;
-  const LABEL_RIGHT_MARGIN = 9;
-  const LABEL_LEFT_MARGIN = 21;
-
-  const LABEL_WIDTH = 16;
+  const BUTTON_TEXT_MARGIN = 13;
+  const LABEL_RIGHT_MARGIN = 7;
+  const LABEL_LEFT_MARGIN = 17;
+  const LABEL_WIDTH = 14;
+  const MAGNITUDE_LABEL_WIDTH = 17;
   const ANGLE_ROUNDING = VectorAdditionConstants.ANGLE_ROUNDING;
 
   class InspectVectorPanel extends Panel {
     /**
      * @constructor
-     * @param {Array.<VectorSet>} vectorSets - the vectorSets that will be able to be displayed
+     * @param {Graph} graph - the graph that contains the vectors to display.
      * @param {Object} [options]
      */
-    constructor( vectorSets, options ) {
+    constructor( graph, options ) {
+
+      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-        isExpandedInitially: false // {boolean} - true means the panel will start off as expanded
+        isExpandedInitially: false, // {boolean} - true means the panel will start off as expanded
+        panelOptions: null // {object} defaults below
       }, options );
 
-      assert && assert( vectorSets.filter( vectorSet => !( vectorSet instanceof VectorSet ).length === 0 ),
-        `invalid vectorSets: ${vectorSets}` );
-      assert && assert( typeof options.isExpandedInitially === 'boolean',
-        `invalid options.isExpandedInitially: ${options.isExpandedInitially}` );
+      options.panelOptions = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
+        cornerRadius: 5,
+        xMargin: 7,
+        yMargin: 2,
+        minWidth: INSPECT_PANEL_WIDTH,
+        maxWidth: INSPECT_PANEL_WIDTH,
+        maxHeight: INSPECT_PANEL_HEIGHT
+      }, options.panelOptions );
+
+      //----------------------------------------------------------------------------------------
 
       // Create an arbitrary node as a reference to the content in the panel
       const panelContent = new Node();
 
-      super( panelContent, CREATOR_PANEL_OPTIONS );
+      super( panelContent, options.panelOptions );
 
-      // @private {BooleanProperty}
-      this.expandedProperty = new BooleanProperty( options.isExpandedInitially );
+      // Indicates if the panel is open or not.
+      const expandedProperty = new BooleanProperty( options.isExpandedInitially );
 
       //----------------------------------------------------------------------------------------
-      // Create the scenery nodes that always exist
 
-      // @private {ExpandCollapseButton}
-      this.expandCollapseButton = new ExpandCollapseButton( this.expandedProperty,
-        _.extend( EXPAND_COLLAPSE_BUTTON_OPTIONS, {
+      // Button to open and close the panel
+      const expandCollapseButton = new ExpandCollapseButton( expandedProperty, {
+          sideLength: EXPAND_COLLAPSE_BUTTON_SIZE,
           centerY: this.centerY
-        } ) );
+        } );
 
       // Convenience variable of the panel content width (width of the creator panel excluding the collapse button)
-      const panelContentWidth = CREATOR_PANEL_WIDTH
-                                - this.expandCollapseButton.right
-                                - EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN;
-
-      // @private {Text}
-      this.inspectVectorText = new Text( inspectAVectorString, {
+      const panelContentWidth = INSPECT_PANEL_WIDTH - expandCollapseButton.right - BUTTON_TEXT_MARGIN;
+      
+      //----------------------------------------------------------------------------------------
+      // Create the scenery nodes that go on the right side of the panel
+      //----------------------------------------------------------------------------------------
+      
+      const inspectVectorText = new Text( inspectAVectorString, {
         font: PANEL_FONT,
-        centerY: this.centerY,
-        left: this.expandCollapseButton.right + EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN,
-        maxWidth: panelContentWidth
+        centerY: this.centerY
       } );
 
-      // @private {Text}
-      this.selectVectorText = new Text( selectAVectorString, {
+      // Text for when there isn't a vector that is active
+      const selectVectorText = new Text( selectAVectorString, {
         font: PANEL_FONT,
-        maxWidth: panelContentWidth
+        centerY: this.centerY
       } );
 
-      // @private {HBox} - this is the container for the attributes of the vector (i.e. magnitude, angle, x and
-      // y components)
-      this.vectorAttributesDisplayContainer = new HBox( {
-        spacing: LABEL_LEFT_MARGIN,
-        align: 'center',
-        children: [ this.selectVectorText ],
-        maxWidth: panelContentWidth
+      // Container for the labels and number displays that display the vector's attributes
+      const vectorAttributesContainer = new HBox( {
+        spacing: LABEL_LEFT_MARGIN, // major spacing
+        align: 'center'
       } );
+
+      // The node for the right content, which has 3 children and toggles visibility of the children based on the state
+      const panelRightContent = new Node( {
+        children: [ inspectVectorText, selectVectorText, vectorAttributesContainer ],
+        maxWidth: panelContentWidth,
+        centerY: this.centerY
+      });
 
       //----------------------------------------------------------------------------------------
 
       panelContent.setChildren( [
-        this.expandCollapseButton,
-        this.inspectVectorText,
-        // Constrain the size of vectorAttributesDisplayContainer
-        new AlignBox( this.vectorAttributesDisplayContainer, {
+        expandCollapseButton,
+        // Constrain the size of panel right content
+        new AlignBox( panelRightContent, {
           xAlign: 'left',
           yAlign: 'center',
-          alignBounds: new Bounds2( 0, 0, panelContentWidth, CREATOR_PANEL_HEIGHT - 2 * CREATOR_PANEL_OPTIONS.yMargin ),
+          alignBounds: new Bounds2( 0, 0, panelContentWidth, INSPECT_PANEL_HEIGHT - 2 * options.panelOptions.yMargin ),
           centerY: this.centerY,
-          left: this.expandCollapseButton.right + EXPAND_COLLAPSE_BUTTON_RIGHT_MARGIN
+          left: expandCollapseButton.right + BUTTON_TEXT_MARGIN
         } )
       ] );
 
       //----------------------------------------------------------------------------------------
+      // Create the scenery nodes to display the vector
+      //----------------------------------------------------------------------------------------
+      const magnitudeTextNode = new FormulaNode( '', { maxWidth: MAGNITUDE_LABEL_WIDTH } );
 
-      // observe changes to the expanded property (when the expanded collapse button is clicked)
-      // Doesn't need to be unlinked because the inspect vector panel always exists
-      this.expandedProperty.link( ( isExpanded ) => {
-        this.inspectVectorText.visible = !isExpanded;
-        this.vectorAttributesDisplayContainer.visible = isExpanded;
-      } );
+      // Create a arbitrary node for now that will contain the number display
+      const magnitudeNumberDisplayContainer = new Node();
 
-      // @private {boolean} flag to indicate if this panel has ever displayed a vector's attributes
-      this.hasDisplayedVectorAttributes = false;
+      const angleText = new Text( MathSymbols.THETA, { maxWidth: LABEL_WIDTH, font: PANEL_FONT } );
+      const angleNumberDisplayContainer = new Node();
+
+      const xComponentText = new RichText( '', { maxWidth: LABEL_WIDTH } );
+      const xComponentNumberDisplayContainer = new Node();
+
+      const yComponentText = new RichText( '', { maxWidth: LABEL_WIDTH } );
+      const yComponentNumberDisplayContainer = new Node();
+
+      //----------------------------------------------------------------------------------------
+      // Add the new scenery nodes
+      //----------------------------------------------------------------------------------------
+
+      // Function that adds a label and display container combo.
+      const addNumberDisplayAndLabel = ( label, numberDisplayContainer ) => {
+        // Make the label have a 'fixed' width
+        const fixedWidthLabel = new AlignBox( label, {
+          xAlign: 'center',
+          yAlign: 'center',
+          alignBounds: new Bounds2( 0, 0, LABEL_WIDTH, this.height ),
+          maxWidth: LABEL_WIDTH
+        } );
+        vectorAttributesContainer.addChild( new HBox( {
+          spacing: LABEL_RIGHT_MARGIN,
+          children: [ fixedWidthLabel, numberDisplayContainer ],
+          centerY: this.centerY
+        } ) );
+      };
+      addNumberDisplayAndLabel( magnitudeTextNode, magnitudeNumberDisplayContainer );
+      addNumberDisplayAndLabel( angleText, angleNumberDisplayContainer );
+      addNumberDisplayAndLabel( xComponentText, xComponentNumberDisplayContainer );
+      addNumberDisplayAndLabel( yComponentText, yComponentNumberDisplayContainer );
+
+      //----------------------------------------------------------------------------------------
+      // Function that updates the labels and creates new number displays for an active vector
+      const updateVectorDisplay = ( activeVector ) => {
+
+        const vectorLabel = activeVector.label ? activeVector.label : activeVector.fallbackLabel;
+        magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${vectorLabel}\}\}|` );
+
+        magnitudeNumberDisplayContainer.setChildren( [
+          new NumberDisplay( activeVector.magnitudeProperty, new Range( 0, 100 ), {
+            decimalPlaces: 1
+          } ) ] );
+
+        angleNumberDisplayContainer.setChildren( [
+          new NumberDisplay( activeVector.angleDegreesProperty, new Range( -180, 180 ), {
+            decimalPlaces: ANGLE_ROUNDING
+          } ) ] );
+
+        xComponentText.setText( `${vectorLabel}<sub>${symbolXString}</sub>` );
+
+        xComponentNumberDisplayContainer.setChildren( [
+          new NumberDisplay( activeVector.xComponentProperty, new Range( -60, 60 ), {
+            decimalPlaces: 1
+          } ) ] );
+
+        yComponentText.setText( `${vectorLabel}<sub>${symbolYString}</sub>` );
+
+        yComponentNumberDisplayContainer.setChildren( [
+          new NumberDisplay( activeVector.yComponentProperty, new Range( -40, 40 ), {
+            decimalPlaces: 1
+          } ) ] );
+      };
 
       //----------------------------------------------------------------------------------------
 
-      vectorSets.forEach( ( vectorSet ) => {
+      // Observe changes to the expanded property (when the expanded collapse button is clicked) or when the graphs
+      // active vector property changes to determine visibility of nodes and update the panel.
+      // Doesn't need to be disposed because the inspect vector panel always exists
+      Property.multilink( [ expandedProperty, graph.activeVectorProperty ], ( isExpanded, activeVector ) => {
+        inspectVectorText.visible = !isExpanded;
+        selectVectorText.visible = isExpanded && activeVector === null;
+        vectorAttributesContainer.visible = isExpanded && activeVector !== null;
 
-        const vectorSumActiveListener = ( isActive ) => {
-          if ( isActive ) {
-            this.displayVectorsAttributes( vectorSet.vectorSum );
-          }
-        };
+        if ( activeVector !== null ) {
+          updateVectorDisplay( activeVector );
+        }
 
-        // Observe changes to the vector sum, when it is active, display it.
-        // Doesn't need to be unlinked because 1. VectorSets cannot be disposed and 2. vectorSums are never disposed
-        vectorSet.vectorSum.isActiveProperty.link( vectorSumActiveListener );
-
-        // Observe changes to the vectors, when an item is added, add a link to display the vector when it's active
-        // No need to remove itemAddedListener because VectorSets cannot be disposed
-        vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
-
-          const vectorActiveListener = ( isActive ) => {
-            if ( isActive ) {
-              this.displayVectorsAttributes( addedVector );
-            }
-          };
-          addedVector.isActiveProperty.link( vectorActiveListener );
-
-          const vectorRemovedListener = function( removedVector ) {
-            if ( removedVector === addedVector ) {
-              removedVector.isActiveProperty.unlink( vectorActiveListener );
-              vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
-            }
-          };
-          vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
-        } );
+        inspectVectorText.centerY = this.centerY;
+        selectVectorText.centerY = this.centerY;
+        vectorAttributesContainer.centerY = this.centerY;
       } );
     }
 
-    /**
-     * Displays a vectors attributes
-     * @param {VectorModel} activeVector
-     * @private
-     */
-    displayVectorsAttributes( activeVector ) {
-
-      // If we haven't displayed a single vector yet, this will be the first time. Thus, dispose the 'Select a Vector'
-      // text and create the new Nodes.
-      if ( !this.hasDisplayedVectorAttributes ) {
-        this.hasDisplayedVectorAttributes = true;
-        this.selectVectorText.dispose();
-
-        this.createDisplayVectorNodes();
-      }
-
-      this.magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${activeVector.label}\}\}|` );
-
-      this.magnitudeDisplayNode.setChildren( [
-        new NumberDisplay( activeVector.magnitudeProperty, new Range( 0, 100 ), {
-          decimalPlaces: 1
-        } ) ] );
-
-      this.angleDisplayNode.setChildren( [
-        new NumberDisplay( activeVector.angleDegreesProperty, new Range( -180, 180 ), {
-          decimalPlaces: ANGLE_ROUNDING
-        } ) ] );
-
-      this.xComponentText.setText( `${activeVector.label}<sub>${xString}</sub>` );
-
-      this.xComponentDisplayNode.setChildren( [
-        new NumberDisplay( activeVector.xComponentProperty, new Range( -60, 60 ), {
-          decimalPlaces: 1
-        } ) ] );
-
-      this.yComponentText.setText( `${activeVector.label}<sub>${yString}</sub>` );
-
-      this.yComponentDisplayNode.setChildren( [
-        new NumberDisplay( activeVector.yComponentProperty, new Range( -40, 40 ), {
-          decimalPlaces: 1
-        } ) ] );
-    }
-
-    /**
-     * Creates the scenery nodes for displaying a vectors attributes
-     * @private
-     */
-    createDisplayVectorNodes() {
-
-      // @private {FormulaNode}
-      this.magnitudeTextNode = new FormulaNode( '', { maxWidth: LABEL_WIDTH } );
-
-      // @private {Node} - arbitrary node for now
-      this.magnitudeDisplayNode = new Node();
-
-      // @private {RichText}
-      this.angleText = new RichText( MathSymbols.THETA, { maxWidth: LABEL_WIDTH } );
-
-      // @private {Node}
-      this.angleDisplayNode = new Node();
-
-      // @private {RichText}
-      this.xComponentText = new RichText( '', { maxWidth: LABEL_WIDTH } );
-
-      // @private {Node}
-      this.xComponentDisplayNode = new Node();
-
-      // @private {RichText}
-      this.yComponentText = new RichText( '', { maxWidth: LABEL_WIDTH } );
-
-      // @private {Node}
-      this.yComponentDisplayNode = new Node();
-
-      this.addNumberDisplayAndLabel( this.magnitudeTextNode, this.magnitudeDisplayNode );
-      this.addNumberDisplayAndLabel( this.angleText, this.angleDisplayNode );
-      this.addNumberDisplayAndLabel( this.xComponentText, this.xComponentDisplayNode );
-      this.addNumberDisplayAndLabel( this.yComponentText, this.yComponentDisplayNode );
-    }
-
-    /**
-     * Adds a HBox of the label and the number display container
-     * Makes the label have a 'fixed' width
-     * @param {string} label
-     * @param {Node} numberDisplayContainer
-     * @private
-     */
-    addNumberDisplayAndLabel( label, numberDisplayContainer ) {
-      // Make the label have a 'fixed' width
-      const fixedWidthLabel = new AlignBox( label, {
-        xAlign: 'center',
-        yAlign: 'center',
-        alignBounds: new Bounds2( 0, 0, LABEL_WIDTH, this.height ),
-        maxWidth: LABEL_WIDTH
-      } );
-      this.vectorAttributesDisplayContainer.addChild( new HBox( {
-        spacing: LABEL_RIGHT_MARGIN,
-        children: [ fixedWidthLabel, numberDisplayContainer ]
-      } ) );
-    }
-
-    /**
-     * Resets the status of the Inspect Vector Panel
-     * @public
-     */
-    reset() {
-      this.expandedProperty.reset();
-
-      // See https://github.com/phetsims/vector-addition/issues/38, remove the nodes
-      this.hasDisplayedVectorAttributes = false;
-
-      this.selectVectorText = new Text( selectAVectorString, { font: PANEL_FONT } );
-      this.vectorAttributesDisplayContainer.setChildren( [ this.selectVectorText ] );
-    }
   }
 
   return vectorAddition.register( 'InspectVectorPanel', InspectVectorPanel );

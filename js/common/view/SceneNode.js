@@ -13,7 +13,7 @@ define( require => {
   // modules
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
-  // const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
+  const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
@@ -50,12 +50,11 @@ define( require => {
 
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      // const inspectVectorPanel = new InspectVectorPanel( graph.vectorSets, options.inspectVectorPanelOptions );
+      const inspectVectorPanel = new InspectVectorPanel( graph, options.inspectVectorPanelOptions );
 
       const eraserButton = new EraserButton( {
         listener: () => {
           graph.erase();
-          // inspectVectorPanel.reset();
         },
         left: graphNode.right,
         bottom: graphNode.bottom
@@ -70,9 +69,9 @@ define( require => {
       super( {
         children: [
           graphNode,
-          // new Node( _.extend( {
-          //   children: [ inspectVectorPanel ]
-          // }, options.inspectVectorPanelLocation ) ),
+          new Node( _.extend( {
+            children: [ inspectVectorPanel ]
+          }, options.inspectVectorPanelLocation ) ),
           eraserButton,
           vectorComponentContainer,
           vectorSumComponentContainer,
