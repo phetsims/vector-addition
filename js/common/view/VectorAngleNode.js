@@ -88,7 +88,7 @@ define( require => {
         if ( this.visible ) { // only update the angle if we are visible
           this.updateAngleNode( angle );
         }
-      }
+      };
       vectorModel.angleDegreesProperty.link( updateAngleListener );
 
       //----------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ define( require => {
         if ( this.visible ) { // only update the angle if we are visible
           this.scaleArc( magnitude, graph.modelViewTransformProperty.value );
         }
-      }
+      };
       vectorModel.magnitudeProperty.link( updateScaleListener );
 
       //----------------------------------------------------------------------------------------

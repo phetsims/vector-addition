@@ -6,6 +6,7 @@
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -70,7 +71,7 @@ define( require => {
         }
       } );
 
-      const checkBoxContainer = new Node( {
+      const checkboxContainer = new Node( {
         children: [ cartesianSumCheckbox, polarSumCheckbox ]
       } );
       
@@ -80,7 +81,7 @@ define( require => {
         spacing: 10,
         align: 'left',
         children: [
-          checkBoxContainer,
+          checkboxContainer,
           new ValuesCheckbox( explore2DModel.valuesVisibleProperty ),
           new AngleCheckbox( explore2DModel.angleVisibleProperty ),
           new GridCheckbox( explore2DModel.gridVisibleProperty ),

@@ -9,7 +9,6 @@ define( require => {
 
   // modules
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
@@ -24,9 +23,8 @@ define( require => {
 
       super();
 
-      // TODO: do we need an instance or is a constant sufficient
       sceneNodes.forEach( ( sceneNode ) => {
-        this.addChild( sceneNode )
+        this.addChild( sceneNode );
       } );
 
 

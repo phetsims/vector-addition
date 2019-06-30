@@ -142,7 +142,7 @@ define( require => {
         const removalListener = removedVector => {
           if ( removedVector === vectorModel ) {
             removedVector.isOnGraphProperty.value = false;
-            vectorNode.dispose()
+            vectorNode.dispose();
             iconNode.visible = true;
             vectorSet.vectors.removeItemRemovedListener( removalListener );
           }
@@ -168,7 +168,7 @@ define( require => {
               // Remove the vector model
               vectorSet.vectors.remove( vectorModel );
               vectorModel.dispose();
-            }
+            };
             vectorModel.animateToPoint( iconPosition, iconAttributesVector, animationFinishedListener );
           }
         } );
