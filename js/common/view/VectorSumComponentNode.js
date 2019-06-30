@@ -71,7 +71,7 @@ define( require => {
     }
     
     /**
-     * Does the same as the super class, except handles the visibility based on the sum checkbox
+     * Does the same as the super class, except handles the visibility based on the sum checkbox.
      * @param {VectorComponent} vectorComponent
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
@@ -91,7 +91,7 @@ define( require => {
      * @public
      * @override
      */
-    dispose() { assert && assert( false, 'vector sum components are never disposed' ); }
+    dispose() { assert && assert( false, 'Vector sum components are never disposed.' ); }
   }
 
   return vectorAddition.register( 'VectorSumComponentNode', VectorSumComponentNode );
