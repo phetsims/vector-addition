@@ -168,6 +168,13 @@ define( require => {
     reset() {
       this.resetScene();
     }
+
+    
+    addVectorCreatorPanel( creatorPanel ) {
+
+      this.addChild( creatorPanel );
+      creatorPanel.moveToBack();
+    }
   }
 
   return vectorAddition.register( 'SceneNode', SceneNode );

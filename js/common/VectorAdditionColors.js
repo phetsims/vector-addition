@@ -45,7 +45,6 @@ define( function( require ) {
 
     //----------------------------------------------------------------------------------------
     // Graph Control Panel
-    GRAPH_CONTROL_PANEL_LINE_COLOR: BLACK,
     GRID_ICON_COLOR: 'rgb( 80, 80, 80 )',
     ANGLE_ICON_COLOR: BLACK,
 

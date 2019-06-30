@@ -25,10 +25,9 @@ define( require => {
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      * @param {VectorSet} vectorSet
      */
-    constructor( explore2DModel, graph, vectorSet, vectorContainer, explore2DModelScreenView ) {
+    constructor( explore2DModel, graph, vectorSet, vectorContainer, explore2DModelScreenView, labels ) {
 
       // create labels for each vector slot
-      const labels = [ 'a', 'b', 'c' ];
 
       const panelSlots = [];
 

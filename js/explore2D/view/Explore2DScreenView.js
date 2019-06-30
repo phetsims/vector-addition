@@ -1,8 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * The view for the 'Explore2D' screen.
+ *
  * @author Martin Veillette
  */
+
 define( function( require ) {
   'use strict';
 
@@ -10,85 +13,95 @@ define( function( require ) {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const Explore2DGraphControlPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DGraphControlPanel' );
+  const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
   const Explore2DVectorCreatorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorCreatorPanel' );
+  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
-  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
+
+  // constants
+  const VECTOR_CREATOR_LABELS = VectorAdditionConstants.LABEL_GROUP_1;
 
   class Explore2DScreenView extends VectorAdditionScreenView {
-
     /**
+     * @constructor
      * @param {Explore2DModel} explore2DModel
      * @param {Tandem} tandem
      */
     constructor( explore2DModel, tandem ) {
 
-      const polarSceneNode = new SceneNode( explore2DModel.polarGraph, explore2DModel.valuesVisibleProperty, explore2DModel.angleVisibleProperty, explore2DModel.gridVisibleProperty,
+      assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
+
+      //----------------------------------------------------------------------------------------
+      // Create the scenes
+
+      const polarSceneNode = new SceneNode( explore2DModel.polarGraph,
+        explore2DModel.valuesVisibleProperty,
+        explore2DModel.angleVisibleProperty,
+        explore2DModel.gridVisibleProperty,
         explore2DModel, {
           isExpandedInitially: true
         } );
-      const cartesianSceneNode = new SceneNode( explore2DModel.cartesianGraph, explore2DModel.valuesVisibleProperty, explore2DModel.angleVisibleProperty, explore2DModel.gridVisibleProperty,
+      const cartesianSceneNode = new SceneNode( explore2DModel.cartesianGraph,
+        explore2DModel.valuesVisibleProperty,
+        explore2DModel.angleVisibleProperty,
+        explore2DModel.gridVisibleProperty,
         explore2DModel, {
           isExpandedInitially: true
         } );
 
       super( explore2DModel, [ polarSceneNode, cartesianSceneNode ], tandem );
 
-      const graphControlPanel = new Explore2DGraphControlPanel(
-        explore2DModel.sumVisibleProperty,
-        explore2DModel.valuesVisibleProperty,
-        explore2DModel.angleVisibleProperty,
-        explore2DModel.gridVisibleProperty,
-        explore2DModel.componentStyleProperty,
-        explore2DModel.vectorGroup, {
-          right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-          top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
-        } );
+      //----------------------------------------------------------------------------------------
+      // Create the vector creator panels
 
-      this.addChild( graphControlPanel );
-
-      const polarVectorCreatorPanel = new Explore2DVectorCreatorPanel(
-        explore2DModel,
+      polarSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel,
         explore2DModel.polarGraph,
         explore2DModel.polarGraph.vectorSet,
         polarSceneNode.vectorContainer,
-        this );
+        this,
+        VECTOR_CREATOR_LABELS ) );
 
-      this.addChild( polarVectorCreatorPanel );
-      polarVectorCreatorPanel.moveToBack();
-
-      const cartesianVectorCreatorPanel = new Explore2DVectorCreatorPanel(
-        explore2DModel,
+      cartesianSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel,
         explore2DModel.cartesianGraph,
         explore2DModel.cartesianGraph.vectorSet,
         cartesianSceneNode.vectorContainer,
-        this );
+        this,
+        VECTOR_CREATOR_LABELS ) );
 
-      this.addChild( cartesianVectorCreatorPanel );
-      cartesianVectorCreatorPanel.moveToBack();
 
-      // toggle visible
+      //----------------------------------------------------------------------------------------
+      // Toggle visibility of scenes
+
       explore2DModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
 
         if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-          polarVectorCreatorPanel.visible = false;
-          cartesianVectorCreatorPanel.visible = true;
           polarSceneNode.visible = false;
           cartesianSceneNode.visible = true;
         }
 
         if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-          polarVectorCreatorPanel.visible = true;
-          cartesianVectorCreatorPanel.visible = false;
           polarSceneNode.visible = true;
           cartesianSceneNode.visible = false;
         }
       } );
 
-      const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
-        explore2DModel.coordinateSnapModeProperty );
-      this.addChild( coordinateSnapRadioButtonGroup );
+      //----------------------------------------------------------------------------------------
+      // Coordinate snapping radio buttons
+
+      this.addChild( new CoordinateSnapRadioButtonGroup(explore2DModel.coordinateSnapModeProperty ) );
+
+      //----------------------------------------------------------------------------------------
+
+      const explore2DGraphControlPanel = new Explore2DGraphControlPanel( explore2DModel,
+        explore2DModel.cartesianGraph.vectorSet,
+        explore2DModel.polarGraph.vectorSet, {
+          right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
+          top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
+        } );
+
+      this.addChild( explore2DGraphControlPanel );
     }
   }
 

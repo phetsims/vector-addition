@@ -33,12 +33,12 @@ define( require => {
      * @param {BooleanProperty} sumVisibleProperty
      * @param {VectorGroups} vectorGroup
      */
-    constructor( sumVisibleProperty, vectorGroup ) {
+    constructor( vectorSet ) {
 
       // Type check arguments
-      assert && assert( sumVisibleProperty instanceof BooleanProperty,
-        `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      // assert && assert( sumVisibleProperty instanceof BooleanProperty,
+      //   `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      // assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -47,9 +47,9 @@ define( require => {
         spacing: CHECKBOX_OPTIONS.spacing,
         children: [
           new Text( sumString, TEXT_OPTIONS ),
-          VectorAdditionIconFactory.createSumIcon( vectorGroup )
+          VectorAdditionIconFactory.createSumIcon( vectorSet.vectorGroup )
         ]
-      } ), sumVisibleProperty, CHECKBOX_OPTIONS );
+      } ), vectorSet.sumVisibleProperty, CHECKBOX_OPTIONS );
     }
   }
 
