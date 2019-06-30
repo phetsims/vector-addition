@@ -40,16 +40,14 @@ define( function( require ) {
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
         explore2DModel.gridVisibleProperty,
-        explore2DModel.componentStyleProperty,
-        explore2DModel, {
+        explore2DModel.componentStyleProperty, {
           isExpandedInitially: true
         } );
       const cartesianSceneNode = new SceneNode( explore2DModel.cartesianGraph,
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
         explore2DModel.gridVisibleProperty,
-        explore2DModel.componentStyleProperty,
-        explore2DModel, {
+        explore2DModel.componentStyleProperty, {
           isExpandedInitially: true
         } );
 

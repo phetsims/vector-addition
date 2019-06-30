@@ -27,30 +27,28 @@ define( require => {
      * @param {VectorAdditionModel} vectorAdditionModel
      * @param {Object} [options]
      */
-    constructor( graph, valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty, options ) {
+    constructor( graph, valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty, inspectPanelOptions ) {
 
       // assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       // assert && assert( vectorAdditionModel instanceof VectorAdditionModel, `invalid vectorAdditionModel: ${vectorAdditionModel}` );
       // assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
       //   `Extra prototype on Options: ${options}` );
 
+      inspectPanelOptions = _.extend( {
+        panelOptions: null // {object|null}
+      }, inspectPanelOptions );
 
-      options = _.extend( {
-        inspectVectorPanelLocation: null, // {object|null}
-        inspectVectorPanelOptions: null // {object|null}
-      }, options );
-
-      options.inspectVectorPanelLocation = _.extend( {
+      inspectPanelOptions.panelOptions = _.extend( {
         left: 195,
         top: 12
-      }, options.inspectVectorPanelLocation );
+      }, inspectPanelOptions.panelOptions );
 
       //----------------------------------------------------------------------------------------
       // Create the scenery nodes
 
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      const inspectVectorPanel = new InspectVectorPanel( graph, options.inspectVectorPanelOptions );
+      const inspectVectorPanel = new InspectVectorPanel( graph, inspectPanelOptions );
 
       const eraserButton = new EraserButton( {
         listener: () => {
@@ -69,9 +67,7 @@ define( require => {
       super( {
         children: [
           graphNode,
-          new Node( _.extend( {
-            children: [ inspectVectorPanel ]
-          }, options.inspectVectorPanelLocation ) ),
+          inspectVectorPanel,
           eraserButton,
           vectorComponentContainer,
           vectorSumComponentContainer,
