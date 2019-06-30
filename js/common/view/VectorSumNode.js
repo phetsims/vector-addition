@@ -20,7 +20,7 @@ define( require => {
     /**
      * @constructor
      * @param {VectorModel} vectorModel- the vector model
-     * @param {Graph} graph
+     * @param {Graph} graph - the graph the sum belongs to
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty

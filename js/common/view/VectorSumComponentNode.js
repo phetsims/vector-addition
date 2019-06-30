@@ -35,7 +35,7 @@ define( require => {
         `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-        arrowOptions: null,
+        arrowOptions: null
       }, options );
 
       options.arrowOptions = _.extend( {
@@ -47,16 +47,51 @@ define( require => {
 
       super( vectorComponent, graph, componentStyleProperty, valuesVisibleProperty, options );
 
-      // @private {Multilink} observe when either the component style changes or the sum visibility changes.
-      // Doesn't need to be disposed because the sum always exists, and therefore the component always exists
-      this.visibilityObserver = Property.multilink( [ sumVisibleProperty, componentStyleProperty ],
-        ( sumVisible, componentStyle ) => {
-
-          // Only visible when the sum is visible and the component style isn't invisible
-          this.visible = sumVisible && componentStyle !== ComponentStyles.INVISIBLE;
-
+      // Create a new observer
+      this.vectorObserver.dispose();
+      
+      // @private {Multilink} - observe when the sum visibility changes as well
+      this.vectorObserver = Property.multilink(
+        [ valuesVisibleProperty,
+          vectorComponent.tailPositionProperty,
+          vectorComponent.tipPositionProperty,
+          componentStyleProperty,
+          sumVisibleProperty ],
+        ( valuesVisible ) => {
+          
+          // Update the appearance of the vector
+          this.updateVector( vectorComponent,
+            graph.modelViewTransformProperty.value,
+            componentStyleProperty.value,
+            sumVisibleProperty.value ); 
+          
+          // Update the appearance of the label
+          this.updateLabelPositioning( vectorComponent, graph.modelViewTransformProperty.value, valuesVisible );
         } );
     }
+    
+    /**
+     * Does the same as the super class, except handles the visibility based on the sum checkbox
+     * @param {VectorComponent} vectorComponent
+     * @param {ModelViewTransform2} modelViewTransform
+     * @param {ComponentStyles} componentStyle
+     * @param {boolean} sumVisible
+     * @private
+     */
+    updateVector( vectorComponent, modelViewTransform, componentStyle, sumVisible ) {
+      super.updateVector( vectorComponent, modelViewTransform, componentStyle );
+
+      // SumVisible is not defined in superclass. Sum component is visible when both the sum is visible 
+      // and component style isn't invisible
+      this.visible = sumVisible ? sumVisible && componentStyle !== ComponentStyles.INVISIBLE : false;
+    }
+
+    /**
+     * Double check to make sure vector sum components are never disposed
+     * @public
+     * @override
+     */
+    dispose() { assert && assert( false, 'vector sum components are never disposed' ); }
   }
 
   return vectorAddition.register( 'VectorSumComponentNode', VectorSumComponentNode );
