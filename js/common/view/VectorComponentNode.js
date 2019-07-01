@@ -200,7 +200,7 @@ define( require => {
         .timesScalar( 0.5 )
         .plus( vectorComponent.parentVector.tail );
 
-      if ( vectorComponent.componentType === VectorComponent.Types.X_COMPONENT ) { // If it's a x component
+      if ( vectorComponent.componentType === VectorComponent.COMPONENT_TYPES.X_COMPONENT ) { // If it's a x component
 
         // If the component is below the parent, position the label below, otherwise position it above
         if ( componentMidPoint.y <= parentMidPoint.y ) {
@@ -210,7 +210,7 @@ define( require => {
           offset.setXY( 0, COMPONENT_LABEL_OFFSET );
         }
       }
-      else if ( vectorComponent.componentType === VectorComponent.Types.Y_COMPONENT ) { // It it's a y component
+      else if ( vectorComponent.componentType === VectorComponent.COMPONENT_TYPES.Y_COMPONENT ) { // It it's a y component
         // If the component is to the left of the parent, position the label to the left, otherwise to the right
         if ( componentMidPoint.x <= parentMidPoint.x ) {
           offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );

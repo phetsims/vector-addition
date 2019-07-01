@@ -72,7 +72,16 @@ define( require => {
         // Flag to indicate if the model represents component, which means the labeling is different
         const isComponentModel = VectorComponent.COMPONENT_TYPES.includes( baseVectorModel.componentType );
 
-        const roundedMagnitude = Util.toFixed( baseVectorModel.magnitude, 1 );
+        let roundedMagnitude; // Different for different vector types
+        if ( baseVectorModel.vectorType === BaseVectorModel.VECTOR_TYPES.COMPONENT ) {
+          const xComponent = baseVectorModel.attributesVector.x;
+          const yComponent = baseVectorModel.attributesVector.y;
+
+          roundedMagnitude = Util.toFixed( xComponent ? xComponent : yComponent, 1 );
+        }
+        else {
+          roundedMagnitude = Util.toFixed( baseVectorModel.magnitude, 1 );
+        }
 
         if ( valuesVisible ) {
           label.setFormula( isComponentModel ? roundedMagnitude :
