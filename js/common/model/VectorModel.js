@@ -195,7 +195,15 @@ define( require => {
       assert && assert( this.isOnGraphProperty.value, 'Cannot drag tip when vector isn\'t on the graph' );
       assert && assert( tipPosition instanceof Vector2, `invalid tipPosition: ${tipPosition}` );
 
+      // Declare this vector as active when it's dragging
+      this.graph.activeVectorProperty.value = this;
+
+      if ( tipPosition.minus( this.tail ).roundSymmetric().magnitude === 0 ) { // do not allow vector to be 0 magnitude
+        return;
+      }
+
       if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+
         // Ensure that the tipPosition is on the graph
         const tipPositionOnGraph = this.graph.graphModelBounds.closestPointTo( tipPosition );
 
@@ -234,9 +242,6 @@ define( require => {
         // Update the model tip
         this.tip = this.tail.plus( polarVector );
       }
-
-      // Declare this vector as active when it's dragging
-      this.graph.activeVectorProperty.value = this;
     }
 
     /**
