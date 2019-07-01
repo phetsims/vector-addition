@@ -1,10 +1,12 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Radio Button Group for the component styles
- *https://github.com/phetsims/sun/issues/513
+ * Radio Button Group for the component styles. See https://github.com/phetsims/sun/issues/513 for context. Provides
+ * solution decided temporarily at developer meeting.
+ *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -25,8 +27,8 @@ define( require => {
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
 
   class ComponentStyleRadioButtonGroup extends AlignBox {
-
     /**
+     * @constructor
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options]
      * @constructor
@@ -36,6 +38,8 @@ define( require => {
       assert && assert( componentStyleProperty instanceof Property
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
       // content array for all the scenery component style icons
@@ -88,9 +92,13 @@ define( require => {
      * @constructor
      * @param {Array.<Node>} content
      * @param {Object} [options]
-     * Create a grid layout box
      */
     constructor( content, options ) {
+
+      assert && assert( content.filter( node => node instanceof Node ).length === content.length,
+        `invalid content: ${content}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
         rows: 2, // {number}
@@ -140,11 +148,7 @@ define( require => {
         }, options.horizontalOptions ) );
 
         for ( let col = 0; col < cols; col++ ) {
-
-          const node = content[ contentIndex ];
-
-          horizontalLayout.addChild( node );
-
+          horizontalLayout.addChild( content[ contentIndex ] );
           contentIndex++;
         }
         this.addChild( horizontalLayout );

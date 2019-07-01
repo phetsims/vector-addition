@@ -1,7 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the 'Angle' Visibility check box, used to control visibility of the angle underneath vectors.
+ * View for the Angle Visibility check box (indicated by the wedge shaped icon), used to control visibility of the angle
+ * underneath/above vectors.
  *
  * @author Brandon Li
  */
@@ -30,13 +31,14 @@ define( require => {
       // Type check arguments
       assert && assert( angleVisibleProperty instanceof BooleanProperty,
         `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 
       options = _.extend( CHECKBOX_OPTIONS, options );
 
       super( VectorAdditionIconFactory.createAngleIcon(), angleVisibleProperty, options );
-
     }
   }
 

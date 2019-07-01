@@ -73,8 +73,9 @@ define( require => {
         stroke: VectorAdditionColors.BLACK
       } );
 
+      const vectorAngle = vectorModel.angleDegreesProperty.value;
       // @private {ArcArrowNode}
-      this.arcArrow = new ArcArrowNode( vectorModel.angleDegreesProperty.value, ARC_RADIUS, ARC_ARROW_OPTIONS );
+      this.arcArrow = new ArcArrowNode( vectorAngle ? vectorAngle : 0, ARC_RADIUS, ARC_ARROW_OPTIONS );
 
       // @private {Text} - to be set later
       this.labelText = new Text( '', { font: ANGLE_LABEL_FONT } );
@@ -141,7 +142,7 @@ define( require => {
 
       assert && assert( typeof angle === 'number' || angle === null, `invalid angle: ${angle}` );
 
-      this.arcArrow.angle = angle;
+      this.arcArrow.angle = angle ? angle : 0;
 
       if ( angle === null ) {
 

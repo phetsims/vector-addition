@@ -55,7 +55,6 @@ define( require => {
 
       super();
 
-
       // Define a vector node in which the tail location (view coordinates) is (0, 0). Get the tip location in view
       // coordinates
       const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.attributesVector );
@@ -109,7 +108,7 @@ define( require => {
     }
 
     /**
-     * Updates the label positioning, called when the vector is changing of the value checkbox is clicked.
+     * Updates the label positioning, called when the vector is changing or the value checkbox is clicked.
      * This can be overridden if the positioning isn't appropriate (e.g. component nodes have different positioning)
      * @param {BaseVectorModel} baseVectorModel
      * @param {ModelViewTransform2} modelViewTransform
@@ -124,6 +123,7 @@ define( require => {
       // Angle of the vector in radians (ranging from -Pi to Pi)
       const modelAngle = baseVectorModel.angle;
 
+      //----------------------------------------------------------------------------------------
       // convenience variables
       // Add a flip if x is negative
       const xFlip = ( baseVectorModel.xComponent > 0 ) ? 0 : Math.PI;
@@ -131,12 +131,13 @@ define( require => {
       // Add a flip if y is negative
       const yFlip = ( baseVectorModel.yComponent > 0 ) ? 0 : Math.PI;
 
+      //----------------------------------------------------------------------------------------
       if ( valuesVisible ) {
 
         // Since the y-axis is inverted, the angle is the view is opposite to the model
         const viewAngle = -modelAngle;
 
-        // Rotate label along the angle for quadrants I and IV, but flipped if x is negative
+        // Rotate label along the angle if x is positive, but flipped if x is negative
         this.labelNode.setRotation( viewAngle + xFlip );
       }
 

@@ -19,11 +19,12 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   class ArcArrowNode extends Node {
     /**
      * @constructor
-     * @param {number|null} angle - the angle of the arc arrow in degrees
+     * @param {number} angle - the angle of the arc arrow in degrees
      * @param {number} radius - the radius of the arc arrow
      * @param {Object} [options]
      */
@@ -33,22 +34,22 @@ define( require => {
         center: Vector2.ZERO, // {Vector2} the coordinates that the arc revolves around
         arrowheadWidth: 7, // {number} the arrowhead width before translation
         arrowheadHeight: 5, // {number} the arrowhead height before translation
-        arcOptions: null, // {Object} filled in bellow
-        arrowOptions: null, // {Object} filled in bellow,
+        arcOptions: null, // {Object} defaults filled in bellow
+        arrowOptions: null, // {Object} defaults filled in bellow,
         includeArrowhead: true // {boolean} option to exclude the arrowhead
       }, options );
 
       options.arcOptions = _.extend( {
-        stroke: 'black'
+        stroke: VectorAdditionColors.BLACK
       }, options.arcOptions );
 
       options.arrowOptions = _.extend( {
-        fill: 'black'
+        fill: VectorAdditionColors.BLACK
       }, options.arrowOptions );
 
       //----------------------------------------------------------------------------------------
 
-      assert && assert( typeof angle === 'number' || angle === null, `invalid angle: ${angle}` );
+      assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
       assert && assert( options.center instanceof Vector2, `invalid options.center: ${options.center}` );
       assert && assert( typeof options.arrowheadWidth === 'number' && options.arrowheadWidth > 0,
@@ -65,7 +66,7 @@ define( require => {
       // @private {number}
       this.radiusOfArc = radius;
 
-      // @private {number|null}
+      // @private {number}
       this.angleOfArc = angle;
 
       // @private {Vector2} the center that the arc revolves around
@@ -90,7 +91,7 @@ define( require => {
       // Create the arrowhead shape of the arc
       const arrowheadShape = new Shape();
 
-      // Create the triangle that will be translated/rotated later
+      // Create the triangle that will be translated/rotated later.
       // Define the triangle as a triangle that is upright and the midpoint of the base is defined as (0, 0)
       arrowheadShape.moveTo( 0, 0 )
         .lineTo( -options.arrowheadWidth / 2, 0 )
@@ -112,8 +113,8 @@ define( require => {
     }
 
     /**
-     * Change the angle of the arc
-     * @param {number|null} angle - the angle of the arc arrow in degrees
+     * Sets the angle of the arc
+     * @param {number} angle - the angle of the arc arrow in degrees
      * @public
      */
     set angle( angle ) {
@@ -121,7 +122,7 @@ define( require => {
     }
 
     /**
-     * Change the radius of the arc
+     * Sets the radius of the arc
      * @param {number} radius - the radius of the arc arrow in view coordinates
      * @public
      */
@@ -140,21 +141,17 @@ define( require => {
     }
 
     /**
-     * Change both the radius and the angle of the arc
-     * @param {number|null} angle - the angle of the arc arrow in degrees
+     * Sets both the radius and the angle of the arc
+     * @param {number} angle - the angle of the arc arrow in degrees
      * @param {number} radius - the radius of the arc in view coordinates
      * @private
      */
     setAngleAndRadius( angle, radius ) {
 
-      assert && assert( typeof angle === 'number' || angle === null, `invalid angle: ${angle}` );
+      assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
 
-      // assign angle to zero is angle is set to null
-      if ( angle === null ) {
-        angle = 0;
-      }
-
+      // Reassign private attributes
       this.radiusOfArc = radius;
       this.angleOfArc = angle;
 
@@ -172,16 +169,15 @@ define( require => {
       // otherwise
       this.arrowheadVisibility = Math.abs( angleInRadians ) > arrowheadSubtentedAngle;
 
-      // The corrected angle is the angle that is between the vector that goes from the center to the first point the arc
-      // and the triangle intersect and the vector along the baseline (x-axis).
+      // The corrected angle is the angle that is between the vector that goes from the center to the first point the
+      // arc and the triangle intersect and the vector along the baseline (x-axis).
       // This is used instead the create a more accurate angle excluding the size of the triangle
       const correctedAngle = isAnticlockwise ?
                              angleInRadians - arrowheadSubtentedAngle :
                              angleInRadians + arrowheadSubtentedAngle;
 
       // Create the arc shape
-      const arcShape = new Shape().arcPoint(
-        this.revolvedPoint,
+      const arcShape = new Shape().arcPoint( this.revolvedPoint,
         radius,
         0,
         this.arrowheadIncluded ? -correctedAngle : -angleInRadians, isAnticlockwise );
