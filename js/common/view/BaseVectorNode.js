@@ -37,7 +37,7 @@ define( require => {
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Object} [arrowOptions]
      */
-    constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, arrowOptions ) {
+    constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, arrowOptions ) {
 
       // Type check arguments
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
@@ -65,7 +65,7 @@ define( require => {
       // @protected {VectorLabelNode} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
       // The location of this depends on the angle of the vector. Since the positioning of 'next' is different for every
       // vector, use an overridable method to position it. ( updateLabelPositioning() )
-      this.labelNode = new VectorLabelNode( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty );
+      this.labelNode = new VectorLabelNode( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty );
 
       // Add children to this node
       this.setChildren( [ this.arrowNode, this.labelNode ] );

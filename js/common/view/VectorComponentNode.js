@@ -74,7 +74,7 @@ define( require => {
         tailWidth: 4
       }, options.arrowOptions );
 
-      super( vectorComponent, graph.modelViewTransformProperty, valuesVisibleProperty, options.arrowOptions );
+      super( vectorComponent, graph.modelViewTransformProperty, valuesVisibleProperty, graph.activeVectorProperty, options.arrowOptions );
 
       //----------------------------------------------------------------------------------------
       // Create a path  that represents the dashed lines corresponding to the on_axis style.

@@ -26,6 +26,7 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
   const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
 
@@ -44,7 +45,9 @@ define( require => {
   // The maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
   // See https://github.com/phetsims/vector-addition/issues/46
   const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
-
+  
+  // Rounding on the label
+  const LABEL_ROUNDING = VectorAdditionConstants.LABEL_ROUNDING;
 
   class VectorModel extends BaseVectorModel {
     /**
@@ -64,9 +67,7 @@ define( require => {
 
         isTipDraggable: true, // {boolean} - false means the tip won't be draggable
 
-        isRemovable: true, // {boolean} - false means the user will not be able to drag a vector off the graph
-
-        type: BaseVectorModel.VECTOR_TYPES.MAIN // {Enumeration} see BaseVectorModel.VECTOR_TYPES
+        isRemovable: true // {boolean} - false means the user will not be able to drag a vector off the graph
       }, options );
 
 
@@ -138,12 +139,14 @@ define( require => {
       // @public (read only) {VectorComponent}
       this.xVectorComponent = new VectorComponent( this,
         vectorSet.componentStyleProperty,
-        VectorComponent.COMPONENT_TYPES.X_COMPONENT );
+        VectorComponent.COMPONENT_TYPES.X_COMPONENT,
+        graph.activeVectorProperty );
 
       // @public (read only) {VectorComponent}
       this.yVectorComponent = new VectorComponent( this,
         vectorSet.componentStyleProperty,
-        VectorComponent.COMPONENT_TYPES.Y_COMPONENT );
+        VectorComponent.COMPONENT_TYPES.Y_COMPONENT,
+        graph.activeVectorProperty );
 
       //----------------------------------------------------------------------------------------
       // Vector states
@@ -183,6 +186,57 @@ define( require => {
       this.inProgressAnimationProperty.dispose();
 
       super.dispose();
+    }
+
+    /**
+     * Gets the label value of that is displayed on the vector. Since labeling is different for different vector
+     * types, this is an abstract method and base classes must implement it.
+     *
+     * @override
+     * @param {boolean} valuesVisible - if the value checkbox is on
+     * @returns {object} {
+     *    label: {string|null} // the prefix (e.g. if the label displayed v=15, the label is 'v')
+     *    value: {number|null} // the suffix (e.g. if the label displayed v=15, the value is 15)
+     * }
+     */
+    getLabelValue( valuesVisible ) {
+
+      // Get the rounded magnitude
+      const roundedMagnitude = Util.toFixed( this.magnitude, LABEL_ROUNDING );
+
+      // If this has a label or the active vector is this, display the rounded value. But don't display
+      // if if the value isn't visible
+      if ( valuesVisible && this.label ) {
+        return {
+          label: this.label ? this.label : this.fallbackLabel,
+          value: Math.abs( roundedMagnitude ) > 0 ? roundedMagnitude : null // don't display the value if its 0
+        };
+      }
+      else if ( !valuesVisible && this.label ) {
+        return {
+          label: this.label ? this.label : this.fallbackLabel,
+          value: null
+        };
+      }
+      
+      if ( valuesVisible ) {
+        return {
+          label: null,
+          value: Math.abs( roundedMagnitude ) > 0 ? roundedMagnitude : null // don't display the value if its 0
+        };
+      }
+      else if ( !valuesVisible && this.graph.activeVectorProperty.value === this ) {
+        return {
+          label: this.label ? this.label : this.fallbackLabel,
+          value: null
+        };
+      }
+      else {
+        return {
+          label: null,
+          value: null
+        };
+      }
     }
 
     /*---------------------------------------------------------------------------*

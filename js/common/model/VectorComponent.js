@@ -22,7 +22,12 @@ define( require => {
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Property = require( 'AXON/Property' );
+  const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+
+  // constants
+  const LABEL_ROUNDING = VectorAdditionConstants.LABEL_ROUNDING;
 
   class VectorComponent extends BaseVectorModel {
     /**
@@ -31,7 +36,7 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
      * @param {Enumeration} componentType (see VectorComponent.COMPONENT_TYPES)
      */
-    constructor( parentVector, componentStyleProperty, componentType ) {
+    constructor( parentVector, componentStyleProperty, componentType, activeVectorProperty ) {
 
       // Type check arguments
       assert && assert( parentVector instanceof BaseVectorModel, `invalid parentVector: ${parentVector}` );
@@ -42,11 +47,12 @@ define( require => {
         `invalid componentType: ${componentType}` );
       //----------------------------------------------------------------------------------------
 
-      super( parentVector.tail, 0, 0, parentVector.vectorGroup, BaseVectorModel.VECTOR_TYPES.COMPONENT );
+      super( parentVector.tail, 0, 0, parentVector.vectorGroup );
 
       // @public (read-only)
       this.componentType = componentType;
 
+      this.activeVectorProperty = activeVectorProperty;
       // @public (read-only) {BaseVectorModel} parentVector - reference the parent vector
       this.parentVector = parentVector;
 
@@ -119,6 +125,44 @@ define( require => {
           this.setTipXY( 0, this.parentVector.tipY );
         }
       }
+    }
+
+    /**
+     * Gets the label value of that is displayed on the vector. Since labeling is different for different vector
+     * types, this is an abstract method and base classes must implement it.
+     *
+     * @override
+     * @param {boolean} valuesVisible - if the value checkbox is on
+     * @returns {object} {
+     *    label: {string|null} // the prefix (e.g. if the label displayed v=15, the label is 'v')
+     *    value: {number|null} // the suffix (e.g. if the label displayed v=15, the value is 15)
+     * }
+     */
+    getLabelValue( valuesVisible ) {
+      
+      // Get the component value (can be negative)
+      const componentValue = this.componentType === VectorComponent.COMPONENT_TYPES.X_COMPONENT ?
+          this.attributesVector.x :
+          this.attributesVector.y;
+
+      // Round the component value
+      const roundedValue = Util.toFixed( componentValue, LABEL_ROUNDING );
+
+      // If the parent vector has a label or the parent vector is active, display the rounded value. But don't display
+      // if if the value isn't visible
+      if ( valuesVisible ) {
+        return {
+          label: null,
+          value: Math.abs( roundedValue ) > 0 ? roundedValue : null // don't display the value if its 0
+        };
+      }
+      else {
+        return {
+          label: null,
+          value: null
+        };
+      }
+
     }
   }
 

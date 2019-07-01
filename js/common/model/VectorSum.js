@@ -11,7 +11,6 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -39,8 +38,7 @@ define( require => {
         // when its active
 
         isTipDraggable: false, // {boolean} - false means the tip won't be draggable
-        isRemovable: false, // {boolean} - false means the user will not be able to drag a vector off the graph
-        type: BaseVectorModel.VECTOR_TYPES.SUM
+        isRemovable: false // {boolean} - false means the user will not be able to drag a vector off the graph
       }, options );
 
 

@@ -21,7 +21,12 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
+  // constants
+  const ANGLE_LABEL_FONT = new PhetFont( { size: 12, fontWeight: 200 } );
+  
   class VectorLabelNode extends Node {
     /**
      * @constructor
@@ -30,7 +35,7 @@ define( require => {
      * @param {ModelViewTransform2} modelViewTransformProperty
      * @param {Object} [options]
      */
-    constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, options ) {
+    constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
 
       options = _.extend( {
         fill: VectorAdditionColors[ baseVectorModel.vectorGroup ].labelBackground,
@@ -55,12 +60,17 @@ define( require => {
       // Create the background rectangle, set as an arbitrary rectangle for now
       const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options );
 
+      const vectorLabelContainer = new Node();
+
       // Create the Formula Node for the label and scale it to the correct size
-      const label = new FormulaNode( '' );
-      label.scale( options.scale );
+      const vectorNameLabel = new FormulaNode( '' );
+      vectorNameLabel.scale( options.scale );
+
+      // Create the text for the value if it has one
+      const vectorValueLabel = new Text( '', { font: ANGLE_LABEL_FONT } );
 
       super( {
-        children: [ backgroundRectangle, label ]
+        children: [ backgroundRectangle, vectorLabelContainer.setChildren( [ vectorNameLabel, vectorValueLabel ] ) ]
       } );
 
       //----------------------------------------------------------------------------------------
@@ -68,39 +78,63 @@ define( require => {
       // Function to change the label value and the background rectangle
       const updateLabelNode = ( valuesVisible ) => {
 
-        // Flag to indicate if the model represents component, which means the labeling is different
-        const isComponentModel = baseVectorModel.vectorType === BaseVectorModel.VECTOR_TYPES.COMPONENT;
+        // Get the label display information
+        const labelDisplay = baseVectorModel.getLabelValue( valuesVisible );
+        
+        vectorNameLabel.visible = labelDisplay.label !== null;
+        vectorValueLabel.visible = labelDisplay.value !== null;
+        backgroundRectangle.visible = vectorNameLabel.visible || vectorValueLabel.visible;
 
-        let roundedMagnitude;
-        if ( baseVectorModel.vectorType === BaseVectorModel.VECTOR_TYPES.COMPONENT ) {
-          const xComponent = baseVectorModel.attributesVector.x;
-          const yComponent = baseVectorModel.attributesVector.y;
-
-          roundedMagnitude = Util.toFixed( xComponent ? xComponent : yComponent, 1 );
-        }
-        else {
-          roundedMagnitude = Util.toFixed( baseVectorModel.magnitude, 1 );
+        //----------------------------------------------------------------------------------------
+        // Update the label name if it exists
+        if ( labelDisplay.label ) {
+          vectorNameLabel.setFormula( `\\vec{ \\mathrm{ ${labelDisplay.label} } \}` );
         }
 
         //----------------------------------------------------------------------------------------
-
-        if ( valuesVisible ) { // components only show the magnitude
-          label.setFormula( isComponentModel ? roundedMagnitude :
-                            `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${roundedMagnitude}}` );
+        // Update the label value
+        if ( labelDisplay.value && !labelDisplay.label ) {
+          vectorValueLabel.setText( Util.toFixed( labelDisplay.value, 1 ) );
         }
-        else if ( !valuesVisible && !isComponentModel ) {
-          label.setFormula( `\\vec{ \\mathrm{ ${baseVectorModel.label} } \}` );
+        else if ( labelDisplay.value && labelDisplay.label ) {
+          vectorValueLabel.setText( `=${Util.toFixed( labelDisplay.value, 1 )}` );
         }
 
         //----------------------------------------------------------------------------------------
         // Update the background
+        if ( backgroundRectangle.visible ) {
 
-        // Calculate the bounds using getSafeSelfBounds. See https://github.com/phetsims/vector-addition/issues/40.
-        const labelBounds = label.getSafeSelfBounds();
+          let containerWidth;
+          let containerHeight;
+          // Align the nodes together
+          if ( vectorValueLabel.visible && vectorNameLabel.visible ) {
+            vectorValueLabel.left = vectorNameLabel.right;
 
-        backgroundRectangle.setRectWidth( labelBounds.width + 2 * options.xMargin );
-        backgroundRectangle.setRectHeight( labelBounds.height + 2 * options.yMargin );
-        backgroundRectangle.center = label.center;
+            // Calculate the bounds using getSafeSelfBounds. See https://github.com/phetsims/vector-addition/issues/40.
+            containerWidth = vectorValueLabel.width + vectorNameLabel.getSafeSelfBounds().width;
+            containerHeight = vectorValueLabel.height + vectorNameLabel.getSafeSelfBounds().height;
+
+          }
+          vectorNameLabel.centerY = vectorLabelContainer.centerY;
+          vectorValueLabel.centerY = vectorLabelContainer.centerY;
+
+          if ( !vectorValueLabel.visible ) {
+            vectorNameLabel.center = vectorLabelContainer.center;
+
+            containerWidth = vectorValueLabel.width;
+            containerHeight = vectorValueLabel.height;
+          }
+          else {
+            containerWidth = vectorNameLabel.getSafeSelfBounds().width;
+            containerHeight = vectorNameLabel.getSafeSelfBounds().height;
+          }
+
+
+          backgroundRectangle.setRectWidth( containerWidth + 2 * options.xMargin );
+          backgroundRectangle.setRectHeight( containerHeight + 2 * options.yMargin );
+          backgroundRectangle.center = vectorLabelContainer.center;
+        }
+
       };
 
       //----------------------------------------------------------------------------------------
@@ -108,7 +142,8 @@ define( require => {
       // Observe changes to the model vector, and update the label node
       this.vectorObserver = new Multilink( [ valuesVisibleProperty,
           baseVectorModel.tailPositionProperty,
-          baseVectorModel.tipPositionProperty ],
+          baseVectorModel.tipPositionProperty,
+          activeVectorProperty ],
         updateLabelNode );
 
       // @private

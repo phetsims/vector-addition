@@ -17,7 +17,6 @@ define( require => {
 
   // modules
   const DerivedProperty = require( 'AXON/DerivedProperty' );
-  const Enumeration = require( 'PHET_CORE/Enumeration' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -30,23 +29,18 @@ define( require => {
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
      * @param {VectorGroups} vectorGroup - the vector group (See ./VectorGroups.js)
-     * @param {Enumeration} vectorType (See BaseVectorModel.VECTOR_TYPES)
      */
-    constructor( initialTailPosition, xComponent, yComponent, vectorGroup, vectorType ) {
+    constructor( initialTailPosition, xComponent, yComponent, vectorGroup ) {
 
       assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
       assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
       assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
       assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
-      assert && assert( BaseVectorModel.VECTOR_TYPES.includes( vectorType ), `invalid vectorType: ${vectorType}` );
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {VectorGroups}
       this.vectorGroup = vectorGroup;
 
-      // @public (read-only) {Enumeration} (See BaseVectorModel.VECTOR_TYPES)
-      this.vectorType = vectorType;
-      
       // @public (read-only) {Vector2Property} - the tail position of the vector on the graph
       this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
@@ -57,6 +51,20 @@ define( require => {
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
         ( tailPosition, vector ) => tailPosition.plus( vector ) );
 
+    }
+
+    /**
+     * Gets the label value of that is displayed on the vector. Since labeling is different for different vector
+     * types, this is an abstract method and base classes must implement it.
+     * @abstract
+     * @param {boolean} valuesVisible - if the value checkbox is on
+     * @returns {object} {
+     *    label: {string|null} // the prefix (e.g. if the label displayed v=15, the label is 'v')
+     *    value: {number|null} // the suffix (e.g. if the label displayed v=15, the value is 15)
+     * }
+     */
+    getLabelValue( valuesVisible ) {
+      assert && assert( false, 'getLabelValue must be implemented' );
     }
 
     /**
@@ -273,9 +281,5 @@ define( require => {
       this.tailPositionProperty.value = position;
     }
   }
-
-  // @public - Possible types of vectors
-  BaseVectorModel.VECTOR_TYPES = new Enumeration( [ 'COMPONENT', 'SUM', 'MAIN' ] );
-
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );
 } );
