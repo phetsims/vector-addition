@@ -10,9 +10,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const Dimension2 = require( 'DOT/Dimension2' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
@@ -66,8 +65,9 @@ define( function( require ) {
 
     //----------------------------------------------------------------------------------------
     // Defaults for graphs
-    GRAPH_DIMENSION: new Dimension2( 60, 40 ),
-    GRAPH_UPPER_LEFT_COORDINATE: new Vector2( -5, 35 ),
+
+    // Default graph bounds. Used in 'lab', 'equation', and 'explore2D'
+    DEFAULT_GRAPH_BOUNDS: new Bounds2( -5, -5, 55, 35 ),
 
     //----------------------------------------------------------------------------------------
     // Defaults for all vector arrow nodes
@@ -94,8 +94,6 @@ define( function( require ) {
     // Labels, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
     // These don't necessarily align with VectorGroups.
     LABEL_GROUP_1: [ 'a', 'b', 'c' ]
-
-
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

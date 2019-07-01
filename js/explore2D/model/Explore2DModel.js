@@ -20,8 +20,7 @@ define( require => {
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
-  const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
-  const GRAPH_UPPER_LEFT_COORDINATE = VectorAdditionConstants.GRAPH_UPPER_LEFT_COORDINATE;
+  const GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
   class Explore2DModel extends VectorAdditionModel {
     /**
@@ -54,15 +53,11 @@ define( require => {
       // Create and add the graphs
       
       // @public (read-only) {Graph}
-      this.polarGraph = new Graph( GRAPH_DIMENSION,
-        GRAPH_UPPER_LEFT_COORDINATE,
-        GraphOrientations.TWO_DIMENSIONAL );
+      this.polarGraph = new Graph( GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
       this.graphs.push( this.polarGraph );
 
       // @public (read-only) {Graph}
-      this.cartesianGraph = new Graph( GRAPH_DIMENSION,
-        GRAPH_UPPER_LEFT_COORDINATE,
-        GraphOrientations.TWO_DIMENSIONAL );
+      this.cartesianGraph = new Graph( GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
       this.graphs.push( this.cartesianGraph );
 
       //----------------------------------------------------------------------------------------

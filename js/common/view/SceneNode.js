@@ -143,7 +143,6 @@ define( require => {
 
       // @private, {function} function to reset the scene
       this.resetScene = () => {
-        graphNode.reset();
         graph.reset();
         // inspectVectorPanel.reset();
       };

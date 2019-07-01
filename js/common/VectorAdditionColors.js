@@ -39,8 +39,8 @@ define( function( require ) {
     //----------------------------------------------------------------------------------------
     // Graph colors
     ORIGIN_DOT_COLOR: 'rgb( 25, 253, 56 )',
-    GRAPH_MAJOR_LINE_COLOR: 'rgb( 220, 220, 220 )',
-    GRAPH_MINOR_LINE_COLOR: 'rgb( 230, 230, 230 )',
+    GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )',
+    GRAPH_MINOR_LINE_COLOR: 'rgb( 225, 225, 225 )',
     TICKS_COLOR: BLACK,
 
     //----------------------------------------------------------------------------------------
