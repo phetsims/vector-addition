@@ -55,10 +55,10 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( PANEL_OPTIONS, options );
+      options = _.extend( {}, PANEL_OPTIONS, options );
 
-      const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet );
-      const polarSumCheckbox = new SumCheckbox( polarVectorSet );
+      const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianVectorSet.vectorGroup );
+      const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty, polarVectorSet.vectorGroup );
 
       // Toggle visibility of the check boxes, never disposed as the panel exists throughout the entire sim
       explore2DModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {

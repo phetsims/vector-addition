@@ -23,8 +23,10 @@ define( require => {
 
   // constants
 
-  // Used in model to determine in the model view transform property value.
-  const GRAPH_VIEW_BOUNDS = new Bounds2( 29, 90, 29 + 750, 90 + 500 );
+  // The graph nodes upper left location. Used in model to determine in the model view transform property value.
+  // Since the origin is being dragged, modelViewTransform is in the graph.
+  const GRAPH_BOTTOM_LEFT_LOCATION = new Vector2( 29, 590 );
+  const MODEL_TO_VIEW_SCALE = 12.5;
 
   class Graph {
     /**
@@ -51,11 +53,17 @@ define( require => {
         valueType: Bounds2
       } );
 
+      // Determine the view bounds for the graph
+      const graphViewBounds = new Bounds2( GRAPH_BOTTOM_LEFT_LOCATION.x,
+        GRAPH_BOTTOM_LEFT_LOCATION.y - MODEL_TO_VIEW_SCALE * initialGraphBounds.height,
+        GRAPH_BOTTOM_LEFT_LOCATION.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
+        GRAPH_BOTTOM_LEFT_LOCATION.y );
+
       // @public (read-only) {Property.<ModelViewTransform2>} - the coordinate transform between model
       // (graph coordinates) and view coordinates.
       this.modelViewTransformProperty = new DerivedProperty( [ this.graphModelBoundsProperty ],
         ( graphModelBounds ) => {
-          return ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, GRAPH_VIEW_BOUNDS );
+          return ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, graphViewBounds );
         }, {
           valueType: ModelViewTransform2
         } );
@@ -78,7 +86,7 @@ define( require => {
     }
 
     /**
-     * 'Erases' the graph by resetting the vectorSets. Called when the eraser button is clicked.
+     * Erases the graph by resetting the vectorSets. Called when the eraser button is clicked.
      * @public
      */
     erase() {

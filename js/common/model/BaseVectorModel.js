@@ -7,6 +7,7 @@
  *  - tip and tail position properties
  *  - 'attributes property' (x and y, or in other words the actual vector <x, y>)
  *  - vector group (See ./VectorGroups.js)
+ *  - vector type (See BaseVectorModel.VECTOR_TYPES)
  *
  * @author Brandon Li
  */
@@ -29,7 +30,7 @@ define( require => {
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
      * @param {VectorGroups} vectorGroup - the vector group (See ./VectorGroups.js)
-     * @param {Enumeration} vectorType (see BaseVectorModel.VECTOR_TYPES)
+     * @param {Enumeration} vectorType (See BaseVectorModel.VECTOR_TYPES)
      */
     constructor( initialTailPosition, xComponent, yComponent, vectorGroup, vectorType ) {
 
@@ -43,7 +44,7 @@ define( require => {
       // @public (read-only) {VectorGroups}
       this.vectorGroup = vectorGroup;
 
-      // @public (read-only) {Enumeration} (see BaseVectorModel.VECTOR_TYPES)
+      // @public (read-only) {Enumeration} (See BaseVectorModel.VECTOR_TYPES)
       this.vectorType = vectorType;
       
       // @public (read-only) {Vector2Property} - the tail position of the vector on the graph

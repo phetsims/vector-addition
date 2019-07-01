@@ -1,28 +1,36 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the Explore1D screen
+ * Model for the Explore1D screen. Explore1D has a horizontal and a vertical scene. Each scene has one vector set.
+ * Explore1D has one shared sum visible property.
+ *
  *
  * @author Martin Veillette
  */
+
 define( require => {
   'use strict';
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
 
   // constants
   const DEFAULT_VECTOR_ORIENTATION = GraphOrientations.HORIZONTAL;
-  const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
-  const GRAPH_UPPER_LEFT_COORDINATE = new Vector2( -30, 20 );
-  const DEFAULT_VECTOR_GROUP = VectorAdditionConstants.DEFAULT_VECTOR_GROUP;
+  const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
+
+  const EXPLORE_1D_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
+    -DEFAULT_GRAPH_BOUNDS.height / 2,
+    DEFAULT_GRAPH_BOUNDS.width / 2,
+    DEFAULT_GRAPH_BOUNDS.height / 2 );
 
   class Explore1DModel extends VectorAdditionModel {
     /**
@@ -43,31 +51,44 @@ define( require => {
       this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, DEFAULT_VECTOR_ORIENTATION );
 
       // @public (read-only) {VectorGroups} VectorGroups - the only vector group used on the explore1D screen
-      this.vectorGroup = DEFAULT_VECTOR_GROUP;
+      this.vectorGroup = VectorGroups.ONE;
 
       //----------------------------------------------------------------------------------------
-      // Add the graphs
+      // Create and add the graphs
 
-      // @public (read-only)
-      this.horizontalGraph = this.addGraph(
-        GRAPH_DIMENSION,
-        GRAPH_UPPER_LEFT_COORDINATE,
-        GraphOrientations.HORIZONTAL );
+      // @public (read-only) {Graph}
+      this.verticalGraph = new Graph( EXPLORE_1D_BOUNDS, GraphOrientations.VERTICAL );
+      this.graphs.push( this.verticalGraph );
 
-      // @public (read-only)
-      this.verticalGraph = this.addGraph(
-        GRAPH_DIMENSION,
-        GRAPH_UPPER_LEFT_COORDINATE,
-        GraphOrientations.VERTICAL );
+      // @public (read-only) {Graph}
+      this.horizontalGraph = new Graph( EXPLORE_1D_BOUNDS, GraphOrientations.HORIZONTAL );
+      this.graphs.push( this.horizontalGraph );
+
 
       //----------------------------------------------------------------------------------------
-      // Each graph has one vector set for explore1D
+      // Create the vector sets. Each graph has one vector set
 
-      this.horizontalGraph.vectorSet = this.horizontalGraph.addVectorSet(
-        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup, CoordinateSnapModes.CARTESIAN );
+      this.verticalGraph.vectorSet = this.verticalGraph.createVectorSet( this.componentStyleProperty,
+        this.sumVisibleProperty,
+        this.vectorGroup,
+        CoordinateSnapModes.CARTESIAN );
+      this.verticalGraph.vectorSets.push( this.verticalGraph.vectorSet );
 
-      this.verticalGraph.vectorSet = this.verticalGraph.addVectorSet(
-        this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup, CoordinateSnapModes.CARTESIAN );
+      this.horizontalGraph.vectorSet = this.horizontalGraph.createVectorSet( this.componentStyleProperty,
+        this.sumVisibleProperty,
+        this.vectorGroup,
+        CoordinateSnapModes.CARTESIAN );
+      this.horizontalGraph.vectorSets.push( this.horizontalGraph.vectorSet );
+
+
+
+      //----------------------------------------------------------------------------------------
+      // Disable angle
+      this.angleVisibleProperty.link( angleVisible => {
+        if ( angleVisible ) {
+          throw new Error( 'Angles are never visible for Explore1D' );
+        }
+      } );
 
       // Disable polar / cartesian mode
       this.coordinateSnapModeProperty.link( coordinateSnapMode => {
@@ -75,19 +96,12 @@ define( require => {
           throw new Error( 'Explore1D only uses cartesian' );
         }
       } );
-
-      // Disable angle
-      this.angleVisibleProperty.link( angleVisible => {
-        if ( angleVisible ) {
-          throw new Error( 'Angles are never visible for Explore1D' );
-        }
-      } );
     }
 
     /**
      * @public
      * @override
-     * Reset the Explore1D model
+     * Resets the Explore1D model
      */
     reset() {
       this.graphOrientationProperty.reset();

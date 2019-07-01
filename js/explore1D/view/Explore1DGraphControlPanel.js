@@ -9,18 +9,24 @@ define( require => {
   'use strict';
 
   // modules
+  const Checkbox = require( 'SUN/Checkbox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const GridCheckbox = require( 'VECTOR_ADDITION/common/view/GridCheckbox' );
   const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
-  const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
+  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
+
+  // strings
+  const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
   class Explore1DGraphControlPanel extends Panel {
     /**
@@ -44,15 +50,22 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( PANEL_OPTIONS, options );
+      options = _.extend( {}, PANEL_OPTIONS, options );
 
       const content = new VBox( {
         spacing: 10,
         align: 'left',
         children: [
           new SumCheckbox( sumVisibleProperty, vectorGroup ),
-          new ValuesCheckbox( valuesVisibleProperty ),
-          new GridCheckbox( gridVisibleProperty )
+          // values checkbox
+          new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),
+            valuesVisibleProperty,
+            CHECKBOX_OPTIONS ),
+
+                // grid checkbox
+          new Checkbox( VectorAdditionIconFactory.createGridIcon(),
+            gridVisibleProperty,
+            CHECKBOX_OPTIONS )
         ]
       } );
 

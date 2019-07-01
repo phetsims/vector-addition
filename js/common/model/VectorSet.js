@@ -97,7 +97,6 @@ define( require => {
     createVector( tailPosition, xComponent, yComponent, options ) {
       return new VectorModel( tailPosition, xComponent, yComponent, this.graph, this, options );
     }
-
   }
 
   return vectorAddition.register( 'VectorSet', VectorSet );

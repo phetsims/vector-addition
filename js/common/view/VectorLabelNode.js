@@ -21,7 +21,6 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
 
   class VectorLabelNode extends Node {
     /**
@@ -70,9 +69,9 @@ define( require => {
       const updateLabelNode = ( valuesVisible ) => {
 
         // Flag to indicate if the model represents component, which means the labeling is different
-        const isComponentModel = VectorComponent.COMPONENT_TYPES.includes( baseVectorModel.componentType );
+        const isComponentModel = baseVectorModel.vectorType === BaseVectorModel.VECTOR_TYPES.COMPONENT;
 
-        let roundedMagnitude; // Different for different vector types
+        let roundedMagnitude;
         if ( baseVectorModel.vectorType === BaseVectorModel.VECTOR_TYPES.COMPONENT ) {
           const xComponent = baseVectorModel.attributesVector.x;
           const yComponent = baseVectorModel.attributesVector.y;
@@ -83,7 +82,9 @@ define( require => {
           roundedMagnitude = Util.toFixed( baseVectorModel.magnitude, 1 );
         }
 
-        if ( valuesVisible ) {
+        //----------------------------------------------------------------------------------------
+
+        if ( valuesVisible ) { // components only show the magnitude
           label.setFormula( isComponentModel ? roundedMagnitude :
                             `\|\\vec{ \\mathrm{ ${baseVectorModel.label} } \}|=\\mathrm{${roundedMagnitude}}` );
         }

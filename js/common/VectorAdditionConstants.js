@@ -66,7 +66,7 @@ define( function( require ) {
     //----------------------------------------------------------------------------------------
     // Defaults for graphs
 
-    // Default graph bounds. Used in 'lab', 'equation', and 'explore2D'
+    // Default graph bounds. Used in 'lab' and 'explore2D'
     DEFAULT_GRAPH_BOUNDS: new Bounds2( -5, -5, 55, 35 ),
 
     //----------------------------------------------------------------------------------------
@@ -93,7 +93,8 @@ define( function( require ) {
     //----------------------------------------------------------------------------------------
     // Labels, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
     // These don't necessarily align with VectorGroups.
-    LABEL_GROUP_1: [ 'a', 'b', 'c' ]
+    LABEL_GROUP_1: [ 'a', 'b', 'c' ],
+    LABEL_GROUP_2: [ 'd', 'e', 'f' ]
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

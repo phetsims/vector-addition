@@ -5,18 +5,18 @@
  *
  * @author Brandon Li
  */
-
 define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Checkbox = require( 'SUN/Checkbox' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
   const TEXT_OPTIONS = {
@@ -30,11 +30,16 @@ define( require => {
   class SumCheckbox extends Checkbox {
     /**
      * @constructor
-     * @param {VectorSet} vectorSet
+     * @param {BooleanProperty} sumVisibleProperty
+     * @param {VectorGroups} vectorGroup
      */
-    constructor( vectorSet ) {
+    constructor( sumVisibleProperty, vectorGroup ) {
 
-      assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
+      // Type check arguments
+      assert && assert( sumVisibleProperty instanceof BooleanProperty,
+        `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+
       //----------------------------------------------------------------------------------------
 
       super( new LayoutBox( {
@@ -42,9 +47,9 @@ define( require => {
         spacing: CHECKBOX_OPTIONS.spacing,
         children: [
           new Text( sumString, TEXT_OPTIONS ),
-          VectorAdditionIconFactory.createSumIcon( vectorSet.vectorGroup )
+          VectorAdditionIconFactory.createSumIcon( vectorGroup )
         ]
-      } ), vectorSet.sumVisibleProperty, CHECKBOX_OPTIONS );
+      } ), sumVisibleProperty, CHECKBOX_OPTIONS );
     }
   }
 

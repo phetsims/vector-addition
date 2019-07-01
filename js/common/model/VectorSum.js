@@ -21,8 +21,7 @@ define( require => {
 
   // The label of the vector when its active if and only if the user doesn't provide the label option.
   // The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
-  const FALLBACK_VECTOR_LABEL = 'v';
-
+  const FALLBACK_VECTOR_LABEL = 's';
 
   class VectorSum extends VectorModel {
     /**
@@ -36,7 +35,7 @@ define( require => {
       options = _.extend( {
 
         // Passed to super class
-        label: 's', // {string|null} - the label of the vector. If null, the vector will display a the fallback label
+        label: 's', // {string|null} - the label of the vector. If null, the vector will display a the fall back label
         // when its active
 
         isTipDraggable: false, // {boolean} - false means the tip won't be draggable
@@ -128,7 +127,6 @@ define( require => {
     reset() {
       this.tailPositionProperty.reset();
     }
-
   }
 
   return vectorAddition.register( 'VectorSum', VectorSum );

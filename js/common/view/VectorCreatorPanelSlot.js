@@ -33,7 +33,7 @@ define( require => {
   const LABEL_AND_ICON_SPACING = 6;
   const LABEL_RESIZE_SCALE = 0.8;
   const ICON_OFFSET_MOUSE_AREA = 8;
-
+  const ICON_SIZE = 30;
   class VectorCreatorPanelSlot extends HBox {
     /**
      * @constructor
@@ -68,6 +68,9 @@ define( require => {
         xMargin: 0
       }, options );
 
+      options.iconOptions = _.extend( {
+        arrowSize: ICON_SIZE
+      } );
       //----------------------------------------------------------------------------------------
 
       super( {
@@ -85,6 +88,8 @@ define( require => {
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( initialViewVector,
         vectorSet.vectorGroup,
         options.iconOptions );
+
+      const iconAttributesVector = modelViewTransformProperty.value.viewToModelDelta( initialViewVector.normalized().timesScalar( ICON_SIZE ) );
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( ICON_OFFSET_MOUSE_AREA );
@@ -157,9 +162,6 @@ define( require => {
             // Get the location of the icon node relative to the screen view
             const iconPosition = modelViewTransformProperty.value.viewToModelBounds(
               parentScreenView.boundsOf( iconNode ) ).center;
-
-            const iconAttributesVector = modelViewTransformProperty.value.viewToModelDelta(
-              new Vector2( iconNode.width, -iconNode.height ) );
 
             const animationFinishedListener = () => {
 
