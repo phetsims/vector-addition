@@ -5,6 +5,7 @@
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
@@ -15,6 +16,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
   const TEXT_OPTIONS = {
@@ -28,16 +30,11 @@ define( require => {
   class SumCheckbox extends Checkbox {
     /**
      * @constructor
-     * @param {BooleanProperty} sumVisibleProperty
-     * @param {VectorGroups} vectorGroup
+     * @param {VectorSet} vectorSet
      */
     constructor( vectorSet ) {
 
-      // Type check arguments
-      // assert && assert( sumVisibleProperty instanceof BooleanProperty,
-      //   `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      // assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
-
+      assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
       //----------------------------------------------------------------------------------------
 
       super( new LayoutBox( {

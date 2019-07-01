@@ -11,29 +11,31 @@ define( require => {
   'use strict';
 
   // modules
-  const AngleCheckbox = require( 'VECTOR_ADDITION/common/view/AngleCheckbox' );
+  const Checkbox = require( 'SUN/Checkbox' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
-  const GridCheckbox = require( 'VECTOR_ADDITION/common/view/GridCheckbox' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
+  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
+
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
 
   // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );
+  const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
   class Explore2DGraphControlPanel extends Panel {
     /**
@@ -71,20 +73,31 @@ define( require => {
         }
       } );
 
-      const checkboxContainer = new Node( {
+      const sumCheckboxes = new Node( {
         children: [ cartesianSumCheckbox, polarSumCheckbox ]
       } );
       
       //----------------------------------------------------------------------------------------
 
+
       const content = new VBox( {
         spacing: 10,
         align: 'left',
         children: [
-          checkboxContainer,
-          new ValuesCheckbox( explore2DModel.valuesVisibleProperty ),
-          new AngleCheckbox( explore2DModel.angleVisibleProperty ),
-          new GridCheckbox( explore2DModel.gridVisibleProperty ),
+          sumCheckboxes,
+
+          // values checkbox
+          new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),
+            explore2DModel.valuesVisibleProperty,
+            CHECKBOX_OPTIONS ),
+          // angles checkbox
+          new Checkbox( VectorAdditionIconFactory.createAngleIcon(),
+            explore2DModel.angleVisibleProperty,
+            CHECKBOX_OPTIONS ),
+          // grid checkbox
+          new Checkbox( VectorAdditionIconFactory.createGridIcon(),
+            explore2DModel.gridVisibleProperty,
+            CHECKBOX_OPTIONS ),
           new Line( 0, 0, PANEL_OPTIONS.contentWidth, 0, { stroke: VectorAdditionColors.BLACK } ),
           new Text( componentsString, { font: PANEL_FONT } ),
           new ComponentStyleRadioButtonGroup( explore2DModel.componentStyleProperty )
