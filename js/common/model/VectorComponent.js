@@ -42,7 +42,7 @@ define( require => {
         `invalid componentType: ${componentType}` );
       //----------------------------------------------------------------------------------------
 
-      super( parentVector.tail, 0, 0, parentVector.vectorGroup );
+      super( parentVector.tail, 0, 0, parentVector.vectorGroup, BaseVectorModel.VECTOR_TYPES.COMPONENT );
 
       // @public (read-only)
       this.componentType = componentType;

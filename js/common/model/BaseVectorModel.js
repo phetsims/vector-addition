@@ -16,6 +16,7 @@ define( require => {
 
   // modules
   const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Enumeration = require( 'PHET_CORE/Enumeration' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -28,19 +29,23 @@ define( require => {
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
      * @param {VectorGroups} vectorGroup - the vector group (See ./VectorGroups.js)
+     * @param {Enumeration} vectorType (see BaseVectorModel.VECTOR_TYPES)
      */
-    constructor( initialTailPosition, xComponent, yComponent, vectorGroup ) {
+    constructor( initialTailPosition, xComponent, yComponent, vectorGroup, vectorType ) {
 
       assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
       assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
       assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
       assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
-
+      assert && assert( BaseVectorModel.VECTOR_TYPES.includes( vectorType ), `invalid vectorType: ${vectorType}` );
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {VectorGroups}
       this.vectorGroup = vectorGroup;
 
+      // @public (read-only) {Enumeration} (see BaseVectorModel.VECTOR_TYPES)
+      this.vectorType = vectorType;
+      
       // @public (read-only) {Vector2Property} - the tail position of the vector on the graph
       this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
@@ -267,6 +272,9 @@ define( require => {
       this.tailPositionProperty.value = position;
     }
   }
+
+  // @public - Possible types of vectors
+  BaseVectorModel.VECTOR_TYPES = new Enumeration( [ 'COMPONENT', 'SUM', 'MAIN' ] );
 
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );
 } );

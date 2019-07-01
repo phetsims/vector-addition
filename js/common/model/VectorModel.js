@@ -64,7 +64,9 @@ define( require => {
 
         isTipDraggable: true, // {boolean} - false means the tip won't be draggable
 
-        isRemovable: true // {boolean} - false means the user will not be able to drag a vector off the graph
+        isRemovable: true, // {boolean} - false means the user will not be able to drag a vector off the graph
+
+        type: BaseVectorModel.VECTOR_TYPES.MAIN // {Enumeration} see BaseVectorModel.VECTOR_TYPES
       }, options );
 
 
@@ -77,7 +79,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( tailPosition, xComponent, yComponent, vectorSet.vectorGroup );
+      super( tailPosition, xComponent, yComponent, vectorSet.vectorGroup, options.type );
 
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
