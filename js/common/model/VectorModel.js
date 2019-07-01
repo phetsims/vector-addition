@@ -207,12 +207,24 @@ define( require => {
       // If this has a label or the active vector is this, display the rounded value. But don't display
       // if if the value isn't visible
       if ( valuesVisible && this.label ) {
+        if ( !Math.abs( roundedMagnitude ) > 0 ) {
+          return {
+            label: null,
+            value: Math.abs( roundedMagnitude ) > 0
+          }
+        }
         return {
           label: this.label ? this.label : this.fallbackLabel,
           value: Math.abs( roundedMagnitude ) > 0 ? roundedMagnitude : null // don't display the value if its 0
         };
       }
       else if ( !valuesVisible && this.label ) {
+        if ( !Math.abs( roundedMagnitude ) > 0 ) {
+          return {
+            label: null,
+            value: null
+          }
+        }
         return {
           label: this.label ? this.label : this.fallbackLabel,
           value: null
