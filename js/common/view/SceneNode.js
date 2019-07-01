@@ -11,12 +11,17 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
+  const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorSumComponentNode = require( 'VECTOR_ADDITION/common/view/VectorSumComponentNode' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
 
@@ -24,15 +29,33 @@ define( require => {
     /**
      * @constructor
      * @param {Graph} graph
-     * @param {VectorAdditionModel} vectorAdditionModel
-     * @param {Object} [options]
+     * @param {BooleanProperty} valuesVisibleProperty
+     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} gridVisibleProperty
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {Object} [inspectPanelOptions] - options passed to inspect vector panel
      */
-    constructor( graph, valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty, inspectPanelOptions ) {
+    constructor( graph,
+      valuesVisibleProperty,
+      angleVisibleProperty,
+      gridVisibleProperty,
+      componentStyleProperty,
+      inspectPanelOptions
+    ) {
 
-      // assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      // assert && assert( vectorAdditionModel instanceof VectorAdditionModel, `invalid vectorAdditionModel: ${vectorAdditionModel}` );
-      // assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
-      //   `Extra prototype on Options: ${options}` );
+      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
+        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( angleVisibleProperty instanceof BooleanProperty,
+        `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      assert && assert( gridVisibleProperty instanceof BooleanProperty,
+        `invalid gridVisibleProperty: ${gridVisibleProperty}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty
+      && ComponentStyles.includes( componentStyleProperty.value ),
+      `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( !inspectPanelOptions || Object.getPrototypeOf( inspectPanelOptions ) === Object.prototype,
+        `Extra prototype on inspectPanelOptions: ${inspectPanelOptions}` );
+      
 
       inspectPanelOptions = _.extend( {
         panelOptions: null // {object|null}
@@ -86,7 +109,9 @@ define( require => {
 
         // Create the node for the one and only sum node per vector set and its components
         const vectorSumNode = new VectorSumNode( vectorSet.vectorSum,
-          graph, valuesVisibleProperty, angleVisibleProperty,
+          graph,
+          valuesVisibleProperty,
+          angleVisibleProperty,
           vectorSet.sumVisibleProperty
         );
 
@@ -141,10 +166,9 @@ define( require => {
         } );
       } );
 
-      // @private, {function} function to reset the scene
+      // @private {function} function to reset the scene
       this.resetScene = () => {
         graph.reset();
-        // inspectVectorPanel.reset();
       };
     }
 
@@ -156,11 +180,16 @@ define( require => {
       this.resetScene();
     }
 
-    
-    addVectorCreatorPanel( creatorPanel ) {
+    /**
+     * Adds a Vector Creator Panel to the scene
+     * @param {VectorCreatorPanel} vectorCreatorPanel
+     */
+    addVectorCreatorPanel( vectorCreatorPanel ) {
 
-      this.addChild( creatorPanel );
-      creatorPanel.moveToBack();
+      assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel,
+        `invalid vectorCreatorPanel: ${vectorCreatorPanel}` );
+      this.addChild( vectorCreatorPanel );
+      vectorCreatorPanel.moveToBack();
     }
   }
 

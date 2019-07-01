@@ -255,7 +255,6 @@ define( require => {
         vectorAttributesContainer.centerY = this.centerY;
       } );
     }
-
   }
 
   return vectorAddition.register( 'InspectVectorPanel', InspectVectorPanel );
