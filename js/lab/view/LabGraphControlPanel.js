@@ -1,92 +1,125 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the Panel that appears on the upper-right corner of the 'Explore2D' screen.
+ * View for the Panel that appears on the upper-right corner of the 'Explore2D' screen. Since there are 2 scenes (polar
+ * and cartesian), there are 2 sum visible properties for each.
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
   // modules
-  const AngleCheckbox = require( 'VECTOR_ADDITION/common/view/AngleCheckbox' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Checkbox = require( 'SUN/Checkbox' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const GridCheckbox = require( 'VECTOR_ADDITION/common/view/GridCheckbox' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  // const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
+
+  // constants
+  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
+
+  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
+  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
 
   // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );
-
-  // constants
-  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+  const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
   class LabGraphControlPanel extends Panel {
     /**
      * @constructor
-     * @param {BooleanProperty} sum1VisibleProperty - visibility of sum for group 1 vector set
-     * @param {BooleanProperty} sum2VisibleProperty - visibility of sum for group 2 vector set
-     * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} angleVisibleProperty
-     * @param {BooleanProperty} gridVisibleProperty
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {VectorSet} cartesianVectorSet1
+     * @param {VecotrSet} polarVectorSet
+     * @param {Explore2DModel} explore2DModel
      * @param {Object} [options]
      */
-    constructor(
-      sum1VisibleProperty,
-      sum2VisibleProperty,
-      valuesVisibleProperty,
-      angleVisibleProperty,
-      gridVisibleProperty,
-      componentStyleProperty,
-      options ) {
+    constructor( labModel, cartesianVectorSet1, cartesianVectorSet2, polarVectorSet3, polarVectorSet4, options ) {
 
-      // Type check arguments
-      // assert && assert( sumVisibleProperty instanceof BooleanProperty,
-      //   `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
-        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty,
-        `invalid angleVisibleProperty: ${angleVisibleProperty}` );
-      assert && assert( gridVisibleProperty instanceof BooleanProperty,
-        `invalid gridVisibleProperty: ${gridVisibleProperty}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-      // assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( labModel instanceof LabModel, `invalid explore2DModel: ${labModel}` );
+      // assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
+      // assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
+      // assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+      //   `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( PANEL_OPTIONS, options );
+      options = _.extend( {}, PANEL_OPTIONS, options );
+
+      const cartesianGroup1SumCheckbox = new SumCheckbox( cartesianVectorSet1.sumVisibleProperty, cartesianVectorSet1.vectorGroup );
+      const cartesianGroup2SumCheckbox = new SumCheckbox( cartesianVectorSet2.sumVisibleProperty, cartesianVectorSet2.vectorGroup );
+
+      const polarGroup3SumCheckbox = new SumCheckbox( polarVectorSet3.sumVisibleProperty, polarVectorSet3.vectorGroup );
+      const polarGroup4SumCheckbox = new SumCheckbox( polarVectorSet4.sumVisibleProperty, polarVectorSet4.vectorGroup );
+
+      const polarCheckboxes = new VBox( {
+        spacing: 10,
+        align: 'left',
+        children: [
+          polarGroup3SumCheckbox,
+          polarGroup4SumCheckbox
+        ]
+      } );
+      const cartesianCheckboxes = new VBox( {
+        spacing: 10,
+        align: 'left',
+        children: [
+          cartesianGroup1SumCheckbox,
+          cartesianGroup2SumCheckbox
+        ]
+      } );
+      // Toggle visibility of the check boxes, never disposed as the panel exists throughout the entire sim
+      labModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+        if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+          polarCheckboxes.visible = false;
+          cartesianCheckboxes.visible = true;
+        }
+
+        if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+          polarCheckboxes.visible = true;
+          cartesianCheckboxes.visible = false;
+        }
+      } );
+
+      const sumCheckboxes = new Node( {
+        children: [ cartesianCheckboxes, polarCheckboxes ]
+      } );
+
+      //----------------------------------------------------------------------------------------
+
 
       const content = new VBox( {
         spacing: 10,
         align: 'left',
         children: [
-          new SumCheckbox( sum1VisibleProperty, VectorGroups.ONE ),
-          new SumCheckbox( sum2VisibleProperty, VectorGroups.TWO ),
-          new ValuesCheckbox( valuesVisibleProperty ),
-          new AngleCheckbox( angleVisibleProperty ),
-          new GridCheckbox( gridVisibleProperty ),
-          new Line( 0, 0, PANEL_OPTIONS.contentWidth, 0, {
-            stroke: VectorAdditionColors.GRAPH_CONTROL_PANEL_LINE_COLOR
-          } ),
-          new Text( componentsString, {
-            font: PANEL_FONT
-          } ),
-          new ComponentStyleRadioButtonGroup( componentStyleProperty )
+          sumCheckboxes,
+
+          // values checkbox
+          new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),
+            labModel.valuesVisibleProperty,
+            CHECKBOX_OPTIONS ),
+          // angles checkbox
+          new Checkbox( VectorAdditionIconFactory.createAngleIcon(),
+            labModel.angleVisibleProperty,
+            CHECKBOX_OPTIONS ),
+          // grid checkbox
+          new Checkbox( VectorAdditionIconFactory.createGridIcon(),
+            labModel.gridVisibleProperty,
+            CHECKBOX_OPTIONS ),
+          new Line( 0, 0, PANEL_OPTIONS.contentWidth, 0, { stroke: VectorAdditionColors.BLACK } ),
+          new Text( componentsString, { font: PANEL_FONT } ),
+          new ComponentStyleRadioButtonGroup( labModel.componentStyleProperty )
         ]
       } );
 

@@ -14,6 +14,7 @@ define( function( require ) {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
+  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
 
   class LabScreenView extends VectorAdditionScreenView {
 
@@ -23,18 +24,65 @@ define( function( require ) {
      */
     constructor( labModel, tandem ) {
 
-      super( labModel, tandem, {
-        isExpandedInitially: true
-      } );
-
-      const graphControlPanel = new LabGraphControlPanel(
-        labModel.group1SumVisibleProperty,
-        labModel.group2SumVisibleProperty,
+      const polarSceneNode = new SceneNode( labModel.polarGraph,
         labModel.valuesVisibleProperty,
         labModel.angleVisibleProperty,
         labModel.gridVisibleProperty,
-        labModel.componentStyleProperty,
-        {
+        labModel.componentStyleProperty, {
+          isExpandedInitially: true
+        } );
+      const cartesianSceneNode = new SceneNode( labModel.cartesianGraph,
+        labModel.valuesVisibleProperty,
+        labModel.angleVisibleProperty,
+        labModel.gridVisibleProperty,
+        labModel.componentStyleProperty, {
+          isExpandedInitially: true
+        } );
+
+      super( labModel, [ polarSceneNode, cartesianSceneNode ], tandem );
+
+      //----------------------------------------------------------------------------------------
+      // Create the vector creator panels
+
+      polarSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel,
+        labModel.polarGraph,
+        labModel.polarGraph.group3VectorSet,
+        labModel.polarGraph.group4VectorSet,
+        polarSceneNode.vectorContainer,
+        this ) );
+
+      cartesianSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel,
+        labModel.cartesianGraph,
+        labModel.cartesianGraph.group1VectorSet,
+        labModel.cartesianGraph.group2VectorSet,
+        cartesianSceneNode.vectorContainer,
+        this ) );
+
+
+
+      //----------------------------------------------------------------------------------------
+      // toggle visible
+      labModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+
+        if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+          polarSceneNode.visible = false;
+          cartesianSceneNode.visible = true;
+        }
+
+        if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+          polarSceneNode.visible = true;
+          cartesianSceneNode.visible = false;
+        }
+      } );
+
+
+      //----------------------------------------------------------------------------------------
+      const graphControlPanel = new LabGraphControlPanel(
+        labModel,
+        labModel.cartesianGraph.group1VectorSet,
+        labModel.cartesianGraph.group2VectorSet,
+        labModel.polarGraph.group3VectorSet,
+        labModel.polarGraph.group4VectorSet, {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
@@ -42,37 +90,8 @@ define( function( require ) {
       this.addChild( graphControlPanel );
 
       //----------------------------------------------------------------------------------------
-      const polarVectorCreatorPanel = new LabVectorCreatorPanel(
-        labModel.polarGraph.group1VectorSet,
-        labModel.polarGraph.group2VectorSet,
-        labModel.polarGraph.modelViewTransformProperty );
 
-      this.addChild( polarVectorCreatorPanel );
 
-      const cartesianVectorCreatorPanel = new LabVectorCreatorPanel(
-        labModel.cartesianGraph.group1VectorSet,
-        labModel.cartesianGraph.group2VectorSet,
-        labModel.cartesianGraph.modelViewTransformProperty );
-
-      this.addChild( cartesianVectorCreatorPanel );
-
-      // toggle visible
-      labModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
-
-        if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-          polarVectorCreatorPanel.visible = false;
-          cartesianVectorCreatorPanel.visible = true;
-          labModel.polarGraph.sceneNode.visible = false;
-          labModel.cartesianGraph.sceneNode.visible = true;
-        }
-
-        if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-          polarVectorCreatorPanel.visible = true;
-          cartesianVectorCreatorPanel.visible = false;
-          labModel.polarGraph.sceneNode.visible = true;
-          labModel.cartesianGraph.sceneNode.visible = false;
-        }
-      } );
 
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         labModel.coordinateSnapModeProperty );

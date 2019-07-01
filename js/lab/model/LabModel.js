@@ -16,10 +16,10 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
 
   // constants
-  const GRAPH_DIMENSION = VectorAdditionConstants.GRAPH_DIMENSION;
-  const GRAPH_UPPER_LEFT_COORDINATE = VectorAdditionConstants.GRAPH_UPPER_LEFT_COORDINATE;
+  const GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
   class LabModel extends VectorAdditionModel {
     /**
@@ -28,47 +28,61 @@ define( require => {
      */
     constructor( tandem ) {
 
-      // Create the TWO sum visible properties for lab
+      // Create the 2 sum visible properties per scene for lab
 
-      const group1SumVisibleProperty = new BooleanProperty( false );
-      const group2SumVisibleProperty = new BooleanProperty( false );
+      const cartesianGroup1SumVisibileProperty = new BooleanProperty( false );
+      const cartesianGroup2SumVisibileProperty = new BooleanProperty( false );
 
-      super( [ group1SumVisibleProperty, group2SumVisibleProperty ], tandem );
+      const polarGroup3SumVisibileProperty = new BooleanProperty( false );
+      const polarGroup4SumVisibileProperty = new BooleanProperty( false );
 
-      // @public (read-only) {BooleanProperty} group1SumVisibleProperty
-      this.group1SumVisibleProperty = group1SumVisibleProperty;
+      super( [ cartesianGroup1SumVisibileProperty, cartesianGroup2SumVisibileProperty, polarGroup3SumVisibileProperty, polarGroup4SumVisibileProperty ], tandem );
 
-      // @public (read-only) {BooleanProperty} group2SumVisibleProperty
-      this.group2SumVisibleProperty = group2SumVisibleProperty;
 
-      //----------------------------------------------------------------------------------------
-      // Add the only graph on lab
-
-      // @public (read-only)
-      this.polarGraph = this.addGraph(
-        GRAPH_DIMENSION,
-        GRAPH_UPPER_LEFT_COORDINATE,
-        GraphOrientations.TWO_DIMENSIONAL );
-
-      this.cartesianGraph = this.addGraph(
-        GRAPH_DIMENSION,
-        GRAPH_UPPER_LEFT_COORDINATE,
-        GraphOrientations.TWO_DIMENSIONAL );
+      this.cartesianGroup1SumVisibileProperty = cartesianGroup1SumVisibileProperty;
+      this.cartesianGroup2SumVisibileProperty = cartesianGroup2SumVisibileProperty;
+      this.polarGroup3SumVisibileProperty = polarGroup3SumVisibileProperty;
+      this.polarGroup4SumVisibileProperty = polarGroup4SumVisibileProperty;
 
       //----------------------------------------------------------------------------------------
-      // Each graph has TWO vector sets
+      // Create and add the graphs
 
-      this.polarGraph.group1VectorSet = this.polarGraph.addVectorSet(
-        this.componentStyleProperty, this.group1SumVisibleProperty, VectorGroups.ONE, CoordinateSnapModes.POLAR );
+      // @public (read-only) {Graph}
+      this.polarGraph = new Graph( GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+      this.graphs.push( this.polarGraph );
 
-      this.polarGraph.group2VectorSet = this.polarGraph.addVectorSet(
-        this.componentStyleProperty, this.group2SumVisibleProperty, VectorGroups.TWO, CoordinateSnapModes.POLAR );
+      // @public (read-only) {Graph}
+      this.cartesianGraph = new Graph( GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+      this.graphs.push( this.cartesianGraph );
 
-      this.cartesianGraph.group1VectorSet = this.cartesianGraph.addVectorSet(
-        this.componentStyleProperty, this.group1SumVisibleProperty, VectorGroups.ONE, CoordinateSnapModes.CARTESIAN );
+      //----------------------------------------------------------------------------------------
+      // Create the vector sets. Each graph has two vector set
 
-      this.cartesianGraph.group2VectorSet = this.cartesianGraph.addVectorSet(
-        this.componentStyleProperty, this.group2SumVisibleProperty, VectorGroups.TWO, CoordinateSnapModes.CARTESIAN );
+
+      this.cartesianGraph.group1VectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
+        this.cartesianGroup1SumVisibileProperty,
+        VectorGroups.ONE,
+        CoordinateSnapModes.CARTESIAN );
+      this.cartesianGraph.vectorSets.push( this.cartesianGraph.group1VectorSet );
+      
+      this.cartesianGraph.group2VectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
+        this.cartesianGroup2SumVisibileProperty,
+        VectorGroups.TWO,
+        CoordinateSnapModes.CARTESIAN );
+      this.cartesianGraph.vectorSets.push( this.cartesianGraph.group2VectorSet );
+
+      this.polarGraph.group3VectorSet = this.polarGraph.createVectorSet( this.componentStyleProperty,
+        this.polarGroup3SumVisibileProperty,
+        VectorGroups.THREE,
+        CoordinateSnapModes.POLAR );
+      this.polarGraph.vectorSets.push( this.polarGraph.group3VectorSet );
+      
+      this.polarGraph.group4VectorSet = this.polarGraph.createVectorSet( this.componentStyleProperty,
+        this.polarGroup4SumVisibileProperty,
+        VectorGroups.FOUR,
+        CoordinateSnapModes.POLAR );
+      this.polarGraph.vectorSets.push( this.polarGraph.group4VectorSet );
+
 
     }
   }

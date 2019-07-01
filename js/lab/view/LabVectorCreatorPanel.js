@@ -37,21 +37,25 @@ define( require => {
      * @param {VectorSet} vectorSetGroupTwo - the observable array to add the vector's to.
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty - the property of the model - view coordinate transformation
      */
-    constructor( vectorSetGroupOne, vectorSetGroupTwo, modelViewTransformProperty ) {
+    constructor( labModel, graph, vectorSetGroupOne, vectorSetGroupTwo, container, parentScreenView ) {
 
       // create a 45 degree vector2 representing the vector that will be dropped onto the graph
       const initialVector = new Vector2( INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH );
 
-      const vectorGroupOneSlot = new VectorCreatorPanelSlot(
+      const vectorGroupOneSlot = new VectorCreatorPanelSlot( labModel,
         initialVector,
-        modelViewTransformProperty,
+        graph,
         vectorSetGroupOne,
+        container,
+        parentScreenView,
         VECTOR_SLOT_OPTIONS );
 
-      const vectorGroupTwoSlot = new VectorCreatorPanelSlot(
+      const vectorGroupTwoSlot = new VectorCreatorPanelSlot( labModel,
         initialVector,
-        modelViewTransformProperty,
+        graph,
         vectorSetGroupTwo,
+        container,
+        parentScreenView,
         VECTOR_SLOT_OPTIONS );
 
       const panelSlots = [ vectorGroupOneSlot, vectorGroupTwoSlot ];
