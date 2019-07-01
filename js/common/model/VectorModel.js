@@ -27,8 +27,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
-  const XVectorComponent = require( 'VECTOR_ADDITION/common/model/XVectorComponent' );
-  const YVectorComponent = require( 'VECTOR_ADDITION/common/model/YVectorComponent' );
+  const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -134,11 +133,15 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Vector Components
 
-      // @public (read only) {XVectorComponent}
-      this.xVectorComponent = new XVectorComponent( this, vectorSet.componentStyleProperty );
+      // @public (read only) {VectorComponent}
+      this.xVectorComponent = new VectorComponent( this,
+        vectorSet.componentStyleProperty,
+        VectorComponent.COMPONENT_TYPES.X_COMPONENT );
 
-      // @public (read only) {YVectorComponent}
-      this.yVectorComponent = new YVectorComponent( this, vectorSet.componentStyleProperty );
+      // @public (read only) {VectorComponent}
+      this.yVectorComponent = new VectorComponent( this,
+        vectorSet.componentStyleProperty,
+        VectorComponent.COMPONENT_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
       // Vector states

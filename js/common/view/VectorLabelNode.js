@@ -70,7 +70,7 @@ define( require => {
       const updateLabelNode = ( valuesVisible ) => {
 
         // Flag to indicate if the model represents component, which means the labeling is different
-        const isComponentModel = VectorComponent.Types.includes( baseVectorModel.componentType );
+        const isComponentModel = VectorComponent.COMPONENT_TYPES.includes( baseVectorModel.componentType );
 
         const roundedMagnitude = Util.toFixed( baseVectorModel.magnitude, 1 );
 

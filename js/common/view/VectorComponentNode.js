@@ -211,7 +211,6 @@ define( require => {
         }
       }
       else if ( vectorComponent.componentType === VectorComponent.Types.Y_COMPONENT ) { // It it's a y component
-
         // If the component is to the left of the parent, position the label to the left, otherwise to the right
         if ( componentMidPoint.x <= parentMidPoint.x ) {
           offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
