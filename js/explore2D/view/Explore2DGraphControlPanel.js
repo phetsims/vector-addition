@@ -76,7 +76,7 @@ define( require => {
       const sumCheckboxes = new Node( {
         children: [ cartesianSumCheckbox, polarSumCheckbox ]
       } );
-      
+
       //----------------------------------------------------------------------------------------
 
 

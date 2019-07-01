@@ -90,7 +90,7 @@ define( function( require ) {
       //----------------------------------------------------------------------------------------
       // Coordinate snapping radio buttons
 
-      this.addChild( new CoordinateSnapRadioButtonGroup(explore2DModel.coordinateSnapModeProperty ) );
+      this.addChild( new CoordinateSnapRadioButtonGroup( explore2DModel.coordinateSnapModeProperty ) );
 
       //----------------------------------------------------------------------------------------
 

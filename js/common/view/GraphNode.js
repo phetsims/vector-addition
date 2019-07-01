@@ -235,14 +235,14 @@ define( require => {
       // Observe the drag listener location. Link present for the lifetime of the simulation since graphs aren't removed
       originLocationProperty.lazyLink( ( originLocation ) => {
         // Tell the model to update the origin
-        graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originLocation ) );   
+        graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originLocation ) );
       } );
 
       //----------------------------------------------------------------------------------------
       // Observe when the models model view transform changes to update the location of the circle. This is never
       // unlinked since graphs exists throughout the entire sim. 
       graph.modelViewTransformProperty.link( modelViewTransform => {
-         this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
+        this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
       } );
     }
   }

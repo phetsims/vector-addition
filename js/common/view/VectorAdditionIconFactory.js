@@ -31,10 +31,10 @@ define( function( require ) {
 
   // constants
 
-  // Size of ALL icons created in this factory that are for radio buttons
+  // size of ALL icons created in this factory that are for radio buttons
   const RADIO_BUTTON_ICON_SIZE = 25;
 
-  // Defaults for all arrow instances
+  // defaults for all arrow instances
   const ARROW_ICON_OPTIONS = {
     fill: VectorAdditionColors[ VectorGroups.ONE ].fill,
     stroke: VectorAdditionColors.BLACK,
@@ -478,11 +478,9 @@ define( function( require ) {
       }
       return iconNode;
     }
-
   }
 
   vectorAddition.register( 'VectorAdditionIconFactory', VectorAdditionIconFactory );
 
   return VectorAdditionIconFactory;
-
 } );

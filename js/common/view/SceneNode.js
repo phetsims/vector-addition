@@ -36,11 +36,11 @@ define( require => {
      * @param {Object} [inspectPanelOptions] - options passed to inspect vector panel
      */
     constructor( graph,
-      valuesVisibleProperty,
-      angleVisibleProperty,
-      gridVisibleProperty,
-      componentStyleProperty,
-      inspectPanelOptions
+                 valuesVisibleProperty,
+                 angleVisibleProperty,
+                 gridVisibleProperty,
+                 componentStyleProperty,
+                 inspectPanelOptions
     ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
@@ -52,10 +52,10 @@ define( require => {
         `invalid gridVisibleProperty: ${gridVisibleProperty}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
-      `invalid componentStyleProperty: ${componentStyleProperty}` );
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( !inspectPanelOptions || Object.getPrototypeOf( inspectPanelOptions ) === Object.prototype,
         `Extra prototype on inspectPanelOptions: ${inspectPanelOptions}` );
-      
+
 
       inspectPanelOptions = _.extend( {
         panelOptions: null // {object|null}

@@ -95,7 +95,7 @@ define( require => {
     moveOriginToPoint( point ) {
       assert && assert( point instanceof Vector2 && this.graphModelBoundsProperty.value.containsPoint( point ),
         `invalid point: ${point}` );
-      
+
       // Round the point to only allow transformations to points on a grid intersection
       const roundedPoint = point.roundSymmetric();
       this.graphModelBoundsProperty.value = this.graphModelBounds.shifted( -roundedPoint.x, -roundedPoint.y );

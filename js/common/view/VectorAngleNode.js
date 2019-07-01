@@ -23,8 +23,8 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
 
   // constants
@@ -56,13 +56,12 @@ define( require => {
      * @param {BooleanProperty} angleVisibleProperty
      * @param {Graph} graph
      */
-    constructor( vectorModel, angleVisibleProperty, graph) {
+    constructor( vectorModel, angleVisibleProperty, graph ) {
 
       assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
       assert && assert( angleVisibleProperty instanceof BooleanProperty,
         `invalid angleVisibleProperty: ${angleVisibleProperty}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-
 
       //----------------------------------------------------------------------------------------
 

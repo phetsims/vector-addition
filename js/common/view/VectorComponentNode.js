@@ -93,17 +93,17 @@ define( require => {
       // changes   
       // @protected {Multilink}
       this.vectorObserver = Property.multilink( [ valuesVisibleProperty,
-          vectorComponent.tailPositionProperty,
-          vectorComponent.tipPositionProperty,
-          componentStyleProperty,
-          vectorComponent.parentVector.isOnGraphProperty ], ( valuesVisible ) => {
+        vectorComponent.tailPositionProperty,
+        vectorComponent.tipPositionProperty,
+        componentStyleProperty,
+        vectorComponent.parentVector.isOnGraphProperty ], ( valuesVisible ) => {
 
-          // Update the appearance of the vector only when it is visible
-          this.updateVector( vectorComponent, graph.modelViewTransformProperty.value, componentStyleProperty.value );
+        // Update the appearance of the vector only when it is visible
+        this.updateVector( vectorComponent, graph.modelViewTransformProperty.value, componentStyleProperty.value );
 
-          // Update the appearance of the label
-          this.updateLabelPositioning( vectorComponent, graph.modelViewTransformProperty.value, valuesVisible );
-        } );
+        // Update the appearance of the label
+        this.updateLabelPositioning( vectorComponent, graph.modelViewTransformProperty.value, valuesVisible );
+      } );
 
     }
 

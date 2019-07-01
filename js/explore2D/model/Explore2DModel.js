@@ -37,7 +37,7 @@ define( require => {
 
       // @public (read-only) {BooleanProperty} polarSumVisibileProperty
       this.polarSumVisibileProperty = polarSumVisibileProperty;
-     
+
       // @public (read-only) {BooleanProperty} cartesianSumVisibileProperty
       this.cartesianSumVisibileProperty = cartesianSumVisibileProperty;
 
@@ -51,7 +51,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Create and add the graphs
-      
+
       // @public (read-only) {Graph}
       this.polarGraph = new Graph( GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
       this.graphs.push( this.polarGraph );
