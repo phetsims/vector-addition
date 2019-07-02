@@ -47,7 +47,6 @@ define( require => {
      */
     constructor( graph, vectorSet, tag ) {
 
-
       // Get the initial position for the tail of the vector, which is the graphs center
       const initialPosition = graph.graphModelBounds.center;
 

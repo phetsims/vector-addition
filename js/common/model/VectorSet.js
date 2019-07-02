@@ -24,6 +24,10 @@ define( require => {
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
+  // The tag for the vector sum. The reason this isn't translatable is:
+  // https://github.com/phetsims/vector-addition/issues/10.
+  const SUM_TAG = 's';
+
   class VectorSet {
     /**
      * @constructor
@@ -71,7 +75,7 @@ define( require => {
       // Create the sum
 
       // @public (read-only) {VectorModel} the vector sum model
-      this.vectorSum = new VectorSum( graph, this, 's' );
+      this.vectorSum = new VectorSum( graph, this, SUM_TAG );
     }
 
     /**
