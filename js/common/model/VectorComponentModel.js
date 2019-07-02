@@ -64,12 +64,8 @@ define( require => {
       // @private {Property.<VectorModel|null>}
       this.activeVectorProperty = activeVectorProperty;
 
-      // @private {BaseVectorModel} parentVector - reference the parent vector
+      // @public {BaseVectorModel} parentVector - reference the parent vector
       this.parentVector = parentVector;
-
-      // When the parent is on the graph, its component is also (and vise versa).
-      // @public (read-only)
-      this.isOnGraphProperty = parentVector.isOnGraphProperty;
 
       // @private observe changes of the parent to update component.
       // No need to listen to the modelViewTransformProperty since the parentVector will update its position when

@@ -182,6 +182,7 @@ define( require => {
      */
     updateLabelPositioning( vectorComponentModel, modelViewTransform, valuesVisible ) {
 
+      // Only show the visibility if the values are visible
       if ( valuesVisible ) {
         this.labelNode.visible = true;
       }
@@ -200,24 +201,38 @@ define( require => {
         .timesScalar( 0.5 )
         .plus( vectorComponentModel.parentVector.tail );
 
+      //----------------------------------------------------------------------------------------
       if ( vectorComponentModel.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ) { // If it's a x component
+        
+        // Add extra offset to consider the size of the label. The offset is the margin between the arrow and the label
+        const labelSize = modelViewTransform.viewToModelDeltaY( -this.labelNode.height / 2 );
 
+        if ( vectorComponentModel.xComponent === 0 ) {
+          return;
+        }
         // If the component is below the parent, position the label below, otherwise position it above
         if ( componentMidPoint.y <= parentMidPoint.y ) {
-          offset.setXY( 0, -COMPONENT_LABEL_OFFSET );
+          offset.setXY( 0, -COMPONENT_LABEL_OFFSET - labelSize );
         }
         else {
-          offset.setXY( 0, COMPONENT_LABEL_OFFSET );
+          offset.setXY( 0, COMPONENT_LABEL_OFFSET + labelSize );
         }
       }
       else if ( vectorComponentModel.componentType === VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT ) { // It it's a y component
+        
+        const labelSize = modelViewTransform.viewToModelDeltaX( this.labelNode.width / 2 );
+
+        if ( vectorComponentModel.yComponent === 0 ) {
+          return;
+        }
+
         // If the component is to the left of the parent, position the label to the left, otherwise to the right
-        if ( componentMidPoint.x <= parentMidPoint.x ) {
-          offset.setXY( -COMPONENT_LABEL_OFFSET, 0 );
+        if ( componentMidPoint.x < parentMidPoint.x ) {
+          offset.setXY( -COMPONENT_LABEL_OFFSET - labelSize, 0 );
         }
 
         else {
-          offset.setXY( COMPONENT_LABEL_OFFSET, 0 );
+          offset.setXY( COMPONENT_LABEL_OFFSET + labelSize, 0 );
         }
       }
 

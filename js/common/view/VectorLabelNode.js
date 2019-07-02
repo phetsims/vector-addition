@@ -24,7 +24,7 @@ define( require => {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
-  const ANGLE_LABEL_FONT = new PhetFont( { family: 'serif', size: 11.5, fontWeight: 800 } );
+  const ANGLE_LABEL_FONT = new PhetFont( { size: 12.5, fontWeight: 800 } );
   
   class VectorLabelNode extends Node {
     /**
@@ -41,7 +41,7 @@ define( require => {
         scale: 0.67, // {number} - scale resize of the formula node
         opacity: 0.75, // {number} - opacity of the background,
         cornerRadius: 4, // {number}
-        xMargin: 8, // {number}
+        xMargin: 11, // {number}
         yMargin: 5, // {number}
         tagValueSpacing: 3
       }, options );

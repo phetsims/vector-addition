@@ -83,7 +83,7 @@ define( function( require ) {
     INITIAL_ARROW_SIDE_LENGTH: 5,
 
     // The offset in model coordinates of the label with respect to the vector
-    VECTOR_LABEL_OFFSET: 1,
+    VECTOR_LABEL_OFFSET: 0.5,
 
     //----------------------------------------------------------------------------------------
     // Rounding
