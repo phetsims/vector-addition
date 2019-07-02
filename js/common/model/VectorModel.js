@@ -59,11 +59,11 @@ define( require => {
      * @param {VectorSet} the vectorSet that the vector belongs to
      * @param {Object} [options]
      */
-    constructor( tailPosition, xComponent, yComponent, graph, vectorSet, options ) {
+    constructor( tailPosition, xComponent, yComponent, graph, vectorSet, tag, options ) {
 
       options = _.extend( {
-        tag: null, // {string|null} - the tag of the vector (i.e. 'a', 'b', 'c', ...). If null, the vector will display
-        // a the fall back tag when its active
+        // tag: null, // {string|null} - the tag of the vector (i.e. 'a', 'b', 'c', ...). If null, the vector will display
+        // // a the fall back tag when its active
 
         isTipDraggable: true, // {boolean} - false means the tip won't be draggable
 
@@ -71,7 +71,7 @@ define( require => {
       }, options );
 
 
-      assert && assert( !options.tag || typeof options.tag === 'string', `invalid options.tag: ${options.tag}` );
+      // assert && assert( !options.tag || typeof options.tag === 'string', `invalid options.tag: ${options.tag}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid options.isTipDraggable: ${options.isTipDraggable}` );
       assert && assert( typeof options.isRemovable === 'boolean',
@@ -79,7 +79,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( tailPosition, xComponent, yComponent, vectorSet.vectorGroup, options.tag );
+      super( tailPosition, xComponent, yComponent, vectorSet.vectorGroup, tag );
 
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
@@ -88,7 +88,7 @@ define( require => {
       this.isRemovable = options.isRemovable;
 
       // @public (read-only)
-      this.tag = options.tag;
+      this.tag = tag;
 
       // @private {Graph}
       this.graph = graph;

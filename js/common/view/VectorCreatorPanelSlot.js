@@ -123,9 +123,7 @@ define( require => {
 
 
         // Create the new Vector Model
-        const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, {
-          tag: options.label
-        } );
+        const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, options.label );
         vectorSet.vectors.push( vectorModel );
 
         //----------------------------------------------------------------------------------------

@@ -68,7 +68,7 @@ define( require => {
       // Create the sum
 
       // @public (read-only) {VectorModel} the vector sum model
-      this.vectorSum = new VectorSum( graph, this );
+      this.vectorSum = new VectorSum( graph, this, 's' );
 
     }
 
@@ -94,8 +94,8 @@ define( require => {
      * @param {Object} [options]
      * @returns {VectorModel} the created vector model
      */
-    createVector( tailPosition, xComponent, yComponent, options ) {
-      return new VectorModel( tailPosition, xComponent, yComponent, this.graph, this, options );
+    createVector( tailPosition, xComponent, yComponent, tag, options ) {
+      return new VectorModel( tailPosition, xComponent, yComponent, this.graph, this, tag, options );
     }
   }
 
