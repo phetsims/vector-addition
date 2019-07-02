@@ -45,6 +45,7 @@ define( function( require ) {
         explore2DModel.angleVisibleProperty,
         explore2DModel.gridVisibleProperty,
         explore2DModel.componentStyleProperty );
+
       const cartesianSceneNode = new SceneNode( explore2DModel.cartesianGraph,
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
@@ -70,29 +71,23 @@ define( function( require ) {
         this,
         EXPLORE_2D_VECTOR_TAGS ) );
 
-
       //----------------------------------------------------------------------------------------
-      // Toggle visibility of scenes
+      // Toggle visibility of scenes based on which coordinate snap mode it is
 
+      // Doesn't need to be unlinked since the scenes and explore2D scene is never disposed.
       explore2DModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
 
-        if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-          polarSceneNode.visible = false;
-          cartesianSceneNode.visible = true;
-        }
-
-        if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-          polarSceneNode.visible = true;
-          cartesianSceneNode.visible = false;
-        }
+        polarSceneNode.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
+        cartesianSceneNode.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
       } );
 
       //----------------------------------------------------------------------------------------
-      // Coordinate snapping radio buttons
+      // Create the Coordinate snapping radio buttons
 
       this.addChild( new CoordinateSnapRadioButtonGroup( explore2DModel.coordinateSnapModeProperty ) );
 
       //----------------------------------------------------------------------------------------
+      // Create the Graph Control panel
 
       const explore2DGraphControlPanel = new Explore2DGraphControlPanel( explore2DModel,
         explore2DModel.cartesianGraph.vectorSet,
