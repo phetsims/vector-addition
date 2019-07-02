@@ -109,8 +109,10 @@ define( require => {
       const tipDeltaLocation = modelViewTransform.modelToViewDelta( baseVectorModel.vectorComponents );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
 
-      // Make the arrow easier to grab
-      this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( ARROW_MOUSEAREA_OFFSET );
+      if ( baseVectorModel.magnitude > 0 ) {
+        // Make the arrow easier to grab
+        this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( ARROW_MOUSEAREA_OFFSET );
+      }
     }
 
     /**
