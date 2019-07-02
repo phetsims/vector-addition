@@ -24,7 +24,7 @@ define( require => {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
-  const ANGLE_LABEL_FONT = new PhetFont( { size: 12, fontWeight: 200 } );
+  const ANGLE_LABEL_FONT = new PhetFont( { family: 'serif', size: 11.5, fontWeight: 800 } );
   
   class VectorLabelNode extends Node {
     /**
@@ -40,9 +40,10 @@ define( require => {
         fill: VectorAdditionColors[ baseVectorModel.vectorGroup ].labelBackground,
         scale: 0.67, // {number} - scale resize of the formula node
         opacity: 0.75, // {number} - opacity of the background,
-        cornerRadius: 5, // {number}
-        xMargin: 5, // {number}
-        yMargin: 1 // {number}
+        cornerRadius: 4, // {number}
+        xMargin: 8, // {number}
+        yMargin: 5, // {number}
+        tagValueSpacing: 3
       }, options );
 
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
@@ -66,7 +67,7 @@ define( require => {
       vectorNameLabel.scale( options.scale );
 
       // Create the text for the value if it has one
-      const vectorValueLabel = new Text( '', { font: ANGLE_LABEL_FONT } );
+      const vectorValueLabel = new Text( '', { font: ANGLE_LABEL_FONT, boundsMethod: 'accurate' } );
 
       super( {
         children: [ backgroundRectangle, vectorLabelContainer.setChildren( [ vectorNameLabel, vectorValueLabel ] ) ]
@@ -80,13 +81,13 @@ define( require => {
         // Get the label display information
         const labelDisplay = baseVectorModel.getLabelContent( valuesVisible );
         
-        vectorNameLabel.visible = labelDisplay.prefix !== null;
-        vectorValueLabel.visible = labelDisplay.value !== null;
+        vectorNameLabel.visible = typeof labelDisplay.prefix === 'string';
+        vectorValueLabel.visible = typeof labelDisplay.value === 'string';
         backgroundRectangle.visible = vectorNameLabel.visible || vectorValueLabel.visible;
 
         //----------------------------------------------------------------------------------------
         // Update the label name if it exists
-        if ( typeof labelDisplay.prefix === 'string' ) {
+        if ( vectorNameLabel.visible ) {
           vectorNameLabel.setFormula( `\\vec{ \\mathrm{ ${labelDisplay.prefix} } \}` );
         }
         else {
@@ -94,46 +95,30 @@ define( require => {
         }
         //----------------------------------------------------------------------------------------
         // Update the label value
-        if ( typeof labelDisplay.value === 'string' ) {
+        if ( vectorValueLabel.visible ) {
           vectorValueLabel.setText( labelDisplay.value );
         }
         else {
           vectorValueLabel.setText( '' );
         }
-
+          vectorValueLabel.invalidateSelf();
         //----------------------------------------------------------------------------------------
         // Update the background
         if ( backgroundRectangle.visible ) {
 
-          let containerWidth;
-          let containerHeight;
           // Align the nodes together
           if ( vectorValueLabel.visible && vectorNameLabel.visible ) {
-            vectorValueLabel.left = vectorNameLabel.right;
-
-            // Calculate the bounds using getSafeSelfBounds. See https://github.com/phetsims/vector-addition/issues/40.
-            containerWidth = vectorValueLabel.width + vectorNameLabel.getSafeSelfBounds().width;
-            containerHeight = vectorValueLabel.height + vectorNameLabel.getSafeSelfBounds().height;
-
-          }
-          vectorNameLabel.centerY = vectorLabelContainer.centerY;
-          vectorValueLabel.centerY = vectorLabelContainer.centerY;
-
-          if ( !vectorValueLabel.visible ) {
-            vectorNameLabel.center = vectorLabelContainer.center;
-
-            containerWidth = vectorValueLabel.width;
-            containerHeight = vectorValueLabel.height;
-          }
-          else {
-            containerWidth = vectorNameLabel.getSafeSelfBounds().width;
-            containerHeight = vectorNameLabel.getSafeSelfBounds().height;
+            vectorValueLabel.left = vectorNameLabel.right + options.tagValueSpacing;
           }
 
 
-          backgroundRectangle.setRectWidth( containerWidth + 2 * options.xMargin );
-          backgroundRectangle.setRectHeight( containerHeight + 2 * options.yMargin );
+          vectorLabelContainer.invalidateSelf();
+          backgroundRectangle.setRectWidth( vectorLabelContainer.getVisibleBounds().width + 2 * options.xMargin );
+          backgroundRectangle.setRectHeight( vectorLabelContainer.getVisibleBounds().height + 2 * options.yMargin );
           backgroundRectangle.center = vectorLabelContainer.center;
+
+          vectorValueLabel.centerY = backgroundRectangle.centerY;
+          vectorNameLabel.centerY = backgroundRectangle.centerY;
         }
 
       };

@@ -205,7 +205,6 @@ define( require => {
       let prefix;
       let value;
 
-
       // If it has a tag, the prefix is always the tag
       if ( this.tag ) {
         prefix = this.tag;
@@ -218,7 +217,7 @@ define( require => {
       // If the values are on and its not 0 magnitude, display the magnitude
       if ( valuesVisible ) {
         if ( prefix ) {
-          value = !isRoundedMagnitudeZero ? `=${roundedMagnitude}` : null;
+          value = !isRoundedMagnitudeZero ? ` = ${roundedMagnitude}` : null;
         }
         else {
           value = !isRoundedMagnitudeZero ? roundedMagnitude : null;
@@ -231,7 +230,7 @@ define( require => {
         prefix = null;
         value = null;
       }
-      
+
       return {
         prefix: prefix,
         value: value
