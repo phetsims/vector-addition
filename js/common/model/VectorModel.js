@@ -211,7 +211,7 @@ define( require => {
           return {
             label: null,
             value: Math.abs( roundedMagnitude ) > 0
-          }
+          };
         }
         return {
           label: this.label ? this.label : this.fallbackLabel,
@@ -223,7 +223,7 @@ define( require => {
           return {
             label: null,
             value: null
-          }
+          };
         }
         return {
           label: this.label ? this.label : this.fallbackLabel,
