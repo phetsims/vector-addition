@@ -71,6 +71,7 @@ define( function( require ) {
 
     // Default graph bounds. Used in 'lab' and 'explore2D'
     DEFAULT_GRAPH_BOUNDS: new Bounds2( -5, -5, 55, 35 ),
+    DEFAULT_SUM_VISIBLE: false,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all vector arrow nodes

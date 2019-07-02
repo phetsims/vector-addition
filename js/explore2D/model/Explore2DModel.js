@@ -1,11 +1,15 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the Explore2D screen. Explore2D has a polar and a cartesian scene. Each scene has one vector set.
- * Explore2D has two visibility properties: one for each scene.
+ * Model for the `Explore2D` screen.
+ *
+ * Explore2D has a polar and a cartesian graph. Each scene has one vector set respectively.
+ *
+ * Explore2D has two visibility properties: one for each scene respectively.
  *
  * @author Martin Veillette
  */
+
 define( require => {
   'use strict';
 
@@ -14,26 +18,36 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
-  const GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
+  const EXPLORE_2D_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
+  const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
 
   class Explore2DModel extends VectorAdditionModel {
     /**
-     * @constructor
      * @param {Tandem} tandem
+     * @constructor
      */
     constructor( tandem ) {
 
-      const polarSumVisibileProperty = new BooleanProperty( false );
-      const cartesianSumVisibileProperty = new BooleanProperty( false );
+      assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+
+      //----------------------------------------------------------------------------------------
+      // Create the 2 sum visibility properties for each scene respectively
+
+      const polarSumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
+
+      const cartesianSumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       super( [ polarSumVisibileProperty, cartesianSumVisibileProperty ], tandem );
 
+      //----------------------------------------------------------------------------------------
+      // Create references to the two sum visible properties
 
       // @public (read-only) {BooleanProperty} polarSumVisibileProperty
       this.polarSumVisibileProperty = polarSumVisibileProperty;
@@ -42,6 +56,7 @@ define( require => {
       this.cartesianSumVisibileProperty = cartesianSumVisibileProperty;
 
       //----------------------------------------------------------------------------------------
+      // Declare the vector groups for each graph
 
       // @public (read-only) {VectorGroups} the vector group used on the cartesian scene
       this.cartesianVectorGroup = VectorGroups.ONE;
@@ -53,12 +68,12 @@ define( require => {
       // Create and add the graphs
 
       // @public (read-only) {Graph}
-      this.polarGraph = new Graph( GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
-      this.graphs.push( this.polarGraph );
+      this.polarGraph = new Graph( EXPLORE_2D_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
 
       // @public (read-only) {Graph}
-      this.cartesianGraph = new Graph( GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
-      this.graphs.push( this.cartesianGraph );
+      this.cartesianGraph = new Graph( EXPLORE_2D_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+
+      this.graphs.push( this.polarGraph, this.cartesianGraph );
 
       //----------------------------------------------------------------------------------------
       // Create the vector sets. Each graph has one vector set
@@ -67,14 +82,14 @@ define( require => {
         this.polarSumVisibileProperty,
         this.polarVectorGroup,
         CoordinateSnapModes.POLAR );
-      this.polarGraph.vectorSets.push( this.polarGraph.vectorSet );
 
       this.cartesianGraph.vectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
         this.cartesianSumVisibileProperty,
         this.cartesianVectorGroup,
         CoordinateSnapModes.CARTESIAN );
-      this.cartesianGraph.vectorSets.push( this.cartesianGraph.vectorSet );
 
+      this.polarGraph.vectorSets.push( this.polarGraph.vectorSet );
+      this.cartesianGraph.vectorSets.push( this.cartesianGraph.vectorSet );
     }
   }
 
