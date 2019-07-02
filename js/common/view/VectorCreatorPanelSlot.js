@@ -60,7 +60,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       options = _.extend( {
-        label: null, // {string|null} the label for the vector at the slot
+        tag: null, // {string|null} the tag for the vector at the slot
         isInfinite: false, // {boolean} true means the slot will regenerate vectors to be dragged
         labelIconSpacing: LABEL_AND_ICON_SPACING,
         iconOptions: null,
@@ -101,9 +101,9 @@ define( require => {
         yAlign: 'center'
       } ) );
 
-      // Add the label if provided
-      if ( options.label ) {
-        const label = new FormulaNode( `\\vec{\\mathrm{${options.label}}}` );
+      // Add the label if a tag was provided
+      if ( options.tag ) {
+        const label = new FormulaNode( `\\vec{\\mathrm{${options.tag}}}` );
         label.scale( LABEL_RESIZE_SCALE );
 
         this.addChild( label );
@@ -123,7 +123,7 @@ define( require => {
 
 
         // Create the new Vector Model
-        const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, options.label );
+        const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, options.tag );
         vectorSet.vectors.push( vectorModel );
 
         //----------------------------------------------------------------------------------------

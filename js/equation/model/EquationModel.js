@@ -12,7 +12,10 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const Bounds2 = require( 'DOT/Bounds2' );
 
+
+  const equationBounds = new Bounds2( -5, -5, 55, 30 );
   /**
    * @constructor
    */
@@ -23,12 +26,7 @@ define( require => {
      */
     constructor( tandem ) {
 
-      // Create the TWO sum visible properties for equation
-
-      const group1SumVisibleProperty = new BooleanProperty( false );
-      const group2SumVisibleProperty = new BooleanProperty( false );
-
-      super( [ group1SumVisibleProperty, group2SumVisibleProperty ], tandem );
+      super( [], tandem );
 
       this.graphOrientationProperty = new Property( GraphOrientations.TWO_DIMENSIONAL );
     }

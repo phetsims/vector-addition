@@ -92,10 +92,10 @@ define( function( require ) {
 
 
     //----------------------------------------------------------------------------------------
-    // Labels, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
+    // Vector tags, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
     // These don't necessarily align with VectorGroups.
-    LABEL_GROUP_1: [ 'a', 'b', 'c' ],
-    LABEL_GROUP_2: [ 'd', 'e', 'f' ]
+    VECTOR_TAGS_GROUP_1: [ 'a', 'b', 'c' ],
+    VECTOR_TAGS_GROUP_2: [ 'd', 'e', 'f' ]
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

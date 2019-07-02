@@ -21,8 +21,8 @@ define( require => {
   // constants
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
   
-  const VECTOR_CREATOR_LABELS_HORIZONTAL = VectorAdditionConstants.LABEL_GROUP_1;
-  const VECTOR_CREATOR_LABELS_VERTICAL = VectorAdditionConstants.LABEL_GROUP_1;
+  const VECTOR_CREATOR_LABELS_HORIZONTAL = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
+  const VECTOR_CREATOR_LABELS_VERTICAL = VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
 
   class Explore1DScreenView extends VectorAdditionScreenView {
     /**

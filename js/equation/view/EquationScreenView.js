@@ -18,7 +18,7 @@ define( function( require ) {
      */
     constructor( equationModel, tandem ) {
 
-      super( equationModel, tandem );
+      super( equationModel, [], tandem );
 
     }
   }

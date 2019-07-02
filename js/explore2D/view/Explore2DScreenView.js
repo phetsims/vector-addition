@@ -21,7 +21,7 @@ define( function( require ) {
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
   // constants
-  const VECTOR_CREATOR_LABELS = VectorAdditionConstants.LABEL_GROUP_1;
+  const VECTOR_CREATOR_LABELS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
 
   class Explore2DScreenView extends VectorAdditionScreenView {
     /**
