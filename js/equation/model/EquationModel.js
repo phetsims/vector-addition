@@ -7,15 +7,14 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const Bounds2 = require( 'DOT/Bounds2' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
 
 
-  const equationBounds = new Bounds2( -5, -5, 55, 30 );
+  const EQUATION_GRAPH_BOUNDS = new Bounds2( -5, -5, 55, 30 );
   /**
    * @constructor
    */
@@ -28,7 +27,10 @@ define( require => {
 
       super( [], tandem );
 
-      this.graphOrientationProperty = new Property( GraphOrientations.TWO_DIMENSIONAL );
+      // @public (read-only) {Graph}
+      this.graph = new Graph( EQUATION_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+      this.graphs.push( this.graph );
+
     }
 
     // @public resets the model
