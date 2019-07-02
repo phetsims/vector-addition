@@ -18,7 +18,6 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -87,17 +86,19 @@ define( require => {
 
         //----------------------------------------------------------------------------------------
         // Update the label name if it exists
-        if ( labelDisplay.prefix ) {
+        if ( typeof labelDisplay.prefix === 'string' ) {
           vectorNameLabel.setFormula( `\\vec{ \\mathrm{ ${labelDisplay.prefix} } \}` );
         }
-
+        else {
+          vectorNameLabel.setFormula( '' );
+        }
         //----------------------------------------------------------------------------------------
         // Update the label value
-        if ( labelDisplay.value && !labelDisplay.prefix ) {
-          vectorValueLabel.setText( Util.toFixed( labelDisplay.value, 1 ) );
+        if ( typeof labelDisplay.value === 'string' ) {
+          vectorValueLabel.setText( labelDisplay.value );
         }
-        else if ( labelDisplay.value && labelDisplay.prefix ) {
-          vectorValueLabel.setText( `=${Util.toFixed( labelDisplay.value, 1 )}` );
+        else {
+          vectorValueLabel.setText( '' );
         }
 
         //----------------------------------------------------------------------------------------

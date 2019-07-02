@@ -202,28 +202,36 @@ define( require => {
       // indicates if the rounded magnitude is 0
       const isRoundedMagnitudeZero = !( Math.abs( roundedMagnitude ) > 0 );
 
-      // Label to display, use fall back vector tag if tag wasn't provided.
-      const displayLabel = this.tag ? this.tag : this.fallBackTag;
-
       let prefix;
       let value;
 
-      // If the graph's active vector is this vector or it has a tag, display the tag.
-      if ( this.graph.activeVectorProperty.value === this || this.tag ) {
-        prefix = displayLabel;
+
+      // If it has a tag, the prefix is always the tag
+      if ( this.tag ) {
+        prefix = this.tag;
       }
-      // If the values are on and its not 0 magnitude, display the magnitude
-      if ( valuesVisible ) {
-        value = !isRoundedMagnitudeZero ? roundedMagnitude : null;
+      // Otherwise (no tag) only display the vector prefix if its active
+      else if ( this.graph.activeVectorProperty.value === this ) {
+        prefix = this.fallBackTag;
       }
 
-      // If the rounded magnitude is zero, don't display anything. Decision make:
+      // If the values are on and its not 0 magnitude, display the magnitude
+      if ( valuesVisible ) {
+        if ( prefix ) {
+          value = !isRoundedMagnitudeZero ? `=${roundedMagnitude}` : null;
+        }
+        else {
+          value = !isRoundedMagnitudeZero ? roundedMagnitude : null;
+        }
+      }
+
+      // If the rounded magnitude is zero, don't display anything. Decision made:
       // https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
       if ( isRoundedMagnitudeZero ) {
         prefix = null;
         value = null;
       }
-
+      
       return {
         prefix: prefix,
         value: value
