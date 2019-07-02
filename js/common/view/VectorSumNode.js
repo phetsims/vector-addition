@@ -35,7 +35,8 @@ define( require => {
 
       arrowOptions = _.extend( {
         // Passed to superclass
-        fill: VectorAdditionColors[ vectorModel.vectorGroup ].sum
+        fill: VectorAdditionColors[ vectorModel.vectorGroup ].sum,
+        lineWidth: 0.5
       }, arrowOptions );
 
       //----------------------------------------------------------------------------------------
