@@ -143,6 +143,14 @@ define( require => {
       // Add a flip if y is negative
       const yFlip = ( baseVectorModel.yComponent >= 0 ) ? 0 : Math.PI;
 
+
+      //----------------------------------------------------------------------------------------
+      // Add extra offset to consider the size of the label. The offset is the margin between the arrow and the label
+      
+      const labelSize = ( baseVectorModel.yComponent >= 0 ) ?
+                        modelViewTransform.viewToModelDeltaX( this.labelNode.width / 2 ) :
+                        -modelViewTransform.viewToModelDeltaY( this.labelNode.height / 2 );
+
       //----------------------------------------------------------------------------------------
       if ( valuesVisible ) {
 
@@ -155,7 +163,7 @@ define( require => {
 
       // Create an offset that is perpendicular to the vector, and is pointing in the positive theta if x is positive
       // and negative theta if x is positive
-      const offset = Vector2.createPolar( LABEL_OFFSET, modelAngle + Math.PI / 2 + yFlip + xFlip );
+      const offset = Vector2.createPolar( LABEL_OFFSET + labelSize, modelAngle + Math.PI / 2 + yFlip + xFlip );
 
       // Create label halfway above the vector
       const midPoint = baseVectorModel.vectorComponents.timesScalar( 0.5 );
