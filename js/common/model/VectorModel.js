@@ -28,7 +28,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
-  const VectorComponent = require( 'VECTOR_ADDITION/common/model/VectorComponent' );
+  const VectorComponentModel = require( 'VECTOR_ADDITION/common/model/VectorComponentModel' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -38,16 +38,16 @@ define( require => {
   // Interval spacing of vector angle (in degrees) when vector is in polar mode
   const ANGLE_INTERVAL = 5;
 
-  // The label of the vector when its active if and only if the user doesn't provide the label option.
+  // The tag of the vector when its active if and only if the user doesn't provide the tag option.
   // The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
-  const FALLBACK_VECTOR_LABEL = 'v';
+  const FALLBACK_VECTOR_TAG = 'v';
 
   // The maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
   // See https://github.com/phetsims/vector-addition/issues/46
   const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
   
   // Rounding on the label
-  const LABEL_ROUNDING = VectorAdditionConstants.LABEL_ROUNDING;
+  const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
   class VectorModel extends BaseVectorModel {
     /**
@@ -55,15 +55,15 @@ define( require => {
      * @param {Vector2} tailPosition
      * @param {number} xComponent horizontal component of the vector
      * @param {number} yComponent vertical component of the vector
-     * @param {VectorSet} the vectorSet that the vector belongs to
      * @param {Graph} the graph the vector belongs to
+     * @param {VectorSet} the vectorSet that the vector belongs to
      * @param {Object} [options]
      */
     constructor( tailPosition, xComponent, yComponent, graph, vectorSet, options ) {
 
       options = _.extend( {
-        label: null, // {string|null} - the label of the vector. If null, the vector will display a the fallback label
-        // when its active
+        tag: null, // {string|null} - the tag of the vector (i.e. 'a', 'b', 'c', ...). If null, the vector will display
+        // a the fall back tag when its active
 
         isTipDraggable: true, // {boolean} - false means the tip won't be draggable
 
@@ -71,8 +71,7 @@ define( require => {
       }, options );
 
 
-      assert && assert( !options.label || typeof options.label === 'string',
-        `invalid options.label: ${options.label}` );
+      assert && assert( !options.tag || typeof options.tag === 'string', `invalid options.tag: ${options.tag}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid options.isTipDraggable: ${options.isTipDraggable}` );
       assert && assert( typeof options.isRemovable === 'boolean',
@@ -80,7 +79,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( tailPosition, xComponent, yComponent, vectorSet.vectorGroup, options.type );
+      super( tailPosition, xComponent, yComponent, vectorSet.vectorGroup, options.tag );
 
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
@@ -89,10 +88,7 @@ define( require => {
       this.isRemovable = options.isRemovable;
 
       // @public (read-only)
-      this.label = options.label;
-
-      // @public (read-only)
-      this.fallbackLabel = FALLBACK_VECTOR_LABEL;
+      this.tag = options.tag;
 
       // @private {Graph}
       this.graph = graph;
@@ -104,19 +100,19 @@ define( require => {
       // Properties for the 'Inspect a Vector' panel
 
       // @public (read-only) {DerivedProperty.<number>} - the magnitude of the vector
-      this.magnitudeProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.magnitude ) );
+      this.magnitudeProperty = new DerivedProperty( [ this.vectorComponentsProperty ], () => ( this.magnitude ) );
 
       // @public (read-only) {DerivedProperty.<number|null>} - the angle (in degrees) of the vector.
       // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
-      this.angleDegreesProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => {
-        return ( this.attributesVector.equalsEpsilon( Vector2.ZERO, 1e-7 ) ) ? null : Util.toDegrees( this.angle );
+      this.angleDegreesProperty = new DerivedProperty( [ this.vectorComponentsProperty ], () => {
+        return ( this.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ) ? null : Util.toDegrees( this.angle );
       } );
 
       // @public (read-only) {DerivedProperty.<number>} - the xComponent property
-      this.xComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.xComponent ) );
+      this.xComponentProperty = new DerivedProperty( [ this.vectorComponentsProperty ], () => ( this.xComponent ) );
 
       // @public (read-only) {DerivedProperty.<number>} - the yComponent property
-      this.yComponentProperty = new DerivedProperty( [ this.attributesVectorProperty ], () => ( this.yComponent ) );
+      this.yComponentProperty = new DerivedProperty( [ this.vectorComponentsProperty ], () => ( this.yComponent ) );
 
       //----------------------------------------------------------------------------------------
 
@@ -136,17 +132,17 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Vector Components
 
-      // @public (read only) {VectorComponent}
-      this.xVectorComponent = new VectorComponent( this,
+      // @public (read only) {VectorComponentModel}
+      this.xVectorComponentModel = new VectorComponentModel( this,
         vectorSet.componentStyleProperty,
-        VectorComponent.COMPONENT_TYPES.X_COMPONENT,
-        graph.activeVectorProperty );
+        graph.activeVectorProperty,
+        VectorComponentModel.COMPONENT_TYPES.X_COMPONENT, );
 
-      // @public (read only) {VectorComponent}
-      this.yVectorComponent = new VectorComponent( this,
+      // @public (read only) {VectorComponentModel}
+      this.yVectorComponentModel = new VectorComponentModel( this,
         vectorSet.componentStyleProperty,
-        VectorComponent.COMPONENT_TYPES.Y_COMPONENT,
-        graph.activeVectorProperty );
+        graph.activeVectorProperty,
+        VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT, );
 
       //----------------------------------------------------------------------------------------
       // Vector states
@@ -177,8 +173,8 @@ define( require => {
 
       this.unlinkTailUpdateListener();
 
-      this.xVectorComponent.dispose();
-      this.yVectorComponent.dispose();
+      this.xVectorComponentModel.dispose();
+      this.yVectorComponentModel.dispose();
 
       this.isOnGraphProperty.dispose();
 
@@ -189,66 +185,39 @@ define( require => {
     }
 
     /**
-     * Gets the label value of that is displayed on the vector. Since labeling is different for different vector
-     * types, this is an abstract method and base classes must implement it.
-     *
      * @override
-     * @param {boolean} valuesVisible - if the value checkbox is on
+     * See BaseVectorModel.getLabelContent for documentation and context
+     *
+     * Gets the label content information to display the vector model. Vector's may or may not have tags.
+     *
+     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
-     *    label: {string|null} // the prefix (e.g. if the label displayed v=15, the label is 'v')
-     *    value: {number|null} // the suffix (e.g. if the label displayed v=15, the value is 15)
+     *    prefix: {string|null} // the prefix (e.g. if the label displayed |v|=15, the prefix would be '|v|')
+     *    value: {string|null} // the suffix (e.g. if the label displayed |v|=15, the value would be '=15')
      * }
      */
-    getLabelValue( valuesVisible ) {
+    getLabelContent( valuesVisible ) {
 
       // Get the rounded magnitude
-      const roundedMagnitude = Util.toFixed( this.magnitude, LABEL_ROUNDING );
+      const roundedMagnitude = Util.toFixed( this.magnitude, VECTOR_VALUE_ROUNDING );
 
-      // If this has a label or the active vector is this, display the rounded value. But don't display
-      // if if the value isn't visible
-      if ( valuesVisible && this.label ) {
-        if ( !Math.abs( roundedMagnitude ) > 0 ) {
-          return {
-            label: null,
-            value: Math.abs( roundedMagnitude ) > 0
-          }
-        }
-        return {
-          label: this.label ? this.label : this.fallbackLabel,
-          value: Math.abs( roundedMagnitude ) > 0 ? roundedMagnitude : null // don't display the value if its 0
-        };
+      const displayLabel = this.tag ? this.tag : FALLBACK_VECTOR_TAG;
+
+      let prefix;
+      let value;
+
+      // If the graph's active vector is this vector or it has a tag, display the tag
+      if ( this.graph.activeVectorProperty.value === this || this.tag ) {
+        prefix = displayLabel;
       }
-      else if ( !valuesVisible && this.label ) {
-        if ( !Math.abs( roundedMagnitude ) > 0 ) {
-          return {
-            label: null,
-            value: null
-          }
-        }
-        return {
-          label: this.label ? this.label : this.fallbackLabel,
-          value: null
-        };
-      }
-      
+      // If the values are on and its not 0 magnitude, display the magnitude
       if ( valuesVisible ) {
-        return {
-          label: null,
-          value: Math.abs( roundedMagnitude ) > 0 ? roundedMagnitude : null // don't display the value if its 0
-        };
+        value = Math.abs( roundedMagnitude ) > 0 ? roundedMagnitude : null;
       }
-      else if ( !valuesVisible && this.graph.activeVectorProperty.value === this ) {
-        return {
-          label: this.label ? this.label : this.fallbackLabel,
-          value: null
-        };
-      }
-      else {
-        return {
-          label: null,
-          value: null
-        };
-      }
+      return {
+        prefix: prefix,
+        value: value
+      };
     }
 
     /*---------------------------------------------------------------------------*
@@ -296,15 +265,15 @@ define( require => {
         this.tip = this.tail.plus( vectorComponents );
       }
       else if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-        const vectorAttributes = tipPosition.minus( this.tail );
+        const vectorComponents = tipPosition.minus( this.tail );
 
-        const roundedMagnitude = Util.roundSymmetric( vectorAttributes.magnitude );
+        const roundedMagnitude = Util.roundSymmetric( vectorComponents.magnitude );
 
         const angleInRadians = Util.toRadians( ANGLE_INTERVAL );
-        const roundedAngle = angleInRadians * Util.roundSymmetric( vectorAttributes.angle / angleInRadians );
+        const roundedAngle = angleInRadians * Util.roundSymmetric( vectorComponents.angle / angleInRadians );
 
         // Calculate the rounded polar vector
-        const polarVector = vectorAttributes.setPolar( roundedMagnitude, roundedAngle );
+        const polarVector = vectorComponents.setPolar( roundedMagnitude, roundedAngle );
 
         // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside.
         while ( !this.graph.graphModelBounds.containsPoint( this.tail.plus( polarVector ) ) ) {
@@ -378,8 +347,8 @@ define( require => {
     getConstrainedTailBounds() {
 
       // Sift the bounds the attributes vector. This is the furthest the vector tail can drag.
-      const constrainedBounds = this.graph.graphModelBounds.shifted( -this.attributesVector.x,
-        -this.attributesVector.y );
+      const constrainedBounds = this.graph.graphModelBounds.shifted( -this.vectorComponents.x,
+        -this.vectorComponents.y );
 
       // Since it was shifted, return the intersection
       return this.graph.graphModelBounds.intersection( constrainedBounds );
@@ -391,25 +360,25 @@ define( require => {
     /**
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
      * @param {Vector2} point
-     * @param {Vector2} iconAttributesVector
+     * @param {Vector2} iconVectorComponents
      * @param {function} finishedCallback - callback if and only if the animation finishes
      * @public
      */
-    animateToPoint( point, iconAttributesVector, finishedCallback ) {
+    animateToPoint( point, iconVectorComponents, finishedCallback ) {
 
       assert && assert( !this.inProgressAnimationProperty.value,
         'Can\'t animate to position when we are in animation currently' );
       assert && assert( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the graph' );
 
       assert && assert( point instanceof Vector2, `invalid point: ${point}` );
-      assert && assert( iconAttributesVector instanceof Vector2,
-        `invalid iconAttributesVector: ${iconAttributesVector}` );
+      assert && assert( iconVectorComponents instanceof Vector2,
+        `invalid iconVectorComponents: ${iconVectorComponents}` );
       assert && assert( typeof finishedCallback === 'function', `invalid finishedCallback: ${finishedCallback}` );
 
       //----------------------------------------------------------------------------------------
 
       // Convert the parameter into where the tail would be in that position
-      const tailPosition = point.minus( iconAttributesVector.timesScalar( 0.5 ) );
+      const tailPosition = point.minus( iconVectorComponents.timesScalar( 0.5 ) );
 
       // Animate the vector
       const animation = new Animation( {
@@ -421,9 +390,9 @@ define( require => {
           easing: Easing.CUBIC_IN_OUT,
           to: tailPosition
         }, {
-          property: this.attributesVectorProperty,
+          property: this.vectorComponentsProperty,
           easing: Easing.CUBIC_IN_OUT,
-          to: iconAttributesVector
+          to: iconVectorComponents
         } ]
       } ).start();
 

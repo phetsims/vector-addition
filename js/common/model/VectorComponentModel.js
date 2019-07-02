@@ -27,32 +27,39 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // constants
-  const LABEL_ROUNDING = VectorAdditionConstants.LABEL_ROUNDING;
+  const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
-  class VectorComponent extends BaseVectorModel {
+  class VectorComponentModel extends BaseVectorModel {
     /**
      * @constructor
-     * @param {VectorModel} parentVector - the vector to which the component are associated
+     * @param {VectorModel} parentVector - the vector to which the component is associated
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
-     * @param {Enumeration} componentType (see VectorComponent.COMPONENT_TYPES)
+     * @param {Property.<VectorModel|null>} activeVectorProperty
+     * @param {Enumeration} componentType (see VectorComponentModel.COMPONENT_TYPES)
      */
-    constructor( parentVector, componentStyleProperty, componentType, activeVectorProperty ) {
+    constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
       // Type check arguments
       assert && assert( parentVector instanceof BaseVectorModel, `invalid parentVector: ${parentVector}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( VectorComponent.COMPONENT_TYPES.includes( componentType ),
+      assert && assert( activeVectorProperty instanceof Property,
+        `invalid activeVectorProperty: ${activeVectorProperty}` );
+      assert && assert( VectorComponentModel.COMPONENT_TYPES.includes( componentType ),
         `invalid componentType: ${componentType}` );
       //----------------------------------------------------------------------------------------
 
-      super( parentVector.tail, 0, 0, parentVector.vectorGroup );
+      // Vector components don't have a tag.
+      const componentTag = null;
+      super( parentVector.tail, 0, 0, parentVector.vectorGroup, componentTag );
 
       // @public (read-only)
       this.componentType = componentType;
 
+      // @private {Property.<VectorModel|null>}
       this.activeVectorProperty = activeVectorProperty;
+
       // @public (read-only) {BaseVectorModel} parentVector - reference the parent vector
       this.parentVector = parentVector;
 
@@ -77,13 +84,13 @@ define( require => {
     }
 
     /**
-     * Updates the tail, and attributes vector (which will update the tip and magnitude) when the component style
+     * Updates the tail, and components vector (which will update the tip and magnitude) when the component style
      * changes or the parent's tail/tip changes
      * @param {ComponentStyles} componentStyle
      * @private
      */
     updateComponent( componentStyle ) {
-      if ( this.componentType === VectorComponent.COMPONENT_TYPES.X_COMPONENT ) {
+      if ( this.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ) {
 
         /*---------------------------------------------------------------------------*
          * X Component positioning
@@ -101,7 +108,7 @@ define( require => {
           this.setTipXY( this.parentVector.tipX, 0 );
         }
       }
-      else if ( this.componentType === VectorComponent.COMPONENT_TYPES.Y_COMPONENT ) {
+      else if ( this.componentType === VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT ) {
 
         /*---------------------------------------------------------------------------*
          * Y Component positioning
@@ -128,46 +135,39 @@ define( require => {
     }
 
     /**
-     * Gets the label value of that is displayed on the vector. Since labeling is different for different vector
-     * types, this is an abstract method and base classes must implement it.
-     *
      * @override
-     * @param {boolean} valuesVisible - if the value checkbox is on
+     * See BaseVectorModel.getLabelContent for documentation and context
+     *
+     * Gets the label content information to display the vector component. Vector components don't have tags
+     * and only show their component (which can be negative) when values are visible
+     *
+     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
-     *    label: {string|null} // the prefix (e.g. if the label displayed v=15, the label is 'v')
-     *    value: {number|null} // the suffix (e.g. if the label displayed v=15, the value is 15)
+     *    prefix: {string|null} // the prefix (e.g. if the label displayed |v|=15, the prefix would be '|v|')
+     *    value: {string|null} // the suffix (e.g. if the label displayed |v|=15, the value would be '=15')
      * }
      */
-    getLabelValue( valuesVisible ) {
-      
-      // Get the component value (can be negative)
-      const componentValue = this.componentType === VectorComponent.COMPONENT_TYPES.X_COMPONENT ?
-          this.attributesVector.x :
-          this.attributesVector.y;
+    getLabelContent( valuesVisible ) {
+
+      // Get the component value, which can be negative and depends on the type of component
+      const componentValue = this.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ?
+          this.vectorComponents.x :
+          this.vectorComponents.y;
 
       // Round the component value
-      const roundedValue = Util.toFixed( componentValue, LABEL_ROUNDING );
+      const roundedComponentValue = Util.toFixed( componentValue, VECTOR_VALUE_ROUNDING );
 
-      // If the parent vector has a label or the parent vector is active, display the rounded value. But don't display
-      // if if the value isn't visible
-      if ( valuesVisible ) {
-        return {
-          label: null,
-          value: Math.abs( roundedValue ) > 0 ? roundedValue : null // don't display the value if its 0
-        };
-      }
-      else {
-        return {
-          label: null,
-          value: null
-        };
-      }
-
+      // Since components don't have tags, it never has a prefix. Components only show components if and only
+      // if the values are visible and if the component isn't of 0 length
+      return {
+        prefix: null,
+        value: valuesVisible && Math.abs( roundedComponentValue ) > 0 ? roundedComponentValue : null
+      };
     }
   }
 
   // @public {Enumeration} - the possible types of components
-  VectorComponent.COMPONENT_TYPES = new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
+  VectorComponentModel.COMPONENT_TYPES = new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
 
-  return vectorAddition.register( 'VectorComponent', VectorComponent );
+  return vectorAddition.register( 'VectorComponentModel', VectorComponentModel );
 } );

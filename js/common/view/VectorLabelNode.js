@@ -79,24 +79,24 @@ define( require => {
       const updateLabelNode = ( valuesVisible ) => {
 
         // Get the label display information
-        const labelDisplay = baseVectorModel.getLabelValue( valuesVisible );
+        const labelDisplay = baseVectorModel.getLabelContent( valuesVisible );
         
-        vectorNameLabel.visible = labelDisplay.label !== null;
+        vectorNameLabel.visible = labelDisplay.prefix !== null;
         vectorValueLabel.visible = labelDisplay.value !== null;
         backgroundRectangle.visible = vectorNameLabel.visible || vectorValueLabel.visible;
 
         //----------------------------------------------------------------------------------------
         // Update the label name if it exists
-        if ( labelDisplay.label ) {
-          vectorNameLabel.setFormula( `\\vec{ \\mathrm{ ${labelDisplay.label} } \}` );
+        if ( labelDisplay.prefix ) {
+          vectorNameLabel.setFormula( `\\vec{ \\mathrm{ ${labelDisplay.prefix} } \}` );
         }
 
         //----------------------------------------------------------------------------------------
         // Update the label value
-        if ( labelDisplay.value && !labelDisplay.label ) {
+        if ( labelDisplay.value && !labelDisplay.prefix ) {
           vectorValueLabel.setText( Util.toFixed( labelDisplay.value, 1 ) );
         }
-        else if ( labelDisplay.value && labelDisplay.label ) {
+        else if ( labelDisplay.value && labelDisplay.prefix ) {
           vectorValueLabel.setText( `=${Util.toFixed( labelDisplay.value, 1 )}` );
         }
 

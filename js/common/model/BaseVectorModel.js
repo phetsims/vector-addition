@@ -5,9 +5,8 @@
  * Responsibilities are:
  *
  *  - tip and tail position properties
- *  - 'attributes property' (x and y, or in other words the actual vector <x, y>)
+ *  - vector components (x and y, or in other words the actual vector <x, y>)
  *  - vector group (See ./VectorGroups.js)
- *  - vector type (See BaseVectorModel.VECTOR_TYPES)
  *
  * @author Brandon Li
  */
@@ -29,77 +28,113 @@ define( require => {
      * @param {number} xComponent - horizontal component of the vector
      * @param {number} yComponent - vertical component of the vector
      * @param {VectorGroups} vectorGroup - the vector group (See ./VectorGroups.js)
+     * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( initialTailPosition, xComponent, yComponent, vectorGroup ) {
+    constructor( initialTailPosition, xComponent, yComponent, vectorGroup, tag ) {
 
       assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
       assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
       assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
       assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( typeof tag === 'string' || tag === null, `invalid tag: ${tag}` );
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {VectorGroups}
       this.vectorGroup = vectorGroup;
 
+      // @protected {string}
+      this.tag = tag;
+
       // @public (read-only) {Vector2Property} - the tail position of the vector on the graph
       this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
-      // @public (read-only) {Vector2Property} - (x and y, or in other words the actual vector <x, y>)
-      this.attributesVectorProperty = new Vector2Property( new Vector2( xComponent, yComponent ) );
+      // @public (read-only) {Vector2Property} - (x and y, or in other words the actual vector <x, y>). Every vector
+      // has a x and a y component.
+      this.vectorComponentsProperty = new Vector2Property( new Vector2( xComponent, yComponent ) );
 
       // @public (read-only) {DerivedProperty.<Vector2>} - the tip position of the vector
-      this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.attributesVectorProperty ],
-        ( tailPosition, vector ) => tailPosition.plus( vector ) );
-
+      this.tipPositionProperty = new DerivedProperty(
+        [ this.tailPositionProperty, this.vectorComponentsProperty ],
+        ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
     }
 
+   /**
+     * Disposes the vector
+     * @public
+     */
+    dispose() {
+      this.tailPositionProperty.dispose();
+      this.vectorComponentsProperty.dispose();
+      this.tipPositionProperty.dispose();
+    }
+    
     /**
-     * Gets the label value of that is displayed on the vector. Since labeling is different for different vector
-     * types, this is an abstract method and base classes must implement it.
-     * @abstract
-     * @param {boolean} valuesVisible - if the value checkbox is on
+     * @abstract     
+     * Gets the label content information to display on the vector. This is abstract since labels differ for vectors.
+     * For context, a label is the content next to the vectors that display their tag and/or their value.
+     *
+     * For instance, vectors with valuesVisible display their tag (i.e. a, b, c, ...) AND their magnitude, while
+     * their components only display the x or y component. In the same example, vectors display (+) their magnitude
+     * while components display the component, which can be negative.
+     *
+     * Additionally, the label displays different content depending on the screen.
+     * See https://github.com/phetsims/vector-addition/issues/39.
+     * 
+     * There are 4 different factors for determining what the label displays:
+     *  - Whether the values are visible (determined by the values checkbox)
+     *  - Whether the magnitude/component is of length 0. See 
+     *     https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
+     *  - Whether the vector has a tag (i.e the vectors on lab screen don't have tags)
+     *  - Whether the vector is active (https://github.com/phetsims/vector-addition/issues/39#issuecomment-506586411)
+     *
+     * These factors play different roles for different vector types, making it difficult to generalize. Thus, an
+     * abstract method is used to determine the content.
+     *
+     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
-     *    label: {string|null} // the prefix (e.g. if the label displayed v=15, the label is 'v')
-     *    value: {number|null} // the suffix (e.g. if the label displayed v=15, the value is 15)
+     *    prefix: {string|null} // the prefix (e.g. if the label displayed |v|=15, the prefix would be '|v|')
+     *    value: {string|null} // the suffix (e.g. if the label displayed |v|=15, the value would be '=15')
      * }
+     * Since there are 2 different sections of the content (See 
+     * https://github.com/phetsims/vector-addition/issues/43#issuecomment-507467062), this must
+     * return two separate strings.
      */
-    getLabelValue( valuesVisible ) {
-      assert && assert( false, 'getLabelValue must be implemented' );
+    getLabelContent( valuesVisible ) {
+      assert && assert( false, 'getLabelContent must be implemented by sub classes' );
     }
 
     /**
-     * Gets the attributes vector
+     * Gets the components of the vector
      * @public
-     * @returns {Vector2} - the attributes vector
+     * @returns {Vector2}
      */
-    get attributesVector() { return this.attributesVectorProperty.value; }
+    get vectorComponents() { return this.vectorComponentsProperty.value; }
 
     /**
-     * Sets the attributes vector
+     * Sets the components of the vector
      * @public
-     * @param {Vector2} attributesVector
+     * @param {Vector2} vectorComponents
      */
-    set attributesVector( attributesVector ) {
-      assert && assert( attributesVector instanceof Vector2, `invalid attributesVector: ${attributesVector}` );
-      this.attributesVectorProperty.value = attributesVector;
+    set vectorComponents( vectorComponents ) {
+      assert && assert( vectorComponents instanceof Vector2, `invalid vectorComponents: ${vectorComponents}` );
+      this.vectorComponentsProperty.value = vectorComponents;
     }
 
     /**
-     * Gets the magnitude of the vector
+     * Gets the magnitude of the vector (+)
      * @public
      * @returns {number}
      */
-    get magnitude() { return this.attributesVector.magnitude; }
+    get magnitude() { return this.vectorComponents.magnitude; }
 
     /**
-     * Sets the magnitude of the vector. This keeps the tail constant, but changes the tail.
+     * Sets the magnitude of the vector. This keeps the tail constant, but changes the tip.
      * @public
      * @param {number} magnitude
      */
     set magnitude( magnitude ) {
-
       assert && assert( typeof magnitude === 'number', `invalid number: ${magnitude}` );
-      this.attributesVector = this.attributesVector.copy().setMagnitude( magnitude );
+      this.vectorComponents = this.vectorComponents.copy().setMagnitude( magnitude );
     }
 
     /**
@@ -107,7 +142,7 @@ define( require => {
      * @public
      * @returns {number}
      */
-    get yComponent() { return this.attributesVector.y; }
+    get yComponent() { return this.vectorComponents.y; }
 
     /**
      * Sets the yComponent. Keeps the xComponent, tailPosition constant.
@@ -116,7 +151,7 @@ define( require => {
      */
     set yComponent( component ) {
       assert && assert( typeof component === 'number', `invalid component: ${component}` );
-      this.attributesVector.y = component;
+      this.vectorComponents.y = component;
     }
 
     /**
@@ -124,7 +159,7 @@ define( require => {
      * @public
      * @returns {number}
      */
-    get xComponent() { return this.attributesVector.x; }
+    get xComponent() { return this.vectorComponents.x; }
 
     /**
      * Sets the xComponent. Keeps the yComponent, tailPosition constant.
@@ -133,7 +168,7 @@ define( require => {
      */
     set xComponent( component ) {
       assert && assert( typeof component === 'number', `invalid component: ${component}` );
-      this.attributesVector.x = component;
+      this.vectorComponents.x = component;
     }
 
     /**
@@ -176,7 +211,6 @@ define( require => {
      */
     get tailY() { return this.tailPositionProperty.value.y; }
 
-
     /**
      * Sets the tailY. This changes the magnitude but will keep the tip the same.
      * @public
@@ -187,15 +221,15 @@ define( require => {
     }
 
     /**
-     * Gets for tip position
+     * Gets the tip position
      * @public
      * @returns {Vector2}
      */
     get tip() { return this.tipPositionProperty.value; }
 
     /**
-     * @public
      * Sets the tip position. This will change the magnitude, but keep the tail constant
+     * @public
      * @param {Vector2} position
      */
     set tip( position ) {
@@ -222,17 +256,7 @@ define( require => {
      * @public
      * @returns {number}
      */
-    get angle() { return this.attributesVector.angle; }
-
-    /**
-     * Disposes the vector
-     * @public
-     */
-    dispose() {
-      this.tailPositionProperty.dispose();
-      this.attributesVectorProperty.dispose();
-      this.tipPositionProperty.dispose();
-    }
+    get angle() { return this.vectorComponents.angle; }
 
     /**
      * Sets the tail position. This will change the magnitude of the vector, but the tip will remain constant.
@@ -247,7 +271,7 @@ define( require => {
       // Keep a reference to the original tip
       const tip = this.tip;
 
-      this.tailPositionProperty.value = new Vector2( x, y );
+      this.translateToPoint( new Vector2( x, y ) );
 
       // Set the tip back
       this.tip = tip;
@@ -264,12 +288,11 @@ define( require => {
       assert && assert( typeof y === 'number', `invalid y: ${y}` );
 
       // Since tipPositionProperty is a DerivedProperty, we cannot directly set it.
-      // Instead, we will update the attributesVector, keeping the tail constant
+      // Instead, we will update the vectorComponents, keeping the tail constant
 
-      const newTip = new Vector2( x, y );
+      const tip = new Vector2( x, y );
 
-      this.attributesVector = this.attributesVector.plus( newTip.minus( this.tip ) );
-
+      this.vectorComponents = this.vectorComponents.plus( tip.minus( this.tip ) );
     }
 
     /**

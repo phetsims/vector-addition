@@ -89,7 +89,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Since the tail is (0, 0) for the view, the tip is the delta location of the tip
-      const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
+      const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.vectorComponents );
 
       // Create a scenery node representing the arc of an angle and the numerical display of the angle
       const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, graph );
@@ -109,10 +109,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       const updateTipCircleLocation = () => {
-        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
+        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.vectorComponents );
         tipCircle.center = tipDeltaLocation;
       };
-      vectorModel.attributesVectorProperty.link( updateTipCircleLocation ); // unlinked in this.disposeVectorNode
+      vectorModel.vectorComponentsProperty.link( updateTipCircleLocation ); // unlinked in this.disposeVectorNode
 
       //----------------------------------------------------------------------------------------
       // Create Body Drag
@@ -154,7 +154,7 @@ define( require => {
 
               // Drop the vector where the shadow was positioned
               const shadowOffset = this.modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
-                .minus( vectorModel.attributesVector.timesScalar( 0.5 ) );
+                .minus( vectorModel.vectorComponents.timesScalar( 0.5 ) );
 
               const shadowTailPosition = vectorModel.tail.plus( shadowOffset );
 
@@ -245,7 +245,7 @@ define( require => {
 
       // Function to update the appearance of the vector node depending on if it's on or off the graph or when the
       // vector model changes
-      const onGraphListener = ( isOnGraph, attributesVectorProperty, animateBack ) => {
+      const onGraphListener = ( isOnGraph, vectorComponentsProperty, animateBack ) => {
         this.labelNode.visible = isOnGraph;
         vectorShadowNode.visible = !animateBack && !isOnGraph;
 
@@ -256,13 +256,13 @@ define( require => {
         }
 
         // Get the tip location in view coordinates
-        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.attributesVector );
+        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.vectorComponents );
         vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
       };
 
       // Observe changes to the vector model.
       const vectorOnGraphObserver = Property.multilink(
-        [ vectorModel.isOnGraphProperty, vectorModel.attributesVectorProperty, this.animateBackProperty ],
+        [ vectorModel.isOnGraphProperty, vectorModel.vectorComponentsProperty, this.animateBackProperty ],
         onGraphListener );
 
       //----------------------------------------------------------------------------------------
@@ -277,7 +277,7 @@ define( require => {
         this.animateBackProperty.unlink( removeBodyDragListener );
         tailLocationProperty.unlink( tailListener );
 
-        vectorModel.attributesVectorProperty.unlink( updateTipCircleLocation );
+        vectorModel.vectorComponentsProperty.unlink( updateTipCircleLocation );
 
         tipCircle.dispose();
         angleNode.dispose();

@@ -115,13 +115,13 @@ define( require => {
           vectorSet.sumVisibleProperty
         );
 
-        const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xVectorComponent,
+        const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xVectorComponentModel,
           graph,
           componentStyleProperty,
           valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
-        const yComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.yVectorComponent,
+        const yComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.yVectorComponentModel,
           graph,
           componentStyleProperty,
           valuesVisibleProperty,
@@ -137,12 +137,12 @@ define( require => {
          *---------------------------------------------------------------------------*/
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
-          const xComponentNode = new VectorComponentNode( addedVector.xVectorComponent,
+          const xComponentNode = new VectorComponentNode( addedVector.xVectorComponentModel,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );
 
-          const yComponentNode = new VectorComponentNode( addedVector.yVectorComponent,
+          const yComponentNode = new VectorComponentNode( addedVector.yVectorComponentModel,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );

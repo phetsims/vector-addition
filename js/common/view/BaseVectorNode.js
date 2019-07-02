@@ -57,7 +57,7 @@ define( require => {
 
       // Define a vector node in which the tail location (view coordinates) is (0, 0). Get the tip location in view
       // coordinates
-      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.attributesVector );
+      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.vectorComponents );
 
       // @protected {ArrowNode} arrowNode - Create an arrow node that represents an actual vector.
       this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, arrowOptions );
@@ -100,7 +100,7 @@ define( require => {
       this.translation = modelViewTransform.modelToViewPosition( baseVectorModel.tail );
 
       // Get the tip location in view coordinates
-      const tipDeltaLocation = modelViewTransform.modelToViewDelta( baseVectorModel.attributesVector );
+      const tipDeltaLocation = modelViewTransform.modelToViewDelta( baseVectorModel.vectorComponents );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
 
       // Make the arrow easier to grab
@@ -146,7 +146,7 @@ define( require => {
       const offset = Vector2.createPolar( LABEL_OFFSET, modelAngle + Math.PI / 2 + yFlip + xFlip );
 
       // Create label halfway above the vector
-      const midPoint = baseVectorModel.attributesVector.timesScalar( 0.5 );
+      const midPoint = baseVectorModel.vectorComponents.timesScalar( 0.5 );
 
       this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
     }

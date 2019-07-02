@@ -89,7 +89,7 @@ define( require => {
         vectorSet.vectorGroup,
         options.iconOptions );
 
-      const iconAttributesVector = modelViewTransformProperty.value.viewToModelDelta( initialViewVector.normalized().timesScalar( ICON_SIZE ) );
+      const iconComponents = modelViewTransformProperty.value.viewToModelDelta( initialViewVector.normalized().timesScalar( ICON_SIZE ) );
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( ICON_OFFSET_MOUSE_AREA );
@@ -124,7 +124,7 @@ define( require => {
 
         // Create the new Vector Model
         const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, {
-          label: options.label
+          tag: options.label
         } );
         vectorSet.vectors.push( vectorModel );
 
@@ -171,7 +171,7 @@ define( require => {
               vectorSet.vectors.remove( vectorModel );
               vectorModel.dispose();
             };
-            vectorModel.animateToPoint( iconPosition, iconAttributesVector, animationFinishedListener );
+            vectorModel.animateToPoint( iconPosition, iconComponents, animationFinishedListener );
           }
         } );
 

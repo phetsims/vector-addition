@@ -21,13 +21,13 @@ define( require => {
   class VectorSumComponentNode extends VectorComponentNode {
     /**
      * @constructor
-     * @param {VectorComponent} vectorComponent - the vector model for the component
+     * @param {VectorComponent} vectorComponentModel - the vector model for the component
      * @param {Graph} graph - the graph the component belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
      */
-    constructor( vectorComponent, graph, componentStyleProperty, valuesVisibleProperty, sumVisibleProperty, options ) {
+    constructor( vectorComponentModel, graph, componentStyleProperty, valuesVisibleProperty, sumVisibleProperty, options ) {
 
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
@@ -45,7 +45,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( vectorComponent, graph, componentStyleProperty, valuesVisibleProperty, options );
+      super( vectorComponentModel, graph, componentStyleProperty, valuesVisibleProperty, options );
 
       // Create a new observer
       this.vectorObserver.dispose();
@@ -54,33 +54,33 @@ define( require => {
       // Doesn't need to be disposed since vector sum component are never disposed.
       this.vectorObserver = Property.multilink(
         [ valuesVisibleProperty,
-          vectorComponent.tailPositionProperty,
-          vectorComponent.tipPositionProperty,
+          vectorComponentModel.tailPositionProperty,
+          vectorComponentModel.tipPositionProperty,
           componentStyleProperty,
           sumVisibleProperty ],
         ( valuesVisible ) => {
 
           // Update the appearance of the vector
-          this.updateVector( vectorComponent,
+          this.updateVector( vectorComponentModel,
             graph.modelViewTransformProperty.value,
             componentStyleProperty.value,
             sumVisibleProperty.value );
 
           // Update the appearance of the label
-          this.updateLabelPositioning( vectorComponent, graph.modelViewTransformProperty.value, valuesVisible );
+          this.updateLabelPositioning( vectorComponentModel, graph.modelViewTransformProperty.value, valuesVisible );
         } );
     }
 
     /**
      * Does the same as the super class, except handles the visibility based on the sum checkbox.
-     * @param {VectorComponent} vectorComponent
+     * @param {vectorComponentModel} vectorComponentModel
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
      * @param {boolean} sumVisible
      * @private
      */
-    updateVector( vectorComponent, modelViewTransform, componentStyle, sumVisible ) {
-      super.updateVector( vectorComponent, modelViewTransform, componentStyle );
+    updateVector( vectorComponentModel, modelViewTransform, componentStyle, sumVisible ) {
+      super.updateVector( vectorComponentModel, modelViewTransform, componentStyle );
 
       // SumVisible is not defined in superclass. Sum component is visible when both the sum is visible 
       // and component style isn't invisible

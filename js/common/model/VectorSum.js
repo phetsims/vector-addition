@@ -18,9 +18,9 @@ define( require => {
 
   // constants
 
-  // The label of the vector when its active if and only if the user doesn't provide the label option.
+  // The tag of the vector when its active if and only if the user doesn't provide the tag option.
   // The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
-  const FALLBACK_VECTOR_LABEL = 's';
+  // const FALLBACK_VECTOR_TAG = 's';
 
   class VectorSum extends VectorModel {
     /**
@@ -34,8 +34,7 @@ define( require => {
       options = _.extend( {
 
         // Passed to super class
-        label: 's', // {string|null} - the label of the vector. If null, the vector will display a the fall back label
-        // when its active
+        tag: 's', // {string|null} 
 
         isTipDraggable: false, // {boolean} - false means the tip won't be draggable
         isRemovable: false // {boolean} - false means the user will not be able to drag a vector off the graph
@@ -48,9 +47,6 @@ define( require => {
       const initialPosition = graph.graphModelBounds.center;
 
       super( initialPosition, 0, 0, graph, vectorSet, options );
-
-      // @public (read-only)
-      this.fallbackLabel = FALLBACK_VECTOR_LABEL;
 
       // Vector sums are always on the graph
       this.isOnGraphProperty.value = true;
@@ -70,7 +66,7 @@ define( require => {
       vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
 
         const vectorObserver = Property.multilink(
-          [ addedVector.attributesVectorProperty, addedVector.isOnGraphProperty ], () => {
+          [ addedVector.vectorComponentsProperty, addedVector.isOnGraphProperty ], () => {
             this.updateSum();
           } );
 
@@ -110,10 +106,10 @@ define( require => {
       const sumVector = new Vector2( 0, 0 );
 
       onGraphVectors.forEach( ( vector ) => {
-        sumVector.add( vector.attributesVector );
+        sumVector.add( vector.vectorComponents );
       } );
 
-      this.attributesVector = sumVector;
+      this.vectorComponents = sumVector;
     }
 
 

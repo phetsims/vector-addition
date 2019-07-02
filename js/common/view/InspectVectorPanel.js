@@ -197,7 +197,7 @@ define( require => {
       const updateVectorDisplay = ( activeVector ) => {
 
         // Get the vector label
-        const vectorLabel = activeVector.label ? activeVector.label : activeVector.fallbackLabel;
+        const vectorLabel = activeVector.tag ? activeVector.tag : activeVector.fallbackLabel;
 
         // Convenience variables
         const maxMagnitude = Math.pow( Math.pow( graph.graphModelBounds.width, 2 ) + Math.pow( graph.graphModelBounds.height, 2 ), 0.5 ) + 1;
