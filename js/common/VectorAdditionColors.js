@@ -70,30 +70,36 @@ define( function( require ) {
 
   //----------------------------------------------------------------------------------------
   // Vector colors by groups (See VectorGroups.js)
+  //----------------------------------------------------------------------------------------
+
   VectorAdditionColors[ VectorGroups.ONE ] = {
     fill: 'rgb( 0, 185, 255 )',
     sum: 'rgb( 0, 181, 225 )',
     component: LIGHT_BLUE,
     labelBackground: LIGHT_BLUE
   };
+  
   VectorAdditionColors[ VectorGroups.TWO ] = {
     fill: 'rgb( 232, 25, 9 )',
     sum: 'rgb( 196, 2, 51 )',
     component: LIGHT_RED,
     labelBackground: LIGHT_RED
   };
+  
   VectorAdditionColors[ VectorGroups.THREE ] = {
     fill: PURPLE,
     sum: 'rgb( 128, 0, 128 )',
     component: LIGHT_PURPLE,
     labelBackground: LIGHT_PURPLE
   };
+  
   VectorAdditionColors[ VectorGroups.FOUR ] = {
     fill: 'rgb( 0, 255, 0 )',
     sum: 'rgb( 0, 102, 0 )',
     component: LIGHT_GREEN,
     labelBackground: LIGHT_GREEN
   };
+  
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );
 } );

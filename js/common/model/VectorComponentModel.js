@@ -4,11 +4,12 @@
  * Model for a Vector Component. There are 2 types of components: the X Component and the Y Component. The positioning
  * for these components are slightly different.
  *
- * This is designed to be a component of a parent vector.
+ * This is designed to be a component of a parent vector. For instance, if vector 'a' were to be <5, 5>, its x
+ * component would be <5, 0>. This component's 'parent vector' would be vector 'a'.
  *
  * This vector component updates its tail/tip based on the:
- *  1. The component style enumeration property
- *  2. Parent vector's changing tail/tip
+ *  1. The component style
+ *  2. Parent vector's changing tail/tip/components
  *
  * @author Brandon Li
  */
@@ -27,6 +28,8 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // constants
+
+  // Rounding on the label with values on
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
   class VectorComponentModel extends BaseVectorModel {
@@ -52,6 +55,7 @@ define( require => {
 
       // Vector components don't have a tag.
       const componentTag = null;
+      
       super( parentVector.tail, 0, 0, parentVector.vectorGroup, componentTag );
 
       // @public (read-only)
