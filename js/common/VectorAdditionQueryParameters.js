@@ -25,7 +25,7 @@ define( function( require ) {
     vectorDragThreshold: {
       type: 'number',
       isValidValue: value => ( value > 0 ),
-      defaultValue: VectorAdditionConstants.INITIAL_ARROW_SIDE_LENGTH
+      defaultValue: VectorAdditionConstants.DEFAULT_VECTOR_LENGTH
     }
 
   } );

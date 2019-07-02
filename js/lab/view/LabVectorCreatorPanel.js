@@ -16,7 +16,7 @@ define( require => {
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
   // constants
-  const INITIAL_ARROW_SIDE_LENGTH = VectorAdditionConstants.INITIAL_ARROW_SIDE_LENGTH;
+  const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
 
   const CREATOR_PANEL_OPTIONS = {
     contentHeight: 110 // {number} fixed height of the panel
@@ -40,7 +40,7 @@ define( require => {
     constructor( labModel, graph, vectorSetGroupOne, vectorSetGroupTwo, container, parentScreenView ) {
 
       // create a 45 degree vector2 representing the vector that will be dropped onto the graph
-      const initialVector = new Vector2( INITIAL_ARROW_SIDE_LENGTH, INITIAL_ARROW_SIDE_LENGTH );
+      const initialVector = new Vector2( DEFAULT_VECTOR_LENGTH, DEFAULT_VECTOR_LENGTH );
 
       const vectorGroupOneSlot = new VectorCreatorPanelSlot( labModel,
         initialVector,

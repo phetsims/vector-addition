@@ -17,7 +17,7 @@ define( require => {
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
   // constants
-  const INITIAL_ARROW_SIDE_LENGTH = VectorAdditionConstants.INITIAL_ARROW_SIDE_LENGTH;
+  const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
 
   const VERTICAL_CREATOR_PANEL_OPTIONS = {
     slotSpacing: 10
@@ -39,10 +39,10 @@ define( require => {
       let initialVector;
 
       if ( graph.orientation === GraphOrientations.HORIZONTAL ) {
-        initialVector = new Vector2( INITIAL_ARROW_SIDE_LENGTH, 0 );
+        initialVector = new Vector2( DEFAULT_VECTOR_LENGTH, 0 );
       }
       else if ( graph.orientation === GraphOrientations.VERTICAL ) {
-        initialVector = new Vector2( 0, INITIAL_ARROW_SIDE_LENGTH );
+        initialVector = new Vector2( 0, DEFAULT_VECTOR_LENGTH );
       }
       labels.forEach( ( label ) => {
 

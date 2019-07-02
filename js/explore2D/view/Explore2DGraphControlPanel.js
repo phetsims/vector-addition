@@ -41,11 +41,11 @@ define( require => {
 
   class Explore2DGraphControlPanel extends Panel {
     /**
-     * @constructor
      * @param {Explore2DModel} explore2DModel
      * @param {VectorSet} cartesianVectorSet
      * @param {VecotrSet} polarVectorSet
      * @param {Object} [options]
+     * @constructor
      */
     constructor( explore2DModel, cartesianVectorSet, polarVectorSet, options ) {
 
