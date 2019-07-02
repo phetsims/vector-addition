@@ -13,7 +13,6 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
 
-
   const EQUATION_GRAPH_BOUNDS = new Bounds2( -5, -5, 55, 30 );
 
   /**
