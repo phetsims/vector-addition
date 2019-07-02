@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Base class for vector views for all types of vectors (sum, component, etc.).
+ * Base class (meant to be subtyped) for vector views for all types of vectors (sum, component, etc.).
  * Primarily responsibilities are:
  *  - Create an Arrow Node that mirrors a vector models tail/tip position
  *  - Create Other Nodes that ALL vectors in the sim have (ie. labels etc.)
@@ -28,24 +28,31 @@ define( require => {
   const ARROW_MOUSEAREA_OFFSET = 3; // offset to make the arrow easier to grab
   const LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
-
   class BaseVectorNode extends Node {
     /**
      * @constructor
      * @param {BaseVectorModel} baseVectorModel - the vector model
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {BooleanProperty} valuesVisibleProperty
+     * @param {Property.<BaseVectorModel>|null} activeVectorProperty
      * @param {Object} [arrowOptions]
      */
-    constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, arrowOptions ) {
+    constructor( baseVectorModel,
+      modelViewTransformProperty,
+      valuesVisibleProperty,
+      activeVectorProperty,
+      arrowOptions
+    ) {
 
-      // Type check arguments
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( activeVectorProperty instanceof Property
+      && activeVectorProperty.value instanceof BaseVectorModel || activeVectorProperty.value === null,
+        `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
         `Extra prototype on Options: ${arrowOptions}` );
 
@@ -85,7 +92,6 @@ define( require => {
           // Update the appearance of the label
           this.updateLabelPositioning( baseVectorModel, modelViewTransformProperty.value, valuesVisible );
         } );
-
     }
 
     /**
@@ -117,6 +123,10 @@ define( require => {
      */
     updateLabelPositioning( baseVectorModel, modelViewTransform, valuesVisible ) {
 
+      if ( baseVectorModel.magnitude === 0 ) { // don't do anything if the magnitude is 0
+        return;
+      }
+
       // Reset the rotation
       this.labelNode.setRotation( 0 );
 
@@ -126,10 +136,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // convenience variables
       // Add a flip if x is negative
-      const xFlip = ( baseVectorModel.xComponent > 0 ) ? 0 : Math.PI;
+      const xFlip = ( baseVectorModel.xComponent >= 0 ) ? 0 : Math.PI;
 
       // Add a flip if y is negative
-      const yFlip = ( baseVectorModel.yComponent > 0 ) ? 0 : Math.PI;
+      const yFlip = ( baseVectorModel.yComponent >= 0 ) ? 0 : Math.PI;
 
       //----------------------------------------------------------------------------------------
       if ( valuesVisible ) {

@@ -67,7 +67,7 @@ define( require => {
         lineDash: [ 3, 10 ]
       }, options.onAxisLinesOptions );
 
-      options.arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+      options.arrowOptions = _.extend( {
         fill: VectorAdditionColors[ vectorComponentModel.vectorGroup ].component,
         headWidth: 10.5,
         headHeight: 6,

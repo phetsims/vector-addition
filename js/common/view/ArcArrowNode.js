@@ -1,8 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Create a node that represents a curved arrow node. Used in various icons throughout the simulation and in the vector
- * angle node.
+ * Create a node that represents a curved arrow node.
  *
  * Supports negative angles.
  *
