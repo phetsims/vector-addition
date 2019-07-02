@@ -47,7 +47,7 @@ define( require => {
       labels.forEach( ( label ) => {
 
         panelSlots.push( new VectorCreatorPanelSlot( explore1DModel, initialVector, graph, vectorSet, vectorContainer, explore1DModelScreenView,
-          { label: label } ) );
+          { tag: label } ) );
       } );
 
       super( panelSlots, graph.orientation === GraphOrientations.HORIZONTAL ? null : VERTICAL_CREATOR_PANEL_OPTIONS );

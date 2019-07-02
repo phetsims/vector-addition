@@ -1,7 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * The view for the 'Explore2D' screen.
+ * Top level view for the 'Explore2D' screen.
+ *
+ * Explore2D has a polar and a cartesian graph. Scene nodes are created to represent these graphs respectively.
  *
  * @author Martin Veillette
  */
@@ -16,40 +18,38 @@ define( function( require ) {
   const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
   const Explore2DVectorCreatorPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DVectorCreatorPanel' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
   // constants
-  const VECTOR_CREATOR_LABELS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
+  const EXPLORE_2D_VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
 
   class Explore2DScreenView extends VectorAdditionScreenView {
     /**
-     * @constructor
      * @param {Explore2DModel} explore2DModel
      * @param {Tandem} tandem
+     * @constructor
      */
     constructor( explore2DModel, tandem ) {
 
       assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
+      assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       //----------------------------------------------------------------------------------------
-      // Create the scenes
+      // Create the scenes for the polar and cartesian scenes.
 
       const polarSceneNode = new SceneNode( explore2DModel.polarGraph,
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
         explore2DModel.gridVisibleProperty,
-        explore2DModel.componentStyleProperty, {
-          isExpandedInitially: true
-        } );
+        explore2DModel.componentStyleProperty );
       const cartesianSceneNode = new SceneNode( explore2DModel.cartesianGraph,
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
         explore2DModel.gridVisibleProperty,
-        explore2DModel.componentStyleProperty, {
-          isExpandedInitially: true
-        } );
+        explore2DModel.componentStyleProperty );
 
       super( explore2DModel, [ polarSceneNode, cartesianSceneNode ], tandem );
 
@@ -61,14 +61,14 @@ define( function( require ) {
         explore2DModel.polarGraph.vectorSet,
         polarSceneNode.vectorContainer,
         this,
-        VECTOR_CREATOR_LABELS ) );
+        EXPLORE_2D_VECTOR_TAGS ) );
 
       cartesianSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel,
         explore2DModel.cartesianGraph,
         explore2DModel.cartesianGraph.vectorSet,
         cartesianSceneNode.vectorContainer,
         this,
-        VECTOR_CREATOR_LABELS ) );
+        EXPLORE_2D_VECTOR_TAGS ) );
 
 
       //----------------------------------------------------------------------------------------

@@ -37,7 +37,7 @@ define( require => {
       labels.forEach( ( label ) => {
 
         panelSlots.push( new VectorCreatorPanelSlot( explore2DModel, initialVector, graph, vectorSet, vectorContainer, explore2DModelScreenView,
-          { label: label } ) );
+          { tag: label } ) );
       } );
 
       super( panelSlots );

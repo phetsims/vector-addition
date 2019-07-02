@@ -62,7 +62,7 @@ define( require => {
         `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-        isExpandedInitially: false, // {boolean} - true means the panel will start off as expanded
+        isExpandedInitially: true, // {boolean} - true means the panel will start off as expanded
         panelOptions: null // {object} defaults below, passed to super class
       }, options );
 
