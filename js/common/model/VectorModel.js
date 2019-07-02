@@ -217,12 +217,13 @@ define( require => {
         value = !isRoundedMagnitudeZero ? roundedMagnitude : null;
       }
 
-      // If the rounded magnitude is zero, don't display anything
+      // If the rounded magnitude is zero, don't display anything. Decision make:
+      // https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
       if ( isRoundedMagnitudeZero ) {
         prefix = null;
         value = null;
       }
-      
+
       return {
         prefix: prefix,
         value: value
@@ -350,7 +351,7 @@ define( require => {
 
     /**
      * Gets the constrained bounds of the tail. In other words, based on the tip and the components of the vector, this
-     * return a new bounds that are for the tail and ensures that in this bounds the vector will stay in the graph.
+     * return a new bounds that is for the tail and ensures that in this bounds the vector will stay in the graph.
      * @private
      */
     getConstrainedTailBounds() {
@@ -368,7 +369,7 @@ define( require => {
      *---------------------------------------------------------------------------*/
     /**
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
-     * @param {Vector2} point
+     * @param {Vector2} point - animates the CENTER to this point
      * @param {Vector2} iconVectorComponents
      * @param {function} finishedCallback - callback if and only if the animation finishes
      * @public
@@ -391,7 +392,7 @@ define( require => {
 
       // Animate the vector
       const animation = new Animation( {
-        duration: Math.max( MIN_ANIMATION_TIME,
+        duration: Math.max( MIN_ANIMATION_TIME, // d/t = s => t = d/s
           this.tail.distance( tailPosition ) / AVERAGE_ANIMATION_SPEED
         ),
         targets: [ {
@@ -411,7 +412,7 @@ define( require => {
         this.inProgressAnimationProperty.value = null;
         finishedCallback();
 
-        // Remove listeners
+        // Remove listener
         animation.finishEmitter.removeListener( animationFinished );
       };
 
@@ -420,7 +421,7 @@ define( require => {
 
     /**
      * Stops the current animation if one is happening, and does nothing if one isn't happening
-     * @public
+     * @private
      */
     stopAnimation() {
       if ( this.inProgressAnimationProperty.value ) {
