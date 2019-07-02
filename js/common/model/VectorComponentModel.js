@@ -55,7 +55,7 @@ define( require => {
 
       // Vector components don't have a tag.
       const componentTag = null;
-      
+
       super( parentVector.tail, 0, 0, parentVector.vectorGroup, componentTag );
 
       // @public (read-only)
@@ -64,8 +64,12 @@ define( require => {
       // @private {Property.<VectorModel|null>}
       this.activeVectorProperty = activeVectorProperty;
 
-      // @public (read-only) {BaseVectorModel} parentVector - reference the parent vector
+      // @private {BaseVectorModel} parentVector - reference the parent vector
       this.parentVector = parentVector;
+
+      // When the parent is on the graph, its component is also (and vise versa).
+      // @public (read-only)
+      this.isOnGraphProperty = parentVector.isOnGraphProperty;
 
       // @private observe changes of the parent to update component.
       // No need to listen to the modelViewTransformProperty since the parentVector will update its position when
@@ -140,7 +144,7 @@ define( require => {
 
     /**
      * @override
-     * See BaseVectorModel.getLabelContent for documentation and context
+     * See BaseVectorModel.getLabelContent() for documentation and context
      *
      * Gets the label content information to display the vector component. Vector components don't have tags
      * and only show their component (which can be negative) when values are visible

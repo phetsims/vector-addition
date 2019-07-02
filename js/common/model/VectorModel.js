@@ -356,7 +356,7 @@ define( require => {
      */
     getConstrainedTailBounds() {
 
-      // Sift the bounds the attributes vector. This is the furthest the vector tail can drag.
+      // Sift the bounds the components vector. This is the furthest the vector tail can drag.
       const constrainedBounds = this.graph.graphModelBounds.shifted( -this.vectorComponents.x,
         -this.vectorComponents.y );
 

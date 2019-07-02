@@ -1,8 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a graph. Graphs have an unknown amount of VectorSets. Graphs are responsible for the modelViewTransform,
- * which changes when the origin is dragged.
+ * Model for a graph. Graphs are responsible for
+ *  - Keeping track of where the origin is dragged and updating modelViewTransformProperty
+ *  - Keeping a property of the active vector on a graph
+ *  - Controlling vector sets. A graph can have an unknown and varied amount of vector sets.
  *
  * @author Brandon Li
  */
@@ -23,7 +25,7 @@ define( require => {
 
   // constants
 
-  // The graph nodes upper left location. Used in model to determine in the model view transform property value.
+  // The graph node's bottom left location. Used in model to determine in the model view transform property value.
   // Since the origin is being dragged, modelViewTransform is in the graph.
   const GRAPH_BOTTOM_LEFT_LOCATION = new Vector2( 29, 590 );
   const MODEL_TO_VIEW_SCALE = 12.5;
@@ -41,13 +43,13 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public {array.<VectorSet>} - the vectorSets for this graph
+      // @public {array.<VectorSet>} - the vectorSets for this graph - to add vector sets, see createVectorSet()
       this.vectorSets = [];
 
       // @public (read-only) {GraphOrientations} - orientation for the graph (final variable)
       this.orientation = orientation;
 
-      // @private {Property.<Bounds2>} the property of the graph bounds. To be only set internally. Read access at can
+      // @private {Property.<Bounds2>} the property of the graph bounds. To be only set internally. Read access can
       // be found at get graphModelBounds()
       this.graphModelBoundsProperty = new Property( initialGraphBounds, {
         valueType: Bounds2
@@ -110,7 +112,8 @@ define( require => {
     }
 
     /**
-     * Creates a VectorSet, passing the graph (this) to the vector set
+     * Creates a VectorSet, passing the graph (this) to the vector set. This will not add a vector set to the graph as a
+     * side effect.
      * @public
      *
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
