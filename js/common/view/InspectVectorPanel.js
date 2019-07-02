@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the 'Inspect a Vector' Panel at the top of the scene. Displays vector attributes (i.e label, magnitude etc.)
+ * View for the 'Inspect a Vector' Panel at the top of the scene. Displays vector attributes (i.e. magnitude etc.)
  * of the graphs active vector.
  *
  * @author Martin Veillette
@@ -196,8 +196,8 @@ define( require => {
       // Function that updates the labels and creates new number displays for an active vector
       const updateVectorDisplay = ( activeVector ) => {
 
-        // Get the vector label
-        const vectorLabel = activeVector.tag ? activeVector.tag : activeVector.fallBackTag;
+        // Get the vector tag
+        const vectorTag = activeVector.tag ? activeVector.tag : activeVector.fallBackTag;
 
         // Convenience variables
         const maxMagnitude = Math.pow( Math.pow( graph.graphModelBounds.width, 2 ) + Math.pow( graph.graphModelBounds.height, 2 ), 0.5 ) + 1;
@@ -205,7 +205,7 @@ define( require => {
         const graphHeight = graph.graphModelBounds.height;
 
         //----------------------------------------------------------------------------------------
-        magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${vectorLabel}\}\}|` );
+        magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${vectorTag}\}\}|` );
 
         magnitudeNumberDisplayContainer.setChildren( [
           new NumberDisplay( activeVector.magnitudeProperty, new Range( 0, maxMagnitude ), {
@@ -220,7 +220,7 @@ define( require => {
           } ) ] );
 
         //----------------------------------------------------------------------------------------
-        xComponentText.setText( `${vectorLabel}<sub>${symbolXString}</sub>` );
+        xComponentText.setText( `${vectorTag}<sub>${symbolXString}</sub>` );
 
         xComponentNumberDisplayContainer.setChildren( [
           new NumberDisplay( activeVector.xComponentProperty, new Range( -graphWidth, graphWidth ), {
@@ -228,7 +228,7 @@ define( require => {
           } ) ] );
 
         //----------------------------------------------------------------------------------------
-        yComponentText.setText( `${vectorLabel}<sub>${symbolYString}</sub>` );
+        yComponentText.setText( `${vectorTag}<sub>${symbolYString}</sub>` );
 
         yComponentNumberDisplayContainer.setChildren( [
           new NumberDisplay( activeVector.yComponentProperty, new Range( -graphHeight, graphHeight ), {
