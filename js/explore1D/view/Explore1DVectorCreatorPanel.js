@@ -40,7 +40,7 @@ define( require => {
 
       if ( graph.orientation === GraphOrientations.HORIZONTAL ) {
         initialVector = new Vector2( INITIAL_ARROW_SIDE_LENGTH, 0 );
-      } 
+      }
       else if ( graph.orientation === GraphOrientations.VERTICAL ) {
         initialVector = new Vector2( 0, INITIAL_ARROW_SIDE_LENGTH );
       }
@@ -53,5 +53,6 @@ define( require => {
       super( panelSlots, graph.orientation === GraphOrientations.HORIZONTAL ? null : VERTICAL_CREATOR_PANEL_OPTIONS );
     }
   }
+
   return vectorAddition.register( 'Explore1DVectorCreatorPanel', Explore1DVectorCreatorPanel );
 } );

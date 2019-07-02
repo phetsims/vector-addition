@@ -56,7 +56,7 @@ define( require => {
      * @param {Object} [options]
      */
     constructor( graph, options ) {
-      
+
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );

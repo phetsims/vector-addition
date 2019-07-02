@@ -81,7 +81,6 @@ define( require => {
       this.horizontalGraph.vectorSets.push( this.horizontalGraph.vectorSet );
 
 
-
       //----------------------------------------------------------------------------------------
       // Disable angle
       this.angleVisibleProperty.link( angleVisible => {

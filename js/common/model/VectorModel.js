@@ -47,7 +47,7 @@ define( require => {
   // The maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
   // See https://github.com/phetsims/vector-addition/issues/46 for more context.
   const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
-  
+
   // Rounding on the label with values on
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 

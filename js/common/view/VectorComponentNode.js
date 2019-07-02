@@ -203,7 +203,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       if ( vectorComponentModel.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ) { // If it's a x component
-        
+
         // Add extra offset to consider the size of the label. The offset is the margin between the arrow and the label
         const labelSize = modelViewTransform.viewToModelDeltaY( -this.labelNode.height / 2 );
 
@@ -219,7 +219,7 @@ define( require => {
         }
       }
       else if ( vectorComponentModel.componentType === VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT ) { // It it's a y component
-        
+
         const labelSize = modelViewTransform.viewToModelDeltaX( this.labelNode.width / 2 );
 
         if ( vectorComponentModel.yComponent === 0 ) {

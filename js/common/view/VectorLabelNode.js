@@ -25,7 +25,7 @@ define( require => {
 
   // constants
   const ANGLE_LABEL_FONT = new PhetFont( { size: 12.5, fontWeight: 800 } );
-  
+
   class VectorLabelNode extends Node {
     /**
      * @constructor
@@ -80,7 +80,7 @@ define( require => {
 
         // Get the label display information
         const labelDisplay = baseVectorModel.getLabelContent( valuesVisible );
-        
+
         vectorNameLabel.visible = typeof labelDisplay.prefix === 'string';
         vectorValueLabel.visible = typeof labelDisplay.value === 'string';
         backgroundRectangle.visible = vectorNameLabel.visible || vectorValueLabel.visible;
@@ -101,7 +101,7 @@ define( require => {
         else {
           vectorValueLabel.setText( '' );
         }
-          vectorValueLabel.invalidateSelf();
+        vectorValueLabel.invalidateSelf();
         //----------------------------------------------------------------------------------------
         // Update the background
         if ( backgroundRectangle.visible ) {

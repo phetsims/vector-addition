@@ -1,8 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * The 'Explore 2D' screen. Conforms to the contract specified in joist/Screen.
+ *
  * @author Martin Veillette
  */
+
 define( require => {
   'use strict';
 
@@ -18,9 +21,9 @@ define( require => {
   const screenExplore2DString = require( 'string!VECTOR_ADDITION/screen.explore2D' );
 
   class Explore2DScreen extends Screen {
-
     /**
      * @param {Tandem} tandem
+     * @constructor
      */
     constructor( tandem ) {
 
@@ -30,11 +33,9 @@ define( require => {
         tandem: tandem
       };
 
-      super(
-        () => new Explore2DModel( tandem.createTandem( 'explore2DModel' ) ),
+      super( () => new Explore2DModel( tandem.createTandem( 'explore2DModel' ) ),
         ( explore2DModel ) => new Explore2DScreenView( explore2DModel, tandem.createTandem( 'explore2DView' ) ),
-        options
-      );
+        options );
     }
   }
 

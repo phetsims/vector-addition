@@ -62,7 +62,7 @@ define( require => {
             valuesVisibleProperty,
             CHECKBOX_OPTIONS ),
 
-                // grid checkbox
+          // grid checkbox
           new Checkbox( VectorAdditionIconFactory.createGridIcon(),
             gridVisibleProperty,
             CHECKBOX_OPTIONS )

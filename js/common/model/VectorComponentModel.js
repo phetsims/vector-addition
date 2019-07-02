@@ -155,8 +155,8 @@ define( require => {
 
       // Get the component value, which can be negative and depends on the type of component
       const componentValue = this.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ?
-          this.vectorComponents.x :
-          this.vectorComponents.y;
+                             this.vectorComponents.x :
+                             this.vectorComponents.y;
 
       // Round the component value
       const roundedComponentValue = Util.toFixed( componentValue, VECTOR_VALUE_ROUNDING );

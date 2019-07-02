@@ -64,7 +64,7 @@ define( require => {
         VectorGroups.ONE,
         CoordinateSnapModes.CARTESIAN );
       this.cartesianGraph.vectorSets.push( this.cartesianGraph.group1VectorSet );
-      
+
       this.cartesianGraph.group2VectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
         this.cartesianGroup2SumVisibileProperty,
         VectorGroups.TWO,
@@ -76,7 +76,7 @@ define( require => {
         VectorGroups.THREE,
         CoordinateSnapModes.POLAR );
       this.polarGraph.vectorSets.push( this.polarGraph.group3VectorSet );
-      
+
       this.polarGraph.group4VectorSet = this.polarGraph.createVectorSet( this.componentStyleProperty,
         this.polarGroup4SumVisibileProperty,
         VectorGroups.FOUR,

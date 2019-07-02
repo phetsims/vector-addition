@@ -58,7 +58,7 @@ define( require => {
         ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
     }
 
-   /**
+    /**
      * Disposes the vector
      * @public
      */
@@ -67,9 +67,9 @@ define( require => {
       this.vectorComponentsProperty.dispose();
       this.tipPositionProperty.dispose();
     }
-    
+
     /**
-     * @abstract     
+     * @abstract
      * Gets the label content information to display on the vector. This is abstract since labels differ for vectors.
      * For context, a label is the content next to the vectors that display their tag and/or their value.
      *
@@ -79,10 +79,10 @@ define( require => {
      *
      * Additionally, the label displays different content depending on the screen.
      * See https://github.com/phetsims/vector-addition/issues/39.
-     * 
+     *
      * There are 4 different factors for determining what the label displays:
      *  - Whether the values are visible (determined by the values checkbox)
-     *  - Whether the magnitude/component is of length 0. See 
+     *  - Whether the magnitude/component is of length 0. See
      *     https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
      *  - Whether the vector has a tag (i.e the vectors on lab screen don't have tags)
      *  - Whether the vector is active (https://github.com/phetsims/vector-addition/issues/39#issuecomment-506586411)
@@ -95,7 +95,7 @@ define( require => {
      *    prefix: {string|null} // the prefix (e.g. if the label displayed |v|=15, the prefix would be '|v|')
      *    value: {string|null} // the suffix (e.g. if the label displayed |v|=15, the value would be '=15')
      * }
-     * Since there are 2 different sections of the content (See 
+     * Since there are 2 different sections of the content (See
      * https://github.com/phetsims/vector-addition/issues/43#issuecomment-507467062), this must
      * return two separate strings.
      */
@@ -304,5 +304,6 @@ define( require => {
       this.tailPositionProperty.value = position;
     }
   }
+
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );
 } );

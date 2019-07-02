@@ -59,7 +59,6 @@ define( function( require ) {
         this ) );
 
 
-
       //----------------------------------------------------------------------------------------
       // toggle visible
       labModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
@@ -90,7 +89,6 @@ define( function( require ) {
       this.addChild( graphControlPanel );
 
       //----------------------------------------------------------------------------------------
-
 
 
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(

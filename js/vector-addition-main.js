@@ -1,10 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Main entry point for the sim.
+ * Main entry point for the 'Vector Addition' sim.
  *
  * @author Martin Veillette
  */
+
 define( require => {
   'use strict';
 
@@ -20,9 +21,8 @@ define( require => {
   // strings
   const vectorAdditionTitleString = require( 'string!VECTOR_ADDITION/vector-addition.title' );
 
-  const simOptions = {
+  const options = {
     credits: {
-      // TODO: fill in credits, all of these fields are optional, see joist.CreditsNode
       leadDesign: '',
       softwareDevelopment: '',
       team: '',
@@ -33,15 +33,14 @@ define( require => {
     }
   };
 
-  // launch the sim - beware that scenery Image nodes created outside of SimLauncher.launch() will have zero bounds
-  // until the images are fully loaded, see https://github.com/phetsims/coulombs-law/issues/70
   SimLauncher.launch( () => {
-    const sim = new Sim( vectorAdditionTitleString, [
+    const screens = [
       new Explore1DScreen( Tandem.rootTandem.createTandem( 'explore1DScreen' ) ),
       new Explore2DScreen( Tandem.rootTandem.createTandem( 'explore2DScreen' ) ),
       new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) ),
       new EquationScreen( Tandem.rootTandem.createTandem( 'equationScreen' ) )
-    ], simOptions );
+    ];
+    const sim = new Sim( vectorAdditionTitleString, screens, options );
     sim.start();
   } );
 } );

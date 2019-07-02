@@ -19,8 +19,8 @@ define( require => {
      * @constructor
      * arguments
      */
-    constructor( ) {
-      
+    constructor() {
+
     }
 
   }

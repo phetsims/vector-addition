@@ -38,10 +38,10 @@ define( require => {
      * @param {Object} [arrowOptions]
      */
     constructor( baseVectorModel,
-      modelViewTransformProperty,
-      valuesVisibleProperty,
-      activeVectorProperty,
-      arrowOptions
+                 modelViewTransformProperty,
+                 valuesVisibleProperty,
+                 activeVectorProperty,
+                 arrowOptions
     ) {
 
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
@@ -51,7 +51,7 @@ define( require => {
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( activeVectorProperty instanceof Property
-      && activeVectorProperty.value instanceof BaseVectorModel || activeVectorProperty.value === null,
+                        && activeVectorProperty.value instanceof BaseVectorModel || activeVectorProperty.value === null,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
         `Extra prototype on Options: ${arrowOptions}` );
@@ -146,7 +146,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Add extra offset to consider the size of the label. The offset is the margin between the arrow and the label
-      
+
       const labelSize = ( baseVectorModel.yComponent >= 0 ) ?
                         modelViewTransform.viewToModelDeltaX( this.labelNode.height / 2 ) :
                         -modelViewTransform.viewToModelDeltaY( this.labelNode.height / 2 );

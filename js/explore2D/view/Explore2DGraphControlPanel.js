@@ -1,8 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the Panel that appears on the upper-right corner of the 'Explore2D' screen. Since there are 2 scenes (polar
- * and cartesian), there are 2 sum visible properties for each.
+ * View for the Panel that appears on the upper-right corner of the 'Explore2D' screen.
+ *
+ * Explore 2D has 2 scenes: a polar and a cartesian scene. Each scene has a sum visible property and a sum checkbox.
+ * The graph control panel must toggle between the 2 check boxes.
  *
  * @author Brandon Li
  */
@@ -27,22 +29,22 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  // constants
-  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-
-  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-
   // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );
   const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
+  // constants
+  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
+  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
+  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+  const PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.PANEL_LAYOUT_BOX_OPTIONS;
+
   class Explore2DGraphControlPanel extends Panel {
     /**
      * @constructor
+     * @param {Explore2DModel} explore2DModel
      * @param {VectorSet} cartesianVectorSet
      * @param {VecotrSet} polarVectorSet
-     * @param {Explore2DModel} explore2DModel
      * @param {Object} [options]
      */
     constructor( explore2DModel, cartesianVectorSet, polarVectorSet, options ) {
@@ -53,58 +55,51 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      //----------------------------------------------------------------------------------------
-
       options = _.extend( {}, PANEL_OPTIONS, options );
 
-      const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianVectorSet.vectorGroup );
+      //----------------------------------------------------------------------------------------
+      // Create the sum check boxes, one for each vector set in explore2D
+
+      const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
+        cartesianVectorSet.vectorGroup );
+
       const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty, polarVectorSet.vectorGroup );
 
-      // Toggle visibility of the check boxes, never disposed as the panel exists throughout the entire sim
+      // Toggle visibility of the check boxes. This link is never disposed as the panel exists throughout the entire sim
       explore2DModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
-        if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-          polarSumCheckbox.visible = false;
-          cartesianSumCheckbox.visible = true;
-        }
 
-        if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-          polarSumCheckbox.visible = true;
-          cartesianSumCheckbox.visible = false;
-        }
-      } );
-
-      const sumCheckboxes = new Node( {
-        children: [ cartesianSumCheckbox, polarSumCheckbox ]
+        polarSumCheckbox.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
+        cartesianSumCheckbox.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
       } );
 
       //----------------------------------------------------------------------------------------
 
-
-      const content = new VBox( {
-        spacing: 10,
-        align: 'left',
+      const graphControlPanelContent = new VBox( _.extend( {}, PANEL_LAYOUT_BOX_OPTIONS, {
         children: [
-          sumCheckboxes,
+          new Node( { children: [ cartesianSumCheckbox, polarSumCheckbox ] } ),
 
           // values checkbox
           new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),
             explore2DModel.valuesVisibleProperty,
             CHECKBOX_OPTIONS ),
+
           // angles checkbox
           new Checkbox( VectorAdditionIconFactory.createAngleIcon(),
             explore2DModel.angleVisibleProperty,
             CHECKBOX_OPTIONS ),
+
           // grid checkbox
           new Checkbox( VectorAdditionIconFactory.createGridIcon(),
             explore2DModel.gridVisibleProperty,
             CHECKBOX_OPTIONS ),
+
           new Line( 0, 0, PANEL_OPTIONS.contentWidth, 0, { stroke: VectorAdditionColors.BLACK } ),
           new Text( componentsString, { font: PANEL_FONT } ),
           new ComponentStyleRadioButtonGroup( explore2DModel.componentStyleProperty )
         ]
-      } );
+      } ) );
 
-      super( content, options );
+      super( graphControlPanelContent, options );
     }
   }
 

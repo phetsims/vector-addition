@@ -115,7 +115,7 @@ define( require => {
      * Vectors can change states and go from being on the graph to off of the graph (or vise versa). However, even
      * though these vectors are in the vectors ObservableArray, they shouldn't be calculated in the sum.
      *
-     * 
+     *
      * This calculates the sum of all vectors that are on the graph in an observable array
      * @param {ObservableArray.<VectorsModel>} vectors
      * @public

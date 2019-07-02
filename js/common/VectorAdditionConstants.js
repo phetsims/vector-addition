@@ -44,7 +44,10 @@ define( function( require ) {
       contentWidth: PANEL_WIDTH - 2 * PANEL_X_MARGIN
     },
     PANEL_FONT: new PhetFont( 15 ),
-
+    PANEL_LAYOUT_BOX_OPTIONS: {
+      spacing: 10,
+      align: 'left'
+    },
     //----------------------------------------------------------------------------------------
     // Defaults for all check boxes
     CHECKBOX_OPTIONS: {

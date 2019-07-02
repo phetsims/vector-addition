@@ -20,7 +20,7 @@ define( require => {
 
   // constants
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
-  
+
   const VECTOR_CREATOR_LABELS_HORIZONTAL = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
   const VECTOR_CREATOR_LABELS_VERTICAL = VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
 
@@ -61,7 +61,7 @@ define( require => {
         verticalSceneNode.vectorContainer,
         this,
         VECTOR_CREATOR_LABELS_VERTICAL ) );
-      
+
       horizontalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DModel,
         explore1DModel.horizontalGraph,
         explore1DModel.horizontalGraph.vectorSet,
@@ -102,14 +102,14 @@ define( require => {
 
       this.addChild( explore1DGraphControlPanel );
 
-      
+
       // create content for graphOrientation radio buttons
       const graphOrientationRadioButtonContent = [ {
         value: GraphOrientations.HORIZONTAL,
-        node: VectorAdditionIconFactory.createGraphOrientationIcon(GraphOrientations.HORIZONTAL )
+        node: VectorAdditionIconFactory.createGraphOrientationIcon( GraphOrientations.HORIZONTAL )
       }, {
         value: GraphOrientations.VERTICAL,
-        node: VectorAdditionIconFactory.createGraphOrientationIcon(GraphOrientations.VERTICAL )
+        node: VectorAdditionIconFactory.createGraphOrientationIcon( GraphOrientations.VERTICAL )
       } ];
       // create the graph orientation radio buttons
       const graphOrientationRadioButtonGroup = new RadioButtonGroup( explore1DModel.graphOrientationProperty,

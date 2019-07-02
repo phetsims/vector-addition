@@ -15,6 +15,7 @@ define( require => {
 
 
   const EQUATION_GRAPH_BOUNDS = new Bounds2( -5, -5, 55, 30 );
+
   /**
    * @constructor
    */

@@ -34,6 +34,7 @@ define( require => {
   const LABEL_RESIZE_SCALE = 0.8;
   const ICON_OFFSET_MOUSE_AREA = 8;
   const ICON_SIZE = 30;
+
   class VectorCreatorPanelSlot extends HBox {
     /**
      * @constructor
