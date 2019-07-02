@@ -35,8 +35,8 @@ define( require => {
 
     // @public resets the model
     reset() {
-      super.reset();
-      this.graphOrientationProperty.reset();
+      // super.reset();
+      // this.graphOrientationProperty.reset();
     }
   }
 
