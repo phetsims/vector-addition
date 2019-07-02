@@ -3,10 +3,11 @@
 /**
  * Model for a 'normal' vector (vector that is dropped onto the graph)
  *
- * This extends BaseVector and adds dragging features as well as updating the tail
- * when the origin is moved.
- *
- * This vector also instantiates the XVectorComponent and YVectorComponent models.
+ * Extends BaseVectorModel but adds more functionality:
+ *  - update the tail when the origin moves
+ *  - methods to drop a vector or to animate a vector
+ *  - ability to drag the vector by the tail and the tip
+ *  - instantiate x and y component models
  *
  * @author Martin Veillette
  */
@@ -30,23 +31,24 @@ define( require => {
   const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
   const VectorComponentModel = require( 'VECTOR_ADDITION/common/model/VectorComponentModel' );
 
-  //----------------------------------------------------------------------------------------
   // constants
-  const AVERAGE_ANIMATION_SPEED = 1500; // view coordinates per second
+  const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
   const MIN_ANIMATION_TIME = 0.9; // in seconds
 
-  // Interval spacing of vector angle (in degrees) when vector is in polar mode
+  // interval spacing of vector angle (in degrees) when vector is in polar mode
   const ANGLE_INTERVAL = 5;
 
-  // The tag of the vector when its active if and only if the user doesn't provide the tag option.
-  // The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
-  const FALLBACK_VECTOR_TAG = 'v';
+  // Vectors may get passed a tag (i.e. 'a', 'b', 'c', ...), but also may not. However, the inspect a vector 
+  // panel (and other views) sill needs a tag to display. The fall back vector tag represents this and only is used
+  // if and only if a tag isn't passed to the sum. See https://github.com/phetsims/vector-addition/issues/39 for more
+  // context. The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
+  const VECTOR_FALL_BACK_TAG = 'v';
 
   // The maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
-  // See https://github.com/phetsims/vector-addition/issues/46
+  // See https://github.com/phetsims/vector-addition/issues/46 for more context.
   const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
   
-  // Rounding on the label
+  // Rounding on the label with values on
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
   class VectorModel extends BaseVectorModel {
@@ -57,21 +59,17 @@ define( require => {
      * @param {number} yComponent vertical component of the vector
      * @param {Graph} the graph the vector belongs to
      * @param {VectorSet} the vectorSet that the vector belongs to
+     * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
      * @param {Object} [options]
      */
     constructor( tailPosition, xComponent, yComponent, graph, vectorSet, tag, options ) {
 
       options = _.extend( {
-        // tag: null, // {string|null} - the tag of the vector (i.e. 'a', 'b', 'c', ...). If null, the vector will display
-        // // a the fall back tag when its active
-
         isTipDraggable: true, // {boolean} - false means the tip won't be draggable
 
         isRemovable: true // {boolean} - false means the user will not be able to drag a vector off the graph
       }, options );
 
-
-      // assert && assert( !options.tag || typeof options.tag === 'string', `invalid options.tag: ${options.tag}` );
       assert && assert( typeof options.isTipDraggable === 'boolean',
         `invalid options.isTipDraggable: ${options.isTipDraggable}` );
       assert && assert( typeof options.isRemovable === 'boolean',
@@ -88,13 +86,13 @@ define( require => {
       this.isRemovable = options.isRemovable;
 
       // @public (read-only)
-      this.tag = tag;
+      this.coordinateSnapMode = vectorSet.coordinateSnapMode;
 
       // @private {Graph}
       this.graph = graph;
 
-      // @public (read-only)
-      this.coordinateSnapMode = vectorSet.coordinateSnapMode;
+      // @private {string} (see declaration of VECTOR_FALL_BACK_TAG for documentation)
+      this.fallBackTag = VECTOR_FALL_BACK_TAG;
 
       //----------------------------------------------------------------------------------------
       // Properties for the 'Inspect a Vector' panel
@@ -130,19 +128,19 @@ define( require => {
       };
 
       //----------------------------------------------------------------------------------------
-      // Vector Components
+      // Vector Component Models
 
       // @public (read only) {VectorComponentModel}
       this.xVectorComponentModel = new VectorComponentModel( this,
         vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
-        VectorComponentModel.COMPONENT_TYPES.X_COMPONENT, );
+        VectorComponentModel.COMPONENT_TYPES.X_COMPONENT );
 
       // @public (read only) {VectorComponentModel}
       this.yVectorComponentModel = new VectorComponentModel( this,
         vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
-        VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT, );
+        VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
       // Vector states
@@ -186,7 +184,7 @@ define( require => {
 
     /**
      * @override
-     * See BaseVectorModel.getLabelContent for documentation and context
+     * See BaseVectorModel.getLabelContent() for documentation and context
      *
      * Gets the label content information to display the vector model. Vector's may or may not have tags.
      *
@@ -201,19 +199,30 @@ define( require => {
       // Get the rounded magnitude
       const roundedMagnitude = Util.toFixed( this.magnitude, VECTOR_VALUE_ROUNDING );
 
-      const displayLabel = this.tag ? this.tag : FALLBACK_VECTOR_TAG;
+      // indicates if the rounded magnitude is 0
+      const isRoundedMagnitudeZero = !( Math.abs( roundedMagnitude ) > 0 );
+
+      // Label to display, use fall back vector tag if tag wasn't provided.
+      const displayLabel = this.tag ? this.tag : this.fallBackTag;
 
       let prefix;
       let value;
 
-      // If the graph's active vector is this vector or it has a tag, display the tag
+      // If the graph's active vector is this vector or it has a tag, display the tag.
       if ( this.graph.activeVectorProperty.value === this || this.tag ) {
         prefix = displayLabel;
       }
       // If the values are on and its not 0 magnitude, display the magnitude
       if ( valuesVisible ) {
-        value = Math.abs( roundedMagnitude ) > 0 ? roundedMagnitude : null;
+        value = !isRoundedMagnitudeZero ? roundedMagnitude : null;
       }
+
+      // If the rounded magnitude is zero, don't display anything
+      if ( isRoundedMagnitudeZero ) {
+        prefix = null;
+        value = null;
+      }
+      
       return {
         prefix: prefix,
         value: value
@@ -311,7 +320,7 @@ define( require => {
       }
 
       // Offset of the cursor to the vector. This is users will remove vector according to displacement of the cursor.
-      // See https://github.com/phetsims/vector-addition/issues/46
+      // See https://github.com/phetsims/vector-addition/issues/46#issuecomment-506726262
       const dragOffset = constrainedBounds.closestPointTo( tailPosition ).minus( tailPosition );
 
       if ( Math.abs( dragOffset.x ) > VECTOR_DRAG_THRESHOLD || Math.abs( dragOffset.y ) > VECTOR_DRAG_THRESHOLD ) {
@@ -387,11 +396,11 @@ define( require => {
         ),
         targets: [ {
           property: this.tailPositionProperty,
-          easing: Easing.CUBIC_IN_OUT,
+          easing: Easing.QUADRATIC_IN_OUT,
           to: tailPosition
         }, {
           property: this.vectorComponentsProperty,
-          easing: Easing.CUBIC_IN_OUT,
+          easing: Easing.QUADRATIC_IN_OUT,
           to: iconVectorComponents
         } ]
       } ).start();

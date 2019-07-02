@@ -1,8 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a 'VectorSet,' which contains two things: a vector observable array, and a vectorSum of those vectors.
- * A model graph can support multiple vectorSets.
+ * Model for a 'VectorSet,' which contains two things:
+ *  - an observable array of vectors that are dragged from the vector creator panel
+ *  - a vector sum of those vectors.
+ *
+ * A model graph can support multiple vectorSets. (e.g. lab screen has 2 vector sets per scene)
  *
  * @author Brandon Li
  */
@@ -56,7 +59,7 @@ define( require => {
       this.coordinateSnapMode = coordinateSnapMode;
 
       //----------------------------------------------------------------------------------------
-      // Create references to parameters
+      // Create private references
 
       // @private {Graph}
       this.graph = graph;
@@ -69,12 +72,11 @@ define( require => {
 
       // @public (read-only) {VectorModel} the vector sum model
       this.vectorSum = new VectorSum( graph, this, 's' );
-
     }
 
     /**
      * @public
-     * Resets the vector set, by clearing the vectors array and reset the vectorSum
+     * Resets the vector set, by clearing the vectors array and reseting the vectorSum
      */
     reset() {
 
@@ -91,7 +93,8 @@ define( require => {
      * @param {Vector2} tailPosition
      * @param {number} xComponent
      * @param {number} yComponent
-     * @param {Object} [options]
+     * @param {string|null} tag
+     * @param {Object} [options] - passed to the vector model
      * @returns {VectorModel} the created vector model
      */
     createVector( tailPosition, xComponent, yComponent, tag, options ) {
