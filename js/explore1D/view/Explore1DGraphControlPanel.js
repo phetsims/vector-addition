@@ -3,30 +3,35 @@
 /**
  * View for the Panel that appears on the upper-right corner of the 'Explore1D' screen.
  *
+ * Explore 1D has 2 scenes: a horizontal and a vertical scene. Both scenes share a single sum visible property.
+ *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
   // modules
-  const Checkbox = require( 'SUN/Checkbox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Checkbox = require( 'SUN/Checkbox' );
   const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
+  const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const Text = require( 'SCENERY/nodes/Text' );
-
-  // constants
-  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // strings
   const valuesString = require( 'string!VECTOR_ADDITION/values' );
+
+  // constants
+  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
+  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
+  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+  const PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.PANEL_LAYOUT_BOX_OPTIONS;
+
 
   class Explore1DGraphControlPanel extends Panel {
     /**
@@ -52,24 +57,23 @@ define( require => {
 
       options = _.extend( {}, PANEL_OPTIONS, options );
 
-      const content = new VBox( {
-        spacing: 10,
-        align: 'left',
+      const panelContent = new VBox( _.extend( {}, PANEL_LAYOUT_BOX_OPTIONS, {
         children: [
           new SumCheckbox( sumVisibleProperty, vectorGroup ),
-          // values checkbox
+
+          // Values checkbox
           new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),
             valuesVisibleProperty,
             CHECKBOX_OPTIONS ),
 
-          // grid checkbox
+          // Grid checkbox
           new Checkbox( VectorAdditionIconFactory.createGridIcon(),
             gridVisibleProperty,
             CHECKBOX_OPTIONS )
         ]
-      } );
+      } ) );
 
-      super( content, options );
+      super( panelContent, options );
     }
   }
 

@@ -1,53 +1,60 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * Top level view for the 'Explore1D' screen.
+ *
+ * Explore1D has a horizontal and a vertical graph. Scene nodes are created to represent these graphs respectively.
+ *
  * @author Martin Veillette
  */
+
 define( require => {
   'use strict';
 
   // modules
   const Explore1DGraphControlPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DGraphControlPanel' );
+  const Explore1DModel = require( 'VECTOR_ADDITION/explore1D/model/Explore1DModel' );
   const Explore1DVectorCreatorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanel' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
-  const Explore1DModel = require( 'VECTOR_ADDITION/explore1D/model/Explore1DModel' );
 
   // constants
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
-
-  const VECTOR_CREATOR_LABELS_HORIZONTAL = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
-  const VECTOR_CREATOR_LABELS_VERTICAL = VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
+  const HORIZONTAL_VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
+  const VERTICAL_VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
+  const GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN = 10;
 
   class Explore1DScreenView extends VectorAdditionScreenView {
     /**
-     * @constructor
      * @param {Explore1DModel} explore1DModel
      * @param {Tandem} tandem
+     * @constructor
      */
     constructor( explore1DModel, tandem ) {
 
       assert && assert( explore1DModel instanceof Explore1DModel, `invalid explore1DModel: ${explore1DModel}` );
+      assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       //----------------------------------------------------------------------------------------
-      // Create the scenes
+      // Create the scenes for the horizontal and vertical scenes
 
       const verticalSceneNode = new SceneNode( explore1DModel.verticalGraph,
         explore1DModel.valuesVisibleProperty,
         explore1DModel.angleVisibleProperty,
         explore1DModel.gridVisibleProperty,
         explore1DModel.componentStyleProperty );
+
       const horizontalSceneNode = new SceneNode( explore1DModel.horizontalGraph,
         explore1DModel.valuesVisibleProperty,
         explore1DModel.angleVisibleProperty,
         explore1DModel.gridVisibleProperty,
         explore1DModel.componentStyleProperty );
-
 
       super( explore1DModel, [ verticalSceneNode, horizontalSceneNode ], tandem );
 
@@ -57,41 +64,30 @@ define( require => {
 
       verticalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DModel,
         explore1DModel.verticalGraph,
-        explore1DModel.verticalGraph.vectorSet,
+        explore1DModel.verticalVectorSet,
         verticalSceneNode.vectorContainer,
         this,
-        VECTOR_CREATOR_LABELS_VERTICAL ) );
+        VERTICAL_VECTOR_TAGS ) );
 
       horizontalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DModel,
         explore1DModel.horizontalGraph,
-        explore1DModel.horizontalGraph.vectorSet,
+        explore1DModel.horizontalVectorSet,
         horizontalSceneNode.vectorContainer,
         this,
-        VECTOR_CREATOR_LABELS_HORIZONTAL ) );
-
+        HORIZONTAL_VECTOR_TAGS ) );
 
       //----------------------------------------------------------------------------------------
+      // Observe when the graph orientation changes and update the visibility of the scenes.
       explore1DModel.graphOrientationProperty.link( ( graphOrientation ) => {
-        switch( graphOrientation ) {
-          case GraphOrientations.HORIZONTAL:
-            verticalSceneNode.visible = false;
-            horizontalSceneNode.visible = true;
-            break;
-          case GraphOrientations.VERTICAL:
-            verticalSceneNode.visible = true;
-            horizontalSceneNode.visible = false;
-            break;
-          case GraphOrientations.TWO_DIMENSIONAL:
-            throw new Error( `Explore1D does not support vector orientation: ${graphOrientation}` );
-          default:
-            throw new Error( `Vector orientation not handled: ${graphOrientation}` );
-        }
+
+        verticalSceneNode.visible = graphOrientation === GraphOrientations.VERTICAL;
+        horizontalSceneNode.visible = graphOrientation === GraphOrientations.HORIZONTAL;
       } );
 
       //----------------------------------------------------------------------------------------
+      // Create the Graph Control panel
 
-      const explore1DGraphControlPanel = new Explore1DGraphControlPanel(
-        explore1DModel.sumVisibleProperty,
+      const explore1DGraphControlPanel = new Explore1DGraphControlPanel( explore1DModel.sumVisibleProperty,
         explore1DModel.valuesVisibleProperty,
         explore1DModel.gridVisibleProperty,
         explore1DModel.vectorGroup, {
@@ -99,11 +95,11 @@ define( require => {
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
 
-
       this.addChild( explore1DGraphControlPanel );
 
+      //----------------------------------------------------------------------------------------
 
-      // create content for graphOrientation radio buttons
+      // Create content for the radio buttons to switch between graphs
       const graphOrientationRadioButtonContent = [ {
         value: GraphOrientations.HORIZONTAL,
         node: VectorAdditionIconFactory.createGraphOrientationIcon( GraphOrientations.HORIZONTAL )
@@ -111,14 +107,14 @@ define( require => {
         value: GraphOrientations.VERTICAL,
         node: VectorAdditionIconFactory.createGraphOrientationIcon( GraphOrientations.VERTICAL )
       } ];
-      // create the graph orientation radio buttons
+
+      // Create the radio buttons to switch between graphs
       const graphOrientationRadioButtonGroup = new RadioButtonGroup( explore1DModel.graphOrientationProperty,
         graphOrientationRadioButtonContent, _.extend( RADIO_BUTTON_OPTIONS, {
           centerX: explore1DGraphControlPanel.centerX,
-          top: explore1DGraphControlPanel.bottom + 10,
+          top: explore1DGraphControlPanel.bottom + GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN,
           orientation: 'horizontal'
         } ) );
-
 
       this.addChild( graphOrientationRadioButtonGroup );
     }
