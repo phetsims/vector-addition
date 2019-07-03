@@ -34,7 +34,7 @@ define( require => {
     /**
      * @param {Explore2DModel} explore2DModel
      * @param {Graph} graph
-     * @param {VectorSet} the vector set that the explore 2d vector creator panel
+     * @param {VectorSet} the vector set that the explore 2d vector creator panel represents
      * @param {Node} vectorContainer - container for the vector nodes to go into
      * @param {VectorAdditionScreenView} explore2DScreenView
      * @param {array.<string>} tags - the tags corresponding to each slot
