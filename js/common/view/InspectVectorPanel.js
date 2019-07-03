@@ -207,33 +207,45 @@ define( require => {
         //----------------------------------------------------------------------------------------
         magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${vectorTag}\}\}|` );
 
-        magnitudeNumberDisplayContainer.setChildren( [
-          new NumberDisplay( activeVector.magnitudeProperty, new Range( 0, maxMagnitude ), {
-            decimalPlaces: 1
-          } ) ] );
+        if ( this.magnitudeNumberDisplay ) {
+          this.magnitudeNumberDisplay.dispose();
+        }
+        this.magnitudeNumberDisplay = new NumberDisplay( activeVector.magnitudeProperty, new Range( 0, maxMagnitude ), {
+          decimalPlaces: 1
+        } );
+        magnitudeNumberDisplayContainer.setChildren( [ this.magnitudeNumberDisplay ] );
 
         //----------------------------------------------------------------------------------------
         // Angle text stays the same
-        angleNumberDisplayContainer.setChildren( [
-          new NumberDisplay( activeVector.angleDegreesProperty, new Range( -180, 180 ), {
-            decimalPlaces: ANGLE_ROUNDING
-          } ) ] );
+        if ( this.angleNumberDisplay ) {
+          this.angleNumberDisplay.dispose();
+        }
+        this.angleNumberDisplay = new NumberDisplay( activeVector.angleDegreesProperty, new Range( -180, 180 ), {
+          decimalPlaces: ANGLE_ROUNDING
+        } );
+        angleNumberDisplayContainer.setChildren( [ this.angleNumberDisplay ] );
 
         //----------------------------------------------------------------------------------------
         xComponentText.setText( `${vectorTag}<sub>${symbolXString}</sub>` );
 
-        xComponentNumberDisplayContainer.setChildren( [
-          new NumberDisplay( activeVector.xComponentProperty, new Range( -graphWidth, graphWidth ), {
-            decimalPlaces: 1
-          } ) ] );
+        if ( this.xNumberDisplay ) {
+          this.xNumberDisplay.dispose();
+        }
+        this.xNumberDisplay = new NumberDisplay( activeVector.xComponentProperty, new Range( -graphWidth, graphWidth ), {
+          decimalPlaces: 1
+        } ); 
+        xComponentNumberDisplayContainer.setChildren( [ this.xNumberDisplay ] );
 
         //----------------------------------------------------------------------------------------
         yComponentText.setText( `${vectorTag}<sub>${symbolYString}</sub>` );
 
-        yComponentNumberDisplayContainer.setChildren( [
-          new NumberDisplay( activeVector.yComponentProperty, new Range( -graphHeight, graphHeight ), {
-            decimalPlaces: 1
-          } ) ] );
+        if ( this.yNumberDisplay ) {
+          this.yNumberDisplay.dispose();
+        }
+        this.yNumberDisplay = new NumberDisplay( activeVector.yComponentProperty, new Range( -graphHeight, graphHeight ), {
+          decimalPlaces: 1
+        } ); 
+        yComponentNumberDisplayContainer.setChildren( [ this.yNumberDisplay ] );
       };
 
       //----------------------------------------------------------------------------------------
