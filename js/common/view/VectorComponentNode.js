@@ -3,8 +3,10 @@
 /**
  * View for a vector component.
  *
- * Listens to the a vectorComponentModel's tail/attributes properties to update the component location/size.
- * Determines visibility component style property and the isOnGraphProperty of the models parent vector.
+ * Extends BaseVectorNode but add the following functionality:
+ *  - determines visibility by the component style
+ *  - draws lines for the on axis component style
+ *  - distinct label positioning
  *
  * @author Brandon Li
  */
@@ -34,17 +36,17 @@ define( require => {
 
   class VectorComponentNode extends BaseVectorNode {
     /**
-     * @constructor
      * @param {VectorComponentModel} VectorComponentModel - the vector model for the component
      * @param {Graph} graph - the graph the vector belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Object} [options]
+     * @constructor
      */
     constructor( vectorComponentModel, graph, componentStyleProperty, valuesVisibleProperty, options ) {
 
-      // Type check unique arguments
-      assert && assert( vectorComponentModel instanceof VectorComponentModel, `invalid vectorComponentModel: ${vectorComponentModel}` );
+      assert && assert( vectorComponentModel instanceof VectorComponentModel,
+        `invalid vectorComponentModel: ${vectorComponentModel}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
