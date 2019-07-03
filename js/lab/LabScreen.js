@@ -1,8 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * The 'Lab' screen. Conforms to the contract specified in joist/Screen.
+ *
  * @author Martin Veillette
  */
+
 define( require => {
   'use strict';
 
@@ -18,9 +21,9 @@ define( require => {
   const screenLabString = require( 'string!VECTOR_ADDITION/screen.lab' );
 
   class LabScreen extends Screen {
-
     /**
      * @param {Tandem} tandem
+     * @constructor
      */
     constructor( tandem ) {
 
@@ -30,11 +33,9 @@ define( require => {
         tandem: tandem
       };
 
-      super(
-        () => new LabModel( tandem.createTandem( 'labModel' ) ),
+      super( () => new LabModel( tandem.createTandem( 'labModel' ) ),
         ( labModel ) => new LabScreenView( labModel, tandem.createTandem( 'labView' ) ),
-        options
-      );
+        options );
     }
   }
 
