@@ -78,18 +78,20 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the vector sets. Each graph has one vector set
 
-      this.polarGraph.vectorSet = this.polarGraph.createVectorSet( this.componentStyleProperty,
+      // @public (read-only) {VectorSet}
+      this.polarVectorSet = this.polarGraph.createVectorSet( this.componentStyleProperty,
         this.polarSumVisibileProperty,
         this.polarVectorGroup,
         CoordinateSnapModes.POLAR );
 
-      this.cartesianGraph.vectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
+      // @public (read-only) {VectorSet}
+      this.cartesianVectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
         this.cartesianSumVisibileProperty,
         this.cartesianVectorGroup,
         CoordinateSnapModes.CARTESIAN );
 
-      this.polarGraph.vectorSets.push( this.polarGraph.vectorSet );
-      this.cartesianGraph.vectorSets.push( this.cartesianGraph.vectorSet );
+      this.polarGraph.vectorSets.push( this.polarVectorSet );
+      this.cartesianGraph.vectorSets.push( this.cartesianVectorSet );
     }
   }
 
