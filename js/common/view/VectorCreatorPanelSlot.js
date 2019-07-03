@@ -71,7 +71,7 @@ define( require => {
 
       options.iconOptions = _.extend( {
         arrowSize: ICON_SIZE
-      } );
+      }, options.iconOptions );
       //----------------------------------------------------------------------------------------
 
       super( {
@@ -90,7 +90,7 @@ define( require => {
         vectorSet.vectorGroup,
         options.iconOptions );
 
-      const iconComponents = modelViewTransformProperty.value.viewToModelDelta( initialViewVector.normalized().timesScalar( ICON_SIZE ) );
+      const iconComponents = modelViewTransformProperty.value.viewToModelDelta( initialViewVector.normalized().timesScalar( options.iconOptions.arrowSize ) );
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( ICON_OFFSET_MOUSE_AREA );
