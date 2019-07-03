@@ -1,11 +1,20 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a single slot that is on a vectorCreatorPanel. A slot creates a vector when the icon is clicked and allows
- * the user to drag the screen onto graph. If the user doesn't drag the vector onto the graph, animate the vector
+ * View for a single slot that is on a vectorCreatorPanel.
+ *
+ * A slot creates a vector when the icon is clicked and allows the user to drag the screen onto graph.
+ *
+ * If the user doesn't drag the vector onto the graph, animate the vector
  * back to the panel slot: https://github.com/phetsims/vector-addition/issues/50.
  *
- * Slots vary from screen to screen, slot to slot.
+ * The vector creator panel differs from screen to screen in the following ways.
+ *  - Different icon colors and sizes
+ *  - Infinite slots versus only one vector per slot
+ *  - Number of slots per panel
+ *  - Having labels vs not having labels (called tags)
+ *  - Icon and initial vector components (i.e. on explore 1D the initial vector are horizontal/vertical) while
+ *    on explore 2d the vectors are 45 degrees)
  *
  * @author Brandon Li
  */
@@ -30,14 +39,12 @@ define( require => {
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
-  const LABEL_AND_ICON_SPACING = 6;
-  const LABEL_RESIZE_SCALE = 0.8;
-  const ICON_OFFSET_MOUSE_AREA = 8;
-  const ICON_SIZE = 30;
+  const LABEL_AND_ICON_SPACING = 6; // spacing between the label and the icon
+  const LABEL_RESIZE_SCALE = 0.8; // the label is resized to 0.8
+  const ICON_OFFSET_MOUSE_AREA = 8; // icon offset to make it easier to grab
 
   class VectorCreatorPanelSlot extends HBox {
     /**
-     * @constructor
      * @param {VectorAdditionModel} vectorAdditionModel
      * @param {Vector2} initialVector - the initial vector's components, in model coordinates.
      * @param {Graph} graph - the graph to drop the vector onto
@@ -45,6 +52,7 @@ define( require => {
      * @param {Node} vectorContainer - the container to add new vector nodes to (to keep vectors in a separate z-layer)
      * @param {ScreenView} parentScreenView - the screen view up the scene graph for the creator panel slot
      * @param {Object} [options]
+     * @constructor
      */
     constructor( vectorAdditionModel, initialVector, graph, vectorSet, vectorContainer, parentScreenView, options ) {
 
@@ -63,25 +71,22 @@ define( require => {
       options = _.extend( {
         tag: null, // {string|null} the tag for the vector at the slot
         isInfinite: false, // {boolean} true means the slot will regenerate vectors to be dragged
-        labelIconSpacing: LABEL_AND_ICON_SPACING,
-        iconOptions: null,
-        arrowIconContainerWidth: 35, // {number} the fixed size of the container containing the icon
-        xMargin: 0
+        labelIconSpacing: LABEL_AND_ICON_SPACING, // {number} spacing between the label and the icon
+        iconOptions: null, // {object} options passed to the icon. Defaults bellow.
+        arrowIconContainerWidth: 35 // {number} the fixed size of the container containing the icon
       }, options );
 
       options.iconOptions = _.extend( {
-        arrowSize: ICON_SIZE
+        arrowSize: 30
       }, options.iconOptions );
-      //----------------------------------------------------------------------------------------
 
       super( {
-        spacing: options.labelIconSpacing,
-        xMargin: options.xMargin
+        spacing: options.labelIconSpacing
       } );
 
       //----------------------------------------------------------------------------------------
 
-      // convenience variables
+      // Convenience variables
       const modelViewTransformProperty = graph.modelViewTransformProperty;
       const initialViewVector = modelViewTransformProperty.value.modelToViewDelta( initialVector );
 
@@ -90,7 +95,9 @@ define( require => {
         vectorSet.vectorGroup,
         options.iconOptions );
 
-      const iconComponents = modelViewTransformProperty.value.viewToModelDelta( initialViewVector.normalized().timesScalar( options.iconOptions.arrowSize ) );
+      // Get the components in model coordinates of the icon
+      const iconComponents = modelViewTransformProperty.value.viewToModelDelta(
+        initialViewVector.normalized().timesScalar( options.iconOptions.arrowSize ) );
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( ICON_OFFSET_MOUSE_AREA );
@@ -115,13 +122,12 @@ define( require => {
       //----------------------------------------------------------------------------------------
       iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
 
+        // Get the model coordinates of where the icon was clicked
         const globalPoint = parentScreenView.globalToLocalPoint( event.pointer.point );
-
         const vectorCenterPosition = modelViewTransformProperty.value.viewToModelPosition( globalPoint );
 
         // From the center, we can calculate where the tail would be based on the initialVector
         const vectorTailPosition = vectorCenterPosition.minus( initialVector.timesScalar( 0.5 ) );
-
 
         // Create the new Vector Model
         const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, options.tag );
@@ -135,7 +141,7 @@ define( require => {
           vectorAdditionModel.angleVisibleProperty );
         vectorContainer.addChild( vectorNode );
 
-        // Activate the body drag the body drag
+        // Activate the body drag
         vectorNode.bodyDragListener.press( event, vectorNode );
 
         // Change the visibility to allow or not allow infinite slots
@@ -143,27 +149,28 @@ define( require => {
 
         //----------------------------------------------------------------------------------------
         // Add the removal listener for when the vector is removed to remove the node.
-        const removalListener = removedVector => {
+        const removeVectorNodeListener = removedVector => {
           if ( removedVector === vectorModel ) {
             removedVector.isOnGraphProperty.value = false;
             vectorNode.dispose();
             iconNode.visible = true;
-            vectorSet.vectors.removeItemRemovedListener( removalListener );
+            vectorSet.vectors.removeItemRemovedListener( removeVectorNodeListener );
           }
         };
-        vectorSet.vectors.addItemRemovedListener( removalListener );
+        vectorSet.vectors.addItemRemovedListener( removeVectorNodeListener );
 
         //----------------------------------------------------------------------------------------
         // Observe when the vector node says its time to animate back.
         vectorNode.animateBackProperty.link( ( animateBack ) => {
 
           if ( animateBack ) {
+
             // Get the location of the icon node relative to the screen view
             const iconPosition = modelViewTransformProperty.value.viewToModelBounds(
               parentScreenView.boundsOf( iconNode ) ).center;
 
+            // Create the listener to reset the slot when animation finished
             const animationFinishedListener = () => {
-
               iconNode.visible = true;
 
               // Remove the vector model

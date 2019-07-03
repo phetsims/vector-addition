@@ -29,6 +29,9 @@ define( require => {
   const HORIZONTAL_VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
   const VERTICAL_VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
   const GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN = 10;
+  const EXPLORE_1D_SCENE_OPTIONS = {
+    isExpandedInitially: false
+  };
 
   class Explore1DScreenView extends VectorAdditionScreenView {
     /**
@@ -48,13 +51,15 @@ define( require => {
         explore1DModel.valuesVisibleProperty,
         explore1DModel.angleVisibleProperty,
         explore1DModel.gridVisibleProperty,
-        explore1DModel.componentStyleProperty );
+        explore1DModel.componentStyleProperty,
+        EXPLORE_1D_SCENE_OPTIONS );
 
       const horizontalSceneNode = new SceneNode( explore1DModel.horizontalGraph,
         explore1DModel.valuesVisibleProperty,
         explore1DModel.angleVisibleProperty,
         explore1DModel.gridVisibleProperty,
-        explore1DModel.componentStyleProperty );
+        explore1DModel.componentStyleProperty,
+        EXPLORE_1D_SCENE_OPTIONS );
 
       super( explore1DModel, [ verticalSceneNode, horizontalSceneNode ], tandem );
 
