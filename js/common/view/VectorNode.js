@@ -250,7 +250,7 @@ define( require => {
         vectorShadowNode.visible = !animateBack && !isOnGraph;
 
         vectorShadowNode.resetTransform();
-        if ( !isOnGraph ) {
+        if ( !isOnGraph && vectorShadowNode.getBounds().isValid() ) {
           vectorShadowNode.left = this.arrowNode.left + VECTOR_SHADOW_OFFSET_X;
           vectorShadowNode.top = this.arrowNode.top + VECTOR_SHADOW_OFFSET_Y;
         }
