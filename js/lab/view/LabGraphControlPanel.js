@@ -1,8 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the Panel that appears on the upper-right corner of the 'Explore2D' screen. Since there are 2 scenes (polar
- * and cartesian), there are 2 sum visible properties for each.
+ * View for the Panel that appears on the upper-right corner of the 'Lab' screen.
+ *
+ * Lab has 2 scenes: a polar and a cartesian scene. Each scene has two sum visible properties and two sum check boxes.
+ * The graph control panel must toggle between the 2 scenes' check boxes.
  *
  * @author Brandon Li
  */
@@ -25,95 +27,102 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  // const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-
-  // constants
-  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-
-  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );
   const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
+  // constants
+  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
+  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
+  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+  const PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.PANEL_LAYOUT_BOX_OPTIONS;
+
   class LabGraphControlPanel extends Panel {
     /**
-     * @constructor
-     * @param {VectorSet} cartesianVectorSet1
-     * @param {VecotrSet} polarVectorSet
-     * @param {Explore2DModel} explore2DModel
+     * @param {LabModel} labModel
+     * @param {VectorSet} cartesianVectorSet1 - the first cartesian vector set. Each scene in 'lab' has 2 vector sets
+     * @param {VectorSet} cartesianVectorSet2
+     * @param {VectorSet} polarVectorSet1
+     * @param {VectorSet} polarVectorSet2
      * @param {Object} [options]
+     * @constructor
      */
-    constructor( labModel, cartesianVectorSet1, cartesianVectorSet2, polarVectorSet3, polarVectorSet4, options ) {
+    constructor( labModel, cartesianVectorSet1, cartesianVectorSet2, polarVectorSet1, polarVectorSet2, options ) {
+
 
       assert && assert( labModel instanceof LabModel, `invalid explore2DModel: ${labModel}` );
-      // assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
-      // assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
-      // assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-      //   `Extra prototype on Options: ${options}` );
-
-      //----------------------------------------------------------------------------------------
+      assert && assert( cartesianVectorSet1 instanceof VectorSet,
+        `invalid cartesianVectorSet1: ${cartesianVectorSet1}` );
+      assert && assert( cartesianVectorSet2 instanceof VectorSet,
+        `invalid cartesianVectorSet2: ${cartesianVectorSet2}` );
+      assert && assert( polarVectorSet1 instanceof VectorSet, `invalid polarVectorSet1: ${polarVectorSet1}` );
+      assert && assert( polarVectorSet2 instanceof VectorSet, `invalid polarVectorSet2: ${polarVectorSet2}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       options = _.extend( {}, PANEL_OPTIONS, options );
 
-      const cartesianGroup1SumCheckbox = new SumCheckbox( cartesianVectorSet1.sumVisibleProperty, cartesianVectorSet1.vectorGroup );
-      const cartesianGroup2SumCheckbox = new SumCheckbox( cartesianVectorSet2.sumVisibleProperty, cartesianVectorSet2.vectorGroup );
+      //----------------------------------------------------------------------------------------
+      // Create the sum check boxes, one for each vector set
 
-      const polarGroup3SumCheckbox = new SumCheckbox( polarVectorSet3.sumVisibleProperty, polarVectorSet3.vectorGroup );
-      const polarGroup4SumCheckbox = new SumCheckbox( polarVectorSet4.sumVisibleProperty, polarVectorSet4.vectorGroup );
+      const cartesianSet1SumCheckbox = new SumCheckbox( cartesianVectorSet1.sumVisibleProperty,
+        cartesianVectorSet1.vectorGroup );
+      
+      const cartesianSet2SumCheckbox = new SumCheckbox( cartesianVectorSet2.sumVisibleProperty,
+        cartesianVectorSet2.vectorGroup );
 
-      const polarCheckboxes = new VBox( {
-        spacing: 10,
-        align: 'left',
+      const polarSet1SumCheckbox = new SumCheckbox( polarVectorSet1.sumVisibleProperty, polarVectorSet1.vectorGroup );
+      
+      const polarSet2SumCheckbox = new SumCheckbox( polarVectorSet2.sumVisibleProperty, polarVectorSet2.vectorGroup );
+
+      //----------------------------------------------------------------------------------------
+      // Create V Boxes for the 2 check boxes
+      const polarCheckboxes = new VBox( _.extend( {}, PANEL_LAYOUT_BOX_OPTIONS, {
         children: [
-          polarGroup3SumCheckbox,
-          polarGroup4SumCheckbox
+          polarSet1SumCheckbox,
+          polarSet2SumCheckbox
         ]
-      } );
-      const cartesianCheckboxes = new VBox( {
-        spacing: 10,
-        align: 'left',
+      } ) );
+      const cartesianCheckboxes = new VBox( _.extend( {}, PANEL_LAYOUT_BOX_OPTIONS, {
         children: [
-          cartesianGroup1SumCheckbox,
-          cartesianGroup2SumCheckbox
+          cartesianSet1SumCheckbox,
+          cartesianSet2SumCheckbox
         ]
-      } );
+      } ) );
+
+      //----------------------------------------------------------------------------------------
       // Toggle visibility of the check boxes, never disposed as the panel exists throughout the entire sim
       labModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
-        if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-          polarCheckboxes.visible = false;
-          cartesianCheckboxes.visible = true;
-        }
 
-        if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-          polarCheckboxes.visible = true;
-          cartesianCheckboxes.visible = false;
-        }
-      } );
-
-      const sumCheckboxes = new Node( {
-        children: [ cartesianCheckboxes, polarCheckboxes ]
+        polarCheckboxes.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
+        cartesianCheckboxes.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
       } );
 
       //----------------------------------------------------------------------------------------
 
-
-      const content = new VBox( {
+      const panelContent = new VBox( {
         spacing: 10,
         align: 'left',
         children: [
-          sumCheckboxes,
 
-          // values checkbox
+          // Sum check boxes
+          new Node( {
+            children: [ cartesianCheckboxes, polarCheckboxes ]
+          } ),
+
+          // Values checkbox
           new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),
             labModel.valuesVisibleProperty,
             CHECKBOX_OPTIONS ),
-          // angles checkbox
+
+          // Angles checkbox
           new Checkbox( VectorAdditionIconFactory.createAngleIcon(),
             labModel.angleVisibleProperty,
             CHECKBOX_OPTIONS ),
-          // grid checkbox
+
+          // Grid checkbox
           new Checkbox( VectorAdditionIconFactory.createGridIcon(),
             labModel.gridVisibleProperty,
             CHECKBOX_OPTIONS ),
@@ -123,7 +132,7 @@ define( require => {
         ]
       } );
 
-      super( content, options );
+      super( panelContent, options );
     }
   }
 
