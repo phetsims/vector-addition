@@ -1,10 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the panel with vectors to drag into the screen. This class takes in a array of
- * VectorCreatorPanelSlots.
- *
- * The screens in the simulation respectively must extend this class and provide the abstract methods.
+ * View for the panel with vectors to drag into the screen.
  *
  * @author Martin Veillette
  */
@@ -24,9 +21,9 @@ define( require => {
 
   class VectorCreatorPanel extends Node {
     /**
-     * @constructor
      * @param {array.<VectorCreatorPanelSlot>} panelSlots
      * @param {Object} [options] - options for the panel
+     * @constructor
      */
     constructor( panelSlots, options ) {
 
@@ -44,28 +41,20 @@ define( require => {
         contentHeight: 118 // {number} fixed height of the panel
       }, VectorAdditionColors.VECTOR_CREATOR_COLORS, options );
 
-      // Type check
       assert && assert( panelSlots.filter(
         slot => !( slot instanceof VectorCreatorPanelSlot ) ).length === 0,
         `panels slots where not created correctly: ${panelSlots}` );
 
       //----------------------------------------------------------------------------------------
 
-      // // Create a container for the vectorRepresentation nodes, which are in a zLayer above the slots
-      // const vectorRepresentationContainer = new Node();
-
-      // panelSlots.forEach( ( slot ) => {
-      //   vectorRepresentationContainer.addChild( slot.vectorRepresentationNode );
-      // } );
-
-      //----------------------------------------------------------------------------------------
-
+      // Create the container for the slots in a vertical alignment
       const slotsContainer = new VBox( {
         align: 'center',
         spacing: options.slotSpacing,
         children: panelSlots
       } );
 
+      // The panel is a fixed size
       const fixedSizeSlotsContainer = new AlignBox( slotsContainer, {
         alignBounds: new Bounds2( 0, 0, options.contentWidth, options.contentHeight ),
         xAlign: 'center',
@@ -79,7 +68,6 @@ define( require => {
       super( {
         children: [
           new Panel( fixedSizeSlotsContainer, options )
-          // vectorRepresentationContainer
         ]
       } );
     }
@@ -87,4 +75,3 @@ define( require => {
 
   return vectorAddition.register( 'VectorCreatorPanel', VectorCreatorPanel );
 } );
-
