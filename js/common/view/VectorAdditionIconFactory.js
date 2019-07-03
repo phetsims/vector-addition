@@ -127,7 +127,7 @@ define( function( require ) {
         angle: 50, // {number} in degrees
         iconSize: 20, // {number}
         arcRadius: 14, // {number}
-        color: VectorAdditionColors.ANGLE_ICON_COLOR, // {string}
+        color: VectorAdditionColors.BLACK, // {string}
         arcArrowOptions: null // {object} see defaults bellow
       }, options );
 

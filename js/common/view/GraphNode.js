@@ -88,7 +88,7 @@ define( require => {
   const TICK_LENGTH = 1; // model coordinate
   const TICKS_OPTIONS = {
     lineWidth: 1,
-    stroke: VectorAdditionColors.TICKS_COLOR
+    stroke: VectorAdditionColors.BLACK
   };
 
   //----------------------------------------------------------------------------------------

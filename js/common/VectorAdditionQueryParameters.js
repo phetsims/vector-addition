@@ -18,7 +18,7 @@ define( function( require ) {
 
     /**
      * The maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector
-     * outside the graph. See https://github.com/phetsims/vector-addition/issues/46.
+     * outside the graph. See https://github.com/phetsims/vector-addition/issues/46
      *
      * For internal testing only.
      */

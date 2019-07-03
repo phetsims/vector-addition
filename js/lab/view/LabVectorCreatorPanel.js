@@ -2,7 +2,7 @@
 
 /**
  * View for the panel with vectors to drag into the screen for Lab.
- * 
+ *
  * Characteristics of the vector creator panel on the lab screen are;
  *  - 2 slots per panel
  *  - Slots are infinite
@@ -59,7 +59,7 @@ define( require => {
       assert && assert( firstSlotVectorSet instanceof VectorSet, `invalid firstSlotVectorSet: ${firstSlotVectorSet}` );
       assert && assert( vectorContainer instanceof Node, `invalid vectorContainer: ${vectorContainer}` );
       assert && assert( labScreenView instanceof VectorAdditionScreenView, `invalid labScreenView: ${labScreenView}` );
-      
+
       //----------------------------------------------------------------------------------------
       // Create the two vector slots.
 

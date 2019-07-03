@@ -2,7 +2,7 @@
 
 /**
  * View for the panel with vectors to drag into the screen for Explore2D.
- * 
+ *
  * Characteristics of the vector creator panel on Explore2D:
  *  - 3 slots per panel
  *  - Each slot goes to the same vector set. Or in other words, each creator panel represents one vector set.

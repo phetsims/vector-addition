@@ -72,7 +72,7 @@ define( require => {
 
       // @public (read-only) {Graph}
       this.horizontalGraph = new Graph( EXPLORE_1D_GRAPH_BOUNDS, GraphOrientations.HORIZONTAL );
-      
+
       this.graphs.push( this.horizontalGraph, this.verticalGraph );
 
       //----------------------------------------------------------------------------------------

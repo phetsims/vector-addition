@@ -69,12 +69,12 @@ define( require => {
 
       const cartesianSet1SumCheckbox = new SumCheckbox( cartesianVectorSet1.sumVisibleProperty,
         cartesianVectorSet1.vectorGroup );
-      
+
       const cartesianSet2SumCheckbox = new SumCheckbox( cartesianVectorSet2.sumVisibleProperty,
         cartesianVectorSet2.vectorGroup );
 
       const polarSet1SumCheckbox = new SumCheckbox( polarVectorSet1.sumVisibleProperty, polarVectorSet1.vectorGroup );
-      
+
       const polarSet2SumCheckbox = new SumCheckbox( polarVectorSet2.sumVisibleProperty, polarVectorSet2.vectorGroup );
 
       //----------------------------------------------------------------------------------------

@@ -44,10 +44,13 @@ define( function( require ) {
       contentWidth: PANEL_WIDTH - 2 * PANEL_X_MARGIN
     },
     PANEL_FONT: new PhetFont( 15 ),
+
+    // Defaults for layout boxes, used in control panels
     PANEL_LAYOUT_BOX_OPTIONS: {
       spacing: 10,
       align: 'left'
     },
+
     //----------------------------------------------------------------------------------------
     // Defaults for all check boxes
     CHECKBOX_OPTIONS: {
@@ -92,8 +95,7 @@ define( function( require ) {
     //----------------------------------------------------------------------------------------
     // Rounding
     ANGLE_ROUNDING: 1, // in decimal points
-    VECTOR_VALUE_ROUNDING: 1,
-
+    VECTOR_VALUE_ROUNDING: 1, // rounding for the value next to vectors in decimal points
 
     //----------------------------------------------------------------------------------------
     // Vector tags, not translatable. See https://github.com/phetsims/vector-addition/issues/10.

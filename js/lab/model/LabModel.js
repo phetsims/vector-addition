@@ -77,7 +77,7 @@ define( require => {
 
       // @public (read-only) {Graph}
       this.cartesianGraph = new Graph( LAB_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
-      
+
       this.graphs.push( this.cartesianGraph, this.polarGraph );
 
       //----------------------------------------------------------------------------------------

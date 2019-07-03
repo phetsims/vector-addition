@@ -2,7 +2,7 @@
 
 /**
  * View for the panel with vectors to drag into the screen for Explore1D.
- * 
+ *
  * Characteristics of the vector creator panel on Explore1D:
  *  - 3 slots per panel
  *  - Each slot goes to the same vector set. Or in other words, each creator panel represents one vector set.
@@ -45,8 +45,8 @@ define( require => {
      * @param {array.<string>} tags - the tags corresponding to each slot
      * @constructor
      */
-    constructor( explore1DModel, graph, vectorSet, vectorContainer, explore1DScreenView, tags) {
-      
+    constructor( explore1DModel, graph, vectorSet, vectorContainer, explore1DScreenView, tags ) {
+
       assert && assert( explore1DModel instanceof Explore1DModel, `invalid explore1DModel: ${explore1DModel}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
