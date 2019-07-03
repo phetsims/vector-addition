@@ -3,7 +3,10 @@
 /**
  * View for a the component of the sum vector.
  *
- * Listens to a SumVisibleProperty to determine visibility.
+ * Extends VectorComponentNode but adds the following functionality:
+ *  - a distinct appearance
+ *  - toggle visibility based on the sumVisibleProperty
+ *  - disables ability to take the sum vector node off of the graph
  *
  * @author Brandon Li
  */
@@ -20,14 +23,20 @@ define( require => {
 
   class VectorSumComponentNode extends VectorComponentNode {
     /**
-     * @constructor
      * @param {VectorComponent} vectorComponentModel - the vector model for the component
      * @param {Graph} graph - the graph the component belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
+     * @param {Object} [options]
+     * @constructor
      */
-    constructor( vectorComponentModel, graph, componentStyleProperty, valuesVisibleProperty, sumVisibleProperty, options ) {
+    constructor( vectorComponentModel,
+      graph,
+      componentStyleProperty,
+      valuesVisibleProperty,
+      sumVisibleProperty,
+      options ) {
 
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );

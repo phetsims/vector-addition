@@ -52,7 +52,7 @@ define( function( require ) {
 
     //----------------------------------------------------------------------------------------
     // Label background on active vectors
-    ACTIVE_VECTOR_LABEL_BACKGROUND: 'rgb( 255, 255, 51 )',
+    ACTIVE_VECTOR_LABEL_BACKGROUND: 'rgb( 255, 255, 100 )',
 
     //----------------------------------------------------------------------------------------
     // References, see https://github.com/phetsims/sun/issues/312

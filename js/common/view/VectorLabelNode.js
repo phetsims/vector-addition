@@ -1,7 +1,22 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the label of a vector. Vector labels depend on the type of vector.
+ * View for the label 'next' to a vector. Vector labels depend on the type of vectors and differ in different situations
+ *
+ * For instance, vectors that don't have a tag (in lab) display a fall back tag only when they are active,
+ * but vectors on explore1D always display a label.
+ * (See https://github.com/phetsims/vector-addition/issues/39.)
+ *
+ * There are 4 different factors for determining what the label displays:
+ *  - Whether the values are visible (determined by the values checkbox)
+ *  - Whether the magnitude/component is of length 0. See
+ *     https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
+ *  - Whether the vector has a tag (i.e the vectors on lab screen don't have tags)
+ *  - Whether the vector is active (https://github.com/phetsims/vector-addition/issues/39#issuecomment-506586411)
+ *
+ * These factors play different roles for different vector types, making it difficult to generalize.
+ *
+ * Thus, a call to the models getLabelContent is needed to determine what is displayed.
  *
  * @author Brandon Li
  */
@@ -16,35 +31,31 @@ define( require => {
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
-  const ANGLE_LABEL_FONT = new PhetFont( { size: 12.5, fontWeight: 800 } );
+  const VALUE_LABEL_OPTIONS = {
+    font: new PhetFont( { size: 12.5, fontWeight: 800 } ),
+    boundsMethod: 'accurate'
+  };
+  const ACTIVE_VECTOR_LABEL_BACKGROUND = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND;
+
 
   class VectorLabelNode extends Node {
     /**
-     * @constructor
      * @param {BaseVectorModel} baseVectorModel
-     * @param {BooleanProperty} valuesVisibleProperty
      * @param {ModelViewTransform2} modelViewTransformProperty
+     * @param {BooleanProperty} valuesVisibleProperty
+     * @param {Property.<BaseVectorModel|null>} activeVectorProperty
      * @param {Object} [options]
+     * @constructor
      */
     constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
-
-      options = _.extend( {
-        fill: VectorAdditionColors[ baseVectorModel.vectorGroup ].labelBackground,
-        scale: 0.67, // {number} - scale resize of the formula node
-        opacity: 0.75, // {number} - opacity of the background,
-        cornerRadius: 4, // {number}
-        xMargin: 11, // {number}
-        yMargin: 5, // {number}
-        tagValueSpacing: 3
-      }, options );
 
       assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
       assert && assert( modelViewTransformProperty instanceof Property
@@ -52,25 +63,39 @@ define( require => {
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( Object.getPrototypeOf( options ) === Object.prototype,
+      assert && assert( activeVectorProperty instanceof Property
+      && activeVectorProperty.value instanceof BaseVectorModel || activeVectorProperty.value === null,
+        `invalid activeVectorProperty: ${activeVectorProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
+
+      options = _.extend( {
+        fill: VectorAdditionColors[ baseVectorModel.vectorGroup ].labelBackground, // label background
+        scale: 0.67, // {number} - scale resize of the formula node
+        opacity: 0.75, // {number} - opacity of the background,
+        cornerRadius: 4, // {number}
+        xMargin: 10, // {number}
+        yMargin: 4, // {number}
+        tagValueSpacing: 3 // {number} spacing between the tag and the value
+      }, options );
 
       //----------------------------------------------------------------------------------------
 
       // Create the background rectangle, set as an arbitrary rectangle for now
       const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options );
 
-      const vectorLabelContainer = new Node();
+      // Create the label node, which is a parent of the tag and the value
+      const vectorLabel = new Node();
 
       // Create the Formula Node for the label and scale it to the correct size
-      const vectorNameLabel = new FormulaNode( '' );
-      vectorNameLabel.scale( options.scale );
+      const vectorTagNode = new FormulaNode( '' );
+      vectorTagNode.scale( options.scale );
 
-      // Create the text for the value if it has one
-      const vectorValueLabel = new Text( '', { font: ANGLE_LABEL_FONT, boundsMethod: 'accurate' } );
+      // Create the text for the value
+      const vectorValueNode = new Text( '', VALUE_LABEL_OPTIONS);
 
       super( {
-        children: [ backgroundRectangle, vectorLabelContainer.setChildren( [ vectorNameLabel, vectorValueLabel ] ) ]
+        children: [ backgroundRectangle, vectorLabel.setChildren( [ vectorTagNode, vectorValueNode ] ) ]
       } );
 
       //----------------------------------------------------------------------------------------
@@ -79,62 +104,75 @@ define( require => {
       const updateLabelNode = ( valuesVisible ) => {
 
         // Get the label display information
-        const labelDisplay = baseVectorModel.getLabelContent( valuesVisible );
+        const labelDisplayData = baseVectorModel.getLabelContent( valuesVisible );
 
-        vectorNameLabel.visible = typeof labelDisplay.prefix === 'string';
-        vectorValueLabel.visible = typeof labelDisplay.value === 'string';
-        backgroundRectangle.visible = vectorNameLabel.visible || vectorValueLabel.visible;
+        // Toggle visibility
+        vectorTagNode.visible = typeof labelDisplayData.prefix === 'string';
+        vectorValueNode.visible = typeof labelDisplayData.value === 'string';
+        backgroundRectangle.visible = vectorTagNode.visible || vectorValueNode.visible;
 
         //----------------------------------------------------------------------------------------
-        // Update the label name if it exists
-        if ( vectorNameLabel.visible ) {
-          vectorNameLabel.setFormula( `\\vec{ \\mathrm{ ${labelDisplay.prefix} } \}` );
+        // Update the tag if it exists
+        if ( vectorTagNode.visible ) {
+          vectorTagNode.setFormula( `\\vec{ \\mathrm{ ${labelDisplayData.prefix} } \}` );
         }
         else {
-          vectorNameLabel.setFormula( '' );
+          vectorTagNode.setFormula( '' );
         }
+
         //----------------------------------------------------------------------------------------
-        // Update the label value
-        if ( vectorValueLabel.visible ) {
-          vectorValueLabel.setText( labelDisplay.value );
+        // Update the value if it exists
+        if ( vectorValueNode.visible ) {
+          vectorValueNode.setText( labelDisplayData.value );
         }
         else {
-          vectorValueLabel.setText( '' );
+          vectorValueNode.setText( '' );
         }
-        vectorValueLabel.invalidateSelf();
+
+        vectorValueNode.invalidateSelf();
+
         //----------------------------------------------------------------------------------------
         // Update the background
         if ( backgroundRectangle.visible ) {
 
-          // Align the nodes together
-          if ( vectorValueLabel.visible && vectorNameLabel.visible ) {
-            vectorValueLabel.left = vectorNameLabel.right + options.tagValueSpacing;
+          // Active vectors have different background colors
+          if ( activeVectorProperty.value === baseVectorModel ) {
+            backgroundRectangle.fill = ACTIVE_VECTOR_LABEL_BACKGROUND;
+          }
+          else {
+            backgroundRectangle.fill = options.fill;
           }
 
+          // Align the nodes together
+          if ( vectorValueNode.visible && vectorTagNode.visible ) {
+            vectorValueNode.left = vectorTagNode.right + options.tagValueSpacing;
+          }
 
-          vectorLabelContainer.invalidateSelf();
-          backgroundRectangle.setRectWidth( vectorLabelContainer.getVisibleBounds().width + 2 * options.xMargin );
-          backgroundRectangle.setRectHeight( vectorLabelContainer.getVisibleBounds().height + 2 * options.yMargin );
-          backgroundRectangle.center = vectorLabelContainer.center;
+          vectorLabel.invalidateSelf();
 
-          vectorValueLabel.centerY = backgroundRectangle.centerY;
-          vectorNameLabel.centerY = backgroundRectangle.centerY;
+          // Set the background size
+          backgroundRectangle.setRectWidth( vectorLabel.getBounds().width + 2 * options.xMargin );
+          backgroundRectangle.setRectHeight( vectorLabel.getBounds().height + 2 * options.yMargin );
+          
+          // Update positioning
+          backgroundRectangle.center = vectorLabel.center;
+          vectorValueNode.centerY = backgroundRectangle.centerY;
+          vectorTagNode.centerY = backgroundRectangle.centerY;
         }
-
       };
 
       //----------------------------------------------------------------------------------------
 
       // Observe changes to the model vector, and update the label node
-      this.vectorObserver = new Multilink( [ valuesVisibleProperty,
+      this.labelMultilink = new Multilink( [ valuesVisibleProperty,
           baseVectorModel.tailPositionProperty,
           baseVectorModel.tipPositionProperty,
           activeVectorProperty ],
         updateLabelNode );
 
-      // @private
+      // @private {function} function to dispose listeners
       this.disposeListeners = () => {
-        this.vectorObserver.dispose();
+        this.labelMultilink.dispose();
       };
     }
 
