@@ -451,6 +451,7 @@ define( require => {
 
       this.moveVectorTailToFitInGraph( tailPosition );
 
+      this.dragTipToPosition( this.tip );
       // Declare this vector as active
       this.graph.activeVectorProperty.value = this;
     }
