@@ -5,7 +5,7 @@
  *
  * Extends VectorModel and adds the following functionality:
  *  - A coefficient property, and would scale the components/magnitude to the coefficient.
- *  - Instantiate a ghost vector model.
+ *  - Instantiate a Base vector model.
  *  - Instantiate number properties for the x and y so the user can change the base vector.
  *  - Disables tip dragging and removing of vectors
  *
@@ -18,7 +18,7 @@ define( require => {
   'use strict';
 
   // modules
-  const GhostVectorModel = require( 'VECTOR_ADDITION/equation/model/GhostVectorModel' );
+  const BaseVectorModel = require( 'VECTOR_ADDITION/equation/model/BaseVectorModel' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
@@ -57,19 +57,19 @@ define( require => {
         }
       } );
 
-      // @public (read-only) {GhostVectorModel}
-      this.ghostVector = new GhostVectorModel( tailPosition,
+      // @public (read-only) {BaseVectorModel}
+      this.baseVector = new BaseVectorModel( tailPosition,
         xComponent / this.coefficientProperty.value,
         yComponent / this.coefficientProperty.value,
         graph,
         vectorSet,
         tag );
 
-      // Observe when the ghost vectors change, or when the coefficient property changes and update the vector
+      // Observe when the base vectors change, or when the coefficient property changes and update the vector
       // Doesn't need to be unlinked since equation vectors are never disposed
-      Property.multilink( [ this.ghostVector.vectorComponentsProperty, this.coefficientProperty ],
-        ( ghostVector, coefficient ) => {
-          this.vectorComponents = ghostVector.vectorComponents.timesScalar( coefficient );
+      Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
+        ( baseVector, coefficient ) => {
+          this.vectorComponents = baseVector.vectorComponents.timesScalar( coefficient );
         } );
 
 

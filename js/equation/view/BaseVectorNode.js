@@ -14,7 +14,7 @@ define( require => {
 
   // constants
 
-  class GhostVectorNode {
+  class BaseVectorNode {
     /**
      * @constructor
      * arguments
@@ -25,5 +25,5 @@ define( require => {
 
   }
 
-  return vectorAddition.register( 'GhostVectorNode', GhostVectorNode );
+  return vectorAddition.register( 'BaseVectorNode', BaseVectorNode );
 } );
