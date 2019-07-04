@@ -1,10 +1,12 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Base class (meant to be subtyped) for vector views for all types of vectors (sum, component, etc.).
+ * Root class (meant to be subtyped) for vector views for all types of vectors (sum, component, etc.).
  * Primarily responsibilities are:
  *  - Create an Arrow Node that mirrors a vector models tail/tip position
  *  - Create Other Nodes that ALL vectors in the sim have (ie. labels etc.)
+ *
+ * For an overview of the vector class hierarchy visit https://github.com/phetsims/vector-addition/issues/31
  *
  * @author Brandon Li
  */
@@ -28,7 +30,7 @@ define( require => {
   const ARROW_MOUSEAREA_OFFSET = 3; // offset to make the arrow easier to grab
   const LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
-  class BaseVectorNode extends Node {
+  class RootVectorNode extends Node {
     /**
      * @constructor
      * @param {RootVectorModel} rootVectorModel - the vector model
@@ -184,5 +186,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'BaseVectorNode', BaseVectorNode );
+  return vectorAddition.register( 'RootVectorNode', RootVectorNode );
 } );

@@ -12,12 +12,12 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const BaseVectorNode = require( 'VECTOR_ADDITION/common/view/BaseVectorNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Property = require( 'AXON/Property' );
+  const RootVectorNode = require( 'VECTOR_ADDITION/common/view/RootVectorNode' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
@@ -45,7 +45,7 @@ define( require => {
   const VECTOR_SHADOW_OFFSET_X = 3.2;
   const VECTOR_SHADOW_OFFSET_Y = 2.1;
 
-  class VectorNode extends BaseVectorNode {
+  class VectorNode extends RootVectorNode {
     /**
      * @constructor
      * @param {VectorModel} vectorModel- the vector model

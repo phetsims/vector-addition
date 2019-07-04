@@ -3,7 +3,7 @@
 /**
  * View for a vector component.
  *
- * Extends BaseVectorNode but add the following functionality:
+ * Extends RootVectorNode but add the following functionality:
  *  - determines visibility by the component style
  *  - draws lines for the on axis component style
  *  - distinct label positioning
@@ -15,13 +15,13 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVectorNode = require( 'VECTOR_ADDITION/common/view/BaseVectorNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
+  const RootVectorNode = require( 'VECTOR_ADDITION/common/view/RootVectorNode' );
   const Shape = require( 'KITE/Shape' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -34,7 +34,7 @@ define( require => {
   // offset of the label
   const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
-  class VectorComponentNode extends BaseVectorNode {
+  class VectorComponentNode extends RootVectorNode {
     /**
      * @param {VectorComponentModel} VectorComponentModel - the vector model for the component
      * @param {Graph} graph - the graph the vector belongs to
