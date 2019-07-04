@@ -9,7 +9,7 @@ define( function( require ) {
   // modules
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
-  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
+  // const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
 
   class EquationScreenView extends VectorAdditionScreenView {
 
@@ -20,16 +20,16 @@ define( function( require ) {
     constructor( equationModel, tandem ) {
 
 
-      const equationScene = new SceneNode( equationModel.graph,
-        equationModel.valuesVisibleProperty,
-        equationModel.angleVisibleProperty,
-        equationModel.gridVisibleProperty,
-        equationModel.componentStyleProperty, {
-          isExpandedInitially: true
-        } );
+      // const equationScene = new SceneNode( equationModel.graph,
+      //   equationModel.valuesVisibleProperty,
+      //   equationModel.angleVisibleProperty,
+      //   equationModel.gridVisibleProperty,
+      //   equationModel.componentStyleProperty, {
+      //     isExpandedInitially: true
+      //   } );
 
 
-      super( equationModel, [ equationScene ], tandem );
+      super( equationModel, [], tandem );
 
     }
   }

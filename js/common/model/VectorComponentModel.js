@@ -18,11 +18,11 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Property = require( 'AXON/Property' );
+  const RootVectorModel = require( 'VECTOR_ADDITION/common/model/RootVectorModel' );
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -32,7 +32,7 @@ define( require => {
   // Rounding on the label with values on
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
-  class VectorComponentModel extends BaseVectorModel {
+  class VectorComponentModel extends RootVectorModel {
     /**
      * @constructor
      * @param {VectorModel} parentVector - the vector to which the component is associated
@@ -43,7 +43,7 @@ define( require => {
     constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
       // Type check arguments
-      assert && assert( parentVector instanceof BaseVectorModel, `invalid parentVector: ${parentVector}` );
+      assert && assert( parentVector instanceof RootVectorModel, `invalid parentVector: ${parentVector}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
@@ -64,7 +64,7 @@ define( require => {
       // @private {Property.<VectorModel|null>}
       this.activeVectorProperty = activeVectorProperty;
 
-      // @public {BaseVectorModel} parentVector - reference the parent vector
+      // @public {RootVectorModel} parentVector - reference the parent vector
       this.parentVector = parentVector;
 
       // @private observe changes of the parent to update component.
@@ -140,7 +140,7 @@ define( require => {
 
     /**
      * @override
-     * See BaseVectorModel.getLabelContent() for documentation and context
+     * See RootVectorModel.getLabelContent() for documentation and context
      *
      * Gets the label content information to display the vector component. Vector components don't have tags
      * and only show their component (which can be negative) when values are visible

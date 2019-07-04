@@ -3,7 +3,7 @@
 /**
  * Model for a 'normal' vector (vector that is dropped onto the graph)
  *
- * Extends BaseVectorModel but adds more functionality:
+ * Extends RootVectorModel but adds more functionality:
  *  - update the tail when the origin moves
  *  - methods to drop a vector or to animate a vector
  *  - ability to drag the vector by the tail and the tip
@@ -17,13 +17,13 @@ define( require => {
 
   // modules
   const Animation = require( 'TWIXT/Animation' );
-  const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Easing = require( 'TWIXT/Easing' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Property = require( 'AXON/Property' );
+  const RootVectorModel = require( 'VECTOR_ADDITION/common/model/RootVectorModel' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -51,7 +51,7 @@ define( require => {
   // Rounding on the label with values on
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
-  class VectorModel extends BaseVectorModel {
+  class VectorModel extends RootVectorModel {
     /**
      * @constructor
      * @param {Vector2} tailPosition
@@ -184,7 +184,7 @@ define( require => {
 
     /**
      * @override
-     * See BaseVectorModel.getLabelContent() for documentation and context
+     * See RootVectorModel.getLabelContent() for documentation and context
      *
      * Gets the label content information to display the vector model. Vector's may or may not have tags.
      *

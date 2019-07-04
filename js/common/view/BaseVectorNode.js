@@ -14,7 +14,7 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
+  const RootVectorModel = require( 'VECTOR_ADDITION/common/model/RootVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -31,27 +31,27 @@ define( require => {
   class BaseVectorNode extends Node {
     /**
      * @constructor
-     * @param {BaseVectorModel} baseVectorModel - the vector model
+     * @param {RootVectorModel} rootVectorModel - the vector model
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {Property.<BaseVectorModel>|null} activeVectorProperty
+     * @param {Property.<RootVectorModel>|null} activeVectorProperty
      * @param {Object} [arrowOptions]
      */
-    constructor( baseVectorModel,
+    constructor( rootVectorModel,
                  modelViewTransformProperty,
                  valuesVisibleProperty,
                  activeVectorProperty,
                  arrowOptions
     ) {
 
-      assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
+      assert && assert( rootVectorModel instanceof RootVectorModel, `invalid rootVectorModel: ${rootVectorModel}` );
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( activeVectorProperty instanceof Property
-                        && activeVectorProperty.value instanceof BaseVectorModel || activeVectorProperty.value === null,
+                        && activeVectorProperty.value instanceof RootVectorModel || activeVectorProperty.value === null,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
         `Extra prototype on Options: ${arrowOptions}` );
@@ -64,7 +64,7 @@ define( require => {
 
       // Define a vector node in which the tail location (view coordinates) is (0, 0). Get the tip location in view
       // coordinates
-      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( baseVectorModel.vectorComponents );
+      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( rootVectorModel.vectorComponents );
 
       // @protected {ArrowNode} arrowNode - Create an arrow node that represents an actual vector.
       this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, arrowOptions );
@@ -72,7 +72,7 @@ define( require => {
       // @protected {VectorLabelNode} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
       // The location of this depends on the angle of the vector. Since the positioning of 'next' is different for every
       // vector, use an overridable method to position it. ( updateLabelPositioning() )
-      this.labelNode = new VectorLabelNode( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty );
+      this.labelNode = new VectorLabelNode( rootVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty );
 
       // Add children to this node
       this.setChildren( [ this.arrowNode, this.labelNode ] );
@@ -83,33 +83,33 @@ define( require => {
       // @protected {Multilink} - observe changes to the tail/tip and mirror the positioning. If the values visibility
       // changes, update the view as well
       this.vectorObserver = Property.multilink(
-        [ valuesVisibleProperty, baseVectorModel.tailPositionProperty, baseVectorModel.tipPositionProperty ],
+        [ valuesVisibleProperty, rootVectorModel.tailPositionProperty, rootVectorModel.tipPositionProperty ],
         ( valuesVisible ) => {
 
           // Update the appearance of the vector
-          this.updateVector( baseVectorModel, modelViewTransformProperty.value );
+          this.updateVector( rootVectorModel, modelViewTransformProperty.value );
 
           // Update the appearance of the label
-          this.updateLabelPositioning( baseVectorModel, modelViewTransformProperty.value, valuesVisible );
+          this.updateLabelPositioning( rootVectorModel, modelViewTransformProperty.value, valuesVisible );
         } );
     }
 
     /**
      * Updates the tail and tip position of the view. Called when the model changes tail/tip.
-     * @param {BaseVectorModel} baseVectorModel
+     * @param {RootVectorModel} rootVectorModel
      * @param {ModelViewTransform2} modelViewTransform
      * @protected
      */
-    updateVector( baseVectorModel, modelViewTransform ) {
+    updateVector( rootVectorModel, modelViewTransform ) {
 
       // Since the tail is defined at (0, 0) for the vector, the vector must be translated.
-      this.translation = modelViewTransform.modelToViewPosition( baseVectorModel.tail );
+      this.translation = modelViewTransform.modelToViewPosition( rootVectorModel.tail );
 
       // Get the tip location in view coordinates
-      const tipDeltaLocation = modelViewTransform.modelToViewDelta( baseVectorModel.vectorComponents );
+      const tipDeltaLocation = modelViewTransform.modelToViewDelta( rootVectorModel.vectorComponents );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
 
-      if ( baseVectorModel.magnitude > 0 ) {
+      if ( rootVectorModel.magnitude > 0 ) {
         // Make the arrow easier to grab
         this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( ARROW_MOUSEAREA_OFFSET );
       }
@@ -118,14 +118,14 @@ define( require => {
     /**
      * Updates the label positioning, called when the vector is changing or the value checkbox is clicked.
      * This can be overridden if the positioning isn't appropriate (e.g. component nodes have different positioning)
-     * @param {BaseVectorModel} baseVectorModel
+     * @param {RootVectorModel} rootVectorModel
      * @param {ModelViewTransform2} modelViewTransform
      * @param {boolean} valuesVisible
      * @protected
      */
-    updateLabelPositioning( baseVectorModel, modelViewTransform, valuesVisible ) {
+    updateLabelPositioning( rootVectorModel, modelViewTransform, valuesVisible ) {
 
-      if ( baseVectorModel.magnitude === 0 ) { // don't do anything if the magnitude is 0
+      if ( rootVectorModel.magnitude === 0 ) { // don't do anything if the magnitude is 0
         return;
       }
 
@@ -133,21 +133,21 @@ define( require => {
       this.labelNode.setRotation( 0 );
 
       // Angle of the vector in radians (ranging from -Pi to Pi)
-      const modelAngle = baseVectorModel.angle;
+      const modelAngle = rootVectorModel.angle;
 
       //----------------------------------------------------------------------------------------
       // convenience variables
       // Add a flip if x is negative
-      const xFlip = ( baseVectorModel.xComponent >= 0 ) ? 0 : Math.PI;
+      const xFlip = ( rootVectorModel.xComponent >= 0 ) ? 0 : Math.PI;
 
       // Add a flip if y is negative
-      const yFlip = ( baseVectorModel.yComponent >= 0 ) ? 0 : Math.PI;
+      const yFlip = ( rootVectorModel.yComponent >= 0 ) ? 0 : Math.PI;
 
 
       //----------------------------------------------------------------------------------------
       // Add extra offset to consider the size of the label. The offset is the margin between the arrow and the label
 
-      const labelSize = ( baseVectorModel.yComponent >= 0 ) ?
+      const labelSize = ( rootVectorModel.yComponent >= 0 ) ?
                         modelViewTransform.viewToModelDeltaX( this.labelNode.height / 2 ) :
                         -modelViewTransform.viewToModelDeltaY( this.labelNode.height / 2 );
 
@@ -166,7 +166,7 @@ define( require => {
       const offset = Vector2.createPolar( LABEL_OFFSET + labelSize, modelAngle + Math.PI / 2 + yFlip + xFlip );
 
       // Create label halfway above the vector
-      const midPoint = baseVectorModel.vectorComponents.timesScalar( 0.5 );
+      const midPoint = rootVectorModel.vectorComponents.timesScalar( 0.5 );
 
       this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
     }

@@ -1,12 +1,14 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Base class (should be subtyped) for vector models for all types of vectors.
+ * Root class (should be subtyped) for vector models for all types of vectors.
  * Responsibilities are:
  *
  *  - tip and tail position properties
  *  - vector components (x and y, or in other words the actual vector <x, y>)
  *  - vector group (See ./VectorGroups.js)
+ *
+ * For an overview of the vector class hierarchy visit https://github.com/phetsims/vector-addition/issues/31
  *
  * @author Brandon Li
  */
@@ -21,7 +23,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
-  class BaseVectorModel {
+  class RootVectorModel {
     /**
      * @constructor
      * @param {Vector2} initialTailPosition - starting tail position of the vector
@@ -305,5 +307,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );
+  return vectorAddition.register( 'RootVectorModel', RootVectorModel );
 } );

@@ -25,7 +25,7 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVectorModel = require( 'VECTOR_ADDITION/common/model/BaseVectorModel' );
+  const RootVectorModel = require( 'VECTOR_ADDITION/common/model/RootVectorModel' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -48,29 +48,29 @@ define( require => {
 
   class VectorLabelNode extends Node {
     /**
-     * @param {BaseVectorModel} baseVectorModel
+     * @param {RootVectorModel} rootVectorModel
      * @param {ModelViewTransform2} modelViewTransformProperty
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {Property.<BaseVectorModel|null>} activeVectorProperty
+     * @param {Property.<RootVectorModel|null>} activeVectorProperty
      * @param {Object} [options]
      * @constructor
      */
-    constructor( baseVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
+    constructor( rootVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
 
-      assert && assert( baseVectorModel instanceof BaseVectorModel, `invalid baseVectorModel: ${baseVectorModel}` );
+      assert && assert( rootVectorModel instanceof RootVectorModel, `invalid rootVectorModel: ${rootVectorModel}` );
       assert && assert( modelViewTransformProperty instanceof Property
       && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( activeVectorProperty instanceof Property
-      && activeVectorProperty.value instanceof BaseVectorModel || activeVectorProperty.value === null,
+      && activeVectorProperty.value instanceof RootVectorModel || activeVectorProperty.value === null,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-        fill: VectorAdditionColors[ baseVectorModel.vectorGroup ].labelBackground, // label background
+        fill: VectorAdditionColors[ rootVectorModel.vectorGroup ].labelBackground, // label background
         scale: 0.67, // {number} - scale resize of the formula node
         opacity: 0.75, // {number} - opacity of the background,
         cornerRadius: 4, // {number}
@@ -104,7 +104,7 @@ define( require => {
       const updateLabelNode = ( valuesVisible ) => {
 
         // Get the label display information
-        const labelDisplayData = baseVectorModel.getLabelContent( valuesVisible );
+        const labelDisplayData = rootVectorModel.getLabelContent( valuesVisible );
 
         // Toggle visibility
         vectorTagNode.visible = typeof labelDisplayData.prefix === 'string';
@@ -136,7 +136,7 @@ define( require => {
         if ( backgroundRectangle.visible ) {
 
           // Active vectors have different background colors
-          if ( activeVectorProperty.value === baseVectorModel ) {
+          if ( activeVectorProperty.value === rootVectorModel ) {
             backgroundRectangle.fill = ACTIVE_VECTOR_LABEL_BACKGROUND;
           }
           else {
@@ -165,8 +165,8 @@ define( require => {
 
       // Observe changes to the model vector, and update the label node
       this.labelMultilink = new Multilink( [ valuesVisibleProperty,
-          baseVectorModel.tailPositionProperty,
-          baseVectorModel.tipPositionProperty,
+          rootVectorModel.tailPositionProperty,
+          rootVectorModel.tipPositionProperty,
           activeVectorProperty ],
         updateLabelNode );
 
