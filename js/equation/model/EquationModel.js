@@ -8,7 +8,7 @@
  *
  * Equation has no 'creator panel' but uses number spinners to adjust a base vector model and coefficients.
  *
- * The sum is denoted by 'c'. The sum is always visible.
+ * The sum is denoted by 'c' and is always visible.
  *
  * The equation model adds the following to the vector addition model
  *  - Properties (one for each scene) to control equation types (see ./EquationTypes.js)
@@ -21,20 +21,24 @@ define( require => {
   'use strict';
 
   // modules
-  // const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
+  const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
   const EQUATION_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS
                                   .withOffsets( 0, 0, 0, -VectorAdditionConstants.DEFAULT_VECTOR_LENGTH );
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
+  const DEFAULT_BASE_VECTOR_VISIBILTY = false;
 
   class EquationModel extends VectorAdditionModel {
     /**
@@ -46,9 +50,15 @@ define( require => {
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       // On equation, the 'sum' is always visible
-      const equationSumVisibleProperties = [];
+      const equationSumVisibleProperty = new BooleanProperty( true );
 
-      super( equationSumVisibleProperties, tandem );
+      equationSumVisibleProperty.link( ( isSumVisible ) => {
+        if ( !isSumVisible ) {
+          assert && assert( false, 'equation sum vectors are always visible' );
+        }
+      } );
+
+      super( [ equationSumVisibleProperty ], tandem );
 
       //----------------------------------------------------------------------------------------
       // Create the two graphs
@@ -73,15 +83,52 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Add properties (one for each scene) to control if the base vectors are visible
 
-      // // @public (read-only) {BooleanProperty}
-      // this.polarBaseVectorsVisible = new  BooleanProperty
+      // @public (read-only) {BooleanProperty}
+      this.polarBaseVectorsVisibleProperty = new BooleanProperty( DEFAULT_BASE_VECTOR_VISIBILTY );
+
+      // @public (read-only) {BooleanProperty}
+      this.cartesianBaseVectorsVisibleProperty = new BooleanProperty( DEFAULT_BASE_VECTOR_VISIBILTY );
+
+      //----------------------------------------------------------------------------------------
+      // Create the vector sets for each graph
+
+      // @public (read-only) {EquationVectorSet}
+      this.polarVectorSet = new EquationVectorSet( this.polarGraph,
+        this.componentStyleProperty,
+        equationSumVisibleProperty,
+        this.polarBaseVectorsVisibleProperty,
+        VectorGroups.THREE,
+        CoordinateSnapModes.POLAR
+        );
+
+      // @public (read-only) {EquationVectorSet}
+      this.cartesianVectorSet = new EquationVectorSet( this.cartesianGraph,
+        this.componentStyleProperty,
+        equationSumVisibleProperty,
+        this.cartesianBaseVectorsVisibleProperty,
+        VectorGroups.THREE,
+        CoordinateSnapModes.CARTESIAN
+        );
+
+      this.polarGraph.vectorSets.push( this.polarVectorSet );
+      this.cartesianGraph.vectorSets.push( this.cartesianVectorSet );
 
     }
 
-    // @public resets the model
+    /**
+     * Resets the equation model
+     */
     reset() {
-      // super.reset();
-      // this.graphOrientationProperty.reset();
+      
+      // Reset base vectors visible properties
+      this.cartesianBaseVectorsVisibleProperty.reset();
+      this.polarBaseVectorsVisibleProperty.reset();
+
+      // Reset the properties to control equation types
+      this.polarEquationTypeProperty.reset();
+      this.cartesianEquationTypeProperty.reset();
+
+      super.reset();
     }
   }
 
