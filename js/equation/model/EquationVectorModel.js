@@ -1,15 +1,14 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * See https://github.com/phetsims/vector-addition/issues/63 for the class hierarchy overview.
+ * See https://github.com/phetsims/vector-addition/issues/63 for context.
  *
  * Extends VectorModel and adds the following functionality:
  *  - A coefficient property, and would scale the components/magnitude to the coefficient.
- *  - Instantiate a Base vector model.
- *  - Instantiate number properties for the x and y so the user can change the base vector.
+ *  - Instantiate a Base vector model. When the base vector model changes, this vector changes (multiply by coefficient)
  *  - Disables tip dragging and removing of vectors
  *
- * EquationVectorModels should have a tag. They are also never disposed.
+ * Equation vectors are created at the start of the sim, and are never disposed. They require a tag.
  *
  * @author Brandon Li
  */
@@ -32,25 +31,28 @@ define( require => {
      * @param {number} xComponent horizontal component of the vector
      * @param {number} yComponent vertical component of the vector
      * @param {Graph} the graph the vector belongs to
-     * @param {VectorSet} the vectorSet that the vector belongs to
+     * @param {EquationVectorSet} the equationVectorSet that the vector belongs to
      * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
      * @param {Object} [options]
      */
-    constructor( tailPosition, xComponent, yComponent, graph, vectorSet, tag, options ) {
+    constructor( tailPosition, xComponent, yComponent, graph, equationVectorSet, tag, options ) {
 
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
+      // Disable tip dragging and removing of vectors
       options = _.extend( {
+
         // super class options
         isRemovable: false,
         isTipDraggable: false
       }, options );
 
-      super( tailPosition, xComponent, yComponent, graph, vectorSet, tag, options );
+
+      super( tailPosition, xComponent, yComponent, graph, equationVectorSet, tag, options );
 
       //----------------------------------------------------------------------------------------
-      // @public (read-only) {Property.<number>} - create a property to represent the position.
+      // @public (read-only) {Property.<number>} - create a property to represent the coefficient.
       this.coefficientProperty = new Property( DEFAULT_COEFFICIENT, {
         isValidValue: ( value ) => {
           return typeof value === 'number';
@@ -62,32 +64,30 @@ define( require => {
         xComponent / this.coefficientProperty.value,
         yComponent / this.coefficientProperty.value,
         graph,
-        vectorSet,
+        equationVectorSet,
         tag );
 
-      // Observe when the base vectors change, or when the coefficient property changes and update the vector
+      // Observe when the base vector changes, or when the coefficient property changes and update the vector.
       // Doesn't need to be unlinked since equation vectors are never disposed
       Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
         ( baseVector, coefficient ) => {
           this.vectorComponents = baseVector.vectorComponents.timesScalar( coefficient );
         } );
 
-
       //----------------------------------------------------------------------------------------
-      // Double check that vector sums are never removed from the graph
+      // Double check that equation vectors are never removed from the graph
 
-      // Vector sums are always on the graph
+      // Equation vectors are always on the graph
       this.isOnGraphProperty.value = true;
 
-      // Doesn't need to be unlinked; vector sums are never disposed
+      // Doesn't need to be unlinked; equation vectors are never disposed
       this.isOnGraphProperty.link( ( isOnGraph ) => {
         if ( isOnGraph === false ) {
           assert && assert( false, 'vector sums should never be off the graph' );
         }
       } );
-
+      
     }
-
   }
 
   return vectorAddition.register( 'EquationVectorModel', EquationVectorModel );
