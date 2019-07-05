@@ -36,8 +36,13 @@ define( require => {
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible property
      * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
+     * @param {Object} [options]
      */
-    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode ) {
+    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode, options ) {
+
+      options = _.extend( {
+        initializeSum: true // {boolean} false means the vector sum will not be initialized upon instantiation
+      }, options );
 
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
@@ -74,8 +79,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the sum
 
-      // @public (read-only) {VectorModel} the vector sum model
-      this.vectorSum = new VectorSum( graph, this, SUM_TAG );
+      if ( options.initializeSum ) {
+        // @public (read-only) {VectorModel} the vector sum model
+        this.vectorSum = new VectorSum( graph, this, SUM_TAG );
+      }
     }
 
     /**
