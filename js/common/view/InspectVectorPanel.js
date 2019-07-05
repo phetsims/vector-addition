@@ -39,7 +39,7 @@ define( require => {
   //----------------------------------------------------------------------------------------
   // constants
   const INSPECT_PANEL_WIDTH = 450;
-  const INSPECT_PANEL_HEIGHT = 50;
+  const INSPECT_PANEL_HEIGHT = VectorAdditionConstants.INSPECT_PANEL_HEIGHT;
   const EXPAND_COLLAPSE_BUTTON_SIZE = 21;
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
   const BUTTON_TEXT_MARGIN = 13; // margin between the expand collapse button and the content on the right

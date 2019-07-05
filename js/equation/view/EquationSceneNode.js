@@ -15,6 +15,7 @@ define( require => {
   'use strict';
 
   // modules
+  const CoefficientSelectorPanel = require( 'VECTOR_ADDITION/equation/view/CoefficientSelectorPanel' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );  
@@ -78,12 +79,16 @@ define( require => {
       const vectorContainer = new Node();
       const vectorComponentContainer = new Node();
 
+      const coefficientSelectorPanel = new CoefficientSelectorPanel( equationVectorSet, INSPECT_VECTOR_PANEL_OPTIONS );
+
+
       super( {
         children: [
           graphNode,
           inspectVectorPanel,
           vectorComponentContainer,
-          vectorContainer
+          vectorContainer,
+          coefficientSelectorPanel
         ]
       } );
 

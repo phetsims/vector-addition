@@ -44,12 +44,17 @@ define( function( require ) {
       contentWidth: PANEL_WIDTH - 2 * PANEL_X_MARGIN
     },
     PANEL_FONT: new PhetFont( 15 ),
-
+    
     // Defaults for layout boxes, used in control panels
     PANEL_LAYOUT_BOX_OPTIONS: {
       spacing: 10,
       align: 'left'
     },
+
+    //----------------------------------------------------------------------------------------
+    BUTTON_X_MARGIN: 7,
+    BUTTON_Y_MARGIN: 10,
+    INSPECT_PANEL_HEIGHT: 50,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all check boxes
