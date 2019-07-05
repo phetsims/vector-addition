@@ -71,7 +71,7 @@ define( require => {
       // Doesn't need to be unlinked since equation vectors are never disposed
       Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
         ( baseVector, coefficient ) => {
-          this.vectorComponents = baseVector.vectorComponents.timesScalar( coefficient );
+          this.vectorComponents = baseVector.timesScalar( coefficient );
         } );
 
       //----------------------------------------------------------------------------------------
