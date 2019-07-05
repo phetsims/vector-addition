@@ -29,6 +29,7 @@ define( require => {
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Tandem = require( 'TANDEM/Tandem' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
@@ -39,6 +40,7 @@ define( require => {
                                   .withOffsets( 0, 0, 0, -VectorAdditionConstants.DEFAULT_VECTOR_LENGTH );
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
   const DEFAULT_BASE_VECTOR_VISIBILTY = false;
+  const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
 
   class EquationModel extends VectorAdditionModel {
     /**
@@ -74,10 +76,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Add properties (one for each scene) to control equation types (see ./EquationTypes.js)
 
-      // @public (read-only) {EnumerationProperty}
+      // @public (read-only) {EnumerationProperty.<EquationTypes>}
       this.polarEquationTypeProperty = new EnumerationProperty( EquationTypes, STARTING_EQUATION_TYPE );
 
-      // @public (read-only) {EnumerationProperty}
+      // @public (read-only) {EnumerationProperty.<EquationTypes>}
       this.cartesianEquationTypeProperty = new EnumerationProperty( EquationTypes, STARTING_EQUATION_TYPE );
 
       //----------------------------------------------------------------------------------------
@@ -96,18 +98,20 @@ define( require => {
       this.polarVectorSet = new EquationVectorSet( this.polarGraph,
         this.componentStyleProperty,
         equationSumVisibleProperty,
-        this.polarBaseVectorsVisibleProperty,
         VectorGroups.THREE,
-        CoordinateSnapModes.POLAR
+        CoordinateSnapModes.POLAR,
+        new Vector2( DEFAULT_VECTOR_LENGTH, DEFAULT_VECTOR_LENGTH ),
+        this.polarEquationTypeProperty
         );
 
       // @public (read-only) {EquationVectorSet}
       this.cartesianVectorSet = new EquationVectorSet( this.cartesianGraph,
         this.componentStyleProperty,
         equationSumVisibleProperty,
-        this.cartesianBaseVectorsVisibleProperty,
         VectorGroups.THREE,
-        CoordinateSnapModes.CARTESIAN
+        CoordinateSnapModes.CARTESIAN,
+        new Vector2( DEFAULT_VECTOR_LENGTH, DEFAULT_VECTOR_LENGTH ),
+        this.cartesianEquationTypeProperty
         );
 
       this.polarGraph.vectorSets.push( this.polarVectorSet );
