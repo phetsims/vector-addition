@@ -25,7 +25,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
-  const STARTING_COMPONENT_STYLE = ComponentStyles.INVISIBLE;
+  const STARTING_COMPONENT_STYLE = ComponentStyles.TRIANGLE;
   const STARTING_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
 
   class VectorAdditionModel {

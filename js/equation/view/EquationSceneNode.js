@@ -15,34 +15,32 @@ define( require => {
   'use strict';
 
   // modules
-  // const BooleanProperty = require( 'AXON/BooleanProperty' );
-  // const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  // const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
-  // const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );  
-  // const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
-  // const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  // const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  // const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
-  // const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );  
+  const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
+  const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  // const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  // const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
-  // const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
-  // const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
+  const VectorSumComponentNode = require( 'VECTOR_ADDITION/common/view/VectorSumComponentNode' );
 
   // constants
-  // const INSPECT_VECTOR_PANEL_OPTIONS = {
-  //   panelOptions: {
-  //     left: 195,
-  //     top: 12
-  //   }
-  // };
+  const INSPECT_VECTOR_PANEL_OPTIONS = {
+    panelOptions: {
+      left: 195,
+      top: 12
+    }
+  };
 
-  // const VECTOR_SUM_COLORS = {
-  //   fill: VectorAdditionColors.BLACK,
-  //   component: VectorAdditionColors.LIGHT_GREY
-  // };
+  const VECTOR_SUM_COLORS = {
+    fill: VectorAdditionColors.BLACK,
+    component: VectorAdditionColors.GREY
+  };
 
   class EquationSceneNode extends Node {
     /**
@@ -60,111 +58,95 @@ define( require => {
       equationTypeProperty
     ) {
 
-      // assert && assert( equationModel instanceof EquationModel, `invalid equationModel: ${equationModel}` );
-      // assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      // assert && assert( equationVectorSet instanceof EquationVectorSet,
-      //   `invalid equationVectorSet: ${equationVectorSet}` );
-      // assert && assert( equationTypeProperty instanceof EnumerationProperty
-      //   && EquationTypes.includes( equationTypeProperty.value ),
-      // `invalid equationTypeProperty: ${equationTypeProperty}` );
-      // assert && assert( !inspectPanelOptions || Object.getPrototypeOf( inspectPanelOptions ) === Object.prototype,
-      //   `Extra prototype on inspectPanelOptions: ${inspectPanelOptions}` );
+      assert && assert( equationModel instanceof EquationModel, `invalid equationModel: ${equationModel}` );
+      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      assert && assert( equationVectorSet instanceof EquationVectorSet,
+        `invalid equationVectorSet: ${equationVectorSet}` );
+      assert && assert( equationTypeProperty instanceof EnumerationProperty
+        && EquationTypes.includes( equationTypeProperty.value ),
+      `invalid equationTypeProperty: ${equationTypeProperty}` );
 
-      // //----------------------------------------------------------------------------------------
-      // // Create the scenery nodes
+      //----------------------------------------------------------------------------------------
+      // Create the scenery nodes
 
-      // const graphNode = new GraphNode( graph, equationModel.gridVisibleProperty );
+      const graphNode = new GraphNode( graph, equationModel.gridVisibleProperty );
 
-      // const inspectVectorPanel = new InspectVectorPanel( graph, INSPECT_VECTOR_PANEL_OPTIONS );
+      const inspectVectorPanel = new InspectVectorPanel( graph, INSPECT_VECTOR_PANEL_OPTIONS );
 
 
-      // // Create the containers for each vector type
-      // const vectorContainer = new Node();
-      // const vectorComponentContainer = new Node();
+      // Create the containers for each vector type
+      const vectorContainer = new Node();
+      const vectorComponentContainer = new Node();
 
-      // super( {
-      //   children: [
-      //     graphNode,
-      //     inspectVectorPanel,
-      //     vectorComponentContainer,
-      //     vectorContainer
-      //   ]
-      // } );
+      super( {
+        children: [
+          graphNode,
+          inspectVectorPanel,
+          vectorComponentContainer,
+          vectorContainer
+        ]
+      } );
 
-      // //----------------------------------------------------------------------------------------
-      // // Create the vector sum nodes
-      // const vectorSumNode = new VectorSumNode( equationVectorSet.vectorSum,
-      //   graph,
-      //   equationModel.valuesVisibleProperty,
-      //   equationModel.angleVisibleProperty,
-      //   equationVectorSet.sumVisibleProperty, {
-      //     fill: VECTOR_SUM_COLORS.fill
-      //   }
-      // );
+      //----------------------------------------------------------------------------------------
+      // Create the vector sum nodes
+      const vectorSumNode = new VectorNode( equationVectorSet.vectorSum,
+        graph,
+        equationModel.valuesVisibleProperty,
+        equationModel.angleVisibleProperty, {
+          fill: VECTOR_SUM_COLORS.fill
+        }
+      );
 
-      // const xComponentSumNode = new VectorSumComponentNode( equationVectorSet.vectorSum.xVectorComponentModel,
-      //   graph,
-      //   equationModel.componentStyleProperty,
-      //   equationModel.valuesVisibleProperty,
-      //   equationVectorSet.sumVisibleProperty, {
-      //     fill: VECTOR_SUM_COLORS.component
-      //   } );
+      const xComponentSumNode = new VectorSumComponentNode( equationVectorSet.vectorSum.xVectorComponentModel,
+        graph,
+        equationModel.componentStyleProperty,
+        equationModel.valuesVisibleProperty,
+        equationVectorSet.sumVisibleProperty, {
+          arrowOptions: { fill: VECTOR_SUM_COLORS.component }
+        } );
 
-      // const yComponentSumNode = new VectorSumComponentNode( equationVectorSet.vectorSum.yVectorComponentModel,
-      //   graph,
-      //   equationModel.componentStyleProperty,
-      //   equationModel.valuesVisibleProperty,
-      //   equationVectorSet.sumVisibleProperty, {
-      //     fill: VECTOR_SUM_COLORS.component
-      //   } );
+      const yComponentSumNode = new VectorSumComponentNode( equationVectorSet.vectorSum.yVectorComponentModel,
+        graph,
+        equationModel.componentStyleProperty,
+        equationModel.valuesVisibleProperty,
+        equationVectorSet.sumVisibleProperty, {
+          arrowOptions: { fill: VECTOR_SUM_COLORS.component }
+        } );
 
-      // //----------------------------------------------------------------------------------------
+      vectorComponentContainer.addChild( xComponentSumNode );
+      vectorComponentContainer.addChild( yComponentSumNode );
+      vectorContainer.addChild( vectorSumNode );
 
-      // // Add the rest of the vectors
-      // equationVectorSet.vectors.forEach( vector => {
+      //----------------------------------------------------------------------------------------
 
+      // Add the rest of the vectors
+      equationVectorSet.vectors.forEach( vector => {
 
-      //   const vectorNode = new Vector( vector, graph, equationModel.valuesVisibleProperty, equationModel.angleVisibleProperty );
-      // } );
-      //   ---------------------------------------------------------------------------*
-      //    * Observe changes to the vector set, and update the scene
-      //    *---------------------------------------------------------------------------
-      //   equationVectorSet.vectors.addItemAddedListener( ( addedVector ) => {
-      //     // There isn't a need to remove the addItemAddedListener since equationVectorSets are never disposed
-      //     const xComponentNode = new VectorComponentNode( addedVector.xVectorComponentModel,
-      //       graph,
-      //       componentStyleProperty,
-      //       valuesVisibleProperty );
+        const vectorNode = new VectorNode( vector,
+          graph,
+          equationModel.valuesVisibleProperty,
+          equationModel.angleVisibleProperty );
 
-      //     const yComponentNode = new VectorComponentNode( addedVector.yVectorComponentModel,
-      //       graph,
-      //       componentStyleProperty,
-      //       valuesVisibleProperty );
+        const xComponentNode = new VectorComponentNode( vector.xVectorComponentModel,
+          graph,
+          equationModel.componentStyleProperty,
+          equationModel.valuesVisibleProperty );
 
-      //     vectorComponentContainer.addChild( xComponentNode );
-      //     vectorComponentContainer.addChild( yComponentNode );
+        const yComponentNode = new VectorComponentNode( vector.yVectorComponentModel,
+          graph,
+          equationModel.componentStyleProperty,
+          equationModel.valuesVisibleProperty );
 
-      //     //----------------------------------------------------------------------------------------
-      //     // Add the removal listener for when the vector is removed
-      //     const removalListener = removedVector => {
-      //       if ( removedVector === addedVector ) {
+        vectorComponentContainer.addChild( xComponentNode );
+        vectorComponentContainer.addChild( yComponentNode );
 
-      //         xComponentNode.dispose();
-      //         yComponentNode.dispose();
+        vectorContainer.addChild( vectorNode );
+      } );
 
-      //         equationVectorSet.vectors.removeItemRemovedListener( removalListener );
-      //       }
-      //     };
-
-      //     equationVectorSet.vectors.addItemRemovedListener( removalListener );
-      //   } );
-      // } );
-
-      // // @private {function} function to reset the scene
-      // this.resetScene = () => {
-      //   graph.reset();
-      // };
-      super();
+      // @private {function} function to reset the scene
+      this.resetScene = () => {
+        graph.reset();
+      };
     }
 
     /**
@@ -172,19 +154,7 @@ define( require => {
      * @public
      */
     reset() {
-      // this.resetScene();
-    }
-
-    /**
-     * Adds a Vector Creator Panel to the scene
-     * @param {VectorCreatorPanel} vectorCreatorPanel
-     */
-    addVectorCreatorPanel( vectorCreatorPanel ) {
-
-      // assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel,
-      //   `invalid vectorCreatorPanel: ${vectorCreatorPanel}` );
-      // this.addChild( vectorCreatorPanel );
-      // vectorCreatorPanel.moveToBack();
+      this.resetScene();
     }
   }
 

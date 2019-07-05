@@ -11,6 +11,7 @@ define( function( require ) {
 
   // modules
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
   const EquationSceneNode = require( 'VECTOR_ADDITION/equation/view/EquationSceneNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -37,13 +38,13 @@ define( function( require ) {
 
       const polarScene = new EquationSceneNode( equationModel,
         equationModel.polarGraph,
-        equationModel.polarEquationVectorSet,
+        equationModel.polarVectorSet,
         equationModel.polarBaseVectorsVisibleProperty,
         equationModel.polarEquationTypeProperty );
       
       const cartesianScene = new EquationSceneNode( equationModel,
         equationModel.cartesianGraph,
-        equationModel.cartesianEquationVectorSet,
+        equationModel.cartesianVectorSet,
         equationModel.cartesianBaseVectorsVisibleProperty,
         equationModel.cartesianEquationTypeProperty );
 
@@ -59,6 +60,11 @@ define( function( require ) {
         polarScene.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
         cartesianScene.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
       } );
+
+      //----------------------------------------------------------------------------------------
+      // Create the Coordinate snapping radio buttons
+
+      this.addChild( new CoordinateSnapRadioButtonGroup( equationModel.coordinateSnapModeProperty ) );
 
       //----------------------------------------------------------------------------------------
       // Add the reset button

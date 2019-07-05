@@ -108,7 +108,7 @@ define( require => {
       this.cartesianVectorSet = new EquationVectorSet( this.cartesianGraph,
         this.componentStyleProperty,
         equationSumVisibleProperty,
-        VectorGroups.THREE,
+        VectorGroups.ONE,
         CoordinateSnapModes.CARTESIAN,
         new Vector2( DEFAULT_VECTOR_LENGTH, DEFAULT_VECTOR_LENGTH ),
         this.cartesianEquationTypeProperty
