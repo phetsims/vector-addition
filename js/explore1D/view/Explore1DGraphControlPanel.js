@@ -30,7 +30,7 @@ define( require => {
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-  const PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.PANEL_LAYOUT_BOX_OPTIONS;
+  const CONTROL_PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.CONTROL_PANEL_LAYOUT_BOX_OPTIONS;
 
 
   class Explore1DGraphControlPanel extends Panel {
@@ -57,7 +57,7 @@ define( require => {
 
       options = _.extend( {}, PANEL_OPTIONS, options );
 
-      const panelContent = new VBox( _.extend( {}, PANEL_LAYOUT_BOX_OPTIONS, {
+      const panelContent = new VBox( _.extend( {}, CONTROL_PANEL_LAYOUT_BOX_OPTIONS, {
         children: [
           new SumCheckbox( sumVisibleProperty, vectorGroup ),
 

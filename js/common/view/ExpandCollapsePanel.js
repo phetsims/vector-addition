@@ -1,22 +1,25 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a 'ExpandCollapsePanel'.
+ * View for the 'ExpandCollapsePanel'. Used in a variety of places throughout the project.
  *
- * The ExpandCollapsePanel is similar to a accordion box in the way it has a expand-collapse button
- * to toggle content of the Panel.
+ * The ExpandCollapsePanel is a panel that contains 3 things:
+ *  - expand collapse button
+ *  - closed content
+ *  - open content
  *
- * However, it doesn't change height as it toggles visibility of two nodes depending on if it is
- * open or closed.
- *
+ * Based on if the expand collapse button is open, visibility of the content will be toggled.
+ * The closed and open content are placed to the right of the button.
+ * 
  * A visual:
  * https://user-images.githubusercontent.com/42391580/60743952-f342d200-9f30-11e9-9a04-7b72ada15244.png
  *
- * The panel itself is a fixed width and height.
- *  - The fixed width is calculated from the longest between the closed and the open content
- *    - Option to pass a defined fixed width
- *  - The fixed height is calculated from the tallest between the closed and the open content
- *    - Option to pass a defined fixed height
+ * The panel itself is a fixed width and height; both its fixed width and height are calculated by the largest
+ * between the closed and open content and its margins.
+ *
+ * There is an option to pass a defined fixed width and/or fixed height. The panel will scale the nodes to fit the
+ * the defined dimensions. 
+ *
  *
  * References to the two children are preferred.
  *
@@ -35,6 +38,7 @@ define( require => {
   const Panel = require( 'SUN/Panel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  // const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   class ExpandCollapsePanel extends Panel {
     /**
@@ -53,26 +57,21 @@ define( require => {
         // panel appearance
         fill: VectorAdditionColors.LIGHT_GREY, // {string} fill of the panel
         stroke: VectorAdditionColors.PANEL_STROKE_COLOR, // {string} border color
-        cornerRadius: 5, // {number} corner radius of the panel
-
-        // button margin
-        buttonXMargin: 5, // {number} horizontal margin of the button
-        buttonYMargin: 2, // {number} vertical margin of the button
-        
-        // panel margin
-        panelXMargin: 5, // {number} horizontal margin of the panel
-        panelYMargin: 5, // {number} vertical margin of the panel
 
         // content margin
-        contentXMargin: 2, // {number} horizontal margin of the content
+        contentXMargin: 6.5, // {number} horizontal margin of the content
         contentYMargin: 3, // {number} vertical margin of the content
 
         // content align
         contentXAlign: 'left', // {string} - 'left', 'center', or 'right'
         contentYAlign: 'center', // {string} - 'top', 'center', or 'bottom'
 
+        xMargin: 0,
+        yMargin: 0,
+        cornerRadius: 5,
+        
         // content dimension.
-        contentFixedWidth: 900, // {number|null} null means fixed width will be calculated by the max of the closed
+        contentFixedWidth: null, // {number|null} null means fixed width will be calculated by the max of the closed
         // and the open content. If provided as a number, the content width will be fixed to this number
         contentFixedHeight: null, // {number|null} null means fixed height will be calculated by the max of the closed
         // and the open content. If provided as a number, the content width will be fixed to this number
@@ -93,8 +92,8 @@ define( require => {
 
       super( panelContent, {
         cornerRadius: options.cornerRadius,
-        xMargin: options.panelXMargin,
-        yMargin: options.panelYMargin,
+        xMargin: options.xMargin,
+        yMargin: options.yMargin,
         fill: options.fill,
         stroke: options.stroke
       } );
@@ -137,7 +136,7 @@ define( require => {
         xMargin: options.contentXMargin,
         yMargin: options.contentYMargin,
         alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight ),
-        left: expandCollapseButton.right + options.buttonXMargin + options.contentXMargin,
+        left: expandCollapseButton.right + options.contentXMargin,
         centerY: this.centerY
       } );
 

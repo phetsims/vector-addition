@@ -23,7 +23,7 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
-  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.contentWidth;
+  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.minWidth - 2 * VectorAdditionConstants.PANEL_OPTIONS.xMargin;
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
 
   class ComponentStyleRadioButtonGroup extends AlignBox {

@@ -16,7 +16,7 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  // const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
   class VectorCreatorPanel extends Node {
@@ -27,7 +27,7 @@ define( require => {
      */
     constructor( panelSlots, options ) {
 
-      options = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
+      options = _.extend( {}, {
         minWidth: null,
         maxWidth: null,
         lineWidth: 0.8,

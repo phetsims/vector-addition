@@ -4,6 +4,7 @@
  * Constants used in multiple locations within the 'Vector Addition' simulation.
  *
  * @author Martin Veillette
+ * @author Brandon Li
  */
 
 define( function( require ) {
@@ -16,37 +17,40 @@ define( function( require ) {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   //----------------------------------------------------------------------------------------
+  // spacing of major grid lines
+  const MAJOR_GRID_LINE_SPACING = 5;
+
+  //----------------------------------------------------------------------------------------
   // for all panel-like containers
-  const PANEL_CORNER_RADIUS = 7;
-  const PANEL_X_MARGIN = 12;
-  const PANEL_Y_MARGIN = 12;
+  const PANEL_CORNER_RADIUS = 5;
+  const PANEL_X_MARGIN = 8;
+  const PANEL_Y_MARGIN = 10;
   const PANEL_WIDTH = 140; // fixed size
 
+  //----------------------------------------------------------------------------------------
   const VectorAdditionConstants = {
 
-    //----------------------------------------------------------------------------------------
     // Margins for all ScreenView instances
     SCREEN_VIEW_X_MARGIN: 10,
     SCREEN_VIEW_Y_MARGIN: 14,
 
     //----------------------------------------------------------------------------------------
-    // Defaults for all Panel instances
+    // Defaults for all panel-like containers
     PANEL_OPTIONS: {
-      align: 'left',
       cornerRadius: PANEL_CORNER_RADIUS,
       xMargin: PANEL_X_MARGIN,
       yMargin: PANEL_Y_MARGIN,
       fill: VectorAdditionColors.LIGHT_GREY,
       stroke: VectorAdditionColors.PANEL_STROKE_COLOR,
       minWidth: PANEL_WIDTH,
-      maxWidth: PANEL_WIDTH,
-      width: PANEL_WIDTH,
-      contentWidth: PANEL_WIDTH - 2 * PANEL_X_MARGIN
+      maxWidth: PANEL_WIDTH
     },
+
+    // Font used on all panel-like container text nodes
     PANEL_FONT: new PhetFont( 15 ),
     
-    // Defaults for layout boxes, used in control panels
-    PANEL_LAYOUT_BOX_OPTIONS: {
+    // Defaults for layout boxes embedded in graph control panels (panel at the top-right of each and every screen)
+    CONTROL_PANEL_LAYOUT_BOX_OPTIONS: {
       spacing: 10,
       align: 'left'
     },
@@ -92,7 +96,7 @@ define( function( require ) {
     },
 
     // Side length of the arrow when initially dropped onto the graph.
-    DEFAULT_VECTOR_LENGTH: 5,
+    DEFAULT_VECTOR_LENGTH: MAJOR_GRID_LINE_SPACING,
 
     // The offset in model coordinates of the label with respect to the vector
     VECTOR_LABEL_OFFSET: 0.5,
