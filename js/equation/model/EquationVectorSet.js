@@ -87,6 +87,19 @@ define( require => {
     }
 
     /**
+     * @public
+     * Resets the vector set, by clearing the vectors array and reseting the vectorSum
+     */
+    reset() {
+
+      // Dispose each vector
+      this.vectors.forEach( ( vector ) => {
+        vector.reset();
+      } );
+      this.vectorSum.reset();
+    }
+
+    /**
      * @override
      * @public
      * Creates a vector model. This doesn't get added to the vector ObservableArray

@@ -84,6 +84,12 @@ define( require => {
       } );
       
     }
+
+    reset() {
+      this.yComponentSelectorProperty.reset();
+      this.xComponentSelectorProperty.reset();
+      this.tailPositionProperty.reset();
+    }
   }
 
   return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );
