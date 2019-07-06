@@ -15,11 +15,10 @@
  * https://user-images.githubusercontent.com/42391580/60743952-f342d200-9f30-11e9-9a04-7b72ada15244.png
  *
  * The panel itself is a fixed width and height; both its fixed width and height are calculated by the largest
- * between the closed and open content and its margins.
+ * between the closed and open content added to its margins.
  *
  * There is an option to pass a defined fixed width and/or fixed height. The panel will scale the nodes to fit the
  * the defined dimensions. 
- *
  *
  * References to the two children are preferred.
  *
@@ -37,47 +36,42 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  // const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   class ExpandCollapsePanel extends Panel {
     /**
+     * @constructor
+     *
      * @param {Node} closedContent - content when the panel is closed
      * @param {Node} openContent - content when the panel is open
      * @param {Object} options
      *
-     * @constructor
      */
     constructor( closedContent, openContent, options ) {
 
       options = _.extend( {
 
+        // Margins of the panel (superclass)
+        xMargin: 0, // {number} horizontal margin of the superclass panel
+        yMargin: 0, // {number} vertical margin of the superclass panel
+        
+
         isExpandedInitially: true, // {boolean} - false means the panel will start off as closed
-
-        // panel appearance
-        fill: VectorAdditionColors.LIGHT_GREY, // {string} fill of the panel
-        stroke: VectorAdditionColors.PANEL_STROKE_COLOR, // {string} border color
-
-        // content margin
-        contentXMargin: 6.5, // {number} horizontal margin of the content
-        contentYMargin: 3, // {number} vertical margin of the content
 
         // content align
         contentXAlign: 'left', // {string} - 'left', 'center', or 'right'
         contentYAlign: 'center', // {string} - 'top', 'center', or 'bottom'
 
-        xMargin: 0,
-        yMargin: 0,
-        cornerRadius: 5,
-        
-        // content dimension.
-        contentFixedWidth: null, // {number|null} null means fixed width will be calculated by the max of the closed
-        // and the open content. If provided as a number, the content width will be fixed to this number
-        contentFixedHeight: null, // {number|null} null means fixed height will be calculated by the max of the closed
-        // and the open content. If provided as a number, the content width will be fixed to this number
 
-        expandCollapseButtonSize: 20 // {number} size of the expand collapse button
-      }, options );
+        contentFixedWidth: null, // {number|null} if provided, the content will scale to fix this width. Otherwise,
+                                 // the fixed size is calculated by the larges of the content nodes and its margin
+
+        contentFixedHeight: null // {number|null} if provided, the content will scale to fix this height. Otherwise,
+                                 // the fixed size is calculated by the larges of the content nodes and its margin
+
+      }, VectorAdditionConstants.EXPAND_COLLAPSE_PANEL, options );
+
+      //----------------------------------------------------------------------------------------
 
       assert && assert( typeof options.isExpandedInitially === 'boolean', `invalid options.isExpandedInitially: ${options.isExpandedInitially}` );
       assert && assert( closedContent instanceof Node, `invalid closedContent: ${closedContent}` );
@@ -113,21 +107,28 @@ define( require => {
       expandedProperty.link( expandedObserver );
 
       // Button to open and close the panel
-      const expandCollapseButton = new ExpandCollapseButton( expandedProperty, {
-        centerY: this.centerY,
-        sideLength: options.expandCollapseButtonSize
+      const expandCollapseButton = new ExpandCollapseButton( expandedProperty, options.expandCollapseButtonOptions );
+
+      // Add the expand collapse button in a align box
+      const expandCollapseButtonContainer = new AlignBox( expandCollapseButton, {
+        xAlign: 'center',
+        yAlign: 'center',
+        xMargin: options.buttonXMargin,
+        yMargin: options.buttonYMargin,
+        centerY: this.centerY
       } );
 
       /*---------------------------------------------------------------------------*
        * Create the content container
        *---------------------------------------------------------------------------*/
 
+
       // Convenience References
       const contentWidth = options.contentFixedWidth ? options.contentFixedWidth :
-                            _.max( [ closedContent.width, openContent.width ] ) +  2 * options.contentXMargin;
+                            _.max( [ closedContent.width, openContent.width ] ) + 2 * options.contentXMargin;
 
       const contentHeight = options.contentFixedHeight ? options.contentFixedHeight :
-                              _.max( [ closedContent.height, openContent.height ] ) +  2 * options.contentYMargin;
+                              _.max( [ closedContent.height, openContent.height ] ) + 2 * options.contentYMargin;
 
       // Create the container for the closed and open content
       const contentContainer = new AlignBox( new Node( { children: [ closedContent, openContent ] } ), {
@@ -136,16 +137,16 @@ define( require => {
         xMargin: options.contentXMargin,
         yMargin: options.contentYMargin,
         alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight ),
-        left: expandCollapseButton.right + options.contentXMargin,
-        centerY: this.centerY
+        centerY: this.centerY,
+        left: expandCollapseButtonContainer.right + options.contentXMargin
       } );
 
-      panelContent.setChildren( [ expandCollapseButton, contentContainer ] );
+      panelContent.setChildren( [ expandCollapseButtonContainer, contentContainer ] );
 
-      //----------------------------------------------------------------------------------------
-      // Constrain size if optional fixed sizes were provided
-      //----------------------------------------------------------------------------------------
-
+      /*---------------------------------------------------------------------------*
+       * Constrain size if optional fixed sizes were provided
+       *---------------------------------------------------------------------------*/
+     
       if ( options.contentFixedWidth ) {
         closedContent.maxWidth = options.contentFixedWidth;
         openContent.maxWidth = options.contentFixedWidth;
@@ -163,6 +164,7 @@ define( require => {
         expandCollapseButton.unlink( expandedObserver );
         expandCollapseButton.dispose();
       };
+
     }
 
     /**

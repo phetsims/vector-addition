@@ -16,16 +16,13 @@ define( function( require ) {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
-  //----------------------------------------------------------------------------------------
+  const PANEL_CORNER_RADIUS = 5;
+  const PANEL_X_MARGIN = 7;
+  const PANEL_Y_MARGIN = 10;
+
   // spacing of major grid lines
   const MAJOR_GRID_LINE_SPACING = 5;
 
-  //----------------------------------------------------------------------------------------
-  // for all panel-like containers
-  const PANEL_CORNER_RADIUS = 5;
-  const PANEL_X_MARGIN = 8;
-  const PANEL_Y_MARGIN = 10;
-  const PANEL_WIDTH = 140; // fixed size
 
   //----------------------------------------------------------------------------------------
   const VectorAdditionConstants = {
@@ -38,12 +35,12 @@ define( function( require ) {
     // Defaults for all panel-like containers
     PANEL_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,
-      xMargin: PANEL_X_MARGIN,
-      yMargin: PANEL_Y_MARGIN,
+      xMargin: 8,
+      yMargin: 10,
+      minWidth: 140,
+      maxWidth: 140,
       fill: VectorAdditionColors.LIGHT_GREY,
-      stroke: VectorAdditionColors.PANEL_STROKE_COLOR,
-      minWidth: PANEL_WIDTH,
-      maxWidth: PANEL_WIDTH
+      stroke: VectorAdditionColors.PANEL_STROKE_COLOR
     },
 
     // Font used on all panel-like container text nodes
@@ -56,9 +53,19 @@ define( function( require ) {
     },
 
     //----------------------------------------------------------------------------------------
-    BUTTON_X_MARGIN: 7,
-    BUTTON_Y_MARGIN: 10,
-    INSPECT_PANEL_HEIGHT: 50,
+    // Defaults for all panels with a expand collapse button
+    EXPAND_COLLAPSE_PANEL: {
+      cornerRadius: PANEL_CORNER_RADIUS,
+      contentXMargin: 2,
+      contentYMargin: PANEL_Y_MARGIN,
+      buttonXMargin: PANEL_X_MARGIN,
+      buttonYMargin: PANEL_Y_MARGIN,
+      fill: VectorAdditionColors.LIGHT_GREY,
+      stroke: VectorAdditionColors.PANEL_STROKE_COLOR,
+      expandCollapseButtonOptions: {
+        sideLength: 20
+      }
+    },
 
     //----------------------------------------------------------------------------------------
     // Defaults for all check boxes
@@ -72,7 +79,7 @@ define( function( require ) {
     RADIO_BUTTON_OPTIONS: _.extend( {
       deselectedLineWidth: 0.8,
       selectedLineWidth: 1.5,
-      cornerRadius: PANEL_CORNER_RADIUS,
+      cornerRadius: 8,
       deselectedButtonOpacity: 0.4,
       yMargin: 4.5,
       xMargin: 4.5
@@ -95,7 +102,7 @@ define( function( require ) {
       cursor: 'move'
     },
 
-    // Side length of the arrow when initially dropped onto the graph.
+    // Side length of the arrow when initially dropped onto the graph. Same length as 1 major grid
     DEFAULT_VECTOR_LENGTH: MAJOR_GRID_LINE_SPACING,
 
     // The offset in model coordinates of the label with respect to the vector
@@ -104,7 +111,7 @@ define( function( require ) {
     //----------------------------------------------------------------------------------------
     // Rounding
     ANGLE_ROUNDING: 1, // in decimal points
-    VECTOR_VALUE_ROUNDING: 1, // rounding for the value next to vectors in decimal points
+    VECTOR_VALUE_ROUNDING: 1, // rounding for the value in the label next to vectors in decimal points
 
     //----------------------------------------------------------------------------------------
     // Vector tags, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
