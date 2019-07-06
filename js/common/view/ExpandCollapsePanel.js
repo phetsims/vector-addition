@@ -44,17 +44,13 @@ define( require => {
      *
      * @param {Node} closedContent - content when the panel is closed
      * @param {Node} openContent - content when the panel is open
-     * @param {Object} options
-     *
+     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior.  Some options are
+     *                             specific to this class while some are passed to the superclass.  See the code where
+     *                             the options are set in the early portion of the constructor for details.
      */
     constructor( closedContent, openContent, options ) {
 
       options = _.extend( {
-
-        // Margins of the panel (superclass)
-        xMargin: 0, // {number} horizontal margin of the superclass panel
-        yMargin: 0, // {number} vertical margin of the superclass panel
-        
 
         isExpandedInitially: true, // {boolean} - false means the panel will start off as closed
 
@@ -64,27 +60,33 @@ define( require => {
 
 
         contentFixedWidth: null, // {number|null} if provided, the content will scale to fix this width. Otherwise,
-                                 // the fixed size is calculated by the larges of the content nodes and its margin
+                                 // the fixed size is calculated by the largest of the content nodes and its respective
+                                 // margin
 
-        contentFixedHeight: null // {number|null} if provided, the content will scale to fix this height. Otherwise,
-                                 // the fixed size is calculated by the larges of the content nodes and its margin
+        contentFixedHeight: null, // {number|null} if provided, the content will scale to fix this height. Otherwise,
+                                 // the fixed size is calculated by the largest of the content nodes and its respective
+                                 // margin
 
+        // superclass options
+        xMargin: 0, // {number} horizontal margin of the superclass panel
+        yMargin: 0 // {number} vertical margin of the superclass panel
+        
+        // See VectorAdditionConstants.EXPAND_COLLAPSE_PANEL for the rest of the defaults
       }, VectorAdditionConstants.EXPAND_COLLAPSE_PANEL, options );
-
-      //----------------------------------------------------------------------------------------
 
       assert && assert( typeof options.isExpandedInitially === 'boolean', `invalid options.isExpandedInitially: ${options.isExpandedInitially}` );
       assert && assert( closedContent instanceof Node, `invalid closedContent: ${closedContent}` );
       assert && assert( openContent instanceof Node, `invalid openContent: ${openContent}` );
 
-      /*---------------------------------------------------------------------------*
-       * Create the Panel
-       *---------------------------------------------------------------------------*/
-      
-      // Create a node as the reference of the content in the panel
+      //----------------------------------------------------------------------------------------
+      // Create the Panel
+      //----------------------------------------------------------------------------------------
+
+      // Create a node as the reference of the content inside the panel
       const panelContent = new Node();
 
       super( panelContent, {
+        // Pass individual options to superclass, as passing all of options with custom keys is a code smell.
         cornerRadius: options.cornerRadius,
         xMargin: options.xMargin,
         yMargin: options.yMargin,
@@ -92,10 +94,10 @@ define( require => {
         stroke: options.stroke
       } );
 
-      /*---------------------------------------------------------------------------*
-       * Create the expand collapse button
-       *---------------------------------------------------------------------------*/
-      
+      //----------------------------------------------------------------------------------------
+      // Create the expand-collapse button
+      //----------------------------------------------------------------------------------------
+
       // Create a property that indicates if the panel is open or not.
       const expandedProperty = new BooleanProperty( options.isExpandedInitially );
 
@@ -109,7 +111,7 @@ define( require => {
       // Button to open and close the panel
       const expandCollapseButton = new ExpandCollapseButton( expandedProperty, options.expandCollapseButtonOptions );
 
-      // Add the expand collapse button in a align box
+      // Align the expand collapse button in a align box, giving margins and centering it
       const expandCollapseButtonContainer = new AlignBox( expandCollapseButton, {
         xAlign: 'center',
         yAlign: 'center',
@@ -118,10 +120,9 @@ define( require => {
         centerY: this.centerY
       } );
 
-      /*---------------------------------------------------------------------------*
-       * Create the content container
-       *---------------------------------------------------------------------------*/
-
+      //----------------------------------------------------------------------------------------
+      // Create the content container
+      //----------------------------------------------------------------------------------------
 
       // Convenience References
       const contentWidth = options.contentFixedWidth ? options.contentFixedWidth :
@@ -130,7 +131,7 @@ define( require => {
       const contentHeight = options.contentFixedHeight ? options.contentFixedHeight :
                               _.max( [ closedContent.height, openContent.height ] ) + 2 * options.contentYMargin;
 
-      // Create the container for the closed and open content
+      // Align the closed and open content in a align box, adding a strict bounds
       const contentContainer = new AlignBox( new Node( { children: [ closedContent, openContent ] } ), {
         xAlign: options.contentXAlign,
         yAlign: options.contentYAlign,
@@ -143,10 +144,10 @@ define( require => {
 
       panelContent.setChildren( [ expandCollapseButtonContainer, contentContainer ] );
 
-      /*---------------------------------------------------------------------------*
-       * Constrain size if optional fixed sizes were provided
-       *---------------------------------------------------------------------------*/
-     
+      //----------------------------------------------------------------------------------------
+      // Constrain size if optional fixed sizes were provided
+      //----------------------------------------------------------------------------------------
+
       if ( options.contentFixedWidth ) {
         closedContent.maxWidth = options.contentFixedWidth;
         openContent.maxWidth = options.contentFixedWidth;
@@ -156,15 +157,15 @@ define( require => {
         openContent.maxHeight = options.contentFixedHeight;
       }
 
-      /*---------------------------------------------------------------------------*
-       * Disposes of the links
-       *---------------------------------------------------------------------------*/
+      //----------------------------------------------------------------------------------------
+      // Disposes of the links
+      //----------------------------------------------------------------------------------------
+
       // @private {function}
       this.disposePanel = () => {
         expandCollapseButton.unlink( expandedObserver );
         expandCollapseButton.dispose();
       };
-
     }
 
     /**
