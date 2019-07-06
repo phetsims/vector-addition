@@ -40,7 +40,7 @@ define( require => {
   const LABEL_OFFSET = 5;
 
   // Rounding of the angle label
-  const ANGLE_ROUNDING = VectorAdditionConstants.ANGLE_ROUNDING;
+  const NUMBER_DISPLAY_ROUNDING = VectorAdditionConstants.NUMBER_DISPLAY_ROUNDING;
 
   // Angles greater than 35 position the label between the vector and the baseline, and angles under 35
   // place the label on the other side of the baseline.
@@ -150,7 +150,7 @@ define( require => {
       }
       else {
 
-        this.labelText.setText( Util.toFixed( angle, ANGLE_ROUNDING ) + '\u00B0' );
+        this.labelText.setText( Util.toFixed( angle, NUMBER_DISPLAY_ROUNDING ) + '\u00B0' );
 
         const angleInRadians = Util.toRadians( angle );
 

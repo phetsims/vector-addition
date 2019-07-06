@@ -8,7 +8,8 @@
  *  - closed content
  *  - open content
  *
- * Based on if the expand collapse button is open, visibility of the content will be toggled.
+ * Based on if the expand collapse button is open or closed, the content will be toggled.
+ *
  * The closed and open content are placed to the right of the button.
  * 
  * A visual:
@@ -44,8 +45,8 @@ define( require => {
      *
      * @param {Node} closedContent - content when the panel is closed
      * @param {Node} openContent - content when the panel is open
-     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior.  Some options are
-     *                             specific to this class while some are passed to the superclass.  See the code where
+     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
+     *                             specific to this class while some are passed to the superclass. See the code where
      *                             the options are set in the early portion of the constructor for details.
      */
     constructor( closedContent, openContent, options ) {
@@ -64,8 +65,8 @@ define( require => {
                                  // margin
 
         contentFixedHeight: null, // {number|null} if provided, the content will scale to fix this height. Otherwise,
-                                 // the fixed size is calculated by the largest of the content nodes and its respective
-                                 // margin
+                                  // the fixed size is calculated by the largest of the content nodes and its respective
+                                  // margin
 
         // superclass options
         xMargin: 0, // {number} horizontal margin of the superclass panel
@@ -101,13 +102,6 @@ define( require => {
       // Create a property that indicates if the panel is open or not.
       const expandedProperty = new BooleanProperty( options.isExpandedInitially );
 
-      // Observe when the panel is open and closed and update the visibility of the content.
-      const expandedObserver = ( isExpanded ) => {
-        openContent.visible = isExpanded;
-        closedContent.visible = !isExpanded;
-      };
-      expandedProperty.link( expandedObserver );
-
       // Button to open and close the panel
       const expandCollapseButton = new ExpandCollapseButton( expandedProperty, options.expandCollapseButtonOptions );
 
@@ -125,24 +119,38 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Convenience References
-      const contentWidth = options.contentFixedWidth ? options.contentFixedWidth :
+      const contentWidth = options.contentFixedWidth ? options.contentFixedWidth + 2 * options.contentXMargin:
                             _.max( [ closedContent.width, openContent.width ] ) + 2 * options.contentXMargin;
 
-      const contentHeight = options.contentFixedHeight ? options.contentFixedHeight :
+      const contentHeight = options.contentFixedHeight ? options.contentFixedHeight + 2 * options.contentYMargin:
                               _.max( [ closedContent.height, openContent.height ] ) + 2 * options.contentYMargin;
 
+      // Create the container for the content on the right
+      const contentContainer = new Node();
+
       // Align the closed and open content in a align box, adding a strict bounds
-      const contentContainer = new AlignBox( new Node( { children: [ closedContent, openContent ] } ), {
+      const contentAlignBox = new AlignBox( contentContainer, {
         xAlign: options.contentXAlign,
         yAlign: options.contentYAlign,
         xMargin: options.contentXMargin,
         yMargin: options.contentYMargin,
         alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight ),
-        centerY: this.centerY,
-        left: expandCollapseButtonContainer.right + options.contentXMargin
+        centerY: this.centerY, // since it is the full height, center it. The align box will align the content inside.
+        left: expandCollapseButtonContainer.right + options.contentXMargin,
+        maxWidth: contentWidth
       } );
 
-      panelContent.setChildren( [ expandCollapseButtonContainer, contentContainer ] );
+      //----------------------------------------------------------------------------------------
+      // Observe when the panel is open and closed and update the content
+      //----------------------------------------------------------------------------------------
+
+      const expandedListener = ( isExpanded ) => {
+        contentContainer.setChildren( [ isExpanded ? openContent : closedContent ] );
+      };
+      expandedProperty.link( expandedListener );
+
+      // Set the children of the panel
+      panelContent.setChildren( [ expandCollapseButtonContainer, contentAlignBox ] );
 
       //----------------------------------------------------------------------------------------
       // Constrain size if optional fixed sizes were provided
@@ -163,7 +171,7 @@ define( require => {
 
       // @private {function}
       this.disposePanel = () => {
-        expandCollapseButton.unlink( expandedObserver );
+        expandCollapseButton.unlink( expandedListener );
         expandCollapseButton.dispose();
       };
     }
