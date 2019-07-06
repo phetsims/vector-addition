@@ -67,6 +67,9 @@ define( function( require ) {
       }
     },
 
+    // Height of all ExpandCollapsePanel instances
+    EXPAND_COLLAPSE_PANEL_HEIGHT: 30,
+
     //----------------------------------------------------------------------------------------
     // Defaults for all check boxes
     CHECKBOX_OPTIONS: {
@@ -110,7 +113,7 @@ define( function( require ) {
 
     //----------------------------------------------------------------------------------------
     // Rounding
-    ANGLE_ROUNDING: 1, // in decimal points
+    NUMBER_DISPLAY_ROUNDING: 1, // in decimal points
     VECTOR_VALUE_ROUNDING: 1, // rounding for the value in the label next to vectors in decimal points
 
     //----------------------------------------------------------------------------------------
