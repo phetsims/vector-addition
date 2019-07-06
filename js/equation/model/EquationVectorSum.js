@@ -118,6 +118,10 @@ define( require => {
       } );
       
     }
+
+    reset() {
+      
+    }
   }
 
   return vectorAddition.register( 'EquationVectorSum', EquationVectorSum );
