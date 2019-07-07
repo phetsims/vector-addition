@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
@@ -20,16 +21,14 @@ define( function( require ) {
   const PANEL_X_MARGIN = 7;
   const PANEL_Y_MARGIN = 10;
 
-  // spacing of major grid lines
-  const MAJOR_GRID_LINE_SPACING = 5;
-
 
   //----------------------------------------------------------------------------------------
   const VectorAdditionConstants = {
 
     // Margins for all ScreenView instances
     SCREEN_VIEW_X_MARGIN: 10,
-    SCREEN_VIEW_Y_MARGIN: 14,
+    SCREEN_VIEW_Y_MARGIN: 12,
+    SCREEN_VIEW_BOUNDS: ScreenView.DEFAULT_LAYOUT_BOUNDS,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all panel-like containers
@@ -108,6 +107,10 @@ define( function( require ) {
     DEFAULT_GRAPH_BOUNDS: new Bounds2( -5, -5, 55, 35 ),
     DEFAULT_SUM_VISIBLE: false,
 
+
+    AXES_ARROW_X_EXTENSION: 20, // how far the line extends past the grid
+    AXES_ARROW_Y_EXTENSION: 15,
+
     //----------------------------------------------------------------------------------------
     // Defaults for all vector arrow nodes
     VECTOR_OPTIONS: {
@@ -119,7 +122,7 @@ define( function( require ) {
     },
 
     // Side length of the arrow when initially dropped onto the graph. Same length as 1 major grid
-    DEFAULT_VECTOR_LENGTH: MAJOR_GRID_LINE_SPACING,
+    DEFAULT_VECTOR_LENGTH: 5,
 
     // The offset in model coordinates of the label with respect to the vector
     VECTOR_LABEL_OFFSET: 0.5,

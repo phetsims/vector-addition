@@ -68,10 +68,10 @@ define( require => {
       // Create and add the graphs
 
       // @public (read-only) {Graph}
-      this.verticalGraph = new Graph( EXPLORE_1D_GRAPH_BOUNDS, GraphOrientations.VERTICAL );
+      this.verticalGraph = new Graph( EXPLORE_1D_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.VERTICAL );
 
       // @public (read-only) {Graph}
-      this.horizontalGraph = new Graph( EXPLORE_1D_GRAPH_BOUNDS, GraphOrientations.HORIZONTAL );
+      this.horizontalGraph = new Graph( EXPLORE_1D_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.HORIZONTAL );
 
       this.graphs.push( this.horizontalGraph, this.verticalGraph );
 
@@ -81,14 +81,12 @@ define( require => {
       // @public (read-only) {VectorSet}
       this.verticalVectorSet = this.verticalGraph.createVectorSet( this.componentStyleProperty,
         this.sumVisibleProperty,
-        this.vectorGroup,
-        CoordinateSnapModes.CARTESIAN );
+        this.vectorGroup );
 
       // @public (read-only) {VectorSet}
       this.horizontalVectorSet = this.horizontalGraph.createVectorSet( this.componentStyleProperty,
         this.sumVisibleProperty,
-        this.vectorGroup,
-        CoordinateSnapModes.CARTESIAN );
+        this.vectorGroup );
 
       this.horizontalGraph.vectorSets.push( this.horizontalVectorSet );
       this.verticalGraph.vectorSets.push( this.verticalVectorSet );

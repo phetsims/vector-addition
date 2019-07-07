@@ -66,10 +66,10 @@ define( require => {
       // Create the two graphs
 
       // @public (read-only) {graph}
-      this.polarGraph = new Graph( EQUATION_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+      this.polarGraph = new Graph( EQUATION_GRAPH_BOUNDS, CoordinateSnapModes.POLAR, GraphOrientations.TWO_DIMENSIONAL );
 
       // @public (read-only) {graph}
-      this.cartesianGraph = new Graph( EQUATION_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+      this.cartesianGraph = new Graph( EQUATION_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.TWO_DIMENSIONAL );
 
       this.graphs.push( this.polarGraph, this.cartesianGraph );
 

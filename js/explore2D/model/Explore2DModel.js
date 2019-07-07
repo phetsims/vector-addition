@@ -68,10 +68,10 @@ define( require => {
       // Create and add the graphs
 
       // @public (read-only) {Graph}
-      this.polarGraph = new Graph( EXPLORE_2D_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+      this.polarGraph = new Graph( EXPLORE_2D_GRAPH_BOUNDS, CoordinateSnapModes.POLAR, GraphOrientations.TWO_DIMENSIONAL );
 
       // @public (read-only) {Graph}
-      this.cartesianGraph = new Graph( EXPLORE_2D_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+      this.cartesianGraph = new Graph( EXPLORE_2D_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.TWO_DIMENSIONAL );
 
       this.graphs.push( this.polarGraph, this.cartesianGraph );
 
@@ -81,14 +81,12 @@ define( require => {
       // @public (read-only) {VectorSet}
       this.polarVectorSet = this.polarGraph.createVectorSet( this.componentStyleProperty,
         this.polarSumVisibileProperty,
-        this.polarVectorGroup,
-        CoordinateSnapModes.POLAR );
+        this.polarVectorGroup );
 
       // @public (read-only) {VectorSet}
       this.cartesianVectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
         this.cartesianSumVisibileProperty,
-        this.cartesianVectorGroup,
-        CoordinateSnapModes.CARTESIAN );
+        this.cartesianVectorGroup );
 
       this.polarGraph.vectorSets.push( this.polarVectorSet );
       this.cartesianGraph.vectorSets.push( this.cartesianVectorSet );

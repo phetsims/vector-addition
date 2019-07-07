@@ -73,10 +73,10 @@ define( require => {
       // Create and add the graphs.
 
       // @public (read-only) {Graph}
-      this.polarGraph = new Graph( LAB_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+      this.polarGraph = new Graph( LAB_GRAPH_BOUNDS, CoordinateSnapModes.POLAR, GraphOrientations.TWO_DIMENSIONAL );
 
       // @public (read-only) {Graph}
-      this.cartesianGraph = new Graph( LAB_GRAPH_BOUNDS, GraphOrientations.TWO_DIMENSIONAL );
+      this.cartesianGraph = new Graph( LAB_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.TWO_DIMENSIONAL );
 
       this.graphs.push( this.cartesianGraph, this.polarGraph );
 
@@ -86,14 +86,12 @@ define( require => {
       // @public (read-only) {VectorSet}
       this.cartesianGroup1VectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
         this.cartesianGroup1SumVisibileProperty,
-        VectorGroups.ONE,
-        CoordinateSnapModes.CARTESIAN );
+        VectorGroups.ONE );
 
       // @public (read-only) {VectorSet}
       this.cartesianGroup2VectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
         this.cartesianGroup2SumVisibileProperty,
-        VectorGroups.TWO,
-        CoordinateSnapModes.CARTESIAN );
+        VectorGroups.TWO );
 
       this.cartesianGraph.vectorSets.push( this.cartesianGroup1VectorSet, this.cartesianGroup2VectorSet );
 
@@ -103,14 +101,12 @@ define( require => {
       // @public (read-only) {VectorSet}
       this.polarGroup3VectorSet = this.polarGraph.createVectorSet( this.componentStyleProperty,
         this.polarGroup3SumVisibileProperty,
-        VectorGroups.THREE,
-        CoordinateSnapModes.POLAR );
+        VectorGroups.THREE );
 
       // @public (read-only) {VectorSet}
       this.polarGroup4VectorSet = this.polarGraph.createVectorSet( this.componentStyleProperty,
         this.polarGroup4SumVisibileProperty,
-        VectorGroups.FOUR,
-        CoordinateSnapModes.POLAR );
+        VectorGroups.FOUR );
 
       this.polarGraph.vectorSets.push( this.polarGroup3VectorSet, this.polarGroup4VectorSet );
     }

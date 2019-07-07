@@ -15,7 +15,7 @@ define( require => {
 
   /**
    * Vectors can be snapped in 2 ways:
-   * 'CARTESIAN' - the tail and the tip on the grid and components are integers
+   * 'CARTESIAN' - the tail and the tip are snapped to an exact grid coordinate and components are always integers
    * 'POLAR' - the angle is a multiple of 5 and the magnitude must be an integer
    */
   const CoordinateSnapModes = new Enumeration( [ 'CARTESIAN', 'POLAR' ] );
