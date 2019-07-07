@@ -77,7 +77,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( tailPosition, xComponent, yComponent, vectorSet.vectorGroup, tag );
+      super( tailPosition, new Vector2( xComponent, yComponent ), vectorSet.vectorGroup, tag );
 
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
@@ -117,7 +117,7 @@ define( require => {
       // Function to update the position of the tail of the vector based on the modelViewTransform
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
         const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
-        this.translateToPoint( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
+        this.translateTailToPoint( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
       };
 
       this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
@@ -353,7 +353,7 @@ define( require => {
 
       const constrainedBounds = this.getConstrainedTailBounds();
       // Translate the tail to ensure it stays in the contained bounds
-      this.translateToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
+      this.translateTailToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
     }
 
     /**

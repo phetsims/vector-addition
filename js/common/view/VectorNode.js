@@ -326,7 +326,7 @@ define( require => {
 
       // Allow translation to anywhere if it isn't on the graph
       if ( this.vectorModel.isOnGraphProperty.value === false ) {
-        this.vectorModel.translateToPoint( tailPosition );
+        this.vectorModel.translateTailToPoint( tailPosition );
       }
       else {
         // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds

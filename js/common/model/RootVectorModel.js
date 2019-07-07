@@ -7,6 +7,7 @@
  *  - tip and tail position properties
  *  - vector components (x and y, or in other words the actual vector <x, y>)
  *  - vector group (See ./VectorGroups.js)
+ *  - abstract class for label information (see getLabelContent() for detailed documentation)
  *
  * For an overview of the vector class hierarchy visit https://github.com/phetsims/vector-addition/issues/31
  *
@@ -27,37 +28,36 @@ define( require => {
     /**
      * @constructor
      * @param {Vector2} initialTailPosition - starting tail position of the vector
-     * @param {number} xComponent - horizontal component of the vector
-     * @param {number} yComponent - vertical component of the vector
+     * @param {Vector2} initialComponents - starting components of the vector
      * @param {VectorGroups} vectorGroup - the vector group (See ./VectorGroups.js)
      * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( initialTailPosition, xComponent, yComponent, vectorGroup, tag ) {
+    constructor( initialTailPosition, initialComponents, vectorGroup, tag ) {
 
       assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
-      assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
-      assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
+      assert && assert( initialComponents instanceof Vector2, `invalid initialComponents: ${initialComponents}` );
       assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
       assert && assert( typeof tag === 'string' || tag === null, `invalid tag: ${tag}` );
       //----------------------------------------------------------------------------------------
-
-      // @public (read-only) {VectorGroups}
-      this.vectorGroup = vectorGroup;
-
-      // @protected {string}
-      this.tag = tag;
 
       // @public (read-only) {Vector2Property} - the tail position of the vector on the graph
       this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
       // @public (read-only) {Vector2Property} - (x and y, or in other words the actual vector <x, y>). Every vector
       // has a x and a y component.
-      this.vectorComponentsProperty = new Vector2Property( new Vector2( xComponent, yComponent ) );
+      this.vectorComponentsProperty = new Vector2Property( initialComponents );
 
-      // @public (read-only) {DerivedProperty.<Vector2>} - the tip position of the vector
+      // @public (read-only) {DerivedProperty.<Vector2>} - the tip position of the vector. Derived from the tail and
+      // the components
       this.tipPositionProperty = new DerivedProperty(
         [ this.tailPositionProperty, this.vectorComponentsProperty ],
         ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
+
+      // @public (read-only) {VectorGroups}
+      this.vectorGroup = vectorGroup;
+
+      // @public (read-only) {string}
+      this.tag = tag;
     }
 
     /**
@@ -73,33 +73,39 @@ define( require => {
     /**
      * @abstract
      * Gets the label content information to display on the vector. This is abstract since labels differ for vectors.
+     *
      * For context, a label is the content next to the vectors that display their tag and/or their value.
+     * See https://user-images.githubusercontent.com/42391580/60774902-473beb00-a0d8-11e9-8cd5-737208ca65db.png for
+     * annotated drawing.
      *
      * For instance, vectors with valuesVisible display their tag (i.e. a, b, c, ...) AND their magnitude, while
-     * their components only display the x or y component. In the same example, vectors display (+) their magnitude
+     * their components only display the x or y component. In the same example, vectors display their magnitude (+)
      * while components display the component, which can be negative.
      *
      * Additionally, the label displays different content depending on the screen.
      * See https://github.com/phetsims/vector-addition/issues/39.
      *
-     * There are 4 different factors for determining what the label displays:
+     * There are 5 different factors for determining what the label displays:
+     *  - Whether the vector has a coefficient
      *  - Whether the values are visible (determined by the values checkbox)
      *  - Whether the magnitude/component is of length 0. See
      *     https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
-     *  - Whether the vector has a tag (i.e the vectors on lab screen don't have tags)
+     *  - Whether the vector has a tag (i.e. the vectors on lab screen don't have tags)
      *  - Whether the vector is active (https://github.com/phetsims/vector-addition/issues/39#issuecomment-506586411)
      *
      * These factors play different roles for different vector types, making it difficult to generalize. Thus, an
      * abstract method is used to determine the content.
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
+     *
      * @returns {object} {
-     *    prefix: {string|null} // the prefix (e.g. if the label displayed |v|=15, the prefix would be '|v|')
-     *    value: {string|null} // the suffix (e.g. if the label displayed |v|=15, the value would be '=15')
+     *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
+     *                               // 3). Null means it doesn't display a coefficient
+     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
+     *                       // Null means it doesn't display a tag
+     *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
+     *                         // Null means it doesn't display a value
      * }
-     * Since there are 2 different sections of the content (See
-     * https://github.com/phetsims/vector-addition/issues/43#issuecomment-507467062), this must
-     * return two separate strings.
      */
     getLabelContent( valuesVisible ) {
       assert && assert( false, 'getLabelContent must be implemented by sub classes' );
@@ -130,16 +136,6 @@ define( require => {
     get magnitude() { return this.vectorComponents.magnitude; }
 
     /**
-     * Sets the magnitude of the vector. This keeps the tail constant, but changes the tip.
-     * @public
-     * @param {number} magnitude
-     */
-    set magnitude( magnitude ) {
-      assert && assert( typeof magnitude === 'number', `invalid number: ${magnitude}` );
-      this.vectorComponents = this.vectorComponents.copy().setMagnitude( magnitude );
-    }
-
-    /**
      * Gets the yComponent
      * @public
      * @returns {number}
@@ -153,7 +149,7 @@ define( require => {
      */
     set yComponent( component ) {
       assert && assert( typeof component === 'number', `invalid component: ${component}` );
-      this.vectorComponents.y = component;
+      this.vectorComponents = this.vectorComponents.setY( component );
     }
 
     /**
@@ -170,7 +166,7 @@ define( require => {
      */
     set xComponent( component ) {
       assert && assert( typeof component === 'number', `invalid component: ${component}` );
-      this.vectorComponents.x = component;
+      this.vectorComponents = this.vectorComponents.setX( component );
     }
 
     /**
@@ -203,7 +199,7 @@ define( require => {
      * @param {number} x
      */
     set tailX( x ) {
-      this.setTailXY( x, this.tailPositionProperty.value.y );
+      this.setTailXY( x, this.tailY );
     }
 
     /**
@@ -219,7 +215,7 @@ define( require => {
      * @param {number} y
      */
     set tailY( y ) {
-      this.setTailXY( this.tailPositionProperty.value.x, y );
+      this.setTailXY( this.tailX, y );
     }
 
     /**
@@ -273,7 +269,7 @@ define( require => {
       // Keep a reference to the original tip
       const tip = this.tip;
 
-      this.translateToPoint( new Vector2( x, y ) );
+      this.translateTailToPoint( new Vector2( x, y ) );
 
       // Set the tip back
       this.tip = tip;
@@ -302,7 +298,7 @@ define( require => {
      * @public
      * @param {Vector2} position
      */
-    translateToPoint( position ) {
+    translateTailToPoint( position ) {
       this.tailPositionProperty.value = position;
     }
   }

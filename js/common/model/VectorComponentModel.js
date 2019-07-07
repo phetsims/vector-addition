@@ -26,6 +26,7 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
 
@@ -56,7 +57,7 @@ define( require => {
       // Vector components don't have a tag.
       const componentTag = null;
 
-      super( parentVector.tail, 0, 0, parentVector.vectorGroup, componentTag );
+      super( parentVector.tail, new Vector2( 0, 0 ), parentVector.vectorGroup, componentTag );
 
       // @public (read-only)
       this.componentType = componentType;
