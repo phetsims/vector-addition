@@ -41,12 +41,12 @@ define( require => {
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      */
     constructor( graph,
-      componentStyleProperty, 
-      sumVisibleProperty,
-      vectorGroup,
-      coordinateSnapMode,
-      initialVectorComponents,
-      equationTypeProperty
+                 componentStyleProperty,
+                 sumVisibleProperty,
+                 vectorGroup,
+                 coordinateSnapMode,
+                 initialVectorComponents,
+                 equationTypeProperty
     ) {
 
       assert && assert( initialVectorComponents instanceof Vector2,
@@ -61,7 +61,7 @@ define( require => {
         vectorGroup,
         coordinateSnapMode,
         VECTOR_SET_OPTIONS );
-      
+
       //----------------------------------------------------------------------------------------
       // Create the equationVectorModel, one less then tags
       // For example, if tags were [ 'A', 'B', 'C' ], 'A' and 'B' would be equation Vector modules

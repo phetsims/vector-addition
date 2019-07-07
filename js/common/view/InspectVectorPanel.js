@@ -143,28 +143,32 @@ define( require => {
 
       this.top = options.top;
       this.left = options.left;
- 
+
       //----------------------------------------------------------------------------------------
       // Create the scenery nodes to display the vector (go inside of vectorAttributesContainer)
       // Each attribute has a label and a number display container (parent of the soon to be declared number display)
       //----------------------------------------------------------------------------------------
-     
+
       const magnitudeTextNode = new FormulaNode( '', { maxWidth: MAGNITUDE_LABEL_WIDTH, centerY: this.centerY } );
       const magnitudeNumberDisplayContainer = new Node();
       let magnitudeNumberDisplay;
 
       //----------------------------------------------------------------------------------------
-      const angleText = new Text( MathSymbols.THETA, { maxWidth: LABEL_WIDTH, font: PANEL_FONT, centerY: this.centerY } );
+      const angleText = new Text( MathSymbols.THETA, {
+        maxWidth: LABEL_WIDTH,
+        font: PANEL_FONT,
+        centerY: this.centerY
+      } );
       const angleNumberDisplayContainer = new Node();
       let angleNumberDisplay;
 
       //----------------------------------------------------------------------------------------
-      const xComponentText = new RichText( '', { maxWidth: LABEL_WIDTH , centerY: this.centerY} );
+      const xComponentText = new RichText( '', { maxWidth: LABEL_WIDTH, centerY: this.centerY } );
       const xComponentNumberDisplayContainer = new Node();
       let xNumberDisplay;
 
       //----------------------------------------------------------------------------------------
-      const yComponentText = new RichText( '', { maxWidth: LABEL_WIDTH , centerY: this.centerY} );
+      const yComponentText = new RichText( '', { maxWidth: LABEL_WIDTH, centerY: this.centerY } );
       const yComponentNumberDisplayContainer = new Node();
       let yNumberDisplay;
 

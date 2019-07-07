@@ -41,7 +41,7 @@ define( function( require ) {
         equationModel.polarVectorSet,
         equationModel.polarBaseVectorsVisibleProperty,
         equationModel.polarEquationTypeProperty );
-      
+
       const cartesianScene = new EquationSceneNode( equationModel,
         equationModel.cartesianGraph,
         equationModel.cartesianVectorSet,

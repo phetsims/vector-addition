@@ -32,11 +32,11 @@ define( require => {
      * @constructor
      */
     constructor( vectorComponentModel,
-      graph,
-      componentStyleProperty,
-      valuesVisibleProperty,
-      sumVisibleProperty,
-      options ) {
+                 graph,
+                 componentStyleProperty,
+                 valuesVisibleProperty,
+                 sumVisibleProperty,
+                 options ) {
 
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );

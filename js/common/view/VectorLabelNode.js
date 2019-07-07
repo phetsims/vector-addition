@@ -64,7 +64,7 @@ define( require => {
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( activeVectorProperty instanceof Property
-      && activeVectorProperty.value instanceof RootVectorModel || activeVectorProperty.value === null,
+                        && activeVectorProperty.value instanceof RootVectorModel || activeVectorProperty.value === null,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
@@ -92,7 +92,7 @@ define( require => {
       vectorTagNode.scale( options.scale );
 
       // Create the text for the value
-      const vectorValueNode = new Text( '', VALUE_LABEL_OPTIONS);
+      const vectorValueNode = new Text( '', VALUE_LABEL_OPTIONS );
 
       super( {
         children: [ backgroundRectangle, vectorLabel.setChildren( [ vectorTagNode, vectorValueNode ] ) ]
@@ -153,7 +153,7 @@ define( require => {
           // Set the background size
           backgroundRectangle.setRectWidth( vectorLabel.getBounds().width + 2 * options.xMargin );
           backgroundRectangle.setRectHeight( vectorLabel.getBounds().height + 2 * options.yMargin );
-          
+
           // Update positioning
           backgroundRectangle.center = vectorLabel.center;
           vectorValueNode.centerY = backgroundRectangle.centerY;

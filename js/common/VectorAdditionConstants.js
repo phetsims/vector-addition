@@ -45,7 +45,7 @@ define( function( require ) {
 
     // Font used on all panel-like container text nodes
     PANEL_FONT: new PhetFont( 15 ),
-    
+
     // Defaults for layout boxes embedded in graph control panels (panel at the top-right of each and every screen)
     CONTROL_PANEL_LAYOUT_BOX_OPTIONS: {
       spacing: 10,
@@ -87,6 +87,19 @@ define( function( require ) {
       yMargin: 4.5,
       xMargin: 4.5
     }, VectorAdditionColors.RADIO_BUTTON_COLORS ),
+
+    //----------------------------------------------------------------------------------------
+    // Options for all number pickers
+    NUMBER_PICKER_OPTIONS: {
+      color: VectorAdditionColors.BLACK,
+      cornerRadius: 3,
+      arrowYSpacing: 1.5,
+      arrowHeight: 3.5,
+      font: new PhetFont( 14.5 ),
+      xMargin: 1.8,
+      yMargin: 1.7,
+      valueMaxWidth: 15.5
+    },
 
     //----------------------------------------------------------------------------------------
     // Defaults for graphs

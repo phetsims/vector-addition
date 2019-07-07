@@ -68,7 +68,7 @@ define( require => {
       } );
 
       this.yComponentSelectorProperty.link( yComponent => {
-        this.yComponent= yComponent;
+        this.yComponent = yComponent;
       } );
 
       //----------------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ define( require => {
           assert && assert( false, 'vector sums should never be off the graph' );
         }
       } );
-      
+
     }
 
     reset() {

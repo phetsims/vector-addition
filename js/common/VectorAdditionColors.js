@@ -78,7 +78,7 @@ define( function( require ) {
     fill: 'rgb( 232, 25, 9 )',
     sum: 'rgb( 196, 2, 51 )',
     component: 'rgb( 245, 120, 120 )',
-    labelBackground:'rgb( 255, 100, 100 )'
+    labelBackground: 'rgb( 255, 100, 100 )'
   };
 
   VectorAdditionColors[ VectorGroups.THREE ] = {

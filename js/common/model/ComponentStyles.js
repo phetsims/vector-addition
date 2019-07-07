@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Enumeration of the possible styles to display vector components
+ * Enumeration of the possible styles to display vector components.
  *
  * @author Brandon Li
  */

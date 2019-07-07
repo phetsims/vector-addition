@@ -11,7 +11,7 @@
  * Based on if the expand collapse button is open or closed, the content will be toggled.
  *
  * The closed and open content are placed to the right of the button.
- * 
+ *
  * A visual:
  * https://user-images.githubusercontent.com/42391580/60743952-f342d200-9f30-11e9-9a04-7b72ada15244.png
  *
@@ -19,7 +19,7 @@
  * between the closed and open content added to its margins.
  *
  * There is an option to pass a defined fixed width and/or fixed height. The panel will scale the nodes to fit the
- * the defined dimensions. 
+ * the defined dimensions.
  *
  * References to the two children are preferred.
  *
@@ -71,7 +71,7 @@ define( require => {
         // superclass options
         xMargin: 0, // {number} horizontal margin of the superclass panel
         yMargin: 0 // {number} vertical margin of the superclass panel
-        
+
         // See VectorAdditionConstants.EXPAND_COLLAPSE_PANEL for the rest of the defaults
       }, VectorAdditionConstants.EXPAND_COLLAPSE_PANEL, options );
 
@@ -119,11 +119,11 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Convenience References
-      const contentWidth = options.contentFixedWidth ? options.contentFixedWidth + 2 * options.contentXMargin:
-                            _.max( [ closedContent.width, openContent.width ] ) + 2 * options.contentXMargin;
+      const contentWidth = options.contentFixedWidth ? options.contentFixedWidth + 2 * options.contentXMargin :
+                           _.max( [ closedContent.width, openContent.width ] ) + 2 * options.contentXMargin;
 
-      const contentHeight = options.contentFixedHeight ? options.contentFixedHeight + 2 * options.contentYMargin:
-                              _.max( [ closedContent.height, openContent.height ] ) + 2 * options.contentYMargin;
+      const contentHeight = options.contentFixedHeight ? options.contentFixedHeight + 2 * options.contentYMargin :
+                            _.max( [ closedContent.height, openContent.height ] ) + 2 * options.contentYMargin;
 
       // Create the container for the content on the right
       const contentContainer = new Node();
@@ -160,7 +160,7 @@ define( require => {
         closedContent.maxWidth = options.contentFixedWidth;
         openContent.maxWidth = options.contentFixedWidth;
       }
-      if ( options.contentFixedHeight) {
+      if ( options.contentFixedHeight ) {
         closedContent.maxHeight = options.contentFixedHeight;
         openContent.maxHeight = options.contentFixedHeight;
       }

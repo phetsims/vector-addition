@@ -69,13 +69,13 @@ define( require => {
           this.vectorComponents = sum;
         }
         else if ( equationType === EquationTypes.SUBTRACTION ) {
-         const difference = new Vector2( 0, 0 );
+          const difference = new Vector2( 0, 0 );
 
           vectorSet.vectors.forEach( vector => {
             difference.subtract( vector.vectorComponents );
           } );
 
-          this.vectorComponents = difference;          
+          this.vectorComponents = difference;
         }
         else if ( equationType === EquationTypes.NEGATION ) {
           // Same as addition but negated  : a + b = -c or a + b + c = 0
@@ -116,11 +116,11 @@ define( require => {
           assert && assert( false, 'vector sums should never be off the graph' );
         }
       } );
-      
+
     }
 
     reset() {
-      
+
     }
   }
 

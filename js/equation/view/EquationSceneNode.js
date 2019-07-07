@@ -7,7 +7,7 @@
  *  - a Coefficient Selector Panel
  *  - a Base Vector Accordion Box
  *  - VectorNodes for one VectorSet
- *  
+ *
  * @author Brandon Li
  */
 
@@ -18,7 +18,7 @@ define( require => {
   const CoefficientSelectorPanel = require( 'VECTOR_ADDITION/equation/view/CoefficientSelectorPanel' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
-  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );  
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
@@ -53,10 +53,10 @@ define( require => {
      * @constructor
      */
     constructor( equationModel,
-      graph,
-      equationVectorSet,
-      baseVectorVisibleProperty,
-      equationTypeProperty
+                 graph,
+                 equationVectorSet,
+                 baseVectorVisibleProperty,
+                 equationTypeProperty
     ) {
 
       assert && assert( equationModel instanceof EquationModel, `invalid equationModel: ${equationModel}` );
@@ -64,8 +64,8 @@ define( require => {
       assert && assert( equationVectorSet instanceof EquationVectorSet,
         `invalid equationVectorSet: ${equationVectorSet}` );
       assert && assert( equationTypeProperty instanceof EnumerationProperty
-        && EquationTypes.includes( equationTypeProperty.value ),
-      `invalid equationTypeProperty: ${equationTypeProperty}` );
+      && EquationTypes.includes( equationTypeProperty.value ),
+        `invalid equationTypeProperty: ${equationTypeProperty}` );
 
       //----------------------------------------------------------------------------------------
       // Create the scenery nodes

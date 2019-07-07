@@ -37,7 +37,7 @@ define( require => {
 
   // constants
   const EQUATION_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS
-                                  .withOffsets( 0, 0, 0, -VectorAdditionConstants.DEFAULT_VECTOR_LENGTH );
+    .withOffsets( 0, 0, 0, -VectorAdditionConstants.DEFAULT_VECTOR_LENGTH );
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
   const DEFAULT_BASE_VECTOR_VISIBILTY = false;
   const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
@@ -102,7 +102,7 @@ define( require => {
         CoordinateSnapModes.POLAR,
         new Vector2( DEFAULT_VECTOR_LENGTH, DEFAULT_VECTOR_LENGTH ),
         this.polarEquationTypeProperty
-        );
+      );
 
       // @public (read-only) {EquationVectorSet}
       this.cartesianVectorSet = new EquationVectorSet( this.cartesianGraph,
@@ -112,7 +112,7 @@ define( require => {
         CoordinateSnapModes.CARTESIAN,
         new Vector2( DEFAULT_VECTOR_LENGTH, DEFAULT_VECTOR_LENGTH ),
         this.cartesianEquationTypeProperty
-        );
+      );
 
       this.polarGraph.vectorSets.push( this.polarVectorSet );
       this.cartesianGraph.vectorSets.push( this.cartesianVectorSet );
@@ -123,7 +123,7 @@ define( require => {
      * Resets the equation model
      */
     reset() {
-      
+
       // Reset base vectors visible properties
       this.cartesianBaseVectorsVisibleProperty.reset();
       this.polarBaseVectorsVisibleProperty.reset();

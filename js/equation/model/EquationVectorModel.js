@@ -86,8 +86,9 @@ define( require => {
           assert && assert( false, 'vector sums should never be off the graph' );
         }
       } );
-      
+
     }
+
     reset() {
       this.coefficientProperty.reset();
       this.baseVector.reset();
