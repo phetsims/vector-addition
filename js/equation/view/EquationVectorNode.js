@@ -37,7 +37,7 @@ define( require => {
 
 
       vectorModel.coefficientProperty.link( () => {
-        this.labelNode.updateLabelNode();
+        this.labelNode.updateLabelNode( valuesVisibleProperty.value );
       });
 
     }
