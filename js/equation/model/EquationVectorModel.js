@@ -94,6 +94,30 @@ define( require => {
       this.baseVector.reset();
       this.tailPositionProperty.reset();
     }
+
+
+    /**
+     * @override
+     * See VectorModel.getLabelContent() for documentation and context
+     *
+     * Gets the label content information to display the vector model. Vector's may or may not have tags.
+     *
+     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
+     * @returns {object} {
+     *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
+     *                               // 3). Null means it doesn't display a coefficient
+     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
+     *                       // Null means it doesn't display a tag
+     *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
+     *                         // Null means it doesn't display a value
+     * }
+     */
+    getLabelContent( valuesVisible ) {
+      return _.extend( super.getLabelContent( valuesVisible ), {
+        coefficient: this.coefficientProperty.value === 1 ? null : `${this.coefficientProperty.value}`
+      } );
+    }
+
   }
 
   return vectorAddition.register( 'EquationVectorModel', EquationVectorModel );

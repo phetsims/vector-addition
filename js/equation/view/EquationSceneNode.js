@@ -30,6 +30,7 @@ define( require => {
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSumComponentNode = require( 'VECTOR_ADDITION/common/view/VectorSumComponentNode' );
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
+  const EquationVectorNode = require( 'VECTOR_ADDITION/equation/view/EquationVectorNode' );
 
   // constants
   const INSPECT_VECTOR_PANEL_OPTIONS = {
@@ -133,7 +134,7 @@ define( require => {
       // Add the rest of the vectors
       equationVectorSet.vectors.forEach( vector => {
 
-        const vectorNode = new VectorNode( vector,
+        const vectorNode = new EquationVectorNode( vector,
           graph,
           equationModel.valuesVisibleProperty,
           equationModel.angleVisibleProperty );

@@ -166,6 +166,7 @@ define( require => {
           backgroundRectangle.center = vectorLabel.center;
           vectorValueNode.centerY = backgroundRectangle.centerY;
           vectorTagNode.centerY = backgroundRectangle.centerY;
+          coefficientLabel.centerY = backgroundRectangle.centerY;
         }
       };
 
@@ -182,6 +183,8 @@ define( require => {
       this.disposeListeners = () => {
         this.labelMultilink.dispose();
       };
+
+      this.updateLabelNode = updateLabelNode;
     }
 
     /**
