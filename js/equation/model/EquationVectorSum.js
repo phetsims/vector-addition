@@ -58,6 +58,7 @@ define( require => {
       // Function to update the equation sum based on the vectors and the equation type
       const updateEquationSum = ( equationType ) => {
 
+
         // Denoted by 'a' + 'b' = 'c'
         if ( equationType === EquationTypes.ADDITION ) {
           const sum = new Vector2( 0, 0 );
@@ -71,8 +72,15 @@ define( require => {
         else if ( equationType === EquationTypes.SUBTRACTION ) {
           const difference = new Vector2( 0, 0 );
 
+          let vectorIndex = 0;
           vectorSet.vectors.forEach( vector => {
-            difference.subtract( vector.vectorComponents );
+            if ( !vectorIndex ) {
+              difference.add( vector.vectorComponents );
+            }
+            else {
+              difference.subtract( vector.vectorComponents );
+            }
+            vectorIndex ++;
           } );
 
           this.vectorComponents = difference;
