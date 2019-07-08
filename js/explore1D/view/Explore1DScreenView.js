@@ -115,7 +115,7 @@ define( require => {
 
       // Create the radio buttons to switch between graphs
       const graphOrientationRadioButtonGroup = new RadioButtonGroup( explore1DModel.graphOrientationProperty,
-        graphOrientationRadioButtonContent, _.extend( RADIO_BUTTON_OPTIONS, {
+        graphOrientationRadioButtonContent, _.extend( {}, RADIO_BUTTON_OPTIONS, {
           centerX: explore1DGraphControlPanel.centerX,
           top: explore1DGraphControlPanel.bottom + GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN,
           orientation: 'horizontal'
