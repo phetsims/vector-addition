@@ -148,8 +148,12 @@ define( require => {
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
-     *    prefix: {string|null} // the prefix (e.g. if the label displayed |v|=15, the prefix would be '|v|')
-     *    value: {string|null} // the suffix (e.g. if the label displayed |v|=15, the value would be '=15')
+     *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
+     *                               // 3). Null means it doesn't display a coefficient
+     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
+     *                       // Null means it doesn't display a tag
+     *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
+     *                         // Null means it doesn't display a value
      * }
      */
     getLabelContent( valuesVisible ) {
@@ -163,9 +167,10 @@ define( require => {
       const roundedComponentValue = Util.toFixed( componentValue, VECTOR_VALUE_ROUNDING );
 
       // Since components don't have tags, it never has a prefix. Components only show components if and only
-      // if the values are visible and if the component isn't of 0 length
+      // if the values are visible and if the component isn't of 0 length.
       return {
-        prefix: null,
+        coefficient: null,
+        tag: null,
         value: valuesVisible && Math.abs( roundedComponentValue ) > 0 ? roundedComponentValue : null
       };
     }

@@ -87,6 +87,8 @@ define( require => {
       // Create the label node, which is a parent of the tag and the value
       const vectorLabel = new Node();
 
+      const coefficientLabel = new Text( '', VALUE_LABEL_OPTIONS );
+
       // Create the Formula Node for the label and scale it to the correct size
       const vectorTagNode = new FormulaNode( '' );
       vectorTagNode.scale( options.scale );
@@ -95,7 +97,7 @@ define( require => {
       const vectorValueNode = new Text( '', VALUE_LABEL_OPTIONS );
 
       super( {
-        children: [ backgroundRectangle, vectorLabel.setChildren( [ vectorTagNode, vectorValueNode ] ) ]
+        children: [ backgroundRectangle, vectorLabel.setChildren( [ coefficientLabel, vectorTagNode, vectorValueNode ] ) ]
       } );
 
       //----------------------------------------------------------------------------------------
@@ -107,14 +109,21 @@ define( require => {
         const labelDisplayData = rootVectorModel.getLabelContent( valuesVisible );
 
         // Toggle visibility
-        vectorTagNode.visible = typeof labelDisplayData.prefix === 'string';
+        coefficientLabel.visible = typeof labelDisplayData.coefficient === 'string';
+        vectorTagNode.visible = typeof labelDisplayData.tag === 'string';
         vectorValueNode.visible = typeof labelDisplayData.value === 'string';
-        backgroundRectangle.visible = vectorTagNode.visible || vectorValueNode.visible;
+        backgroundRectangle.visible = vectorTagNode.visible || vectorValueNode.visible || coefficientLabel.visible;
 
+        if ( coefficientLabel.visible ) {
+          coefficientLabel.setText( labelDisplayData.coefficient );
+        }
+        else {
+          coefficientLabel.setText( '' );
+        }
         //----------------------------------------------------------------------------------------
         // Update the tag if it exists
         if ( vectorTagNode.visible ) {
-          vectorTagNode.setFormula( `\\vec{ \\mathrm{ ${labelDisplayData.prefix} } \}` );
+          vectorTagNode.setFormula( `\\vec{ \\mathrm{ ${labelDisplayData.tag} } \}` );
         }
         else {
           vectorTagNode.setFormula( '' );
@@ -143,10 +152,9 @@ define( require => {
             backgroundRectangle.fill = options.fill;
           }
 
+          vectorTagNode.left = coefficientLabel.right + options.tagValueSpacing;
           // Align the nodes together
-          if ( vectorValueNode.visible && vectorTagNode.visible ) {
-            vectorValueNode.left = vectorTagNode.right + options.tagValueSpacing;
-          }
+          vectorValueNode.left = vectorTagNode.right + options.tagValueSpacing;
 
           vectorLabel.invalidateSelf();
 

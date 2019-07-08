@@ -190,8 +190,12 @@ define( require => {
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
-     *    prefix: {string|null} // the prefix (e.g. if the label displayed |v|=15, the prefix would be '|v|')
-     *    value: {string|null} // the suffix (e.g. if the label displayed |v|=15, the value would be '=15')
+     *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
+     *                               // 3). Null means it doesn't display a coefficient
+     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
+     *                       // Null means it doesn't display a tag
+     *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
+     *                         // Null means it doesn't display a value
      * }
      */
     getLabelContent( valuesVisible ) {
@@ -202,21 +206,21 @@ define( require => {
       // indicates if the rounded magnitude is 0
       const isRoundedMagnitudeZero = !( Math.abs( roundedMagnitude ) > 0 );
 
-      let prefix;
+      let tag;
       let value;
 
-      // If it has a tag, the prefix is always the tag
+      // If it has a tag, the tag is always the tag
       if ( this.tag ) {
-        prefix = this.tag;
+        tag = this.tag;
       }
-      // Otherwise (no tag) only display the vector prefix if its active
+      // Otherwise (no tag) only display the vector tag if its active
       else if ( this.graph.activeVectorProperty.value === this ) {
-        prefix = this.fallBackTag;
+        tag = this.fallBackTag;
       }
 
       // If the values are on and its not 0 magnitude, display the magnitude
       if ( valuesVisible ) {
-        if ( prefix ) {
+        if ( tag ) {
           value = !isRoundedMagnitudeZero ? ` = ${roundedMagnitude}` : null;
         }
         else {
@@ -227,12 +231,13 @@ define( require => {
       // If the rounded magnitude is zero, don't display anything. Decision made:
       // https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
       if ( isRoundedMagnitudeZero ) {
-        prefix = null;
+        tag = null;
         value = null;
       }
 
       return {
-        prefix: prefix,
+        coefficient: null,
+        tag: value ? `|${tag}|` : tag,
         value: value
       };
     }
