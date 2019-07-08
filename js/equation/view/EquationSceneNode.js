@@ -79,7 +79,7 @@ define( require => {
       // Create the containers for each vector type
       const vectorContainer = new Node();
       const vectorComponentContainer = new Node();
-
+      const baseVectorContainer = new Node();
       const coefficientSelectorPanel = new CoefficientSelectorPanel( equationVectorSet, equationTypeProperty );
 
       const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationTypeProperty, equationVectorSet, {
@@ -90,6 +90,7 @@ define( require => {
         children: [
           graphNode,
           inspectVectorPanel,
+          baseVectorContainer,
           vectorComponentContainer,
           vectorContainer,
           coefficientSelectorPanel,
@@ -147,9 +148,15 @@ define( require => {
           equationModel.componentStyleProperty,
           equationModel.valuesVisibleProperty );
 
+        const baseVector = new VectorNode( vector.baseVector, graph,
+          equationModel.valuesVisibleProperty,
+          equationModel.angleVisibleProperty,
+          {
+            opacity: 0.5
+          } );
         vectorComponentContainer.addChild( xComponentNode );
         vectorComponentContainer.addChild( yComponentNode );
-
+        baseVectorContainer.addChild( baseVector );
         vectorContainer.addChild( vectorNode );
       } );
 
