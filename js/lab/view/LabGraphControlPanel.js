@@ -17,14 +17,14 @@ define( require => {
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
-  // const Line = require( 'SCENERY/nodes/Line' );
+  const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  // const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
@@ -38,6 +38,7 @@ define( require => {
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
   const CONTROL_PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.CONTROL_PANEL_LAYOUT_BOX_OPTIONS;
+  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.minWidth - 2 * VectorAdditionConstants.PANEL_OPTIONS.xMargin;
 
   class LabGraphControlPanel extends Panel {
     /**
@@ -126,7 +127,7 @@ define( require => {
           new Checkbox( VectorAdditionIconFactory.createGridIcon(),
             labModel.gridVisibleProperty,
             CHECKBOX_OPTIONS ),
-          // new Line( 0, 0, PANEL_OPTIONS.contentWidth, 0, { stroke: VectorAdditionColors.BLACK } ),
+          new Line( 0, 0, PANEL_WIDTH, 0, { stroke: VectorAdditionColors.BLACK } ),
           new Text( componentsString, { font: PANEL_FONT } ),
           new ComponentStyleRadioButtonGroup( labModel.componentStyleProperty )
         ]
