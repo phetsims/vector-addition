@@ -24,7 +24,7 @@ define( require => {
     constructor( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions ) {
 
 
-      super( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions  );
+      super( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions );
 
 
       // Double check that the vector node never is animated back
@@ -38,7 +38,7 @@ define( require => {
 
       vectorModel.coefficientProperty.link( () => {
         this.labelNode.updateLabelNode( valuesVisibleProperty.value );
-      });
+      } );
 
     }
 

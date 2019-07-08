@@ -80,7 +80,7 @@ define( require => {
             else {
               difference.subtract( vector.vectorComponents );
             }
-            vectorIndex ++;
+            vectorIndex++;
           } );
 
           this.vectorComponents = difference;

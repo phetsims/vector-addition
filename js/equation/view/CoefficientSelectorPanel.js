@@ -57,7 +57,7 @@ define( require => {
      *                             specific to this class while some are passed to the superclass. See the code where
      *                             the options are set in the early portion of the constructor for details.
      */
-    constructor( equationVectorSet, equationTypeProperty,  options ) {
+    constructor( equationVectorSet, equationTypeProperty, options ) {
 
       assert && assert( equationVectorSet instanceof EquationVectorSet,
         `invalid equationVectorSet: ${equationVectorSet}` );
@@ -116,7 +116,7 @@ define( require => {
 
       const signs = [];
 
-      const children = _.flatMap( numberPikersAndLabelHBoxes , ( value, index, array ) => {
+      const children = _.flatMap( numberPikersAndLabelHBoxes, ( value, index, array ) => {
         if ( index !== array.length - 1 ) {
           const sign = new FixedWidthText( '', { font: PANEL_FONT } );
           signs.push( sign );
@@ -156,7 +156,7 @@ define( require => {
           right.children.forEach( ( child ) => {
             child.dispose();
           } );
-          right.setChildren( [ new FixedWidthText( '+', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ), new FixedWidthText('=', { font: PANEL_FONT } ), new FixedWidthText('0', { font: PANEL_FONT } ) ] );
+          right.setChildren( [ new FixedWidthText( '+', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ), new FixedWidthText( '=', { font: PANEL_FONT } ), new FixedWidthText( '0', { font: PANEL_FONT } ) ] );
         }
         else if ( equationType === EquationTypes.SUBTRACTION ) {
           signs.forEach( sign => {
@@ -168,7 +168,6 @@ define( require => {
           } );
           right.setChildren( [ new FixedWidthText( '=', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ) ] );
         }
-
 
 
       } );
@@ -197,10 +196,10 @@ define( require => {
     constructor( textString, textOptions, width = 5 ) {
 
 
-      super( new Text( textString, textOptions ) , {
+      super( new Text( textString, textOptions ), {
         alignBounds: new Bounds2( 0, 0, width, COEFFICIENT_PANEL_HEIGHT ),
         maxWidth: width
-      });
+      } );
     }
 
     setText( text ) {

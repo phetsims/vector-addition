@@ -34,7 +34,7 @@ define( require => {
       assert && assert( sceneNodes.filter( sceneNode => sceneNode instanceof SceneNode ).length === sceneNodes.length,
         `invalid sceneNodes: ${sceneNodes}` );
 
-      super( { 
+      super( {
         layoutBounds: VectorAdditionConstants.SCREEN_VIEW_BOUNDS
       } );
 

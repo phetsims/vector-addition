@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a graph. A screen can have multiple graphs. E.g. explore1D has a horizontal and a vertical graph.
+ * Model for a graph. A screen can have multiple graphs.
  *
  * Graphs are responsible for:
  *   - Keeping track of where the origin is dragged and updating a modelViewTransformProperty.
@@ -41,7 +41,7 @@ define( require => {
   // References to how far the axes arrow extends past the graph.
   const AXES_ARROW_X_EXTENSION = VectorAdditionConstants.AXES_ARROW_X_EXTENSION;
   const AXES_ARROW_Y_EXTENSION = VectorAdditionConstants.AXES_ARROW_Y_EXTENSION;
- 
+
   // See https://user-images.githubusercontent.com/42391580/60772856-89096900-a0b9-11e9-8e74-31aa667ab0cb.png
   // Calculate the bottom left location, constant for all graph nodes.
   const GRAPH_BOTTOM_LEFT_LOCATION = new Vector2(

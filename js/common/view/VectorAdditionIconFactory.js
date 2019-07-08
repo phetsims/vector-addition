@@ -85,6 +85,7 @@ define( function( require ) {
 
       return new ArrowNode( 0, 0, iconVector.x, iconVector.y, options );
     }
+
     /**
      * Creates a double headed arrow icon associated with the graph orientation
      * @param (GraphOrientations} graphOrientation
@@ -115,6 +116,7 @@ define( function( require ) {
         return new ArrowNode( 0, 0, 0, options.arrowLength, options );
       }
     }
+
     /**
      * Creates the icon that appears next to the 'Sum' visibility checkbox
      * @param {VectorGroups} vectorGroup
@@ -136,6 +138,7 @@ define( function( require ) {
 
       return new ArrowNode( 0, 0, options.arrowSize, 0, options );
     }
+
     /**
      * Creates the icon that appears next to the checkbox that toggles the 'Angle' visibility
      * @param {Object} [options]
@@ -186,6 +189,7 @@ define( function( require ) {
         children: [ wedgePath, arcArrow ]
       } );
     }
+
     /**
      * Creates the icon that appears next to the checkbox that toggles the Grid visibility
      * @param {Object} [options]
@@ -223,6 +227,7 @@ define( function( require ) {
       }
       return new Path( gridShape, options.gridPathOptions );
     }
+
     /**
      * Convenience method to get a component style radio button icon
      * @param {ComponentStyles} componentStyle
@@ -370,6 +375,7 @@ define( function( require ) {
         children: [ xComponentArrow, yComponentArrow, dashedLinePath, vectorArrow ]
       } );
     }
+
     /**
      * Creates the Icon for the cartesian coordinate snap mode radio button
      * @param {Object} [options]
@@ -464,14 +470,14 @@ define( function( require ) {
     /*---------------------------------------------------------------------------*
      * The Following are icons that appear in the Equation screen
      *---------------------------------------------------------------------------*/
-     /**
-      * Creates the Icon that appears on the equation types radio button group
-      * @param {EquationTypes} equationType
-      * @param {EquationVectorSet} equationVectorSet
-      * @param {Object} [options]
-      * @returns {Node}
-      * @public
-      */
+    /**
+     * Creates the Icon that appears on the equation types radio button group
+     * @param {EquationTypes} equationType
+     * @param {EquationVectorSet} equationVectorSet
+     * @param {Object} [options]
+     * @returns {Node}
+     * @public
+     */
     static createEquationTypesIcon( equationType, equationVectorSet, options ) {
 
 
@@ -500,7 +506,7 @@ define( function( require ) {
       }
 
       return new AlignBox( new Text( string, { font: options.font } ), {
-        alignBounds: new Bounds2( 0, 0, options.width, options.height )        
+        alignBounds: new Bounds2( 0, 0, options.width, options.height )
       } );
     }
   }

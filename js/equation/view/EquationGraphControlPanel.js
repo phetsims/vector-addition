@@ -10,7 +10,7 @@
  *  - Components label
  *  - ComponentStyleRadioButtonGroup
  *
- * Graph Control Panels are created at the start of the sim and are never disposed. 
+ * Graph Control Panels are created at the start of the sim and are never disposed.
  *
  * @author Brandon Li
  */

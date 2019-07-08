@@ -38,7 +38,7 @@ define( require => {
   const ATTRIBUTE_DISPLAY_TYPES = new Enumeration( [ 'MAGNITUDE',
     'ANGLE',
     'X_COMPONENT',
-    'Y_COMPONENT'  ] );
+    'Y_COMPONENT' ] );
 
   // range of the angle display
   const ANGLE_RANGE = new Range( -180, 180 );
@@ -97,7 +97,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create links
       //----------------------------------------------------------------------------------------
-      
+
       // Create function to update the number display value
       const activeVectorComponentsListener = () => {
         numberDisplayProperty.value = this.getNumberDisplayValue( graph.activeVectorProperty.value );
@@ -137,7 +137,7 @@ define( require => {
       }
       else if ( this.attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.ANGLE ) {
         return activeVector.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null :
-                  Util.toDegrees( activeVector.angle ); // return null if the vector is magnitude 0
+               Util.toDegrees( activeVector.angle ); // return null if the vector is magnitude 0
       }
       else if ( this.attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT ) {
         return activeVector.xComponent;
