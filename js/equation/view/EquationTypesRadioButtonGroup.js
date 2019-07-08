@@ -27,20 +27,25 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
+
 
   class EquationTypesRadioButtonGroup extends RadioButtonGroup {
     /**
      * @constructor
      *
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - property of the possible equation types
+     * @param {EquationVectorSet} equationVectorSet - vector set for the equation screen
      * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. All options are
      *                             specific to the super class (RadioButtonGroup)
      */
-    constructor( equationTypeProperty, options ) {
+    constructor( equationTypeProperty, equationVectorSet, options ) {
 
       assert && assert( equationTypeProperty instanceof EnumerationProperty
       && EquationTypes.includes( equationTypeProperty.value ),
         `invalid equationTypeProperty: ${equationTypeProperty}` );
+      assert && assert( equationVectorSet instanceof EquationVectorSet,
+        `invalid equationVectorSet: ${equationVectorSet}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
@@ -55,13 +60,13 @@ define( require => {
 
       const equationTypesRadioButtonContent = [ {
         value: EquationTypes.ADDITION,
-        node: VectorAdditionIconFactory.createCartesianIcon()
+        node: VectorAdditionIconFactory.createEquationTypesIcon( EquationTypes.ADDITION, equationVectorSet )
       }, {
         value: EquationTypes.SUBTRACTION,
-        node: VectorAdditionIconFactory.createPolarIcon()
+        node: VectorAdditionIconFactory.createEquationTypesIcon( EquationTypes.SUBTRACTION, equationVectorSet )
       }, {
         value: EquationTypes.NEGATION,
-        node: VectorAdditionIconFactory.createPolarIcon()
+        node: VectorAdditionIconFactory.createEquationTypesIcon( EquationTypes.NEGATION, equationVectorSet )
       } ];
 
       super( equationTypeProperty, equationTypesRadioButtonContent, options );

@@ -9,9 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const ArcArrowNode = require( 'VECTOR_ADDITION/common/view/ArcArrowNode' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
+  const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Line = require( 'SCENERY/nodes/Line' );
@@ -31,7 +35,7 @@ define( function( require ) {
 
   // constants
 
-  // size of ALL icons created in this factory that are for radio buttons
+  // default size for all radio button icons
   const RADIO_BUTTON_ICON_SIZE = 25;
 
   // defaults for all arrow instances
@@ -56,6 +60,7 @@ define( function( require ) {
      * @param {Vector2} initialVector - in model coordinates
      * @param {VectorGroups} vectorGroup
      * @param {Object} [options]
+     * @returns {ArrowNode}
      * @public
      */
     static createVectorCreatorPanelIcon( initialVector, vectorGroup, options ) {
@@ -65,8 +70,6 @@ define( function( require ) {
         `invalid vectorGroup: ${vectorGroup}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
-
-      //----------------------------------------------------------------------------------------
 
       options = _.extend( {
         lineWidth: 0,
@@ -82,10 +85,36 @@ define( function( require ) {
 
       return new ArrowNode( 0, 0, iconVector.x, iconVector.y, options );
     }
+    /**
+     * Creates a double headed arrow icon associated with the graph orientation
+     * @param (GraphOrientations} graphOrientation
+     * @param {Object} [options]
+     * @returns {ArrowNode}
+     * @public
+     */
+    static createGraphOrientationIcon( graphOrientation, options ) {
 
-    /*---------------------------------------------------------------------------*
-     * The Following are Icons that appear next to check boxes
-     *---------------------------------------------------------------------------*/
+      assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation ),
+        `invalid componentStyle: ${graphOrientation}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
+
+      options = _.extend( {
+        fill: VectorAdditionColors.BLACK,
+        doubleHead: true,
+        tailWidth: 3,
+        headWidth: 8,
+        headHeight: 10,
+        arrowLength: 40
+      }, options );
+
+      if ( graphOrientation === GraphOrientations.HORIZONTAL ) {
+        return new ArrowNode( 0, 0, options.arrowLength, 0, options );
+      }
+      else if ( graphOrientation === GraphOrientations.VERTICAL ) {
+        return new ArrowNode( 0, 0, 0, options.arrowLength, options );
+      }
+    }
     /**
      * Creates the icon that appears next to the 'Sum' visibility checkbox
      * @param {VectorGroups} vectorGroup
@@ -94,14 +123,10 @@ define( function( require ) {
      * @public
      */
     static createSumIcon( vectorGroup, options ) {
-
       assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ),
         `invalid vectorGroup: ${vectorGroup}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
-
-      //----------------------------------------------------------------------------------------
-
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
         lineWidth: 1,
         headHeight: 7,
@@ -111,7 +136,6 @@ define( function( require ) {
 
       return new ArrowNode( 0, 0, options.arrowSize, 0, options );
     }
-
     /**
      * Creates the icon that appears next to the checkbox that toggles the 'Angle' visibility
      * @param {Object} [options]
@@ -139,8 +163,6 @@ define( function( require ) {
         }
       }, options.arcArrowOptions );
 
-      //----------------------------------------------------------------------------------------
-
       // Create the Shape for the outline lines of the icon
       const wedgeShape = new Shape();
 
@@ -164,7 +186,6 @@ define( function( require ) {
         children: [ wedgePath, arcArrow ]
       } );
     }
-
     /**
      * Creates the icon that appears next to the checkbox that toggles the Grid visibility
      * @param {Object} [options]
@@ -188,9 +209,6 @@ define( function( require ) {
         stroke: VectorAdditionColors.GRID_ICON_COLOR // {string}
       }, options.gridPathOptions );
 
-      //----------------------------------------------------------------------------------------
-
-      // Create a shape for the grid
       const gridShape = new Shape();
 
       // Draw each row
@@ -203,17 +221,13 @@ define( function( require ) {
         gridShape.moveTo( col * ( options.gridLineSpacing ) + options.gridLineSpacing, 0 )
           .verticalLineTo( ( options.rows + 1 ) * options.gridLineSpacing );
       }
-
       return new Path( gridShape, options.gridPathOptions );
     }
-
-    /*---------------------------------------------------------------------------*
-     * The Following are icons that appear in the Component Style Radio Buttons
-     *---------------------------------------------------------------------------*/
     /**
      * Convenience method to get a component style radio button icon
      * @param {ComponentStyles} componentStyle
      * @param {Object} [options]
+     * @returns {Node}
      * @public
      */
     static createComponentStyleIcon( componentStyle, options ) {
@@ -240,6 +254,7 @@ define( function( require ) {
     /**
      * Creates the Icon for the invisible display style component radio button
      * @param {Object} [options]
+     * @returns {Node}
      * @public
      */
     static createInvisibleComponentStyleIcon( options ) {
@@ -254,6 +269,7 @@ define( function( require ) {
     /**
      * Creates the Icon for the parallelogram component radio button
      * @param {Object} [options]
+     * @returns {Node}
      * @public
      */
     static createParallelogramComponentStyleIcon( options ) {
@@ -276,6 +292,7 @@ define( function( require ) {
     /**
      * Creates the Icon for the triangle component radio button
      * @param {Object} [options]
+     * @returns {Node}
      * @public
      */
     static createTriangleComponentStyleIcon( options ) {
@@ -303,6 +320,7 @@ define( function( require ) {
     /**
      * Creates the Icon for the on axis component radio button
      * @param {Object} [options]
+     * @returns {Node}
      * @public
      */
     static createOnAxisComponentStyleIcon( options ) {
@@ -352,13 +370,10 @@ define( function( require ) {
         children: [ xComponentArrow, yComponentArrow, dashedLinePath, vectorArrow ]
       } );
     }
-
-    /*---------------------------------------------------------------------------*
-     * The Following are icons that appear in the Coordinate Snap Modes Radio Buttons
-     *---------------------------------------------------------------------------*/
     /**
      * Creates the Icon for the cartesian coordinate snap mode radio button
      * @param {Object} [options]
+     * @returns {Node}
      * @public
      */
     static createCartesianIcon( options ) {
@@ -378,8 +393,6 @@ define( function( require ) {
         fill: VectorAdditionColors.BLACK,
         tailWidth: 2.5
       }, options.componentArrowOptions );
-
-      //----------------------------------------------------------------------------------------
 
       // The icon has 3 arrows, start with the vector then its 2 components
       const xComponentArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, options.componentArrowOptions );
@@ -401,6 +414,7 @@ define( function( require ) {
     /**
      * Creates the Icon for the cartesian coordinate polar mode radio button
      * @param {Object} [options]
+     * @returns {Node}
      * @public
      */
     static createPolarIcon( options ) {
@@ -447,36 +461,47 @@ define( function( require ) {
       } );
     }
 
-    /**
-     * Creates a double headed arrow icon associated with the graph orientation
-     * @param (GraphOrientations} graphOrientation
-     * @param {Object} [options]
-     * @public
-     */
-    static createGraphOrientationIcon( graphOrientation, options ) {
+    /*---------------------------------------------------------------------------*
+     * The Following are icons that appear in the Equation screen
+     *---------------------------------------------------------------------------*/
+     /**
+      * Creates the Icon that appears on the equation types radio button group
+      * @param {EquationTypes} equationType
+      * @param {EquationVectorSet} equationVectorSet
+      * @param {Object} [options]
+      * @returns {Node}
+      * @public
+      */
+    static createEquationTypesIcon( equationType, equationVectorSet, options ) {
 
-      assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation ),
-        `invalid componentStyle: ${graphOrientation}` );
+
+      assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
+      assert && assert( equationVectorSet instanceof EquationVectorSet,
+        `invalid equationVectorSet: ${equationVectorSet}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-        fill: 'black',
-        doubleHead: true,
-        tailWidth: 3,
-        headWidth: 8,
-        headHeight: 10,
-        arrowLength: 40
-      }, options );
+        font: new PhetFont( 12 ),
+        width: 80,
+        height: 20
+      } );
 
-      let iconNode;
-      if ( graphOrientation === GraphOrientations.HORIZONTAL ) {
-        iconNode = new ArrowNode( 0, 0, options.arrowLength, 0, options );
+      let string;
+
+      if ( equationType === EquationTypes.ADDITION ) {
+        string = `${equationVectorSet.vectors.get( 0 ).tag} + ${equationVectorSet.vectors.get( 1 ).tag} = ${equationVectorSet.vectorSum.tag}`;
       }
-      else if ( graphOrientation === GraphOrientations.VERTICAL ) {
-        iconNode = new ArrowNode( 0, 0, 0, options.arrowLength, options );
+      else if ( equationType === EquationTypes.SUBTRACTION ) {
+        string = `${equationVectorSet.vectors.get( 0 ).tag} - ${equationVectorSet.vectors.get( 1 ).tag} = ${equationVectorSet.vectorSum.tag}`;
       }
-      return iconNode;
+      else if ( equationType === EquationTypes.NEGATION ) {
+        string = `${equationVectorSet.vectors.get( 0 ).tag} + ${equationVectorSet.vectors.get( 1 ).tag} + ${equationVectorSet.vectorSum.tag} = 0`;
+      }
+
+      return new AlignBox( new Text( string, { font: options.font } ), {
+        alignBounds: new Bounds2( 0, 0, options.width, options.height )        
+      } );
     }
   }
 

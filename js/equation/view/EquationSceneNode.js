@@ -82,7 +82,7 @@ define( require => {
 
       const coefficientSelectorPanel = new CoefficientSelectorPanel( equationVectorSet, INSPECT_VECTOR_PANEL_OPTIONS );
 
-      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationTypeProperty, {
+      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationTypeProperty, equationVectorSet, {
         centerY: coefficientSelectorPanel.centerY
       } );
 

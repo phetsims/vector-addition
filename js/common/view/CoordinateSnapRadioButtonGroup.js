@@ -21,7 +21,9 @@ define( require => {
   // constants
   const RADIO_BUTTON_OPTIONS = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, {
     left: 955,
-    top: 460
+    top: 460,
+    buttonContentXMargin: 3,
+    buttonContentYMargin: 3
   } );
 
   class CoordinateSnapRadioButtonGroup extends RadioButtonGroup {
