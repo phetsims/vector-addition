@@ -19,6 +19,7 @@ define( function( require ) {
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const EquationGraphControlPanel = require( 'VECTOR_ADDITION/equation/view/EquationGraphControlPanel' );
 
   // constants
   const SCREEN_VIEW_X_MARGIN = VectorAdditionConstants.SCREEN_VIEW_X_MARGIN;
@@ -66,6 +67,15 @@ define( function( require ) {
 
       this.addChild( new CoordinateSnapRadioButtonGroup( equationModel.coordinateSnapModeProperty ) );
 
+      const equationGraphControlPanel = new EquationGraphControlPanel( equationModel.valuesVisibleProperty,
+        equationModel.angleVisibleProperty,
+        equationModel.gridVisibleProperty,
+        equationModel.componentStyleProperty, {
+          right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
+          top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
+        } );
+
+      this.addChild( equationGraphControlPanel );
       //----------------------------------------------------------------------------------------
       // Add the reset button
       const resetAllButton = new ResetAllButton( {
