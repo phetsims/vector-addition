@@ -80,7 +80,7 @@ define( require => {
       const vectorContainer = new Node();
       const vectorComponentContainer = new Node();
 
-      const coefficientSelectorPanel = new CoefficientSelectorPanel( equationVectorSet, INSPECT_VECTOR_PANEL_OPTIONS );
+      const coefficientSelectorPanel = new CoefficientSelectorPanel( equationVectorSet, equationTypeProperty );
 
       const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationTypeProperty, equationVectorSet, {
         centerY: coefficientSelectorPanel.centerY

@@ -21,6 +21,8 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Range = require( 'DOT/Range' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
 
   // constants
   const DEFAULT_COEFFICIENT = 1;
@@ -53,11 +55,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // @public (read-only) {Property.<number>} - create a property to represent the coefficient.
-      this.coefficientProperty = new Property( DEFAULT_COEFFICIENT, {
-        isValidValue: ( value ) => {
-          return typeof value === 'number';
-        }
-      } );
+      this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
 
       // @public (read-only) {BaseVectorModel}
       this.baseVector = new BaseVectorModel( tailPosition,
@@ -87,6 +85,8 @@ define( require => {
         }
       } );
 
+
+      this.rangeProperty = new Property( new Range( -100, 100 ) );
     }
 
     reset() {

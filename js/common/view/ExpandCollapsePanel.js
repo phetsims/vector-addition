@@ -75,6 +75,7 @@ define( require => {
         // See VectorAdditionConstants.EXPAND_COLLAPSE_PANEL for the rest of the defaults
       }, VectorAdditionConstants.EXPAND_COLLAPSE_PANEL, options );
 
+      
       assert && assert( typeof options.isExpandedInitially === 'boolean', `invalid options.isExpandedInitially: ${options.isExpandedInitially}` );
       assert && assert( closedContent instanceof Node, `invalid closedContent: ${closedContent}` );
       assert && assert( openContent instanceof Node, `invalid openContent: ${openContent}` );

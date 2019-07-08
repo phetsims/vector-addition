@@ -94,10 +94,10 @@ define( function( require ) {
       cornerRadius: 3,
       arrowYSpacing: 1.5,
       arrowHeight: 3.5,
-      font: new PhetFont( 14.5 ),
-      xMargin: 1.8,
-      yMargin: 1.7,
-      valueMaxWidth: 15.5
+      font: new PhetFont( 15.5 ),
+      xMargin: 2.2,
+      yMargin: 2.1,
+      valueMaxWidth: 17
     },
 
     //----------------------------------------------------------------------------------------
