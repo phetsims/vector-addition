@@ -66,7 +66,7 @@ define( require => {
       options = _.extend( {
 
         // specific to this class
-        top: 55,
+        top: 82,
         left: 165
 
         // // super class options

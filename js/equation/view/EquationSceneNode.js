@@ -29,6 +29,7 @@ define( require => {
   const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSumComponentNode = require( 'VECTOR_ADDITION/common/view/VectorSumComponentNode' );
+  const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
 
   // constants
   const INSPECT_VECTOR_PANEL_OPTIONS = {
@@ -81,6 +82,9 @@ define( require => {
 
       const coefficientSelectorPanel = new CoefficientSelectorPanel( equationVectorSet, INSPECT_VECTOR_PANEL_OPTIONS );
 
+      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationTypeProperty, {
+        centerY: coefficientSelectorPanel.centerY
+      } );
 
       super( {
         children: [
@@ -88,7 +92,8 @@ define( require => {
           inspectVectorPanel,
           vectorComponentContainer,
           vectorContainer,
-          coefficientSelectorPanel
+          coefficientSelectorPanel,
+          equationTypesRadioButtonGroup
         ]
       } );
 
