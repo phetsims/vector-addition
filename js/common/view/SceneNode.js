@@ -1,8 +1,16 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * A node for a scene. A scene represents one graph and its vectors. Screens can have multiple
- * scenes (e.g. explore 1D has a horizontal scene and a vertical scene)
+ * View for a scene node (https://github.com/phetsims/vector-addition/issues/65#issuecomment-509493028)
+ *
+ * A scene node is a view that contains:
+ *  - Graph Node
+ *  - Inspect a Vector Panel
+ *  - Different containers for each and every type of vectors (handle z-layering,
+ *      see https://github.com/phetsims/vector-addition/issues/19)
+ *  - Ability to add a vector creator panel
+ *
+ * Scene nodes allow a screen to have multiple scenes. For instance, eplore1D has a polar and a vector scene.
  *
  * @author Brandon Li
  */
@@ -28,19 +36,21 @@ define( require => {
   class SceneNode extends Node {
     /**
      * @constructor
+     *
      * @param {Graph} graph
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {Object} [inspectPanelOptions] - options passed to inspect vector panel
+     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. All options are
+     *                             specific to this class
      */
     constructor( graph,
                  valuesVisibleProperty,
                  angleVisibleProperty,
                  gridVisibleProperty,
                  componentStyleProperty,
-                 inspectPanelOptions
+                 options
     ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
@@ -53,57 +63,59 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( !inspectPanelOptions || Object.getPrototypeOf( inspectPanelOptions ) === Object.prototype,
-        `Extra prototype on inspectPanelOptions: ${inspectPanelOptions}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on options: ${options}` );
 
+      options = _.extend( {
 
-      inspectPanelOptions = _.extend( {
-        panelOptions: null // {object|null}
-      }, inspectPanelOptions );
+        includeEraser: true, // {boolean} false means the eraser will not be included
 
-      inspectPanelOptions.panelOptions = _.extend( {
-        left: 195,
-        top: 12
-      }, inspectPanelOptions.panelOptions );
+        listenToVectorSet: true, // {boolean} performance flag. If true, this will listen to the vector set observable
+        // array and update the scene. If false, this will not listen and will just add the vectors that are in the 
+        // array upon initialization (all vectors must be not removable)
+
+        inspectVectorPanelOptions: null, // {Object} options passed to the inspectVectorPanel
+      }, options );
+
+      super();
 
       //----------------------------------------------------------------------------------------
-      // Create the scenery nodes
-
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      const inspectVectorPanel = new InspectVectorPanel( graph, inspectPanelOptions );
-
-      const eraserButton = new EraserButton( {
-        listener: () => {
-          graph.erase();
-        },
-        left: graphNode.right,
-        bottom: graphNode.bottom
-      } );
+      const inspectVectorPanel = new InspectVectorPanel( graph, options.inspectVectorPanelOptions );
 
       // Create the containers for each vector type
-      const vectorContainer = new Node();
+
+      // @public {Node}
+      this.vectorContainer = new Node();
+
       const vectorSumContainer = new Node();
+
       const vectorComponentContainer = new Node();
+
       const vectorSumComponentContainer = new Node();
 
-      super( {
-        children: [
-          graphNode,
-          inspectVectorPanel,
-          eraserButton,
-          vectorComponentContainer,
-          vectorSumComponentContainer,
-          vectorContainer,
-          vectorSumContainer
-        ]
-      } );
+      this.setChildren( [
+        graphNode,
+        inspectVectorPanel,
+        vectorComponentContainer,
+        this.vectorContainer,
+        vectorSumComponentContainer,
+        vectorSumContainer
+      ] );
 
-      // @public (read-only)
-      this.vectorContainer = vectorContainer;
+      if ( options.includeEraser ) {
+        this.addChild( new EraserButton( {
+          listener: () => {
+            graph.erase();
+          },
+          left: graphNode.right,
+          bottom: graphNode.bottom
+        } ) );
+      }
 
       /*---------------------------------------------------------------------------*
-       * Loop through each vector set, observing changes and updating the scene
+       * Loop through each vector set, updating the scene
        *---------------------------------------------------------------------------*/
       graph.vectorSets.forEach( ( vectorSet ) => {
 
@@ -114,7 +126,6 @@ define( require => {
           angleVisibleProperty,
           vectorSet.sumVisibleProperty
         );
-
         const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xVectorComponentModel,
           graph,
           componentStyleProperty,
@@ -132,38 +143,56 @@ define( require => {
         vectorSumContainer.addChild( vectorSumNode );
 
 
-        /*---------------------------------------------------------------------------*
-         * Observe changes to the vector set, and update the scene
-         *---------------------------------------------------------------------------*/
-        vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
-          // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
-          const xComponentNode = new VectorComponentNode( addedVector.xVectorComponentModel,
-            graph,
-            componentStyleProperty,
-            valuesVisibleProperty );
+        if ( options.listenToVectorSet ) {
+         /*---------------------------------------------------------------------------*
+          * Observe changes to the vector set, and update the scene
+          *---------------------------------------------------------------------------*/
+        
+          vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
+            // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
+            const xComponentNode = new VectorComponentNode( addedVector.xVectorComponentModel,
+              graph,
+              componentStyleProperty,
+              valuesVisibleProperty );
 
-          const yComponentNode = new VectorComponentNode( addedVector.yVectorComponentModel,
-            graph,
-            componentStyleProperty,
-            valuesVisibleProperty );
+            const yComponentNode = new VectorComponentNode( addedVector.yVectorComponentModel,
+              graph,
+              componentStyleProperty,
+              valuesVisibleProperty );
 
-          vectorComponentContainer.addChild( xComponentNode );
-          vectorComponentContainer.addChild( yComponentNode );
+            this.vectorComponentContainer.addChild( xComponentNode );
+            this.vectorComponentContainer.addChild( yComponentNode );
 
-          //----------------------------------------------------------------------------------------
-          // Add the removal listener for when the vector is removed
-          const removalListener = removedVector => {
-            if ( removedVector === addedVector ) {
+            //----------------------------------------------------------------------------------------
+            // Add the removal listener for when the vector is removed
+            const removalListener = removedVector => {
+              if ( removedVector === addedVector ) {
 
-              xComponentNode.dispose();
-              yComponentNode.dispose();
+                xComponentNode.dispose();
+                yComponentNode.dispose();
 
-              vectorSet.vectors.removeItemRemovedListener( removalListener );
-            }
-          };
+                vectorSet.vectors.removeItemRemovedListener( removalListener );
+              }
+            };
 
-          vectorSet.vectors.addItemRemovedListener( removalListener );
-        } );
+            vectorSet.vectors.addItemRemovedListener( removalListener );
+          } );
+        }
+        else {
+          // Double check that all vectors are not removable
+          assert && assert( !vectorSet.vectors.some( vector => vector.isRemovable ) );
+
+          // Add the non removable vectors
+          vectorSet.vectors.forEach( vector => {
+            const vectorNode = new VectorNode( vector,
+              graph,
+              valuesVisibleProperty,
+              angleVisibleProperty );
+            vectorComponentContainer.addChild( xComponentNode );
+            vectorComponentContainer.addChild( yComponentNode );
+            vectorContainer.addChild( vectorNode );
+          } );
+        }
       } );
     }
 
