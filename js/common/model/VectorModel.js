@@ -5,11 +5,12 @@
  *
  * Extends RootVectorModel but adds more functionality:
  *  - update the tail when the origin moves (modelViewTransformProperty)
- *  - methods to drop a vector or to animate a vector
+ *  - methods to drop a vector, to animate a vector, and to pop a vector off the graph
  *  - ability to drag the vector by the tail and the tip
  *  - instantiate x and y component models
  *
  * @author Martin Veillette
+ * @author Brandon Li
  */
 
 define( require => {
@@ -37,10 +38,8 @@ define( require => {
   // interval spacing of vector angle (in degrees) when vector is in polar mode
   const POLAR_ANGLE_INTERVAL = VectorAdditionConstants.POLAR_ANGLE_INTERVAL;
 
-  // Vectors may get passed a tag (i.e. 'a', 'b', 'c', ...), but also may not. However, the inspect a vector
-  // panel (and other views) sill needs a tag to display. The fall back vector tag represents this and only is used
-  // if and only if a tag isn't passed to the sum. See https://github.com/phetsims/vector-addition/issues/39 for more
-  // context. The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
+  // fall back tag for the vector model if a tag isn't provided. The reason this isn't translatable is:
+  // https://github.com/phetsims/vector-addition/issues/10.
   const VECTOR_FALL_BACK_TAG = 'v';
 
   // maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
@@ -219,9 +218,8 @@ define( require => {
     }
 
     /**
-     * Moves the tip to a position, rounding according to coordinate snap mode. Called when the tip is being dragged.
-     * @param {Vector2} tipPosition - attempts to drag the tip to this position, but rounds it in cartesian/polar style
-     * and updates the model tip
+     * Attempts to move the tip to this position but rounds it in cartesian/polar style
+     * @param {Vector2} tipPosition
      * @public
      */
     dragTipToPosition( tipPosition ) {
@@ -280,9 +278,8 @@ define( require => {
     }
 
     /**
-     * Drags tail to a position, but ensures validity. Called when the tail is being dragged.
-     * @param {Vector2} tailPosition - attempts to drag the tail to this position, but rounds it and ensures validity of
-     * the vector after the drag.
+     * Attempts to drag the tail to this position, but rounds it and ensures validity or the vector.
+     * @param {Vector2} tailPosition
      * @public
      */
     dragTailToPosition( tailPosition ) {
@@ -314,18 +311,6 @@ define( require => {
     }
 
     /**
-     * Removes the vector from the graph.
-     * @public
-     */
-    removeFromGraph() {
-      this.isOnGraphProperty.value = false;
-      this.graph.activeVectorProperty.value = null;
-    }
-
-    /*---------------------------------------------------------------------------*
-     * Private helper methods
-     *---------------------------------------------------------------------------*/
-    /**
      * Updates the tail such that both tail and tip of the vector remain with the graphBounds.
      * @param {Vector2} tailPosition - attempts to place the vector's tail to this point, but ensures it's validity
      * @private
@@ -344,43 +329,44 @@ define( require => {
     /**
      * Gets the constrained bounds of the tail. In other words, based on the tip and the components of the vector, this
      * return a new bounds that is for the tail and ensures that in this bounds the vector will stay in the graph.
+     *
+     * See https://user-images.githubusercontent.com/42391580/60908828-065be780-a23a-11e9-9a02-01a6ca52f73d.png
+     * for an annotated image.
+     *
      * @private
      */
     getConstrainedTailBounds() {
 
       // Sift the bounds the components vector. This is the furthest the vector tail can drag.
-      const constrainedBounds = this.graph.graphModelBounds.shifted( -this.vectorComponents.x,
+      const shiftedBounds = this.graph.graphModelBounds.shifted( -this.vectorComponents.x,
         -this.vectorComponents.y );
 
       // Since it was shifted, return the intersection
-      return this.graph.graphModelBounds.intersection( constrainedBounds );
+      return this.graph.graphModelBounds.intersection( shiftedBounds );
     }
 
-    /*---------------------------------------------------------------------------*
-     * The following are methods to control the state of the vector (animate, drop, etc.)
-     *---------------------------------------------------------------------------*/
     /**
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
-     * @param {Vector2} point - animates the CENTER to this point
-     * @param {Vector2} iconVectorComponents
-     * @param {function} finishedCallback - callback if and only if the animation finishes
      * @public
+     * @param {Vector2} point - animates the center of the vector to this point
+     * @param {Vector2} finalComponents - animates the components to the final components
+     * @param {function} finishedCallback - callback if and only if the animation finishes
      */
-    animateToPoint( point, iconVectorComponents, finishedCallback ) {
+    animateToPoint( point, finalComponents, finishedCallback ) {
 
       assert && assert( !this.inProgressAnimationProperty.value,
         'Can\'t animate to position when we are in animation currently' );
       assert && assert( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the graph' );
 
       assert && assert( point instanceof Vector2, `invalid point: ${point}` );
-      assert && assert( iconVectorComponents instanceof Vector2,
-        `invalid iconVectorComponents: ${iconVectorComponents}` );
+      assert && assert( finalComponents instanceof Vector2,
+        `invalid finalComponents: ${finalComponents}` );
       assert && assert( typeof finishedCallback === 'function', `invalid finishedCallback: ${finishedCallback}` );
 
       //----------------------------------------------------------------------------------------
 
       // Convert the parameter into where the tail would be in that position
-      const tailPosition = point.minus( iconVectorComponents.timesScalar( 0.5 ) );
+      const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
 
       // Animate the vector
       const animation = new Animation( {
@@ -394,7 +380,7 @@ define( require => {
         }, {
           property: this.vectorComponentsProperty,
           easing: Easing.QUADRATIC_IN_OUT,
-          to: iconVectorComponents
+          to: finalComponents
         } ]
       } ).start();
 
@@ -410,7 +396,6 @@ define( require => {
 
       animation.finishEmitter.addListener( animationFinished );
     }
-
 
     /**
      * Drops the vector onto the graph. Called at the end of the drag if the user drops the vector onto the graph.
@@ -429,6 +414,15 @@ define( require => {
       this.dragTipToPosition( this.tip );
       // Declare this vector as active
       this.graph.activeVectorProperty.value = this;
+    }
+
+    /**
+     * Removes the vector from the graph.
+     * @public
+     */
+    removeFromGraph() {
+      this.isOnGraphProperty.value = false;
+      this.graph.activeVectorProperty.value = null;
     }
   }
 
