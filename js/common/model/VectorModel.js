@@ -212,7 +212,7 @@ define( require => {
 
       return {
         coefficient: null,
-        tag: value ? `|${tag}|` : tag,
+        tag: value && tag ? `|${tag}|` : tag,
         value: value
       };
     }
