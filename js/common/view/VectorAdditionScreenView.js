@@ -50,10 +50,6 @@ define( require => {
         listener: () => {
           vectorAdditionModel.reset();
 
-          // loop through SceneNodes and reset each sceneNode
-          sceneNodes.forEach( ( sceneNode ) =>
-            sceneNode.reset()
-          );
         },
         right: this.layoutBounds.maxX - SCREEN_VIEW_X_MARGIN,
         bottom: this.layoutBounds.maxY - SCREEN_VIEW_Y_MARGIN,

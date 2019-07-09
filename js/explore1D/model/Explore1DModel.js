@@ -49,14 +49,13 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the shared sum visibility property for both scenes
 
-      const sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
-      super( [ sumVisibleProperty ], tandem );
+      super( tandem );
 
       //----------------------------------------------------------------------------------------
       // Create a reference
       // @public (read-only) {BooleanProperty} sumVisibleProperty
-      this.sumVisibleProperty = sumVisibleProperty;
+      this.sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       // @public {EnumerationProperty.<GraphOrientations>} - controls the orientation of the vectors
       this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, DEFAULT_VECTOR_ORIENTATION );
@@ -73,7 +72,6 @@ define( require => {
       // @public (read-only) {Graph}
       this.horizontalGraph = new Graph( EXPLORE_1D_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.HORIZONTAL );
 
-      this.graphs.push( this.horizontalGraph, this.verticalGraph );
 
       //----------------------------------------------------------------------------------------
       // Create the vector sets. Each graph has one vector set
@@ -116,6 +114,10 @@ define( require => {
      */
     reset() {
       this.graphOrientationProperty.reset();
+
+      this.horizontalGraph.reset();
+      this.verticalGraph.reset();
+      this.sumVisibleProperty.reset();
       super.reset();
     }
   }

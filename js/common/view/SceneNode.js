@@ -165,19 +165,6 @@ define( require => {
           vectorSet.vectors.addItemRemovedListener( removalListener );
         } );
       } );
-
-      // @private {function} function to reset the scene
-      this.resetScene = () => {
-        graph.reset();
-      };
-    }
-
-    /**
-     * Resets the scene
-     * @public
-     */
-    reset() {
-      this.resetScene();
     }
 
     /**

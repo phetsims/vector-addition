@@ -38,36 +38,22 @@ define( require => {
 
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      //----------------------------------------------------------------------------------------
-      // Create the 2 sum visible properties for cartesian scene
-
-      const cartesianGroup1SumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      const cartesianGroup2SumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      //----------------------------------------------------------------------------------------
-      // Create the 2 sum visible properties for polar scene
-
-      const polarGroup3SumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      const polarGroup4SumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      super( [ cartesianGroup1SumVisibileProperty, cartesianGroup2SumVisibileProperty, polarGroup3SumVisibileProperty, polarGroup4SumVisibileProperty ], tandem );
+      super( tandem );
 
       //----------------------------------------------------------------------------------------
       // Reference the sum visible properties
 
       // @public (read-only) {BooleanProperty}
-      this.cartesianGroup1SumVisibileProperty = cartesianGroup1SumVisibileProperty;
+      this.cartesianGroup1SumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       // @public (read-only) {BooleanProperty}
-      this.cartesianGroup2SumVisibileProperty = cartesianGroup2SumVisibileProperty;
+      this.cartesianGroup2SumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       // @public (read-only) {BooleanProperty}
-      this.polarGroup3SumVisibileProperty = polarGroup3SumVisibileProperty;
+      this.polarGroup3SumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       // @public (read-only) {BooleanProperty}
-      this.polarGroup4SumVisibileProperty = polarGroup4SumVisibileProperty;
+      this.polarGroup4SumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       //----------------------------------------------------------------------------------------
       // Create and add the graphs.
@@ -77,8 +63,6 @@ define( require => {
 
       // @public (read-only) {Graph}
       this.cartesianGraph = new Graph( LAB_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.TWO_DIMENSIONAL );
-
-      this.graphs.push( this.cartesianGraph, this.polarGraph );
 
       //----------------------------------------------------------------------------------------
       // Create the two vector sets for the cartesian scene
@@ -109,6 +93,24 @@ define( require => {
         VectorGroups.FOUR );
 
       this.polarGraph.vectorSets.push( this.polarGroup3VectorSet, this.polarGroup4VectorSet );
+    }
+
+
+    reset() {
+      this.cartesianGraph.reset();
+      this.polarGraph.reset();
+
+      this.cartesianGroup1SumVisibileProperty.reset();
+
+      // @public (read-only) {BooleanProperty}
+      this.cartesianGroup2SumVisibileProperty.reset();
+
+      // @public (read-only) {BooleanProperty}
+      this.polarGroup3SumVisibileProperty.reset();
+
+      // @public (read-only) {BooleanProperty}
+      this.polarGroup4SumVisibileProperty.reset();
+
     }
   }
 

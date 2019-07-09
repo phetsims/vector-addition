@@ -60,7 +60,7 @@ define( require => {
         }
       } );
 
-      super( [ equationSumVisibleProperty ], tandem );
+      super( tandem );
 
       //----------------------------------------------------------------------------------------
       // Create the two graphs
@@ -70,8 +70,6 @@ define( require => {
 
       // @public (read-only) {graph}
       this.cartesianGraph = new Graph( EQUATION_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.TWO_DIMENSIONAL );
-
-      this.graphs.push( this.polarGraph, this.cartesianGraph );
 
       //----------------------------------------------------------------------------------------
       // Add properties (one for each scene) to control equation types (see ./EquationTypes.js)
@@ -132,6 +130,10 @@ define( require => {
       this.polarEquationTypeProperty.reset();
       this.cartesianEquationTypeProperty.reset();
 
+
+      this.polarGraph.reset();
+      this.cartesianGraph.reset();
+      
       super.reset();
     }
   }

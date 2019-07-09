@@ -37,23 +37,16 @@ define( require => {
 
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      //----------------------------------------------------------------------------------------
-      // Create the 2 sum visibility properties for each scene respectively
-
-      const polarSumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      const cartesianSumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      super( [ polarSumVisibileProperty, cartesianSumVisibileProperty ], tandem );
+      super( tandem );
 
       //----------------------------------------------------------------------------------------
       // Create references to the two sum visible properties
 
       // @public (read-only) {BooleanProperty} polarSumVisibileProperty
-      this.polarSumVisibileProperty = polarSumVisibileProperty;
+      this.polarSumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       // @public (read-only) {BooleanProperty} cartesianSumVisibileProperty
-      this.cartesianSumVisibileProperty = cartesianSumVisibileProperty;
+      this.cartesianSumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       //----------------------------------------------------------------------------------------
       // Declare the vector groups for each graph
@@ -73,8 +66,6 @@ define( require => {
       // @public (read-only) {Graph}
       this.cartesianGraph = new Graph( EXPLORE_2D_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.TWO_DIMENSIONAL );
 
-      this.graphs.push( this.polarGraph, this.cartesianGraph );
-
       //----------------------------------------------------------------------------------------
       // Create the vector sets. Each graph has one vector set
 
@@ -90,6 +81,14 @@ define( require => {
 
       this.polarGraph.vectorSets.push( this.polarVectorSet );
       this.cartesianGraph.vectorSets.push( this.cartesianVectorSet );
+    }
+
+    reset() {
+      this.polarGraph.reset();
+      this.cartesianGraph.reset();
+
+      this.polarSumVisibileProperty.reset();
+      this.cartesianSumVisibileProperty.reset();
     }
   }
 

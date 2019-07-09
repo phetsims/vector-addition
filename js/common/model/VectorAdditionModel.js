@@ -1,15 +1,18 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * The shared model for every Screen respectively. Its main responsibility is to control the state of the simulation.
+ * Root class (to be subtyped) for the top level model of every screen respectively. Controls the state of the sim.
  *
- * The model is not specific for an individual graph as it toggles global 'settings' of the simulation. For example,
- * turning on the 'angle visible' option on the control panel means the angle is visible for every graph.
+ * Main responsibilities are:
+ *  - Values visibility
+ *  - Grid visibility
+ *  - Angle visibility
+ *  - Component style property
+ *  - Coordinate snap mode property
  *
- * The model can also have an unknown amount of graphs (see Graph.js for more documentation).
- *
- * The model also has an unknown amount of sum visible properties: there could be one global sum visible property or
- * a sum visible property for each vector set.
+ * Meant as a superclass. Added properties in subclasses will not be reset in this class. Graphs and sum visibility
+ * properties should be made in subclasses (varied amount of graphs and sum visibility properties from screen to
+ * screen)
  *
  * @author Martin Veillette
  */
@@ -22,6 +25,7 @@ define( require => {
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
@@ -31,18 +35,11 @@ define( require => {
   class VectorAdditionModel {
     /**
      * @constructor
-     * @param {array.<BooleanProperty>} sumVisibleProperties - an array of the sim visible properties. Sub classes
-     * should keep references to individual sumVisible properties
      * @param {Tandem} tandem
      */
-    constructor( sumVisibleProperties, tandem ) {
+    constructor( tandem ) {
 
-      assert && assert( sumVisibleProperties.filter(
-        sumVisibleProperty => !( sumVisibleProperty instanceof BooleanProperty ) ).length === 0,
-        `invalid sumVisibleProperties: ${sumVisibleProperties}` );
-
-      //----------------------------------------------------------------------------------------
-      // Visibility Properties
+      assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       // @public {BooleanProperty} - indicates if the labels should contain the magnitudes
       this.valuesVisibleProperty = new BooleanProperty( false );
@@ -53,45 +50,25 @@ define( require => {
       // @public {BooleanProperty} - controls the visibility of the angle
       this.angleVisibleProperty = new BooleanProperty( false );
 
-      // @private {array.<BooleanProperty>} - private because sub classes should create their own references to the
-      // individual properties
-      this.sumVisibleProperties = sumVisibleProperties;
-
       //----------------------------------------------------------------------------------------
-      // Enumeration Properties
 
       // @public {EnumerationProperty.<ComponentStyles>} - controls the visibility of the component styles
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, STARTING_COMPONENT_STYLE );
 
       // @public {EnumerationProperty.<CoordinateSnapModes>} - controls the snapping mode for the vectors
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
-
-      //----------------------------------------------------------------------------------------
-      // Graphs
-
-      // @public {array.<Graph>} graphs - array of the graphs
-      this.graphs = [];
     }
 
-
     /**
-     * Resets the Model. Called when the reset all button is clicked.
+     * Resets the model.
      * @public
      */
     reset() {
-
-      // Reset the visible properties
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
-      this.sumVisibleProperties.forEach( ( sumVisibleProperty ) => sumVisibleProperty.reset() );
-
-      // Reset the enumeration properties
       this.componentStyleProperty.reset();
       this.coordinateSnapModeProperty.reset();
-
-      // Reset every graph
-      this.graphs.forEach( ( graph ) => { graph.reset(); } );
     }
   }
 
