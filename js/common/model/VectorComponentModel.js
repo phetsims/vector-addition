@@ -1,15 +1,16 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a Vector Component. There are 2 types of components: the X Component and the Y Component. The positioning
- * for these components are slightly different.
+ * Model for a Vector Component.
  *
- * This is designed to be a component of a parent vector. For instance, if vector 'a' were to be <5, 5>, its x
+ * This is a component of a parent vector. For instance, if vector 'a' were to be <5, 5>, its x
  * component would be <5, 0>. This component's 'parent vector' would be vector 'a'.
  *
  * This vector component updates its tail/tip based on the:
- *  1. The component style
+ *  1. The component style property
  *  2. Parent vector's changing tail/tip/components
+ *
+ * Positioning for the x and y components are slightly different.
  *
  * @author Brandon Li
  */
@@ -24,26 +25,26 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const RootVectorModel = require( 'VECTOR_ADDITION/common/model/RootVectorModel' );
   const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
 
-  // Rounding on the label with values on
+  // rounding for the vector value (on the label with values checked)
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
   class VectorComponentModel extends RootVectorModel {
     /**
      * @constructor
-     * @param {VectorModel} parentVector - the vector to which the component is associated
+     *
+     * @param {VectorModel} parentVector - the vector to which the component is associated with
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
      * @param {Property.<VectorModel|null>} activeVectorProperty
      * @param {Enumeration} componentType (see VectorComponentModel.COMPONENT_TYPES)
      */
     constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
-      // Type check arguments
       assert && assert( parentVector instanceof RootVectorModel, `invalid parentVector: ${parentVector}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
@@ -59,6 +60,9 @@ define( require => {
 
       super( parentVector.tail, new Vector2( 0, 0 ), parentVector.vectorGroup, componentTag );
 
+      //----------------------------------------------------------------------------------------
+      // Create references
+
       // @public (read-only)
       this.componentType = componentType;
 
@@ -68,7 +72,8 @@ define( require => {
       // @public {RootVectorModel} parentVector - reference the parent vector
       this.parentVector = parentVector;
 
-      // @private observe changes of the parent to update component.
+      // @private {multilink} - observe changes of the parent's tail, tip, and components. When the parent changes, the
+      // component also changes.
       // No need to listen to the modelViewTransformProperty since the parentVector will update its position when
       // modelViewTransformProperty changes
       this.updateLayoutMultilink = Property.multilink( [
@@ -79,9 +84,9 @@ define( require => {
     }
 
     /**
-     * Disposes the vector component
-     * @public
      * @override
+     * Disposes the vector component.
+     * @public
      */
     dispose() {
       this.updateLayoutMultilink.dispose();
@@ -89,17 +94,18 @@ define( require => {
     }
 
     /**
-     * Updates the tail, and components vector (which will update the tip and magnitude) when the component style
-     * changes or the parent's tail/tip changes
-     * @param {ComponentStyles} componentStyle
+     * Updates the component vector to match the parent vector.
      * @private
+     *
+     * @param {ComponentStyles} componentStyle
      */
     updateComponent( componentStyle ) {
+
+      /*---------------------------------------------------------------------------*
+       * X Component positioning
+       *---------------------------------------------------------------------------*/
       if ( this.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ) {
 
-        /*---------------------------------------------------------------------------*
-         * X Component positioning
-         *---------------------------------------------------------------------------*/
         // Triangle and Parallelogram are the same for x component
         if ( componentStyle === ComponentStyles.TRIANGLE || componentStyle === ComponentStyles.PARALLELOGRAM ) {
 
@@ -108,16 +114,17 @@ define( require => {
           this.setTipXY( this.parentVector.tipX, this.parentVector.tailY );
         }
         else if ( componentStyle === ComponentStyles.ON_AXIS ) {
+
           // Same tailX, however its y value is 0 since it is on the x-axis
           this.setTailXY( this.parentVector.tailX, 0 );
           this.setTipXY( this.parentVector.tipX, 0 );
         }
       }
+      /*---------------------------------------------------------------------------*
+       * Y Component positioning
+       *---------------------------------------------------------------------------*/ 
       else if ( this.componentType === VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT ) {
 
-        /*---------------------------------------------------------------------------*
-         * Y Component positioning
-         *---------------------------------------------------------------------------*/
         if ( componentStyle === ComponentStyles.TRIANGLE ) {
 
           // Creates the triangle, tipX to parent tail
@@ -141,10 +148,10 @@ define( require => {
 
     /**
      * @override
-     * See RootVectorModel.getLabelContent() for documentation and context
+     * See RootVectorModel.getLabelContent() for context.
      *
      * Gets the label content information to display the vector component. Vector components don't have tags
-     * and only show their component (which can be negative) when values are visible
+     * and only show their component (which can be negative) when values are visible. They never have coefficients.
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
@@ -169,7 +176,7 @@ define( require => {
       // Since components don't have tags, it never has a prefix. Components only show components if and only
       // if the values are visible and if the component isn't of 0 length.
       return {
-        coefficient: null,
+        coefficient: null, // components never have a coefficient
         tag: null,
         value: valuesVisible && Math.abs( roundedComponentValue ) > 0 ? roundedComponentValue : null
       };
