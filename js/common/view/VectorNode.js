@@ -178,6 +178,16 @@ define( require => {
       // Observe the view location property to call a tail listener that updates the tail in the model
       const tailListener = tailLocation => {
         this.updateTailPosition( tailLocation );
+
+        const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
+
+        const cursorPosition = this.modelViewTransformProperty.value
+                                .viewToModelDelta( this.bodyDragListener.localPoint ).plus( tailPosition );
+
+        if ( !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
+          vectorModel.removeFromGraph();
+        }
+
       };
       tailLocationProperty.lazyLink( tailListener );
 
