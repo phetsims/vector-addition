@@ -1,8 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * The 'Explore 1D' screen. Conforms to the contract specified in joist/Screen.
+ *
  * @author Martin Veillette
  */
+
 define( require => {
   'use strict';
 
@@ -18,9 +21,9 @@ define( require => {
   const screenExplore1DString = require( 'string!VECTOR_ADDITION/screen.explore1D' );
 
   class Explore1DScreen extends Screen {
-
     /**
      * @param {Tandem} tandem
+     * @constructor
      */
     constructor( tandem ) {
 
@@ -30,11 +33,9 @@ define( require => {
         tandem: tandem
       };
 
-      super(
-        () => new Explore1DModel( tandem.createTandem( 'explore1DModel' ) ),
+      super( () => new Explore1DModel( tandem.createTandem( 'explore1DModel' ) ),
         ( explore1DModel ) => new Explore1DScreenView( explore1DModel, tandem.createTandem( 'explore1DView' ) ),
-        options
-      );
+        options );
     }
   }
 
