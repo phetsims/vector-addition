@@ -22,18 +22,11 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
   // constants
 
-  // passed to super class
-  const VECTOR_SUM_OPTIONS = {
-    isTipDraggable: false, // Vector sums are not draggable by the tip. Their components are calculated from the vectors
-    // in a vector set that are on the graph
-    isRemovable: false // Vector sums are not removable which means they are also not disposable
-  };
-
-  class EquationVectorSum extends VectorModel {
+  class EquationVectorSum extends VectorSum {
     /**
      * @constructor
      * @param {Graph} graph - graph the vector sum belongs to
@@ -47,56 +40,12 @@ define( require => {
       && EquationTypes.includes( equationTypeProperty.value ),
         `invalid equationTypeProperty: ${equationTypeProperty}` );
 
-      // Get the initial position for the tail of the vector, which is the graphs center
-      const initialPosition = graph.graphModelBounds.center;
-
-      // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-      super( initialPosition, new Vector2( 0, 0 ), graph, vectorSet, tag, VECTOR_SUM_OPTIONS );
+      super( graph, vectorSet, tag );
 
       //----------------------------------------------------------------------------------------
 
-      // Function to update the equation sum based on the vectors and the equation type
-      const updateEquationSum = ( equationType ) => {
-
-
-        // Denoted by 'a' + 'b' = 'c'
-        if ( equationType === EquationTypes.ADDITION ) {
-          const sum = new Vector2( 0, 0 );
-
-          vectorSet.vectors.forEach( vector => {
-            sum.add( vector.vectorComponents );
-          } );
-
-          this.vectorComponents = sum;
-        }
-        else if ( equationType === EquationTypes.SUBTRACTION ) {
-          const difference = new Vector2( 0, 0 );
-
-          let vectorIndex = 0;
-          vectorSet.vectors.forEach( vector => {
-            if ( !vectorIndex ) {
-              difference.add( vector.vectorComponents );
-            }
-            else {
-              difference.subtract( vector.vectorComponents );
-            }
-            vectorIndex++;
-          } );
-
-          this.vectorComponents = difference;
-        }
-        else if ( equationType === EquationTypes.NEGATION ) {
-          // Same as addition but negated  : a + b = -c or a + b + c = 0
-
-          const sum = new Vector2( 0, 0 );
-
-          vectorSet.vectors.forEach( vector => {
-            sum.add( vector.vectorComponents );
-          } );
-
-          this.vectorComponents = sum.negate();
-        }
-      };
+      // @private {EquationTypes}
+      this.equationTypeProperty = equationTypeProperty;
 
       //----------------------------------------------------------------------------------------
       // Observe when each vector changes and/or when the equationType changes to calculate the sum
@@ -109,27 +58,61 @@ define( require => {
       // Doesn't need to be unlinked since each vector in equationvectorSet are never disposed and the equation vector
       // sum is never disposed
       Property.multilink( dependencies,
-        ( equationType ) => {
-          updateEquationSum( equationType );
+        () => {
+          this.updateSum( vectorSet.vectors );
+        } );
+    }
+
+    /**
+     * @override
+     * Calculate the vector sum for the equation screen.
+     *
+     * @param {ObservableArray.<VectorsModel>} vectors
+     * @public
+     */
+    updateSum( vectors ) {
+
+      const equationType = this.equationTypeProperty.value;
+
+      // Denoted by 'a' + 'b' = 'c'
+      if ( equationType === EquationTypes.ADDITION ) {
+        const sum = new Vector2( 0, 0 );
+
+        vectors.forEach( vector => {
+          sum.add( vector.vectorComponents );
         } );
 
-      //----------------------------------------------------------------------------------------
-      // Double check that base vectors are never removed from the graph
+        this.vectorComponents = sum;
+      }
+      else if ( equationType === EquationTypes.SUBTRACTION ) {
+        const difference = new Vector2( 0, 0 );
 
-      this.isOnGraphProperty.value = true;
+        let vectorIndex = 0;
+        vectors.forEach( vector => {
+          if ( !vectorIndex ) {
+            difference.add( vector.vectorComponents );
+          }
+          else {
+            difference.subtract( vector.vectorComponents );
+          }
+          vectorIndex++;
+        } );
 
-      // Doesn't need to be unlinked; base vectors are never disposed
-      this.isOnGraphProperty.link( ( isOnGraph ) => {
-        if ( isOnGraph === false ) {
-          assert && assert( false, 'vector sums should never be off the graph' );
-        }
-      } );
+        this.vectorComponents = difference;
+      }
+      else if ( equationType === EquationTypes.NEGATION ) {
+        // Same as addition but negated  : a + b = -c or a + b + c = 0
 
+        const sum = new Vector2( 0, 0 );
+
+        vectors.forEach( vector => {
+          sum.add( vector.vectorComponents );
+        } );
+
+        this.vectorComponents = sum.negate();
+      }
     }
 
-    reset() {
-
-    }
   }
 
   return vectorAddition.register( 'EquationVectorSum', EquationVectorSum );
