@@ -1,8 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a 'VectorSet,' which contains two things:
- *  - an observable array of vectors that are dragged from the vector creator panel
+ * Model for a 'VectorSet,' which contains:
+ *  - an observable array of vectors
  *  - a vector sum of those vectors.
  *
  * A model graph can support multiple vectorSets. (e.g. lab screen has 2 vector sets per scene)
@@ -86,8 +86,8 @@ define( require => {
     }
 
     /**
-     * @public
      * Resets the vector set, by clearing the vectors array and reseting the vectorSum
+     * @public
      */
     reset() {
 
@@ -95,21 +95,21 @@ define( require => {
       while ( this.vectors.length ) {
         this.vectors.pop().dispose();
       }
+      assert && assert( this.vectorSum, 'vector sum was never instantiated' );
       this.vectorSum.reset();
     }
 
     /**
      * @public
-     * Creates a vector model. This doesn't get added to the vector ObservableArray
-     * @param {Vector2} tailPosition
-     * @param {number} xComponent
-     * @param {number} yComponent
+     * Creates a vector model.
+     * @param {Vector2} initialTailPosition
+     * @param {Vector2} initialComponents
      * @param {string|null} tag
      * @param {Object} [options] - passed to the vector model
      * @returns {VectorModel} the created vector model
      */
-    createVector( tailPosition, initalComponents, tag, options ) {
-      return new VectorModel( tailPosition, initalComponents, this.graph, this, tag, options );
+    createVector( initialTailPosition, initalComponents, tag, options ) {
+      return new VectorModel( initialTailPosition, initalComponents, this.graph, this, tag, options );
     }
   }
 
