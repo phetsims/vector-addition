@@ -132,6 +132,9 @@ define( function( require ) {
     NUMBER_DISPLAY_ROUNDING: 1, // in decimal points
     VECTOR_VALUE_ROUNDING: 1, // rounding for the value in the label next to vectors in decimal points
 
+  // interval spacing of vector angle (in degrees) when vector is in polar mode
+
+    POLAR_ANGLE_INTERVAL: 5,
     //----------------------------------------------------------------------------------------
     // Vector tags, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
     // These don't necessarily align with VectorGroups.

@@ -23,6 +23,7 @@ define( require => {
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const Range = require( 'DOT/Range' );
   const NumberProperty = require( 'AXON/NumberProperty' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   const DEFAULT_COEFFICIENT = 1;
@@ -51,7 +52,7 @@ define( require => {
       }, options );
 
 
-      super( tailPosition, xComponent, yComponent, graph, equationVectorSet, tag, options );
+      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, tag, options );
 
       //----------------------------------------------------------------------------------------
       // @public (read-only) {Property.<number>} - create a property to represent the coefficient.

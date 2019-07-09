@@ -51,7 +51,7 @@ define( require => {
       const initialPosition = graph.graphModelBounds.center;
 
       // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-      super( initialPosition, 0, 0, graph, vectorSet, tag, VECTOR_SUM_OPTIONS );
+      super( initialPosition, new Vector2( 0, 0 ), graph, vectorSet, tag, VECTOR_SUM_OPTIONS );
 
       //----------------------------------------------------------------------------------------
 

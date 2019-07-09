@@ -1,10 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a 'normal' vector (vector that is dropped onto the graph)
+ * Model for a vector.
  *
  * Extends RootVectorModel but adds more functionality:
- *  - update the tail when the origin moves
+ *  - update the tail when the origin moves (modelViewTransformProperty)
  *  - methods to drop a vector or to animate a vector
  *  - ability to drag the vector by the tail and the tip
  *  - instantiate x and y component models
@@ -19,7 +19,6 @@ define( require => {
   const Animation = require( 'TWIXT/Animation' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Easing = require( 'TWIXT/Easing' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Property = require( 'AXON/Property' );
@@ -36,33 +35,33 @@ define( require => {
   const MIN_ANIMATION_TIME = 0.9; // in seconds
 
   // interval spacing of vector angle (in degrees) when vector is in polar mode
-  const ANGLE_INTERVAL = 5;
+  const POLAR_ANGLE_INTERVAL = VectorAdditionConstants.POLAR_ANGLE_INTERVAL;
 
-  // Vectors may get passed a tag (i.e. 'a', 'b', 'c', ...), but also may not. However, the inspect a vector 
+  // Vectors may get passed a tag (i.e. 'a', 'b', 'c', ...), but also may not. However, the inspect a vector
   // panel (and other views) sill needs a tag to display. The fall back vector tag represents this and only is used
   // if and only if a tag isn't passed to the sum. See https://github.com/phetsims/vector-addition/issues/39 for more
   // context. The reason this isn't translatable is: https://github.com/phetsims/vector-addition/issues/10.
   const VECTOR_FALL_BACK_TAG = 'v';
 
-  // The maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
+  // maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
   // See https://github.com/phetsims/vector-addition/issues/46 for more context.
   const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 
-  // Rounding on the label with values on
+  // rounding for the vector value (on the label with values checked)
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
+
 
   class VectorModel extends RootVectorModel {
     /**
      * @constructor
-     * @param {Vector2} tailPosition
-     * @param {number} xComponent horizontal component of the vector
-     * @param {number} yComponent vertical component of the vector
-     * @param {Graph} the graph the vector belongs to
+     * @param {Vector2} initialTailPosition - starting tail position of the vector
+     * @param {Vector2} initialComponents - starting components of the vector
+     * @param {Graph} graph - the graph the vector belongs to
      * @param {VectorSet} the vectorSet that the vector belongs to
      * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
-     * @param {Object} [options]
+     * @param {Object} [options] - various key-value pairs that control behavior. All options are specific to this class
      */
-    constructor( tailPosition, xComponent, yComponent, graph, vectorSet, tag, options ) {
+    constructor( initialTailPosition, initialComponents, graph, vectorSet, tag, options ) {
 
       options = _.extend( {
         isTipDraggable: true, // {boolean} - false means the tip won't be draggable
@@ -76,8 +75,7 @@ define( require => {
         `invalid options.isRemovable: ${options.isRemovable}` );
 
       //----------------------------------------------------------------------------------------
-
-      super( tailPosition, new Vector2( xComponent, yComponent ), vectorSet.vectorGroup, tag );
+      super( initialTailPosition, initialComponents, vectorSet.vectorGroup, tag );
 
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
@@ -95,28 +93,10 @@ define( require => {
       this.fallBackTag = VECTOR_FALL_BACK_TAG;
 
       //----------------------------------------------------------------------------------------
-      // Properties for the 'Inspect a Vector' panel
-
-      // @public (read-only) {DerivedProperty.<number>} - the magnitude of the vector
-      this.magnitudeProperty = new DerivedProperty( [ this.vectorComponentsProperty ], () => ( this.magnitude ) );
-
-      // @public (read-only) {DerivedProperty.<number|null>} - the angle (in degrees) of the vector.
-      // The angle is measured clockwise from the positive x-axis with angle in (-180,180]
-      this.angleDegreesProperty = new DerivedProperty( [ this.vectorComponentsProperty ], () => {
-        return ( this.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ) ? null : Util.toDegrees( this.angle );
-      } );
-
-      // @public (read-only) {DerivedProperty.<number>} - the xComponent property
-      this.xComponentProperty = new DerivedProperty( [ this.vectorComponentsProperty ], () => ( this.xComponent ) );
-
-      // @public (read-only) {DerivedProperty.<number>} - the yComponent property
-      this.yComponentProperty = new DerivedProperty( [ this.vectorComponentsProperty ], () => ( this.yComponent ) );
-
-      //----------------------------------------------------------------------------------------
 
       // Function to update the position of the tail of the vector based on the modelViewTransform
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
-        const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tailPositionProperty.value );
+        const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tail );
         this.translateTailToPoint( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
       };
 
@@ -143,7 +123,6 @@ define( require => {
         VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
-      // Vector states
 
       // @public (read-only) {BooleanProperty} - indicates if the vector is in the play area
       this.isOnGraphProperty = new BooleanProperty( false );
@@ -157,17 +136,12 @@ define( require => {
     }
 
     /**
+     * @override
      * Disposes the vector. Called when the vector is removed from the graph. This can be done by either
      * animating the vector back to the vector creator panel or by hitting the eraser/reset all button.
      * @public
-     * @override
      */
     dispose() {
-
-      this.magnitudeProperty.dispose();
-      this.angleDegreesProperty.dispose();
-      this.xComponentProperty.dispose();
-      this.yComponentProperty.dispose();
 
       this.unlinkTailUpdateListener();
 
@@ -176,7 +150,9 @@ define( require => {
 
       this.isOnGraphProperty.dispose();
 
-      this.stopAnimation();
+      if ( this.inProgressAnimationProperty.value ) {
+        this.inProgressAnimationProperty.value.stop();
+      }
       this.inProgressAnimationProperty.dispose();
 
       super.dispose();
@@ -184,7 +160,7 @@ define( require => {
 
     /**
      * @override
-     * See RootVectorModel.getLabelContent() for documentation and context
+     * See RootVectorModel.getLabelContent() for context
      *
      * Gets the label content information to display the vector model. Vector's may or may not have tags.
      *
@@ -242,11 +218,8 @@ define( require => {
       };
     }
 
-    /*---------------------------------------------------------------------------*
-     * The following are methods to drag the vector
-     *---------------------------------------------------------------------------*/
     /**
-     * Called when the tip is being dragged.
+     * Moves the tip to a position, rounding according to coordinate snap mode. Called when the tip is being dragged.
      * @param {Vector2} tipPosition - attempts to drag the tip to this position, but rounds it in cartesian/polar style
      * and updates the model tip
      * @public
@@ -291,13 +264,13 @@ define( require => {
 
         const roundedMagnitude = Util.roundSymmetric( vectorComponents.magnitude );
 
-        const angleInRadians = Util.toRadians( ANGLE_INTERVAL );
+        const angleInRadians = Util.toRadians( POLAR_ANGLE_INTERVAL );
         const roundedAngle = angleInRadians * Util.roundSymmetric( vectorComponents.angle / angleInRadians );
 
         // Calculate the rounded polar vector
         const polarVector = vectorComponents.setPolar( roundedMagnitude, roundedAngle );
 
-        // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside.
+        // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside
         while ( !this.graph.graphModelBounds.containsPoint( this.tail.plus( polarVector ) ) ) {
           polarVector.setMagnitude( polarVector.magnitude - 1 );
         }
@@ -307,7 +280,7 @@ define( require => {
     }
 
     /**
-     * Called when the tail is being dragged.
+     * Drags tail to a position, but ensures validity. Called when the tail is being dragged.
      * @param {Vector2} tailPosition - attempts to drag the tail to this position, but rounds it and ensures validity of
      * the vector after the drag.
      * @public
@@ -331,15 +304,22 @@ define( require => {
       if ( this.isRemovable === false ) {
         return;
       }
-
       // Offset of the cursor to the vector. This is users will remove vector according to displacement of the cursor.
       // See https://github.com/phetsims/vector-addition/issues/46#issuecomment-506726262
       const dragOffset = constrainedBounds.closestPointTo( tailPosition ).minus( tailPosition );
 
       if ( Math.abs( dragOffset.x ) > VECTOR_DRAG_THRESHOLD || Math.abs( dragOffset.y ) > VECTOR_DRAG_THRESHOLD ) {
-        this.isOnGraphProperty.value = false;
-        this.graph.activeVectorProperty.value = null; // No longer the active vector
+        this.removeFromGraph();
       }
+    }
+
+    /**
+     * Removes the vector from the graph.
+     * @public
+     */
+    removeFromGraph() {
+      this.isOnGraphProperty.value = false;
+      this.graph.activeVectorProperty.value = null;
     }
 
     /*---------------------------------------------------------------------------*
@@ -431,16 +411,6 @@ define( require => {
       animation.finishEmitter.addListener( animationFinished );
     }
 
-    /**
-     * Stops the current animation if one is happening, and does nothing if one isn't happening
-     * @private
-     */
-    stopAnimation() {
-      if ( this.inProgressAnimationProperty.value ) {
-        this.inProgressAnimationProperty.value.stop();
-        this.inProgressAnimationProperty.value = null;
-      }
-    }
 
     /**
      * Drops the vector onto the graph. Called at the end of the drag if the user drops the vector onto the graph.

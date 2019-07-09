@@ -19,6 +19,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   class BaseVectorModel extends VectorModel {
     /**
@@ -44,7 +45,7 @@ define( require => {
       }, options );
 
 
-      super( tailPosition, xComponent, yComponent, graph, equationVectorSet, tag, options );
+      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, tag, options );
 
       //----------------------------------------------------------------------------------------
       // Create properties for the base vector panel

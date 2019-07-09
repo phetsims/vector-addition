@@ -72,9 +72,10 @@ define( require => {
         stroke: VectorAdditionColors.BLACK
       } );
 
-      const vectorAngle = vectorModel.angleDegreesProperty.value;
+      const vectorAngle = vectorModel.angle;
+
       // @private {ArcArrowNode}
-      this.arcArrow = new ArcArrowNode( vectorAngle ? vectorAngle : 0, ARC_RADIUS, ARC_ARROW_OPTIONS );
+      this.arcArrow = new ArcArrowNode( vectorAngle ? Util.toDegrees( vectorAngle ) : 0, ARC_RADIUS, ARC_ARROW_OPTIONS );
 
       // @private {Text} - to be set later
       this.labelText = new Text( '', { font: ANGLE_LABEL_FONT } );
@@ -84,21 +85,21 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Update the angle when the model changes
-      const updateAngleListener = angle => {
+      const updateAngleListener = () => {
         if ( this.visible ) { // only update the angle if we are visible
-          this.updateAngleNode( angle );
+          this.updateAngleNode( vectorModel.magnitude !== 0 ? Util.toDegrees( vectorModel.angle ): null );
         }
       };
-      vectorModel.angleDegreesProperty.link( updateAngleListener );
+      vectorModel.vectorComponentsProperty.link( updateAngleListener );
 
       //----------------------------------------------------------------------------------------
       // Update the scale when the vector becomes too small
-      const updateScaleListener = magnitude => {
+      const updateScaleListener = () => {
         if ( this.visible ) { // only update the angle if we are visible
-          this.scaleArc( magnitude, graph.modelViewTransformProperty.value );
+          this.scaleArc( vectorModel.magnitude, graph.modelViewTransformProperty.value );
         }
       };
-      vectorModel.magnitudeProperty.link( updateScaleListener );
+      vectorModel.vectorComponentsProperty.link( updateScaleListener );
 
       //----------------------------------------------------------------------------------------
       // Observe when the angle visible property is changing and update the visibility of the angle node. The angle is
@@ -110,15 +111,15 @@ define( require => {
           this.visible = angleVisible && activeVector === vectorModel && isOnGraph;
 
 
-          this.updateAngleNode( vectorModel.angleDegreesProperty.value );
+          this.updateAngleNode( vectorModel.magnitude !== 0 ? Util.toDegrees( vectorModel.angle ): null );
           this.scaleArc( vectorModel.magnitude, graph.modelViewTransformProperty.value );
         } );
 
 
       // @private {function} - function to unlink listeners, called in dispose()
       this.unlinkListeners = () => {
-        vectorModel.angleDegreesProperty.unlink( updateAngleListener );
-        vectorModel.magnitudeProperty.unlink( updateScaleListener );
+        vectorModel.vectorComponentsProperty.unlink( updateAngleListener );
+        vectorModel.vectorComponentsProperty.unlink( updateScaleListener );
         visibilityObserver.dispose();
       };
     }
@@ -140,7 +141,6 @@ define( require => {
     updateAngleNode( angle ) {
 
       assert && assert( typeof angle === 'number' || angle === null, `invalid angle: ${angle}` );
-
       this.arcArrow.angle = angle ? angle : 0;
 
       if ( angle === null ) {

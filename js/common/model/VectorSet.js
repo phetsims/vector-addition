@@ -108,8 +108,8 @@ define( require => {
      * @param {Object} [options] - passed to the vector model
      * @returns {VectorModel} the created vector model
      */
-    createVector( tailPosition, xComponent, yComponent, tag, options ) {
-      return new VectorModel( tailPosition, xComponent, yComponent, this.graph, this, tag, options );
+    createVector( tailPosition, initalComponents, tag, options ) {
+      return new VectorModel( tailPosition, initalComponents, this.graph, this, tag, options );
     }
   }
 

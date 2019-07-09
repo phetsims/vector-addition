@@ -101,9 +101,6 @@ define( require => {
      */
     updateComponent( componentStyle ) {
 
-      /*---------------------------------------------------------------------------*
-       * X Component positioning
-       *---------------------------------------------------------------------------*/
       if ( this.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ) {
 
         // Triangle and Parallelogram are the same for x component
@@ -120,9 +117,6 @@ define( require => {
           this.setTipXY( this.parentVector.tipX, 0 );
         }
       }
-      /*---------------------------------------------------------------------------*
-       * Y Component positioning
-       *---------------------------------------------------------------------------*/ 
       else if ( this.componentType === VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT ) {
 
         if ( componentStyle === ComponentStyles.TRIANGLE ) {

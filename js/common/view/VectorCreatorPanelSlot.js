@@ -130,7 +130,7 @@ define( require => {
         const vectorTailPosition = vectorCenterPosition.minus( initialVector.timesScalar( 0.5 ) );
 
         // Create the new Vector Model
-        const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector.x, initialVector.y, options.tag );
+        const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector, options.tag );
         vectorSet.vectors.push( vectorModel );
 
         //----------------------------------------------------------------------------------------
