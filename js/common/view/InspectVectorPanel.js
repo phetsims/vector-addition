@@ -95,7 +95,8 @@ define( require => {
 
         // super class options
         contentFixedWidth: INSPECT_PANEL_WIDTH, // {number|null} fixed size of the panel (see superclass)
-        contentFixedHeight: INSPECT_PANEL_HEIGHT // {number|null} fixed size of the panel (see superclass)
+        contentFixedHeight: INSPECT_PANEL_HEIGHT, // {number|null} fixed size of the panel (see superclass)
+        isExpandedInitially: true
 
       }, options );
 
@@ -121,7 +122,8 @@ define( require => {
 
       super( inspectVectorText, panelOpenContent, {
         contentFixedWidth: options.contentFixedWidth,
-        contentFixedHeight: options.contentFixedHeight
+        contentFixedHeight: options.contentFixedHeight,
+        isExpandedInitially: options.isExpandedInitially
       } );
 
       this.top = options.top;

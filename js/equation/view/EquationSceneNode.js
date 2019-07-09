@@ -33,12 +33,6 @@ define( require => {
   const EquationVectorNode = require( 'VECTOR_ADDITION/equation/view/EquationVectorNode' );
 
   // constants
-  const INSPECT_VECTOR_PANEL_OPTIONS = {
-    panelOptions: {
-      left: 195,
-      top: 12
-    }
-  };
 
   const VECTOR_SUM_COLORS = {
     fill: VectorAdditionColors.BLACK,
@@ -74,7 +68,7 @@ define( require => {
 
       const graphNode = new GraphNode( graph, equationModel.gridVisibleProperty );
 
-      const inspectVectorPanel = new InspectVectorPanel( graph, INSPECT_VECTOR_PANEL_OPTIONS );
+      const inspectVectorPanel = new InspectVectorPanel( graph );
 
 
       // Create the containers for each vector type

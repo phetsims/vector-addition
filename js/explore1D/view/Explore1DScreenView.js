@@ -30,7 +30,9 @@ define( require => {
   const VERTICAL_VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
   const GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN = 10;
   const EXPLORE_1D_SCENE_OPTIONS = {
-    isExpandedInitially: false
+    inspectVectorPanelOptions: {
+      isExpandedInitially: false
+    }
   };
 
   class Explore1DScreenView extends VectorAdditionScreenView {
