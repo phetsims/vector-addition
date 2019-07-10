@@ -50,7 +50,7 @@ define( require => {
         `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-        centerY: 55,
+        centerY: 70,
         left: 465,
         orientation: 'horizontal'
       }, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
