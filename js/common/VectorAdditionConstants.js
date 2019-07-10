@@ -18,7 +18,7 @@ define( function( require ) {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   const PANEL_CORNER_RADIUS = 5;
-  const PANEL_X_MARGIN = 7;
+  const PANEL_X_MARGIN = 9;
   const PANEL_Y_MARGIN = 10;
 
 
@@ -34,7 +34,7 @@ define( function( require ) {
     // Defaults for all panel-like containers
     PANEL_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,
-      xMargin: 8,
+      xMargin: PANEL_X_MARGIN,
       yMargin: 10,
       minWidth: 140,
       maxWidth: 140,

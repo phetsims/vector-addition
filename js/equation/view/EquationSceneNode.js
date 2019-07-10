@@ -23,6 +23,7 @@ define( require => {
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
+  const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsAccordionBox' );
 
   // constants
 
@@ -159,6 +160,9 @@ define( require => {
 
         this.negationScene.baseVectorContainer.addChild( baseVector );
       } );
+
+
+      this.addChild( new BaseVectorsAccordionBox( scene.baseVectorsVisibleProperty ) );
     }
   }
 
