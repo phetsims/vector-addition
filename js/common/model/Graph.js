@@ -25,7 +25,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -48,18 +47,18 @@ define( require => {
     SCREEN_VIEW_BOUNDS.minX + SCREEN_VIEW_X_MARGIN + AXES_ARROW_X_EXTENSION,
     SCREEN_VIEW_BOUNDS.maxY - SCREEN_VIEW_Y_MARGIN - AXES_ARROW_Y_EXTENSION );
 
-  // Scale of the coordinate transformation of model coordinates to view coordinates
+  // scale of the coordinate transformation of model coordinates to view coordinates
   const MODEL_TO_VIEW_SCALE = 12.45;
-
 
   class Graph {
     /**
      * @constructor
      *
-     * @param {Bounds2} initialGraphBounds - the graph bounds at the start of the sim
+     * @param {Bounds2} initialGraphBounds - the model bounds of the graph at the start of the sim
      * @param {CoordinateSnapModes} coordinateSnapMode - the coordinate snap mode of the graph. A graph is either
      *                                                   entirely polar or cartesian.
-     * @param {GraphOrientations} orientation - the orientation of the graph
+     * @param {GraphOrientations} orientation - the orientation of the graph. A graph is either entirely horizontal,
+     *                                          vertical, or two dimensional.
      */
     constructor( initialGraphBounds, coordinateSnapMode, orientation ) {
 
@@ -70,29 +69,29 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public {array.<VectorSet>} - the vectorSets for this graph
+      // @public {array.<VectorSet>} vectorSets - the vectorSets for this graph
       this.vectorSets = [];
 
-      // @public (read-only) {GraphOrientations} - orientation for the graph (final variable)
+      // @public (read-only) {GraphOrientations} orientation - orientation for the graph (final variable)
       this.orientation = orientation;
 
-      // @private {CoordinateSnapModes} - coordinate snap mode for the graph (final variable)
+      // @protected {CoordinateSnapModes} coordinateSnapMode - coordinate snap mode for the graph (final variable)
       this.coordinateSnapMode = coordinateSnapMode;
 
-      // @private {Property.<Bounds2>} the property of the graph bounds. To be set internally only. Read access can
-      // be found at get graphModelBounds()
+      // @private {Property.<Bounds2>} graphModelBoundsProperty - the property of the graph bounds. To be set internally
+      // only. Read access can be found at get graphModelBounds().
       this.graphModelBoundsProperty = new Property( initialGraphBounds, {
         valueType: Bounds2
       } );
 
-      // Determine the view bounds for the graph, the graph view bounds are for the entire sim.
+      // Determine the view bounds for the graph, the graph view bounds are constant for the entire sim.
       const graphViewBounds = new Bounds2( GRAPH_BOTTOM_LEFT_LOCATION.x,
         GRAPH_BOTTOM_LEFT_LOCATION.y - MODEL_TO_VIEW_SCALE * initialGraphBounds.height,
         GRAPH_BOTTOM_LEFT_LOCATION.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
         GRAPH_BOTTOM_LEFT_LOCATION.y );
 
-      // @public (read-only) {DerivedProperty.<ModelViewTransform2>} - the coordinate transform between model
-      // (graph coordinates) and view coordinates.
+      // @public (read-only) {DerivedProperty.<ModelViewTransform2>} - modelViewTransformProperty - property of the
+      // coordinate transform between model (graph coordinates) and view coordinates.
       this.modelViewTransformProperty = new DerivedProperty( [ this.graphModelBoundsProperty ],
         ( graphModelBounds ) => {
           return ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, graphViewBounds );
@@ -100,8 +99,8 @@ define( require => {
           valueType: ModelViewTransform2
         } );
 
-      // @public {Property.<VectorModel|null>} - the active vector. A graph only has one active vector at a time.
-      // If null, there are no active vectors at the time. To be set externally.
+      // @public {Property.<VectorModel|null>} activeVectorProperty - the active vector. A graph only has one active
+      // vector at a time. If null, there are no active vectors at the time. To be set externally.
       this.activeVectorProperty = new Property( null, {
         isValidValue: ( value ) => {
           return value === null || value instanceof VectorModel;
@@ -142,19 +141,6 @@ define( require => {
       // Round the point to only allow transformations to points on a grid intersection
       const roundedPoint = point.roundSymmetric();
       this.graphModelBoundsProperty.value = this.graphModelBounds.shifted( -roundedPoint.x, -roundedPoint.y );
-    }
-
-    /**
-     * Creates a VectorSet. This will not add a vector set to the graph as a side effect.
-     * @public
-     *
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty - the sum visible property for this vector set
-     * @param {VectorGroups} vectorGroup
-     * @returns {VectorSet} - the vector set that was created
-     */
-    createVectorSet( componentStyleProperty, sumVisibleProperty, vectorGroup ) {
-      return new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorGroup, this.coordinateSnapMode );
     }
 
     /**

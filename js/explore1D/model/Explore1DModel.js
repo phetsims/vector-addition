@@ -15,26 +15,19 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const Explore1DGraph = require( 'VECTOR_ADDITION/explore1D/model/Explore1DGraph' );
 
   // constants
   const DEFAULT_VECTOR_ORIENTATION = GraphOrientations.HORIZONTAL;
-  const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
   const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
-
-  const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
-    -DEFAULT_GRAPH_BOUNDS.height / 2,
-    DEFAULT_GRAPH_BOUNDS.width / 2,
-    DEFAULT_GRAPH_BOUNDS.height / 2 );
 
 
   class Explore1DModel extends VectorAdditionModel {
@@ -67,28 +60,10 @@ define( require => {
       // Create and add the graphs
 
       // @public (read-only) {Graph}
-      this.verticalGraph = new Graph( EXPLORE_1D_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.VERTICAL );
+      this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL, this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
 
       // @public (read-only) {Graph}
-      this.horizontalGraph = new Graph( EXPLORE_1D_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.HORIZONTAL );
-
-
-      //----------------------------------------------------------------------------------------
-      // Create the vector sets. Each graph has one vector set
-
-      // @public (read-only) {VectorSet}
-      this.verticalVectorSet = this.verticalGraph.createVectorSet( this.componentStyleProperty,
-        this.sumVisibleProperty,
-        this.vectorGroup );
-
-      // @public (read-only) {VectorSet}
-      this.horizontalVectorSet = this.horizontalGraph.createVectorSet( this.componentStyleProperty,
-        this.sumVisibleProperty,
-        this.vectorGroup );
-
-      this.horizontalGraph.vectorSets.push( this.horizontalVectorSet );
-      this.verticalGraph.vectorSets.push( this.verticalVectorSet );
-
+      this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL, this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
 
       //----------------------------------------------------------------------------------------
       // Disable unused properties

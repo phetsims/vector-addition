@@ -71,14 +71,14 @@ define( require => {
 
       verticalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DModel,
         explore1DModel.verticalGraph,
-        explore1DModel.verticalVectorSet,
+        explore1DModel.verticalGraph.vectorSet,
         verticalSceneNode.vectorContainer,
         this,
         VERTICAL_VECTOR_TAGS ) );
 
       horizontalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DModel,
         explore1DModel.horizontalGraph,
-        explore1DModel.horizontalVectorSet,
+        explore1DModel.horizontalGraph.vectorSet,
         horizontalSceneNode.vectorContainer,
         this,
         HORIZONTAL_VECTOR_TAGS ) );
