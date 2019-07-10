@@ -39,7 +39,6 @@ define( function( require ) {
 
       //----------------------------------------------------------------------------------------
       // Create the scenes for the polar and cartesian scenes.
-
       const polarSceneNode = new SceneNode( explore2DModel.polarGraph,
         explore2DModel.valuesVisibleProperty,
         explore2DModel.angleVisibleProperty,
