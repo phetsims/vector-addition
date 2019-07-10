@@ -66,8 +66,8 @@ define( require => {
     reset() {
 
 
-      // this.polarGraph.reset();
-      // this.cartesianGraph.reset();
+      this.polarScene.reset();
+      this.cartesianScene.reset();
       
       super.reset();
     }
