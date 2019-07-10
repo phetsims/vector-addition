@@ -17,13 +17,12 @@ define( require => {
   'use strict';
 
   // modules
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const Property = require( 'AXON/Property' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
-
+  const Vector2 = require( 'DOT/Vector2' );
+  
   // constants
 
   class EquationVectorSum extends VectorSum {
@@ -34,22 +33,22 @@ define( require => {
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( graph, vectorSet, equationTypeProperty, tag ) {
+    constructor( graph, vectorSet, equationType, tag ) {
 
-      assert && assert( equationTypeProperty instanceof EnumerationProperty
-      && EquationTypes.includes( equationTypeProperty.value ),
-        `invalid equationTypeProperty: ${equationTypeProperty}` );
+      // assert && assert( equationTypeProperty instanceof EnumerationProperty
+      // && EquationTypes.includes( equationTypeProperty.value ),
+      //   `invalid equationTypeProperty: ${equationTypeProperty}` );
 
       super( graph, vectorSet, tag );
 
       //----------------------------------------------------------------------------------------
 
       // @private {EquationTypes}
-      this.equationTypeProperty = equationTypeProperty;
+      this.equationType = equationType;
 
       //----------------------------------------------------------------------------------------
       // Observe when each vector changes and/or when the equationType changes to calculate the sum
-      const dependencies = [ equationTypeProperty ];
+      const dependencies = [];
 
       vectorSet.vectors.forEach( vector => {
         dependencies.push( vector.vectorComponentsProperty );
@@ -61,6 +60,7 @@ define( require => {
         () => {
           this.updateSum( vectorSet.vectors );
         } );
+
     }
 
     /**
@@ -72,7 +72,7 @@ define( require => {
      */
     updateSum( vectors ) {
 
-      const equationType = this.equationTypeProperty.value;
+      const equationType = this.equationType;
 
       // Denoted by 'a' + 'b' = 'c'
       if ( equationType === EquationTypes.ADDITION ) {

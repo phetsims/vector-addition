@@ -13,11 +13,8 @@ define( require => {
   'use strict';
 
   // modules
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationVectorModel = require( 'VECTOR_ADDITION/equation/model/EquationVectorModel' );
   const EquationVectorSum = require( 'VECTOR_ADDITION/equation/model/EquationVectorSum' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
@@ -26,9 +23,10 @@ define( require => {
   const VECTOR_SET_OPTIONS = {
     initializeSum: false // Equation vector set will initialize all the vectors
   };
+  const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
 
   const VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
-
+    
   class EquationVectorSet extends VectorSet {
     /**
      * @constructor
@@ -38,22 +36,20 @@ define( require => {
      * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
      * @param {Vector2} initialVectorComponents
-     * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      */
     constructor( graph,
-                 componentStyleProperty,
-                 sumVisibleProperty,
-                 vectorGroup,
-                 coordinateSnapMode,
-                 initialVectorComponents,
-                 equationTypeProperty
+        componentStyleProperty,
+        sumVisibleProperty,
+        vectorGroup,
+        coordinateSnapMode,
+        equationType
     ) {
 
-      assert && assert( initialVectorComponents instanceof Vector2,
-        `invalid initialVectorComponents: ${initialVectorComponents}` );
-      assert && assert( equationTypeProperty instanceof EnumerationProperty
-      && EquationTypes.includes( equationTypeProperty.value ),
-        `invalid equationTypeProperty: ${equationTypeProperty}` );
+      // assert && assert( initialVectorComponents instanceof Vector2,
+      //   `invalid initialVectorComponents: ${initialVectorComponents}` );
+      // assert && assert( equationTypeProperty instanceof EnumerationProperty
+      // && EquationTypes.includes( equationType ),
+      //   `invalid equationType: ${equationType}` );
 
       super( graph,
         componentStyleProperty,
@@ -69,8 +65,8 @@ define( require => {
       for ( let tagIndex = 0; tagIndex < VECTOR_TAGS.length - 1; tagIndex++ ) {
 
         const equationVector = new EquationVectorModel( graph.graphModelBounds.center,
-          initialVectorComponents.x,
-          initialVectorComponents.y,
+          DEFAULT_VECTOR_LENGTH,
+          DEFAULT_VECTOR_LENGTH,
           graph,
           this,
           VECTOR_TAGS[ tagIndex ] );
@@ -78,11 +74,13 @@ define( require => {
         this.vectors.push( equationVector );
       }
 
+      this.equationType = equationType;
+
       //----------------------------------------------------------------------------------------
       // Create the vector sum
 
       // @public (read-only) {EquationVectorSum}
-      this.vectorSum = new EquationVectorSum( graph, this, equationTypeProperty, VECTOR_TAGS[ VECTOR_TAGS.length - 1 ] );
+      this.vectorSum = new EquationVectorSum( graph, this, equationType, VECTOR_TAGS[ VECTOR_TAGS.length - 1 ] );
 
     }
 
