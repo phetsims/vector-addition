@@ -86,7 +86,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the scenery node for when the panel is closed
       //----------------------------------------------------------------------------------------
-      const closedNodeText = new FixedWidthText( 'Equation', {
+      const closedNodeText = new ( 'Equation', {
         font: PANEL_FONT
       } );
 
