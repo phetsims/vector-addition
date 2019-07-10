@@ -76,8 +76,9 @@ define( require => {
 
         includeBaseVectors: false, // {boolean} true means there will be a base vectors container
 
-        inspectVectorPanelOptions: null // {Object} options passed to the inspectVectorPanel
+        inspectVectorPanelOptions: null, // {Object} options passed to the inspectVectorPanel
 
+        sumNodeOptions: null
       }, options );
 
       super();
@@ -167,7 +168,8 @@ define( require => {
           graph,
           valuesVisibleProperty,
           angleVisibleProperty,
-          vectorSet.sumVisibleProperty
+          vectorSet.sumVisibleProperty,
+          options.sumNodeOptions
         );
         const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xVectorComponentModel,
           graph,
