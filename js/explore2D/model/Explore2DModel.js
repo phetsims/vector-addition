@@ -14,19 +14,16 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const Explore2DGraph = require( 'VECTOR_ADDITION/explore2D/model/Explore2DGraph' );
 
   // constants
-  const EXPLORE_2D_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
-  const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
+  const CARTESIAN_VECTOR_GROUP = VectorGroups.ONE;
+  const POLAR_VECTOR_GROUP = VectorGroups.THREE;
 
   class Explore2DModel extends VectorAdditionModel {
     /**
@@ -40,55 +37,19 @@ define( require => {
       super( tandem );
 
       //----------------------------------------------------------------------------------------
-      // Create references to the two sum visible properties
-
-      // @public (read-only) {BooleanProperty} polarSumVisibileProperty
-      this.polarSumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      // @public (read-only) {BooleanProperty} cartesianSumVisibileProperty
-      this.cartesianSumVisibileProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      //----------------------------------------------------------------------------------------
-      // Declare the vector groups for each graph
-
-      // @public (read-only) {VectorGroups} the vector group used on the cartesian scene
-      this.cartesianVectorGroup = VectorGroups.ONE;
-
-      // @public (read-only) {VectorGroups} the vector group used on the polar scene
-      this.polarVectorGroup = VectorGroups.THREE;
-
-      //----------------------------------------------------------------------------------------
       // Create and add the graphs
 
       // @public (read-only) {Graph}
-      this.polarGraph = new Graph( EXPLORE_2D_GRAPH_BOUNDS, CoordinateSnapModes.POLAR, GraphOrientations.TWO_DIMENSIONAL );
+      this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR, this.componentStyleProperty, POLAR_VECTOR_GROUP );
 
       // @public (read-only) {Graph}
-      this.cartesianGraph = new Graph( EXPLORE_2D_GRAPH_BOUNDS, CoordinateSnapModes.CARTESIAN, GraphOrientations.TWO_DIMENSIONAL );
-
-      //----------------------------------------------------------------------------------------
-      // Create the vector sets. Each graph has one vector set
-
-      // @public (read-only) {VectorSet}
-      this.polarVectorSet = this.polarGraph.createVectorSet( this.componentStyleProperty,
-        this.polarSumVisibileProperty,
-        this.polarVectorGroup );
-
-      // @public (read-only) {VectorSet}
-      this.cartesianVectorSet = this.cartesianGraph.createVectorSet( this.componentStyleProperty,
-        this.cartesianSumVisibileProperty,
-        this.cartesianVectorGroup );
-
-      this.polarGraph.vectorSets.push( this.polarVectorSet );
-      this.cartesianGraph.vectorSets.push( this.cartesianVectorSet );
+      this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN, this.componentStyleProperty, CARTESIAN_VECTOR_GROUP );
     }
 
     reset() {
       this.polarGraph.reset();
       this.cartesianGraph.reset();
-
-      this.polarSumVisibileProperty.reset();
-      this.cartesianSumVisibileProperty.reset();
+      super.reset();
     }
   }
 

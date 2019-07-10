@@ -59,14 +59,14 @@ define( function( require ) {
 
       polarSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel,
         explore2DModel.polarGraph,
-        explore2DModel.polarVectorSet,
+        explore2DModel.polarGraph.vectorSet,
         polarSceneNode.vectorContainer,
         this,
         EXPLORE_2D_VECTOR_TAGS ) );
 
       cartesianSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel,
         explore2DModel.cartesianGraph,
-        explore2DModel.cartesianVectorSet,
+        explore2DModel.cartesianGraph.vectorSet,
         cartesianSceneNode.vectorContainer,
         this,
         EXPLORE_2D_VECTOR_TAGS ) );
@@ -90,8 +90,8 @@ define( function( require ) {
       // Create the Graph Control panel
 
       const explore2DGraphControlPanel = new Explore2DGraphControlPanel( explore2DModel,
-        explore2DModel.cartesianVectorSet,
-        explore2DModel.polarVectorSet, {
+        explore2DModel.cartesianGraph.vectorSet,
+        explore2DModel.polarGraph.vectorSet, {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
