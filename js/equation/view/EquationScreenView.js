@@ -38,16 +38,10 @@ define( function( require ) {
       super();
 
       const polarScene = new EquationSceneNode( equationModel,
-        equationModel.polarGraph,
-        equationModel.polarVectorSet,
-        equationModel.polarBaseVectorsVisibleProperty,
-        equationModel.polarEquationTypeProperty );
+        equationModel.polarScene );
 
       const cartesianScene = new EquationSceneNode( equationModel,
-        equationModel.cartesianGraph,
-        equationModel.cartesianVectorSet,
-        equationModel.cartesianBaseVectorsVisibleProperty,
-        equationModel.cartesianEquationTypeProperty );
+        equationModel.cartesianScene );
 
       this.addChild( polarScene );
       this.addChild( cartesianScene );

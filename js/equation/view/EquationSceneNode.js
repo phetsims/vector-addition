@@ -16,21 +16,13 @@ define( require => {
 
   // modules
   const CoefficientSelectorPanel = require( 'VECTOR_ADDITION/equation/view/CoefficientSelectorPanel' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
-  const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
-  const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
-  const VectorSumComponentNode = require( 'VECTOR_ADDITION/common/view/VectorSumComponentNode' );
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
-  const EquationVectorNode = require( 'VECTOR_ADDITION/equation/view/EquationVectorNode' );
+  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
 
   // constants
 
@@ -38,6 +30,8 @@ define( require => {
     fill: VectorAdditionColors.BLACK,
     component: VectorAdditionColors.GREY
   };
+
+  const PANEL_CENTER_Y = 110;
 
   class EquationSceneNode extends Node {
     /**
@@ -49,124 +43,122 @@ define( require => {
      * @constructor
      */
     constructor( equationModel,
-                 graph,
-                 equationVectorSet,
-                 baseVectorVisibleProperty,
-                 equationTypeProperty
+                 scene
     ) {
 
-      assert && assert( equationModel instanceof EquationModel, `invalid equationModel: ${equationModel}` );
-      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( equationVectorSet instanceof EquationVectorSet,
-        `invalid equationVectorSet: ${equationVectorSet}` );
-      assert && assert( equationTypeProperty instanceof EnumerationProperty
-      && EquationTypes.includes( equationTypeProperty.value ),
-        `invalid equationTypeProperty: ${equationTypeProperty}` );
+      // assert && assert( equationModel instanceof EquationModel, `invalid equationModel: ${equationModel}` );
+      // assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      // assert && assert( equationVectorSet instanceof EquationVectorSet,
+      //   `invalid equationVectorSet: ${equationVectorSet}` );
+      // assert && assert( equationTypeProperty instanceof EnumerationProperty
+      // && EquationTypes.includes( equationTypeProperty.value ),
+      //   `invalid equationTypeProperty: ${equationTypeProperty}` );
 
+      super();
+
+
+
+      this.additionScene = new SceneNode( scene.additionGraph,
+         equationModel.valuesVisibleProperty,
+         equationModel.angleVisibleProperty,
+         equationModel.gridVisibleProperty,
+         equationModel.componentStyleProperty,
+         {
+          includeEraser: false,
+          includeBaseVectors: true,
+          sumNodeOptions: VECTOR_SUM_COLORS
+         } );
+      this.subtractionScene = new SceneNode( scene.subtractionGraph,
+         equationModel.valuesVisibleProperty,
+         equationModel.angleVisibleProperty,
+         equationModel.gridVisibleProperty,
+         equationModel.componentStyleProperty,
+         {
+          includeEraser: false,
+          includeBaseVectors: true,
+          sumNodeOptions: VECTOR_SUM_COLORS
+         } );
+
+      this.negationScene = new SceneNode( scene.negationGraph,
+         equationModel.valuesVisibleProperty,
+         equationModel.angleVisibleProperty,
+         equationModel.gridVisibleProperty,
+         equationModel.componentStyleProperty,
+         {
+          includeEraser: false,
+          includeBaseVectors: true,
+          sumNodeOptions: VECTOR_SUM_COLORS
+         } );
+
+      scene.equationTypeProperty.link( equationType => {
+        this.additionScene.visible = equationType === EquationTypes.ADDITION;
+        this.subtractionScene.visible = equationType === EquationTypes.SUBTRACTION;
+        this.negationScene.visible = equationType === EquationTypes.NEGATION;
+
+      } );
+      this.setChildren( [ this.additionScene, this.subtractionScene, this.negationScene ] );
       //----------------------------------------------------------------------------------------
       // Create the scenery nodes
 
-      const graphNode = new GraphNode( graph, equationModel.gridVisibleProperty );
+      this.additionScene.addChild( new CoefficientSelectorPanel( scene.additionGraph.vectorSet, {
+        centerY: PANEL_CENTER_Y
+      } ) );
+ 
+      this.subtractionScene.addChild( new CoefficientSelectorPanel( scene.subtractionGraph.vectorSet, {
+        centerY: PANEL_CENTER_Y
+      } ) );
+      this.negationScene.addChild( new CoefficientSelectorPanel( scene.negationGraph.vectorSet, {
+        centerY: PANEL_CENTER_Y
+      } ) );
 
-      const inspectVectorPanel = new InspectVectorPanel( graph );
 
-
-      // Create the containers for each vector type
-      const vectorContainer = new Node();
-      const vectorComponentContainer = new Node();
-      const baseVectorContainer = new Node();
-      const coefficientSelectorPanel = new CoefficientSelectorPanel( equationVectorSet, equationTypeProperty );
-
-      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationTypeProperty, equationVectorSet, {
-        centerY: coefficientSelectorPanel.centerY
+      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( scene.equationTypeProperty, scene.additionGraph.vectorSet, {
+        centerY: PANEL_CENTER_Y
       } );
 
-      super( {
-        children: [
-          graphNode,
-          inspectVectorPanel,
-          baseVectorContainer,
-          vectorComponentContainer,
-          vectorContainer,
-          coefficientSelectorPanel,
-          equationTypesRadioButtonGroup
-        ]
-      } );
-
-      //----------------------------------------------------------------------------------------
-      // Create the vector sum nodes
-      const vectorSumNode = new VectorNode( equationVectorSet.vectorSum,
-        graph,
-        equationModel.valuesVisibleProperty,
-        equationModel.angleVisibleProperty, {
-          fill: VECTOR_SUM_COLORS.fill
-        }
-      );
-
-      const xComponentSumNode = new VectorSumComponentNode( equationVectorSet.vectorSum.xVectorComponentModel,
-        graph,
-        equationModel.componentStyleProperty,
-        equationModel.valuesVisibleProperty,
-        equationVectorSet.sumVisibleProperty, {
-          arrowOptions: { fill: VECTOR_SUM_COLORS.component }
-        } );
-
-      const yComponentSumNode = new VectorSumComponentNode( equationVectorSet.vectorSum.yVectorComponentModel,
-        graph,
-        equationModel.componentStyleProperty,
-        equationModel.valuesVisibleProperty,
-        equationVectorSet.sumVisibleProperty, {
-          arrowOptions: { fill: VECTOR_SUM_COLORS.component }
-        } );
-
-      vectorComponentContainer.addChild( xComponentSumNode );
-      vectorComponentContainer.addChild( yComponentSumNode );
-      vectorContainer.addChild( vectorSumNode );
+      this.addChild( equationTypesRadioButtonGroup );
 
       //----------------------------------------------------------------------------------------
 
-      // Add the rest of the vectors
-      equationVectorSet.vectors.forEach( vector => {
-
-        const vectorNode = new EquationVectorNode( vector,
-          graph,
-          equationModel.valuesVisibleProperty,
-          equationModel.angleVisibleProperty );
-
-        const xComponentNode = new VectorComponentNode( vector.xVectorComponentModel,
-          graph,
-          equationModel.componentStyleProperty,
-          equationModel.valuesVisibleProperty );
-
-        const yComponentNode = new VectorComponentNode( vector.yVectorComponentModel,
-          graph,
-          equationModel.componentStyleProperty,
-          equationModel.valuesVisibleProperty );
-
-        const baseVector = new VectorNode( vector.baseVector, graph,
+      // // Add the rest of the vectors
+      scene.additionGraph.vectorSet.vectors.forEach( vector => {
+        const baseVector = new VectorNode( vector.baseVector,
+          scene.additionGraph,
           equationModel.valuesVisibleProperty,
           equationModel.angleVisibleProperty,
           {
             opacity: 0.5
           } );
-        vectorComponentContainer.addChild( xComponentNode );
-        vectorComponentContainer.addChild( yComponentNode );
-        baseVectorContainer.addChild( baseVector );
-        vectorContainer.addChild( vectorNode );
+        scene.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
+
+        this.additionScene.baseVectorContainer.addChild( baseVector );
       } );
 
-      // @private {function} function to reset the scene
-      this.resetScene = () => {
-        graph.reset();
-      };
-    }
+      scene.subtractionGraph.vectorSet.vectors.forEach( vector => {
+        const baseVector = new VectorNode( vector.baseVector,
+          scene.subtractionGraph,
+          equationModel.valuesVisibleProperty,
+          equationModel.angleVisibleProperty,
+          {
+            opacity: 0.5
+          } );
+        scene.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
 
-    /**
-     * Resets the scene
-     * @public
-     */
-    reset() {
-      this.resetScene();
+        this.subtractionScene.baseVectorContainer.addChild( baseVector );
+      } );
+
+      scene.negationGraph.vectorSet.vectors.forEach( vector => {
+        const baseVector = new VectorNode( vector.baseVector,
+          scene.negationGraph,
+          equationModel.valuesVisibleProperty,
+          equationModel.angleVisibleProperty,
+          {
+            opacity: 0.5
+          } );
+        scene.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
+
+        this.negationScene.baseVectorContainer.addChild( baseVector );
+      } );
     }
   }
 
