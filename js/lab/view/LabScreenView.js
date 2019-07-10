@@ -57,15 +57,15 @@ define( function( require ) {
 
       polarSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel,
         labModel.polarGraph,
-        labModel.polarGroup3VectorSet,
-        labModel.polarGroup4VectorSet,
+        labModel.polarGraph.vectorSetGroup1,
+        labModel.polarGraph.vectorSetGroup2,
         polarSceneNode.vectorContainer,
         this ) );
 
       cartesianSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel,
         labModel.cartesianGraph,
-        labModel.cartesianGroup1VectorSet,
-        labModel.cartesianGroup2VectorSet,
+        labModel.cartesianGraph.vectorSetGroup1,
+        labModel.cartesianGraph.vectorSetGroup2,
         cartesianSceneNode.vectorContainer,
         this ) );
 
@@ -90,10 +90,10 @@ define( function( require ) {
       // Create the Graph Control panel
 
       const labGraphControlPanel = new LabGraphControlPanel( labModel,
-        labModel.cartesianGroup1VectorSet,
-        labModel.cartesianGroup2VectorSet,
-        labModel.polarGroup3VectorSet,
-        labModel.polarGroup4VectorSet, {
+        labModel.cartesianGraph.vectorSetGroup1,
+        labModel.cartesianGraph.vectorSetGroup2,
+        labModel.polarGraph.vectorSetGroup1,
+        labModel.polarGraph.vectorSetGroup2, {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );

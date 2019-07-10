@@ -57,6 +57,12 @@ define( require => {
         EquationTypes.NEGATION );
     }
 
+    reset() {
+      this.additionGraph.reset();
+      this.subtractionGraph.reset();
+      this.negationGraph.reset();
+    }
+
   }
 
   return vectorAddition.register( 'EquationScene', EquationScene );
