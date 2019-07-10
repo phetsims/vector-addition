@@ -30,7 +30,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -57,20 +56,22 @@ define( require => {
      *                             specific to this class while some are passed to the superclass. See the code where
      *                             the options are set in the early portion of the constructor for details.
      */
-    constructor( equationVectorSet, equationTypeProperty, options ) {
+    constructor( equationVectorSet, options ) {
 
       assert && assert( equationVectorSet instanceof EquationVectorSet,
         `invalid equationVectorSet: ${equationVectorSet}` );
-      assert && assert( equationTypeProperty instanceof EnumerationProperty
-      && EquationTypes.includes( equationTypeProperty.value ),
-        `invalid equationTypeProperty: ${equationTypeProperty}` );
+      // assert && assert( equationTypeProperty instanceof EnumerationProperty
+      // && EquationTypes.includes( equationTypeProperty.value ),
+      //   `invalid equationTypeProperty: ${equationTypeProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
+      const equationType = equationVectorSet.equationType;
+      
       options = _.extend( {
 
         // specific to this class
-        top: 82,
+        centerY: 70,
         left: 165,
 
         contentXAlign: 'left',
@@ -85,7 +86,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the scenery node for when the panel is closed
       //----------------------------------------------------------------------------------------
-      const closedNodeText = new FixedWidthText( 'TODO: what do we put here', {
+      const closedNodeText = new FixedWidthText( 'Equation', {
         font: PANEL_FONT
       } );
 
@@ -135,42 +136,39 @@ define( require => {
       panelOpenContent.setChildren( children );
       panelOpenContent.addChild( right );
 
-      equationTypeProperty.link( equationType => {
+      if ( equationType === EquationTypes.ADDITION ) {
+        signs.forEach( sign => {
+          sign.setText( '+' );
+        } );
 
-        if ( equationType === EquationTypes.ADDITION ) {
-          signs.forEach( sign => {
-            sign.setText( '+' );
-          } );
+        right.children.forEach( ( child ) => {
+          child.dispose();
+        } );
+        right.setChildren( [ new FixedWidthText( '=', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ) ] );
+      }
 
-          right.children.forEach( ( child ) => {
-            child.dispose();
-          } );
-          right.setChildren( [ new FixedWidthText( '=', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ) ] );
-        }
+      else if ( equationType === EquationTypes.NEGATION ) {
+        signs.forEach( sign => {
+          sign.setText( '+' );
+        } );
 
-        else if ( equationType === EquationTypes.NEGATION ) {
-          signs.forEach( sign => {
-            sign.setText( '+' );
-          } );
+        right.children.forEach( ( child ) => {
+          child.dispose();
+        } );
+        right.setChildren( [ new FixedWidthText( '+', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ), new FixedWidthText( '=', { font: PANEL_FONT } ), new FixedWidthText( '0', { font: PANEL_FONT } ) ] );
+      }
+      else if ( equationType === EquationTypes.SUBTRACTION ) {
+        signs.forEach( sign => {
+          sign.setText( '-' );
+        } );
 
-          right.children.forEach( ( child ) => {
-            child.dispose();
-          } );
-          right.setChildren( [ new FixedWidthText( '+', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ), new FixedWidthText( '=', { font: PANEL_FONT } ), new FixedWidthText( '0', { font: PANEL_FONT } ) ] );
-        }
-        else if ( equationType === EquationTypes.SUBTRACTION ) {
-          signs.forEach( sign => {
-            sign.setText( '-' );
-          } );
-
-          right.children.forEach( ( child ) => {
-            child.dispose();
-          } );
-          right.setChildren( [ new FixedWidthText( '=', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ) ] );
-        }
+        right.children.forEach( ( child ) => {
+          child.dispose();
+        } );
+        right.setChildren( [ new FixedWidthText( '=', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ) ] );
+      }
 
 
-      } );
       //----------------------------------------------------------------------------------------
       // Create the inspect a vector panel
       //----------------------------------------------------------------------------------------
@@ -185,7 +183,7 @@ define( require => {
       // Layout the inspect vector panel
       //----------------------------------------------------------------------------------------
 
-      this.top = options.top;
+      this.centerY = options.centerY;
       this.left = options.left;
     }
   }
