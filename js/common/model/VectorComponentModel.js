@@ -3,14 +3,14 @@
 /**
  * Model for a Vector Component.
  *
- * This is a component of a parent vector. For instance, if vector 'a' were to be <5, 5>, its x
+ * A Vector Component is a component of a parent vector. For instance, if vector 'a' were to be <5, 5>, its x
  * component would be <5, 0>. This component's 'parent vector' would be vector 'a'.
  *
  * This vector component updates its tail/tip based on the:
  *  1. The component style property
  *  2. Parent vector's changing tail/tip/components
  *
- * Positioning for the x and y components are slightly different.
+ * Positioning for the x and y components are slightly different. Label content for vector components unique.
  *
  * @author Brandon Li
  */
@@ -58,22 +58,19 @@ define( require => {
       // Vector components don't have a tag.
       const componentTag = null;
 
-      super( parentVector.tail, new Vector2( 0, 0 ), parentVector.vectorGroup, componentTag );
+      super( parentVector.tail, Vector2.ZERO, parentVector.vectorGroup, componentTag );
 
       //----------------------------------------------------------------------------------------
       // Create references
 
-      // @public (read-only)
+      // @public (read-only) componentType
       this.componentType = componentType;
-
-      // @private {Property.<VectorModel|null>}
-      this.activeVectorProperty = activeVectorProperty;
 
       // @public {RootVectorModel} parentVector - reference the parent vector
       this.parentVector = parentVector;
 
-      // @private {multilink} - observe changes of the parent's tail, tip, and components. When the parent changes, the
-      // component also changes.
+      // @private {multilink} updateLayoutMultilink - observe changes of the parent's tail, tip, and components. When
+      // the parent changes, the component also changes.
       // No need to listen to the modelViewTransformProperty since the parentVector will update its position when
       // modelViewTransformProperty changes
       this.updateLayoutMultilink = Property.multilink( [
