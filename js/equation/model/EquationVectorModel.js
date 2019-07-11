@@ -115,7 +115,7 @@ define( require => {
      */
     getLabelContent( valuesVisible ) {
       return _.extend( super.getLabelContent( valuesVisible ), {
-        coefficient: this.coefficientProperty.value === 1 ? null : `${this.coefficientProperty.value}`
+        coefficient: this.coefficientProperty.value && this.coefficientProperty.value !== 1 ? `${this.coefficientProperty.value}` : null
       } );
     }
 

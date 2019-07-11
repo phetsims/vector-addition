@@ -7,7 +7,7 @@
  *  - tip and tail position properties
  *  - vector components (x and y, or in other words the actual vector <x, y>)
  *  - vector group (See ./VectorGroups.js)
- *  - abstract class for label information (see getLabelContent() for detailed documentation)
+ *  - abstract method for label information (see getLabelContent() for detailed documentation)
  *
  * For an overview of the vector class hierarchy visit https://github.com/phetsims/vector-addition/issues/31
  *
@@ -40,15 +40,15 @@ define( require => {
       assert && assert( typeof tag === 'string' || tag === null, `invalid tag: ${tag}` );
       //----------------------------------------------------------------------------------------
 
-      // @public (read-only) {Vector2Property} - the tail position of the vector on the graph
+      // @public (read-only) {Vector2Property} tailPositionProperty - the tail position of the vector on the graph
       this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
-      // @public (read-only) {Vector2Property} - (x and y, or in other words the actual vector <x, y>). Every vector
-      // has a x and a y component.
+      // @public (read-only) {Vector2Property} vectorComponentsProperty - (x and y, or in other words the actual vector
+      // <x, y>). Every vector has a x and a y component.
       this.vectorComponentsProperty = new Vector2Property( initialComponents );
 
-      // @public (read-only) {DerivedProperty.<Vector2>} - the tip position of the vector. Derived from the tail and
-      // the components
+      // @public (read-only) {DerivedProperty.<Vector2>}  tipPositionProperty - the tip position of the vector. Derived
+      // from the tail and the components
       this.tipPositionProperty = new DerivedProperty(
         [ this.tailPositionProperty, this.vectorComponentsProperty ],
         ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
@@ -75,7 +75,7 @@ define( require => {
      * Gets the label content information to display on the vector. This is abstract since labels differ for vectors.
      *
      * For context, a label is the content next to the vectors that display their tag and/or their value.
-     * See https://user-images.githubusercontent.com/42391580/60774902-473beb00-a0d8-11e9-8cd5-737208ca65db.png for
+     * See https://user-images.githubusercontent.com/42391580/60774902-473beb00-a0d8-11e9-8cd5-737208ca65db.png for an
      * annotated drawing.
      *
      * For instance, vectors with valuesVisible display their tag (i.e. a, b, c, ...) AND their magnitude, while

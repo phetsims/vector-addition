@@ -41,21 +41,21 @@ define( require => {
 
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      // @public {BooleanProperty} - indicates if the labels should contain the magnitudes
+      // @public {BooleanProperty} valuesVisibleProperty - indicates if the labels should contain the magnitudes
       this.valuesVisibleProperty = new BooleanProperty( false );
 
-      // @public {BooleanProperty} - indicates if the graph background grid is visible
+      // @public {BooleanProperty} gridVisibleProperty - indicates if the graph background grid is visible
       this.gridVisibleProperty = new BooleanProperty( true );
 
-      // @public {BooleanProperty} - controls the visibility of the angle
+      // @public {BooleanProperty} angleVisibleProperty  - controls the visibility of the angle
       this.angleVisibleProperty = new BooleanProperty( false );
 
-      //----------------------------------------------------------------------------------------
-
-      // @public {EnumerationProperty.<ComponentStyles>} - controls the visibility of the component styles
+      // @public {EnumerationProperty.<ComponentStyles>} componentStyleProperty - controls the visibility of the
+      // component styles
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, STARTING_COMPONENT_STYLE );
 
-      // @public {EnumerationProperty.<CoordinateSnapModes>} - controls the snapping mode for the vectors
+      // @public {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty - controls the snapping mode
+      // for the vectors
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
     }
 

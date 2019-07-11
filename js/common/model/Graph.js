@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a graph. A screen can have multiple graphs.
+ * Model for a graph. A screen can have multiple graphs. Graphs should be subtyped.
  *
  * Graphs are responsible for:
  *   - Keeping track of where the origin is dragged and updating a modelViewTransformProperty.
