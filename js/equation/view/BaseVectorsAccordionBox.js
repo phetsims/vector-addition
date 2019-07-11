@@ -27,6 +27,7 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
 
   // strings
   const baseVectorsString = require( 'string!VECTOR_ADDITION/baseVectors' );
@@ -98,65 +99,15 @@ define( require => {
       ];
 
 
-     const content = new FixedWidthNode( contentWidth, new VBox( {
+     const content = new VBox( {
         align: 'left',
         spacing: 15,
         children: children
-      } ) );
+      } );
 
-      super( content, options );
+      super( new Node( { children: [ content, new HStrut( contentWidth, { pickable: false } ) ] } ), options );
   
-
-    }
-
-  }
-
-  const HStrut = require( 'SCENERY/nodes/HStrut' );
-
-  // constants
-  const ALIGN_VALUES = [ 'left', 'right', 'center' ];
-
-  class FixedWidthNode extends Node {
-
-    /**
-     * @param {number} fixedWidth - this Node will be exactly this width
-     * @param {Node} content - Node wrapped by this Node
-     * @param {Object} [options]
-     */
-    constructor( fixedWidth, content, options ) {
-      assert && assert( typeof fixedWidth === 'number' && fixedWidth > 0, `invalid fixedWidth: ${fixedWidth}` );
-      assert && assert( content instanceof Node, `invalid content: ${content}` );
-
-      options = _.extend( {
-        align: 'left' // horizontal alignment of content in fixedWidth, see ALIGN_VALUES
-      }, options );
-
-      assert && assert( _.includes( ALIGN_VALUES, options.align ), `invalid align: ${options.align}` );
-
-      // prevents the content from getting narrower than fixedWidth
-      const strut = new HStrut( fixedWidth, { pickable: false } );
-
-      assert && assert( options.maxWidth === undefined, 'FixedWidthNode sets maxWidth' );
-      assert && assert( !options.children, 'FixedWidthNode sets children' );
-      options = _.extend( {
-        maxWidth: fixedWidth, // prevents the content from getting wider than fixedWidth
-        children: [ strut, content ]
-      }, options );
-
-      // align content in fixedWidth
-      if ( options.align === 'left' ) {
-        content.left = strut.left;
-      }
-      else if ( options.align === 'right' ) {
-        content.right = strut.right;
-      }
-      else {
-        content.centerX = strut.centerX;
-      }
-
-      super( options );
     }
   }
-
   return vectorAddition.register( 'BaseVectorsAccordionBox', BaseVectorsAccordionBox );
 } );

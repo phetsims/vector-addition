@@ -80,7 +80,7 @@ define( require => {
       // Doesn't need to be unlinked; base vectors are never disposed
       this.isOnGraphProperty.link( ( isOnGraph ) => {
         if ( isOnGraph === false ) {
-          assert && assert( false, 'vector sums should never be off the graph' );
+          assert && assert( false, 'base vector models should never be off the graph' );
         }
       } );
 
