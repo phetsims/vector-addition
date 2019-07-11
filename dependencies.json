@@ -1,11 +1,11 @@
 {
-  "comment": "# vector-addition 1.0.0-dev.2 Wed Jul 03 2019 12:46:26 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# vector-addition 1.0.0-dev.5 Thu Jul 11 2019 14:02:58 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "d8a2e8992420327ff72a6fc4bb93ec76549ded0e",
     "branch": "master"
   },
   "axon": {
-    "sha": "80c14e83a6d8956112022dc8e99a13fb44ce60b9",
+    "sha": "9eadd97ff13bf9833cb6418d11a4adc57ed3cc9e",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "32f41f62b8d941ad53ce11d2f10e904bda6d9b3c",
+    "sha": "ea746031aecfad577748e3a97283800e8c3bc987",
     "branch": "master"
   },
   "dot": {
@@ -29,15 +29,15 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "a97d1d4fbf91a52a2144fcb32452317277821aed",
+    "sha": "d3476c4c215469fcde254d9016531446b849e4f1",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "638d3f1a3bfde660d61df2b52de596234e2ac4fd",
+    "sha": "51137adda0ab53cbbd1f040fe049370f28d820b1",
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "75a97473cccc2bb9e1a9fae680e902aad20025ce",
+    "sha": "bd8ecf418545f18c05bd1831cb18a068cf63161d",
     "branch": "master"
   },
   "phetcommon": {
@@ -53,11 +53,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "c032833b81be8cf11d176a7cbd7fefbe520b15a8",
+    "sha": "b542e06d503e0fb6b87a587d0ec431ee9aa997ea",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "c2bc03d981e6bfae7e2ef0779046d294d412a6f3",
+    "sha": "fe6186c99685fe6d6f7359031fa02b2bf91396b1",
     "branch": "master"
   },
   "sherpa": {
@@ -65,7 +65,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "87a8115334cb6adf3a5f9ab1be5402f0ee3d616b",
+    "sha": "59909d52ba64c05029635e3dafecc04b35e46fb8",
     "branch": "master"
   },
   "tambo": {
@@ -73,7 +73,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "5124322afe8111792f7f0da6ea02cae6dba955b8",
+    "sha": "b6406f9026ef760a86ba4b1b7df9d1a9a2c81461",
     "branch": "master"
   },
   "twixt": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "vector-addition": {
-    "sha": "460fd32bfa9b1acaeddd30d0af4d765a296c2bb6",
+    "sha": "069d52bc109d8c656a0603a4cbdd64e5de0f18bc",
     "branch": "master"
   }
 }
