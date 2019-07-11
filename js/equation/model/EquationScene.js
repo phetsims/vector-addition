@@ -55,6 +55,10 @@ define( require => {
         componentStyleProperty,
         vectorGroup,
         EquationTypes.NEGATION );
+
+      // @public
+      this.graphs = [ this.additionGraph, this.subtractionGraph, this.negationGraph ];
+      
     }
 
     reset() {

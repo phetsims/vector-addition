@@ -49,6 +49,8 @@ define( require => {
         equationType
       );
 
+      this.equationType = equationType;
+
       this.vectorSets.push( this.vectorSet );
     }
   }

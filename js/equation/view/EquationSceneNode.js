@@ -16,7 +16,6 @@ define( require => {
 
   // modules
   const CoefficientSelectorPanel = require( 'VECTOR_ADDITION/equation/view/CoefficientSelectorPanel' );
-  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
@@ -43,75 +42,54 @@ define( require => {
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      * @constructor
      */
-    constructor( equationModel,
-                 scene
-    ) {
+    constructor( equationModel, scene ) {
 
-      // assert && assert( equationModel instanceof EquationModel, `invalid equationModel: ${equationModel}` );
-      // assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      // assert && assert( equationVectorSet instanceof EquationVectorSet,
-      //   `invalid equationVectorSet: ${equationVectorSet}` );
-      // assert && assert( equationTypeProperty instanceof EnumerationProperty
-      // && EquationTypes.includes( equationTypeProperty.value ),
-      //   `invalid equationTypeProperty: ${equationTypeProperty}` );
 
       super();
 
+      // Add the graphs
+      scene.graphs.forEach( graph => {
 
+        const sceneNode = new SceneNode( graph,
+          equationModel.valuesVisibleProperty,
+          equationModel.angleVisibleProperty,
+          equationModel.gridVisibleProperty,
+          equationModel.componentStyleProperty, {
+            includeEraser: false,
+            includeBaseVectors: true,
+            sumNodeOptions: VECTOR_SUM_COLORS
+           } );
 
-      this.additionScene = new SceneNode( scene.additionGraph,
-         equationModel.valuesVisibleProperty,
-         equationModel.angleVisibleProperty,
-         equationModel.gridVisibleProperty,
-         equationModel.componentStyleProperty,
-         {
-          includeEraser: false,
-          includeBaseVectors: true,
-          sumNodeOptions: VECTOR_SUM_COLORS
-         } );
-      this.subtractionScene = new SceneNode( scene.subtractionGraph,
-         equationModel.valuesVisibleProperty,
-         equationModel.angleVisibleProperty,
-         equationModel.gridVisibleProperty,
-         equationModel.componentStyleProperty,
-         {
-          includeEraser: false,
-          includeBaseVectors: true,
-          sumNodeOptions: VECTOR_SUM_COLORS
-         } );
+        this.addChild( sceneNode );
 
-      this.negationScene = new SceneNode( scene.negationGraph,
-         equationModel.valuesVisibleProperty,
-         equationModel.angleVisibleProperty,
-         equationModel.gridVisibleProperty,
-         equationModel.componentStyleProperty,
-         {
-          includeEraser: false,
-          includeBaseVectors: true,
-          sumNodeOptions: VECTOR_SUM_COLORS
-         } );
+        // Toggle visibility, doesn't need to be unlinked since the scene is never disposed
+        scene.equationTypeProperty.link( equationType => {
+          sceneNode.visible = equationType === graph.equationType;
+        } );
 
-      scene.equationTypeProperty.link( equationType => {
-        this.additionScene.visible = equationType === EquationTypes.ADDITION;
-        this.subtractionScene.visible = equationType === EquationTypes.SUBTRACTION;
-        this.negationScene.visible = equationType === EquationTypes.NEGATION;
+        // Add a CoefficientSelectorPanel
+        sceneNode.addChild( new CoefficientSelectorPanel( graph.vectorSet, {
+          centerY: PANEL_CENTER_Y
+        } ) );
+
+        // Add the base vectors
+        graph.vectorSet.vectors.forEach( vector => {
+          const baseVector = new VectorNode( vector.baseVector,
+            scene.additionGraph,
+            equationModel.valuesVisibleProperty,
+            equationModel.angleVisibleProperty,
+            {
+              opacity: 0.5
+            } );
+        scene.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
+
+        sceneNode.baseVectorContainer.addChild( baseVector );
+      } );
 
       } );
-      this.setChildren( [ this.additionScene, this.subtractionScene, this.negationScene ] );
+
       //----------------------------------------------------------------------------------------
-      // Create the scenery nodes
-
-      this.additionScene.addChild( new CoefficientSelectorPanel( scene.additionGraph.vectorSet, {
-        centerY: PANEL_CENTER_Y
-      } ) );
- 
-      this.subtractionScene.addChild( new CoefficientSelectorPanel( scene.subtractionGraph.vectorSet, {
-        centerY: PANEL_CENTER_Y
-      } ) );
-      this.negationScene.addChild( new CoefficientSelectorPanel( scene.negationGraph.vectorSet, {
-        centerY: PANEL_CENTER_Y
-      } ) );
-
+      // Add the equation types radio button Group
 
       const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( scene.equationTypeProperty, scene.additionGraph.vectorSet, {
         centerY: PANEL_CENTER_Y
@@ -121,47 +99,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // // Add the rest of the vectors
-      scene.additionGraph.vectorSet.vectors.forEach( vector => {
-        const baseVector = new VectorNode( vector.baseVector,
-          scene.additionGraph,
-          equationModel.valuesVisibleProperty,
-          equationModel.angleVisibleProperty,
-          {
-            opacity: 0.5
-          } );
-        scene.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
-
-        this.additionScene.baseVectorContainer.addChild( baseVector );
-      } );
-
-      scene.subtractionGraph.vectorSet.vectors.forEach( vector => {
-        const baseVector = new VectorNode( vector.baseVector,
-          scene.subtractionGraph,
-          equationModel.valuesVisibleProperty,
-          equationModel.angleVisibleProperty,
-          {
-            opacity: 0.5
-          } );
-        scene.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
-
-        this.subtractionScene.baseVectorContainer.addChild( baseVector );
-      } );
-
-      scene.negationGraph.vectorSet.vectors.forEach( vector => {
-        const baseVector = new VectorNode( vector.baseVector,
-          scene.negationGraph,
-          equationModel.valuesVisibleProperty,
-          equationModel.angleVisibleProperty,
-          {
-            opacity: 0.5
-          } );
-        scene.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
-
-        this.negationScene.baseVectorContainer.addChild( baseVector );
-      } );
-
-
+      // Add the base vectors accordion box (semi-global)
       this.addChild( new BaseVectorsAccordionBox( scene.baseVectorsVisibleProperty ) );
     }
   }

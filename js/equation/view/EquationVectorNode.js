@@ -2,6 +2,8 @@
 
 /**
  * Vector for the equation screen
+ * Responsible for updating the label when the coefficient changes.
+ *
  * @author Brandon Li
  */
 
