@@ -4,8 +4,8 @@
  * View for the Panel at the top of the equation scene that allows the user to toggle the coefficients of vectors.
  *
  * 'Is a' relationship with ExpandCollapsePanel
- *    - when closed, displays TODO: what does it display?
- *    - when open displays a series of number pickers and formula nodes
+ *    - when closed, displays 'Equation'
+ *    - when open, displays a series of number pickers and formula nodes
  *
  * A visual:
  *  https://user-images.githubusercontent.com/42391580/60623943-4128d000-9da1-11e9-9dc0-393bfa332117.png
@@ -21,6 +21,7 @@ define( require => {
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const Bounds2 = require( 'DOT/Bounds2' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const ExpandCollapsePanel = require( 'VECTOR_ADDITION/common/view/ExpandCollapsePanel' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
@@ -29,7 +30,6 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -42,9 +42,12 @@ define( require => {
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
 
   // margin between the number picker and the label
-  // const LABEL_PICKER_MARGIN = 5;
+  const LABEL_PICKER_MARGIN = 8;
 
   const NUMBER_PICKER_OPTIONS = VectorAdditionConstants.NUMBER_PICKER_OPTIONS;
+
+  const SIGN_TEXT_LENGTH = 5;
+
 
   class CoefficientSelectorPanel extends ExpandCollapsePanel {
     /**
@@ -60,13 +63,8 @@ define( require => {
 
       assert && assert( equationVectorSet instanceof EquationVectorSet,
         `invalid equationVectorSet: ${equationVectorSet}` );
-      // assert && assert( equationTypeProperty instanceof EnumerationProperty
-      // && EquationTypes.includes( equationTypeProperty.value ),
-      //   `invalid equationTypeProperty: ${equationTypeProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
-
-      const equationType = equationVectorSet.equationType;
       
       options = _.extend( {
 
@@ -74,11 +72,10 @@ define( require => {
         centerY: 70,
         left: 165,
 
-        contentXAlign: 'left',
-
         // super class options
         contentFixedWidth: COEFFICIENT_PANEL_WIDTH, // {number|null} fixed size of the panel (see superclass)
-        contentFixedHeight: COEFFICIENT_PANEL_HEIGHT // {number|null} fixed size of the panel (see superclass)
+        contentFixedHeight: COEFFICIENT_PANEL_HEIGHT, // {number|null} fixed size of the panel (see superclass)
+        contentXAlign: 'left'
 
       }, options );
 
@@ -99,75 +96,83 @@ define( require => {
         spacing: 15
       } );
 
+      const equationType = equationVectorSet.equationType;
 
-      const numberPikersAndLabelHBoxes = [];
+      // Create an array of number HBoxes that contain a number picker and a label
+      const hBoxesChildren = [];
 
+      // Loop through each vector add add a number picker / label
       equationVectorSet.vectors.forEach( vector => {
-        const numberPiker = new NumberPicker( vector.coefficientProperty, vector.rangeProperty, NUMBER_PICKER_OPTIONS );
+
+        const numberPicker = new NumberPicker( vector.coefficientProperty,
+          vector.rangeProperty,
+          NUMBER_PICKER_OPTIONS );
+
+        // Create the label
         const text = new FormulaNode( `\\vec{ \\mathrm{ ${vector.tag} } \}` );
 
-        const hBox = new HBox( {
-          spacing: 8,
-          children: [ numberPiker, text ]
+        const numberPickerAndTextBox = new HBox( {
+          spacing: LABEL_PICKER_MARGIN,
+          children: [ numberPicker, text ]
         } );
 
-        numberPikersAndLabelHBoxes.push( hBox );
-
+        hBoxesChildren.push( numberPickerAndTextBox );
       } );
 
-      const signs = [];
 
-      const children = _.flatMap( numberPikersAndLabelHBoxes, ( value, index, array ) => {
-        if ( index !== array.length - 1 ) {
-          const sign = new FixedWidthText( '', { font: PANEL_FONT } );
-          signs.push( sign );
-          return [ value, sign ];
+      // Array of the text nodes that indicate sign (ie. + or - )
+      const signTextNodes = [];
+
+      // Insert 'signs' ( +/- ) in between each h box
+      const panelOpenContentChildren = _.flatMap( hBoxesChildren, ( value, index ) => {
+        if ( index !== hBoxesChildren.length - 1 ) {
+
+          let sign;
+
+          if ( equationType === EquationTypes.ADDITION || equationType === EquationTypes.NEGATION ) {
+            sign = '+';
+          }
+          else {
+            sign = '-';
+          }
+
+          // Align the text inside align box
+          const signTextNode = new AlignBox( new Text( sign, { font: PANEL_FONT } ), {
+            alignBounds: new Bounds2( 0, 0, SIGN_TEXT_LENGTH, COEFFICIENT_PANEL_HEIGHT ),
+            maxWidth: SIGN_TEXT_LENGTH
+          } );
+
+          signTextNodes.push( signTextNode );
+          return [ value, signTextNode ];
         }
         else {
           return value;
         }
       } );
 
-      const right = new HBox( {
-        spacing: 15
-      } );
+      const equalsText = new Text( '=', { font: PANEL_FONT } );
 
-
-      panelOpenContent.setChildren( children );
-      panelOpenContent.addChild( right );
-
-      if ( equationType === EquationTypes.ADDITION ) {
-        signs.forEach( sign => {
-          sign.setText( '+' );
-        } );
-
-        right.children.forEach( ( child ) => {
-          child.dispose();
-        } );
-        right.setChildren( [ new FixedWidthText( '=', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ) ] );
+      const sumText = new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` );
+      
+      // Add the second half of the equation
+      if ( equationType === EquationTypes.ADDITION || equationType === EquationTypes.SUBTRACTION ) {
+        panelOpenContentChildren.push( equalsText, sumText );
       }
-
       else if ( equationType === EquationTypes.NEGATION ) {
-        signs.forEach( sign => {
-          sign.setText( '+' );
+        const plusText = new AlignBox( new Text( '+', { font: PANEL_FONT } ), {
+          alignBounds: new Bounds2( 0, 0, SIGN_TEXT_LENGTH, COEFFICIENT_PANEL_HEIGHT ),
+          maxWidth: SIGN_TEXT_LENGTH
         } );
 
-        right.children.forEach( ( child ) => {
-          child.dispose();
-        } );
-        right.setChildren( [ new FixedWidthText( '+', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ), new FixedWidthText( '=', { font: PANEL_FONT } ), new FixedWidthText( '0', { font: PANEL_FONT } ) ] );
-      }
-      else if ( equationType === EquationTypes.SUBTRACTION ) {
-        signs.forEach( sign => {
-          sign.setText( '-' );
+        const zeroText = new AlignBox( new Text( '0', { font: PANEL_FONT } ), {
+          alignBounds: new Bounds2( 0, 0, SIGN_TEXT_LENGTH, COEFFICIENT_PANEL_HEIGHT ),
+          maxWidth: SIGN_TEXT_LENGTH
         } );
 
-        right.children.forEach( ( child ) => {
-          child.dispose();
-        } );
-        right.setChildren( [ new FixedWidthText( '=', { font: PANEL_FONT } ), new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` ) ] );
+        panelOpenContentChildren.push( plusText, sumText, equalsText, zeroText );
       }
 
+      panelOpenContent.setChildren( panelOpenContentChildren );
 
       //----------------------------------------------------------------------------------------
       // Create the inspect a vector panel
@@ -185,23 +190,6 @@ define( require => {
 
       this.centerY = options.centerY;
       this.left = options.left;
-    }
-  }
-
-
-  class FixedWidthText extends AlignBox {
-
-    constructor( textString, textOptions, width = 5 ) {
-
-
-      super( new Text( textString, textOptions ), {
-        alignBounds: new Bounds2( 0, 0, width, COEFFICIENT_PANEL_HEIGHT ),
-        maxWidth: width
-      } );
-    }
-
-    setText( text ) {
-      this.children[ 0 ].setText( text );
     }
   }
 
