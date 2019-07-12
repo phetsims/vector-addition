@@ -333,6 +333,8 @@ define( require => {
         // See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
         const tailOnGraph = constrainedBounds.closestPointTo( tailPosition );
 
+        const tipOnGraph = tailOnGraph.plus( this.vectorComponents );
+        
         for ( let i = 0; i < this.vectorSet.vectors.length; i++ ) {
 
           const vector = this.vectorSet.vectors.get( i );
@@ -342,6 +344,10 @@ define( require => {
           }
           else if ( vector !== this && vector.tip.distance( tailOnGraph ) < POLAR_SNAP_DISTANCE ) {
             this.translateTailToPoint( vector.tip );
+            return;
+          }
+          else if ( vector !== this && vector.tail.distance( tipOnGraph ) < POLAR_SNAP_DISTANCE ) {
+            this.translateTailToPoint( vector.tail.minus( this.vectorComponents ) );
             return;
           }
         }
