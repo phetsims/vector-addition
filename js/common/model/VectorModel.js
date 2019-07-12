@@ -327,9 +327,9 @@ define( require => {
      *
      * Invariants for polar mode:
      *  - Vector tail must be in a position that both the tail and tip are in the graph
-     *  - Vector tail doesn't have to be on an exact model coordinate
      *  - Vector's must snap to other vectors to allow tip to tail sum comparisons.
      *    See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
+     *  - Vector tail doesn't have to be on an exact model coordinate, but should when not snapping to other vectors
      *
      * @param {Vector2} tailPosition
      */
@@ -341,15 +341,11 @@ define( require => {
 
       const constrainedTailBounds = this.getConstrainedTailBounds();
 
-      if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-        // Translate the tail to ensure it stays in the constrained bounds and round it to ensure it is on an exact
-        // coordinate
-        this.translateTailToPoint( constrainedTailBounds.closestPointTo( tailPosition ).roundedSymmetric() );
-      }
-      else if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+      const tailPositionOnGraph = constrainedTailBounds.closestPointTo( tailPosition );
 
-        // Get the tail and the tip of this vector
-        const tailPositionOnGraph = constrainedTailBounds.closestPointTo( tailPosition );
+      if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+
+        // Get the tip of this vector
         const tipPositionOnGraph = tailPositionOnGraph.plus( this.vectorComponents );
 
         // Get the all the vectors in the vector including the sum and excluding this vector
@@ -382,8 +378,9 @@ define( require => {
             return;
           }
         }
-        this.translateTailToPoint( tailPositionOnGraph.roundedSymmetric() );
       }
+
+      this.translateTailToPoint( tailPositionOnGraph.roundedSymmetric() );
     }
 
     /**
