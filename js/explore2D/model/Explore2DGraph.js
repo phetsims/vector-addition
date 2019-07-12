@@ -65,8 +65,7 @@ define( require => {
       this.vectorSet = new VectorSet( this,
         componentStyleProperty,
         this.sumVisibleProperty,
-        vectorGroup,
-        this.coordinateSnapMode
+        vectorGroup
       );
 
       this.vectorSets.push( this.vectorSet );

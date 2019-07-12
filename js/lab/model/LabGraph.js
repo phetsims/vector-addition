@@ -72,16 +72,14 @@ define( require => {
       this.vectorSetGroup1 = new VectorSet( this,
         componentStyleProperty,
         this.group1SumVisibleProperty,
-        vectorGroupOne,
-        this.coordinateSnapMode
+        vectorGroupOne
       );
 
       // @public (read-only) {VectorSet} vectorSetGroup1
       this.vectorSetGroup2 = new VectorSet( this,
         componentStyleProperty,
         this.group2SumVisibleProperty,
-        vectorGroupTwo,
-        this.coordinateSnapMode
+        vectorGroupTwo
       );
       this.vectorSets.push( this.vectorSetGroup1, this.vectorSetGroup2 );
     }

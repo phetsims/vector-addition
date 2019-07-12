@@ -1,11 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a 'VectorSet,' which contains:
+ * Model for a VectorSet which contains:
  *  - an observable array of vectors
  *  - a vector sum of those vectors.
  *
- * A model graph can support multiple vectorSets. (e.g. lab screen has 2 vector sets per scene)
+ * A model graph can support multiple vectorSets. (e.g. lab screen has 2 vector sets per graph)
  *
  * @author Brandon Li
  */
@@ -16,32 +16,36 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
   // The tag for the vector sum. The reason this isn't translatable is:
   // https://github.com/phetsims/vector-addition/issues/10.
   const SUM_TAG = 's';
 
+
   class VectorSet {
     /**
      * @constructor
-     * @param {Graph} graph
+     *
+     * @param {Graph} graph - the graph the vector set belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible property
      * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
-     * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
-     * @param {Object} [options]
+     * @param {Object} [options] - various key-value pairs that control behavior. All options are specific to this
+     *                             class.
      */
-    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorGroup, coordinateSnapMode, options ) {
+    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorGroup, options ) {
 
       options = _.extend( {
-        initializeSum: true // {boolean} false means the vector sum will not be initialized upon instantiation
+
+        initializeSum: true, // {boolean} false means the vector sum will not be initialized upon instantiation
+        initialSumTailPosition: graph.graphModelBounds.center // {Vector2} initial tail position of the sum. Only used
+                                                              // if options.initializeSum = true
+
       }, options );
 
       assert && assert( componentStyleProperty instanceof EnumerationProperty
@@ -50,12 +54,11 @@ define( require => {
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
-        `invalid coordinateSnapMode: ${coordinateSnapMode}` );
 
       //----------------------------------------------------------------------------------------
 
-      // @public {ObservableArray.<VectorModel>} vectors
+      // @public {ObservableArray.<VectorModel>} vectors - ObservableArray of the vectors in the vector set excluding
+      // sum
       this.vectors = new ObservableArray();
 
       // @public (read-only) {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
@@ -64,16 +67,7 @@ define( require => {
       // @public (read-only) {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible property
       this.sumVisibleProperty = sumVisibleProperty;
 
-      // @public (read-only) {CoordinateSnapModes}
-      this.coordinateSnapMode = coordinateSnapMode;
-
-      //----------------------------------------------------------------------------------------
-      // Create private references
-
-      // @private {Graph}
-      this.graph = graph;
-
-      // @private {Property.<ComponentStyles>}
+      // @public (read-only) {componentStyleProperty} componentStyleProperty
       this.componentStyleProperty = componentStyleProperty;
 
       //----------------------------------------------------------------------------------------
@@ -86,7 +80,7 @@ define( require => {
     }
 
     /**
-     * Resets the vector set, by clearing the vectors array and reseting the vectorSum
+     * Resets the vector set, by clearing the vectors array and reseting the vectorSum. Called when the graph is erased.
      * @public
      */
     reset() {
@@ -95,21 +89,9 @@ define( require => {
       while ( this.vectors.length ) {
         this.vectors.pop().dispose();
       }
+
       assert && assert( this.vectorSum, 'vector sum was never instantiated' );
       this.vectorSum.reset();
-    }
-
-    /**
-     * @public
-     * Creates a vector model.
-     * @param {Vector2} initialTailPosition
-     * @param {Vector2} initialComponents
-     * @param {string|null} tag
-     * @param {Object} [options] - passed to the vector model
-     * @returns {VectorModel} the created vector model
-     */
-    createVector( initialTailPosition, initalComponents, tag, options ) {
-      return new VectorModel( initialTailPosition, initalComponents, this.graph, this, tag, options );
     }
   }
 

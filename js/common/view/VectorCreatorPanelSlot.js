@@ -35,6 +35,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
@@ -130,7 +131,7 @@ define( require => {
         const vectorTailPosition = vectorCenterPosition.minus( initialVector.timesScalar( 0.5 ) );
 
         // Create the new Vector Model
-        const vectorModel = vectorSet.createVector( vectorTailPosition, initialVector, options.tag );
+        const vectorModel = new VectorModel( vectorTailPosition, initialVector, graph, vectorSet, options.tag );
         vectorSet.vectors.push( vectorModel );
 
         //----------------------------------------------------------------------------------------

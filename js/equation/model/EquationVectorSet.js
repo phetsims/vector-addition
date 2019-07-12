@@ -55,7 +55,6 @@ define( require => {
         componentStyleProperty,
         sumVisibleProperty,
         vectorGroup,
-        coordinateSnapMode,
         VECTOR_SET_OPTIONS );
 
       //----------------------------------------------------------------------------------------
