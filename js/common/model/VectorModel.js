@@ -3,10 +3,10 @@
 /**
  * Model for a vector.
  *
- * Extends RootVectorModel but adds more functionality:
+ * Extends RootVectorModel but adds the following functionality:
  *  - update the tail when the origin moves (modelViewTransformProperty)
  *  - methods to drop a vector, to animate a vector, and to pop a vector off the graph
- *  - ability to drag the vector by the tail and the tip
+ *  - ability to drag the vector by the tail and the tip in both polar and cartesian mode
  *  - instantiate x and y component models
  *
  * @author Martin Veillette
@@ -30,6 +30,7 @@ define( require => {
   const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
   const VectorComponentModel = require( 'VECTOR_ADDITION/common/model/VectorComponentModel' );
 
+  //----------------------------------------------------------------------------------------
   // constants
   const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
   const MIN_ANIMATION_TIME = 0.9; // in seconds
@@ -45,7 +46,7 @@ define( require => {
   // See https://github.com/phetsims/vector-addition/issues/46 for more context.
   const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 
-  // minimum distance between a vectors tail to another vectors tail or tip to snap to the other vector in polar
+  // distance between a vector's tail or tip to another vector/s tail or tip to snap to the other vector in polar
   // mode. See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
   const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 
@@ -56,18 +57,20 @@ define( require => {
   class VectorModel extends RootVectorModel {
     /**
      * @constructor
+     *
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {Graph} graph - the graph the vector belongs to
      * @param {VectorSet} vectorSet - the vector set the vector belongs to
      * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
-     * @param {Object} [options] - various key-value pairs that control behavior. All options are specific to this class
+     * @param {Object} [options] - various key-value pairs that control behavior. All options are specific to this
+     *                             class.
      */
     constructor( initialTailPosition, initialComponents, graph, vectorSet, tag, options ) {
 
       options = _.extend( {
-        isTipDraggable: true, // {boolean} - false means the tip won't be draggable
 
+        isTipDraggable: true, // {boolean} - false means the tip won't be draggable, true means the tip can be dragged
         isRemovable: true // {boolean} - false means the user will not be able to drag a vector off the graph
       }, options );
 
@@ -79,41 +82,45 @@ define( require => {
       //----------------------------------------------------------------------------------------
       super( initialTailPosition, initialComponents, vectorSet.vectorGroup, tag );
 
-      // @public (read-only) {boolean} isTipDraggable
+      // @public (read-only) {boolean} isTipDraggable - indicates if the tip can be dragged
       this.isTipDraggable = options.isTipDraggable;
 
-      // @public (read-only) {boolean} isRemovable
+      // @public (read-only) {boolean} isRemovable - indicates if the vector can be removed
       this.isRemovable = options.isRemovable;
 
-      // @public (read-only) coordinateSnapMode
+      // @public (read-only) coordinateSnapMode - indicates the coordinate snap mode
       this.coordinateSnapMode = graph.coordinateSnapMode;
 
-      // @private {Graph} graph
+      // @private {Graph} graph - indicates the graph the vector model belongs to
       this.graph = graph;
 
       // @private {string} fallBackTag (see declaration of VECTOR_FALL_BACK_TAG for documentation)
       this.fallBackTag = VECTOR_FALL_BACK_TAG;
 
-      // @private {VectorSet} vectorSet - needed for dragging
+      // @private {VectorSet} vectorSet - indicates the vector set the vector belongs in.
       this.vectorSet = vectorSet;
 
       //----------------------------------------------------------------------------------------
 
-      // Function to update the position of the tail of the vector based on the modelViewTransform
+      // Function to update the position of the tail of the vector based on the modelViewTransform. The tail view
+      // position stays the same, but the tail position changes.
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
+
+        // Get the tail location on the old graph, and move the vector to the new model position of the old location
         const oldTailLocation = oldModelViewTransform.modelToViewPosition( this.tail );
         this.translateTailToPoint( newModelViewTransform.viewToModelPosition( oldTailLocation ) );
       };
 
+      // Observe when the graph model view transform property changes, and update the tail position
       this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
 
-      // @private - unlink the modelViewTransform link, called in the dispose method
+      // @private {function} unlinkTailUpdateListener - unlink the modelViewTransform link, called in the dispose method
       this.unlinkTailUpdateListener = () => {
         this.graph.modelViewTransformProperty.unlink( updateTailPosition );
       };
 
       //----------------------------------------------------------------------------------------
-      // Vector Component Models
+      // Create Vector Component Models
 
       // @public (read only) {VectorComponentModel} xVectorComponentModel
       this.xVectorComponentModel = new VectorComponentModel( this,
@@ -142,23 +149,16 @@ define( require => {
     }
 
     /**
-     * Disposes the vector. Called when the vector is removed from the graph. This can be done by either
-     * animating the vector back to the vector creator panel or by hitting the eraser/reset all button.
+     * Disposes the vector. Called when either the graph is erased or the vector is animated off the graph.
      * @public
      * @override
      */
     dispose() {
-
       this.unlinkTailUpdateListener();
-
       this.xVectorComponentModel.dispose();
       this.yVectorComponentModel.dispose();
-
       this.isOnGraphProperty.dispose();
-
-      if ( this.inProgressAnimationProperty.value ) {
-        this.inProgressAnimationProperty.value.stop();
-      }
+      this.inProgressAnimationProperty.value && this.inProgressAnimationProperty.value.stop();
       this.inProgressAnimationProperty.dispose();
 
       super.dispose();
@@ -166,6 +166,7 @@ define( require => {
 
     /**
      * @override
+     * @public
      * See RootVectorModel.getLabelContent() for context
      *
      * Gets the label content information to display the vector model. Vector's may or may not have tags.
@@ -185,42 +186,42 @@ define( require => {
       // Get the rounded magnitude
       const roundedMagnitude = Util.toFixed( this.magnitude, VECTOR_VALUE_ROUNDING );
 
-      // indicates if the rounded magnitude is 0
-      const isRoundedMagnitudeZero = !( Math.abs( roundedMagnitude ) > 0 );
-
+      // Create flags to indicate the tag and the value
       let tag;
       let value;
 
-      // If it has a tag, the tag is always the tag
-      if ( this.tag ) {
-        tag = this.tag;
-      }
-      // Otherwise (no tag) only display the vector tag if its active
-      else if ( this.graph.activeVectorProperty.value === this ) {
-        tag = this.fallBackTag;
+      // If the vector has a tag, display the tag. If the vector is active, display the fallBackTag.
+      if ( this.tag || this.graph.activeVectorProperty.value === this ) {
+        tag = this.tag ? this.tag : this.fallBackTag;
       }
 
       // If the values are on and its not 0 magnitude, display the magnitude
       if ( valuesVisible ) {
-        if ( tag ) {
-          value = !isRoundedMagnitudeZero ? ` = ${roundedMagnitude}` : null;
-        }
-        else {
-          value = !isRoundedMagnitudeZero ? roundedMagnitude : null;
-        }
+        value = tag ? ` = ${roundedMagnitude}` : roundedMagnitude;
       }
 
       return {
-        coefficient: null,
-        tag: value && tag ? `|${tag}|` : tag,
+        coefficient: null, // vector models don't have coefficient
+        tag: value && tag ? `|${tag}|` : tag, // surround the tag in absolute value bars if there is a value
         value: value
       };
     }
 
     /**
-     * Attempts to move the tip to this position but rounds it in cartesian/polar style
-     * @param {Vector2} tipPosition
+     * Moves the tip to this position but ensures it satisfies invariants for polar and cartesian mode.
      * @public
+     *
+     * Invariants for cartesian mode:
+     *  - Vector tip must be within the graph bounds
+     *  - Vector tip must be on an exact model coordinate
+     *  - Vector must not be dragged to make the vector 0 magnitude
+     *
+     * Invariants for polar mode:
+     *  - Vector tip must be rounded to ensure the magnitude of the vector is a integer
+     *  - Vector tip must be within the graph bounds
+     *  - Vector must not be dragged to make the vector 0 magnitude
+     *
+     * @param {Vector2} tipPosition
      */
     dragTipToPosition( tipPosition ) {
 
@@ -231,9 +232,13 @@ define( require => {
       // Declare this vector as active when it's dragging
       this.graph.activeVectorProperty.value = this;
 
-      if ( tipPosition.minus( this.tail ).roundSymmetric().magnitude === 0 ) { // do not allow vector to be 0 magnitude
+      // No-op if attempting to drag the vector to 0 magnitude
+      if ( tipPosition.minus( this.tail ).roundSymmetric().magnitude === 0 ) {
         return;
       }
+
+      // Flag to get the tip point that satisfies invariants
+      let correctedTipPosition;
 
       if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
 
@@ -241,21 +246,7 @@ define( require => {
         const tipPositionOnGraph = this.graph.graphModelBounds.closestPointTo( tipPosition );
 
         // Rounded the tip to integer grid values
-        const roundedTipPosition = tipPositionOnGraph.roundedSymmetric();
-
-        // Get the components of the vector
-        const vectorComponents = roundedTipPosition.minus( this.tail );
-
-        // Based on the vector orientation, constrain the dragging components
-        if ( this.graph.orientation === GraphOrientations.HORIZONTAL ) {
-          vectorComponents.setY( 0 );
-        }
-        else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
-          vectorComponents.setX( 0 );
-        }
-
-        // Update the model tip
-        this.tip = this.tail.plus( vectorComponents );
+        correctedTipPosition = tipPositionOnGraph.roundedSymmetric();
       }
       else if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
         const vectorComponents = tipPosition.minus( this.tail );
@@ -272,15 +263,29 @@ define( require => {
         while ( !this.graph.graphModelBounds.containsPoint( this.tail.plus( polarVector ) ) ) {
           polarVector.setMagnitude( polarVector.magnitude - 1 );
         }
-        // Update the model tip
-        this.tip = this.tail.plus( polarVector );
+
+        correctedTipPosition = this.tail.plus( polarVector );
       }
+
+
+      // Based on the vector orientation, constrain the dragging components
+      if ( this.graph.orientation === GraphOrientations.HORIZONTAL ) {
+        correctedTipPosition.setY( this.tailY );
+      }
+      else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
+        correctedTipPosition.setX( this.tailX );
+      }
+
+      // Update the model tip
+      this.tip = correctedTipPosition;
     }
 
     /**
-     * Attempts to drag the tail to this position, but rounds it and ensures validity or the vector.
-     * @param {Vector2} tailPosition
+     * Moves the tail to this position but ensures it satisfies invariants for polar and cartesian mode. See
+     * moveVectorTailToFitInGraph( tailPosition ) for documentation of the invariants.
      * @public
+     *
+     * @param {Vector2} tailPosition
      */
     dragTailToPosition( tailPosition ) {
 
@@ -288,32 +293,43 @@ define( require => {
       assert && assert( this.isOnGraphProperty.value === true, 'should be in graph to drag' );
       assert && assert( !this.inProgressAnimationProperty.value, 'can\'t drag vector when animating' );
 
-      // Ensure that the tail is on the graph
-      this.moveVectorTailToFitInGraph( tailPosition );
-
-      const constrainedBounds = this.getConstrainedTailBounds();
-
       // Declare this vector as active when it's dragging
       this.graph.activeVectorProperty.value = this;
-      /*---------------------------------------------------------------------------*
-       * Remove vectors
-       *---------------------------------------------------------------------------*/
-      if ( this.isRemovable === false ) {
-        return;
-      }
-      // Offset of the cursor to the vector. This is users will remove vector according to displacement of the cursor.
-      // See https://github.com/phetsims/vector-addition/issues/46#issuecomment-506726262
-      const dragOffset = constrainedBounds.closestPointTo( tailPosition ).minus( tailPosition );
 
-      if ( Math.abs( dragOffset.x ) > VECTOR_DRAG_THRESHOLD || Math.abs( dragOffset.y ) > VECTOR_DRAG_THRESHOLD ) {
-        this.popOffOfGraph();
+      // Ensure that the tail satisfies invariants for polar/cartesian mode
+      this.moveVectorTailToFitInGraph( tailPosition );
+
+      /*---------------------------------------------------------------------------*
+       * Add ability to remove vectors
+       *---------------------------------------------------------------------------*/
+      if ( this.isRemovable ) {
+        const constrainedTailBounds = this.getConstrainedTailBounds();
+
+        // Offset of the cursor to the vector. This is users will remove vector according to displacement of the cursor.
+        // See https://github.com/phetsims/vector-addition/issues/46#issuecomment-506726262
+        const dragOffset = constrainedTailBounds.closestPointTo( tailPosition ).minus( tailPosition );
+
+        if ( Math.abs( dragOffset.x ) > VECTOR_DRAG_THRESHOLD || Math.abs( dragOffset.y ) > VECTOR_DRAG_THRESHOLD ) {
+          this.popOffOfGraph();
+        }
       }
     }
 
     /**
-     * Updates the tail such that both tail and tip of the vector remain with the graphBounds.
-     * @param {Vector2} tailPosition - attempts to place the vector's tail to this point, but ensures it's validity
+     * Moves the tail to this position but ensures it satisfies invariants for polar and cartesian mode.
      * @private
+     *
+     * Invariants for cartesian mode:
+     *  - Vector tail must be in a position that both the tail and tip are in the graph
+     *  - Vector tail must be on an exact model coordinate
+     *
+     * Invariants for polar mode:
+     *  - Vector tail must be in a position that both the tail and tip are in the graph
+     *  - Vector tail doesn't have to be on an exact model coordinate
+     *  - Vector's must snap to other vectors to allow tip to tail sum comparisons.
+     *    See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
+     *
+     * @param {Vector2} tailPosition
      */
     moveVectorTailToFitInGraph( tailPosition ) {
 
@@ -321,19 +337,18 @@ define( require => {
       assert && assert( this.isOnGraphProperty.value === true, 'should be in graph to fit in to graph' );
       assert && assert( !this.inProgressAnimationProperty.value, 'can\'t move vector when animating' );
 
-      const constrainedBounds = this.getConstrainedTailBounds();
+      const constrainedTailBounds = this.getConstrainedTailBounds();
 
       if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-        // On Cartesian, snap to grid bu rounding the tail position.
-        // Translate the tail to ensure it stays in the contained bounds
-        this.translateTailToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
+        // Translate the tail to ensure it stays in the constrained bounds and round it to ensure it is on an exact
+        // coordinate
+        this.translateTailToPoint( constrainedTailBounds.closestPointTo( tailPosition ).roundedSymmetric() );
       }
       else if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-        // On Polar mode, snap tail to other vector's tips and tails if the distance is small enough.
-        // See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
-        const tailOnGraph = constrainedBounds.closestPointTo( tailPosition );
 
-        const tipOnGraph = tailOnGraph.plus( this.vectorComponents );
+        // Get the tail and the tip of this vector
+        const tailPositionOnGraph = constrainedTailBounds.closestPointTo( tailPosition );
+        const tipPositionOnGraph = tailPositionOnGraph.plus( this.vectorComponents );
 
         // Get the all the vectors in the vector including the sum and excluding this vector
         const vectorsInVectorSet = this.vectorSet.vectors.getArray().filter( ( vector ) => {
@@ -342,35 +357,40 @@ define( require => {
         vectorsInVectorSet.push( this.vectorSet.vectorSum );
 
 
+        //----------------------------------------------------------------------------------------
         for ( let i = 0; i < vectorsInVectorSet.length; i++ ) {
 
           const vector = vectorsInVectorSet[ i ];
 
-          if ( vector !== this && vector.tail.distance( tailOnGraph ) < POLAR_SNAP_DISTANCE ) {
+          // Snap tail to other vector's tails
+          if ( vector.tail.distance( tailPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
             this.translateTailToPoint( vector.tail );
             return;
           }
-          else if ( vector !== this && vector.tip.distance( tailOnGraph ) < POLAR_SNAP_DISTANCE ) {
+
+          // Snap tail to other vector's tip
+          if ( vector.tip.distance( tailPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
             this.translateTailToPoint( vector.tip );
             return;
           }
-          else if ( vector !== this && vector.tail.distance( tipOnGraph ) < POLAR_SNAP_DISTANCE ) {
+
+          // Snap tip to other vector's tail
+          if ( vector.tail.distance( tipPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
             this.translateTailToPoint( vector.tail.minus( this.vectorComponents ) );
             return;
           }
         }
-        this.translateTailToPoint( tailOnGraph );
+        this.translateTailToPoint( tailPositionOnGraph );
       }
     }
 
     /**
      * Gets the constrained bounds of the tail. In other words, based on the tip and the components of the vector, this
-     * return a new bounds that is for the tail and ensures that in this bounds the vector will stay in the graph.
+     * returns a new bounds that is for the tail and ensures that in this bounds the vector will stay in the graph.
+     * @private
      *
      * See https://user-images.githubusercontent.com/42391580/60908828-065be780-a23a-11e9-9a02-01a6ca52f73d.png
      * for an annotated image.
-     *
-     * @private
      */
     getConstrainedTailBounds() {
 
@@ -385,6 +405,7 @@ define( require => {
     /**
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
      * @public
+     *
      * @param {Vector2} point - animates the center of the vector to this point
      * @param {Vector2} finalComponents - animates the components to the final components
      * @param {function} finishedCallback - callback if and only if the animation finishes
@@ -402,7 +423,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // Convert the parameter into where the tail would be in that position
+      // Convert the point into where the tail would be in that position
       const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
 
       // Animate the vector
@@ -423,6 +444,7 @@ define( require => {
 
       this.inProgressAnimationProperty.value = animation;
 
+      //----------------------------------------------------------------------------------------
       const animationFinished = () => {
         this.inProgressAnimationProperty.value = null;
         finishedCallback();
@@ -436,8 +458,9 @@ define( require => {
 
     /**
      * Drops the vector onto the graph. Called at the end of the drag if the user drops the vector onto the graph.
-     * @param {Vector2} tailPosition - the tail position to drop the vector onto
      * @public
+     *
+     * @param {Vector2} tailPosition - the tail position to drop the vector onto
      */
     dropOntoGraph( tailPosition ) {
 
@@ -446,6 +469,7 @@ define( require => {
 
       this.isOnGraphProperty.value = true;
 
+      // Ensure dropped tail position satisfies invariants
       this.moveVectorTailToFitInGraph( tailPosition );
 
       // Declare this vector as active
@@ -453,7 +477,7 @@ define( require => {
     }
 
     /**
-     * Removes the vector from the graph.
+     * Pops the vector off of the graph.
      * @public
      */
     popOffOfGraph() {
