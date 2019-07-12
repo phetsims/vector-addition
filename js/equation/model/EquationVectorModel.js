@@ -83,7 +83,6 @@ define( require => {
 
     reset() {
       this.coefficientProperty.reset();
-      this.baseVector.reset();
       this.tailPositionProperty.reset();
     }
 

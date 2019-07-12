@@ -22,10 +22,15 @@ define( require => {
   // const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  // const BaseVectorModel = require( 'VECTOR_ADDITION/equation/model/BaseVectorModel' );
+  // const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  // const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  // const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
   const DEFAULT_BASE_VECTOR_VISIBILTY = false;
+  // const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
 
   class EquationScene {
     /**
@@ -40,6 +45,35 @@ define( require => {
       // @public (read-only) {BooleanProperty}
       this.baseVectorsVisibleProperty = new BooleanProperty( DEFAULT_BASE_VECTOR_VISIBILTY );
 
+      //----------------------------------------------------------------------------------------
+      // Create base vectors
+
+      // @public (read-only)
+      this.baseVectors = [];
+
+      // // TODO: whats the cleanest way to give tail positions
+      // const tailPositions = [ new Vector2( 45, 20 ), new Vector2( 45, 5 ) ];
+
+
+      // // TODO: whats the cleanest way to give initial components see #64
+      // const initialComponents = [ new Vector2( 0, 5 ), new Vector2( 5, 45 ) ];
+
+      // // create the two base vectors
+      // const vectorTags = coordinateSnapMode === CoordinateSnapModes.CARTESIAN ? VectorAdditionConstants.VECTOR_TAGS_GROUP_1 :
+      //   VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
+      
+      // for ( let tagIndex = 0; tagIndex < vectorTags.length - 1; tagIndex++ ) {
+
+        // const baseVector = new BaseVectorModel( tailPositions[ tagIndex ],
+        //   initialComponents[ tagIndex ],
+        //   graph,
+        //   this,
+        //   VECTOR_TAGS[ tagIndex ] );
+
+      // }
+
+
+      //----------------------------------------------------------------------------------------
 
       this.additionGraph = new EquationGraph( coordinateSnapMode,
         componentStyleProperty,
@@ -58,7 +92,9 @@ define( require => {
 
       // @public
       this.graphs = [ this.additionGraph, this.subtractionGraph, this.negationGraph ];
-      
+
+
+
     }
 
     reset() {
