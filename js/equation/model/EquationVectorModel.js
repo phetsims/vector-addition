@@ -51,7 +51,7 @@ define( require => {
       }, options );
 
 
-      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet.vectorGroup, tag, options );
+      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, tag, options );
 
       //----------------------------------------------------------------------------------------
       // @public (read-only) {Property.<number>} - create a property to represent the coefficient.

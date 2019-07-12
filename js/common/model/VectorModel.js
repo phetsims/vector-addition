@@ -55,11 +55,11 @@ define( require => {
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {Graph} graph - the graph the vector belongs to
-     * @param {VectorGroups} vectorGroup - the vector group
+     * @param {VectorSet} vectorSet - the vector set the vector belongs to
      * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
      * @param {Object} [options] - various key-value pairs that control behavior. All options are specific to this class
      */
-    constructor( initialTailPosition, initialComponents, graph, vectorGroup, tag, options ) {
+    constructor( initialTailPosition, initialComponents, graph, vectorSet, tag, options ) {
 
       options = _.extend( {
         isTipDraggable: true, // {boolean} - false means the tip won't be draggable
@@ -73,7 +73,7 @@ define( require => {
         `invalid options.isRemovable: ${options.isRemovable}` );
 
       //----------------------------------------------------------------------------------------
-      super( initialTailPosition, initialComponents, vectorGroup, tag );
+      super( initialTailPosition, initialComponents, vectorSet.vectorGroup, tag );
 
       // @public (read-only) {boolean} isTipDraggable
       this.isTipDraggable = options.isTipDraggable;
@@ -89,6 +89,9 @@ define( require => {
 
       // @private {string} fallBackTag (see declaration of VECTOR_FALL_BACK_TAG for documentation)
       this.fallBackTag = VECTOR_FALL_BACK_TAG;
+
+      // @private {VectorSet} vectorSet - needed for dragging
+      this.vectorSet = vectorSet;
 
       //----------------------------------------------------------------------------------------
 
@@ -110,13 +113,13 @@ define( require => {
 
       // @public (read only) {VectorComponentModel} xVectorComponentModel
       this.xVectorComponentModel = new VectorComponentModel( this,
-        graph.componentStyleProperty,
+        vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
         VectorComponentModel.COMPONENT_TYPES.X_COMPONENT );
 
       // @public (read only) {VectorComponentModel} yVectorComponentModel
       this.yVectorComponentModel = new VectorComponentModel( this,
-        graph.componentStyleProperty,
+        vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
         VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT );
 
@@ -315,8 +318,31 @@ define( require => {
       assert && assert( !this.inProgressAnimationProperty.value, 'can\'t move vector when animating' );
 
       const constrainedBounds = this.getConstrainedTailBounds();
-      // Translate the tail to ensure it stays in the contained bounds
-      this.translateTailToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
+
+      if ( this.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+        // On Cartesian, snap to grid bu rounding the tail position.
+        // Translate the tail to ensure it stays in the contained bounds
+        this.translateTailToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
+      }
+      else if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+        // On Polar mode, snap tail to other vector's tips and tails if the distance is small enough
+        const tailOnGraph = constrainedBounds.closestPointTo( tailPosition );
+
+        for ( let i = 0; i < this.vectorSet.vectors.length; i++ ) {
+
+          const vector = this.vectorSet.vectors.get( i );
+          if ( vector !== this && vector.tail.distance( tailOnGraph ) < 0.5 ) {
+            this.translateTailToPoint( vector.tail );
+            return;
+          }
+          else if ( vector !== this && vector.tip.distance( tailOnGraph ) < 0.5 ) {
+            this.translateTailToPoint( vector.tip );
+            return;
+          }
+        }
+
+        this.translateTailToPoint( tailOnGraph );
+      }
     }
 
     /**
@@ -404,7 +430,6 @@ define( require => {
 
       this.moveVectorTailToFitInGraph( tailPosition );
 
-      this.dragTipToPosition( this.tip );
       // Declare this vector as active
       this.graph.activeVectorProperty.value = this;
     }
