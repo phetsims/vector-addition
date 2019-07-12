@@ -127,12 +127,12 @@ define( require => {
      */
     updateLabelPositioning( rootVectorModel, modelViewTransform, valuesVisible ) {
 
+      // Reset the rotation
+      this.labelNode.setRotation( 0 );
+
       if ( rootVectorModel.magnitude === 0 ) { // don't do anything if the magnitude is 0
         return;
       }
-
-      // Reset the rotation
-      this.labelNode.setRotation( 0 );
 
       // Angle of the vector in radians (ranging from -Pi to Pi)
       const modelAngle = rootVectorModel.angle;
