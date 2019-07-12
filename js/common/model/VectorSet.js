@@ -75,7 +75,7 @@ define( require => {
 
       if ( options.initializeSum ) {
         // @public (read-only) {VectorModel} the vector sum model
-        this.vectorSum = new VectorSum( graph.graphModelBounds.center, graph, this, SUM_TAG );
+        this.vectorSum = new VectorSum( options.initialSumTailPosition, graph, this, SUM_TAG );
       }
     }
 

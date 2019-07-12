@@ -131,6 +131,7 @@ define( require => {
       this.labelNode.setRotation( 0 );
 
       if ( rootVectorModel.magnitude === 0 ) { // don't do anything if the magnitude is 0
+        this.labelNode.center = modelViewTransform.modelToViewDelta( Vector2.ZERO );
         return;
       }
 

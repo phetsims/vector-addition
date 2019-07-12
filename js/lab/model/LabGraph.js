@@ -27,6 +27,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
@@ -68,18 +69,24 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create and add the vector sets
 
+      const graphBounds = this.graphModelBounds;
+
       // @public (read-only) {VectorSet} vectorSetGroup1
       this.vectorSetGroup1 = new VectorSet( this,
         componentStyleProperty,
         this.group1SumVisibleProperty,
-        vectorGroupOne
+        vectorGroupOne, {
+          initialSumTailPosition: new Vector2( graphBounds.minX + 2 / 3 * graphBounds.width , graphBounds.centerY )
+        }
       );
 
       // @public (read-only) {VectorSet} vectorSetGroup1
       this.vectorSetGroup2 = new VectorSet( this,
         componentStyleProperty,
         this.group2SumVisibleProperty,
-        vectorGroupTwo
+        vectorGroupTwo, {
+          initialSumTailPosition: new Vector2( graphBounds.minX + 1 / 3 * graphBounds.width, graphBounds.centerY )
+        }
       );
       this.vectorSets.push( this.vectorSetGroup1, this.vectorSetGroup2 );
     }
