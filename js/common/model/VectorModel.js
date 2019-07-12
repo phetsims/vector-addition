@@ -56,11 +56,11 @@ define( require => {
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {Graph} graph - the graph the vector belongs to
-     * @param {VectorSet} the vectorSet that the vector belongs to
+     * @param {VectorGroups} vectorGroup - the vector group
      * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
      * @param {Object} [options] - various key-value pairs that control behavior. All options are specific to this class
      */
-    constructor( initialTailPosition, initialComponents, graph, vectorSet, tag, options ) {
+    constructor( initialTailPosition, initialComponents, graph, vectorGroup, tag, options ) {
 
       options = _.extend( {
         isTipDraggable: true, // {boolean} - false means the tip won't be draggable
@@ -74,7 +74,7 @@ define( require => {
         `invalid options.isRemovable: ${options.isRemovable}` );
 
       //----------------------------------------------------------------------------------------
-      super( initialTailPosition, initialComponents, vectorSet.vectorGroup, tag );
+      super( initialTailPosition, initialComponents, vectorGroup, tag );
 
       // @public (read-only) {boolean}
       this.isTipDraggable = options.isTipDraggable;
@@ -83,7 +83,7 @@ define( require => {
       this.isRemovable = options.isRemovable;
 
       // @public (read-only)
-      this.coordinateSnapMode = vectorSet.coordinateSnapMode;
+      this.coordinateSnapMode = graph.coordinateSnapMode;
 
       // @private {Graph}
       this.graph = graph;
@@ -111,13 +111,13 @@ define( require => {
 
       // @public (read only) {VectorComponentModel}
       this.xVectorComponentModel = new VectorComponentModel( this,
-        vectorSet.componentStyleProperty,
+        graph.componentStyleProperty,
         graph.activeVectorProperty,
         VectorComponentModel.COMPONENT_TYPES.X_COMPONENT );
 
       // @public (read only) {VectorComponentModel}
       this.yVectorComponentModel = new VectorComponentModel( this,
-        vectorSet.componentStyleProperty,
+        graph.componentStyleProperty,
         graph.activeVectorProperty,
         VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT );
 

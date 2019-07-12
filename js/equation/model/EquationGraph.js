@@ -38,7 +38,7 @@ define( require => {
      */
     constructor( coordinateSnapMode, componentStyleProperty, vectorGroup, equationType ) {
     
-      super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, GraphOrientations.TWO_DIMENSIONAL );
+      super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, GraphOrientations.TWO_DIMENSIONAL, componentStyleProperty );
 
       // @public (read-only) {EquationVectorSet}
       this.vectorSet = new EquationVectorSet( this,

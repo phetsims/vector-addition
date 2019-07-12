@@ -53,7 +53,7 @@ define( require => {
       assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
 
-      super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, EXPLORE_2D_GRAPH_ORIENTAION );
+      super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, EXPLORE_2D_GRAPH_ORIENTAION, componentStyleProperty );
 
       //----------------------------------------------------------------------------------------
       // @public {BooleanProperty} sumVisibleProperty - property controlling the visibility of the sum for this unique
