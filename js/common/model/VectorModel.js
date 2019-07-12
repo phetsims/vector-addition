@@ -382,7 +382,7 @@ define( require => {
             return;
           }
         }
-        this.translateTailToPoint( tailPositionOnGraph );
+        this.translateTailToPoint( tailPositionOnGraph.roundedSymmetric() );
       }
     }
 
