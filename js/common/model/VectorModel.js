@@ -334,10 +334,18 @@ define( require => {
         const tailOnGraph = constrainedBounds.closestPointTo( tailPosition );
 
         const tipOnGraph = tailOnGraph.plus( this.vectorComponents );
-        
-        for ( let i = 0; i < this.vectorSet.vectors.length; i++ ) {
 
-          const vector = this.vectorSet.vectors.get( i );
+        // Get the all the vectors in the vector including the sum and excluding this vector
+        const vectorsInVectorSet = this.vectorSet.vectors.getArray().filter( ( vector ) => {
+          return vector !== this;
+        } );
+        vectorsInVectorSet.push( this.vectorSet.vectorSum );
+
+
+        for ( let i = 0; i < vectorsInVectorSet.length; i++ ) {
+
+          const vector = vectorsInVectorSet[ i ];
+
           if ( vector !== this && vector.tail.distance( tailOnGraph ) < POLAR_SNAP_DISTANCE ) {
             this.translateTailToPoint( vector.tail );
             return;
