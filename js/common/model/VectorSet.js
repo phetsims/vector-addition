@@ -109,7 +109,7 @@ define( require => {
      * @returns {VectorModel} the created vector model
      */
     createVector( initialTailPosition, initalComponents, tag, options ) {
-      return new VectorModel( initialTailPosition, initalComponents, this.graph, this, tag, options );
+      return new VectorModel( initialTailPosition, initalComponents, this.graph, this.vectorGroup, tag, options );
     }
   }
 

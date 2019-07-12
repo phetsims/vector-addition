@@ -16,8 +16,10 @@ define( require => {
 
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Property = require( 'AXON/Property' );
@@ -59,14 +61,17 @@ define( require => {
      *                                                   entirely polar or cartesian.
      * @param {GraphOrientations} orientation - the orientation of the graph. A graph is either entirely horizontal,
      *                                          vertical, or two dimensional.
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      */
-    constructor( initialGraphBounds, coordinateSnapMode, orientation ) {
+    constructor( initialGraphBounds, coordinateSnapMode, orientation, componentStyleProperty ) {
 
       assert && assert( initialGraphBounds instanceof Bounds2, `invalid initialGraphBounds: ${initialGraphBounds}` );
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( GraphOrientations.includes( orientation ), `invalid orientation: ${orientation}` );
-
+      assert && assert( componentStyleProperty instanceof EnumerationProperty
+      && ComponentStyles.includes( componentStyleProperty.value ),
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
       //----------------------------------------------------------------------------------------
 
       // @public {array.<VectorSet>} vectorSets - the vectorSets for this graph
@@ -75,8 +80,11 @@ define( require => {
       // @public (read-only) {GraphOrientations} orientation - orientation for the graph (final variable)
       this.orientation = orientation;
 
-      // @protected {CoordinateSnapModes} coordinateSnapMode - coordinate snap mode for the graph (final variable)
+      // @public (read-only) {CoordinateSnapModes} coordinateSnapMode - coordinate snap mode for the graph (final variable)
       this.coordinateSnapMode = coordinateSnapMode;
+
+      // @public (read-only) componentStyleProperty
+      this.componentStyleProperty = componentStyleProperty;
 
       // @private {Property.<Bounds2>} graphModelBoundsProperty - the property of the graph bounds. To be set internally
       // only. Read access can be found at get graphModelBounds().

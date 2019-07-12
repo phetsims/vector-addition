@@ -17,7 +17,6 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVectorModel = require( 'VECTOR_ADDITION/equation/model/BaseVectorModel' );
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
@@ -52,26 +51,18 @@ define( require => {
       }, options );
 
 
-      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, tag, options );
+      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet.vectorGroup, tag, options );
 
       //----------------------------------------------------------------------------------------
       // @public (read-only) {Property.<number>} - create a property to represent the coefficient.
       this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
 
-      // @public (read-only) {BaseVectorModel}
-      this.baseVector = new BaseVectorModel( tailPosition,
-        xComponent / this.coefficientProperty.value,
-        yComponent / this.coefficientProperty.value,
-        graph,
-        equationVectorSet,
-        tag );
-
       // Observe when the base vector changes, or when the coefficient property changes and update the vector.
       // Doesn't need to be unlinked since equation vectors are never disposed
-      Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
-        ( baseVector, coefficient ) => {
-          this.vectorComponents = baseVector.timesScalar( coefficient );
-        } );
+      // Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
+      //   ( baseVector, coefficient ) => {
+      //     this.vectorComponents = baseVector.timesScalar( coefficient );
+      //   } );
 
       //----------------------------------------------------------------------------------------
       // Double check that equation vectors are never removed from the graph

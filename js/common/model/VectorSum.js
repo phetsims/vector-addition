@@ -51,7 +51,7 @@ define( require => {
       const initialPosition = graph.graphModelBounds.center;
 
       // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-      super( initialPosition, Vector2.ZERO, graph, vectorSet, tag, VECTOR_SUM_OPTIONS );
+      super( initialPosition, Vector2.ZERO, graph, vectorSet.vectorGroup, tag, VECTOR_SUM_OPTIONS );
 
       // @private {string} (see declaration of SUM_FALL_BACK_TAG for documentation)
       this.fallBackTag = SUM_FALL_BACK_TAG;
