@@ -71,7 +71,9 @@ define( require => {
       options = _.extend( {
 
         isTipDraggable: true, // {boolean} - false means the tip won't be draggable, true means the tip can be dragged
-        isRemovable: true // {boolean} - false means the user will not be able to drag a vector off the graph
+        isRemovable: true, // {boolean} - false means the user will not be able to drag a vector off the graph
+        isOnGraphInitially: false // {boolean} - flag indicating if the vector is on the graph upon initialization
+
       }, options );
 
       assert && assert( typeof options.isTipDraggable === 'boolean',
@@ -137,7 +139,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {BooleanProperty} isOnGraphProperty - indicates if the vector is in the play area
-      this.isOnGraphProperty = new BooleanProperty( false );
+      this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially );
 
       // @public (read-only) {Property.<Animation|null>} inProgressAnimationProperty - tracks any animation that is
       // currently in progress.

@@ -39,7 +39,7 @@ define( require => {
       // && EquationTypes.includes( equationTypeProperty.value ),
       //   `invalid equationTypeProperty: ${equationTypeProperty}` );
 
-      super( graph, vectorSet, tag );
+      super( graph.graphModelBounds.center, graph, vectorSet, tag );
 
       //----------------------------------------------------------------------------------------
 

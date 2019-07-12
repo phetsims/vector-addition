@@ -10,7 +10,7 @@
  *  1. The component style property
  *  2. Parent vector's changing tail/tip/components
  *
- * Positioning for the x and y components are slightly different. Label content for vector components unique.
+ * Positioning for the x and y components are slightly different. Label content for vector components are unique.
  *
  * @author Brandon Li
  */
@@ -33,6 +33,7 @@ define( require => {
 
   // rounding for the vector value (on the label with values checked)
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
+
 
   class VectorComponentModel extends RootVectorModel {
     /**
@@ -63,13 +64,13 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create references
 
-      // @public (read-only) componentType
+      // @public (read-only) {Enumeration} componentType
       this.componentType = componentType;
 
       // @public {RootVectorModel} parentVector - reference the parent vector
       this.parentVector = parentVector;
 
-      // @private {multilink} updateLayoutMultilink - observe changes of the parent's tail, tip, and components. When
+      // @private {Multilink} updateLayoutMultilink - observe changes of the parent's tail, tip, and components. When
       // the parent changes, the component also changes.
       // No need to listen to the modelViewTransformProperty since the parentVector will update its position when
       // modelViewTransformProperty changes
@@ -81,8 +82,8 @@ define( require => {
     }
 
     /**
+     * Disposes the vector component. Called when the parent vector is disposed.
      * @override
-     * Disposes the vector component.
      * @public
      */
     dispose() {
@@ -139,6 +140,7 @@ define( require => {
 
     /**
      * @override
+     * @public
      * See RootVectorModel.getLabelContent() for context.
      *
      * Gets the label content information to display the vector component. Vector components don't have tags
@@ -168,7 +170,7 @@ define( require => {
       // if the values are visible and if the component isn't of 0 length.
       return {
         coefficient: null, // components never have a coefficient
-        tag: null,
+        tag: null, // components never have a tag
         value: valuesVisible && Math.abs( roundedComponentValue ) > 0 ? roundedComponentValue : null
       };
     }
