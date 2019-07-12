@@ -12,7 +12,6 @@ define( function( require ) {
 
   // modules
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
 
@@ -25,7 +24,20 @@ define( function( require ) {
     vectorDragThreshold: {
       type: 'number',
       isValidValue: value => ( value > 0 ),
-      defaultValue: VectorAdditionConstants.DEFAULT_VECTOR_LENGTH
+      defaultValue: 10
+    },
+
+
+    /**
+     * The minimum distance between a vectors tail to another vectors tail or tip to snap to the other vector in polar
+     * mode. See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
+     *
+     * For internal testing only.
+     */
+    polarSnapDistance: {
+      type: 'number',
+      isValidValue: value => ( value > 0 ),
+      defaultValue: 1
     }
 
   } );

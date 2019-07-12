@@ -45,6 +45,10 @@ define( require => {
   // See https://github.com/phetsims/vector-addition/issues/46 for more context.
   const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 
+  // minimum distance between a vectors tail to another vectors tail or tip to snap to the other vector in polar
+  // mode. See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
+  const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
+
   // rounding for the vector value (on the label with values checked)
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
@@ -325,22 +329,22 @@ define( require => {
         this.translateTailToPoint( constrainedBounds.closestPointTo( tailPosition ).roundedSymmetric() );
       }
       else if ( this.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-        // On Polar mode, snap tail to other vector's tips and tails if the distance is small enough
+        // On Polar mode, snap tail to other vector's tips and tails if the distance is small enough.
+        // See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
         const tailOnGraph = constrainedBounds.closestPointTo( tailPosition );
 
         for ( let i = 0; i < this.vectorSet.vectors.length; i++ ) {
 
           const vector = this.vectorSet.vectors.get( i );
-          if ( vector !== this && vector.tail.distance( tailOnGraph ) < 0.5 ) {
+          if ( vector !== this && vector.tail.distance( tailOnGraph ) < POLAR_SNAP_DISTANCE ) {
             this.translateTailToPoint( vector.tail );
             return;
           }
-          else if ( vector !== this && vector.tip.distance( tailOnGraph ) < 0.5 ) {
+          else if ( vector !== this && vector.tip.distance( tailOnGraph ) < POLAR_SNAP_DISTANCE ) {
             this.translateTailToPoint( vector.tip );
             return;
           }
         }
-
         this.translateTailToPoint( tailOnGraph );
       }
     }
