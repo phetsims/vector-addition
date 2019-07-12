@@ -80,7 +80,7 @@ define( require => {
       // @public (read-only) {GraphOrientations} orientation - orientation for the graph (final variable)
       this.orientation = orientation;
 
-      // @public (read-only) {CoordinateSnapModes} coordinateSnapMode - coordinate snap mode for the graph (final variable)
+      // @public (read-only) {CoordinateSnapModes} coordinateSnapMode - coordinate snap mode for the graph
       this.coordinateSnapMode = coordinateSnapMode;
 
       // @public (read-only) componentStyleProperty

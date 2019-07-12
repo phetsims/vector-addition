@@ -10,7 +10,6 @@
  *  - instantiate x and y component models
  *
  * @author Martin Veillette
- * @author Brandon Li
  */
 
 define( require => {
@@ -76,27 +75,27 @@ define( require => {
       //----------------------------------------------------------------------------------------
       super( initialTailPosition, initialComponents, vectorGroup, tag );
 
-      // @public (read-only) {boolean}
+      // @public (read-only) {boolean} isTipDraggable
       this.isTipDraggable = options.isTipDraggable;
 
-      // @public (read-only) {boolean}
+      // @public (read-only) {boolean} isRemovable
       this.isRemovable = options.isRemovable;
 
-      // @public (read-only)
+      // @public (read-only) coordinateSnapMode
       this.coordinateSnapMode = graph.coordinateSnapMode;
 
-      // @private {Graph}
+      // @private {Graph} graph
       this.graph = graph;
 
-      // @private {string} (see declaration of VECTOR_FALL_BACK_TAG for documentation)
+      // @private {string} fallBackTag (see declaration of VECTOR_FALL_BACK_TAG for documentation)
       this.fallBackTag = VECTOR_FALL_BACK_TAG;
 
       //----------------------------------------------------------------------------------------
 
       // Function to update the position of the tail of the vector based on the modelViewTransform
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
-        const oldTailViewPosition = oldModelViewTransform.modelToViewPosition( this.tail );
-        this.translateTailToPoint( newModelViewTransform.viewToModelPosition( oldTailViewPosition ) );
+        const oldTailLocation = oldModelViewTransform.modelToViewPosition( this.tail );
+        this.translateTailToPoint( newModelViewTransform.viewToModelPosition( oldTailLocation ) );
       };
 
       this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
@@ -109,13 +108,13 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Vector Component Models
 
-      // @public (read only) {VectorComponentModel}
+      // @public (read only) {VectorComponentModel} xVectorComponentModel
       this.xVectorComponentModel = new VectorComponentModel( this,
         graph.componentStyleProperty,
         graph.activeVectorProperty,
         VectorComponentModel.COMPONENT_TYPES.X_COMPONENT );
 
-      // @public (read only) {VectorComponentModel}
+      // @public (read only) {VectorComponentModel} yVectorComponentModel
       this.yVectorComponentModel = new VectorComponentModel( this,
         graph.componentStyleProperty,
         graph.activeVectorProperty,
@@ -123,10 +122,11 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public (read-only) {BooleanProperty} - indicates if the vector is in the play area
+      // @public (read-only) {BooleanProperty} isOnGraphProperty - indicates if the vector is in the play area
       this.isOnGraphProperty = new BooleanProperty( false );
 
-      // @public (read-only) {Property.<Animation|null>} - tracks any animation that is currently in progress.
+      // @public (read-only) {Property.<Animation|null>} inProgressAnimationProperty - tracks any animation that is
+      // currently in progress.
       this.inProgressAnimationProperty = new Property( null, {
         isValidValue: ( value ) => {
           return value === null || value instanceof Animation;
@@ -135,10 +135,10 @@ define( require => {
     }
 
     /**
-     * @override
      * Disposes the vector. Called when the vector is removed from the graph. This can be done by either
      * animating the vector back to the vector creator panel or by hitting the eraser/reset all button.
      * @public
+     * @override
      */
     dispose() {
 
@@ -201,13 +201,6 @@ define( require => {
         else {
           value = !isRoundedMagnitudeZero ? roundedMagnitude : null;
         }
-      }
-
-      // If the rounded magnitude is zero, don't display anything. Decision made:
-      // https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
-      if ( isRoundedMagnitudeZero ) {
-        tag = null;
-        value = null;
       }
 
       return {
@@ -306,7 +299,7 @@ define( require => {
       const dragOffset = constrainedBounds.closestPointTo( tailPosition ).minus( tailPosition );
 
       if ( Math.abs( dragOffset.x ) > VECTOR_DRAG_THRESHOLD || Math.abs( dragOffset.y ) > VECTOR_DRAG_THRESHOLD ) {
-        this.removeFromGraph();
+        this.popOffOfGraph();
       }
     }
 
@@ -420,7 +413,7 @@ define( require => {
      * Removes the vector from the graph.
      * @public
      */
-    removeFromGraph() {
+    popOffOfGraph() {
       this.isOnGraphProperty.value = false;
       this.graph.activeVectorProperty.value = null;
     }

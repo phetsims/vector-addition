@@ -186,7 +186,7 @@ define( require => {
                                   .viewToModelDelta( this.bodyDragListener.localPoint ).plus( tailPosition );
 
           if ( !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
-            vectorModel.removeFromGraph();
+            vectorModel.popOffOfGraph();
           }
         }
 
