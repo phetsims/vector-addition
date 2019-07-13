@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const ArcArrowNode = require( 'VECTOR_ADDITION/common/view/ArcArrowNode' );
+  const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
@@ -183,7 +183,7 @@ define( function( require ) {
         stroke: options.color
       } );
 
-      const arcArrow = new ArcArrowNode( options.angle, options.arcRadius, options.arcArrowOptions );
+      const arcArrow = new CurvedArrowNode( options.arcRadius, Util.toRadians( options.angle ), options.arcArrowOptions );
 
       return new Node( {
         children: [ wedgePath, arcArrow ]
@@ -448,7 +448,7 @@ define( function( require ) {
       const arrowVector = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, options );
 
       // Create an arc arrow
-      const arcArrow = new ArcArrowNode( 45, options.arcRadius, options.arcArrowOptions );
+      const arcArrow = new CurvedArrowNode( options.arcRadius, Util.toRadians( 45 ), options.arcArrowOptions );
 
       // Create a baseline
       const line = new Line( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, {

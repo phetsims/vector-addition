@@ -13,7 +13,7 @@ define( require => {
   'use strict';
 
   // modules
-  const ArcArrowNode = require( 'VECTOR_ADDITION/common/view/ArcArrowNode' );
+  const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Line = require( 'SCENERY/nodes/Line' );
@@ -74,8 +74,8 @@ define( require => {
 
       const vectorAngle = vectorModel.angle;
 
-      // @private {ArcArrowNode}
-      this.arcArrow = new ArcArrowNode( vectorAngle ? Util.toDegrees( vectorAngle ) : 0, ARC_RADIUS, ARC_ARROW_OPTIONS );
+      // @private {CurvedArrowNode}
+      this.arcArrow = new CurvedArrowNode( ARC_RADIUS, vectorAngle ? vectorAngle : 0, ARC_ARROW_OPTIONS );
 
       // @private {Text} - to be set later
       this.labelText = new Text( '', { font: ANGLE_LABEL_FONT } );
@@ -87,7 +87,7 @@ define( require => {
       // Update the angle when the model changes
       const updateAngleListener = () => {
         if ( this.visible ) { // only update the angle if we are visible
-          this.updateAngleNode( vectorModel.magnitude !== 0 ? Util.toDegrees( vectorModel.angle ): null );
+          this.updateAngleNode( vectorModel.magnitude !== 0 ? vectorModel.angle : null );
         }
       };
       vectorModel.vectorComponentsProperty.link( updateAngleListener );
@@ -111,7 +111,7 @@ define( require => {
           this.visible = angleVisible && activeVector === vectorModel && isOnGraph;
 
 
-          this.updateAngleNode( vectorModel.magnitude !== 0 ? Util.toDegrees( vectorModel.angle ): null );
+          this.updateAngleNode( vectorModel.magnitude !== 0 ? vectorModel.angle: null );
           this.scaleArc( vectorModel.magnitude, graph.modelViewTransformProperty.value );
         } );
 
@@ -150,7 +150,7 @@ define( require => {
       }
       else {
 
-        this.labelText.setText( Util.toFixed( angle, NUMBER_DISPLAY_ROUNDING ) + '\u00B0' );
+        this.labelText.setText( Util.toFixed( Util.toDegrees( angle ), NUMBER_DISPLAY_ROUNDING ) + '\u00B0' );
 
         const angleInRadians = Util.toRadians( angle );
 
