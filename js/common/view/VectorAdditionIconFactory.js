@@ -1,21 +1,21 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Factory methods for creating the various icons that appear in the sim.
+ * Factory for creating the various icons that appear in the sim.
  *
  * @author Brandon Li
  */
-define( function( require ) {
+
+define( require => {
   'use strict';
 
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
-  const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Line = require( 'SCENERY/nodes/Line' );
@@ -28,79 +28,74 @@ define( function( require ) {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
-  // strings
-  const oneString = require( 'string!VECTOR_ADDITION/one' );
-
+  //----------------------------------------------------------------------------------------
   // constants
 
-  // default size for all radio button icons
-  const RADIO_BUTTON_ICON_SIZE = 25;
+  // size (width and height) of all arrow nodes inside of radio buttons
+  const RADIO_BUTTON_ARROW_SIZE = 29;
 
-  // defaults for all arrow instances
+  // defaults for all arrow node instances
   const ARROW_ICON_OPTIONS = {
     fill: VectorAdditionColors[ VectorGroups.ONE ].fill,
     stroke: VectorAdditionColors.BLACK,
     lineWidth: 0.5,
-    headHeight: 6,
-    headWidth: 10,
-    tailWidth: 3.5,
-    opacity: 1
+    headHeight: 6.5,
+    headWidth: 10.5,
+    tailWidth: 3.9
   };
 
-  // Semi opaque arrow for the components on the component radio button icons
-  const OPAQUE_ARROW_OPTIONS = _.extend( {}, ARROW_ICON_OPTIONS, {
-    opacity: 0.4
-  } );
+  // default font on text inside of icons that go in radio buttons
+  const RADIO_BUTTON_TEXT_FONT = new PhetFont( { size: 11, family: 'Times', weight: '500' } );
+
+  // default options for opaque arrows
+  const OPAQUE_ARROW_OPTIONS = _.extend( {}, ARROW_ICON_OPTIONS, { opacity: 0.4 } );
+
 
   class VectorAdditionIconFactory {
     /**
      * Creates the Vector Icon that appears on the vector creator panel
-     * @param {Vector2} initialVector - in model coordinates
-     * @param {VectorGroups} vectorGroup
-     * @param {Object} [options]
-     * @returns {ArrowNode}
      * @public
+     * @param {Vector2} initialVectorComponents - vector components (in model coordinates)
+     * @param {VectorGroups} vectorGroup - vector group of the vector that the icon represents
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @returns {ArrowNode}
      */
-    static createVectorCreatorPanelIcon( initialVector, vectorGroup, options ) {
+    static createVectorCreatorPanelIcon( initialVectorComponents, vectorGroup, options) {
+      assert && assert( initialVectorComponents instanceof Vector2 );
+      assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ) );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
-      assert && assert( initialVector instanceof Vector2, `invalid initialVector: ${initialVector}` );
-      assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ),
-        `invalid vectorGroup: ${vectorGroup}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
-
-      options = _.extend( {
-        lineWidth: 0,
+      options = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        // arrow node options
         tailWidth: 2.5,
-        headWidth: 12,
-        headHeight: 8,
         cursor: 'pointer',
-        arrowSize: 30,
-        fill: VectorAdditionColors[ vectorGroup ].fill
+        fill: VectorAdditionColors[ vectorGroup ].fill,
+
+        // specific to this function
+        arrowLength: 30 // {number} length of the arrow
       }, options );
 
-      const iconVector = initialVector.normalized().timesScalar( options.arrowSize );
-
-      return new ArrowNode( 0, 0, iconVector.x, iconVector.y, options );
+      const vectorComponentsView = initialVectorComponents.normalized().timesScalar( options.arrowLength );
+      return new ArrowNode( 0, 0, vectorComponentsView.x, vectorComponentsView.y, options );
     }
 
     /**
-     * Creates a double headed arrow icon associated with the graph orientation
-     * @param (GraphOrientations} graphOrientation
-     * @param {Object} [options]
-     * @returns {ArrowNode}
+     * Creates the icon used on the radio buttons on 'Explore1D' that toggle the graph orientation (horizontal/vertical)
      * @public
+     * @param (GraphOrientations} graphOrientation - orientation of the graph (has to be horizontal or vertical)
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @returns {ArrowNode}
      */
     static createGraphOrientationIcon( graphOrientation, options ) {
-
-      assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation ),
-        `invalid componentStyle: ${graphOrientation}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation )
+        && graphOrientation !== GraphOrientations.TWO_DIMENSONAL );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
       options = _.extend( {
+        // All options are for arrow node
         fill: VectorAdditionColors.BLACK,
         doubleHead: true,
         tailWidth: 3,
@@ -109,6 +104,7 @@ define( function( require ) {
         arrowLength: 40
       }, options );
 
+      //----------------------------------------------------------------------------------------
       if ( graphOrientation === GraphOrientations.HORIZONTAL ) {
         return new ArrowNode( 0, 0, options.arrowLength, 0, options );
       }
@@ -118,88 +114,70 @@ define( function( require ) {
     }
 
     /**
-     * Creates the icon that appears next to the 'Sum' visibility checkbox
-     * @param {VectorGroups} vectorGroup
-     * @param {Object} [options]
-     * @returns {Node}
+     * Creates the icon that appears next to the 'Sum' checkbox on the control panel
      * @public
+     * @param {VectorGroups} vectorGroup
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @returns {Node}
      */
     static createSumIcon( vectorGroup, options ) {
-      assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ),
-        `invalid vectorGroup: ${vectorGroup}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ) );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
+
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
+        // for arrow node
         lineWidth: 1,
-        headHeight: 7,
-        arrowSize: 22,
-        fill: VectorAdditionColors[ vectorGroup ].sum
+        tailWidth: 3.8,
+        headHeight: 7.2,
+        fill: VectorAdditionColors[ vectorGroup ].sum,
+
+        // specific to this
+        arrowLength: 22
       }, options );
 
-      return new ArrowNode( 0, 0, options.arrowSize, 0, options );
+      return new ArrowNode( 0, 0, options.arrowLength, 0, options );
     }
 
     /**
      * Creates the icon that appears next to the checkbox that toggles the 'Angle' visibility
-     * @param {Object} [options]
-     * @returns {Node}
      * @public
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @returns {Node}
      */
     static createAngleIcon( options ) {
-
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
       options = _.extend( {
-        angle: 50, // {number} in degrees
-        iconSize: 20, // {number}
-        arcRadius: 14, // {number}
-        color: VectorAdditionColors.BLACK, // {string}
-        arcArrowOptions: null // {object} see defaults bellow
+        // all are specific to this
+        angle: Util.toRadians( 50 ), // {number} in radians
+        curvedArrowRadius: 14, // {number}
+        wedgeLength: 20, // {number} - length of the wedge
+        curvedArrowOptions: null
       }, options );
 
-      options.arcArrowOptions = _.extend( {
-        arrowheadWidth: 5, // {number}
-        arrowheadHeight: 3, // {number}
-        arcOptions: {
-          stroke: options.color // {string}
-        }
-      }, options.arcArrowOptions );
+      options.curvedArrowOptions = _.extend( {
+        arrowheadWidth: 6,
+        arrowheadHeight: 4.2,
+        arcOptions: { lineWidth: 1.3 }
+      }, options.curvedArrowOptions );
 
-      // Create the Shape for the outline lines of the icon
-      const wedgeShape = new Shape();
-
-      const angleIconAngleRadians = Util.toRadians( options.angle );
-
-      // Define the origin at the bottom left (tip of the wedge)
-      // Start from right and move to the left (origin) and then move to the top right corner of the wedge
-      wedgeShape.moveTo( options.iconSize, 0 )
+      // Create the wedge (bottom left as the origin)
+      const wedgeShape = new Shape().moveTo( options.wedgeLength, 0 )
         .horizontalLineTo( 0 )
-        .lineTo( Math.cos( angleIconAngleRadians ) * options.iconSize,
-          -1 * Math.sin( angleIconAngleRadians ) * options.iconSize );
+        .lineTo( Math.cos( options.angle ) * options.wedgeLength, -Math.sin( options.angle ) * options.wedgeLength );
 
-      // Create the path for the wedgeShape
-      const wedgePath = new Path( wedgeShape, {
-        stroke: options.color
-      } );
-
-      const arcArrow = new CurvedArrowNode( options.arcRadius, Util.toRadians( options.angle ), options.arcArrowOptions );
-
-      return new Node( {
-        children: [ wedgePath, arcArrow ]
-      } );
+      return new Node().setChildren( [ new Path( wedgeShape, { stroke: VectorAdditionColors.BLACK } ),
+        new CurvedArrowNode( options.curvedArrowRadius, options.angle, options.curvedArrowOptions ) ] );
     }
 
     /**
      * Creates the icon that appears next to the checkbox that toggles the Grid visibility
-     * @param {Object} [options]
-     * @returns {Node}
      * @public
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @returns {Node}
      */
     static createGridIcon( options ) {
-
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
       options = _.extend( {
         rows: 3, // {number}
@@ -209,7 +187,6 @@ define( function( require ) {
       }, options );
 
       options.gridPathOptions = _.extend( {
-        lineWidth: 1, // {number}
         stroke: VectorAdditionColors.GRID_ICON_COLOR // {string}
       }, options.gridPathOptions );
 
@@ -229,19 +206,47 @@ define( function( require ) {
     }
 
     /**
-     * Convenience method to get a component style radio button icon
-     * @param {ComponentStyles} componentStyle
+     * Creates a radio button icon with ensured alignment and correct bounds.
+     * @private
+     * @param {Node} icon
      * @param {Object} [options]
-     * @returns {Node}
-     * @public
+     * @returns {AlignBox}
      */
-    static createComponentStyleIcon( componentStyle, options ) {
+    static createRadioButtonIcon( icon, options ) {
 
-      assert && assert( componentStyle && ComponentStyles.includes( componentStyle ),
-        `invalid componentStyle: ${componentStyle}` );
+      assert && assert( icon instanceof Node, `invalid icon: ${icon}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
+      options = _.extend( {
+        width: RADIO_BUTTON_ARROW_SIZE + 9.5,
+        height:RADIO_BUTTON_ARROW_SIZE + 7.5,
+
+        // for align box
+        topMargin: 0,
+        leftMargin: 0,
+        alignX: 'center',
+        alignY: 'center'
+      }, options );
+
+      return new AlignBox( icon, {
+        alignBounds: new Bounds2( 0, 0, options.width, options.height ),
+        topMargin: options.topMargin,
+        leftMargin: options.leftMargin,
+        alignX: options.alignX,
+        alignY: options.alignY
+      } );
+    }
+    /**
+     * Creates the icons that appear on the component style radio button group
+     * @public
+     * @param {ComponentStyles} componentStyle
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @returns {Node}
+     */
+    static createComponentStyleIcon( componentStyle, options ) {
+      assert && assert( componentStyle && ComponentStyles.includes( componentStyle ) );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
       switch( componentStyle ) {
         case ComponentStyles.INVISIBLE:
           return this.createInvisibleComponentStyleIcon( options );
@@ -257,235 +262,196 @@ define( function( require ) {
     }
 
     /**
-     * Creates the Icon for the invisible display style component radio button
-     * @param {Object} [options]
+     * Creates the Icon for the invisible component display style on the component radio button
+     * @private
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
      * @returns {Node}
-     * @public
      */
     static createInvisibleComponentStyleIcon( options ) {
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
-      return new FontAwesomeNode( 'eye_close', _.extend( {
-        maxWidth: RADIO_BUTTON_ICON_SIZE + 10
-      }, options ) );
+      options = _.extend( { maxWidth: RADIO_BUTTON_ARROW_SIZE + 7.5 } );
+      return this.createRadioButtonIcon( new FontAwesomeNode( 'eye_close', options ) );
     }
 
     /**
      * Creates the Icon for the parallelogram component radio button
-     * @param {Object} [options]
+     * @private
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
      * @returns {Node}
-     * @public
      */
     static createParallelogramComponentStyleIcon( options ) {
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      const vectorArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ARROW_SIZE, -RADIO_BUTTON_ARROW_SIZE, ARROW_ICON_OPTIONS );
+      const xComponentArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ARROW_SIZE, 0, OPAQUE_ARROW_OPTIONS );
+      const yComponentArrow = new ArrowNode( 0, 0, 0, -RADIO_BUTTON_ARROW_SIZE, OPAQUE_ARROW_OPTIONS );
 
-      // The icon has three arrows, a vector arrow and its 2 components (opaque)
-      const vectorArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, ARROW_ICON_OPTIONS );
-
-      const xComponentArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, OPAQUE_ARROW_OPTIONS );
-
-      const yComponentArrow = new ArrowNode( 0, 0, 0, -RADIO_BUTTON_ICON_SIZE, OPAQUE_ARROW_OPTIONS );
-
-      return new Node( _.extend( {
+      return this.createRadioButtonIcon( new Node( _.extend( {
         children: [ xComponentArrow, yComponentArrow, vectorArrow ]
-      }, options ) );
+      }, options ) ) );
     }
 
     /**
      * Creates the Icon for the triangle component radio button
-     * @param {Object} [options]
+     * @private
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
      * @returns {Node}
-     * @public
      */
     static createTriangleComponentStyleIcon( options ) {
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      const vectorArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ARROW_SIZE, -RADIO_BUTTON_ARROW_SIZE, ARROW_ICON_OPTIONS );
+      const xComponentArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ARROW_SIZE, 0, OPAQUE_ARROW_OPTIONS );
+      const yComponentArrow = new ArrowNode( RADIO_BUTTON_ARROW_SIZE, 0, RADIO_BUTTON_ARROW_SIZE,
+        -RADIO_BUTTON_ARROW_SIZE, OPAQUE_ARROW_OPTIONS );
 
-      // The icon has three arrows, a vector arrow and its 2 components (opaque)
-      const vectorArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, ARROW_ICON_OPTIONS );
-
-      const xComponentArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, OPAQUE_ARROW_OPTIONS );
-
-      const yComponentArrow = new ArrowNode(
-        RADIO_BUTTON_ICON_SIZE,
-        0,
-        RADIO_BUTTON_ICON_SIZE,
-        -RADIO_BUTTON_ICON_SIZE,
-        OPAQUE_ARROW_OPTIONS );
-
-      return new Node( _.extend( {
+      return this.createRadioButtonIcon( new Node( _.extend( {
         children: [ xComponentArrow, yComponentArrow, vectorArrow ]
-      }, options ) );
+      }, options ) ) );
     }
 
     /**
      * Creates the Icon for the on axis component radio button
-     * @param {Object} [options]
+     * @private
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
      * @returns {Node}
-     * @public
      */
     static createOnAxisComponentStyleIcon( options ) {
-
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
-
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
       options = _.extend( {
-        subBoxSize: 10, // The Icon draws a sub box at the bottom left
-        lineDash: [ 2, 2 ], // Line dash
-        stroke: 'black'
+        subBoxSize: 10,
+        lineDash: [ 2, 2 ],
+        stroke: VectorAdditionColors.BLACK
       }, options );
 
-      //----------------------------------------------------------------------------------------
+      const vectorArrow = new ArrowNode( options.subBoxSize,
+        -options.subBoxSize,
+        RADIO_BUTTON_ARROW_SIZE,
+        -RADIO_BUTTON_ARROW_SIZE,
+        ARROW_ICON_OPTIONS );
 
-      // The icon has three arrows, a vector arrow and its 2 components (opaque)
-      const vectorArrow = new ArrowNode(
-        options.subBoxSize,
-        -1 * options.subBoxSize,
-        RADIO_BUTTON_ICON_SIZE,
-        -1 * RADIO_BUTTON_ICON_SIZE,
-        ARROW_ICON_OPTIONS
-      );
+      const xArrow = new ArrowNode( options.subBoxSize, 0, RADIO_BUTTON_ARROW_SIZE, 0, OPAQUE_ARROW_OPTIONS );
+      const yArrow = new ArrowNode( 0, -options.subBoxSize, 0, -RADIO_BUTTON_ARROW_SIZE, OPAQUE_ARROW_OPTIONS );
 
-      const xComponentArrow = new ArrowNode( options.subBoxSize, 0, RADIO_BUTTON_ICON_SIZE, 0, OPAQUE_ARROW_OPTIONS );
-
-      const yComponentArrow = new ArrowNode( 0, -options.subBoxSize, 0, -RADIO_BUTTON_ICON_SIZE, OPAQUE_ARROW_OPTIONS );
-
-      //----------------------------------------------------------------------------------------
-      // Create a dashed line shape
-      const dashedLineShape = new Shape();
-
-      // Draw the first 2 lines around the sub box
-      dashedLineShape.moveTo( 0, -options.subBoxSize )
+      const dashedLineShape = new Shape().moveTo( 0, -options.subBoxSize )
         .horizontalLineTo( options.subBoxSize )
-        .verticalLineToRelative( options.subBoxSize );
+        .verticalLineToRelative( options.subBoxSize )
+        .moveTo( 0, -RADIO_BUTTON_ARROW_SIZE )
+        .horizontalLineTo( RADIO_BUTTON_ARROW_SIZE )
+        .verticalLineToRelative( RADIO_BUTTON_ARROW_SIZE );
 
-      // Draw the lines around the icon
-      dashedLineShape.moveTo( 0, -RADIO_BUTTON_ICON_SIZE )
-        .horizontalLineTo( RADIO_BUTTON_ICON_SIZE )
-        .verticalLineToRelative( RADIO_BUTTON_ICON_SIZE );
+      const dashedLinePath = new Path( dashedLineShape, { lineDash: options.lineDash, stroke: options.stroke } );
 
-      // Create the shape of the path
-      const dashedLinePath = new Path( dashedLineShape, options );
-
-      return new Node( {
-        children: [ xComponentArrow, yComponentArrow, dashedLinePath, vectorArrow ]
-      } );
+      return this.createRadioButtonIcon( new Node().setChildren( [ xArrow, yArrow, dashedLinePath, vectorArrow ] ) );
     }
 
     /**
      * Creates the Icon for the cartesian coordinate snap mode radio button
-     * @param {Object} [options]
-     * @returns {Node}
      * @public
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @returns {Node}
      */
     static createCartesianIcon( options ) {
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
-
-      options = _.extend( {}, ARROW_ICON_OPTIONS, {
-        tailWidth: 4.5,
-        lineWidth: 0,
-        headHeight: 7,
-        headWidth: 10,
-        componentArrowOptions: null
+      options = _.extend( {
+        arrowSize: 25, // {number}
+        topMargin: 5, // {number}
+        leftMargin: 1.4, // {number}
+        labelArrowMargin: 2, // {number}
+        offsetYLabel: 3, // {number}
+        componentArrowOptions: null,
+        cartesianArrowOptions: null
       }, options );
-
-      options.componentArrowOptions = _.extend( {}, options, {
+      options.cartesianArrowOptions = _.extend( {}, ARROW_ICON_OPTIONS, {
+        lineWidth: 0,
+        headHeight: 7.5,
+        tailWidth: 4.2
+      } );
+      options.componentArrowOptions = _.extend( {}, ARROW_ICON_OPTIONS, {
         fill: VectorAdditionColors.BLACK,
-        tailWidth: 2.5
+        tailWidth: 3.1,
+        headHeight: 7.3,
+        headWidth: 9.3
       }, options.componentArrowOptions );
 
-      // The icon has 3 arrows, start with the vector then its 2 components
-      const xComponentArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, options.componentArrowOptions );
+      const arrowSize = options.arrowSize;
 
-      const yComponentArrow = new ArrowNode(
-        RADIO_BUTTON_ICON_SIZE,
-        0,
-        RADIO_BUTTON_ICON_SIZE,
-        -RADIO_BUTTON_ICON_SIZE,
-        options.componentArrowOptions );
+      const xArrow = new ArrowNode( 0, 0, arrowSize, 0, options.componentArrowOptions );
+      const yArrow = new ArrowNode( arrowSize, 0, arrowSize, -arrowSize, options.componentArrowOptions );
+      const cartesianArrow = new ArrowNode( 0, 0, arrowSize, -arrowSize, options.cartesianArrowOptions );
 
-      const cartesianArrow = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, options );
+      const xLabel = new Text( '1', {
+        font: RADIO_BUTTON_TEXT_FONT,
+        top: xArrow.centerY,
+        centerX: xArrow.centerX
+      } );
+      const yLabel = new Text( '1', {
+        font: RADIO_BUTTON_TEXT_FONT,
+        centerY: yArrow.centerY + options.offsetYLabel,
+        left: yArrow.centerX + options.labelArrowMargin
+      } );
 
-      return new Node( {
-        children: [ xComponentArrow, yComponentArrow, cartesianArrow ]
+      return this.createRadioButtonIcon( new Node().setChildren( [ xArrow, yArrow, cartesianArrow, xLabel, yLabel ] ), {
+        topMargin: options.topMargin,
+        leftMargin: options.leftMargin
       } );
     }
 
     /**
      * Creates the Icon for the cartesian coordinate polar mode radio button
-     * @param {Object} [options]
-     * @returns {Node}
      * @public
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @returns {Node}
      */
     static createPolarIcon( options ) {
-
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
-
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
-        fill: VectorAdditionColors.PURPLE,
-        lineWidth: 0,
         arcRadius: 17,
-        tailWidth: 4,
-        arcArrowOptions: null
+        curvedArrowOptions: null,
+        polarVectorOptions: null,
+        arrowSize: 27.5
       }, options );
 
-      options.arcArrowOptions = _.extend( {
+      options.polarVectorOptions = _.extend( {}, ARROW_ICON_OPTIONS, {
+        lineWidth: 0,
+        headHeight: 7.5,
+        tailWidth: 4.2,
+        fill: VectorAdditionColors.PURPLE
+      } );
+
+      options.curvedArrowOptions = _.extend( {
         arrowheadWidth: 5.5, // {number}
         arrowheadHeight: 5, // {number}
-        arcOptions: {
-          stroke: 'black' // {string}
-        }
-      }, options.arcArrowOptions );
+        arcOptions: { lineWidth: 1.2 }
+      }, options.curvedArrowOptions );
 
-      // Create an arrow vector
-      const arrowVector = new ArrowNode( 0, 0, RADIO_BUTTON_ICON_SIZE, -RADIO_BUTTON_ICON_SIZE, options );
+      const polarVector = new ArrowNode( 0, 0, options.arrowSize, -options.arrowSize, options.polarVectorOptions );
+      const arcArrow = new CurvedArrowNode( options.arcRadius, Util.toRadians( 45 ), options.curvedArrowOptions );
+      const line = new Line( 0, 0, options.arrowSize, 0, { stroke: VectorAdditionColors.BLACK } );
 
-      // Create an arc arrow
-      const arcArrow = new CurvedArrowNode( options.arcRadius, Util.toRadians( 45 ), options.arcArrowOptions );
-
-      // Create a baseline
-      const line = new Line( 0, 0, RADIO_BUTTON_ICON_SIZE, 0, {
-        stroke: 'black'
+      const arrowLabel = new Text( '1', {
+        bottom: polarVector.centerY,
+        right: polarVector.centerX - 2,
+        font: RADIO_BUTTON_TEXT_FONT
       } );
 
-      // Create a label for the arrowVector
-      const arrowLabel = new Text( oneString, {
-        bottom: arrowVector.centerY,
-        right: arrowVector.centerX - 2,
-        font: new PhetFont( { size: 12, family: 'Times', weight: '600' } )
-      } );
-
-      return new Node( {
-        children: [ arrowLabel, arrowVector, arcArrow, line ]
-      } );
+      return this.createRadioButtonIcon( new Node().setChildren( [ arrowLabel, polarVector, arcArrow, line ] ) );
     }
 
-    /*---------------------------------------------------------------------------*
-     * The Following are icons that appear in the Equation screen
-     *---------------------------------------------------------------------------*/
     /**
      * Creates the Icon that appears on the equation types radio button group
-     * @param {EquationTypes} equationType
-     * @param {EquationVectorSet} equationVectorSet
-     * @param {Object} [options]
-     * @returns {Node}
      * @public
+     * @param {EquationTypes} equationType
+     * @param {array.<string>} vector tags - array of the vector tags. It is assumed the last vector tag is the sum.
+     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @returns {Node}
      */
-    static createEquationTypesIcon( equationType, equationVectorSet, options ) {
-
-
+    static createEquationTypesIcon( equationType, vectorTags, options ) {
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
-      assert && assert( equationVectorSet instanceof EquationVectorSet,
-        `invalid equationVectorSet: ${equationVectorSet}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      assert && assert( vectorTags.filter( tag => typeof tag === 'string' ).length === vectorTags.length );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
       options = _.extend( {
         font: new PhetFont( 12 ),
@@ -493,20 +459,23 @@ define( function( require ) {
         height: 20
       } );
 
-      let string;
+      // insert signs (+/-/=) in between each tag (excluding the sum tag)
+      const contentArray = _.flatMap( _.dropRight( vectorTags ), ( tag, index, array ) => {
+        return index !== array.length - 1 ? [ tag, equationType === EquationTypes.SUBTRACTION ? '-' : '+' ] :
+          tag;
+      } );
 
-      if ( equationType === EquationTypes.ADDITION ) {
-        string = `${equationVectorSet.vectors.get( 0 ).tag} + ${equationVectorSet.vectors.get( 1 ).tag} = ${equationVectorSet.vectorSum.tag}`;
-      }
-      else if ( equationType === EquationTypes.SUBTRACTION ) {
-        string = `${equationVectorSet.vectors.get( 0 ).tag} - ${equationVectorSet.vectors.get( 1 ).tag} = ${equationVectorSet.vectorSum.tag}`;
+      // Add the second half of the equation
+      if ( equationType === EquationTypes.ADDITION || equationType === EquationTypes.SUBTRACTION ) {
+        contentArray.push( '=', _.last( vectorTags ) );
       }
       else if ( equationType === EquationTypes.NEGATION ) {
-        string = `${equationVectorSet.vectors.get( 0 ).tag} + ${equationVectorSet.vectors.get( 1 ).tag} + ${equationVectorSet.vectorSum.tag} = 0`;
+        contentArray.push( '+', _.last( vectorTags ), '=', '0' );
       }
 
-      return new AlignBox( new Text( string, { font: options.font } ), {
-        alignBounds: new Bounds2( 0, 0, options.width, options.height )
+      return this.createRadioButtonIcon( new Text( _.join( contentArray, ' ' ), { font: options.font } ), {
+        width: options.width,
+        height: options.height
       } );
     }
   }

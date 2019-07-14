@@ -33,7 +33,7 @@ define( require => {
   const DEFAULT_VECTOR = new Vector2( DEFAULT_VECTOR_LENGTH, DEFAULT_VECTOR_LENGTH );
   const VECTOR_CREATOR_PANEL_SLOT_OPTIONS = {
     iconOptions: {
-      arrowSize: 40
+      arrowLength: 40
     },
     isInfinite: true
   };

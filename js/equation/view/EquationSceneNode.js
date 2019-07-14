@@ -91,7 +91,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Add the equation types radio button Group
 
-      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( scene.equationTypeProperty, scene.additionGraph.vectorSet, {
+      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( scene.equationTypeProperty, scene.tags, {
         centerY: PANEL_CENTER_Y
       } );
 

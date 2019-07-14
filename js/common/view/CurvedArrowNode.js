@@ -3,7 +3,7 @@
 /**
  * View for an arrow that is curved. Used in various other views throughout the sim.
  *
- * A solution using 'scenery-phet/js/CurvedArrowShape' was investigated. See
+ * A solution using `SCENERY-PHET/CurvedArrowShape` was investigated. See
  * https://user-images.githubusercontent.com/42391580/61176588-88247b80-a580-11e9-96e4-b14e4d8e1212.png for an
  * explanation.
  *
@@ -28,7 +28,6 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-
 
   class CurvedArrowNode extends Node {
     /**
@@ -68,7 +67,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // Create the path for the arc. Set to an arbitrary shape for now.
+      // Create the path for the arc. Set to an arbitrary shape for now. To be updated later.
       const arcPath = new Path( new Shape(), options.arcOptions );
 
       //----------------------------------------------------------------------------------------
@@ -105,27 +104,28 @@ define( require => {
       //----------------------------------------------------------------------------------------
       const updateArrowNode = ( angle, radius ) => {
 
-        // Flag that indicates if the arc is anticlockwise (measured from positive x-axis) or clockwise.
-        const isAnticlockwise = angle >= 0;
-
+        //----------------------------------------------------------------------------------------
         // See https://user-images.githubusercontent.com/42391580/61176905-1e0ed500-a586-11e9-992b-d96757a6331b.png
-        // for an annotated drawing.
+        // for an annotated drawing of how the subtended angle and the corrected angle are calculated
+        //----------------------------------------------------------------------------------------
 
         // The arrowhead subtended angle is defined as the angle between the vector from the center to the tip of the
         // arrow and the vector of the center to first point the arc and the triangle intersect
         const arrowheadSubtentedAngle = Math.asin( options.arrowheadHeight / radius );
 
-        // Change the arrowhead visibility to false when the angle is too small relative to the subtended angle and true
-        // otherwise
-        arrowheadPath.visible = Math.abs( angle ) > arrowheadSubtentedAngle;
+        // Flag that indicates if the arc is anticlockwise (measured from positive x-axis) or clockwise.
+        const isAnticlockwise = angle >= 0;
 
         // The corrected angle is the angle that is between the vector that goes from the center to the first point the
-        // arc and the triangle intersect and the vector along the baseline (x-axis).
-        // This is used instead to create a more accurate angle excluding the size of the triangle. Again, look at
-        // the drawing above.
+        // arc and the triangle intersect and the vector along the baseline (x-axis). This is used instead to create a
+        // more accurate angle excluding the size of the triangle. Again, look at the drawing above.
         const correctedAngle = isAnticlockwise ?
                                angle - arrowheadSubtentedAngle :
                                angle + arrowheadSubtentedAngle;
+
+        // Change the arrowhead visibility to false when the angle is too small relative to the subtended angle and true
+        // otherwise
+        arrowheadPath.visible = Math.abs( angle ) > arrowheadSubtentedAngle;
 
         // Create the arc shape
         const arcShape = new Shape().arcPoint( Vector2.ZERO,
@@ -134,20 +134,23 @@ define( require => {
           arrowheadPath.visible ? -correctedAngle : -angle, isAnticlockwise );
         arcPath.setShape( arcShape );
 
-        // Adjust the position and angle of arrowhead. Rotate the arrowhead from the tip into the correct position from
-        // the original angle
-        arrowheadPath.setRotation( isAnticlockwise ? -angle : -angle + Math.PI );
 
-        // Translate the tip of the arrowhead to the tip of the arc.
-        arrowheadPath.setTranslation(
-          Math.cos( arrowheadPath.visible ? correctedAngle : angle ) * radius,
-          -Math.sin( arrowheadPath.visible ? correctedAngle : angle ) * radius
-        );
+        if ( arrowheadPath.visible ) {
+
+          // Adjust the position and angle of arrowhead. Rotate the arrowhead from the tip into the correct position
+          // from the original angle
+          arrowheadPath.setRotation( isAnticlockwise ? -angle : -angle + Math.PI );
+
+          // Translate the tip of the arrowhead to the tip of the arc.
+          arrowheadPath.setTranslation(
+            Math.cos( arrowheadPath.visible ? correctedAngle : angle ) * radius,
+            -Math.sin( arrowheadPath.visible ? correctedAngle : angle ) * radius
+          );
+        }
       };
 
-      // @private {Multilink} updateArrowNodeMultilink
-      this.updateArrowNodeMultilink = Property.multilink( [ this.angleProperty, this.radiusProperty ],
-        updateArrowNode );
+      // @private {Multilink} updateNodeMultilink
+      this.updateNodeMultilink = Property.multilink( [ this.angleProperty, this.radiusProperty ], updateArrowNode );
     }
 
     /**
@@ -156,7 +159,7 @@ define( require => {
      * @public
      */
     dispose() {
-      Property.unmultilink( this.updateArrowNodeMultilink );
+      Property.unmultilink( this.updateNodeMultilink );
     }
 
     /**
@@ -167,7 +170,7 @@ define( require => {
      *                         radians.
      */
     set angle( angle ) {
-      
+
       assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
       this.angleProperty.value = angle;
     }
@@ -179,7 +182,7 @@ define( require => {
      * @param {number} radius - the radius of curved arrow.
      */
     set radius( radius ) {
-      
+
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
       this.radiusProperty.value = radius;
     }

@@ -23,7 +23,7 @@ define( require => {
   const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   // const BaseVectorModel = require( 'VECTOR_ADDITION/equation/model/BaseVectorModel' );
-  // const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   // const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   // const Vector2 = require( 'DOT/Vector2' );
 
@@ -31,7 +31,8 @@ define( require => {
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
   const DEFAULT_BASE_VECTOR_VISIBILTY = false;
   // const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
-
+  const VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
+    
   class EquationScene {
     /**
      * @constructor
@@ -94,6 +95,7 @@ define( require => {
       this.graphs = [ this.additionGraph, this.subtractionGraph, this.negationGraph ];
 
 
+      this.tags = VECTOR_TAGS;
 
     }
 

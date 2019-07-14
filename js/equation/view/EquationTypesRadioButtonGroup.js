@@ -27,7 +27,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
+  // const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
 
 
   class EquationTypesRadioButtonGroup extends RadioButtonGroup {
@@ -44,8 +44,8 @@ define( require => {
       assert && assert( equationTypeProperty instanceof EnumerationProperty
       && EquationTypes.includes( equationTypeProperty.value ),
         `invalid equationTypeProperty: ${equationTypeProperty}` );
-      assert && assert( equationVectorSet instanceof EquationVectorSet,
-        `invalid equationVectorSet: ${equationVectorSet}` );
+      // assert && assert( equationVectorSet instanceof EquationVectorSet,
+      //   `invalid equationVectorSet: ${equationVectorSet}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
