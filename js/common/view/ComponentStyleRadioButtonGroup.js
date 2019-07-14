@@ -1,8 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Radio Button Group for the component styles. See https://github.com/phetsims/sun/issues/513 for context. Provides
- * solution decided temporarily at developer meeting.
+ * Radio Button Group in a grid for the component styles.
+ *
+ * See https://github.com/phetsims/sun/issues/513 for context.
  *
  * @author Brandon Li
  */
@@ -11,8 +12,6 @@ define( require => {
   'use strict';
 
   // modules
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -23,15 +22,15 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
-  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.minWidth - 2 * VectorAdditionConstants.PANEL_OPTIONS.xMargin;
   const RADIO_BUTTON_OPTIONS = _.clone( VectorAdditionConstants.RADIO_BUTTON_OPTIONS );
 
-  class ComponentStyleRadioButtonGroup extends AlignBox {
+  class ComponentStyleRadioButtonGroup extends Node {
     /**
      * @constructor
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {Object} [options]
-     * @constructor
+     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
+     *                             specific to this class while some are passed to the superclass. See the code where
+     *                             the options are set in the early portion of the constructor for details.
      */
     constructor( componentStyleProperty, options ) {
 
@@ -41,28 +40,9 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      //----------------------------------------------------------------------------------------
-      // content array for all the scenery component style icons
-      const icons = ComponentStyles.VALUES.map( componentStyle =>
-        VectorAdditionIconFactory.createComponentStyleIcon( componentStyle ) );
-
-      //----------------------------------------------------------------------------------------
-      // Gather the options and the max width
       options = _.extend( {}, RADIO_BUTTON_OPTIONS, options );
 
-      // Get the largest width / height
-      const widestContentWidth = _.maxBy( icons, node => node.width ).width + 2 * options.xMargin;
-      const tallestContentHeight = _.maxBy( icons, node => node.height ).height + 2 * options.yMargin;
-
-      options = _.extend( options, {
-        maxWidth: widestContentWidth,
-        minWidth: widestContentWidth,
-        maxHeight: tallestContentHeight,
-        minHeight: tallestContentHeight
-      } );
-
       //----------------------------------------------------------------------------------------
-      // Create the Radio Buttons
       const radioButtonsContent = [];
 
       ComponentStyles.VALUES.forEach( componentStyle => {
@@ -74,14 +54,7 @@ define( require => {
         radioButtonsContent.push( button );
       } );
 
-      const radioButtons = new GridLayoutBox( radioButtonsContent );
-
-      super( radioButtons, {
-        maxWidth: PANEL_WIDTH,
-        alignBounds: new Bounds2( 0, 0, PANEL_WIDTH, radioButtons.height ),
-        xAlign: 'center',
-        yAlign: 'center'
-      } );
+      super( { children: [ new GridLayoutBox( radioButtonsContent ) ] } );
     }
   }
 
@@ -91,7 +64,9 @@ define( require => {
     /**
      * @constructor
      * @param {Array.<Node>} content
-     * @param {Object} [options]
+     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
+     *                             specific to this class while some are passed to the superclass. See the code where
+     *                             the options are set in the early portion of the constructor for details.
      */
     constructor( content, options ) {
 
@@ -101,27 +76,18 @@ define( require => {
         `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-        rows: 2, // {number}
-        cols: 2, // {number}
-        horizontalSpacing: 8, // {number}
-        verticalSpacing: 8, // {number}
-        horizontalOptions: null, // {null} see defaults below
-        verticalOptions: null // {null} see defaults below
+        rows: 2, // {number} - number of rows
+        cols: 2, // {number} - number of columns
+        horizontalSpacing: 8, // {number} - spacing between each column
+        verticalSpacing: 8, // {number} - spacing between each row
+        xAlign: 'center', // {string} - 'left' || 'center', 'right'
+        yAlign: 'center' // {string} - 'top' || 'center', 'bottom'
       }, options );
 
-      options.verticalOptions = _.extend( {
-        align: 'center'
-      }, options.verticalOptions );
-
-      options.horizontalOptions = _.extend( {
-        align: 'center'
-      }, options.horizontalOptions );
-
-      //----------------------------------------------------------------------------------------
-      super( _.extend( {
+      super( {
         spacing: options.verticalSpacing,
-        orientation: 'vertical'
-      }, options.verticalOptions ) );
+        align: options.yAlign
+      } );
 
       // Convenience references
       const rows = options.rows;
@@ -142,10 +108,11 @@ define( require => {
 
       for ( let row = 0; row < rows; row++ ) {
 
-        const horizontalLayout = new LayoutBox( _.extend( {
+        const horizontalLayout = new LayoutBox( {
           spacing: options.horizontalSpacing,
-          orientation: 'horizontal'
-        }, options.horizontalOptions ) );
+          orientation: 'horizontal',
+          align: options.xAlign
+        } );
 
         for ( let col = 0; col < cols; col++ ) {
           horizontalLayout.addChild( content[ contentIndex ] );
