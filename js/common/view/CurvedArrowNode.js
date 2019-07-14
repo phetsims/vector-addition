@@ -167,6 +167,8 @@ define( require => {
      *                         radians.
      */
     set angle( angle ) {
+      
+      assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
       this.angleProperty.value = angle;
     }
 
@@ -177,6 +179,8 @@ define( require => {
      * @param {number} radius - the radius of curved arrow.
      */
     set radius( radius ) {
+      
+      assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
       this.radiusProperty.value = radius;
     }
   }
