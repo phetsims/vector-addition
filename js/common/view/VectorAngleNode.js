@@ -1,10 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the angle underneath/above the vector when the angle checkbox is selected.
+ * View for the arrow/label/line underneath/above the vector when the angle checkbox is selected.
  *
- * Listens to the common models angleVisibleProperty and the graphs activeVectorProperty to determine visibility.
- * Listens to a model vector's angleDegreesProperty to get the angle.
+ * Visual: https://user-images.githubusercontent.com/42391580/61231836-27b14d80-a6ea-11e9-9238-e9562d6ab89d.png
+ *
+ * Only shows if the vector model is active.
  *
  * @author Brandon Li
  */
@@ -13,8 +14,8 @@ define( require => {
   'use strict';
 
   // modules
-  const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -27,32 +28,52 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
 
+  //----------------------------------------------------------------------------------------
   // constants
-  const BASE_LINE_LENGTH = 55;
-  const ARC_ARROW_OPTIONS = {
+
+  // options for the curved arrow
+  const CURVED_ARROW_OPTIONS = {
     arrowheadWidth: 8,
-    arrowheadHeight: 6
+    arrowheadHeight: 6,
+    arcOptions: {
+      lineWidth: 1.2
+    }
   };
-  const ARC_RADIUS = 25;
-  const ANGLE_LABEL_FONT = new PhetFont( { size: 14, fontWeight: 'lighter', family: 'serif' } );
 
-  // The offset of the angle label from the arc arrow
-  const LABEL_OFFSET = 5;
+  // maximum radius of the curved arrow - the radius is changed to keep the curved arrow smaller than the vector.
+  const MAX_CURVED_ARROW_RADIUS = 25;
 
-  // Rounding of the angle label
-  const NUMBER_DISPLAY_ROUNDING = VectorAdditionConstants.NUMBER_DISPLAY_ROUNDING;
+  // the percentage of curved arrow radius when compared to the magnitude of the vector - as long as its less than the
+  // max curved arrow radius
+  const MAX_RADIUS_SCALE = 0.79;
 
-  // Angles greater than 35 position the label between the vector and the baseline, and angles under 35
-  // place the label on the other side of the baseline.
-  const MAX_ANGLE_UNDER_BASELINE = 35;
+  // maximum length of the baseline that is parallel to the x axis
+  const MAX_BASELINE_WIDTH = 55;
 
-  // The maximum percentage that the arc-arrow radius can be when compared to the magnitude of the vector
-  const MAX_RADIUS_SCALE = 0.59;
+  // the percentage of the baseline when compared to the radius of the curved arrow.
+  const MAX_BASELINE_SCALE = 0.60;
+
+  // the offset of the angle label from the curved arrow
+  const LABEL_OFFSET = 3.5;
+
+  // rounding of the angle label
+  const ANGLE_ROUNDING = VectorAdditionConstants.NUMBER_DISPLAY_ROUNDING;
+
+  const ANGLE_LABEL_FONT = new PhetFont( { size: 12.5, fontWeight: '100' } );
+
+  // Angles greater than 35 deg position the label between the vector and the baseline, and angles under 35
+  // place the label on the other side of the baseline. See
+  // https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.on5p73bbry7g.
+  const ANGLE_UNDER_BASELINE_THRESHOLD = 35;
+
+  const DEGREES = '\u00B0'; // TODO: this should be in Math Symbols. https://github.com/phetsims/scenery-phet/issues/514
+
 
   class VectorAngleNode extends Node {
     /**
      * @constructor
-     * @param {VectorModel} vectorModel - the vector model
+     *
+     * @param {VectorModel} vectorModel - the model for the vector that the angle represents
      * @param {BooleanProperty} angleVisibleProperty
      * @param {Graph} graph
      */
@@ -67,65 +88,53 @@ define( require => {
 
       super();
 
-      // @private {Line}
-      this.baseLine = new Line( 0, 0, BASE_LINE_LENGTH, 0, {
-        stroke: VectorAdditionColors.BLACK
-      } );
+      // @private {Line} baseline - line that is parallel to the x axis.
+      this.baseLine = new Line( 0, 0, MAX_BASELINE_WIDTH, 0, { stroke: VectorAdditionColors.BLACK } );
 
-      const vectorAngle = vectorModel.angle;
+      // @private {CurvedArrowNode} curvedArrow - arrow in a circle shape from the baseline to the vector
+      this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS,
+        vectorModel.angle ? vectorModel.angle : 0,
+        CURVED_ARROW_OPTIONS );
 
-      // @private {CurvedArrowNode}
-      this.arcArrow = new CurvedArrowNode( ARC_RADIUS, vectorAngle ? vectorAngle : 0, ARC_ARROW_OPTIONS );
-
-      // @private {Text} - to be set later
+      // @private {Text} labelText - set to an arbitrary string for now.
       this.labelText = new Text( '', { font: ANGLE_LABEL_FONT } );
 
-      this.setChildren( [ this.baseLine, this.arcArrow, this.labelText ] );
+      this.setChildren( [ this.baseLine, this.curvedArrow, this.labelText ] );
 
       //----------------------------------------------------------------------------------------
 
-      // Update the angle when the model changes
-      const updateAngleListener = () => {
-        if ( this.visible ) { // only update the angle if we are visible
-          this.updateAngleNode( vectorModel.magnitude !== 0 ? vectorModel.angle : null );
+      // Function that updates the angle node
+      const updateAngleNodeListener = () => {
+        if ( this.visible ) {
+          this.updateAngleNode( vectorModel, graph.modelViewTransformProperty.value );
         }
       };
-      vectorModel.vectorComponentsProperty.link( updateAngleListener );
 
-      //----------------------------------------------------------------------------------------
-      // Update the scale when the vector becomes too small
-      const updateScaleListener = () => {
-        if ( this.visible ) { // only update the angle if we are visible
-          this.scaleArc( vectorModel.magnitude, graph.modelViewTransformProperty.value );
-        }
-      };
-      vectorModel.vectorComponentsProperty.link( updateScaleListener );
+      // Observe when the vector model's components change to update the angle node
+      vectorModel.vectorComponentsProperty.link( updateAngleNodeListener );
 
       //----------------------------------------------------------------------------------------
       // Observe when the angle visible property is changing and update the visibility of the angle node. The angle is
       // only visible when the vector is both active and the angle checkbox is clicked
-      const visibilityObserver = Property.multilink(
+      const angleVisibleMultilink = Property.multilink(
         [ angleVisibleProperty, graph.activeVectorProperty, vectorModel.isOnGraphProperty ],
         ( angleVisible, activeVector, isOnGraph ) => {
           // Visible if the angle checkbox is clicked, its active, and its on the graph
           this.visible = angleVisible && activeVector === vectorModel && isOnGraph;
 
-
-          this.updateAngleNode( vectorModel.magnitude !== 0 ? vectorModel.angle: null );
-          this.scaleArc( vectorModel.magnitude, graph.modelViewTransformProperty.value );
+          this.updateAngleNode( vectorModel, graph.modelViewTransformProperty.value );
         } );
 
-
-      // @private {function} - function to unlink listeners, called in dispose()
+      //----------------------------------------------------------------------------------------
+      // @private {function} unlinkListeners - function to unlink listeners, called in dispose()
       this.unlinkListeners = () => {
-        vectorModel.vectorComponentsProperty.unlink( updateAngleListener );
-        vectorModel.vectorComponentsProperty.unlink( updateScaleListener );
-        visibilityObserver.dispose();
+        vectorModel.vectorComponentsProperty.unlink( updateAngleNodeListener );
+        angleVisibleMultilink.dispose();
       };
     }
 
     /**
-     * Disposes the angle node
+     * Disposes the angle node. Does the same as super class except unlink listeners.
      * @public
      */
     dispose() {
@@ -134,87 +143,74 @@ define( require => {
     }
 
     /**
-     * Updates the label and arc arrow. Called when the vector model's angle is changed
-     * @param {number|null} angle - in degrees
+     * Updates the angle node: (called when the vector model's components change)
+     *  - Curved arrow node angle
+     *  - Curved arrow node radius
+     *  - Label Text
+     *  - baseline length
+     *
      * @private
+     *
+     * @param {VectorModel} vectorModel - model vector to base the angle off of
+     * @param {ModelViewTransform} modelViewTransform
      */
-    updateAngleNode( angle ) {
+    updateAngleNode( vectorModel, modelViewTransform ) {
 
-      assert && assert( typeof angle === 'number' || angle === null, `invalid angle: ${angle}` );
-      this.arcArrow.angle = angle ? angle : 0;
+      assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
 
-      if ( angle === null ) {
+      // Don't show he angle node if the magnitude is 0;
+      this.visible = vectorModel.magnitude !== 0;
 
-        // do not display angle
-        this.labelText.setText( '' );
+      // convenience reference.
+      const angleDegrees = vectorModel.angleDegrees;
+
+      //----------------------------------------------------------------------------------------
+      // Update the curved arrow node angle
+      this.curvedArrow.angle = vectorModel.angle ? vectorModel.angle : 0;
+
+      //----------------------------------------------------------------------------------------
+      // Update the label text.
+      this.labelText.setText( angleDegrees !== null ?
+        `${Util.toFixed( vectorModel.angleDegrees, ANGLE_ROUNDING )}${DEGREES}` :
+        '' );
+
+      //----------------------------------------------------------------------------------------
+      // Update the curved arrow radius
+      const viewMagnitude = modelViewTransform.modelToViewDeltaX( vectorModel.magnitude );
+
+      if ( viewMagnitude !== 0 ) {
+        this.curvedArrow.radius = _.min( [ MAX_RADIUS_SCALE * viewMagnitude, MAX_CURVED_ARROW_RADIUS ] );
       }
-      else {
 
-        this.labelText.setText( Util.toFixed( Util.toDegrees( angle ), NUMBER_DISPLAY_ROUNDING ) + '\u00B0' );
+      //----------------------------------------------------------------------------------------
+      // Update the baseline
+      this.baseLine.setX2( _.min( [ this.curvedArrow.radius / MAX_BASELINE_SCALE, MAX_BASELINE_WIDTH ] ) );
 
-        const angleInRadians = Util.toRadians( angle );
+      //----------------------------------------------------------------------------------------
+      // Position the label text
+      if ( angleDegrees !== null ) {
 
-        //----------------------------------------------------------------------------------------
-        // Position the label text
-
-        if ( angle > MAX_ANGLE_UNDER_BASELINE ) {
+        if ( angleDegrees > ANGLE_UNDER_BASELINE_THRESHOLD ) {
           // Position the label next to the arc, halfway across the arc
-          this.labelText.setTranslation( ( ARC_RADIUS + LABEL_OFFSET ) * Math.cos( angleInRadians / 2 ),
-            -( ARC_RADIUS + LABEL_OFFSET ) * Math.sin( angleInRadians / 2 ) );
+          this.labelText.setTranslation( ( this.curvedArrow.radius + LABEL_OFFSET ) * Math.cos( vectorModel.angle / 2 ),
+            -( this.curvedArrow.radius + LABEL_OFFSET ) * Math.sin( vectorModel.angle / 2 ) );
         }
-        else if ( angle > 0 ) {
+        else if ( angleDegrees > 0 ) {
           // Position the label halfway across, but on the other side of the baseline
-          this.labelText.setTranslation( ARC_RADIUS / 2, ARC_RADIUS / 2 );
+          this.labelText.setTranslation( this.curvedArrow.radius / 2, this.curvedArrow.radius / 2 );
         }
-        else if ( angle > -MAX_ANGLE_UNDER_BASELINE ) {
+        else if ( angleDegrees > -ANGLE_UNDER_BASELINE_THRESHOLD ) {
           // Position the label halfway across, but on the other side of the baseline
-          this.labelText.setTranslation( ARC_RADIUS / 2, -ARC_RADIUS / 2 + +this.labelText.height / 2 );
+          this.labelText.setTranslation( this.curvedArrow.radius / 2,
+            -this.curvedArrow.radius / 2 + this.labelText.height / 2 );
         }
         else {
           // Position the label next to the arc, halfway across the arc
-          this.labelText.setTranslation( ( ARC_RADIUS + LABEL_OFFSET ) * Math.cos( angleInRadians / 2 ),
-            -( ARC_RADIUS + LABEL_OFFSET ) * Math.sin( angleInRadians / 2 ) + this.labelText.height / 2 );
+          this.labelText.setTranslation( ( this.curvedArrow.radius + LABEL_OFFSET ) * Math.cos( vectorModel.angle / 2 ),
+            -( this.curvedArrow.radius + LABEL_OFFSET ) * Math.sin( vectorModel.angle / 2 ) + this.labelText.height / 2
+          );
         }
       }
-    }
-
-    /**
-     * Scale the node based on the magnitude of the vector model. This ensures that the angle is always
-     * smaller than the vector and is 'underneath' the vector
-     * @param {number} magnitude - magnitude of the vector
-     * @param {ModelViewTransform2} modelViewTransform
-     * @public
-     */
-    scaleArc( magnitude, modelViewTransform ) {
-
-      // Function to the get the scale factor of the arc arrow node when the vector magnitude becomes to small
-      // with respect to the arc arrow radius
-      const getArcScaleFactor = ( viewMagnitude ) => {
-
-        if ( ARC_RADIUS / viewMagnitude > MAX_RADIUS_SCALE ) {
-          return viewMagnitude * MAX_RADIUS_SCALE / ARC_RADIUS;
-        }
-        else {
-          return 1;
-        }
-      };
-
-      const viewMagnitude = modelViewTransform.modelToViewDeltaX( magnitude );
-
-      const arcScaleFactor = getArcScaleFactor( viewMagnitude );
-
-      // When the magnitude is 0 don't display the arc arrow node
-      if ( magnitude === 0 ) {
-        this.arcArrow.visible = false;
-      }
-      else {
-        this.arcArrow.visible = true;
-
-        // Scale the arc arrow so it fits underneath the vector
-        this.arcArrow.setScaleMagnitude( arcScaleFactor );
-      }
-      // Resize the base line
-      this.baseLine.setX2( arcScaleFactor * BASE_LINE_LENGTH );
     }
   }
 

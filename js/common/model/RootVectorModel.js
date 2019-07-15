@@ -19,6 +19,7 @@ define( require => {
 
   // modules
   const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -252,9 +253,20 @@ define( require => {
     /**
      * Gets the angle in radians of the vector between $\theta\in(-\pi,\pi]$
      * @public
-     * @returns {number}
+     * @returns {number|null}
      */
-    get angle() { return this.vectorComponents.angle; }
+    get angle() {
+      return !this.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? this.vectorComponents.angle : null;
+    }
+
+    /**
+     * Gets the angle in degrees of the vector between $\theta\in(-\180,\180]$
+     * @public
+     * @returns {number|null}
+     */
+    get angleDegrees() {
+      return this.angle !== null ? Util.toDegrees( this.angle ) : null;
+    }
 
     /**
      * Sets the tail position. This will change the magnitude of the vector, but the tip will remain constant.

@@ -186,6 +186,14 @@ define( require => {
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
       this.radiusProperty.value = radius;
     }
+
+    /**
+     * Gets the radius of the arc
+     * @public
+     */
+    get radius() {
+      return this.radiusProperty.value;
+    }
   }
 
   return vectorAddition.register( 'CurvedArrowNode', CurvedArrowNode );

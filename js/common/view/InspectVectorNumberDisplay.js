@@ -25,8 +25,6 @@ define( require => {
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
-  const Util = require( 'DOT/Util' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
@@ -136,8 +134,7 @@ define( require => {
         return activeVector.magnitude;
       }
       else if ( this.attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.ANGLE ) {
-        return activeVector.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null :
-               Util.toDegrees( activeVector.angle ); // return null if the vector is magnitude 0
+        return activeVector.angleDegrees;
       }
       else if ( this.attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT ) {
         return activeVector.xComponent;
