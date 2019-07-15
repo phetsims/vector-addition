@@ -70,11 +70,13 @@ define( require => {
       } );
 
       //----------------------------------------------------------------------------------------
-      // @private {function} isVectorSetActive - function to check if the vector set contains the active vector or
-      // if the active vector is the sum
-      this.isVectorSetActive = () => {
+      // @private {function} isTagDisplayed - function to check if the vector sum should display its tag.
+      // The vector sum only displays the tag when either a vector in its vector set is active, the sum is active, or
+      // the activeVectorProperty.value is null
+      this.isTagDisplayed = () => {
         return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
-          || graph.activeVectorProperty.value === this;
+          || graph.activeVectorProperty.value === this
+          || graph.activeVectorProperty.value === null;
       };
     }
 
@@ -122,8 +124,8 @@ define( require => {
      * @public
      * See RootVectorModel.getLabelContent() for context
      *
-     * Gets the label content information to display the vector model. Vector Sums only show if the vector set
-     * that the sum represents contains the active vector.
+     * Gets the label content information to display the vector model. Vector Sums only display their tag when either a
+     * vector in its vector set is active, the sum is active, or the activeVectorProperty.value is null
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
@@ -136,7 +138,7 @@ define( require => {
      * }
      */
     getLabelContent( valuesVisible ) {
-      if ( !this.isVectorSetActive() ) {
+      if ( !this.isTagDisplayed() ) {
         return _.extend( super.getLabelContent( valuesVisible ), {
           tag: null
         } );
