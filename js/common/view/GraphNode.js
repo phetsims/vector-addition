@@ -53,7 +53,6 @@ define( require => {
   const ORIGIN_CIRCLE_COLOR = Color.toColor( VectorAdditionColors.ORIGIN_DOT_COLOR );
   const ORIGIN_CIRCLE_RADIUS = 15;
   const ORIGIN_CIRCLE_OPTIONS = {
-    renderer: 'canvas',
     cursor: 'move',
     fill: ORIGIN_CIRCLE_COLOR.withAlpha( 0.15 ),
     mainColor: ORIGIN_CIRCLE_COLOR,

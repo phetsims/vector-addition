@@ -9,8 +9,6 @@
  * Vector Sums are created at the start of the sim, and exist throughout the entire simulation, leaving links as is.
  * However, they can be reset (which solely resets the location).
  *
- * As of now, vector sum's tails are initiated at the center of the graph.
- *
  * @author Martin Veillette
  */
 
