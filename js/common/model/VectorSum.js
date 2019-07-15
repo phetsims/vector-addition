@@ -75,8 +75,8 @@ define( require => {
       // the activeVectorProperty.value is null
       this.isTagDisplayed = () => {
         return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
-          || graph.activeVectorProperty.value === this
-          || graph.activeVectorProperty.value === null;
+               || graph.activeVectorProperty.value === this
+               || graph.activeVectorProperty.value === null;
       };
     }
 

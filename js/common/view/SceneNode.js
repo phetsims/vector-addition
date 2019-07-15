@@ -133,10 +133,10 @@ define( require => {
 
       // function to add predefined vectors of a vector set
       const addPredefinedVectors = vectorSet => {
-        
+
         vectorSet.vectors.forEach( vector => {
           assert && assert( vector.isRemovable === false, 'Predefined vector must not be removable' );
-          
+
           const vectorNode = new VectorNode( vector,
             graph,
             valuesVisibleProperty,
@@ -193,7 +193,7 @@ define( require => {
        *---------------------------------------------------------------------------*/
       graph.vectorSets.forEach( vectorSet => {
         addVectorSumNodes( vectorSet );
-      
+
         /*---------------------------------------------------------------------------*
          * Observe changes to the vector set. These are vectors that are created in the vector creator panel
          *---------------------------------------------------------------------------*/

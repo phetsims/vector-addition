@@ -63,7 +63,7 @@ define( require => {
      * @param {Object} [options] - various key-value pairs that control the appearance of the icon
      * @returns {ArrowNode}
      */
-    static createVectorCreatorPanelIcon( initialVectorComponents, vectorGroup, options) {
+    static createVectorCreatorPanelIcon( initialVectorComponents, vectorGroup, options ) {
       assert && assert( initialVectorComponents instanceof Vector2 );
       assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ) );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
@@ -91,7 +91,7 @@ define( require => {
      */
     static createGraphOrientationIcon( graphOrientation, options ) {
       assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation )
-        && graphOrientation !== GraphOrientations.TWO_DIMENSONAL );
+      && graphOrientation !== GraphOrientations.TWO_DIMENSONAL );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
       options = _.extend( {
@@ -220,7 +220,7 @@ define( require => {
 
       options = _.extend( {
         width: RADIO_BUTTON_ARROW_SIZE + 9.5,
-        height:RADIO_BUTTON_ARROW_SIZE + 7.5,
+        height: RADIO_BUTTON_ARROW_SIZE + 7.5,
 
         // for align box
         topMargin: 0,
@@ -237,6 +237,7 @@ define( require => {
         alignY: options.alignY
       } );
     }
+
     /**
      * Creates the icons that appear on the component style radio button group
      * @public
@@ -462,7 +463,7 @@ define( require => {
       // insert signs (+/-/=) in between each tag (excluding the sum tag)
       const contentArray = _.flatMap( _.dropRight( vectorTags ), ( tag, index, array ) => {
         return index !== array.length - 1 ? [ tag, equationType === EquationTypes.SUBTRACTION ? '-' : '+' ] :
-          tag;
+               tag;
       } );
 
       // Add the second half of the equation

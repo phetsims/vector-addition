@@ -34,11 +34,9 @@ define( require => {
   // strings
   const symbolXString = require( 'string!VECTOR_ADDITION/symbol.x' );
   const symbolYString = require( 'string!VECTOR_ADDITION/symbol.y' );
-  const number0String = '0';
 
   //----------------------------------------------------------------------------------------
   // constants
-  //----------------------------------------------------------------------------------------
 
   // the furthest the user can drag the origin is 5 model units off of the edge of the graph
   const ORIGIN_DRAG_PADDING_CONSTRAINT = 5;
@@ -240,7 +238,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Observe when the models model view transform changes to update the location of the circle. This is never
-      // unlinked since graphs exists throughout the entire sim. 
+      // unlinked since graphs exists throughout the entire sim.
       graph.modelViewTransformProperty.link( modelViewTransform => {
         this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
       } );
@@ -274,9 +272,9 @@ define( require => {
 
       // @public {Text} originText - create a label for the origin that will be moved when the modelViewTransform is
       // updated.
-      this.originText = new Text( number0String, ORIGIN_TEXT_OPTIONS );
+      this.originText = new Text( '0', ORIGIN_TEXT_OPTIONS );
 
-      // Create a path that represents the ticks along the axis with an empty shape which will be updated when the 
+      // Create a path that represents the ticks along the axis with an empty shape which will be updated when the
       // modelViewTransform is updated.
       const axisTicksPath = new Path( new Shape(), TICKS_OPTIONS );
 
