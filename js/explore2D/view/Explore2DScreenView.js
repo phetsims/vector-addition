@@ -51,8 +51,10 @@ define( function( require ) {
         explore2DModel.gridVisibleProperty,
         explore2DModel.componentStyleProperty );
 
-      super( explore2DModel, [ polarSceneNode, cartesianSceneNode ], tandem );
+      super( explore2DModel, tandem );
 
+      this.addChild( polarSceneNode );
+      this.addChild( cartesianSceneNode );
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels
 

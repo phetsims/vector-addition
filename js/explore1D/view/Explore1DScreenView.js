@@ -63,8 +63,10 @@ define( require => {
         explore1DModel.componentStyleProperty,
         EXPLORE_1D_SCENE_OPTIONS );
 
-      super( explore1DModel, [ verticalSceneNode, horizontalSceneNode ], tandem );
+      super( explore1DModel, tandem );
 
+      this.addChild( verticalSceneNode );
+      this.addChild( horizontalSceneNode );
 
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels

@@ -50,7 +50,10 @@ define( function( require ) {
         labModel.gridVisibleProperty,
         labModel.componentStyleProperty );
 
-      super( labModel, [ polarSceneNode, cartesianSceneNode ], tandem );
+      super( labModel, tandem );
+
+      this.addChild( polarSceneNode );
+      this.addChild( cartesianSceneNode );
 
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels

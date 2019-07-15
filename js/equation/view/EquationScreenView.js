@@ -14,16 +14,11 @@ define( function( require ) {
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
   const EquationSceneNode = require( 'VECTOR_ADDITION/equation/view/EquationSceneNode' );
-  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const EquationGraphControlPanel = require( 'VECTOR_ADDITION/equation/view/EquationGraphControlPanel' );
-
-  // constants
-  const SCREEN_VIEW_X_MARGIN = VectorAdditionConstants.SCREEN_VIEW_X_MARGIN;
-  const SCREEN_VIEW_Y_MARGIN = VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
   class EquationScreenView extends ScreenView {
     /**
@@ -70,17 +65,7 @@ define( function( require ) {
         } );
 
       this.addChild( equationGraphControlPanel );
-      //----------------------------------------------------------------------------------------
-      // Add the reset button
-      const resetAllButton = new ResetAllButton( {
-        listener: () => {
-          equationModel.reset();
-        },
-        right: this.layoutBounds.maxX - SCREEN_VIEW_X_MARGIN,
-        bottom: this.layoutBounds.maxY - SCREEN_VIEW_Y_MARGIN,
-        tandem: tandem.createTandem( 'resetAllButton' )
-      } );
-      this.addChild( resetAllButton );
+
     }
   }
 
