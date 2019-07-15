@@ -1,8 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Radio button group for switching between polar and cartesian mode. See
- * https://github.com/phetsims/vector-addition/issues/21 for context.
+ * Radio button group for switching between polar and cartesian mode.
+ *
+ * See https://github.com/phetsims/vector-addition/issues/21 for a visual.
  *
  * @author Brandon Li
  */
@@ -12,26 +13,23 @@ define( require => {
 
   // modules
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
 
   // constants
-  const RADIO_BUTTON_OPTIONS = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, {
-    left: 955,
-    top: 460,
-    buttonContentXMargin: 3,
-    buttonContentYMargin: 3
-  } );
+  const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
+
 
   class CoordinateSnapRadioButtonGroup extends RadioButtonGroup {
     /**
-     * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty - property of the possible modes of
-     * snapping vectors to the graph.
-     * @param {Object} [options]
      * @constructor
+     * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty - property of the possible modes of
+     *                                                                                 snapping vectors to the graph.
+     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. All options are
+     *                             specific to the superclass.
      */
     constructor( coordinateSnapModeProperty, options ) {
 
@@ -41,8 +39,19 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
+      options = _.extend( {}, RADIO_BUTTON_OPTIONS, {
 
-      const coordinateSnapModesRadioButtonContent = [ {
+        left: 955,
+        top: 460,
+
+        buttonContentXMargin: RADIO_BUTTON_OPTIONS.xMargin,
+        buttonContentYMargin: RADIO_BUTTON_OPTIONS.yMargin
+
+      }, options );
+
+      //----------------------------------------------------------------------------------------
+
+      const radioButtonContent = [ {
         value: CoordinateSnapModes.CARTESIAN,
         node: VectorAdditionIconFactory.createCartesianIcon()
       }, {
@@ -50,7 +59,7 @@ define( require => {
         node: VectorAdditionIconFactory.createPolarIcon()
       } ];
 
-      super( coordinateSnapModeProperty, coordinateSnapModesRadioButtonContent, RADIO_BUTTON_OPTIONS );
+      super( coordinateSnapModeProperty, radioButtonContent, options );
     }
   }
 

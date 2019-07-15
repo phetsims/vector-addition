@@ -31,7 +31,7 @@ define( require => {
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
   const DEFAULT_BASE_VECTOR_VISIBILTY = false;
   // const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
-  const VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
+  const VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
     
   class EquationScene {
     /**
