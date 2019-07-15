@@ -159,7 +159,7 @@ define( require => {
       assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
 
       // Don't show he angle node if the magnitude is 0;
-      this.visible = vectorModel.magnitude !== 0;
+      this.visible = this.visible && vectorModel.magnitude !== 0;
 
       // convenience reference.
       const angleDegrees = vectorModel.angleDegrees;
@@ -171,8 +171,8 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Update the label text.
       this.labelText.setText( angleDegrees !== null ?
-        `${Util.toFixed( vectorModel.angleDegrees, ANGLE_ROUNDING )}${DEGREES}` :
-        '' );
+                              `${Util.toFixed( vectorModel.angleDegrees, ANGLE_ROUNDING )}${DEGREES}` :
+                              '' );
 
       //----------------------------------------------------------------------------------------
       // Update the curved arrow radius
