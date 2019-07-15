@@ -68,6 +68,14 @@ define( require => {
 
         vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
       } );
+
+      //----------------------------------------------------------------------------------------
+      // @private {function} isVectorSetActive - function to check if the vector set contains the active vector or
+      // if the active vector is the sum
+      this.isVectorSetActive = () => {
+        return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
+          || graph.activeVectorProperty.value === this;
+      };
     }
 
     /**
@@ -107,6 +115,35 @@ define( require => {
 
       // Set the sum to the calculated sum
       this.vectorComponents = sumVectorComponents;
+    }
+
+    /**
+     * @override
+     * @public
+     * See RootVectorModel.getLabelContent() for context
+     *
+     * Gets the label content information to display the vector model. Vector Sums only show if the vector set
+     * that the sum represents contains the active vector.
+     *
+     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
+     * @returns {object} {
+     *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
+     *                               // 3). Null means it doesn't display a coefficient
+     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
+     *                       // Null means it doesn't display a tag
+     *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
+     *                         // Null means it doesn't display a value
+     * }
+     */
+    getLabelContent( valuesVisible ) {
+      if ( !this.isVectorSetActive() ) {
+        return _.extend( super.getLabelContent( valuesVisible ), {
+          tag: null
+        } );
+      }
+      else {
+        return super.getLabelContent( valuesVisible );
+      }
     }
   }
 
