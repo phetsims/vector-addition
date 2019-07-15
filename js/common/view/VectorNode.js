@@ -185,7 +185,7 @@ define( require => {
           const cursorPosition = this.modelViewTransformProperty.value
                                   .viewToModelDelta( this.bodyDragListener.localPoint ).plus( tailPosition );
 
-          if ( !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
+          if ( vectorModel.isOnGraphProperty.value && !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
             vectorModel.popOffOfGraph();
           }
         }
