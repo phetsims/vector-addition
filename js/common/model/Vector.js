@@ -38,9 +38,9 @@ define( require => {
   // interval spacing of vector angle (in degrees) when vector is in polar mode
   const POLAR_ANGLE_INTERVAL = VectorAdditionConstants.POLAR_ANGLE_INTERVAL;
 
-  // fall back tag for the vector model if a tag isn't provided. The reason this isn't translatable is:
+  // fall back symbol for the vector model if a symbol isn't provided. The reason this isn't translatable is:
   // https://github.com/phetsims/vector-addition/issues/10.
-  const VECTOR_FALL_BACK_TAG = 'v';
+  const VECTOR_FALL_BACK_SYMBOL = 'v';
 
   // maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
   // See https://github.com/phetsims/vector-addition/issues/46 for more context.
@@ -61,10 +61,10 @@ define( require => {
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {Graph} graph - the graph the vector belongs to
      * @param {VectorSet} vectorSet - the vector set the vector belongs to
-     * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
+     * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      * @param {Object} [options]
      */
-    constructor( initialTailPosition, initialComponents, graph, vectorSet, tag, options ) {
+    constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol, options ) {
 
       options = _.extend( {
 
@@ -80,7 +80,7 @@ define( require => {
         `invalid options.isRemovable: ${options.isRemovable}` );
 
       //----------------------------------------------------------------------------------------
-      super( initialTailPosition, initialComponents, vectorSet.vectorGroup, tag );
+      super( initialTailPosition, initialComponents, vectorSet.vectorGroup, symbol );
 
       // @public (read-only) {boolean} isTipDraggable - indicates if the tip can be dragged
       this.isTipDraggable = options.isTipDraggable;
@@ -94,8 +94,8 @@ define( require => {
       // @private {Graph} graph - indicates the graph the vector model belongs to
       this.graph = graph;
 
-      // @private {string} fallBackTag (see declaration of VECTOR_FALL_BACK_TAG for documentation)
-      this.fallBackTag = VECTOR_FALL_BACK_TAG;
+      // @private {string} fallBackSymbol (see declaration of VECTOR_FALL_BACK_SYMBOL for documentation)
+      this.fallBackSymbol = VECTOR_FALL_BACK_SYMBOL;
 
       // @private {VectorSet} vectorSet - indicates the vector set the vector belongs in.
       this.vectorSet = vectorSet;
@@ -169,14 +169,14 @@ define( require => {
      * @public
      * See RootVector.getLabelContent() for context
      *
-     * Gets the label content information to display the vector model. Vector's may or may not have tags.
+     * Gets the label content information to display the vector model. Vector's may or may not have symbols.
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
      *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
      *                               // 3). Null means it doesn't display a coefficient
-     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
-     *                       // Null means it doesn't display a tag
+     *    symbol: {string|null} // the symbol (e.g. if the label displayed '3|v|=15', the symbol would be '|v|')
+     *                       // Null means it doesn't display a symbol
      *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
      *                         // Null means it doesn't display a value
      * }
@@ -186,23 +186,23 @@ define( require => {
       // Get the rounded magnitude
       const roundedMagnitude = Util.toFixed( this.magnitude, VECTOR_VALUE_ROUNDING );
 
-      // Create flags to indicate the tag and the value
-      let tag;
+      // Create flags to indicate the symbol and the value
+      let symbol;
       let value;
 
-      // If the vector has a tag, display the tag. If the vector is active, display the fallBackTag.
-      if ( this.tag || this.graph.activeVectorProperty.value === this ) {
-        tag = this.tag ? this.tag : this.fallBackTag;
+      // If the vector has a symbol, display the symbol. If the vector is active, display the fallBackSymbol.
+      if ( this.symbol || this.graph.activeVectorProperty.value === this ) {
+        symbol = this.symbol ? this.symbol : this.fallBackSymbol;
       }
 
       // If the values are on and its not 0 magnitude, display the magnitude
       if ( valuesVisible ) {
-        value = tag ? ` = ${roundedMagnitude}` : roundedMagnitude;
+        value = symbol ? ` = ${roundedMagnitude}` : roundedMagnitude;
       }
 
       return {
         coefficient: null, // vector models don't have coefficient
-        tag: value && tag ? `|${tag}|` : tag, // surround the tag in absolute value bars if there is a value
+        symbol: value && symbol ? `|${symbol}|` : symbol, // surround the symbol in absolute value bars if there is a value
         value: value
       };
     }

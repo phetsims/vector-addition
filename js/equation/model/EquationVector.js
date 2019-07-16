@@ -8,7 +8,7 @@
  *  - Instantiate a Base vector model. When the base vector model changes, this vector changes (multiply by coefficient)
  *  - Disables tip dragging and removing of vectors
  *
- * Equation vectors are created at the start of the sim, and are never disposed. They require a tag.
+ * Equation vectors are created at the start of the sim, and are never disposed. They require a symbol.
  *
  * @author Brandon Li
  */
@@ -34,10 +34,10 @@ define( require => {
      * @param {number} yComponent vertical component of the vector
      * @param {Graph} the graph the vector belongs to
      * @param {EquationVectorSet} the equationVectorSet that the vector belongs to
-     * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
+     * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      * @param {Object} [options]
      */
-    constructor( tailPosition, xComponent, yComponent, graph, equationVectorSet, tag, options ) {
+    constructor( tailPosition, xComponent, yComponent, graph, equationVectorSet, symbol, options ) {
 
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
@@ -51,7 +51,7 @@ define( require => {
       }, options );
 
 
-      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, tag, options );
+      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, symbol, options );
 
       //----------------------------------------------------------------------------------------
       // @public (read-only) {Property.<number>} - create a Property to represent the coefficient.
@@ -91,14 +91,14 @@ define( require => {
      * @override
      * See Vector.getLabelContent() for documentation and context
      *
-     * Gets the label content information to display the vector model. Vector's may or may not have tags.
+     * Gets the label content information to display the vector model. Vector's may or may not have symbols.
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
      *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
      *                               // 3). Null means it doesn't display a coefficient
-     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
-     *                       // Null means it doesn't display a tag
+     *    symbol: {string|null} // the symbol (e.g. if the label displayed '3|v|=15', the symbol would be '|v|')
+     *                       // Null means it doesn't display a symbol
      *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
      *                         // Null means it doesn't display a value
      * }

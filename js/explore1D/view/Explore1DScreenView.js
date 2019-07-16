@@ -26,8 +26,8 @@ define( require => {
 
   // constants
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
-  const HORIZONTAL_VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
-  const VERTICAL_VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
+  const HORIZONTAL_VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1;
+  const VERTICAL_VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
   const GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN = 10;
   const EXPLORE_1D_SCENE_OPTIONS = {
     inspectVectorPanelOptions: {
@@ -75,14 +75,14 @@ define( require => {
         explore1DModel.verticalGraph.vectorSet,
         verticalSceneNode.vectorContainer,
         this,
-        VERTICAL_VECTOR_TAGS ) );
+        VERTICAL_VECTOR_SYMBOLS ) );
 
       horizontalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DModel,
         explore1DModel.horizontalGraph,
         explore1DModel.horizontalGraph.vectorSet,
         horizontalSceneNode.vectorContainer,
         this,
-        HORIZONTAL_VECTOR_TAGS ) );
+        HORIZONTAL_VECTOR_SYMBOLS ) );
 
       //----------------------------------------------------------------------------------------
       // Observe when the graph orientation changes and update the visibility of the scenes.

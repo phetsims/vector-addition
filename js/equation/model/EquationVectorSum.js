@@ -8,7 +8,7 @@
  *    equationType
  *  - Disables tip dragging and removing of vectors
  *
- * Equation sum vectors are created at the start of the sim, and are never disposed. They require a tag.
+ * Equation sum vectors are created at the start of the sim, and are never disposed. They require a symbol.
  *
  * @author Brandon Li
  */
@@ -30,15 +30,15 @@ define( require => {
      * @param {Graph} graph - graph the vector sum belongs to
      * @param {VectorSet} - the vector set that the sum represents
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
-     * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
+     * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( graph, vectorSet, equationType, tag ) {
+    constructor( graph, vectorSet, equationType, symbol ) {
 
       // assert && assert( equationTypeProperty instanceof EnumerationProperty
       // && EquationTypes.includes( equationTypeProperty.value ),
       //   `invalid equationTypeProperty: ${equationTypeProperty}` );
 
-      super( graph.graphModelBounds.center, graph, vectorSet, tag );
+      super( graph.graphModelBounds.center, graph, vectorSet, symbol );
 
       //----------------------------------------------------------------------------------------
 

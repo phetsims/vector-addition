@@ -178,13 +178,13 @@ define( require => {
         panelOpenContent.setChildren( [ activeVector === null ? selectVectorText : vectorAttributesContainer ] );
 
         if ( activeVector !== null ) {
-          // Get the vector tag
-          const vectorTag = activeVector.tag ? activeVector.tag : activeVector.fallBackTag;
+          // Get the vector symbol
+          const vectorSymbol = activeVector.symbol ? activeVector.symbol : activeVector.fallBackSymbol;
 
           // Update labels (angle label is the same)
-          magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${vectorTag}\}\}|` );
-          xComponentText.setText( `${vectorTag}<sub>${symbolXString}</sub>` );
-          yComponentText.setText( `${vectorTag}<sub>${symbolYString}</sub>` );
+          magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${vectorSymbol}\}\}|` );
+          xComponentText.setText( `${vectorSymbol}<sub>${symbolXString}</sub>` );
+          yComponentText.setText( `${vectorSymbol}<sub>${symbolYString}</sub>` );
         }
       } );
     }

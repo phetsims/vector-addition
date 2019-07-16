@@ -7,7 +7,7 @@
  *  - Adjust its components based on componentNumberProperties that go into a number spinner
  *  - Disables tip dragging and removing of vectors
  *
- * Base vectors are created at the start of the sim, and are never disposed. They require a tag.
+ * Base vectors are created at the start of the sim, and are never disposed. They require a symbol.
  *
  * @author Brandon Li
  */
@@ -28,10 +28,10 @@ define( require => {
      * @param {number} yComponent vertical component of the vector
      * @param {Graph} the graph the vector belongs to
      * @param {EquationVectorSet} the equationVectorSet that the vector belongs to
-     * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
+     * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      * @param {Object} [options]
      */
-    constructor( tailPosition, xComponent, yComponent, graph, equationVectorSet, tag, options ) {
+    constructor( tailPosition, xComponent, yComponent, graph, equationVectorSet, symbol, options ) {
 
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
@@ -45,7 +45,7 @@ define( require => {
       }, options );
 
 
-      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, tag, options );
+      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, symbol, options );
 
       //----------------------------------------------------------------------------------------
       // Create Properties for the base vector panel

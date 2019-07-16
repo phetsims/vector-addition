@@ -445,13 +445,13 @@ define( require => {
      * Creates the Icon that appears on the equation types radio button group
      * @public
      * @param {EquationTypes} equationType
-     * @param {array.<string>} vector tags - array of the vector tags. It is assumed the last vector tag is the sum.
+     * @param {array.<string>} vector symbols - array of the vector symbols. It is assumed the last vector symbol is the sum.
      * @param {Object} [options]
      * @returns {Node}
      */
-    static createEquationTypesIcon( equationType, vectorTags, options ) {
+    static createEquationTypesIcon( equationType, vectorSymbols, options ) {
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
-      assert && assert( vectorTags.filter( tag => typeof tag === 'string' ).length === vectorTags.length );
+      assert && assert( vectorSymbols.filter( symbol => typeof symbol === 'string' ).length === vectorSymbols.length );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
       options = _.extend( {
@@ -460,18 +460,18 @@ define( require => {
         height: 20
       } );
 
-      // insert signs (+/-/=) in between each tag (excluding the sum tag)
-      const contentArray = _.flatMap( _.dropRight( vectorTags ), ( tag, index, array ) => {
-        return index !== array.length - 1 ? [ tag, equationType === EquationTypes.SUBTRACTION ? '-' : '+' ] :
-               tag;
+      // insert signs (+/-/=) in between each symbol (excluding the sum symbol)
+      const contentArray = _.flatMap( _.dropRight( vectorSymbols ), ( symbol, index, array ) => {
+        return index !== array.length - 1 ? [ symbol, equationType === EquationTypes.SUBTRACTION ? '-' : '+' ] :
+               symbol;
       } );
 
       // Add the second half of the equation
       if ( equationType === EquationTypes.ADDITION || equationType === EquationTypes.SUBTRACTION ) {
-        contentArray.push( '=', _.last( vectorTags ) );
+        contentArray.push( '=', _.last( vectorSymbols ) );
       }
       else if ( equationType === EquationTypes.NEGATION ) {
-        contentArray.push( '+', _.last( vectorTags ), '=', '0' );
+        contentArray.push( '+', _.last( vectorSymbols ), '=', '0' );
       }
 
       return this.createRadioButtonIcon( new Text( _.join( contentArray, ' ' ), { font: options.font } ), {

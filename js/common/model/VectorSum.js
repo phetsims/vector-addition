@@ -33,12 +33,12 @@ define( require => {
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Graph} graph - graph the vector sum belongs to
      * @param {VectorSet} vectorSet - the vector set that the sum represents
-     * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
+     * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( initialTailPosition, graph, vectorSet, tag ) {
+    constructor( initialTailPosition, graph, vectorSet, symbol ) {
 
       // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-      super( initialTailPosition, Vector2.ZERO, graph, vectorSet, tag, VECTOR_SUM_OPTIONS );
+      super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbol, VECTOR_SUM_OPTIONS );
 
       //----------------------------------------------------------------------------------------
 
@@ -67,10 +67,10 @@ define( require => {
       } );
 
       //----------------------------------------------------------------------------------------
-      // @private {function} isTagDisplayed - function to check if the vector sum should display its tag.
-      // The vector sum only displays the tag when either a vector in its vector set is active, the sum is active, or
+      // @private {function} isSymbolDisplayed - function to check if the vector sum should display its symbol.
+      // The vector sum only displays the symbol when either a vector in its vector set is active, the sum is active, or
       // the activeVectorProperty.value is null
-      this.isTagDisplayed = () => {
+      this.isSymbolDisplayed = () => {
         return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
                || graph.activeVectorProperty.value === this
                || graph.activeVectorProperty.value === null;
@@ -121,23 +121,23 @@ define( require => {
      * @public
      * See RootVector.getLabelContent() for context
      *
-     * Gets the label content information to display the vector model. Vector Sums only display their tag when either a
+     * Gets the label content information to display the vector model. Vector Sums only display their symbol when either a
      * vector in its vector set is active, the sum is active, or the activeVectorProperty.value is null
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
      *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
      *                               // 3). Null means it doesn't display a coefficient
-     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
-     *                       // Null means it doesn't display a tag
+     *    symbol: {string|null} // the symbol (e.g. if the label displayed '3|v|=15', the symbol would be '|v|')
+     *                       // Null means it doesn't display a symbol
      *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
      *                         // Null means it doesn't display a value
      * }
      */
     getLabelContent( valuesVisible ) {
-      if ( !this.isTagDisplayed() ) {
+      if ( !this.isSymbolDisplayed() ) {
         return _.extend( super.getLabelContent( valuesVisible ), {
-          tag: null
+          symbol: null
         } );
       }
       else {

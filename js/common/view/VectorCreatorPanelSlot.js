@@ -12,7 +12,7 @@
  *  - Different icon colors and sizes
  *  - Infinite slots versus only one vector per slot
  *  - Number of slots per panel
- *  - Having labels vs not having labels (called tags)
+ *  - Having labels vs not having labels (called symbols)
  *  - Icon and initial vector components (i.e. on explore 1D the initial vector are horizontal/vertical) while
  *    on explore 2d the vectors are 45 degrees)
  *
@@ -69,7 +69,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       options = _.extend( {
-        tag: null, // {string|null} the tag for the vector at the slot
+        symbol: null, // {string|null} the symbol for the vector at the slot
         isInfinite: false, // {boolean} true means the slot will regenerate vectors to be dragged
         labelIconSpacing: LABEL_AND_ICON_SPACING, // {number} spacing between the label and the icon
         iconOptions: null, // {object} options passed to the icon. Defaults bellow.
@@ -109,9 +109,9 @@ define( require => {
         yAlign: 'center'
       } ) );
 
-      // Add the label if a tag was provided
-      if ( options.tag ) {
-        const label = new FormulaNode( `\\vec{\\mathrm{${options.tag}}}` );
+      // Add the label if a symbol was provided
+      if ( options.symbol ) {
+        const label = new FormulaNode( `\\vec{\\mathrm{${options.symbol}}}` );
         label.scale( LABEL_RESIZE_SCALE );
 
         this.addChild( label );
@@ -130,7 +130,7 @@ define( require => {
         const vectorTailPosition = vectorCenterPosition.minus( initialVector.timesScalar( 0.5 ) );
 
         // Create the new Vector Model
-        const vector = new Vector( vectorTailPosition, initialVector, graph, vectorSet, options.tag );
+        const vector = new Vector( vectorTailPosition, initialVector, graph, vectorSet, options.symbol );
         vectorSet.vectors.push( vector );
 
         //----------------------------------------------------------------------------------------

@@ -22,9 +22,9 @@ define( require => {
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
-  // The tag for the vector sum. The reason this isn't translatable is:
+  // The symbol for the vector sum. The reason this isn't translatable is:
   // https://github.com/phetsims/vector-addition/issues/10.
-  const SUM_TAG = 's';
+  const SUM_SYMBOL = 's';
 
 
   class VectorSet {
@@ -73,7 +73,7 @@ define( require => {
 
       if ( options.initializeSum ) {
         // @public (read-only) {Vector} the vector sum model
-        this.vectorSum = new VectorSum( options.initialSumTailPosition, graph, this, SUM_TAG );
+        this.vectorSum = new VectorSum( options.initialSumTailPosition, graph, this, SUM_SYMBOL );
       }
     }
 

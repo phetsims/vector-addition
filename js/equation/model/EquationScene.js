@@ -31,7 +31,7 @@ define( require => {
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
   const DEFAULT_BASE_VECTOR_VISIBILTY = false;
   // const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
-  const VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
+  const VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1;
 
   class EquationScene {
     /**
@@ -60,16 +60,16 @@ define( require => {
       // const initialComponents = [ new Vector2( 0, 5 ), new Vector2( 5, 45 ) ];
 
       // // create the two base vectors
-      // const vectorTags = coordinateSnapMode === CoordinateSnapModes.CARTESIAN ? VectorAdditionConstants.VECTOR_TAGS_GROUP_1 :
-      //   VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
+      // const vectorSymbols = coordinateSnapMode === CoordinateSnapModes.CARTESIAN ? VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
+      //   VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
 
-      // for ( let tagIndex = 0; tagIndex < vectorTags.length - 1; tagIndex++ ) {
+      // for ( let symbolIndex = 0; symbolIndex < vectorSymbols.length - 1; symbolIndex++ ) {
 
-      // const baseVector = new BaseVector( tailPositions[ tagIndex ],
-      //   initialComponents[ tagIndex ],
+      // const baseVector = new BaseVector( tailPositions[ symbolIndex ],
+      //   initialComponents[ symbolIndex ],
       //   graph,
       //   this,
-      //   VECTOR_TAGS[ tagIndex ] );
+      //   VECTOR_SYMBOLS[ symbolIndex ] );
 
       // }
 
@@ -95,7 +95,7 @@ define( require => {
       this.graphs = [ this.additionGraph, this.subtractionGraph, this.negationGraph ];
 
 
-      this.tags = VECTOR_TAGS;
+      this.symbols = VECTOR_SYMBOLS;
 
     }
 

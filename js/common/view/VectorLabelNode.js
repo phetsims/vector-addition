@@ -3,7 +3,7 @@
 /**
  * View for the label 'next' to a vector. Vector labels depend on the type of vectors and differ in different situations
  *
- * For instance, vectors that don't have a tag (in lab) display a fall back tag only when they are active,
+ * For instance, vectors that don't have a symbol (in lab) display a fall back symbol only when they are active,
  * but vectors on explore1D always display a label.
  * (See https://github.com/phetsims/vector-addition/issues/39.)
  *
@@ -11,7 +11,7 @@
  *  - Whether the values are visible (determined by the values checkbox)
  *  - Whether the magnitude/component is of length 0. See
  *     https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
- *  - Whether the vector has a tag (i.e the vectors on lab screen don't have tags)
+ *  - Whether the vector has a symbol (i.e the vectors on lab screen don't have symbols)
  *  - Whether the vector is active (https://github.com/phetsims/vector-addition/issues/39#issuecomment-506586411)
  *
  * These factors play different roles for different vector types, making it difficult to generalize.
@@ -75,7 +75,7 @@ define( require => {
         cornerRadius: 4, // {number}
         xMargin: 10, // {number}
         yMargin: 4, // {number}
-        tagValueSpacing: 3 // {number} spacing between the tag and the value
+        symbolValueSpacing: 3 // {number} spacing between the symbol and the value
       }, options );
 
       //----------------------------------------------------------------------------------------
@@ -83,20 +83,20 @@ define( require => {
       // Create the background rectangle, set as an arbitrary rectangle for now
       const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options );
 
-      // Create the label node, which is a parent of the tag and the value
+      // Create the label node, which is a parent of the symbol and the value
       const vectorLabel = new Node();
 
       const coefficientLabel = new Text( '', VALUE_LABEL_OPTIONS );
 
       // Create the Formula Node for the label and scale it to the correct size
-      const vectorTagNode = new FormulaNode( '' );
-      vectorTagNode.scale( options.scale );
+      const vectorSymbolNode = new FormulaNode( '' );
+      vectorSymbolNode.scale( options.scale );
 
       // Create the text for the value
       const vectorValueNode = new Text( '', VALUE_LABEL_OPTIONS );
 
       super( {
-        children: [ backgroundRectangle, vectorLabel.setChildren( [ coefficientLabel, vectorTagNode, vectorValueNode ] ) ]
+        children: [ backgroundRectangle, vectorLabel.setChildren( [ coefficientLabel, vectorSymbolNode, vectorValueNode ] ) ]
       } );
 
       //----------------------------------------------------------------------------------------
@@ -109,9 +109,9 @@ define( require => {
 
         // Toggle visibility
         coefficientLabel.visible = typeof labelDisplayData.coefficient === 'string';
-        vectorTagNode.visible = typeof labelDisplayData.tag === 'string';
+        vectorSymbolNode.visible = typeof labelDisplayData.symbol === 'string';
         vectorValueNode.visible = typeof labelDisplayData.value === 'string';
-        backgroundRectangle.visible = vectorTagNode.visible || vectorValueNode.visible || coefficientLabel.visible;
+        backgroundRectangle.visible = vectorSymbolNode.visible || vectorValueNode.visible || coefficientLabel.visible;
 
         if ( coefficientLabel.visible ) {
           coefficientLabel.setText( labelDisplayData.coefficient );
@@ -120,12 +120,12 @@ define( require => {
           coefficientLabel.setText( '' );
         }
         //----------------------------------------------------------------------------------------
-        // Update the tag if it exists
-        if ( vectorTagNode.visible ) {
-          vectorTagNode.setFormula( `\\vec{ \\mathrm{ ${labelDisplayData.tag} } \}` );
+        // Update the symbol if it exists
+        if ( vectorSymbolNode.visible ) {
+          vectorSymbolNode.setFormula( `\\vec{ \\mathrm{ ${labelDisplayData.symbol} } \}` );
         }
         else {
-          vectorTagNode.setFormula( '' );
+          vectorSymbolNode.setFormula( '' );
         }
 
         //----------------------------------------------------------------------------------------
@@ -151,9 +151,9 @@ define( require => {
             backgroundRectangle.fill = options.fill;
           }
 
-          vectorTagNode.left = coefficientLabel.right + options.tagValueSpacing;
+          vectorSymbolNode.left = coefficientLabel.right + options.symbolValueSpacing;
           // Align the nodes together
-          vectorValueNode.left = vectorTagNode.right + options.tagValueSpacing;
+          vectorValueNode.left = vectorSymbolNode.right + options.symbolValueSpacing;
 
           vectorLabel.invalidateSelf();
 
@@ -164,7 +164,7 @@ define( require => {
           // Update positioning
           backgroundRectangle.center = vectorLabel.center;
           vectorValueNode.centerY = backgroundRectangle.centerY;
-          vectorTagNode.centerY = backgroundRectangle.centerY;
+          vectorSymbolNode.centerY = backgroundRectangle.centerY;
           coefficientLabel.centerY = backgroundRectangle.centerY;
         }
       };

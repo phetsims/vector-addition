@@ -24,7 +24,7 @@ define( function( require ) {
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
   // constants
-  const EXPLORE_2D_VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
+  const EXPLORE_2D_VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1;
 
   class Explore2DScreenView extends VectorAdditionScreenView {
     /**
@@ -62,14 +62,14 @@ define( function( require ) {
         explore2DModel.polarGraph.vectorSet,
         polarSceneNode.vectorContainer,
         this,
-        EXPLORE_2D_VECTOR_TAGS ) );
+        EXPLORE_2D_VECTOR_SYMBOLS ) );
 
       cartesianSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel,
         explore2DModel.cartesianGraph,
         explore2DModel.cartesianGraph.vectorSet,
         cartesianSceneNode.vectorContainer,
         this,
-        EXPLORE_2D_VECTOR_TAGS ) );
+        EXPLORE_2D_VECTOR_SYMBOLS ) );
 
       //----------------------------------------------------------------------------------------
       // Toggle visibility of scenes based on which coordinate snap mode it is

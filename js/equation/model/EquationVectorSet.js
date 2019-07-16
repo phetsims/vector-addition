@@ -25,7 +25,7 @@ define( require => {
   };
   const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
 
-  const VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
+  const VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1;
 
   class EquationVectorSet extends VectorSet {
     /**
@@ -57,17 +57,17 @@ define( require => {
         VECTOR_SET_OPTIONS );
 
       //----------------------------------------------------------------------------------------
-      // Create the equationVector, one less then tags
-      // For example, if tags were [ 'A', 'B', 'C' ], 'A' and 'B' would be equation Vector modules
+      // Create the equationVector, one less then symbols
+      // For example, if symbols were [ 'A', 'B', 'C' ], 'A' and 'B' would be equation Vector modules
       // and C would be the equation vector sum
-      for ( let tagIndex = 0; tagIndex < VECTOR_TAGS.length - 1; tagIndex++ ) {
+      for ( let symbolIndex = 0; symbolIndex < VECTOR_SYMBOLS.length - 1; symbolIndex++ ) {
 
         const equationVector = new EquationVector( graph.graphModelBounds.center,
           DEFAULT_VECTOR_LENGTH,
           DEFAULT_VECTOR_LENGTH,
           graph,
           this,
-          VECTOR_TAGS[ tagIndex ] );
+          VECTOR_SYMBOLS[ symbolIndex ] );
 
         this.vectors.push( equationVector );
       }
@@ -78,7 +78,7 @@ define( require => {
       // Create the vector sum
 
       // @public (read-only) {EquationVectorSum}
-      this.vectorSum = new EquationVectorSum( graph, this, equationType, VECTOR_TAGS[ VECTOR_TAGS.length - 1 ] );
+      this.vectorSum = new EquationVectorSum( graph, this, equationType, VECTOR_SYMBOLS[ VECTOR_SYMBOLS.length - 1 ] );
 
     }
 
@@ -101,11 +101,11 @@ define( require => {
      * @param {Vector2} tailPosition
      * @param {number} xComponent
      * @param {number} yComponent
-     * @param {string|null} tag
+     * @param {string|null} symbol
      * @param {Object} [options]
      * @returns {Vector} the created vector model
      */
-    createVector( tailPosition, xComponent, yComponent, tag, options ) {
+    createVector( tailPosition, xComponent, yComponent, symbol, options ) {
       assert && assert( false, 'equation vector sets are locked' );
     }
   }

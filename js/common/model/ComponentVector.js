@@ -55,10 +55,10 @@ define( require => {
         `invalid componentType: ${componentType}` );
       //----------------------------------------------------------------------------------------
 
-      // Vector components don't have a tag.
-      const componentTag = null;
+      // Vector components don't have a symbol.
+      const componentSymbol = null;
 
-      super( parentVector.tail, Vector2.ZERO, parentVector.vectorGroup, componentTag );
+      super( parentVector.tail, Vector2.ZERO, parentVector.vectorGroup, componentSymbol );
 
       //----------------------------------------------------------------------------------------
       // Create references
@@ -142,15 +142,15 @@ define( require => {
      * @public
      * See RootVector.getLabelContent() for context.
      *
-     * Gets the label content information to display the vector component. Vector components don't have tags
+     * Gets the label content information to display the vector component. Vector components don't have symbols
      * and only show their component (which can be negative) when values are visible. They never have coefficients.
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
      *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
      *                               // 3). Null means it doesn't display a coefficient
-     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
-     *                       // Null means it doesn't display a tag
+     *    symbol: {string|null} // the symbol (e.g. if the label displayed '3|v|=15', the symbol would be '|v|')
+     *                       // Null means it doesn't display a symbol
      *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
      *                         // Null means it doesn't display a value
      * }
@@ -165,11 +165,11 @@ define( require => {
       // Round the component value
       const roundedComponentValue = Util.toFixed( componentValue, VECTOR_VALUE_ROUNDING );
 
-      // Since components don't have tags, it never has a prefix. Components only show components if and only
+      // Since components don't have symbols, it never has a prefix. Components only show components if and only
       // if the values are visible and if the component isn't of 0 length.
       return {
         coefficient: null, // components never have a coefficient
-        tag: null, // components never have a tag
+        symbol: null, // components never have a symbol
         value: valuesVisible && Math.abs( roundedComponentValue ) > 0 ? roundedComponentValue : null
       };
     }

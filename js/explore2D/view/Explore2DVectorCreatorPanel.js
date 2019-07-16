@@ -37,9 +37,9 @@ define( require => {
      * @param {VectorSet} the vector set that the explore 2d vector creator panel represents
      * @param {Node} vectorContainer - container for the vector nodes to go into
      * @param {VectorAdditionScreenView} explore2DScreenView
-     * @param {array.<string>} tags - the tags corresponding to each slot
+     * @param {array.<string>} symbols - the symbols corresponding to each slot
      */
-    constructor( explore2DModel, graph, vectorSet, vectorContainer, explore2DScreenView, tags ) {
+    constructor( explore2DModel, graph, vectorSet, vectorContainer, explore2DScreenView, symbols ) {
 
       assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
@@ -47,14 +47,14 @@ define( require => {
       assert && assert( vectorContainer instanceof Node, `invalid vectorContainer: ${vectorContainer}` );
       assert && assert( explore2DScreenView instanceof VectorAdditionScreenView,
         `invalid explore2DScreenView: ${explore2DScreenView}` );
-      assert && assert( tags.filter( tag => typeof tag === 'string' ).length === tags.length,
-        `invalid tags: ${tags}` );
+      assert && assert( symbols.filter( symbol => typeof symbol === 'string' ).length === symbols.length,
+        `invalid symbols: ${symbols}` );
 
       const panelSlots = [];
 
       //----------------------------------------------------------------------------------------
-      // Loop through each tag, creating a slot which corresponds with that tag
-      tags.forEach( ( tag ) => {
+      // Loop through each symbol, creating a slot which corresponds with that symbol
+      symbols.forEach( ( symbol ) => {
 
         const panelSlot = new VectorCreatorPanelSlot( explore2DModel,
           DEFAULT_VECTOR,
@@ -62,7 +62,7 @@ define( require => {
           vectorSet,
           vectorContainer,
           explore2DScreenView, {
-            tag: tag
+            symbol: symbol
           } );
 
         panelSlots.push( panelSlot );

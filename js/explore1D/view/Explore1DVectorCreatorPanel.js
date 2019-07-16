@@ -42,9 +42,9 @@ define( require => {
      * @param {VectorSet} the vector set that the explore 1D vector creator panel represents
      * @param {Node} vectorContainer - container for the vector nodes to go into
      * @param {VectorAdditionScreenView} explore1DScreenView
-     * @param {array.<string>} tags - the tags corresponding to each slot
+     * @param {array.<string>} symbols - the symbols corresponding to each slot
      */
-    constructor( explore1DModel, graph, vectorSet, vectorContainer, explore1DScreenView, tags ) {
+    constructor( explore1DModel, graph, vectorSet, vectorContainer, explore1DScreenView, symbols ) {
 
       assert && assert( explore1DModel instanceof Explore1DModel, `invalid explore1DModel: ${explore1DModel}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
@@ -52,14 +52,14 @@ define( require => {
       assert && assert( vectorContainer instanceof Node, `invalid vectorContainer: ${vectorContainer}` );
       assert && assert( explore1DScreenView instanceof VectorAdditionScreenView,
         `invalid explore1DScreenView: ${explore1DScreenView}` );
-      assert && assert( tags.filter( tag => typeof tag === 'string' ).length === tags.length,
-        `invalid tags: ${tags}` );
+      assert && assert( symbols.filter( symbol => typeof symbol === 'string' ).length === symbols.length,
+        `invalid symbols: ${symbols}` );
 
       const panelSlots = [];
 
       //----------------------------------------------------------------------------------------
-      // Loop through each tag, creating a slot which corresponds with that tag
-      tags.forEach( ( tag ) => {
+      // Loop through each symbol, creating a slot which corresponds with that symbol
+      symbols.forEach( ( symbol ) => {
 
         const panelSlot = new VectorCreatorPanelSlot( explore1DModel,
           graph.orientation === GraphOrientations.HORIZONTAL ? HORIZONTAL_DEFAULT_VECTOR : VERTICAL_DEFAULT_VECTOR,
@@ -67,7 +67,7 @@ define( require => {
           vectorSet,
           vectorContainer,
           explore1DScreenView, {
-            tag: tag
+            symbol: symbol
           } );
 
         panelSlots.push( panelSlot );

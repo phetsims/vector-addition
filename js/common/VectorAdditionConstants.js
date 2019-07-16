@@ -136,10 +136,10 @@ define( function( require ) {
 
     POLAR_ANGLE_INTERVAL: 5,
     //----------------------------------------------------------------------------------------
-    // Vector tags, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
+    // Vector symbols, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
     // These don't necessarily align with VectorGroups.
-    VECTOR_TAGS_GROUP_1: [ 'a', 'b', 'c' ],
-    VECTOR_TAGS_GROUP_2: [ 'd', 'e', 'f' ]
+    VECTOR_SYMBOLS_GROUP_1: [ 'a', 'b', 'c' ],
+    VECTOR_SYMBOLS_GROUP_2: [ 'd', 'e', 'f' ]
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

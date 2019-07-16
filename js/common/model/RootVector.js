@@ -32,14 +32,14 @@ define( require => {
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {VectorGroups} vectorGroup - the vector group (See ./VectorGroups.js)
-     * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
+     * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( initialTailPosition, initialComponents, vectorGroup, tag ) {
+    constructor( initialTailPosition, initialComponents, vectorGroup, symbol ) {
 
       assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
       assert && assert( initialComponents instanceof Vector2, `invalid initialComponents: ${initialComponents}` );
       assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
-      assert && assert( typeof tag === 'string' || tag === null, `invalid tag: ${tag}` );
+      assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {Vector2Property} tailPositionProperty - the tail position of the vector on the graph
@@ -59,7 +59,7 @@ define( require => {
       this.vectorGroup = vectorGroup;
 
       // @public (read-only) {string}
-      this.tag = tag;
+      this.symbol = symbol;
     }
 
     /**
@@ -76,11 +76,11 @@ define( require => {
      * @abstract
      * Gets the label content information to display on the vector. This is abstract since labels differ for vectors.
      *
-     * For context, a label is the content next to the vectors that display their tag and/or their value.
+     * For context, a label is the content next to the vectors that display their symbol and/or their value.
      * See https://user-images.githubusercontent.com/42391580/60774902-473beb00-a0d8-11e9-8cd5-737208ca65db.png for an
      * annotated drawing.
      *
-     * For instance, vectors with valuesVisible display their tag (i.e. a, b, c, ...) AND their magnitude, while
+     * For instance, vectors with valuesVisible display their symbol (i.e. a, b, c, ...) AND their magnitude, while
      * their components only display the x or y component. In the same example, vectors display their magnitude (+)
      * while components display the component, which can be negative.
      *
@@ -92,7 +92,7 @@ define( require => {
      *  - Whether the values are visible (determined by the values checkbox)
      *  - Whether the magnitude/component is of length 0. See
      *     https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
-     *  - Whether the vector has a tag (i.e. the vectors on lab screen don't have tags)
+     *  - Whether the vector has a symbol (i.e. the vectors on lab screen don't have symbols)
      *  - Whether the vector is active (https://github.com/phetsims/vector-addition/issues/39#issuecomment-506586411)
      *
      * These factors play different roles for different vector types, making it difficult to generalize. Thus, an
@@ -103,8 +103,8 @@ define( require => {
      * @returns {object} {
      *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
      *                               // 3). Null means it doesn't display a coefficient
-     *    tag: {string|null} // the tag (e.g. if the label displayed '3|v|=15', the tag would be '|v|')
-     *                       // Null means it doesn't display a tag
+     *    symbol: {string|null} // the symbol (e.g. if the label displayed '3|v|=15', the symbol would be '|v|')
+     *                       // Null means it doesn't display a symbol
      *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
      *                         // Null means it doesn't display a value
      * }
