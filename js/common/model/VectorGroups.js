@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Possible groupings of vectors/
+ * Possible groupings of vectors.
  *
  * @author Brandon Li
  */

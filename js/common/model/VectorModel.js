@@ -220,6 +220,7 @@ define( require => {
      *
      * Invariants for polar mode:
      *  - Vector tip must be rounded to ensure the magnitude of the vector is a integer
+     *  - Vector tip must be rounded to ensure the vector angle is a multiple of POLAR_ANGLE_INTERVAL
      *  - Vector tip must be within the graph bounds
      *  - Vector must not be dragged to make the vector 0 magnitude
      *
