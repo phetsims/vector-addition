@@ -157,11 +157,7 @@ define( require => {
       this.unlinkTailUpdateListener();
       this.xComponentVector.dispose();
       this.yComponentVector.dispose();
-      this.isOnGraphProperty.dispose();
       this.inProgressAnimationProperty.value && this.inProgressAnimationProperty.value.stop();
-      this.inProgressAnimationProperty.dispose();
-
-      super.dispose();
     }
 
     /**

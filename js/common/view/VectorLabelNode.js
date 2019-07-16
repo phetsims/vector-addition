@@ -179,7 +179,7 @@ define( require => {
         updateLabelNode );
 
       // @private {function} function to dispose listeners
-      this.disposeListeners = () => {
+      this.disposeVectorLabelNode = () => {
         this.labelMultilink.dispose();
       };
 
@@ -191,7 +191,7 @@ define( require => {
      * @public
      */
     dispose() {
-      this.disposeListeners();
+      this.disposeVectorLabelNode();
       super.dispose();
     }
   }

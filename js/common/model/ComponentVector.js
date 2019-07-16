@@ -82,12 +82,10 @@ define( require => {
 
     /**
      * Disposes the vector component. Called when the parent vector is disposed.
-     * @override
      * @public
      */
     dispose() {
       this.updateLayoutMultilink.dispose();
-      super.dispose();
     }
 
     /**

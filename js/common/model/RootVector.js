@@ -63,16 +63,6 @@ define( require => {
     }
 
     /**
-     * Disposes the vector
-     * @public
-     */
-    dispose() {
-      this.tailPositionProperty.dispose();
-      this.vectorComponentsProperty.dispose();
-      this.tipPositionProperty.dispose();
-    }
-
-    /**
      * @abstract
      * Gets the label content information to display on the vector. This is abstract since labels differ for vectors.
      *
