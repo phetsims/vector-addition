@@ -44,7 +44,7 @@ define( require => {
      * @param {VectorAdditionScreenView} explore1DScreenView
      * @param {array.<string>} symbols - the symbols corresponding to each slot
      */
-    constructor( explore1DModel, graph, vectorSet, vectorContainer, explore1DScreenView, symbols ) {
+    constructor( explore1DModel, graph, vectorSet, vectorContainer, explore1DScreenView, viewProperties, symbols ) {
 
       assert && assert( explore1DModel instanceof Explore1DModel, `invalid explore1DModel: ${explore1DModel}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
@@ -61,7 +61,7 @@ define( require => {
       // Loop through each symbol, creating a slot which corresponds with that symbol
       symbols.forEach( ( symbol ) => {
 
-        const panelSlot = new VectorCreatorPanelSlot( explore1DModel,
+        const panelSlot = new VectorCreatorPanelSlot( viewProperties,
           graph.orientation === GraphOrientations.HORIZONTAL ? HORIZONTAL_DEFAULT_VECTOR : VERTICAL_DEFAULT_VECTOR,
           graph,
           vectorSet,

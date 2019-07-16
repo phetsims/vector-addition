@@ -18,7 +18,7 @@ define( require => {
 
   // modules
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
+  // const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -53,7 +53,7 @@ define( require => {
      */
     constructor( labModel, graph, firstSlotVectorSet, secondSlotVectorSet, vectorContainer, labScreenView ) {
 
-      assert && assert( labModel instanceof LabModel, `invalid labModel: ${labModel}` );
+      // assert && assert( labModel instanceof LabModel, `invalid labModel: ${labModel}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( firstSlotVectorSet instanceof VectorSet, `invalid firstSlotVectorSet: ${firstSlotVectorSet}` );
       assert && assert( vectorContainer instanceof Node, `invalid vectorContainer: ${vectorContainer}` );

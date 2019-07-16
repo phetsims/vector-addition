@@ -41,7 +41,7 @@ define( require => {
      * @param {BooleanProperty} baseVectorVisibleProperty
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      */
-    constructor( equationModel, scene ) {
+    constructor( equationModel, viewProperties, scene ) {
 
 
       super();
@@ -50,9 +50,9 @@ define( require => {
       scene.graphs.forEach( graph => {
 
         const sceneNode = new SceneNode( graph,
-          equationModel.valuesVisibleProperty,
-          equationModel.angleVisibleProperty,
-          equationModel.gridVisibleProperty,
+          viewProperties.valuesVisibleProperty,
+          viewProperties.angleVisibleProperty,
+          viewProperties.gridVisibleProperty,
           equationModel.componentStyleProperty, {
             includeEraser: false,
             includeBaseVectors: true,

@@ -15,8 +15,6 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -26,7 +24,6 @@ define( require => {
   const Explore1DGraph = require( 'VECTOR_ADDITION/explore1D/model/Explore1DGraph' );
 
   // constants
-  const DEFAULT_VECTOR_ORIENTATION = GraphOrientations.HORIZONTAL;
   const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
 
 
@@ -49,8 +46,6 @@ define( require => {
       // @public (read-only) {BooleanProperty} sumVisibleProperty
       this.sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
-      // @public {EnumerationProperty.<GraphOrientations>} - controls the orientation of the vectors
-      this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, DEFAULT_VECTOR_ORIENTATION );
 
       // @public (read-only) {VectorGroups} VectorGroups - the only vector group used on the explore1D screen
       this.vectorGroup = VectorGroups.ONE;
@@ -64,21 +59,6 @@ define( require => {
       // @public (read-only) {Graph}
       this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL, this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
 
-      //----------------------------------------------------------------------------------------
-      // Disable unused Properties
-
-      this.angleVisibleProperty.link( angleVisible => {
-        if ( angleVisible ) {
-          assert && assert( false, 'Angles are not used in explore1D' );
-        }
-      } );
-
-      // Disable polar / cartesian mode. Doesn't need to be unlinked as explore 1D screen is never disposed
-      this.coordinateSnapModeProperty.link( coordinateSnapMode => {
-        if ( coordinateSnapMode !== CoordinateSnapModes.CARTESIAN ) {
-          assert && assert( false, 'Explore1D only uses cartesian' );
-        }
-      } );
     }
 
     /**
@@ -87,7 +67,6 @@ define( require => {
      * @public
      */
     reset() {
-      this.graphOrientationProperty.reset();
 
       this.horizontalGraph.reset();
       this.verticalGraph.reset();

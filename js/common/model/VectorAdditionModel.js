@@ -3,12 +3,8 @@
 /**
  * Root class (to be subtyped) for the top level model of every screen respectively. Controls the state of the sim.
  *
- * Main responsibilities are:
- *  - Values visibility
- *  - Grid visibility
- *  - Angle visibility
+ * Main responsibilities are: (See https://github.com/phetsims/vector-addition/issues/66)
  *  - Component style Property
- *  - Coordinate snap mode Property
  *
  * Meant as a superclass. Added Properties in subclasses will not be reset in this class. Graphs and sum visibility
  * Properties should be made in subclasses (varied amount of graphs and sum visibility Properties from screen to
@@ -21,16 +17,13 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
   const STARTING_COMPONENT_STYLE = ComponentStyles.INVISIBLE;
-  const STARTING_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
 
   class VectorAdditionModel {
 
@@ -41,22 +34,9 @@ define( require => {
 
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      // @public {BooleanProperty} valuesVisibleProperty - indicates if the labels should contain the magnitudes
-      this.valuesVisibleProperty = new BooleanProperty( false );
-
-      // @public {BooleanProperty} gridVisibleProperty - indicates if the graph background grid is visible
-      this.gridVisibleProperty = new BooleanProperty( true );
-
-      // @public {BooleanProperty} angleVisibleProperty  - controls the visibility of the angle
-      this.angleVisibleProperty = new BooleanProperty( false );
-
       // @public {EnumerationProperty.<ComponentStyles>} componentStyleProperty - controls the visibility of the
       // component styles
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, STARTING_COMPONENT_STYLE );
-
-      // @public {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty - controls the snapping mode
-      // for the vectors
-      this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
     }
 
     /**
@@ -64,11 +44,8 @@ define( require => {
      * @public
      */
     reset() {
-      this.valuesVisibleProperty.reset();
-      this.gridVisibleProperty.reset();
-      this.angleVisibleProperty.reset();
+
       this.componentStyleProperty.reset();
-      this.coordinateSnapModeProperty.reset();
     }
   }
 

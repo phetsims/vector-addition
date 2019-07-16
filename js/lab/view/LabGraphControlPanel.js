@@ -16,7 +16,7 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
+  // const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -49,10 +49,10 @@ define( require => {
      * @param {VectorSet} polarVectorSet2
      * @param {Object} [options]
      */
-    constructor( labModel, cartesianVectorSet1, cartesianVectorSet2, polarVectorSet1, polarVectorSet2, options ) {
+    constructor( labModel, cartesianVectorSet1, cartesianVectorSet2, polarVectorSet1, polarVectorSet2, componentStyleProperty, options ) {
 
 
-      assert && assert( labModel instanceof LabModel, `invalid explore2DModel: ${labModel}` );
+      // assert && assert( labModel instanceof LabModel, `invalid explore2DModel: ${labModel}` );
       assert && assert( cartesianVectorSet1 instanceof VectorSet,
         `invalid cartesianVectorSet1: ${cartesianVectorSet1}` );
       assert && assert( cartesianVectorSet2 instanceof VectorSet,
@@ -128,7 +128,7 @@ define( require => {
             CHECKBOX_OPTIONS ),
           new Line( 0, 0, PANEL_WIDTH, 0, { stroke: VectorAdditionColors.BLACK } ),
           new Text( componentsString, { font: PANEL_FONT } ),
-          new ComponentStyleRadioButtonGroup( labModel.componentStyleProperty )
+          new ComponentStyleRadioButtonGroup( componentStyleProperty )
         ]
       } );
 

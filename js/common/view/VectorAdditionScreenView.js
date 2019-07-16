@@ -22,7 +22,9 @@ define( require => {
   const SCREEN_VIEW_Y_MARGIN = VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
   class VectorAdditionScreenView extends ScreenView {
+
     /**
+     * @abstract
      * @param {VectorAdditionModel} vectorAdditionModel
      * @param {Tandem} tandem
      */
@@ -39,12 +41,23 @@ define( require => {
       const resetAllButton = new ResetAllButton( {
         listener: () => {
           vectorAdditionModel.reset();
+          this.reset();
         },
         right: this.layoutBounds.maxX - SCREEN_VIEW_X_MARGIN,
         bottom: this.layoutBounds.maxY - SCREEN_VIEW_Y_MARGIN,
         tandem: tandem.createTandem( 'resetAllButton' )
       } );
       this.addChild( resetAllButton );
+    }
+
+    /**
+     * @abstract
+     * Resets the screen view
+     *
+     * @public
+     */
+    reset() {
+      assert && assert( false, 'reset must be implemented by sub classes' );
     }
   }
 

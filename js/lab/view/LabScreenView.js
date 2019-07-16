@@ -22,6 +22,7 @@ define( function( require ) {
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const Tandem = require( 'TANDEM/Tandem' );
   const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
+  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
   class LabScreenView extends VectorAdditionScreenView {
     /**
@@ -34,37 +35,38 @@ define( function( require ) {
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
 
+      super( labModel, tandem );
+
+      this.viewProperties = new VectorAdditionViewProperties();
+
       //----------------------------------------------------------------------------------------
       // Create the scenes for the polar and cartesian scenes.
 
       const polarSceneNode = new SceneNode( labModel.polarGraph,
-        labModel.valuesVisibleProperty,
-        labModel.angleVisibleProperty,
-        labModel.gridVisibleProperty,
+        this.viewProperties.valuesVisibleProperty,
+        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.gridVisibleProperty,
         labModel.componentStyleProperty );
 
       const cartesianSceneNode = new SceneNode( labModel.cartesianGraph,
-        labModel.valuesVisibleProperty,
-        labModel.angleVisibleProperty,
-        labModel.gridVisibleProperty,
+        this.viewProperties.valuesVisibleProperty,
+        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.gridVisibleProperty,
         labModel.componentStyleProperty );
-
-      super( labModel, tandem );
-
       this.addChild( polarSceneNode );
       this.addChild( cartesianSceneNode );
 
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels
 
-      polarSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel,
+      polarSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( this.viewProperties,
         labModel.polarGraph,
         labModel.polarGraph.vectorSetGroup1,
         labModel.polarGraph.vectorSetGroup2,
         polarSceneNode.vectorContainer,
         this ) );
 
-      cartesianSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel,
+      cartesianSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( this.viewProperties,
         labModel.cartesianGraph,
         labModel.cartesianGraph.vectorSetGroup1,
         labModel.cartesianGraph.vectorSetGroup2,
@@ -76,7 +78,7 @@ define( function( require ) {
       // Toggle visibility of scenes based on which coordinate snap mode it is
 
       // Doesn't need to be unlinked since the scenes and explore2D scene is never disposed.
-      labModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+      this.viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
 
         polarSceneNode.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
         cartesianSceneNode.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
@@ -86,21 +88,26 @@ define( function( require ) {
       //----------------------------------------------------------------------------------------
       // Create the Coordinate snapping radio buttons
 
-      this.addChild( new CoordinateSnapRadioButtonGroup( labModel.coordinateSnapModeProperty ) );
+      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty ) );
 
       //----------------------------------------------------------------------------------------
       // Create the Graph Control panel
 
-      const labGraphControlPanel = new LabGraphControlPanel( labModel,
+      const labGraphControlPanel = new LabGraphControlPanel( this.viewProperties,
         labModel.cartesianGraph.vectorSetGroup1,
         labModel.cartesianGraph.vectorSetGroup2,
         labModel.polarGraph.vectorSetGroup1,
-        labModel.polarGraph.vectorSetGroup2, {
+        labModel.polarGraph.vectorSetGroup2,
+        labModel.componentStyleProperty, {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
 
       this.addChild( labGraphControlPanel );
+    }
+
+    reset() {
+      this.viewProperties.reset();
     }
   }
 

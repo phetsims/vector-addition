@@ -34,7 +34,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+  // const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
@@ -56,8 +56,8 @@ define( require => {
      */
     constructor( vectorAdditionModel, initialVector, graph, vectorSet, vectorContainer, parentScreenView, options ) {
 
-      assert && assert( vectorAdditionModel instanceof VectorAdditionModel,
-        `invalid vectorAdditionModel: ${vectorAdditionModel}` );
+      // assert && assert( vectorAdditionModel instanceof VectorAdditionModel,
+      //   `invalid vectorAdditionModel: ${vectorAdditionModel}` );
       assert && assert( initialVector instanceof Vector2, `invalid initialVector: ${initialVector}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );

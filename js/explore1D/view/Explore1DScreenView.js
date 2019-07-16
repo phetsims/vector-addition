@@ -15,6 +15,7 @@ define( require => {
   const Explore1DGraphControlPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DGraphControlPanel' );
   const Explore1DModel = require( 'VECTOR_ADDITION/explore1D/model/Explore1DModel' );
   const Explore1DVectorCreatorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanel' );
+  const Explore1DViewProperties = require( 'VECTOR_ADDITION/Explore1D/view/Explore1DViewProperties' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
@@ -45,24 +46,28 @@ define( require => {
       assert && assert( explore1DModel instanceof Explore1DModel, `invalid explore1DModel: ${explore1DModel}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
+      super( explore1DModel, tandem );
+
+
+      this.viewProperties = new Explore1DViewProperties();
+
       //----------------------------------------------------------------------------------------
       // Create the scenes for the horizontal and vertical scenes
 
       const verticalSceneNode = new SceneNode( explore1DModel.verticalGraph,
-        explore1DModel.valuesVisibleProperty,
-        explore1DModel.angleVisibleProperty,
-        explore1DModel.gridVisibleProperty,
+        this.viewProperties.valuesVisibleProperty,
+        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.gridVisibleProperty,
         explore1DModel.componentStyleProperty,
         EXPLORE_1D_SCENE_OPTIONS );
 
       const horizontalSceneNode = new SceneNode( explore1DModel.horizontalGraph,
-        explore1DModel.valuesVisibleProperty,
-        explore1DModel.angleVisibleProperty,
-        explore1DModel.gridVisibleProperty,
+        this.viewProperties.valuesVisibleProperty,
+        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.gridVisibleProperty,
         explore1DModel.componentStyleProperty,
         EXPLORE_1D_SCENE_OPTIONS );
 
-      super( explore1DModel, tandem );
 
       this.addChild( verticalSceneNode );
       this.addChild( horizontalSceneNode );
@@ -75,6 +80,7 @@ define( require => {
         explore1DModel.verticalGraph.vectorSet,
         verticalSceneNode.vectorContainer,
         this,
+        this.viewProperties,
         VERTICAL_VECTOR_SYMBOLS ) );
 
       horizontalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DModel,
@@ -82,11 +88,12 @@ define( require => {
         explore1DModel.horizontalGraph.vectorSet,
         horizontalSceneNode.vectorContainer,
         this,
+        this.viewProperties,
         HORIZONTAL_VECTOR_SYMBOLS ) );
 
       //----------------------------------------------------------------------------------------
       // Observe when the graph orientation changes and update the visibility of the scenes.
-      explore1DModel.graphOrientationProperty.link( ( graphOrientation ) => {
+      this.viewProperties.graphOrientationProperty.link( ( graphOrientation ) => {
 
         verticalSceneNode.visible = graphOrientation === GraphOrientations.VERTICAL;
         horizontalSceneNode.visible = graphOrientation === GraphOrientations.HORIZONTAL;
@@ -96,8 +103,8 @@ define( require => {
       // Create the Graph Control panel
 
       const explore1DGraphControlPanel = new Explore1DGraphControlPanel( explore1DModel.sumVisibleProperty,
-        explore1DModel.valuesVisibleProperty,
-        explore1DModel.gridVisibleProperty,
+        this.viewProperties.valuesVisibleProperty,
+        this.viewProperties.gridVisibleProperty,
         explore1DModel.vectorGroup, {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
@@ -117,7 +124,7 @@ define( require => {
       } ];
 
       // Create the radio buttons to switch between graphs
-      const graphOrientationRadioButtonGroup = new RadioButtonGroup( explore1DModel.graphOrientationProperty,
+      const graphOrientationRadioButtonGroup = new RadioButtonGroup( this.viewProperties.graphOrientationProperty,
         graphOrientationRadioButtonContent, _.extend( {}, RADIO_BUTTON_OPTIONS, {
           centerX: explore1DGraphControlPanel.centerX,
           top: explore1DGraphControlPanel.bottom + GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN,
@@ -125,6 +132,16 @@ define( require => {
         } ) );
 
       this.addChild( graphOrientationRadioButtonGroup );
+    }
+
+
+    /**
+     * Resets the screen view
+     * @override
+     * @public
+     */
+    reset() {
+      this.viewProperties.reset();
     }
   }
 

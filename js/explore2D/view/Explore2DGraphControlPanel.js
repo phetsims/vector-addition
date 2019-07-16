@@ -16,7 +16,7 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
+  // const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -47,9 +47,9 @@ define( require => {
      * @param {VecotrSet} polarVectorSet
      * @param {Object} [options]
      */
-    constructor( explore2DModel, cartesianVectorSet, polarVectorSet, options ) {
+    constructor( explore2DModel, cartesianVectorSet, polarVectorSet, componentStyleProperty, options ) {
 
-      assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
+      // assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
       assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
       assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
@@ -95,7 +95,7 @@ define( require => {
 
           new Line( 0, 0, PANEL_WIDTH, 0, { stroke: VectorAdditionColors.BLACK } ),
           new Text( componentsString, { font: PANEL_FONT } ),
-          new ComponentStyleRadioButtonGroup( explore2DModel.componentStyleProperty )
+          new ComponentStyleRadioButtonGroup( componentStyleProperty )
         ]
       } ) );
 

@@ -15,7 +15,7 @@ define( require => {
   'use strict';
 
   // modules
-  const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
+  // const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -41,7 +41,7 @@ define( require => {
      */
     constructor( explore2DModel, graph, vectorSet, vectorContainer, explore2DScreenView, symbols ) {
 
-      assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
+      // assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
       assert && assert( vectorContainer instanceof Node, `invalid vectorContainer: ${vectorContainer}` );

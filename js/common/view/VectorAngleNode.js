@@ -124,8 +124,8 @@ define( require => {
         } );
 
       //----------------------------------------------------------------------------------------
-      // @private {function} unlinkListeners - function to unlink listeners, called in dispose()
-      this.unlinkListeners = () => {
+      // @private {function} disposeVectorAngleNode - function to unlink listeners, called in dispose()
+      this.disposeVectorAngleNode = () => {
         vector.vectorComponentsProperty.unlink( updateAngleNodeListener );
         angleVisibleMultilink.dispose();
       };
@@ -136,7 +136,7 @@ define( require => {
      * @public
      */
     dispose() {
-      this.unlinkListeners();
+      this.disposeVectorAngleNode();
       super.dispose();
     }
 

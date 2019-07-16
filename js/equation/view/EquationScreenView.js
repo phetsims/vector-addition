@@ -14,13 +14,14 @@ define( function( require ) {
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
   const EquationSceneNode = require( 'VECTOR_ADDITION/equation/view/EquationSceneNode' );
-  const ScreenView = require( 'JOIST/ScreenView' );
+  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const EquationGraphControlPanel = require( 'VECTOR_ADDITION/equation/view/EquationGraphControlPanel' );
+  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
-  class EquationScreenView extends ScreenView {
+  class EquationScreenView extends VectorAdditionScreenView {
     /**
      * @param {EquationModel} equationModel
      * @param {Tandem} tandem
@@ -30,12 +31,15 @@ define( function( require ) {
       assert && assert( equationModel instanceof EquationModel, `invalid equationModel: ${equationModel}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      super();
+      super( equationModel, tandem );
 
-      const polarScene = new EquationSceneNode( equationModel,
+      this.viewProperties = new VectorAdditionViewProperties();
+
+
+      const polarScene = new EquationSceneNode( equationModel, this.viewProperties,
         equationModel.polarScene );
 
-      const cartesianScene = new EquationSceneNode( equationModel,
+      const cartesianScene = new EquationSceneNode( equationModel, this.viewProperties,
         equationModel.cartesianScene );
 
       this.addChild( polarScene );
@@ -45,7 +49,7 @@ define( function( require ) {
       // Toggle visibility of scenes based on which coordinate snap mode it is
 
       // Doesn't need to be unlinked since the scenes and equation scenes are never disposed.
-      equationModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+      this.viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
 
         polarScene.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
         cartesianScene.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
@@ -54,11 +58,11 @@ define( function( require ) {
       //----------------------------------------------------------------------------------------
       // Create the Coordinate snapping radio buttons
 
-      this.addChild( new CoordinateSnapRadioButtonGroup( equationModel.coordinateSnapModeProperty ) );
+      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty ) );
 
-      const equationGraphControlPanel = new EquationGraphControlPanel( equationModel.valuesVisibleProperty,
-        equationModel.angleVisibleProperty,
-        equationModel.gridVisibleProperty,
+      const equationGraphControlPanel = new EquationGraphControlPanel( this.viewProperties.valuesVisibleProperty,
+        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.gridVisibleProperty,
         equationModel.componentStyleProperty, {
           right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
@@ -66,6 +70,10 @@ define( function( require ) {
 
       this.addChild( equationGraphControlPanel );
 
+    }
+
+    reset() {
+      this.viewProperties.reset();
     }
   }
 
