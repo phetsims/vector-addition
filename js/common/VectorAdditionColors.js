@@ -67,28 +67,28 @@ define( function( require ) {
   // Vector colors by groups (See VectorGroups.js)
   //----------------------------------------------------------------------------------------
 
-  VectorAdditionColors[ VectorGroups.ONE ] = {
+  VectorAdditionColors[ VectorGroups.ONE.toString() ] = {
     fill: 'rgb( 0, 185, 255 )',
     sum: 'rgb( 0, 181, 225 )',
     component: 'rgb( 155, 222, 255 )',
     labelBackground: 'rgb( 150, 210, 255 )'
   };
 
-  VectorAdditionColors[ VectorGroups.TWO ] = {
+  VectorAdditionColors[ VectorGroups.TWO.toString() ] = {
     fill: 'rgb( 232, 25, 9 )',
     sum: 'rgb( 196, 2, 51 )',
     component: 'rgb( 245, 120, 120 )',
     labelBackground: 'rgb( 255, 100, 100 )'
   };
 
-  VectorAdditionColors[ VectorGroups.THREE ] = {
+  VectorAdditionColors[ VectorGroups.THREE.toString() ] = {
     fill: PURPLE,
     sum: 'rgb( 128, 0, 128 )',
     component: 'rgb( 216, 191, 216 )',
     labelBackground: 'rgb( 210, 194, 210 )'
   };
 
-  VectorAdditionColors[ VectorGroups.FOUR ] = {
+  VectorAdditionColors[ VectorGroups.FOUR.toString() ] = {
     fill: 'rgb( 0, 255, 0 )',
     sum: 'rgb( 0, 102, 0 )',
     component: 'rgb( 190, 255, 190 )',
