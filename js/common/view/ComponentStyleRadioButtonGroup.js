@@ -12,6 +12,8 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -49,7 +51,9 @@ define( require => {
           content: VectorAdditionIconFactory.createComponentStyleIcon( componentStyle )
         }, options ) );
 
-        radioButtonsContent.push( button );
+        radioButtonsContent.push( new AlignBox( button, {
+          alignBounds: new Bounds2( 0, 0, button.width, button.height )
+        } ) );
       } );
 
       super( { children: [ new GridLayoutBox( radioButtonsContent ) ] } );

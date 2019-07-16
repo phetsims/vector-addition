@@ -13,6 +13,8 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const Checkbox = require( 'SUN/Checkbox' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
@@ -74,6 +76,8 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
+      const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( componentStyleProperty );
+
       const graphControlPanelContent = new VBox( _.extend( {}, CONTROL_PANEL_LAYOUT_BOX_OPTIONS, {
         children: [
           new Node( { children: [ cartesianSumCheckbox, polarSumCheckbox ] } ),
@@ -95,7 +99,9 @@ define( require => {
 
           new Line( 0, 0, PANEL_WIDTH, 0, { stroke: VectorAdditionColors.BLACK } ),
           new Text( componentsString, { font: PANEL_FONT } ),
-          new ComponentStyleRadioButtonGroup( componentStyleProperty )
+          new AlignBox( componentStyleRadioButtonGroup, {
+            alignBounds: new Bounds2( 0, 0, PANEL_WIDTH, componentStyleRadioButtonGroup.height )
+          } )
         ]
       } ) );
 
