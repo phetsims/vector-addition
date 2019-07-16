@@ -36,7 +36,7 @@ define( require => {
   const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
 
-  class VectorComponentNode extends RootVectorNode {
+  class ComponentVectorNode extends RootVectorNode {
     /**
      * @param {ComponentVector} ComponentVector - the vector model for the component
      * @param {Graph} graph - the graph the vector belongs to
@@ -236,5 +236,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'VectorComponentNode', VectorComponentNode );
+  return vectorAddition.register( 'ComponentVectorNode', ComponentVectorNode );
 } );

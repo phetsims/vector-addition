@@ -3,7 +3,7 @@
 /**
  * View for a the component of the sum vector.
  *
- * Extends VectorComponentNode but adds the following functionality:
+ * Extends ComponentVectorNode but adds the following functionality:
  *  - a distinct appearance
  *  - toggle visibility based on the sumVisibleProperty
  *  - disables ability to take the sum vector node off of the graph
@@ -18,9 +18,9 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
+  const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
 
-  class VectorSumComponentNode extends VectorComponentNode {
+  class SumComponentVectorNode extends ComponentVectorNode {
     /**
      * @param {VectorComponent} vectorComponentModel - the vector model for the component
      * @param {Graph} graph - the graph the component belongs to
@@ -94,5 +94,5 @@ define( require => {
     dispose() { assert && assert( false, 'Vector sum components are never disposed.' ); }
   }
 
-  return vectorAddition.register( 'VectorSumComponentNode', VectorSumComponentNode );
+  return vectorAddition.register( 'SumComponentVectorNode', SumComponentVectorNode );
 } );

@@ -30,10 +30,10 @@ define( require => {
   const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorComponentNode = require( 'VECTOR_ADDITION/common/view/VectorComponentNode' );
+  const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
-  const VectorSumComponentNode = require( 'VECTOR_ADDITION/common/view/VectorSumComponentNode' );
+  const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
 
 
@@ -140,12 +140,12 @@ define( require => {
             valuesVisibleProperty,
             angleVisibleProperty );
 
-          const xComponentNode = new VectorComponentNode( vector.xComponentVector,
+          const xComponentNode = new ComponentVectorNode( vector.xComponentVector,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );
 
-          const yComponentNode = new VectorComponentNode( vector.yComponentVector,
+          const yComponentNode = new ComponentVectorNode( vector.yComponentVector,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );
@@ -169,13 +169,13 @@ define( require => {
           vectorSet.sumVisibleProperty,
           options.sumNodeOptions
         );
-        const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xComponentVector,
+        const xComponentSumNode = new SumComponentVectorNode( vectorSet.vectorSum.xComponentVector,
           graph,
           componentStyleProperty,
           valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
-        const yComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.yComponentVector,
+        const yComponentSumNode = new SumComponentVectorNode( vectorSet.vectorSum.yComponentVector,
           graph,
           componentStyleProperty,
           valuesVisibleProperty,
@@ -198,12 +198,12 @@ define( require => {
         // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           // only add the components since the vector node is created in the vector creator panel
-          const xComponentNode = new VectorComponentNode( addedVector.xComponentVector,
+          const xComponentNode = new ComponentVectorNode( addedVector.xComponentVector,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );
 
-          const yComponentNode = new VectorComponentNode( addedVector.yComponentVector,
+          const yComponentNode = new ComponentVectorNode( addedVector.yComponentVector,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );
