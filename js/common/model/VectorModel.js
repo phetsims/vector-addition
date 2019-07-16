@@ -3,7 +3,7 @@
 /**
  * Model for a vector.
  *
- * Extends RootVectorModel but adds the following functionality:
+ * Extends RootVector but adds the following functionality:
  *  - update the tail when the origin moves (modelViewTransformProperty)
  *  - methods to drop a vector, to animate a vector, and to pop a vector off the graph
  *  - ability to drag the vector by the tail and the tip in both polar and cartesian mode
@@ -22,7 +22,7 @@ define( require => {
   const Easing = require( 'TWIXT/Easing' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Property = require( 'AXON/Property' );
-  const RootVectorModel = require( 'VECTOR_ADDITION/common/model/RootVectorModel' );
+  const RootVector = require( 'VECTOR_ADDITION/common/model/RootVector' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -54,7 +54,7 @@ define( require => {
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
 
-  class VectorModel extends RootVectorModel {
+  class VectorModel extends RootVector {
 
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
@@ -167,7 +167,7 @@ define( require => {
     /**
      * @override
      * @public
-     * See RootVectorModel.getLabelContent() for context
+     * See RootVector.getLabelContent() for context
      *
      * Gets the label content information to display the vector model. Vector's may or may not have tags.
      *
@@ -430,11 +430,11 @@ define( require => {
           this.tail.distance( tailPosition ) / AVERAGE_ANIMATION_SPEED
         ),
         targets: [ {
-          Property: this.tailPositionProperty,
+          property: this.tailPositionProperty,
           easing: Easing.QUADRATIC_IN_OUT,
           to: tailPosition
         }, {
-          Property: this.vectorComponentsProperty,
+          property: this.vectorComponentsProperty,
           easing: Easing.QUADRATIC_IN_OUT,
           to: finalComponents
         } ]

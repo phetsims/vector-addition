@@ -23,7 +23,7 @@ define( require => {
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Property = require( 'AXON/Property' );
-  const RootVectorModel = require( 'VECTOR_ADDITION/common/model/RootVectorModel' );
+  const RootVector = require( 'VECTOR_ADDITION/common/model/RootVector' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -35,7 +35,7 @@ define( require => {
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
 
-  class VectorComponentModel extends RootVectorModel {
+  class VectorComponentModel extends RootVector {
 
     /**
      * @param {VectorModel} parentVector - the vector to which the component is associated with
@@ -45,7 +45,7 @@ define( require => {
      */
     constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
-      assert && assert( parentVector instanceof RootVectorModel, `invalid parentVector: ${parentVector}` );
+      assert && assert( parentVector instanceof RootVector, `invalid parentVector: ${parentVector}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
@@ -66,7 +66,7 @@ define( require => {
       // @public (read-only) {Enumeration} componentType
       this.componentType = componentType;
 
-      // @public {RootVectorModel} parentVector - reference the parent vector
+      // @public {RootVector} parentVector - reference the parent vector
       this.parentVector = parentVector;
 
       // @private {Multilink} updateLayoutMultilink - observe changes of the parent's tail, tip, and components. When
@@ -140,7 +140,7 @@ define( require => {
     /**
      * @override
      * @public
-     * See RootVectorModel.getLabelContent() for context.
+     * See RootVector.getLabelContent() for context.
      *
      * Gets the label content information to display the vector component. Vector components don't have tags
      * and only show their component (which can be negative) when values are visible. They never have coefficients.

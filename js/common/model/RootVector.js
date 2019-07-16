@@ -25,7 +25,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
-  class RootVectorModel {
+  class RootVector {
 
     /**
      * @abstract
@@ -316,5 +316,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'RootVectorModel', RootVectorModel );
+  return vectorAddition.register( 'RootVector', RootVector );
 } );

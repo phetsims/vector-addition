@@ -119,7 +119,7 @@ define( require => {
     /**
      * @override
      * @public
-     * See RootVectorModel.getLabelContent() for context
+     * See RootVector.getLabelContent() for context
      *
      * Gets the label content information to display the vector model. Vector Sums only display their tag when either a
      * vector in its vector set is active, the sum is active, or the activeVectorProperty.value is null
