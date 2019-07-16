@@ -53,6 +53,7 @@ define( require => {
   const MODEL_TO_VIEW_SCALE = 12.45;
 
   class Graph {
+    
     /**
      * @param {Bounds2} initialGraphBounds - the model bounds of the graph at the start of the sim
      * @param {CoordinateSnapModes} coordinateSnapMode - the coordinate snap mode of the graph. A graph is either

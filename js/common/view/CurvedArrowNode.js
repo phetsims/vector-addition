@@ -30,7 +30,7 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   class CurvedArrowNode extends Node {
-    
+
     /**
      * @param {number} radius - the radius of curved arrow.
      * @param {number} angle - the end angle (in radians) of the curved arrow. The arrow is assumed to start at 0

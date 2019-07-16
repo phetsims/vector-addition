@@ -55,7 +55,7 @@ define( require => {
 
 
   class VectorModel extends RootVectorModel {
-    
+
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector

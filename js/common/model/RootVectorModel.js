@@ -26,7 +26,9 @@ define( require => {
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   class RootVectorModel {
+
     /**
+     * @abstract
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {VectorGroups} vectorGroup - the vector group (See ./VectorGroups.js)

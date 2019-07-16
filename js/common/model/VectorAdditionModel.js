@@ -33,6 +33,7 @@ define( require => {
   const STARTING_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
 
   class VectorAdditionModel {
+
     /**
      * @param {Tandem} tandem
      */

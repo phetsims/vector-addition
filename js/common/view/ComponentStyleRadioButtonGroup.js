@@ -25,7 +25,7 @@ define( require => {
   const RADIO_BUTTON_OPTIONS = _.clone( VectorAdditionConstants.RADIO_BUTTON_OPTIONS );
 
   class ComponentStyleRadioButtonGroup extends Node {
-    
+
     /**
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options]
@@ -59,7 +59,7 @@ define( require => {
   //----------------------------------------------------------------------------------------
 
   class GridLayoutBox extends LayoutBox {
-    
+
     /**
      * @param {Array.<Node>} content
      * @param {Object} [options]

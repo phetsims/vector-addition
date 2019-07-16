@@ -36,6 +36,7 @@ define( require => {
 
 
   class VectorComponentModel extends RootVectorModel {
+
     /**
      * @param {VectorModel} parentVector - the vector to which the component is associated with
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components

@@ -31,6 +31,7 @@ define( require => {
   const LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
   class RootVectorNode extends Node {
+
     /**
      * @param {RootVectorModel} rootVectorModel - the vector model
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
