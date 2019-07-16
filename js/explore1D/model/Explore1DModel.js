@@ -33,7 +33,6 @@ define( require => {
   class Explore1DModel extends VectorAdditionModel {
     /**
      * @param {Tandem} tandem
-     * @constructor
      */
     constructor( tandem ) {
 

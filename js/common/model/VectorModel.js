@@ -56,8 +56,6 @@ define( require => {
 
   class VectorModel extends RootVectorModel {
     /**
-     * @constructor
-     *
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {Graph} graph - the graph the vector belongs to

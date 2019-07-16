@@ -29,7 +29,6 @@ define( require => {
     
   class EquationVectorSet extends VectorSet {
     /**
-     * @constructor
      * @param {Graph} graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible property

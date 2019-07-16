@@ -51,8 +51,6 @@ define( require => {
 
   class CoefficientSelectorPanel extends ExpandCollapsePanel {
     /**
-     * @constructor
-     *
      * @param {EquationVectorSet} equationVectorSet
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are

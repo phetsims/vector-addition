@@ -53,7 +53,6 @@ define( require => {
      * @param {Node} vectorContainer - the container to add new vector nodes to (to keep vectors in a separate z-layer)
      * @param {ScreenView} parentScreenView - the screen view up the scene graph for the creator panel slot
      * @param {Object} [options]
-     * @constructor
      */
     constructor( vectorAdditionModel, initialVector, graph, vectorSet, vectorContainer, parentScreenView, options ) {
 

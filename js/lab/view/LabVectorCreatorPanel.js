@@ -50,7 +50,6 @@ define( require => {
      * @param {VectorSet} secondSlotVectorSet - the vector set that the second slot adds vectors to.
      * @param {Node} vectorContainer - container for the vector nodes to go into
      * @param {VectorAdditionScreenView} labScreenView
-     * @constructor
      */
     constructor( labModel, graph, firstSlotVectorSet, secondSlotVectorSet, vectorContainer, labScreenView ) {
 

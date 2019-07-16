@@ -45,7 +45,6 @@ define( require => {
 
   class Explore1DGraph extends Graph {
     /**
-     * @constructor
      * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - shared boolean property that controls the visibility of sum vectors

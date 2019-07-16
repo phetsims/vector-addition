@@ -45,7 +45,6 @@ define( require => {
 
   class BaseVectorsAccordionBox extends AccordionBox {
     /**
-     * @constructor
      * @param {BooleanProperty} baseVectorsVisibleProperty
      * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
      *                             specific to this class while some are passed to the superclass. See the code where

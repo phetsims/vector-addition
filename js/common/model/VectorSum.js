@@ -30,7 +30,6 @@ define( require => {
 
   class VectorSum extends VectorModel {
     /**
-     * @constructor
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Graph} graph - graph the vector sum belongs to
      * @param {VectorSet} vectorSet - the vector set that the sum represents

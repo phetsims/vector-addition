@@ -34,7 +34,6 @@ define( require => {
 
   class VectorAdditionModel {
     /**
-     * @constructor
      * @param {Tandem} tandem
      */
     constructor( tandem ) {

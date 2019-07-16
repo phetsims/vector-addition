@@ -30,7 +30,6 @@ define( require => {
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
      * @param {Object} [arrowOptions]
-     * @constructor
      */
     constructor( vectorSum, graph, valuesVisibleProperty, angleVisibleProperty, sumVisibleProperty, arrowOptions ) {
 

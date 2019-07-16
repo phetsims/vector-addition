@@ -23,7 +23,6 @@ define( require => {
 
   class VectorAdditionScreenView extends ScreenView {
     /**
-     * @constructor
      * @param {VectorAdditionModel} vectorAdditionModel
      * @param {Tandem} tandem
      */

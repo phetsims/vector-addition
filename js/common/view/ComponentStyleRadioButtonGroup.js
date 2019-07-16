@@ -26,7 +26,6 @@ define( require => {
 
   class ComponentStyleRadioButtonGroup extends Node {
     /**
-     * @constructor
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
      *                             specific to this class while some are passed to the superclass. See the code where
@@ -62,7 +61,7 @@ define( require => {
 
   class GridLayoutBox extends LayoutBox {
     /**
-     * @constructor
+     * 
      * @param {Array.<Node>} content
      * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
      *                             specific to this class while some are passed to the superclass. See the code where

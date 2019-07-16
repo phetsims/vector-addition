@@ -30,7 +30,6 @@ define( function( require ) {
     /**
      * @param {Explore2DModel} explore2DModel
      * @param {Tandem} tandem
-     * @constructor
      */
     constructor( explore2DModel, tandem ) {
 

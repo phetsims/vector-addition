@@ -41,8 +41,6 @@ define( require => {
 
   class ExpandCollapsePanel extends Panel {
     /**
-     * @constructor
-     *
      * @param {Node} closedContent - content when the panel is closed
      * @param {Node} openContent - content when the panel is open
      * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are

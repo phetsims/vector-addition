@@ -35,7 +35,7 @@ define( require => {
     
   class EquationScene {
     /**
-     * @constructor
+     * 
      */
     constructor( coordinateSnapMode, componentStyleProperty, vectorGroup ) {
 

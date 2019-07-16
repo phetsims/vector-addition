@@ -40,7 +40,6 @@ define( require => {
      * @param {EquationVectorSet} equationVectorSet
      * @param {BooleanProperty} baseVectorVisibleProperty
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
-     * @constructor
      */
     constructor( equationModel, scene ) {
 

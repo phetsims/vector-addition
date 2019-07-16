@@ -39,7 +39,6 @@ define( require => {
 
   class LabGraph extends Graph {
     /**
-     * @constructor
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {VectorGroups} vectorGroupOne - unique vector group for the first vector set

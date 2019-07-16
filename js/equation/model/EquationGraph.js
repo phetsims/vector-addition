@@ -33,7 +33,6 @@ define( require => {
 
   class EquationGraph extends Graph {
     /**
-     * @constructor
      * @param {CoordinateSnapModes} coordinateSnapMode
      */
     constructor( coordinateSnapMode, componentStyleProperty, vectorGroup, equationType ) {

@@ -46,7 +46,6 @@ define( require => {
      * @param {VectorSet} cartesianVectorSet
      * @param {VecotrSet} polarVectorSet
      * @param {Object} [options]
-     * @constructor
      */
     constructor( explore2DModel, cartesianVectorSet, polarVectorSet, options ) {
 

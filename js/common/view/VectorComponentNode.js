@@ -38,7 +38,6 @@ define( require => {
 
   class VectorComponentNode extends RootVectorNode {
     /**
-     * @constructor
      * @param {VectorComponentModel} VectorComponentModel - the vector model for the component
      * @param {Graph} graph - the graph the vector belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty

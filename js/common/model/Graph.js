@@ -54,8 +54,6 @@ define( require => {
 
   class Graph {
     /**
-     * @constructor
-     *
      * @param {Bounds2} initialGraphBounds - the model bounds of the graph at the start of the sim
      * @param {CoordinateSnapModes} coordinateSnapMode - the coordinate snap mode of the graph. A graph is either
      *                                                   entirely polar or cartesian.

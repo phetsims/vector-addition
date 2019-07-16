@@ -23,7 +23,6 @@ define( require => {
     /**
      * @param {array.<VectorCreatorPanelSlot>} panelSlots
      * @param {Object} [options] - options for the panel
-     * @constructor
      */
     constructor( panelSlots, options ) {
 

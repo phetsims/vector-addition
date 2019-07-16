@@ -29,7 +29,6 @@ define( require => {
 
   class SumCheckbox extends Checkbox {
     /**
-     * @constructor
      * @param {BooleanProperty} sumVisibleProperty
      * @param {VectorGroups} vectorGroup
      */

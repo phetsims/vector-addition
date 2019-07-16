@@ -35,7 +35,6 @@ define( require => {
 
   class Explore1DGraphControlPanel extends Panel {
     /**
-     * @constructor
      * @param {BooleanProperty} sumVisibleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty

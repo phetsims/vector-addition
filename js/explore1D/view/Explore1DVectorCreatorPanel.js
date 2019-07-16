@@ -43,7 +43,6 @@ define( require => {
      * @param {Node} vectorContainer - container for the vector nodes to go into
      * @param {VectorAdditionScreenView} explore1DScreenView
      * @param {array.<string>} tags - the tags corresponding to each slot
-     * @constructor
      */
     constructor( explore1DModel, graph, vectorSet, vectorContainer, explore1DScreenView, tags ) {
 

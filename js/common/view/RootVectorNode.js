@@ -32,7 +32,6 @@ define( require => {
 
   class RootVectorNode extends Node {
     /**
-     * @constructor
      * @param {RootVectorModel} rootVectorModel - the vector model
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {BooleanProperty} valuesVisibleProperty

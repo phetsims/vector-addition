@@ -48,7 +48,6 @@ define( require => {
      * @param {VectorSet} polarVectorSet1
      * @param {VectorSet} polarVectorSet2
      * @param {Object} [options]
-     * @constructor
      */
     constructor( labModel, cartesianVectorSet1, cartesianVectorSet2, polarVectorSet1, polarVectorSet2, options ) {
 

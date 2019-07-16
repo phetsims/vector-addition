@@ -39,7 +39,6 @@ define( require => {
     /**
      * @param {Explore1DModel} explore1DModel
      * @param {Tandem} tandem
-     * @constructor
      */
     constructor( explore1DModel, tandem ) {
 

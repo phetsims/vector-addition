@@ -37,8 +37,6 @@ define( require => {
 
   class VectorComponentModel extends RootVectorModel {
     /**
-     * @constructor
-     *
      * @param {VectorModel} parentVector - the vector to which the component is associated with
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
      * @param {Property.<VectorModel|null>} activeVectorProperty

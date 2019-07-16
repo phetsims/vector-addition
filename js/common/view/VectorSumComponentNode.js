@@ -22,7 +22,6 @@ define( require => {
 
   class VectorSumComponentNode extends VectorComponentNode {
     /**
-     * @constructor
      * @param {VectorComponent} vectorComponentModel - the vector model for the component
      * @param {Graph} graph - the graph the component belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty

@@ -23,7 +23,6 @@ define( require => {
   class Explore1DScreen extends Screen {
     /**
      * @param {Tandem} tandem
-     * @constructor
      */
     constructor( tandem ) {
 

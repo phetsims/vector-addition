@@ -38,7 +38,6 @@ define( require => {
 
   class Explore2DGraph extends Graph {
     /**
-     * @constructor
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {VectorGroups} vectorGroup - unique vector group for the graph

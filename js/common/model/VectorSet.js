@@ -29,8 +29,6 @@ define( require => {
 
   class VectorSet {
     /**
-     * @constructor
-     *
      * @param {Graph} graph - the graph the vector set belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible property

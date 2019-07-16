@@ -27,7 +27,6 @@ define( require => {
 
   class EquationVectorSum extends VectorSum {
     /**
-     * @constructor
      * @param {Graph} graph - graph the vector sum belongs to
      * @param {VectorSet} - the vector set that the sum represents
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty

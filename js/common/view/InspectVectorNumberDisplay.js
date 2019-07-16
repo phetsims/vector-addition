@@ -44,8 +44,6 @@ define( require => {
 
   class InspectVectorNumberDisplay extends NumberDisplay {
     /**
-     * @constructor
-     *
      * @param {Graph} graph - the graph that contains the vectors to display
      * @param {Enumeration} attributeDisplayType - the attribute to display
      *                                             (see InspectVectorNumberDisplay.ATTRIBUTE_DISPLAY_TYPES)

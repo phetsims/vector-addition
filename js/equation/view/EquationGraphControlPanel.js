@@ -53,7 +53,6 @@ define( require => {
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>}
      * @param {Object} [options]
-     * @constructor
      */
     constructor( valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty, options ) {
 

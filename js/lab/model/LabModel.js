@@ -26,7 +26,6 @@ define( require => {
   class LabModel extends VectorAdditionModel {
     /**
      * @param {Tandem} tandem
-     * @constructor
      */
     constructor( tandem ) {
 

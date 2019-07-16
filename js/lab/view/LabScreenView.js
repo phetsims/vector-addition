@@ -27,7 +27,6 @@ define( function( require ) {
     /**
      * @param {LabModel} labModel
      * @param {Tandem} tandem
-     * @constructor
      */
     constructor( labModel, tandem ) {
 

@@ -16,7 +16,6 @@ define( require => {
 
   class EquationVectorNode extends VectorNode {
     /**
-     * @constructor
      * @param {VectorModel} vectorModel- the vector model
      * @param {Graph} graph - the graph the vector belongs to
      * @param {BooleanProperty} valuesVisibleProperty

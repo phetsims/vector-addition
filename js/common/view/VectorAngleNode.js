@@ -71,8 +71,6 @@ define( require => {
 
   class VectorAngleNode extends Node {
     /**
-     * @constructor
-     *
      * @param {VectorModel} vectorModel - the model for the vector that the angle represents
      * @param {BooleanProperty} angleVisibleProperty
      * @param {Graph} graph

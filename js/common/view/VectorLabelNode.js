@@ -53,7 +53,6 @@ define( require => {
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Property.<RootVectorModel|null>} activeVectorProperty
      * @param {Object} [options]
-     * @constructor
      */
     constructor( rootVectorModel, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
 
