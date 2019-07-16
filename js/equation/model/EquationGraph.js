@@ -36,7 +36,7 @@ define( require => {
      * @param {CoordinateSnapModes} coordinateSnapMode
      */
     constructor( coordinateSnapMode, componentStyleProperty, vectorGroup, equationType ) {
-    
+
       super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, GraphOrientations.TWO_DIMENSIONAL, componentStyleProperty );
 
       // @public (read-only) {EquationVectorSet}

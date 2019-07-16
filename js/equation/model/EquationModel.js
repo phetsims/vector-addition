@@ -67,7 +67,7 @@ define( require => {
 
       this.polarScene.reset();
       this.cartesianScene.reset();
-      
+
       super.reset();
     }
   }

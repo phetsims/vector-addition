@@ -53,9 +53,7 @@ define( require => {
     /**
      * @param {EquationVectorSet} equationVectorSet
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
-     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
-     *                             specific to this class while some are passed to the superclass. See the code where
-     *                             the options are set in the early portion of the constructor for details.
+     * @param {Object} [options]
      */
     constructor( equationVectorSet, options ) {
 
@@ -63,7 +61,7 @@ define( require => {
         `invalid equationVectorSet: ${equationVectorSet}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
-      
+
       options = _.extend( {
 
         // specific to this class
@@ -151,7 +149,7 @@ define( require => {
       const equalsText = new Text( '=', { font: PANEL_FONT } );
 
       const sumText = new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.tag} } \}` );
-      
+
       // Add the second half of the equation
       if ( equationType === EquationTypes.ADDITION || equationType === EquationTypes.SUBTRACTION ) {
         panelOpenContentChildren.push( equalsText, sumText );

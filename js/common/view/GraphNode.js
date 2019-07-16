@@ -119,7 +119,7 @@ define( require => {
 
   class GridLinesNode extends Node {
     /**
-     * 
+     *
      * @param {Graph} graph - the model graph for the node
      * @param {BooleanProperty} gridVisibilityProperty
      */
@@ -196,7 +196,7 @@ define( require => {
 
   class OriginCircle extends ShadedSphereNode {
     /**
-     * 
+     *
      * @param {Graph} graph - the model for the graph
      */
     constructor( graph ) {
@@ -251,7 +251,7 @@ define( require => {
     /**
      * Abstract class that is used as a general axis.
      * This is extended by xAxisNode and yAxisNode which must provide the abstract methods.
-     * 
+     *
      *
      * @param {Graph} graph - the model for the graph
      * @param {string} axisLabelText - the label for the axis
@@ -332,7 +332,7 @@ define( require => {
 
   class XAxisNode extends AxisNode {
     /**
-     * 
+     *
      * @param {Graph} graph - the model for the graph
      */
     constructor( graph ) {
@@ -416,7 +416,7 @@ define( require => {
 
   class YAxisNode extends AxisNode {
     /**
-     * 
+     *
      *
      * @param {Graph} graph - the model for the graph
      */

@@ -42,9 +42,7 @@ define( require => {
      * @param {Graph} graph - the graph the vector belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
-     *                             specific to this class while some are passed to the superclass. See the code where
-     *                             the options are set in the early portion of the constructor for details.
+     * @param {Object} [options]
      */
     constructor( vectorComponentModel, graph, componentStyleProperty, valuesVisibleProperty, options ) {
 
@@ -135,7 +133,7 @@ define( require => {
     updateVectorComponent( vectorComponentModel, modelViewTransform, componentStyle ) {
 
       this.visible = vectorComponentModel.parentVector.isOnGraphProperty.value
-                      && componentStyle !== ComponentStyles.INVISIBLE;
+                     && componentStyle !== ComponentStyles.INVISIBLE;
       this.onAxisLinesPath.visible = componentStyle === ComponentStyles.ON_AXIS;
 
 
@@ -189,12 +187,12 @@ define( require => {
       // Convenience variables
 
       const componentMidPoint = vectorComponentModel.vectorComponents
-                                  .timesScalar( 0.5 )
-                                  .plus( vectorComponentModel.tail );
+        .timesScalar( 0.5 )
+        .plus( vectorComponentModel.tail );
 
       const parentMidPoint = vectorComponentModel.parentVector.vectorComponents
-                               .timesScalar( 0.5 )
-                               .plus( vectorComponentModel.parentVector.tail );
+        .timesScalar( 0.5 )
+        .plus( vectorComponentModel.parentVector.tail );
 
 
       //----------------------------------------------------------------------------------------

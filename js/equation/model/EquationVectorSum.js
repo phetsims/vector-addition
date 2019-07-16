@@ -22,7 +22,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
   const Vector2 = require( 'DOT/Vector2' );
-  
+
   // constants
 
   class EquationVectorSum extends VectorSum {

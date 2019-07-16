@@ -55,14 +55,14 @@ define( require => {
 
 
   class VectorModel extends RootVectorModel {
+    
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {Graph} graph - the graph the vector belongs to
      * @param {VectorSet} vectorSet - the vector set the vector belongs to
      * @param {string|null} tag - the tag for the vector (i.e. 'a', 'b', 'c', ...)
-     * @param {Object} [options] - various key-value pairs that control behavior. All options are specific to this
-     *                             class.
+     * @param {Object} [options]
      */
     constructor( initialTailPosition, initialComponents, graph, vectorSet, tag, options ) {
 

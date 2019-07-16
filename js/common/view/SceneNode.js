@@ -38,14 +38,14 @@ define( require => {
 
 
   class SceneNode extends Node {
+    
     /**
      * @param {Graph} graph
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. All options are
-     *                             specific to this class
+     * @param {Object} [options]
      */
     constructor( graph,
                  valuesVisibleProperty,

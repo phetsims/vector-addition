@@ -24,11 +24,11 @@ define( require => {
 
 
   class CoordinateSnapRadioButtonGroup extends RadioButtonGroup {
+
     /**
      * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty - property of the possible modes of
      *                                                                                 snapping vectors to the graph.
-     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. All options are
-     *                             specific to the superclass.
+     * @param {Object} [options]
      */
     constructor( coordinateSnapModeProperty, options ) {
 

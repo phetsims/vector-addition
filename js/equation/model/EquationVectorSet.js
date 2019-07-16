@@ -26,7 +26,7 @@ define( require => {
   const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
 
   const VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
-    
+
   class EquationVectorSet extends VectorSet {
     /**
      * @param {Graph} graph
@@ -37,11 +37,11 @@ define( require => {
      * @param {Vector2} initialVectorComponents
      */
     constructor( graph,
-        componentStyleProperty,
-        sumVisibleProperty,
-        vectorGroup,
-        coordinateSnapMode,
-        equationType
+                 componentStyleProperty,
+                 sumVisibleProperty,
+                 vectorGroup,
+                 coordinateSnapMode,
+                 equationType
     ) {
 
       // assert && assert( initialVectorComponents instanceof Vector2,
@@ -102,7 +102,7 @@ define( require => {
      * @param {number} xComponent
      * @param {number} yComponent
      * @param {string|null} tag
-     * @param {Object} [options] - passed to the vector model
+     * @param {Object} [options]
      * @returns {VectorModel} the created vector model
      */
     createVector( tailPosition, xComponent, yComponent, tag, options ) {

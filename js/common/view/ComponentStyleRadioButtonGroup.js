@@ -25,11 +25,10 @@ define( require => {
   const RADIO_BUTTON_OPTIONS = _.clone( VectorAdditionConstants.RADIO_BUTTON_OPTIONS );
 
   class ComponentStyleRadioButtonGroup extends Node {
+    
     /**
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
-     *                             specific to this class while some are passed to the superclass. See the code where
-     *                             the options are set in the early portion of the constructor for details.
+     * @param {Object} [options]
      */
     constructor( componentStyleProperty, options ) {
 
@@ -60,12 +59,10 @@ define( require => {
   //----------------------------------------------------------------------------------------
 
   class GridLayoutBox extends LayoutBox {
+    
     /**
-     * 
      * @param {Array.<Node>} content
-     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
-     *                             specific to this class while some are passed to the superclass. See the code where
-     *                             the options are set in the early portion of the constructor for details.
+     * @param {Object} [options]
      */
     constructor( content, options ) {
 

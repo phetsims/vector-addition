@@ -57,7 +57,7 @@ define( require => {
             includeEraser: false,
             includeBaseVectors: true,
             sumNodeOptions: VECTOR_SUM_COLORS
-           } );
+          } );
 
         this.addChild( sceneNode );
 
@@ -83,7 +83,7 @@ define( require => {
         // scene.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
 
         // sceneNode.baseVectorContainer.addChild( baseVector );
-      // } );
+        // } );
 
       } );
 

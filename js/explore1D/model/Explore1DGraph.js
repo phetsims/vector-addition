@@ -51,9 +51,9 @@ define( require => {
      * @param {VectorGroups} vectorGroup - shared vector group for both graphs in 'Explore 1D'
      */
     constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorGroup ) {
-    
+
       assert && assert( graphOrientation === GraphOrientations.HORIZONTAL
-      || graphOrientation === GraphOrientations.VERTICAL,
+                        || graphOrientation === GraphOrientations.VERTICAL,
         `invalid graphOrientation: ${graphOrientation}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),

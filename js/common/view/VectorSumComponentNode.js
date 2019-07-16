@@ -27,8 +27,7 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
-     * @param {Object} [options] Various key-value pairs that control the appearance and behavior. All options are
-     *                           specific to the super class
+     * @param {Object} [options]
      */
     constructor( vectorComponentModel,
                  graph,
@@ -83,8 +82,8 @@ define( require => {
       // SumVisible is not defined in superclass. Sum component is visible when both the sum is visible
       // and component style isn't invisible
       this.visible = this.sumVisibleProperty ?
-                      this.sumVisibleProperty.value && componentStyle !== ComponentStyles.INVISIBLE :
-                      false;
+                     this.sumVisibleProperty.value && componentStyle !== ComponentStyles.INVISIBLE :
+                     false;
     }
 
     /**

@@ -8,7 +8,7 @@
  *  - Base vectors visibility.
  *  - EquationTypeProperty
  *  - Creating a graph for each equation type
- *  
+ *
  * @author Brandon Li
  */
 
@@ -32,10 +32,10 @@ define( require => {
   const DEFAULT_BASE_VECTOR_VISIBILTY = false;
   // const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
   const VECTOR_TAGS = VectorAdditionConstants.VECTOR_TAGS_GROUP_1;
-    
+
   class EquationScene {
     /**
-     * 
+     *
      */
     constructor( coordinateSnapMode, componentStyleProperty, vectorGroup ) {
 
@@ -62,14 +62,14 @@ define( require => {
       // // create the two base vectors
       // const vectorTags = coordinateSnapMode === CoordinateSnapModes.CARTESIAN ? VectorAdditionConstants.VECTOR_TAGS_GROUP_1 :
       //   VectorAdditionConstants.VECTOR_TAGS_GROUP_2;
-      
+
       // for ( let tagIndex = 0; tagIndex < vectorTags.length - 1; tagIndex++ ) {
 
-        // const baseVector = new BaseVectorModel( tailPositions[ tagIndex ],
-        //   initialComponents[ tagIndex ],
-        //   graph,
-        //   this,
-        //   VECTOR_TAGS[ tagIndex ] );
+      // const baseVector = new BaseVectorModel( tailPositions[ tagIndex ],
+      //   initialComponents[ tagIndex ],
+      //   graph,
+      //   this,
+      //   VECTOR_TAGS[ tagIndex ] );
 
       // }
 

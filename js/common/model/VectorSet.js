@@ -28,13 +28,13 @@ define( require => {
 
 
   class VectorSet {
+    
     /**
      * @param {Graph} graph - the graph the vector set belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible property
      * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
-     * @param {Object} [options] - various key-value pairs that control behavior. All options are specific to this
-     *                             class.
+     * @param {Object} [options]
      */
     constructor( graph, componentStyleProperty, sumVisibleProperty, vectorGroup, options ) {
 

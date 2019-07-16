@@ -41,19 +41,18 @@ define( require => {
     spacing: 5
   } );
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+
   // const NUMBER_PICKER_OPTIONS = VectorAdditionConstants.NUMBER_PICKER_OPTIONS;
 
   class BaseVectorsAccordionBox extends AccordionBox {
     /**
      * @param {BooleanProperty} baseVectorsVisibleProperty
-     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
-     *                             specific to this class while some are passed to the superclass. See the code where
-     *                             the options are set in the early portion of the constructor for details.
+     * @param {Object} [options]
      */
     constructor( baseVectorsVisibleProperty, coordinateSnapMode, options ) {
 
       options = _.extend( {}, EXPAND_COLLAPSE_PANEL_OPTIONS, {
-        
+
         fixedWidth: 170,
         contentXMargin: EXPAND_COLLAPSE_PANEL_OPTIONS.buttonXMargin,
 
@@ -98,15 +97,16 @@ define( require => {
       ];
 
 
-     const content = new VBox( {
+      const content = new VBox( {
         align: 'left',
         spacing: 15,
         children: children
       } );
 
       super( new Node( { children: [ content, new HStrut( contentWidth, { pickable: false } ) ] } ), options );
-  
+
     }
   }
+
   return vectorAddition.register( 'BaseVectorsAccordionBox', BaseVectorsAccordionBox );
 } );

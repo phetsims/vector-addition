@@ -45,7 +45,7 @@ define( require => {
      * @param {VectorGroups} vectorGroupTwo - unique vector group for the second vector set
      */
     constructor( coordinateSnapMode, componentStyleProperty, vectorGroupOne, vectorGroupTwo ) {
-    
+
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
@@ -75,7 +75,7 @@ define( require => {
         componentStyleProperty,
         this.group1SumVisibleProperty,
         vectorGroupOne, {
-          initialSumTailPosition: new Vector2( graphBounds.minX + 2 / 3 * graphBounds.width , graphBounds.centerY )
+          initialSumTailPosition: new Vector2( graphBounds.minX + 2 / 3 * graphBounds.width, graphBounds.centerY )
         }
       );
 

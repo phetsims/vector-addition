@@ -73,11 +73,10 @@ define( require => {
 
 
   class InspectVectorPanel extends ExpandCollapsePanel {
+    
     /**
      * @param {Graph} graph - the graph that contains the vectors to display
-     * @param {Object} [options] - Various key-value pairs that control the appearance and behavior. Some options are
-     *                             specific to this class while some are passed to the superclass. See the code where
-     *                             the options are set in the early portion of the constructor for details.
+     * @param {Object} [options]
      */
     constructor( graph, options ) {
 

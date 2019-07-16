@@ -60,7 +60,7 @@ define( require => {
      * @public
      * @param {Vector2} initialVectorComponents - vector components (in model coordinates)
      * @param {VectorGroups} vectorGroup - vector group of the vector that the icon represents
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {ArrowNode}
      */
     static createVectorCreatorPanelIcon( initialVectorComponents, vectorGroup, options ) {
@@ -86,7 +86,7 @@ define( require => {
      * Creates the icon used on the radio buttons on 'Explore1D' that toggle the graph orientation (horizontal/vertical)
      * @public
      * @param (GraphOrientations} graphOrientation - orientation of the graph (has to be horizontal or vertical)
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {ArrowNode}
      */
     static createGraphOrientationIcon( graphOrientation, options ) {
@@ -117,7 +117,7 @@ define( require => {
      * Creates the icon that appears next to the 'Sum' checkbox on the control panel
      * @public
      * @param {VectorGroups} vectorGroup
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createSumIcon( vectorGroup, options ) {
@@ -141,7 +141,7 @@ define( require => {
     /**
      * Creates the icon that appears next to the checkbox that toggles the 'Angle' visibility
      * @public
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createAngleIcon( options ) {
@@ -173,7 +173,7 @@ define( require => {
     /**
      * Creates the icon that appears next to the checkbox that toggles the Grid visibility
      * @public
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createGridIcon( options ) {
@@ -242,7 +242,7 @@ define( require => {
      * Creates the icons that appear on the component style radio button group
      * @public
      * @param {ComponentStyles} componentStyle
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createComponentStyleIcon( componentStyle, options ) {
@@ -265,7 +265,7 @@ define( require => {
     /**
      * Creates the Icon for the invisible component display style on the component radio button
      * @private
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createInvisibleComponentStyleIcon( options ) {
@@ -278,7 +278,7 @@ define( require => {
     /**
      * Creates the Icon for the parallelogram component radio button
      * @private
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createParallelogramComponentStyleIcon( options ) {
@@ -296,7 +296,7 @@ define( require => {
     /**
      * Creates the Icon for the triangle component radio button
      * @private
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createTriangleComponentStyleIcon( options ) {
@@ -315,7 +315,7 @@ define( require => {
     /**
      * Creates the Icon for the on axis component radio button
      * @private
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createOnAxisComponentStyleIcon( options ) {
@@ -350,7 +350,7 @@ define( require => {
     /**
      * Creates the Icon for the cartesian coordinate snap mode radio button
      * @public
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createCartesianIcon( options ) {
@@ -403,7 +403,7 @@ define( require => {
     /**
      * Creates the Icon for the cartesian coordinate polar mode radio button
      * @public
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createPolarIcon( options ) {
@@ -446,7 +446,7 @@ define( require => {
      * @public
      * @param {EquationTypes} equationType
      * @param {array.<string>} vector tags - array of the vector tags. It is assumed the last vector tag is the sum.
-     * @param {Object} [options] - various key-value pairs that control the appearance of the icon
+     * @param {Object} [options]
      * @returns {Node}
      */
     static createEquationTypesIcon( equationType, vectorTags, options ) {

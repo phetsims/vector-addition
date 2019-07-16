@@ -43,7 +43,7 @@ define( require => {
      * @param {VectorGroups} vectorGroup - unique vector group for the graph
      */
     constructor( coordinateSnapMode, componentStyleProperty, vectorGroup ) {
-    
+
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
