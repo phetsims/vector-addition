@@ -57,7 +57,7 @@ define( require => {
 
       super( vectorSum, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions );
 
-      // Update the visibility of the sum node based on the sum visible property.
+      // Update the visibility of the sum node based on the sum visible Property.
       // Doesn't need to be unlinked since vector sums are never disposed
       sumVisibleProperty.linkAttribute( this, 'visible' );
 

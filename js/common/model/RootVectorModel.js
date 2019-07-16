@@ -4,7 +4,7 @@
  * Root class (should be subtyped) for vector models for all types of vectors.
  * Responsibilities are:
  *
- *  - tip and tail position properties
+ *  - tip and tail position Properties
  *  - vector components (x and y, or in other words the actual vector <x, y>)
  *  - vector group (See ./VectorGroups.js)
  *  - abstract method for label information (see getLabelContent() for detailed documentation)

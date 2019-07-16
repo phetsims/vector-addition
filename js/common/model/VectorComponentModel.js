@@ -7,7 +7,7 @@
  * component would be <5, 0>. This component's 'parent vector' would be vector 'a'.
  *
  * This vector component updates its tail/tip based on the:
- *  1. The component style property
+ *  1. The component style Property
  *  2. Parent vector's changing tail/tip/components
  *
  * Positioning for the x and y components are slightly different. Label content for vector components are unique.
@@ -39,7 +39,7 @@ define( require => {
 
     /**
      * @param {VectorModel} parentVector - the vector to which the component is associated with
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - property of the style of components
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - Property of the style of components
      * @param {Property.<VectorModel|null>} activeVectorProperty
      * @param {Enumeration} componentType (see VectorComponentModel.COMPONENT_TYPES)
      */

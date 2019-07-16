@@ -5,7 +5,7 @@
  * 'Explore1D' has a total of 2 graphs (polar an cartesian)
  *
  * Characteristics of graphs on 'Explore 1D':
- *  - have a shared sum visible property
+ *  - have a shared sum visible Property
  *  - have exactly one vector set
  *  - are either horizontal or vertical
  *  - both graphs are the same width and height as the default graph bounds but the origin is is in the center
@@ -47,7 +47,7 @@ define( require => {
     /**
      * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty - shared boolean property that controls the visibility of sum vectors
+     * @param {BooleanProperty} sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
      * @param {VectorGroups} vectorGroup - shared vector group for both graphs in 'Explore 1D'
      */
     constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorGroup ) {

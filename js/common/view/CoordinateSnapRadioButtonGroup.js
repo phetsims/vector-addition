@@ -26,7 +26,7 @@ define( require => {
   class CoordinateSnapRadioButtonGroup extends RadioButtonGroup {
 
     /**
-     * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty - property of the possible modes of
+     * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty - Property of the possible modes of
      *                                                                                 snapping vectors to the graph.
      * @param {Object} [options]
      */

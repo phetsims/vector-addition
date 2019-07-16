@@ -7,11 +7,11 @@
  *  - Values visibility
  *  - Grid visibility
  *  - Angle visibility
- *  - Component style property
- *  - Coordinate snap mode property
+ *  - Component style Property
+ *  - Coordinate snap mode Property
  *
- * Meant as a superclass. Added properties in subclasses will not be reset in this class. Graphs and sum visibility
- * properties should be made in subclasses (varied amount of graphs and sum visibility properties from screen to
+ * Meant as a superclass. Added Properties in subclasses will not be reset in this class. Graphs and sum visibility
+ * Properties should be made in subclasses (varied amount of graphs and sum visibility Properties from screen to
  * screen)
  *
  * @author Martin Veillette

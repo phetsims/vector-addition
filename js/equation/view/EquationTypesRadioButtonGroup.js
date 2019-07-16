@@ -33,7 +33,7 @@ define( require => {
 
   class EquationTypesRadioButtonGroup extends RadioButtonGroup {
     /**
-     * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - property of the possible equation types
+     * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
      * @param {EquationVectorSet} equationVectorSet - vector set for the equation screen
      * @param {Object} [options]
      */

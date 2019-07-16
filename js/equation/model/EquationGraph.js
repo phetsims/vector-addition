@@ -4,7 +4,7 @@
  * Model for a graph on the equation screen.
  *
  * Equation graphs:
- *  - have no sum visible properties
+ *  - have no sum visible Properties
  *  - have exactly one vector set
  *  - have a equation type
  *  - are two dimensional

@@ -5,7 +5,7 @@
  * 'Explore2D' has a total of 2 graphs (polar an cartesian)
  *
  * Characteristics of graphs on 'Lab':
- *  - have two sum visible properties each (one for each vector set)
+ *  - have two sum visible Properties each (one for each vector set)
  *  - have exactly 2 vector sets
  *  - are two dimensional
  *  - unique vector groups for each and every vector set
@@ -57,11 +57,11 @@ define( require => {
       super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, LAB_GRAPH_ORIENTATION, componentStyleProperty );
 
       //----------------------------------------------------------------------------------------
-      // @public {BooleanProperty} group1SumVisibleProperty - property controlling the visibility of the sum for the
+      // @public {BooleanProperty} group1SumVisibleProperty - Property controlling the visibility of the sum for the
       // first vector set
       this.group1SumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
-      // @public {BooleanProperty} group2SumVisibleProperty - property controlling the visibility of the sum for the
+      // @public {BooleanProperty} group2SumVisibleProperty - Property controlling the visibility of the sum for the
       // second vector set
       this.group2SumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 

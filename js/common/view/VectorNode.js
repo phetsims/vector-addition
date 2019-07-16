@@ -120,7 +120,7 @@ define( require => {
       // @public (read-only) {BooleanProperty} indicates when the vector should be animated back to the creator panel
       this.animateBackProperty = new BooleanProperty( false );
 
-      // Create a property for the location of the tail of the vector. Used for the tail drag listener.
+      // Create a Property for the location of the tail of the vector. Used for the tail drag listener.
       const tailLocationProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
         vectorModel.tail ) );
 
@@ -174,7 +174,7 @@ define( require => {
       // Add listeners
       //----------------------------------------------------------------------------------------
 
-      // Observe the view location property to call a tail listener that updates the tail in the model
+      // Observe the view location Property to call a tail listener that updates the tail in the model
       const tailListener = tailLocation => {
         this.updateTailPosition( tailLocation );
 
@@ -208,7 +208,7 @@ define( require => {
 
       if ( vectorModel.isTipDraggable ) {
 
-        // Create a property of the location of the tip of the vector. The location of the tip is measured with respect
+        // Create a Property of the location of the tip of the vector. The location of the tip is measured with respect
         // to the tail.
         const tipLocationProperty = new Vector2Property( tipDeltaLocation );
 
@@ -232,7 +232,7 @@ define( require => {
         const tipListener = tipLocation => {
           this.updateTipPosition( tipLocation );
         };
-        // Observe the view location property to call a tip listener that updates the tail in the model
+        // Observe the view location Property to call a tip listener that updates the tail in the model
         tipLocationProperty.lazyLink( tipListener );
 
         // Observe when the vector is animating back

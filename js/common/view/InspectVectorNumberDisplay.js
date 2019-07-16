@@ -8,7 +8,7 @@
  * 'Is a' relationship with NumberDisplay but adds:
  *  - Functionality to change the active vector without having to recreate the number display;
  *    NumberDisplays don't support the ability to change the NumberProperty of the panel.
- *    Recreating new NumberDisplays every time the active vector changes is costly. This creates the number property
+ *    Recreating new NumberDisplays every time the active vector changes is costly. This creates the number Property
  *    once and derives its value from the attribute of the active vector.
  *
  * This number display exists for the entire sim and is never disposed.
@@ -82,7 +82,7 @@ define( require => {
       // Create the number display
       //----------------------------------------------------------------------------------------
 
-      // Create the property that the NumberDisplay displays. Set to arbitrary null for now; to be updated.
+      // Create the Property that the NumberDisplay displays. Set to arbitrary null for now; to be updated.
       const numberDisplayProperty = new Property( null );
 
       super( numberDisplayProperty, numberDisplayRange, { decimalPlaces: NUMBER_DISPLAY_ROUNDING } );

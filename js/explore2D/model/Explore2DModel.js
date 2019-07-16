@@ -5,7 +5,7 @@
  *
  * Explore2D has a polar and a cartesian graph. Each scene has one vector set respectively.
  *
- * Explore2D has two visibility properties: one for each scene respectively.
+ * Explore2D has two visibility Properties: one for each scene respectively.
  *
  * @author Martin Veillette
  */

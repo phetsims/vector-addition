@@ -31,7 +31,7 @@ define( require => {
     /**
      * @param {Graph} graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible property
+     * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible Property
      * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
      * @param {Vector2} initialVectorComponents

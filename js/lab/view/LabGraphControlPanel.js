@@ -3,7 +3,7 @@
 /**
  * View for the Panel that appears on the upper-right corner of the 'Lab' screen.
  *
- * Lab has 2 scenes: a polar and a cartesian scene. Each scene has two sum visible properties and two sum check boxes.
+ * Lab has 2 scenes: a polar and a cartesian scene. Each scene has two sum visible Properties and two sum check boxes.
  * The graph control panel must toggle between the 2 scenes' check boxes.
  *
  * @author Brandon Li

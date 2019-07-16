@@ -32,7 +32,7 @@ define( require => {
     /**
      * @param {Graph} graph - the graph the vector set belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible property
+     * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible Property
      * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
      * @param {Object} [options]
      */
@@ -62,7 +62,7 @@ define( require => {
       // @public (read-only) {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
       this.vectorGroup = vectorGroup;
 
-      // @public (read-only) {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible property
+      // @public (read-only) {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible Property
       this.sumVisibleProperty = sumVisibleProperty;
 
       // @public (read-only) {componentStyleProperty} componentStyleProperty

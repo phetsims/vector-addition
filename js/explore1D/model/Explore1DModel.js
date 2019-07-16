@@ -5,7 +5,7 @@
  *
  * Explore1D has a horizontal and a vertical graph. Each scene has one vector set respectively.
  *
- * Explore1D has one shared sum visibility properties for both scenes.
+ * Explore1D has one shared sum visibility Properties for both scenes.
  *
  * @author Martin Veillette
  */
@@ -39,7 +39,7 @@ define( require => {
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       //----------------------------------------------------------------------------------------
-      // Create the shared sum visibility property for both scenes
+      // Create the shared sum visibility Property for both scenes
 
 
       super( tandem );
@@ -65,7 +65,7 @@ define( require => {
       this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL, this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
 
       //----------------------------------------------------------------------------------------
-      // Disable unused properties
+      // Disable unused Properties
 
       this.angleVisibleProperty.link( angleVisible => {
         if ( angleVisible ) {

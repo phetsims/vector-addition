@@ -5,7 +5,7 @@
  *
  * Lab has a polar and a cartesian graph. Each scene has two vector sets respectively.
  *
- * Lab has four visibility properties: two for each scene respectively.
+ * Lab has four visibility Properties: two for each scene respectively.
  *
  * @author Martin Veillette
  */

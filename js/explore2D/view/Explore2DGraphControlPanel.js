@@ -3,7 +3,7 @@
 /**
  * View for the Panel that appears on the upper-right corner of the 'Explore2D' screen.
  *
- * Explore 2D has 2 scenes: a polar and a cartesian scene. Each scene has a sum visible property and a sum checkbox.
+ * Explore 2D has 2 scenes: a polar and a cartesian scene. Each scene has a sum visible Property and a sum checkbox.
  * The graph control panel must toggle between the 2 check boxes.
  *
  * @author Brandon Li

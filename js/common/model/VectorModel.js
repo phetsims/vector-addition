@@ -111,7 +111,7 @@ define( require => {
         this.translateTailToPoint( newModelViewTransform.viewToModelPosition( oldTailLocation ) );
       };
 
-      // Observe when the graph model view transform property changes, and update the tail position
+      // Observe when the graph model view transform Property changes, and update the tail position
       this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
 
       // @private {function} unlinkTailUpdateListener - unlink the modelViewTransform link, called in the dispose method
@@ -430,11 +430,11 @@ define( require => {
           this.tail.distance( tailPosition ) / AVERAGE_ANIMATION_SPEED
         ),
         targets: [ {
-          property: this.tailPositionProperty,
+          Property: this.tailPositionProperty,
           easing: Easing.QUADRATIC_IN_OUT,
           to: tailPosition
         }, {
-          property: this.vectorComponentsProperty,
+          Property: this.vectorComponentsProperty,
           easing: Easing.QUADRATIC_IN_OUT,
           to: finalComponents
         } ]

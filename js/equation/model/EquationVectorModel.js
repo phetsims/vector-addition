@@ -4,7 +4,7 @@
  * See https://github.com/phetsims/vector-addition/issues/63 for context.
  *
  * Extends VectorModel and adds the following functionality:
- *  - A coefficient property, and would scale the components/magnitude to the coefficient.
+ *  - A coefficient Property, and would scale the components/magnitude to the coefficient.
  *  - Instantiate a Base vector model. When the base vector model changes, this vector changes (multiply by coefficient)
  *  - Disables tip dragging and removing of vectors
  *
@@ -54,10 +54,10 @@ define( require => {
       super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, tag, options );
 
       //----------------------------------------------------------------------------------------
-      // @public (read-only) {Property.<number>} - create a property to represent the coefficient.
+      // @public (read-only) {Property.<number>} - create a Property to represent the coefficient.
       this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
 
-      // Observe when the base vector changes, or when the coefficient property changes and update the vector.
+      // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
       // Doesn't need to be unlinked since equation vectors are never disposed
       // Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
       //   ( baseVector, coefficient ) => {

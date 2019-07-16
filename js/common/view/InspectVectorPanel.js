@@ -171,7 +171,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // Observe changes to when the graphs active vector property changes to update the panel.
+      // Observe changes to when the graphs active vector Property changes to update the panel.
       // Doesn't need to be unlinked since the panel exists for the entire simulation.
       graph.activeVectorProperty.link( activeVector => {
 

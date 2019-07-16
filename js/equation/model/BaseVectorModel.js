@@ -48,20 +48,20 @@ define( require => {
       super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, tag, options );
 
       //----------------------------------------------------------------------------------------
-      // Create properties for the base vector panel
+      // Create Properties for the base vector panel
 
-      // @public (read-only) {Property.<number>} - create a property to represent the x component
+      // @public (read-only) {Property.<number>} - create a Property to represent the x component
       this.xComponentSelectorProperty = new Property( this.xComponent, {
         valueType: 'number'
       } );
 
-      // @public (read-only) {Property.<number>} - create a property to represent the y component
+      // @public (read-only) {Property.<number>} - create a Property to represent the y component
       this.yComponentSelectorProperty = new Property( this.yComponent, {
         valueType: 'number'
       } );
 
       //----------------------------------------------------------------------------------------
-      // Link the base vector panel properties and update the components
+      // Link the base vector panel Properties and update the components
       // Both don't need to be unlinked since base vectors exist for the entire sim
 
       this.xComponentSelectorProperty.link( xComponent => {

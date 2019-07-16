@@ -3,7 +3,7 @@
 /**
  * View for the Panel that appears on the upper-right corner of the 'Explore1D' screen.
  *
- * Explore 1D has 2 scenes: a horizontal and a vertical scene. Both scenes share a single sum visible property.
+ * Explore 1D has 2 scenes: a horizontal and a vertical scene. Both scenes share a single sum visible Property.
  *
  * @author Brandon Li
  */

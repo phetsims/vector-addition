@@ -97,7 +97,7 @@ define( require => {
       // Create the expand-collapse button
       //----------------------------------------------------------------------------------------
 
-      // Create a property that indicates if the panel is open or not.
+      // Create a Property that indicates if the panel is open or not.
       const expandedProperty = new BooleanProperty( options.isExpandedInitially );
 
       // Button to open and close the panel

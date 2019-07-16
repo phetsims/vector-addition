@@ -188,7 +188,7 @@ define( require => {
 
       this.setChildren( [ minorGridLinesPath, majorGridLinesPath ] );
 
-      // Observe changes to the grid visibility property, and update visibility. Link exists throughout the entire sim
+      // Observe changes to the grid visibility Property, and update visibility. Link exists throughout the entire sim
       // since graphs last the entire sim and are never disposed.
       gridVisibilityProperty.linkAttribute( this, 'visible' );
     }
@@ -218,7 +218,7 @@ define( require => {
         graph.graphModelBounds.eroded( ORIGIN_DRAG_PADDING_CONSTRAINT )
       );
 
-      // Create a property of to track the view's origin in view coordinates
+      // Create a Property of to track the view's origin in view coordinates
       const originLocationProperty = new Vector2Property( origin );
 
       // Add a drag listener, doesn't need to be removed since the graph exists throughout the entire sim

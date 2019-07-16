@@ -85,7 +85,7 @@ define( require => {
       // @public (read-only) componentStyleProperty
       this.componentStyleProperty = componentStyleProperty;
 
-      // @private {Property.<Bounds2>} graphModelBoundsProperty - the property of the graph bounds. To be set internally
+      // @private {Property.<Bounds2>} graphModelBoundsProperty - the Property of the graph bounds. To be set internally
       // only. Read access can be found at get graphModelBounds().
       this.graphModelBoundsProperty = new Property( initialGraphBounds, {
         valueType: Bounds2
@@ -97,7 +97,7 @@ define( require => {
         GRAPH_BOTTOM_LEFT_LOCATION.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
         GRAPH_BOTTOM_LEFT_LOCATION.y );
 
-      // @public (read-only) {DerivedProperty.<ModelViewTransform2>} - modelViewTransformProperty - property of the
+      // @public (read-only) {DerivedProperty.<ModelViewTransform2>} - modelViewTransformProperty - Property of the
       // coordinate transform between model (graph coordinates) and view coordinates.
       this.modelViewTransformProperty = new DerivedProperty( [ this.graphModelBoundsProperty ],
         ( graphModelBounds ) => {
