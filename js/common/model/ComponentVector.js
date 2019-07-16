@@ -35,13 +35,13 @@ define( require => {
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
 
-  class VectorComponentModel extends RootVector {
+  class ComponentVector extends RootVector {
 
     /**
      * @param {VectorModel} parentVector - the vector to which the component is associated with
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - Property of the style of components
      * @param {Property.<VectorModel|null>} activeVectorProperty
-     * @param {Enumeration} componentType (see VectorComponentModel.COMPONENT_TYPES)
+     * @param {Enumeration} componentType (see ComponentVector.COMPONENT_TYPES)
      */
     constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
@@ -51,7 +51,7 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( activeVectorProperty instanceof Property,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
-      assert && assert( VectorComponentModel.COMPONENT_TYPES.includes( componentType ),
+      assert && assert( ComponentVector.COMPONENT_TYPES.includes( componentType ),
         `invalid componentType: ${componentType}` );
       //----------------------------------------------------------------------------------------
 
@@ -98,7 +98,7 @@ define( require => {
      */
     updateComponent( componentStyle ) {
 
-      if ( this.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ) {
+      if ( this.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ) {
 
         // Triangle and Parallelogram are the same for x component
         if ( componentStyle === ComponentStyles.TRIANGLE || componentStyle === ComponentStyles.PARALLELOGRAM ) {
@@ -114,7 +114,7 @@ define( require => {
           this.setTipXY( this.parentVector.tipX, 0 );
         }
       }
-      else if ( this.componentType === VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT ) {
+      else if ( this.componentType === ComponentVector.COMPONENT_TYPES.Y_COMPONENT ) {
 
         if ( componentStyle === ComponentStyles.TRIANGLE ) {
 
@@ -158,7 +158,7 @@ define( require => {
     getLabelContent( valuesVisible ) {
 
       // Get the component value, which can be negative and depends on the type of component
-      const componentValue = this.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ?
+      const componentValue = this.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ?
                              this.vectorComponents.x :
                              this.vectorComponents.y;
 
@@ -176,7 +176,7 @@ define( require => {
   }
 
   // @public {Enumeration} - the possible types of components
-  VectorComponentModel.COMPONENT_TYPES = new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
+  ComponentVector.COMPONENT_TYPES = new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
 
-  return vectorAddition.register( 'VectorComponentModel', VectorComponentModel );
+  return vectorAddition.register( 'ComponentVector', ComponentVector );
 } );

@@ -28,7 +28,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
-  const VectorComponentModel = require( 'VECTOR_ADDITION/common/model/VectorComponentModel' );
+  const ComponentVector = require( 'VECTOR_ADDITION/common/model/ComponentVector' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -122,17 +122,17 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create Vector Component Models
 
-      // @public (read only) {VectorComponentModel} xVectorComponentModel
-      this.xVectorComponentModel = new VectorComponentModel( this,
+      // @public (read only) {ComponentVector} xComponentVector
+      this.xComponentVector = new ComponentVector( this,
         vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
-        VectorComponentModel.COMPONENT_TYPES.X_COMPONENT );
+        ComponentVector.COMPONENT_TYPES.X_COMPONENT );
 
-      // @public (read only) {VectorComponentModel} yVectorComponentModel
-      this.yVectorComponentModel = new VectorComponentModel( this,
+      // @public (read only) {ComponentVector} yComponentVector
+      this.yComponentVector = new ComponentVector( this,
         vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
-        VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT );
+        ComponentVector.COMPONENT_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
 
@@ -155,8 +155,8 @@ define( require => {
      */
     dispose() {
       this.unlinkTailUpdateListener();
-      this.xVectorComponentModel.dispose();
-      this.yVectorComponentModel.dispose();
+      this.xComponentVector.dispose();
+      this.yComponentVector.dispose();
       this.isOnGraphProperty.dispose();
       this.inProgressAnimationProperty.value && this.inProgressAnimationProperty.value.stop();
       this.inProgressAnimationProperty.dispose();

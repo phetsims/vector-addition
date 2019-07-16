@@ -28,7 +28,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorComponentModel = require( 'VECTOR_ADDITION/common/model/VectorComponentModel' );
+  const ComponentVector = require( 'VECTOR_ADDITION/common/model/ComponentVector' );
 
   // constants
 
@@ -38,7 +38,7 @@ define( require => {
 
   class VectorComponentNode extends RootVectorNode {
     /**
-     * @param {VectorComponentModel} VectorComponentModel - the vector model for the component
+     * @param {ComponentVector} ComponentVector - the vector model for the component
      * @param {Graph} graph - the graph the vector belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
@@ -46,7 +46,7 @@ define( require => {
      */
     constructor( vectorComponentModel, graph, componentStyleProperty, valuesVisibleProperty, options ) {
 
-      assert && assert( vectorComponentModel instanceof VectorComponentModel,
+      assert && assert( vectorComponentModel instanceof ComponentVector,
         `invalid vectorComponentModel: ${vectorComponentModel}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
@@ -196,7 +196,7 @@ define( require => {
 
 
       //----------------------------------------------------------------------------------------
-      if ( vectorComponentModel.componentType === VectorComponentModel.COMPONENT_TYPES.X_COMPONENT ) {
+      if ( vectorComponentModel.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ) {
 
         const labelHeight = modelViewTransform.viewToModelDeltaY( -this.labelNode.height / 2 );
 
@@ -211,7 +211,7 @@ define( require => {
           labelOffset.setXY( 0, COMPONENT_LABEL_OFFSET + labelHeight );
         }
       }
-      else if ( vectorComponentModel.componentType === VectorComponentModel.COMPONENT_TYPES.Y_COMPONENT ) {
+      else if ( vectorComponentModel.componentType === ComponentVector.COMPONENT_TYPES.Y_COMPONENT ) {
 
         const width = modelViewTransform.viewToModelDeltaX( this.labelNode.width / 2 );
 

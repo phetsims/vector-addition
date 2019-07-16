@@ -140,12 +140,12 @@ define( require => {
             valuesVisibleProperty,
             angleVisibleProperty );
 
-          const xComponentNode = new VectorComponentNode( vector.xVectorComponentModel,
+          const xComponentNode = new VectorComponentNode( vector.xComponentVector,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );
 
-          const yComponentNode = new VectorComponentNode( vector.yVectorComponentModel,
+          const yComponentNode = new VectorComponentNode( vector.yComponentVector,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );
@@ -169,13 +169,13 @@ define( require => {
           vectorSet.sumVisibleProperty,
           options.sumNodeOptions
         );
-        const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xVectorComponentModel,
+        const xComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.xComponentVector,
           graph,
           componentStyleProperty,
           valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
-        const yComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.yVectorComponentModel,
+        const yComponentSumNode = new VectorSumComponentNode( vectorSet.vectorSum.yComponentVector,
           graph,
           componentStyleProperty,
           valuesVisibleProperty,
@@ -198,12 +198,12 @@ define( require => {
         // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
         vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
           // only add the components since the vector node is created in the vector creator panel
-          const xComponentNode = new VectorComponentNode( addedVector.xVectorComponentModel,
+          const xComponentNode = new VectorComponentNode( addedVector.xComponentVector,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );
 
-          const yComponentNode = new VectorComponentNode( addedVector.yVectorComponentModel,
+          const yComponentNode = new VectorComponentNode( addedVector.yComponentVector,
             graph,
             componentStyleProperty,
             valuesVisibleProperty );
