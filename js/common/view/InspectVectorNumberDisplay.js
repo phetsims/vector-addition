@@ -27,7 +27,7 @@ define( require => {
   const Range = require( 'DOT/Range' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
 
   // constants
   const NUMBER_DISPLAY_ROUNDING = VectorAdditionConstants.NUMBER_DISPLAY_ROUNDING;
@@ -116,12 +116,12 @@ define( require => {
      * Gets the value to display based on the attribute display type and a vector
      * @private
      *
-     * @param {VectorModel|null} activeVector - vector to derive the number display value from
+     * @param {Vector|null} activeVector - vector to derive the number display value from
      * @returns {number|null} value to display
      */
     getNumberDisplayValue( activeVector ) {
 
-      assert && assert( activeVector instanceof VectorModel || activeVector === null,
+      assert && assert( activeVector instanceof Vector || activeVector === null,
         `invalid activeVector: ${activeVector}` );
 
       if ( !activeVector ) {

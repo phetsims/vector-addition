@@ -3,7 +3,7 @@
 /**
  * An Equation Vector Set is a vector set with a defined amount of vectors.
  *
- * Vectors are created by instantiating EquationVectorModel and EquationVectorSum.
+ * Vectors are created by instantiating EquationVector and EquationVectorSum.
  *
  * EquationVectorSets are locked after initialization.
  *
@@ -13,7 +13,7 @@ define( require => {
   'use strict';
 
   // modules
-  const EquationVectorModel = require( 'VECTOR_ADDITION/equation/model/EquationVectorModel' );
+  const EquationVector = require( 'VECTOR_ADDITION/equation/model/EquationVector' );
   const EquationVectorSum = require( 'VECTOR_ADDITION/equation/model/EquationVectorSum' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -57,12 +57,12 @@ define( require => {
         VECTOR_SET_OPTIONS );
 
       //----------------------------------------------------------------------------------------
-      // Create the equationVectorModel, one less then tags
+      // Create the equationVector, one less then tags
       // For example, if tags were [ 'A', 'B', 'C' ], 'A' and 'B' would be equation Vector modules
       // and C would be the equation vector sum
       for ( let tagIndex = 0; tagIndex < VECTOR_TAGS.length - 1; tagIndex++ ) {
 
-        const equationVector = new EquationVectorModel( graph.graphModelBounds.center,
+        const equationVector = new EquationVector( graph.graphModelBounds.center,
           DEFAULT_VECTOR_LENGTH,
           DEFAULT_VECTOR_LENGTH,
           graph,
@@ -103,7 +103,7 @@ define( require => {
      * @param {number} yComponent
      * @param {string|null} tag
      * @param {Object} [options]
-     * @returns {VectorModel} the created vector model
+     * @returns {Vector} the created vector model
      */
     createVector( tailPosition, xComponent, yComponent, tag, options ) {
       assert && assert( false, 'equation vector sets are locked' );

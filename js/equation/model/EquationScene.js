@@ -22,7 +22,7 @@ define( require => {
   // const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  // const BaseVectorModel = require( 'VECTOR_ADDITION/equation/model/BaseVectorModel' );
+  // const BaseVector = require( 'VECTOR_ADDITION/equation/model/BaseVector' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   // const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   // const Vector2 = require( 'DOT/Vector2' );
@@ -65,7 +65,7 @@ define( require => {
 
       // for ( let tagIndex = 0; tagIndex < vectorTags.length - 1; tagIndex++ ) {
 
-      // const baseVector = new BaseVectorModel( tailPositions[ tagIndex ],
+      // const baseVector = new BaseVector( tailPositions[ tagIndex ],
       //   initialComponents[ tagIndex ],
       //   graph,
       //   this,

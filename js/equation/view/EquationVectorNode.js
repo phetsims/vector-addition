@@ -16,16 +16,16 @@ define( require => {
 
   class EquationVectorNode extends VectorNode {
     /**
-     * @param {VectorModel} vectorModel- the vector model
+     * @param {Vector} vector- the vector model
      * @param {Graph} graph - the graph the vector belongs to
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {Object} [arrowOptions]
      */
-    constructor( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions ) {
+    constructor( vector, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions ) {
 
 
-      super( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions );
+      super( vector, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions );
 
 
       // Double check that the vector node never is animated back
@@ -37,7 +37,7 @@ define( require => {
       } );
 
 
-      vectorModel.coefficientProperty.link( () => {
+      vector.coefficientProperty.link( () => {
         this.labelNode.updateLabelNode( valuesVisibleProperty.value );
       } );
 

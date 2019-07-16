@@ -3,7 +3,7 @@
 /**
  * See https://github.com/phetsims/vector-addition/issues/63 for context.
  *
- * Extends VectorModel and adds the following functionality:
+ * Extends Vector and adds the following functionality:
  *  - Adjust its components based on componentNumberProperties that go into a number spinner
  *  - Disables tip dragging and removing of vectors
  *
@@ -18,10 +18,10 @@ define( require => {
   // modules
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  class BaseVectorModel extends VectorModel {
+  class BaseVector extends Vector {
     /**
      * @param {Vector2} tailPosition
      * @param {number} xComponent horizontal component of the vector
@@ -93,5 +93,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'BaseVectorModel', BaseVectorModel );
+  return vectorAddition.register( 'BaseVector', BaseVector );
 } );

@@ -38,9 +38,9 @@ define( require => {
   class ComponentVector extends RootVector {
 
     /**
-     * @param {VectorModel} parentVector - the vector to which the component is associated with
+     * @param {Vector} parentVector - the vector to which the component is associated with
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - Property of the style of components
-     * @param {Property.<VectorModel|null>} activeVectorProperty
+     * @param {Property.<Vector|null>} activeVectorProperty
      * @param {Enumeration} componentType (see ComponentVector.COMPONENT_TYPES)
      */
     constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {

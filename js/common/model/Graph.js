@@ -26,7 +26,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -106,11 +106,11 @@ define( require => {
           valueType: ModelViewTransform2
         } );
 
-      // @public {Property.<VectorModel|null>} activeVectorProperty - the active vector. A graph only has one active
+      // @public {Property.<Vector|null>} activeVectorProperty - the active vector. A graph only has one active
       // vector at a time. If null, there are no active vectors at the time. To be set externally.
       this.activeVectorProperty = new Property( null, {
         isValidValue: ( value ) => {
-          return value === null || value instanceof VectorModel;
+          return value === null || value instanceof Vector;
         }
       } );
     }

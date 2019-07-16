@@ -19,7 +19,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
 
   // constants
   const VECTOR_SUM_OPTIONS = {
@@ -28,7 +28,7 @@ define( require => {
     isOnGraphInitially: true // Vector sums are always on the graph
   };
 
-  class VectorSum extends VectorModel {
+  class VectorSum extends Vector {
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Graph} graph - graph the vector sum belongs to

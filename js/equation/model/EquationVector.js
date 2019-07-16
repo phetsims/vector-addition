@@ -3,7 +3,7 @@
 /**
  * See https://github.com/phetsims/vector-addition/issues/63 for context.
  *
- * Extends VectorModel and adds the following functionality:
+ * Extends Vector and adds the following functionality:
  *  - A coefficient Property, and would scale the components/magnitude to the coefficient.
  *  - Instantiate a Base vector model. When the base vector model changes, this vector changes (multiply by coefficient)
  *  - Disables tip dragging and removing of vectors
@@ -19,7 +19,7 @@ define( require => {
   // modules
   const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Range = require( 'DOT/Range' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -27,7 +27,7 @@ define( require => {
   // constants
   const DEFAULT_COEFFICIENT = 1;
 
-  class EquationVectorModel extends VectorModel {
+  class EquationVector extends Vector {
     /**
      * @param {Vector2} tailPosition
      * @param {number} xComponent horizontal component of the vector
@@ -89,7 +89,7 @@ define( require => {
 
     /**
      * @override
-     * See VectorModel.getLabelContent() for documentation and context
+     * See Vector.getLabelContent() for documentation and context
      *
      * Gets the label content information to display the vector model. Vector's may or may not have tags.
      *
@@ -111,5 +111,5 @@ define( require => {
 
   }
 
-  return vectorAddition.register( 'EquationVectorModel', EquationVectorModel );
+  return vectorAddition.register( 'EquationVector', EquationVector );
 } );

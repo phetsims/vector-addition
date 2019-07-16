@@ -23,7 +23,7 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
 
   // constants
 
@@ -47,15 +47,15 @@ define( require => {
 
   class VectorNode extends RootVectorNode {
     /**
-     * @param {VectorModel} vectorModel- the vector model
+     * @param {Vector} vector- the vector model
      * @param {Graph} graph - the graph the vector belongs to
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {Object} [arrowOptions]
      */
-    constructor( vectorModel, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions ) {
+    constructor( vector, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions ) {
 
-      assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
+      assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
@@ -69,10 +69,10 @@ define( require => {
       arrowOptions = _.extend( {
 
         // Passed to superclass
-        fill: VectorAdditionColors[ vectorModel.vectorGroup ].fill
+        fill: VectorAdditionColors[ vector.vectorGroup ].fill
       }, arrowOptions );
 
-      super( vectorModel, graph.modelViewTransformProperty, valuesVisibleProperty, graph.activeVectorProperty, arrowOptions );
+      super( vector, graph.modelViewTransformProperty, valuesVisibleProperty, graph.activeVectorProperty, arrowOptions );
 
       //----------------------------------------------------------------------------------------
       // Private references
@@ -80,18 +80,18 @@ define( require => {
       // @private {Property.<ModelViewTransform2>}
       this.modelViewTransformProperty = graph.modelViewTransformProperty;
 
-      // @private {VectorModel}
-      this.vectorModel = vectorModel;
+      // @private {Vector}
+      this.vector = vector;
 
       //----------------------------------------------------------------------------------------
       // Create custom scenery nodes
       //----------------------------------------------------------------------------------------
 
       // Since the tail is (0, 0) for the view, the tip is the delta location of the tip
-      const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.vectorComponents );
+      const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
 
       // Create a scenery node representing the arc of an angle and the numerical display of the angle
-      const angleNode = new VectorAngleNode( vectorModel, angleVisibleProperty, graph );
+      const angleNode = new VectorAngleNode( vector, angleVisibleProperty, graph );
 
       // Create an arrow node that represents the shadow of the vector
       const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, VECTOR_SHADOW_OPTIONS );
@@ -108,10 +108,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       const updateTipCircleLocation = () => {
-        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.vectorComponents );
+        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
         tipCircle.center = tipDeltaLocation;
       };
-      vectorModel.vectorComponentsProperty.link( updateTipCircleLocation ); // unlinked in this.disposeVectorNode
+      vector.vectorComponentsProperty.link( updateTipCircleLocation ); // unlinked in this.disposeVectorNode
 
       //----------------------------------------------------------------------------------------
       // Create Body Drag
@@ -122,7 +122,7 @@ define( require => {
 
       // Create a Property for the location of the tail of the vector. Used for the tail drag listener.
       const tailLocationProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
-        vectorModel.tail ) );
+        vector.tail ) );
 
       // @public (read-only) {DragListener} - drag listener for translating the vector. Should only be a input listener
       // when the vector isn't animating back.
@@ -131,33 +131,33 @@ define( require => {
         locationProperty: tailLocationProperty,
         start: () => {
 
-          assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+          assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
             'body drag listener should be removed when the vector is animating back.' );
           this.moveToFront();
         },
         end: () => {
 
-          assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+          assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
             'body drag listener should be removed when the vector is animating back.' );
           //----------------------------------------------------------------------------------------
           // Determine to drop the vector or to animate the vector back if we aren't on the graph
-          if ( !this.vectorModel.isOnGraphProperty.value ) {
+          if ( !this.vector.isOnGraphProperty.value ) {
 
             // Get the cursor position as this determines to animate back or to drop the vector.
             // See https://github.com/phetsims/vector-addition/issues/50
             const cursorPosition = this.modelViewTransformProperty.value
-              .viewToModelDelta( this.bodyDragListener.localPoint ).plus( this.vectorModel.tail );
+              .viewToModelDelta( this.bodyDragListener.localPoint ).plus( this.vector.tail );
 
             // If the cursor is on the graph, drop the vector on the graph
             if ( graph.graphModelBounds.containsPoint( cursorPosition ) ) {
 
               // Drop the vector where the shadow was positioned
               const shadowOffset = this.modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
-                .minus( vectorModel.vectorComponents.timesScalar( 0.5 ) );
+                .minus( vector.vectorComponents.timesScalar( 0.5 ) );
 
-              const shadowTailPosition = vectorModel.tail.plus( shadowOffset );
+              const shadowTailPosition = vector.tail.plus( shadowOffset );
 
-              this.vectorModel.dropOntoGraph( shadowTailPosition );
+              this.vector.dropOntoGraph( shadowTailPosition );
             }
             else { // otherwise, animate the vector back
               this.animateBackProperty.value = true;
@@ -178,14 +178,14 @@ define( require => {
       const tailListener = tailLocation => {
         this.updateTailPosition( tailLocation );
 
-        if ( vectorModel.isRemovable ) {
+        if ( vector.isRemovable ) {
           const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
 
           const cursorPosition = this.modelViewTransformProperty.value
             .viewToModelDelta( this.bodyDragListener.localPoint ).plus( tailPosition );
 
-          if ( vectorModel.isOnGraphProperty.value && !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
-            vectorModel.popOffOfGraph();
+          if ( vector.isOnGraphProperty.value && !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
+            vector.popOffOfGraph();
           }
         }
 
@@ -206,7 +206,7 @@ define( require => {
       // Create Tip Drag
       //----------------------------------------------------------------------------------------
 
-      if ( vectorModel.isTipDraggable ) {
+      if ( vector.isTipDraggable ) {
 
         // Create a Property of the location of the tip of the vector. The location of the tip is measured with respect
         // to the tail.
@@ -216,7 +216,7 @@ define( require => {
           targetNode: tipCircle,
           locationProperty: tipLocationProperty,
           start: () => {
-            assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+            assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
               'tip drag listener should be removed when the vector is animating back.' );
             this.moveToFront();
           }
@@ -267,13 +267,13 @@ define( require => {
         }
 
         // Get the tip location in view coordinates
-        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorModel.vectorComponents );
+        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
         vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
       };
 
       // Observe changes to the vector model.
       const vectorOnGraphObserver = Property.multilink(
-        [ vectorModel.isOnGraphProperty, vectorModel.vectorComponentsProperty, this.animateBackProperty ],
+        [ vector.isOnGraphProperty, vector.vectorComponentsProperty, this.animateBackProperty ],
         onGraphListener );
 
       //----------------------------------------------------------------------------------------
@@ -282,13 +282,13 @@ define( require => {
       this.disposeVectorNode = () => {
         vectorOnGraphObserver.dispose();
 
-        if ( vectorModel.isTipDraggable ) {
+        if ( vector.isTipDraggable ) {
           this.disposeTipDrag();
         }
         this.animateBackProperty.unlink( removeBodyDragListener );
         tailLocationProperty.unlink( tailListener );
 
-        vectorModel.vectorComponentsProperty.unlink( updateTipCircleLocation );
+        vector.vectorComponentsProperty.unlink( updateTipCircleLocation );
 
         tipCircle.dispose();
         angleNode.dispose();
@@ -313,14 +313,14 @@ define( require => {
      */
     updateTipPosition( tipLocation ) {
 
-      assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+      assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
         'Cannot drag tip when animating back' );
-      assert && assert( this.vectorModel.isOnGraphProperty.value === true, 'Cannot drag tip when not on graph' );
+      assert && assert( this.vector.isOnGraphProperty.value === true, 'Cannot drag tip when not on graph' );
 
-      const vectorTipPosition = this.vectorModel.tail
+      const vectorTipPosition = this.vector.tail
         .plus( this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
 
-      this.vectorModel.dragTipToPosition( vectorTipPosition );
+      this.vector.dragTipToPosition( vectorTipPosition );
     }
 
     /**
@@ -330,18 +330,18 @@ define( require => {
      */
     updateTailPosition( tailLocation ) {
 
-      assert && assert( !this.animateBackProperty.value && !this.vectorModel.inProgressAnimationProperty.value,
+      assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
         'Cannot drag tail when animating back' );
 
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
 
       // Allow translation to anywhere if it isn't on the graph
-      if ( this.vectorModel.isOnGraphProperty.value === false ) {
-        this.vectorModel.translateTailToPoint( tailPosition );
+      if ( this.vector.isOnGraphProperty.value === false ) {
+        this.vector.translateTailToPoint( tailPosition );
       }
       else {
         // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds
-        this.vectorModel.dragTailToPosition( tailPosition );
+        this.vector.dragTailToPosition( tailPosition );
       }
     }
   }

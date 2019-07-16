@@ -3,7 +3,7 @@
 /**
  * See https://github.com/phetsims/vector-addition/issues/63 for context.
  *
- * Extends VectorModel and adds the following functionality:
+ * Extends Vector and adds the following functionality:
  *  - Takes an array of EquationVectors and calculates its components based on the vectors and the
  *    equationType
  *  - Disables tip dragging and removing of vectors

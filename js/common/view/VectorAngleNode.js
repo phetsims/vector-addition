@@ -26,7 +26,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -71,13 +71,13 @@ define( require => {
 
   class VectorAngleNode extends Node {
     /**
-     * @param {VectorModel} vectorModel - the model for the vector that the angle represents
+     * @param {Vector} vector - the model for the vector that the angle represents
      * @param {BooleanProperty} angleVisibleProperty
      * @param {Graph} graph
      */
-    constructor( vectorModel, angleVisibleProperty, graph ) {
+    constructor( vector, angleVisibleProperty, graph ) {
 
-      assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
+      assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( angleVisibleProperty instanceof BooleanProperty,
         `invalid angleVisibleProperty: ${angleVisibleProperty}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
@@ -91,7 +91,7 @@ define( require => {
 
       // @private {CurvedArrowNode} curvedArrow - arrow in a circle shape from the baseline to the vector
       this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS,
-        vectorModel.angle ? vectorModel.angle : 0,
+        vector.angle ? vector.angle : 0,
         CURVED_ARROW_OPTIONS );
 
       // @private {Text} labelText - set to an arbitrary string for now.
@@ -104,29 +104,29 @@ define( require => {
       // Function that updates the angle node
       const updateAngleNodeListener = () => {
         if ( this.visible ) {
-          this.updateAngleNode( vectorModel, graph.modelViewTransformProperty.value );
+          this.updateAngleNode( vector, graph.modelViewTransformProperty.value );
         }
       };
 
       // Observe when the vector model's components change to update the angle node
-      vectorModel.vectorComponentsProperty.link( updateAngleNodeListener );
+      vector.vectorComponentsProperty.link( updateAngleNodeListener );
 
       //----------------------------------------------------------------------------------------
       // Observe when the angle visible Property is changing and update the visibility of the angle node. The angle is
       // only visible when the vector is both active and the angle checkbox is clicked
       const angleVisibleMultilink = Property.multilink(
-        [ angleVisibleProperty, graph.activeVectorProperty, vectorModel.isOnGraphProperty ],
+        [ angleVisibleProperty, graph.activeVectorProperty, vector.isOnGraphProperty ],
         ( angleVisible, activeVector, isOnGraph ) => {
           // Visible if the angle checkbox is clicked, its active, and its on the graph
-          this.visible = angleVisible && activeVector === vectorModel && isOnGraph;
+          this.visible = angleVisible && activeVector === vector && isOnGraph;
 
-          this.updateAngleNode( vectorModel, graph.modelViewTransformProperty.value );
+          this.updateAngleNode( vector, graph.modelViewTransformProperty.value );
         } );
 
       //----------------------------------------------------------------------------------------
       // @private {function} unlinkListeners - function to unlink listeners, called in dispose()
       this.unlinkListeners = () => {
-        vectorModel.vectorComponentsProperty.unlink( updateAngleNodeListener );
+        vector.vectorComponentsProperty.unlink( updateAngleNodeListener );
         angleVisibleMultilink.dispose();
       };
     }
@@ -149,32 +149,32 @@ define( require => {
      *
      * @private
      *
-     * @param {VectorModel} vectorModel - model vector to base the angle off of
+     * @param {Vector} vector - model vector to base the angle off of
      * @param {ModelViewTransform} modelViewTransform
      */
-    updateAngleNode( vectorModel, modelViewTransform ) {
+    updateAngleNode( vector, modelViewTransform ) {
 
-      assert && assert( vectorModel instanceof VectorModel, `invalid vectorModel: ${vectorModel}` );
+      assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
 
       // Don't show he angle node if the magnitude is 0;
-      this.visible = this.visible && vectorModel.magnitude !== 0;
+      this.visible = this.visible && vector.magnitude !== 0;
 
       // convenience reference.
-      const angleDegrees = vectorModel.angleDegrees;
+      const angleDegrees = vector.angleDegrees;
 
       //----------------------------------------------------------------------------------------
       // Update the curved arrow node angle
-      this.curvedArrow.angle = vectorModel.angle ? vectorModel.angle : 0;
+      this.curvedArrow.angle = vector.angle ? vector.angle : 0;
 
       //----------------------------------------------------------------------------------------
       // Update the label text.
       this.labelText.setText( angleDegrees !== null ?
-                              `${Util.toFixed( vectorModel.angleDegrees, ANGLE_ROUNDING )}${DEGREES}` :
+                              `${Util.toFixed( vector.angleDegrees, ANGLE_ROUNDING )}${DEGREES}` :
                               '' );
 
       //----------------------------------------------------------------------------------------
       // Update the curved arrow radius
-      const viewMagnitude = modelViewTransform.modelToViewDeltaX( vectorModel.magnitude );
+      const viewMagnitude = modelViewTransform.modelToViewDeltaX( vector.magnitude );
 
       if ( viewMagnitude !== 0 ) {
         this.curvedArrow.radius = _.min( [ MAX_RADIUS_SCALE * viewMagnitude, MAX_CURVED_ARROW_RADIUS ] );
@@ -190,8 +190,8 @@ define( require => {
 
         if ( angleDegrees > ANGLE_UNDER_BASELINE_THRESHOLD ) {
           // Position the label next to the arc, halfway across the arc
-          this.labelText.setTranslation( ( this.curvedArrow.radius + LABEL_OFFSET ) * Math.cos( vectorModel.angle / 2 ),
-            -( this.curvedArrow.radius + LABEL_OFFSET ) * Math.sin( vectorModel.angle / 2 ) );
+          this.labelText.setTranslation( ( this.curvedArrow.radius + LABEL_OFFSET ) * Math.cos( vector.angle / 2 ),
+            -( this.curvedArrow.radius + LABEL_OFFSET ) * Math.sin( vector.angle / 2 ) );
         }
         else if ( angleDegrees > 0 ) {
           // Position the label halfway across, but on the other side of the baseline
@@ -204,8 +204,8 @@ define( require => {
         }
         else {
           // Position the label next to the arc, halfway across the arc
-          this.labelText.setTranslation( ( this.curvedArrow.radius + LABEL_OFFSET ) * Math.cos( vectorModel.angle / 2 ),
-            -( this.curvedArrow.radius + LABEL_OFFSET ) * Math.sin( vectorModel.angle / 2 ) + this.labelText.height / 2
+          this.labelText.setTranslation( ( this.curvedArrow.radius + LABEL_OFFSET ) * Math.cos( vector.angle / 2 ),
+            -( this.curvedArrow.radius + LABEL_OFFSET ) * Math.sin( vector.angle / 2 ) + this.labelText.height / 2
           );
         }
       }

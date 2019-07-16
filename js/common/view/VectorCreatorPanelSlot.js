@@ -35,7 +35,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorModel = require( 'VECTOR_ADDITION/common/model/VectorModel' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
@@ -130,12 +130,12 @@ define( require => {
         const vectorTailPosition = vectorCenterPosition.minus( initialVector.timesScalar( 0.5 ) );
 
         // Create the new Vector Model
-        const vectorModel = new VectorModel( vectorTailPosition, initialVector, graph, vectorSet, options.tag );
-        vectorSet.vectors.push( vectorModel );
+        const vector = new Vector( vectorTailPosition, initialVector, graph, vectorSet, options.tag );
+        vectorSet.vectors.push( vector );
 
         //----------------------------------------------------------------------------------------
         // Create the vector node and add it to the container
-        const vectorNode = new VectorNode( vectorModel,
+        const vectorNode = new VectorNode( vector,
           graph,
           vectorAdditionModel.valuesVisibleProperty,
           vectorAdditionModel.angleVisibleProperty );
@@ -150,7 +150,7 @@ define( require => {
         //----------------------------------------------------------------------------------------
         // Add the removal listener for when the vector is removed to remove the node.
         const removeVectorNodeListener = removedVector => {
-          if ( removedVector === vectorModel ) {
+          if ( removedVector === vector ) {
             removedVector.isOnGraphProperty.value = false;
             vectorNode.dispose();
             iconNode.visible = true;
@@ -174,10 +174,10 @@ define( require => {
               iconNode.visible = true;
 
               // Remove the vector model
-              vectorSet.vectors.remove( vectorModel );
-              vectorModel.dispose();
+              vectorSet.vectors.remove( vector );
+              vector.dispose();
             };
-            vectorModel.animateToPoint( iconPosition, iconComponents, animationFinishedListener );
+            vector.animateToPoint( iconPosition, iconComponents, animationFinishedListener );
           }
         } );
 

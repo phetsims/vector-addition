@@ -54,7 +54,7 @@ define( require => {
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
 
-  class VectorModel extends RootVector {
+  class Vector extends RootVector {
 
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
@@ -484,5 +484,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'VectorModel', VectorModel );
+  return vectorAddition.register( 'Vector', Vector );
 } );

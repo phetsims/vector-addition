@@ -55,7 +55,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public {ObservableArray.<VectorModel>} vectors - ObservableArray of the vectors in the vector set excluding
+      // @public {ObservableArray.<Vector>} vectors - ObservableArray of the vectors in the vector set excluding
       // sum
       this.vectors = new ObservableArray();
 
@@ -72,7 +72,7 @@ define( require => {
       // Create the sum
 
       if ( options.initializeSum ) {
-        // @public (read-only) {VectorModel} the vector sum model
+        // @public (read-only) {Vector} the vector sum model
         this.vectorSum = new VectorSum( options.initialSumTailPosition, graph, this, SUM_TAG );
       }
     }
