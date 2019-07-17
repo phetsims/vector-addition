@@ -36,11 +36,17 @@ define( function( require ) {
       this.viewProperties = new VectorAdditionViewProperties();
 
 
-      const polarScene = new EquationSceneNode( equationModel, this.viewProperties,
-        equationModel.polarScene );
+      const polarScene = new EquationSceneNode( equationModel.polarGraph,
+        this.viewProperties.valuesVisibleProperty,
+        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.gridVisibleProperty,
+        equationModel.componentStyleProperty );
 
-      const cartesianScene = new EquationSceneNode( equationModel, this.viewProperties,
-        equationModel.cartesianScene );
+      const cartesianScene = new EquationSceneNode( equationModel.cartesianGraph,
+        this.viewProperties.valuesVisibleProperty,
+        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.gridVisibleProperty,
+        equationModel.componentStyleProperty );
 
       this.addChild( polarScene );
       this.addChild( cartesianScene );

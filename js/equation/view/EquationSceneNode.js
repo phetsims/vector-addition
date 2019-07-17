@@ -1,12 +1,13 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * The scene node for the 'Equation' screen. Equation scenes have:
- *  - a Graph Node
+ * The scene node for the 'Equation' screen.
+ *
+ * 'Is A' relationship with Scene Node but adds,
  *  - a Equation Selector Radio Button Group
- *  - a Coefficient Selector Panel
+ *  - 3 Coefficient Selector Panel (one for each equation type)
  *  - a Base Vector Accordion Box
- *  - VectorNodes for one VectorSet
+ *  - base vector nodes
  *
  * @author Brandon Li
  */
@@ -15,91 +16,97 @@ define( require => {
   'use strict';
 
   // modules
+  const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsAccordionBox' );
   const CoefficientSelectorPanel = require( 'VECTOR_ADDITION/equation/view/CoefficientSelectorPanel' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  // const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
-  const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsAccordionBox' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
 
   // constants
-
   const VECTOR_SUM_COLORS = {
     fill: VectorAdditionColors.BLACK,
     component: VectorAdditionColors.GREY
   };
-
+  const BASE_VECTOR_OPACITY = 0.38;
   const PANEL_CENTER_Y = 110;
 
-  class EquationSceneNode extends Node {
+  class EquationSceneNode extends SceneNode {
+
     /**
-     * @param {EquationModel} equationModel
-     * @param {Graph} graph
-     * @param {EquationVectorSet} equationVectorSet
-     * @param {BooleanProperty} baseVectorVisibleProperty
-     * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
+     * @param {EquationGraph} graph
+     * @param {BooleanProperty} valuesVisibleProperty
+     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} gridVisibleProperty
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {Object} [options]
      */
-    constructor( equationModel, viewProperties, scene ) {
+    constructor( graph,
+                 valuesVisibleProperty,
+                 angleVisibleProperty,
+                 gridVisibleProperty,
+                 componentStyleProperty,
+                 options ) {
 
+      options = _.extend( {
+        includeEraser: false,
+        includeBaseVectors: true,
+        sumNodeOptions: VECTOR_SUM_COLORS
+      }, options );
 
-      super();
-
-      // Add the graphs
-      scene.graphs.forEach( graph => {
-
-        const sceneNode = new SceneNode( graph,
-          viewProperties.valuesVisibleProperty,
-          viewProperties.angleVisibleProperty,
-          viewProperties.gridVisibleProperty,
-          equationModel.componentStyleProperty, {
-            includeEraser: false,
-            includeBaseVectors: true,
-            sumNodeOptions: VECTOR_SUM_COLORS
-          } );
-
-        this.addChild( sceneNode );
-
-        // Toggle visibility, doesn't need to be unlinked since the scene is never disposed
-        scene.equationTypeProperty.link( equationType => {
-          sceneNode.visible = equationType === graph.equationType;
-        } );
-
-        // Add a CoefficientSelectorPanel
-        sceneNode.addChild( new CoefficientSelectorPanel( graph.vectorSet, {
-          centerY: PANEL_CENTER_Y
-        } ) );
-
-        // // Add the base vectors
-        // graph.vectorSet.vectors.forEach( vector => {
-        //   const baseVector = new VectorNode( vector.baseVector,
-        //     scene.additionGraph,
-        //     equationModel.valuesVisibleProperty,
-        //     equationModel.angleVisibleProperty,
-        //     {
-        //       opacity: 0.5
-        //     } );
-        // scene.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
-
-        // sceneNode.baseVectorContainer.addChild( baseVector );
-        // } );
-
-      } );
+      super( graph,
+             valuesVisibleProperty,
+             angleVisibleProperty,
+             gridVisibleProperty,
+             componentStyleProperty,
+             options );
 
       //----------------------------------------------------------------------------------------
       // Add the equation types radio button Group
 
-      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( scene.equationTypeProperty, scene.symbols, {
+      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( graph.equationTypeProperty,
+        graph.vectorSet.symbols, {
         centerY: PANEL_CENTER_Y
       } );
 
       this.addChild( equationTypesRadioButtonGroup );
 
+
+      // Add the coefficient for each equation type
+      EquationTypes.VALUES.forEach( equationType => {
+        
+        const coefficientSelectorPanel = new CoefficientSelectorPanel( graph.vectorSet, equationType, {
+          centerY: PANEL_CENTER_Y
+        } );
+
+        // Doesn't need to be unlinked since the coefficientSelectorPanel is never disposed
+        graph.equationTypeProperty.link( () => {
+          coefficientSelectorPanel.visible = equationType === graph.equationTypeProperty.value; 
+        } );
+
+        this.addChild( coefficientSelectorPanel );
+
+      } );
+
       //----------------------------------------------------------------------------------------
+      // Add the base vectors
+
+      graph.vectorSet.vectors.forEach( ( vector ) => {
+
+        const baseVector = new VectorNode( vector.baseVector, graph, valuesVisibleProperty, angleVisibleProperty, {
+          opacity: BASE_VECTOR_OPACITY
+        } );
+
+        graph.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
+
+        this.baseVectorContainer.addChild( baseVector );
+      } );
+ 
 
       // Add the base vectors accordion box (semi-global)
-      this.addChild( new BaseVectorsAccordionBox( scene.baseVectorsVisibleProperty ) );
+      this.addChild( new BaseVectorsAccordionBox( graph.baseVectorsVisibleProperty ) );
     }
   }
 

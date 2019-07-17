@@ -55,7 +55,7 @@ define( require => {
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      * @param {Object} [options]
      */
-    constructor( equationVectorSet, options ) {
+    constructor( equationVectorSet, equationType, options ) {
 
       assert && assert( equationVectorSet instanceof EquationVectorSet,
         `invalid equationVectorSet: ${equationVectorSet}` );
@@ -92,16 +92,25 @@ define( require => {
         spacing: 15
       } );
 
-      const equationType = equationVectorSet.equationType;
-
       // Create an array of number HBoxes that contain a number picker and a label
       const hBoxesChildren = [];
 
       // Loop through each vector add add a number picker / label
       equationVectorSet.vectors.forEach( vector => {
 
-        const numberPicker = new NumberPicker( vector.coefficientProperty,
-          vector.rangeProperty,
+        let coefficientProperty;
+        if ( equationType === EquationTypes.ADDITION ) {
+          coefficientProperty = vector.additionCoefficientProperty;
+        }
+        else if ( equationType === EquationTypes.SUBTRACTION ) {
+          coefficientProperty = vector.subtractionCoefficientProperty;
+        }
+        else {
+          coefficientProperty = vector.negationCoefficientProperty;
+        }
+
+        const numberPicker = new NumberPicker( coefficientProperty,
+          vector.coefficientRangeProperty,
           NUMBER_PICKER_OPTIONS );
 
         // Create the label
