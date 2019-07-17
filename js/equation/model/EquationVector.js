@@ -148,11 +148,15 @@ define( require => {
      */
     getLabelContent( valuesVisible ) {
 
-
+      let coefficient;
+      if ( this.coefficientProperty.value && this.coefficientProperty.value !== 1 ) {
+        coefficient = `${this.coefficientProperty.value}`;
+      }
+      if ( this.coefficientProperty.value === -1 ) {
+        coefficient = '-';
+      }
       return _.extend( super.getLabelContent( valuesVisible ), {
-        coefficient: this.coefficientProperty.value && Math.abs( this.coefficientProperty.value  ) !== 1 ?
-                        `${this.coefficientProperty.value}` :
-                        null
+        coefficient: coefficient
       } );
     }
 
