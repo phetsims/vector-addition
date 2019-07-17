@@ -92,12 +92,12 @@ define( function( require ) {
     NUMBER_PICKER_OPTIONS: {
       color: VectorAdditionColors.BLACK,
       cornerRadius: 3,
-      arrowYSpacing: 1.5,
-      arrowHeight: 3.5,
-      font: new PhetFont( 15.5 ),
-      xMargin: 2.2,
-      yMargin: 2.1,
-      valueMaxWidth: 17
+      arrowYSpacing: 1.6,
+      arrowHeight: 3.6,
+      font: new PhetFont( 16.5 ),
+      xMargin: 2.5,
+      yMargin: 2.4,
+      valueMaxWidth: 19
     },
 
     //----------------------------------------------------------------------------------------

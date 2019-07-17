@@ -106,7 +106,7 @@ define( require => {
  
 
       // Add the base vectors accordion box (semi-global)
-      this.addChild( new BaseVectorsAccordionBox( graph.baseVectorsVisibleProperty ) );
+      this.addChild( new BaseVectorsAccordionBox( graph.baseVectorsVisibleProperty, graph.coordinateSnapMode, graph.vectorSet ) );
     }
   }
 

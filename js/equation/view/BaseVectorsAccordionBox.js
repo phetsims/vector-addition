@@ -17,21 +17,27 @@ define( require => {
   // modules
   const AccordionBox = require( 'SUN/AccordionBox' );
   const Checkbox = require( 'SUN/Checkbox' );
-  // const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const Node = require( 'SCENERY/nodes/Node' );
-  // const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
-  // const NumberProperty = require( 'AXON/NumberProperty' );
-  // const Property = require( 'AXON/Property' );
-  // const Range = require( 'DOT/Range' );
+  const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
+  const Enumeration = require( 'PHET_CORE/Enumeration' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
 
   // strings
   const baseVectorsString = require( 'string!VECTOR_ADDITION/baseVectors' );
   const showBaseVectorsString = require( 'string!VECTOR_ADDITION/showBaseVectors' );
+  const symbolXString = require( 'string!VECTOR_ADDITION/symbol.x' );
+  const symbolYString = require( 'string!VECTOR_ADDITION/symbol.y' );
 
   // constants
   const EXPAND_COLLAPSE_PANEL_OPTIONS = VectorAdditionConstants.EXPAND_COLLAPSE_PANEL;
@@ -41,15 +47,18 @@ define( require => {
     spacing: 5
   } );
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+  const POLAR_ANGLE_INTERVAL = VectorAdditionConstants.POLAR_ANGLE_INTERVAL;
+  const NUMBER_PICKER_OPTIONS = VectorAdditionConstants.NUMBER_PICKER_OPTIONS;
 
-  // const NUMBER_PICKER_OPTIONS = VectorAdditionConstants.NUMBER_PICKER_OPTIONS;
+  // width for all labels
+  const LABEL_WIDTH = 29;
 
   class BaseVectorsAccordionBox extends AccordionBox {
     /**
      * @param {BooleanProperty} baseVectorsVisibleProperty
      * @param {Object} [options]
      */
-    constructor( baseVectorsVisibleProperty, coordinateSnapMode, options ) {
+    constructor( baseVectorsVisibleProperty, coordinateSnapMode, vectorSet, options ) {
 
       options = _.extend( {}, EXPAND_COLLAPSE_PANEL_OPTIONS, {
 
@@ -59,7 +68,7 @@ define( require => {
         // superclass options
         titleNode: new Text( baseVectorsString, { font: PANEL_FONT } ),
         right: SCREEN_VIEW_BOUNDS.maxX - SCREEN_VIEW_X_MARGIN,
-        top: 310,
+        top: 270,
         titleAlignX: 'left',
         titleXMargin: EXPAND_COLLAPSE_PANEL_OPTIONS.buttonXMargin
       }, options );
@@ -76,8 +85,102 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the number pickers
 
-      // const testPicker = new NumberPicker( new NumberProperty( 5 ), new Property( new Range( -5, 5 ) ), NUMBER_PICKER_OPTIONS );
+      const children = [];
 
+      const displayTypes = new Enumeration( [ 'X', 'Y', 'ANGLE', 'MAGNITUDE' ] );
+
+      const pickerContainerWidth = contentWidth - 2 * 10;
+      const pickerContainerHeight = 30;
+      const createNumberPickerAndLabel = ( numberPicker, baseVector, displayType ) => {
+
+        const suffix = displayType === displayTypes.MAGNITUDE ? `|${baseVector.symbol}|`: baseVector.symbol;
+    
+        let sub;
+        if ( displayType === displayTypes.X ) {
+          sub = symbolXString;
+        }
+        else if ( displayType === displayTypes.Y ) {
+          sub = symbolYString;
+        }
+        else if ( displayType === displayTypes.ANGLE ) {
+          sub = MathSymbols.THETA;
+        }
+
+        const text = new RichText( sub ? `${suffix}<sub>${sub}</sub> = ` : `${suffix} = `, {
+          font: new MathSymbolFont( { size: 17, weight: 700 } )
+
+        } );
+        text.maxWidth = LABEL_WIDTH;
+
+        const label = new AlignBox( text, {
+          alignBounds: new Bounds2( 0, 0, LABEL_WIDTH, text.height ),
+          maxWidth: LABEL_WIDTH
+        } );
+
+        return new HBox( {
+          spacing: 4,
+          children: [ label, numberPicker ]
+        } );
+      };
+
+      if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+
+        vectorSet.vectors.forEach( vector => {
+          const baseVector = vector.baseVector;
+
+          const xComponentPicker = new NumberPicker( baseVector.xComponentProperty,
+            baseVector.componentRangeProperty,
+            NUMBER_PICKER_OPTIONS );
+
+          const yComponentPicker = new NumberPicker( baseVector.yComponentProperty,
+            baseVector.componentRangeProperty,
+            NUMBER_PICKER_OPTIONS );
+
+          const xSide = createNumberPickerAndLabel( xComponentPicker, baseVector, displayTypes.X );
+          const ySide = createNumberPickerAndLabel( yComponentPicker, baseVector, displayTypes.Y );
+
+          children.push( new AlignBox( new HBox( {
+            spacing: pickerContainerWidth - xSide.width - ySide.width,
+            children: [ xSide, ySide ]
+          } ), {
+            alignBounds: new Bounds2( 0, 0, pickerContainerWidth, pickerContainerHeight )
+          } ) );
+
+        } );
+
+      }
+      else {
+
+        vectorSet.vectors.forEach( vector => {
+          const baseVector = vector.baseVector;
+
+          const anglePicker = new NumberPicker( baseVector.angleDegreesProperty,
+            baseVector.angleRangeProperty,
+            _.extend( {}, NUMBER_PICKER_OPTIONS, {
+              upFunction: ( value ) => {
+                return value + POLAR_ANGLE_INTERVAL;
+              },
+              downFunction: value => {
+                return value - POLAR_ANGLE_INTERVAL;
+              }
+            } ) );
+
+          const magnitudePicker = new NumberPicker( baseVector.magnitudeProperty,
+            baseVector.magnitudeRangeProperty,
+            NUMBER_PICKER_OPTIONS );
+
+          const ySide = createNumberPickerAndLabel( anglePicker, baseVector, displayTypes.ANGLE );
+          const xSide = createNumberPickerAndLabel( magnitudePicker, baseVector, displayTypes.MAGNITUDE );
+
+          children.push( new AlignBox( new HBox( {
+            spacing: pickerContainerWidth - xSide.width - ySide.width,
+            children: [ xSide, ySide ]
+          } ), {
+            alignBounds: new Bounds2( 0, 0, pickerContainerWidth, pickerContainerHeight )
+          } ) );
+
+        } );
+      }
 
       //----------------------------------------------------------------------------------------
       // Create the 'Show Base Vectors checkbox'
@@ -92,13 +195,11 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the accordion box
 
-      const children = [
-        baseVectorsCheckbox
-      ];
+      children.push( baseVectorsCheckbox );
 
 
       const content = new VBox( {
-        align: 'left',
+        align: 'center',
         spacing: 15,
         children: children
       } );
