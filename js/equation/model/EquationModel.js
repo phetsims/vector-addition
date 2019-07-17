@@ -27,7 +27,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const EquationScene = require( 'VECTOR_ADDITION/equation/model/EquationScene' );
+  const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
 
   class EquationModel extends VectorAdditionModel {
     /**
@@ -52,10 +52,14 @@ define( require => {
       // Create the two graphs
 
       // @public (read-only) {graph}
-      this.polarScene = new EquationScene( CoordinateSnapModes.POLAR, this.componentStyleProperty, VectorGroups.THREE );
+      this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
+        this.componentStyleProperty,
+        VectorGroups.THREE );
 
       // @public (read-only) {graph}
-      this.cartesianScene = new EquationScene( CoordinateSnapModes.CARTESIAN, this.componentStyleProperty, VectorGroups.ONE );
+      this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
+        this.componentStyleProperty,
+        VectorGroups.ONE );
 
     }
 
@@ -64,9 +68,8 @@ define( require => {
      */
     reset() {
 
-
-      this.polarScene.reset();
-      this.cartesianScene.reset();
+      this.polarGraph.reset();
+      this.cartesianGraph.reset();
 
       super.reset();
     }
