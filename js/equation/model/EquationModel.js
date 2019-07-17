@@ -57,7 +57,7 @@ define( require => {
         VectorGroups.THREE );
 
       // @public (read-only) {graph}
-      this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
+      this.cartesianGraph = new EquationGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         VectorGroups.ONE );
 

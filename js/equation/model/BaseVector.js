@@ -21,11 +21,12 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
   const Util = require( 'DOT/Util' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const Range = require( 'DOT/Range' );
-
+  
   // constants
   const VECTOR_OPTIONS = {
     isRemovable: false, // base vectors are not removable
@@ -50,6 +51,7 @@ define( require => {
     constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
 
       super( initialTailPosition, initialComponents, graph, vectorSet, symbol, VECTOR_OPTIONS );
+
 
       //----------------------------------------------------------------------------------------
       // Create properties for the base vector panel
@@ -76,10 +78,10 @@ define( require => {
         // Creates selector properties for the angle and the magnitude that go into a number picker on polar
 
         // @public (read-only) {NumberProperty} angleProperty - create a property to represent the angle of the vector
-        this.angleDegreesProperty = new NumberProperty( this.xComponent );
+        this.angleDegreesProperty = new NumberProperty( Util.toDegrees( this.angle ) );
 
         // @public (read-only) {NumberProperty} yComponentProperty - create a property to represent the magnitude
-        this.magnitudeProperty = new NumberProperty( this.yComponent );
+        this.magnitudeProperty = new NumberProperty( this.magnitude );
 
         //----------------------------------------------------------------------------------------
         // Create range properties
@@ -104,7 +106,7 @@ define( require => {
       } );
 
       this.angleDegreesProperty && this.angleDegreesProperty.link( angleDegrees => {
-        this.vectorComponents = this.vectorComponents.rotated( Util.toRadians( angleDegrees ) );
+        this.vectorComponents = Vector2.createPolar( this.magnitude, Util.toRadians( angleDegrees ) );
       } );
 
       this.magnitudeProperty && this.magnitudeProperty.link( magnitude => {
