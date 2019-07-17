@@ -1,112 +1,118 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * An Equation Vector Set is a vector set with a defined amount of vectors.
+ * Model for a VectorSet on the 'Equation' screen
  *
- * Vectors are created by instantiating EquationVector and EquationVectorSum.
- *
- * EquationVectorSets are locked after initialization.
+ * Extends VectorSet but:
+ *  - locks the vector set. EquationVectorSets have a defined amount of vectors.
+ *  - creates a EquationVectorSum
+ *  - separate coefficient panels for each equation type.
  *
  * @author Brandon Li
  */
+
 define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationVector = require( 'VECTOR_ADDITION/equation/model/EquationVector' );
   const EquationVectorSum = require( 'VECTOR_ADDITION/equation/model/EquationVectorSum' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-
+  const Vector2 = require( 'DOT/Vector2' );
+  
   // constants
   const VECTOR_SET_OPTIONS = {
     initializeSum: false // Equation vector set will initialize all the vectors
   };
-  const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
 
-  const VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1;
+  // Array of the vectors in an equation set
+  const EQUATION_SET_VECTORS = [ {
+      vectorTail: new Vector2( 5, 10 ),
+      vectorComponents: new Vector2( 0, 5 ),
+      baseVectorTail: new Vector2( 45, 20 )
+    }, {
+      vectorTail: new Vector2( 15, 10 ),
+      vectorComponents: new Vector2( 5, 5 ),
+      baseVectorTail: new Vector2( 45, 5 )
+    }
+  ];
 
   class EquationVectorSet extends VectorSet {
     /**
      * @param {Graph} graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible Property
      * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
-     * @param {Vector2} initialVectorComponents
+     * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      */
     constructor( graph,
-                 componentStyleProperty,
-                 sumVisibleProperty,
-                 vectorGroup,
-                 coordinateSnapMode,
-                 equationType
+        componentStyleProperty,
+        vectorGroup,
+        coordinateSnapMode,
+        equationTypeProperty
     ) {
 
-      // assert && assert( initialVectorComponents instanceof Vector2,
-      //   `invalid initialVectorComponents: ${initialVectorComponents}` );
-      // assert && assert( equationTypeProperty instanceof EnumerationProperty
-      // && EquationTypes.includes( equationType ),
-      //   `invalid equationType: ${equationType}` );
+
+      assert && assert( equationTypeProperty instanceof EnumerationProperty
+      && EquationTypes.includes( equationTypeProperty.value ),
+        `invalid equationTypeProperty: ${equationTypeProperty}` );
 
       super( graph,
         componentStyleProperty,
-        sumVisibleProperty,
+        new BooleanProperty( true ),
         vectorGroup,
         VECTOR_SET_OPTIONS );
 
+      // @public (read-only) {array.<string>} symbols
+      this.symbols = coordinateSnapMode === CoordinateSnapModes.CARTESIAN ?
+                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
+                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
+
       //----------------------------------------------------------------------------------------
-      // Create the equationVector, one less then symbols
+      // Create the equationVectors, one less then symbols
       // For example, if symbols were [ 'A', 'B', 'C' ], 'A' and 'B' would be equation Vector modules
       // and C would be the equation vector sum
-      for ( let symbolIndex = 0; symbolIndex < VECTOR_SYMBOLS.length - 1; symbolIndex++ ) {
+      assert && assert( this.symbols.length - 1 === EQUATION_SET_VECTORS.length );
 
-        const equationVector = new EquationVector( graph.graphModelBounds.center,
-          DEFAULT_VECTOR_LENGTH,
-          DEFAULT_VECTOR_LENGTH,
+      for ( let i = 0; i < EQUATION_SET_VECTORS.length; i++ ) {
+
+        const equationVector = new EquationVector( EQUATION_SET_VECTORS[ i ].vectorTail,
+          EQUATION_SET_VECTORS[ i ].vectorComponents,
+          EQUATION_SET_VECTORS[ i ].baseVectorTail,
           graph,
           this,
-          VECTOR_SYMBOLS[ symbolIndex ] );
+          graph.equationTypeProperty,
+          this.symbols[ i ] );
 
         this.vectors.push( equationVector );
       }
-
-      this.equationType = equationType;
 
       //----------------------------------------------------------------------------------------
       // Create the vector sum
 
       // @public (read-only) {EquationVectorSum}
-      this.vectorSum = new EquationVectorSum( graph, this, equationType, VECTOR_SYMBOLS[ VECTOR_SYMBOLS.length - 1 ] );
+      this.vectorSum = new EquationVectorSum( graph, this, equationTypeProperty, _.last( this.symbols ) );
 
     }
 
     /**
+     * Resets the vector set.
+     * @override
      * @public
-     * Resets the vector set, by clearing the vectors array and reseting the vectorSum
      */
     reset() {
-      // Dispose each vector
+
       this.vectors.forEach( ( vector ) => {
         vector.reset();
       } );
       this.vectorSum.reset();
-    }
 
-    /**
-     * @override
-     * @public
-     * Creates a vector model. This doesn't get added to the vector ObservableArray
-     * @param {Vector2} tailPosition
-     * @param {number} xComponent
-     * @param {number} yComponent
-     * @param {string|null} symbol
-     * @param {Object} [options]
-     * @returns {Vector} the created vector model
-     */
-    createVector( tailPosition, xComponent, yComponent, symbol, options ) {
-      assert && assert( false, 'equation vector sets are locked' );
     }
   }
 
