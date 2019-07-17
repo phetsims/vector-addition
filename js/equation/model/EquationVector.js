@@ -17,81 +17,122 @@ define( require => {
   'use strict';
 
   // modules
-  const Property = require( 'AXON/Property' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
-  const Range = require( 'DOT/Range' );
+  const BaseVector = require( 'VECTOR_ADDITION/equation/model/BaseVector' );
   const NumberProperty = require( 'AXON/NumberProperty' );
-  const Vector2 = require( 'DOT/Vector2' );
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
 
   // constants
   const DEFAULT_COEFFICIENT = 1;
+  const COEFFICIENT_RANGE = new Range( -5, 5 );
+
+  const VECTOR_OPTIONS = {
+    isRemovable: false, // equation vectors are not removable
+    isTipDraggable: false, // equation vectors are not draggable by the tip
+    isOnGraphInitially: true // equation vectors are always on the graph
+  };
 
   class EquationVector extends Vector {
     /**
-     * @param {Vector2} tailPosition
-     * @param {number} xComponent horizontal component of the vector
-     * @param {number} yComponent vertical component of the vector
-     * @param {Graph} the graph the vector belongs to
-     * @param {EquationVectorSet} the equationVectorSet that the vector belongs to
+     * @param {Vector2} initialTailPosition - starting tail position of the vector
+     * @param {Vector2} initialComponents - starting components of the vector
+     * @param {Vector2} baseVectorTailPosition - starting tail position of the base vector
+     * @param {EquationGraph} graph - the equation graph the vector belongs to
+     * @param {EquationVectorSet} vectorSet - the equationVectorSet that the vector belongs to
+     * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
-     * @param {Object} [options]
      */
-    constructor( tailPosition, xComponent, yComponent, graph, equationVectorSet, symbol, options ) {
+    constructor( initialTailPosition,
+      initialComponents,
+      baseVectorTailPosition,
+      graph,
+      vectorSet,
+      equationTypeProperty,
+      symbol
+    ) {
 
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
-
-      // Disable tip dragging and removing of vectors
-      options = _.extend( {
-
-        // super class options
-        isRemovable: false,
-        isTipDraggable: false
-      }, options );
+      assert && assert( equationTypeProperty instanceof EnumerationProperty
+      && EquationTypes.includes( equationTypeProperty.value ),
+        `invalid equationTypeProperty: ${equationTypeProperty}` );
 
 
-      super( tailPosition, new Vector2( xComponent, yComponent ), graph, equationVectorSet, symbol, options );
+      super( initialTailPosition, initialComponents, graph, vectorSet, symbol, VECTOR_OPTIONS );
 
       //----------------------------------------------------------------------------------------
-      // @public (read-only) {Property.<number>} - create a Property to represent the coefficient.
-      this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
+      // Create coefficient ranges. One for each equation type.
 
-      // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
+      // @public (read-only) {NumberProperty} additionCoefficientProperty
+      this.additionCoefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
+
+      // @public (read-only) {NumberProperty} subtractionCoefficientProperty
+      this.subtractionCoefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
+
+      // @public (read-only) {NumberProperty} negationCoefficientProperty
+      this.negationCoefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
+
+
+      // @public (read-only) {DerivedProperty.<Number>}
+      this.coefficientProperty = new DerivedProperty( [ this.additionCoefficientProperty,
+        this.subtractionCoefficientProperty,
+        this.negationCoefficientProperty,
+        equationTypeProperty ],
+        ( additionCoefficient, subtractionCoefficient, negationCoefficient, equationType ) => {
+
+          if ( equationType === EquationTypes.ADDITION ) {
+            return additionCoefficient;
+          }
+          else if ( equationType === EquationTypes.SUBTRACTION ) {
+            return subtractionCoefficient;
+          }
+          else {
+            return negationCoefficient;
+          }
+        } );
+
+      //----------------------------------------------------------------------------------------
+
+      // @public (read-only) {BaseVector} baseVector - Instantiate a base vector
+      this.baseVector = new BaseVector( baseVectorTailPosition,
+        initialComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+        graph,
+        vectorSet,
+        symbol );
+
+
+      // Observe when the base vector changes, or when the coefficient Properties change and update the vector.
       // Doesn't need to be unlinked since equation vectors are never disposed
-      // Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
-      //   ( baseVector, coefficient ) => {
-      //     this.vectorComponents = baseVector.timesScalar( coefficient );
-      //   } );
-
-      //----------------------------------------------------------------------------------------
-      // Double check that equation vectors are never removed from the graph
-
-      // Equation vectors are always on the graph
-      this.isOnGraphProperty.value = true;
-
-      // Doesn't need to be unlinked; equation vectors are never disposed
-      this.isOnGraphProperty.link( ( isOnGraph ) => {
-        if ( isOnGraph === false ) {
-          assert && assert( false, 'vector sums should never be off the graph' );
-        }
-      } );
+      Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
+        ( baseVector, coefficient ) => {
+          this.vectorComponents = baseVector.timesScalar( coefficient );
+        } );
 
 
-      this.rangeProperty = new Property( new Range( -100, 100 ) );
+      // @public (read-only) {Property.<Range>} coefficientRangeProperty - property of the range of the coefficient
+      this.coefficientRangeProperty = new Property( COEFFICIENT_RANGE );
     }
 
+    /**
+     * Resets the equation vector. Called when the reset all button is clicked.
+     * @public
+     */
     reset() {
-      this.coefficientProperty.reset();
+      this.additionCoefficientProperty.reset();
+      this.subtractionCoefficientProperty.reset();
+      this.negationCoefficientProperty.reset();
+      this.baseVector.reset();
       this.tailPositionProperty.reset();
     }
-
 
     /**
      * @override
      * See Vector.getLabelContent() for documentation and context
      *
-     * Gets the label content information to display the vector model. Vector's may or may not have symbols.
+     * Gets the label content information to display the vector model. Equation Vectors have symbols.
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
@@ -104,8 +145,12 @@ define( require => {
      * }
      */
     getLabelContent( valuesVisible ) {
+
+
       return _.extend( super.getLabelContent( valuesVisible ), {
-        coefficient: this.coefficientProperty.value && this.coefficientProperty.value !== 1 ? `${this.coefficientProperty.value}` : null
+        coefficient: this.coefficientProperty.value && Math.abs( this.coefficientProperty.value  ) !== 1 ?
+                        `${this.coefficientProperty.value}` :
+                        null
       } );
     }
 
