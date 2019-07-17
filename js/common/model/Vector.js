@@ -204,35 +204,31 @@ define( require => {
     }
 
     /**
-     * Moves the tip to this position but ensures it satisfies invariants for polar and cartesian mode.
-     * @public
+     * Changes the components to ensure the vector satisfies invariants for polar and cartesian mode
+     * @protected
      *
      * Invariants for cartesian mode:
      *  - Vector tip must be within the graph bounds
      *  - Vector tip must be on an exact model coordinate
-     *  - Vector must not be dragged to make the vector 0 magnitude
+     *  - Vector must not be 0 magnitude
      *
      * Invariants for polar mode:
      *  - Vector tip must be rounded to ensure the magnitude of the vector is a integer
      *  - Vector tip must be rounded to ensure the vector angle is a multiple of POLAR_ANGLE_INTERVAL
      *  - Vector tip must be within the graph bounds
-     *  - Vector must not be dragged to make the vector 0 magnitude
-     *
-     * @param {Vector2} tipPosition
+     *  - Vector must not be 0 magnitude
+     * 
+     * @param {Vector2} components
      */
-    dragTipToPosition( tipPosition ) {
+    fullfillInvariants( components ) {
 
-      assert && assert( !this.inProgressAnimationProperty.value, 'Cannot drag tip when vector is animating' );
-      assert && assert( this.isOnGraphProperty.value, 'Cannot drag tip when vector isn\'t on the graph' );
-      assert && assert( tipPosition instanceof Vector2, `invalid tipPosition: ${tipPosition}` );
+      assert && assert( components instanceof Vector2, `invalid components: ${components}` );
 
-      // Declare this vector as active when it's dragging
-      this.graph.activeVectorProperty.value = this;
-
-      // No-op if attempting to drag the vector to 0 magnitude
-      if ( tipPosition.minus( this.tail ).roundSymmetric().magnitude === 0 ) {
+      // No-op on 0 magnitude
+      if ( components.roundedSymmetric().magnitude === 0 ) {
         return;
       }
+      const tipPosition = this.tail.plus( components );
 
       // Flag to get the tip point that satisfies invariants
       let correctedTipPosition;
@@ -275,6 +271,24 @@ define( require => {
 
       // Update the model tip
       this.tip = correctedTipPosition;
+    }
+
+    /**
+     * Moves the tip to this position but ensures it satisfies invariants for polar and cartesian mode.
+     * @public
+     *
+     * @param {Vector2} tipPosition
+     */
+    dragTipToPosition( tipPosition ) {
+
+      assert && assert( !this.inProgressAnimationProperty.value, 'Cannot drag tip when vector is animating' );
+      assert && assert( this.isOnGraphProperty.value, 'Cannot drag tip when vector isn\'t on the graph' );
+      assert && assert( tipPosition instanceof Vector2, `invalid tipPosition: ${tipPosition}` );
+
+      // Declare this vector as active when it's dragging
+      this.graph.activeVectorProperty.value = this;
+
+      this.fullfillInvariants( tipPosition.minus( this.tail ) );
     }
 
     /**
@@ -465,6 +479,7 @@ define( require => {
 
       // Ensure dropped tail position satisfies invariants
       this.moveVectorTailToFitInGraph( tailPosition );
+      this.fullfillInvariants( this.vectorComponents );
 
       // Declare this vector as active
       this.graph.activeVectorProperty.value = this;
