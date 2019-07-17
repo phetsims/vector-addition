@@ -141,7 +141,7 @@ define( require => {
      */
     set yComponent( component ) {
       assert && assert( typeof component === 'number', `invalid component: ${component}` );
-      this.vectorComponents = this.vectorComponents.setY( component );
+      this.vectorComponents = this.vectorComponents.copy().setY( component );
     }
 
     /**
@@ -158,7 +158,7 @@ define( require => {
      */
     set xComponent( component ) {
       assert && assert( typeof component === 'number', `invalid component: ${component}` );
-      this.vectorComponents = this.vectorComponents.setX( component );
+      this.vectorComponents = this.vectorComponents.copy().setX( component );
     }
 
     /**
