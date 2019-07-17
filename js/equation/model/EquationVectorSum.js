@@ -19,11 +19,13 @@ define( require => {
   // modules
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const Property = require( 'AXON/Property' );
+  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
-  const Vector2 = require( 'DOT/Vector2' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
 
   // constants
+  const EQUATION_SUM_TAIL_POSITION = new Vector2( 25, 10 );
 
   class EquationVectorSum extends VectorSum {
     /**
@@ -32,18 +34,14 @@ define( require => {
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( graph, vectorSet, equationType, symbol ) {
+    constructor( graph, vectorSet, equationTypeProperty, symbol ) {
 
-      // assert && assert( equationTypeProperty instanceof EnumerationProperty
-      // && EquationTypes.includes( equationTypeProperty.value ),
-      //   `invalid equationTypeProperty: ${equationTypeProperty}` );
+      assert && assert( equationTypeProperty instanceof EnumerationProperty
+      && EquationTypes.includes( equationTypeProperty.value ),
+        `invalid equationTypeProperty: ${equationTypeProperty}` );
 
-      super( graph.graphModelBounds.center, graph, vectorSet, symbol );
+      super( EQUATION_SUM_TAIL_POSITION, graph, vectorSet, symbol );
 
-      //----------------------------------------------------------------------------------------
-
-      // @private {EquationTypes}
-      this.equationType = equationType;
 
       //----------------------------------------------------------------------------------------
       // Observe when each vector changes and/or when the equationType changes to calculate the sum
@@ -55,9 +53,9 @@ define( require => {
 
       // Doesn't need to be unlinked since each vector in equationvectorSet are never disposed and the equation vector
       // sum is never disposed
-      Property.multilink( dependencies,
-        () => {
-          this.updateSum( vectorSet.vectors );
+      Property.multilink( _.concat( [ equationTypeProperty ], dependencies ),
+        ( equationType ) => {
+          this.updateSum( vectorSet.vectors, equationType );
         } );
 
     }
@@ -67,11 +65,10 @@ define( require => {
      * Calculate the vector sum for the equation screen.
      *
      * @param {ObservableArray.<VectorsModel>} vectors
+     * @param {EquationTypes} equationType
      * @public
      */
-    updateSum( vectors ) {
-
-      const equationType = this.equationType;
+    updateSum( vectors, equationType ) {
 
       // Denoted by 'a' + 'b' = 'c'
       if ( equationType === EquationTypes.ADDITION ) {
@@ -112,6 +109,28 @@ define( require => {
       }
     }
 
+    /**
+     * @override
+     * @public
+     * See RootVector.getLabelContent() for context
+     *
+     * Gets the label content information to display the vector model. Equation Vector Sums always show their tag.
+     *
+     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
+     * @returns {object} {
+     *    coefficient: {string|null} // the coefficient (e.g. if the label displayed '3|v|=15', the coefficient would be
+     *                               // 3). Null means it doesn't display a coefficient
+     *    symbol: {string|null} // the symbol (e.g. if the label displayed '3|v|=15', the symbol would be '|v|')
+     *                       // Null means it doesn't display a symbol
+     *    value: {string|null} // the suffix (e.g. if the label displayed '3|v|=15', the value would be '=15')
+     *                         // Null means it doesn't display a value
+     * }
+     */
+    getLabelContent( valuesVisible ) {
+      return _.extend( super.getLabelContent( valuesVisible ), {
+        symbol: this.symbol
+      } );
+    }
   }
 
   return vectorAddition.register( 'EquationVectorSum', EquationVectorSum );
