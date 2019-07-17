@@ -8,6 +8,7 @@
  *  - have exactly one vector set
  *  - have a equation type
  *  - are two dimensional
+ *  - Have 3 modes (addition, subtraction, and negation) for the 3 equation types
  *
  * @author Brandon Li
  */
@@ -17,38 +18,63 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  // const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  // const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  // const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  // const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
 
   // constants
   const EQUATION_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS
     .withOffsets( 0, 0, 0, -VectorAdditionConstants.DEFAULT_VECTOR_LENGTH );
 
+  // equation graphs are two dimensional
+  const EQUATION_GRAPH_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
+  const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
+  const DEFAULT_BASE_VECTOR_VISIBILTY = false;
+
+
   class EquationGraph extends Graph {
+
     /**
-     * @param {CoordinateSnapModes} coordinateSnapMode
+     * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {VectorGroups} vectorGroup - unique vector group for the graph
      */
-    constructor( coordinateSnapMode, componentStyleProperty, vectorGroup, equationType ) {
+    constructor( coordinateSnapMode, componentStyleProperty, vectorGroup ) {
 
-      super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, GraphOrientations.TWO_DIMENSIONAL, componentStyleProperty );
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
+        `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty
+      && ComponentStyles.includes( componentStyleProperty.value ),
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
 
-      // @public (read-only) {EquationVectorSet}
+      //----------------------------------------------------------------------------------------
+      super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, EQUATION_GRAPH_ORIENTATION, componentStyleProperty );
+
+
+      // @public (read-only) {EnumerationProperty.<EquationTypes>} equationTypeProperty
+      this.equationTypeProperty = new EnumerationProperty( EquationTypes, STARTING_EQUATION_TYPE );
+
+
+      // @public (read-only) {BooleanProperty} baseVectorsVisibleProperty
+      this.baseVectorsVisibleProperty = new BooleanProperty( DEFAULT_BASE_VECTOR_VISIBILTY );
+
+      
+      // @public (read-only) {EquationVectorSet} vectorSet
       this.vectorSet = new EquationVectorSet( this,
         componentStyleProperty,
-        new BooleanProperty( true ),
         vectorGroup,
         coordinateSnapMode,
-        equationType
+        this.equationTypeProperty
       );
 
-      this.equationType = equationType;
 
       this.vectorSets.push( this.vectorSet );
     }
