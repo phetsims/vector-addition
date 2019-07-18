@@ -96,7 +96,8 @@ define( require => {
       const vectorValueNode = new Text( '', VALUE_LABEL_OPTIONS );
 
       super( {
-        children: [ backgroundRectangle, vectorLabel.setChildren( [ coefficientLabel, vectorSymbolNode, vectorValueNode ] ) ]
+        children: [ backgroundRectangle,
+          vectorLabel.setChildren( [ coefficientLabel, vectorSymbolNode, vectorValueNode ] ) ]
       } );
 
       //----------------------------------------------------------------------------------------

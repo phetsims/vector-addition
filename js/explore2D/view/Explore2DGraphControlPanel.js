@@ -40,7 +40,8 @@ define( require => {
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
   const CONTROL_PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.CONTROL_PANEL_LAYOUT_BOX_OPTIONS;
-  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.minWidth - 2 * VectorAdditionConstants.PANEL_OPTIONS.xMargin;
+  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.minWidth
+                      - 2 * VectorAdditionConstants.PANEL_OPTIONS.xMargin;
 
   class Explore2DGraphControlPanel extends Panel {
     /**

@@ -121,8 +121,8 @@ define( require => {
      * @public
      * See RootVector.getLabelContent() for context
      *
-     * Gets the label content information to display the vector model. Vector Sums only display their symbol when either a
-     * vector in its vector set is active, the sum is active, or the activeVectorProperty.value is null
+     * Gets the label content information to display the vector model. Vector Sums only display their symbol when either
+     * a vector in its vector set is active, the sum is active, or the activeVectorProperty.value is null
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {

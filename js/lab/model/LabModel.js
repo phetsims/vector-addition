@@ -38,10 +38,16 @@ define( require => {
       // Create and add the graphs.
 
       // @public (read-only) {Graph}
-      this.cartesianGraph = new LabGraph( CoordinateSnapModes.CARTESIAN, this.componentStyleProperty, VectorGroups.ONE, VectorGroups.TWO );
+      this.cartesianGraph = new LabGraph( CoordinateSnapModes.CARTESIAN,
+        this.componentStyleProperty,
+        VectorGroups.ONE,
+        VectorGroups.TWO );
 
       // @public (read-only) {Graph}
-      this.polarGraph = new LabGraph( CoordinateSnapModes.POLAR, this.componentStyleProperty, VectorGroups.THREE, VectorGroups.FOUR );
+      this.polarGraph = new LabGraph( CoordinateSnapModes.POLAR,
+        this.componentStyleProperty,
+        VectorGroups.THREE,
+        VectorGroups.FOUR );
     }
 
 

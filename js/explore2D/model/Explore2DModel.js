@@ -39,10 +39,14 @@ define( require => {
       // Create and add the graphs
 
       // @public (read-only) {Graph}
-      this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR, this.componentStyleProperty, POLAR_VECTOR_GROUP );
+      this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR,
+        this.componentStyleProperty,
+        POLAR_VECTOR_GROUP );
 
       // @public (read-only) {Graph}
-      this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN, this.componentStyleProperty, CARTESIAN_VECTOR_GROUP );
+      this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN,
+        this.componentStyleProperty,
+        CARTESIAN_VECTOR_GROUP );
     }
 
     reset() {

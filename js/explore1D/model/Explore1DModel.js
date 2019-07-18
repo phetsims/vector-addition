@@ -54,10 +54,16 @@ define( require => {
       // Create and add the graphs
 
       // @public (read-only) {Graph}
-      this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL, this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
+      this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL,
+        this.componentStyleProperty,
+        this.sumVisibleProperty,
+        this.vectorGroup );
 
       // @public (read-only) {Graph}
-      this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL, this.componentStyleProperty, this.sumVisibleProperty, this.vectorGroup );
+      this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL,
+        this.componentStyleProperty,
+        this.sumVisibleProperty,
+        this.vectorGroup );
 
     }
 

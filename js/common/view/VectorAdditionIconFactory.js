@@ -445,7 +445,8 @@ define( require => {
      * Creates the Icon that appears on the equation types radio button group
      * @public
      * @param {EquationTypes} equationType
-     * @param {array.<string>} vector symbols - array of the vector symbols. It is assumed the last vector symbol is the sum.
+     * @param {array.<string>} vector symbols - array of the vector symbols. It is assumed the last vector symbol is the
+     *                                          sum.
      * @param {Object} [options]
      * @returns {Node}
      */

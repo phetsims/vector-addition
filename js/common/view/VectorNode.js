@@ -72,7 +72,11 @@ define( require => {
         fill: VectorAdditionColors[ vector.vectorGroup ].fill
       }, arrowOptions );
 
-      super( vector, graph.modelViewTransformProperty, valuesVisibleProperty, graph.activeVectorProperty, arrowOptions );
+      super( vector,
+        graph.modelViewTransformProperty,
+        valuesVisibleProperty,
+        graph.activeVectorProperty,
+        arrowOptions );
 
       //----------------------------------------------------------------------------------------
       // Private references

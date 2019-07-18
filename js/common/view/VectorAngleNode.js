@@ -43,8 +43,8 @@ define( require => {
   // maximum radius of the curved arrow - the radius is changed to keep the curved arrow smaller than the vector.
   const MAX_CURVED_ARROW_RADIUS = 25;
 
-  // the percensymbole of curved arrow radius when compared to the magnitude of the vector - as long as its less than the
-  // max curved arrow radius
+  // the percent symbol of curved arrow radius when compared to the magnitude of the vector - as long as its less than
+  // the max curved arrow radius
   const MAX_RADIUS_SCALE = 0.79;
 
   // maximum length of the baseline that is parallel to the x axis

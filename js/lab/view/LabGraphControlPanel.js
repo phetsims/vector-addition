@@ -40,7 +40,8 @@ define( require => {
   const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
   const CONTROL_PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.CONTROL_PANEL_LAYOUT_BOX_OPTIONS;
-  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.minWidth - 2 * VectorAdditionConstants.PANEL_OPTIONS.xMargin;
+  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.minWidth
+                      - 2 * VectorAdditionConstants.PANEL_OPTIONS.xMargin;
 
   class LabGraphControlPanel extends Panel {
     /**
@@ -51,7 +52,13 @@ define( require => {
      * @param {VectorSet} polarVectorSet2
      * @param {Object} [options]
      */
-    constructor( labModel, cartesianVectorSet1, cartesianVectorSet2, polarVectorSet1, polarVectorSet2, componentStyleProperty, options ) {
+    constructor( labModel,
+                 cartesianVectorSet1,
+                 cartesianVectorSet2,
+                 polarVectorSet1,
+                 polarVectorSet2,
+                 componentStyleProperty,
+                 options ) {
 
 
       // assert && assert( labModel instanceof LabModel, `invalid explore2DModel: ${labModel}` );
