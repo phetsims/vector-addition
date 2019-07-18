@@ -25,7 +25,6 @@ define( require => {
   'use strict';
 
   // modules
-  const RootVector = require( 'VECTOR_ADDITION/common/model/RootVector' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -34,6 +33,7 @@ define( require => {
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const RootVector = require( 'VECTOR_ADDITION/common/model/RootVector' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );

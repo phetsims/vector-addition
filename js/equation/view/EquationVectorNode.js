@@ -11,8 +11,8 @@ define( require => {
   'use strict';
 
   // modules
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   class EquationVectorNode extends VectorNode {
     /**

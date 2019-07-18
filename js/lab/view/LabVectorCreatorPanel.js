@@ -17,8 +17,8 @@ define( require => {
   'use strict';
 
   // modules
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   // const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
+  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );

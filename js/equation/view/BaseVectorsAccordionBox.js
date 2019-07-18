@@ -16,22 +16,22 @@ define( require => {
 
   // modules
   const AccordionBox = require( 'SUN/AccordionBox' );
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const Checkbox = require( 'SUN/Checkbox' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  const Enumeration = require( 'PHET_CORE/Enumeration' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const HStrut = require( 'SCENERY/nodes/HStrut' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
-  const Enumeration = require( 'PHET_CORE/Enumeration' );
-  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
-  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
 
   // strings
   const baseVectorsString = require( 'string!VECTOR_ADDITION/baseVectors' );

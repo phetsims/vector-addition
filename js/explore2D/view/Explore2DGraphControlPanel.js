@@ -13,12 +13,12 @@ define( require => {
   'use strict';
 
   // modules
+  // const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Checkbox = require( 'SUN/Checkbox' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  // const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );

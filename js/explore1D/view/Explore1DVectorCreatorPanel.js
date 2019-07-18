@@ -15,9 +15,9 @@ define( require => {
   'use strict';
 
   // modules
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Explore1DModel = require( 'VECTOR_ADDITION/explore1D/model/Explore1DModel' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );

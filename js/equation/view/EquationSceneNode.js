@@ -18,12 +18,12 @@ define( require => {
   // modules
   const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsAccordionBox' );
   const CoefficientSelectorPanel = require( 'VECTOR_ADDITION/equation/view/CoefficientSelectorPanel' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
-  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
 
   // constants
   const VECTOR_SUM_COLORS = {

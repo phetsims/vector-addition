@@ -17,8 +17,8 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
+  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   class SumComponentVectorNode extends ComponentVectorNode {
     /**

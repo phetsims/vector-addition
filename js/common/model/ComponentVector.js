@@ -1,16 +1,18 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a Vector Component.
+ * Model for a Component Vector.
  *
- * A Vector Component is a component of a parent vector. For instance, if vector 'a' were to be <5, 5>, its x
- * component would be <5, 0>. This component's 'parent vector' would be vector 'a'.
+ * A Component Vector is a component (as a vector, not a scalar) of a parent vector.
  *
- * This vector component updates its tail/tip based on the:
- *  1. The component style Property
- *  2. Parent vector's changing tail/tip/components
+ * For instance, if vector 'a' were to be <5, 5>, its x component vector would be <5, 0> (as a vector, not a scalar).
+ * The component vector's 'parent vector' would be vector 'a'.
  *
- * Positioning for the x and y components are slightly different. Label content for vector components are unique.
+ * 'Is a' relationship with RootVector but adds the following functionality:
+ *    - Updates its tail position/components based on a parent vector's changing tail/tip
+ *    - Updates its tail position based on the component style property.
+ *
+ * Positioning for the x and y components are slightly different. Label content for component vectors are unique.
  *
  * @author Brandon Li
  */

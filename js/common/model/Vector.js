@@ -18,6 +18,7 @@ define( require => {
   // modules
   const Animation = require( 'TWIXT/Animation' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const ComponentVector = require( 'VECTOR_ADDITION/common/model/ComponentVector' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const Easing = require( 'TWIXT/Easing' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
@@ -28,7 +29,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
-  const ComponentVector = require( 'VECTOR_ADDITION/common/model/ComponentVector' );
 
   //----------------------------------------------------------------------------------------
   // constants

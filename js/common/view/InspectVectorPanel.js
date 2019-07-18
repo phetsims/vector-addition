@@ -29,13 +29,13 @@ define( require => {
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const InspectVectorNumberDisplay = require( 'VECTOR_ADDITION/common/view/InspectVectorNumberDisplay' );
+  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
 
   //----------------------------------------------------------------------------------------
   // strings

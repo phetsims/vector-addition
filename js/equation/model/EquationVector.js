@@ -18,14 +18,14 @@ define( require => {
 
   // modules
   const BaseVector = require( 'VECTOR_ADDITION/equation/model/BaseVector' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const DerivedProperty = require( 'AXON/DerivedProperty' );
 
   // constants
   const DEFAULT_COEFFICIENT = 1;

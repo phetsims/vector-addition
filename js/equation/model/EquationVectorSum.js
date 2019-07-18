@@ -17,12 +17,12 @@ define( require => {
   'use strict';
 
   // modules
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
 
   // constants
   const EQUATION_SUM_TAIL_POSITION = new Vector2( 25, 10 );

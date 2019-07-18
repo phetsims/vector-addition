@@ -23,11 +23,11 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
+  const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
-  const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
 
   class EquationModel extends VectorAdditionModel {
     /**

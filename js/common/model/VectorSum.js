@@ -17,9 +17,9 @@ define( require => {
 
   // modules
   const Property = require( 'AXON/Property' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
 
   // constants
   const VECTOR_SUM_OPTIONS = {
