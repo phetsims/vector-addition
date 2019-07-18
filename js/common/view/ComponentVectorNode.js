@@ -72,9 +72,10 @@ define( require => {
       options.arrowOptions = _.extend( {
         // functionality to add a distinct appearance
         fill: VectorAdditionColors[ vectorComponentModel.vectorGroup ].component,
-        headWidth: 10.5,
-        headHeight: 6,
-        tailWidth: 4
+        headWidth: 11,
+        headHeight: 7.5,
+        tailWidth: 4,
+        opacity: 0.95
       }, options.arrowOptions );
 
       super( vectorComponentModel,

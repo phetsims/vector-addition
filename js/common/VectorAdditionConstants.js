@@ -115,9 +115,9 @@ define( function( require ) {
     // Defaults for all vector arrow nodes
     VECTOR_OPTIONS: {
       lineWidth: 0,
-      tailWidth: 3.8,
-      headWidth: 11,
-      headHeight: 8,
+      tailWidth: 4,
+      headWidth: 11.5,
+      headHeight: 8.5,
       cursor: 'move'
     },
 

@@ -68,9 +68,9 @@ define( function( require ) {
   //----------------------------------------------------------------------------------------
 
   VectorAdditionColors[ VectorGroups.ONE.toString() ] = {
-    fill: 'rgb( 0, 185, 255 )',
+    fill: 'rgb( 10, 170, 250 )',
     sum: 'rgb( 0, 181, 225 )',
-    component: 'rgb( 155, 222, 255 )',
+    component: 'rgb( 120, 200, 255 )',
     labelBackground: 'rgb( 150, 210, 255 )'
   };
 
@@ -89,9 +89,9 @@ define( function( require ) {
   };
 
   VectorAdditionColors[ VectorGroups.FOUR.toString() ] = {
-    fill: 'rgb( 0, 255, 0 )',
-    sum: 'rgb( 0, 102, 0 )',
-    component: 'rgb( 190, 255, 190 )',
+    fill: '#058000',
+    sum: '#024700',
+    component: '#02CD00',
     labelBackground: 'rgb( 180, 255, 180 )'
   };
 
