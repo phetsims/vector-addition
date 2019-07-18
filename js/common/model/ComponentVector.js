@@ -10,7 +10,7 @@
  *
  * 'Is a' relationship with RootVector but adds the following functionality:
  *    - Updates its tail position/components based on a parent vector's changing tail/tip
- *    - Updates its tail position based on the component style property.
+ *    - Updates its tail position based on the component style Property
  *
  * Positioning for the x and y components are slightly different. Label content for component vectors are unique.
  *
@@ -32,10 +32,8 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // constants
-
   // rounding for the vector value (on the label with values checked)
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
-
 
   class ComponentVector extends RootVector {
 
@@ -68,7 +66,7 @@ define( require => {
       // @public (read-only) {Enumeration} componentType
       this.componentType = componentType;
 
-      // @public {RootVector} parentVector - reference the parent vector
+      // @public (read-only) {RootVector} parentVector - reference the parent vector
       this.parentVector = parentVector;
 
       // @private {Multilink} updateLayoutMultilink - observe changes of the parent's tail, tip, and components. When

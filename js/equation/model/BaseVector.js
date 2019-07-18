@@ -60,16 +60,16 @@ define( require => {
 
         // Creates selector properties for the x and y component that go into a number picker on cartesian
 
-        // @public (read-only) {NumberProperty} xComponentProperty - create a property to represent the component
+        // @public (read-only) {NumberProperty} xComponentProperty - create a Property to represent the component
         this.xComponentProperty = new NumberProperty( this.xComponent );
 
-        // @public (read-only) {NumberProperty} yComponentProperty - create a property to represent the component
+        // @public (read-only) {NumberProperty} yComponentProperty - create a Property to represent the component
         this.yComponentProperty = new NumberProperty( this.yComponent );
 
         //----------------------------------------------------------------------------------------
         // Create range properties
 
-        // @public (read-only) {Property.<Range>} componentRangeProperty - property of the range of both components
+        // @public (read-only) {Property.<Range>} componentRangeProperty - Property of the range of both components
         this.componentRangeProperty = new Property( COMPONENT_RANGE );
 
       }
@@ -77,19 +77,19 @@ define( require => {
 
         // Creates selector properties for the angle and the magnitude that go into a number picker on polar
 
-        // @public (read-only) {NumberProperty} angleProperty - create a property to represent the angle of the vector
+        // @public (read-only) {NumberProperty} angleProperty - create a Property to represent the angle of the vector
         this.angleDegreesProperty = new NumberProperty( Util.toDegrees( this.angle ) );
 
-        // @public (read-only) {NumberProperty} yComponentProperty - create a property to represent the magnitude
+        // @public (read-only) {NumberProperty} yComponentProperty - create a Property to represent the magnitude
         this.magnitudeProperty = new NumberProperty( this.magnitude );
 
         //----------------------------------------------------------------------------------------
         // Create range properties
 
-        // @public (read-only) {Property.<Range>} angleRangeProperty - property of the range of the angle (polar mode)
+        // @public (read-only) {Property.<Range>} angleRangeProperty - Property of the range of the angle (polar mode)
         this.angleRangeProperty = new Property( ANGLE_RANGE );
 
-        // @public (read-only) {Property.<Range>} magnitudeRangeProperty - property of the range of the magnitude
+        // @public (read-only) {Property.<Range>} magnitudeRangeProperty - Property of the range of the magnitude
         this.magnitudeRangeProperty = new Property( MAGNITUDE_RANGE );
       }
 

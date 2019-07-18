@@ -112,7 +112,7 @@ define( require => {
         } );
 
 
-      // @public (read-only) {Property.<Range>} coefficientRangeProperty - property of the range of the coefficient
+      // @public (read-only) {Property.<Range>} coefficientRangeProperty - Property of the range of the coefficient
       this.coefficientRangeProperty = new Property( COEFFICIENT_RANGE );
 
       this.fullfillInvariants( this.vectorComponents );
