@@ -35,6 +35,7 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
 
   //----------------------------------------------------------------------------------------
   // strings
@@ -59,8 +60,11 @@ define( require => {
   // margin from the number display to the label (ltr)
   const LABEL_LEFT_MARGIN = 17;
 
-  // width for all labels
+  // width for all labels (except the magnitude label)
   const LABEL_WIDTH = 16;
+
+  // width of the magnitude label
+  const MAGNITUDE_LABEL_WIDTH = 20;
 
   // screen view horizontal margin
   const SCREEN_VIEW_Y_MARGIN = VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
@@ -136,10 +140,10 @@ define( require => {
       const angleText = new Text( MathSymbols.THETA, { font: PANEL_FONT } );
       const angleNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
 
-      const xComponentText = new RichText( '' ).setFont( PANEL_FONT );
+      const xComponentText = new RichText( '' ).setFont( new MathSymbolFont( { size: 17, weight: 500 } ) );
       const xComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT );
 
-      const yComponentText = new RichText( '' ).setFont( PANEL_FONT );
+      const yComponentText = new RichText( '' ).setFont( new MathSymbolFont( { size: 17, weight: 500 } ) );
       const yComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
@@ -147,15 +151,15 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Function that adds a label and display container combo, putting the label in a fixed sized AlignBox
-      const addNumberDisplayAndLabel = ( label, numberDisplay ) => {
+      const addNumberDisplayAndLabel = ( label, numberDisplay, labelWidth = LABEL_WIDTH ) => {
 
-        label.maxWidth = LABEL_WIDTH;
+        label.maxWidth = labelWidth;
         // Align the label in a AlignBox to set a fixed width
         const fixedWidthLabel = new AlignBox( label, {
           xAlign: 'center',
           yAlign: 'center',
-          alignBounds: new Bounds2( 0, 0, LABEL_WIDTH, INSPECT_PANEL_HEIGHT ),
-          maxWidth: LABEL_WIDTH
+          alignBounds: new Bounds2( 0, 0, labelWidth, INSPECT_PANEL_HEIGHT ),
+          maxWidth: labelWidth
         } );
 
         vectorAttributesContainer.addChild( new HBox( {
@@ -164,7 +168,7 @@ define( require => {
         } ) );
       };
 
-      addNumberDisplayAndLabel( magnitudeTextNode, magnitudeNumberDisplay );
+      addNumberDisplayAndLabel( magnitudeTextNode, magnitudeNumberDisplay, MAGNITUDE_LABEL_WIDTH );
       addNumberDisplayAndLabel( angleText, angleNumberDisplay );
       addNumberDisplayAndLabel( xComponentText, xComponentNumberDisplay );
       addNumberDisplayAndLabel( yComponentText, yComponentNumberDisplay );
@@ -182,7 +186,7 @@ define( require => {
           const vectorSymbol = activeVector.symbol ? activeVector.symbol : activeVector.fallBackSymbol;
 
           // Update labels (angle label is the same)
-          magnitudeTextNode.setFormula( `\|\\mathbf{\\vec{${vectorSymbol}\}\}|` );
+          magnitudeTextNode.setFormula( `\|\\vec{${vectorSymbol}\}|` );
           xComponentText.setText( `${vectorSymbol}<sub>${symbolXString}</sub>` );
           yComponentText.setText( `${vectorSymbol}<sub>${symbolYString}</sub>` );
         }
