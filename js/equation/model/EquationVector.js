@@ -48,12 +48,12 @@ define( require => {
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
     constructor( initialTailPosition,
-      initialComponents,
-      baseVectorTailPosition,
-      graph,
-      vectorSet,
-      equationTypeProperty,
-      symbol
+                 initialComponents,
+                 baseVectorTailPosition,
+                 graph,
+                 vectorSet,
+                 equationTypeProperty,
+                 symbol
     ) {
 
       assert && assert( equationTypeProperty instanceof EnumerationProperty
@@ -78,9 +78,9 @@ define( require => {
 
       // @public (read-only) {DerivedProperty.<Number>}
       this.coefficientProperty = new DerivedProperty( [ this.additionCoefficientProperty,
-        this.subtractionCoefficientProperty,
-        this.negationCoefficientProperty,
-        equationTypeProperty ],
+          this.subtractionCoefficientProperty,
+          this.negationCoefficientProperty,
+          equationTypeProperty ],
         ( additionCoefficient, subtractionCoefficient, negationCoefficient, equationType ) => {
 
           if ( equationType === EquationTypes.ADDITION ) {

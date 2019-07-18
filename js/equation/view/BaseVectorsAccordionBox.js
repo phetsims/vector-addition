@@ -93,8 +93,8 @@ define( require => {
       const pickerContainerHeight = 30;
       const createNumberPickerAndLabel = ( numberPicker, baseVector, displayType ) => {
 
-        const suffix = displayType === displayTypes.MAGNITUDE ? `|${baseVector.symbol}|`: baseVector.symbol;
-    
+        const suffix = displayType === displayTypes.MAGNITUDE ? `|${baseVector.symbol}|` : baseVector.symbol;
+
         let sub;
         if ( displayType === displayTypes.X ) {
           sub = symbolXString;

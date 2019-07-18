@@ -26,7 +26,7 @@ define( require => {
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  
+
   // constants
   const VECTOR_OPTIONS = {
     isRemovable: false, // base vectors are not removable
@@ -68,7 +68,7 @@ define( require => {
 
         //----------------------------------------------------------------------------------------
         // Create range properties
-        
+
         // @public (read-only) {Property.<Range>} componentRangeProperty - property of the range of both components
         this.componentRangeProperty = new Property( COMPONENT_RANGE );
 

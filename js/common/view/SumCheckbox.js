@@ -28,7 +28,7 @@ define( require => {
   const sumString = require( 'string!VECTOR_ADDITION/sum' );
 
   class SumCheckbox extends Checkbox {
-    
+
     /**
      * @param {BooleanProperty} sumVisibleProperty
      * @param {VectorGroups} vectorGroup

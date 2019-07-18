@@ -25,7 +25,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
   const Vector2 = require( 'DOT/Vector2' );
-  
+
   // constants
   const VECTOR_SET_OPTIONS = {
     initializeSum: false // Equation vector set will initialize all the vectors
@@ -33,14 +33,14 @@ define( require => {
 
   // Array of the vectors in an equation set
   const EQUATION_SET_VECTORS = [ {
-      vectorTail: new Vector2( 5, 10 ),
-      vectorComponents: new Vector2( 0, 5 ),
-      baseVectorTail: new Vector2( 45, 20 )
-    }, {
-      vectorTail: new Vector2( 15, 10 ),
-      vectorComponents: new Vector2( 5, 5 ),
-      baseVectorTail: new Vector2( 45, 5 )
-    }
+    vectorTail: new Vector2( 5, 10 ),
+    vectorComponents: new Vector2( 0, 5 ),
+    baseVectorTail: new Vector2( 45, 20 )
+  }, {
+    vectorTail: new Vector2( 15, 10 ),
+    vectorComponents: new Vector2( 5, 5 ),
+    baseVectorTail: new Vector2( 45, 5 )
+  }
   ];
 
   class EquationVectorSet extends VectorSet {
@@ -52,10 +52,10 @@ define( require => {
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      */
     constructor( graph,
-        componentStyleProperty,
-        vectorGroup,
-        coordinateSnapMode,
-        equationTypeProperty
+                 componentStyleProperty,
+                 vectorGroup,
+                 coordinateSnapMode,
+                 equationTypeProperty
     ) {
 
 
@@ -71,8 +71,8 @@ define( require => {
 
       // @public (read-only) {array.<string>} symbols
       this.symbols = coordinateSnapMode === CoordinateSnapModes.CARTESIAN ?
-                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
-                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
+                     VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
+                     VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
 
       //----------------------------------------------------------------------------------------
       // Create the equationVectors, one less then symbols

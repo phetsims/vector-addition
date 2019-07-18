@@ -40,7 +40,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   class ExpandCollapsePanel extends Panel {
-    
+
     /**
      * @param {Node} closedContent - content when the panel is closed
      * @param {Node} openContent - content when the panel is open

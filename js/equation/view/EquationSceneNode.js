@@ -57,33 +57,33 @@ define( require => {
       }, options );
 
       super( graph,
-             valuesVisibleProperty,
-             angleVisibleProperty,
-             gridVisibleProperty,
-             componentStyleProperty,
-             options );
+        valuesVisibleProperty,
+        angleVisibleProperty,
+        gridVisibleProperty,
+        componentStyleProperty,
+        options );
 
       //----------------------------------------------------------------------------------------
       // Add the equation types radio button Group
 
       const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( graph.equationTypeProperty,
         graph.vectorSet.symbols, {
-        centerY: PANEL_CENTER_Y
-      } );
+          centerY: PANEL_CENTER_Y
+        } );
 
       this.addChild( equationTypesRadioButtonGroup );
 
 
       // Add the coefficient for each equation type
       EquationTypes.VALUES.forEach( equationType => {
-        
+
         const coefficientSelectorPanel = new CoefficientSelectorPanel( graph.vectorSet, equationType, {
           centerY: PANEL_CENTER_Y
         } );
 
         // Doesn't need to be unlinked since the coefficientSelectorPanel is never disposed
         graph.equationTypeProperty.link( () => {
-          coefficientSelectorPanel.visible = equationType === graph.equationTypeProperty.value; 
+          coefficientSelectorPanel.visible = equationType === graph.equationTypeProperty.value;
         } );
 
         this.addChild( coefficientSelectorPanel );
@@ -103,7 +103,7 @@ define( require => {
 
         this.baseVectorContainer.addChild( baseVector );
       } );
- 
+
 
       // Add the base vectors accordion box (semi-global)
       this.addChild( new BaseVectorsAccordionBox( graph.baseVectorsVisibleProperty, graph.coordinateSnapMode, graph.vectorSet ) );

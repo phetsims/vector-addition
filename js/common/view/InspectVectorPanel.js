@@ -77,7 +77,7 @@ define( require => {
 
 
   class InspectVectorPanel extends ExpandCollapsePanel {
-    
+
     /**
      * @param {Graph} graph - the graph that contains the vectors to display
      * @param {Object} [options]

@@ -38,7 +38,7 @@ define( require => {
 
 
   class SceneNode extends Node {
-    
+
     /**
      * @param {Graph} graph
      * @param {BooleanProperty} valuesVisibleProperty

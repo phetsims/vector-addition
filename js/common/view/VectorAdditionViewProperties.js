@@ -31,7 +31,7 @@ define( require => {
 
       // @public {BooleanProperty} valuesVisibleProperty - indicates if the labels should contain the magnitudes
       this.valuesVisibleProperty = new BooleanProperty( false );
-      
+
       // @public {BooleanProperty} gridVisibleProperty - indicates if the graph background grid is visible
       this.gridVisibleProperty = new BooleanProperty( true );
 

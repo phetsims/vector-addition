@@ -217,7 +217,7 @@ define( require => {
      *  - Vector tip must be rounded to ensure the vector angle is a multiple of POLAR_ANGLE_INTERVAL
      *  - Vector tip must be within the graph bounds
      *  - Vector must not be 0 magnitude
-     * 
+     *
      * @param {Vector2} components
      */
     fullfillInvariants( components ) {

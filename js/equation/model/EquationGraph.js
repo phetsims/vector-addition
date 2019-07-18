@@ -66,7 +66,7 @@ define( require => {
       // @public (read-only) {BooleanProperty} baseVectorsVisibleProperty
       this.baseVectorsVisibleProperty = new BooleanProperty( DEFAULT_BASE_VECTOR_VISIBILTY );
 
-      
+
       // @public (read-only) {EquationVectorSet} vectorSet
       this.vectorSet = new EquationVectorSet( this,
         componentStyleProperty,
