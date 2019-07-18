@@ -92,7 +92,7 @@ define( require => {
 
       // Create an icon
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( initialViewVector,
-        vectorSet.vectorGroup,
+        vectorSet.vectorColorGroup,
         options.iconOptions );
 
       // Get the components in model coordinates of the icon

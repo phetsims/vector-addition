@@ -64,9 +64,9 @@ define( require => {
       // Create the sum check boxes, one for each vector set in explore2D
 
       const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
-        cartesianVectorSet.vectorGroup );
+        cartesianVectorSet.vectorColorGroup );
 
-      const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty, polarVectorSet.vectorGroup );
+      const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty, polarVectorSet.vectorColorGroup );
 
       // Toggle visibility of the check boxes. This link is never disposed as the panel exists throughout the entire sim
       explore2DModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {

@@ -49,7 +49,7 @@ define( require => {
       arrowOptions = _.extend( {
 
         // Passed to superclass
-        fill: VectorAdditionColors[ vectorSum.vectorGroup ].sum,
+        fill: VectorAdditionColors[ vectorSum.vectorColorGroup ].sum,
         lineWidth: 0.5
       }, arrowOptions );
 

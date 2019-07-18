@@ -21,7 +21,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   // strings
   const valuesString = require( 'string!VECTOR_ADDITION/values' );
@@ -38,10 +38,10 @@ define( require => {
      * @param {BooleanProperty} sumVisibleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
-     * @param {VectorGroups} vectorGroup
+     * @param {VectorColorGroups} vectorColorGroup
      * @param {Object} [options]
      */
-    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorGroup, options ) {
+    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorColorGroup, options ) {
 
       // Type check arguments
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
@@ -50,7 +50,7 @@ define( require => {
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( gridVisibleProperty instanceof BooleanProperty,
         `invalid gridVisibleProperty: ${gridVisibleProperty}` );
-      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -58,7 +58,7 @@ define( require => {
 
       const panelContent = new VBox( _.extend( {}, CONTROL_PANEL_LAYOUT_BOX_OPTIONS, {
         children: [
-          new SumCheckbox( sumVisibleProperty, vectorGroup ),
+          new SumCheckbox( sumVisibleProperty, vectorColorGroup ),
 
           // Values checkbox
           new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),

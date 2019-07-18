@@ -80,7 +80,7 @@ define( require => {
         `invalid options.isRemovable: ${options.isRemovable}` );
 
       //----------------------------------------------------------------------------------------
-      super( initialTailPosition, initialComponents, vectorSet.vectorGroup, symbol );
+      super( initialTailPosition, initialComponents, vectorSet.vectorColorGroup, symbol );
 
       // @public (read-only) {boolean} isTipDraggable - indicates if the tip can be dragged
       this.isTipDraggable = options.isTipDraggable;

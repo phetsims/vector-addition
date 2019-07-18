@@ -26,7 +26,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
@@ -41,18 +41,18 @@ define( require => {
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorGroups} vectorGroupOne - unique vector group for the first vector set
-     * @param {VectorGroups} vectorGroupTwo - unique vector group for the second vector set
+     * @param {VectorColorGroups} vectorColorGroupOne - unique vector group for the first vector set
+     * @param {VectorColorGroups} vectorColorGroupTwo - unique vector group for the second vector set
      */
-    constructor( coordinateSnapMode, componentStyleProperty, vectorGroupOne, vectorGroupTwo ) {
+    constructor( coordinateSnapMode, componentStyleProperty, vectorColorGroupOne, vectorColorGroupTwo ) {
 
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( VectorGroups.includes( vectorGroupOne ), `invalid vectorGroupOne: ${vectorGroupOne}` );
-      assert && assert( VectorGroups.includes( vectorGroupTwo ), `invalid vectorGroupTwo: ${vectorGroupTwo}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroupOne ), `invalid vectorColorGroupOne: ${vectorColorGroupOne}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroupTwo ), `invalid vectorColorGroupTwo: ${vectorColorGroupTwo}` );
 
       super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, LAB_GRAPH_ORIENTATION, componentStyleProperty );
 
@@ -74,7 +74,7 @@ define( require => {
       this.vectorSetGroup1 = new VectorSet( this,
         componentStyleProperty,
         this.group1SumVisibleProperty,
-        vectorGroupOne, {
+        vectorColorGroupOne, {
           initialSumTailPosition: new Vector2( graphBounds.minX + 2 / 3 * graphBounds.width, graphBounds.centerY )
         }
       );
@@ -83,7 +83,7 @@ define( require => {
       this.vectorSetGroup2 = new VectorSet( this,
         componentStyleProperty,
         this.group2SumVisibleProperty,
-        vectorGroupTwo, {
+        vectorColorGroupTwo, {
           initialSumTailPosition: new Vector2( graphBounds.minX + 1 / 3 * graphBounds.width, graphBounds.centerY )
         }
       );

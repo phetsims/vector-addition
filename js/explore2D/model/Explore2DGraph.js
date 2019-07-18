@@ -25,7 +25,7 @@ define( require => {
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
@@ -40,16 +40,16 @@ define( require => {
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorGroups} vectorGroup - unique vector group for the graph
+     * @param {VectorColorGroups} vectorColorGroup - unique vector group for the graph
      */
-    constructor( coordinateSnapMode, componentStyleProperty, vectorGroup ) {
+    constructor( coordinateSnapMode, componentStyleProperty, vectorColorGroup ) {
 
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
 
 
       super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, EXPLORE_2D_GRAPH_ORIENTAION, componentStyleProperty );
@@ -64,7 +64,7 @@ define( require => {
       this.vectorSet = new VectorSet( this,
         componentStyleProperty,
         this.sumVisibleProperty,
-        vectorGroup
+        vectorColorGroup
       );
 
       this.vectorSets.push( this.vectorSet );

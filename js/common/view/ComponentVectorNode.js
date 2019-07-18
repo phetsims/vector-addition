@@ -71,7 +71,7 @@ define( require => {
 
       options.arrowOptions = _.extend( {
         // functionality to add a distinct appearance
-        fill: VectorAdditionColors[ vectorComponentModel.vectorGroup ].component,
+        fill: VectorAdditionColors[ vectorComponentModel.vectorColorGroup ].component,
         headWidth: 11,
         headHeight: 7.5,
         tailWidth: 4,

@@ -137,7 +137,7 @@ define( function( require ) {
     POLAR_ANGLE_INTERVAL: 5,
     //----------------------------------------------------------------------------------------
     // Vector symbols, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
-    // These don't necessarily align with VectorGroups.
+    // These don't necessarily align with VectorColorGroups.
     VECTOR_SYMBOLS_GROUP_1: [ 'a', 'b', 'c' ],
     VECTOR_SYMBOLS_GROUP_2: [ 'd', 'e', 'f' ]
   };

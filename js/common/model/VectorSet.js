@@ -19,7 +19,7 @@ define( require => {
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
   // The symbol for the vector sum. The reason this isn't translatable is:
@@ -33,10 +33,10 @@ define( require => {
      * @param {Graph} graph - the graph the vector set belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible Property
-     * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
+     * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector group
      * @param {Object} [options]
      */
-    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorGroup, options ) {
+    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorColorGroup, options ) {
 
       options = _.extend( {
 
@@ -51,7 +51,7 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -59,8 +59,8 @@ define( require => {
       // sum
       this.vectors = new ObservableArray();
 
-      // @public (read-only) {VectorGroups} vectorGroup - one vectorSet can only represent one vectorGroup
-      this.vectorGroup = vectorGroup;
+      // @public (read-only) {VectorColorGroups} vectorColorGroup - one vectorSet can only represent one vectorColorGroup
+      this.vectorColorGroup = vectorColorGroup;
 
       // @public (read-only) {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible Property
       this.sumVisibleProperty = sumVisibleProperty;

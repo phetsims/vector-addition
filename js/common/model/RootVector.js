@@ -6,7 +6,7 @@
  *
  *  - tip and tail position Properties
  *  - vector components (x and y, or in other words the actual vector <x, y>)
- *  - vector group (See ./VectorGroups.js)
+ *  - vector group (See ./VectorColorGroups.js)
  *  - abstract method for label information (see getLabelContent() for detailed documentation)
  *
  * For an overview of the vector class hierarchy visit https://github.com/phetsims/vector-addition/issues/31
@@ -23,7 +23,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   class RootVector {
 
@@ -31,14 +31,14 @@ define( require => {
      * @abstract
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
-     * @param {VectorGroups} vectorGroup - the vector group (See ./VectorGroups.js)
+     * @param {VectorColorGroups} vectorColorGroup - the vector group (See ./VectorColorGroups.js)
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( initialTailPosition, initialComponents, vectorGroup, symbol ) {
+    constructor( initialTailPosition, initialComponents, vectorColorGroup, symbol ) {
 
       assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
       assert && assert( initialComponents instanceof Vector2, `invalid initialComponents: ${initialComponents}` );
-      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
       assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
       //----------------------------------------------------------------------------------------
 
@@ -55,8 +55,8 @@ define( require => {
         [ this.tailPositionProperty, this.vectorComponentsProperty ],
         ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
 
-      // @public (read-only) {VectorGroups}
-      this.vectorGroup = vectorGroup;
+      // @public (read-only) {VectorColorGroups}
+      this.vectorColorGroup = vectorColorGroup;
 
       // @public (read-only) {string}
       this.symbol = symbol;

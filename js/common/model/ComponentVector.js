@@ -58,7 +58,7 @@ define( require => {
       // Vector components don't have a symbol.
       const componentSymbol = null;
 
-      super( parentVector.tail, Vector2.ZERO, parentVector.vectorGroup, componentSymbol );
+      super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorGroup, componentSymbol );
 
       //----------------------------------------------------------------------------------------
       // Create references

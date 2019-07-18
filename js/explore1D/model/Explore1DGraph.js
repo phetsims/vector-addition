@@ -27,7 +27,7 @@ define( require => {
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
@@ -48,9 +48,9 @@ define( require => {
      * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
-     * @param {VectorGroups} vectorGroup - shared vector group for both graphs in 'Explore 1D'
+     * @param {VectorColorGroups} vectorColorGroup - shared vector group for both graphs in 'Explore 1D'
      */
-    constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorGroup ) {
+    constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorGroup ) {
 
       assert && assert( graphOrientation === GraphOrientations.HORIZONTAL
                         || graphOrientation === GraphOrientations.VERTICAL,
@@ -60,7 +60,7 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorGroups.includes( vectorGroup ), `invalid vectorGroup: ${vectorGroup}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
 
 
       super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, graphOrientation, componentStyleProperty );
@@ -71,7 +71,7 @@ define( require => {
       this.vectorSet = new VectorSet( this,
         componentStyleProperty,
         sumVisibleProperty,
-        vectorGroup
+        vectorColorGroup
       );
 
       this.vectorSets.push( this.vectorSet );

@@ -21,7 +21,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   // constants
   const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
@@ -47,8 +47,8 @@ define( require => {
       this.sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
 
-      // @public (read-only) {VectorGroups} VectorGroups - the only vector group used on the explore1D screen
-      this.vectorGroup = VectorGroups.ONE;
+      // @public (read-only) {VectorColorGroups} VectorColorGroups - the only vector group used on the explore1D screen
+      this.vectorColorGroup = VectorColorGroups.ONE;
 
       //----------------------------------------------------------------------------------------
       // Create and add the graphs
@@ -57,13 +57,13 @@ define( require => {
       this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        this.vectorGroup );
+        this.vectorColorGroup );
 
       // @public (read-only) {Graph}
       this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        this.vectorGroup );
+        this.vectorColorGroup );
 
     }
 

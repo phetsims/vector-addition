@@ -11,7 +11,7 @@ define( function( require ) {
 
   // modules
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   // shared colors
   const WHITE = 'rgb( 255, 255, 255 )';
@@ -64,31 +64,31 @@ define( function( require ) {
   };
 
   //----------------------------------------------------------------------------------------
-  // Vector colors by groups (See VectorGroups.js)
+  // Vector colors by groups (See VectorColorGroups.js)
   //----------------------------------------------------------------------------------------
 
-  VectorAdditionColors[ VectorGroups.ONE.toString() ] = {
+  VectorAdditionColors[ VectorColorGroups.ONE.toString() ] = {
     fill: 'rgb( 10, 170, 250 )',
     sum: 'rgb( 0, 181, 225 )',
     component: 'rgb( 120, 200, 255 )',
     labelBackground: 'rgb( 150, 210, 255 )'
   };
 
-  VectorAdditionColors[ VectorGroups.TWO.toString() ] = {
+  VectorAdditionColors[ VectorColorGroups.TWO.toString() ] = {
     fill: 'rgb( 232, 25, 9 )',
     sum: 'rgb( 196, 2, 51 )',
     component: 'rgb( 245, 120, 120 )',
     labelBackground: 'rgb( 255, 100, 100 )'
   };
 
-  VectorAdditionColors[ VectorGroups.THREE.toString() ] = {
+  VectorAdditionColors[ VectorColorGroups.THREE.toString() ] = {
     fill: PURPLE,
     sum: 'rgb( 128, 0, 128 )',
     component: 'rgb( 216, 191, 216 )',
     labelBackground: 'rgb( 210, 194, 210 )'
   };
 
-  VectorAdditionColors[ VectorGroups.FOUR.toString() ] = {
+  VectorAdditionColors[ VectorColorGroups.FOUR.toString() ] = {
     fill: '#058000',
     sum: '#024700',
     component: '#02CD00',

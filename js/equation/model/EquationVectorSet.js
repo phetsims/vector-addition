@@ -47,13 +47,13 @@ define( require => {
     /**
      * @param {Graph} graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorGroups} vectorGroup - each vector set can only represent one vector group
+     * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector group
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      */
     constructor( graph,
                  componentStyleProperty,
-                 vectorGroup,
+                 vectorColorGroup,
                  coordinateSnapMode,
                  equationTypeProperty
     ) {
@@ -66,7 +66,7 @@ define( require => {
       super( graph,
         componentStyleProperty,
         new BooleanProperty( true ),
-        vectorGroup,
+        vectorColorGroup,
         VECTOR_SET_OPTIONS );
 
       // @public (read-only) {array.<string>} symbols

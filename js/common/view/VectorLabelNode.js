@@ -69,7 +69,7 @@ define( require => {
         `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-        fill: VectorAdditionColors[ rootVector.vectorGroup ].labelBackground, // label background
+        fill: VectorAdditionColors[ rootVector.vectorColorGroup ].labelBackground, // label background
         scale: 0.67, // {number} - scale resize of the formula node
         opacity: 0.75, // {number} - opacity of the background,
         cornerRadius: 4, // {number}

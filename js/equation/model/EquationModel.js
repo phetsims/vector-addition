@@ -27,7 +27,7 @@ define( require => {
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   class EquationModel extends VectorAdditionModel {
     /**
@@ -54,12 +54,12 @@ define( require => {
       // @public (read-only) {graph}
       this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
-        VectorGroups.THREE );
+        VectorColorGroups.THREE );
 
       // @public (read-only) {graph}
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
-        VectorGroups.ONE );
+        VectorColorGroups.ONE );
 
     }
 

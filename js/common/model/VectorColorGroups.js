@@ -16,7 +16,7 @@ define( require => {
   /**
    * There are 4 groups of vectors. A vector set can only be one group.
    */
-  const VectorGroups = new Enumeration( [ 'ONE', 'TWO', 'THREE', 'FOUR' ] );
+  const VectorColorGroups = new Enumeration( [ 'ONE', 'TWO', 'THREE', 'FOUR' ] );
 
-  return vectorAddition.register( 'VectorGroups', VectorGroups );
+  return vectorAddition.register( 'VectorColorGroups', VectorColorGroups );
 } );

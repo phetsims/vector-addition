@@ -29,7 +29,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -39,7 +39,7 @@ define( require => {
 
   // defaults for all arrow node instances
   const ARROW_ICON_OPTIONS = {
-    fill: VectorAdditionColors[ VectorGroups.ONE ].fill,
+    fill: VectorAdditionColors[ VectorColorGroups.ONE ].fill,
     stroke: VectorAdditionColors.BLACK,
     lineWidth: 0.5,
     headHeight: 6.5,
@@ -59,20 +59,20 @@ define( require => {
      * Creates the Vector Icon that appears on the vector creator panel
      * @public
      * @param {Vector2} initialVectorComponents - vector components (in model coordinates)
-     * @param {VectorGroups} vectorGroup - vector group of the vector that the icon represents
+     * @param {VectorColorGroups} vectorColorGroup - vector group of the vector that the icon represents
      * @param {Object} [options]
      * @returns {ArrowNode}
      */
-    static createVectorCreatorPanelIcon( initialVectorComponents, vectorGroup, options ) {
+    static createVectorCreatorPanelIcon( initialVectorComponents, vectorColorGroup, options ) {
       assert && assert( initialVectorComponents instanceof Vector2 );
-      assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ) );
+      assert && assert( vectorColorGroup && VectorColorGroups.includes( vectorColorGroup ) );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
       options = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
         // arrow node options
         tailWidth: 2.5,
         cursor: 'pointer',
-        fill: VectorAdditionColors[ vectorGroup ].fill,
+        fill: VectorAdditionColors[ vectorColorGroup ].fill,
 
         // specific to this function
         arrowLength: 30 // {number} length of the arrow
@@ -116,12 +116,12 @@ define( require => {
     /**
      * Creates the icon that appears next to the 'Sum' checkbox on the control panel
      * @public
-     * @param {VectorGroups} vectorGroup
+     * @param {VectorColorGroups} vectorColorGroup
      * @param {Object} [options]
      * @returns {Node}
      */
-    static createSumIcon( vectorGroup, options ) {
-      assert && assert( vectorGroup && VectorGroups.includes( vectorGroup ) );
+    static createSumIcon( vectorColorGroup, options ) {
+      assert && assert( vectorColorGroup && VectorColorGroups.includes( vectorColorGroup ) );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
       options = _.extend( {}, ARROW_ICON_OPTIONS, {
@@ -129,7 +129,7 @@ define( require => {
         lineWidth: 1,
         tailWidth: 3.8,
         headHeight: 7.2,
-        fill: VectorAdditionColors[ vectorGroup ].sum,
+        fill: VectorAdditionColors[ vectorColorGroup ].sum,
 
         // specific to this
         arrowLength: 22

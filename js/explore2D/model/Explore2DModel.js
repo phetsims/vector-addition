@@ -19,11 +19,11 @@ define( require => {
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   // constants
-  const CARTESIAN_VECTOR_GROUP = VectorGroups.ONE;
-  const POLAR_VECTOR_GROUP = VectorGroups.THREE;
+  const CARTESIAN_VECTOR_GROUP = VectorColorGroups.ONE;
+  const POLAR_VECTOR_GROUP = VectorColorGroups.THREE;
 
   class Explore2DModel extends VectorAdditionModel {
     /**

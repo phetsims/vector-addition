@@ -77,14 +77,14 @@ define( require => {
       // Create the sum check boxes, one for each vector set
 
       const cartesianSet1SumCheckbox = new SumCheckbox( cartesianVectorSet1.sumVisibleProperty,
-        cartesianVectorSet1.vectorGroup );
+        cartesianVectorSet1.vectorColorGroup );
 
       const cartesianSet2SumCheckbox = new SumCheckbox( cartesianVectorSet2.sumVisibleProperty,
-        cartesianVectorSet2.vectorGroup );
+        cartesianVectorSet2.vectorColorGroup );
 
-      const polarSet1SumCheckbox = new SumCheckbox( polarVectorSet1.sumVisibleProperty, polarVectorSet1.vectorGroup );
+      const polarSet1SumCheckbox = new SumCheckbox( polarVectorSet1.sumVisibleProperty, polarVectorSet1.vectorColorGroup );
 
-      const polarSet2SumCheckbox = new SumCheckbox( polarVectorSet2.sumVisibleProperty, polarVectorSet2.vectorGroup );
+      const polarSet2SumCheckbox = new SumCheckbox( polarVectorSet2.sumVisibleProperty, polarVectorSet2.vectorColorGroup );
 
       //----------------------------------------------------------------------------------------
       // Create V Boxes for the 2 check boxes

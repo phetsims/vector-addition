@@ -19,7 +19,7 @@ define( require => {
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorGroups = require( 'VECTOR_ADDITION/common/model/VectorGroups' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   // constants
 
@@ -40,14 +40,14 @@ define( require => {
       // @public (read-only) {Graph}
       this.cartesianGraph = new LabGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
-        VectorGroups.ONE,
-        VectorGroups.TWO );
+        VectorColorGroups.ONE,
+        VectorColorGroups.TWO );
 
       // @public (read-only) {Graph}
       this.polarGraph = new LabGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
-        VectorGroups.THREE,
-        VectorGroups.FOUR );
+        VectorColorGroups.THREE,
+        VectorColorGroups.FOUR );
     }
 
 
