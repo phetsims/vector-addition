@@ -272,7 +272,7 @@ define( require => {
       // Keep a reference to the original tip
       const tip = this.tip;
 
-      this.translateTailToPoint( new Vector2( x, y ) );
+      this.translateTailToPosition( new Vector2( x, y ) );
 
       // Set the tip back
       this.tip = tip;
@@ -301,7 +301,7 @@ define( require => {
      * @public
      * @param {Vector2} position
      */
-    translateTailToPoint( position ) {
+    translateTailToPosition( position ) {
       this.tailPositionProperty.value = position;
     }
   }

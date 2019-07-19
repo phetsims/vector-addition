@@ -108,7 +108,7 @@ define( require => {
 
         // Get the tail location on the old graph, and move the vector to the new model position of the old location
         const oldTailLocation = oldModelViewTransform.modelToViewPosition( this.tail );
-        this.translateTailToPoint( newModelViewTransform.viewToModelPosition( oldTailLocation ) );
+        this.translateTailToPosition( newModelViewTransform.viewToModelPosition( oldTailLocation ) );
       };
 
       // Observe when the graph model view transform Property changes, and update the tail position
@@ -118,21 +118,6 @@ define( require => {
       this.unlinkTailUpdateListener = () => {
         this.graph.modelViewTransformProperty.unlink( updateTailPosition );
       };
-
-      //----------------------------------------------------------------------------------------
-      // Create Vector Component Models
-
-      // @public (read only) {ComponentVector} xComponentVector
-      this.xComponentVector = new ComponentVector( this,
-        vectorSet.componentStyleProperty,
-        graph.activeVectorProperty,
-        ComponentVector.COMPONENT_TYPES.X_COMPONENT );
-
-      // @public (read only) {ComponentVector} yComponentVector
-      this.yComponentVector = new ComponentVector( this,
-        vectorSet.componentStyleProperty,
-        graph.activeVectorProperty,
-        ComponentVector.COMPONENT_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
 
@@ -146,6 +131,22 @@ define( require => {
           return value === null || value instanceof Animation;
         }
       } );
+
+      //----------------------------------------------------------------------------------------
+      
+      //----------------------------------------------------------------------------------------
+      // Create Vector Component Models
+
+      // @public (read only) {ComponentVector} xComponentVector
+      this.xComponentVector = new ComponentVector( this,
+        vectorSet.componentStyleProperty,
+        ComponentVector.COMPONENT_TYPES.X_COMPONENT );
+
+      // @public (read only) {ComponentVector} yComponentVector
+      this.yComponentVector = new ComponentVector( this,
+        vectorSet.componentStyleProperty,
+        ComponentVector.COMPONENT_TYPES.Y_COMPONENT );
+
     }
 
     /**
@@ -374,25 +375,25 @@ define( require => {
 
           // Snap tail to other vector's tails
           if ( vector.tail.distance( tailPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-            this.translateTailToPoint( vector.tail );
+            this.translateTailToPosition( vector.tail );
             return;
           }
 
           // Snap tail to other vector's tip
           if ( vector.tip.distance( tailPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-            this.translateTailToPoint( vector.tip );
+            this.translateTailToPosition( vector.tip );
             return;
           }
 
           // Snap tip to other vector's tail
           if ( vector.tail.distance( tipPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-            this.translateTailToPoint( vector.tail.minus( this.vectorComponents ) );
+            this.translateTailToPosition( vector.tail.minus( this.vectorComponents ) );
             return;
           }
         }
       }
 
-      this.translateTailToPoint( tailPositionOnGraph.roundedSymmetric() );
+      this.translateTailToPosition( tailPositionOnGraph.roundedSymmetric() );
     }
 
     /**

@@ -102,7 +102,7 @@ define( require => {
       //
       // @private {Multilink}
       this.vectorComponentMultilink = Property.multilink( [ componentStyleProperty,
-        vectorComponentModel.parentVector.isOnGraphProperty,
+        vectorComponentModel.isOnGraphProperty,
         vectorComponentModel.vectorComponentsProperty ], ( componentStyle ) => {
 
         this.updateVectorComponent( vectorComponentModel, graph.modelViewTransformProperty.value, componentStyle );
@@ -133,7 +133,7 @@ define( require => {
      */
     updateVectorComponent( vectorComponentModel, modelViewTransform, componentStyle ) {
 
-      this.visible = vectorComponentModel.parentVector.isOnGraphProperty.value
+      this.visible = vectorComponentModel.isOnGraphProperty.value
                      && componentStyle !== ComponentStyles.INVISIBLE;
       this.onAxisLinesPath.visible = componentStyle === ComponentStyles.ON_AXIS;
 
@@ -145,10 +145,10 @@ define( require => {
           vectorComponentModel.tip.minus( vectorComponentModel.tail ) );
 
         const parentTailLocation = modelViewTransform.modelToViewDelta(
-          vectorComponentModel.parentVector.tail.minus( vectorComponentModel.tail ) );
+          vectorComponentModel.parentTail.minus( vectorComponentModel.tail ) );
 
         const parentTipLocation = modelViewTransform.modelToViewDelta(
-          vectorComponentModel.parentVector.tip.minus( vectorComponentModel.tail ) );
+          vectorComponentModel.parentTip.minus( vectorComponentModel.tail ) );
 
         // Create new shape for the dashed lines that extend to the axis
         const onAxisLines = new Shape();
@@ -187,13 +187,8 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Convenience variables
 
-      const componentMidPoint = vectorComponentModel.vectorComponents
-        .timesScalar( 0.5 )
-        .plus( vectorComponentModel.tail );
-
-      const parentMidPoint = vectorComponentModel.parentVector.vectorComponents
-        .timesScalar( 0.5 )
-        .plus( vectorComponentModel.parentVector.tail );
+      const componentMidPoint = vectorComponentModel.midPoint;
+      const parentMidPoint = vectorComponentModel.parentMidPoint;
 
 
       //----------------------------------------------------------------------------------------
