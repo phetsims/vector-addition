@@ -16,10 +16,8 @@ define( require => {
 
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Property = require( 'AXON/Property' );
@@ -31,10 +29,9 @@ define( require => {
   //----------------------------------------------------------------------------------------
   // constants
 
-  // Since the origin is being dragged, modelViewTransform is in the model. That being said,
-  // it is necessary to know the view coordinates of the graph node's bottom left location to calculate
-  // the model view transform. To calculate the bottom left coordinate, access to the information about
-  // the screen view is necessary.
+  // Since the origin is being dragged, modelViewTransform is in the model. That being said, it is necessary to know the
+  // view coordinates of the graph node's bottom left location to calculate the model view transform. To calculate the
+  // bottom left coordinate, access to the information about the screen view is necessary.
   const SCREEN_VIEW_BOUNDS = VectorAdditionConstants.SCREEN_VIEW_BOUNDS;
   const SCREEN_VIEW_X_MARGIN = VectorAdditionConstants.SCREEN_VIEW_X_MARGIN;
   const SCREEN_VIEW_Y_MARGIN = VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
@@ -43,7 +40,8 @@ define( require => {
   const AXES_ARROW_X_EXTENSION = VectorAdditionConstants.AXES_ARROW_X_EXTENSION;
   const AXES_ARROW_Y_EXTENSION = VectorAdditionConstants.AXES_ARROW_Y_EXTENSION;
 
-  // See https://user-images.githubusercontent.com/42391580/60772856-89096900-a0b9-11e9-8e74-31aa667ab0cb.png
+  // See https://user-images.githubusercontent.com/42391580/61564476-c5cb4d80-aa33-11e9-9fab-69212076de33.png
+  // for an annotated drawing of the calculation.
   // Calculate the bottom left location, constant for all graph nodes.
   const GRAPH_BOTTOM_LEFT_LOCATION = new Vector2(
     SCREEN_VIEW_BOUNDS.minX + SCREEN_VIEW_X_MARGIN + AXES_ARROW_X_EXTENSION,
@@ -57,20 +55,17 @@ define( require => {
     /**
      * @param {Bounds2} initialGraphBounds - the model bounds of the graph at the start of the sim
      * @param {CoordinateSnapModes} coordinateSnapMode - the coordinate snap mode of the graph. A graph is either
-     *                                                   entirely polar or cartesian.
-     * @param {GraphOrientations} orientation - the orientation of the graph. A graph is either entirely horizontal,
+     *                                                   strictly polar or cartesian.
+     * @param {GraphOrientations} orientation - the orientation of the graph. A graph is either strictly horizontal,
      *                                          vertical, or two dimensional.
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      */
-    constructor( initialGraphBounds, coordinateSnapMode, orientation, componentStyleProperty ) {
+    constructor( initialGraphBounds, coordinateSnapMode, orientation ) {
 
       assert && assert( initialGraphBounds instanceof Bounds2, `invalid initialGraphBounds: ${initialGraphBounds}` );
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( GraphOrientations.includes( orientation ), `invalid orientation: ${orientation}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
+
       //----------------------------------------------------------------------------------------
 
       // @public {array.<VectorSet>} vectorSets - the vectorSets for this graph
@@ -81,9 +76,6 @@ define( require => {
 
       // @public (read-only) {CoordinateSnapModes} coordinateSnapMode - coordinate snap mode for the graph
       this.coordinateSnapMode = coordinateSnapMode;
-
-      // @public (read-only) componentStyleProperty
-      this.componentStyleProperty = componentStyleProperty;
 
       // @private {Property.<Bounds2>} graphModelBoundsProperty - the Property of the graph bounds. To be set internally
       // only. Read access can be found at get graphModelBounds().
