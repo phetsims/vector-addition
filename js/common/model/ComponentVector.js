@@ -32,52 +32,59 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // constants
+  const COMPONENT_VECTOR_SYMBOL = null; // Vector components don't have a symbol
+
   // rounding for the vector value (on the label with values checked)
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
+
 
   class ComponentVector extends RootVector {
 
     /**
      * @param {Vector} parentVector - the vector to which the component is associated with
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - Property of the style of components
-     * @param {Property.<Vector|null>} activeVectorProperty
-     * @param {Enumeration} componentType (see ComponentVector.COMPONENT_TYPES)
+     * @param {Enumeration} componentType - type of component vector (x or y) (see ComponentVector.COMPONENT_TYPES)
      */
-    constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
+    constructor( parentVector, componentStyleProperty, componentType ) {
 
-      assert && assert( parentVector instanceof RootVector, `invalid parentVector: ${parentVector}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( activeVectorProperty instanceof Property,
-        `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( ComponentVector.COMPONENT_TYPES.includes( componentType ),
         `invalid componentType: ${componentType}` );
-      //----------------------------------------------------------------------------------------
 
-      // Vector components don't have a symbol.
-      const componentSymbol = null;
 
-      super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorGroup, componentSymbol );
+      super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorGroup, COMPONENT_VECTOR_SYMBOL );
 
       //----------------------------------------------------------------------------------------
       // Create references
 
-      // @public (read-only) {Enumeration} componentType
+      // @public (read-only) {Enumeration} componentType - type of component vector (x or y)
       this.componentType = componentType;
 
-      // @public (read-only) {RootVector} parentVector - reference the parent vector
+      // @public (read-only) {BooleanProperty} isOnGraphProperty - matches the parent. When the parent is on the graph,
+      //                                                           the component is also on the graph (and vise versa).
+      this.isOnGraphProperty = parentVector.isOnGraphProperty;
+
+      // @private (read-only) {Vector} parentVector - private reference to the parent vector
       this.parentVector = parentVector;
 
-      // @private {Multilink} updateLayoutMultilink - observe changes of the parent's tail, tip, and components. When
-      // the parent changes, the component also changes.
-      // No need to listen to the modelViewTransformProperty since the parentVector will update its position when
-      // modelViewTransformProperty changes
-      this.updateLayoutMultilink = Property.multilink( [
+      //----------------------------------------------------------------------------------------
+
+      // Observe when the component style changes and/or when the parent vector's tip/tail changes. When
+      // the parent changes or when the component style changes, the component vector also changes.
+      const updateComponentMultilink = Property.multilink( [
           componentStyleProperty,
-          parentVector.tipPositionProperty,
-          parentVector.tailPositionProperty ],
-        ( componentStyle ) => { this.updateComponent( componentStyle ); } );
+          parentVector.tailPositionProperty,
+          parentVector.tipPositionProperty
+        ], ( componentStyle, parentTail, parentTip ) => {
+          this.updateComponent( componentStyle, parentTail, parentTip );
+        } );
+
+      // @private {function} disposeComponentVector - disposes the component vector. Called in the dispose method.
+      this.disposeComponentVector = () => {
+        Property.unmultilink( updateComponentMultilink );
+      };
     }
 
     /**
@@ -85,52 +92,70 @@ define( require => {
      * @public
      */
     dispose() {
-      this.updateLayoutMultilink.dispose();
+      this.disposeComponentVector();
     }
 
     /**
-     * Updates the component vector to match the parent vector.
+     * Updates the component vector's tail/tip/components to match the component style and correct components to match
+     * the parent vector's tail/tip.
      * @private
      *
      * @param {ComponentStyles} componentStyle
+     * @param {Vector2} parentTail - the position of the parent vector's tail
+     * @param {Vector2} parentTip - the position of the parent vector's tip
      */
-    updateComponent( componentStyle ) {
+    updateComponent( componentStyle, parentTail, parentTip ) {
 
       if ( this.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ) {
 
-        // Triangle and Parallelogram are the same for x component
+        //----------------------------------------------------------------------------------------
+        // Update the x component vector
+        //----------------------------------------------------------------------------------------
+
+        // Triangle and Parallelogram results in the same x component vector
         if ( componentStyle === ComponentStyles.TRIANGLE || componentStyle === ComponentStyles.PARALLELOGRAM ) {
 
           // Shared tail position as parent
-          this.tail = this.parentVector.tail;
-          this.setTipXY( this.parentVector.tipX, this.parentVector.tailY );
+          this.tail = parentTail;
+
+          // Tip is at the parent's tip x and at the parent's tail y.
+          this.setTipXY( parentTip.x, parentTail.y );
         }
         else if ( componentStyle === ComponentStyles.ON_AXIS ) {
 
-          // Same tailX, however its y value is 0 since it is on the x-axis
-          this.setTailXY( this.parentVector.tailX, 0 );
-          this.setTipXY( this.parentVector.tipX, 0 );
+          // From parent tailX to parent tipX. However its y value is 0 since it is on the x-axis
+          this.setTailXY( parentTail.x, 0 );
+          this.setTipXY( parentTip.x, 0 );
         }
+
       }
       else if ( this.componentType === ComponentVector.COMPONENT_TYPES.Y_COMPONENT ) {
 
+        //----------------------------------------------------------------------------------------
+        // Update the y component vector
+        //----------------------------------------------------------------------------------------
+
         if ( componentStyle === ComponentStyles.TRIANGLE ) {
 
-          // Creates the triangle, tipX to parent tail
-          this.setTailXY( this.parentVector.tipX, this.parentVector.tailY );
-          this.tip = this.parentVector.tip;
+          // Shared tip position as the parent
+          this.tip = parentTip;
+
+          // Tail is at the parent's tip x and at the parent's tail y.
+          this.setTailXY( parentTip.x, parentTail.y );
         }
         else if ( componentStyle === ComponentStyles.PARALLELOGRAM ) {
 
           // Shared tail position as parent
-          this.tail = this.parentVector.tail;
-          this.setTipXY( this.parentVector.tailX, this.parentVector.tipY );
+          this.tail = parentTail;
+
+          // Tip is at the parents tailX and at the parents tipY
+          this.setTipXY( parentTail.x, parentTip.y );
         }
         else if ( componentStyle === ComponentStyles.ON_AXIS ) {
 
           // Same tailY, however its x value is 0 since it is on the y-axis
-          this.setTailXY( 0, this.parentVector.tailY );
-          this.setTipXY( 0, this.parentVector.tipY );
+          this.setTailXY( 0, parentTail.y );
+          this.setTipXY( 0, parentTip.y );
         }
       }
     }
@@ -163,17 +188,51 @@ define( require => {
       // Round the component value
       const roundedComponentValue = Util.toFixed( componentValue, VECTOR_VALUE_ROUNDING );
 
-      // Since components don't have symbols, it never has a prefix. Components only show components if and only
-      // if the values are visible and if the component isn't of 0 length.
       return {
         coefficient: null, // components never have a coefficient
         symbol: null, // components never have a symbol
+
+        // Components only show their values if and only if the values are visible and if the component isn't 0
         value: valuesVisible && Math.abs( roundedComponentValue ) > 0 ? roundedComponentValue : null
       };
     }
+
+    /*------------------------------------------------------------------------------------*
+     * Convenience methods (provides access to information about the private parentVector)
+     *------------------------------------------------------------------------------------*/
+
+    /**
+     * Gets the mid-point of the component vector
+     * @public
+     * @returns {Vector2}
+     */
+    get midPoint() { return this.vectorComponents.timesScalar( 0.5 ).plus( this.tail ); }
+
+    /**
+     * Gets the parent's tail position
+     * @public
+     * @returns {Vector2}
+     */
+    get parentTail() { return this.parentVector.tail; }
+
+    /**
+     * Gets the parent's tip position
+     * @public
+     * @returns {Vector2}
+     */
+    get parentTip() { return this.parentVector.tip; }
+
+    /**
+     * Gets the parent's mid-point position
+     * @public
+     * @returns {Vector2}
+     */
+    get parentMidPoint() {
+      return this.parentVector.vectorComponents.timesScalar( 0.5 ).plus( this.parentVector.tail );
+    }
   }
 
-  // @public {Enumeration} - the possible types of components
+  // @public (read-only) {Enumeration} COMPONENT_TYPES - Enumeration of the possible types of components
   ComponentVector.COMPONENT_TYPES = new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
 
   return vectorAddition.register( 'ComponentVector', ComponentVector );
