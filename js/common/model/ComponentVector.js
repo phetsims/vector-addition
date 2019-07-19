@@ -74,12 +74,12 @@ define( require => {
       // Observe when the component style changes and/or when the parent vector's tip/tail changes. When
       // the parent changes or when the component style changes, the component vector also changes.
       const updateComponentMultilink = Property.multilink( [
-          componentStyleProperty,
-          parentVector.tailPositionProperty,
-          parentVector.tipPositionProperty
-        ], ( componentStyle, parentTail, parentTip ) => {
-          this.updateComponent( componentStyle, parentTail, parentTip );
-        } );
+        componentStyleProperty,
+        parentVector.tailPositionProperty,
+        parentVector.tipPositionProperty
+      ], ( componentStyle, parentTail, parentTip ) => {
+        this.updateComponent( componentStyle, parentTail, parentTip );
+      } );
 
       // @private {function} disposeComponentVector - disposes the component vector. Called in the dispose method.
       this.disposeComponentVector = () => {

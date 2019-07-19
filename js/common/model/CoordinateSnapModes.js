@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Possible modes of snapping vectors to the graph.
+ * Enumeration of the possible 'modes' of snapping vectors to the graph.
  *
  * @author Brandon Li
  */
@@ -13,12 +13,15 @@ define( require => {
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  /**
-   * Vectors can be snapped in 2 ways:
-   * 'CARTESIAN' - the tail and the tip are snapped to an exact grid coordinate and components are always integers
-   * 'POLAR' - the angle is a multiple of 5 and the magnitude must be an integer
-   */
-  const CoordinateSnapModes = new Enumeration( [ 'CARTESIAN', 'POLAR' ] );
+  const CoordinateSnapModes = new Enumeration( [
+
+    'CARTESIAN',  // Vector tail and tip are snapped to an exact grid coordinate (components are always integers).
+
+    'POLAR'       // Vector tip is snapped so that the angle is a multiple of 5 and the magnitude is an integer.
+                  // When translating the body, the vector tail is either snapped to an exact grid coordinate or
+                  // the vector tail/tip is snapped to other polar vector's tails/tips.
+
+  ] );
 
   return vectorAddition.register( 'CoordinateSnapModes', CoordinateSnapModes );
 } );
