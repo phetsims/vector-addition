@@ -63,7 +63,7 @@ define( require => {
       assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
 
 
-      super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, graphOrientation, componentStyleProperty );
+      super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, graphOrientation );
 
       //----------------------------------------------------------------------------------------
       // Create and add the vector set.

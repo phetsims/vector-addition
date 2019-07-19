@@ -54,7 +54,7 @@ define( require => {
       assert && assert( VectorColorGroups.includes( vectorColorGroupOne ), `invalid vectorColorGroupOne: ${vectorColorGroupOne}` );
       assert && assert( VectorColorGroups.includes( vectorColorGroupTwo ), `invalid vectorColorGroupTwo: ${vectorColorGroupTwo}` );
 
-      super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, LAB_GRAPH_ORIENTATION, componentStyleProperty );
+      super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, LAB_GRAPH_ORIENTATION );
 
       //----------------------------------------------------------------------------------------
       // @public {BooleanProperty} group1SumVisibleProperty - Property controlling the visibility of the sum for the

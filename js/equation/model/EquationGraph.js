@@ -56,7 +56,7 @@ define( require => {
       assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
 
       //----------------------------------------------------------------------------------------
-      super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, EQUATION_GRAPH_ORIENTATION, componentStyleProperty );
+      super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, EQUATION_GRAPH_ORIENTATION );
 
 
       // @public (read-only) {EnumerationProperty.<EquationTypes>} equationTypeProperty

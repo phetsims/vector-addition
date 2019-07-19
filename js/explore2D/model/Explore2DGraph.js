@@ -52,7 +52,7 @@ define( require => {
       assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
 
 
-      super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, EXPLORE_2D_GRAPH_ORIENTAION, componentStyleProperty );
+      super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, EXPLORE_2D_GRAPH_ORIENTAION );
 
       //----------------------------------------------------------------------------------------
       // @public {BooleanProperty} sumVisibleProperty - Property controlling the visibility of the sum for this unique
