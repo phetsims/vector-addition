@@ -40,9 +40,9 @@ define( require => {
   const AXES_ARROW_X_EXTENSION = VectorAdditionConstants.AXES_ARROW_X_EXTENSION;
   const AXES_ARROW_Y_EXTENSION = VectorAdditionConstants.AXES_ARROW_Y_EXTENSION;
 
-  // See https://user-images.githubusercontent.com/42391580/61564476-c5cb4d80-aa33-11e9-9fab-69212076de33.png
+  // See https://user-images.githubusercontent.com/42391580/61587030-0237a000-ab3f-11e9-9315-d1d2b4df6dd4.png
   // for an annotated drawing of the calculation.
-  // Calculate the bottom left location, constant for all graph nodes.
+  // Calculate the graph's bottom left location, constant for all graph nodes.
   const GRAPH_BOTTOM_LEFT_LOCATION = new Vector2(
     SCREEN_VIEW_BOUNDS.minX + SCREEN_VIEW_X_MARGIN + AXES_ARROW_X_EXTENSION,
     SCREEN_VIEW_BOUNDS.maxY - SCREEN_VIEW_Y_MARGIN - AXES_ARROW_Y_EXTENSION );
