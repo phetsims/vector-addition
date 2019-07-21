@@ -33,7 +33,7 @@ define( require => {
      * @param {Graph} graph - the graph the vector set belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible Property
-     * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector group
+     * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector color group
      * @param {Object} [options]
      */
     constructor( graph, componentStyleProperty, sumVisibleProperty, vectorColorGroup, options ) {

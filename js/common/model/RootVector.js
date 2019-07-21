@@ -2,14 +2,14 @@
 
 /**
  * Root class (should be subtyped) for vector models for all types of vectors.
+ *
+ * Visit https://github.com/phetsims/vector-addition/issues/31 for an overview of the vector class hierarchy.
+ *
  * Responsibilities are:
- *
  *  - tip and tail position Properties
- *  - vector components (x and y, or in other words the actual vector <x, y>)
- *  - vector group (See ./VectorColorGroups.js)
+ *  - vector components (x and y as scalars, or in other words the actual vector <x, y>)
+ *  - vector color group (See ./VectorColorGroups.js)
  *  - abstract method for label information (see getLabelContent() for detailed documentation)
- *
- * For an overview of the vector class hierarchy visit https://github.com/phetsims/vector-addition/issues/31
  *
  * @author Brandon Li
  */
@@ -29,46 +29,47 @@ define( require => {
 
     /**
      * @abstract
+     *
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
-     * @param {VectorColorGroups} vectorColorGroup - the vector group (See ./VectorColorGroups.js)
+     * @param {VectorColorGroups} vectorColorGroup - the vector color group (See ./VectorColorGroups.js)
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
     constructor( initialTailPosition, initialComponents, vectorColorGroup, symbol ) {
 
       assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
       assert && assert( initialComponents instanceof Vector2, `invalid initialComponents: ${initialComponents}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup ),
+        `invalid vectorColorGroup: ${vectorColorGroup}` );
       assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {Vector2Property} tailPositionProperty - the tail position of the vector on the graph
       this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
-      // @public (read-only) {Vector2Property} vectorComponentsProperty - (x and y, or in other words the actual vector
-      // <x, y>). Every vector has a x and a y component.
+      // @public (read-only) {Vector2Property} vectorComponentsProperty - (x and y as scalars, or in other words the
+      // actual vector <x, y>). Every vector has a x and a y component (as a scalar).
       this.vectorComponentsProperty = new Vector2Property( initialComponents );
 
-      // @public (read-only) {DerivedProperty.<Vector2>}  tipPositionProperty - the tip position of the vector. Derived
+      // @public (read-only) {DerivedProperty.<Vector2>} tipPositionProperty - the tip position of the vector. Derived
       // from the tail and the components
-      this.tipPositionProperty = new DerivedProperty(
-        [ this.tailPositionProperty, this.vectorComponentsProperty ],
+      this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.vectorComponentsProperty ],
         ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
 
-      // @public (read-only) {VectorColorGroups}
+      // @public (read-only) {VectorColorGroups} vectorColorGroup
       this.vectorColorGroup = vectorColorGroup;
 
-      // @public (read-only) {string}
+      // @public (read-only) {string} symbol -  the symbol for the vector
       this.symbol = symbol;
     }
 
     /**
      * @abstract
-     * Gets the label content information to display on the vector. This is abstract since labels differ for vectors.
      *
-     * For context, a label is the content next to the vectors that display their symbol and/or their value.
-     * See https://user-images.githubusercontent.com/42391580/60774902-473beb00-a0d8-11e9-8cd5-737208ca65db.png for an
-     * annotated drawing.
+     * Context: see https://user-images.githubusercontent.com/42391580/61567077-80128300-aa3b-11e9-9448-71cbbdaf6132.png
+     * for an annotated drawing of a label next to a vector.
+     *
+     * This gets the label content information to display on the vector. Labels are different for different vectors.
      *
      * For instance, vectors with valuesVisible display their symbol (i.e. a, b, c, ...) AND their magnitude, while
      * their components only display the x or y component. In the same example, vectors display their magnitude (+)
