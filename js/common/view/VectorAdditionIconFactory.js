@@ -59,7 +59,7 @@ define( require => {
      * Creates the Vector Icon that appears on the vector creator panel
      * @public
      * @param {Vector2} initialVectorComponents - vector components (in model coordinates)
-     * @param {VectorColorGroups} vectorColorGroup - vector group of the vector that the icon represents
+     * @param {VectorColorGroups} vectorColorGroup - vector color group of the vector that the icon represents
      * @param {Object} [options]
      * @returns {ArrowNode}
      */
