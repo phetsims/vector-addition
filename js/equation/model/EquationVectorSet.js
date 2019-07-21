@@ -47,7 +47,7 @@ define( require => {
     /**
      * @param {Graph} graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector group
+     * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector color group
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      */

@@ -48,7 +48,7 @@ define( require => {
      * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
-     * @param {VectorColorGroups} vectorColorGroup - shared vector group for both graphs in 'Explore 1D'
+     * @param {VectorColorGroups} vectorColorGroup - shared vector color group for both graphs in 'Explore 1D'
      */
     constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorGroup ) {
 

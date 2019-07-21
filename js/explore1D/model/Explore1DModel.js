@@ -47,7 +47,7 @@ define( require => {
       this.sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
 
-      // @public (read-only) {VectorColorGroups} VectorColorGroups - the only vector group used on the explore1D screen
+      // @public (read-only) {VectorColorGroups} VectorColorGroups - the only vector color group used on the explore1D screen
       this.vectorColorGroup = VectorColorGroups.ONE;
 
       //----------------------------------------------------------------------------------------

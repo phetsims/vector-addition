@@ -44,7 +44,7 @@ define( require => {
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorColorGroups} vectorColorGroup - unique vector group for the graph
+     * @param {VectorColorGroups} vectorColorGroup - unique vector color group for the graph
      */
     constructor( coordinateSnapMode, componentStyleProperty, vectorColorGroup ) {
 

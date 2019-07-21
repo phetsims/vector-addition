@@ -8,7 +8,7 @@
  *  - have a sum visible Property each
  *  - have exactly one vector set
  *  - are two dimensional
- *  - unique vector groups
+ *  - unique vector color groups
  *
  * @author Brandon Li
  */
@@ -40,7 +40,7 @@ define( require => {
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorColorGroups} vectorColorGroup - unique vector group for the graph
+     * @param {VectorColorGroups} vectorColorGroup - unique vector color group for the graph
      */
     constructor( coordinateSnapMode, componentStyleProperty, vectorColorGroup ) {
 
