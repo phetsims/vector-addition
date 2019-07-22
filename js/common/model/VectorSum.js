@@ -10,6 +10,7 @@
  * However, they can be reset (which solely resets the location).
  *
  * @author Martin Veillette
+ * @author Brandon Li
  */
 
 define( require => {
@@ -29,6 +30,7 @@ define( require => {
   };
 
   class VectorSum extends Vector {
+
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Graph} graph - graph the vector sum belongs to
@@ -121,7 +123,7 @@ define( require => {
      * @public
      * See RootVector.getLabelContent() for context
      *
-     * Gets the label content information to display the vector model. Vector Sums only display their symbol when either
+     * Gets the label content information to display the vector sum. Vector Sums only display their symbol when either
      * a vector in its vector set is active, the sum is active, or the activeVectorProperty.value is null
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
