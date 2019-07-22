@@ -135,13 +135,13 @@ define( require => {
         locationProperty: tailLocationProperty,
         start: () => {
 
-          assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
+          assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
             'body drag listener should be removed when the vector is animating back.' );
           this.moveToFront();
         },
         end: () => {
 
-          assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
+          assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
             'body drag listener should be removed when the vector is animating back.' );
           //----------------------------------------------------------------------------------------
           // Determine to drop the vector or to animate the vector back if we aren't on the graph
@@ -220,7 +220,7 @@ define( require => {
           targetNode: tipCircle,
           locationProperty: tipLocationProperty,
           start: () => {
-            assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
+            assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
               'tip drag listener should be removed when the vector is animating back.' );
             this.moveToFront();
           }
@@ -317,7 +317,7 @@ define( require => {
      */
     updateTipPosition( tipLocation ) {
 
-      assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
+      assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
         'Cannot drag tip when animating back' );
       assert && assert( this.vector.isOnGraphProperty.value === true, 'Cannot drag tip when not on graph' );
 
@@ -334,7 +334,7 @@ define( require => {
      */
     updateTailPosition( tailLocation ) {
 
-      assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimationProperty.value,
+      assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
         'Cannot drag tail when animating back' );
 
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
