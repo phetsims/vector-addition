@@ -1,11 +1,13 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a VectorSet which contains:
+ * Model for a VectorSet
+ *
+ * A 'VectorSet' contains:
  *  - an observable array of vectors
  *  - a vector sum of those vectors.
  *
- * A model graph can support multiple vectorSets. (e.g. lab screen has 2 vector sets per graph)
+ * A Graph can support multiple vectorSets. (e.g. lab screen has 2 vector sets per graph)
  *
  * @author Brandon Li
  */
@@ -31,7 +33,7 @@ define( require => {
 
     /**
      * @param {Graph} graph - the graph the vector set belongs to
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - shared componentStyleProperty for the set
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible Property
      * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector color group
      * @param {Object} [options]
@@ -51,15 +53,16 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup ),
+        `invalid vectorColorGroup: ${vectorColorGroup}` );
 
       //----------------------------------------------------------------------------------------
 
       // @public {ObservableArray.<Vector>} vectors - ObservableArray of the vectors in the vector set excluding
-      // sum
+      //                                              sum
       this.vectors = new ObservableArray();
 
-      // @public (read-only) {VectorColorGroups} vectorColorGroup - one vectorSet can only represent one vectorColorGroup
+      // @public (read-only) {VectorColorGroups} vectorColorGroup - vectorColorGroup for the set
       this.vectorColorGroup = vectorColorGroup;
 
       // @public (read-only) {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible Property
