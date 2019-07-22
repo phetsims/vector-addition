@@ -1,14 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Root class (to be subtyped) for the top level model of every screen respectively. Controls the state of the sim.
- *
- * Main responsibilities are: (See https://github.com/phetsims/vector-addition/issues/66)
- *  - Component style Property
- *
- * Meant as a superclass. Added Properties in subclasses will not be reset in this class. Graphs and sum visibility
- * Properties should be made in subclasses (varied amount of graphs and sum visibility Properties from screen to
- * screen)
+ * Root class (to be subtyped) for the top level model of every screen respectively.
  *
  * @author Martin Veillette
  */
@@ -34,8 +27,8 @@ define( require => {
 
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      // @public {EnumerationProperty.<ComponentStyles>} componentStyleProperty - controls the visibility of the
-      // component styles
+      // @public {EnumerationProperty.<ComponentStyles>} componentStyleProperty - controls the display type
+      //                                                                          (positioning) for component vectors
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, STARTING_COMPONENT_STYLE );
     }
 
@@ -44,7 +37,6 @@ define( require => {
      * @public
      */
     reset() {
-
       this.componentStyleProperty.reset();
     }
   }
