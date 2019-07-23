@@ -147,7 +147,7 @@ define( require => {
 
         // Since the on-axis lines are a child of this view, the origin of the view is at the tail of the component
         // vector. Get the tip location relative to the tail of the component vector (which is the components)
-        const tipLocation = modelViewTransform.modelToViewDelta( componentVector.components );
+        const tipLocation = modelViewTransform.modelToViewDelta( componentVector.vectorComponents );
 
         // Get the parent tail location relative to the origin of the view (the tail of the component vector)
         const parentTailLocation = modelViewTransform.modelToViewDelta( componentVector.parentTail
