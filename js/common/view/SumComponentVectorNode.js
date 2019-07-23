@@ -61,7 +61,7 @@ define( require => {
       // Doesn't need to be unlinked since vector sums are never disposed.
       sumVisibleProperty.link( () => {
 
-        this.updateVectorComponent( vectorComponentModel,
+        this.updateComponentVector( vectorComponentModel,
           graph.modelViewTransformProperty.value,
           componentStyleProperty.value );
 
@@ -76,8 +76,8 @@ define( require => {
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
      */
-    updateVectorComponent( vectorComponentModel, modelViewTransform, componentStyle ) {
-      super.updateVectorComponent( vectorComponentModel, modelViewTransform, componentStyle );
+    updateComponentVector( vectorComponentModel, modelViewTransform, componentStyle ) {
+      super.updateComponentVector( vectorComponentModel, modelViewTransform, componentStyle );
 
       // SumVisible is not defined in superclass. Sum component is visible when both the sum is visible
       // and component style isn't invisible

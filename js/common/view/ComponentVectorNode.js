@@ -1,11 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the component of a Vector
+ * View for a ComponentVector
  *
  * Extends RootVectorNode but add the following functionality:
- *  - determines visibility by the component style
- *  - draws lines for the on axis component style
+ *  - determines visibility by the component style (i.e. should be invisible on CoomponentStyles.INVISIBLE)
+ *  - draws lines for the on-axis component style
  *  - custom label positioning
  *  - distinct appearance
  *
@@ -37,17 +37,18 @@ define( require => {
 
 
   class ComponentVectorNode extends RootVectorNode {
+
     /**
-     * @param {ComponentVector} ComponentVector - the vector model for the component
-     * @param {Graph} graph - the graph the vector belongs to
+     * @param {ComponentVector} componentVector - the component vector model the node represents
+     * @param {Graph} graph - the graph the component vector belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Object} [options]
      */
-    constructor( vectorComponentModel, graph, componentStyleProperty, valuesVisibleProperty, options ) {
+    constructor( componentVector, graph, componentStyleProperty, valuesVisibleProperty, options ) {
 
-      assert && assert( vectorComponentModel instanceof ComponentVector,
-        `invalid vectorComponentModel: ${vectorComponentModel}` );
+      assert && assert( componentVector instanceof ComponentVector,
+        `invalid componentVector: ${componentVector}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
@@ -71,21 +72,22 @@ define( require => {
 
       options.arrowOptions = _.extend( {
         // functionality to add a distinct appearance
-        fill: VectorAdditionColors[ vectorComponentModel.vectorColorGroup ].component,
+        fill: VectorAdditionColors[ componentVector.vectorColorGroup ].component,
         headWidth: 11,
         headHeight: 7.5,
         tailWidth: 4,
         opacity: 0.95
       }, options.arrowOptions );
 
-      super( vectorComponentModel,
+      super( componentVector,
         graph.modelViewTransformProperty,
         valuesVisibleProperty,
         graph.activeVectorProperty,
         options.arrowOptions );
 
       //----------------------------------------------------------------------------------------
-      // Create a path that represents the dashed lines corresponding to the on_axis style.
+      
+      // Create a path that represents the dashed lines corresponding to the on-axis style.
       // The shape of the path will be updated later.
 
       // @private {Path} onAxisLinesPath
@@ -96,61 +98,64 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create a multilink to observe:
       //  - componentStyleProperty - to determine visibility (i.e. components shouldn't be visible on INVISIBLE)
-      //                             and to draw lines on the on axis componentStyle
+      //                             and to draw lines on the on-axis componentStyle
       //  - isOnGraphProperty - components shouldn't be visible if the vector isn't on the graph
-      //  - vectorComponentsProperty - to update the on axis lines drawings locations
+      //  - vectorComponentsProperty - to update the on-axis lines drawings locations
       //
-      // @private {Multilink}
-      this.vectorComponentMultilink = Property.multilink( [ componentStyleProperty,
-        vectorComponentModel.isOnGraphProperty,
-        vectorComponentModel.vectorComponentsProperty ], ( componentStyle ) => {
+      // @private {Multilink} componentVectorMultilink
+      this.componentVectorMultilink = Property.multilink( [ componentStyleProperty,
+        componentVector.isOnGraphProperty,
+        componentVector.vectorComponentsProperty ], ( componentStyle ) => {
 
-        this.updateVectorComponent( vectorComponentModel, graph.modelViewTransformProperty.value, componentStyle );
+        this.updateComponentVector( componentVector, graph.modelViewTransformProperty.value, componentStyle );
       } );
-
     }
 
     /**
-     * Disposes the vector component view
+     * Disposes the vector component node
      * @override
      *
      * @public
      */
     dispose() {
-      this.vectorComponentMultilink.dispose();
+      Property.unmultilink( this.componentVectorMultilink );
       super.dispose();
     }
 
     /**
-     * Updates the vector component:
-     *  - Draws on axis lines when componentStyle is ON_AXIS
+     * Updates the component vector node:
+     *  - Draws on-axis lines when componentStyle is ON_AXIS
      *  - Determines visibility (i.e. components shouldn't be visible on INVISIBLE)
-     * @private
+     * @protected
      *
-     * @param {vectorComponentModel} vectorComponentModel
+     * @param {componentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
      */
-    updateVectorComponent( vectorComponentModel, modelViewTransform, componentStyle ) {
+    updateComponentVector( componentVector, modelViewTransform, componentStyle ) {
 
-      this.visible = vectorComponentModel.isOnGraphProperty.value
+      // Component vectors are visible when it isn't INVISIBLE and it is on the graph. 
+      this.visible = componentVector.isOnGraphProperty.value
                      && componentStyle !== ComponentStyles.INVISIBLE;
+
+      // On axis lines only visible if the component style is ON_AXIS
       this.onAxisLinesPath.visible = componentStyle === ComponentStyles.ON_AXIS;
 
-
-      // Update the on axis lines only if its the on axis style
+      // Update the on-axis lines only if its the on-axis style
       if ( this.onAxisLinesPath.visible ) {
 
-        const tipLocation = modelViewTransform.modelToViewDelta(
-          vectorComponentModel.tip.minus( vectorComponentModel.tail ) );
+        // Since the on-axis lines are a child of this view, the origin of the view is at the tail of the component
+        // vector. Get the tip location relative to the tail of the component vector (which is the components)
+        const tipLocation = modelViewTransform.modelToViewDelta( componentVector.components );
 
-        const parentTailLocation = modelViewTransform.modelToViewDelta(
-          vectorComponentModel.parentTail.minus( vectorComponentModel.tail ) );
+        // Get the parent tail location relative to the origin of the view (the tail of the component vector)
+        const parentTailLocation = modelViewTransform.modelToViewDelta( componentVector.parentTail
+                                                                                       .minus( componentVector.tail ) );
+        // Get the parent tip location relative to the origin of the view (the tail of the component vector)
+        const parentTipLocation = modelViewTransform.modelToViewDelta( componentVector.parentTip
+                                                                                      .minus( componentVector.tail ) );
 
-        const parentTipLocation = modelViewTransform.modelToViewDelta(
-          vectorComponentModel.parentTip.minus( vectorComponentModel.tail ) );
-
-        // Create new shape for the dashed lines that extend to the axis
+        // Create new shape for the dashed lines
         const onAxisLines = new Shape();
 
         // Draw the dashed lines
@@ -158,7 +163,6 @@ define( require => {
         onAxisLines.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
 
         this.onAxisLinesPath.setShape( onAxisLines );
-
       }
     }
 
@@ -167,67 +171,55 @@ define( require => {
      * @override
      * @protected
      *
-     * @param {vectorComponentModel} vectorComponentModel
+     * @param {componentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
-     * @param {Boolean} valuesVisible
      */
-    updateLabelPositioning( vectorComponentModel, modelViewTransform, valuesVisible ) {
+    updateLabelPositioning( componentVector, modelViewTransform ) {
 
-      // Only show the visibility if the values are visible
-      this.labelNode.visible = valuesVisible;
-
-      if ( !this.labelNode.visible ) {
-        // do nothing since the label isn't visible
+      if ( componentVector.magnitude === 0 ) {
+        // If the magnitude of the componentVector is 0, then position the label node on the 'tail' and no-op
+        this.labelNode.center = Vector2.ZERO;
         return;
       }
 
-      // Flag to indicate the label offset translation. Declared below on and depends on the vector positioning.
+      // Flag to indicate the label offset translation.
       const labelOffset = new Vector2( 0, 0 );
 
       //----------------------------------------------------------------------------------------
       // Convenience variables
-
-      const componentMidPoint = vectorComponentModel.midPoint;
-      const parentMidPoint = vectorComponentModel.parentMidPoint;
-
+      const componentMidPoint = componentVector.midPoint;
+      const parentMidPoint = componentVector.parentMidPoint;
 
       //----------------------------------------------------------------------------------------
-      if ( vectorComponentModel.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ) {
+      if ( componentVector.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ) {
 
-        const labelHeight = modelViewTransform.viewToModelDeltaY( -this.labelNode.height / 2 );
+        // Get the label height. Negative since the y axis is inverted in the view
+        const labelHeight = modelViewTransform.viewToModelDeltaY( -this.labelNode.height );
 
-        if ( vectorComponentModel.xComponent === 0 ) {
-          return;
-        }
         // If the component is below the parent, position the label below, otherwise position it above
         if ( componentMidPoint.y <= parentMidPoint.y ) {
-          labelOffset.setXY( 0, -COMPONENT_LABEL_OFFSET - labelHeight );
+          labelOffset.setXY( 0, -COMPONENT_LABEL_OFFSET - labelHeight / 2 );
         }
         else {
-          labelOffset.setXY( 0, COMPONENT_LABEL_OFFSET + labelHeight );
+          labelOffset.setXY( 0, COMPONENT_LABEL_OFFSET + labelHeight / 2 );
         }
       }
-      else if ( vectorComponentModel.componentType === ComponentVector.COMPONENT_TYPES.Y_COMPONENT ) {
+      else if ( componentVector.componentType === ComponentVector.COMPONENT_TYPES.Y_COMPONENT ) {
 
-        const width = modelViewTransform.viewToModelDeltaX( this.labelNode.width / 2 );
-
-        if ( vectorComponentModel.yComponent === 0 ) {
-          return;
-        }
+        const labelWidth = modelViewTransform.viewToModelDeltaX( this.labelNode.width );
 
         // If the component is to the left of the parent, position the label to the left, otherwise to the right
         if ( componentMidPoint.x < parentMidPoint.x ) {
-          labelOffset.setXY( -COMPONENT_LABEL_OFFSET - width, 0 );
+          labelOffset.setXY( -COMPONENT_LABEL_OFFSET - labelWidth / 2, 0 );
         }
-
         else {
-          labelOffset.setXY( COMPONENT_LABEL_OFFSET + width, 0 );
+          labelOffset.setXY( COMPONENT_LABEL_OFFSET + labelWidth / 2, 0 );
         }
       }
 
       // Get the middle of the vector with respect to the component tail as the origin
-      const deltaMidPoint = vectorComponentModel.vectorComponents.timesScalar( 0.5 );
-
+      const deltaMidPoint = componentVector.vectorComponents.timesScalar( 0.5 );
+      
       this.labelNode.center = modelViewTransform.modelToViewDelta( deltaMidPoint.plus( labelOffset ) );
     }
   }
