@@ -17,11 +17,13 @@ define( require => {
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const ScreenIcon = require( 'JOIST/ScreenIcon' );
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
@@ -30,7 +32,7 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
-
+  const VectorLabel = require( 'VECTOR_ADDITION/common/view/VectorLabel' );
   //----------------------------------------------------------------------------------------
   // constants
 
@@ -55,6 +57,36 @@ define( require => {
 
 
   class VectorAdditionIconFactory {
+
+    /**
+     * Creates the Icon for the Explore1D Screen
+     * @public
+     * @returns {Node}
+     */
+    static createExplore1DScreenIcon() {
+
+      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        fill: VectorAdditionColors[ VectorColorGroups.ONE ].fill
+      } );
+      // first arrow
+      const rightArrow = new ArrowNode( 0, 0, 55, 0, arrowOptions );
+
+      const vectorLabel = new VectorLabel( null, 'a', null, VectorColorGroups.ONE, false );
+            vectorLabel.scale( 0.5 );
+
+      vectorLabel.centerX = rightArrow.centerX;
+
+      vectorLabel.bottom = rightArrow.top;
+
+      const leftArrow = new ArrowNode( 55, vectorLabel.centerY, 35, vectorLabel.centerY, arrowOptions );
+
+      const leftLabel = new VectorLabel( null, 'b', null, VectorColorGroups.ONE, true );
+      leftLabel.scale( 0.5 );
+      leftLabel.centerX = leftArrow.centerX;
+      leftLabel.bottom = leftArrow.top;
+      return new ScreenIcon( new Node().setChildren( [ new FormulaNode( 'hello world') ] ) );
+    }
+
     /**
      * Creates the Vector Icon that appears on the vector creator panel
      * @public
