@@ -41,7 +41,7 @@ define( require => {
 
   // defaults for all arrow node instances
   const ARROW_ICON_OPTIONS = {
-    fill: VectorAdditionColors[ VectorColorGroups.ONE ].fill,
+    fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill,
     stroke: VectorAdditionColors.BLACK,
     lineWidth: 0.5,
     headHeight: 6.5,
@@ -66,12 +66,12 @@ define( require => {
     static createExplore1DScreenIcon() {
 
       const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.ONE ].fill
+        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
       } );
       // first arrow
       const rightArrow = new ArrowNode( 0, 0, 55, 0, arrowOptions );
 
-      const vectorLabel = new VectorLabel( null, 'a', null, VectorColorGroups.ONE, false );
+      const vectorLabel = new VectorLabel( null, 'a', null, VectorColorGroups.BLUE_COLOR_GROUP, false );
             vectorLabel.scale( 0.5 );
 
       vectorLabel.centerX = rightArrow.centerX;
@@ -80,7 +80,7 @@ define( require => {
 
       const leftArrow = new ArrowNode( 55, vectorLabel.centerY, 35, vectorLabel.centerY, arrowOptions );
 
-      const leftLabel = new VectorLabel( null, 'b', null, VectorColorGroups.ONE, true );
+      const leftLabel = new VectorLabel( null, 'b', null, VectorColorGroups.BLUE_COLOR_GROUP, true );
       leftLabel.scale( 0.5 );
       leftLabel.centerX = leftArrow.centerX;
       leftLabel.bottom = leftArrow.top;
@@ -123,7 +123,7 @@ define( require => {
      */
     static createGraphOrientationIcon( graphOrientation, options ) {
       assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation )
-      && graphOrientation !== GraphOrientations.TWO_DIMENSONAL );
+      && graphOrientation !== GraphOrientations.RED_COLOR_GROUP_DIMENSONAL );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
       options = _.extend( {

@@ -29,10 +29,10 @@ define( require => {
   // Thus, this Enumeration keeps track of the 'Color Groupings' of vectors.
   //----------------------------------------------------------------------------------------
   const VectorColorGroups = new Enumeration( [
-    'ONE',    // Blue
-    'TWO',    // Red
-    'THREE',  // Purple
-    'FOUR'    // Green
+    'BLUE_COLOR_GROUP',
+    'RED_COLOR_GROUP',
+    'PURPLE_COLOR_GROUP',
+    'GREEN_COLOR_GROUP'
   ] );
 
   return vectorAddition.register( 'VectorColorGroups', VectorColorGroups );

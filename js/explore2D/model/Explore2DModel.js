@@ -22,8 +22,8 @@ define( require => {
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   // constants
-  const CARTESIAN_VECTOR_GROUP = VectorColorGroups.ONE;
-  const POLAR_VECTOR_GROUP = VectorColorGroups.THREE;
+  const CARTESIAN_VECTOR_GROUP = VectorColorGroups.BLUE_COLOR_GROUP;
+  const POLAR_VECTOR_GROUP = VectorColorGroups.PURPLE_COLOR_GROUP;
 
   class Explore2DModel extends VectorAdditionModel {
     /**
