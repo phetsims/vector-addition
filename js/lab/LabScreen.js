@@ -16,6 +16,7 @@ define( require => {
   const Screen = require( 'JOIST/Screen' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // strings
   const screenLabString = require( 'string!VECTOR_ADDITION/screen.lab' );
@@ -29,6 +30,7 @@ define( require => {
       const options = {
         name: screenLabString,
         backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
+        homeScreenIcon: VectorAdditionIconFactory.createLabScreenIcon(),
         tandem: tandem
       };
 

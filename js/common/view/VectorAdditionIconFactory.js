@@ -14,6 +14,7 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
@@ -63,15 +64,104 @@ define( require => {
      */
     static createExplore1DScreenIcon() {
 
-      // const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-      //   fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
-      // } );
-      // first arrow
-      // const rightArrow = new ArrowNode( 0, 0, 55, 0, arrowOptions );
+      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
+      } );
 
-      // const leftArrow = new ArrowNode( 55, vectorLabel.centerY, 35, vectorLabel.centerY, arrowOptions );
+      const rightArrow = new ArrowNode( 0, 0, 90, 0, arrowOptions );
+      const leftArrow = new ArrowNode( 90, 20, 65, 20, arrowOptions );
 
-      return new ScreenIcon( new Node() );
+      return new ScreenIcon( new Node().setChildren( [ rightArrow, leftArrow ] ) );
+    }
+
+    /**
+     * Creates the Icon for the Explore2D Screen
+     * @public
+     * @returns {Node}
+     */
+    static createExplore2DScreenIcon() {
+
+      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
+      } );
+
+      const componentArrowOptions = _.extend( {}, arrowOptions, ComponentVectorNode.ARROW_OPTIONS, {
+        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].component
+      } );
+
+      const arrow = new ArrowNode( 0, 0, 60, -50, arrowOptions );
+      const xArrow = new ArrowNode( 0, 0, 60, 0, componentArrowOptions );
+      const yArrow = new ArrowNode( 0, 0, 0, -50, componentArrowOptions );
+
+      return new ScreenIcon( new Node().setChildren( [ xArrow, yArrow, arrow ] ) );
+    }
+
+    /**
+     * Creates the Icon for the Lab Screen
+     * @public
+     * @returns {Node}
+     */
+    static createLabScreenIcon() {
+
+      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
+      } );
+
+      const tipPositions = [ new Vector2( 40, -40 ), new Vector2( 70, -25 ), new Vector2( 120, -70 ) ];
+      
+      const icon = new Node();
+
+      for ( let i = 0; i < tipPositions.length; i++ ) {
+
+        let arrow;
+        if ( i === 0 ) {
+          arrow = new ArrowNode( 0, 0, tipPositions[ 0 ].x, tipPositions[ 0 ].y, arrowOptions );
+        }
+        else {
+          arrow = new ArrowNode( tipPositions[ i - 1 ].x, tipPositions[ i - 1 ].y, tipPositions[ i ].x, tipPositions[ i ].y, arrowOptions );
+        }
+
+        icon.addChild( arrow );
+
+      }
+      return new ScreenIcon( icon );
+    }
+
+    /**
+     * Creates the Icon for the Lab Screen
+     * @public
+     * @returns {Node}
+     */
+    static createEquationScreenIcon() {
+
+      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
+      } );
+
+      const sumOptions = _.extend( {}, arrowOptions, {
+        fill: VectorAdditionColors.BLACK
+      } );
+
+      const tipPositions = [ new Vector2( 0, -80 ), new Vector2( 70, -130 ) ];
+      
+      const icon = new Node();
+
+      for ( let i = 0; i < tipPositions.length; i++ ) {
+
+        let arrow;
+        if ( i === 0 ) {
+          arrow = new ArrowNode( 0, 0, tipPositions[ 0 ].x, tipPositions[ 0 ].y, arrowOptions );
+        }
+        else {
+          arrow = new ArrowNode( tipPositions[ i - 1 ].x, tipPositions[ i - 1 ].y, tipPositions[ i ].x, tipPositions[ i ].y, arrowOptions );
+        }
+
+        icon.addChild( arrow );
+
+      }
+      const sum = new ArrowNode( 0, 0, _.last( tipPositions ).x, _.last( tipPositions ).y, sumOptions );
+
+      return new ScreenIcon( icon.addChild( sum ) );
     }
 
     /**
