@@ -17,7 +17,6 @@ define( require => {
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -32,7 +31,6 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
-  const VectorLabel = require( 'VECTOR_ADDITION/common/view/VectorLabel' );
   //----------------------------------------------------------------------------------------
   // constants
 
@@ -65,26 +63,15 @@ define( require => {
      */
     static createExplore1DScreenIcon() {
 
-      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
-      } );
+      // const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+      //   fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
+      // } );
       // first arrow
-      const rightArrow = new ArrowNode( 0, 0, 55, 0, arrowOptions );
+      // const rightArrow = new ArrowNode( 0, 0, 55, 0, arrowOptions );
 
-      const vectorLabel = new VectorLabel( null, 'a', null, VectorColorGroups.BLUE_COLOR_GROUP, false );
-      vectorLabel.scale( 0.5 );
+      // const leftArrow = new ArrowNode( 55, vectorLabel.centerY, 35, vectorLabel.centerY, arrowOptions );
 
-      vectorLabel.centerX = rightArrow.centerX;
-
-      vectorLabel.bottom = rightArrow.top;
-
-      const leftArrow = new ArrowNode( 55, vectorLabel.centerY, 35, vectorLabel.centerY, arrowOptions );
-
-      const leftLabel = new VectorLabel( null, 'b', null, VectorColorGroups.BLUE_COLOR_GROUP, true );
-      leftLabel.scale( 0.5 );
-      leftLabel.centerX = leftArrow.centerX;
-      leftLabel.bottom = leftArrow.top;
-      return new ScreenIcon( new Node().setChildren( [ new FormulaNode( 'hello world' ) ] ) );
+      return new ScreenIcon( new Node() );
     }
 
     /**
