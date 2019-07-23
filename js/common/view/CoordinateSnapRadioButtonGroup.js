@@ -22,12 +22,10 @@ define( require => {
   // constants
   const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
 
-
   class CoordinateSnapRadioButtonGroup extends RadioButtonGroup {
 
     /**
-     * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty - Property of the possible modes of
-     *                                                                                 snapping vectors to the graph.
+     * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
      * @param {Object} [options]
      */
     constructor( coordinateSnapModeProperty, options ) {
@@ -40,9 +38,9 @@ define( require => {
 
       options = _.extend( {}, RADIO_BUTTON_OPTIONS, {
 
+        // Superclass options
         left: 955,
         top: 460,
-
         buttonContentXMargin: RADIO_BUTTON_OPTIONS.xMargin,
         buttonContentYMargin: RADIO_BUTTON_OPTIONS.yMargin
 

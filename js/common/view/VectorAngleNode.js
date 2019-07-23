@@ -164,7 +164,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Update the curved arrow node angle
-      this.curvedArrow.angle = vector.angle ? vector.angle : 0;
+      this.curvedArrow.setAngle( vector.angle ? vector.angle : 0 );
 
       //----------------------------------------------------------------------------------------
       // Update the label text.
@@ -177,7 +177,7 @@ define( require => {
       const viewMagnitude = modelViewTransform.modelToViewDeltaX( vector.magnitude );
 
       if ( viewMagnitude !== 0 ) {
-        this.curvedArrow.radius = _.min( [ MAX_RADIUS_SCALE * viewMagnitude, MAX_CURVED_ARROW_RADIUS ] );
+        this.curvedArrow.setRadius( _.min( [ MAX_RADIUS_SCALE * viewMagnitude, MAX_CURVED_ARROW_RADIUS ] ) );
       }
 
       //----------------------------------------------------------------------------------------

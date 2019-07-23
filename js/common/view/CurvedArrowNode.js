@@ -21,9 +21,7 @@ define( require => {
 
   // modules
   const Node = require( 'SCENERY/nodes/Node' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
   const Path = require( 'SCENERY/nodes/Path' );
-  const Property = require( 'AXON/Property' );
   const Shape = require( 'KITE/Shape' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -87,20 +85,18 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( {
-        children: [ arcPath, arrowheadPath ]
-      } );
+      super( { children: [ arcPath, arrowheadPath ] } );
 
-      // @private {NumberProperty} radiusProperty
-      this.radiusProperty = new NumberProperty( radius );
+      // @private {number} radius
+      this.radius = radius;
 
-      // @private {NumberProperty} angleProperty
-      this.angleProperty = new NumberProperty( angle );
+      // @public (read-only) angle
+      this.angle = angle;
 
       //----------------------------------------------------------------------------------------
-      // Create the function that updates the arrow node. Called when the angle and/or the radius changes
-      //----------------------------------------------------------------------------------------
-      const updateArrowNode = ( angle, radius ) => {
+
+      // @private {function} updateArrowNode - function that updates the arrow node when the angle / radius changes
+      this.updateArrowNode = () => {
 
         //----------------------------------------------------------------------------------------
         // See https://user-images.githubusercontent.com/42391580/61176905-1e0ed500-a586-11e9-992b-d96757a6331b.png
@@ -109,27 +105,27 @@ define( require => {
 
         // The arrowhead subtended angle is defined as the angle between the vector from the center to the tip of the
         // arrow and the vector of the center to first point the arc and the triangle intersect
-        const arrowheadSubtentedAngle = Math.asin( options.arrowheadHeight / radius );
+        const arrowheadSubtentedAngle = Math.asin( options.arrowheadHeight / this.radius );
 
         // Flag that indicates if the arc is anticlockwise (measured from positive x-axis) or clockwise.
-        const isAnticlockwise = angle >= 0;
+        const isAnticlockwise = this.angle >= 0;
 
         // The corrected angle is the angle that is between the vector that goes from the center to the first point the
         // arc and the triangle intersect and the vector along the baseline (x-axis). This is used instead to create a
         // more accurate angle excluding the size of the triangle. Again, look at the drawing above.
         const correctedAngle = isAnticlockwise ?
-                               angle - arrowheadSubtentedAngle :
-                               angle + arrowheadSubtentedAngle;
+                               this.angle - arrowheadSubtentedAngle :
+                               this.angle + arrowheadSubtentedAngle;
 
         // Change the arrowhead visibility to false when the angle is too small relative to the subtended angle and true
         // otherwise
-        arrowheadPath.visible = Math.abs( angle ) > arrowheadSubtentedAngle;
+        arrowheadPath.visible = Math.abs( this.angle ) > arrowheadSubtentedAngle;
 
         // Create the arc shape
         const arcShape = new Shape().arcPoint( Vector2.ZERO,
-          radius,
+          this.radius,
           0,
-          arrowheadPath.visible ? -correctedAngle : -angle, isAnticlockwise );
+          arrowheadPath.visible ? -correctedAngle : -this.angle, isAnticlockwise );
         arcPath.setShape( arcShape );
 
 
@@ -137,27 +133,16 @@ define( require => {
 
           // Adjust the position and angle of arrowhead. Rotate the arrowhead from the tip into the correct position
           // from the original angle
-          arrowheadPath.setRotation( isAnticlockwise ? -angle : -angle + Math.PI );
+          arrowheadPath.setRotation( isAnticlockwise ? -this.angle : -this.angle + Math.PI );
 
           // Translate the tip of the arrowhead to the tip of the arc.
           arrowheadPath.setTranslation(
-            Math.cos( arrowheadPath.visible ? correctedAngle : angle ) * radius,
-            -Math.sin( arrowheadPath.visible ? correctedAngle : angle ) * radius
+            Math.cos( arrowheadPath.visible ? correctedAngle : this.angle ) * this.radius,
+            -Math.sin( arrowheadPath.visible ? correctedAngle : this.angle ) * this.radius
           );
         }
       };
-
-      // @private {Multilink} updateNodeMultilink
-      this.updateNodeMultilink = Property.multilink( [ this.angleProperty, this.radiusProperty ], updateArrowNode );
-    }
-
-    /**
-     * Disposes the curved arrow node
-     * @override
-     * @public
-     */
-    dispose() {
-      Property.unmultilink( this.updateNodeMultilink );
+      this.updateArrowNode();
     }
 
     /**
@@ -167,10 +152,12 @@ define( require => {
      * @param {number} angle - the end angle (in radians) of the curved arrow. The arrow is assumed to start at 0
      *                         radians.
      */
-    set angle( angle ) {
+    setAngle( angle ) {
 
       assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
-      this.angleProperty.value = angle;
+      this.angle = angle;
+
+      this.updateArrowNode();
     }
 
     /**
@@ -179,18 +166,12 @@ define( require => {
      *
      * @param {number} radius - the radius of curved arrow.
      */
-    set radius( radius ) {
+    setRadius( radius ) {
 
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
-      this.radiusProperty.value = radius;
-    }
+      this.radius = radius;
 
-    /**
-     * Gets the radius of the arc
-     * @public
-     */
-    get radius() {
-      return this.radiusProperty.value;
+      this.updateArrowNode();
     }
   }
 
