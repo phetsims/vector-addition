@@ -1,9 +1,15 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Radio Button Group in a grid for the component styles.
+ * Radio Button Group for the component styles.
  *
  * See https://github.com/phetsims/sun/issues/513 for context.
+ *
+ * ## Temporary solution to create a Radio Button Group in a Grid Layout:
+ *  - Uses `RadioButtonGroupMember` to create individual radio buttons
+ *  - Inserts `RadioButtonGroupMember` into a series of HBoxes, which are inserted into a VBox
+ *  - Although `ComponentStyleRadioButtonGroup` extends Node, it is still called a 'radio button group' since
+ *    it mimics the behavior of the RadioButtonGroup
  *
  * @author Brandon Li
  */
@@ -24,7 +30,7 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // constants
-  const RADIO_BUTTON_OPTIONS = _.clone( VectorAdditionConstants.RADIO_BUTTON_OPTIONS );
+  const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
 
   class ComponentStyleRadioButtonGroup extends Node {
 
@@ -43,6 +49,7 @@ define( require => {
       options = _.extend( {}, RADIO_BUTTON_OPTIONS, options );
 
       //----------------------------------------------------------------------------------------
+      
       const radioButtonsContent = [];
 
       ComponentStyles.VALUES.forEach( componentStyle => {
@@ -94,7 +101,7 @@ define( require => {
       const cols = options.cols;
 
       //----------------------------------------------------------------------------------------
-      // Check arguments
+
       assert && assert( typeof rows === 'number' && typeof cols === 'number',
         `invalid rows: ${rows} and cols: ${cols}` );
       assert && assert( content && rows * cols === content.length,
@@ -118,6 +125,7 @@ define( require => {
           horizontalLayout.addChild( content[ contentIndex ] );
           contentIndex++;
         }
+        
         this.addChild( horizontalLayout );
       }
     }

@@ -176,14 +176,14 @@ define( require => {
       };
 
 
-            // Observe changes to the model vector, and update the label node
+      // Observe changes to the model vector, and update the label node
       this.labelMultilink = new Multilink( [ valuesVisibleProperty,
           rootVector.tailPositionProperty,
           rootVector.tipPositionProperty,
           activeVectorProperty ], ( valuesVisible ) => {
-            this.updateLabelNode( valuesVisible );
-          }
-         );
+          this.updateLabelNode( valuesVisible );
+        }
+      );
 
       // @private {function} function to dispose listeners
       this.disposeVectorLabelNode = () => {

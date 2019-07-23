@@ -79,10 +79,10 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Defaults for all radio buttons
     RADIO_BUTTON_OPTIONS: _.extend( {
-      deselectedLineWidth: 0.8,
+      deselectedLineWidth: 1,
       selectedLineWidth: 1.5,
       cornerRadius: 8,
-      deselectedButtonOpacity: 0.4,
+      deselectedButtonOpacity: 0.35,
       yMargin: 4.5,
       xMargin: 4.5
     }, VectorAdditionColors.RADIO_BUTTON_COLORS ),

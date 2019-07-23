@@ -113,7 +113,7 @@ define( require => {
 
       // @private {Rectangle} background - the background rectangle, set as an arbitrary rectangle for now
       const backgroundRectangle = new Rectangle( 0, 0, 1, 1, BACKGROUND_RECTANGLE_OPTIONS );
-  
+
       // @private {HBox} vectorContentContainer - container of the content of the label
       const vectorContentContainer = new HBox( { spacing: 0, align: 'center' } );
 
@@ -135,14 +135,14 @@ define( require => {
         coefficientLabel.setText( this.coefficient ? this.coefficient : '' );
         symbolLabel.setFormula( this.symbol ? `\\vec{\\mathrm{${this.symbol}}\}` : '' );
         valueLabel.setVisible( this.value !== null ).setText( this.value ? this.value : '' );
-        
+
         const content = [ coefficientLabel, symbolLabel, valueLabel ].filter( label => label.visible );
 
         // Update the content Container
         vectorContentContainer.setChildren( content );
 
         backgroundRectangle.visible = coefficientLabel.visible || symbolLabel.visible || valueLabel.visible;
-        
+
         //----------------------------------------------------------------------------------------
         // Update the background
         if ( backgroundRectangle.visible ) {

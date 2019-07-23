@@ -72,7 +72,7 @@ define( require => {
       const rightArrow = new ArrowNode( 0, 0, 55, 0, arrowOptions );
 
       const vectorLabel = new VectorLabel( null, 'a', null, VectorColorGroups.BLUE_COLOR_GROUP, false );
-            vectorLabel.scale( 0.5 );
+      vectorLabel.scale( 0.5 );
 
       vectorLabel.centerX = rightArrow.centerX;
 
@@ -84,7 +84,7 @@ define( require => {
       leftLabel.scale( 0.5 );
       leftLabel.centerX = leftArrow.centerX;
       leftLabel.bottom = leftArrow.top;
-      return new ScreenIcon( new Node().setChildren( [ new FormulaNode( 'hello world') ] ) );
+      return new ScreenIcon( new Node().setChildren( [ new FormulaNode( 'hello world' ) ] ) );
     }
 
     /**
