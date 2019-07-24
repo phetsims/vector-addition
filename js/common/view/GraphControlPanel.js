@@ -108,6 +108,7 @@ define( require => {
         `invalid componentStyleProperty: ${options.componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
+      const panelContentWidth = PANEL_WIDTH - 2 * PANEL_OPTIONS.xMargin;
 
       const panelContent = [];
 
@@ -117,7 +118,7 @@ define( require => {
       }
 
       // Values checkbox
-      const valuesTextLength = PANEL_WIDTH - CHECKBOX_OPTIONS.boxWidth - CHECKBOX_OPTIONS.spacing;
+      const valuesTextLength = panelContentWidth - CHECKBOX_OPTIONS.boxWidth - CHECKBOX_OPTIONS.spacing;
       panelContent.push( new Checkbox( new Text( valuesString, { font: PANEL_FONT, maxWidth: valuesTextLength } ),
         valuesVisibleProperty,
         CHECKBOX_OPTIONS ) );
@@ -137,8 +138,6 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Component style radio buttons
       if ( options.componentStyleProperty ) {
-
-        const panelContentWidth = PANEL_WIDTH - 2 * PANEL_OPTIONS.xMargin;
 
         // Add a HSeparator
         panelContent.push( new HSeparator( panelContentWidth, { stroke: VectorAdditionColors.BLACK } ) );

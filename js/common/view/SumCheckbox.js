@@ -20,7 +20,8 @@ define( require => {
 
   // constants
   const TEXT_OPTIONS = {
-    font: VectorAdditionConstants.PANEL_FONT
+    font: VectorAdditionConstants.PANEL_FONT,
+    maxWidth: 50
   };
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
 
@@ -42,14 +43,20 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
+      const text = new Text( sumString, TEXT_OPTIONS );
+
       super( new LayoutBox( {
         orientation: 'horizontal',
         spacing: CHECKBOX_OPTIONS.spacing,
         children: [
-          new Text( sumString, TEXT_OPTIONS ),
+          text,
           VectorAdditionIconFactory.createSumIcon( vectorColorGroup )
         ]
       } ), sumVisibleProperty, CHECKBOX_OPTIONS );
+
+      // @public {Text} textNode
+      this.textNode = text;
+      
     }
   }
 

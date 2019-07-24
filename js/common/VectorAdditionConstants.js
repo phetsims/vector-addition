@@ -36,8 +36,6 @@ define( require => {
       cornerRadius: PANEL_CORNER_RADIUS,
       xMargin: PANEL_X_MARGIN,
       yMargin: 10,
-      minWidth: 140,
-      maxWidth: 140,
       fill: VectorAdditionColors.LIGHT_GREY,
       stroke: VectorAdditionColors.PANEL_STROKE_COLOR
     },
