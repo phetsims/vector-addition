@@ -17,7 +17,6 @@ define( require => {
   const EquationSceneNode = require( 'VECTOR_ADDITION/equation/view/EquationSceneNode' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
@@ -69,10 +68,7 @@ define( require => {
       const equationGraphControlPanel = new EquationGraphControlPanel( this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-        equationModel.componentStyleProperty, {
-          right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-          top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
-        } );
+        equationModel.componentStyleProperty );
 
       this.addChild( equationGraphControlPanel );
 
