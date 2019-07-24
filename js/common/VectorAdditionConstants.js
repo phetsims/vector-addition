@@ -41,6 +41,7 @@ define( require => {
       fill: VectorAdditionColors.LIGHT_GREY,
       stroke: VectorAdditionColors.PANEL_STROKE_COLOR
     },
+    GRAPH_CONTROL_PANEL_SPACING: 10,
 
     // Font used on all panel-like container text nodes
     PANEL_FONT: new PhetFont( 15 ),

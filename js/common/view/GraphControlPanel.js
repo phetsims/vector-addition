@@ -64,7 +64,7 @@ define( require => {
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
 
   // spacing of the content inside the panel
-  const PANEL_SPACING = 10;
+  const PANEL_SPACING = VectorAdditionConstants.GRAPH_CONTROL_PANEL_SPACING;
 
 
   class GraphControlPanel extends Panel {
