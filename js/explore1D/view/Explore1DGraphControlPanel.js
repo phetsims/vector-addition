@@ -1,9 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the Panel that appears on the upper-right corner of the 'Explore1D' screen.
- *
- * Explore 1D has 2 scenes: a horizontal and a vertical scene. Both scenes share a single sum visible Property.
+ * View for the Panel that appears on the upper-right corner of the 'Explore 1D' screen.
  *
  * @author Brandon Li
  */
@@ -13,37 +11,23 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Checkbox = require( 'SUN/Checkbox' );
-  const Panel = require( 'SUN/Panel' );
+  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
-  // strings
-  const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
-  // constants
-  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-  const CONTROL_PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.CONTROL_PANEL_LAYOUT_BOX_OPTIONS;
+  class Explore1DGraphControlPanel extends GraphControlPanel {
 
-
-  class Explore1DGraphControlPanel extends Panel {
     /**
-     * @param {BooleanProperty} sumVisibleProperty
+     * @param {BooleanProperty} sumVisibleProperty - shared sum visible property for both scenes in 'Explore 1D'
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
-     * @param {VectorColorGroups} vectorColorGroup
-     * @param {Object} [options]
+     * @param {VectorColorGroups} vectorColorGroup - shared color group for both scenes in 'Explore 1D'
      */
-    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorColorGroup, options ) {
+    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorColorGroup ) {
 
-      // Type check arguments
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
@@ -53,26 +37,12 @@ define( require => {
       assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
 
       //----------------------------------------------------------------------------------------
+      // On 'Explore 1D' there is only one sum checkbox, and it is shared for all scenes.
+      const sumCheckboxContainer = new Node().addChild( new SumCheckbox( sumVisibleProperty, vectorColorGroup ) );
 
-      options = _.extend( {}, PANEL_OPTIONS, options );
-
-      const panelContent = new VBox( _.extend( {}, CONTROL_PANEL_LAYOUT_BOX_OPTIONS, {
-        children: [
-          new SumCheckbox( sumVisibleProperty, vectorColorGroup ),
-
-          // Values checkbox
-          new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),
-            valuesVisibleProperty,
-            CHECKBOX_OPTIONS ),
-
-          // Grid checkbox
-          new Checkbox( VectorAdditionIconFactory.createGridIcon(),
-            gridVisibleProperty,
-            CHECKBOX_OPTIONS )
-        ]
-      } ) );
-
-      super( panelContent, options );
+      super( valuesVisibleProperty, gridVisibleProperty, {
+        sumCheckboxContainer: sumCheckboxContainer
+      } );
     }
   }
 

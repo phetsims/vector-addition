@@ -105,10 +105,7 @@ define( require => {
       const explore1DGraphControlPanel = new Explore1DGraphControlPanel( explore1DModel.sumVisibleProperty,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-        explore1DModel.vectorColorGroup, {
-          right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-          top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
-        } );
+        explore1DModel.vectorColorGroup );
 
       this.addChild( explore1DGraphControlPanel );
 
