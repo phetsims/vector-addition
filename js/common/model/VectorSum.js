@@ -18,9 +18,11 @@ define( require => {
 
   // modules
   const Property = require( 'AXON/Property' );
+  const Util = require( 'DOT/Util' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // constants
   const VECTOR_SUM_OPTIONS = {
@@ -28,6 +30,9 @@ define( require => {
     isRemovable: false, // Vector sums are not removable which means they are also not disposable
     isOnGraphInitially: true // Vector sums are always on the graph
   };
+
+  // rounding for the vector value (on the label with values checked)
+  const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
   class VectorSum extends Vector {
 
@@ -138,8 +143,13 @@ define( require => {
      */
     getLabelContent( valuesVisible ) {
       if ( !this.isSymbolDisplayed() ) {
+
+        // Get the rounded magnitude
+        const roundedMagnitude = Util.toFixed( this.magnitude, VECTOR_VALUE_ROUNDING );
+
         return _.extend( super.getLabelContent( valuesVisible ), {
-          symbol: null
+          symbol: null,
+          value: valuesVisible ? roundedMagnitude : null
         } );
       }
       else {
