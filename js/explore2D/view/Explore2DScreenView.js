@@ -95,10 +95,7 @@ define( require => {
       const explore2DGraphControlPanel = new Explore2DGraphControlPanel( this.viewProperties,
         explore2DModel.cartesianGraph.vectorSet,
         explore2DModel.polarGraph.vectorSet,
-        explore2DModel.componentStyleProperty, {
-          right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-          top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
-        } );
+        explore2DModel.componentStyleProperty );
 
       this.addChild( explore2DGraphControlPanel );
     }

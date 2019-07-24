@@ -1,10 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the Panel that appears on the upper-right corner of the 'Explore2D' screen.
+ * View for the Panel that appears on the upper-right corner of the 'Explore 2D' screen.
  *
- * Explore 2D has 2 scenes: a polar and a cartesian scene. Each scene has a sum visible Property and a sum checkbox.
- * The graph control panel must toggle between the 2 check boxes.
+ * Explore 2D has 2 scenes: a polar and a cartesian scene. Each scene has a separate Sum visible Property/Checkbox
  *
  * @author Brandon Li
  */
@@ -13,100 +12,63 @@ define( require => {
   'use strict';
 
   // modules
-  // const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const Checkbox = require( 'SUN/Checkbox' );
-  const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const Line = require( 'SCENERY/nodes/Line' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  // strings
-  const componentsString = require( 'string!VECTOR_ADDITION/components' );
-  const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
-  // constants
-  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-  const CONTROL_PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.CONTROL_PANEL_LAYOUT_BOX_OPTIONS;
-  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.minWidth
-                      - 2 * VectorAdditionConstants.PANEL_OPTIONS.xMargin;
+  class Explore2DGraphControlPanel extends GraphControlPanel {
 
-  class Explore2DGraphControlPanel extends Panel {
     /**
-     * @param {Explore2DModel} explore2DModel
+     * @param {VectorAdditionViewProperties} viewProperties
      * @param {VectorSet} cartesianVectorSet
      * @param {VecotrSet} polarVectorSet
-     * @param {Object} [options]
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty 
      */
-    constructor( explore2DModel, cartesianVectorSet, polarVectorSet, componentStyleProperty, options ) {
+    constructor( viewProperties, cartesianVectorSet, polarVectorSet, componentStyleProperty ) {
 
-      // assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
+      assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
       assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
       assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
-
-      options = _.extend( {}, PANEL_OPTIONS, options );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty
+      && ComponentStyles.includes( componentStyleProperty.value ),
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
-      // Create the sum check boxes, one for each vector set in explore2D
+      // Create the sum check boxes, one for each vector set
 
       const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
         cartesianVectorSet.vectorColorGroup );
 
-      const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty, polarVectorSet.vectorColorGroup );
+      const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty,
+        polarVectorSet.vectorColorGroup );
+
+      const sumCheckboxContainer = new Node( { children: [ cartesianSumCheckbox, polarSumCheckbox ] } );
 
       // Toggle visibility of the check boxes. This link is never disposed as the panel exists throughout the entire sim
-      explore2DModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+      viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
 
         polarSumCheckbox.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
         cartesianSumCheckbox.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
+
       } );
 
       //----------------------------------------------------------------------------------------
 
-      const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( componentStyleProperty );
+      super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, {
 
-      const graphControlPanelContent = new VBox( _.extend( {}, CONTROL_PANEL_LAYOUT_BOX_OPTIONS, {
-        children: [
-          new Node( { children: [ cartesianSumCheckbox, polarSumCheckbox ] } ),
+        sumCheckboxContainer: sumCheckboxContainer,
+        angleVisibleProperty: viewProperties.angleVisibleProperty,
+        componentStyleProperty: componentStyleProperty
 
-          // values checkbox
-          new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),
-            explore2DModel.valuesVisibleProperty,
-            CHECKBOX_OPTIONS ),
+      } );
 
-          // angles checkbox
-          new Checkbox( VectorAdditionIconFactory.createAngleIcon(),
-            explore2DModel.angleVisibleProperty,
-            CHECKBOX_OPTIONS ),
-
-          // grid checkbox
-          new Checkbox( VectorAdditionIconFactory.createGridIcon(),
-            explore2DModel.gridVisibleProperty,
-            CHECKBOX_OPTIONS ),
-
-          new Line( 0, 0, PANEL_WIDTH, 0, { stroke: VectorAdditionColors.BLACK } ),
-          new Text( componentsString, { font: PANEL_FONT } ),
-          new AlignBox( componentStyleRadioButtonGroup, {
-            alignBounds: new Bounds2( 0, 0, PANEL_WIDTH, componentStyleRadioButtonGroup.height )
-          } )
-        ]
-      } ) );
-
-      super( graphControlPanelContent, options );
     }
   }
 
