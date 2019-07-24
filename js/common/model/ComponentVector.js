@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a Component Vector.
+ * Model for a Component Vector if a vector.
  *
  * A Component Vector is a component (as a vector, not a scalar) of a parent vector.
  *
