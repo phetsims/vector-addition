@@ -28,7 +28,6 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const HSeparator = require( 'SUN/HSeparator' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -45,6 +44,7 @@ define( require => {
 
   //----------------------------------------------------------------------------------------
   // constants
+  const SCREEN_VIEW_BOUNDS = VectorAdditionConstants.SCREEN_VIEW_BOUNDS;
 
   // fixed width of the panel 
   const PANEL_WIDTH = 140;
@@ -52,7 +52,9 @@ define( require => {
   // options for the panel
   const PANEL_OPTIONS = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
     minWidth: PANEL_WIDTH,
-    maxWidth: PANEL_WIDTH
+    maxWidth: PANEL_WIDTH,
+    right: SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
+    top: SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
   } );
 
   // font of all text instances in the panel
@@ -89,7 +91,7 @@ define( require => {
                                       // EnumerationProperty of the component styles. If non null, a
                                       // ComponentStyleRadioButtonGroup will be created to toggle the component style.
                                       // If null, no radio buttons will be made.
-      } );
+      }, options );
 
       //----------------------------------------------------------------------------------------
 
@@ -101,8 +103,8 @@ define( require => {
         `invalid options.sumCheckboxContainer: ${options.sumCheckboxContainer}` );
       assert && assert( !options.angleVisibleProperty || options.angleVisibleProperty instanceof BooleanProperty,
         `invalid options.angleVisibleProperty: ${options.angleVisibleProperty}` );
-      assert && assert( options.componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( options.componentStyleProperty.value ),
+      assert && assert( !options.componentStyleProperty
+                        || ComponentStyles.includes( options.componentStyleProperty.value ),
         `invalid componentStyleProperty: ${options.componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
@@ -132,7 +134,8 @@ define( require => {
         gridVisibleProperty,
         CHECKBOX_OPTIONS ) );
 
-      // Component radio buttons
+      //----------------------------------------------------------------------------------------
+      // Component style radio buttons
       if ( options.componentStyleProperty ) {
 
         const panelContentWidth = PANEL_WIDTH - 2 * PANEL_OPTIONS.xMargin;
@@ -151,16 +154,16 @@ define( require => {
           alignBounds: new Bounds2( 0, 0, panelContentWidth, componentStyleRadioButtonGroup.height ),
           maxWidth: panelContentWidth
         } ) );
-
       }
 
+      //----------------------------------------------------------------------------------------
+      // Create the panel
       super( new VBox( {
         children: panelContent,
         spacing: PANEL_SPACING,
         align: 'left'
       } ), PANEL_OPTIONS );
     }
-
   }
 
   return vectorAddition.register( 'GraphControlPanel', GraphControlPanel );
