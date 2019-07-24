@@ -13,68 +13,52 @@ define( require => {
   'use strict';
 
   // modules
-  // const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const Checkbox = require( 'SUN/Checkbox' );
-  const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const Line = require( 'SCENERY/nodes/Line' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const Panel = require( 'SUN/Panel' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
-  const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  // strings
-  const componentsString = require( 'string!VECTOR_ADDITION/components' );
-  const valuesString = require( 'string!VECTOR_ADDITION/values' );
-
   // constants
-  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-  const CONTROL_PANEL_LAYOUT_BOX_OPTIONS = VectorAdditionConstants.CONTROL_PANEL_LAYOUT_BOX_OPTIONS;
-  const PANEL_WIDTH = VectorAdditionConstants.PANEL_OPTIONS.minWidth
-                      - 2 * VectorAdditionConstants.PANEL_OPTIONS.xMargin;
+  const GRAPH_CONTROL_PANEL_SPACING = VectorAdditionConstants.GRAPH_CONTROL_PANEL_SPACING;
 
-  class LabGraphControlPanel extends Panel {
+  class LabGraphControlPanel extends GraphControlPanel {
     /**
-     * @param {LabModel} labModel
+     * @param {VectorAdditionViewProperties} viewProperties
      * @param {VectorSet} cartesianVectorSet1 - the first cartesian vector set. Each scene in 'lab' has 2 vector sets
      * @param {VectorSet} cartesianVectorSet2
      * @param {VectorSet} polarVectorSet1
      * @param {VectorSet} polarVectorSet2
-     * @param {Object} [options]
      */
-    constructor( labModel,
+    constructor( viewProperties,
                  cartesianVectorSet1,
                  cartesianVectorSet2,
                  polarVectorSet1,
                  polarVectorSet2,
-                 componentStyleProperty,
-                 options ) {
+                 componentStyleProperty ) {
 
 
-      // assert && assert( labModel instanceof LabModel, `invalid explore2DModel: ${labModel}` );
+      assert && assert( viewProperties instanceof VectorAdditionViewProperties,
+        `invalid explore2DModel: ${viewProperties}` );
       assert && assert( cartesianVectorSet1 instanceof VectorSet,
         `invalid cartesianVectorSet1: ${cartesianVectorSet1}` );
       assert && assert( cartesianVectorSet2 instanceof VectorSet,
         `invalid cartesianVectorSet2: ${cartesianVectorSet2}` );
       assert && assert( polarVectorSet1 instanceof VectorSet, `invalid polarVectorSet1: ${polarVectorSet1}` );
       assert && assert( polarVectorSet2 instanceof VectorSet, `invalid polarVectorSet2: ${polarVectorSet2}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty
+      && ComponentStyles.includes( componentStyleProperty.value ),
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
 
-      options = _.extend( {}, PANEL_OPTIONS, options );
 
       //----------------------------------------------------------------------------------------
-      // Create the sum check boxes, one for each vector set
+      // Create the sum check boxes, two for each vector set
 
       const cartesianSet1SumCheckbox = new SumCheckbox( cartesianVectorSet1.sumVisibleProperty,
         cartesianVectorSet1.vectorColorGroup );
@@ -82,70 +66,48 @@ define( require => {
       const cartesianSet2SumCheckbox = new SumCheckbox( cartesianVectorSet2.sumVisibleProperty,
         cartesianVectorSet2.vectorColorGroup );
 
-      const polarSet1SumCheckbox = new SumCheckbox( polarVectorSet1.sumVisibleProperty, polarVectorSet1.vectorColorGroup );
+      const polarSet1SumCheckbox = new SumCheckbox( polarVectorSet1.sumVisibleProperty,
+        polarVectorSet1.vectorColorGroup );
 
-      const polarSet2SumCheckbox = new SumCheckbox( polarVectorSet2.sumVisibleProperty, polarVectorSet2.vectorColorGroup );
+      const polarSet2SumCheckbox = new SumCheckbox( polarVectorSet2.sumVisibleProperty,
+        polarVectorSet2.vectorColorGroup );
 
       //----------------------------------------------------------------------------------------
       // Create V Boxes for the 2 check boxes
-      const polarCheckboxes = new VBox( _.extend( {}, CONTROL_PANEL_LAYOUT_BOX_OPTIONS, {
+      const polarCheckboxes = new VBox( {
         children: [
           polarSet1SumCheckbox,
           polarSet2SumCheckbox
-        ]
-      } ) );
-      const cartesianCheckboxes = new VBox( _.extend( {}, CONTROL_PANEL_LAYOUT_BOX_OPTIONS, {
+        ],
+        spacing: GRAPH_CONTROL_PANEL_SPACING
+      } );
+      const cartesianCheckboxes = new VBox( {
         children: [
           cartesianSet1SumCheckbox,
           cartesianSet2SumCheckbox
-        ]
-      } ) );
+        ],
+        spacing: GRAPH_CONTROL_PANEL_SPACING
+      } );
 
       //----------------------------------------------------------------------------------------
       // Toggle visibility of the check boxes, never disposed as the panel exists throughout the entire sim
-      labModel.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+      viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
 
         polarCheckboxes.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
         cartesianCheckboxes.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
       } );
 
+      const sumCheckboxContainer = new Node().setChildren( [ cartesianCheckboxes, polarCheckboxes ] );
+ 
       //----------------------------------------------------------------------------------------
 
-      const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( componentStyleProperty );
+      super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, {
 
-      const panelContent = new VBox( {
-        spacing: 10,
-        align: 'left',
-        children: [
+        sumCheckboxContainer: sumCheckboxContainer,
+        angleVisibleProperty: viewProperties.angleVisibleProperty,
+        componentStyleProperty: componentStyleProperty
 
-          // Sum check boxes
-          new Node( {
-            children: [ cartesianCheckboxes, polarCheckboxes ]
-          } ),
-
-          // Values checkbox
-          new Checkbox( new Text( valuesString, { font: PANEL_FONT } ),
-            labModel.valuesVisibleProperty,
-            CHECKBOX_OPTIONS ),
-
-          // Angles checkbox
-          new Checkbox( VectorAdditionIconFactory.createAngleIcon(),
-            labModel.angleVisibleProperty,
-            CHECKBOX_OPTIONS ),
-
-          // Grid checkbox
-          new Checkbox( VectorAdditionIconFactory.createGridIcon(),
-            labModel.gridVisibleProperty,
-            CHECKBOX_OPTIONS ),
-          new Line( 0, 0, PANEL_WIDTH, 0, { stroke: VectorAdditionColors.BLACK } ),
-          new Text( componentsString, { font: PANEL_FONT } ),
-          new AlignBox( componentStyleRadioButtonGroup, {
-            alignBounds: new Bounds2( 0, 0, PANEL_WIDTH, componentStyleRadioButtonGroup.height )
-          } )
-        ]
       } );
-
-      super( panelContent, options );
     }
   }
 

@@ -20,7 +20,6 @@ define( require => {
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
@@ -98,10 +97,7 @@ define( require => {
         labModel.cartesianGraph.vectorSetGroup2,
         labModel.polarGraph.vectorSetGroup1,
         labModel.polarGraph.vectorSetGroup2,
-        labModel.componentStyleProperty, {
-          right: this.layoutBounds.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-          top: this.layoutBounds.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
-        } );
+        labModel.componentStyleProperty );
 
       this.addChild( labGraphControlPanel );
     }
