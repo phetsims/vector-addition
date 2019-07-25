@@ -98,16 +98,7 @@ define( require => {
       // Loop through each vector add add a number picker / label
       equationVectorSet.vectors.forEach( vector => {
 
-        let coefficientProperty;
-        if ( equationType === EquationTypes.ADDITION ) {
-          coefficientProperty = vector.additionCoefficientProperty;
-        }
-        else if ( equationType === EquationTypes.SUBTRACTION ) {
-          coefficientProperty = vector.subtractionCoefficientProperty;
-        }
-        else {
-          coefficientProperty = vector.negationCoefficientProperty;
-        }
+        const coefficientProperty = vector.coefficientProperty;
 
         const numberPicker = new NumberPicker( coefficientProperty,
           vector.coefficientRangeProperty,

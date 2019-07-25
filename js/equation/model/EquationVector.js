@@ -18,13 +18,12 @@ define( require => {
 
   // modules
   const BaseVector = require( 'VECTOR_ADDITION/equation/model/BaseVector' );
-  const DerivedProperty = require( 'AXON/DerivedProperty' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
@@ -66,33 +65,39 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create coefficient ranges. One for each equation type.
 
-      // @public (read-only) {NumberProperty} additionCoefficientProperty
-      this.additionCoefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
-
-      // @public (read-only) {NumberProperty} subtractionCoefficientProperty
-      this.subtractionCoefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
-
-      // @public (read-only) {NumberProperty} negationCoefficientProperty
-      this.negationCoefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT );
-
-
       // @public (read-only) {DerivedProperty.<Number>}
-      this.coefficientProperty = new DerivedProperty( [ this.additionCoefficientProperty,
-          this.subtractionCoefficientProperty,
-          this.negationCoefficientProperty,
-          equationTypeProperty ],
-        ( additionCoefficient, subtractionCoefficient, negationCoefficient, equationType ) => {
+      this.coefficientProperty = new Property( DEFAULT_COEFFICIENT );
 
-          if ( equationType === EquationTypes.ADDITION ) {
-            return additionCoefficient;
-          }
-          else if ( equationType === EquationTypes.SUBTRACTION ) {
-            return subtractionCoefficient;
-          }
-          else {
-            return negationCoefficient;
+
+
+      EquationTypes.VALUES.forEach( equationType => {
+
+        const coefficientProperty = new Property( DEFAULT_COEFFICIENT );
+
+        const tailPositionProperty = new Vector2Property( this.tail );
+
+        this.coefficientProperty.link( () => {
+
+          if ( equationTypeProperty.value === equationType ) {
+            coefficientProperty.value = this.coefficientProperty.value;
           }
         } );
+
+        equationTypeProperty.link( eType => {
+          if ( eType === equationType ) {
+            this.coefficientProperty.value = coefficientProperty.value;
+            this.translateTailToPosition( tailPositionProperty.value );
+          }
+        } );
+
+        this.tailPositionProperty.link( tailPosition => {
+          if ( equationTypeProperty.value === equationType ) {
+            tailPositionProperty.value = tailPosition;
+          }
+        } );
+
+      } );
+
 
       //----------------------------------------------------------------------------------------
 
@@ -123,9 +128,7 @@ define( require => {
      * @public
      */
     reset() {
-      this.additionCoefficientProperty.reset();
-      this.subtractionCoefficientProperty.reset();
-      this.negationCoefficientProperty.reset();
+      this.coefficientProperty.reset();
       this.baseVector.reset();
       this.tailPositionProperty.reset();
     }

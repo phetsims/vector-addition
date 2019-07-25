@@ -21,6 +21,7 @@ define( require => {
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
@@ -57,6 +58,26 @@ define( require => {
         ( equationType ) => {
           this.updateSum( vectorSet.vectors, equationType );
         } );
+
+
+      EquationTypes.VALUES.forEach( equationType => {
+
+        const tailPositionProperty = new Vector2Property( this.tail );
+
+
+        equationTypeProperty.link( eType => {
+          if ( eType === equationType ) {
+            this.translateTailToPosition( tailPositionProperty.value );
+          }
+        } );
+
+        this.tailPositionProperty.link( tailPosition => {
+          if ( equationTypeProperty.value === equationType ) {
+            tailPositionProperty.value = tailPosition;
+          }
+        } );
+
+      } );
 
     }
 
