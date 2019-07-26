@@ -45,8 +45,8 @@ define( require => {
 
         // super class options
         lineWidth: 0.8,
-        xMargin: 0, // {number} - the margins on the left and right side of the panel
-        yMargin: 8, // {number} - the margins on the top and bottom of the panel
+        xMargin: 2, // {number} - the margins on the left and right side of the panel
+        yMargin: 10, // {number} - the margins on the top and bottom of the panel
         right: 950, // {number}
         top: 320, // {number}
 
@@ -54,8 +54,8 @@ define( require => {
         xAlign: 'center',  // 'left' || 'center' || 'right' - horizontal alignment of the panel slots
         yAlign: 'center', // 'top' || 'center' || 'bottom' - vertical alignment of the panel slots
         slotSpacing: 20, // {number} - the spacing between slots
-        contentWidth: 77.5, // {number} fixed width of the panel
-        contentHeight: 118 // {number} fixed height of the panel
+        contentWidth: 80, // {number} fixed width of the panel content
+        contentHeight: 120 // {number} fixed height of the panel content
 
       }, VectorAdditionColors.VECTOR_CREATOR_COLORS, options );
 
