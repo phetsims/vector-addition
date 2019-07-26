@@ -121,8 +121,7 @@ define( require => {
       // Create Body Drag
       //----------------------------------------------------------------------------------------
 
-      // @public (read-only) {BooleanProperty} indicates when the vector should be animated back to the creator panel
-      this.animateBackProperty = new BooleanProperty( false );
+
 
       // Create a Property for the location of the tail of the vector. Used for the tail drag listener.
       const tailLocationProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
@@ -135,13 +134,13 @@ define( require => {
         locationProperty: tailLocationProperty,
         start: () => {
 
-          assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
+          assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
             'body drag listener should be removed when the vector is animating back.' );
           this.moveToFront();
         },
         end: () => {
 
-          assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
+          assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
             'body drag listener should be removed when the vector is animating back.' );
           //----------------------------------------------------------------------------------------
           // Determine to drop the vector or to animate the vector back if we aren't on the graph
@@ -164,7 +163,7 @@ define( require => {
               this.vector.dropOntoGraph( shadowTailPosition );
             }
             else { // otherwise, animate the vector back
-              this.animateBackProperty.value = true;
+              this.vector.animateBackProperty.value = true;
             }
           }
         }
@@ -204,7 +203,7 @@ define( require => {
           this.cursor = 'default';
         }
       };
-      this.animateBackProperty.lazyLink( removeBodyDragListener );
+      this.vector.animateBackProperty.lazyLink( removeBodyDragListener );
 
       //----------------------------------------------------------------------------------------
       // Create Tip Drag
@@ -220,7 +219,7 @@ define( require => {
           targetNode: tipCircle,
           locationProperty: tipLocationProperty,
           start: () => {
-            assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
+            assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
               'tip drag listener should be removed when the vector is animating back.' );
             this.moveToFront();
           }
@@ -245,12 +244,12 @@ define( require => {
             tipCircle.removeInputListener( tipDragListener );
           }
         };
-        this.animateBackProperty.lazyLink( removeTipDragListener );
+        this.vector.animateBackProperty.lazyLink( removeTipDragListener );
 
         // @private {function} - to dispose tip dragging links
         this.disposeTipDrag = () => {
           tipLocationProperty.unlink( tipListener );
-          this.animateBackProperty.unlink( removeTipDragListener );
+          this.vector.animateBackProperty.unlink( removeTipDragListener );
         };
       }
 
@@ -277,7 +276,7 @@ define( require => {
 
       // Observe changes to the vector model.
       const vectorOnGraphObserver = Property.multilink(
-        [ vector.isOnGraphProperty, vector.vectorComponentsProperty, this.animateBackProperty ],
+        [ vector.isOnGraphProperty, vector.vectorComponentsProperty, this.vector.animateBackProperty ],
         onGraphListener );
 
       //----------------------------------------------------------------------------------------
@@ -289,7 +288,7 @@ define( require => {
         if ( vector.isTipDraggable ) {
           this.disposeTipDrag();
         }
-        this.animateBackProperty.unlink( removeBodyDragListener );
+        this.vector.animateBackProperty.unlink( removeBodyDragListener );
         tailLocationProperty.unlink( tailListener );
 
         vector.vectorComponentsProperty.unlink( updateTipCircleLocation );
@@ -317,7 +316,7 @@ define( require => {
      */
     updateTipPosition( tipLocation ) {
 
-      assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
+      assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
         'Cannot drag tip when animating back' );
       assert && assert( this.vector.isOnGraphProperty.value === true, 'Cannot drag tip when not on graph' );
 
@@ -334,7 +333,7 @@ define( require => {
      */
     updateTailPosition( tailLocation ) {
 
-      assert && assert( !this.animateBackProperty.value && !this.vector.inProgressAnimation,
+      assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
         'Cannot drag tail when animating back' );
 
       const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );

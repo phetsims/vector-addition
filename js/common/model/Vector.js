@@ -119,6 +119,9 @@ define( require => {
       // progress.
       this.inProgressAnimation = null;
 
+      // @public (read-only) {BooleanProperty} animateBackProperty - indicates if the vector should be animated back
+      this.animateBackProperty = new BooleanProperty( false );
+
       //----------------------------------------------------------------------------------------
       // Functionality 2: Create Vector Component Models
       //----------------------------------------------------------------------------------------
