@@ -75,20 +75,14 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels
 
-      verticalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DModel,
+      verticalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel(
         explore1DModel.verticalGraph,
-        explore1DModel.verticalGraph.vectorSet,
-        verticalSceneNode.vectorContainer,
-        this,
-        this.viewProperties,
+        verticalSceneNode,
         VERTICAL_VECTOR_SYMBOLS ) );
 
-      horizontalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DModel,
+      horizontalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel(
         explore1DModel.horizontalGraph,
-        explore1DModel.horizontalGraph.vectorSet,
-        horizontalSceneNode.vectorContainer,
-        this,
-        this.viewProperties,
+        horizontalSceneNode,
         HORIZONTAL_VECTOR_SYMBOLS ) );
 
       //----------------------------------------------------------------------------------------

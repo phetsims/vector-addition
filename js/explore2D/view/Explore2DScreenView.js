@@ -60,18 +60,12 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels
 
-      polarSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( this.viewProperties,
-        explore2DModel.polarGraph,
-        explore2DModel.polarGraph.vectorSet,
-        polarSceneNode.vectorContainer,
-        this,
+      polarSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel.polarGraph,
+        polarSceneNode,
         EXPLORE_2D_VECTOR_SYMBOLS ) );
 
-      cartesianSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( this.viewProperties,
-        explore2DModel.cartesianGraph,
-        explore2DModel.cartesianGraph.vectorSet,
-        cartesianSceneNode.vectorContainer,
-        this,
+      cartesianSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel.cartesianGraph,
+        cartesianSceneNode,
         EXPLORE_2D_VECTOR_SYMBOLS ) );
 
       //----------------------------------------------------------------------------------------

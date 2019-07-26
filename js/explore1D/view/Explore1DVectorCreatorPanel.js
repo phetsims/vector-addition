@@ -15,17 +15,14 @@ define( require => {
   'use strict';
 
   // modules
-  const Explore1DModel = require( 'VECTOR_ADDITION/explore1D/model/Explore1DModel' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const Explore1DGraph = require( 'VECTOR_ADDITION/explore1D/model/Explore1DGraph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const Node = require( 'SCENERY/nodes/Node' );
+  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
   const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
@@ -36,44 +33,38 @@ define( require => {
   };
 
   class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
-    /**
-     * @param {Explore1DModel} explore1DModel
-     * @param {Graph} graph
-     * @param {VectorSet} the vector set that the explore 1D vector creator panel represents
-     * @param {Node} vectorContainer - container for the vector nodes to go into
-     * @param {VectorAdditionScreenView} explore1DScreenView
+
+      /**
+     * @param {Explore1DGraph} explore1DGraph
+     * @param {SceneNode} sceneNode
      * @param {array.<string>} symbols - the symbols corresponding to each slot
      */
-    constructor( explore1DModel, graph, vectorSet, vectorContainer, explore1DScreenView, viewProperties, symbols ) {
+    constructor( explore1DGraph, sceneNode, symbols ) {
 
-      assert && assert( explore1DModel instanceof Explore1DModel, `invalid explore1DModel: ${explore1DModel}` );
-      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
-      assert && assert( vectorContainer instanceof Node, `invalid vectorContainer: ${vectorContainer}` );
-      assert && assert( explore1DScreenView instanceof VectorAdditionScreenView,
-        `invalid explore1DScreenView: ${explore1DScreenView}` );
-      assert && assert( symbols.filter( symbol => typeof symbol === 'string' ).length === symbols.length,
-        `invalid symbols: ${symbols}` );
+      assert && assert( explore1DGraph instanceof Explore1DGraph, `invalid explore1DGraph: ${explore1DGraph}` );
+      assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
+      assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ) , `invalid symbols: ${symbols}` );
 
       const panelSlots = [];
 
       //----------------------------------------------------------------------------------------
       // Loop through each symbol, creating a slot which corresponds with that symbol
-      symbols.forEach( ( symbol ) => {
+      //----------------------------------------------------------------------------------------
 
-        const panelSlot = new VectorCreatorPanelSlot( viewProperties,
-          graph.orientation === GraphOrientations.HORIZONTAL ? HORIZONTAL_DEFAULT_VECTOR : VERTICAL_DEFAULT_VECTOR,
-          graph,
-          vectorSet,
-          vectorContainer,
-          explore1DScreenView, {
+      symbols.forEach( symbol => {
+
+        const panelSlot = new VectorCreatorPanelSlot( explore1DGraph,
+          explore1DGraph.vectorSet,
+          sceneNode,
+          explore1DGraph.orientation === GraphOrientations.HORIZONTAL ? HORIZONTAL_DEFAULT_VECTOR : VERTICAL_DEFAULT_VECTOR, {
             symbol: symbol
           } );
 
         panelSlots.push( panelSlot );
+
       } );
 
-      super( panelSlots, graph.orientation === GraphOrientations.HORIZONTAL ? null : VERTICAL_CREATOR_PANEL_OPTIONS );
+      super( panelSlots, explore1DGraph.orientation === GraphOrientations.HORIZONTAL ? null : VERTICAL_CREATOR_PANEL_OPTIONS );
     }
   }
 

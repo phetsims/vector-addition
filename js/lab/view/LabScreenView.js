@@ -58,19 +58,11 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels
 
-      polarSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( this.viewProperties,
-        labModel.polarGraph,
-        labModel.polarGraph.vectorSetGroup1,
-        labModel.polarGraph.vectorSetGroup2,
-        polarSceneNode.vectorContainer,
-        this ) );
+      polarSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel.polarGraph,
+        polarSceneNode ) );
 
-      cartesianSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( this.viewProperties,
-        labModel.cartesianGraph,
-        labModel.cartesianGraph.vectorSetGroup1,
-        labModel.cartesianGraph.vectorSetGroup2,
-        cartesianSceneNode.vectorContainer,
-        this ) );
+      cartesianSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel.cartesianGraph,
+        cartesianSceneNode ) );
 
 
       //----------------------------------------------------------------------------------------

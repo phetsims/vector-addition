@@ -17,24 +17,19 @@ define( require => {
   'use strict';
 
   // modules
-  // const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  const Node = require( 'SCENERY/nodes/Node' );
+  const LabGraph = require( 'VECTOR_ADDITION/lab/model/LabGraph' );
+  const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
   const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
   const DEFAULT_VECTOR = new Vector2( DEFAULT_VECTOR_LENGTH, DEFAULT_VECTOR_LENGTH );
   const VECTOR_CREATOR_PANEL_SLOT_OPTIONS = {
-    iconOptions: {
-      arrowLength: 40
-    },
+    iconArrowSize: 40,
     isInfinite: true
   };
   const VECTOR_CREATOR_PANEL_OPTIONS = {
@@ -42,40 +37,29 @@ define( require => {
   };
 
   class LabVectorCreatorPanel extends VectorCreatorPanel {
-    /**
-     * @param {LabModel} labModel
-     * @param {Graph} graph
-     * @param {VectorSet} firstSlotVectorSet - the vector set that the first slot adds vectors to. In lab, each slot
-     *                                         adds to a unique vector set
-     * @param {VectorSet} secondSlotVectorSet - the vector set that the second slot adds vectors to.
-     * @param {Node} vectorContainer - container for the vector nodes to go into
-     * @param {VectorAdditionScreenView} labScreenView
-     */
-    constructor( labModel, graph, firstSlotVectorSet, secondSlotVectorSet, vectorContainer, labScreenView ) {
 
-      // assert && assert( labModel instanceof LabModel, `invalid labModel: ${labModel}` );
-      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( firstSlotVectorSet instanceof VectorSet, `invalid firstSlotVectorSet: ${firstSlotVectorSet}` );
-      assert && assert( vectorContainer instanceof Node, `invalid vectorContainer: ${vectorContainer}` );
-      assert && assert( labScreenView instanceof VectorAdditionScreenView, `invalid labScreenView: ${labScreenView}` );
+    /**
+     * @param {LabGraph} labGraph
+     * @param {SceneNode} sceneNode
+     */
+    constructor( labGraph, sceneNode ) {
+
+      assert && assert( labGraph instanceof LabGraph, `invalid labGraph: ${labGraph}` );
+      assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
 
       //----------------------------------------------------------------------------------------
       // Create the two vector slots.
 
-      const vectorCreatorSlotOne = new VectorCreatorPanelSlot( labModel,
+      const vectorCreatorSlotOne = new VectorCreatorPanelSlot( labGraph,
+        labGraph.vectorSetGroup1,
+        sceneNode,
         DEFAULT_VECTOR,
-        graph,
-        firstSlotVectorSet,
-        vectorContainer,
-        labScreenView,
         VECTOR_CREATOR_PANEL_SLOT_OPTIONS );
 
-      const vectorCreatorSlotTwo = new VectorCreatorPanelSlot( labModel,
+      const vectorCreatorSlotTwo = new VectorCreatorPanelSlot( labGraph,
+        labGraph.vectorSetGroup2,
+        sceneNode,
         DEFAULT_VECTOR,
-        graph,
-        secondSlotVectorSet,
-        vectorContainer,
-        labScreenView,
         VECTOR_CREATOR_PANEL_SLOT_OPTIONS );
 
       const panelSlots = [ vectorCreatorSlotOne, vectorCreatorSlotTwo ];
