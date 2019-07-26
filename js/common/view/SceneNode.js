@@ -98,7 +98,7 @@ define( require => {
       // @private {Node}
       this.vectorContainer = new Node();
       const vectorSumContainer = new Node();
-      const vectorComponentContainer = new Node();
+      this.vectorComponentContainer = new Node();
       const vectorSumComponentContainer = new Node();
 
       // Add an eraser if necessary
@@ -120,7 +120,7 @@ define( require => {
         children.push( this.baseVectorContainer );
       }
 
-      children.push( vectorComponentContainer, this.vectorContainer, vectorSumComponentContainer, vectorSumContainer );
+      children.push( this.vectorComponentContainer, this.vectorContainer, vectorSumComponentContainer, vectorSumContainer );
       this.children = children;
 
       //----------------------------------------------------------------------------------------
@@ -150,8 +150,8 @@ define( require => {
             componentStyleProperty,
             valuesVisibleProperty );
 
-          vectorComponentContainer.addChild( xComponentNode );
-          vectorComponentContainer.addChild( yComponentNode );
+          this.vectorComponentContainer.addChild( xComponentNode );
+          this.vectorComponentContainer.addChild( yComponentNode );
           this.vectorContainer.addChild( vectorNode );
         } );
       };
@@ -185,46 +185,14 @@ define( require => {
         vectorSumComponentContainer.addChild( yComponentSumNode );
         vectorSumContainer.addChild( vectorSumNode );
       };
-
-      /*---------------------------------------------------------------------------*
-       * Loop through each vector set, updating the scene
-       *---------------------------------------------------------------------------*/
       graph.vectorSets.forEach( vectorSet => {
         addVectorSumNodes( vectorSet );
-
-        /*---------------------------------------------------------------------------*
-         * Observe changes to the vector set. These are vectors that are created in the vector creator panel
-         *---------------------------------------------------------------------------*/
-        // There isn't a need to remove the addItemAddedListener since vectorSets are never disposed
-        vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
-          // only add the components since the vector node is created in the vector creator panel
-          const xComponentNode = new ComponentVectorNode( addedVector.xComponentVector,
-            graph,
-            componentStyleProperty,
-            valuesVisibleProperty );
-
-          const yComponentNode = new ComponentVectorNode( addedVector.yComponentVector,
-            graph,
-            componentStyleProperty,
-            valuesVisibleProperty );
-          vectorComponentContainer.addChild( xComponentNode );
-          vectorComponentContainer.addChild( yComponentNode );
-
-          //----------------------------------------------------------------------------------------
-          // Add the removal listener for when the vector is removed
-          const removalListener = removedVector => {
-            if ( removedVector === addedVector ) {
-
-              xComponentNode.dispose();
-              yComponentNode.dispose();
-
-              vectorSet.vectors.removeItemRemovedListener( removalListener );
-            }
-          };
-
-          vectorSet.vectors.addItemRemovedListener( removalListener );
-        } );
       } );
+
+      this.componentStyleProperty = componentStyleProperty;
+      this.graph = graph;
+      this.valuesVisibleProperty = valuesVisibleProperty;
+      this.angleVisibleProperty = angleVisibleProperty;
     }
 
     /**
@@ -238,6 +206,45 @@ define( require => {
 
       this.addChild( vectorCreatorPanel );
       vectorCreatorPanel.moveToBack();
+    }
+
+    registerVector( vector, vectorSet, event ) {
+      // only add the components since the vector node is created in the vector creator panel
+      const xComponentNode = new ComponentVectorNode( vector.xComponentVector,
+        this.graph,
+        this.componentStyleProperty,
+        this.valuesVisibleProperty );
+
+      const yComponentNode = new ComponentVectorNode( vector.yComponentVector,
+        this.graph,
+        this.componentStyleProperty,
+        this.valuesVisibleProperty );
+      this.vectorComponentContainer.addChild( xComponentNode );
+      this.vectorComponentContainer.addChild( yComponentNode );
+
+      const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.angleVisibleProperty );
+
+      this.vectorContainer.addChild( vectorNode );
+
+      if ( event ) {
+        vectorNode.bodyDragListener.press( event, vectorNode );
+
+      }
+
+      //----------------------------------------------------------------------------------------
+      // Add the removal listener for when the vector is removed
+      const removalListener = removedVector => {
+        if ( removedVector === vector ) {
+
+          xComponentNode.dispose();
+          yComponentNode.dispose();
+          vectorNode.dispose();
+
+          vectorSet.vectors.removeItemRemovedListener( removalListener );
+        }
+      };
+
+      vectorSet.vectors.addItemRemovedListener( removalListener );
     }
   }
 
