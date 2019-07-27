@@ -16,6 +16,7 @@ define( require => {
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   const PANEL_CORNER_RADIUS = 5;
   const PANEL_X_MARGIN = 9;
@@ -138,7 +139,9 @@ define( require => {
     // Vector symbols, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
     // These don't necessarily align with VectorColorGroups.
     VECTOR_SYMBOLS_GROUP_1: [ 'a', 'b', 'c' ],
-    VECTOR_SYMBOLS_GROUP_2: [ 'd', 'e', 'f' ]
+    VECTOR_SYMBOLS_GROUP_2: [ 'd', 'e', 'f' ],
+
+    DEFAULT_COLOR_GROUP: VectorColorGroups.BLUE_COLOR_GROUP
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

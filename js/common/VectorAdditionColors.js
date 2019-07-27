@@ -53,6 +53,7 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Label background on active vectors
     ACTIVE_VECTOR_LABEL_BACKGROUND: 'rgb( 255, 255, 100 )',
+    EQUATION_SUM_FILL: BLACK,
 
     //----------------------------------------------------------------------------------------
     // References, see https://github.com/phetsims/sun/issues/312

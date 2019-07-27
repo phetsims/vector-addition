@@ -1,7 +1,16 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Factory for creating the various icons that appear in the sim.
+ * Factory (uses static methods, so no instance is required) for creating the various icons that appear in the sim.
+ *
+ * ## Creates the following icons:
+ *  - Screen icons
+ *  - Vector Creator Panel Vector icons
+ *  - Checkbox icons (i.e. sum checkbox, angle checkbox, grid checkbox)
+ *  - Component Projection Icons (for each radio button)
+ *  - Coordinate Snap Mode Icons (polar/cartesian)
+ *  - Graph orientation icons (horizontal/vertical - on the 'Explore 1D' screen)
+ *  - Equation Type icons (On the 'Equation' Screen)
  *
  * @author Brandon Li
  */
@@ -14,7 +23,6 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
@@ -23,8 +31,10 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Screen = require( 'JOIST/Screen' );
   const ScreenIcon = require( 'JOIST/ScreenIcon' );
   const Shape = require( 'KITE/Shape' );
+  const Spacer = require( 'SCENERY/nodes/Spacer' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -32,15 +42,26 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+
   //----------------------------------------------------------------------------------------
   // constants
+
+  // default VectorColorGroup for icons.
+  const DEFAULT_COLOR_GROUP = VectorAdditionConstants.DEFAULT_COLOR_GROUP;
+
+  // screen icons
+  const SCREEN_ICON_WIDTH = 70;
+  const SCREEN_ICON_HEIGHT = SCREEN_ICON_WIDTH / Screen.HOME_SCREEN_ICON_ASPECT_RATIO; // w/h = ratio <=> h = w/ratio
+  const SCREEN_ICON_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+    fill: VectorAdditionColors[ DEFAULT_COLOR_GROUP ].fill
+  } );
 
   // size (width and height) of all arrow nodes inside of radio buttons
   const RADIO_BUTTON_ARROW_SIZE = 29;
 
   // defaults for all arrow node instances
   const ARROW_ICON_OPTIONS = {
-    fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill,
+    fill: VectorAdditionColors[ DEFAULT_COLOR_GROUP ].fill,
     stroke: VectorAdditionColors.BLACK,
     lineWidth: 0.5,
     headHeight: 6.5,
@@ -58,110 +79,138 @@ define( require => {
   class VectorAdditionIconFactory {
 
     /**
-     * Creates the Icon for the Explore1D Screen
+     * Creates the Icon for the 'Explore 1D' Screen
      * @public
-     * @returns {Node}
+     * @param {Object} [options]
+     * @returns {ScreenIcon}
      */
-    static createExplore1DScreenIcon() {
+    static createExplore1DScreenIcon( options ) {
 
-      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
-      } );
+      //----------------------------------------------------------------------------------------
+      // The Icon for the 'Explore 1D' Screen contains a left facing arrow and a right facing arrow.
+      // See https://github.com/phetsims/vector-addition/issues/76 for a visual.
+      options = _.extend( {
+        rightArrowWidth: SCREEN_ICON_WIDTH,       // {number} width of the right arrow
+        leftArrowWidth: SCREEN_ICON_WIDTH * 0.33, // {number} width of the left arrow
+        arrowSpacing: SCREEN_ICON_HEIGHT * 0.45   // {number} vertical spacing between the left and right arrow
+      }, options );
 
-      const rightArrow = new ArrowNode( 0, 0, 90, 0, arrowOptions );
-      const leftArrow = new ArrowNode( 90, 20, 65, 20, arrowOptions );
-
-      return new ScreenIcon( new Node().setChildren( [ rightArrow, leftArrow ] ) );
+      const rightArrow = new ArrowNode( 0, 0, SCREEN_ICON_WIDTH, 0, SCREEN_ICON_ARROW_OPTIONS );
+      const leftArrow = new ArrowNode( SCREEN_ICON_WIDTH,
+        options.arrowSpacing,
+        SCREEN_ICON_WIDTH - options.leftArrowWidth,
+        options.arrowSpacing,
+        SCREEN_ICON_ARROW_OPTIONS );
+      return createScreenIcon( [ rightArrow, leftArrow ] );
     }
 
     /**
-     * Creates the Icon for the Explore2D Screen
+     * Creates the Icon for the 'Explore 2D' Screen
      * @public
-     * @returns {Node}
+     * @param {Object} [options]
+     * @returns {ScreenIcon}
      */
-    static createExplore2DScreenIcon() {
+    static createExplore2DScreenIcon( options ) {
 
-      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
+      //----------------------------------------------------------------------------------------
+      // The 'Explore 2D' Screen icon contains an arrow facing up and to the right and 2 component arrows.
+      // See https://github.com/phetsims/vector-addition/issues/76 for a visual.
+      options = _.extend( {
+        arrowComponents: new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT ) // {Vector2} arrow view components
+      }, options );
+
+      const arrowComponents = options.arrowComponents; // convenience reference
+
+      // Arrow Options for the component arrows
+      const componentArrowOptions = _.extend( {}, SCREEN_ICON_ARROW_OPTIONS, {
+        fill: VectorAdditionColors[ DEFAULT_COLOR_GROUP ].component
       } );
 
-      const componentArrowOptions = _.extend( {}, arrowOptions, ComponentVectorNode.ARROW_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].component
-      } );
-
-      const arrow = new ArrowNode( 0, 0, 60, -50, arrowOptions );
-      const xArrow = new ArrowNode( 0, 0, 60, 0, componentArrowOptions );
-      const yArrow = new ArrowNode( 0, 0, 0, -50, componentArrowOptions );
-
-      return new ScreenIcon( new Node().setChildren( [ xArrow, yArrow, arrow ] ) );
+      const arrow = new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y, SCREEN_ICON_ARROW_OPTIONS );
+      const xArrow = new ArrowNode( 0, 0, arrowComponents.x, 0, componentArrowOptions );
+      const yArrow = new ArrowNode( arrowComponents.x, 0, arrowComponents.x, arrowComponents.y, componentArrowOptions );
+      return createScreenIcon( [ xArrow, yArrow, arrow ] );
     }
 
     /**
-     * Creates the Icon for the Lab Screen
+     * Creates the Icon for the 'Lab' Screen
      * @public
-     * @returns {Node}
+     * @param {Object} [options]
+     * @returns {ScreenIcon}
      */
-    static createLabScreenIcon() {
+    static createLabScreenIcon( options ) {
 
-      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
-      } );
+      //----------------------------------------------------------------------------------------
+      // The 'Lab' Screen icon contains 4 arrows in a kite shape (2 for each vector set).
+      // See https://github.com/phetsims/vector-addition/issues/76#issuecomment-515225420 for a visual.
+      options = _.extend( {
+        // {Vector2[]} the tip locations of the group 1 vectors of the icon (vectors are aligned tip to tail)
+        group1TipLocations: [
+          new Vector2( SCREEN_ICON_WIDTH * 0.63, 0 ),
+          new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT )
+        ],
 
-      const tipPositions = [ new Vector2( 40, -40 ), new Vector2( 70, -25 ), new Vector2( 120, -70 ) ];
-      
-      const icon = new Node();
+        // {Vector2[]} the tip locations of the group 2 vectors of the icon (vectors are aligned tip to tail)
+        group2TipLocations: [
+          new Vector2( 0, -SCREEN_ICON_HEIGHT * 0.7 ),
+          new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT )
+        ],
 
-      for ( let i = 0; i < tipPositions.length; i++ ) {
+        // {Vector2} the starting tail locations of the first vectors of both sets.
+        startingTailLocation: new Vector2( SCREEN_ICON_WIDTH * 0.26, 0 )
+      }, options );
 
-        let arrow;
-        if ( i === 0 ) {
-          arrow = new ArrowNode( 0, 0, tipPositions[ 0 ].x, tipPositions[ 0 ].y, arrowOptions );
-        }
-        else {
-          arrow = new ArrowNode( tipPositions[ i - 1 ].x, tipPositions[ i - 1 ].y, tipPositions[ i ].x, tipPositions[ i ].y, arrowOptions );
-        }
+      //----------------------------------------------------------------------------------------
+      const group1ArrowOptions = SCREEN_ICON_ARROW_OPTIONS;
+      const group2ArrowOptions = _.extend( {}, SCREEN_ICON_ARROW_OPTIONS, {
+        fill: VectorAdditionColors[ VectorColorGroups.RED_COLOR_GROUP ].fill }
+      );
 
-        icon.addChild( arrow );
+      const iconChildren = [];
 
-      }
-      return new ScreenIcon( icon );
+      addVectorsTipToTail( options.group2TipLocations, options.startingTailLocation, iconChildren, group2ArrowOptions );
+      addVectorsTipToTail( options.group1TipLocations, options.startingTailLocation, iconChildren, group1ArrowOptions );
+
+      return createScreenIcon( iconChildren );
     }
 
     /**
-     * Creates the Icon for the Lab Screen
+     * Creates the Icon for the 'Equation' Screen
      * @public
-     * @returns {Node}
+     * @param {Object} [options]
+     * @returns {ScreenIcon}
      */
-    static createEquationScreenIcon() {
+    static createEquationScreenIcon( options ) {
 
-      const arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.BLUE_COLOR_GROUP ].fill
+      //----------------------------------------------------------------------------------------
+      // The 'Equation' Screen icon contains 2 arrows from tip to tail and the sum.
+      // See https://github.com/phetsims/vector-addition/issues/76 for a visual.
+      options = _.extend( {
+        // {Vector2[]} the tip locations of the vectors on the icon (vectors are aligned tip to tail)
+        tipLocations: [
+          new Vector2( SCREEN_ICON_WIDTH* 0.15, -SCREEN_ICON_HEIGHT * 0.75 ),
+          new Vector2( SCREEN_ICON_WIDTH* 0.85, -SCREEN_ICON_HEIGHT )
+        ],
+        startingTailLocation: Vector2.ZERO // {Vector2} starting tail location of all vectors
+      }, options );
+
+      const sumArrowOptions = _.extend( {}, SCREEN_ICON_ARROW_OPTIONS, {
+        fill: VectorAdditionColors.EQUATION_SUM_FILL
       } );
 
-      const sumOptions = _.extend( {}, arrowOptions, {
-        fill: VectorAdditionColors.BLACK
-      } );
+      const iconChildren = [];
 
-      const tipPositions = [ new Vector2( 0, -80 ), new Vector2( 70, -130 ) ];
-      
-      const icon = new Node();
+      addVectorsTipToTail( options.tipLocations, options.startingTailLocation,
+                           iconChildren, SCREEN_ICON_ARROW_OPTIONS );
 
-      for ( let i = 0; i < tipPositions.length; i++ ) {
+      // Add the sum vector
+      iconChildren.push( new ArrowNode( options.startingTailLocation.x,
+                                        options.startingTailLocation.y,
+                                        _.last( options.tipLocations ).x,
+                                        _.last( options.tipLocations ).y,
+                                        sumArrowOptions ) );
 
-        let arrow;
-        if ( i === 0 ) {
-          arrow = new ArrowNode( 0, 0, tipPositions[ 0 ].x, tipPositions[ 0 ].y, arrowOptions );
-        }
-        else {
-          arrow = new ArrowNode( tipPositions[ i - 1 ].x, tipPositions[ i - 1 ].y, tipPositions[ i ].x, tipPositions[ i ].y, arrowOptions );
-        }
-
-        icon.addChild( arrow );
-
-      }
-      const sum = new ArrowNode( 0, 0, _.last( tipPositions ).x, _.last( tipPositions ).y, sumOptions );
-
-      return new ScreenIcon( icon.addChild( sum ) );
+      return createScreenIcon( iconChildren );
     }
 
     /**
@@ -312,39 +361,6 @@ define( require => {
           .verticalLineTo( ( options.rows + 1 ) * options.gridLineSpacing );
       }
       return new Path( gridShape, options.gridPathOptions );
-    }
-
-    /**
-     * Creates a radio button icon with ensured alignment and correct bounds.
-     * @private
-     * @param {Node} icon
-     * @param {Object} [options]
-     * @returns {AlignBox}
-     */
-    static createRadioButtonIcon( icon, options ) {
-
-      assert && assert( icon instanceof Node, `invalid icon: ${icon}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
-
-      options = _.extend( {
-        width: RADIO_BUTTON_ARROW_SIZE + 9.5,
-        height: RADIO_BUTTON_ARROW_SIZE + 7.5,
-
-        // for align box
-        topMargin: 0,
-        leftMargin: 0,
-        alignX: 'center',
-        alignY: 'center'
-      }, options );
-
-      return new AlignBox( icon, {
-        alignBounds: new Bounds2( 0, 0, options.width, options.height ),
-        topMargin: options.topMargin,
-        leftMargin: options.leftMargin,
-        alignX: options.alignX,
-        alignY: options.alignY
-      } );
     }
 
     /**
@@ -549,7 +565,38 @@ define( require => {
 
       return this.createRadioButtonIcon( new Node().setChildren( [ arrowLabel, polarVector, arcArrow, line ] ) );
     }
+ /**
+     * Creates a radio button icon with ensured alignment and correct bounds.
+     * @private
+     * @param {Node} icon
+     * @param {Object} [options]
+     * @returns {AlignBox}
+     */
+    static createRadioButtonIcon( icon, options ) {
 
+      assert && assert( icon instanceof Node, `invalid icon: ${icon}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
+
+      options = _.extend( {
+        width: RADIO_BUTTON_ARROW_SIZE + 9.5,
+        height: RADIO_BUTTON_ARROW_SIZE + 7.5,
+
+        // for align box
+        topMargin: 0,
+        leftMargin: 0,
+        alignX: 'center',
+        alignY: 'center'
+      }, options );
+
+      return new AlignBox( icon, {
+        alignBounds: new Bounds2( 0, 0, options.width, options.height ),
+        topMargin: options.topMargin,
+        leftMargin: options.leftMargin,
+        alignX: options.alignX,
+        alignY: options.alignY
+      } );
+    }
     /**
      * Creates the Icon that appears on the equation types radio button group
      * @public
@@ -589,6 +636,52 @@ define( require => {
         height: options.height
       } );
     }
+  }
+
+
+  /**
+   * Adds Vector Arrow Nodes based on an array of tip locations (vectors are aligned tip to tail) to an array
+   * @param {Vector2[]} tipLocations
+   * @param {Vector2} startingTailLocation - tail location of the first vector
+   * @param {array} array - array to add the vector arrow nodes to
+   * @param {Object} [arrowOptions]
+   */
+  function addVectorsTipToTail( tipLocations, startingTailLocation, array, arrowOptions ) {
+
+    assert && assert( _.every( tipLocations, tip => tip instanceof Vector2 ) );
+    assert && assert( startingTailLocation instanceof Vector2 );
+
+    for ( let i = 0; i < tipLocations.length; i++ ) {
+      if ( i === 0 ) {
+        array.push( new ArrowNode( startingTailLocation.x, startingTailLocation.y,
+                                          tipLocations[ 0 ].x, tipLocations[ 0 ].y, arrowOptions ) );
+      }
+      else {
+        array.push( new ArrowNode( tipLocations[ i - 1 ].x, tipLocations[ i - 1 ].y,
+                                          tipLocations[ i ].x, tipLocations[ i ].y, arrowOptions ) );
+      }
+    }
+  }
+
+  /**
+   * Creates a Screen Icon, ensuring the correct width and height. Aligning icons in the same align box
+   * ensures that the tail width of the arrows are the same for every screen icon. See
+   * https://github.com/phetsims/vector-addition/issues/76#issuecomment-515197547.
+   *
+   * @param {Node[]} children - the children of the icon
+   * @returns {ScreenIcon}
+   */
+  function createScreenIcon( children ) {
+
+    assert && assert( _.every( children, child => child instanceof Node ) );
+
+    const iconNode = new Node().addChild( new Spacer( SCREEN_ICON_WIDTH, SCREEN_ICON_HEIGHT, { pickable: false } ) );
+
+    iconNode.addChild( new Node( {
+      children: children,
+      center: iconNode.center
+    } ) );
+    return new ScreenIcon( iconNode );
   }
 
   vectorAddition.register( 'VectorAdditionIconFactory', VectorAdditionIconFactory );
