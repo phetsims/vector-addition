@@ -58,13 +58,13 @@ define( require => {
 
       const equationTypesRadioButtonContent = [ {
         value: EquationTypes.ADDITION,
-        node: VectorAdditionIconFactory.createEquationTypesIcon( EquationTypes.ADDITION, equationVectorSet )
+        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.ADDITION, equationVectorSet )
       }, {
         value: EquationTypes.SUBTRACTION,
-        node: VectorAdditionIconFactory.createEquationTypesIcon( EquationTypes.SUBTRACTION, equationVectorSet )
+        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.SUBTRACTION, equationVectorSet )
       }, {
         value: EquationTypes.NEGATION,
-        node: VectorAdditionIconFactory.createEquationTypesIcon( EquationTypes.NEGATION, equationVectorSet )
+        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.NEGATION, equationVectorSet )
       } ];
 
       super( equationTypeProperty, equationTypesRadioButtonContent, options );

@@ -50,10 +50,10 @@ define( require => {
 
       const radioButtonContent = [ {
         value: CoordinateSnapModes.CARTESIAN,
-        node: VectorAdditionIconFactory.createCartesianIcon()
+        node: VectorAdditionIconFactory.createCoordinateSnapModeIcon( CoordinateSnapModes.CARTESIAN )
       }, {
         value: CoordinateSnapModes.POLAR,
-        node: VectorAdditionIconFactory.createPolarIcon()
+        node: VectorAdditionIconFactory.createCoordinateSnapModeIcon( CoordinateSnapModes.POLAR )
       } ];
 
       super( coordinateSnapModeProperty, radioButtonContent, options );

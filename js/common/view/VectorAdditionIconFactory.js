@@ -23,6 +23,7 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
@@ -71,7 +72,7 @@ define( require => {
     headWidth: 10.5,
     tailWidth: 3.9
   };
-  const RADIO_BUTTON_TEXT_FONT = new PhetFont( { size: 11, family: 'Times', weight: '500' } );
+  const RADIO_BUTTON_TEXT_FONT = new PhetFont( { size: 11.5, family: 'Times', weight: '500' } );
 
 
   //----------------------------------------------------------------------------------------
@@ -349,91 +350,69 @@ define( require => {
       return createRadioButtonIcon( new Node().setChildren( iconChildren ) );
     },
 
+    //========================================================================================
+    // 5. Coordinate Snap Mode Icons (polar/cartesian, see https://github.com/phetsims/vector-addition/issues/21)
+    //========================================================================================
     /**
-     * Creates the Icon for the cartesian coordinate snap mode radio button
+     * Creates the icon used on the radio buttons toggles the coordinate snap mode
      * @public
+     * @param {CoordinateSnapModes} coordinateSnapMode
      * @param {Object} [options]
      * @returns {Node}
      */
-    createCartesianIcon( options ) {
+    createCoordinateSnapModeIcon( coordinateSnapMode, options ) {
 
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ) );
+      const isPolar = coordinateSnapMode === CoordinateSnapModes.POLAR; // convenience reference
+      //----------------------------------------------------------------------------------------
       options = merge( {
-        arrowSize: 25,        // {number} size of the cartesian arrow
-        topMargin: 5,         // {number} top margin of the radio button icon
-        leftMargin: 1.4,      // {number} left margin of the radio button icon
-        labelArrowMargin: 2,  // {number} margin between the '1' label and the arrow
-        offsetYLabel: 3,      // {number} offset of the y arrow label
-        componentArrowOptions: _.extend( {}, RADIO_BUTTON_ARROW_OPTIONS, {
+        arrowSize: isPolar ? 27.5 : 26.5,  // {number} size of the arrow
+        arrowOptions: {                    // {Object} options for arrow node
           lineWidth: 0,
-          headHeight: 7.5,
-          tailWidth: 4.2
-        } ),
-        cartesianArrowOptions: _.extend( {}, RADIO_BUTTON_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.BLACK,
-          tailWidth: 3.1,
-          headHeight: 7.3,
-          headWidth: 9.3
-        } )
-      }, options || {} );
-
-
-      const arrowSize = options.arrowSize; // convenience reference
-
-      const xArrow = new ArrowNode( 0, 0, arrowSize, 0, options.componentArrowOptions );
-      const yArrow = new ArrowNode( arrowSize, 0, arrowSize, -arrowSize, options.componentArrowOptions );
-      const cartesianArrow = new ArrowNode( 0, 0, arrowSize, -arrowSize, options.cartesianArrowOptions );
-
-      const xLabel = new Text( '1', {
-        font: RADIO_BUTTON_TEXT_FONT,
-        top: xArrow.centerY,
-        centerX: xArrow.centerX
-      } );
-      const yLabel = new Text( '1', {
-        font: RADIO_BUTTON_TEXT_FONT,
-        centerY: yArrow.centerY + options.offsetYLabel,
-        left: yArrow.centerX + options.labelArrowMargin
-      } );
-
-      return createRadioButtonIcon( new Node().setChildren( [ xArrow, yArrow, cartesianArrow, xLabel, yLabel ] ), {
-        topMargin: options.topMargin,
-        leftMargin: options.leftMargin
-      } );
-    },
-
-    /**
-     * Creates the Icon for the cartesian coordinate polar mode radio button
-     * @public
-     * @param {Object} [options]
-     * @returns {Node}
-     */
-    createPolarIcon( options ) {
-      options = merge( {}, RADIO_BUTTON_ARROW_OPTIONS, {
-        arcRadius: 17,
-        arrowSize: 27.5,
-        curvedArrowOptions: {
+          tailWidth: 4.5,
+          headHeight: 8.5,
+          headWidth: 11.5,
+          fill: isPolar ? VectorAdditionColors.PURPLE : RADIO_BUTTON_ARROW_OPTIONS.fill
+        },
+        curvedArrowOptions: {              // {Object} passed to the curved arrow node
           arrowheadWidth: 5.5,
           arrowheadHeight: 5,
           arcOptions: { lineWidth: 1.2 }
         },
-        polarVectorOptions: _.extend( {}, RADIO_BUTTON_ARROW_OPTIONS, {
-          lineWidth: 0,
-          headHeight: 7.5,
-          tailWidth: 4.2,
-          fill: VectorAdditionColors.PURPLE
-        } )
+        cartesianTopMargin: 5.5,           // {number} top margin of the radio button icon for cartesian
+        cartesianLeftMargin: 2.9,          // {number} left margin of the radio button icon for cartesian
+        arcRadius: 17                      // {number} arc radius of the curved arrow
       }, options || {} );
 
-      const polarVector = new ArrowNode( 0, 0, options.arrowSize, -options.arrowSize, options.polarVectorOptions );
-      const arcArrow = new CurvedArrowNode( options.arcRadius, Util.toRadians( 45 ), options.curvedArrowOptions );
-      const line = new Line( 0, 0, options.arrowSize, 0, { stroke: VectorAdditionColors.BLACK } );
+      //----------------------------------------------------------------------------------------
+      const arrowSize = options.arrowSize; // convenience reference
+      const labelFont = RADIO_BUTTON_TEXT_FONT; // convenience reference
+      const children = [];
 
-      const arrowLabel = new Text( '1', {
-        bottom: polarVector.centerY,
-        right: polarVector.centerX,
-        font: RADIO_BUTTON_TEXT_FONT
-      } );
+      // Create the arrow node that is 45 degrees to the right and up
+      const arrow = new ArrowNode( 0, 0, arrowSize, -arrowSize, options.arrowOptions );
 
-      return createRadioButtonIcon( new Node().setChildren( [ arrowLabel, polarVector, arcArrow, line ] ) );
+      if ( !isPolar ) {
+        const componentArrowOptions = _.extend( {}, options.arrowOptions, { fill: VectorAdditionColors.BLACK } );
+
+        const xArrow = new ArrowNode( 0, 0, arrowSize, 0, componentArrowOptions );
+        const yArrow = new ArrowNode( arrowSize, 0, arrowSize, -arrowSize, componentArrowOptions );
+        const xLabel = new Text( '1', { font: labelFont, top: xArrow.centerY, centerX: xArrow.centerX } );
+        const yLabel = new Text( '1', { font: labelFont, centerY: yArrow.centerY + 3, left: yArrow.right - 2 } );
+
+        children.push( xArrow, yArrow, arrow, xLabel, yLabel ); // z-layering
+      }
+      else {
+        const curvedArrow = new CurvedArrowNode( options.arcRadius, Util.toRadians( 45 ), options.curvedArrowOptions );
+        const line = new Line( 0, 0, options.arrowSize, 0, { stroke: VectorAdditionColors.BLACK } );
+        const arrowLabel = new Text( '1', { bottom: arrow.centerY, right: arrow.centerX, font: labelFont } );
+        children.push( arrow, curvedArrow, line, arrowLabel ); // z-layering
+      }
+
+      return createRadioButtonIcon( new Node().setChildren( children ), !isPolar ? {
+        topMargin: options.cartesianTopMargin,
+        leftMargin: options.cartesianLeftMargin
+      } : null );
     },
 
     //========================================================================================
@@ -446,9 +425,9 @@ define( require => {
      * @param {Object} [options]
      * @returns {ArrowNode}
      */
-    createGraphOrientationIcon: ( graphOrientation, options ) => {
-      assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation )
-      && graphOrientation !== GraphOrientations.TWO_DIMENSIONAL );
+    createGraphOrientationIcon( graphOrientation, options ) {
+
+      assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
 
       options = merge( {
         arrowLength: 40,  // {number} length of the arrow node
@@ -460,6 +439,8 @@ define( require => {
           headHeight: 10
         }
       }, options || {} );
+
+      //----------------------------------------------------------------------------------------
       if ( graphOrientation === GraphOrientations.HORIZONTAL ) {
         return new ArrowNode( 0, 0, options.arrowLength, 0, options.arrowOptions );
       }
@@ -479,24 +460,29 @@ define( require => {
      * @param {Object} [options]
      * @returns {Node}
      */
-    createEquationTypesIcon( equationType, vectorSymbols, options ) {
+    createEquationTypeIcon( equationType, vectorSymbols, options ) {
+
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
       assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1 );
+
       options = _.extend( {
         font: new PhetFont( { weight: '500', size: 14 } ),  // {PhetFont|Font} font of the equation text
         width: 92,  // {number} width of the icon
         height: 25  // {number} height of the icon
-      } );
+      }, options );
 
-      // Gather all the symbols on the left side of the equation into an array
+      //----------------------------------------------------------------------------------------
+
+      // Gather all the symbols on the left side of the equation into an array (for NEGATION, all symbols are on the
+      // left side of the equation)
       const equationLeftSideSymbols = _.dropRight( vectorSymbols, equationType === EquationTypes.NEGATION ? 0 : 1 );
 
-      // Interleave signs (i.e. '+'/'-') in between each symbol based on the equation type (excluding the sum symbol)
+      // Interleave signs (i.e. '+'/'-') in between each symbol on the left side of the equation
       const equationStrings = interleave( equationLeftSideSymbols, () => {
         return ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
       } );
 
-      // Add the second half of the equation
+      // Add the second half of the equation, which is a '=' and the last of the symbols (which is the sum) or a '0'
       equationStrings.push( MathSymbols.EQUAL_TO,
         equationType === EquationTypes.NEGATION ? '0' : _.last( vectorSymbols ) );
 
@@ -532,6 +518,7 @@ define( require => {
 
     icon.maxWidth = options.width;
     icon.maxHeight = options.height;
+
     return new AlignBox( icon, {
       alignBounds: new Bounds2( 0, 0, options.width, options.height ),
       topMargin: options.topMargin,
