@@ -435,8 +435,12 @@ define( require => {
 
       return createRadioButtonIcon( new Node().setChildren( [ arrowLabel, polarVector, arcArrow, line ] ) );
     },
+
+    //========================================================================================
+    // 6. Graph Orientation Icons (horizontal/vertical)
+    //========================================================================================
     /**
-     * Creates the icon used on the radio buttons on 'Explore 1D' screen that toggle the graph orientation.
+     * Creates the icon used on the radio buttons on 'Explore 1D' screen that toggles the graph orientation.
      * @public
      * @param {GraphOrientations} graphOrientation - orientation of the graph (has to be horizontal or vertical)
      * @param {Object} [options]
@@ -446,19 +450,21 @@ define( require => {
       assert && assert( graphOrientation && GraphOrientations.includes( graphOrientation )
       && graphOrientation !== GraphOrientations.TWO_DIMENSIONAL );
 
-      options = _.extend( {
-        fill: VectorAdditionColors.BLACK,
-        doubleHead: true,
-        tailWidth: 3,
-        headWidth: 8,
-        headHeight: 10,
-        arrowLength: 40
-      }, options );
+      options = merge( {
+        arrowLength: 40,  // {number} length of the arrow node
+        arrowOptions: {   // {object} passed to the arrow node
+          fill: VectorAdditionColors.BLACK,
+          doubleHead: true,
+          tailWidth: 3,
+          headWidth: 8,
+          headHeight: 10
+        }
+      }, options || {} );
       if ( graphOrientation === GraphOrientations.HORIZONTAL ) {
-        return new ArrowNode( 0, 0, options.arrowLength, 0, options );
+        return new ArrowNode( 0, 0, options.arrowLength, 0, options.arrowOptions );
       }
       else if ( graphOrientation === GraphOrientations.VERTICAL ) {
-        return new ArrowNode( 0, 0, 0, options.arrowLength, options );
+        return new ArrowNode( 0, 0, 0, options.arrowLength, options.arrowOptions );
       }
     },
 
@@ -507,7 +513,7 @@ define( require => {
 
   /**
    * Creates a RadioButton Icon but aligns a given icon in an AlignBox to ensure the correct alignment and localBounds.
-   * This allows icons of different sizes to have the same localBounds to fit in the same sized RadioButton.
+   * This allows icons of different sizes and groups to have the same localBounds to fit in the same sized RadioButton.
    *
    * @param {Node} icon
    * @param {Object} [options]

@@ -119,8 +119,12 @@ define( require => {
         graphOrientationRadioButtonContent, _.extend( {}, RADIO_BUTTON_OPTIONS, {
           centerX: explore1DGraphControlPanel.centerX,
           top: explore1DGraphControlPanel.bottom + GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN,
-          orientation: 'horizontal'
+          orientation: 'horizontal',
+          buttonContentXMargin: RADIO_BUTTON_OPTIONS.xMargin,
+          buttonContentYMargin: RADIO_BUTTON_OPTIONS.yMargin
+
         } ) );
+
 
       this.addChild( graphOrientationRadioButtonGroup );
     }
