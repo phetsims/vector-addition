@@ -49,13 +49,12 @@ define( require => {
       options = _.extend( {}, RADIO_BUTTON_OPTIONS, options );
 
       //----------------------------------------------------------------------------------------
-      
       const radioButtonsContent = [];
 
       ComponentStyles.VALUES.forEach( componentStyle => {
 
         const button = new RadioButtonGroupMember( componentStyleProperty, componentStyle, _.extend( {
-          content: VectorAdditionIconFactory.createComponentStyleIcon( componentStyle )
+          content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
         }, options ) );
 
         radioButtonsContent.push( new AlignBox( button, {
@@ -125,7 +124,7 @@ define( require => {
           horizontalLayout.addChild( content[ contentIndex ] );
           contentIndex++;
         }
-        
+
         this.addChild( horizontalLayout );
       }
     }
