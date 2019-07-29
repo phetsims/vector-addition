@@ -97,10 +97,11 @@ define( require => {
         arrowSpacing: SCREEN_ICON_HEIGHT * 0.45   // {number} vertical spacing between the left and right facing arrows
       }, options );
 
+      //----------------------------------------------------------------------------------------
       const rightArrow = new ArrowNode( 0, 0, SCREEN_ICON_WIDTH, 0, SCREEN_ICON_ARROW_OPTIONS );
       const leftArrow = new ArrowNode( SCREEN_ICON_WIDTH, options.arrowSpacing,
-                                       SCREEN_ICON_WIDTH - options.leftArrowWidth, options.arrowSpacing,
-                                       SCREEN_ICON_ARROW_OPTIONS );
+        SCREEN_ICON_WIDTH - options.leftArrowWidth, options.arrowSpacing,
+        SCREEN_ICON_ARROW_OPTIONS );
       return createScreenIcon( [ rightArrow, leftArrow ] );
     },
 
@@ -116,6 +117,7 @@ define( require => {
         arrowComponents: new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT * 0.8 ) // {Vector2} arrow view components
       }, options );
 
+      //----------------------------------------------------------------------------------------
       const arrowComponents = options.arrowComponents; // convenience reference
 
       // Arrow Options for the components
@@ -149,6 +151,7 @@ define( require => {
         startingTailLocation: new Vector2( SCREEN_ICON_WIDTH / 4, 0 ) // {Vector2} starting tail location of 1st arrow
       }, options );
 
+      //----------------------------------------------------------------------------------------
       const startingTailLocation = options.startingTailLocation;
       const group1ArrowOptions = SCREEN_ICON_ARROW_OPTIONS;
       const group2ArrowOptions = _.extend( {}, SCREEN_ICON_ARROW_OPTIONS, {
@@ -168,6 +171,7 @@ define( require => {
      * @returns {ScreenIcon}
      */
     createEquationScreenIcon( options ) {
+
       options = _.extend( {
         tipLocations: [ // {Vector2[]} the tip locations of the vectors on the icon (vectors are aligned tip to tail)
           new Vector2( SCREEN_ICON_WIDTH * 0.15, -SCREEN_ICON_HEIGHT * 0.75 ),
@@ -198,6 +202,7 @@ define( require => {
      * @returns {ArrowNode}
      */
     createVectorCreatorPanelIcon( initialVectorComponents, vectorColorGroup, options ) {
+
       assert && assert( initialVectorComponents instanceof Vector2 );
       assert && assert( vectorColorGroup && VectorColorGroups.includes( vectorColorGroup ) );
 
@@ -209,6 +214,7 @@ define( require => {
           fill: VectorAdditionColors[ vectorColorGroup ].fill
         } )
       }, options || {} );
+
       const arrowComponents = initialVectorComponents.normalized().timesScalar( options.arrowLength );
       return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y, options.arrowOptions );
     },
@@ -224,7 +230,9 @@ define( require => {
      * @returns {Node}
      */
     createSumIcon: ( vectorColorGroup, options ) => {
+
       assert && assert( vectorColorGroup && VectorColorGroups.includes( vectorColorGroup ) );
+
       options = merge( {
         arrowOptions: {     // {Object} passed to the arrow node
           lineWidth: 1,
@@ -234,6 +242,7 @@ define( require => {
         },
         arrowLength: 22     // {number} length of the sum arrow node
       }, options || {} );
+
       return new ArrowNode( 0, 0, options.arrowLength, 0, options.arrowOptions );
     },
 
@@ -249,8 +258,8 @@ define( require => {
         curvedArrowRadius: 14,        // {number} in view coordinates
         wedgeLength: 20,              // {number} length of the wedge
         curvedArrowOptions: {         // {Object} passed to the curved arrow node
-          arrowheadWidth: 6,          // {number} width of the arrow head
-          arrowheadHeight: 4.2,       // {number} height of the arrow head
+          arrowheadWidth: 6,
+          arrowheadHeight: 4.2,
           arcOptions: { lineWidth: 1.3 }
         }
       }, options || {} );
@@ -273,6 +282,7 @@ define( require => {
      * @returns {Node}
      */
     createGridIcon( options ) {
+
       options = merge( {
         rows: 3,              // {number} number of rows
         cols: 3,              // {number} number of cols
@@ -283,6 +293,7 @@ define( require => {
       }, options || {} );
 
       const gridShape = new Shape();
+
       for ( let row = 0; row < options.rows; row++ ) {
         gridShape.moveTo( 0, row * ( options.gridLineSpacing ) + options.gridLineSpacing )
           .horizontalLineTo( ( options.cols + 1 ) * options.gridLineSpacing );
@@ -305,7 +316,9 @@ define( require => {
      * @returns {Node}
      */
     createComponentStyleRadioButtonIcon( componentStyle, options ) {
+
       assert && assert( ComponentStyles.includes( componentStyle ) );
+
       options = merge( {
         componentArrowOptions: _.extend( {}, RADIO_BUTTON_ARROW_OPTIONS, { opacity: 0.35 } ),
         arrowSize: 29,                        // {number} size (width and/or height) or arrow nodes
@@ -315,7 +328,7 @@ define( require => {
       }, options || {} );
 
       if ( componentStyle === ComponentStyles.INVISIBLE ) {
-        return createRadioButtonIcon( new FontAwesomeNode( 'eye_close') );
+        return createRadioButtonIcon( new FontAwesomeNode( 'eye_close' ) );
       }
 
       const arrowSize = options.arrowSize; // convenience reference
@@ -345,7 +358,7 @@ define( require => {
 
         const dashedLinePath = new Path( dashedLineShape, { lineDash: options.lineDash, stroke: options.stroke } );
 
-        iconChildren = [ xComponentArrow, yComponentArrow, dashedLinePath, vectorArrow ];
+        iconChildren = [ dashedLinePath, xComponentArrow, yComponentArrow, vectorArrow ];
       }
       return createRadioButtonIcon( new Node().setChildren( iconChildren ) );
     },

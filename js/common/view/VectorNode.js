@@ -122,7 +122,6 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
 
-
       // Create a Property for the location of the tail of the vector. Used for the tail drag listener.
       const tailLocationProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
         vector.tail ) );

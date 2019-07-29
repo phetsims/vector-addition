@@ -34,7 +34,7 @@ define( require => {
 
   class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
-      /**
+    /**
      * @param {Explore1DGraph} explore1DGraph
      * @param {SceneNode} sceneNode
      * @param {array.<string>} symbols - the symbols corresponding to each slot
@@ -43,7 +43,7 @@ define( require => {
 
       assert && assert( explore1DGraph instanceof Explore1DGraph, `invalid explore1DGraph: ${explore1DGraph}` );
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
-      assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ) , `invalid symbols: ${symbols}` );
+      assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
 
       const panelSlots = [];
 

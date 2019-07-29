@@ -29,7 +29,7 @@ define( require => {
      * @param {VectorAdditionViewProperties} viewProperties
      * @param {VectorSet} cartesianVectorSet
      * @param {VecotrSet} polarVectorSet
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty 
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      */
     constructor( viewProperties, cartesianVectorSet, polarVectorSet, componentStyleProperty ) {
 

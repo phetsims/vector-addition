@@ -87,7 +87,7 @@ define( require => {
         options.arrowOptions );
 
       //----------------------------------------------------------------------------------------
-      
+
       // Create a path that represents the dashed lines corresponding to the on-axis style.
       // The shape of the path will be updated later.
 
@@ -151,10 +151,10 @@ define( require => {
 
         // Get the parent tail location relative to the origin of the view (the tail of the component vector)
         const parentTailLocation = modelViewTransform.modelToViewDelta( componentVector.parentTail
-                                                                                       .minus( componentVector.tail ) );
+          .minus( componentVector.tail ) );
         // Get the parent tip location relative to the origin of the view (the tail of the component vector)
         const parentTipLocation = modelViewTransform.modelToViewDelta( componentVector.parentTip
-                                                                                      .minus( componentVector.tail ) );
+          .minus( componentVector.tail ) );
 
         // Create new shape for the dashed lines
         const onAxisLines = new Shape();
@@ -220,7 +220,7 @@ define( require => {
 
       // Get the middle of the vector with respect to the component tail as the origin
       const deltaMidPoint = componentVector.vectorComponents.timesScalar( 0.5 );
-      
+
       this.labelNode.center = modelViewTransform.modelToViewDelta( deltaMidPoint.plus( labelOffset ) );
     }
   }

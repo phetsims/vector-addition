@@ -69,7 +69,6 @@ define( require => {
       this.coefficientProperty = new Property( DEFAULT_COEFFICIENT );
 
 
-
       EquationTypes.VALUES.forEach( equationType => {
 
         const coefficientProperty = new Property( DEFAULT_COEFFICIENT );

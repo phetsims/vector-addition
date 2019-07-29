@@ -56,7 +56,7 @@ define( require => {
 
       // @public {Text} textNode
       this.textNode = text;
-      
+
     }
   }
 

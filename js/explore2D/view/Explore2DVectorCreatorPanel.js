@@ -38,7 +38,7 @@ define( require => {
 
       assert && assert( explore2DGraph instanceof Explore2DGraph, `invalid explore2DGraph: ${explore2DGraph}` );
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
-      assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ) , `invalid symbols: ${symbols}` );
+      assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
 
       const panelSlots = [];
 

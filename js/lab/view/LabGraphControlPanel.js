@@ -98,7 +98,7 @@ define( require => {
       } );
 
       const sumCheckboxContainer = new Node().setChildren( [ cartesianCheckboxes, polarCheckboxes ] );
- 
+
       //----------------------------------------------------------------------------------------
 
       super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, {

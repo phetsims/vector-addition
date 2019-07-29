@@ -25,7 +25,7 @@ define( require => {
      * @param {EnumerationProperty.<ComponentStyles>}
      * @param {Object} [options]
      */
-    constructor( valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty) {
+    constructor( valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty ) {
 
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
