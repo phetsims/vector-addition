@@ -27,7 +27,9 @@ define( require => {
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const interleave = require( 'PHET_CORE/interleave' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -460,41 +462,39 @@ define( require => {
       }
     },
 
+    //========================================================================================
+    // 7. Equation Types Icons
+    //========================================================================================
     /**
-     * Creates the Icon that appears on the equation types radio button group
+     * Creates the Icon that appears on the Equation Types radio button icons on the 'Equation' screen.
      * @public
      * @param {EquationTypes} equationType
-     * @param {array.<string>} vector symbols - array of the vector symbols. It is assumed the last vector symbol is the
-     *                                          sum.
+     * @param {array.<string>} vector symbols - vector symbols (the last symbol is the sum's symbol)
      * @param {Object} [options]
      * @returns {Node}
      */
-    createEquationTypesIcon: ( equationType, vectorSymbols, options ) => {
+    createEquationTypesIcon( equationType, vectorSymbols, options ) {
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
-      assert && assert( vectorSymbols.filter( symbol => typeof symbol === 'string' ).length === vectorSymbols.length );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
-
+      assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1 );
       options = _.extend( {
-        font: new PhetFont( 12 ),
-        width: 80,
-        height: 20
+        font: new PhetFont( { weight: '500', size: 14 } ),  // {PhetFont|Font} font of the equation text
+        width: 92,  // {number} width of the icon
+        height: 25  // {number} height of the icon
       } );
 
-      // insert signs (+/-/=) in between each symbol (excluding the sum symbol)
-      const contentArray = _.flatMap( _.dropRight( vectorSymbols ), ( symbol, index, array ) => {
-        return index !== array.length - 1 ? [ symbol, equationType === EquationTypes.SUBTRACTION ? '-' : '+' ] :
-               symbol;
+      // Gather all the symbols on the left side of the equation into an array
+      const equationLeftSideSymbols = _.dropRight( vectorSymbols, equationType === EquationTypes.NEGATION ? 0 : 1 );
+
+      // Interleave signs (i.e. '+'/'-') in between each symbol based on the equation type (excluding the sum symbol)
+      const equationStrings = interleave( equationLeftSideSymbols, () => {
+        return ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
       } );
 
       // Add the second half of the equation
-      if ( equationType === EquationTypes.ADDITION || equationType === EquationTypes.SUBTRACTION ) {
-        contentArray.push( '=', _.last( vectorSymbols ) );
-      }
-      else if ( equationType === EquationTypes.NEGATION ) {
-        contentArray.push( '+', _.last( vectorSymbols ), '=', '0' );
-      }
+      equationStrings.push( MathSymbols.EQUAL_TO,
+        equationType === EquationTypes.NEGATION ? '0' : _.last( vectorSymbols ) );
 
-      return createRadioButtonIcon( new Text( _.join( contentArray, ' ' ), { font: options.font } ), {
+      return createRadioButtonIcon( new Text( _.join( equationStrings, ' ' ), { font: options.font } ), {
         width: options.width,
         height: options.height
       } );
