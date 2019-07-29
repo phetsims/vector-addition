@@ -40,14 +40,14 @@ define( require => {
       // @public (read-only) {Graph}
       this.cartesianGraph = new LabGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
-        VectorColorGroups.BLUE_COLOR_GROUP,
-        VectorColorGroups.RED_COLOR_GROUP );
+        VectorColorGroups.COLOR_GROUP_1,
+        VectorColorGroups.COLOR_GROUP_2 );
 
       // @public (read-only) {Graph}
       this.polarGraph = new LabGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
-        VectorColorGroups.PURPLE_COLOR_GROUP,
-        VectorColorGroups.GREEN_COLOR_GROUP );
+        VectorColorGroups.COLOR_GROUP_3,
+        VectorColorGroups.COLOR_GROUP_4 );
     }
 
 

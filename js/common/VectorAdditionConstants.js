@@ -141,7 +141,7 @@ define( require => {
     VECTOR_SYMBOLS_GROUP_1: [ 'a', 'b', 'c' ],
     VECTOR_SYMBOLS_GROUP_2: [ 'd', 'e', 'f' ],
 
-    DEFAULT_COLOR_GROUP: VectorColorGroups.BLUE_COLOR_GROUP
+    DEFAULT_COLOR_GROUP: VectorColorGroups.COLOR_GROUP_1
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

@@ -54,12 +54,12 @@ define( require => {
       // @public (read-only) {graph}
       this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
-        VectorColorGroups.PURPLE_COLOR_GROUP );
+        VectorColorGroups.COLOR_GROUP_3 );
 
       // @public (read-only) {graph}
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
-        VectorColorGroups.BLUE_COLOR_GROUP );
+        VectorColorGroups.COLOR_GROUP_1 );
 
     }
 

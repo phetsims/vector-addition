@@ -48,7 +48,7 @@ define( require => {
 
 
       // @public (read-only) {VectorColorGroups} VectorColorGroups - the only vector color group used on the explore1D screen
-      this.vectorColorGroup = VectorColorGroups.BLUE_COLOR_GROUP;
+      this.vectorColorGroup = VectorColorGroups.COLOR_GROUP_1;
 
       //----------------------------------------------------------------------------------------
       // Create and add the graphs

@@ -155,7 +155,7 @@ define( require => {
       const startingTailLocation = options.startingTailLocation;
       const group1ArrowOptions = SCREEN_ICON_ARROW_OPTIONS;
       const group2ArrowOptions = _.extend( {}, SCREEN_ICON_ARROW_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.RED_COLOR_GROUP ].fill
+        fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_2 ].fill
       } );
 
       const iconChildren = [];
