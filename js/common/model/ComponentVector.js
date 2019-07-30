@@ -94,6 +94,7 @@ define( require => {
       // @private {function} disposeComponentVector - disposes the component vector. Called in the dispose method.
       this.disposeComponentVector = () => {
         Property.unmultilink( updateComponentMultilink );
+        this.isParentVectorActiveProperty.dispose();
       };
     }
 

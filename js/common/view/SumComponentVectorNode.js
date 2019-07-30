@@ -63,7 +63,8 @@ define( require => {
 
         this.updateComponentVector( vectorComponentModel,
           graph.modelViewTransformProperty.value,
-          componentStyleProperty.value );
+          componentStyleProperty.value,
+          vectorComponentModel.isParentVectorActiveProperty );
 
       } );
     }
@@ -75,9 +76,10 @@ define( require => {
      * @param {vectorComponentModel} vectorComponentModel
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
+     * @param {boolean} isParentActive
      */
-    updateComponentVector( vectorComponentModel, modelViewTransform, componentStyle ) {
-      super.updateComponentVector( vectorComponentModel, modelViewTransform, componentStyle );
+    updateComponentVector( vectorComponentModel, modelViewTransform, componentStyle, isParentActive ) {
+      super.updateComponentVector( vectorComponentModel, modelViewTransform, componentStyle, isParentActive );
 
       // SumVisible is not defined in superclass. Sum component is visible when both the sum is visible
       // and component style isn't invisible

@@ -55,6 +55,12 @@ define( require => {
     ACTIVE_VECTOR_LABEL_BACKGROUND: 'rgb( 255, 255, 100 )',
     EQUATION_SUM_FILL: BLACK,
 
+
+    //----------------------------------------------------------------------------------------
+    // On axis lines
+    ON_AXIS_LINES_NON_ACTIVE_STROKE: BLACK,
+    ON_AXIS_LINES_ACTIVE_STROKE: '#D64F00',
+
     //----------------------------------------------------------------------------------------
     // References, see https://github.com/phetsims/sun/issues/312
     WHITE: WHITE,

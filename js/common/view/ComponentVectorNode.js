@@ -41,6 +41,9 @@ define( require => {
     opacity: 0.95
   };
 
+  const NON_ACTIVE_LINE_DASH = [ 3, 10 ];
+  const ACTIVE_LINE_DASH = [];
+
   class ComponentVectorNode extends RootVectorNode {
 
     /**
@@ -71,8 +74,7 @@ define( require => {
       }, options );
 
       options.onAxisLinesOptions = _.extend( {
-        stroke: VectorAdditionColors.BLACK,
-        lineDash: [ 3, 10 ]
+        lineDash: NON_ACTIVE_LINE_DASH
       }, options.onAxisLinesOptions );
 
       options.arrowOptions = _.extend( {}, COMPONENT_ARROW_OPTIONS, {
@@ -105,10 +107,14 @@ define( require => {
       //
       // @private {Multilink} componentVectorMultilink
       this.componentVectorMultilink = Property.multilink( [ componentStyleProperty,
+        componentVector.isParentVectorActiveProperty,
         componentVector.isOnGraphProperty,
-        componentVector.vectorComponentsProperty ], ( componentStyle ) => {
+        componentVector.vectorComponentsProperty ], ( componentStyle, isParentActive ) => {
 
-        this.updateComponentVector( componentVector, graph.modelViewTransformProperty.value, componentStyle );
+        this.updateComponentVector( componentVector,
+          graph.modelViewTransformProperty.value,
+          componentStyle,
+          isParentActive );
       } );
     }
 
@@ -132,10 +138,13 @@ define( require => {
      * @param {componentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
+     * @param {boolean} isParentActive
      */
-    updateComponentVector( componentVector, modelViewTransform, componentStyle ) {
+    updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
 
-      // Component vectors are visible when it isn't INVISIBLE and it is on the graph. 
+      isParentActive && this.moveToFront();
+
+      // Component vectors are visible when it isn't INVISIBLE and it is on the graph.
       this.visible = componentVector.isOnGraphProperty.value
                      && componentStyle !== ComponentStyles.INVISIBLE;
 
@@ -164,6 +173,15 @@ define( require => {
         onAxisLines.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
 
         this.onAxisLinesPath.setShape( onAxisLines );
+
+        if ( isParentActive ) {
+          this.onAxisLinesPath.stroke = VectorAdditionColors.ON_AXIS_LINES_ACTIVE_STROKE;
+          this.onAxisLinesPath.lineDash = ACTIVE_LINE_DASH;
+        }
+        else {
+          this.onAxisLinesPath.stroke = VectorAdditionColors.ON_AXIS_LINES_NON_ACTIVE_STROKE;
+          this.onAxisLinesPath.lineDash = NON_ACTIVE_LINE_DASH;
+        }
       }
     }
 
