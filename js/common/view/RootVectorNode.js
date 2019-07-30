@@ -88,7 +88,7 @@ define( require => {
       // @protected {Multilink} - observe changes to the tail/tip and mirror the positioning. If the values visibility
       // changes, update the view as well
       this.vectorObserver = Property.multilink(
-        [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty ],
+        [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, activeVectorProperty ],
         ( valuesVisible ) => {
 
           // Update the appearance of the vector
