@@ -173,6 +173,7 @@ define( require => {
         // Observe when the vector is removed to unlink listeners
         const removeVectorListener = removedVector => {
           if ( removedVector === vector ) {
+            iconNode.visible = true;
             vector.animateBackProperty.unlink( animateVectorBackListener );
             vectorSet.vectors.removeItemRemovedListener( removeVectorListener );
           }

@@ -233,18 +233,20 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Add the removal listener for when the vector is removed
-      const removalListener = removedVector => {
-        if ( removedVector === vector ) {
 
-          xComponentNode.dispose();
-          yComponentNode.dispose();
-          vectorNode.dispose();
+      if ( vector.isRemovable ) {
+        const removalListener = removedVector => {
+          if ( removedVector === vector ) {
 
-          vectorSet.vectors.removeItemRemovedListener( removalListener );
-        }
-      };
+            xComponentNode.dispose();
+            yComponentNode.dispose();
+            vectorNode.dispose();
 
-      vectorSet.vectors.addItemRemovedListener( removalListener );
+            vectorSet.vectors.removeItemRemovedListener( removalListener );
+          }
+        };
+        vectorSet.vectors.addItemRemovedListener( removalListener );
+      }
     }
   }
 
