@@ -22,6 +22,7 @@ define( require => {
 
   // modules
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Property = require( 'AXON/Property' );
@@ -43,13 +44,16 @@ define( require => {
     /**
      * @param {Vector} parentVector - the vector to which the component is associated with
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - Property of the style of components
+     * @param {Property.<Vector|null>} activeVectorProperty - Property of the graph's active vector
      * @param {Enumeration} componentType - type of component vector (x or y) (see ComponentVector.COMPONENT_TYPES)
      */
-    constructor( parentVector, componentStyleProperty, componentType ) {
+    constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( activeVectorProperty instanceof Property,
+        `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( ComponentVector.COMPONENT_TYPES.includes( componentType ),
         `invalid componentType: ${componentType}` );
 
@@ -68,6 +72,12 @@ define( require => {
 
       // @private (read-only) {Vector} parentVector - private reference to the parent vector
       this.parentVector = parentVector;
+
+      // @public (read-only) {DerivedProperty.<boolean>} isParentVectorActiveProperty - determines if the parent
+      // vector is active.
+      this.isParentVectorActiveProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => {
+        return activeVector && ( activeVector === parentVector );
+      } );
 
       //----------------------------------------------------------------------------------------
 
