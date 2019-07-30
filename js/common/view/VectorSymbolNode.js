@@ -27,6 +27,7 @@ define( require => {
   // modules
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -80,7 +81,7 @@ define( require => {
       // @private {boolean} includeAbsoluteValueBars
       this.includeAbsoluteValueBars = includeAbsoluteValueBars;
 
-      // @private {string|null} coefficient
+      // @private {number|null} coefficient
       this.coefficient = coefficient;
 
       // @private {String|null} symbol
@@ -100,9 +101,18 @@ define( require => {
       // @private {function} updateVectorSymbolNode - function that updates the vector symbol node
       this.updateVectorSymbolNode = () => {
 
+        // Auto format the coefficient
+        let coefficient = null;
+        if ( this.coefficient === -1 ) {
+          coefficient = MathSymbols.UNARY_MINUS;
+        }
+        else if ( this.coefficient !== 1 && this.coefficient !== null ) {
+          coefficient = `${this.coefficient}`;
+        }
+
         //----------------------------------------------------------------------------------------
         // Set the coefficient and symbol text to match our properties
-        this.coefficient && coefficientText.setText( this.coefficient );
+        coefficient && coefficientText.setText( coefficient );
         this.symbol && symbolNode.setFormula( `\\vec{${this.symbol}\}` );
 
         const children = [];
@@ -111,7 +121,7 @@ define( require => {
         // Reassign the children of the HBox
         this.includeAbsoluteValueBars && children.push( leftBar );
 
-        this.coefficient && children.push( coefficientText );
+        coefficient && children.push( coefficientText );
 
         this.symbol && children.push( symbolNode );
 
