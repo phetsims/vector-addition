@@ -67,9 +67,9 @@ define( require => {
           cornerRadius: 4
         },
 
-        xMargin: 10,                  // {number} horizontal margin
-        yMargin: 4,                   // {number} vertical margin
-        symbolValueSpacing: 3         // {number} spacing between the vector symbol node and the value
+        xMargin: 5,                   // {number} horizontal margin
+        yMargin: 1,                   // {number} vertical margin
+        symbolValueSpacing: 0         // {number} spacing between the vector symbol node and the value
 
       }, options || {} );
 
@@ -85,7 +85,7 @@ define( require => {
       const vectorValueText = new Text( '', TEXT_OPTIONS );
 
       // Create a horizontal layout box for the symbol and the value
-      const vectorLabelContent = new HBox( { spacing: 6 } );
+      const vectorLabelContent = new HBox( { spacing: options.symbolValueSpacing } );
 
       super( {
         children: [ backgroundRectangle, vectorLabelContent ]

@@ -44,9 +44,8 @@ define( require => {
      */
     constructor( symbol, coefficient, includeAbsoluteValueBars, options ) {
 
-      assert && assert( symbol === null || typeof symbol === 'string', `invalid symbol: ${symbol}` );
-      assert && assert( coefficient === null
-        || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
+      assert && assert( !symbol || typeof symbol === 'string', `invalid symbol: ${symbol}` );
+      assert && assert( !coefficient || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
       assert && assert( typeof includeAbsoluteValueBars === 'boolean',
         `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
@@ -148,7 +147,7 @@ define( require => {
      * @param {string|null} symbol - the symbol to display. Null means no symbol is displayed.
      */
     setSymbol( symbol ) {
-      assert && assert( symbol === null || typeof symbol === 'string', `invalid symbol: ${symbol}` );
+      assert && assert( !symbol || typeof symbol === 'string', `invalid symbol: ${symbol}` );
 
       this.symbol = symbol;
       this.updateVectorSymbolNode();
@@ -178,7 +177,7 @@ define( require => {
      */
     setVectorSymbolNode( symbol, coefficient, includeAbsoluteValueBars) {
 
-      assert && assert( symbol === null || typeof symbol === 'string', `invalid symbol: ${symbol}` );
+      assert && assert( !symbol || typeof symbol === 'string', `invalid symbol: ${symbol}` );
       assert && assert( !coefficient || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
       assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
 
