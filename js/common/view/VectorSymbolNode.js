@@ -58,7 +58,7 @@ define( require => {
 
         // {Object} passed to the coefficientText instance
         coefficientTextOptions: {
-          font: new PhetFont( { size: 17, weight: 400 } )
+          font: new PhetFont( { size: 18, weight: 500, stretch: 'ultra-condensed' } )
         },
 
         // {Object} passed to the absoluteValueText instances
@@ -71,14 +71,14 @@ define( require => {
         formulaNodeScale: 1,
 
         // {number} spacing of the text nodes / formula nodes
-        spacing: 2.5,
+        spacing: 2,
 
         // {boolean} flag to indicate if rich text should be used instead of a formula node.
         // NOTE: if true, a vector arrow will not be drawn
         useRichText: false,
 
         // {Object} passed to the rich text. Only used if options.useRichText is true
-        richTextFont: new MathSymbolFont( { size: 17, weight: 500 } )
+        richTextFont: new MathSymbolFont( { size: 20, weight: 500 } )
 
       }, options || {} );
 

@@ -134,22 +134,16 @@ define( require => {
       // Create the scenery nodes to display the vector. Each attribute has a label and a InspectVectorNumberDisplay
       //----------------------------------------------------------------------------------------
 
-      const magnitudeDisplayNode = new VectorSymbolNode( null, null, true, { coefficientTextOptions: {
-        font: PANEL_FONT
-      } } );
+      const magnitudeDisplayNode = new VectorSymbolNode( null, null, true );
       const magnitudeNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE );
 
       const angleText = new Text( MathSymbols.THETA, { font: PANEL_FONT } );
       const angleNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
 
-      const xComponentText = new VectorSymbolNode( null, null, false, { useRichText: true, coefficientTextOptions: {
-        font: PANEL_FONT
-      } } );
+      const xComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
       const xComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT );
 
-      const yComponentText = new VectorSymbolNode( null, null, false, { useRichText: true, coefficientTextOptions: {
-        font: PANEL_FONT
-      } } );
+      const yComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
       const yComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------

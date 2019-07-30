@@ -33,7 +33,7 @@ define( require => {
 
   // constants
   const TEXT_OPTIONS = {
-    font: new PhetFont( { size: 16, weight: 400 } )
+    font: new PhetFont( { size: 15, weight: 400 } )
   };
   const ACTIVE_VECTOR_LABEL_BACKGROUND = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND;
 
@@ -79,7 +79,11 @@ define( require => {
       const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options.backgroundRectangleOptions );
 
       // Create the Vector Symbol Node, set to arbitrary value for now.
-      const vectorSymbolNode = new VectorSymbolNode( null, null, false, { coefficientTextOptions: TEXT_OPTIONS } );
+      const vectorSymbolNode = new VectorSymbolNode( null, null, false, {
+        coefficientTextOptions: TEXT_OPTIONS,
+        formulaNodeScale: 0.97,
+        spacing: 1
+      } );
 
       // Create the text for the value
       const vectorValueText = new Text( '', TEXT_OPTIONS );
