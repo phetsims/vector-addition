@@ -1,22 +1,13 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the label 'next' to a vector. Vector labels depend on the type of vectors and differ in different situations
+ * View for the label 'next' to a vector.
  *
- * For instance, vectors that don't have a symbol (in lab) display a fall back symbol only when they are active,
- * but vectors on explore1D always display a label.
- * (See https://github.com/phetsims/vector-addition/issues/39.)
+ * See RootVector.getLabelContent() for context.
  *
- * There are 4 different factors for determining what the label displays:
- *  - Whether the values are visible (determined by the values checkbox)
- *  - Whether the magnitude/component is of length 0. See
- *     https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
- *  - Whether the vector has a symbol (i.e the vectors on lab screen don't have symbols)
- *  - Whether the vector is active (https://github.com/phetsims/vector-addition/issues/39#issuecomment-506586411)
- *
- * These factors play different roles for different vector types, making it difficult to generalize.
- *
- * Thus, a call to the models getLabelContent is needed to determine what is displayed.
+ * The label node contains:
+ *  - A Vector Symbol Node
+ *  - A Text node to display a value string
  *
  * @author Brandon Li
  */
@@ -26,7 +17,8 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -37,11 +29,11 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   // constants
-  const VALUE_LABEL_OPTIONS = {
-    font: new PhetFont( { size: 12.5, fontWeight: 800 } ),
-    boundsMethod: 'accurate'
+  const TEXT_OPTIONS = {
+    font: new PhetFont( { size: 16, weight: 400 } )
   };
   const ACTIVE_VECTOR_LABEL_BACKGROUND = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND;
 
@@ -68,105 +60,77 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {
-        fill: VectorAdditionColors[ rootVector.vectorColorGroup ].labelBackground, // label background
-        scale: 0.67, // {number} - scale resize of the formula node
-        opacity: 0.75, // {number} - opacity of the background,
-        cornerRadius: 4, // {number}
-        xMargin: 10, // {number}
-        yMargin: 4, // {number}
-        symbolValueSpacing: 3 // {number} spacing between the symbol and the value
-      }, options );
+      options = merge( {
+
+        backgroundRectangleOptions: { // {Object} passed to the backgroundRectangle
+          fill: VectorAdditionColors[ rootVector.vectorColorGroup ].labelBackground,
+          cornerRadius: 4
+        },
+
+        xMargin: 10,                  // {number} horizontal margin
+        yMargin: 4,                   // {number} vertical margin
+        symbolValueSpacing: 3         // {number} spacing between the vector symbol node and the value
+
+      }, options || {} );
 
       //----------------------------------------------------------------------------------------
 
       // Create the background rectangle, set as an arbitrary rectangle for now
-      const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options );
+      const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options.backgroundRectangleOptions );
 
-      // Create the label node, which is a parent of the symbol and the value
-      const vectorLabel = new Node();
-
-      const coefficientLabel = new Text( '', VALUE_LABEL_OPTIONS );
-
-      // Create the Formula Node for the label and scale it to the correct size
-      const vectorSymbolNode = new FormulaNode( '' );
-      vectorSymbolNode.scale( options.scale );
+      // Create the Vector Symbol Node, set to arbitrary value for now.
+      const vectorSymbolNode = new VectorSymbolNode( null, null, false, { coefficientTextOptions: TEXT_OPTIONS } );
 
       // Create the text for the value
-      const vectorValueNode = new Text( '', VALUE_LABEL_OPTIONS );
+      const vectorValueText = new Text( '', TEXT_OPTIONS );
+
+      // Create a horizontal layout box for the symbol and the value
+      const vectorLabelContent = new HBox( { spacing: 6 } );
 
       super( {
-        children: [ backgroundRectangle,
-          vectorLabel.setChildren( [ coefficientLabel, vectorSymbolNode, vectorValueNode ] ) ]
+        children: [ backgroundRectangle, vectorLabelContent ]
       } );
 
       //----------------------------------------------------------------------------------------
 
-      // Function to change the label value and the background rectangle
+      // Function to change the label node and the background rectangle
       const updateLabelNode = ( valuesVisible ) => {
 
         // Get the label display information
         const labelDisplayData = rootVector.getLabelContent( valuesVisible );
 
-        // Toggle visibility
-        coefficientLabel.visible = typeof labelDisplayData.coefficient === 'string';
-        vectorSymbolNode.visible = typeof labelDisplayData.symbol === 'string';
-        vectorValueNode.visible = typeof labelDisplayData.value === 'string';
-        backgroundRectangle.visible = vectorSymbolNode.visible || vectorValueNode.visible || coefficientLabel.visible;
+        // Update the VectorSymbolNode
+        vectorSymbolNode.setVectorSymbolNode( labelDisplayData.symbol,
+          labelDisplayData.coefficient,
+          labelDisplayData.includeAbsoluteValueBars );
 
-        if ( coefficientLabel.visible ) {
-          coefficientLabel.setText( labelDisplayData.coefficient );
-        }
-        else {
-          coefficientLabel.setText( '' );
-        }
-        //----------------------------------------------------------------------------------------
-        // Update the symbol if it exists
-        if ( vectorSymbolNode.visible ) {
-          vectorSymbolNode.setFormula( `\\vec{ \\mathrm{ ${labelDisplayData.symbol} } \}` );
-        }
-        else {
-          vectorSymbolNode.setFormula( '' );
-        }
+        // Update the vector value text
+        labelDisplayData.value && vectorValueText.setText( labelDisplayData.value );
 
         //----------------------------------------------------------------------------------------
-        // Update the value if it exists
-        if ( vectorValueNode.visible ) {
-          vectorValueNode.setText( labelDisplayData.value );
-        }
-        else {
-          vectorValueNode.setText( '' );
-        }
+        // Toggle the visibility
+        vectorValueText.visible = labelDisplayData.value !== null;
+        backgroundRectangle.visible = vectorSymbolNode.visible || vectorValueText.visible;
 
-        vectorValueNode.invalidateSelf();
+        // Update the children of the label content container
+        vectorLabelContent.setChildren( [ vectorSymbolNode, vectorValueText ].filter( node => ( node.visible ) ) );
 
         //----------------------------------------------------------------------------------------
         // Update the background
         if ( backgroundRectangle.visible ) {
 
           // Active vectors have different background colors
-          if ( activeVectorProperty.value === rootVector ) {
-            backgroundRectangle.fill = ACTIVE_VECTOR_LABEL_BACKGROUND;
-          }
-          else {
-            backgroundRectangle.fill = options.fill;
-          }
+          backgroundRectangle.fill = activeVectorProperty.value === rootVector ?
+                                     ACTIVE_VECTOR_LABEL_BACKGROUND :
+                                     options.backgroundRectangleOptions.fill;
 
-          vectorSymbolNode.left = coefficientLabel.right + options.symbolValueSpacing;
-          // Align the nodes together
-          vectorValueNode.left = vectorSymbolNode.right + options.symbolValueSpacing;
-
-          vectorLabel.invalidateSelf();
 
           // Set the background size
-          backgroundRectangle.setRectWidth( vectorLabel.getBounds().width + 2 * options.xMargin );
-          backgroundRectangle.setRectHeight( vectorLabel.getBounds().height + 2 * options.yMargin );
+          backgroundRectangle.setRectWidth( vectorLabelContent.width + 2 * options.xMargin );
+          backgroundRectangle.setRectHeight( vectorLabelContent.height + 2 * options.yMargin );
 
           // Update positioning
-          backgroundRectangle.center = vectorLabel.center;
-          vectorValueNode.centerY = backgroundRectangle.centerY;
-          vectorSymbolNode.centerY = backgroundRectangle.centerY;
-          coefficientLabel.centerY = backgroundRectangle.centerY;
+          vectorLabelContent.center = backgroundRectangle.center;
         }
       };
 

@@ -140,12 +140,14 @@ define( require => {
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
-     *    coefficient: {string|null}  // The coefficient (e.g. if the label displayed '3|v|=15', the coefficient would
+     *    coefficient: {string|null}  // The coefficient (e.g. if the label displayed '|3v|=15', the coefficient would
      *                                // be '3'). 'null' means to not display a coefficient
-     *    symbol: {string|null}       // The symbol (e.g. if the label displayed '3|v|=15', the symbol would be '|v|')
+     *    symbol: {string|null}       // The symbol (e.g. if the label displayed '|3v|=15', the symbol would be 'v')
      *                                // 'null' means to not display a symbol
-     *    value: {string|null}        // The value (e.g. if the label displayed '3|v|=15', the value would be '=15')
+     *    value: {string|null}        // The value (e.g. if the label displayed '|3v|=15', the value would be '=15')
      *                                // 'null' means to not display a value
+     *    includeAbsoluteValueBars: {boolean}      // Include absolute value bars (e.g. if the label displayed '|3v|=15' the
+     *                                // includeAbsoluteValueBars would be true)
      * }
      */
     getLabelContent( valuesVisible ) {

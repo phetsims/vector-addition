@@ -163,19 +163,20 @@ define( require => {
     /**
      * @override
      * @public
-     * See RootVector.getLabelContent() for context.
+     * See RootVector.getLabelContent() for context
      *
-     * Gets the label content information to display the vector component. Vector components don't have symbols
-     * and only show their component (which can be negative) when values are visible. They never have coefficients.
+     * Gets the label content information to display the vector model.
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
-     *    coefficient: {string|null}  // The coefficient (e.g. if the label displayed '3|v|=15', the coefficient would
-     *                                // be '3'). 'null' means to not display a coefficient
-     *    symbol: {string|null}       // The symbol (e.g. if the label displayed '3|v|=15', the symbol would be '|v|')
-     *                                // 'null' means to not display a symbol
-     *    value: {string|null}        // The value (e.g. if the label displayed '3|v|=15', the value would be '=15')
-     *                                // 'null' means to not display a value
+     *    coefficient: {string|null}             // The coefficient (e.g. if the label displayed '|3v|=15', the
+     *                                           // coefficient would be '3'). Null means to not display a coefficient
+     *    symbol: {string|null}                  // The symbol (e.g. if the label displayed '|3v|=15', the symbol would
+     *                                           // be 'v'). Null means to not display a symbol
+     *    value: {string|null}                   // The value (e.g. if the label displayed '|3v|=15', the value would
+     *                                           // be '=15'). Null means to not display a value
+     *    includeAbsoluteValueBars: {boolean}    // Include absolute value bars (e.g. if the label displayed '|3v|=15
+     *                                           // the includeAbsoluteValueBars would be true)
      * }
      */
     getLabelContent( valuesVisible ) {
@@ -191,6 +192,7 @@ define( require => {
       return {
         coefficient: null, // components never have a coefficient
         symbol: null, // components never have a symbol
+        includeAbsoluteValueBars: false,
 
         // Components only show their values if and only if the values are visible and if the component isn't 0
         value: valuesVisible && Math.abs( roundedComponentValue ) > 0 ? roundedComponentValue : null
