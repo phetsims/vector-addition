@@ -46,7 +46,7 @@ define( require => {
   // constants
 
   // fixed width and height of the panel
-  const INSPECT_PANEL_WIDTH = 410;
+  const INSPECT_PANEL_WIDTH = 440;
   const INSPECT_PANEL_HEIGHT = VectorAdditionConstants.EXPAND_COLLAPSE_PANEL_HEIGHT;
 
   // font for the panel
@@ -59,10 +59,12 @@ define( require => {
   const LABEL_LEFT_MARGIN = 17;
 
   // width for all labels (except the magnitude label)
-  const LABEL_WIDTH = 16;
+  const LABEL_WIDTH = 25;
 
   // width of the magnitude label
-  const MAGNITUDE_LABEL_WIDTH = 20;
+  const MAGNITUDE_LABEL_WIDTH = 30;
+
+  const ANGLE_LABEL_WIDTH = 15;
 
   // screen view horizontal margin
   const SCREEN_VIEW_Y_MARGIN = VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
@@ -140,10 +142,14 @@ define( require => {
       const angleText = new Text( MathSymbols.THETA, { font: PANEL_FONT } );
       const angleNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
 
-      const xComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
+      const xComponentText = new VectorSymbolNode( null, null, false, { useRichText: true, coefficientTextOptions: {
+        font: PANEL_FONT
+      } } );
       const xComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT );
 
-      const yComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
+      const yComponentText = new VectorSymbolNode( null, null, false, { useRichText: true, coefficientTextOptions: {
+        font: PANEL_FONT
+      } } );
       const yComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
@@ -153,10 +159,9 @@ define( require => {
       // Function that adds a label and display container combo, putting the label in a fixed sized AlignBox
       const addNumberDisplayAndLabel = ( label, numberDisplay, labelWidth = LABEL_WIDTH ) => {
 
-        label.maxWidth = labelWidth;
         // Align the label in a AlignBox to set a fixed width
         const fixedWidthLabel = new AlignBox( label, {
-          xAlign: 'center',
+          xAlign: 'right',
           yAlign: 'center',
           alignBounds: new Bounds2( 0, 0, labelWidth, INSPECT_PANEL_HEIGHT ),
           maxWidth: labelWidth
@@ -169,7 +174,7 @@ define( require => {
       };
 
       addNumberDisplayAndLabel( magnitudeDisplayNode, magnitudeNumberDisplay, MAGNITUDE_LABEL_WIDTH );
-      addNumberDisplayAndLabel( angleText, angleNumberDisplay );
+      addNumberDisplayAndLabel( angleText, angleNumberDisplay, ANGLE_LABEL_WIDTH );
       addNumberDisplayAndLabel( xComponentText, xComponentNumberDisplay );
       addNumberDisplayAndLabel( yComponentText, yComponentNumberDisplay );
 
