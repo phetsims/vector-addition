@@ -30,10 +30,10 @@ define( require => {
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-
-  // constants
+  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
 
   class VectorSymbolNode extends HBox {
 
@@ -66,11 +66,20 @@ define( require => {
           font: new PhetFont( { size: 18, weight: 100 } )
         },
 
-        // {number} Formula Node should be scaled to match the size of the coefficient text
+        // {number} Formula Node should be scaled to match the size of the coefficient text.
+        // Only used if options.useRichText is false
         formulaNodeScale: 1,
 
         // {number} spacing of the text nodes / formula nodes
-        spacing: 2.5
+        spacing: 2.5,
+
+        // {boolean} flag to indicate if rich text should be used instead of a formula node.
+        // NOTE: if true, a vector arrow will not be drawn
+        useRichText: false,
+
+        // {Object} passed to the rich text. Only used if options.useRichText is true
+        richTextFont: new MathSymbolFont( { size: 17, weight: 500 } )
+
       }, options || {} );
 
       super( { spacing: options.spacing } );
@@ -93,7 +102,8 @@ define( require => {
 
       const rightBar = new Text( '|', options.absoluteValueTextOptions );
 
-      const symbolNode = new FormulaNode( '', { scale: options.formulaNodeScale } );
+      const symbolNode = options.useRichText ? new RichText( '' ).setFont( options.richTextFont ) :
+                                               new FormulaNode( '', { scale: options.formulaNodeScale } );
 
       const coefficientText = new Text( '', options.coefficientTextOptions );
 
@@ -113,7 +123,11 @@ define( require => {
         //----------------------------------------------------------------------------------------
         // Set the coefficient and symbol text to match our properties
         coefficient && coefficientText.setText( coefficient );
-        this.symbol && symbolNode.setFormula( `\\vec{${this.symbol}\}` );
+
+        if ( this.symbol ) {
+          symbolNode instanceof FormulaNode && symbolNode.setFormula( `\\vec{${this.symbol}\}` );
+          symbolNode instanceof RichText && symbolNode.setText( this.symbol );
+        }
 
         const children = [];
 

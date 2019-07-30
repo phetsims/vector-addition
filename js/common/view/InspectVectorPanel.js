@@ -25,17 +25,15 @@ define( require => {
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ExpandCollapsePanel = require( 'VECTOR_ADDITION/common/view/ExpandCollapsePanel' );
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const InspectVectorNumberDisplay = require( 'VECTOR_ADDITION/common/view/InspectVectorNumberDisplay' );
-  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   //----------------------------------------------------------------------------------------
   // strings
@@ -134,16 +132,18 @@ define( require => {
       // Create the scenery nodes to display the vector. Each attribute has a label and a InspectVectorNumberDisplay
       //----------------------------------------------------------------------------------------
 
-      const magnitudeTextNode = new FormulaNode( '' );
+      const magnitudeDisplayNode = new VectorSymbolNode( null, null, true, { coefficientTextOptions: {
+        font: PANEL_FONT
+      } } );
       const magnitudeNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE );
 
       const angleText = new Text( MathSymbols.THETA, { font: PANEL_FONT } );
       const angleNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
 
-      const xComponentText = new RichText( '' ).setFont( new MathSymbolFont( { size: 17, weight: 500 } ) );
+      const xComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
       const xComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT );
 
-      const yComponentText = new RichText( '' ).setFont( new MathSymbolFont( { size: 17, weight: 500 } ) );
+      const yComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
       const yComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
@@ -168,16 +168,21 @@ define( require => {
         } ) );
       };
 
-      addNumberDisplayAndLabel( magnitudeTextNode, magnitudeNumberDisplay, MAGNITUDE_LABEL_WIDTH );
+      addNumberDisplayAndLabel( magnitudeDisplayNode, magnitudeNumberDisplay, MAGNITUDE_LABEL_WIDTH );
       addNumberDisplayAndLabel( angleText, angleNumberDisplay );
       addNumberDisplayAndLabel( xComponentText, xComponentNumberDisplay );
       addNumberDisplayAndLabel( yComponentText, yComponentNumberDisplay );
 
       //----------------------------------------------------------------------------------------
 
+      const updateCoefficient = ( coefficient ) => {
+        magnitudeDisplayNode.setCoefficient( coefficient );
+        xComponentText.setCoefficient( coefficient );
+        yComponentText.setCoefficient( coefficient );
+      };
       // Observe changes to when the graphs active vector Property changes to update the panel.
       // Doesn't need to be unlinked since the panel exists for the entire simulation.
-      graph.activeVectorProperty.link( activeVector => {
+      graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
 
         panelOpenContent.setChildren( [ activeVector === null ? selectVectorText : vectorAttributesContainer ] );
 
@@ -186,10 +191,20 @@ define( require => {
           const vectorSymbol = activeVector.symbol ? activeVector.symbol : activeVector.fallBackSymbol;
 
           // Update labels (angle label is the same)
-          magnitudeTextNode.setFormula( `\|\\vec{${vectorSymbol}\}|` );
-          xComponentText.setText( `${vectorSymbol}<sub>${symbolXString}</sub>` );
-          yComponentText.setText( `${vectorSymbol}<sub>${symbolYString}</sub>` );
+          magnitudeDisplayNode.setSymbol( vectorSymbol );
+          xComponentText.setSymbol(`${vectorSymbol}<sub>${symbolXString}</sub>` );
+          yComponentText.setSymbol(`${vectorSymbol}<sub>${symbolYString}</sub>` );
         }
+
+        if ( activeVector && activeVector.coefficientProperty ) {
+          activeVector.coefficientProperty.link( updateCoefficient );
+        }
+        if ( oldActiveVector && oldActiveVector.coefficientProperty ) {
+          oldActiveVector.coefficientProperty.unlink( updateCoefficient );
+          // reset
+          updateCoefficient( 1 );
+        }
+
       } );
     }
   }
