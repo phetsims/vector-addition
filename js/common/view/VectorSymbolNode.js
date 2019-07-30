@@ -1,9 +1,22 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the vector symbol. See https://github.com/phetsims/vector-addition/issues/47 for context.
+ * View for the Vectors Symbol.
  *
- * This is a node for a vector symbol, taking in a label and an option to have magnitude bars around it.
+ * Encapsulated Node for just a Vector Symbol that mixes FormulaNode and textNodes. It contains
+ *  - Absolute value bars (text node)
+ *  - A Coefficient (text node)
+ *  - A vector symbol (formula node)
+ *
+ * For instance, the Vector 'a' could have a symbol node of '|-3a|'. This can be achieved by passing a symbol ('a'), a
+ * coefficient (-3), and a boolean value representing if the absolute value bars are there (true in this case).
+ *
+ * Auto formats coefficients (e.g. if vector 'a' had the coefficients -1, the symbol node would display '-a').
+ *
+ * This is used in the 'Inspect a Vector' panel to represent the magnitude number display and is also used in the
+ * VectorLabel for the label of the vector.
+ *
+ * Contains methods to change the magnitude boolean value, the symbol, and the coefficient.
  *
  * @author Brandon Li
  */
@@ -12,128 +25,168 @@ define( require => {
   'use strict';
 
   // modules
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const Line = require( 'SCENERY/nodes/Line' );
-  const Node = require( 'SCENERY/nodes/Node' );
+  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
 
-  const ARROW_SYMBOL_LENGTH = 9;
+  class VectorSymbolNode extends HBox {
 
-  // spacing between the arrow and the label
-  const ARROW_LABEL_SPACING = 0.3;
-
-  const ARROW_OPTIONS = {
-    lineWidth: 0,
-    tailWidth: 0.8,
-    headWidth: 5,
-    headHeight: 3.5
-  };
-
-  const MAGNITUDE_BARS_LENGTH = 14;
-
-  // spacing between the magnitude bars and the label (only if includeMagnitudeBars is true)
-  const MAGNITUDE_BARS_SPACING = 3;
-
-  const MAGNITUDE_BARS_OPTIONS = {
-    lineWidth: 0.6,
-    stroke: 'black'
-  };
-
-  class VectorSymbolNode extends Node {
     /**
-     * @constructor
-     * @param {string} label - the vector label
+     * @param {string|null} symbol - the symbol to display (See comment at the top of the file)
+     * @param {number|null} coefficient - the coefficient to display
+     * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
      * @param {Object} [options]
      */
-    constructor( label, options ) {
+    constructor( symbol, coefficient, includeAbsoluteValueBars, options ) {
 
-      options = _.extend( {
-
-        // {boolean} true means to include | | around the label
-        includeMagnitudeBars: false,
-
-        // {Object} options passed to the text, see below for defaults
-        textOptions: null
-      }, options );
-
-      options.textOptions = _.extend( {
-        font: new PhetFont( {
-          family: 'Times'
-        } ),
-        fontSize: 15,
-        fontWeight: 500
-      }, options.textOptions );
-
-      assert && assert( typeof label === 'string', `invalid label: ${label}` );
-      assert && assert( typeof options.includeMagnitudeBars === 'boolean',
-        `invalid options.includeMagnitudeBars: ${options.includeMagnitudeBars}` );
+      assert && assert( symbol === null || typeof symbol === 'string', `invalid symbol: ${symbol}` );
+      assert && assert( coefficient === null
+        || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
+      assert && assert( typeof includeAbsoluteValueBars === 'boolean',
+        `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 
-      super( options );
+      options = merge( {
 
-      // @private {boolean}
-      this.includeMagnitudeBars = options.includeMagnitudeBars;
+        // {Object} passed to the coefficientText instance
+        coefficientTextOptions: {
+          font: new PhetFont( { size: 17, weight: 400 } )
+        },
 
-      // @private {ArrowNode}
-      this.vectorSymbolArrow = new ArrowNode( 0, 0, ARROW_SYMBOL_LENGTH, 0, ARROW_OPTIONS );
+        // {Object} passed to the absoluteValueText instances
+        absoluteValueTextOptions: {
+          font: new PhetFont( { size: 18, weight: 100 } )
+        },
 
-      // @private {Text}
-      this.labelNode = new Text( label, options.textOptions );
-      this.labelNode.setBoundsMethod( 'accurate' );
+        // {number} Formula Node should be scaled to match the size of the coefficient text
+        formulaNodeScale: 1,
+
+        // {number} spacing of the text nodes / formula nodes
+        spacing: 2.5
+      }, options || {} );
+
+      super( { spacing: options.spacing } );
 
       //----------------------------------------------------------------------------------------
+      // Create private references
 
-      if ( options.includeMagnitudeBars ) {
-        // @private {Line}
-        this.leftLine = new Line( 0, 0, 0, MAGNITUDE_BARS_LENGTH, MAGNITUDE_BARS_OPTIONS );
+      // @private {boolean} includeAbsoluteValueBars
+      this.includeAbsoluteValueBars = includeAbsoluteValueBars;
 
-        // @private {Line}
-        this.rightLine = new Line( 0, 0, 0, MAGNITUDE_BARS_LENGTH, MAGNITUDE_BARS_OPTIONS );
+      // @private {string|null} coefficient
+      this.coefficient = coefficient;
 
-        this.setChildren( [
-          this.leftLine,
-          this.labelNode,
-          this.vectorSymbolArrow,
-          this.rightLine ] );
-      }
-      else {
-        this.setChildren( [
-          this.labelNode,
-          this.vectorSymbolArrow ] );
-      }
+      // @private {String|null} symbol
+      this.symbol = symbol;
 
-      this.label = label;
+      //----------------------------------------------------------------------------------------
+      // Create arbitrary nodes that represent the content of the symbol node, to be set later.
+      const leftBar = new Text( '|', options.absoluteValueTextOptions );
+
+      const rightBar = new Text( '|', options.absoluteValueTextOptions );
+
+      const symbolNode = new FormulaNode( '', { scale: options.formulaNodeScale } );
+
+      const coefficientText = new Text( '', options.coefficientTextOptions );
+
+      //----------------------------------------------------------------------------------------
+      // @private {function} updateVectorSymbolNode - function that updates the vector symbol node
+      this.updateVectorSymbolNode = () => {
+
+        //----------------------------------------------------------------------------------------
+        // Set the coefficient and symbol text to match our properties
+        this.coefficient && coefficientText.setText( this.coefficient );
+        this.symbol && symbolNode.setFormula( `\\vec{${this.symbol}\}` );
+
+        const children = [];
+
+        //----------------------------------------------------------------------------------------
+        // Reassign the children of the HBox
+        this.includeAbsoluteValueBars && children.push( leftBar );
+
+        this.coefficient && children.push( coefficientText );
+
+        this.symbol && children.push( symbolNode );
+
+        this.includeAbsoluteValueBars && children.push( rightBar );
+
+        this.setChildren( children );
+
+        // Set the visibility to true only if we have a child to display
+        this.visible = children.length !== 0;
+      };
+
+      // Update the vector symbol node
+      this.updateVectorSymbolNode();
     }
+
     /**
-     * Sets the label text
-     * @param {string} label - the new label
+     * Sets the 'Include Absolute Value Bars' flag (toggles if the absolute value bars are displayed).
      * @public
+     *
+     * @param {boolean} includeAbsoluteValueBars
      */
-    set label( label ) {
+    setIncludeAbsoluteValueBars( includeAbsoluteValueBars ) {
+      assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
 
-      assert && assert( typeof label === 'string', `invalid label: ${label}` );
-      this.labelNode.setText( label );
+      this.includeAbsoluteValueBars = includeAbsoluteValueBars;
+      this.updateVectorSymbolNode();
+    }
 
-      this.labelNode.invalidateText();
+    /**
+     * Sets the symbol string
+     * @public
+     *
+     * @param {string|null} symbol - the symbol to display. Null means no symbol is displayed.
+     */
+    setSymbol( symbol ) {
+      assert && assert( symbol === null || typeof symbol === 'string', `invalid symbol: ${symbol}` );
 
-      // Layout the nodes
-      this.labelNode.bottom = 0;
-      this.vectorSymbolArrow.bottom = -this.labelNode.height - ARROW_LABEL_SPACING;
-      this.vectorSymbolArrow.centerX = this.centerX;
-      this.labelNode.centerX = this.centerX;
+      this.symbol = symbol;
+      this.updateVectorSymbolNode();
+    }
 
-      if ( this.includeMagnitudeBars ) {
-        this.leftLine.left = this.labelNode.left - MAGNITUDE_BARS_SPACING;
-        this.rightLine.right = this.labelNode.right + MAGNITUDE_BARS_SPACING;
+    /**
+     * Sets the Coefficient to display. Will Auto format (e.g. if vector 'a' had the coefficients -1,
+     * the symbol node would display '-a').
+     * @public
+     *
+     * @param {number|null}
+     */
+    setCoefficient( coefficient ) {
+      assert && assert( !coefficient || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
 
-        this.leftLine.centerY = this.labelNode.centerY;
-        this.rightLine.centerY = this.labelNode.centerY;
-      }
+      this.coefficient = coefficient;
+      this.updateVectorSymbolNode();
+    }
+
+    /**
+     * Performance method that sets all the attributes of the VectorSymbolNode.
+     * @public
+     *
+     * @param {string|null} symbol - the symbol to display (See comment at the top of the file)
+     * @param {number|null} coefficient - the coefficient to display
+     * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
+     */
+    setVectorSymbolNode( symbol, coefficient, includeAbsoluteValueBars) {
+
+      assert && assert( symbol === null || typeof symbol === 'string', `invalid symbol: ${symbol}` );
+      assert && assert( !coefficient || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
+      assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
+
+      this.symbol = symbol;
+      this.coefficient = coefficient;
+      this.includeAbsoluteValueBars = includeAbsoluteValueBars;
+
+      this.updateVectorSymbolNode();
     }
   }
 
