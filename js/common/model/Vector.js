@@ -181,8 +181,8 @@ define( require => {
       const roundedMagnitude = Util.toFixed( this.magnitude, VECTOR_VALUE_ROUNDING );
 
       // Create flags to indicate the symbol and the value
-      let symbol;
-      let value;
+      let symbol = null;
+      let value = null;
 
       // If the vector has a symbol or is active, the vector always displays a symbol.
       if ( this.symbol || this.graph.activeVectorProperty.value === this ) {
@@ -201,7 +201,7 @@ define( require => {
         // surround the symbol in absolute value bars if there is a value
         symbol: symbol,
         value: value,
-        includeAbsoluteValueBars: value !== null && symbol !== null
+        includeAbsoluteValueBars: value !== null && symbol !== null ? true : false
       };
     }
 

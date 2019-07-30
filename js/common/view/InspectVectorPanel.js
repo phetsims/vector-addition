@@ -207,7 +207,7 @@ define( require => {
         if ( oldActiveVector && oldActiveVector.coefficientProperty ) {
           oldActiveVector.coefficientProperty.unlink( updateCoefficient );
           // reset
-          updateCoefficient( 1 );
+          updateCoefficient( activeVector.coefficientProperty ? activeVector.coefficientProperty.value : 1 );
         }
 
       } );

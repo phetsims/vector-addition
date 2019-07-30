@@ -151,6 +151,7 @@ define( require => {
 
         return _.extend( super.getLabelContent( valuesVisible ), {
           symbol: null,
+          includeAbsoluteValueBars: false,
           value: valuesVisible ? roundedMagnitude : null
         } );
       }
