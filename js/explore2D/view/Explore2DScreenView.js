@@ -55,8 +55,7 @@ define( require => {
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
         explore2DModel.componentStyleProperty );
-      this.addChild( polarSceneNode );
-      this.addChild( cartesianSceneNode );
+
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels
 
@@ -92,6 +91,9 @@ define( require => {
         explore2DModel.componentStyleProperty );
 
       this.addChild( explore2DGraphControlPanel );
+
+      this.addChild( polarSceneNode );
+      this.addChild( cartesianSceneNode );
     }
 
     reset() {

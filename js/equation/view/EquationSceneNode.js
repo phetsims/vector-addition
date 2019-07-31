@@ -72,6 +72,7 @@ define( require => {
         } );
 
       this.addChild( equationTypesRadioButtonGroup );
+      equationTypesRadioButtonGroup.moveToBack();
 
 
       // Add the coefficient for each equation type
@@ -87,6 +88,7 @@ define( require => {
         } );
 
         this.addChild( coefficientSelectorPanel );
+        coefficientSelectorPanel.moveToBack();
 
       } );
 
@@ -105,10 +107,13 @@ define( require => {
       } );
 
 
-      // Add the base vectors accordion box (semi-global)
-      this.addChild( new BaseVectorsAccordionBox( graph.baseVectorsVisibleProperty,
+      const baseVectorsAccordionBox = new BaseVectorsAccordionBox( graph.baseVectorsVisibleProperty,
         graph.coordinateSnapMode,
-        graph.vectorSet ) );
+        graph.vectorSet );
+      // Add the base vectors accordion box (semi-global)
+      this.addChild( baseVectorsAccordionBox );
+
+      baseVectorsAccordionBox.moveToBack();
     }
   }
 

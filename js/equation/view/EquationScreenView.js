@@ -47,8 +47,6 @@ define( require => {
         this.viewProperties.gridVisibleProperty,
         equationModel.componentStyleProperty );
 
-      this.addChild( polarScene );
-      this.addChild( cartesianScene );
 
       //----------------------------------------------------------------------------------------
       // Toggle visibility of scenes based on which coordinate snap mode it is
@@ -71,6 +69,9 @@ define( require => {
         equationModel.componentStyleProperty );
 
       this.addChild( equationGraphControlPanel );
+
+      this.addChild( polarScene );
+      this.addChild( cartesianScene );
 
     }
 

@@ -69,8 +69,6 @@ define( require => {
         EXPLORE_1D_SCENE_OPTIONS );
 
 
-      this.addChild( verticalSceneNode );
-      this.addChild( horizontalSceneNode );
 
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels
@@ -127,6 +125,9 @@ define( require => {
 
 
       this.addChild( graphOrientationRadioButtonGroup );
+
+      this.addChild( verticalSceneNode );
+      this.addChild( horizontalSceneNode );
     }
 
 

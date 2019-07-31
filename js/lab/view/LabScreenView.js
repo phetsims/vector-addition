@@ -52,8 +52,6 @@ define( require => {
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
         labModel.componentStyleProperty );
-      this.addChild( polarSceneNode );
-      this.addChild( cartesianSceneNode );
 
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels
@@ -92,6 +90,9 @@ define( require => {
         labModel.componentStyleProperty );
 
       this.addChild( labGraphControlPanel );
+
+      this.addChild( polarSceneNode );
+      this.addChild( cartesianSceneNode );
     }
 
     reset() {
