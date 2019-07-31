@@ -3,7 +3,13 @@
 /**
  * Top level view for the 'Lab' screen.
  *
- * Lab has a polar and a cartesian graph. Scene nodes are created to represent these graphs respectively.
+ * Extends VectorAdditionScreenView but adds:
+ *  - Coordinate Snap Radio Button Group
+ *  - Lab Graph Control Panel
+ *  - Scene nodes for each graph
+ *  - Vector Creator Panels for each graph
+ *
+ * Screen Views are never disposed.
  *
  * @author Martin Veillette
  */
@@ -12,7 +18,6 @@ define( require => {
   'use strict';
 
   // modules
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const LabGraphControlPanel = require( 'VECTOR_ADDITION/lab/view/LabGraphControlPanel' );
   const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
@@ -23,7 +28,9 @@ define( require => {
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
+
   class LabScreenView extends VectorAdditionScreenView {
+
     /**
      * @param {LabModel} labModel
      * @param {Tandem} tandem
@@ -33,67 +40,55 @@ define( require => {
       assert && assert( labModel instanceof LabModel, `invalid labModel: ${labModel}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-
       super( labModel, tandem );
 
+      // @private {VectorAdditionViewProperties} viewProperties - viewProperties for the 'Lab' screen
       this.viewProperties = new VectorAdditionViewProperties();
 
-      //----------------------------------------------------------------------------------------
-      // Create the scenes for the polar and cartesian scenes.
+      //========================================================================================
+      // Add the children of the screen view
+      //========================================================================================
 
-      const polarSceneNode = new SceneNode( labModel.polarGraph,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        labModel.componentStyleProperty );
-
-      const cartesianSceneNode = new SceneNode( labModel.cartesianGraph,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        labModel.componentStyleProperty );
-
-      //----------------------------------------------------------------------------------------
-      // Create the vector creator panels
-
-      polarSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel.polarGraph,
-        polarSceneNode ) );
-
-      cartesianSceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labModel.cartesianGraph,
-        cartesianSceneNode ) );
-
-
-      //----------------------------------------------------------------------------------------
-      // Toggle visibility of scenes based on which coordinate snap mode it is
-
-      // Doesn't need to be unlinked since the scenes and explore2D scene is never disposed.
-      this.viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
-
-        polarSceneNode.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
-        cartesianSceneNode.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
-      } );
-
-
-      //----------------------------------------------------------------------------------------
-      // Create the Coordinate snapping radio buttons
-
+      // Create and add the coordinate snap mode radio buttons
       this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty ) );
 
-      //----------------------------------------------------------------------------------------
-      // Create the Graph Control panel
-
-      const labGraphControlPanel = new LabGraphControlPanel(
+      // Create and add the Graph Control Panel
+      this.addChild( new LabGraphControlPanel(
         labModel.cartesianGraph,
         labModel.polarGraph,
         this.viewProperties,
-        labModel.componentStyleProperty );
+        labModel.componentStyleProperty ) );
 
-      this.addChild( labGraphControlPanel );
+      //----------------------------------------------------------------------------------------
+      // Create and add the Scene Nodes and Vector Creator Panels for each graph
+      [ labModel.polarGraph, labModel.cartesianGraph ].forEach( labGraph => {
 
-      this.addChild( polarSceneNode );
-      this.addChild( cartesianSceneNode );
+        const sceneNode = new SceneNode( labGraph,
+          this.viewProperties.valuesVisibleProperty,
+          this.viewProperties.angleVisibleProperty,
+          this.viewProperties.gridVisibleProperty,
+          labModel.componentStyleProperty );
+
+        sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode ) );
+
+        // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
+        // labGraph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
+        this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
+          sceneNode.visible = coordinateSnapMode === labGraph.coordinateSnapMode;
+        } );
+
+        // Add the scene node
+        this.addChild( sceneNode );
+
+      } );
     }
 
+    /**
+     * Resets the Lab Screen View
+     * @public
+     *
+     * @override
+     */
     reset() {
       this.viewProperties.reset();
     }
