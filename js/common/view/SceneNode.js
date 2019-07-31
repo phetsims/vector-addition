@@ -7,7 +7,7 @@
  *
  * A scene node is a view that contains:
  *  - Graph Node
- *  - Inspect a Vector Panel
+ *  - Vector Values Panel
  *  - Handle z-layering of all vector types (see https://github.com/phetsims/vector-addition/issues/19)
  *  - eraser button (if include eraser option is true)
  *  - vector creator panel
@@ -28,7 +28,7 @@ define( require => {
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
-  const InspectVectorPanel = require( 'VECTOR_ADDITION/common/view/InspectVectorPanel' );
+  const VectorValuesPanel = require( 'VECTOR_ADDITION/common/view/VectorValuesPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -74,7 +74,7 @@ define( require => {
 
         includeBaseVectors: false, // {boolean} true means there will be a base vectors container
 
-        inspectVectorPanelOptions: null, // {Object} options passed to the inspectVectorPanel
+        VectorValuesPanelOptions: null, // {Object} options passed to the VectorValuesPanel
 
         sumNodeOptions: null
       }, options );
@@ -88,11 +88,11 @@ define( require => {
       // Create the graph node, each scene has exactly one graph
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      // Create the 'Inspect a Vector' panel
-      const inspectVectorPanel = new InspectVectorPanel( graph, options.inspectVectorPanelOptions );
+      // Create the 'Vector Values' panel
+      const vectorValuesPanel = new VectorValuesPanel( graph, options.VectorValuesPanelOptions );
 
       // Keep an array reference of the children
-      const children = [ graphNode, inspectVectorPanel ];
+      const children = [ graphNode, vectorValuesPanel ];
 
       // Handle z-layering of all vector types: (see https://github.com/phetsims/vector-addition/issues/19)
       // @private {Node}

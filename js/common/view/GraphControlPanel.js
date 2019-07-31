@@ -46,7 +46,7 @@ define( require => {
   // constants
   const SCREEN_VIEW_BOUNDS = VectorAdditionConstants.SCREEN_VIEW_BOUNDS;
 
-  // fixed width of the panel 
+  // fixed width of the panel
   const PANEL_WIDTH = 140;
 
   // options for the panel

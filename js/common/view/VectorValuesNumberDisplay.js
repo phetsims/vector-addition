@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a Number Display that goes on the 'Inspect a Vector' Panel at the top of the scene.
+ * View for a Number Display that goes on the 'Vector Values' Panel at the top of the scene.
  *
  * Displays a single vector attribute (i.e. magnitude etc.) of a single active vector that is on the specified graph.
  *
@@ -42,11 +42,11 @@ define( require => {
   const ANGLE_RANGE = new Range( -180, 180 );
 
 
-  class InspectVectorNumberDisplay extends NumberDisplay {
+  class VectorValuesNumberDisplay extends NumberDisplay {
     /**
      * @param {Graph} graph - the graph that contains the vectors to display
      * @param {Enumeration} attributeDisplayType - the attribute to display
-     *                                             (see InspectVectorNumberDisplay.ATTRIBUTE_DISPLAY_TYPES)
+     *                                             (see VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES)
      */
     constructor( graph, attributeDisplayType ) {
 
@@ -144,7 +144,7 @@ define( require => {
   }
 
   // @public {Enumeration} possible attributes to display
-  InspectVectorNumberDisplay.ATTRIBUTE_DISPLAY_TYPES = ATTRIBUTE_DISPLAY_TYPES;
+  VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES = ATTRIBUTE_DISPLAY_TYPES;
 
-  return vectorAddition.register( 'InspectVectorNumberDisplay', InspectVectorNumberDisplay );
+  return vectorAddition.register( 'VectorValuesNumberDisplay', VectorValuesNumberDisplay );
 } );

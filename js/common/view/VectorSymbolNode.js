@@ -13,7 +13,7 @@
  *
  * Auto formats coefficients (e.g. if vector 'a' had the coefficients -1, the symbol node would display '-a').
  *
- * This is used in the 'Inspect a Vector' panel to represent the magnitude number display and is also used in the
+ * This is used in the 'Vector Values' panel to represent the magnitude number display and is also used in the
  * VectorLabel for the label of the vector.
  *
  * Contains methods to change the magnitude boolean value, the symbol, and the coefficient.

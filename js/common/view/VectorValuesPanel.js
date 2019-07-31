@@ -1,13 +1,13 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the 'Inspect a Vector' Panel at the top of the scene. Displays vector attributes (i.e. magnitude etc.)
+ * View for the 'Vector Values' Panel at the top of the scene. Displays vector attributes (i.e. magnitude etc.)
  * of the graphs active vector.
  *
  * 'Is a' relationship with ExpandCollapsePanel
- *    - when closed, displays 'Inspect a Vector'
+ *    - when closed, displays 'Vector Values'
  *    - when open either displays 'select a vector' or the active vector's attributes
- *      (a series of labels and InspectVectorNumberDisplays)
+ *      (a series of labels and VectorValuesNumberDisplays)
  *
  * A visual:
  *  https://user-images.githubusercontent.com/42391580/60760546-3619ae00-9ff4-11e9-8e91-508fc27f5e7c.png
@@ -27,7 +27,7 @@ define( require => {
   const ExpandCollapsePanel = require( 'VECTOR_ADDITION/common/view/ExpandCollapsePanel' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const InspectVectorNumberDisplay = require( 'VECTOR_ADDITION/common/view/InspectVectorNumberDisplay' );
+  const VectorValuesNumberDisplay = require( 'VECTOR_ADDITION/common/view/VectorValuesNumberDisplay' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -37,8 +37,8 @@ define( require => {
 
   //----------------------------------------------------------------------------------------
   // strings
-  const inspectAVectorString = require( 'string!VECTOR_ADDITION/inspectAVector' );
-  const selectAVectorString = require( 'string!VECTOR_ADDITION/selectAVector' );
+  const vectorValuesString = require( 'string!VECTOR_ADDITION/vectorValues' );
+  const noVectorSelectedString = require( 'string!VECTOR_ADDITION/noVectorSelected' );
   const symbolXString = require( 'string!VECTOR_ADDITION/symbol.x' );
   const symbolYString = require( 'string!VECTOR_ADDITION/symbol.y' );
 
@@ -73,10 +73,10 @@ define( require => {
   const INSPECT_PANEL_LEFT = 195;
 
   // possible types of attributes to display
-  const ATTRIBUTE_DISPLAY_TYPES = InspectVectorNumberDisplay.ATTRIBUTE_DISPLAY_TYPES;
+  const ATTRIBUTE_DISPLAY_TYPES = VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES;
 
 
-  class InspectVectorPanel extends ExpandCollapsePanel {
+  class VectorValuesPanel extends ExpandCollapsePanel {
 
     /**
      * @param {Graph} graph - the graph that contains the vectors to display
@@ -103,13 +103,13 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Create the scenery node for when the panel is closed, which is the inspectVectorText
-      const inspectVectorText = new Text( inspectAVectorString, { font: PANEL_FONT } );
+      const inspectVectorText = new Text( vectorValuesString, { font: PANEL_FONT } );
 
       //----------------------------------------------------------------------------------------
       // Create the scenery nodes for when the panel is open
 
       // Text for when there isn't a vector that is active
-      const selectVectorText = new Text( selectAVectorString, { font: PANEL_FONT } );
+      const selectVectorText = new Text( noVectorSelectedString, { font: PANEL_FONT } );
 
       // Container for the labels and number displays that display the vector's attributes
       const vectorAttributesContainer = new HBox( { spacing: LABEL_LEFT_MARGIN } );
@@ -131,20 +131,20 @@ define( require => {
       this.left = options.left;
 
       //----------------------------------------------------------------------------------------
-      // Create the scenery nodes to display the vector. Each attribute has a label and a InspectVectorNumberDisplay
+      // Create the scenery nodes to display the vector. Each attribute has a label and a VectorValuesNumberDisplay
       //----------------------------------------------------------------------------------------
 
       const magnitudeDisplayNode = new VectorSymbolNode( null, null, true );
-      const magnitudeNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE );
+      const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE );
 
       const angleText = new Text( MathSymbols.THETA, { font: PANEL_FONT } );
-      const angleNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
+      const angleNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
 
       const xComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
-      const xComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT );
+      const xComponentNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT );
 
       const yComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
-      const yComponentNumberDisplay = new InspectVectorNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT );
+      const yComponentNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
       // Add the new scenery nodes
@@ -208,5 +208,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'InspectVectorPanel', InspectVectorPanel );
+  return vectorAddition.register( 'VectorValuesPanel', VectorValuesPanel );
 } );

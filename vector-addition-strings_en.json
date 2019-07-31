@@ -23,11 +23,11 @@
   "components": {
     "value": "Components"
   },
-  "selectAVector": {
-    "value": "Select a vector"
+  "noVectorSelected": {
+    "value": "No vector selected"
   },
-  "inspectAVector": {
-    "value": "Inspect a vector"
+  "vectorValues": {
+    "value": "Vector Values"
   },
   "symbol.x": {
     "value": "x"
