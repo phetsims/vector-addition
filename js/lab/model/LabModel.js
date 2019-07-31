@@ -1,11 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the `Lab` screen.
- *
- * Lab has a polar and a cartesian graph. Each scene has two vector sets respectively.
- *
- * Lab has four visibility Properties: two for each scene respectively.
+ * Top level model for the `Lab` screen, which contains:
+ *  - polar graph
+ *  - cartesian graph
  *
  * @author Martin Veillette
  */
@@ -21,9 +19,9 @@ define( require => {
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
-  // constants
 
   class LabModel extends VectorAdditionModel {
+
     /**
      * @param {Tandem} tandem
      */
@@ -33,17 +31,15 @@ define( require => {
 
       super( tandem );
 
-
       //----------------------------------------------------------------------------------------
-      // Create and add the graphs.
 
-      // @public (read-only) {Graph}
+      // @public (read-only) {Graph} cartesianGraph
       this.cartesianGraph = new LabGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         VectorColorGroups.COLOR_GROUP_1,
         VectorColorGroups.COLOR_GROUP_2 );
 
-      // @public (read-only) {Graph}
+      // @public (read-only) {Graph} polarGraph
       this.polarGraph = new LabGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         VectorColorGroups.COLOR_GROUP_3,
@@ -51,6 +47,12 @@ define( require => {
     }
 
 
+    /**
+     * Resets the Lab Model. Called when the reset all button is clicked.
+     * @public
+     *
+     * @override
+     */
     reset() {
       this.cartesianGraph.reset();
       this.polarGraph.reset();
