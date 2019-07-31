@@ -82,11 +82,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the Graph Control panel
 
-      const labGraphControlPanel = new LabGraphControlPanel( this.viewProperties,
-        labModel.cartesianGraph.vectorSet1,
-        labModel.cartesianGraph.vectorSet2,
-        labModel.polarGraph.vectorSet1,
-        labModel.polarGraph.vectorSet2,
+      const labGraphControlPanel = new LabGraphControlPanel(
+        labModel.cartesianGraph,
+        labModel.polarGraph,
+        this.viewProperties,
         labModel.componentStyleProperty );
 
       this.addChild( labGraphControlPanel );

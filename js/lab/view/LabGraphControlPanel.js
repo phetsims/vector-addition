@@ -3,8 +3,12 @@
 /**
  * View for the Panel that appears on the upper-right corner of the 'Lab' screen.
  *
- * Lab has 2 scenes: a polar and a cartesian scene. Each scene has two sum visible Properties and two sum check boxes.
- * The graph control panel must toggle between the 2 scenes' check boxes.
+ * Extends GraphControlPanel but adds the following functionality:
+ *  - Creates 2 sum checkboxes per graph (for a total of 4 sum checkboxes since there are 2 graphs)
+ *  - Toggles visibility of the sum checkboxes (to only shows 2 at a time) based on the coordinateSnapModeProperty
+ *  - Has both an angle checkbox and a component style radio button group
+ *
+ * Graph Control Panels are not meant to be disposed, and links are left as-is.
  *
  * @author Brandon Li
  */
@@ -14,100 +18,75 @@ define( require => {
 
   // modules
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
+  const LabGraph = require( 'VECTOR_ADDITION/lab/model/LabGraph' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
   const GRAPH_CONTROL_PANEL_SPACING = VectorAdditionConstants.GRAPH_CONTROL_PANEL_SPACING;
 
+
   class LabGraphControlPanel extends GraphControlPanel {
+
     /**
+     * @param {LabGraph} cartesianGraph
+     * @param {LabGraph} polarGraph
      * @param {VectorAdditionViewProperties} viewProperties
-     * @param {VectorSet} cartesianVectorSet1 - the first cartesian vector set. Each scene in 'lab' has 2 vector sets
-     * @param {VectorSet} cartesianVectorSet2
-     * @param {VectorSet} polarVectorSet1
-     * @param {VectorSet} polarVectorSet2
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      */
-    constructor( viewProperties,
-                 cartesianVectorSet1,
-                 cartesianVectorSet2,
-                 polarVectorSet1,
-                 polarVectorSet2,
-                 componentStyleProperty ) {
+    constructor( cartesianGraph, polarGraph, viewProperties, componentStyleProperty ) {
 
-
+      assert && assert( _.every( [ cartesianGraph, polarGraph ], graph => graph instanceof LabGraph ) );
       assert && assert( viewProperties instanceof VectorAdditionViewProperties,
         `invalid explore2DModel: ${viewProperties}` );
-      assert && assert( cartesianVectorSet1 instanceof VectorSet,
-        `invalid cartesianVectorSet1: ${cartesianVectorSet1}` );
-      assert && assert( cartesianVectorSet2 instanceof VectorSet,
-        `invalid cartesianVectorSet2: ${cartesianVectorSet2}` );
-      assert && assert( polarVectorSet1 instanceof VectorSet, `invalid polarVectorSet1: ${polarVectorSet1}` );
-      assert && assert( polarVectorSet2 instanceof VectorSet, `invalid polarVectorSet2: ${polarVectorSet2}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
+      //----------------------------------------------------------------------------------------
+
+      // Create the container for all the sum checkboxes
+      const sumCheckboxContainer = new Node();
 
       //----------------------------------------------------------------------------------------
-      // Create the sum check boxes, two for each vector set
+      // Create the 2 sum checkboxes for each graph
+      [ cartesianGraph, polarGraph ].forEach( labGraph => {
 
-      const cartesianSet1SumCheckbox = new SumCheckbox( cartesianVectorSet1.sumVisibleProperty,
-        cartesianVectorSet1.vectorColorGroup );
+        // Create the 2 sum checkboxes for each graph inside of a VBox
+        const sumCheckboxes = new VBox( {
+          children: [
+            new SumCheckbox( labGraph.sumVisibleProperty1, labGraph.vectorSet1.vectorColorGroup ),
+            new SumCheckbox( labGraph.sumVisibleProperty2, labGraph.vectorSet2.vectorColorGroup )
+          ],
+          spacing: GRAPH_CONTROL_PANEL_SPACING
+        } );
 
-      const cartesianSet2SumCheckbox = new SumCheckbox( cartesianVectorSet2.sumVisibleProperty,
-        cartesianVectorSet2.vectorColorGroup );
+        // Toggle visibility of the sumCheckboxes. Should only be visible if the coordinateSnapMode matches the
+        // labGraph's coordinateSnapMode. Is never unlinked since the graph control panel is never disposed.
+        viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
+          sumCheckboxes.visible = coordinateSnapMode === labGraph.coordinateSnapMode;
+        } );
 
-      const polarSet1SumCheckbox = new SumCheckbox( polarVectorSet1.sumVisibleProperty,
-        polarVectorSet1.vectorColorGroup );
+        // Add the sum checkbox VBox to the sum checkbox container
+        sumCheckboxContainer.addChild( sumCheckboxes );
 
-      const polarSet2SumCheckbox = new SumCheckbox( polarVectorSet2.sumVisibleProperty,
-        polarVectorSet2.vectorColorGroup );
-
-      //----------------------------------------------------------------------------------------
-      // Create V Boxes for the 2 check boxes
-      const polarCheckboxes = new VBox( {
-        children: [
-          polarSet1SumCheckbox,
-          polarSet2SumCheckbox
-        ],
-        spacing: GRAPH_CONTROL_PANEL_SPACING
-      } );
-      const cartesianCheckboxes = new VBox( {
-        children: [
-          cartesianSet1SumCheckbox,
-          cartesianSet2SumCheckbox
-        ],
-        spacing: GRAPH_CONTROL_PANEL_SPACING
       } );
 
       //----------------------------------------------------------------------------------------
-      // Toggle visibility of the check boxes, never disposed as the panel exists throughout the entire sim
-      viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
-
-        polarCheckboxes.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
-        cartesianCheckboxes.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
-      } );
-
-      const sumCheckboxContainer = new Node().setChildren( [ cartesianCheckboxes, polarCheckboxes ] );
-
-      //----------------------------------------------------------------------------------------
+      // Create the GraphControlPanel
 
       super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, {
-
         sumCheckboxContainer: sumCheckboxContainer,
         angleVisibleProperty: viewProperties.angleVisibleProperty,
         componentStyleProperty: componentStyleProperty
-
       } );
+
     }
   }
 
