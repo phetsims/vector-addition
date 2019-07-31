@@ -69,7 +69,6 @@ define( require => {
         EXPLORE_1D_SCENE_OPTIONS );
 
 
-
       //----------------------------------------------------------------------------------------
       // Create the vector creator panels
 

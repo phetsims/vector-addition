@@ -103,7 +103,7 @@ define( require => {
       const rightBar = new Text( '|', options.absoluteValueTextOptions );
 
       const symbolNode = options.useRichText ? new RichText( '' ).setFont( options.richTextFont ) :
-                                               new FormulaNode( '', { scale: options.formulaNodeScale } );
+                         new FormulaNode( '', { scale: options.formulaNodeScale } );
 
       const coefficientText = new Text( '', options.coefficientTextOptions );
 
@@ -199,7 +199,7 @@ define( require => {
      * @param {number|null} coefficient - the coefficient to display
      * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
      */
-    setVectorSymbolNode( symbol, coefficient, includeAbsoluteValueBars) {
+    setVectorSymbolNode( symbol, coefficient, includeAbsoluteValueBars ) {
 
       assert && assert( !symbol || typeof symbol === 'string', `invalid symbol: ${symbol}` );
       assert && assert( !coefficient || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );

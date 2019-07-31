@@ -191,8 +191,8 @@ define( require => {
 
           // Update labels (angle label is the same)
           magnitudeDisplayNode.setSymbol( vectorSymbol );
-          xComponentText.setSymbol(`${vectorSymbol}<sub>${symbolXString}</sub>` );
-          yComponentText.setSymbol(`${vectorSymbol}<sub>${symbolYString}</sub>` );
+          xComponentText.setSymbol( `${vectorSymbol}<sub>${symbolXString}</sub>` );
+          yComponentText.setSymbol( `${vectorSymbol}<sub>${symbolYString}</sub>` );
         }
 
         if ( activeVector && activeVector.coefficientProperty ) {
@@ -201,7 +201,7 @@ define( require => {
         if ( oldActiveVector && oldActiveVector.coefficientProperty ) {
           oldActiveVector.coefficientProperty.unlink( updateCoefficient );
           // reset
-          updateCoefficient( ( activeVector && activeVector.coefficientProperty ) ? activeVector.coefficientProperty.value: 1 );
+          updateCoefficient( ( activeVector && activeVector.coefficientProperty ) ? activeVector.coefficientProperty.value : 1 );
         }
 
       } );
