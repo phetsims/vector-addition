@@ -51,13 +51,13 @@ define( require => {
       // Create the two vector slots.
 
       const vectorCreatorSlotOne = new VectorCreatorPanelSlot( labGraph,
-        labGraph.vectorSetGroup1,
+        labGraph.vectorSet1,
         sceneNode,
         DEFAULT_VECTOR,
         VECTOR_CREATOR_PANEL_SLOT_OPTIONS );
 
       const vectorCreatorSlotTwo = new VectorCreatorPanelSlot( labGraph,
-        labGraph.vectorSetGroup2,
+        labGraph.vectorSet2,
         sceneNode,
         DEFAULT_VECTOR,
         VECTOR_CREATOR_PANEL_SLOT_OPTIONS );

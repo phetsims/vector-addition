@@ -1,14 +1,14 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a graph on the 'Lab' screen.
- * 'Explore2D' has a total of 2 graphs (polar an cartesian)
+ * Model for a single graph on the 'Lab' screen. 'Lab' has a total of 2 graphs (polar and cartesian).
  *
- * Characteristics of graphs on 'Lab':
- *  - have two sum visible Properties each (one for each vector set)
- *  - have exactly 2 vector sets
- *  - are two dimensional
- *  - unique vector color groups for each and every vector set
+ * Characteristics of a Lab Graph (which extends Graph) are:
+ *  - Lab graphs have exactly 2 vector sets each
+ *  - Each vector set has its own sum visible property respectively
+ *  - Each vector set has a vector sum that starts in a different position
+ *  - Two-dimensional
+ *  - Unique vector color groups for each vector set
  *
  * @author Brandon Li
  */
@@ -30,74 +30,77 @@ define( require => {
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
-  const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
-
-  // all graphs are two dimensional
-  const LAB_GRAPH_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
-
   const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
 
+  // Lab Graphs have the 'default' graph bounds
+  const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
+
+  // Lab Graphs are two-dimensional
+  const LAB_GRAPH_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
+
+
   class LabGraph extends Graph {
+
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorColorGroups} vectorColorGroupOne - unique vector color group for the first vector set
-     * @param {VectorColorGroups} vectorColorGroupTwo - unique vector color group for the second vector set
+     * @param {VectorColorGroups} vectorColorGroup1 - unique vector color group for the first vector set
+     * @param {VectorColorGroups} vectorColorGroup2 - unique vector color group for the second vector set
      */
-    constructor( coordinateSnapMode, componentStyleProperty, vectorColorGroupOne, vectorColorGroupTwo ) {
+    constructor( coordinateSnapMode, componentStyleProperty, vectorColorGroup1, vectorColorGroup2 ) {
 
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroupOne ), `invalid vectorColorGroupOne: ${vectorColorGroupOne}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroupTwo ), `invalid vectorColorGroupTwo: ${vectorColorGroupTwo}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup1 ),
+        `invalid vectorColorGroup1: ${vectorColorGroup1}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup2 ),
+        `invalid vectorColorGroup2: ${vectorColorGroup2}` );
 
-      super( DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, LAB_GRAPH_ORIENTATION );
+
+      super( LAB_GRAPH_BOUNDS, coordinateSnapMode, LAB_GRAPH_ORIENTATION );
 
       //----------------------------------------------------------------------------------------
-      // @public {BooleanProperty} group1SumVisibleProperty - Property controlling the visibility of the sum for the
+      // Create the 2 sum visible properties (one for each vector set)
+
+      // @public {BooleanProperty} sumVisibleProperty1 - Property controlling the visibility of the sum for the
       // first vector set
-      this.group1SumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
+      this.sumVisibleProperty1 = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
-      // @public {BooleanProperty} group2SumVisibleProperty - Property controlling the visibility of the sum for the
+      // @public {BooleanProperty} sumVisibleProperty2 - Property controlling the visibility of the sum for the
       // second vector set
-      this.group2SumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
+      this.sumVisibleProperty2 = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       //----------------------------------------------------------------------------------------
-      // Create and add the vector sets
+      // Create and add the vector sets (a total of 2 vector sets per graph)
 
-      const graphBounds = this.graphModelBounds;
+      const graphBounds = LAB_GRAPH_BOUNDS; // convenience reference
 
-      // @public (read-only) {VectorSet} vectorSetGroup1
-      this.vectorSetGroup1 = new VectorSet( this,
-        componentStyleProperty,
-        this.group1SumVisibleProperty,
-        vectorColorGroupOne, {
-          initialSumTailPosition: new Vector2( graphBounds.minX + 2 / 3 * graphBounds.width, graphBounds.centerY )
-        }
-      );
+      // @public (read-only) {VectorSet} vectorSet1
+      this.vectorSet1 = new VectorSet( this, componentStyleProperty, this.sumVisibleProperty1, vectorColorGroup1, {
+        initialSumTailPosition: new Vector2( graphBounds.minX + 1 * graphBounds.width / 3, graphBounds.centerY )
+      } );
 
-      // @public (read-only) {VectorSet} vectorSetGroup1
-      this.vectorSetGroup2 = new VectorSet( this,
-        componentStyleProperty,
-        this.group2SumVisibleProperty,
-        vectorColorGroupTwo, {
-          initialSumTailPosition: new Vector2( graphBounds.minX + 1 / 3 * graphBounds.width, graphBounds.centerY )
-        }
-      );
-      this.vectorSets.push( this.vectorSetGroup1, this.vectorSetGroup2 );
+      // @public (read-only) {VectorSet} vectorSet2
+      this.vectorSet2 = new VectorSet( this, componentStyleProperty, this.sumVisibleProperty2, vectorColorGroup2, {
+        initialSumTailPosition: new Vector2( graphBounds.minX + 2 * graphBounds.width / 3, graphBounds.centerY )
+      } );
+
+      // Add the vector sets
+      this.vectorSets.push( this.vectorSet1, this.vectorSet2 );
     }
 
     /**
-     * @override
-     * Resets the LabGraph
+     * Resets the LabGraph. Essentially the same as the super class, but resets the sum visibility.
      * @public
+     *
+     * @override
      */
     reset() {
-      this.group1SumVisibleProperty.reset();
-      this.group2SumVisibleProperty.reset();
+      this.sumVisibleProperty1.reset();
+      this.sumVisibleProperty2.reset();
       super.reset();
     }
   }

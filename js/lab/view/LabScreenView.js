@@ -83,10 +83,10 @@ define( require => {
       // Create the Graph Control panel
 
       const labGraphControlPanel = new LabGraphControlPanel( this.viewProperties,
-        labModel.cartesianGraph.vectorSetGroup1,
-        labModel.cartesianGraph.vectorSetGroup2,
-        labModel.polarGraph.vectorSetGroup1,
-        labModel.polarGraph.vectorSetGroup2,
+        labModel.cartesianGraph.vectorSet1,
+        labModel.cartesianGraph.vectorSet2,
+        labModel.polarGraph.vectorSet1,
+        labModel.polarGraph.vectorSet2,
         labModel.componentStyleProperty );
 
       this.addChild( labGraphControlPanel );
