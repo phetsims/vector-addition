@@ -1,11 +1,11 @@
 {
-  "comment": "# vector-addition 1.0.0-dev.8 Tue Jul 30 2019 14:56:44 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# vector-addition 1.0.0-dev.9 Thu Aug 01 2019 09:27:16 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "201c50a840e082354b013f4ab9e9d45006f98cfe",
     "branch": "master"
   },
   "axon": {
-    "sha": "3f0943a68952c903024c190a43e4f3b9033e8c4e",
+    "sha": "adeefe560b4625b0ff9da8047bcfa2ad038bc39a",
     "branch": "master"
   },
   "brand": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "joist": {
-    "sha": "45345276ab5d17c1dec37ec32b216553f828ff0e",
+    "sha": "5f34031879d29a55583398dc0dc3bdcd651aef17",
     "branch": "master"
   },
   "kite": {
@@ -29,11 +29,11 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "30264b9e3edcadccdcc75364d383c69d23702529",
+    "sha": "4a7fd8e5f36c2e07c626fde94e31a29de85339d1",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "34b581c4106625082369457881195b6aa3028592",
+    "sha": "53e0c1053477cbeca8b7ae45bc2e8a7f864da79a",
     "branch": "master"
   },
   "phet-io-wrappers": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "10a1eab2fe6f5bb7bc657613d443acc9f473e009",
+    "sha": "93b8d4bd8d45b0bf761b1eaec5519c458390e178",
     "branch": "master"
   },
   "sherpa": {
@@ -65,15 +65,15 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "2956714d4645a2cffb6f87d2c6dbd545599d2843",
+    "sha": "d2de7716ad2898f0f33740dd6e8451659c7e4b16",
     "branch": "master"
   },
   "tambo": {
-    "sha": "46e369d657d01af403c31d5f2c54a0f3e0486224",
+    "sha": "30535df01b0b92edf328b4a956101675eea0d272",
     "branch": "master"
   },
   "tandem": {
-    "sha": "358a99aabd5fc78e1e7d66d1408a3742c35fd82b",
+    "sha": "b4498dbc181b8ff1662e4acb5b8f9c91b7dc6023",
     "branch": "master"
   },
   "twixt": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "vector-addition": {
-    "sha": "a904b91e37e6b9f30119a92b29547036ca72d97f",
+    "sha": "e57e566100d297c29001939bf41634708119faa6",
     "branch": "master"
   }
 }
