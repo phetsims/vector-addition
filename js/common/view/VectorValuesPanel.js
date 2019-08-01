@@ -27,20 +27,20 @@ define( require => {
   const ExpandCollapsePanel = require( 'VECTOR_ADDITION/common/view/ExpandCollapsePanel' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const VectorValuesNumberDisplay = require( 'VECTOR_ADDITION/common/view/VectorValuesNumberDisplay' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
+  const VectorValuesNumberDisplay = require( 'VECTOR_ADDITION/common/view/VectorValuesNumberDisplay' );
 
   //----------------------------------------------------------------------------------------
   // strings
-  const vectorValuesString = require( 'string!VECTOR_ADDITION/vectorValues' );
   const noVectorSelectedString = require( 'string!VECTOR_ADDITION/noVectorSelected' );
   const symbolXString = require( 'string!VECTOR_ADDITION/symbol.x' );
   const symbolYString = require( 'string!VECTOR_ADDITION/symbol.y' );
+  const vectorValuesString = require( 'string!VECTOR_ADDITION/vectorValues' );
 
   //----------------------------------------------------------------------------------------
   // constants

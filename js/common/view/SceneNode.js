@@ -28,13 +28,13 @@ define( require => {
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
-  const VectorValuesPanel = require( 'VECTOR_ADDITION/common/view/VectorValuesPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
+  const VectorValuesPanel = require( 'VECTOR_ADDITION/common/view/VectorValuesPanel' );
 
 
   class SceneNode extends Node {

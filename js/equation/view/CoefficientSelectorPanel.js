@@ -105,7 +105,7 @@ define( require => {
           NUMBER_PICKER_OPTIONS );
 
         // Create the label
-        const text = new FormulaNode( `\\vec{ \\mathrm{ ${vector.symbol} } \}` );
+        const text = new FormulaNode( `\\vec{${vector.symbol}\}` );
 
         const numberPickerAndTextBox = new HBox( {
           spacing: LABEL_PICKER_MARGIN,
@@ -148,7 +148,7 @@ define( require => {
 
       const equalsText = new Text( '=', { font: PANEL_FONT } );
 
-      const sumText = new FormulaNode( `\\vec{ \\mathrm{ ${equationVectorSet.vectorSum.symbol} } \}` );
+      const sumText = new FormulaNode( `\\vec{${equationVectorSet.vectorSum.symbol}\}` );
 
       // Add the second half of the equation
       if ( equationType === EquationTypes.ADDITION || equationType === EquationTypes.SUBTRACTION ) {

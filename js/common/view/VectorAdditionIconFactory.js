@@ -28,6 +28,7 @@ define( require => {
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
   const interleave = require( 'PHET_CORE/interleave' );
   const Line = require( 'SCENERY/nodes/Line' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
@@ -46,6 +47,7 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -480,26 +482,36 @@ define( require => {
 
       options = _.extend( {
         font: new PhetFont( { weight: '500', size: 14 } ),  // {PhetFont|Font} font of the equation text
-        width: 92,  // {number} width of the icon
+        spacing: 4.5,
+        symbolOptions: {
+          formulaNodeScale: 0.83
+        },
+        width: 99,  // {number} width of the icon
         height: 25  // {number} height of the icon
       }, options );
 
       //----------------------------------------------------------------------------------------
 
+      let iconChildren = [];
+
       // Gather all the symbols on the left side of the equation into an array (for NEGATION, all symbols are on the
       // left side of the equation)
       const equationLeftSideSymbols = _.dropRight( vectorSymbols, equationType === EquationTypes.NEGATION ? 0 : 1 );
 
+      equationLeftSideSymbols.forEach( symbol => {
+        iconChildren.push( new VectorSymbolNode( symbol, null, false, options.symbolOptions ) );
+      } );
+
       // Interleave signs (i.e. '+'/'-') in between each symbol on the left side of the equation
-      const equationStrings = interleave( equationLeftSideSymbols, () => {
-        return ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
+      iconChildren = interleave( iconChildren, () => {
+        return new Text( equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS, { font: options.font } );
       } );
 
       // Add the second half of the equation, which is a '=' and the last of the symbols (which is the sum) or a '0'
-      equationStrings.push( MathSymbols.EQUAL_TO,
-        equationType === EquationTypes.NEGATION ? '0' : _.last( vectorSymbols ) );
+      iconChildren.push( new Text( MathSymbols.EQUAL_TO, { font: options.font } ),
+        equationType === EquationTypes.NEGATION ? new Text( '0', { font: options.font } ) : new VectorSymbolNode( _.last( vectorSymbols ), null, false, options.symbolOptions ) );
 
-      return createRadioButtonIcon( new Text( _.join( equationStrings, ' ' ), { font: options.font } ), {
+      return createRadioButtonIcon( new HBox( { children: iconChildren, spacing: options.spacing } ), {
         width: options.width,
         height: options.height
       } );
