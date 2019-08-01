@@ -22,6 +22,7 @@ define( require => {
   const screenLabString = require( 'string!VECTOR_ADDITION/screen.lab' );
 
   class LabScreen extends Screen {
+
     /**
      * @param {Tandem} tandem
      */
