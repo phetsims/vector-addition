@@ -112,8 +112,8 @@ define( require => {
      * @public
      */
     reset() {
-      this.erase();
       this.graphModelBoundsProperty.reset();
+      this.erase();
     }
 
     /**
