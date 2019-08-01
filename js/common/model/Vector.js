@@ -193,7 +193,7 @@ define( require => {
 
       // If the values are on, the vector always displays a value.
       if ( valuesVisible ) {
-        value = symbol ? ` = ${roundedMagnitude}` : roundedMagnitude;
+        value = roundedMagnitude;
       }
 
       return {

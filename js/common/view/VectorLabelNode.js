@@ -18,6 +18,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const HBox = require( 'SCENERY/nodes/HBox' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
@@ -69,7 +70,7 @@ define( require => {
 
         xMargin: 5,                   // {number} horizontal margin
         yMargin: 1,                   // {number} vertical margin
-        symbolValueSpacing: 0         // {number} spacing between the vector symbol node and the value
+        symbolValueSpacing: 7         // {number} spacing between the vector symbol node and the value
 
       }, options || {} );
 
@@ -109,7 +110,7 @@ define( require => {
           labelDisplayData.includeAbsoluteValueBars );
 
         // Update the vector value text
-        labelDisplayData.value && vectorValueText.setText( labelDisplayData.value );
+        labelDisplayData.value && vectorValueText.setText( vectorSymbolNode.visible ? `${MathSymbols.EQUAL_TO} ${labelDisplayData.value}` : labelDisplayData.value );
 
         //----------------------------------------------------------------------------------------
         // Toggle the visibility
