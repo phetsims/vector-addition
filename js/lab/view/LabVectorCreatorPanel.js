@@ -1,14 +1,15 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the panel with vectors to drag into the screen for Lab.
+ * View for the panel with vectors to drag onto the 'Lab' screen.
  *
- * Characteristics of the vector creator panel on the lab screen are;
- *  - 2 slots per panel
+ * 'Extends' VectorCreatorPanel but has the following characteristics:
+ *  - Creates a creator panel slot per VectorSet in a LabGraph.
+ *  - Each Slot creates Vectors and adds them to a different VectorSet.
  *  - Slots are infinite
- *  - Each slot goes to the different vector sets.
- *  - Vectors don't have labels
- *  - One vector creator panel per scene (cartesian and polar)
+ *  - Vectors that are created do not have symbols
+ *
+ * For the 'Lab' screen, there are 2 of these panels (for polar/cartesian). They are not meant to be disposed.
  *
  * @author Brandon Li
  */
@@ -18,6 +19,7 @@ define( require => {
 
   // modules
   const LabGraph = require( 'VECTOR_ADDITION/lab/model/LabGraph' );
+  const merge = require( 'PHET_CORE/merge' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -25,46 +27,54 @@ define( require => {
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
-  // constants
-  const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
-  const DEFAULT_VECTOR = new Vector2( DEFAULT_VECTOR_LENGTH, DEFAULT_VECTOR_LENGTH );
-  const VECTOR_CREATOR_PANEL_SLOT_OPTIONS = {
-    iconArrowSize: 40,
-    isInfinite: true
-  };
-  const VECTOR_CREATOR_PANEL_OPTIONS = {
-    contentHeight: 110
-  };
 
   class LabVectorCreatorPanel extends VectorCreatorPanel {
 
     /**
      * @param {LabGraph} labGraph
      * @param {SceneNode} sceneNode
+     * @param {Object} [options]
      */
-    constructor( labGraph, sceneNode ) {
+    constructor( labGraph, sceneNode, options ) {
 
       assert && assert( labGraph instanceof LabGraph, `invalid labGraph: ${labGraph}` );
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
+
+      options = merge( {
+
+        // {Vector2} - initial components of newly created Vectors
+        initialVectorComponent: new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH,
+          VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ),
+
+
+        // {Object} passed to both of the VectorCreatorPanelSlot instances
+        vectorCreatorPanelSlotOptions: {
+          iconArrowSize: 40,  // Determined empirically - should be slightly larger
+          isInfinite: true    // Slots are infinite
+        },
+
+        // super-class options
+        contentHeight: 110    // determined empirically, should be slightly shorter
+
+      }, options );
 
       //----------------------------------------------------------------------------------------
-      // Create the two vector slots.
+      // Create a 'slot' for each Vector Set in the LabGraph (which happens to be 2)
 
-      const vectorCreatorSlotOne = new VectorCreatorPanelSlot( labGraph,
-        labGraph.vectorSet1,
-        sceneNode,
-        DEFAULT_VECTOR,
-        VECTOR_CREATOR_PANEL_SLOT_OPTIONS );
+      const slots = [];
 
-      const vectorCreatorSlotTwo = new VectorCreatorPanelSlot( labGraph,
-        labGraph.vectorSet2,
-        sceneNode,
-        DEFAULT_VECTOR,
-        VECTOR_CREATOR_PANEL_SLOT_OPTIONS );
+      labGraph.vectorSets.forEach( vectorSet => {
 
-      const panelSlots = [ vectorCreatorSlotOne, vectorCreatorSlotTwo ];
+        slots.push( new VectorCreatorPanelSlot( labGraph,
+          vectorSet,
+          sceneNode,
+          options.initialVectorComponent,
+          options.vectorCreatorPanelSlotOptions ) );
+      } );
 
-      super( panelSlots, VECTOR_CREATOR_PANEL_OPTIONS );
+      super( slots, { contentHeight: options.contentHeight } );
     }
   }
 
