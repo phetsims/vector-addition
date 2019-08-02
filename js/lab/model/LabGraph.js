@@ -66,11 +66,11 @@ define( require => {
       // Create the 2 sum visible properties (one for each vector set)
 
       // @public {BooleanProperty} sumVisibleProperty1 - Property controlling the visibility of the sum for the
-      // first vector set
+      //                                                 first vector set
       this.sumVisibleProperty1 = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       // @public {BooleanProperty} sumVisibleProperty2 - Property controlling the visibility of the sum for the
-      // second vector set
+      //                                                 second vector set
       this.sumVisibleProperty2 = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       //----------------------------------------------------------------------------------------
