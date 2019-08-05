@@ -3,7 +3,12 @@
 /**
  * View for the Panel that appears on the upper-right corner of the 'Explore 2D' screen.
  *
- * Explore 2D has 2 scenes: a polar and a cartesian scene. Each scene has a separate Sum visible Property/Checkbox
+ * Extends GraphControlPanel but adds the following functionality:
+ *  - Creates 1 sum checkboxes per graph (for a total of 2 sum checkboxes since there are 2 graphs)
+ *  - Toggles visibility of the sum checkboxes based on the coordinateSnapModeProperty
+ *  - Has both an angle checkbox and a component style radio button group
+ *
+ * Graph Control Panels are not meant to be disposed, and links are left as-is.
  *
  * @author Brandon Li
  */
@@ -28,7 +33,7 @@ define( require => {
     /**
      * @param {VectorAdditionViewProperties} viewProperties
      * @param {VectorSet} cartesianVectorSet
-     * @param {VecotrSet} polarVectorSet
+     * @param {VectorSet} polarVectorSet
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      */
     constructor( viewProperties, cartesianVectorSet, polarVectorSet, componentStyleProperty ) {
@@ -41,7 +46,7 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
-      // Create the sum check boxes, one for each vector set
+      // Create the sum checkboxes (polar/cartesian)
 
       const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
         cartesianVectorSet.vectorColorGroup );
@@ -49,9 +54,8 @@ define( require => {
       const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty,
         polarVectorSet.vectorColorGroup );
 
-      const sumCheckboxContainer = new Node( { children: [ cartesianSumCheckbox, polarSumCheckbox ] } );
-
-      // Toggle visibility of the check boxes. This link is never disposed as the panel exists throughout the entire sim
+      // Toggle visibility of the sumCheckboxes. Should only be visible if the coordinateSnapMode matches the
+      // coordinate snap mode. Is never unlinked since the graph control panel is never disposed.
       viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
 
         polarSumCheckbox.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
@@ -63,7 +67,7 @@ define( require => {
 
       super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, {
 
-        sumCheckboxContainer: sumCheckboxContainer,
+        sumCheckboxContainer: new Node( { children: [ cartesianSumCheckbox, polarSumCheckbox ] } ),
         angleVisibleProperty: viewProperties.angleVisibleProperty,
         componentStyleProperty: componentStyleProperty
 
