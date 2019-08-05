@@ -32,7 +32,8 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
   // strings
   const baseVectorsString = require( 'string!VECTOR_ADDITION/baseVectors' );
   const showBaseVectorsString = require( 'string!VECTOR_ADDITION/showBaseVectors' );
@@ -52,7 +53,9 @@ define( require => {
 
   // width for all labels
   const LABEL_WIDTH = 29;
-
+  const COMPONENT_RANGE = new Range( -10, 10 );
+  const ANGLE_RANGE = new Range( -180, 180 );
+  const MAGNITUDE_RANGE = new Range( -10, 10 );
   class BaseVectorsAccordionBox extends AccordionBox {
     /**
      * @param {BooleanProperty} baseVectorsVisibleProperty
@@ -129,11 +132,11 @@ define( require => {
           const baseVector = vector.baseVector;
 
           const xComponentPicker = new NumberPicker( baseVector.xComponentProperty,
-            baseVector.componentRangeProperty,
+            new Property( COMPONENT_RANGE ),
             NUMBER_PICKER_OPTIONS );
 
           const yComponentPicker = new NumberPicker( baseVector.yComponentProperty,
-            baseVector.componentRangeProperty,
+            new Property( COMPONENT_RANGE ),
             NUMBER_PICKER_OPTIONS );
 
           const xSide = createNumberPickerAndLabel( xComponentPicker, baseVector, displayTypes.X );
@@ -155,7 +158,7 @@ define( require => {
           const baseVector = vector.baseVector;
 
           const anglePicker = new NumberPicker( baseVector.angleDegreesProperty,
-            baseVector.angleRangeProperty,
+           new Property( ANGLE_RANGE ),
             _.extend( {}, NUMBER_PICKER_OPTIONS, {
               upFunction: ( value ) => {
                 return value + POLAR_ANGLE_INTERVAL;
@@ -166,7 +169,7 @@ define( require => {
             } ) );
 
           const magnitudePicker = new NumberPicker( baseVector.magnitudeProperty,
-            baseVector.magnitudeRangeProperty,
+            new Property( MAGNITUDE_RANGE ),
             NUMBER_PICKER_OPTIONS );
 
           const ySide = createNumberPickerAndLabel( anglePicker, baseVector, displayTypes.ANGLE );

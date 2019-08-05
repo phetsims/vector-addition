@@ -1,12 +1,13 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * See https://github.com/phetsims/vector-addition/issues/63 for context.
+ * See https://github.com/phetsims/vector-addition/issues/63 for an overview of how BaseVectors fit into the class
+ * hierarchy.
  *
  * Extends Vector and adds the following functionality:
- *  - Creates selector properties for the x and y component that go into a number picker on cartesian
- *  - Creates selector properties for the angle and the magnitude that go into a number picker on polar
- *  - Adjust its components based on the properties above
+ *  - Creates number Properties for the x and y component that go into a number picker on cartesian
+ *  - Creates number Properties for the angle and the magnitude that go into a number picker on polar
+ *  - Adjusts its components based on the properties listed above
  *  - Disables tip dragging and removing of vectors
  *
  * Base vectors are created at the start of the sim, and are never disposed. They require a symbol.
@@ -20,8 +21,6 @@ define( require => {
   // modules
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const NumberProperty = require( 'AXON/NumberProperty' );
-  const Property = require( 'AXON/Property' );
-  const Range = require( 'DOT/Range' );
   const Util = require( 'DOT/Util' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -29,90 +28,73 @@ define( require => {
 
   // constants
   const VECTOR_OPTIONS = {
-    isRemovable: false, // base vectors are not removable
-    isTipDraggable: false, // base vectors are not draggable by the tip
-    isOnGraphInitially: true // base vectors are always on the graph
+    isRemovable: false,       // Base Vectors are not removable
+    isTipDraggable: false,    // Base Vectors are not draggable by the tip
+    isOnGraphInitially: true  // Base Vectors are always on the graph
   };
 
-  // ranges
-  const COMPONENT_RANGE = new Range( -10, 10 );
-  const ANGLE_RANGE = new Range( -180, 180 );
-  const MAGNITUDE_RANGE = new Range( -10, 10 );
-
-
   class BaseVector extends Vector {
+
     /**
-     * @param {Vector2} initialTailPosition - starting tail position of the vector
-     * @param {Vector2} initialComponents - starting components of the vector
-     * @param {EquationGraph} graph - the equation graph the vector belongs to
-     * @param {EquationVectorSet} vectorSet - the equationVectorSet that the vector belongs to
-     * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+     * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
+     * @param {Vector2} initialComponents - starting components of the Base Vector
+     * @param {EquationGraph} graph - the equation graph the Base Vector belongs to
+     * @param {EquationVectorSet} equationVectorSet - the set that the Base Vector belongs to
+     * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
+    constructor( initialTailPosition, initialComponents, graph, equationVectorSet, symbol ) {
 
-      super( initialTailPosition, initialComponents, graph, vectorSet, symbol, VECTOR_OPTIONS );
-
+      super( initialTailPosition, initialComponents, graph, equationVectorSet, symbol, VECTOR_OPTIONS );
 
       //----------------------------------------------------------------------------------------
-      // Create properties for the base vector panel
+      // Create number Properties for the base vector panel
 
       if ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
 
-        // Creates selector properties for the x and y component that go into a number picker on cartesian
+        //========================================================================================
+        // Create number Properties for the x and y component that go into a number picker on CARTESIAN
+        //========================================================================================
 
-        // @public (read-only) {NumberProperty} xComponentProperty - create a Property to represent the component
+        // @public (read-only) {NumberProperty} xComponentProperty - create a Property to toggle the x component
         this.xComponentProperty = new NumberProperty( this.xComponent );
 
-        // @public (read-only) {NumberProperty} yComponentProperty - create a Property to represent the component
+        // @public (read-only) {NumberProperty} yComponentProperty - create a Property to toggle the y component
         this.yComponentProperty = new NumberProperty( this.yComponent );
 
         //----------------------------------------------------------------------------------------
-        // Create range properties
+        // Observe when the component NumberProperties change and update the components to match
+        // Don't need to be unlinked since base vectors exist for the entire sim
 
-        // @public (read-only) {Property.<Range>} componentRangeProperty - Property of the range of both components
-        this.componentRangeProperty = new Property( COMPONENT_RANGE );
+        this.xComponentProperty.link( xComponent => { this.xComponent = xComponent; } );
+
+        this.yComponentProperty.link( yComponent => { this.yComponent = yComponent; } );
 
       }
       else if ( graph.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
 
-        // Creates selector properties for the angle and the magnitude that go into a number picker on polar
+        //========================================================================================
+        // Create number Properties for the angle and the magnitude that go into a number picker on polar
+        //========================================================================================
 
-        // @public (read-only) {NumberProperty} angleProperty - create a Property to represent the angle of the vector
+        // @public (read-only) {NumberProperty} angleProperty - create a Property to toggle the angle
         this.angleDegreesProperty = new NumberProperty( Util.toDegrees( this.angle ) );
 
-        // @public (read-only) {NumberProperty} yComponentProperty - create a Property to represent the magnitude
+        // @public (read-only) {NumberProperty} yComponentProperty - create a Property toggle the magnitude
         this.magnitudeProperty = new NumberProperty( this.magnitude );
 
         //----------------------------------------------------------------------------------------
-        // Create range properties
+        // Observe when the angleProperty and the magnitudeProperty change and update the components to match
+        // Don't need to be unlinked since base vectors exist for the entire sim
 
-        // @public (read-only) {Property.<Range>} angleRangeProperty - Property of the range of the angle (polar mode)
-        this.angleRangeProperty = new Property( ANGLE_RANGE );
+        this.angleDegreesProperty && this.angleDegreesProperty.link( angleDegrees => {
+          this.vectorComponents = Vector2.createPolar( this.magnitude, Util.toRadians( angleDegrees ) );
+        } );
 
-        // @public (read-only) {Property.<Range>} magnitudeRangeProperty - Property of the range of the magnitude
-        this.magnitudeRangeProperty = new Property( MAGNITUDE_RANGE );
+        this.magnitudeProperty && this.magnitudeProperty.link( magnitude => {
+          this.vectorComponents = this.vectorComponents.withMagnitude( magnitude );
+        } );
+
       }
-
-      //----------------------------------------------------------------------------------------
-      // Link the base vector panel properties and update the components
-      // Don't need to be unlinked since base vectors exist for the entire sim
-
-      this.xComponentProperty && this.xComponentProperty.link( xComponent => {
-        this.xComponent = xComponent;
-      } );
-
-      this.yComponentProperty && this.yComponentProperty.link( yComponent => {
-        this.yComponent = yComponent;
-      } );
-
-      this.angleDegreesProperty && this.angleDegreesProperty.link( angleDegrees => {
-        this.vectorComponents = Vector2.createPolar( this.magnitude, Util.toRadians( angleDegrees ) );
-      } );
-
-      this.magnitudeProperty && this.magnitudeProperty.link( magnitude => {
-        this.vectorComponents = this.vectorComponents.withMagnitude( magnitude );
-      } );
-
     }
 
     /**
@@ -121,12 +103,10 @@ define( require => {
      */
     reset() {
       this.tailPositionProperty.reset();
-
       this.angleDegreesProperty && this.angleDegreesProperty.reset();
       this.magnitudeProperty && this.magnitudeProperty.reset();
       this.yComponentProperty && this.yComponentProperty.reset();
       this.xComponentProperty && this.xComponentProperty.reset();
-
     }
   }
 

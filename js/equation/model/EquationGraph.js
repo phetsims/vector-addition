@@ -1,14 +1,15 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a graph on the equation screen.
+ * Model for a single graph on the  Equation' screen. Equation' has a total of 2 graphs (polar and cartesian).
  *
- * Equation graphs:
- *  - have no sum visible Properties
- *  - have exactly one vector set
- *  - have a equation type
- *  - are two dimensional
- *  - Have 3 modes (addition, subtraction, and negation) for the 3 equation types
+ * Characteristics of a Equation Graph (which extends Graph) are:
+ *  - have exactly 1 vector set
+ *  - Has a Equation Types Property (addition/subtraction/negation) per graph
+ *  - Same graph bounds as default graph bounds but subtracts 5 from the top
+ *  - Has a Base Vectors Visible Property
+ *  - Two-dimensional
+ *  - Has a Unique vector color group
  *
  * @author Brandon Li
  */
@@ -30,13 +31,18 @@ define( require => {
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   // constants
-  const EQUATION_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS
-    .withOffsets( 0, 0, 0, -VectorAdditionConstants.DEFAULT_VECTOR_LENGTH );
 
-  // equation graphs are two dimensional
+  // graph bounds for Equation Graphs
+  const EQUATION_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.withOffsets( 0, 0, 0, -5 );
+
+  // Equation Graphs a strictly 2 Two-dimensional
   const EQUATION_GRAPH_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
+
+  // Starting Equation Type
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
-  const DEFAULT_BASE_VECTOR_VISIBILTY = false;
+
+  // Starting Base Vector visibility
+  const DEFAULT_BASE_VECTOR_VISIBILITY = false;
 
 
   class EquationGraph extends Graph {
@@ -53,7 +59,8 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup ),
+        `invalid vectorColorGroup: ${vectorColorGroup}` );
 
       //----------------------------------------------------------------------------------------
       super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, EQUATION_GRAPH_ORIENTATION );
@@ -64,7 +71,7 @@ define( require => {
 
 
       // @public (read-only) {BooleanProperty} baseVectorsVisibleProperty
-      this.baseVectorsVisibleProperty = new BooleanProperty( DEFAULT_BASE_VECTOR_VISIBILTY );
+      this.baseVectorsVisibleProperty = new BooleanProperty( DEFAULT_BASE_VECTOR_VISIBILITY );
 
 
       // @public (read-only) {EquationVectorSet} vectorSet
@@ -72,11 +79,21 @@ define( require => {
         componentStyleProperty,
         vectorColorGroup,
         coordinateSnapMode,
-        this.equationTypeProperty
-      );
-
+        this.equationTypeProperty );
 
       this.vectorSets.push( this.vectorSet );
+    }
+
+    /**
+     * Resets the Equation Graph.
+     * @public
+     *
+     * @override
+     */
+    reset() {
+      this.equationTypeProperty.reset();
+      this.baseVectorsVisibleProperty.reset();
+      super.reset();
     }
   }
 
