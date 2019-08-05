@@ -34,7 +34,7 @@ define( require => {
   const EXPLORE_2D_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
   // Explore 2D Graphs are two-dimensional
-  const EXPLORE_2D_GRAPH_ORIENTAION = GraphOrientations.TWO_DIMENSIONAL;
+  const EXPLORE_2D_GRAPH_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
 
 
   class Explore2DGraph extends Graph {
@@ -55,7 +55,7 @@ define( require => {
         `invalid vectorColorGroup: ${vectorColorGroup}` );
 
 
-      super( EXPLORE_2D_GRAPH_BOUNDS, coordinateSnapMode, EXPLORE_2D_GRAPH_ORIENTAION );
+      super( EXPLORE_2D_GRAPH_BOUNDS, coordinateSnapMode, EXPLORE_2D_GRAPH_ORIENTATION );
 
       //----------------------------------------------------------------------------------------
 
