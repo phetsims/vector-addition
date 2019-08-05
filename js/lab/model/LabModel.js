@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level model for the `Lab` screen, which contains:
+ * Top level model for the 'Lab' screen, which contains:
  *  - polar graph
  *  - cartesian graph
  *
@@ -45,7 +45,6 @@ define( require => {
         VectorColorGroups.COLOR_GROUP_3,
         VectorColorGroups.COLOR_GROUP_4 );
     }
-
 
     /**
      * Resets the Lab Model. Called when the reset all button is clicked.

@@ -29,12 +29,12 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
   const VectorValuesNumberDisplay = require( 'VECTOR_ADDITION/common/view/VectorValuesNumberDisplay' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   //----------------------------------------------------------------------------------------
   // strings

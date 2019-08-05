@@ -1,11 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the `Explore2D` screen.
- *
- * Explore2D has a polar and a cartesian graph. Each scene has one vector set respectively.
- *
- * Explore2D has two visibility Properties: one for each scene respectively.
+ * Top level model for the 'Explore 2d' screen, which contains:
+ *  - polar graph
+ *  - cartesian graph
  *
  * @author Martin Veillette
  */
@@ -21,11 +19,8 @@ define( require => {
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
-  // constants
-  const CARTESIAN_VECTOR_GROUP = VectorColorGroups.COLOR_GROUP_1;
-  const POLAR_VECTOR_GROUP = VectorColorGroups.COLOR_GROUP_3;
-
   class Explore2DModel extends VectorAdditionModel {
+
     /**
      * @param {Tandem} tandem
      */
@@ -36,22 +31,27 @@ define( require => {
       super( tandem );
 
       //----------------------------------------------------------------------------------------
-      // Create and add the graphs
 
-      // @public (read-only) {Graph}
-      this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR,
-        this.componentStyleProperty,
-        POLAR_VECTOR_GROUP );
-
-      // @public (read-only) {Graph}
+      // @public (read-only) {Graph} cartesianGraph
       this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
-        CARTESIAN_VECTOR_GROUP );
+        VectorColorGroups.COLOR_GROUP_1 );
+
+      // @public (read-only) {Graph} polarGraph
+      this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR,
+        this.componentStyleProperty,
+        VectorColorGroups.COLOR_GROUP_3 );
     }
 
+    /**
+     * Resets the Explore 2D Model. Called when the reset all button is clicked.
+     * @public
+     *
+     * @override
+     */
     reset() {
-      this.polarGraph.reset();
       this.cartesianGraph.reset();
+      this.polarGraph.reset();
       super.reset();
     }
   }
