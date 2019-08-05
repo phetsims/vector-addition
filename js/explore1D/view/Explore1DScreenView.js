@@ -1,9 +1,15 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level view for the 'Explore1D' screen.
+ * Top level view for the 'Explore 1D' screen.
  *
- * Explore1D has a horizontal and a vertical graph. Scene nodes are created to represent these graphs respectively.
+ * Extends VectorAdditionScreenView but adds:
+ *  - Explore 1D Graph Control Panel
+ *  - Graph Orientation Radio Button Group
+ *  - Scene nodes for each graph (horizontal/vertical)
+ *  - Vector Creator Panels for each graph
+ *
+ * Screen Views are never disposed.
  *
  * @author Martin Veillette
  */
@@ -16,27 +22,28 @@ define( require => {
   const Explore1DModel = require( 'VECTOR_ADDITION/explore1D/model/Explore1DModel' );
   const Explore1DVectorCreatorPanel = require( 'VECTOR_ADDITION/explore1D/view/Explore1DVectorCreatorPanel' );
   const Explore1DViewProperties = require( 'VECTOR_ADDITION/explore1D/view/Explore1DViewProperties' );
+  const GraphOrientationRadioButtonGroup = require( 'VECTOR_ADDITION/explore1D/view/GraphOrientationRadioButtonGroup' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
   // constants
-  const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
-  const HORIZONTAL_VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1;
-  const VERTICAL_VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
+
+  // margin between the Graph Control Panel and the Graph Orientation Radio Buttons
   const GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN = 10;
+
+  // options passed to Scene Nodes instances
   const EXPLORE_1D_SCENE_OPTIONS = {
-    VectorValuesPanelOptions: {
+    vectorValuesPanelOptions: {
       isExpandedInitially: false
     }
   };
 
   class Explore1DScreenView extends VectorAdditionScreenView {
+
     /**
      * @param {Explore1DModel} explore1DModel
      * @param {Tandem} tandem
@@ -49,91 +56,65 @@ define( require => {
       super( explore1DModel, tandem );
 
 
+      // @private {VectorAdditionViewProperties} viewProperties - viewProperties for the 'Explore 1D' screen
       this.viewProperties = new Explore1DViewProperties();
 
-      //----------------------------------------------------------------------------------------
-      // Create the scenes for the horizontal and vertical scenes
+      //========================================================================================
+      // Add the children of the screen view
+      //========================================================================================
 
-      const verticalSceneNode = new SceneNode( explore1DModel.verticalGraph,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        explore1DModel.componentStyleProperty,
-        EXPLORE_1D_SCENE_OPTIONS );
-
-      const horizontalSceneNode = new SceneNode( explore1DModel.horizontalGraph,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        explore1DModel.componentStyleProperty,
-        EXPLORE_1D_SCENE_OPTIONS );
-
-
-      //----------------------------------------------------------------------------------------
-      // Create the vector creator panels
-
-      verticalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel(
-        explore1DModel.verticalGraph,
-        verticalSceneNode,
-        VERTICAL_VECTOR_SYMBOLS ) );
-
-      horizontalSceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel(
-        explore1DModel.horizontalGraph,
-        horizontalSceneNode,
-        HORIZONTAL_VECTOR_SYMBOLS ) );
-
-      //----------------------------------------------------------------------------------------
-      // Observe when the graph orientation changes and update the visibility of the scenes.
-      this.viewProperties.graphOrientationProperty.link( ( graphOrientation ) => {
-
-        verticalSceneNode.visible = graphOrientation === GraphOrientations.VERTICAL;
-        horizontalSceneNode.visible = graphOrientation === GraphOrientations.HORIZONTAL;
-      } );
-
-      //----------------------------------------------------------------------------------------
-      // Create the Graph Control panel
-
+      // Create and add the Graph Control Panel
       const explore1DGraphControlPanel = new Explore1DGraphControlPanel( explore1DModel.sumVisibleProperty,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
         explore1DModel.vectorColorGroup );
-
       this.addChild( explore1DGraphControlPanel );
 
+
+      // Create and add the graph orientation radio buttons
+      this.addChild( new GraphOrientationRadioButtonGroup( this.viewProperties.graphOrientationProperty, {
+        centerX: explore1DGraphControlPanel.centerX,
+        top: explore1DGraphControlPanel.bottom + GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN
+      } ) );
+
       //----------------------------------------------------------------------------------------
+      // Create and add the Scene Nodes and Vector Creator Panels for each graph
+      [ explore1DModel.verticalGraph, explore1DModel.horizontalGraph ].forEach( explore1DGraph => {
 
-      // Create content for the radio buttons to switch between graphs
-      const graphOrientationRadioButtonContent = [ {
-        value: GraphOrientations.HORIZONTAL,
-        node: VectorAdditionIconFactory.createGraphOrientationIcon( GraphOrientations.HORIZONTAL )
-      }, {
-        value: GraphOrientations.VERTICAL,
-        node: VectorAdditionIconFactory.createGraphOrientationIcon( GraphOrientations.VERTICAL )
-      } ];
+        // Create the scene node
+        const sceneNode = new SceneNode( explore1DGraph,
+          this.viewProperties.valuesVisibleProperty,
+          this.viewProperties.angleVisibleProperty,
+          this.viewProperties.gridVisibleProperty,
+          explore1DModel.componentStyleProperty,
+          EXPLORE_1D_SCENE_OPTIONS );
 
-      // Create the radio buttons to switch between graphs
-      const graphOrientationRadioButtonGroup = new RadioButtonGroup( this.viewProperties.graphOrientationProperty,
-        graphOrientationRadioButtonContent, _.extend( {}, RADIO_BUTTON_OPTIONS, {
-          centerX: explore1DGraphControlPanel.centerX,
-          top: explore1DGraphControlPanel.bottom + GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN,
-          orientation: 'horizontal',
-          buttonContentXMargin: RADIO_BUTTON_OPTIONS.xMargin,
-          buttonContentYMargin: RADIO_BUTTON_OPTIONS.yMargin
-
-        } ) );
+        // Add the vector creator panel
+        sceneNode.addVectorCreatorPanel(new Explore1DVectorCreatorPanel(
+          explore1DGraph,
+          sceneNode,
+          explore1DGraph.orientation === GraphOrientations.HORIZONTAL ?
+                                         VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
+                                         VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2 ) );
 
 
-      this.addChild( graphOrientationRadioButtonGroup );
+        // Toggle visibility of the SceneNode. Should only be visible if the graph orientation matches the
+        // explore1DGraph's graph orientation. Is never unlinked since the screen view is never disposed.
+        this.viewProperties.graphOrientationProperty.link( graphOrientation => {
+          sceneNode.visible = graphOrientation === explore1DGraph.orientation;
+        } );
 
-      this.addChild( verticalSceneNode );
-      this.addChild( horizontalSceneNode );
+        // Add the scene node
+        this.addChild( sceneNode );
+
+      } );
     }
 
-
     /**
-     * Resets the screen view
-     * @override
+     * Resets the VectorAdditionScreenView
      * @public
+     *
+     * @override
      */
     reset() {
       this.viewProperties.reset();
