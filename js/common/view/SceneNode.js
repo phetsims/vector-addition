@@ -74,7 +74,7 @@ define( require => {
 
         includeBaseVectors: false, // {boolean} true means there will be a base vectors container
 
-        VectorValuesPanelOptions: null, // {Object} options passed to the VectorValuesPanel
+        vectorValuesPanelOptions: null, // {Object} options passed to the VectorValuesPanel
 
         sumNodeOptions: null
       }, options );
@@ -89,7 +89,7 @@ define( require => {
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
       // Create the 'Vector Values' panel
-      const vectorValuesPanel = new VectorValuesPanel( graph, options.VectorValuesPanelOptions );
+      const vectorValuesPanel = new VectorValuesPanel( graph, options.vectorValuesPanelOptions );
 
       // Keep an array reference of the children
       const children = [ graphNode, vectorValuesPanel ];

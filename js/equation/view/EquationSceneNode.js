@@ -53,7 +53,11 @@ define( require => {
       options = _.extend( {
         includeEraser: false,
         includeBaseVectors: true,
-        sumNodeOptions: VECTOR_SUM_COLORS
+        sumNodeOptions: VECTOR_SUM_COLORS,
+        vectorValuesPanelOptions: {
+          spacingMajor: 30,
+          contentFixedWidth: 480
+        }
       }, options );
 
       super( graph,
