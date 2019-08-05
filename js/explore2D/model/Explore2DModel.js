@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level model for the 'Explore 2d' screen, which contains:
+ * Top level model for the 'Explore 2D' screen, which contains:
  *  - polar graph
  *  - cartesian graph
  *

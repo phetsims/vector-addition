@@ -1,15 +1,14 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a graph on the 'Explore 1D' screen.
- * 'Explore1D' has a total of 2 graphs (polar an cartesian)
+ * Model for a single graph on the 'Explore 1D' screen. 'Explore 1D' has a total of 2 graphs (polar and cartesian).
  *
- * Characteristics of graphs on 'Explore 1D':
- *  - have a shared sum visible Property
- *  - have exactly one vector set
- *  - are either horizontal or vertical
- *  - both graphs are the same width and height as the default graph bounds but the origin is is in the center
- *  - both graphs are strictly cartesian
+ * Characteristics of a Explore 1D Graph (which extends Graph) are:
+ *  - Explore 1D graphs have exactly 1 vector sets each
+ *  - Have a shared sum visible property across all graphs
+ *  - are either Horizontal or Vertical
+ *  - Are strictly cartesian
+ *  - Same width/height as default graph bounds, but the origin is in the center
  *
  * @author Brandon Li
  */
@@ -44,6 +43,7 @@ define( require => {
 
 
   class Explore1DGraph extends Graph {
+
     /**
      * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
@@ -52,28 +52,24 @@ define( require => {
      */
     constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorGroup ) {
 
-      assert && assert( graphOrientation === GraphOrientations.HORIZONTAL
-                        || graphOrientation === GraphOrientations.VERTICAL,
-        `invalid graphOrientation: ${graphOrientation}` );
+      assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( VectorColorGroups.includes( vectorColorGroup ),
+        `invalid vectorColorGroup: ${vectorColorGroup}` );
 
 
       super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, graphOrientation );
 
       //----------------------------------------------------------------------------------------
-      // Create and add the vector set.
-      // @public (read-only) {VectorSet} vectorSet - graphs on 'Explore 1D' have exactly one vector set
-      this.vectorSet = new VectorSet( this,
-        componentStyleProperty,
-        sumVisibleProperty,
-        vectorColorGroup
-      );
 
+      // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 1D' have exactly one vector set
+      this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorGroup );
+
+      // Add the one and only vector set
       this.vectorSets.push( this.vectorSet );
     }
   }

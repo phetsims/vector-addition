@@ -1,11 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the `Explore1D` screen.
- *
- * Explore1D has a horizontal and a vertical graph. Each scene has one vector set respectively.
- *
- * Explore1D has one shared sum visibility Properties for both scenes.
+ * Top level model for the 'Explore 1D' screen, which contains:
+ *  - polar graph
+ *  - cartesian graph
  *
  * @author Martin Veillette
  */
@@ -28,6 +26,7 @@ define( require => {
 
 
   class Explore1DModel extends VectorAdditionModel {
+
     /**
      * @param {Tandem} tandem
      */
@@ -35,23 +34,19 @@ define( require => {
 
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      //----------------------------------------------------------------------------------------
-      // Create the shared sum visibility Property for both scenes
-
 
       super( tandem );
 
       //----------------------------------------------------------------------------------------
-      // Create a reference
-      // @public (read-only) {BooleanProperty} sumVisibleProperty
+
+      // @public (read-only) {BooleanProperty} sumVisibleProperty - Property controlling the visibility of the sum for
+      //                                                            both Graph instances
       this.sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
-
-      // @public (read-only) {VectorColorGroups} VectorColorGroups - the only vector color group used on the explore1D screen
+      // @public (read-only) {VectorColorGroups} VectorColorGroups - Vector color group for both graphs
       this.vectorColorGroup = VectorColorGroups.COLOR_GROUP_1;
 
       //----------------------------------------------------------------------------------------
-      // Create and add the graphs
 
       // @public (read-only) {Graph}
       this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL,
@@ -64,18 +59,18 @@ define( require => {
         this.componentStyleProperty,
         this.sumVisibleProperty,
         this.vectorColorGroup );
-
     }
 
     /**
-     * @override
-     * Resets the Explore1D model
+     * Resets the Explore 1D Model. Called when the reset all button is clicked.
      * @public
+     *
+     * @override
      */
     reset() {
+      this.cartesianGraph.reset();
+      this.polarGraph.reset();
 
-      this.horizontalGraph.reset();
-      this.verticalGraph.reset();
       this.sumVisibleProperty.reset();
       super.reset();
     }
