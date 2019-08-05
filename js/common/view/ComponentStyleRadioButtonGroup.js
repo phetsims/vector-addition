@@ -46,7 +46,7 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {}, RADIO_BUTTON_OPTIONS, options );
+      options = _.extend( {}, RADIO_BUTTON_OPTIONS, options, { orientation: 'horizontal' } );
 
       //----------------------------------------------------------------------------------------
       const radioButtonsContent = [];

@@ -34,6 +34,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
   const VectorValuesNumberDisplay = require( 'VECTOR_ADDITION/common/view/VectorValuesNumberDisplay' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   //----------------------------------------------------------------------------------------
   // strings
@@ -97,7 +98,9 @@ define( require => {
         // super class options
         contentFixedWidth: INSPECT_PANEL_WIDTH, // {number|null} fixed size of the panel (see superclass)
         contentFixedHeight: INSPECT_PANEL_HEIGHT, // {number|null} fixed size of the panel (see superclass)
-        isExpandedInitially: true
+        isExpandedInitially: true,
+
+        spacingMajor: LABEL_LEFT_MARGIN
 
       }, options );
 
@@ -112,7 +115,7 @@ define( require => {
       const selectVectorText = new Text( noVectorSelectedString, { font: PANEL_FONT } );
 
       // Container for the labels and number displays that display the vector's attributes
-      const vectorAttributesContainer = new HBox( { spacing: LABEL_LEFT_MARGIN } );
+      const vectorAttributesContainer = new HBox( { spacing: options.spacingMajor } );
 
       // Create the content container for the open content
       const panelOpenContent = new Node();
@@ -137,7 +140,7 @@ define( require => {
       const magnitudeDisplayNode = new VectorSymbolNode( null, null, true );
       const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE );
 
-      const angleText = new Text( MathSymbols.THETA, { font: PANEL_FONT } );
+      const angleText = new Text( MathSymbols.THETA, { font: new PhetFont( 18 ) } );
       const angleNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
 
       const xComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
