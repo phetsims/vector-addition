@@ -68,8 +68,8 @@ define( require => {
      * @override
      */
     reset() {
-      this.cartesianGraph.reset();
-      this.polarGraph.reset();
+      this.verticalGraph.reset();
+      this.horizontalGraph.reset();
 
       this.sumVisibleProperty.reset();
       super.reset();

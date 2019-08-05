@@ -1,11 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View-specific Properties for the Explore1D.
+ * View-specific Properties for the 'Explore 1D' screen.
  *
- * Responsibilities are:
+ * Extends VectorAdditionViewProperty but adds:
  *  - Graph Orientation Property
- *  - Disable coordinateSnapModeProperty and angle visible Property
+ *  - Disables coordinateSnapModeProperty and angle visible Property
  *
  * @author Brandon Li
  */
@@ -21,31 +21,34 @@ define( require => {
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
   // constants
+
+  // default graph orientation
   const DEFAULT_VECTOR_ORIENTATION = GraphOrientations.HORIZONTAL;
 
 
   class Explore1DViewProperties extends VectorAdditionViewProperties {
 
+    /**
+     * @extends {VectorAdditionViewProperties}
+     */
     constructor() {
 
       super();
 
-      // @public {EnumerationProperty.<GraphOrientations>} - controls the orientation of the vectors
+      // @public {EnumerationProperty.<GraphOrientations>} - Property that controls the Graph Orientation
       this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, DEFAULT_VECTOR_ORIENTATION );
 
       //----------------------------------------------------------------------------------------
-      // Disable unused Properties
+      // Disable unused Properties. Links don't need to be unlinked since the Explore 1D screen is never disposed.
 
       this.angleVisibleProperty.link( angleVisible => {
-        if ( angleVisible ) {
-          assert && assert( false, 'Angles are not used in explore1D' );
-        }
+        if ( angleVisible ) { assert && assert( false, 'Angles are not used in Explore 1D' ); }
       } );
 
-      // Disable polar / cartesian mode. Doesn't need to be unlinked as explore 1D screen is never disposed
+      // Disable polar / cartesian mode.
       this.coordinateSnapModeProperty.link( coordinateSnapMode => {
         if ( coordinateSnapMode !== CoordinateSnapModes.CARTESIAN ) {
-          assert && assert( false, 'Explore1D only uses cartesian' );
+          assert && assert( false, 'Explore 1D only uses cartesian' );
         }
       } );
 

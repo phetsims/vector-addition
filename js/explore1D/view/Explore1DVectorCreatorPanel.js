@@ -1,12 +1,14 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the panel with vectors to drag into the screen for Explore1D.
+ * View for the panel with vectors to drag onto the 'Explore 1D' screen.
  *
- * Characteristics of the vector creator panel on Explore1D:
- *  - 3 slots per panel
- *  - Each slot goes to the same vector set. Or in other words, each creator panel represents one vector set.
- *  - One vector creator panel per scene (horizontal and vertical)
+ * 'Extends' VectorCreatorPanel but has the following characteristics:
+ *  - Creates a slot per symbol (which happens to be 3)
+ *  - Each Slot creates Vectors and adds them to a the same VectorSet
+ *  - Slots are non-infinite
+ *
+ * For the 'Explore 1D' screen, there are 2 of these panels (for horizontal/vertical).
  *
  * @author Brandon Li
  */
@@ -24,13 +26,6 @@ define( require => {
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
-  // constants
-  const DEFAULT_VECTOR_LENGTH = VectorAdditionConstants.DEFAULT_VECTOR_LENGTH;
-  const HORIZONTAL_DEFAULT_VECTOR = new Vector2( DEFAULT_VECTOR_LENGTH, 0 );
-  const VERTICAL_DEFAULT_VECTOR = new Vector2( 0, DEFAULT_VECTOR_LENGTH );
-  const VERTICAL_CREATOR_PANEL_OPTIONS = {
-    slotSpacing: 10
-  };
 
   class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
@@ -38,25 +33,42 @@ define( require => {
      * @param {Explore1DGraph} explore1DGraph
      * @param {SceneNode} sceneNode
      * @param {array.<string>} symbols - the symbols corresponding to each slot
+     * @@param {Object} [options]
      */
-    constructor( explore1DGraph, sceneNode, symbols ) {
+    constructor( explore1DGraph, sceneNode, symbols, options ) {
 
       assert && assert( explore1DGraph instanceof Explore1DGraph, `invalid explore1DGraph: ${explore1DGraph}` );
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
       assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on Options: ${options}` );
 
-      const panelSlots = [];
+      //----------------------------------------------------------------------------------------
+
+      options = _.extend( {
+
+        // {Vector2} - initial components of newly created Vectors
+        initialVectorComponents: explore1DGraph.orientation === GraphOrientations.VERTICAL ?
+          new Vector2( 0, VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ) :
+          new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH, 0 ),
+
+
+        // super-class options
+        slotSpacing: explore1DGraph.orientation === GraphOrientations.VERTICAL ? 10 : 18
+
+      }, options );
 
       //----------------------------------------------------------------------------------------
       // Loop through each symbol, creating a slot which corresponds with that symbol
       //----------------------------------------------------------------------------------------
+      const panelSlots = [];
 
       symbols.forEach( symbol => {
 
         const panelSlot = new VectorCreatorPanelSlot( explore1DGraph,
           explore1DGraph.vectorSet,
           sceneNode,
-          explore1DGraph.orientation === GraphOrientations.HORIZONTAL ? HORIZONTAL_DEFAULT_VECTOR : VERTICAL_DEFAULT_VECTOR, {
+          options.initialVectorComponents, {
             symbol: symbol
           } );
 
@@ -64,7 +76,7 @@ define( require => {
 
       } );
 
-      super( panelSlots, explore1DGraph.orientation === GraphOrientations.HORIZONTAL ? null : VERTICAL_CREATOR_PANEL_OPTIONS );
+      super( panelSlots, options );
     }
   }
 
