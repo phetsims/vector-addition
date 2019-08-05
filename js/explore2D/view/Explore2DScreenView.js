@@ -1,9 +1,15 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level view for the 'Explore2D' screen.
+ * Top level view for the 'Explore 2D' screen.
  *
- * Explore2D has a polar and a cartesian graph. Scene nodes are created to represent these graphs respectively.
+ * Extends VectorAdditionScreenView but adds:
+ *  - Coordinate Snap Radio Button Group
+ *  - Explore 2D Graph Control Panel
+ *  - Scene nodes for each graph
+ *  - Vector Creator Panels for each graph
+ *
+ * Screen Views are never disposed.
  *
  * @author Martin Veillette
  */
@@ -12,7 +18,6 @@ define( require => {
   'use strict';
 
   // modules
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const Explore2DGraphControlPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DGraphControlPanel' );
   const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
@@ -25,9 +30,13 @@ define( require => {
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
   // constants
+
+  // Shared symbol array for both graphs in Explore 2D ('a', 'b', 'c')
   const EXPLORE_2D_VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1;
 
+
   class Explore2DScreenView extends VectorAdditionScreenView {
+
     /**
      * @param {Explore2DModel} explore2DModel
      * @param {Tandem} tandem
@@ -37,65 +46,58 @@ define( require => {
       assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-
       super( explore2DModel, tandem );
 
+      // @private {VectorAdditionViewProperties} viewProperties - viewProperties for the 'Explore 2D' screen
       this.viewProperties = new VectorAdditionViewProperties();
 
-      //----------------------------------------------------------------------------------------
-      // Create the scenes for the polar and cartesian scenes.
-      const polarSceneNode = new SceneNode( explore2DModel.polarGraph,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        explore2DModel.componentStyleProperty );
+      //========================================================================================
+      // Add the children of the screen view
+      //========================================================================================
 
-      const cartesianSceneNode = new SceneNode( explore2DModel.cartesianGraph,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        explore2DModel.componentStyleProperty );
-
-      //----------------------------------------------------------------------------------------
-      // Create the vector creator panels
-
-      polarSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel.polarGraph,
-        polarSceneNode,
-        EXPLORE_2D_VECTOR_SYMBOLS ) );
-
-      cartesianSceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DModel.cartesianGraph,
-        cartesianSceneNode,
-        EXPLORE_2D_VECTOR_SYMBOLS ) );
-
-      //----------------------------------------------------------------------------------------
-      // Toggle visibility of scenes based on which coordinate snap mode it is
-
-      // Doesn't need to be unlinked since the scenes and explore2D scene is never disposed.
-      this.viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
-
-        polarSceneNode.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
-        cartesianSceneNode.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
-      } );
-
-      //----------------------------------------------------------------------------------------
-      // Create the Coordinate snapping radio buttons
-
+      // Create and add the coordinate snap mode radio buttons
       this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty ) );
 
-      //----------------------------------------------------------------------------------------
-      // Create the Graph Control panel
-
-      const explore2DGraphControlPanel = new Explore2DGraphControlPanel( this.viewProperties,
+      // Create and add the Graph Control Panel
+      this.addChild( new Explore2DGraphControlPanel( this.viewProperties,
         explore2DModel.cartesianGraph.vectorSet,
         explore2DModel.polarGraph.vectorSet,
-        explore2DModel.componentStyleProperty );
+        explore2DModel.componentStyleProperty ) );
 
-      this.addChild( explore2DGraphControlPanel );
+      //----------------------------------------------------------------------------------------
+      // Create and add the Scene Nodes and Vector Creator Panels for each graph
+      [ explore2DModel.polarGraph, explore2DModel.cartesianGraph ].forEach( explore2DGraph => {
 
-      this.addChild( polarSceneNode );
-      this.addChild( cartesianSceneNode );
+        // Create the scene node
+        const sceneNode = new SceneNode( explore2DGraph,
+          this.viewProperties.valuesVisibleProperty,
+          this.viewProperties.angleVisibleProperty,
+          this.viewProperties.gridVisibleProperty,
+          explore2DModel.componentStyleProperty );
+
+        // Add the vector creator panel
+        sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DGraph,
+            sceneNode,
+            EXPLORE_2D_VECTOR_SYMBOLS ) );
+
+        // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
+        // explore2DGraph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
+        this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
+          sceneNode.visible = coordinateSnapMode === explore2DGraph.coordinateSnapMode;
+        } );
+
+        // Add the scene node
+        this.addChild( sceneNode );
+
+      } );
     }
 
+    /**
+     * Resets the VectorAdditionScreenView
+     * @public
+     *
+     * @override
+     */
     reset() {
       this.viewProperties.reset();
     }
