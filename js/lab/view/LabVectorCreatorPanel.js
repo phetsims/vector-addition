@@ -45,7 +45,7 @@ define( require => {
       options = merge( {
 
         // {Vector2} - initial components of newly created Vectors
-        initialVectorComponent: new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH,
+        initialVectorComponents: new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH,
           VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ),
 
 
@@ -70,7 +70,7 @@ define( require => {
         slots.push( new VectorCreatorPanelSlot( labGraph,
           vectorSet,
           sceneNode,
-          options.initialVectorComponent,
+          options.initialVectorComponents,
           options.vectorCreatorPanelSlotOptions ) );
       } );
 
