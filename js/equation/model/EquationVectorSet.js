@@ -87,7 +87,6 @@ define( require => {
           EQUATION_SET_VECTORS[ i ].baseVectorTail,
           graph,
           this,
-          graph.equationTypeProperty,
           this.symbols[ i ] );
 
         this.vectors.push( equationVector );

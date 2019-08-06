@@ -27,6 +27,8 @@ define( require => {
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -101,7 +103,7 @@ define( require => {
         const coefficientProperty = vector.coefficientProperty;
 
         const numberPicker = new NumberPicker( coefficientProperty,
-          vector.coefficientRangeProperty,
+          new Property( new Range( -5, 5 ) ),
           NUMBER_PICKER_OPTIONS );
 
         // Create the label

@@ -30,7 +30,7 @@ define( require => {
   const VECTOR_OPTIONS = {
     isRemovable: false,       // Base Vectors are not removable
     isTipDraggable: false,    // Base Vectors are not draggable by the tip
-    isOnGraphInitially: true  // Base Vectors are always on the graph
+    isOnequationGraphInitially: true  // Base Vectors are always on the equationGraph
   };
 
   class BaseVector extends Vector {
@@ -38,18 +38,18 @@ define( require => {
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
      * @param {Vector2} initialComponents - starting components of the Base Vector
-     * @param {EquationGraph} graph - the equation graph the Base Vector belongs to
+     * @param {EquationGraph} equationGraph - the equation graph the Base Vector belongs to
      * @param {EquationVectorSet} equationVectorSet - the set that the Base Vector belongs to
      * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
      */
-    constructor( initialTailPosition, initialComponents, graph, equationVectorSet, symbol ) {
+    constructor( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol ) {
 
-      super( initialTailPosition, initialComponents, graph, equationVectorSet, symbol, VECTOR_OPTIONS );
+      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, VECTOR_OPTIONS );
 
       //----------------------------------------------------------------------------------------
       // Create number Properties for the base vector panel
 
-      if ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+      if ( equationGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
 
         //========================================================================================
         // Create number Properties for the x and y component that go into a number picker on CARTESIAN
@@ -70,7 +70,7 @@ define( require => {
         this.yComponentProperty.link( yComponent => { this.yComponent = yComponent; } );
 
       }
-      else if ( graph.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+      else if ( equationGraph.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
 
         //========================================================================================
         // Create number Properties for the angle and the magnitude that go into a number picker on polar

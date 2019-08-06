@@ -1,11 +1,14 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * See https://github.com/phetsims/vector-addition/issues/63 for context.
+ * See https://github.com/phetsims/vector-addition/issues/63 for an overview of how EquationVectors fit into the class
+ * hierarchy.
  *
  * Extends Vector and adds the following functionality:
- *  - A coefficient Property, and would scale the components/magnitude to the coefficient.
- *  - Instantiate a Base vector model. When the base vector model changes, this vector changes (multiply by coefficient)
+ *  - Instantiate a Base Vector. When the Base Vector's components change, this vector matches (multiply by coefficient)
+ *  - 3 Coefficient Properties (1 for each equation type). The Equation Vector scales its components by the coefficient
+ *    Property that corresponds with the current Equation Type.
+ *  - 3 Tail Position Properties (1 for each equation type). See https://github.com/phetsims/vector-addition/issues/80
  *  - Disables tip dragging and removing of vectors
  *
  * Equation vectors are created at the start of the sim, and are never disposed. They require a symbol.
@@ -18,107 +21,104 @@ define( require => {
 
   // modules
   const BaseVector = require( 'VECTOR_ADDITION/equation/model/BaseVector' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const Property = require( 'AXON/Property' );
-  const Range = require( 'DOT/Range' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
-  const DEFAULT_COEFFICIENT = 1;
-  const COEFFICIENT_RANGE = new Range( -5, 5 );
 
+  // starting coefficient
+  const DEFAULT_COEFFICIENT = 1;
+
+  // super class options
   const VECTOR_OPTIONS = {
-    isRemovable: false, // equation vectors are not removable
-    isTipDraggable: false, // equation vectors are not draggable by the tip
-    isOnGraphInitially: true // equation vectors are always on the graph
+    isRemovable: false,       // Equation Vectors are not removable
+    isTipDraggable: false,    // Equation Vectors are not draggable by the tip
+    isOnGraphInitially: true  // Equation Vectors are always on the equationGraph
   };
 
+
   class EquationVector extends Vector {
+
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {Vector2} baseVectorTailPosition - starting tail position of the base vector
-     * @param {EquationGraph} graph - the equation graph the vector belongs to
-     * @param {EquationVectorSet} vectorSet - the equationVectorSet that the vector belongs to
-     * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
+     * @param {EquationGraph} equationGraph - the equation graph the vector belongs to
+     * @param {EquationVectorSet} equationVectorSet - the equationVectorSet that the vector belongs to
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
     constructor( initialTailPosition,
                  initialComponents,
                  baseVectorTailPosition,
-                 graph,
-                 vectorSet,
-                 equationTypeProperty,
+                 equationGraph,
+                 equationVectorSet,
                  symbol
     ) {
 
-      assert && assert( equationTypeProperty instanceof EnumerationProperty
-      && EquationTypes.includes( equationTypeProperty.value ),
-        `invalid equationTypeProperty: ${equationTypeProperty}` );
+
+      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, VECTOR_OPTIONS );
 
 
-      super( initialTailPosition, initialComponents, graph, vectorSet, symbol, VECTOR_OPTIONS );
 
-      //----------------------------------------------------------------------------------------
-      // Create coefficient ranges. One for each equation type.
-
-      // @public (read-only) {DerivedProperty.<Number>}
+      // @public (read-only) {DerivedProperty.<Number>} - coefficientProperty
       this.coefficientProperty = new Property( DEFAULT_COEFFICIENT );
 
-
+      // Loop through each Equation Type - each Equation Type has a separate coefficient Property
+      // and a separate tail Position Property
       EquationTypes.VALUES.forEach( equationType => {
 
         const coefficientProperty = new Property( DEFAULT_COEFFICIENT );
 
         const tailPositionProperty = new Vector2Property( this.tail );
 
-        this.coefficientProperty.link( () => {
-
-          if ( equationTypeProperty.value === equationType ) {
-            coefficientProperty.value = this.coefficientProperty.value;
+        // Observe when the coefficient Property changes. If the equation Type matches, the coefficient
+        // Properties match. Doesn't need to be unlinked.
+        this.coefficientProperty.link( ( coefficient ) => {
+          if ( equationGraph.equationTypeProperty.value === equationType ) {
+            coefficientProperty.value = coefficient;
           }
         } );
 
-        equationTypeProperty.link( eType => {
-          if ( eType === equationType ) {
-            this.coefficientProperty.value = coefficientProperty.value;
-            this.translateTailToPosition( tailPositionProperty.value );
-          }
-        } );
-
-        this.tailPositionProperty.link( tailPosition => {
-          if ( equationTypeProperty.value === equationType ) {
+        // Observe when the tail Position Property changes. If the equation Type matches, the tail
+        // Properties match. Doesn't need to be unlinked.
+       this.tailPositionProperty.link( tailPosition => {
+          if ( equationGraph.equationTypeProperty.value === equationType ) {
             tailPositionProperty.value = tailPosition;
           }
         } );
 
+        // On the other hand, observe when the equation Type changes. If the equation Type now matches,
+        // the coefficientProperty must change to match the separate coefficientProperty, and the tailPosition
+        // must be translated to match the separate tail Position. Doesn't need to be unlinked.
+        equationGraph.equationTypeProperty.link( currentEquationType => {
+          if ( currentEquationType === equationType ) {
+            this.coefficientProperty.value = coefficientProperty.value;
+            this.translateTailToPosition( tailPositionProperty.value );
+          }
+        } );
       } );
-
 
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {BaseVector} baseVector - Instantiate a base vector
       this.baseVector = new BaseVector( baseVectorTailPosition,
         initialComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        graph,
-        vectorSet,
+        equationGraph,
+        equationVectorSet,
         symbol );
 
 
-      // Observe when the base vector changes, or when the coefficient Properties change and update the vector.
+      // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
       // Doesn't need to be unlinked since equation vectors are never disposed
       Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
         ( baseVector, coefficient ) => {
           this.vectorComponents = baseVector.timesScalar( coefficient );
         } );
 
-
-      // @public (read-only) {Property.<Range>} coefficientRangeProperty - Property of the range of the coefficient
-      this.coefficientRangeProperty = new Property( COEFFICIENT_RANGE );
-
+      // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.
       this.setTipWithInvariants( this.tip );
     }
 
@@ -156,7 +156,6 @@ define( require => {
         coefficient: this.coefficientProperty.value
       } );
     }
-
   }
 
   return vectorAddition.register( 'EquationVector', EquationVector );
