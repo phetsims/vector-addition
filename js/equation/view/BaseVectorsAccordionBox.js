@@ -56,6 +56,7 @@ define( require => {
   const COMPONENT_RANGE = new Range( -10, 10 );
   const ANGLE_RANGE = new Range( -180, 180 );
   const MAGNITUDE_RANGE = new Range( -10, 10 );
+
   class BaseVectorsAccordionBox extends AccordionBox {
     /**
      * @param {BooleanProperty} baseVectorsVisibleProperty
@@ -158,7 +159,7 @@ define( require => {
           const baseVector = vector.baseVector;
 
           const anglePicker = new NumberPicker( baseVector.angleDegreesProperty,
-           new Property( ANGLE_RANGE ),
+            new Property( ANGLE_RANGE ),
             _.extend( {}, NUMBER_PICKER_OPTIONS, {
               upFunction: ( value ) => {
                 return value + POLAR_ANGLE_INTERVAL;

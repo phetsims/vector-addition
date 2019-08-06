@@ -62,7 +62,6 @@ define( require => {
       super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, VECTOR_OPTIONS );
 
 
-
       // @public (read-only) {DerivedProperty.<Number>} - coefficientProperty
       this.coefficientProperty = new Property( DEFAULT_COEFFICIENT );
 
@@ -84,7 +83,7 @@ define( require => {
 
         // Observe when the tail Position Property changes. If the equation Type matches, the tail
         // Properties match. Doesn't need to be unlinked.
-       this.tailPositionProperty.link( tailPosition => {
+        this.tailPositionProperty.link( tailPosition => {
           if ( equationGraph.equationTypeProperty.value === equationType ) {
             tailPositionProperty.value = tailPosition;
           }

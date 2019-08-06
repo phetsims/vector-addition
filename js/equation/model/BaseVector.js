@@ -30,7 +30,7 @@ define( require => {
   const VECTOR_OPTIONS = {
     isRemovable: false,       // Base Vectors are not removable
     isTipDraggable: false,    // Base Vectors are not draggable by the tip
-    isOnequationGraphInitially: true  // Base Vectors are always on the equationGraph
+    isOnGraphInitially: true  // Base Vectors are always on the equationGraph
   };
 
   class BaseVector extends Vector {

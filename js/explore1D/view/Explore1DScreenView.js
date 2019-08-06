@@ -90,12 +90,12 @@ define( require => {
           EXPLORE_1D_SCENE_OPTIONS );
 
         // Add the vector creator panel
-        sceneNode.addVectorCreatorPanel(new Explore1DVectorCreatorPanel(
+        sceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel(
           explore1DGraph,
           sceneNode,
           explore1DGraph.orientation === GraphOrientations.HORIZONTAL ?
-                                         VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
-                                         VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2 ) );
+          VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
+          VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2 ) );
 
 
         // Toggle visibility of the SceneNode. Should only be visible if the graph orientation matches the

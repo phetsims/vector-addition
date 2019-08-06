@@ -49,8 +49,8 @@ define( require => {
 
         // {Vector2} - initial components of newly created Vectors
         initialVectorComponents: explore1DGraph.orientation === GraphOrientations.VERTICAL ?
-          new Vector2( 0, VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ) :
-          new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH, 0 ),
+                                 new Vector2( 0, VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ) :
+                                 new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH, 0 ),
 
 
         // super-class options

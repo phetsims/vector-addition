@@ -77,8 +77,8 @@ define( require => {
 
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DGraph,
-            sceneNode,
-            EXPLORE_2D_VECTOR_SYMBOLS ) );
+          sceneNode,
+          EXPLORE_2D_VECTOR_SYMBOLS ) );
 
         // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
         // explore2DGraph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
