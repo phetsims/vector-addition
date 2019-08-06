@@ -41,14 +41,14 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Disable unused Properties. Links don't need to be unlinked since the Explore 1D screen is never disposed.
 
-      this.angleVisibleProperty.link( angleVisible => {
-        if ( angleVisible ) { assert && assert( false, 'Angles are not used in Explore 1D' ); }
+      assert && this.angleVisibleProperty.link( angleVisible => {
+        if ( angleVisible ) { assert( false, 'Angles are not used in Explore 1D' ); }
       } );
 
       // Disable polar / cartesian mode.
-      this.coordinateSnapModeProperty.link( coordinateSnapMode => {
+      assert && this.coordinateSnapModeProperty.link( coordinateSnapMode => {
         if ( coordinateSnapMode !== CoordinateSnapModes.CARTESIAN ) {
-          assert && assert( false, 'Explore 1D only uses cartesian' );
+          assert( false, 'Explore 1D only uses cartesian' );
         }
       } );
 

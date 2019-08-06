@@ -30,9 +30,9 @@ define( require => {
 
       // Double check that the vector node never is animated back
       // Doesn't need to be unlinked since vector sums are never disposed.
-      this.animateBackProperty.link( ( animateBack ) => {
+      assert && this.animateBackProperty.link( ( animateBack ) => {
         if ( animateBack === true ) {
-          assert && assert( false, 'vector sums are never animated back' );
+          assert( false, 'vector sums are never animated back' );
         }
       } );
 
