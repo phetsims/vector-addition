@@ -182,8 +182,8 @@ define( require => {
             minorGridLinesShape.moveTo( xValue, graphMinY ).verticalLineTo( graphMaxY );
           }
         }
-        majorGridLinesPath.setShape( modelViewTransform.modelToViewShape( majorGridLinesShape ) );
-        minorGridLinesPath.setShape( modelViewTransform.modelToViewShape( minorGridLinesShape ) );
+        majorGridLinesPath.setShape( modelViewTransform.modelToViewShape( majorGridLinesShape ).makeImmutable() );
+        minorGridLinesPath.setShape( modelViewTransform.modelToViewShape( minorGridLinesShape ).makeImmutable() );
       } );
 
       this.setChildren( [ minorGridLinesPath, majorGridLinesPath ] );
@@ -296,7 +296,7 @@ define( require => {
         const ticksShape = this.getUpdatedTicksShape( graphModelBounds, modelViewTransform );
 
         // Update the axis path
-        axisTicksPath.setShape( ticksShape );
+        axisTicksPath.setShape( ticksShape.makeImmutable() );
       } );
       this.setChildren( [ this.axisArrow, this.axisLabel, axisTicksPath, this.originText ] );
     }

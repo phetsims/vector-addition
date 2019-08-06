@@ -128,6 +128,7 @@ define( require => {
       this.disposeVectorAngleNode = () => {
         vector.vectorComponentsProperty.unlink( updateAngleNodeListener );
         angleVisibleMultilink.dispose();
+        this.curvedArrow.dispose();
       };
     }
 

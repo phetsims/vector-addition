@@ -126,7 +126,7 @@ define( require => {
           this.radius,
           0,
           arrowheadPath.visible ? -correctedAngle : -this.angle, isAnticlockwise );
-        arcPath.setShape( arcShape );
+        arcPath.setShape( arcShape.makeImmutable() );
 
 
         if ( arrowheadPath.visible ) {
@@ -143,6 +143,21 @@ define( require => {
         }
       };
       this.updateArrowNode();
+
+      // @private {function}
+      this.disposeCurvedArrowNode = () => {
+        arrowheadPath.dispose();
+        arcPath.dispose();
+      };
+    }
+
+    /**
+     * @override
+     * Disposes the Curved Arrow Node
+     * @public
+     */
+    dispose() {
+      this.disposeCurvedArrowNode();
     }
 
     /**

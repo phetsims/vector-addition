@@ -125,6 +125,7 @@ define( require => {
      * @public
      */
     dispose() {
+      this.onAxisLinesPath.dispose();
       Property.unmultilink( this.componentVectorMultilink );
       super.dispose();
     }
@@ -172,7 +173,7 @@ define( require => {
         onAxisLines.moveToPoint( Vector2.ZERO ).lineToPoint( parentTailLocation );
         onAxisLines.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
 
-        this.onAxisLinesPath.setShape( onAxisLines );
+        this.onAxisLinesPath.setShape( onAxisLines.makeImmutable() );
 
         if ( isParentActive ) {
           this.onAxisLinesPath.stroke = VectorAdditionColors.ON_AXIS_LINES_ACTIVE_STROKE;
