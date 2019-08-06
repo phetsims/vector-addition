@@ -4,7 +4,7 @@
  * View for a ComponentVector
  *
  * Extends RootVectorNode but add the following functionality:
- *  - determines visibility by the component style (i.e. should be invisible on CoomponentStyles.INVISIBLE)
+ *  - determines visibility by the component style (i.e. should be invisible on ComponentStyles.INVISIBLE)
  *  - draws lines for the on-axis component style
  *  - custom label positioning
  *  - distinct appearance

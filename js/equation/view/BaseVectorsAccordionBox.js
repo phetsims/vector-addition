@@ -27,13 +27,13 @@ define( require => {
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
+  const Property = require( 'AXON/Property' );
+  const Range = require( 'DOT/Range' );
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const Property = require( 'AXON/Property' );
-  const Range = require( 'DOT/Range' );
   // strings
   const baseVectorsString = require( 'string!VECTOR_ADDITION/baseVectors' );
   const showBaseVectorsString = require( 'string!VECTOR_ADDITION/showBaseVectors' );

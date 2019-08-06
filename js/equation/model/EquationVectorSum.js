@@ -54,7 +54,7 @@ define( require => {
         dependencies.push( vector.vectorComponentsProperty );
       } );
 
-      // Doesn't need to be unlinked since each vector in equationvectorSet are never disposed and the equation vector
+      // Doesn't need to be unlinked since each vector in equationVectorSet are never disposed and the equation vector
       // sum is never disposed
       Property.multilink( _.concat( [ equationTypeProperty ], dependencies ),
         ( equationType ) => {

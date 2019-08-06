@@ -50,7 +50,7 @@ define( require => {
   // maximum length of the baseline that is parallel to the x axis
   const MAX_BASELINE_WIDTH = 55;
 
-  // the percensymbole of the baseline when compared to the radius of the curved arrow.
+  // the maximum percentage of the baseline when compared to the radius of the curved arrow.
   const MAX_BASELINE_SCALE = 0.60;
 
   // the offset of the angle label from the curved arrow

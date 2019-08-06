@@ -105,7 +105,7 @@ define( require => {
 
         // The arrowhead subtended angle is defined as the angle between the vector from the center to the tip of the
         // arrow and the vector of the center to first point the arc and the triangle intersect
-        const arrowheadSubtentedAngle = Math.asin( options.arrowheadHeight / this.radius );
+        const arrowheadSubtendedAngle = Math.asin( options.arrowheadHeight / this.radius );
 
         // Flag that indicates if the arc is anticlockwise (measured from positive x-axis) or clockwise.
         const isAnticlockwise = this.angle >= 0;
@@ -114,12 +114,12 @@ define( require => {
         // arc and the triangle intersect and the vector along the baseline (x-axis). This is used instead to create a
         // more accurate angle excluding the size of the triangle. Again, look at the drawing above.
         const correctedAngle = isAnticlockwise ?
-                               this.angle - arrowheadSubtentedAngle :
-                               this.angle + arrowheadSubtentedAngle;
+                               this.angle - arrowheadSubtendedAngle :
+                               this.angle + arrowheadSubtendedAngle;
 
         // Change the arrowhead visibility to false when the angle is too small relative to the subtended angle and true
         // otherwise
-        arrowheadPath.visible = Math.abs( this.angle ) > arrowheadSubtentedAngle;
+        arrowheadPath.visible = Math.abs( this.angle ) > arrowheadSubtendedAngle;
 
         // Create the arc shape
         const arcShape = new Shape().arcPoint( Vector2.ZERO,

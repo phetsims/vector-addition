@@ -81,7 +81,7 @@ define( require => {
     }
 
     /**
-     * Resets the vector set, by clearing the vectors array and reseting the vectorSum. Called when the graph is erased.
+     * Resets the vector set, by clearing the vectors array and resetting the vectorSum. Called when the graph is erased.
      * @public
      */
     reset() {
