@@ -158,6 +158,7 @@ define( require => {
      */
     dispose() {
       this.disposeCurvedArrowNode();
+      super.dispose();
     }
 
     /**
