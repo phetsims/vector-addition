@@ -75,11 +75,7 @@ define( require => {
 
 
       // @public (read-only) {EquationVectorSet} vectorSet
-      this.vectorSet = new EquationVectorSet( this,
-        componentStyleProperty,
-        vectorColorGroup,
-        coordinateSnapMode,
-        this.equationTypeProperty );
+      this.vectorSet = new EquationVectorSet( this, componentStyleProperty, vectorColorGroup, coordinateSnapMode );
 
       this.vectorSets.push( this.vectorSet );
     }

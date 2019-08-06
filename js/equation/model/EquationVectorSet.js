@@ -6,7 +6,6 @@
  * Extends VectorSet but:
  *  - locks the vector set. EquationVectorSets have a defined amount of vectors.
  *  - creates a EquationVectorSum
- *  - separate coefficient panels for each equation type.
  *
  * @author Brandon Li
  */
@@ -31,7 +30,7 @@ define( require => {
     initializeSum: false // Equation vector set will initialize all the vectors
   };
 
-  // Array of the vectors in an equation set
+  // Array of the Object literals that represent the initial state of Vectors on a Equation Vector Set
   const EQUATION_SET_VECTORS = [ {
     vectorTail: new Vector2( 5, 10 ),
     vectorComponents: new Vector2( 0, 5 ),
@@ -40,32 +39,23 @@ define( require => {
     vectorTail: new Vector2( 15, 10 ),
     vectorComponents: new Vector2( 5, 5 ),
     baseVectorTail: new Vector2( 45, 5 )
-  }
-  ];
+  } ];
+
+  const SUM_VISIBLE_PROPERTY = new BooleanProperty( true ); // Equation Vector Sums are always visible
 
   class EquationVectorSet extends VectorSet {
+
     /**
-     * @param {Graph} graph
+     * @param {EquationGraph} equationGraph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector color group
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
-     * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      */
-    constructor( graph,
-                 componentStyleProperty,
-                 vectorColorGroup,
-                 coordinateSnapMode,
-                 equationTypeProperty
-    ) {
+    constructor( equationGraph, componentStyleProperty, vectorColorGroup, coordinateSnapMode ) {
 
-
-      assert && assert( equationTypeProperty instanceof EnumerationProperty
-      && EquationTypes.includes( equationTypeProperty.value ),
-        `invalid equationTypeProperty: ${equationTypeProperty}` );
-
-      super( graph,
+      super( equationGraph,
         componentStyleProperty,
-        new BooleanProperty( true ),
+        SUM_VISIBLE_PROPERTY,
         vectorColorGroup,
         VECTOR_SET_OPTIONS );
 
@@ -76,7 +66,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Create the equationVectors, one less then symbols
-      // For example, if symbols were [ 'A', 'B', 'C' ], 'A' and 'B' would be equation Vector modules
+      // For example, if symbols were [ 'A', 'B', 'C' ], 'A' and 'B' would be equation Vector symbols
       // and C would be the equation vector sum
       assert && assert( this.symbols.length - 1 === EQUATION_SET_VECTORS.length );
 
@@ -85,7 +75,7 @@ define( require => {
         const equationVector = new EquationVector( EQUATION_SET_VECTORS[ i ].vectorTail,
           EQUATION_SET_VECTORS[ i ].vectorComponents,
           EQUATION_SET_VECTORS[ i ].baseVectorTail,
-          graph,
+          equationGraph,
           this,
           this.symbols[ i ] );
 
@@ -96,7 +86,10 @@ define( require => {
       // Create the vector sum
 
       // @public (read-only) {EquationVectorSum}
-      this.vectorSum = new EquationVectorSum( graph, this, equationTypeProperty, _.last( this.symbols ) );
+      this.vectorSum = new EquationVectorSum( equationGraph,
+        this,
+        equationGraph.equationTypeProperty,
+        _.last( this.symbols ) );
 
     }
 
@@ -106,12 +99,10 @@ define( require => {
      * @public
      */
     reset() {
-
       this.vectors.forEach( ( vector ) => {
         vector.reset();
       } );
       this.vectorSum.reset();
-
     }
   }
 

@@ -6,6 +6,7 @@
  * Extends Vector and adds the following functionality:
  *  - Takes an array of EquationVectors and calculates its components based on the vectors and the
  *    equationType
+ *  - Separate Tail Positions for each Equation Type
  *  - Disables tip dragging and removing of vectors
  *
  * Equation sum vectors are created at the start of the sim, and are never disposed. They require a symbol.
@@ -29,6 +30,7 @@ define( require => {
   const EQUATION_SUM_TAIL_POSITION = new Vector2( 25, 10 );
 
   class EquationVectorSum extends VectorSum {
+
     /**
      * @param {Graph} graph - graph the vector sum belongs to
      * @param {VectorSet} - the vector set that the sum represents
@@ -59,14 +61,14 @@ define( require => {
           this.updateSum( vectorSet.vectors, equationType );
         } );
 
-
+      //----------------------------------------------------------------------------------------
+      // Integrate separate tail positions for each equation type
       EquationTypes.VALUES.forEach( equationType => {
 
         const tailPositionProperty = new Vector2Property( this.tail );
 
-
-        equationTypeProperty.link( eType => {
-          if ( eType === equationType ) {
+        equationTypeProperty.link( currentEquationType => {
+          if ( currentEquationType === equationType ) {
             this.translateTailToPosition( tailPositionProperty.value );
           }
         } );
@@ -76,9 +78,7 @@ define( require => {
             tailPositionProperty.value = tailPosition;
           }
         } );
-
       } );
-
     }
 
     /**
@@ -102,24 +102,17 @@ define( require => {
         this.vectorComponents = sum;
       }
       else if ( equationType === EquationTypes.SUBTRACTION ) {
-        const difference = new Vector2( 0, 0 );
+        const calculatedComponents = vectors[ 0 ].vectorComponents;
 
-        let vectorIndex = 0;
-        vectors.forEach( vector => {
-          if ( !vectorIndex ) {
-            difference.add( vector.vectorComponents );
-          }
-          else {
-            difference.subtract( vector.vectorComponents );
-          }
-          vectorIndex++;
+        // Subtract from the first vector
+        _.drop( vectors ).forEach( vector => {
+          calculatedComponents.subtract( vector.vectorComponents );
         } );
 
-        this.vectorComponents = difference;
+        this.vectorComponents = calculatedComponents;
       }
       else if ( equationType === EquationTypes.NEGATION ) {
         // Same as addition but negated  : a + b = -c or a + b + c = 0
-
         const sum = new Vector2( 0, 0 );
 
         vectors.forEach( vector => {
