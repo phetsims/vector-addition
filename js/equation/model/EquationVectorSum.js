@@ -102,7 +102,7 @@ define( require => {
         this.vectorComponents = sum;
       }
       else if ( equationType === EquationTypes.SUBTRACTION ) {
-        const calculatedComponents = vectors[ 0 ].vectorComponents;
+        const calculatedComponents = vectors.get( 0 ).vectorComponents;
 
         // Subtract from the first vector
         _.drop( vectors ).forEach( vector => {
