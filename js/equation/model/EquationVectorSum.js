@@ -104,6 +104,7 @@ define( require => {
       else if ( equationType === EquationTypes.SUBTRACTION ) {
         const calculatedComponents = vectors.get( 0 ).vectorComponents.copy();
 
+
         // Subtract from the first vector
         _.drop( vectors.getArray() ).forEach( vector => {
           calculatedComponents.subtract( vector.vectorComponents );
