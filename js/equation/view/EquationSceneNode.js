@@ -31,7 +31,7 @@ define( require => {
     component: VectorAdditionColors.GREY
   };
   const BASE_VECTOR_OPACITY = 0.38;
-  const PANEL_CENTER_Y = 110;
+  const PANEL_CENTER_Y = 99;
 
   class EquationSceneNode extends SceneNode {
 
@@ -67,12 +67,15 @@ define( require => {
         componentStyleProperty,
         options );
 
+      const graphViewBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
+
       //----------------------------------------------------------------------------------------
       // Add the equation types radio button Group
 
       const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( graph.equationTypeProperty,
         graph.vectorSet.symbols, {
-          centerY: PANEL_CENTER_Y
+          centerY: PANEL_CENTER_Y,
+          right: graphViewBounds.maxX
         } );
 
       this.addChild( equationTypesRadioButtonGroup );
@@ -83,7 +86,8 @@ define( require => {
       EquationTypes.VALUES.forEach( equationType => {
 
         const coefficientSelectorPanel = new CoefficientSelectorPanel( graph.vectorSet, equationType, {
-          centerY: PANEL_CENTER_Y
+          centerY: PANEL_CENTER_Y,
+          left: graphViewBounds.left
         } );
 
         // Doesn't need to be unlinked since the coefficientSelectorPanel is never disposed

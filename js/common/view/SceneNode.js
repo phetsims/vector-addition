@@ -86,13 +86,13 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Create the graph node, each scene has exactly one graph
-      const graphNode = new GraphNode( graph, gridVisibleProperty );
+      this.graphNode = new GraphNode( graph, gridVisibleProperty );
 
       // Create the 'Vector Values' panel
       const vectorValuesPanel = new VectorValuesPanel( graph, options.vectorValuesPanelOptions );
 
       // Keep an array reference of the children
-      const children = [ graphNode, vectorValuesPanel ];
+      const children = [ this.graphNode, vectorValuesPanel ];
 
       // Handle z-layering of all vector types: (see https://github.com/phetsims/vector-addition/issues/19)
       // @private {Node}
@@ -107,8 +107,8 @@ define( require => {
           listener: () => {
             graph.erase();
           },
-          left: graphNode.right,
-          bottom: graphNode.bottom
+          left: this.graphNode.right,
+          bottom: this.graphNode.bottom
         } ) );
       }
 

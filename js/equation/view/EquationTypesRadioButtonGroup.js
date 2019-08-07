@@ -49,7 +49,7 @@ define( require => {
 
       options = _.extend( {
         centerY: 70,
-        left: 465,
+        right: 465,
         orientation: 'horizontal'
       }, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
 

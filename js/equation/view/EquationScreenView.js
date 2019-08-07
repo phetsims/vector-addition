@@ -61,7 +61,6 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the Coordinate snapping radio buttons
 
-      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty ) );
 
       const equationGraphControlPanel = new EquationGraphControlPanel( this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
@@ -70,6 +69,9 @@ define( require => {
 
       this.addChild( equationGraphControlPanel );
 
+      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
+        left: equationGraphControlPanel.left
+      } ) );
       this.addChild( polarScene );
       this.addChild( cartesianScene );
 
