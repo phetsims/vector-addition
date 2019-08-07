@@ -119,19 +119,7 @@ define( require => {
 
       // Create the content container for the open content
       const panelOpenContent = new Node();
-
-      //----------------------------------------------------------------------------------------
-      // Create the inspect a vector panel
-      //----------------------------------------------------------------------------------------
-
-      super( inspectVectorText, panelOpenContent, {
-        contentFixedWidth: options.contentFixedWidth,
-        contentFixedHeight: options.contentFixedHeight,
-        isExpandedInitially: options.isExpandedInitially
-      } );
-
-      this.top = options.top;
-      this.left = options.left;
+      panelOpenContent.setChildren( [ selectVectorText, vectorAttributesContainer ] );
 
       //----------------------------------------------------------------------------------------
       // Create the scenery nodes to display the vector. Each attribute has a label and a VectorValuesNumberDisplay
@@ -186,9 +174,9 @@ define( require => {
       // Doesn't need to be unlinked since the panel exists for the entire simulation.
       graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
 
-        panelOpenContent.setChildren( [ activeVector === null ? selectVectorText : vectorAttributesContainer ] );
-
         if ( activeVector !== null ) {
+          vectorAttributesContainer.visible = true;
+          selectVectorText.visible = false;
           // Get the vector symbol
           const vectorSymbol = activeVector.symbol ? activeVector.symbol : activeVector.fallBackSymbol;
 
@@ -197,6 +185,14 @@ define( require => {
           xComponentText.setSymbol( `${vectorSymbol}<sub>${symbolXString}</sub>` );
           yComponentText.setSymbol( `${vectorSymbol}<sub>${symbolYString}</sub>` );
         }
+        else {
+          vectorAttributesContainer.visible = false;
+          selectVectorText.visible = true;
+        }
+
+        selectVectorText.centerY = panelOpenContent.centerY;
+        vectorAttributesContainer.centerY = panelOpenContent.centerY;
+
 
         if ( activeVector && activeVector.coefficientProperty ) {
           activeVector.coefficientProperty.link( updateCoefficient );
@@ -208,6 +204,22 @@ define( require => {
         }
 
       } );
+
+      selectVectorText.centerY = panelOpenContent.centerY;
+      vectorAttributesContainer.centerY = panelOpenContent.centerY;
+
+      //----------------------------------------------------------------------------------------
+      // Create the inspect a vector panel
+      //----------------------------------------------------------------------------------------
+
+      super( inspectVectorText, panelOpenContent, {
+        contentFixedWidth: options.contentFixedWidth,
+        contentFixedHeight: options.contentFixedHeight,
+        isExpandedInitially: options.isExpandedInitially
+      } );
+
+      this.top = options.top;
+      this.left = options.left;
     }
   }
 

@@ -57,10 +57,14 @@ define( require => {
       cornerRadius: PANEL_CORNER_RADIUS,
       contentXMargin: 2,
       contentYMargin: PANEL_Y_MARGIN,
+      contentYSpacing: PANEL_X_MARGIN,
+      titleXSpacing: PANEL_Y_MARGIN,
       buttonXMargin: PANEL_X_MARGIN,
+      titleYMargin: PANEL_Y_MARGIN,
       buttonYMargin: PANEL_Y_MARGIN,
       fill: VectorAdditionColors.LIGHT_GREY,
       stroke: VectorAdditionColors.PANEL_STROKE_COLOR,
+      titleAlignX: 'left',
       expandCollapseButtonOptions: {
         sideLength: 20
       }
