@@ -97,7 +97,16 @@ define( require => {
       const pickerContainerHeight = 30;
       const createNumberPickerAndLabel = ( numberPicker, baseVector, displayType ) => {
 
-        const suffix = displayType === displayTypes.MAGNITUDE ? `|${baseVector.symbol}|` : baseVector.symbol;
+        let suffix;
+        if ( displayType === displayTypes.MAGNITUDE ) {
+          suffix = `|${baseVector.symbol}|`;
+        }
+        else if ( displayType === displayTypes.ANGLE ) {
+          suffix = MathSymbols.THETA;
+        }
+        else {
+          suffix = baseVector.symbol;
+        }
 
         let sub;
         if ( displayType === displayTypes.X ) {
@@ -107,7 +116,7 @@ define( require => {
           sub = symbolYString;
         }
         else if ( displayType === displayTypes.ANGLE ) {
-          sub = MathSymbols.THETA;
+          sub = baseVector.symbol;
         }
 
         const text = new RichText( sub ? `${suffix}<sub>${sub}</sub> = ` : `${suffix} = `, {
