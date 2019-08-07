@@ -86,8 +86,7 @@ define( require => {
       EquationTypes.VALUES.forEach( equationType => {
 
         const coefficientSelectorPanel = new CoefficientSelectorPanel( graph.vectorSet, equationType, {
-          centerY: PANEL_CENTER_Y,
-          left: graphViewBounds.left
+          centerY: PANEL_CENTER_Y
         } );
 
         // Doesn't need to be unlinked since the coefficientSelectorPanel is never disposed

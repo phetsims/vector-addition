@@ -68,7 +68,7 @@ define( require => {
 
         // specific to this class
         centerY: 70,
-        left: 165,
+        left: 140,
 
         // super class options
         contentFixedWidth: COEFFICIENT_PANEL_WIDTH, // {number|null} fixed size of the panel (see superclass)

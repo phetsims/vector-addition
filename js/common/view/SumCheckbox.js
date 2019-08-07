@@ -21,7 +21,7 @@ define( require => {
   // constants
   const TEXT_OPTIONS = {
     font: VectorAdditionConstants.PANEL_FONT,
-    maxWidth: 67
+    maxWidth: 95
   };
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
 
