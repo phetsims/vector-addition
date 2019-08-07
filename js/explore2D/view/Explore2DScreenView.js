@@ -55,14 +55,18 @@ define( require => {
       // Add the children of the screen view
       //========================================================================================
 
-      // Create and add the coordinate snap mode radio buttons
-      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty ) );
-
       // Create and add the Graph Control Panel
-      this.addChild( new Explore2DGraphControlPanel( this.viewProperties,
+      const graphControlPanel = new Explore2DGraphControlPanel( this.viewProperties,
         explore2DModel.cartesianGraph.vectorSet,
         explore2DModel.polarGraph.vectorSet,
-        explore2DModel.componentStyleProperty ) );
+        explore2DModel.componentStyleProperty );
+      this.addChild( graphControlPanel );
+
+
+      // Create and add the coordinate snap mode radio buttons
+      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
+        left: graphControlPanel.left
+      } ) );
 
       //----------------------------------------------------------------------------------------
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
@@ -78,7 +82,10 @@ define( require => {
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DGraph,
           sceneNode,
-          EXPLORE_2D_VECTOR_SYMBOLS ) );
+          EXPLORE_2D_VECTOR_SYMBOLS, {
+            top: graphControlPanel.bottom + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
+            left: graphControlPanel.left
+          } ) );
 
         // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
         // explore2DGraph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.

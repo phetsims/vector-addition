@@ -71,7 +71,7 @@ define( require => {
 
       } );
 
-      super( panelSlots );
+      super( panelSlots, options );
     }
   }
 

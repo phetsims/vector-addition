@@ -47,7 +47,7 @@ define( require => {
         lineWidth: 0.8,
         xMargin: 2, // {number} - the margins on the left and right side of the panel
         yMargin: 10, // {number} - the margins on the top and bottom of the panel
-        right: 950, // {number}
+        left: 950, // {number}
         top: 320, // {number}
 
         // options specific to this class

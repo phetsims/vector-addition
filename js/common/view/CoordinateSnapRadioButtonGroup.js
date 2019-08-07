@@ -42,7 +42,8 @@ define( require => {
         left: 955,
         top: 460,
         buttonContentXMargin: RADIO_BUTTON_OPTIONS.xMargin,
-        buttonContentYMargin: RADIO_BUTTON_OPTIONS.yMargin
+        buttonContentYMargin: RADIO_BUTTON_OPTIONS.yMargin,
+        orientation: 'horizontal'
 
       }, options );
 
