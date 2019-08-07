@@ -95,7 +95,9 @@ define( require => {
           sceneNode,
           explore1DGraph.orientation === GraphOrientations.HORIZONTAL ?
           VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
-          VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2 ) );
+          VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2, {
+            left: explore1DGraphControlPanel.left
+          } ) );
 
 
         // Toggle visibility of the SceneNode. Should only be visible if the graph orientation matches the
