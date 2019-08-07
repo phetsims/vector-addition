@@ -74,7 +74,7 @@ define( require => {
           options.vectorCreatorPanelSlotOptions ) );
       } );
 
-      super( slots, { contentHeight: options.contentHeight } );
+      super( slots, options );
     }
   }
 

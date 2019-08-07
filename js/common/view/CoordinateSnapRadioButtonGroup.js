@@ -40,7 +40,7 @@ define( require => {
 
         // Superclass options
         left: 955,
-        top: 460,
+        top: 490,
         buttonContentXMargin: RADIO_BUTTON_OPTIONS.xMargin,
         buttonContentYMargin: RADIO_BUTTON_OPTIONS.yMargin,
         orientation: 'horizontal'

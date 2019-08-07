@@ -25,6 +25,7 @@ define( require => {
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
@@ -49,15 +50,18 @@ define( require => {
       // Add the children of the screen view
       //========================================================================================
 
-      // Create and add the coordinate snap mode radio buttons
-      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty ) );
-
       // Create and add the Graph Control Panel
-      this.addChild( new LabGraphControlPanel(
+      const graphControlPanel = new LabGraphControlPanel(
         labModel.cartesianGraph,
         labModel.polarGraph,
         this.viewProperties,
-        labModel.componentStyleProperty ) );
+        labModel.componentStyleProperty );
+      this.addChild( graphControlPanel );
+
+      // Create and add the coordinate snap mode radio buttons
+      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
+        left: graphControlPanel.left
+      } ) );
 
       //----------------------------------------------------------------------------------------
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
@@ -69,7 +73,10 @@ define( require => {
           this.viewProperties.gridVisibleProperty,
           labModel.componentStyleProperty );
 
-        sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode ) );
+        sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode, {
+          top: graphControlPanel.bottom + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
+          left: graphControlPanel.left
+        } ) );
 
         // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
         // labGraph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
