@@ -144,7 +144,7 @@ define( require => {
 
         const panelContentMaxWidth = _.maxBy( panelContent, node => node.width ).width;
 
-        const panelContentWidth = _.max( [ panelContentMaxWidth, PANEL_OPTIONS.minWidth -  2 * PANEL_OPTIONS.xMargin ] );
+        const panelContentWidth = _.max( [ panelContentMaxWidth, PANEL_OPTIONS.minWidth - 2 * PANEL_OPTIONS.xMargin ] );
 
         // Add a HSeparator
         panelContent.push( new HSeparator( panelContentWidth, { stroke: VectorAdditionColors.BLACK } ) );
