@@ -42,16 +42,17 @@ define( require => {
      */
     constructor( closedContent, openContent, options ) {
 
-      options = _.extend( {
+      options = _.extend( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
         isExpandedInitially: true, // {boolean} - false means the panel will start off as closed
-        contentXSpacing: 10,
-        titleXSpacing: 10,
+
+
+        contentYMargin: 0,
+        titleYMargin: 0,
+        buttonYMargin: 0,
 
         // content align
         contentAlign: 'left',    // {string} - 'left', 'center', or 'right'
-        contentYMargin: 8,
-        titleYMargin: 8,
         contentFixedWidth: null, // {number|null} if provided, the content will scale to fix this width. Otherwise,
                                  // the fixed size is calculated by the largest of the content nodes and its respective
                                  // margin
@@ -61,14 +62,12 @@ define( require => {
                                   // margin
 
         // See VectorAdditionConstants.ACCORDION_BOX_OPTIONS for the rest of the defaults
-      }, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, options );
-
+      }, options );
 
       assert && assert( typeof options.isExpandedInitially === 'boolean',
         `invalid options.isExpandedInitially: ${options.isExpandedInitially}` );
       assert && assert( closedContent instanceof Node, `invalid closedContent: ${closedContent}` );
       assert && assert( openContent instanceof Node, `invalid openContent: ${openContent}` );
-
 
       //----------------------------------------------------------------------------------------
       // Create the content container
@@ -87,8 +86,7 @@ define( require => {
         xAlign: options.contentAlign,
         alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight ),
         maxWidth: contentWidth,
-        maxHeight: contentHeight,
-        xMargin: options.titleXSpacing
+        maxHeight: contentHeight
       } );
 
       const closedContentAlignBox = new AlignBox( closedContent, {

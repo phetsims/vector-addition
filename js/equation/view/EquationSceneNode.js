@@ -31,7 +31,7 @@ define( require => {
     component: VectorAdditionColors.GREY
   };
   const BASE_VECTOR_OPACITY = 0.38;
-  const PANEL_CENTER_Y = 99;
+  const PANEL_CENTER_Y = 100;
 
   class EquationSceneNode extends SceneNode {
 

@@ -18,56 +18,64 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
+  // constants
   const PANEL_CORNER_RADIUS = 5;
   const PANEL_X_MARGIN = 9;
   const PANEL_Y_MARGIN = 10;
 
 
-  //----------------------------------------------------------------------------------------
   const VectorAdditionConstants = {
 
-    // Margins for all ScreenView instances
+    //----------------------------------------------------------------------------------------
+    // ScreenView constants
+    //----------------------------------------------------------------------------------------
     SCREEN_VIEW_X_MARGIN: 10,
     SCREEN_VIEW_Y_MARGIN: 12,
     SCREEN_VIEW_BOUNDS: ScreenView.DEFAULT_LAYOUT_BOUNDS,
 
+
     //----------------------------------------------------------------------------------------
+    // Panel constants
+    //----------------------------------------------------------------------------------------
+
+    // Font used on all panel-like container text nodes
+    PANEL_FONT: new PhetFont( 15.5 ),
+
     // Defaults for all panel-like containers
     PANEL_OPTIONS: _.extend( {
       cornerRadius: PANEL_CORNER_RADIUS,
       xMargin: PANEL_X_MARGIN,
       yMargin: 10
     }, VectorAdditionColors.PANEL_COLORS ),
+
+    // Spacing between items on each GraphControlPanel (See GraphControlPanel.js)
     GRAPH_CONTROL_PANEL_SPACING: 10,
 
-    // Font used on all panel-like container text nodes
-    PANEL_FONT: new PhetFont( 15 ),
-
-    // Defaults for layout boxes embedded in graph control panels (panel at the top-right of each and every screen)
-    CONTROL_PANEL_LAYOUT_BOX_OPTIONS: {
-      spacing: 10,
-      align: 'left'
-    },
 
     //----------------------------------------------------------------------------------------
-    // Defaults for all panels with a expand collapse button
+    // Accordion Box Constants
+    //----------------------------------------------------------------------------------------
     ACCORDION_BOX_OPTIONS: _.extend( {
       cornerRadius: PANEL_CORNER_RADIUS,
-      contentXMargin: 2,
-      contentYMargin: PANEL_Y_MARGIN,
-      contentYSpacing: PANEL_X_MARGIN,
-      titleXSpacing: PANEL_Y_MARGIN,
+
+      contentXMargin: PANEL_X_MARGIN,
+      contentXSpacing: PANEL_X_MARGIN,
+      titleXSpacing: PANEL_X_MARGIN,
       buttonXMargin: PANEL_X_MARGIN,
+
+      contentYMargin: PANEL_Y_MARGIN,
       titleYMargin: PANEL_Y_MARGIN,
       buttonYMargin: PANEL_Y_MARGIN,
+
+
       titleAlignX: 'left',
       expandCollapseButtonOptions: {
-        sideLength: 20
+        sideLength: 22
       }
     }, VectorAdditionColors.PANEL_COLORS ),
 
     // Height of all ExpandCollapsePanel instances
-    ACCORDION_BOX_OPTIONS_HEIGHT: 30,
+    ACCORDION_BOX_OPTIONS_HEIGHT: 50,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all check boxes
@@ -88,16 +96,16 @@ define( require => {
     }, VectorAdditionColors.RADIO_BUTTON_COLORS ),
 
     //----------------------------------------------------------------------------------------
-    // Options for all number pickers
+    // Default options for all Number Picker instances
     NUMBER_PICKER_OPTIONS: {
       color: VectorAdditionColors.BLACK,
-      cornerRadius: 3,
-      arrowYSpacing: 1.6,
-      arrowHeight: 3.6,
-      font: new PhetFont( 16.5 ),
-      xMargin: 2.5,
-      yMargin: 2.4,
-      valueMaxWidth: 19
+      cornerRadius: 3.5,
+      arrowYSpacing: 1.5,
+      arrowHeight: 4,
+      font: new PhetFont( 17.5 ),
+      xMargin: 4.5,
+      yMargin: 3.5,
+      valueMaxWidth: 20
     },
 
     //----------------------------------------------------------------------------------------
