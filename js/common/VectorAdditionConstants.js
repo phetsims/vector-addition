@@ -33,13 +33,11 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Defaults for all panel-like containers
-    PANEL_OPTIONS: {
+    PANEL_OPTIONS: _.extend( {
       cornerRadius: PANEL_CORNER_RADIUS,
       xMargin: PANEL_X_MARGIN,
-      yMargin: 10,
-      fill: VectorAdditionColors.LIGHT_GREY,
-      stroke: VectorAdditionColors.PANEL_STROKE_COLOR
-    },
+      yMargin: 10
+    }, VectorAdditionColors.PANEL_COLORS ),
     GRAPH_CONTROL_PANEL_SPACING: 10,
 
     // Font used on all panel-like container text nodes
@@ -53,7 +51,7 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Defaults for all panels with a expand collapse button
-    ACCORDION_BOX_OPTIONS: {
+    ACCORDION_BOX_OPTIONS: _.extend( {
       cornerRadius: PANEL_CORNER_RADIUS,
       contentXMargin: 2,
       contentYMargin: PANEL_Y_MARGIN,
@@ -62,13 +60,11 @@ define( require => {
       buttonXMargin: PANEL_X_MARGIN,
       titleYMargin: PANEL_Y_MARGIN,
       buttonYMargin: PANEL_Y_MARGIN,
-      fill: VectorAdditionColors.LIGHT_GREY,
-      stroke: VectorAdditionColors.PANEL_STROKE_COLOR,
       titleAlignX: 'left',
       expandCollapseButtonOptions: {
         sideLength: 20
       }
-    },
+    }, VectorAdditionColors.PANEL_COLORS ),
 
     // Height of all ExpandCollapsePanel instances
     ACCORDION_BOX_OPTIONS_HEIGHT: 30,

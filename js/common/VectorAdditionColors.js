@@ -16,9 +16,9 @@ define( require => {
   // shared colors
   const WHITE = 'rgb( 255, 255, 255 )';
   const BLACK = 'rgb( 0, 0, 0 )';
-  const LIGHT_GREY = 'rgb( 240, 240, 240 )';
   const GREY = 'rgb( 190, 190, 190 )';
   const PURPLE = 'rgb( 188, 3, 255 )';
+
 
   const VectorAdditionColors = {
 
@@ -31,17 +31,17 @@ define( require => {
       selectedStroke: 'rgb( 65, 154, 201 )',
       deselectedStroke: 'rgb( 50, 50, 50 )'
     },
-    PANEL_STROKE_COLOR: 'rgb( 190, 190, 190 )',
 
+    PANEL_COLORS: {
+      stroke: 'rgb( 190, 190, 190 )',
+      fill: 'rgb( 240, 240, 240 )'
+    },
     //----------------------------------------------------------------------------------------
     // Graph colors
     ORIGIN_DOT_COLOR: 'rgb( 25, 253, 56 )',
     GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )',
     GRAPH_MINOR_LINE_COLOR: 'rgb( 225, 225, 225 )',
-
-    //----------------------------------------------------------------------------------------
-    // Graph Control Panel
-    GRID_ICON_COLOR: 'rgb( 80, 80, 80 )',
+    GRID_ICON_COLOR: 'rgb( 80, 80, 80 )', // on the control panel
 
     //----------------------------------------------------------------------------------------
     // Vector Creator Panel
@@ -65,15 +65,16 @@ define( require => {
     // References, see https://github.com/phetsims/sun/issues/312
     WHITE: WHITE,
     BLACK: BLACK,
-    LIGHT_GREY: LIGHT_GREY,
     GREY: GREY,
     PURPLE: PURPLE
   };
 
-  //----------------------------------------------------------------------------------------
+  //========================================================================================
   // Vector colors by groups (See VectorColorGroups.js)
-  //----------------------------------------------------------------------------------------
+  //========================================================================================
 
+  //----------------------------------------------------------------------------------------
+  // Vector Color Group 1
   VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1.toString() ] = {
     fill: 'rgb( 10, 170, 250 )',
     sum: 'rgb( 0, 181, 225 )',
@@ -81,6 +82,8 @@ define( require => {
     labelBackground: 'rgb( 150, 210, 255 )'
   };
 
+  //----------------------------------------------------------------------------------------
+  // Vector Color Group 2
   VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_2.toString() ] = {
     fill: 'rgb( 232, 25, 9 )',
     sum: 'rgb( 196, 2, 51 )',
@@ -88,6 +91,8 @@ define( require => {
     labelBackground: 'rgb( 255, 100, 100 )'
   };
 
+  //----------------------------------------------------------------------------------------
+  // Vector Color Group 3
   VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_3.toString() ] = {
     fill: PURPLE,
     sum: 'rgb( 128, 0, 128 )',
@@ -95,6 +100,8 @@ define( require => {
     labelBackground: 'rgb( 210, 194, 210 )'
   };
 
+  //----------------------------------------------------------------------------------------
+  // Vector Color Group 4
   VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_4.toString() ] = {
     fill: '#058000',
     sum: '#024700',

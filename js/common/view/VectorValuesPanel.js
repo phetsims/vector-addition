@@ -151,7 +151,7 @@ define( require => {
           alignBounds: new Bounds2( 0, 0, labelWidth, INSPECT_PANEL_HEIGHT ),
           maxWidth: labelWidth
         } );
-
+        label.maxWidth = labelWidth;
         vectorAttributesContainer.addChild( new HBox( {
           spacing: LABEL_RIGHT_MARGIN,
           children: [ fixedWidthLabel, numberDisplay ]
