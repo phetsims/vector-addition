@@ -53,7 +53,7 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Defaults for all panels with a expand collapse button
-    EXPAND_COLLAPSE_PANEL: {
+    ACCORDION_BOX_OPTIONS: {
       cornerRadius: PANEL_CORNER_RADIUS,
       contentXMargin: 2,
       contentYMargin: PANEL_Y_MARGIN,
@@ -71,7 +71,7 @@ define( require => {
     },
 
     // Height of all ExpandCollapsePanel instances
-    EXPAND_COLLAPSE_PANEL_HEIGHT: 30,
+    ACCORDION_BOX_OPTIONS_HEIGHT: 30,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all check boxes

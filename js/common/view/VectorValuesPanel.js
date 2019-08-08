@@ -48,7 +48,7 @@ define( require => {
 
   // fixed width and height of the panel
   const INSPECT_PANEL_WIDTH = 440;
-  const INSPECT_PANEL_HEIGHT = VectorAdditionConstants.EXPAND_COLLAPSE_PANEL_HEIGHT;
+  const INSPECT_PANEL_HEIGHT = VectorAdditionConstants.ACCORDION_BOX_OPTIONS_HEIGHT;
 
   // font for the panel
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;

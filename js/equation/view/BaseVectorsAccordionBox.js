@@ -41,7 +41,7 @@ define( require => {
   const symbolYString = require( 'string!VECTOR_ADDITION/symbol.y' );
 
   // constants
-  const EXPAND_COLLAPSE_PANEL_OPTIONS = VectorAdditionConstants.EXPAND_COLLAPSE_PANEL;
+  const ACCORDION_BOX_OPTIONS_OPTIONS = VectorAdditionConstants.ACCORDION_BOX_OPTIONS;
   const SCREEN_VIEW_BOUNDS = VectorAdditionConstants.SCREEN_VIEW_BOUNDS;
   const SCREEN_VIEW_X_MARGIN = VectorAdditionConstants.SCREEN_VIEW_X_MARGIN;
   const CHECKBOX_OPTIONS = _.extend( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
@@ -64,22 +64,21 @@ define( require => {
      */
     constructor( baseVectorsVisibleProperty, coordinateSnapMode, vectorSet, options ) {
 
-      options = _.extend( {}, EXPAND_COLLAPSE_PANEL_OPTIONS, {
+      options = _.extend( {}, ACCORDION_BOX_OPTIONS_OPTIONS, {
 
         fixedWidth: 170,
-        contentXMargin: EXPAND_COLLAPSE_PANEL_OPTIONS.buttonXMargin,
+        contentXMargin: ACCORDION_BOX_OPTIONS_OPTIONS.buttonXMargin,
 
         // superclass options
         titleNode: new Text( baseVectorsString, { font: PANEL_FONT } ),
         right: SCREEN_VIEW_BOUNDS.maxX - SCREEN_VIEW_X_MARGIN,
         top: 270,
-        titleAlignX: 'left',
-        titleXMargin: EXPAND_COLLAPSE_PANEL_OPTIONS.buttonXMargin
+        titleXMargin: ACCORDION_BOX_OPTIONS_OPTIONS.buttonXMargin
       }, options );
 
       // Limit width of title is the maximum size of the title.
       options.titleNode.maxWidth = options.fixedWidth
-                                   - EXPAND_COLLAPSE_PANEL_OPTIONS.expandCollapseButtonOptions.sideLength
+                                   - ACCORDION_BOX_OPTIONS_OPTIONS.expandCollapseButtonOptions.sideLength
                                    - options.contentXMargin
                                    - options.buttonXMargin
                                    - options.titleXMargin;

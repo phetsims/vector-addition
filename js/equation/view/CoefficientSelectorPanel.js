@@ -38,7 +38,7 @@ define( require => {
 
   // fixed width and height of the panel
   const COEFFICIENT_PANEL_WIDTH = 210;
-  const COEFFICIENT_PANEL_HEIGHT = VectorAdditionConstants.EXPAND_COLLAPSE_PANEL_HEIGHT;
+  const COEFFICIENT_PANEL_HEIGHT = VectorAdditionConstants.ACCORDION_BOX_OPTIONS_HEIGHT;
 
   // font for the panel
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;

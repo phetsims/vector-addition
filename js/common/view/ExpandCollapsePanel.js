@@ -60,8 +60,8 @@ define( require => {
                                   // the fixed size is calculated by the largest of the content nodes and its respective
                                   // margin
 
-        // See VectorAdditionConstants.EXPAND_COLLAPSE_PANEL for the rest of the defaults
-      }, VectorAdditionConstants.EXPAND_COLLAPSE_PANEL, options );
+        // See VectorAdditionConstants.ACCORDION_BOX_OPTIONS for the rest of the defaults
+      }, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, options );
 
 
       assert && assert( typeof options.isExpandedInitially === 'boolean',
