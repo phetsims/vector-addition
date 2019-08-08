@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Colors for the project.
+ * Colors for the 'Vector Addition'
  *
  * @author Brandon Li
  */
@@ -26,16 +26,6 @@ define( require => {
     // General
     SCREEN_BACKGROUND: 'rgb( 255, 250, 227 )',
 
-    RADIO_BUTTON_COLORS: {
-      baseColor: WHITE,
-      selectedStroke: 'rgb( 65, 154, 201 )',
-      deselectedStroke: 'rgb( 50, 50, 50 )'
-    },
-
-    PANEL_COLORS: {
-      stroke: 'rgb( 190, 190, 190 )',
-      fill: 'rgb( 240, 240, 240 )'
-    },
     //----------------------------------------------------------------------------------------
     // Graph colors
     ORIGIN_DOT_COLOR: 'rgb( 25, 253, 56 )',
@@ -44,22 +34,32 @@ define( require => {
     GRID_ICON_COLOR: 'rgb( 80, 80, 80 )', // on the control panel
 
     //----------------------------------------------------------------------------------------
-    // Vector Creator Panel
-    VECTOR_CREATOR_COLORS: {
-      fill: WHITE,
-      stroke: BLACK
+    // Panel-like container default colors
+    PANEL_COLORS: {
+      stroke: 'rgb( 190, 190, 190 )',
+      fill: 'rgb( 240, 240, 240 )'
+    },
+
+    //----------------------------------------------------------------------------------------
+    // Radio Button Group default colors
+    RADIO_BUTTON_COLORS: {
+      baseColor: WHITE,
+      selectedStroke: 'rgb( 65, 154, 201 )',
+      deselectedStroke: 'rgb( 50, 50, 50 )'
     },
 
     //----------------------------------------------------------------------------------------
     // Label background on active vectors
-    ACTIVE_VECTOR_LABEL_BACKGROUND: 'rgb( 255, 255, 100 )',
-    EQUATION_SUM_FILL: BLACK,
+    ACTIVE_VECTOR_LABEL_BACKGROUND: 'rgb( 240, 240, 100 )',
 
+    //----------------------------------------------------------------------------------------
+    // Color of the Sum Vectors on the 'Equation' screen
+    EQUATION_SUM_FILL: BLACK,
 
     //----------------------------------------------------------------------------------------
     // On axis lines
-    ON_AXIS_LINES_NON_ACTIVE_STROKE: BLACK,
-    ON_AXIS_LINES_ACTIVE_STROKE: '#D64F00',
+    ON_AXIS_LINES_NON_ACTIVE_STROKE: BLACK, // stroke when the vector isn't active
+    ON_AXIS_LINES_ACTIVE_STROKE: '#D64F00', // stroke when the vector is active
 
     //----------------------------------------------------------------------------------------
     // References, see https://github.com/phetsims/sun/issues/312
@@ -69,9 +69,9 @@ define( require => {
     PURPLE: PURPLE
   };
 
-  //========================================================================================
+  //----------------------------------------------------------------------------------------
   // Vector colors by groups (See VectorColorGroups.js)
-  //========================================================================================
+  //----------------------------------------------------------------------------------------
 
   //----------------------------------------------------------------------------------------
   // Vector Color Group 1

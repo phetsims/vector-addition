@@ -55,9 +55,11 @@ define( require => {
         yAlign: 'center', // 'top' || 'center' || 'bottom' - vertical alignment of the panel slots
         slotSpacing: 20, // {number} - the spacing between slots
         contentWidth: 80, // {number} fixed width of the panel content
-        contentHeight: 120 // {number} fixed height of the panel content
+        contentHeight: 120, // {number} fixed height of the panel content
 
-      }, VectorAdditionColors.VECTOR_CREATOR_COLORS, options );
+        fill: VectorAdditionColors.WHITE,
+        stroke: VectorAdditionColors.BLACK
+      }, options );
 
 
       //----------------------------------------------------------------------------------------
