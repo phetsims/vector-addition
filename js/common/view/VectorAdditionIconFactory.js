@@ -53,7 +53,7 @@ define( require => {
   // constants
 
   // default VectorColorGroup for icons
-  const DEFAULT_COLOR_GROUP = VectorAdditionConstants.DEFAULT_COLOR_GROUP;
+  const DEFAULT_COLOR_GROUP = VectorColorGroups.COLOR_GROUP_1;
 
 
   // Defaults for the screen icons
