@@ -120,8 +120,8 @@ define( require => {
       cursor: 'move'
     },
 
-    DEFAULT_VECTOR_LENGTH: 5, // Side length of the arrow when initially dropped onto the graph.
-    VECTOR_LABEL_OFFSET: 0.3, // The offset in model coordinates of the label with respect to the vector
+    DEFAULT_VECTOR_LENGTH: 5, // side length of the arrow when initially dropped onto the graph.
+    VECTOR_LABEL_OFFSET: 0.3, // the offset in model coordinates of the label with respect to the vector
 
 
     //----------------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ define( require => {
 
 
     //----------------------------------------------------------------------------------------
-    // interval spacing of vector angle (in degrees) when vector is in polar mode
+    // Interval spacing of vector angle (in degrees) when vector is in polar mode
     POLAR_ANGLE_INTERVAL: 5
   };
 
