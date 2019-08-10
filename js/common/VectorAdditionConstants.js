@@ -83,6 +83,7 @@ define( require => {
       buttonXMargin: PANEL_X_MARGIN,
       buttonYMargin: PANEL_Y_MARGIN,
       titleYMargin: PANEL_Y_MARGIN,
+      titleXMargin: PANEL_X_MARGIN,
       titleXSpacing: PANEL_X_MARGIN,
       titleAlignX: 'left',
       expandCollapseButtonOptions: {
