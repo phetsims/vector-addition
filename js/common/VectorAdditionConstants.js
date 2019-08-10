@@ -80,6 +80,7 @@ define( require => {
       contentXMargin: PANEL_X_MARGIN,
       contentYMargin: PANEL_Y_MARGIN,
       contentXSpacing: PANEL_X_MARGIN,
+      contentYSpacing: 1,
       buttonXMargin: PANEL_X_MARGIN,
       buttonYMargin: PANEL_Y_MARGIN,
       titleYMargin: PANEL_Y_MARGIN,

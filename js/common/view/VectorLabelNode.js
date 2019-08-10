@@ -72,7 +72,7 @@ define( require => {
         yMargin: 1,                   // {number} vertical margin
         symbolValueSpacing: 7         // {number} spacing between the vector symbol node and the value
 
-      }, options || {} );
+      }, options );
 
       //----------------------------------------------------------------------------------------
 

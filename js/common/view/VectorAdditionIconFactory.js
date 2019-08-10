@@ -215,7 +215,7 @@ define( require => {
           cursor: 'pointer',
           fill: VectorAdditionColors[ vectorColorGroup ].fill
         } )
-      }, options || {} );
+      }, options );
 
       const arrowComponents = initialVectorComponents.normalized().timesScalar( options.arrowLength );
       return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y, options.arrowOptions );
@@ -243,7 +243,7 @@ define( require => {
           fill: VectorAdditionColors[ vectorColorGroup ].sum
         },
         arrowLength: 22     // {number} length of the sum arrow node
-      }, options || {} );
+      }, options );
 
       return new ArrowNode( 0, 0, options.arrowLength, 0, options.arrowOptions );
     },
@@ -264,7 +264,7 @@ define( require => {
           arrowheadHeight: 4.2,
           arcOptions: { lineWidth: 1.3 }
         }
-      }, options || {} );
+      }, options );
 
       const wedgeShape = new Shape()
         .moveTo( options.wedgeLength, 0 )
@@ -292,7 +292,7 @@ define( require => {
         gridPathOptions: {    // {Object} options passed to the grid Path instance
           stroke: VectorAdditionColors.GRID_ICON_COLOR
         }
-      }, options || {} );
+      }, options );
 
       const gridShape = new Shape();
 
@@ -327,7 +327,7 @@ define( require => {
         subBoxSize: 10,                       // {number} size of the sub-box the arrow/on-axis lines creates
         lineDash: [ 2.9, 2 ],                 // {number[]} line dash for the on-axis lines
         stroke: VectorAdditionColors.BLACK    // {string|Color} stroke of the on-axis lines
-      }, options || {} );
+      }, options );
 
       if ( componentStyle === ComponentStyles.INVISIBLE ) {
         return createRadioButtonIcon( new FontAwesomeNode( 'eye_close' ) );
@@ -397,7 +397,7 @@ define( require => {
         cartesianTopMargin: 5.5,           // {number} top margin of the radio button icon for cartesian
         cartesianLeftMargin: 2.9,          // {number} left margin of the radio button icon for cartesian
         arcRadius: 17                      // {number} arc radius of the curved arrow
-      }, options || {} );
+      }, options );
 
       //----------------------------------------------------------------------------------------
       const arrowSize = options.arrowSize; // convenience reference
@@ -453,7 +453,7 @@ define( require => {
           headWidth: 8,
           headHeight: 10
         }
-      }, options || {} );
+      }, options );
 
       //----------------------------------------------------------------------------------------
       if ( graphOrientation === GraphOrientations.HORIZONTAL ) {

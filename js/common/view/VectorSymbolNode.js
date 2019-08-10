@@ -80,7 +80,7 @@ define( require => {
         // {Object} passed to the rich text. Only used if options.useRichText is true
         richTextFont: new MathSymbolFont( { size: 20, weight: 500 } )
 
-      }, options || {} );
+      }, options );
 
       super( { spacing: options.spacing } );
 
