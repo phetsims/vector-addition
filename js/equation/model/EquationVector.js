@@ -102,9 +102,13 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
+      // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.
+      this.setTipWithInvariants( this.tip );
+
+
       // @public (read-only) {BaseVector} baseVector - Instantiate a base vector
       this.baseVector = new BaseVector( baseVectorTailPosition,
-        initialComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
         equationGraph,
         equationVectorSet,
         symbol );
@@ -116,9 +120,6 @@ define( require => {
         ( baseVector, coefficient ) => {
           this.vectorComponents = baseVector.timesScalar( coefficient );
         } );
-
-      // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.
-      this.setTipWithInvariants( this.tip );
     }
 
     /**

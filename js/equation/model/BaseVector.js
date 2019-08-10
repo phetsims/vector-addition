@@ -91,7 +91,7 @@ define( require => {
         } );
 
         this.magnitudeProperty && this.magnitudeProperty.link( magnitude => {
-          this.vectorComponents = this.vectorComponents.withMagnitude( magnitude );
+          this.vectorComponents = Vector2.createPolar( magnitude, this.angleDegreesProperty.value );
         } );
 
       }
