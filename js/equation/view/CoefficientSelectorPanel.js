@@ -29,7 +29,6 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const interleave = require( 'PHET_CORE/interleave' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
-  const merge = require( 'PHET_CORE/merge' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
@@ -43,6 +42,8 @@ define( require => {
 
   // constants
   const VECTOR_COEFFICIENT_RANGE = new Range( -5, 5 );
+  const NUMBER_PICKER_OPTIONS = VectorAdditionConstants.NUMBER_PICKER_OPTIONS;
+  const TEXT_OPTIONS = { font: VectorAdditionConstants.PANEL_FONT };
 
 
   class CoefficientSelectorPanel extends ExpandCollapsePanel {
@@ -62,19 +63,14 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = merge( {
+      options = _.extend( {
 
-        //----------------------------------------------------------------------------------------
         // specific to this class
+        labelNumberPickerSpacing: 7, // {number} spacing between the Number Picker and the Vector Symbol Node
+        textSpacing: 13.5,           // {number} spacing between text of the equation
+        signTextWidth: 4,            // {number} align width of the sign texts (ie. '+', '-'). The 'sign' text is
+                                     // aligned in an AlignBox to ensure that they are the same width.
 
-        // {Object} passed to all Number Picker instances
-        numberPickerOptions: _.clone( VectorAdditionConstants.NUMBER_PICKER_OPTIONS ),
-        labelNumberPickerSpacing: 7, // {number} spacing between the Number Picker and the label
-        textSpacing: 13.5, // {number} spacing between texts
-        signTextWidth: 4, // {number} align width of the sign texts (ie. '+', '-', ...)
-        equationTextFont: VectorAdditionConstants.PANEL_FONT, // {Font} font of the 'equation' text
-
-        //----------------------------------------------------------------------------------------
         // super class options
         centerY: 70,
         left: 140,
@@ -82,93 +78,89 @@ define( require => {
         contentFixedHeight: VectorAdditionConstants.EXPAND_COLLAPSE_PANEL_HEIGHT,
         contentXSpacing: 17
 
-
       }, options );
 
-
       //----------------------------------------------------------------------------------------
-      // Create the scenery node for when the panel is closed
-      const equationText = new Text( equationString, { font: options.equationTextFont } );
+      // Create the content of the panel for when it is open. When open, the panel displays a
+      // series of NumberPickers and VectorSymbolNodes in a 'equation' layout.
+      //
+      // This can be achieved in 5 steps:
+      //    1. Create a HBox of a NumberPicker and a VectorSymbolNodes for each Vector in the Vector Set, pushing them
+      //       to an array (called equationChildren)
+      //    2. If the Equation Type is negation, add a Vector Symbol Node for the Sum, pushing it to the same array.
+      //    3. Interleave (insert between each child) of equationChildren a 'sign': if the Equation Type is subtraction,
+      //       insert a '-', otherwise insert a '+'.
+      //    4. Insert the '='
+      //    5. If the equation type is negation, add a '0' text. Otherwise, add a Vector Symbol Node for the Sum.
+      //
+      // With this algorithm, all three equation types can be achieved ('a + b = c', 'a - b = c', 'a + b + c = 0')
 
-
-      //----------------------------------------------------------------------------------------
-      // Create the scenery nodes for when the panel is open
-
-      // Gather the children that belong on the left side of the equation
       let equationChildren = [];
 
       //----------------------------------------------------------------------------------------
-      // Create the Number Pickers/labels: Each Vector in the equationVectorSet gets a Number
-      // Picker and a label displayed horizontally. All of the NumberPickers / labels belong on the left
-      // side of the Equation
-
+      // Step 1: Loop through the VectorSet and push a HBox of a NumberPicker and a VectorSymbolNode for each Vector.
       equationVectorSet.vectors.forEach( equationVector => {
 
         // Create the number picker that toggles the coefficient of the Vector
         const numberPicker = new NumberPicker( equationVector.coefficientProperty,
           new Property( VECTOR_COEFFICIENT_RANGE ),
-          options.numberPickerOptions );
+          NUMBER_PICKER_OPTIONS );
 
-        // Create the label, which is just a Vector Symbol
-        const labelNode = new VectorSymbolNode( equationVector.symbol, null, false );
+        const vectorSymbolNode = new VectorSymbolNode( equationVector.symbol, null, false );
 
-        const numberPickerAndTextBox = new HBox( {
+        equationChildren.push( new HBox( {
           spacing: options.labelNumberPickerSpacing,
-          children: [ numberPicker, labelNode ]
-        } );
-
-        equationChildren.push( numberPickerAndTextBox );
+          children: [ numberPicker, vectorSymbolNode ]
+        } ) );
       } );
 
+      //----------------------------------------------------------------------------------------
+      // Step 2: If the Equation Type is negation, add a Vector Symbol Node for the Sum, pushing it to the same array.
       const sumSymbolNode = new VectorSymbolNode( equationVectorSet.vectorSum.symbol, null, false );
 
-      // for NEGATION, the Sum symbol is on side of the equation)
       if ( equationType === EquationTypes.NEGATION ) {
-        equationChildren.push( sumSymbolNode  );
+        equationChildren.push( sumSymbolNode );
       }
 
-
-      // Interleave signs (i.e. '+'/'-') in between each symbol on the left side of the equation
+      //----------------------------------------------------------------------------------------
+      // Step 3: Interleave (insert between each child) of equationChildren a 'sign': if the Equation Type is
+      //         subtraction, insert a '-', otherwise insert a '+'.
       equationChildren = interleave( equationChildren, () => {
 
-        const sign =  equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS;
+        const signText = equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS;
 
-        return new AlignBox( new Text( sign, { font: options.equationTextFont } ), {
+        // Align the 'sign' text in a Align Box to ensure that the '+' and the '-' are the same size
+        return new AlignBox( new Text( signText, TEXT_OPTIONS ), {
           alignBounds: new Bounds2( 0, 0, options.signTextWidth, options.contentFixedHeight ),
           maxWidth: options.signTextWidth
         } );
 
       } );
 
+      //----------------------------------------------------------------------------------------
+      // Step 4: insert the equals sign
+      equationChildren.push( new Text( MathSymbols.EQUAL_TO, TEXT_OPTIONS ) );
 
-      // Add the second half of the equation
 
-      // Add the equals sign
-      equationChildren.push( new Text( MathSymbols.EQUAL_TO, { font: options.equationTextFont } ) );
-
-      // If its negation, add a 0, other wise, add the sum symbol
+      //----------------------------------------------------------------------------------------
+      // Step 5: If the equation type is negation, add a '0' text. Otherwise, add a Vector Symbol Node for the Sum.
       if (equationType === EquationTypes.NEGATION ) {
-        equationChildren.push( new Text( '0', { font: options.equationTextFont } ) );
+        equationChildren.push( new Text( '0', TEXT_OPTIONS ) );
       }
       else {
         equationChildren.push( sumSymbolNode );
       }
 
-      // Layout
+      //----------------------------------------------------------------------------------------
+
+      // At this point, the equationChildren have been successfully implemented and are ready to be inserted into a HBox
+      // as the 'open' content of the Panel.
       const panelOpenContent = new HBox( { spacing: options.textSpacing, children: equationChildren } );
 
-      //----------------------------------------------------------------------------------------
-      // Create the inspect a vector panel
-      //----------------------------------------------------------------------------------------
+      // Create the scenery node for when the panel is closed - which is just 'equation'
+      const equationText = new Text( equationString, TEXT_OPTIONS );
 
       super( equationText, panelOpenContent, options );
-
-      //----------------------------------------------------------------------------------------
-      // Layout the inspect vector panel
-      //----------------------------------------------------------------------------------------
-
-      this.centerY = options.centerY;
-      this.left = options.left;
     }
   }
 
