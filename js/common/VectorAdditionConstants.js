@@ -94,7 +94,7 @@ define( require => {
       }
     }, VectorAdditionColors.PANEL_COLORS ),
 
-    EXPAND_COLLAPSE_PANEL_HEIGHT: 50, // height of all ExpandCollapsePanel instances
+    EXPAND_COLLAPSE_PANEL_HEIGHT: 53, // height of all ExpandCollapsePanel instances
 
 
     //----------------------------------------------------------------------------------------
