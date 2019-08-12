@@ -1,16 +1,18 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the Panel at the top of the equation scene that allows the user to toggle the coefficients of vectors.
+ * View for the 'Panel-like' structure near equation scene that allows the users to toggle the coefficients
+ * of vectors.
  *
- * 'Is a' relationship with ExpandCollapsePanel
- *    - when closed, displays 'Equation' text
- *    - when open, displays a series of number pickers/formula nodes to change the coefficients of Vectors
+ * ## Content
+ *  - When closed, the panel displays a text that says 'Equation'
+ *  - When open, the panel displays a series of NumberPickers and VectorSymbolNodes in a 'equation' layout.
+ *    See https://user-images.githubusercontent.com/42391580/62882976-4a865000-bcf0-11e9-9df4-cf1220efe314.png for a
+ *    visual.
  *
- * A visual:
- *  https://user-images.githubusercontent.com/42391580/60623943-4128d000-9da1-11e9-9dc0-393bfa332117.png
- *
- * This panel exists for the entire sim and is never disposed.
+ * NOTE: this displays the 'equation' for a SINGLE Equation Type. This means that it will not change its content
+ *       when the Equation Type changes. Instead, create a CoefficientSelectorPanel for each Equation Type and
+ *       toggle the visibility when the Equation Type changes.
  *
  * @author Brandon Li
  */
@@ -36,9 +38,11 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
+  // strings
+  const equationString = require( 'string!VECTOR_ADDITION/equation' );
+
   // constants
-  const COEFFICIENT_PANEL_WIDTH = 205;
-  const COEFFICIENT_PANEL_HEIGHT = VectorAdditionConstants.EXPAND_COLLAPSE_PANEL_HEIGHT;
+  const VECTOR_COEFFICIENT_RANGE = new Range( -5, 5 );
 
 
   class CoefficientSelectorPanel extends ExpandCollapsePanel {
@@ -52,11 +56,15 @@ define( require => {
 
       assert && assert( equationVectorSet instanceof EquationVectorSet,
         `invalid equationVectorSet: ${equationVectorSet}` );
+      assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
+      //----------------------------------------------------------------------------------------
+
       options = merge( {
 
+        //----------------------------------------------------------------------------------------
         // specific to this class
 
         // {Object} passed to all Number Picker instances
@@ -65,13 +73,13 @@ define( require => {
         textSpacing: 13.5, // {number} spacing between texts
         signTextWidth: 4, // {number} align width of the sign texts (ie. '+', '-', ...)
         equationTextFont: VectorAdditionConstants.PANEL_FONT, // {Font} font of the 'equation' text
-        coefficientRange: new Range( -5, 5 ), // {Range} static range of the coefficients
 
+        //----------------------------------------------------------------------------------------
         // super class options
         centerY: 70,
         left: 140,
-        contentFixedWidth: COEFFICIENT_PANEL_WIDTH,
-        contentFixedHeight: COEFFICIENT_PANEL_HEIGHT,
+        contentFixedWidth: 205,
+        contentFixedHeight: VectorAdditionConstants.EXPAND_COLLAPSE_PANEL_HEIGHT,
         contentXSpacing: 17
 
 
@@ -80,7 +88,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Create the scenery node for when the panel is closed
-      const equationText = new Text( 'Equation', { font: options.equationTextFont } );
+      const equationText = new Text( equationString, { font: options.equationTextFont } );
 
 
       //----------------------------------------------------------------------------------------
@@ -98,7 +106,7 @@ define( require => {
 
         // Create the number picker that toggles the coefficient of the Vector
         const numberPicker = new NumberPicker( equationVector.coefficientProperty,
-          new Property( options.coefficientRange ),
+          new Property( VECTOR_COEFFICIENT_RANGE ),
           options.numberPickerOptions );
 
         // Create the label, which is just a Vector Symbol
@@ -126,7 +134,7 @@ define( require => {
         const sign =  equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS;
 
         return new AlignBox( new Text( sign, { font: options.equationTextFont } ), {
-          alignBounds: new Bounds2( 0, 0, options.signTextWidth, COEFFICIENT_PANEL_HEIGHT ),
+          alignBounds: new Bounds2( 0, 0, options.signTextWidth, options.contentFixedHeight ),
           maxWidth: options.signTextWidth
         } );
 
