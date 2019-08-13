@@ -1,13 +1,14 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * The scene node for the 'Equation' screen.
+ * A Scene Node specific to the 'Equation' screen. See ../common/view/SceneNode for context on Scene
  *
- * 'Is A' relationship with Scene Node but adds,
+ * 'Is A' relationship with Scene Node but adds:
  *  - a Equation Selector Radio Button Group
- *  - 3 Coefficient Selector Panel (one for each equation type)
+ *  - a Coefficient Selector Panel for each Equation Type
  *  - a Base Vector Accordion Box
- *  - base vector nodes
+ *  - Base Vectors and their components,
+ *  - Disables the Eraser button
  *
  * @author Brandon Li
  */
@@ -26,9 +27,18 @@ define( require => {
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   // constants
-  const VECTOR_SUM_COLORS = {
-    fill: VectorAdditionColors.BLACK,
-    component: VectorAdditionColors.GREY
+
+  // Passed to the super class (SceneNode) as the 'options' parameter
+  const SCENE_NODE_OPTIONS = {
+    includeEraser: false,               // Disable the Eraser button
+    includeBaseVectors: true,           // Create a Vector Layer for Base Vectors and a layer for their components!
+    sumNodeOptions: {
+      fill: VectorAdditionColors.EQUATION_SUM_FILL
+    },
+    vectorValuesPanelOptions: {
+      spacingMajor: 25,
+      contentFixedWidth: 470
+    }
   };
   const BASE_VECTOR_OPACITY = 0.38;
   const PANEL_CENTER_Y = 100;
@@ -36,44 +46,32 @@ define( require => {
   class EquationSceneNode extends SceneNode {
 
     /**
-     * @param {EquationGraph} graph
+     * @param {EquationGraph} equationGraph
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {Object} [options]
      */
-    constructor( graph,
+    constructor( equationGraph,
                  valuesVisibleProperty,
                  angleVisibleProperty,
                  gridVisibleProperty,
-                 componentStyleProperty,
-                 options ) {
+                 componentStyleProperty ) {
 
-      options = _.extend( {
-        includeEraser: false,
-        includeBaseVectors: true,
-        sumNodeOptions: VECTOR_SUM_COLORS,
-        vectorValuesPanelOptions: {
-          spacingMajor: 30,
-          contentFixedWidth: 480
-        }
-      }, options );
-
-      super( graph,
+      super( equationGraph,
         valuesVisibleProperty,
         angleVisibleProperty,
         gridVisibleProperty,
         componentStyleProperty,
-        options );
+        SCENE_NODE_OPTIONS);
 
-      const graphViewBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
+      const graphViewBounds = equationGraph.modelViewTransformProperty.value.modelToViewBounds( equationGraph.graphModelBounds );
 
       //----------------------------------------------------------------------------------------
       // Add the equation types radio button Group
 
-      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( graph.equationTypeProperty,
-        graph.vectorSet.symbols, {
+      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationGraph.equationTypeProperty,
+        equationGraph.vectorSet.symbols, {
           centerY: PANEL_CENTER_Y,
           right: graphViewBounds.maxX
         } );
@@ -85,13 +83,13 @@ define( require => {
       // Add the coefficient for each equation type
       EquationTypes.VALUES.forEach( equationType => {
 
-        const coefficientSelectorPanel = new CoefficientSelectorPanel( graph.vectorSet, equationType, {
+        const coefficientSelectorPanel = new CoefficientSelectorPanel( equationGraph.vectorSet, equationType, {
           centerY: PANEL_CENTER_Y
         } );
 
         // Doesn't need to be unlinked since the coefficientSelectorPanel is never disposed
-        graph.equationTypeProperty.link( () => {
-          coefficientSelectorPanel.visible = equationType === graph.equationTypeProperty.value;
+        equationGraph.equationTypeProperty.link( () => {
+          coefficientSelectorPanel.visible = equationType === equationGraph.equationTypeProperty.value;
         } );
 
         this.addChild( coefficientSelectorPanel );
@@ -102,21 +100,26 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Add the base vectors
 
-      graph.vectorSet.vectors.forEach( ( vector ) => {
+      equationGraph.vectorSet.vectors.forEach( ( vector ) => {
 
-        const baseVector = new VectorNode( vector.baseVector, graph, valuesVisibleProperty, angleVisibleProperty, {
+        const baseVector = new VectorNode( vector.baseVector, equationGraph, valuesVisibleProperty, angleVisibleProperty, {
           opacity: BASE_VECTOR_OPACITY
         } );
 
-        graph.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
+        equationGraph.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
 
         this.baseVectorContainer.addChild( baseVector );
       } );
 
 
-      const baseVectorsAccordionBox = new BaseVectorsAccordionBox( graph.baseVectorsVisibleProperty,
-        graph.coordinateSnapMode,
-        graph.vectorSet );
+      const baseVectorsAccordionBox = new BaseVectorsAccordionBox( equationGraph.baseVectorsVisibleProperty,
+        equationGraph.coordinateSnapMode,
+        equationGraph.vectorSet );
+
+
+
+
+
       // Add the base vectors accordion box (semi-global)
       this.addChild( baseVectorsAccordionBox );
 
