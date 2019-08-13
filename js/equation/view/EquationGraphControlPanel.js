@@ -1,10 +1,15 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the Panel that appears on the upper-right corner of the 'Equation' screen.
+ * View for the 'Control Panel' that appears on the upper-right corner of the 'Equation' screen.
+ *
+ * Extends GraphControlPanel but adds the following functionality:
+ *  - Has both an angle checkbox and a component style radio button group
+ *  - Provides symmetry in the model-view hierarchy
  *
  * @author Brandon Li
  */
+
 
 define( require => {
   'use strict';
@@ -16,6 +21,7 @@ define( require => {
   const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
+
   class EquationGraphControlPanel extends GraphControlPanel {
 
     /**
@@ -23,7 +29,6 @@ define( require => {
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>}
-     * @param {Object} [options]
      */
     constructor( valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty ) {
 
