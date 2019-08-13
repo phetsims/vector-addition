@@ -70,9 +70,6 @@ define( require => {
   // screen view horizontal margin
   const SCREEN_VIEW_Y_MARGIN = VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
-  // inspect vector panel left location
-  const INSPECT_PANEL_LEFT = 195;
-
   // possible types of attributes to display
   const ATTRIBUTE_DISPLAY_TYPES = VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES;
 
@@ -93,7 +90,6 @@ define( require => {
 
         // specific to this class
         top: SCREEN_VIEW_Y_MARGIN,
-        left: INSPECT_PANEL_LEFT,
 
         // super class options
         contentFixedWidth: INSPECT_PANEL_WIDTH, // {number|null} fixed size of the panel (see superclass)
@@ -212,14 +208,7 @@ define( require => {
       // Create the inspect a vector panel
       //----------------------------------------------------------------------------------------
 
-      super( inspectVectorText, panelOpenContent, {
-        contentFixedWidth: options.contentFixedWidth,
-        contentFixedHeight: options.contentFixedHeight,
-        isExpandedInitially: options.isExpandedInitially
-      } );
-
-      this.top = options.top;
-      this.left = options.left;
+      super( inspectVectorText, panelOpenContent, options );
     }
   }
 

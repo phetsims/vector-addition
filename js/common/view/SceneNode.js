@@ -88,6 +88,7 @@ define( require => {
 
       // Create the one and only 'Vector Values' panel
       const vectorValuesPanel = new VectorValuesPanel( graph, options.vectorValuesPanelOptions );
+      vectorValuesPanel.centerX = graphNode.centerX;
 
       //----------------------------------------------------------------------------------------
       // Create containers for each and every type of Vector to handle z-layering of all vector types.
