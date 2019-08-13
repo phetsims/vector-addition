@@ -1,18 +1,24 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a scene node (https://github.com/phetsims/vector-addition/issues/65#issuecomment-509493028)
+ * View for a scene node. Scene nodes allow screens to have multiple 'scenes'. For instance, 'Explore 2D' has a polar
+ * and a cartesian 'scene' and 'Explore 1D' has a horizontal and a vertical 'scene'.
  *
- * Scene nodes allow a screen to have multiple scenes. For instance, 'Explore1D' has a polar and a vertical.
- *
- * A scene node is a view that contains:
- *  - Graph Node
- *  - Vector Values Panel
+ * ## A 'Scene Node' contains:
+ *  - a single Graph Node
+ *  - a single Vector Values Panel
  *  - Handle z-layering of all vector types (see https://github.com/phetsims/vector-addition/issues/19)
- *  - eraser button (if include eraser option is true)
- *  - vector creator panel
- *  - options to provide a container for base vectors
- *  - Adds vector sum nodes (w/ component nodes) and vector nodes
+ *  - An option to include an Eraser Button
+ *  - A method to add a Vector Creator Panel
+ *
+ * ## API
+ *  - Not required to tell the Scene Node to create the Vector Sum Nodes and their Components (does this automatically
+ *    for each VectorSet in the Graph)
+ *  - However, it is required to 'tell' the Scene Node when other Vectors are created (see registerVector()). Once this
+ *    is called, the Vector Nodes/Components are made and deleted once the Vector is removed.
+ *
+ * NOTE: Scene Node will not toggle its visibility based on when the Graph Orientation or the Coordinate Snap Mode
+ *       changes. This must be done externally.
  *
  * @author Brandon Li
  */
@@ -24,18 +30,19 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
+  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
+  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
   const VectorValuesPanel = require( 'VECTOR_ADDITION/common/view/VectorValuesPanel' );
-
 
   class SceneNode extends Node {
 
@@ -45,7 +52,7 @@ define( require => {
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {Object} [options]
+     * @param {Object} [options] - all options are specific to this class
      */
     constructor( graph,
                  valuesVisibleProperty,
@@ -56,112 +63,76 @@ define( require => {
     ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
-        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty,
-        `invalid angleVisibleProperty: ${angleVisibleProperty}` );
-      assert && assert( gridVisibleProperty instanceof BooleanProperty,
-        `invalid gridVisibleProperty: ${gridVisibleProperty}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( _.every( [ valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty ] ), BooleanProperty );
+      assert && assert( ComponentStyles.includes( componentStyleProperty.value ) );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
+
+      //========================================================================================
 
       options = _.extend( {
+        // all options are specific to this class
+        includeEraser: true,            // {boolean} Indicates if a Eraser Button should be included
 
-        includeEraser: true, // {boolean} false means the eraser node won't be included
+        vectorValuesPanelOptions: null, // {Object} Options passed to the VectorValuesPanel
 
-        includeBaseVectors: false, // {boolean} true means there will be a base vectors container
-
-        vectorValuesPanelOptions: null, // {Object} options passed to the VectorValuesPanel
-
-        sumNodeOptions: null
+        sumNodeOptions: null            // {Object} Options passed to the Sum Node
       }, options );
 
       super();
 
-      //----------------------------------------------------------------------------------------
-      // Create the scenery nodes
-      //----------------------------------------------------------------------------------------
+      //========================================================================================
 
-      // Create the graph node, each scene has exactly one graph
-      this.graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      // Create the 'Vector Values' panel
+      // Create one and only Graph Node
+      const graphNode = new GraphNode( graph, gridVisibleProperty );
+
+      // Create the one and only 'Vector Values' panel
       const vectorValuesPanel = new VectorValuesPanel( graph, options.vectorValuesPanelOptions );
 
-      // Keep an array reference of the children
-      const children = [ this.graphNode, vectorValuesPanel ];
+      //----------------------------------------------------------------------------------------
+      // Create containers for each and every type of Vector to handle z-layering of all vector types.
 
-      // Handle z-layering of all vector types: (see https://github.com/phetsims/vector-addition/issues/19)
+      // @protected {Node}
+      this.baseVectorContainer = new Node();          // Container for the Base Vectors on the Equation Screen
+      this.baseVectorComponentContainer = new Node(); // Container for the Component Nodes of Base Vectors
+
       // @private {Node}
-      this.vectorContainer = new Node();
-      const vectorSumContainer = new Node();
-      this.vectorComponentContainer = new Node();
-      const vectorSumComponentContainer = new Node();
+      this.vectorContainer = new Node();              // Container for the Vector Nodes
+      this.vectorComponentContainer = new Node();     // Container for the Vector Component Nodes
 
+      const vectorSumContainer = new Node();          // Container for the Vector Sum Container
+      const vectorSumComponentContainer = new Node(); // Container for the Component Nodes of Vector Sums
+
+      // Add the children in the correct z-order
+      this.setChildren( [
+        graphNode,
+        vectorValuesPanel,
+        this.baseVectorComponentContainer,
+        this.baseVectorContainer,
+        this.vectorComponentContainer,
+        this.vectorContainer,
+        vectorSumComponentContainer,
+        vectorSumContainer
+      ] );
+
+      //========================================================================================
       // Add an eraser if necessary
       if ( options.includeEraser ) {
-        children.push( new EraserButton( {
-          listener: () => {
-            graph.erase();
-          },
-          left: this.graphNode.right,
-          bottom: this.graphNode.bottom
-        } ) );
-      }
 
-      // Add the base vector container if necessary
-      if ( options.includeBaseVectors ) {
-
-        // @public {Node}
-        this.baseVectorContainer = new Node();
-        children.push( this.baseVectorContainer );
-      }
-
-      children.push( this.vectorComponentContainer, this.vectorContainer, vectorSumComponentContainer, vectorSumContainer );
-      this.children = children;
-
-      //----------------------------------------------------------------------------------------
-      // A graph can have vector sets that are predefined (not made from a vector creator panel).
-      // The scene must add the nodes to mirror this. However, these vectors should be non
-      // removable since there are no listeners to dispose the vector nodes.
-      //----------------------------------------------------------------------------------------
-
-      // function to add predefined vectors of a vector set
-      const addPredefinedVectors = vectorSet => {
-
-        vectorSet.vectors.forEach( vector => {
-          assert && assert( vector.isRemovable === false, 'Predefined vector must not be removable' );
-
-          const vectorNode = new VectorNode( vector,
-            graph,
-            valuesVisibleProperty,
-            angleVisibleProperty );
-
-          const xComponentNode = new ComponentVectorNode( vector.xComponentVector,
-            graph,
-            componentStyleProperty,
-            valuesVisibleProperty );
-
-          const yComponentNode = new ComponentVectorNode( vector.yComponentVector,
-            graph,
-            componentStyleProperty,
-            valuesVisibleProperty );
-
-          this.vectorComponentContainer.addChild( xComponentNode );
-          this.vectorComponentContainer.addChild( yComponentNode );
-          this.vectorContainer.addChild( vectorNode );
+        const eraser = new EraserButton( {
+          listener: () => graph.erase(),
+          left: graphNode.right,
+          bottom: graphNode.bottom
         } );
-      };
+        this.addChild( eraser );
 
-      graph.vectorSets.forEach( addPredefinedVectors );
+        eraser.moveToBack(); // move to back to keep the Vector Containers on top
+      }
 
-      //----------------------------------------------------------------------------------------
-      // Function to update the add the scenery nodes for the vector sum related to a vector set
-      //----------------------------------------------------------------------------------------
-      const addVectorSumNodes = ( vectorSet ) => {
+      //========================================================================================
+      // Add the Vector Sum Node and its components for each Vector Set in the graph
+      //========================================================================================
+      graph.vectorSets.forEach( vectorSet => {
         const vectorSumNode = new VectorSumNode( vectorSet.vectorSum,
           graph,
           valuesVisibleProperty,
@@ -184,11 +155,9 @@ define( require => {
         vectorSumComponentContainer.addChild( xComponentSumNode );
         vectorSumComponentContainer.addChild( yComponentSumNode );
         vectorSumContainer.addChild( vectorSumNode );
-      };
-      graph.vectorSets.forEach( vectorSet => {
-        addVectorSumNodes( vectorSet );
       } );
 
+      // @private - create private references to parameters
       this.componentStyleProperty = componentStyleProperty;
       this.graph = graph;
       this.valuesVisibleProperty = valuesVisibleProperty;
@@ -196,20 +165,22 @@ define( require => {
     }
 
     /**
-     * Adds a Vector Creator Panel to the scene
-     * @param {VectorCreatorPanel} vectorCreatorPanel
+     * 'Registers a Vector' by creating the Vector Node and the Component Nodes for a newly created Vector. The Nodes
+     * are deleted if Vector is ever removed from its Vector Set.
+     * @public
+     *
+     * @param {Vector} vector - the Vector Model
+     * @param {VectorSet} vectorSet - the Vector Set the vector belongs to
+     * @param {Event} [forwardingEvent] - if provided, if will forward this event to the Vector body drag listener.
+     *                                    This is used to forward the click event from the Vector Creator Panel to the
+     *                                    Vector Node. If not provided, not event is forwarded.
      */
-    addVectorCreatorPanel( vectorCreatorPanel ) {
+    registerVector( vector, vectorSet, forwardingEvent ) {
 
-      assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel,
-        `invalid vectorCreatorPanel: ${vectorCreatorPanel}` );
+      assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
+      assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
+      assert && assert( !forwardingEvent || forwardingEvent instanceof Event );
 
-      this.addChild( vectorCreatorPanel );
-      vectorCreatorPanel.moveToBack();
-    }
-
-    registerVector( vector, vectorSet, event ) {
-      // only add the components since the vector node is created in the vector creator panel
       const xComponentNode = new ComponentVectorNode( vector.xComponentVector,
         this.graph,
         this.componentStyleProperty,
@@ -219,22 +190,22 @@ define( require => {
         this.graph,
         this.componentStyleProperty,
         this.valuesVisibleProperty );
-      this.vectorComponentContainer.addChild( xComponentNode );
-      this.vectorComponentContainer.addChild( yComponentNode );
 
       const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.angleVisibleProperty );
 
+      this.vectorComponentContainer.addChild( xComponentNode );
+      this.vectorComponentContainer.addChild( yComponentNode );
       this.vectorContainer.addChild( vectorNode );
 
-      if ( event ) {
-        vectorNode.bodyDragListener.press( event, vectorNode );
-
+      if ( forwardingEvent ) {
+        vectorNode.bodyDragListener.press( forwardingEvent, vectorNode );
       }
 
       //----------------------------------------------------------------------------------------
-      // Add the removal listener for when the vector is removed
-
+      // If the Vector could be removed, observe when the Vector Set deletes the Vector to dispose
+      // the Nodes
       if ( vector.isRemovable ) {
+
         const removalListener = removedVector => {
           if ( removedVector === vector ) {
 
@@ -242,11 +213,28 @@ define( require => {
             yComponentNode.dispose();
             vectorNode.dispose();
 
+            // remove the listener
             vectorSet.vectors.removeItemRemovedListener( removalListener );
           }
         };
+
         vectorSet.vectors.addItemRemovedListener( removalListener );
       }
+    }
+
+    /**
+     * Adds a Vector Creator Panel to the scene.
+     * @public
+     *
+     * @param {VectorCreatorPanel}
+     */
+    addVectorCreatorPanel( vectorCreatorPanel ) {
+
+      assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel );
+
+      this.addChild( vectorCreatorPanel );
+
+      vectorCreatorPanel.moveToBack(); // move to back to ensure the Vector Containers are on top
     }
   }
 
