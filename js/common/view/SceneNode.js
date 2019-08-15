@@ -119,10 +119,12 @@ define( require => {
       // Add an eraser if necessary
       if ( options.includeEraser ) {
 
+        const graphViewBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
+
         const eraser = new EraserButton( {
           listener: () => graph.erase(),
-          left: graphNode.right,
-          bottom: graphNode.bottom
+          left: graphViewBounds.maxX + 20,
+          bottom: graphViewBounds.maxY
         } );
         this.addChild( eraser );
 
