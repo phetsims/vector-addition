@@ -113,7 +113,7 @@ define( require => {
 
       super();
 
-      // Create he path for the major grid lines. Initialize it with and an empty shape to be updated later.
+      // Create the path for the major grid lines. Initialize it with and an empty shape to be updated later.
       const majorGridLinesPath = new Path( new Shape(), {
         lineWidth: MAJOR_GRID_LINE_WIDTH,
         stroke: MAJOR_GRID_LINE_COLOR
