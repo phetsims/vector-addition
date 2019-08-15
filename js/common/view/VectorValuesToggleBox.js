@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * VectorValuesToggleBox is the toggle box (accordion box) at the top of the screen. It displays vector attributes
+ * VectorValuesToggleBox is the toggle box at the top of the screen. It displays vector attributes
  * (i.e. magnitude etc.) of the graph's active vector.
  *
  * 'Is a' relationship with ToggleBox
