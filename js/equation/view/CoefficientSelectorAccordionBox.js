@@ -1,8 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the 'Panel-like' structure near equation scene that allows the users to toggle the coefficients
- * of vectors.
+ * CoefficientSelectorAccordionBox is the accordion box in the Equation screen that allows the user to change
+ * the coefficients of vectors.
  *
  * ## Content
  *  - When closed, the panel displays a text that says 'Equation'
@@ -11,7 +11,7 @@
  *    visual.
  *
  * NOTE: this displays the 'equation' for a SINGLE Equation Type. This means that it will not change its content
- *       when the Equation Type changes. Instead, create a CoefficientSelectorPanel for each Equation Type and
+ *       when the Equation Type changes. Instead, create a CoefficientSelectorAccordionBox for each Equation Type and
  *       toggle the visibility when the Equation Type changes.
  *
  * @author Brandon Li
@@ -46,7 +46,7 @@ define( require => {
   const TEXT_OPTIONS = { font: VectorAdditionConstants.PANEL_FONT };
 
 
-  class CoefficientSelectorPanel extends ExpandCollapsePanel {
+  class CoefficientSelectorAccordionBox extends ExpandCollapsePanel {
 
     /**
      * @param {EquationVectorSet} equationVectorSet
@@ -164,5 +164,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'CoefficientSelectorPanel', CoefficientSelectorPanel );
+  return vectorAddition.register( 'CoefficientSelectorAccordionBox', CoefficientSelectorAccordionBox );
 } );
