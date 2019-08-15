@@ -29,7 +29,7 @@ define( require => {
 
 
     /**
-     * The minimum distance between a vectors tail to another vectors tail or tip to snap to the other vector in polar
+     * The minimum distance between a vector's tail to another vector's tail or tip to snap to the other vector in polar
      * mode. See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
      *
      * For internal testing only.
