@@ -123,7 +123,7 @@ define( require => {
     },
 
     DEFAULT_VECTOR_LENGTH: 5, // side length of the arrow when initially dropped onto the graph.
-    VECTOR_LABEL_OFFSET: 0.3, // the offset in model coordinates of the label with respect to the vector
+    VECTOR_LABEL_OFFSET: 0.45, // the offset in model coordinates of the label with respect to the vector
 
 
     //----------------------------------------------------------------------------------------
