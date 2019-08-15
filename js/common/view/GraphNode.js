@@ -36,11 +36,10 @@ define( require => {
 
   // grid
   const GRAPH_BACKGROUND = VectorAdditionColors.WHITE;
-  const MAJOR_GRID_LINE_WIDTH = 1.8; // model units
+  const MAJOR_GRID_LINE_WIDTH = 1.8; // view units
   const MAJOR_GRID_LINE_COLOR = VectorAdditionColors.GRAPH_MAJOR_LINE_COLOR;
-  const MINOR_GRID_LINE_WIDTH = 1.2;
+  const MINOR_GRID_LINE_WIDTH = 1.2; // view units
   const MINOR_GRID_LINE_COLOR = VectorAdditionColors.GRAPH_MINOR_LINE_COLOR;
-  const MAJOR_TICK_SPACING = 5; // model units
 
   const ORIGIN_TEXT_OPTIONS = {
     font: new PhetFont( 16 ),
@@ -48,7 +47,7 @@ define( require => {
   };
 
   // axes
-  const AXES_ARROW_X_EXTENSION = 20; // how far the line extends past the grid
+  const AXES_ARROW_X_EXTENSION = 20; // how far the line extends past the grid, view units
   const AXES_ARROW_Y_EXTENSION = 15;
   const AXES_ARROW_OPTIONS = {
     doubleHead: true,
@@ -63,7 +62,8 @@ define( require => {
   };
 
   // ticks
-  const TICK_LENGTH = 1; // model coordinate
+  const MAJOR_TICK_SPACING = 5; // model units
+  const TICK_LENGTH = 1; // model units
   const TICKS_OPTIONS = {
     lineWidth: 1,
     stroke: VectorAdditionColors.BLACK
