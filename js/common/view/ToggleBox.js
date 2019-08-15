@@ -7,13 +7,13 @@
  * A visual:
  * https://user-images.githubusercontent.com/42391580/60743952-f342d200-9f30-11e9-9a04-7b72ada15244.png
  *
- * The panel itself is a fixed width and height; both its fixed width and height are calculated by the largest
+ * The box itself is a fixed width and height; both its fixed width and height are calculated by the largest
  * between the closed and open content added to its margins.
  *
- * However, there is an option to pass a defined fixed width and/or fixed height. The panel will scale the nodes to fit
+ * However, there is an option to pass a defined fixed width and/or fixed height. The box will scale the nodes to fit
  * defined dimensions.
  *
- * These Panels are not meant to be disposed.
+ * Instances of this class are not meant to be disposed.
  *
  * @author Brandon Li
  */
@@ -34,15 +34,15 @@ define( require => {
   class ToggleBox extends AccordionBox {
 
     /**
-     * @param {Node} closedContent - content when the panel is closed
-     * @param {Node} openContent - content when the panel is open
+     * @param {Node} closedContent - content when the box is closed
+     * @param {Node} openContent - content when the box is open
      * @param {Object} [options]
      */
     constructor( closedContent, openContent, options ) {
 
       options = _.extend( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
-        isExpandedInitially: true, // {boolean} - false means the panel will start off as closed
+        isExpandedInitially: true, // {boolean} - false means the box will start off as closed
 
 
         contentYMargin: 0,
