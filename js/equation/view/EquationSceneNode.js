@@ -58,7 +58,7 @@ define( require => {
         sumNodeOptions: {
           fill: VectorAdditionColors.EQUATION_SUM_FILL
         },
-        vectorValuesAccordionBoxOptions: {
+        vectorValuesToggleBoxOptions: {
           spacingMajor: 25,
           contentFixedWidth: 470
         }

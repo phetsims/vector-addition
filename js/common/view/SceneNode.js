@@ -42,7 +42,7 @@ define( require => {
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
-  const VectorValuesAccordionBox = require( 'VECTOR_ADDITION/common/view/VectorValuesAccordionBox' );
+  const VectorValuesToggleBox = require( 'VECTOR_ADDITION/common/view/VectorValuesToggleBox' );
 
   class SceneNode extends Node {
 
@@ -73,7 +73,7 @@ define( require => {
 
         // all options are specific to this class
         includeEraser: true, // {boolean} Indicates if an Eraser Button should be included
-        vectorValuesAccordionBoxOptions: null, // {Object} Options passed to the VectorValuesAccordionBox
+        vectorValuesToggleBoxOptions: null, // {Object} Options passed to the VectorValuesToggleBox
         sumNodeOptions: null // {Object} Options passed to the Sum Node
       }, options );
 
@@ -86,8 +86,8 @@ define( require => {
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
       // Create the one and only 'Vector Values' panel
-      const vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, options.vectorValuesAccordionBoxOptions );
-      vectorValuesAccordionBox.centerX = graphNode.centerX;
+      const vectorValuesToggleBox = new VectorValuesToggleBox( graph, options.vectorValuesToggleBoxOptions );
+      vectorValuesToggleBox.centerX = graphNode.centerX;
 
       //----------------------------------------------------------------------------------------
       // Create containers for each and every type of Vector to handle z-layering of all vector types.
@@ -106,7 +106,7 @@ define( require => {
       // Add the children in the correct z-order
       this.setChildren( [
         graphNode,
-        vectorValuesAccordionBox,
+        vectorValuesToggleBox,
         this.baseVectorComponentContainer,
         this.baseVectorContainer,
         this.vectorComponentContainer,

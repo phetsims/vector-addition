@@ -1,8 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the 'Vector Values' accordion box at the top of the scene. Displays vector attributes (i.e. magnitude etc.)
- * of the graphs active vector.
+ * VectorValuesToggleBox is the toggle box (accordion box) at the top of the screen. It displays vector attributes
+ * (i.e. magnitude etc.) of the graph's active vector.
  *
  * 'Is a' relationship with ToggleBox
  *    - when closed, displays 'Vector Values'
@@ -74,7 +74,7 @@ define( require => {
   const ATTRIBUTE_DISPLAY_TYPES = VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES;
 
 
-  class VectorValuesAccordionBox extends ToggleBox {
+  class VectorValuesToggleBox extends ToggleBox {
 
     /**
      * @param {Graph} graph - the graph that contains the vectors to display
@@ -212,5 +212,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'VectorValuesAccordionBox', VectorValuesAccordionBox );
+  return vectorAddition.register( 'VectorValuesToggleBox', VectorValuesToggleBox );
 } );
