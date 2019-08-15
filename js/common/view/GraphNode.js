@@ -13,21 +13,17 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Color = require( 'SCENERY/util/Color' );
-  const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const OriginCircle = require( 'VECTOR_ADDITION/common/view/OriginCircle' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  const Property = require( 'AXON/Property' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Vector2 = require( 'DOT/Vector2' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
@@ -38,9 +34,6 @@ define( require => {
   //----------------------------------------------------------------------------------------
   // constants
 
-  // the furthest the user can drag the origin is 5 model units off of the edge of the graph
-  const ORIGIN_DRAG_PADDING_CONSTRAINT = 5;
-
   // grid
   const GRAPH_BACKGROUND = VectorAdditionColors.WHITE;
   const MAJOR_GRID_LINE_WIDTH = 1.8; // model units
@@ -49,18 +42,6 @@ define( require => {
   const MINOR_GRID_LINE_COLOR = VectorAdditionColors.GRAPH_MINOR_LINE_COLOR;
   const MAJOR_TICK_SPACING = 5; // model units
 
-  // origin
-  const ORIGIN_CIRCLE_COLOR = Color.toColor( VectorAdditionColors.ORIGIN_DOT_COLOR );
-  const ORIGIN_CIRCLE_RADIUS = 15;
-  const ORIGIN_CIRCLE_OPTIONS = {
-    cursor: 'move',
-    fill: ORIGIN_CIRCLE_COLOR.withAlpha( 0.15 ),
-    mainColor: ORIGIN_CIRCLE_COLOR,
-    highlightColor: Color.WHITE,
-    shadowColor: ORIGIN_CIRCLE_COLOR.darkerColor(),
-    lineWidth: 1,
-    stroke: ORIGIN_CIRCLE_COLOR.darkerColor()
-  };
   const ORIGIN_TEXT_OPTIONS = {
     font: new PhetFont( 16 ),
     maxWidth: 30
@@ -192,55 +173,6 @@ define( require => {
       // Observe changes to the grid visibility Property, and update visibility. Link exists throughout the entire sim
       // since graphs last the entire sim and are never disposed.
       gridVisibilityProperty.linkAttribute( this, 'visible' );
-    }
-  }
-
-  class OriginCircle extends ShadedSphereNode {
-
-    /**
-     * @param {Graph} graph - the model for the graph
-     */
-    constructor( graph ) {
-
-      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-
-      // convenience variable
-      const modelViewTransform = graph.modelViewTransformProperty.value;
-
-      // Get the origin in view coordinates
-      const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
-
-      super( ORIGIN_CIRCLE_RADIUS, _.extend( { center: origin }, ORIGIN_CIRCLE_OPTIONS ) );
-
-      //----------------------------------------------------------------------------------------
-
-      // Create a dragBounds to constrain the drag
-      const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds(
-        graph.graphModelBounds.eroded( ORIGIN_DRAG_PADDING_CONSTRAINT )
-      );
-
-      // Create a Property of to track the view's origin in view coordinates
-      const originLocationProperty = new Vector2Property( origin );
-
-      // Add a drag listener, doesn't need to be removed since the graph exists throughout the entire sim
-      this.addInputListener( new DragListener( {
-        locationProperty: originLocationProperty,
-        translateNode: false,
-        dragBoundsProperty: new Property( restrictedGraphViewBounds )
-      } ) );
-
-      // Observe the drag listener location. Link present for the lifetime of the simulation since graphs aren't removed
-      originLocationProperty.lazyLink( ( originLocation ) => {
-        // Tell the model to update the origin
-        graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originLocation ) );
-      } );
-
-      //----------------------------------------------------------------------------------------
-      // Observe when the models model view transform changes to update the location of the circle. This is never
-      // unlinked since graphs exists throughout the entire sim.
-      graph.modelViewTransformProperty.link( modelViewTransform => {
-        this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
-      } );
     }
   }
 
