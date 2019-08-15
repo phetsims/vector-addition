@@ -131,7 +131,7 @@ define( require => {
      * Point must be on the graph.
      * @public
      *
-     * @param {Vector2} - point
+     * @param {Vector2} point
      */
     moveOriginToPoint( point ) {
       assert && assert( point instanceof Vector2 && this.graphModelBoundsProperty.value.containsPoint( point ),
