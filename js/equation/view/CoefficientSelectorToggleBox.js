@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * CoefficientSelectorAccordionBox is the accordion box in the Equation screen that allows the user to change
+ * CoefficientSelectorToggleBox is the toggle box in the Equation screen that allows the user to change
  * the coefficients of vectors.
  *
  * ## Content
@@ -11,7 +11,7 @@
  *    visual.
  *
  * NOTE: this displays the 'equation' for a SINGLE Equation Type. This means that it will not change its content
- *       when the Equation Type changes. Instead, create a CoefficientSelectorAccordionBox for each Equation Type and
+ *       when the Equation Type changes. Instead, create a CoefficientSelectorToggleBox for each Equation Type and
  *       toggle the visibility when the Equation Type changes.
  *
  * @author Brandon Li
@@ -46,7 +46,7 @@ define( require => {
   const TEXT_OPTIONS = { font: VectorAdditionConstants.PANEL_FONT };
 
 
-  class CoefficientSelectorAccordionBox extends ToggleBox {
+  class CoefficientSelectorToggleBox extends ToggleBox {
 
     /**
      * @param {EquationVectorSet} equationVectorSet
@@ -164,5 +164,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'CoefficientSelectorAccordionBox', CoefficientSelectorAccordionBox );
+  return vectorAddition.register( 'CoefficientSelectorToggleBox', CoefficientSelectorToggleBox );
 } );

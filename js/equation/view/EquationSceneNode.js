@@ -18,7 +18,7 @@ define( require => {
 
   // modules
   const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsAccordionBox' );
-  const CoefficientSelectorAccordionBox = require( 'VECTOR_ADDITION/equation/view/CoefficientSelectorAccordionBox' );
+  const CoefficientSelectorToggleBox = require( 'VECTOR_ADDITION/equation/view/CoefficientSelectorToggleBox' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
   const merge = require( 'PHET_CORE/merge' );
@@ -50,7 +50,7 @@ define( require => {
         // specific to this class
         baseVectorOpacity: 0.38,  // {number} opacity of Base Vector Nodes and their components
         panelCenterY: 100,        // {number} centerY of the equationTypesRadioButtonGroup and the
-                                  //          coefficientSelectorAccordionBox
+                                  //          coefficientSelectorToggleBox
 
 
         // super-class options
@@ -91,20 +91,20 @@ define( require => {
 
 
       //----------------------------------------------------------------------------------------
-      // Add a Coefficient Selector Panel for each Equation Type
+      // Add a Coefficient Selector for each Equation Type
       EquationTypes.VALUES.forEach( equationType => {
 
-        const coefficientSelectorAccordionBox = new CoefficientSelectorAccordionBox( equationGraph.vectorSet, equationType, {
+        const coefficientSelectorToggleBox = new CoefficientSelectorToggleBox( equationGraph.vectorSet, equationType, {
           centerY: options.panelCenterY
         } );
 
-        // Doesn't need to be unlinked since the coefficientSelectorAccordionBox and the scene is never disposed
+        // Doesn't need to be unlinked since the coefficientSelectorToggleBox and the scene is never disposed
         equationGraph.equationTypeProperty.link( () => {
-          coefficientSelectorAccordionBox.visible = equationType === equationGraph.equationTypeProperty.value;
+          coefficientSelectorToggleBox.visible = equationType === equationGraph.equationTypeProperty.value;
         } );
 
-        this.addChild( coefficientSelectorAccordionBox );
-        coefficientSelectorAccordionBox.moveToBack(); // move to back to keep Vector Containers on top in the super class
+        this.addChild( coefficientSelectorToggleBox );
+        coefficientSelectorToggleBox.moveToBack(); // move to back to keep Vector Containers on top in the super class
 
       } );
 
