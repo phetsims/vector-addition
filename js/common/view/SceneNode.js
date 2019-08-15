@@ -42,7 +42,7 @@ define( require => {
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
   const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
-  const VectorValuesPanel = require( 'VECTOR_ADDITION/common/view/VectorValuesPanel' );
+  const VectorValuesAccordionBox = require( 'VECTOR_ADDITION/common/view/VectorValuesAccordionBox' );
 
   class SceneNode extends Node {
 
@@ -70,12 +70,11 @@ define( require => {
       //========================================================================================
 
       options = _.extend( {
+
         // all options are specific to this class
-        includeEraser: true,            // {boolean} Indicates if a Eraser Button should be included
-
-        vectorValuesPanelOptions: null, // {Object} Options passed to the VectorValuesPanel
-
-        sumNodeOptions: null            // {Object} Options passed to the Sum Node
+        includeEraser: true, // {boolean} Indicates if an Eraser Button should be included
+        vectorValuesAccordionBoxOptions: null, // {Object} Options passed to the VectorValuesAccordionBox
+        sumNodeOptions: null // {Object} Options passed to the Sum Node
       }, options );
 
       super();
@@ -87,8 +86,8 @@ define( require => {
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
       // Create the one and only 'Vector Values' panel
-      const vectorValuesPanel = new VectorValuesPanel( graph, options.vectorValuesPanelOptions );
-      vectorValuesPanel.centerX = graphNode.centerX;
+      const vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, options.vectorValuesAccordionBoxOptions );
+      vectorValuesAccordionBox.centerX = graphNode.centerX;
 
       //----------------------------------------------------------------------------------------
       // Create containers for each and every type of Vector to handle z-layering of all vector types.
@@ -107,7 +106,7 @@ define( require => {
       // Add the children in the correct z-order
       this.setChildren( [
         graphNode,
-        vectorValuesPanel,
+        vectorValuesAccordionBox,
         this.baseVectorComponentContainer,
         this.baseVectorContainer,
         this.vectorComponentContainer,

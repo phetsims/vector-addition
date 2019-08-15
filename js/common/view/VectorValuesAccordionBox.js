@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the 'Vector Values' Panel at the top of the scene. Displays vector attributes (i.e. magnitude etc.)
+ * View for the 'Vector Values' accordion box at the top of the scene. Displays vector attributes (i.e. magnitude etc.)
  * of the graphs active vector.
  *
  * 'Is a' relationship with ExpandCollapsePanel
@@ -74,7 +74,7 @@ define( require => {
   const ATTRIBUTE_DISPLAY_TYPES = VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES;
 
 
-  class VectorValuesPanel extends ExpandCollapsePanel {
+  class VectorValuesAccordionBox extends ExpandCollapsePanel {
 
     /**
      * @param {Graph} graph - the graph that contains the vectors to display
@@ -212,5 +212,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'VectorValuesPanel', VectorValuesPanel );
+  return vectorAddition.register( 'VectorValuesAccordionBox', VectorValuesAccordionBox );
 } );

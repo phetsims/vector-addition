@@ -37,7 +37,7 @@ define( require => {
 
   // options passed to Scene Nodes instances
   const EXPLORE_1D_SCENE_OPTIONS = {
-    vectorValuesPanelOptions: {
+    vectorValuesAccordionBoxOptions: {
       isExpandedInitially: false
     }
   };
