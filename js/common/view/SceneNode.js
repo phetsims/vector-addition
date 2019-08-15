@@ -85,7 +85,7 @@ define( require => {
       // Create one and only Graph Node
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      // Create the one and only 'Vector Values' panel
+      // Create the one and only 'Vector Values' toggle box
       const vectorValuesToggleBox = new VectorValuesToggleBox( graph, options.vectorValuesToggleBoxOptions );
       vectorValuesToggleBox.centerX = graphNode.centerX;
 
