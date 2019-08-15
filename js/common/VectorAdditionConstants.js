@@ -94,7 +94,7 @@ define( require => {
       }
     }, VectorAdditionColors.PANEL_COLORS ),
 
-    EXPAND_COLLAPSE_PANEL_HEIGHT: 53, // height of all ExpandCollapsePanel instances
+    TOGGLE_BOX_CONTENT_HEIGHT: 53, // height of all ToggleBox instances
 
 
     //----------------------------------------------------------------------------------------

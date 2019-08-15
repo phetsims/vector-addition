@@ -4,7 +4,7 @@
  * View for the 'Vector Values' accordion box at the top of the scene. Displays vector attributes (i.e. magnitude etc.)
  * of the graphs active vector.
  *
- * 'Is a' relationship with ExpandCollapsePanel
+ * 'Is a' relationship with ToggleBox
  *    - when closed, displays 'Vector Values'
  *    - when open either displays 'select a vector' or the active vector's attributes
  *      (a series of labels and VectorValuesNumberDisplays)
@@ -24,13 +24,13 @@ define( require => {
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const Bounds2 = require( 'DOT/Bounds2' );
-  const ExpandCollapsePanel = require( 'VECTOR_ADDITION/common/view/ExpandCollapsePanel' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
+  const ToggleBox = require( 'VECTOR_ADDITION/common/view/ToggleBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
@@ -46,9 +46,9 @@ define( require => {
   //----------------------------------------------------------------------------------------
   // constants
 
-  // fixed width and height of the panel
-  const INSPECT_PANEL_WIDTH = 440;
-  const INSPECT_PANEL_HEIGHT = VectorAdditionConstants.EXPAND_COLLAPSE_PANEL_HEIGHT;
+  // fixed width and height of the content
+  const CONTENT_WIDTH = 440;
+  const CONTENT_HEIGHT = VectorAdditionConstants.TOGGLE_BOX_CONTENT_HEIGHT;
 
   // font for the panel
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
@@ -74,7 +74,7 @@ define( require => {
   const ATTRIBUTE_DISPLAY_TYPES = VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES;
 
 
-  class VectorValuesAccordionBox extends ExpandCollapsePanel {
+  class VectorValuesAccordionBox extends ToggleBox {
 
     /**
      * @param {Graph} graph - the graph that contains the vectors to display
@@ -92,8 +92,8 @@ define( require => {
         top: SCREEN_VIEW_Y_MARGIN,
 
         // super class options
-        contentFixedWidth: INSPECT_PANEL_WIDTH, // {number|null} fixed size of the panel (see superclass)
-        contentFixedHeight: INSPECT_PANEL_HEIGHT, // {number|null} fixed size of the panel (see superclass)
+        contentFixedWidth: CONTENT_WIDTH, // {number|null} fixed size of the panel (see superclass)
+        contentFixedHeight: CONTENT_HEIGHT, // {number|null} fixed size of the panel (see superclass)
         isExpandedInitially: true,
 
         spacingMajor: LABEL_LEFT_MARGIN
@@ -144,7 +144,7 @@ define( require => {
         const fixedWidthLabel = new AlignBox( label, {
           xAlign: 'right',
           yAlign: 'center',
-          alignBounds: new Bounds2( 0, 0, labelWidth, INSPECT_PANEL_HEIGHT ),
+          alignBounds: new Bounds2( 0, 0, labelWidth, CONTENT_HEIGHT ),
           maxWidth: labelWidth
         } );
         label.maxWidth = labelWidth;

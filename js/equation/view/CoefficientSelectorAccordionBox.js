@@ -25,7 +25,6 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
-  const ExpandCollapsePanel = require( 'VECTOR_ADDITION/common/view/ExpandCollapsePanel' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const interleave = require( 'PHET_CORE/interleave' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
@@ -33,6 +32,7 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
   const Text = require( 'SCENERY/nodes/Text' );
+  const ToggleBox = require( 'VECTOR_ADDITION/common/view/ToggleBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
@@ -46,7 +46,7 @@ define( require => {
   const TEXT_OPTIONS = { font: VectorAdditionConstants.PANEL_FONT };
 
 
-  class CoefficientSelectorAccordionBox extends ExpandCollapsePanel {
+  class CoefficientSelectorAccordionBox extends ToggleBox {
 
     /**
      * @param {EquationVectorSet} equationVectorSet
@@ -75,7 +75,7 @@ define( require => {
         centerY: 70,
         left: 140,
         contentFixedWidth: 205,
-        contentFixedHeight: VectorAdditionConstants.EXPAND_COLLAPSE_PANEL_HEIGHT,
+        contentFixedHeight: VectorAdditionConstants.TOGGLE_BOX_CONTENT_HEIGHT,
         contentXSpacing: 17
 
       }, options );

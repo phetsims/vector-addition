@@ -1,13 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the 'ExpandCollapsePanel'. Used in a variety of places throughout the project.
+ * ToggleBox is a specialized version of AccordionBox that doesn't expand/collapse.  Instead, it toggles between
+ * 'closed' content and 'open' content, while maintaining a fixed height.
  *
  * A visual:
  * https://user-images.githubusercontent.com/42391580/60743952-f342d200-9f30-11e9-9a04-7b72ada15244.png
- *
- * A specialized version of an 'AccordionBox' that doesn't change height when expanded/closed. The expand collapse
- * button solely toggles between 'closed' content and 'open' content.
  *
  * The panel itself is a fixed width and height; both its fixed width and height are calculated by the largest
  * between the closed and open content added to its margins.
@@ -33,7 +31,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
 
-  class ExpandCollapsePanel extends AccordionBox {
+  class ToggleBox extends AccordionBox {
 
     /**
      * @param {Node} closedContent - content when the panel is closed
@@ -112,5 +110,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'ExpandCollapsePanel', ExpandCollapsePanel );
+  return vectorAddition.register( 'ToggleBox', ToggleBox );
 } );
