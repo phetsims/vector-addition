@@ -3,7 +3,7 @@
 /**
  * OriginCircle shows the origin on the graph, and can be dragged to reposition the origin.
  *
- * @author Brandon Li
+ * @author Martin Veillette
  */
 
 define( require => {
