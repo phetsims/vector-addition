@@ -22,7 +22,7 @@ define( require => {
 
   // constants
 
-  // the furthest the user can drag the origin is 5 model units in from the edge of the graph
+  // the closest the user can drag the origin to the edge of the graph, in model units
   const ORIGIN_DRAG_MARGIN = 5;
 
   // origin
