@@ -23,13 +23,10 @@ define( require => {
 
   const options = {
     credits: {
-      leadDesign: '',
-      softwareDevelopment: '',
-      team: '',
-      qualityAssurance: '',
-      graphicArts: '',
-      soundDesign: '',
-      thanks: ''
+      leadDesign: 'Amy Rouinfar',
+      softwareDevelopment: 'Brandon Li, Martin Veillette',
+      team: 'Amanda McGarry, Ariel Paul, Kathy Perkins',
+      qualityAssurance: 'Katie Woessner'
     }
   };
 
