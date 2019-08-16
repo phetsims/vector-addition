@@ -119,8 +119,6 @@ define( require => {
       assert && assert( gridVisibilityProperty instanceof BooleanProperty,
         `invalid gridVisibilityProperty: ${gridVisibilityProperty}` );
 
-      super();
-
       // Create the path for the major grid lines. Initialize it with and an empty shape to be updated later.
       const majorGridLinesPath = new Path( new Shape(), {
         lineWidth: MAJOR_GRID_LINE_WIDTH,
@@ -131,6 +129,10 @@ define( require => {
       const minorGridLinesPath = new Path( new Shape(), {
         lineWidth: MINOR_GRID_LINE_WIDTH,
         stroke: MINOR_GRID_LINE_COLOR
+      } );
+
+      super( {
+        children: [ minorGridLinesPath, majorGridLinesPath ]
       } );
 
       // Update the grid when the modelViewTransform changes (triggered when the origin is moved)
@@ -175,8 +177,6 @@ define( require => {
         majorGridLinesPath.setShape( modelViewTransform.modelToViewShape( majorGridLinesShape ).makeImmutable() );
         minorGridLinesPath.setShape( modelViewTransform.modelToViewShape( minorGridLinesShape ).makeImmutable() );
       } );
-
-      this.setChildren( [ minorGridLinesPath, majorGridLinesPath ] );
 
       // Observe changes to the grid visibility Property, and update visibility. Link exists throughout the entire sim
       // since graphs last the entire sim and are never disposed.
