@@ -72,6 +72,7 @@ define( require => {
   //----------------------------------------------------------------------------------------
 
   class GraphNode extends Node {
+
     /**
      * @param {Graph} graph - the model graph for the node
      * @param {BooleanProperty} gridVisibilityProperty
@@ -183,10 +184,6 @@ define( require => {
       gridVisibilityProperty.linkAttribute( this, 'visible' );
     }
   }
-
-  //----------------------------------------------------------------------------------------
-  // Axes nodes
-  //----------------------------------------------------------------------------------------
 
   /**
    * Abstract base class for axes.
