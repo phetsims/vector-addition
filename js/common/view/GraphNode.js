@@ -189,16 +189,15 @@ define( require => {
   //----------------------------------------------------------------------------------------
 
   /**
-   * Abstract class that is used as a general axis.
-   * This is extended by xAxisNode and yAxisNode which must provide the abstract methods.
+   * Abstract base class for axes.
    */
   class AxisNode extends Node {
 
     /**
      * @param {Graph} graph - the model for the graph
-     * @param {string} axisLabelText - the label for the axis
+     * @param {string} axisLabelString - the label for the axis
      */
-    constructor( graph, axisLabelText ) {
+    constructor( graph, axisLabelString ) {
 
       super();
 
@@ -208,7 +207,7 @@ define( require => {
 
       // @protected {Text} axisLabel - Create a label next to the axis arrow. Label positioning is different for the
       // different axes.
-      this.axisLabel = new Text( axisLabelText, AXES_TEXT_OPTIONS );
+      this.axisLabel = new Text( axisLabelString, AXES_TEXT_OPTIONS );
 
       // Create a path that represents the ticks along the axis with an empty shape which will be updated when the
       // modelViewTransform is updated.
