@@ -86,15 +86,23 @@ define( require => {
       // won't move, even though the model view transform will change
       const graphViewBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
 
+      const children = [
+        new Rectangle( graphViewBounds, { fill: GRAPH_BACKGROUND } ),
+        new GridLinesNode( graph, gridVisibilityProperty )
+      ];
+
+      // Create axes as needed, based on graph orientation
+      if ( graph.orientation !== GraphOrientations.VERTICAL ) {
+        children.push( new XAxisNode( graph ) );
+      }
+      if ( graph.orientation !== GraphOrientations.HORIZONTAL ) {
+        children.push( new YAxisNode( graph ) );
+      }
+
+      children.push( new OriginCircle( graph ) );
+
       super( {
-        children: [
-          // background
-          new Rectangle( graphViewBounds, { fill: GRAPH_BACKGROUND } ),
-          new GridLinesNode( graph, gridVisibilityProperty ),
-          new XAxisNode( graph ),
-          new YAxisNode( graph ),
-          new OriginCircle( graph )
-        ]
+        children: children
       } );
     }
   }
@@ -202,13 +210,23 @@ define( require => {
       // different axes.
       this.axisLabel = new Text( axisLabelText, AXES_TEXT_OPTIONS );
 
-      // @public {Text} originText - create a label for the origin that will be moved when the modelViewTransform is
-      // updated.
-      this.originText = new Text( '0', ORIGIN_TEXT_OPTIONS );
-
       // Create a path that represents the ticks along the axis with an empty shape which will be updated when the
       // modelViewTransform is updated.
       const axisTicksPath = new Path( new Shape(), TICKS_OPTIONS );
+
+      const children = [ this.axisArrow, this.axisLabel, axisTicksPath ];
+
+      // If the graph is not 2 dimensional, label the origin
+      this.originText = null;
+      if ( graph.orientation !== GraphOrientations.TWO_DIMENSIONAL ) {
+
+        // @public {Text} originText - create a label for the origin that will be moved when the modelViewTransform is
+        // updated.
+        this.originText = new Text( '0', ORIGIN_TEXT_OPTIONS );
+        children.push( this.originText );
+      }
+
+      this.setChildren( children );
 
       // Observe changes to the modelViewTransform and update the axis when changed.
       graph.modelViewTransformProperty.link( ( modelViewTransform ) => {
@@ -232,14 +250,14 @@ define( require => {
         // Update the axis path
         axisTicksPath.setShape( ticksShape.makeImmutable() );
       } );
-      this.setChildren( [ this.axisArrow, this.axisLabel, axisTicksPath, this.originText ] );
     }
 
     /**
      * Updates the location of the arrow
-     * @abstract
      * @param {Bounds2} graphViewBounds - the bounds of the grid in view coordinates
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
+     * @private
+     * @abstract
      */
     updateAxisArrow( graphViewBounds, graphViewOrigin ) {
       assert && assert( false, 'abstract methods must be implemented' );
@@ -247,17 +265,19 @@ define( require => {
 
     /**
      * Updates the location of the labels (origin label and axis label)
-     * @abstract
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
+     * @private
+     * @abstract
      */
     updateAxisLabels( graphViewOrigin ) { assert && assert( false, 'abstract methods must be implemented' ); }
 
     /**
      * Gets a new shape for the updated axis ticks
-     * @abstract
      * @param {Bounds2} graphModelBounds - the bounds of the grid in model coordinates
      * @param {ModelViewTransform2} modelViewTransform - the new modelViewTransform
      * @returns {Shape} the new axis ticks shape in View coordinates
+     * @private
+     * @abstract
      */
     getUpdatedTicksShape( graphModelBounds, modelViewTransform ) {
       assert && assert( false, 'abstract methods must be implemented' );
@@ -271,31 +291,14 @@ define( require => {
      */
     constructor( graph ) {
       super( graph, symbolXString );
-
-      // Toggle visibility based on different vector orientations
-      switch( graph.orientation ) {
-        case GraphOrientations.HORIZONTAL:
-          this.visible = true;
-          this.originText.visible = true;
-          break;
-        case GraphOrientations.VERTICAL:
-          this.visible = false;
-          this.originText.visible = false;
-          break;
-        case GraphOrientations.TWO_DIMENSIONAL:
-          this.visible = true;
-          this.originText.visible = false;
-          break;
-        default:
-          throw new Error( `Graph orientation not handled: ${graph.orientation}` );
-      }
     }
 
     /**
      * Updates the location of the arrow
-     * @abstract
      * @param {Bounds2} graphViewBounds - the bounds of the grid in view coordinates
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
+     * @private
+     * @abstract
      */
     updateAxisArrow( graphViewBounds, graphViewOrigin ) {
       this.axisArrow.setTailAndTip(
@@ -308,27 +311,33 @@ define( require => {
 
     /**
      * Updates the location of the labels (origin label and axis label)
-     * @abstract
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
+     * @private
+     * @abstract
      */
     updateAxisLabels( graphViewOrigin ) {
-      // Update the label that is to the left of the axis
+
+      // Update the label that is to the right of the axis
       this.axisLabel.left = this.axisArrow.right + 10;
       this.axisLabel.centerY = graphViewOrigin.y;
 
       // Update the origin label
-      this.originText.centerX = graphViewOrigin.x;
-      this.originText.top = graphViewOrigin.y + 20;
+      if ( this.originText ) {
+        this.originText.centerX = graphViewOrigin.x;
+        this.originText.top = graphViewOrigin.y + 20;
+      }
     }
 
     /**
      * Gets a new shape for the updated axis ticks
-     * @abstract
      * @param {Bounds2} graphModelBounds - the bounds of the grid in model coordinates
      * @param {ModelViewTransform2} modelViewTransform - the new modelViewTransform
      * @returns {Shape} the new axis ticks shape in View coordinates
+     * @private
+     * @abstract
      */
     getUpdatedTicksShape( graphModelBounds, modelViewTransform ) {
+
       // Create ticks along the axis
       const xAxisTicksShape = new Shape();
 
@@ -355,31 +364,14 @@ define( require => {
      */
     constructor( graph ) {
       super( graph, symbolYString );
-
-      // Toggle visibility based on different vector orientations
-      switch( graph.orientation ) {
-        case GraphOrientations.HORIZONTAL:
-          this.visible = false;
-          this.originText.visible = false;
-          break;
-        case GraphOrientations.VERTICAL:
-          this.visible = true;
-          this.originText.visible = true;
-          break;
-        case GraphOrientations.TWO_DIMENSIONAL:
-          this.visible = true;
-          this.originText.visible = false;
-          break;
-        default:
-          throw new Error( `Graph orientation not handled: ${graph.orientation}` );
-      }
     }
 
     /**
      * Updates the location of the arrow
-     * @abstract
      * @param {Bounds2} graphViewBounds - the bounds of the grid in view coordinates
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
+     * @private
+     * @abstract
      */
     updateAxisArrow( graphViewBounds, graphViewOrigin ) {
       this.axisArrow.setTailAndTip(
@@ -392,27 +384,33 @@ define( require => {
 
     /**
      * Updates the location of the labels (origin label and axis label)
-     * @abstract
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
+     * @private
+     * @abstract
      */
     updateAxisLabels( graphViewOrigin ) {
-      // Update the label that is to the left of the axis
+
+      // Update the label that is above the axis
       this.axisLabel.centerX = graphViewOrigin.x;
       this.axisLabel.centerY = this.axisArrow.top - 10;
 
       // Update the origin label
-      this.originText.centerY = graphViewOrigin.y;
-      this.originText.right = graphViewOrigin.x - 20;
+      if ( this.originText ) {
+        this.originText.centerY = graphViewOrigin.y;
+        this.originText.right = graphViewOrigin.x - 20;
+      }
     }
 
     /**
      * Gets a new shape for the updated axis ticks
-     * @abstract
      * @param {Bounds2} graphModelBounds - the bounds of the grid in model coordinates
      * @param {ModelViewTransform2} modelViewTransform - the new modelViewTransform
      * @returns {Shape} the new axis ticks shape in View coordinates
+     * @private
+     * @abstract
      */
     getUpdatedTicksShape( graphModelBounds, modelViewTransform ) {
+
       // create ticks along the axis
       const yAxisTicksShape = new Shape();
 
