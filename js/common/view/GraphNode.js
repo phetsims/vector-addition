@@ -26,6 +26,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // strings
   const symbolXString = require( 'string!VECTOR_ADDITION/symbol.x' );
@@ -44,13 +45,6 @@ define( require => {
   // axes
   const AXES_ARROW_X_EXTENSION = 20; // how far the line extends past the grid, view units
   const AXES_ARROW_Y_EXTENSION = 15;
-  const AXES_ARROW_OPTIONS = {
-    doubleHead: true,
-    tailWidth: 3,
-    headWidth: 10,
-    headHeight: 10,
-    stroke: null
-  };
   const AXES_TEXT_OPTIONS = {
     font: new MathSymbolFont( 20 ),
     maxWidth: 30
@@ -201,7 +195,7 @@ define( require => {
 
       // @protected {ArrowNode} axisArrow - Create an double arrow that represents the axis. Arbitrary length since the
       // positioning and extent is different for xAxis and yAxis.
-      this.axisArrow = new ArrowNode( 0, 0, 1, 1, AXES_ARROW_OPTIONS );
+      this.axisArrow = new ArrowNode( 0, 0, 1, 1, VectorAdditionConstants.AXES_ARROW_OPTIONS );
 
       // @protected {Text} axisLabel - Create a label next to the axis arrow. Label positioning is different for the
       // different axes.

@@ -38,7 +38,14 @@ define( require => {
     DEFAULT_SUM_VISIBLE: false,
     AXES_ARROW_X_EXTENSION: 20, // how far the x-axis arrow extends past the end of the graph
     AXES_ARROW_Y_EXTENSION: 15, // how far the y-axis arrow extends past the end of the graph
-
+    AXES_ARROW_OPTIONS: {
+      doubleHead: true,
+      tailWidth: 3,
+      headWidth: 10,
+      headHeight: 10,
+      fill: VectorAdditionColors.BLACK,
+      stroke: null
+    },
 
     //----------------------------------------------------------------------------------------
     // Defaults for all Check Boxes

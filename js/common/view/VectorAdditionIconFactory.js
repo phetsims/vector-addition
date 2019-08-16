@@ -446,13 +446,7 @@ define( require => {
 
       options = merge( {
         arrowLength: 40,  // {number} length of the arrow node
-        arrowOptions: {   // {object} passed to the arrow node
-          fill: VectorAdditionColors.BLACK,
-          doubleHead: true,
-          tailWidth: 3,
-          headWidth: 8,
-          headHeight: 10
-        }
+        arrowOptions: VectorAdditionConstants.AXES_ARROW_OPTIONS
       }, options );
 
       //----------------------------------------------------------------------------------------
