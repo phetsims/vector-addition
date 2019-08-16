@@ -41,11 +41,6 @@ define( require => {
   const MINOR_GRID_LINE_WIDTH = 1.2; // view units
   const MINOR_GRID_LINE_COLOR = VectorAdditionColors.GRAPH_MINOR_LINE_COLOR;
 
-  const ORIGIN_TEXT_OPTIONS = {
-    font: new PhetFont( 16 ),
-    maxWidth: 30
-  };
-
   // axes
   const AXES_ARROW_X_EXTENSION = 20; // how far the line extends past the grid, view units
   const AXES_ARROW_Y_EXTENSION = 15;
@@ -67,6 +62,12 @@ define( require => {
   const TICKS_OPTIONS = {
     lineWidth: 1,
     stroke: VectorAdditionColors.BLACK
+  };
+
+  // tick labels
+  const TICK_TEXT_OPTIONS = {
+    font: new PhetFont( 16 ),
+    maxWidth: 30
   };
 
   //----------------------------------------------------------------------------------------
@@ -218,7 +219,7 @@ define( require => {
 
         // @public {Text} originText - create a label for the origin that will be moved when the modelViewTransform is
         // updated.
-        this.originText = new Text( '0', ORIGIN_TEXT_OPTIONS );
+        this.originText = new Text( '0', TICK_TEXT_OPTIONS );
         children.push( this.originText );
       }
 
