@@ -51,13 +51,12 @@ define( require => {
     }
 
     /**
-     * @abstract
      * Resets the screen view
-     *
      * @public
+     * @abstract
      */
     reset() {
-      assert && assert( false, 'reset must be implemented by sub classes' );
+      throw new Error( 'reset must be implemented by sub classes' );
     }
   }
 

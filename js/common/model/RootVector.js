@@ -105,7 +105,7 @@ define( require => {
      * }
      */
     getLabelContent( valuesVisible ) {
-      assert && assert( false, 'getLabelContent must be implemented by sub classes' );
+      throw new Error( 'getLabelContent must be implemented by sub classes' );
     }
 
     /**
