@@ -222,7 +222,7 @@ define( require => {
     },
 
     //========================================================================================
-    // 3. Checkbox icons (i.e. sum icon, angle icon, grid icon)
+    // 3. Checkbox icons (i.e. sum icon, angle icon)
     //========================================================================================
     /**
      * Creates the icon that appears next to the 'Sum' checkbox on the control panel
@@ -275,36 +275,6 @@ define( require => {
         new Path( wedgeShape, { stroke: VectorAdditionColors.BLACK } ),
         new CurvedArrowNode( options.curvedArrowRadius, options.angle, options.curvedArrowOptions )
       ] );
-    },
-
-    /**
-     * Creates the icon that appears next to the checkbox that toggles the Grid visibility
-     * @public
-     * @param {Object} [options]
-     * @returns {Node}
-     */
-    createGridIcon( options ) {
-
-      options = merge( {
-        rows: 3,              // {number} number of rows
-        cols: 3,              // {number} number of cols
-        gridLineSpacing: 6,   // {number} spacing between each grid line
-        gridPathOptions: {    // {Object} options passed to the grid Path instance
-          stroke: VectorAdditionColors.GRID_ICON_COLOR
-        }
-      }, options );
-
-      const gridShape = new Shape();
-
-      for ( let row = 0; row < options.rows; row++ ) {
-        gridShape.moveTo( 0, row * ( options.gridLineSpacing ) + options.gridLineSpacing )
-          .horizontalLineTo( ( options.cols + 1 ) * options.gridLineSpacing );
-      }
-      for ( let col = 0; col < options.cols; col++ ) {
-        gridShape.moveTo( col * ( options.gridLineSpacing ) + options.gridLineSpacing, 0 )
-          .verticalLineTo( ( options.rows + 1 ) * options.gridLineSpacing );
-      }
-      return new Path( gridShape, options.gridPathOptions );
     },
 
     //========================================================================================

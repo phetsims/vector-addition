@@ -28,6 +28,7 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const GridCheckbox = require( 'SCENERY_PHET/GridCheckbox' );
   const HSeparator = require( 'SUN/HSeparator' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -128,9 +129,9 @@ define( require => {
       }
 
       // Grid Icon
-      panelContent.push( new Checkbox( VectorAdditionIconFactory.createGridIcon(),
-        gridVisibleProperty,
-        CHECKBOX_OPTIONS ) );
+      panelContent.push( new GridCheckbox( gridVisibleProperty, _.extend( {}, CHECKBOX_OPTIONS, {
+        gridSize: 24
+      } ) ) );
 
       //----------------------------------------------------------------------------------------
       // Component style radio buttons
