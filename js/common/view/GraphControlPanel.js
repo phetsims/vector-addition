@@ -128,7 +128,7 @@ define( require => {
           CHECKBOX_OPTIONS ) );
       }
 
-      // Grid Icon
+      // Grid checkbox
       panelContent.push( new GridCheckbox( gridVisibleProperty, _.extend( {}, CHECKBOX_OPTIONS, {
         gridSize: 24,
         gridStroke: VectorAdditionColors.GRID_ICON_COLOR
