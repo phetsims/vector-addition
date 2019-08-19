@@ -117,7 +117,7 @@ define( require => {
     }
 
     /**
-     * Erases the graph by resetting the vectorSets. Called when the eraser button is clicked.
+     * Erases the graph. Called when the eraser button is clicked.
      * @public
      */
     erase() {
@@ -130,7 +130,6 @@ define( require => {
      * Moves the origin to a point. Solely shifts the bounds to match.
      * Point must be on the graph.
      * @public
-     *
      * @param {Vector2} point
      */
     moveOriginToPoint( point ) {
@@ -145,6 +144,7 @@ define( require => {
     /**
      * Gets the bounds of the graph
      * @public
+     * @returns {Bounds2}
      */
     get graphModelBounds() {
       return this.graphModelBoundsProperty.value;
