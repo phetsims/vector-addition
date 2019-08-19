@@ -130,7 +130,8 @@ define( require => {
 
       // Grid Icon
       panelContent.push( new GridCheckbox( gridVisibleProperty, _.extend( {}, CHECKBOX_OPTIONS, {
-        gridSize: 24
+        gridSize: 24,
+        gridStroke: VectorAdditionColors.GRID_ICON_COLOR
       } ) ) );
 
       //----------------------------------------------------------------------------------------
