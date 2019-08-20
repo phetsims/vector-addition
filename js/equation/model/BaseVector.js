@@ -99,7 +99,7 @@ define( require => {
      * @public
      */
     reset() {
-      this.tailPositionProperty.reset();
+      super.reset();
       this.angleDegreesProperty && this.angleDegreesProperty.reset();
       this.magnitudeProperty && this.magnitudeProperty.reset();
       this.yComponentProperty && this.yComponentProperty.reset();

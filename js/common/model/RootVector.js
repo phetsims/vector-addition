@@ -66,6 +66,14 @@ define( require => {
     }
 
     /**
+     * @public
+     */
+    reset() {
+      this.tailPositionProperty.reset();
+      //TODO #114 why not this.vectorComponentsProperty.reset ?
+    }
+
+    /**
      * @abstract
      *
      * Context: see https://user-images.githubusercontent.com/42391580/61587077-38295400-ab40-11e9-86e8-beeee7491ebf.png
