@@ -21,6 +21,7 @@ define( require => {
   // modules
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const NumberProperty = require( 'AXON/NumberProperty' );
+  const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -83,17 +84,13 @@ define( require => {
         this.magnitudeProperty = new NumberProperty( this.magnitude );
 
         //----------------------------------------------------------------------------------------
-        // Observe when the angleProperty and the magnitudeProperty change and update the components to match
-        // Don't need to be unlinked since base vectors exist for the entire sim
-
-        this.angleDegreesProperty && this.angleDegreesProperty.link( angleDegrees => {
-          this.vectorComponents = Vector2.createPolar( this.magnitude, Util.toRadians( angleDegrees ) );
-        } );
-
-        this.magnitudeProperty && this.magnitudeProperty.link( magnitude => {
-          this.vectorComponents = Vector2.createPolar( magnitude, this.angleDegreesProperty.value );
-        } );
-
+        // Observe when the angle or magnitude changes, and update the components to match.
+        // Multilink doesn't need to be disposed since base vectors exist for the lifetime of the sim.
+        Property.multilink(
+          [ this.angleDegreesProperty, this.magnitudeProperty ],
+          ( angleDegrees, magnitude ) => {
+            this.vectorComponents = Vector2.createPolar( magnitude, Util.toRadians( angleDegrees ) );
+          } );
       }
     }
 
