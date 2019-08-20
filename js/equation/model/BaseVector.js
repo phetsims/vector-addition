@@ -1,16 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * BaseVector is the abstract base class for base vectors.  It disables tip dragging and removal of vectors.
+ * Base vectors are created at the start of the sim, and are never disposed.
  * See https://github.com/phetsims/vector-addition/issues/63 for an overview of how BaseVectors fit into the class
  * hierarchy.
- *
- * Extends Vector and adds the following functionality:
- *  - Creates number Properties for the x and y component that go into a number picker on cartesian
- *  - Creates number Properties for the angle and the magnitude that go into a number picker on polar
- *  - Adjusts its components based on the properties listed above
- *  - Disables tip dragging and removing of vectors
- *
- * Base vectors are created at the start of the sim, and are never disposed. They require a symbol.
  *
  * @author Brandon Li
  */
@@ -19,16 +13,11 @@ define( require => {
   'use strict';
 
   // modules
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const Property = require( 'AXON/Property' );
-  const Util = require( 'DOT/Util' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
-  const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
-  const VECTOR_OPTIONS = {
+  const BASE_VECTOR_OPTIONS = {
     isRemovable: false,       // Base Vectors are not removable
     isTipDraggable: false,    // Base Vectors are not draggable by the tip
     isOnGraphInitially: true  // Base Vectors are always on the equationGraph
@@ -37,6 +26,7 @@ define( require => {
   class BaseVector extends Vector {
 
     /**
+     * @abstract
      * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
      * @param {Vector2} initialComponents - starting components of the Base Vector
      * @param {EquationGraph} equationGraph - the equation graph the Base Vector belongs to
@@ -45,65 +35,7 @@ define( require => {
      */
     constructor( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol ) {
 
-      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, VECTOR_OPTIONS );
-
-      //----------------------------------------------------------------------------------------
-      // Create number Properties for the base vector panel
-
-      if ( equationGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
-
-        //========================================================================================
-        // Create number Properties for the x and y component that go into a number picker on CARTESIAN
-        //========================================================================================
-
-        // @public (read-only) {NumberProperty} xComponentProperty - create a Property to toggle the x component
-        this.xComponentProperty = new NumberProperty( this.xComponent );
-
-        // @public (read-only) {NumberProperty} yComponentProperty - create a Property to toggle the y component
-        this.yComponentProperty = new NumberProperty( this.yComponent );
-
-        //----------------------------------------------------------------------------------------
-        // Observe when the component NumberProperties change and update the components to match
-        // Don't need to be unlinked since base vectors exist for the entire sim
-
-        this.xComponentProperty.link( xComponent => { this.xComponent = xComponent; } );
-
-        this.yComponentProperty.link( yComponent => { this.yComponent = yComponent; } );
-
-      }
-      else if ( equationGraph.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
-
-        //========================================================================================
-        // Create number Properties for the angle and the magnitude that go into a number picker on polar
-        //========================================================================================
-
-        // @public (read-only) {NumberProperty} angleProperty - create a Property to toggle the angle
-        this.angleDegreesProperty = new NumberProperty( Util.toDegrees( this.angle ) );
-
-        // @public (read-only) {NumberProperty} yComponentProperty - create a Property toggle the magnitude
-        this.magnitudeProperty = new NumberProperty( this.magnitude );
-
-        //----------------------------------------------------------------------------------------
-        // Observe when the angle or magnitude changes, and update the components to match.
-        // Multilink doesn't need to be disposed since base vectors exist for the lifetime of the sim.
-        Property.multilink(
-          [ this.angleDegreesProperty, this.magnitudeProperty ],
-          ( angleDegrees, magnitude ) => {
-            this.vectorComponents = Vector2.createPolar( magnitude, Util.toRadians( angleDegrees ) );
-          } );
-      }
-    }
-
-    /**
-     * Resets the base vector. Called when the reset all button is clicked.
-     * @public
-     */
-    reset() {
-      super.reset();
-      this.angleDegreesProperty && this.angleDegreesProperty.reset();
-      this.magnitudeProperty && this.magnitudeProperty.reset();
-      this.yComponentProperty && this.yComponentProperty.reset();
-      this.xComponentProperty && this.xComponentProperty.reset();
+      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, BASE_VECTOR_OPTIONS );
     }
   }
 

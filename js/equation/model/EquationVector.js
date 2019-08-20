@@ -20,8 +20,10 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVector = require( 'VECTOR_ADDITION/equation/model/BaseVector' );
+  const CartesianBaseVector = require( 'VECTOR_ADDITION/equation/model/CartesianBaseVector' );
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
+  const PolarBaseVector = require( 'VECTOR_ADDITION/equation/model/PolarBaseVector' );
   const Property = require( 'AXON/Property' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2Property = require( 'DOT/Vector2Property' );
@@ -105,14 +107,22 @@ define( require => {
       // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.
       this.setTipWithInvariants( this.tip );
 
-
-      // @public (read-only) {BaseVector} baseVector - Instantiate a base vector
-      this.baseVector = new BaseVector( baseVectorTailPosition,
-        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        equationGraph,
-        equationVectorSet,
-        symbol );
-
+      // @public (read-only) {BaseVector} instantiate a base vector based on snap mode
+      this.baseVector = null;
+      if ( equationGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+        this.baseVector = new CartesianBaseVector( baseVectorTailPosition,
+          this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+          equationGraph,
+          equationVectorSet,
+          symbol );
+      }
+      else {
+        this.baseVector = new PolarBaseVector( baseVectorTailPosition,
+          this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+          equationGraph,
+          equationVectorSet,
+          symbol );
+      }
 
       // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
       // Doesn't need to be unlinked since equation vectors are never disposed

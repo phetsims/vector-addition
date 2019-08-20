@@ -139,6 +139,7 @@ define( require => {
         let rightNumberPickerAndLabel;
 
         if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+
           // X Component
           leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.xComponentProperty,
             COMPONENT_RANGE,
@@ -150,6 +151,7 @@ define( require => {
             `${baseVector.symbol}<sub>${symbolYString}</sub>` );
         }
         else {
+
           // Magnitude
           leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.magnitudeProperty,
             MAGNITUDE_RANGE,
