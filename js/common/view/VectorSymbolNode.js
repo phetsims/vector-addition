@@ -45,8 +45,8 @@ define( require => {
      */
     constructor( symbol, coefficient, includeAbsoluteValueBars, options ) {
 
-      assert && assert( !symbol || typeof symbol === 'string', `invalid symbol: ${symbol}` );
-      assert && assert( !coefficient || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
+      assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
+      assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
       assert && assert( typeof includeAbsoluteValueBars === 'boolean',
         `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
@@ -171,7 +171,7 @@ define( require => {
      * @param {string|null} symbol - the symbol to display. Null means no symbol is displayed.
      */
     setSymbol( symbol ) {
-      assert && assert( !symbol || typeof symbol === 'string', `invalid symbol: ${symbol}` );
+      assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
 
       this.symbol = symbol;
       this.updateVectorSymbolNode();
@@ -184,7 +184,7 @@ define( require => {
      * @param {number|null} coefficient
      */
     setCoefficient( coefficient ) {
-      assert && assert( !coefficient || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
+      assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
 
       this.coefficient = coefficient;
       this.updateVectorSymbolNode();
@@ -200,8 +200,8 @@ define( require => {
      */
     setVectorSymbolNode( symbol, coefficient, includeAbsoluteValueBars ) {
 
-      assert && assert( !symbol || typeof symbol === 'string', `invalid symbol: ${symbol}` );
-      assert && assert( !coefficient || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
+      assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
+      assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
       assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
 
       this.symbol = symbol;
