@@ -38,8 +38,8 @@ define( require => {
   class VectorSymbolNode extends HBox {
 
     /**
-     * @param {string|null} symbol - the symbol to display (See comment at the top of the file)
-     * @param {number|null} coefficient - the coefficient to display
+     * @param {string|null} symbol - optional symbol to display (See comment at the top of the file)
+     * @param {number|null} coefficient - optional coefficient to display
      * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
      * @param {Object} [options]
      */
@@ -85,16 +85,16 @@ define( require => {
       super( { spacing: options.spacing } );
 
       //----------------------------------------------------------------------------------------
-      // Create private references
+      // Create private references to constructor args
 
-      // @private {boolean} includeAbsoluteValueBars
-      this.includeAbsoluteValueBars = includeAbsoluteValueBars;
+      // @private {String|null} symbol
+      this.symbol = symbol;
 
       // @private {number|null} coefficient
       this.coefficient = coefficient;
 
-      // @private {String|null} symbol
-      this.symbol = symbol;
+      // @private {boolean} includeAbsoluteValueBars
+      this.includeAbsoluteValueBars = includeAbsoluteValueBars;
 
       //----------------------------------------------------------------------------------------
       // Create arbitrary nodes that represent the content of the symbol node, to be set later.
