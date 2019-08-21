@@ -82,8 +82,10 @@ define( require => {
       // Create the number display
       //----------------------------------------------------------------------------------------
 
-      // Create the Property that the NumberDisplay displays. Set to arbitrary null for now; to be updated.
-      const numberDisplayProperty = new Property( null );
+      // {Property.<number|null>} the value displayed by NumberDisplay, null if there is no active vector
+      const numberDisplayProperty = new Property( null, {
+        isValidValue: value => ( typeof value === 'number' || value === null )
+      } );
 
       super( numberDisplayProperty, numberDisplayRange, { decimalPlaces: NUMBER_DISPLAY_ROUNDING } );
 
