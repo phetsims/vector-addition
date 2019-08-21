@@ -25,14 +25,17 @@ define( require => {
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const PolarBaseVector = require( 'VECTOR_ADDITION/equation/model/PolarBaseVector' );
   const Property = require( 'AXON/Property' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const Range = require( 'DOT/Range' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
 
-  // starting coefficient
+  // initial coefficient and range
   const DEFAULT_COEFFICIENT = 1;
+  const COEFFICIENT_RANGE = new Range( -5, 5 );
 
   // super class options
   const VECTOR_OPTIONS = {
@@ -64,14 +67,18 @@ define( require => {
       super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, VECTOR_OPTIONS );
 
 
-      // @public (read-only) {DerivedProperty.<Number>} - coefficientProperty
-      this.coefficientProperty = new Property( DEFAULT_COEFFICIENT );
+      // @public (read-only)
+      this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
+        range: COEFFICIENT_RANGE
+      } );
 
       // Loop through each Equation Type - each Equation Type has a separate coefficient Property
       // and a separate tail Position Property
       EquationTypes.VALUES.forEach( equationType => {
 
-        const coefficientProperty = new Property( DEFAULT_COEFFICIENT );
+        const coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
+          range: COEFFICIENT_RANGE
+        } );
 
         const tailPositionProperty = new Vector2Property( this.tail );
 

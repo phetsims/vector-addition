@@ -30,7 +30,6 @@ define( require => {
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   const Property = require( 'AXON/Property' );
-  const Range = require( 'DOT/Range' );
   const Text = require( 'SCENERY/nodes/Text' );
   const ToggleBox = require( 'VECTOR_ADDITION/common/view/ToggleBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -41,7 +40,6 @@ define( require => {
   const equationString = require( 'string!VECTOR_ADDITION/equation' );
 
   // constants
-  const VECTOR_COEFFICIENT_RANGE = new Range( -5, 5 );
   const NUMBER_PICKER_OPTIONS = VectorAdditionConstants.NUMBER_PICKER_OPTIONS;
   const TEXT_OPTIONS = { font: VectorAdditionConstants.PANEL_FONT };
 
@@ -101,9 +99,12 @@ define( require => {
       // Step 1: Loop through the VectorSet and push a HBox of a NumberPicker and a VectorSymbolNode for each Vector.
       equationVectorSet.vectors.forEach( equationVector => {
 
+        assert && assert( equationVector.coefficientProperty.range,
+          'coefficientProperty must have an associated range' );
+        
         // Create the number picker that toggles the coefficient of the Vector
         const numberPicker = new NumberPicker( equationVector.coefficientProperty,
-          new Property( VECTOR_COEFFICIENT_RANGE ),
+          new Property( equationVector.coefficientProperty.range ),
           NUMBER_PICKER_OPTIONS );
 
         const vectorSymbolNode = new VectorSymbolNode( equationVector.symbol, null, false );
