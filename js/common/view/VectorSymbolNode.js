@@ -181,8 +181,7 @@ define( require => {
      * Sets the Coefficient to display. Will Auto format (e.g. if vector 'a' had the coefficients -1,
      * the symbol node would display '-a').
      * @public
-     *
-     * @param {number|null}
+     * @param {number|null} coefficient
      */
     setCoefficient( coefficient ) {
       assert && assert( !coefficient || typeof coefficient === 'number', `invalid coefficient: ${coefficient}` );
