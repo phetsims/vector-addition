@@ -83,7 +83,11 @@ define( require => {
       const graphViewBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
 
       const children = [
-        new Rectangle( graphViewBounds, { fill: GRAPH_BACKGROUND } ),
+        new Rectangle( graphViewBounds, {
+          fill: GRAPH_BACKGROUND,
+          stroke: MINOR_GRID_LINE_COLOR,
+          lineWidth: MINOR_GRID_LINE_WIDTH
+        } ),
         new GridLinesNode( graph, gridVisibilityProperty )
       ];
 
