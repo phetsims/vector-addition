@@ -85,14 +85,6 @@ define( require => {
     }
 
     /**
-     * Resets the vector sum.
-     * @public
-     */
-    reset() {
-      this.tailPositionProperty.reset();
-    }
-
-    /**
      * The sum is never disposed. Double check to make sure the sum isn't ever disposed.
      * @public
      * @override

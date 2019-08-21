@@ -135,11 +135,12 @@ define( require => {
     /**
      * Resets the equation vector. Called when the reset all button is clicked.
      * @public
+     * @override
      */
     reset() {
+      super.reset();
       this.coefficientProperty.reset();
       this.baseVector.reset();
-      this.tailPositionProperty.reset();
     }
 
     /**
