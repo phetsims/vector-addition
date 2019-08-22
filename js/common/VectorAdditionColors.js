@@ -57,9 +57,9 @@ define( require => {
     EQUATION_SUM_FILL: BLACK,
 
     //----------------------------------------------------------------------------------------
-    // On axis lines
+    // On axis lines, aka leader lines
     ON_AXIS_LINES_NON_ACTIVE_STROKE: BLACK, // stroke when the vector isn't active
-    ON_AXIS_LINES_ACTIVE_STROKE: '#D64F00', // stroke when the vector is active
+    ON_AXIS_LINES_ACTIVE_STROKE: BLACK, // stroke when the vector is active
 
     //----------------------------------------------------------------------------------------
     // References, see https://github.com/phetsims/sun/issues/312
