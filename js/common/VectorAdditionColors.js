@@ -74,38 +74,38 @@ define( require => {
   //----------------------------------------------------------------------------------------
 
   //----------------------------------------------------------------------------------------
-  // Vector Color Group 1
+  // Vector Color Group 1 (blue)
   VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1.toString() ] = {
     fill: 'rgb( 10, 170, 250 )',
-    sum: 'rgb( 0, 181, 225 )',
+    sum: 'rgb( 10, 170, 250 )',
     component: 'rgb( 120, 200, 255 )',
     labelBackground: 'rgb( 150, 210, 255 )'
   };
 
   //----------------------------------------------------------------------------------------
-  // Vector Color Group 2
+  // Vector Color Group 2 (red)
   VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_2.toString() ] = {
     fill: 'rgb( 232, 25, 9 )',
-    sum: 'rgb( 196, 2, 51 )',
+    sum: 'rgb( 232, 25, 9 )',
     component: 'rgb( 245, 120, 120 )',
     labelBackground: 'rgb( 255, 100, 100 )'
   };
 
   //----------------------------------------------------------------------------------------
-  // Vector Color Group 3
+  // Vector Color Group 3 (purple)
   VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_3.toString() ] = {
     fill: PURPLE,
-    sum: 'rgb( 128, 0, 128 )',
+    sum: PURPLE,
     component: 'rgb( 216, 191, 216 )',
     labelBackground: 'rgb( 210, 194, 210 )'
   };
 
   //----------------------------------------------------------------------------------------
-  // Vector Color Group 4
+  // Vector Color Group 4 (green)
   VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_4.toString() ] = {
-    fill: '#058000',
-    sum: '#024700',
-    component: '#02CD00',
+    fill: 'rgb( 5, 200, 0 )',
+    sum: 'rgb( 5, 200, 0 )',
+    component: 'rgb( 150, 205, 150 )',
     labelBackground: 'rgb( 180, 255, 180 )'
   };
 
