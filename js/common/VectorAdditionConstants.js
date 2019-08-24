@@ -22,6 +22,13 @@ define( require => {
   const PANEL_X_MARGIN = 9;
   const PANEL_Y_MARGIN = 10;
 
+  const VECTOR_OPTIONS = {
+    headWidth: 11.5,
+    headHeight: 8.5,
+    tailWidth: 4,
+    stroke: null,
+    lineWidth: 0
+  };
 
   const VectorAdditionConstants = {
 
@@ -30,7 +37,6 @@ define( require => {
     SCREEN_VIEW_X_MARGIN: 10,
     SCREEN_VIEW_Y_MARGIN: 12,
     SCREEN_VIEW_BOUNDS: ScreenView.DEFAULT_LAYOUT_BOUNDS,
-
 
     //----------------------------------------------------------------------------------------
     // Graph Constants
@@ -65,7 +71,6 @@ define( require => {
       xMargin: 4.5
     }, VectorAdditionColors.RADIO_BUTTON_COLORS ),
 
-
     //----------------------------------------------------------------------------------------
     // Panel constants
 
@@ -78,7 +83,6 @@ define( require => {
 
     PANEL_FONT: new PhetFont( 15.5 ), // font used on all panel-like container text nodes
     GRAPH_CONTROL_PANEL_SPACING: 10,  // spacing between items on each GraphControlPanel (See GraphControlPanel.js)
-
 
     //----------------------------------------------------------------------------------------
     // Defaults for all AccordionBox instances
@@ -103,7 +107,6 @@ define( require => {
 
     TOGGLE_BOX_CONTENT_HEIGHT: 53, // height of all ToggleBox instances
 
-
     //----------------------------------------------------------------------------------------
     // Defaults for all Number Picker instances
     NUMBER_PICKER_OPTIONS: {
@@ -120,30 +123,46 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Constants for Vectors
 
-    // Defaults for all Vector Arrow Nodes
-    VECTOR_OPTIONS: {
-      lineWidth: 0,
-      tailWidth: 4,
-      headWidth: 11.5,
-      headHeight: 8.5,
-      cursor: 'move'
-    },
+    // Defaults for all vectors
+    VECTOR_OPTIONS: VECTOR_OPTIONS,
+
+    // Defaults for component vectors
+    COMPONENT_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
+      opacity: 0.95
+    } ),
+    
+    // Defaults for sum vectors
+    SUM_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
+      stroke: 'black',
+      lineWidth: 0.5
+    } ),
+
+    // Defaults for components of sum vectors
+    SUM_COMPONENT_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
+      stroke: 'black',
+      lineWidth: 0.2
+    } ),
 
     DEFAULT_VECTOR_LENGTH: 5, // side length of the arrow when initially dropped onto the graph.
     VECTOR_LABEL_OFFSET: 0.45, // the offset in model coordinates of the label with respect to the vector
 
+    //----------------------------------------------------------------------------------------
+    // Constants for curves arrow that denotes angle
+    ANGLE_ARROW_OPTIONS: {
+      arrowheadWidth: 8,
+      arrowheadHeight: 6,
+      arcOptions: { lineWidth: 1.2 }
+    },
 
     //----------------------------------------------------------------------------------------
     // Rounding
     NUMBER_DISPLAY_ROUNDING: 1, // rounding for all number display instances
     VECTOR_VALUE_ROUNDING: 1,   // rounding for the vector 'values' in decimal points
 
-
     //----------------------------------------------------------------------------------------
     // Vector symbols, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
     VECTOR_SYMBOLS_GROUP_1: [ 'a', 'b', 'c' ],
     VECTOR_SYMBOLS_GROUP_2: [ 'd', 'e', 'f' ],
-
 
     //----------------------------------------------------------------------------------------
     // Interval spacing of vector angle (in degrees) when vector is in polar mode

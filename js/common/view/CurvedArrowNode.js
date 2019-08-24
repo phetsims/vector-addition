@@ -44,8 +44,8 @@ define( require => {
 
       options = _.extend( {
 
-        arrowheadWidth: 9.75, // {number} the arrowhead width (before rotation)
-        arrowheadHeight: 7.2, // {number} the arrowhead height (before rotation)
+        arrowheadWidth: 8,  // {number} the arrowhead width (before rotation)
+        arrowheadHeight: 6, // {number} the arrowhead height (before rotation)
 
         arcOptions: null, // {Object|null} defaults filled in bellow
         arrowOptions: null // {Object|null} defaults filled in bellow,

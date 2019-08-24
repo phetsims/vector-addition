@@ -34,12 +34,6 @@ define( require => {
 
   // offset of the label
   const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
-  const COMPONENT_ARROW_OPTIONS = {
-    headWidth: 11,
-    headHeight: 7.5,
-    tailWidth: 4,
-    opacity: 0.95
-  };
 
   const NON_ACTIVE_LINE_DASH = [ 3, 10 ];
   const ACTIVE_LINE_DASH = [];
@@ -77,8 +71,9 @@ define( require => {
         lineDash: NON_ACTIVE_LINE_DASH
       }, options.onAxisLinesOptions );
 
-      options.arrowOptions = _.extend( {}, COMPONENT_ARROW_OPTIONS, {
-        // functionality to add a distinct appearance
+      options.arrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
+
+        // fill with the component color
         fill: VectorAdditionColors[ componentVector.vectorColorGroup ].component
       }, options.arrowOptions );
 
@@ -243,9 +238,6 @@ define( require => {
       this.labelNode.center = modelViewTransform.modelToViewDelta( deltaMidPoint.plus( labelOffset ) );
     }
   }
-
-  // @public {Object}
-  ComponentVectorNode.ARROW_OPTIONS = COMPONENT_ARROW_OPTIONS;
 
   return vectorAddition.register( 'ComponentVectorNode', ComponentVectorNode );
 } );

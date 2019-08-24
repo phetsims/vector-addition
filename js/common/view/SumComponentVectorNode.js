@@ -19,8 +19,11 @@ define( require => {
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   class SumComponentVectorNode extends ComponentVectorNode {
+
+    //TODO VectorComponent does not exist
     /**
      * @param {VectorComponent} vectorComponentModel - the vector model for the component
      * @param {Graph} graph - the graph the component belongs to
@@ -42,13 +45,8 @@ define( require => {
         `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-        arrowOptions: null
+        arrowOptions: VectorAdditionConstants.SUM_COMPONENT_VECTOR_OPTIONS
       }, options );
-
-      options.arrowOptions = _.extend( {
-        tailWidth: 4.5,
-        lineWidth: 0.2
-      }, options.arrowOptions );
 
       //----------------------------------------------------------------------------------------
 

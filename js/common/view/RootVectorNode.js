@@ -58,7 +58,9 @@ define( require => {
       assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
         `Extra prototype on Options: ${arrowOptions}` );
 
-      arrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, arrowOptions );
+      arrowOptions = _.extend( {
+        cursor: 'move'
+      }, VectorAdditionConstants.VECTOR_OPTIONS, arrowOptions );
 
       //----------------------------------------------------------------------------------------
 
