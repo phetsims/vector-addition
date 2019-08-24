@@ -299,7 +299,7 @@ define( require => {
       }, options );
 
       if ( componentStyle === ComponentStyles.INVISIBLE ) {
-        return createRadioButtonIcon( new FontAwesomeNode( 'eye_close' ) );
+        return createRadioButtonIcon( new FontAwesomeNode( 'eye_close', { scale: 0.75 } ) );
       }
 
       const arrowSize = options.arrowSize; // convenience reference
