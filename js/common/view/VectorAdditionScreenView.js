@@ -38,7 +38,8 @@ define( require => {
         layoutBounds: VectorAdditionConstants.SCREEN_VIEW_BOUNDS
       } );
 
-      const resetAllButton = new ResetAllButton( {
+      // @protected for layout
+      this.resetAllButton = new ResetAllButton( {
         listener: () => {
           vectorAdditionModel.reset();
           this.reset();
@@ -47,7 +48,7 @@ define( require => {
         bottom: this.layoutBounds.maxY - SCREEN_VIEW_Y_MARGIN,
         tandem: tandem.createTandem( 'resetAllButton' )
       } );
-      this.addChild( resetAllButton );
+      this.addChild( this.resetAllButton );
     }
 
     /**

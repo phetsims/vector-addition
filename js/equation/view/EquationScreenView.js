@@ -70,7 +70,8 @@ define( require => {
       this.addChild( equationGraphControlPanel );
 
       this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
-        left: equationGraphControlPanel.left
+        right: this.layoutBounds.maxX - 45,
+        bottom: this.resetAllButton.top - 30
       } ) );
       this.addChild( polarScene );
       this.addChild( cartesianScene );

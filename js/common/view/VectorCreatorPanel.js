@@ -47,8 +47,6 @@ define( require => {
         lineWidth: 0.8,
         xMargin: 2, // {number} - the margins on the left and right side of the panel
         yMargin: 10, // {number} - the margins on the top and bottom of the panel
-        left: 900, // {number}
-        top: 290, // {number}
 
         // options specific to this class
         xAlign: 'center',  // 'left' || 'center' || 'right' - horizontal alignment of the panel slots

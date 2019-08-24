@@ -25,7 +25,6 @@ define( require => {
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
@@ -59,9 +58,11 @@ define( require => {
       this.addChild( graphControlPanel );
 
       // Create and add the coordinate snap mode radio buttons
-      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
-        left: graphControlPanel.left
-      } ) );
+      const sceneRadioButtons = new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
+        right: this.layoutBounds.maxX - 45,
+        bottom: this.resetAllButton.top - 30
+      } );
+      this.addChild( sceneRadioButtons );
 
       //----------------------------------------------------------------------------------------
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
@@ -74,8 +75,8 @@ define( require => {
           labModel.componentStyleProperty );
 
         sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode, {
-          top: graphControlPanel.bottom + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
-          left: graphControlPanel.left
+          left: sceneRadioButtons.left,
+          bottom: sceneRadioButtons.top - 20
         } ) );
 
         // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the

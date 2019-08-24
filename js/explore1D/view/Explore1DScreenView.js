@@ -32,9 +32,6 @@ define( require => {
 
   // constants
 
-  // margin between the Graph Control Panel and the Graph Orientation Radio Buttons
-  const GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN = 10;
-
   // options passed to Scene Nodes instances
   const EXPLORE_1D_SCENE_OPTIONS = {
     vectorValuesAccordionBoxOptions: {
@@ -72,10 +69,11 @@ define( require => {
 
 
       // Create and add the graph orientation radio buttons
-      this.addChild( new GraphOrientationRadioButtonGroup( this.viewProperties.graphOrientationProperty, {
-        centerX: explore1DGraphControlPanel.centerX,
-        top: explore1DGraphControlPanel.bottom + GRAPH_ORIENTATION_RADIO_BUTTON_MARGIN
-      } ) );
+      const sceneRadioButtons = new GraphOrientationRadioButtonGroup( this.viewProperties.graphOrientationProperty, {
+        right: this.layoutBounds.maxX - 48,
+        bottom: this.resetAllButton.top - 30
+      } );
+      this.addChild( sceneRadioButtons );
 
       //----------------------------------------------------------------------------------------
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
@@ -96,9 +94,9 @@ define( require => {
           explore1DGraph.orientation === GraphOrientations.HORIZONTAL ?
           VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
           VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2, {
-            left: explore1DGraphControlPanel.left
+            left: sceneRadioButtons.left,
+            bottom: sceneRadioButtons.top - 20
           } ) );
-
 
         // Toggle visibility of the SceneNode. Should only be visible if the graph orientation matches the
         // explore1DGraph's graph orientation. Is never unlinked since the screen view is never disposed.

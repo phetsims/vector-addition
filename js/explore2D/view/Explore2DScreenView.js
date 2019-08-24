@@ -62,11 +62,12 @@ define( require => {
         explore2DModel.componentStyleProperty );
       this.addChild( graphControlPanel );
 
-
       // Create and add the coordinate snap mode radio buttons
-      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
-        left: graphControlPanel.left
-      } ) );
+      const sceneRadioButtons = new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
+        right: this.layoutBounds.maxX - 45,
+        bottom: this.resetAllButton.top - 30
+      } );
+      this.addChild( sceneRadioButtons );
 
       //----------------------------------------------------------------------------------------
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
@@ -83,8 +84,8 @@ define( require => {
         sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DGraph,
           sceneNode,
           EXPLORE_2D_VECTOR_SYMBOLS, {
-            top: graphControlPanel.bottom + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
-            left: graphControlPanel.left
+            left: sceneRadioButtons.left,
+            bottom: sceneRadioButtons.top - 20
           } ) );
 
         // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the

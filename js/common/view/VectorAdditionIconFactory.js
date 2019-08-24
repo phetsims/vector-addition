@@ -410,7 +410,7 @@ define( require => {
 
       options = merge( {
         arrowOptions: VectorAdditionConstants.AXES_ARROW_OPTIONS,
-        arrowLength: 40  // {number} length of the arrow node
+        arrowLength: 37  // {number} length of the arrow node
       }, options );
 
       //----------------------------------------------------------------------------------------
