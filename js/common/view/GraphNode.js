@@ -53,6 +53,7 @@ define( require => {
   // ticks
   const MAJOR_TICK_SPACING = 5; // model units
   const TICK_LENGTH = 1; // model units
+  const ORIGIN_TICK_LENGTH = 2; // model units
   const TICKS_OPTIONS = {
     lineWidth: 1,
     stroke: VectorAdditionColors.BLACK
@@ -344,13 +345,11 @@ define( require => {
       for ( let xValue = firstTick; xValue <= graphModelBounds.maxX; xValue = xValue + MAJOR_TICK_SPACING ) {
 
         // The origin has a longer tick
-        if ( xValue === 0 ) {
-          xAxisTicksShape.moveTo( xValue, -TICK_LENGTH ).verticalLineTo( TICK_LENGTH );
-        }
-        else {
-          xAxisTicksShape.moveTo( xValue, -TICK_LENGTH / 2 ).verticalLineTo( TICK_LENGTH / 2 );
-        }
+        const tickLength = ( xValue === 0 ) ? ORIGIN_TICK_LENGTH : TICK_LENGTH;
+
+        xAxisTicksShape.moveTo( xValue, -tickLength / 2 ).verticalLineTo( tickLength / 2 );
       }
+
       return modelViewTransform.modelToViewShape( xAxisTicksShape );
     }
   }
@@ -417,13 +416,10 @@ define( require => {
       // y-axis major ticks
       for ( let yValue = firstTick; yValue <= graphModelBounds.maxY; yValue = yValue + MAJOR_TICK_SPACING ) {
 
-        // the origin has a longer tick
-        if ( yValue === 0 ) {
-          yAxisTicksShape.moveTo( -TICK_LENGTH, yValue ).horizontalLineTo( TICK_LENGTH );
-        }
-        else {
-          yAxisTicksShape.moveTo( -TICK_LENGTH / 2, yValue ).horizontalLineTo( TICK_LENGTH / 2 );
-        }
+        // The origin has a longer tick
+        const tickLength = ( yValue === 0 ) ? ORIGIN_TICK_LENGTH : TICK_LENGTH;
+
+        yAxisTicksShape.moveTo( -tickLength / 2, yValue ).horizontalLineTo( tickLength / 2 );
       }
 
       return modelViewTransform.modelToViewShape( yAxisTicksShape );
