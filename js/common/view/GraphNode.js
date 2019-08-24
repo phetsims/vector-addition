@@ -209,9 +209,9 @@ define( require => {
 
       // Create a path that represents the ticks along the axis with an empty shape which will be updated when the
       // modelViewTransform is updated.
-      const axisTicksPath = new Path( new Shape(), TICKS_OPTIONS );
+      const tickMarksPath = new Path( new Shape(), TICKS_OPTIONS );
 
-      const children = [ this.axisArrow, this.axisLabel, axisTicksPath ];
+      const children = [ this.axisArrow, this.axisLabel, tickMarksPath ];
 
       // If the graph is not 2 dimensional, label the origin
       this.originText = null;
@@ -228,24 +228,20 @@ define( require => {
       // Observe changes to the modelViewTransform and update the axis when changed.
       graph.modelViewTransformProperty.link( ( modelViewTransform ) => {
 
-        // Convenience variable for the position of the origin in view coordinates
+        // Graph bounds in view coordinates
+        const graphViewBounds = modelViewTransform.modelToViewBounds( graph.graphModelBounds );
+        
+        // Position of the origin in view coordinates
         const graphViewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
-        // Convenience variables for the grid bounds in view/model coordinates
-        const graphModelBounds = graph.graphModelBounds;
-        const graphViewBounds = modelViewTransform.modelToViewBounds( graphModelBounds );
-
-        // Update the axis double arrow calling an abstract method
+        // Update the axis
         this.updateAxisArrow( graphViewBounds, graphViewOrigin );
 
-        // Update the labels of the axis calling an abstract method
+        // Update labels on the axis
         this.updateAxisLabels( graphViewOrigin );
 
-        // Get the shape of the ticks along the axis (abstract) in view coordinates
-        const ticksShape = this.createTicksShape( graphModelBounds, modelViewTransform ).makeImmutable();
-
-        // Update the axis path
-        axisTicksPath.setShape( ticksShape );
+        // Update tick marks
+        tickMarksPath.setShape( this.createTicksShape( graph.graphModelBounds, modelViewTransform ).makeImmutable() );
       } );
     }
 
@@ -261,7 +257,7 @@ define( require => {
     }
 
     /**
-     * Updates the location of the labels (origin label and axis label)
+     * Updates the location of the labels (axis label and origin tick label)
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      * @protected
      * @abstract
@@ -309,7 +305,7 @@ define( require => {
     }
 
     /**
-     * Updates the location of the labels (origin label and axis label)
+     * Updates the location of the labels
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      * @protected
      * @override
@@ -381,7 +377,7 @@ define( require => {
     }
 
     /**
-     * Updates the location of the labels (origin label and axis label)
+     * Updates the location of the labels
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      * @protected
      * @override
