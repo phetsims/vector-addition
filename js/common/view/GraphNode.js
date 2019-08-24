@@ -175,6 +175,7 @@ define( require => {
             minorGridLinesShape.moveTo( xValue, graphMinY ).verticalLineTo( graphMaxY );
           }
         }
+
         majorGridLinesPath.setShape( modelViewTransform.modelToViewShape( majorGridLinesShape ).makeImmutable() );
         minorGridLinesPath.setShape( modelViewTransform.modelToViewShape( minorGridLinesShape ).makeImmutable() );
       } );
