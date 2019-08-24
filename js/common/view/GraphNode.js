@@ -240,10 +240,10 @@ define( require => {
         this.updateAxisLabels( graphViewOrigin );
 
         // Get the shape of the ticks along the axis (abstract) in view coordinates
-        const ticksShape = this.getUpdatedTicksShape( graphModelBounds, modelViewTransform );
+        const ticksShape = this.getUpdatedTicksShape( graphModelBounds, modelViewTransform ).makeImmutable();
 
         // Update the axis path
-        axisTicksPath.setShape( ticksShape.makeImmutable() );
+        axisTicksPath.setShape( ticksShape );
       } );
     }
 
@@ -338,15 +338,16 @@ define( require => {
       // Create ticks along the axis
       const xAxisTicksShape = new Shape();
 
-      // x-axis ticks, add them on every major tick
-      for ( let xValue = graphModelBounds.minX; xValue <= graphModelBounds.maxX; xValue++ ) {
-        const isMajor = xValue % ( MAJOR_TICK_SPACING ) === 0;
+      const firstTick = graphModelBounds.minX - ( graphModelBounds.minX % MAJOR_TICK_SPACING );
+      
+      // x-axis major ticks
+      for ( let xValue = firstTick; xValue <= graphModelBounds.maxX; xValue = xValue + MAJOR_TICK_SPACING ) {
 
         // The origin has a longer tick
         if ( xValue === 0 ) {
           xAxisTicksShape.moveTo( xValue, -TICK_LENGTH ).verticalLineTo( TICK_LENGTH );
         }
-        else if ( isMajor ) {
+        else {
           xAxisTicksShape.moveTo( xValue, -TICK_LENGTH / 2 ).verticalLineTo( TICK_LENGTH / 2 );
         }
       }
@@ -411,15 +412,16 @@ define( require => {
       // create ticks along the axis
       const yAxisTicksShape = new Shape();
 
-      // y-axis ticks, add them on every major tick.
-      for ( let yValue = graphModelBounds.minY; yValue <= graphModelBounds.maxY; yValue++ ) {
-        const isMajor = yValue % ( MAJOR_TICK_SPACING ) === 0;
+      const firstTick = graphModelBounds.minY - ( graphModelBounds.minY % MAJOR_TICK_SPACING );
+
+      // y-axis major ticks
+      for ( let yValue = firstTick; yValue <= graphModelBounds.maxY; yValue = yValue + MAJOR_TICK_SPACING ) {
 
         // the origin has a longer tick
         if ( yValue === 0 ) {
           yAxisTicksShape.moveTo( -TICK_LENGTH, yValue ).horizontalLineTo( TICK_LENGTH );
         }
-        else if ( isMajor ) {
+        else {
           yAxisTicksShape.moveTo( -TICK_LENGTH / 2, yValue ).horizontalLineTo( TICK_LENGTH / 2 );
         }
       }
