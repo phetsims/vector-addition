@@ -241,7 +241,7 @@ define( require => {
         this.updateAxisLabels( graphViewOrigin );
 
         // Get the shape of the ticks along the axis (abstract) in view coordinates
-        const ticksShape = this.getUpdatedTicksShape( graphModelBounds, modelViewTransform ).makeImmutable();
+        const ticksShape = this.createTicksShape( graphModelBounds, modelViewTransform ).makeImmutable();
 
         // Update the axis path
         axisTicksPath.setShape( ticksShape );
@@ -277,7 +277,7 @@ define( require => {
      * @protected
      * @abstract
      */
-    getUpdatedTicksShape( graphModelBounds, modelViewTransform ) {
+    createTicksShape( graphModelBounds, modelViewTransform ) {
       throw new Error( 'abstract method must be implemented' );
     }
   }
@@ -334,7 +334,7 @@ define( require => {
      * @protected
      * @override
      */
-    getUpdatedTicksShape( graphModelBounds, modelViewTransform ) {
+    createTicksShape( graphModelBounds, modelViewTransform ) {
 
       // Create ticks along the axis
       const xAxisTicksShape = new Shape();
@@ -406,7 +406,7 @@ define( require => {
      * @protected
      * @override
      */
-    getUpdatedTicksShape( graphModelBounds, modelViewTransform ) {
+    createTicksShape( graphModelBounds, modelViewTransform ) {
 
       // create ticks along the axis
       const yAxisTicksShape = new Shape();
