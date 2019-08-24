@@ -154,7 +154,7 @@ define( require => {
         // Create the Horizontal Grid Lines.
         for ( let yValue = graphMinY; yValue <= graphMaxY; yValue++ ) {
 
-          const isMajor = yValue % ( MAJOR_TICK_SPACING ) === 0;
+          const isMajor = ( yValue % MAJOR_TICK_SPACING === 0 );
           if ( isMajor ) {
             majorGridLinesShape.moveTo( graphMinX, yValue ).horizontalLineTo( graphMaxX );
           }
@@ -167,7 +167,7 @@ define( require => {
         // Create the Vertical Grid Lines
         for ( let xValue = graphMinX; xValue <= graphMaxX; xValue++ ) {
 
-          const isMajor = xValue % ( MAJOR_TICK_SPACING ) === 0;
+          const isMajor = ( xValue % MAJOR_TICK_SPACING === 0 );
           if ( isMajor ) {
             majorGridLinesShape.moveTo( xValue, graphMinY ).verticalLineTo( graphMaxY );
           }
