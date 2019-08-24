@@ -143,6 +143,11 @@ define( require => {
       lineWidth: 0.2
     } ),
 
+    // Defaults for base vectors
+    BASE_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
+      opacity: 0.38
+    } ),
+
     DEFAULT_VECTOR_LENGTH: 5, // side length of the arrow when initially dropped onto the graph.
     VECTOR_LABEL_OFFSET: 0.45, // the offset in model coordinates of the label with respect to the vector
 

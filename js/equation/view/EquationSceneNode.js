@@ -25,6 +25,7 @@ define( require => {
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   class EquationSceneNode extends SceneNode {
@@ -48,7 +49,6 @@ define( require => {
       options = merge( {
 
         // specific to this class
-        baseVectorOpacity: 0.38,  // {number} opacity of Base Vector Nodes and their components
         panelCenterY: 100,        // {number} centerY of the equationTypesRadioButtonGroup and the
                                   //          coefficientSelectorToggleBox
 
@@ -128,11 +128,10 @@ define( require => {
         // register the vector to create the Nodes
         this.registerVector( equationVector, equationGraph.vectorSet );
 
-
         // TODO: create add the components
-        const baseVector = new VectorNode( equationVector.baseVector, equationGraph, valuesVisibleProperty, angleVisibleProperty, {
-          opacity: options.baseVectorOpacity
-        } );
+        const baseVector = new VectorNode( equationVector.baseVector, equationGraph, valuesVisibleProperty,
+          angleVisibleProperty, VectorAdditionConstants.BASE_VECTOR_OPTIONS );
+
         equationGraph.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
 
         this.baseVectorContainer.addChild( baseVector );
