@@ -38,6 +38,7 @@ define( require => {
   const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
@@ -81,13 +82,16 @@ define( require => {
 
       //========================================================================================
 
-
       // Create one and only Graph Node
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
+      const graphViewBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
+
       // Create the one and only 'Vector Values' toggle box
-      const vectorValuesToggleBox = new VectorValuesToggleBox( graph, options.vectorValuesToggleBoxOptions );
-      vectorValuesToggleBox.centerX = graphNode.centerX;
+      const vectorValuesToggleBox = new VectorValuesToggleBox( graph, _.extend( {
+        centerX: graphViewBounds.centerX,
+        top: VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
+      }, options.vectorValuesToggleBoxOptions ) );
 
       //----------------------------------------------------------------------------------------
       // Create containers for each and every type of Vector to handle z-layering of all vector types.
@@ -118,8 +122,6 @@ define( require => {
       //========================================================================================
       // Add an eraser if necessary
       if ( options.includeEraser ) {
-
-        const graphViewBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
 
         const eraser = new EraserButton( {
           listener: () => graph.erase(),

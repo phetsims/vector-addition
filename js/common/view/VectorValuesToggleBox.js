@@ -67,9 +67,6 @@ define( require => {
 
   const ANGLE_LABEL_WIDTH = 15;
 
-  // screen view horizontal margin
-  const SCREEN_VIEW_Y_MARGIN = VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
-
   // possible types of attributes to display
   const ATTRIBUTE_DISPLAY_TYPES = VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES;
 
@@ -87,9 +84,6 @@ define( require => {
         `Extra prototype on Options: ${options}` );
 
       options = _.extend( {
-
-        // specific to this class
-        top: SCREEN_VIEW_Y_MARGIN,
 
         // super class options
         contentFixedWidth: CONTENT_WIDTH, // {number|null} fixed size of the panel (see superclass)
