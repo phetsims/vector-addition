@@ -413,13 +413,15 @@ define( require => {
         arrowLength: 37  // {number} length of the arrow node
       }, options );
 
-      //----------------------------------------------------------------------------------------
+      let arrowNode = null;
       if ( graphOrientation === GraphOrientations.HORIZONTAL ) {
-        return new ArrowNode( 0, 0, options.arrowLength, 0, options.arrowOptions );
+        arrowNode = new ArrowNode( 0, 0, options.arrowLength, 0, options.arrowOptions );
       }
-      else if ( graphOrientation === GraphOrientations.VERTICAL ) {
-        return new ArrowNode( 0, 0, 0, options.arrowLength, options.arrowOptions );
+      else {
+        arrowNode = new ArrowNode( 0, 0, 0, options.arrowLength, options.arrowOptions );
       }
+
+      return createRadioButtonIcon( arrowNode );
     },
 
     //========================================================================================

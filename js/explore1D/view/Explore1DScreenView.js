@@ -70,7 +70,7 @@ define( require => {
 
       // Create and add the graph orientation radio buttons
       const sceneRadioButtons = new GraphOrientationRadioButtonGroup( this.viewProperties.graphOrientationProperty, {
-        right: this.layoutBounds.maxX - 48,
+        right: this.layoutBounds.maxX - 45,
         bottom: this.resetAllButton.top - 30
       } );
       this.addChild( sceneRadioButtons );
