@@ -18,6 +18,7 @@ define( require => {
   'use strict';
 
   // modules
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const Explore2DGraphControlPanel = require( 'VECTOR_ADDITION/explore2D/view/Explore2DGraphControlPanel' );
   const Explore2DModel = require( 'VECTOR_ADDITION/explore2D/model/Explore2DModel' );
@@ -76,11 +77,15 @@ define( require => {
           explore2DModel.componentStyleProperty
         );
 
+        const vectorSymbols = ( explore2DGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
+                              VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
+                              VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
+
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel(
           explore2DGraph,
           sceneNode,
-          VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1, {
+          vectorSymbols, {
             left: coordinateSnapRadioButtonGroup.left,
             bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
           } )
