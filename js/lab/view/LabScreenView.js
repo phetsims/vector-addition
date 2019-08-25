@@ -9,7 +9,7 @@
  *  - Scene nodes for each graph
  *  - Vector Creator Panels for each graph
  *
- * Screen Views are never disposed.
+ * ScreenViews are never disposed.
  *
  * @author Martin Veillette
  */
@@ -28,7 +28,6 @@ define( require => {
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
-
   class LabScreenView extends VectorAdditionScreenView {
 
     /**
@@ -45,39 +44,39 @@ define( require => {
       // @private {VectorAdditionViewProperties} viewProperties - viewProperties for the 'Lab' screen
       this.viewProperties = new VectorAdditionViewProperties();
 
-      //========================================================================================
-      // Add the children of the screen view
-      //========================================================================================
-
       // Create and add the Graph Control Panel
       const graphControlPanel = new LabGraphControlPanel(
         labModel.cartesianGraph,
         labModel.polarGraph,
         this.viewProperties,
-        labModel.componentStyleProperty );
+        labModel.componentStyleProperty
+      );
       this.addChild( graphControlPanel );
 
       // Create and add the coordinate snap mode radio buttons
-      const sceneRadioButtons = new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
-        right: this.layoutBounds.maxX - 45,
-        bottom: this.resetAllButton.top - 30
-      } );
-      this.addChild( sceneRadioButtons );
+      const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
+        this.viewProperties.coordinateSnapModeProperty, {
+          right: this.layoutBounds.maxX - 45,
+          bottom: this.resetAllButton.top - 30
+        } );
+      this.addChild( coordinateSnapRadioButtonGroup );
 
-      //----------------------------------------------------------------------------------------
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
       [ labModel.polarGraph, labModel.cartesianGraph ].forEach( labGraph => {
 
-        const sceneNode = new SceneNode( labGraph,
+        const sceneNode = new SceneNode(
+          labGraph,
           this.viewProperties.valuesVisibleProperty,
           this.viewProperties.angleVisibleProperty,
           this.viewProperties.gridVisibleProperty,
-          labModel.componentStyleProperty );
+          labModel.componentStyleProperty
+        );
 
         sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode, {
-          left: sceneRadioButtons.left,
-          bottom: sceneRadioButtons.top - 20
-        } ) );
+            left: coordinateSnapRadioButtonGroup.left,
+            bottom: coordinateSnapRadioButtonGroup.top - 20
+          } )
+        );
 
         // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
         // labGraph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
@@ -87,14 +86,11 @@ define( require => {
 
         // Add the scene node
         this.addChild( sceneNode );
-
       } );
     }
 
     /**
-     * Resets the Lab Screen View
      * @public
-     *
      * @override
      */
     reset() {

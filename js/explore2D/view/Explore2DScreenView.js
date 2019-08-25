@@ -9,7 +9,7 @@
  *  - Scene nodes for each graph
  *  - Vector Creator Panels for each graph
  *
- * Screen Views are never disposed.
+ * ScreenViews are never disposed.
  *
  * @author Martin Veillette
  */
@@ -29,12 +29,6 @@ define( require => {
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
-  // constants
-
-  // Shared symbol array for both graphs in Explore 2D ('a', 'b', 'c')
-  const EXPLORE_2D_VECTOR_SYMBOLS = VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1;
-
-
   class Explore2DScreenView extends VectorAdditionScreenView {
 
     /**
@@ -51,59 +45,58 @@ define( require => {
       // @private {VectorAdditionViewProperties} viewProperties - viewProperties for the 'Explore 2D' screen
       this.viewProperties = new VectorAdditionViewProperties();
 
-      //========================================================================================
-      // Add the children of the screen view
-      //========================================================================================
-
       // Create and add the Graph Control Panel
-      const graphControlPanel = new Explore2DGraphControlPanel( this.viewProperties,
+      const graphControlPanel = new Explore2DGraphControlPanel(
+        this.viewProperties,
         explore2DModel.cartesianGraph.vectorSet,
         explore2DModel.polarGraph.vectorSet,
-        explore2DModel.componentStyleProperty );
+        explore2DModel.componentStyleProperty
+      );
       this.addChild( graphControlPanel );
 
       // Create and add the coordinate snap mode radio buttons
-      const sceneRadioButtons = new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
-        right: this.layoutBounds.maxX - 45,
-        bottom: this.resetAllButton.top - 30
-      } );
-      this.addChild( sceneRadioButtons );
+      const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
+        this.viewProperties.coordinateSnapModeProperty, {
+          right: this.layoutBounds.maxX - 45,
+          bottom: this.resetAllButton.top - 30
+        } );
+      this.addChild( coordinateSnapRadioButtonGroup );
 
-      //----------------------------------------------------------------------------------------
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
       [ explore2DModel.polarGraph, explore2DModel.cartesianGraph ].forEach( explore2DGraph => {
 
         // Create the scene node
-        const sceneNode = new SceneNode( explore2DGraph,
+        const sceneNode = new SceneNode(
+          explore2DGraph,
           this.viewProperties.valuesVisibleProperty,
           this.viewProperties.angleVisibleProperty,
           this.viewProperties.gridVisibleProperty,
-          explore2DModel.componentStyleProperty );
+          explore2DModel.componentStyleProperty
+        );
 
         // Add the vector creator panel
-        sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( explore2DGraph,
+        sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel(
+          explore2DGraph,
           sceneNode,
-          EXPLORE_2D_VECTOR_SYMBOLS, {
-            left: sceneRadioButtons.left,
-            bottom: sceneRadioButtons.top - 20
-          } ) );
+          VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1, {
+            left: coordinateSnapRadioButtonGroup.left,
+            bottom: coordinateSnapRadioButtonGroup.top - 20
+          } )
+        );
 
         // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
         // explore2DGraph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
         this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-          sceneNode.visible = coordinateSnapMode === explore2DGraph.coordinateSnapMode;
+          sceneNode.visible = ( coordinateSnapMode === explore2DGraph.coordinateSnapMode );
         } );
 
         // Add the scene node
         this.addChild( sceneNode );
-
       } );
     }
 
     /**
-     * Resets the VectorAdditionScreenView
      * @public
-     *
      * @override
      */
     reset() {

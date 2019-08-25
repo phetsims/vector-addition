@@ -2,6 +2,7 @@
 
 /**
  * Top level view for the 'Equation' screen.
+ * ScreenViews are never disposed.
  *
  * @author Martin Veillette
  */
@@ -21,6 +22,7 @@ define( require => {
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
   class EquationScreenView extends VectorAdditionScreenView {
+
     /**
      * @param {EquationModel} equationModel
      * @param {Tandem} tandem
@@ -34,50 +36,53 @@ define( require => {
 
       this.viewProperties = new VectorAdditionViewProperties();
 
-
-      const polarScene = new EquationSceneNode( equationModel.polarGraph,
+      const polarScene = new EquationSceneNode(
+        equationModel.polarGraph,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-        equationModel.componentStyleProperty );
+        equationModel.componentStyleProperty
+      );
 
-      const cartesianScene = new EquationSceneNode( equationModel.cartesianGraph,
+      const cartesianScene = new EquationSceneNode(
+        equationModel.cartesianGraph,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-        equationModel.componentStyleProperty );
+        equationModel.componentStyleProperty
+      );
 
-
-      //----------------------------------------------------------------------------------------
-      // Toggle visibility of scenes based on which coordinate snap mode it is
-
+      // Toggle visibility of scenes based on which coordinate snap mode it is.
       // Doesn't need to be unlinked since the scenes and equation scenes are never disposed.
-      this.viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
-
-        polarScene.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
-        cartesianScene.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
+      this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
+        polarScene.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
+        cartesianScene.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
       } );
 
-      //----------------------------------------------------------------------------------------
-      // Create the Coordinate snapping radio buttons
-
-
-      const equationGraphControlPanel = new EquationGraphControlPanel( this.viewProperties.valuesVisibleProperty,
+      const equationGraphControlPanel = new EquationGraphControlPanel(
+        this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-        equationModel.componentStyleProperty );
+        equationModel.componentStyleProperty
+      );
+
+      // Create the Coordinate snapping radio buttons
+      const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
+        this.viewProperties.coordinateSnapModeProperty, {
+          right: this.layoutBounds.maxX - 45,
+          bottom: this.resetAllButton.top - 30
+        } );
 
       this.addChild( equationGraphControlPanel );
-
-      this.addChild( new CoordinateSnapRadioButtonGroup( this.viewProperties.coordinateSnapModeProperty, {
-        right: this.layoutBounds.maxX - 45,
-        bottom: this.resetAllButton.top - 30
-      } ) );
+      this.addChild( coordinateSnapRadioButtonGroup );
       this.addChild( polarScene );
       this.addChild( cartesianScene );
-
     }
 
+    /**
+     * @public
+     * @override
+     */
     reset() {
       this.viewProperties.reset();
     }

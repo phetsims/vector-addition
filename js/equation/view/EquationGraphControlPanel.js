@@ -27,7 +27,7 @@ define( require => {
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
-     * @param {EnumerationProperty.<ComponentStyles>}
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      */
     constructor( valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty ) {
 
