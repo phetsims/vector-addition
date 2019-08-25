@@ -44,8 +44,8 @@ define( require => {
   // for an annotated drawing of the calculation.
   // Calculate the graph's bottom left location, constant for all graph nodes.
   const GRAPH_BOTTOM_LEFT_LOCATION = new Vector2(
-    SCREEN_VIEW_BOUNDS.minX + SCREEN_VIEW_X_MARGIN + AXES_ARROW_X_EXTENSION,
-    SCREEN_VIEW_BOUNDS.maxY - SCREEN_VIEW_Y_MARGIN - AXES_ARROW_Y_EXTENSION );
+    SCREEN_VIEW_BOUNDS.minX + AXES_ARROW_X_EXTENSION + SCREEN_VIEW_X_MARGIN / 2,
+    SCREEN_VIEW_BOUNDS.maxY - AXES_ARROW_Y_EXTENSION - SCREEN_VIEW_Y_MARGIN / 2);
 
   // scale of the coordinate transformation of model coordinates to view coordinates
   const MODEL_TO_VIEW_SCALE = 12.45;
