@@ -45,25 +45,7 @@ define( require => {
 
   //----------------------------------------------------------------------------------------
   // constants
-  const SCREEN_VIEW_BOUNDS = VectorAdditionConstants.SCREEN_VIEW_BOUNDS;
-
-  // options for the panel
-  const PANEL_OPTIONS = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
-    minWidth: 140,
-    maxWidth: 170,
-    right: SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-    top: SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
-  } );
-
-  // font of all text instances in the panel
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-
-  // options for all checkbox instances
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-
-  // spacing of the content inside the panel
-  const PANEL_SPACING = VectorAdditionConstants.GRAPH_CONTROL_PANEL_SPACING;
-
 
   class GraphControlPanel extends Panel {
 
@@ -74,9 +56,9 @@ define( require => {
      */
     constructor( valuesVisibleProperty, gridVisibleProperty, options ) {
 
-      options = _.extend( {
+      options = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
 
-        // all options are specific to this class
+        // options that are specific to this class
         sumCheckboxContainer: null,   // {null|Node} Option to add a container of sum checkboxes. If null, no sum
                                       // checkbox container will be added to the panel. Sum checkboxes are made
                                       // externally since the number of sum checkboxes vary for different screens.
@@ -85,10 +67,15 @@ define( require => {
                                       // checkbox will be created to toggle this property. If null, no angle checkbox
                                       // will be made.
 
-        componentStyleProperty: null  // {null|EnumerationProperty.<ComponentStyles>} Options to pass a
+        componentStyleProperty: null, // {null|EnumerationProperty.<ComponentStyles>} Options to pass a
                                       // EnumerationProperty of the component styles. If non null, a
                                       // ComponentStyleRadioButtonGroup will be created to toggle the component style.
                                       // If null, no radio buttons will be made.
+
+        // superclass options
+        minWidth: 140,
+        maxWidth: 170
+
       }, options );
 
       //----------------------------------------------------------------------------------------
@@ -106,7 +93,7 @@ define( require => {
         `invalid componentStyleProperty: ${options.componentStyleProperty}` );
 
       //----------------------------------------------------------------------------------------
-      const maxPanelContentWidth = PANEL_OPTIONS.maxWidth - 2 * PANEL_OPTIONS.xMargin;
+      const maxPanelContentWidth = options.maxWidth - 2 * options.xMargin;
 
       const panelContent = [];
 
@@ -117,7 +104,10 @@ define( require => {
 
       // Values checkbox
       const valuesTextLength = maxPanelContentWidth - CHECKBOX_OPTIONS.boxWidth - CHECKBOX_OPTIONS.spacing;
-      panelContent.push( new Checkbox( new Text( valuesString, { font: PANEL_FONT, maxWidth: valuesTextLength } ),
+      panelContent.push( new Checkbox( new Text( valuesString, {
+          font: VectorAdditionConstants.PANEL_FONT,
+          maxWidth: valuesTextLength
+        } ),
         valuesVisibleProperty,
         CHECKBOX_OPTIONS ) );
 
@@ -139,14 +129,17 @@ define( require => {
       if ( options.componentStyleProperty ) {
 
         // Create the 'Components' text
-        const componentsText = new Text( componentsString, { font: PANEL_FONT, maxWidth: maxPanelContentWidth } );
+        const componentsText = new Text( componentsString, {
+          font: VectorAdditionConstants.PANEL_FONT,
+          maxWidth: maxPanelContentWidth
+        } );
 
         // Create the radio buttons
         const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( options.componentStyleProperty );
 
         const panelContentMaxWidth = _.maxBy( panelContent, node => node.width ).width;
 
-        const panelContentWidth = _.max( [ panelContentMaxWidth, PANEL_OPTIONS.minWidth - 2 * PANEL_OPTIONS.xMargin ] );
+        const panelContentWidth = _.max( [ panelContentMaxWidth, options.minWidth - 2 * options.xMargin ] );
 
         // Add a HSeparator
         panelContent.push( new HSeparator( panelContentWidth, { stroke: VectorAdditionColors.BLACK } ) );
@@ -164,9 +157,9 @@ define( require => {
       // Create the panel
       super( new VBox( {
         children: panelContent,
-        spacing: PANEL_SPACING,
+        spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_SPACING,
         align: 'left'
-      } ), PANEL_OPTIONS );
+      } ), options );
     }
   }
 

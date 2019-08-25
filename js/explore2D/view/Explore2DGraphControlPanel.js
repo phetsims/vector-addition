@@ -35,8 +35,9 @@ define( require => {
      * @param {VectorSet} cartesianVectorSet
      * @param {VectorSet} polarVectorSet
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {Object} [options]
      */
-    constructor( viewProperties, cartesianVectorSet, polarVectorSet, componentStyleProperty ) {
+    constructor( viewProperties, cartesianVectorSet, polarVectorSet, componentStyleProperty, options ) {
 
       assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
       assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
@@ -65,14 +66,11 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, {
-
+      super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, _.extend( {
         sumCheckboxContainer: new Node( { children: [ cartesianSumCheckbox, polarSumCheckbox ] } ),
         angleVisibleProperty: viewProperties.angleVisibleProperty,
         componentStyleProperty: componentStyleProperty
-
-      } );
-
+      }, options ) );
     }
   }
 

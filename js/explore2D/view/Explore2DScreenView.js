@@ -50,8 +50,10 @@ define( require => {
         this.viewProperties,
         explore2DModel.cartesianGraph.vectorSet,
         explore2DModel.polarGraph.vectorSet,
-        explore2DModel.componentStyleProperty
-      );
+        explore2DModel.componentStyleProperty, {
+          right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
+          top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
+        } );
       this.addChild( graphControlPanel );
 
       // Create and add the coordinate snap mode radio buttons

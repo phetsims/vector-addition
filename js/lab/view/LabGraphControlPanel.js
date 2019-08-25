@@ -39,8 +39,9 @@ define( require => {
      * @param {LabGraph} polarGraph
      * @param {VectorAdditionViewProperties} viewProperties
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {Object} [options]
      */
-    constructor( cartesianGraph, polarGraph, viewProperties, componentStyleProperty ) {
+    constructor( cartesianGraph, polarGraph, viewProperties, componentStyleProperty, options ) {
 
       assert && assert( _.every( [ cartesianGraph, polarGraph ], graph => graph instanceof LabGraph ) );
       assert && assert( viewProperties instanceof VectorAdditionViewProperties,
@@ -75,18 +76,16 @@ define( require => {
 
         // Add the sum checkbox VBox to the sum checkbox container
         sumCheckboxContainer.addChild( sumCheckboxes );
-
       } );
 
       //----------------------------------------------------------------------------------------
       // Create the GraphControlPanel
 
-      super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, {
+      super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, _.extend( {
         sumCheckboxContainer: sumCheckboxContainer,
         angleVisibleProperty: viewProperties.angleVisibleProperty,
         componentStyleProperty: componentStyleProperty
-      } );
-
+      }, options ) );
     }
   }
 

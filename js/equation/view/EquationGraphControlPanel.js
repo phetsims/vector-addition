@@ -28,8 +28,9 @@ define( require => {
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {Object} [options]
      */
-    constructor( valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty ) {
+    constructor( valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty, options ) {
 
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
@@ -43,10 +44,10 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( valuesVisibleProperty, gridVisibleProperty, {
+      super( valuesVisibleProperty, gridVisibleProperty, _.extend( {
         angleVisibleProperty: angleVisibleProperty,
         componentStyleProperty: componentStyleProperty
-      } );
+      }, options ) );
     }
   }
 

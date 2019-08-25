@@ -87,7 +87,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {}, {
+      options = _.extend( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
         // specific to this class
         numberPickerWithLabelsSpacing: 11, // {number} spacing between the left Number Picker and the right label
@@ -95,12 +95,9 @@ define( require => {
         fixedWidth: 170,                   // {number} fixed width of the Accordion Box
 
         // super class options
-        titleNode: new Text( baseVectorsString, { font: PANEL_FONT } ),
-        right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-        top: 270
+        titleNode: new Text( baseVectorsString, { font: PANEL_FONT } )
 
-        // The rest of the options are in VectorAdditionConstants.ACCORDION_BOX_OPTIONS
-      }, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, options );
+      }, options );
 
 
       // Assign a max width of the title node. Calculated by taking the total width and subtracting everything that

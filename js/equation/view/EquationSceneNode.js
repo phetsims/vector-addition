@@ -36,6 +36,7 @@ define( require => {
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {number} graphControlPanelBottom
      * @param {Object} [options]
      */
     constructor( equationGraph,
@@ -43,6 +44,7 @@ define( require => {
                  angleVisibleProperty,
                  gridVisibleProperty,
                  componentStyleProperty,
+                 graphControlPanelBottom,
                  options ) {
 
 
@@ -109,7 +111,10 @@ define( require => {
 
       const baseVectorsAccordionBox = new BaseVectorsAccordionBox( equationGraph.baseVectorsVisibleProperty,
         equationGraph.coordinateSnapMode,
-        equationGraph.vectorSet );
+        equationGraph.vectorSet, {
+          right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
+          top: graphControlPanelBottom + 20
+        } );
 
       // Add the base vectors accordion box (semi-global)
       this.addChild( baseVectorsAccordionBox );

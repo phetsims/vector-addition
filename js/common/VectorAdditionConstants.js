@@ -35,8 +35,8 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // ScreenView constants
-    SCREEN_VIEW_X_MARGIN: 10,
-    SCREEN_VIEW_Y_MARGIN: 12,
+    SCREEN_VIEW_X_MARGIN: 20,
+    SCREEN_VIEW_Y_MARGIN: 16,
     SCREEN_VIEW_BOUNDS: ScreenView.DEFAULT_LAYOUT_BOUNDS,
 
     //----------------------------------------------------------------------------------------

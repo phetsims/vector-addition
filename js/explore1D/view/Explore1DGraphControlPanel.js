@@ -32,8 +32,9 @@ define( require => {
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {VectorColorGroups} vectorColorGroup - shared color group for both scenes in 'Explore 1D'
+     * @param {Object} [options]
      */
-    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorColorGroup ) {
+    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorColorGroup, options ) {
 
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
@@ -48,11 +49,9 @@ define( require => {
       // one checkbox is created and it is always visible.
       const sumCheckboxContainer = new Node().addChild( new SumCheckbox( sumVisibleProperty, vectorColorGroup ) );
 
-      //----------------------------------------------------------------------------------------
-
-      super( valuesVisibleProperty, gridVisibleProperty, {
+      super( valuesVisibleProperty, gridVisibleProperty, _.extend( {
         sumCheckboxContainer: sumCheckboxContainer
-      } );
+      }, options ) );
     }
   }
 
