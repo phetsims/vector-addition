@@ -59,6 +59,10 @@ define( require => {
         includeEraser: false,
         sumNodeOptions: {
           fill: VectorAdditionColors.EQUATION_SUM_FILL
+        },
+        vectorValuesToggleBoxOptions: {
+          spacingMajor: 25,
+          contentFixedWidth: 470
         }
 
       }, options );
