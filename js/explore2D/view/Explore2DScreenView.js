@@ -77,6 +77,7 @@ define( require => {
           explore2DModel.componentStyleProperty
         );
 
+        // Vector symbols depend on whether snap mode is Cartesian or Polar
         const vectorSymbols = ( explore2DGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
                               VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
                               VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;

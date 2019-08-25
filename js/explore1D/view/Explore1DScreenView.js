@@ -80,6 +80,7 @@ define( require => {
             }
           } );
 
+        // Vector symbols depend on graph orientation
         const vectorSymbols = ( explore1DGraph.orientation === GraphOrientations.HORIZONTAL ) ?
                               VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
                               VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
