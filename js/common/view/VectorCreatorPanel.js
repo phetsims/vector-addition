@@ -56,7 +56,6 @@ define( require => {
       }, options );
 
 
-      console.log( `slotSpacing=${options.slotSpacing}`);//XXX
       //----------------------------------------------------------------------------------------
 
       // Create the container for the slots in a vertical alignment
