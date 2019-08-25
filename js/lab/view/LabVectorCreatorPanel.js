@@ -55,8 +55,8 @@ define( require => {
           isInfinite: true    // Slots are infinite
         },
 
-        // super-class options
-        contentHeight: 110    // determined empirically, should be slightly shorter
+        // vertical space between slots in the panel
+        slotSpacing: 30
 
       }, options );
 

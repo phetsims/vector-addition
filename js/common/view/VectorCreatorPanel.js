@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Panel that contains 'slots' that can be clicked upon to create new vectors.
+ * Panel that contains 'slots' that can be clicked on to create new vectors.
  *
  * ## Implementation
  *  - Each slot is a VectorCreatorPanelSlot (See ./VectorCreatorPanelSlot.js).
@@ -24,10 +24,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
-  // constants
-  const PANEL_OPTIONS = VectorAdditionConstants.PANEL_OPTIONS;
-
-
   class VectorCreatorPanel extends Panel {
 
     /**
@@ -41,7 +37,7 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {}, PANEL_OPTIONS, {
+      options = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
 
         // super class options
         lineWidth: 0.8,
@@ -60,6 +56,7 @@ define( require => {
       }, options );
 
 
+      console.log( `slotSpacing=${options.slotSpacing}`);//XXX
       //----------------------------------------------------------------------------------------
 
       // Create the container for the slots in a vertical alignment
