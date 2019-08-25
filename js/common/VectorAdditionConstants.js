@@ -72,6 +72,12 @@ define( require => {
       xMargin: 4.5
     }, VectorAdditionColors.RADIO_BUTTON_COLORS ),
 
+    // Margin between scene radio buttons and left side of ScreenView
+    RADIO_BUTTONS_X_MARGIN: 45,
+
+    // Space above and below scene radio buttons
+    RADIO_BUTTONS_Y_SPACING: 20,
+
     //----------------------------------------------------------------------------------------
     // Panel constants
 

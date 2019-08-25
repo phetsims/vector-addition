@@ -25,6 +25,7 @@ define( require => {
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
@@ -56,8 +57,8 @@ define( require => {
       // Create and add the coordinate snap mode radio buttons
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
-          right: this.layoutBounds.maxX - 45,
-          bottom: this.resetAllButton.top - 30
+          right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,
+          bottom: this.resetAllButton.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
         } );
       this.addChild( coordinateSnapRadioButtonGroup );
 
@@ -74,7 +75,7 @@ define( require => {
 
         sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode, {
             left: coordinateSnapRadioButtonGroup.left,
-            bottom: coordinateSnapRadioButtonGroup.top - 20
+            bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
           } )
         );
 

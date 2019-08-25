@@ -57,8 +57,8 @@ define( require => {
       // Create and add the coordinate snap mode radio buttons
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
-          right: this.layoutBounds.maxX - 45,
-          bottom: this.resetAllButton.top - 30
+          right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,
+          bottom: this.resetAllButton.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
         } );
       this.addChild( coordinateSnapRadioButtonGroup );
 
@@ -80,7 +80,7 @@ define( require => {
           sceneNode,
           VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1, {
             left: coordinateSnapRadioButtonGroup.left,
-            bottom: coordinateSnapRadioButtonGroup.top - 20
+            bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
           } )
         );
 

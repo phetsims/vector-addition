@@ -58,8 +58,8 @@ define( require => {
       // Create and add the graph orientation radio buttons
       const graphOrientationRadioButtonGroup = new GraphOrientationRadioButtonGroup(
         this.viewProperties.graphOrientationProperty, {
-          right: this.layoutBounds.maxX - 45,
-          bottom: this.resetAllButton.top - 30
+          right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,
+          bottom: this.resetAllButton.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
         } );
       this.addChild( graphOrientationRadioButtonGroup );
 
@@ -85,7 +85,7 @@ define( require => {
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DGraph, sceneNode, vectorSymbols, {
             left: graphOrientationRadioButtonGroup.left,
-            bottom: graphOrientationRadioButtonGroup.top - 20
+            bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
           } ) );
 
         // Toggle visibility of the SceneNode. Should only be visible if the graph orientation matches the

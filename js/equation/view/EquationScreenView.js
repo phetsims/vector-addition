@@ -18,6 +18,7 @@ define( require => {
   const EquationSceneNode = require( 'VECTOR_ADDITION/equation/view/EquationSceneNode' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
@@ -69,8 +70,8 @@ define( require => {
       // Create the Coordinate snapping radio buttons
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
-          right: this.layoutBounds.maxX - 45,
-          bottom: this.resetAllButton.top - 30
+          right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,
+          bottom: this.resetAllButton.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
         } );
 
       this.addChild( equationGraphControlPanel );
