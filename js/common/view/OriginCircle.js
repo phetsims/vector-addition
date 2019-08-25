@@ -27,7 +27,7 @@ define( require => {
 
   // origin
   const ORIGIN_COLOR = Color.toColor( VectorAdditionColors.ORIGIN_COLOR );
-  const ORIGIN_RADIUS = 15; // in view coordinates
+  const ORIGIN_DIAMETER = 1.2; // in model coordinates
   const ORIGIN_OPTIONS = {
     cursor: 'move',
     fill: ORIGIN_COLOR.withAlpha( 0.15 ),
@@ -50,10 +50,13 @@ define( require => {
       // convenience variable
       const modelViewTransform = graph.modelViewTransformProperty.value;
 
-      // Get the origin in view coordinates
+      // Origin, in view coordinates
       const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
+      
+      // Diameter, view coordinates
+      const diameter = modelViewTransform.modelToViewDeltaX( ORIGIN_DIAMETER );
 
-      super( ORIGIN_RADIUS, _.extend( { center: origin }, ORIGIN_OPTIONS ) );
+      super( diameter, _.extend( { center: origin }, ORIGIN_OPTIONS ) );
 
       //----------------------------------------------------------------------------------------
 
