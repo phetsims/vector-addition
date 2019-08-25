@@ -32,6 +32,12 @@ define( require => {
   // constants
   const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
+  // See https://github.com/phetsims/vector-addition/issues/127
+  assert && assert( DEFAULT_GRAPH_BOUNDS.width % 2 === 0,
+    `DEFAULT_GRAPH_BOUNDS.width must be even: ${DEFAULT_GRAPH_BOUNDS.width}` );
+  assert && assert( DEFAULT_GRAPH_BOUNDS.height % 2 === 0,
+    `DEFAULT_GRAPH_BOUNDS.height must be even: ${DEFAULT_GRAPH_BOUNDS.height}` );
+  
   // graph bounds for 'Explore 1D' - origin is at the center
   const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
     -DEFAULT_GRAPH_BOUNDS.height / 2,
