@@ -23,9 +23,9 @@ define( require => {
 
   const options = {
     credits: {
-      leadDesign: 'Amy Rouinfar',
+      leadDesign: 'Michael Dubson, Amy Rouinfar',
       softwareDevelopment: 'Brandon Li, Martin Veillette, Chris Malley (PixelZoom, Inc.)',
-      team: 'Amanda McGarry, Ariel Paul, Kathy Perkins',
+      team: 'Diana L\u00f3pez Tavares, Amanda McGarry, Ariel Paul, Kathy Perkins',
       qualityAssurance: 'Katie Woessner'
     }
   };
