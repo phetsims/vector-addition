@@ -115,11 +115,11 @@ define( require => {
       // Observe when the angle visible Property is changing and update the visibility of the angle node. The angle is
       // only visible when the vector is both active and the angle checkbox is clicked
       const angleVisibleMultilink = Property.multilink(
-        [ angleVisibleProperty, graph.activeVectorProperty, vector.isOnGraphProperty ],
-        ( angleVisible, activeVector, isOnGraph ) => {
-          // Visible if the angle checkbox is clicked, its active, and its on the graph
-          this.visible = angleVisible && activeVector === vector && isOnGraph;
-
+        [ angleVisibleProperty, vector.isOnGraphProperty ],
+        ( angleVisible, isOnGraph ) => {
+          
+          // Visible if the angle checkbox is clicked and the vector is on the graph
+          this.visible = angleVisible && isOnGraph;
           this.updateAngleNode( vector, graph.modelViewTransformProperty.value );
         } );
 
@@ -151,7 +151,7 @@ define( require => {
      * @private
      *
      * @param {Vector} vector - model vector to base the angle off of
-     * @param {ModelViewTransform} modelViewTransform
+     * @param {ModelViewTransform2} modelViewTransform
      */
     updateAngleNode( vector, modelViewTransform ) {
 
