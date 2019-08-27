@@ -59,7 +59,7 @@ define( require => {
   // rounding of the angle label
   const ANGLE_ROUNDING = VectorAdditionConstants.NUMBER_DISPLAY_ROUNDING;
 
-  const ANGLE_LABEL_FONT = new PhetFont( { size: 12.5, fontWeight: '100' } );
+  const ANGLE_LABEL_FONT = new PhetFont( { size: 13, fontWeight: '100' } );
 
   // Angles greater than 35 deg position the label between the vector and the baseline, and angles under 35
   // place the label on the other side of the baseline. See

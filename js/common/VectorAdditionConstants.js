@@ -88,7 +88,7 @@ define( require => {
       yMargin: 10
     }, VectorAdditionColors.PANEL_COLORS ),
 
-    PANEL_FONT: new PhetFont( 15.5 ), // font used on all panel-like container text nodes
+    PANEL_FONT: new PhetFont( 16 ), // font used on all panel-like container text nodes
     GRAPH_CONTROL_PANEL_SPACING: 10,  // spacing between items on each GraphControlPanel (See GraphControlPanel.js)
 
     //----------------------------------------------------------------------------------------
@@ -119,7 +119,7 @@ define( require => {
       cornerRadius: 3.5,
       arrowYSpacing: 1.5,
       arrowHeight: 4,
-      font: new PhetFont( 17.5 ),
+      font: new PhetFont( 17 ),
       xMargin: 4.5,
       yMargin: 3.5
     },
