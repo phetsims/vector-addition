@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Root class for the Panel that appears on the upper-right corner of every screen respectively.
+ * Base class for the Panel that appears on the upper-right corner of every screen respectively.
  *
  * Encapsulated class for all control panels but accommodates the different control panel content of each screen.
  * See https://github.com/phetsims/vector-addition/issues/79 for context.
