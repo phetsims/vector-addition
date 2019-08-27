@@ -48,7 +48,7 @@ define( require => {
     SCREEN_VIEW_BOUNDS.maxY - AXES_ARROW_Y_EXTENSION - SCREEN_VIEW_Y_MARGIN / 2);
 
   // scale of the coordinate transformation of model coordinates to view coordinates
-  const MODEL_TO_VIEW_SCALE = 12.45;
+  const MODEL_TO_VIEW_SCALE = 12.3;
 
   class Graph {
 

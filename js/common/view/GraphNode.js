@@ -46,7 +46,7 @@ define( require => {
   const AXES_ARROW_X_EXTENSION = 20; // how far the line extends past the grid, view units
   const AXES_ARROW_Y_EXTENSION = 15;
   const AXES_TEXT_OPTIONS = {
-    font: new MathSymbolFont( 20 ),
+    font: new MathSymbolFont( 18 ),
     maxWidth: 30
   };
 

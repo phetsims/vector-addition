@@ -73,7 +73,7 @@ define( require => {
         centerY: 70,
         left: 140,
         contentFixedWidth: 205,
-        contentFixedHeight: VectorAdditionConstants.TOGGLE_BOX_CONTENT_HEIGHT,
+        contentFixedHeight: 50,
         contentXSpacing: 17
 
       }, options );

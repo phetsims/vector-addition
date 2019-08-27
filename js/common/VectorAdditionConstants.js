@@ -112,8 +112,6 @@ define( require => {
       }
     }, VectorAdditionColors.PANEL_COLORS ),
 
-    TOGGLE_BOX_CONTENT_HEIGHT: 53, // height of all ToggleBox instances
-
     //----------------------------------------------------------------------------------------
     // Defaults for all Number Picker instances
     NUMBER_PICKER_OPTIONS: {

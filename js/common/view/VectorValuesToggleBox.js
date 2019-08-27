@@ -46,10 +46,6 @@ define( require => {
   //----------------------------------------------------------------------------------------
   // constants
 
-  // fixed width and height of the content
-  const CONTENT_WIDTH = 440;
-  const CONTENT_HEIGHT = VectorAdditionConstants.TOGGLE_BOX_CONTENT_HEIGHT;
-
   // font for the panel
   const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
 
@@ -86,8 +82,8 @@ define( require => {
       options = _.extend( {
 
         // super class options
-        contentFixedWidth: CONTENT_WIDTH, // {number|null} fixed size of the panel (see superclass)
-        contentFixedHeight: CONTENT_HEIGHT, // {number|null} fixed size of the panel (see superclass)
+        contentFixedWidth: 440, // {number|null} fixed size of the panel (see superclass)
+        contentFixedHeight: 45, // {number|null} fixed size of the panel (see superclass)
         isExpandedInitially: true,
 
         spacingMajor: LABEL_LEFT_MARGIN
@@ -138,7 +134,7 @@ define( require => {
         const fixedWidthLabel = new AlignBox( label, {
           xAlign: 'right',
           yAlign: 'center',
-          alignBounds: new Bounds2( 0, 0, labelWidth, CONTENT_HEIGHT ),
+          alignBounds: new Bounds2( 0, 0, labelWidth, options.contentFixedHeight ),
           maxWidth: labelWidth
         } );
         label.maxWidth = labelWidth;
