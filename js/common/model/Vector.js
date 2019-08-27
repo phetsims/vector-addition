@@ -392,9 +392,8 @@ define( require => {
     /**
      * Gets the constrained bounds of the tail. In other words, based on the tip and the components of the vector, this
      * returns a new bounds that is for the tail and ensures that in this bounds the vector will stay in the graph.
-     * @private
-     *
      * See https://github.com/phetsims/vector-addition/blob/master/doc/vector-tail-drag-bounds.png for an annotated image.
+     * @private
      */
     getConstrainedTailBounds() {
 
