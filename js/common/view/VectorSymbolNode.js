@@ -102,7 +102,8 @@ define( require => {
 
       const rightBar = new Text( '|', options.absoluteValueTextOptions );
 
-      const symbolNode = options.useRichText ? new RichText( '' ).setFont( options.richTextFont ) :
+      const symbolNode = options.useRichText ?
+                         new RichText( '' ).setFont( options.richTextFont ) :
                          new FormulaNode( '', { scale: options.formulaNodeScale } );
 
       const coefficientText = new Text( '', options.coefficientTextOptions );
@@ -125,8 +126,12 @@ define( require => {
         coefficient && coefficientText.setText( coefficient );
 
         if ( this.symbol ) {
-          symbolNode instanceof FormulaNode && symbolNode.setFormula( `\\vec{${this.symbol}\}` );
-          symbolNode instanceof RichText && symbolNode.setText( this.symbol );
+          if ( options.useRichText ) {
+            symbolNode.setText( this.symbol );
+          }
+          else {
+            symbolNode.setFormula( `\\vec{${this.symbol}\}` );
+          }
         }
 
         const children = [];
