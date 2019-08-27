@@ -123,8 +123,7 @@ define( require => {
       arrowHeight: 4,
       font: new PhetFont( 17.5 ),
       xMargin: 4.5,
-      yMargin: 3.5,
-      valueMaxWidth: 20
+      yMargin: 3.5
     },
 
     //----------------------------------------------------------------------------------------

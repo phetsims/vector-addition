@@ -91,8 +91,8 @@ define( require => {
 
         // specific to this class
         numberPickerWithLabelsSpacing: 11, // {number} spacing between the left Number Picker and the right label
-        contentSpacing: 13,                // {number} spacing between the first row of NumberPickers and the second
-        fixedWidth: 170,                   // {number} fixed width of the Accordion Box
+        ySpacing: 13,                      // {number} y spacing between UI components
+        fixedWidth: 200,                   // {number} fixed width of the Accordion Box
 
         // super class options
         titleNode: new Text( baseVectorsString, { font: PANEL_FONT } )
@@ -192,7 +192,7 @@ define( require => {
 
       const accordionBoxContent = new VBox( {
         children: accordionBoxContentChildren,
-        spacing: options.contentSpacing
+        spacing: options.ySpacing
       } );
 
       super( new Node().setChildren( [
