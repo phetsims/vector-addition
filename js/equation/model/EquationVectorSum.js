@@ -33,7 +33,7 @@ define( require => {
 
     /**
      * @param {Graph} graph - graph the vector sum belongs to
-     * @param {VectorSet} - the vector set that the sum represents
+     * @param {VectorSet} vectorSet - the vector set that the sum represents
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
