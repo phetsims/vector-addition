@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Root class for the top level views of each screen.
+ * Base class for the top level views of each screen.
  *
  * @author Martin Veillette
  */
