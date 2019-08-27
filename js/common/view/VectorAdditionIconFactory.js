@@ -65,11 +65,7 @@ define( require => {
   const RADIO_BUTTON_COMPONENT_VECTOR_OPTIONS = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
     fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1 ].component
   } );
-  const RADIO_BUTTON_TEXT_FONT = new PhetFont( {
-    size: 11.5,
-    family: 'Times',
-    weight: '500'
-  } );
+  const RADIO_BUTTON_TEXT_FONT = new PhetFont( 11 );
 
 
   //----------------------------------------------------------------------------------------
@@ -375,7 +371,7 @@ define( require => {
 
         const xArrow = new ArrowNode( 0, 0, arrowSize, 0, componentArrowOptions );
         const yArrow = new ArrowNode( arrowSize, 0, arrowSize, -arrowSize, componentArrowOptions );
-        const xLabel = new Text( '1', { font: labelFont, top: xArrow.centerY, centerX: xArrow.centerX } );
+        const xLabel = new Text( '1', { font: labelFont, top: xArrow.bottom - 3, centerX: xArrow.centerX } );
         const yLabel = new Text( '1', { font: labelFont, centerY: yArrow.centerY + 3, left: yArrow.right - 2 } );
 
         children.push( xArrow, yArrow, arrow, xLabel, yLabel ); // z-layering
@@ -383,7 +379,7 @@ define( require => {
       else {
         const curvedArrow = new CurvedArrowNode( options.arcRadius, Util.toRadians( 45 ), options.curvedArrowOptions );
         const line = new Line( 0, 0, options.arrowSize, 0, { stroke: VectorAdditionColors.BLACK } );
-        const arrowLabel = new Text( '1', { bottom: arrow.centerY, right: arrow.centerX, font: labelFont } );
+        const arrowLabel = new Text( '1', { bottom: arrow.centerY - 1, right: arrow.centerX - 1, font: labelFont } );
         children.push( arrow, curvedArrow, line, arrowLabel ); // z-layering
       }
 
