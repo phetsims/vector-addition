@@ -17,10 +17,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
 
-  // constants
-  const SCREEN_VIEW_X_MARGIN = VectorAdditionConstants.SCREEN_VIEW_X_MARGIN;
-  const SCREEN_VIEW_Y_MARGIN = VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
-
   class VectorAdditionScreenView extends ScreenView {
 
     /**
@@ -44,8 +40,8 @@ define( require => {
           vectorAdditionModel.reset();
           this.reset();
         },
-        right: this.layoutBounds.maxX - SCREEN_VIEW_X_MARGIN,
-        bottom: this.layoutBounds.maxY - SCREEN_VIEW_Y_MARGIN,
+        right: this.layoutBounds.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
+        bottom: this.layoutBounds.maxY - VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
         tandem: tandem.createTandem( 'resetAllButton' )
       } );
       this.addChild( this.resetAllButton );
