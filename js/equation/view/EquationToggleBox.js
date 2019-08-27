@@ -7,8 +7,6 @@
  * ## Content
  *  - When closed, the panel displays a text that says 'Equation'
  *  - When open, the panel displays a series of NumberPickers and VectorSymbolNodes in a 'equation' layout.
- *    See https://user-images.githubusercontent.com/42391580/62882976-4a865000-bcf0-11e9-9df4-cf1220efe314.png for a
- *    visual.
  *
  * NOTE: this displays the 'equation' for a SINGLE Equation Type. This means that it will not change its content
  *       when the Equation Type changes. Instead, create an EquationToggleBox for each Equation Type and

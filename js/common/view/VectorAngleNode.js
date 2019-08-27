@@ -1,10 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the arrow/label/line underneath/above the vector when the angle checkbox is selected.
- *
- * Visual: https://user-images.githubusercontent.com/42391580/61231836-27b14d80-a6ea-11e9-9238-e9562d6ab89d.png
- *
+ * VectorAngleNode is the angle indicator that appears on vectors on the graph when the angle checkbox is checked.
  * Only shows if the vector model is active.
  *
  * @author Brandon Li

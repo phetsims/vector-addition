@@ -1,16 +1,13 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * VectorValuesToggleBox is the toggle box at the top of the screen. It displays vector attributes
- * (i.e. magnitude etc.) of the graph's active vector.
+ * VectorValuesToggleBox is the toggle box at the top of the screen. It displays the active vector's magnitude,
+ * angle, x component, and y component.
  *
  * 'Is a' relationship with ToggleBox
  *    - when closed, displays 'Vector Values'
  *    - when open either displays 'select a vector' or the active vector's attributes
  *      (a series of labels and VectorValuesNumberDisplays)
- *
- * A visual:
- *  https://user-images.githubusercontent.com/42391580/60760546-3619ae00-9ff4-11e9-8e91-508fc27f5e7c.png
  *
  * This panel exists for the entire sim and is never disposed.
  *

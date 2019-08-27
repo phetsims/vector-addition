@@ -4,9 +4,6 @@
  * ToggleBox is a specialized version of AccordionBox that doesn't expand/collapse.  Instead, it toggles between
  * 'closed' content and 'open' content, while maintaining a fixed height.
  *
- * A visual:
- * https://user-images.githubusercontent.com/42391580/60743952-f342d200-9f30-11e9-9a04-7b72ada15244.png
- *
  * The box itself is a fixed width and height; both its fixed width and height are calculated by the largest
  * between the closed and open content added to its margins.
  *

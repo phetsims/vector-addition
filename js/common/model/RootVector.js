@@ -77,9 +77,6 @@ define( require => {
     /**
      * @abstract
      *
-     * Context: see https://user-images.githubusercontent.com/42391580/61587077-38295400-ab40-11e9-86e8-beeee7491ebf.png
-     * for an annotated drawing of a label next to a vector.
-     *
      * This gets the label content information to display on the vector. Labels are different for different vectors.
      *
      * For instance, vectors with values visible display their symbol (i.e. a, b, c, ...) AND their magnitude, while

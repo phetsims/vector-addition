@@ -40,10 +40,8 @@ define( require => {
   const AXES_ARROW_X_EXTENSION = VectorAdditionConstants.AXES_ARROW_X_EXTENSION;
   const AXES_ARROW_Y_EXTENSION = VectorAdditionConstants.AXES_ARROW_Y_EXTENSION;
 
-  // See https://user-images.githubusercontent.com/42391580/61587030-0237a000-ab3f-11e9-9315-d1d2b4df6dd4.png
-  // for an annotated drawing of the calculation.
-  // Calculate the graph's bottom left location, constant for all graph nodes.
-  const GRAPH_BOTTOM_LEFT_LOCATION = new Vector2(
+  // Calculate the grid's bottom left location in view coordinates, constant for all graph nodes.
+  const GRID_BOTTOM_LEFT = new Vector2(
     SCREEN_VIEW_BOUNDS.minX + AXES_ARROW_X_EXTENSION + SCREEN_VIEW_X_MARGIN / 2,
     SCREEN_VIEW_BOUNDS.maxY - AXES_ARROW_Y_EXTENSION - SCREEN_VIEW_Y_MARGIN / 2);
 
@@ -84,10 +82,10 @@ define( require => {
       } );
 
       // Determine the view bounds for the graph, the graph view bounds are constant for the entire sim.
-      const graphViewBounds = new Bounds2( GRAPH_BOTTOM_LEFT_LOCATION.x,
-        GRAPH_BOTTOM_LEFT_LOCATION.y - MODEL_TO_VIEW_SCALE * initialGraphBounds.height,
-        GRAPH_BOTTOM_LEFT_LOCATION.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
-        GRAPH_BOTTOM_LEFT_LOCATION.y );
+      const graphViewBounds = new Bounds2( GRID_BOTTOM_LEFT.x,
+        GRID_BOTTOM_LEFT.y - MODEL_TO_VIEW_SCALE * initialGraphBounds.height,
+        GRID_BOTTOM_LEFT.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
+        GRID_BOTTOM_LEFT.y );
 
       // @public (read-only) {DerivedProperty.<ModelViewTransform2>} modelViewTransformProperty - Property of the
       // coordinate transform between model (graph coordinates) and view coordinates.
