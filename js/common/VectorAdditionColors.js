@@ -75,32 +75,28 @@ define( require => {
     VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
       fill: 'rgb( 10, 170, 250 )',
       sum: 'rgb( 10, 170, 250 )',
-      component: 'rgb( 120, 200, 255 )',
-      labelBackground: 'rgb( 150, 210, 255 )'
+      component: 'rgb( 120, 200, 255 )'
     } ),
 
     // red
     VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
       fill: 'rgb( 232, 25, 9 )',
       sum: 'rgb( 232, 25, 9 )',
-      component: 'rgb( 245, 120, 120 )',
-      labelBackground: 'rgb( 255, 100, 100 )'
+      component: 'rgb( 245, 120, 120 )'
     } ),
 
     // purple
     VECTOR_COLOR_PALETTE_3: new VectorColorPalette( {
       fill: PURPLE,
       sum: PURPLE,
-      component: 'rgb( 216, 191, 216 )',
-      labelBackground: 'rgb( 210, 194, 210 )'
+      component: 'rgb( 216, 191, 216 )'
     } ),
 
     // green
     VECTOR_COLOR_PALETTE_4: new VectorColorPalette( {
       fill: 'rgb( 5, 200, 0 )',
       sum: 'rgb( 5, 200, 0 )',
-      component: 'rgb( 150, 205, 150 )',
-      labelBackground: 'rgb( 180, 255, 180 )'
+      component: 'rgb( 150, 205, 150 )'
     } )
   };
 

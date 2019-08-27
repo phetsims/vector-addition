@@ -20,7 +20,7 @@ define( require => {
         fill: 'black',
         sum: 'black',
         component: 'gray',
-        labelBackground: 'white'
+        labelBackground: 'rgb( 235, 235, 235 )'
       }, options );
 
       // @public (read-only) color use to fill a non-sum or non-component vector
