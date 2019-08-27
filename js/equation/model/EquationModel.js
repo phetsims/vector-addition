@@ -2,8 +2,8 @@
 
 /**
  * Model for the 'Equation' screen, which contains:
- *  - polar graph
- *  - cartesian graph
+ * - cartesian graph
+ * - polar graph
  *
  * @author Brandon Li
  */
@@ -17,7 +17,7 @@ define( require => {
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   class EquationModel extends VectorAdditionModel {
 
@@ -30,28 +30,26 @@ define( require => {
 
       super( tandem );
 
-      //----------------------------------------------------------------------------------------
-      // @public (read-only) {graph} polarGraph
-      this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
-        this.componentStyleProperty,
-        VectorColorGroups.COLOR_GROUP_3 );
-
       // @public (read-only) {graph} cartesianGraph
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
-        VectorColorGroups.COLOR_GROUP_1 );
+        VectorAdditionColors.VECTOR_COLOR_PALETTE_1 );
+
+      // @public (read-only) {graph} polarGraph
+      this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
+        this.componentStyleProperty,
+        VectorAdditionColors.VECTOR_COLOR_PALETTE_3 );
     }
 
     /**
      * Resets the Equation Model. Called when the reset all button is clicked.
      * @public
-     *
      * @override
      */
     reset() {
+      super.reset();
       this.cartesianGraph.reset();
       this.polarGraph.reset();
-      super.reset();
     }
   }
 

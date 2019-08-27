@@ -22,7 +22,7 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
 
   class Explore1DGraphControlPanel extends GraphControlPanel {
@@ -31,10 +31,10 @@ define( require => {
      * @param {BooleanProperty} sumVisibleProperty - shared sum visible property for both scenes in 'Explore 1D'
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
-     * @param {VectorColorGroups} vectorColorGroup - shared color group for both scenes in 'Explore 1D'
+     * @param {VectorColorPalette} vectorColorPalette - color palette for vectors
      * @param {Object} [options]
      */
-    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorColorGroup, options ) {
+    constructor( sumVisibleProperty, valuesVisibleProperty, gridVisibleProperty, vectorColorPalette, options ) {
 
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
@@ -42,12 +42,13 @@ define( require => {
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( gridVisibleProperty instanceof BooleanProperty,
         `invalid gridVisibleProperty: ${gridVisibleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette, 
+        `invalid vectorColorPalette: ${vectorColorPalette}` );
 
       //----------------------------------------------------------------------------------------
       // Create the Sum Checkbox container. On 'Explore 1D', the sum visible property is shared for both graph, so only
       // one checkbox is created and it is always visible.
-      const sumCheckboxContainer = new Node().addChild( new SumCheckbox( sumVisibleProperty, vectorColorGroup ) );
+      const sumCheckboxContainer = new Node().addChild( new SumCheckbox( sumVisibleProperty, vectorColorPalette ) );
 
       super( valuesVisibleProperty, gridVisibleProperty, _.extend( {
         sumCheckboxContainer: sumCheckboxContainer

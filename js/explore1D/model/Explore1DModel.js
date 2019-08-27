@@ -18,8 +18,8 @@ define( require => {
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
   // constants
   const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
@@ -43,8 +43,8 @@ define( require => {
       //                                                            both Graph instances
       this.sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
-      // @public (read-only) {VectorColorGroups} VectorColorGroups - Vector color group for both graphs
-      this.vectorColorGroup = VectorColorGroups.COLOR_GROUP_1;
+      // @public (read-only) {VectorColorPalette} vector color palette for both graphs
+      this.vectorColorPalette = VectorAdditionColors.VECTOR_COLOR_PALETTE_1;
 
       //----------------------------------------------------------------------------------------
 
@@ -52,13 +52,13 @@ define( require => {
       this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        this.vectorColorGroup );
+        this.vectorColorPalette );
 
       // @public (read-only) {Graph}
       this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        this.vectorColorGroup );
+        this.vectorColorPalette );
     }
 
     /**

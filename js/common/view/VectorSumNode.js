@@ -18,7 +18,6 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
@@ -48,9 +47,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       arrowOptions = _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
-
-        // fill with the sum color
-        fill: VectorAdditionColors[ vectorSum.vectorColorGroup ].sum
+        fill: vectorSum.vectorColorPalette.sum
       }, arrowOptions );
 
       //----------------------------------------------------------------------------------------

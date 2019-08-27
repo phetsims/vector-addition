@@ -16,7 +16,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
   // constants
   const TEXT_OPTIONS = {
@@ -32,14 +32,15 @@ define( require => {
 
     /**
      * @param {BooleanProperty} sumVisibleProperty
-     * @param {VectorColorGroups} vectorColorGroup
+     * @param {VectorColorPalette} vectorColorPalette
      */
-    constructor( sumVisibleProperty, vectorColorGroup ) {
+    constructor( sumVisibleProperty, vectorColorPalette ) {
 
       // Type check arguments
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ), `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette,
+        `invalid vectorColorPalette: ${vectorColorPalette}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -50,7 +51,7 @@ define( require => {
         spacing: CHECKBOX_OPTIONS.spacing,
         children: [
           text,
-          VectorAdditionIconFactory.createSumIcon( vectorColorGroup )
+          VectorAdditionIconFactory.createSumIcon( vectorColorPalette )
         ]
       } ), sumVisibleProperty, CHECKBOX_OPTIONS );
 

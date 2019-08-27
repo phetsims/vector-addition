@@ -74,7 +74,7 @@ define( require => {
       options.arrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
 
         // fill with the component color
-        fill: VectorAdditionColors[ componentVector.vectorColorGroup ].component
+        fill: componentVector.vectorColorPalette.component
       }, options.arrowOptions );
 
       super( componentVector,

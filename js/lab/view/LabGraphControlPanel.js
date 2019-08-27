@@ -62,8 +62,8 @@ define( require => {
         // Create the 2 sum checkboxes for each graph inside of a VBox
         const sumCheckboxes = new VBox( {
           children: [
-            new SumCheckbox( labGraph.sumVisibleProperty1, labGraph.vectorSet1.vectorColorGroup ),
-            new SumCheckbox( labGraph.sumVisibleProperty2, labGraph.vectorSet2.vectorColorGroup )
+            new SumCheckbox( labGraph.sumVisibleProperty1, labGraph.vectorSet1.vectorColorPalette ),
+            new SumCheckbox( labGraph.sumVisibleProperty2, labGraph.vectorSet2.vectorColorPalette )
           ],
           spacing: GRAPH_CONTROL_PANEL_SPACING
         } );

@@ -51,7 +51,7 @@ define( require => {
         explore1DModel.sumVisibleProperty,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-        explore1DModel.vectorColorGroup, {
+        explore1DModel.vectorColorPalette, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );

@@ -9,7 +9,7 @@
  *  - Same graph bounds as default graph bounds but subtracts 5 from the top
  *  - Has a Base Vectors Visible Property
  *  - Two-dimensional
- *  - Has a Unique vector color group
+ *  - Color palette for vectors on the graph
  *
  * @author Brandon Li
  */
@@ -28,7 +28,7 @@ define( require => {
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
   // constants
 
@@ -50,17 +50,17 @@ define( require => {
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorColorGroups} vectorColorGroup - unique vector color group for the graph
+     * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
      */
-    constructor( coordinateSnapMode, componentStyleProperty, vectorColorGroup ) {
+    constructor( coordinateSnapMode, componentStyleProperty, vectorColorPalette ) {
 
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ),
-        `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette,
+        `invalid vectorColorPalette: ${vectorColorPalette}` );
 
       //----------------------------------------------------------------------------------------
       super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, EQUATION_GRAPH_ORIENTATION );
@@ -75,7 +75,7 @@ define( require => {
 
 
       // @public (read-only) {EquationVectorSet} vectorSet
-      this.vectorSet = new EquationVectorSet( this, componentStyleProperty, vectorColorGroup, coordinateSnapMode );
+      this.vectorSet = new EquationVectorSet( this, componentStyleProperty, vectorColorPalette, coordinateSnapMode );
 
       this.vectorSets.push( this.vectorSet );
     }

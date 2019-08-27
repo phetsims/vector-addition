@@ -7,7 +7,7 @@
  *  - Explore 2D graphs have exactly 1 vector sets each
  *  - Has its own sum visible property respectively
  *  - Two-dimensional
- *  - Has a Unique vector color group
+ *  - Has a color palette for the vectors on the graph
  *
  * @author Brandon Li
  */
@@ -24,7 +24,7 @@ define( require => {
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
@@ -42,17 +42,17 @@ define( require => {
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorColorGroups} vectorColorGroup - unique vector color group for the graph
+     * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
      */
-    constructor( coordinateSnapMode, componentStyleProperty, vectorColorGroup ) {
+    constructor( coordinateSnapMode, componentStyleProperty, vectorColorPalette ) {
 
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ),
-        `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette,
+        `invalid vectorColorPalette: ${vectorColorPalette}` );
 
 
       super( EXPLORE_2D_GRAPH_BOUNDS, coordinateSnapMode, EXPLORE_2D_GRAPH_ORIENTATION );
@@ -64,7 +64,7 @@ define( require => {
       this.sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
 
       // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 2D' have exactly one vector set
-      this.vectorSet = new VectorSet( this, componentStyleProperty, this.sumVisibleProperty, vectorColorGroup );
+      this.vectorSet = new VectorSet( this, componentStyleProperty, this.sumVisibleProperty, vectorColorPalette );
 
       // Add the one and only vector set
       this.vectorSets.push( this.vectorSet );

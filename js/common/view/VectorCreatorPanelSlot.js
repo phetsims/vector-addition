@@ -89,7 +89,7 @@ define( require => {
 
       // Create the icon.
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
-        vectorSet.vectorColorGroup, {
+        vectorSet.vectorColorPalette, {
           arrowLength: options.iconArrowSize
         } );
 

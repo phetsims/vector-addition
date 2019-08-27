@@ -46,15 +46,15 @@ define( require => {
     /**
      * @param {EquationGraph} equationGraph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector color group
+     * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
      */
-    constructor( equationGraph, componentStyleProperty, vectorColorGroup, coordinateSnapMode ) {
+    constructor( equationGraph, componentStyleProperty, vectorColorPalette, coordinateSnapMode ) {
 
       super( equationGraph,
         componentStyleProperty,
         SUM_VISIBLE_PROPERTY,
-        vectorColorGroup,
+        vectorColorPalette,
         VECTOR_SET_OPTIONS );
 
       // @public (read-only) {array.<string>} symbols

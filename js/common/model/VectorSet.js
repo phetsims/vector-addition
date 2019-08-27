@@ -21,7 +21,7 @@ define( require => {
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
   // The symbol for the vector sum. The reason this isn't translatable is:
@@ -35,10 +35,10 @@ define( require => {
      * @param {Graph} graph - the graph the vector set belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - shared componentStyleProperty for the set
      * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible Property
-     * @param {VectorColorGroups} vectorColorGroup - each vector set can only represent one vector color group
+     * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
      * @param {Object} [options]
      */
-    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorColorGroup, options ) {
+    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options ) {
 
       options = _.extend( {
 
@@ -56,8 +56,8 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ),
-        `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette,
+        `invalid vectorColorPalette: ${vectorColorPalette}` );
 
       //----------------------------------------------------------------------------------------
 
@@ -65,8 +65,8 @@ define( require => {
       //                                              sum
       this.vectors = new ObservableArray();
 
-      // @public (read-only) {VectorColorGroups} vectorColorGroup - vectorColorGroup for the set
-      this.vectorColorGroup = vectorColorGroup;
+      // @public (read-only) {VectorColorPalette}
+      this.vectorColorPalette = vectorColorPalette;
 
       // @public (read-only) {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible Property
       this.sumVisibleProperty = sumVisibleProperty;

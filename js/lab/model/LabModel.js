@@ -16,8 +16,8 @@ define( require => {
   const LabGraph = require( 'VECTOR_ADDITION/lab/model/LabGraph' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
 
 
   class LabModel extends VectorAdditionModel {
@@ -36,14 +36,14 @@ define( require => {
       // @public (read-only) {Graph} cartesianGraph
       this.cartesianGraph = new LabGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
-        VectorColorGroups.COLOR_GROUP_1,
-        VectorColorGroups.COLOR_GROUP_2 );
+        VectorAdditionColors.VECTOR_COLOR_PALETTE_1,
+        VectorAdditionColors.VECTOR_COLOR_PALETTE_2 );
 
       // @public (read-only) {Graph} polarGraph
       this.polarGraph = new LabGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
-        VectorColorGroups.COLOR_GROUP_3,
-        VectorColorGroups.COLOR_GROUP_4 );
+        VectorAdditionColors.VECTOR_COLOR_PALETTE_3,
+        VectorAdditionColors.VECTOR_COLOR_PALETTE_4 );
     }
 
     /**

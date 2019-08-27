@@ -47,7 +47,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   //----------------------------------------------------------------------------------------
@@ -60,10 +60,10 @@ define( require => {
   // Defaults constants for radio button icons (except for the equation types radio button icons)
   // size (width and height) of all arrow nodes inside of radio buttons
   const RADIO_BUTTON_VECTOR_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-    fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1 ].fill
+    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
   } );
   const RADIO_BUTTON_COMPONENT_VECTOR_OPTIONS = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
-    fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1 ].component
+    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.component
   } );
   const RADIO_BUTTON_TEXT_FONT = new PhetFont( 11 );
 
@@ -85,7 +85,7 @@ define( require => {
     createExplore1DScreenIcon() {
 
       const vectorOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1 ].fill
+        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
       } );
 
       // Vector pointing to the right, the full width of the icon
@@ -115,12 +115,12 @@ define( require => {
       // vector
       const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1 ].fill
+          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
         } ) );
       
       // component vectors
       const componentOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
-        fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1 ].component
+        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.component
       } );
       const xComponentNode = new ArrowNode( 0, 0, vector.x, 0, componentOptions );
       const yComponentNode = new ArrowNode( vector.x, 0, vector.x, vector.y, componentOptions );
@@ -152,12 +152,12 @@ define( require => {
 
       const group1ArrowNodes = createTipToTailArrowNodes( group1TipLocations, startingTailLocation,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1 ].fill
+          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
         } ) );
 
       const group2ArrowNodes = createTipToTailArrowNodes( group2TipLocations, startingTailLocation,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_2 ].fill
+          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_2.fill
         } ) );
 
       return createScreenIcon( group2ArrowNodes.concat( group1ArrowNodes ) );
@@ -181,7 +181,7 @@ define( require => {
       // vectors, tip to tail
       const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1 ].fill
+          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
         } ) );
 
       // sum
@@ -200,20 +200,20 @@ define( require => {
     /**
      * @public
      * @param {Vector2} initialVectorComponents - vector components (in view coordinates)
-     * @param {VectorColorGroups} vectorColorGroup - vector color group of the vector that the icon represents
+     * @param {VectorColorPalette} vectorColorPalette - color palette for this icon's vector
      * @param {Object} [options]
      * @returns {ArrowNode}
      */
-    createVectorCreatorPanelIcon( initialVectorComponents, vectorColorGroup, options ) {
+    createVectorCreatorPanelIcon( initialVectorComponents, vectorColorPalette, options ) {
 
       assert && assert( initialVectorComponents instanceof Vector2 );
-      assert && assert( vectorColorGroup && VectorColorGroups.includes( vectorColorGroup ) );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette );
 
       options = merge( {
         arrowLength: 30, // {number} length of the arrow
         arrowOptions: _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
           cursor: 'pointer',
-          fill: VectorAdditionColors[ vectorColorGroup ].fill
+          fill: vectorColorPalette.fill
         } )
       }, options );
 
@@ -228,17 +228,17 @@ define( require => {
     /**
      * Creates the icon that appears next to the 'Sum' checkbox on the control panel
      * @public
-     * @param {VectorColorGroups} vectorColorGroup
+     * @param {VectorColorPalette} vectorColorPalette
      * @param {Object} [options]
      * @returns {Node}
      */
-    createSumIcon: ( vectorColorGroup, options ) => {
+    createSumIcon: ( vectorColorPalette, options ) => {
 
-      assert && assert( vectorColorGroup && VectorColorGroups.includes( vectorColorGroup ) );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette );
 
       options = merge( {
         arrowOptions: _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
-          fill: VectorAdditionColors[ vectorColorGroup ].sum
+          fill: vectorColorPalette.sum
         } ),
         arrowLength: 22     // {number} length of the sum arrow node
       }, options );

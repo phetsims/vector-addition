@@ -11,7 +11,7 @@ define( require => {
 
   // modules
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
   // shared colors
   const WHITE = 'rgb( 255, 255, 255 )';
@@ -66,47 +66,42 @@ define( require => {
     WHITE: WHITE,
     BLACK: BLACK,
     GREY: GREY,
-    PURPLE: PURPLE
-  };
+    PURPLE: PURPLE,
 
-  //----------------------------------------------------------------------------------------
-  // Vector colors by groups (See VectorColorGroups.js)
-  //----------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------
+    // Vector color palettes
 
-  //----------------------------------------------------------------------------------------
-  // Vector Color Group 1 (blue)
-  VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_1.toString() ] = {
-    fill: 'rgb( 10, 170, 250 )',
-    sum: 'rgb( 10, 170, 250 )',
-    component: 'rgb( 120, 200, 255 )',
-    labelBackground: 'rgb( 150, 210, 255 )'
-  };
+    // blue
+    VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
+      fill: 'rgb( 10, 170, 250 )',
+      sum: 'rgb( 10, 170, 250 )',
+      component: 'rgb( 120, 200, 255 )',
+      labelBackground: 'rgb( 150, 210, 255 )'
+    } ),
 
-  //----------------------------------------------------------------------------------------
-  // Vector Color Group 2 (red)
-  VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_2.toString() ] = {
-    fill: 'rgb( 232, 25, 9 )',
-    sum: 'rgb( 232, 25, 9 )',
-    component: 'rgb( 245, 120, 120 )',
-    labelBackground: 'rgb( 255, 100, 100 )'
-  };
+    // red
+    VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
+      fill: 'rgb( 232, 25, 9 )',
+      sum: 'rgb( 232, 25, 9 )',
+      component: 'rgb( 245, 120, 120 )',
+      labelBackground: 'rgb( 255, 100, 100 )'
+    } ),
 
-  //----------------------------------------------------------------------------------------
-  // Vector Color Group 3 (purple)
-  VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_3.toString() ] = {
-    fill: PURPLE,
-    sum: PURPLE,
-    component: 'rgb( 216, 191, 216 )',
-    labelBackground: 'rgb( 210, 194, 210 )'
-  };
+    // purple
+    VECTOR_COLOR_PALETTE_3: new VectorColorPalette( {
+      fill: PURPLE,
+      sum: PURPLE,
+      component: 'rgb( 216, 191, 216 )',
+      labelBackground: 'rgb( 210, 194, 210 )'
+    } ),
 
-  //----------------------------------------------------------------------------------------
-  // Vector Color Group 4 (green)
-  VectorAdditionColors[ VectorColorGroups.COLOR_GROUP_4.toString() ] = {
-    fill: 'rgb( 5, 200, 0 )',
-    sum: 'rgb( 5, 200, 0 )',
-    component: 'rgb( 150, 205, 150 )',
-    labelBackground: 'rgb( 180, 255, 180 )'
+    // green
+    VECTOR_COLOR_PALETTE_4: new VectorColorPalette( {
+      fill: 'rgb( 5, 200, 0 )',
+      sum: 'rgb( 5, 200, 0 )',
+      component: 'rgb( 150, 205, 150 )',
+      labelBackground: 'rgb( 180, 255, 180 )'
+    } )
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );

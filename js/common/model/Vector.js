@@ -75,7 +75,7 @@ define( require => {
 
       assert && assert( _.every( options, option => typeof option === 'boolean' ) );
 
-      super( initialTailPosition, initialComponents, vectorSet.vectorColorGroup, symbol );
+      super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbol );
 
       //----------------------------------------------------------------------------------------
 

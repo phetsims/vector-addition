@@ -58,7 +58,7 @@ define( require => {
         `invalid componentType: ${componentType}` );
 
 
-      super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorGroup, COMPONENT_VECTOR_SYMBOL );
+      super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
 
       //----------------------------------------------------------------------------------------
       // Create references

@@ -50,10 +50,10 @@ define( require => {
       // Create the sum checkboxes (polar/cartesian)
 
       const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
-        cartesianVectorSet.vectorColorGroup );
+        cartesianVectorSet.vectorColorPalette );
 
       const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty,
-        polarVectorSet.vectorColorGroup );
+        polarVectorSet.vectorColorPalette );
 
       // Toggle visibility of the sumCheckboxes. Should only be visible if the coordinateSnapMode matches the
       // coordinate snap mode. Is never unlinked since the graph control panel is never disposed.

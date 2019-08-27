@@ -26,7 +26,7 @@ define( require => {
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorColorGroups = require( 'VECTOR_ADDITION/common/model/VectorColorGroups' );
+  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
@@ -54,9 +54,9 @@ define( require => {
      * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
-     * @param {VectorColorGroups} vectorColorGroup - shared vector color group for both graphs in 'Explore 1D'
+     * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on this graph
      */
-    constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorGroup ) {
+    constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
 
       assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
       assert && assert( componentStyleProperty instanceof EnumerationProperty
@@ -64,8 +64,8 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( VectorColorGroups.includes( vectorColorGroup ),
-        `invalid vectorColorGroup: ${vectorColorGroup}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette,
+        `invalid vectorColorPalette: ${vectorColorPalette}` );
 
 
       super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, graphOrientation );
@@ -73,7 +73,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 1D' have exactly one vector set
-      this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorGroup );
+      this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
 
       // Add the one and only vector set
       this.vectorSets.push( this.vectorSet );
