@@ -1,8 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * CoefficientSelectorToggleBox is the toggle box in the Equation screen that allows the user to change
- * the coefficients of vectors.
+ * EquationToggleBox is the toggle box in the Equation screen that displays the equation and allows the user to change
+ * the coefficients of the vectors.
  *
  * ## Content
  *  - When closed, the panel displays a text that says 'Equation'
@@ -11,7 +11,7 @@
  *    visual.
  *
  * NOTE: this displays the 'equation' for a SINGLE Equation Type. This means that it will not change its content
- *       when the Equation Type changes. Instead, create a CoefficientSelectorToggleBox for each Equation Type and
+ *       when the Equation Type changes. Instead, create an EquationToggleBox for each Equation Type and
  *       toggle the visibility when the Equation Type changes.
  *
  * @author Brandon Li
@@ -44,7 +44,7 @@ define( require => {
   const TEXT_OPTIONS = { font: VectorAdditionConstants.PANEL_FONT };
 
 
-  class CoefficientSelectorToggleBox extends ToggleBox {
+  class EquationToggleBox extends ToggleBox {
 
     /**
      * @param {EquationVectorSet} equationVectorSet
@@ -165,5 +165,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'CoefficientSelectorToggleBox', CoefficientSelectorToggleBox );
+  return vectorAddition.register( 'EquationToggleBox', EquationToggleBox );
 } );

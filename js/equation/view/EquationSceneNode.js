@@ -18,7 +18,7 @@ define( require => {
 
   // modules
   const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsAccordionBox' );
-  const CoefficientSelectorToggleBox = require( 'VECTOR_ADDITION/equation/view/CoefficientSelectorToggleBox' );
+  const EquationToggleBox = require( 'VECTOR_ADDITION/equation/view/EquationToggleBox' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
   const merge = require( 'PHET_CORE/merge' );
@@ -51,8 +51,7 @@ define( require => {
       options = merge( {
 
         // specific to this class
-        panelCenterY: 100,        // {number} centerY of the equationTypesRadioButtonGroup and the
-                                  //          coefficientSelectorToggleBox
+        panelCenterY: 100, // {number} centerY of the equationTypesRadioButtonGroup and the equationToggleBox
 
 
         // super-class options
@@ -96,17 +95,17 @@ define( require => {
       // Add a Coefficient Selector for each Equation Type
       EquationTypes.VALUES.forEach( equationType => {
 
-        const coefficientSelectorToggleBox = new CoefficientSelectorToggleBox( equationGraph.vectorSet, equationType, {
+        const equationToggleBox = new EquationToggleBox( equationGraph.vectorSet, equationType, {
           centerY: options.panelCenterY
         } );
 
-        // Doesn't need to be unlinked since the coefficientSelectorToggleBox and the scene is never disposed
+        // Doesn't need to be unlinked since the equationToggleBox and the scene is never disposed
         equationGraph.equationTypeProperty.link( () => {
-          coefficientSelectorToggleBox.visible = equationType === equationGraph.equationTypeProperty.value;
+          equationToggleBox.visible = equationType === equationGraph.equationTypeProperty.value;
         } );
 
-        this.addChild( coefficientSelectorToggleBox );
-        coefficientSelectorToggleBox.moveToBack(); // move to back to keep Vector Containers on top in the super class
+        this.addChild( equationToggleBox );
+        equationToggleBox.moveToBack(); // move to back to keep Vector Containers on top in the super class
 
       } );
 
