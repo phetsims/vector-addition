@@ -42,9 +42,12 @@ define( require => {
 
       options = _.extend( {
 
-        initializeSum: true, // {boolean} false means the vector sum will not be initialized upon instantiation
-        initialSumTailPosition: graph.graphModelBounds.center // {Vector2} initial tail position of the sum. Only used
-                                                              // if options.initializeSum = true
+        // {boolean} false means that the default VectorSum will not be created, and a subclass is responsible
+        // for initializing this.vectorSum.
+        initializeSum: true,
+
+        // {Vector2} initial tail position of the sum. Only used if options.initializeSum = true
+        initialSumTailPosition: graph.graphModelBounds.center
 
       }, options );
 
@@ -75,7 +78,7 @@ define( require => {
       // Create the sum
 
       if ( options.initializeSum ) {
-        // @public (read-only) {Vector} the vector sum model
+        // @public (read-only) {Vector} the vector sum model.
         this.vectorSum = new VectorSum( options.initialSumTailPosition, graph, this, SUM_SYMBOL );
       }
     }
