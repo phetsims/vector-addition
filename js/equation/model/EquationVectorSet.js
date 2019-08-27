@@ -88,7 +88,6 @@ define( require => {
         this,
         equationGraph.equationTypeProperty,
         _.last( this.symbols ) );
-
     }
 
     /**
@@ -97,9 +96,15 @@ define( require => {
      * @public
      */
     reset() {
+
+      // We are not calling super.reset because the default behavior is to dispose of all vectors in this.vectors.
+      // In the Equations screen, vectors are created automatically at startup, and there is no way to created them
+      // via the UI.  So we want to keep them around, but reset them.
+      // See https://github.com/phetsims/vector-addition/issues/143
       this.vectors.forEach( ( vector ) => {
         vector.reset();
       } );
+
       this.vectorSum.reset();
     }
   }
