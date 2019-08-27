@@ -42,10 +42,10 @@ define( require => {
 
       super( labModel, tandem );
 
-      // @private {VectorAdditionViewProperties} viewProperties - viewProperties for the 'Lab' screen
+      // @private view-specific Properties
       this.viewProperties = new VectorAdditionViewProperties();
 
-      // Create and add the Graph Control Panel
+      // Controls for the graph, at upper right
       const graphControlPanel = new LabGraphControlPanel(
         labModel.cartesianGraph,
         labModel.polarGraph,
@@ -56,7 +56,7 @@ define( require => {
         } );
       this.addChild( graphControlPanel );
 
-      // Create and add the coordinate snap mode radio buttons
+      // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
           right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,
@@ -75,6 +75,7 @@ define( require => {
           labModel.componentStyleProperty
         );
 
+        // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode, {
             left: coordinateSnapRadioButtonGroup.left,
             bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING

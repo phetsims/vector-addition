@@ -43,10 +43,10 @@ define( require => {
 
       super( explore2DModel, tandem );
 
-      // @private {VectorAdditionViewProperties} viewProperties - viewProperties for the 'Explore 2D' screen
+      // @private view-specific Properties
       this.viewProperties = new VectorAdditionViewProperties();
 
-      // Create and add the Graph Control Panel
+      // Control for the graph, at upper right
       const graphControlPanel = new Explore2DGraphControlPanel(
         this.viewProperties,
         explore2DModel.cartesianGraph.vectorSet,
@@ -57,7 +57,7 @@ define( require => {
         } );
       this.addChild( graphControlPanel );
 
-      // Create and add the coordinate snap mode radio buttons
+      // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
           right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,

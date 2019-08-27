@@ -43,10 +43,10 @@ define( require => {
 
       super( explore1DModel, tandem );
 
-      // @private {VectorAdditionViewProperties} viewProperties - viewProperties for the 'Explore 1D' screen
+      // @private view-specific Properties
       this.viewProperties = new Explore1DViewProperties();
 
-      // Create and add the Graph Control Panel
+      // Controls for the graph, at upper right
       const explore1DGraphControlPanel = new Explore1DGraphControlPanel(
         explore1DModel.sumVisibleProperty,
         this.viewProperties.valuesVisibleProperty,
@@ -57,7 +57,7 @@ define( require => {
         } );
       this.addChild( explore1DGraphControlPanel );
 
-      // Create and add the graph orientation radio buttons
+      // Graph Orientation radio buttons, at lower right
       const graphOrientationRadioButtonGroup = new GraphOrientationRadioButtonGroup(
         this.viewProperties.graphOrientationProperty, {
           right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,

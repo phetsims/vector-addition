@@ -35,8 +35,10 @@ define( require => {
 
       super( equationModel, tandem );
 
+      // @private view-specific Properties
       this.viewProperties = new VectorAdditionViewProperties();
 
+      // Controls for the graph, at upper right
       const equationGraphControlPanel = new EquationGraphControlPanel(
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
@@ -47,7 +49,7 @@ define( require => {
         }
       );
 
-      // Create the Coordinate snapping radio buttons
+      // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
           right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,
