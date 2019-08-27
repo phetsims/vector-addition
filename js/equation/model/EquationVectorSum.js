@@ -45,6 +45,9 @@ define( require => {
 
       super( EQUATION_SUM_TAIL_POSITION, graph, vectorSet, symbol );
 
+      // @private
+      this.vectorSet = vectorSet;
+      this.equationTypeProperty = equationTypeProperty;
 
       //----------------------------------------------------------------------------------------
       // Observe when each vector changes and/or when the equationType changes to calculate the sum
@@ -57,8 +60,8 @@ define( require => {
       // Doesn't need to be unlinked since each vector in equationVectorSet are never disposed and the equation vector
       // sum is never disposed
       Property.multilink( _.concat( [ equationTypeProperty ], dependencies ),
-        ( equationType ) => {
-          this.updateSum( vectorSet.vectors, equationType );
+        () => {
+          this.updateSum( vectorSet.vectors );
         } );
 
       //----------------------------------------------------------------------------------------
@@ -82,14 +85,14 @@ define( require => {
     }
 
     /**
-     * @override
      * Calculate the vector sum for the equation screen.
-     *
      * @param {ObservableArray.<VectorsModel>} vectors
-     * @param {EquationTypes} equationType
      * @public
+     * @override
      */
-    updateSum( vectors, equationType ) {
+    updateSum( vectors ) {
+
+      const equationType = this.equationTypeProperty.value;
 
       // Denoted by 'a' + 'b' = 'c'
       if ( equationType === EquationTypes.ADDITION ) {
@@ -124,8 +127,6 @@ define( require => {
     }
 
     /**
-     * @override
-     * @public
      * See RootVector.getLabelContent() for context
      *
      * Gets the label content information to display the vector model. Equation Vector Sums always show their tag.
@@ -141,11 +142,25 @@ define( require => {
      *    includeAbsoluteValueBars: {boolean}    // Include absolute value bars (e.g. if the label displayed '|3v|=15
      *                                           // the includeAbsoluteValueBars would be true)
      * }
+     * @public
+     * @override
      */
     getLabelContent( valuesVisible ) {
       return _.extend( super.getLabelContent( valuesVisible ), {
         symbol: this.symbol
       } );
+    }
+
+    /**
+     * @public
+     * @override
+     */
+    reset() {
+      super.reset();
+
+      // In the Equations screen, vectors are never removed, so we need to explicitly call updateSum.
+      // See https://github.com/phetsims/vector-addition/issues/129
+      this.updateSum( this.vectorSet.vectors );
     }
   }
 
