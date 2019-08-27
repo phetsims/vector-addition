@@ -91,7 +91,7 @@ define( require => {
         this.vectors.pop().dispose();
       }
 
-      assert && assert( this.vectorSum, 'vector sum was never initialized' );
+      assert && assert( this.vectorSum, 'vectorSum was never initialized' );
       this.vectorSum.reset();
     }
   }
