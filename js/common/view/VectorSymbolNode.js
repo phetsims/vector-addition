@@ -58,12 +58,12 @@ define( require => {
 
         // {Object} passed to the coefficientText instance
         coefficientTextOptions: {
-          font: new PhetFont( { size: 18, weight: 500, stretch: 'ultra-condensed' } )
+          font: new PhetFont( 18 )
         },
 
         // {Object} passed to the absoluteValueText instances
         absoluteValueTextOptions: {
-          font: new PhetFont( { size: 18, weight: 100 } )
+          font: new PhetFont( 18 )
         },
 
         // {number} Formula Node should be scaled to match the size of the coefficient text.
@@ -78,7 +78,7 @@ define( require => {
         useRichText: false,
 
         // {Object} passed to the rich text. Only used if options.useRichText is true
-        richTextFont: new MathSymbolFont( { size: 20, weight: 500 } )
+        richTextFont: new MathSymbolFont( 20 )
 
       }, options );
 

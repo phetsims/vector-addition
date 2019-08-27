@@ -34,7 +34,7 @@ define( require => {
 
   // constants
   const TEXT_OPTIONS = {
-    font: new PhetFont( { size: 15, weight: 400 } )
+    font: new PhetFont( 15 )
   };
   const ACTIVE_VECTOR_LABEL_BACKGROUND = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND;
 

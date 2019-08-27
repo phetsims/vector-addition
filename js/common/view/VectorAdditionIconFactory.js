@@ -438,7 +438,7 @@ define( require => {
       assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1 );
 
       options = _.extend( {
-        font: new PhetFont( { weight: '500', size: 14 } ),  // {PhetFont|Font} font of the equation text
+        font: new PhetFont( 14 ),
         spacing: 4.5,
         symbolOptions: {
           formulaNodeScale: 0.83
