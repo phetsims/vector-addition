@@ -91,7 +91,7 @@ define( require => {
         // specific to this class
         numberPickerWithLabelsSpacing: 11, // {number} spacing between the left Number Picker and the right label
         ySpacing: 13,                      // {number} y spacing between UI components
-        fixedWidth: 200,                   // {number} fixed width of the Accordion Box
+        fixedWidth: 190,                   // {number} fixed width of the Accordion Box
 
         // super class options
         titleNode: new Text( baseVectorsString, { font: PANEL_FONT } )
