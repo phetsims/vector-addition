@@ -313,7 +313,7 @@ define( require => {
     updateAxisLabels( graphViewOrigin ) {
 
       // Update the label that is to the right of the axis
-      this.axisLabel.left = this.axisArrow.right + 10;
+      this.axisLabel.left = this.axisArrow.right + 6;
       this.axisLabel.centerY = graphViewOrigin.y;
 
       // Update the origin label
@@ -386,7 +386,7 @@ define( require => {
 
       // Update the label that is above the axis
       this.axisLabel.centerX = graphViewOrigin.x;
-      this.axisLabel.centerY = this.axisArrow.top - 10;
+      this.axisLabel.bottom = this.axisArrow.top - 3;
 
       // Update the origin label
       if ( this.originText ) {
