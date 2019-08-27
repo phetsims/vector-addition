@@ -227,13 +227,13 @@ define( require => {
 
       vectorSymbolNodeOptions: { // {Object} passed to the Vector Symbol Node
         useRichText: true,  // Use rich text to support sub scripts
-        richTextFont: new MathSymbolFont( { size: 19, weight: 600 } ),
+        richTextFont: new MathSymbolFont( { size: 19 } ),
         spacing: 1
       },
       vectorSymbolNodeWidth: 20, // {number} fixed width of the Vector Symbol Node
       includeAbsoluteValueBars: false, // {boolean} indicates if the Vector Symbol should have absolute value bars
 
-      equalsSignFont: new PhetFont( { size: 15, weight: 400 } ),  // {Font} font for the equals sign text
+      equalsSignFont: new PhetFont( { size: 15 } ),  // {Font} font for the equals sign text
       equalsSignMargin: 3 // {number} left and right margin of the equals sign
 
     }, options );
