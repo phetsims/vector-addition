@@ -195,7 +195,8 @@ define( require => {
       // sum
       arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
         _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
-          fill: VectorAdditionColors.EQUATION_SUM_FILL
+          fill: VectorAdditionColors.EQUATION_SUM_FILL,
+          stroke: VectorAdditionColors.EQUATION_SUM_STROKE
         } ) ) );
       
       return createScreenIcon( arrowNodes );

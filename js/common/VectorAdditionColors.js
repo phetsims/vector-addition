@@ -53,8 +53,9 @@ define( require => {
     ACTIVE_VECTOR_LABEL_BACKGROUND: 'rgb( 240, 240, 100 )',
 
     //----------------------------------------------------------------------------------------
-    // Color of the Sum Vectors on the 'Equation' screen
+    // Color of the Sum Vectors (c, f) on the 'Equation' screen
     EQUATION_SUM_FILL: BLACK,
+    EQUATION_SUM_STROKE: null,
 
     //----------------------------------------------------------------------------------------
     // On axis lines, aka leader lines

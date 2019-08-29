@@ -57,7 +57,8 @@ define( require => {
         // super-class options
         includeEraser: false,
         sumNodeOptions: {
-          fill: VectorAdditionColors.EQUATION_SUM_FILL
+          fill: VectorAdditionColors.EQUATION_SUM_FILL,
+          stroke: VectorAdditionColors.EQUATION_SUM_STROKE
         },
         vectorValuesToggleBoxOptions: {
           spacingMajor: 25,
