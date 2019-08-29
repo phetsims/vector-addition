@@ -69,7 +69,8 @@ define( require => {
       arrowOptions = _.extend( {
 
         // Passed to superclass
-        fill: vector.vectorColorPalette.fill
+        fill: vector.vectorColorPalette.fill,
+        stroke: vector.vectorColorPalette.stroke
       }, arrowOptions );
 
       super( vector,

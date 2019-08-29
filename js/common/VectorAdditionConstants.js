@@ -27,7 +27,6 @@ define( require => {
     headWidth: 11.5,
     headHeight: 8.5,
     tailWidth: 4,
-    stroke: null,
     lineWidth: 0
   };
 
@@ -137,13 +136,11 @@ define( require => {
     
     // Defaults for sum vectors
     SUM_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
-      stroke: 'black',
       lineWidth: 0.75
     } ),
 
     // Defaults for components of sum vectors
     SUM_COMPONENT_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
-      stroke: 'black',
       lineWidth: 0.5
     } ),
 

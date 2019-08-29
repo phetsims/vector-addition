@@ -72,9 +72,8 @@ define( require => {
       }, options.onAxisLinesOptions );
 
       options.arrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
-
-        // fill with the component color
-        fill: componentVector.vectorColorPalette.component
+        fill: componentVector.vectorColorPalette.componentFill,
+        stroke: componentVector.vectorColorPalette.componentStroke
       }, options.arrowOptions );
 
       super( componentVector,

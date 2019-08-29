@@ -17,23 +17,34 @@ define( require => {
 
       // all colors are {Color|string}, where {string} is a CSS color string
       options = _.extend( {
+
+        // colors used for non-sum and non-component vectors
         fill: 'black',
-        sum: 'black',
-        component: 'gray',
-        labelBackground: 'rgb( 235, 235, 235 )'
+        stroke: null,
+
+        // colors used for sum vectors
+        sumFill: 'white',
+        sumStroke: 'black',
+
+        // colors used for component vectors
+        componentFill: 'gray',
+        componentStroke: null,
+
+        // colors used for the background behind the label on a non-active vector
+        labelBackgroundFill: 'rgb( 235, 235, 235 )',
+        labelBackgroundStroke: null,
+
       }, options );
 
-      // @public (read-only) color use to fill a non-sum or non-component vector
+      // @public (read-only)
       this.fill = options.fill;
-
-      // @public (read-only) color used to fill a sum vector
-      this.sum = options.sum;
-
-      // @public (read-only) color used to fill a component vector
-      this.component = options.component;
-
-      // @public (read-only) color used for the background behind the label on a non-active vector
-      this.labelBackground = options.labelBackground;
+      this.stroke = options.stroke;
+      this.sumFill = options.sumFill;
+      this.sumStroke = options.sumStroke;
+      this.componentFill = options.componentFill;
+      this.componentStroke = options.componentStroke;
+      this.labelBackgroundFill = options.labelBackgroundFill;
+      this.labelBackgroundStroke = options.labelBackgroundStroke;
     }
   }
 

@@ -60,10 +60,12 @@ define( require => {
   // Defaults constants for radio button icons (except for the equation types radio button icons)
   // size (width and height) of all arrow nodes inside of radio buttons
   const RADIO_BUTTON_VECTOR_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
+    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
+    stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
   } );
   const RADIO_BUTTON_COMPONENT_VECTOR_OPTIONS = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.component
+    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill,
+    stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentStroke
   } );
   const RADIO_BUTTON_TEXT_FONT = new PhetFont( 11 );
 
@@ -85,7 +87,8 @@ define( require => {
     createExplore1DScreenIcon() {
 
       const vectorOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
+        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
+        stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke,
       } );
 
       // Vector pointing to the right, the full width of the icon
@@ -115,12 +118,14 @@ define( require => {
       // vector
       const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
+          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
+          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke,
         } ) );
       
       // component vectors
       const componentOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
-        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.component
+        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill,
+        stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentStroke
       } );
       const xComponentNode = new ArrowNode( 0, 0, vector.x, 0, componentOptions );
       const yComponentNode = new ArrowNode( vector.x, 0, vector.x, vector.y, componentOptions );
@@ -152,12 +157,14 @@ define( require => {
 
       const group1ArrowNodes = createTipToTailArrowNodes( group1TipLocations, startingTailLocation,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
+          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
+          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
         } ) );
 
       const group2ArrowNodes = createTipToTailArrowNodes( group2TipLocations, startingTailLocation,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_2.fill
+          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_2.fill,
+          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_2.stroke
         } ) );
 
       return createScreenIcon( group2ArrowNodes.concat( group1ArrowNodes ) );
@@ -181,7 +188,8 @@ define( require => {
       // vectors, tip to tail
       const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill
+          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
+          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
         } ) );
 
       // sum
@@ -213,7 +221,8 @@ define( require => {
         arrowLength: 30, // {number} length of the arrow
         arrowOptions: _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
           cursor: 'pointer',
-          fill: vectorColorPalette.fill
+          fill: vectorColorPalette.fill,
+          stroke: vectorColorPalette.stroke
         } )
       }, options );
 
@@ -238,7 +247,8 @@ define( require => {
 
       options = merge( {
         arrowOptions: _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
-          fill: vectorColorPalette.sum
+          fill: vectorColorPalette.sumFill,
+          stroke: vectorColorPalette.sumStroke
         } ),
         arrowLength: 22     // {number} length of the sum arrow node
       }, options );

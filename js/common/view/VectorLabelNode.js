@@ -64,7 +64,8 @@ define( require => {
       options = merge( {
 
         backgroundRectangleOptions: { // {Object} passed to the backgroundRectangle
-          fill: rootVector.vectorColorPalette.labelBackground,
+          fill: rootVector.vectorColorPalette.labelBackgroundFill,
+          stroke: rootVector.vectorColorPalette.labelBackgroundStroke,
           cornerRadius: 4
         },
 

@@ -47,7 +47,8 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       arrowOptions = _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
-        fill: vectorSum.vectorColorPalette.sum
+        fill: vectorSum.vectorColorPalette.sumFill,
+        stroke: vectorSum.vectorColorPalette.sumStroke
       }, arrowOptions );
 
       //----------------------------------------------------------------------------------------
