@@ -35,6 +35,9 @@ define( require => {
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
+     * @param {BooleanProperty} vectorValuesExpandedProperty
+     * @param {BooleanProperty} equationsExpandedProperty
+     * @param {BooleanProperty} baseVectorsExpandedProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {number} graphControlPanelBottom
      * @param {Object} [options]
@@ -43,6 +46,9 @@ define( require => {
                  valuesVisibleProperty,
                  angleVisibleProperty,
                  gridVisibleProperty,
+                 vectorValuesExpandedProperty,
+                 equationsExpandedProperty,
+                 baseVectorsExpandedProperty,
                  componentStyleProperty,
                  graphControlPanelBottom,
                  options ) {
@@ -72,6 +78,7 @@ define( require => {
         valuesVisibleProperty,
         angleVisibleProperty,
         gridVisibleProperty,
+        vectorValuesExpandedProperty,
         componentStyleProperty,
         options );
 
@@ -97,6 +104,7 @@ define( require => {
       EquationTypes.VALUES.forEach( equationType => {
 
         const equationToggleBox = new EquationToggleBox( equationGraph.vectorSet, equationType, {
+          expandedProperty: equationsExpandedProperty,
           centerY: options.panelCenterY
         } );
 
@@ -116,6 +124,7 @@ define( require => {
       const baseVectorsAccordionBox = new BaseVectorsAccordionBox( equationGraph.baseVectorsVisibleProperty,
         equationGraph.coordinateSnapMode,
         equationGraph.vectorSet, {
+        expandedProperty: baseVectorsExpandedProperty,
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: graphControlPanelBottom + 20
         } );

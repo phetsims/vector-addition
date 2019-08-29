@@ -74,6 +74,7 @@ define( require => {
           this.viewProperties.valuesVisibleProperty,
           this.viewProperties.angleVisibleProperty,
           this.viewProperties.gridVisibleProperty,
+          this.viewProperties.vectorValuesExpandedProperty,
           explore2DModel.componentStyleProperty
         );
 

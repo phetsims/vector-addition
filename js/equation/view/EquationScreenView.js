@@ -16,11 +16,11 @@ define( require => {
   const EquationGraphControlPanel = require( 'VECTOR_ADDITION/equation/view/EquationGraphControlPanel' );
   const EquationModel = require( 'VECTOR_ADDITION/equation/model/EquationModel' );
   const EquationSceneNode = require( 'VECTOR_ADDITION/equation/view/EquationSceneNode' );
+  const EquationViewProperties = require( 'VECTOR_ADDITION/equation/view/EquationViewProperties' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
-  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
   class EquationScreenView extends VectorAdditionScreenView {
 
@@ -36,13 +36,14 @@ define( require => {
       super( equationModel, tandem );
 
       // @private view-specific Properties
-      this.viewProperties = new VectorAdditionViewProperties();
+      this.viewProperties = new EquationViewProperties();
 
       // Controls for the graph, at upper right
       const equationGraphControlPanel = new EquationGraphControlPanel(
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
+
         equationModel.componentStyleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
@@ -61,6 +62,9 @@ define( require => {
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
+        this.viewProperties.vectorValuesExpandedProperty,
+        this.viewProperties.equationsExpandedProperty,
+        this.viewProperties.baseVectorsExpandedProperty,
         equationModel.componentStyleProperty,
         equationGraphControlPanel.bottom
       );
@@ -70,6 +74,9 @@ define( require => {
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
+        this.viewProperties.vectorValuesExpandedProperty,
+        this.viewProperties.equationsExpandedProperty,
+        this.viewProperties.baseVectorsExpandedProperty,
         equationModel.componentStyleProperty,
         equationGraphControlPanel.bottom
       );

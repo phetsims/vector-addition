@@ -40,6 +40,9 @@ define( require => {
 
       // @public controls the snapping mode for the vectors
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
+
+      // @public whether the VectorValuesToggleBox is expanded
+      this.vectorValuesExpandedProperty = new BooleanProperty( true );
     }
 
     /**
@@ -51,6 +54,7 @@ define( require => {
       this.gridVisibleProperty.reset();
       this.angleVisibleProperty.reset();
       this.coordinateSnapModeProperty.reset();
+      this.vectorValuesExpandedProperty.reset();
     }
   }
 

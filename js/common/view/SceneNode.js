@@ -52,6 +52,7 @@ define( require => {
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
+     * @param {BooleanProperty} vectorValuesExpandedProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options] - all options are specific to this class
      */
@@ -59,6 +60,7 @@ define( require => {
                  valuesVisibleProperty,
                  angleVisibleProperty,
                  gridVisibleProperty,
+                 vectorValuesExpandedProperty,
                  componentStyleProperty,
                  options
     ) {
@@ -89,6 +91,7 @@ define( require => {
 
       // Create the one and only 'Vector Values' toggle box
       const vectorValuesToggleBox = new VectorValuesToggleBox( graph, _.extend( {
+        expandedProperty: vectorValuesExpandedProperty,
         centerX: graphViewBounds.centerX,
         top: VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
       }, options.vectorValuesToggleBoxOptions ) );
