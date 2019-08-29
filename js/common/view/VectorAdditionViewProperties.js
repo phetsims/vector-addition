@@ -29,17 +29,16 @@ define( require => {
 
     constructor() {
 
-      // @public {BooleanProperty} valuesVisibleProperty - indicates if the labels should contain the magnitudes
+      // @public indicates if the labels should contain the magnitudes
       this.valuesVisibleProperty = new BooleanProperty( false );
 
-      // @public {BooleanProperty} gridVisibleProperty - indicates if the graph background grid is visible
+      // @public indicates if the graph background grid is visible
       this.gridVisibleProperty = new BooleanProperty( true );
 
-      // @public {BooleanProperty} angleVisibleProperty  - controls the visibility of the angle
+      // @public controls the visibility of the angle
       this.angleVisibleProperty = new BooleanProperty( false );
 
-      // @public {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty - controls the snapping mode
-      // for the vectors
+      // @public controls the snapping mode for the vectors
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
     }
 
