@@ -22,7 +22,7 @@ define( require => {
       this.equationsExpandedProperty = new BooleanProperty( true );
 
       // @public whether the BaseVectorsAccordionBox is expanded
-      this.baseVectorsExpandedProperty = new BooleanProperty( true );
+      this.baseVectorsExpandedProperty = new BooleanProperty( false );
     }
 
     /**
