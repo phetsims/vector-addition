@@ -32,7 +32,7 @@ define( require => {
 
         // colors used for the background behind the label on a non-active vector
         labelBackgroundFill: 'rgb( 235, 235, 235 )',
-        labelBackgroundStroke: null,
+        labelBackgroundStroke: null
 
       }, options );
 
@@ -42,7 +42,7 @@ define( require => {
       this.sumFill = options.sumFill;
       this.sumStroke = options.sumStroke;
       this.componentFill = options.componentFill;
-      this.componentStroke = options.componentStroke;
+      this.componentStroke = options.componentStrokVectorAdditionIconFactory.jse;
       this.labelBackgroundFill = options.labelBackgroundFill;
       this.labelBackgroundStroke = options.labelBackgroundStroke;
     }

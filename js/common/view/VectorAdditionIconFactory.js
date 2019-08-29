@@ -88,7 +88,7 @@ define( require => {
 
       const vectorOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
         fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
-        stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke,
+        stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
       } );
 
       // Vector pointing to the right, the full width of the icon
@@ -119,7 +119,7 @@ define( require => {
       const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
           fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
-          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke,
+          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
         } ) );
       
       // component vectors
