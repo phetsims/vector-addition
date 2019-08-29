@@ -42,7 +42,7 @@ define( require => {
       this.sumFill = options.sumFill;
       this.sumStroke = options.sumStroke;
       this.componentFill = options.componentFill;
-      this.componentStroke = options.componentStrokVectorAdditionIconFactory.jse;
+      this.componentStroke = options.componentStroke;
       this.labelBackgroundFill = options.labelBackgroundFill;
       this.labelBackgroundStroke = options.labelBackgroundStroke;
     }
