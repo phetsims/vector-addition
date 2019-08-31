@@ -206,7 +206,7 @@ define( require => {
      * @param {Vector2} initialVectorComponents - vector components (in view coordinates)
      * @param {VectorColorPalette} vectorColorPalette - color palette for this icon's vector
      * @param {number} arrowLength
-     * @returns {ArrowNode}
+     * @returns {Node}
      */
     createVectorCreatorPanelIcon( initialVectorComponents, vectorColorPalette, arrowLength ) {
 
@@ -400,7 +400,7 @@ define( require => {
      * Creates the icon used on the radio buttons on 'Explore 1D' screen that toggles the graph orientation.
      * @public
      * @param {GraphOrientations} graphOrientation - orientation of the graph (has to be horizontal or vertical)
-     * @returns {ArrowNode}
+     * @returns {Node}
      */
     createGraphOrientationIcon( graphOrientation ) {
 
@@ -517,6 +517,7 @@ define( require => {
       maxWidth: SCREEN_ICON_WIDTH, // Ensures the icon doesn't get wider than the fixed screen icon dimensions
       maxHeight: SCREEN_ICON_HEIGHT // Ensures the icon doesn't get taller than the fixed screen icon dimensions
     } ) );
+
     return new ScreenIcon( iconNode );
   }
 
@@ -526,11 +527,14 @@ define( require => {
    * @returns {Node}
    */
   function createEyeCloseIcon( iconSize ) {
+
     const spacer = new Spacer( iconSize, iconSize );
+
     const eyeIcon = new FontAwesomeNode( 'eye_close', {
       scale: 0.85, // determined empirically
       center: spacer.center
     } );
+
     return new Node( {
       children: [ spacer, eyeIcon ],
       maxWidth: iconSize,
