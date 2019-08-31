@@ -23,16 +23,13 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
-  const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const interleave = require( 'PHET_CORE/interleave' );
   const Line = require( 'SCENERY/nodes/Line' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
-  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -210,25 +207,24 @@ define( require => {
      * @public
      * @param {Vector2} initialVectorComponents - vector components (in view coordinates)
      * @param {VectorColorPalette} vectorColorPalette - color palette for this icon's vector
-     * @param {Object} [options]
+     * @param {number} arrowLength
      * @returns {ArrowNode}
      */
-    createVectorCreatorPanelIcon( initialVectorComponents, vectorColorPalette, options ) {
+    createVectorCreatorPanelIcon( initialVectorComponents, vectorColorPalette, arrowLength ) {
 
       assert && assert( initialVectorComponents instanceof Vector2 );
       assert && assert( vectorColorPalette instanceof VectorColorPalette );
+      assert && assert( typeof arrowLength === 'number' );
 
-      options = merge( {
-        arrowLength: 30, // {number} length of the arrow
-        arrowOptions: _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+      const arrowComponents = initialVectorComponents.normalized().timesScalar( arrowLength );
+
+      return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y,
+        _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+          arrowLength: arrowLength,
           cursor: 'pointer',
           fill: vectorColorPalette.fill,
           stroke: vectorColorPalette.stroke
-        } )
-      }, options );
-
-      const arrowComponents = initialVectorComponents.normalized().timesScalar( options.arrowLength );
-      return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y, options.arrowOptions );
+        } ) );
     },
 
     //========================================================================================
@@ -239,45 +235,38 @@ define( require => {
      * Creates the icon that appears next to the 'Sum' checkbox on the control panel
      * @public
      * @param {VectorColorPalette} vectorColorPalette
-     * @param {Object} [options]
      * @returns {Node}
      */
-    createSumIcon: ( vectorColorPalette, options ) => {
+    createSumIcon: ( vectorColorPalette ) => {
 
       assert && assert( vectorColorPalette instanceof VectorColorPalette );
 
-      options = merge( {
-        arrowOptions: _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
-          fill: vectorColorPalette.sumFill,
-          stroke: vectorColorPalette.sumStroke
-        } ),
-        arrowLength: 22     // {number} length of the sum arrow node
-      }, options );
-
-      return new ArrowNode( 0, 0, options.arrowLength, 0, options.arrowOptions );
+      return new ArrowNode( 0, 0, 22, 0, _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
+        fill: vectorColorPalette.sumFill,
+        stroke: vectorColorPalette.sumStroke
+      } ) );
     },
 
     /**
      * Creates the icon that appears next to the checkbox that toggles the 'Angle' visibility
      * @public
-     * @param {Object} [options]
      * @returns {Node}
      */
-    createAngleIcon( options ) {
-      options = merge( {
-        angle: Util.toRadians( 50 ),  // {number} in radians
-        curvedArrowRadius: 16,        // {number} in view coordinates
-        wedgeLength: 20               // {number} length of the wedge
-      }, options );
+    createAngleIcon() {
+      
+      // values determined empirically
+      const wedgeLength = 20;
+      const angle = Util.toRadians( 50 );
+      const curvedArrowRadius = 16;
 
       const wedgeShape = new Shape()
-        .moveTo( options.wedgeLength, 0 )
+        .moveTo( wedgeLength, 0 )
         .horizontalLineTo( 0 )
-        .lineTo( Math.cos( options.angle ) * options.wedgeLength, -Math.sin( options.angle ) * options.wedgeLength );
+        .lineTo( Math.cos( angle ) * wedgeLength, -Math.sin( angle ) * wedgeLength );
 
       return new Node().setChildren( [
         new Path( wedgeShape, { stroke: VectorAdditionColors.BLACK } ),
-        new CurvedArrowNode( options.curvedArrowRadius, options.angle, options.curvedArrowOptions )
+        new CurvedArrowNode( curvedArrowRadius, angle )
       ] );
     },
 
@@ -289,51 +278,43 @@ define( require => {
      * Creates the icons that go on the Component Style Radio Button based on a component style
      * @public
      * @param {ComponentStyles} componentStyle
-     * @param {Object} [options]
      * @returns {Node}
      */
-    createComponentStyleRadioButtonIcon( componentStyle, options ) {
+    createComponentStyleRadioButtonIcon( componentStyle ) {
 
       assert && assert( ComponentStyles.includes( componentStyle ) );
 
-      options = merge( {
-        componentArrowOptions: RADIO_BUTTON_COMPONENT_VECTOR_OPTIONS,
-        arrowSize: 29,                        // {number} size (width and/or height) or arrow nodes
-        subBoxSize: 10,                       // {number} size of the sub-box the arrow/on-axis lines creates
-        lineDash: [ 2.9, 2 ],                 // {number[]} line dash for the on-axis lines
-        stroke: VectorAdditionColors.BLACK    // {string|Color} stroke of the on-axis lines
-      }, options );
-
-      if ( componentStyle === ComponentStyles.INVISIBLE ) {
-        return createRadioButtonIcon( new FontAwesomeNode( 'eye_close', { scale: 0.85 } ) );
-      }
-
-      const arrowSize = options.arrowSize; // convenience reference
+      const iconSize = 29; // size of the icon (square)
+      const subBoxSize = 10; // size of the sub-box the arrow/on-axis lines creates
+      assert && assert( subBoxSize < iconSize );
 
       // Initialize arrow nodes for the PARALLELOGRAM component style (will be adjusted for different component styles)
-      const vectorArrow = new ArrowNode( 0, 0, arrowSize, -arrowSize, RADIO_BUTTON_VECTOR_OPTIONS );
-      const xComponentArrow = new ArrowNode( 0, 0, arrowSize, 0, options.componentArrowOptions );
-      const yComponentArrow = new ArrowNode( 0, 0, 0, -arrowSize, options.componentArrowOptions );
+      const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, RADIO_BUTTON_VECTOR_OPTIONS );
+      const xComponentArrow = new ArrowNode( 0, 0, iconSize, 0, RADIO_BUTTON_COMPONENT_VECTOR_OPTIONS );
+      const yComponentArrow = new ArrowNode( 0, 0, 0, -iconSize, RADIO_BUTTON_COMPONENT_VECTOR_OPTIONS );
 
       let iconChildren = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
 
       if ( componentStyle === ComponentStyles.TRIANGLE ) {
-        yComponentArrow.setTailAndTip( arrowSize, 0, arrowSize, -arrowSize );
+        yComponentArrow.setTailAndTip( iconSize, 0, iconSize, -iconSize );
       }
       else if ( componentStyle === ComponentStyles.ON_AXIS ) {
-        vectorArrow.setTailAndTip( options.subBoxSize, -options.subBoxSize, arrowSize, -arrowSize );
-        xComponentArrow.setTailAndTip( options.subBoxSize, 0, arrowSize, 0 );
-        yComponentArrow.setTailAndTip( 0, -options.subBoxSize, 0, -arrowSize );
+        vectorArrow.setTailAndTip( subBoxSize, -subBoxSize, iconSize, -iconSize );
+        xComponentArrow.setTailAndTip( subBoxSize, 0, iconSize, 0 );
+        yComponentArrow.setTailAndTip( 0, -subBoxSize, 0, -iconSize );
 
         // Create the on-axis lines
-        const dashedLineShape = new Shape().moveTo( 0, -options.subBoxSize )
-          .horizontalLineTo( options.subBoxSize )
-          .verticalLineToRelative( options.subBoxSize )
-          .moveTo( 0, -arrowSize )
-          .horizontalLineTo( arrowSize )
-          .verticalLineToRelative( arrowSize );
+        const dashedLineShape = new Shape().moveTo( 0, -subBoxSize )
+          .horizontalLineTo( subBoxSize )
+          .verticalLineToRelative( subBoxSize )
+          .moveTo( 0, -iconSize )
+          .horizontalLineTo( iconSize )
+          .verticalLineToRelative( iconSize );
 
-        const dashedLinePath = new Path( dashedLineShape, { lineDash: options.lineDash, stroke: options.stroke } );
+        const dashedLinePath = new Path( dashedLineShape, {
+          lineDash: [ 2.9, 2 ],
+          stroke: 'black'
+        } );
 
         iconChildren = [ dashedLinePath, xComponentArrow, yComponentArrow, vectorArrow ];
       }
@@ -346,56 +327,67 @@ define( require => {
     //========================================================================================
 
     /**
-     * Creates the icon used on the radio buttons toggles the coordinate snap mode
-     * @public
-     * @param {CoordinateSnapModes} coordinateSnapMode
-     * @param {Object} [options]
+     * Creates the icon for the Cartesian snap mode radio button.
      * @returns {Node}
      */
-    createCoordinateSnapModeIcon( coordinateSnapMode, options ) {
+    createCartesianSnapModeIcon() {
 
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ) );
-      const isPolar = coordinateSnapMode === CoordinateSnapModes.POLAR; // convenience reference
-      //----------------------------------------------------------------------------------------
-      options = merge( {
-        arrowSize: isPolar ? 27.5 : 26.5,  // {number} size of the arrow
-        arrowOptions: _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: isPolar ? VectorAdditionColors.PURPLE : RADIO_BUTTON_VECTOR_OPTIONS.fill
-        } ),
-        cartesianTopMargin: 5.5,           // {number} top margin of the radio button icon for cartesian
-        cartesianLeftMargin: 2.9,          // {number} left margin of the radio button icon for cartesian
-        arcRadius: 20                      // {number} arc radius of the curved arrow
-      }, options );
-
-      //----------------------------------------------------------------------------------------
-      const arrowSize = options.arrowSize; // convenience reference
-      const labelFont = RADIO_BUTTON_TEXT_FONT; // convenience reference
-      const children = [];
+      const iconSize = 26.5; //TODO this and topMargin, leftMargin are brittle
 
       // Create the arrow node that is 45 degrees to the right and up
-      const arrow = new ArrowNode( 0, 0, arrowSize, -arrowSize, options.arrowOptions );
+      const arrow = new ArrowNode( 0, 0, iconSize, -iconSize, _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        fill: RADIO_BUTTON_VECTOR_OPTIONS.fill
+      } ) );
 
-      if ( !isPolar ) {
-        const componentArrowOptions = _.extend( {}, options.arrowOptions, { fill: VectorAdditionColors.BLACK } );
+      const componentArrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        fill: 'black'
+      } );
+      const xArrow = new ArrowNode( 0, 0, iconSize, 0, componentArrowOptions );
+      const yArrow = new ArrowNode( iconSize, 0, iconSize, -iconSize, componentArrowOptions );
 
-        const xArrow = new ArrowNode( 0, 0, arrowSize, 0, componentArrowOptions );
-        const yArrow = new ArrowNode( arrowSize, 0, arrowSize, -arrowSize, componentArrowOptions );
-        const xLabel = new Text( '1', { font: labelFont, top: xArrow.bottom - 3, centerX: xArrow.centerX } );
-        const yLabel = new Text( '1', { font: labelFont, centerY: yArrow.centerY + 3, left: yArrow.right - 2 } );
+      const xLabel = new Text( '1', { font: RADIO_BUTTON_TEXT_FONT, top: xArrow.bottom - 3, centerX: xArrow.centerX } );
+      const yLabel = new Text( '1', { font: RADIO_BUTTON_TEXT_FONT, centerY: yArrow.centerY + 3, left: yArrow.right - 2 } );
 
-        children.push( xArrow, yArrow, arrow, xLabel, yLabel ); // z-layering
-      }
-      else {
-        const curvedArrow = new CurvedArrowNode( options.arcRadius, Util.toRadians( 45 ), options.curvedArrowOptions );
-        const line = new Line( 0, 0, options.arrowSize, 0, { stroke: VectorAdditionColors.BLACK } );
-        const arrowLabel = new Text( '1', { bottom: arrow.centerY - 1, right: arrow.centerX - 1, font: labelFont } );
-        children.push( arrow, curvedArrow, line, arrowLabel ); // z-layering
-      }
+      return createRadioButtonIcon( new Node( {
+        children: [ xArrow, yArrow, arrow, xLabel, yLabel ]
+      } ), {
+        iconHeight: iconSize,
+        topMargin: 5.5,
+        leftMargin: 2.9
+      } );
+    },
 
-      return createRadioButtonIcon( new Node().setChildren( children ), !isPolar ? {
-        topMargin: options.cartesianTopMargin,
-        leftMargin: options.cartesianLeftMargin
-      } : null );
+    /**
+     * Creates the icon for the Polar snap mode radio button.
+     * @returns {Node}
+     */
+    createPolarSnapModeIcon() {
+
+      const iconSize = 27.5; // TODO this is brittle, depends on createCartesianSnapModeIcon iconSize
+      const arcRadius = 20; // arc radius of the curved arrow
+
+      // Create the arrow node that is 45 degrees to the right and up
+      const arrow = new ArrowNode( 0, 0, iconSize, -iconSize, _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        fill: VectorAdditionColors.PURPLE
+      } ) );
+
+      // Curved arrow that indicates the angle
+      const curvedArrow = new CurvedArrowNode( arcRadius, Util.toRadians( 45 ) );
+
+      // horizontal line
+      const line = new Line( 0, 0, iconSize, 0, { stroke: VectorAdditionColors.BLACK } );
+
+      const arrowLabel = new Text( '1', {
+        bottom: arrow.centerY - 1,
+        right: arrow.centerX - 1,
+        font: RADIO_BUTTON_TEXT_FONT
+      } );
+
+      return createRadioButtonIcon( new Node( {
+        children: [ arrow, curvedArrow, line, arrowLabel ]
+      } ), {
+        iconHeight: iconSize
+      } );
     },
 
     //========================================================================================
@@ -406,27 +398,17 @@ define( require => {
      * Creates the icon used on the radio buttons on 'Explore 1D' screen that toggles the graph orientation.
      * @public
      * @param {GraphOrientations} graphOrientation - orientation of the graph (has to be horizontal or vertical)
-     * @param {Object} [options]
      * @returns {ArrowNode}
      */
-    createGraphOrientationIcon( graphOrientation, options ) {
+    createGraphOrientationIcon( graphOrientation ) {
 
       assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
 
-      options = merge( {
-        arrowOptions: VectorAdditionConstants.AXES_ARROW_OPTIONS,
-        arrowLength: 37  // {number} length of the arrow node
-      }, options );
+      const arrowLength = 37;
+      const tipX = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? arrowLength : 0;
+      const tipY = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? 0 : arrowLength;
 
-      let arrowNode = null;
-      if ( graphOrientation === GraphOrientations.HORIZONTAL ) {
-        arrowNode = new ArrowNode( 0, 0, options.arrowLength, 0, options.arrowOptions );
-      }
-      else {
-        arrowNode = new ArrowNode( 0, 0, 0, options.arrowLength, options.arrowOptions );
-      }
-
-      return createRadioButtonIcon( arrowNode );
+      return createRadioButtonIcon( new ArrowNode( 0, 0, tipX, tipY, VectorAdditionConstants.AXES_ARROW_OPTIONS ) );
     },
 
     //========================================================================================
@@ -437,16 +419,16 @@ define( require => {
      * Creates the Icon that appears on the Equation Types radio button icons on the 'Equation' screen.
      * @public
      * @param {EquationTypes} equationType
-     * @param {Array.<string>} vectorSymbols - vector symbols (the last symbol is the sum's symbol)
-     * @param {Object} [options]
+     * @param {string[]} vectorSymbols - symbols on the buttons (the last symbol is the sum's symbol)
      * @returns {Node}
      */
-    createEquationTypeIcon( equationType, vectorSymbols, options ) {
+    createEquationTypeIcon( equationType, vectorSymbols ) {
 
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
       assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1 );
 
-      options = _.extend( {
+      //TODO get rid of options
+      const options = {
         font: new PhetFont( 14 ),
         spacing: 4.5,
         symbolOptions: {
@@ -454,7 +436,7 @@ define( require => {
         },
         width: 99,  // {number} width of the icon
         height: 25  // {number} height of the icon
-      }, options );
+      };
 
       //----------------------------------------------------------------------------------------
 

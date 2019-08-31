@@ -89,9 +89,7 @@ define( require => {
 
       // Create the icon.
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
-        vectorSet.vectorColorPalette, {
-          arrowLength: options.iconArrowSize
-        } );
+        vectorSet.vectorColorPalette, options.iconArrowSize );
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( ICON_OFFSET_MOUSE_AREA );
