@@ -28,15 +28,6 @@ define( require => {
   //----------------------------------------------------------------------------------------
   // constants
 
-  // options for the curved arrow
-  const CURVED_ARROW_OPTIONS = {
-    arrowheadWidth: 8,
-    arrowheadHeight: 6,
-    arcOptions: {
-      lineWidth: 1.2
-    }
-  };
-
   // maximum radius of the curved arrow - the radius is changed to keep the curved arrow smaller than the vector.
   const MAX_CURVED_ARROW_RADIUS = 25;
 
@@ -87,9 +78,7 @@ define( require => {
       this.baseLine = new Line( 0, 0, MAX_BASELINE_WIDTH, 0, { stroke: VectorAdditionColors.BLACK } );
 
       // @private {CurvedArrowNode} curvedArrow - arrow in a circle shape from the baseline to the vector
-      this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS,
-        vector.angle ? vector.angle : 0,
-        CURVED_ARROW_OPTIONS );
+      this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS, vector.angle ? vector.angle : 0, );
 
       // @private {Text} labelText - set to an arbitrary string for now.
       this.labelText = new Text( '', { font: ANGLE_LABEL_FONT } );

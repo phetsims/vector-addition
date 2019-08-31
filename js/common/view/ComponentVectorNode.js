@@ -21,6 +21,7 @@ define( require => {
   const ComponentVector = require( 'VECTOR_ADDITION/common/model/ComponentVector' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const merge = require( 'PHET_CORE/merge' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
   const RootVectorNode = require( 'VECTOR_ADDITION/common/view/RootVectorNode' );
@@ -62,19 +63,20 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {
-        onAxisLinesOptions: null, // {Object} - options passed to the dashed lines shape. See the defaults below.
-        arrowOptions: null // {Object} - passed to the super class to stylize the arrowOptions. See the defaults below.
+      options = merge( {
+
+        // {Object} - options passed to the dashed lines shape.
+        onAxisLinesOptions: {
+          lineDash: NON_ACTIVE_LINE_DASH
+        },
+
+        // {Object} - options passed to the super class to stylize the arrowOptions.
+        arrowOptions: _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
+          fill: componentVector.vectorColorPalette.componentFill,
+          stroke: componentVector.vectorColorPalette.componentStroke
+        } )
+
       }, options );
-
-      options.onAxisLinesOptions = _.extend( {
-        lineDash: NON_ACTIVE_LINE_DASH
-      }, options.onAxisLinesOptions );
-
-      options.arrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
-        fill: componentVector.vectorColorPalette.componentFill,
-        stroke: componentVector.vectorColorPalette.componentStroke
-      }, options.arrowOptions );
 
       super( componentVector,
         graph.modelViewTransformProperty,

@@ -153,14 +153,6 @@ define( require => {
     VECTOR_LABEL_OFFSET: 0.45, // the offset in model coordinates of the label with respect to the vector
 
     //----------------------------------------------------------------------------------------
-    // Constants for curves arrow that denotes angle
-    ANGLE_ARROW_OPTIONS: {
-      arrowheadWidth: 8,
-      arrowheadHeight: 6,
-      arcOptions: { lineWidth: 1.2 }
-    },
-
-    //----------------------------------------------------------------------------------------
     // Rounding
     NUMBER_DISPLAY_ROUNDING: 1, // rounding for all number display instances
     VECTOR_VALUE_ROUNDING: 1,   // rounding for the vector 'values' in decimal points

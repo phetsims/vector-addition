@@ -18,6 +18,7 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
+  const merge = require( 'PHET_CORE/merge' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
@@ -44,7 +45,7 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {
+      options = merge( {
         arrowOptions: VectorAdditionConstants.SUM_COMPONENT_VECTOR_OPTIONS
       }, options );
 

@@ -267,8 +267,7 @@ define( require => {
       options = merge( {
         angle: Util.toRadians( 50 ),  // {number} in radians
         curvedArrowRadius: 16,        // {number} in view coordinates
-        wedgeLength: 20,              // {number} length of the wedge
-        curvedArrowOptions: VectorAdditionConstants.ANGLE_ARROW_OPTIONS
+        wedgeLength: 20               // {number} length of the wedge
       }, options );
 
       const wedgeShape = new Shape()
@@ -363,7 +362,6 @@ define( require => {
         arrowOptions: _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
           fill: isPolar ? VectorAdditionColors.PURPLE : RADIO_BUTTON_VECTOR_OPTIONS.fill
         } ),
-        curvedArrowOptions: VectorAdditionConstants.ANGLE_ARROW_OPTIONS,
         cartesianTopMargin: 5.5,           // {number} top margin of the radio button icon for cartesian
         cartesianLeftMargin: 2.9,          // {number} left margin of the radio button icon for cartesian
         arcRadius: 20                      // {number} arc radius of the curved arrow

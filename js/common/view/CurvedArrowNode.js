@@ -19,6 +19,7 @@ define( require => {
   'use strict';
 
   // modules
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
@@ -41,24 +42,23 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {
+      options = merge( {
 
         arrowheadWidth: 8,  // {number} the arrowhead width (before rotation)
         arrowheadHeight: 6, // {number} the arrowhead height (before rotation)
 
-        arcOptions: null, // {Object|null} defaults filled in bellow
-        arrowOptions: null // {Object|null} defaults filled in bellow,
+        // {Object} options passed to the Path that creates the arrow's curved tail (arc)
+        arcOptions: {
+          stroke: VectorAdditionColors.BLACK,
+          lineWidth: 1.2
+        },
+
+        // {Object} options passed to the Path that creates the arrow's head
+        arrowOptions: {
+          fill: VectorAdditionColors.BLACK
+        }
 
       }, options );
-
-      options.arcOptions = _.extend( {
-        stroke: VectorAdditionColors.BLACK,
-        lineWidth: 1.75
-      }, options.arcOptions );
-
-      options.arrowOptions = _.extend( {
-        fill: VectorAdditionColors.BLACK
-      }, options.arrowOptions );
 
       //----------------------------------------------------------------------------------------
 
