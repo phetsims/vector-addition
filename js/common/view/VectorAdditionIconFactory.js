@@ -19,9 +19,7 @@ define( require => {
   'use strict';
 
   // modules
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
@@ -324,11 +322,11 @@ define( require => {
         iconChildren = [ dashedLinePath, xComponentArrow, yComponentArrow, vectorArrow ];
       }
 
-      return createRadioButtonIcon( new Node( {
+      return new Node( {
         children: iconChildren,
         maxWidth: iconSize,
         maxHeight: iconSize
-      } ) );
+      } );
     },
 
     //========================================================================================
@@ -466,45 +464,13 @@ define( require => {
       iconChildren.push( new Text( MathSymbols.EQUAL_TO, { font: options.font } ),
         equationType === EquationTypes.NEGATION ? new Text( '0', { font: options.font } ) : new VectorSymbolNode( _.last( vectorSymbols ), null, false, options.symbolOptions ) );
 
-      return createRadioButtonIcon( new HBox( { children: iconChildren, spacing: options.spacing } ), {
-        width: options.width,
-        height: options.height
-      } );
+      return new HBox( { children: iconChildren, spacing: options.spacing } );
     }
   };
 
   //========================================================================================
   // Helper functions
   //========================================================================================
-
-  /**
-   * Creates a RadioButton Icon but aligns a given icon in an AlignBox to ensure the correct alignment and localBounds.
-   * This allows icons of different sizes and groups to have the same localBounds to fit in the same sized RadioButton.
-   *
-   * @param {Node} icon
-   * @param {Object} [options]
-   * @returns {AlignBox}
-   */
-  function createRadioButtonIcon( icon, options ) {
-
-    assert && assert( icon instanceof Node, `invalid icon: ${icon}` );
-
-    options = _.extend( {
-      width: RADIO_BUTTON_ICON_SIZE,     // {number} local width of the icon
-      height: RADIO_BUTTON_ICON_SIZE,      // {number} local height of the icon
-      topMargin: 0,    // {number} top margin of the icon
-      leftMargin: 0    // {number} left margin of the icon
-    }, options );
-
-    icon.maxWidth = options.width;
-    icon.maxHeight = options.height;
-
-    return new AlignBox( icon, {
-      alignBounds: new Bounds2( 0, 0, options.width, options.height ),
-      topMargin: options.topMargin,
-      leftMargin: options.leftMargin
-    } );
-  }
 
   /**
    * Creates Vector Icons (ArrowNode) tip to tail based on an array of tip locations along the tail location of the
