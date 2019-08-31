@@ -28,22 +28,16 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
-  // const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
-
-
   class EquationTypesRadioButtonGroup extends RadioButtonGroup {
     /**
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
-     * @param {EquationVectorSet} equationVectorSet - vector set for the equation screen
+     * @param {string[]} vectorSymbols - symbols on the buttons
      * @param {Object} [options]
      */
-    constructor( equationTypeProperty, equationVectorSet, options ) {
+    constructor( equationTypeProperty, vectorSymbols, options ) {
 
-      assert && assert( equationTypeProperty instanceof EnumerationProperty
-      && EquationTypes.includes( equationTypeProperty.value ),
+      assert && assert( equationTypeProperty instanceof EnumerationProperty,
         `invalid equationTypeProperty: ${equationTypeProperty}` );
-      // assert && assert( equationVectorSet instanceof EquationVectorSet,
-      //   `invalid equationVectorSet: ${equationVectorSet}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
@@ -53,18 +47,17 @@ define( require => {
         orientation: 'horizontal'
       }, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
 
-
       //----------------------------------------------------------------------------------------
 
       const equationTypesRadioButtonContent = [ {
         value: EquationTypes.ADDITION,
-        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.ADDITION, equationVectorSet )
+        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.ADDITION, vectorSymbols )
       }, {
         value: EquationTypes.SUBTRACTION,
-        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.SUBTRACTION, equationVectorSet )
+        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.SUBTRACTION, vectorSymbols )
       }, {
         value: EquationTypes.NEGATION,
-        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.NEGATION, equationVectorSet )
+        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.NEGATION, vectorSymbols )
       } ];
 
       super( equationTypeProperty, equationTypesRadioButtonContent, options );
