@@ -285,12 +285,13 @@ define( require => {
       assert && assert( ComponentStyles.includes( componentStyle ) );
 
       const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
-      const subBoxSize = 10; // size of the sub-box the arrow/on-axis lines creates
-      assert && assert( subBoxSize < iconSize );
 
       if ( componentStyle === ComponentStyles.INVISIBLE ) {
-        return createRadioButtonIcon( new FontAwesomeNode( 'eye_close', { scale: 0.85 } ) );
+        return createEyeCloseIcon( iconSize );
       }
+
+      const subBoxSize = RADIO_BUTTON_ICON_SIZE / 3; // size of the sub-box the arrow/on-axis lines creates
+      assert && assert( subBoxSize < iconSize );
 
       // Initialize arrow nodes for the PARALLELOGRAM component style (will be adjusted for different component styles)
       const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, RADIO_BUTTON_VECTOR_OPTIONS );
@@ -551,6 +552,24 @@ define( require => {
       maxHeight: SCREEN_ICON_HEIGHT // Ensures the icon doesn't get taller than the fixed screen icon dimensions
     } ) );
     return new ScreenIcon( iconNode );
+  }
+
+  /**
+   * Create the close eye icon, for ComponentStyles.INVISIBLE.
+   * @param {number} iconSize
+   * @returns {Node}
+   */
+  function createEyeCloseIcon( iconSize ) {
+    const spacer = new Spacer( iconSize, iconSize );
+    const eyeIcon = new FontAwesomeNode( 'eye_close', {
+      scale: 0.85, // determined empirically
+      center: spacer.center
+    } );
+    return new Node( {
+      children: [ spacer, eyeIcon ],
+      maxWidth: iconSize,
+      maxHeight: iconSize
+    } );
   }
 
   return vectorAddition.register( 'VectorAdditionIconFactory', VectorAdditionIconFactory );
