@@ -25,6 +25,7 @@ define( require => {
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
+  const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const interleave = require( 'PHET_CORE/interleave' );
@@ -64,8 +65,7 @@ define( require => {
     fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill,
     stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentStroke
   } );
-  const RADIO_BUTTON_TEXT_FONT = new PhetFont( 11 );
-
+  const RADIO_BUTTON_ICON_SIZE = 45;
 
   //----------------------------------------------------------------------------------------
   // Uses and Object literal so no instance is required
@@ -284,9 +284,13 @@ define( require => {
 
       assert && assert( ComponentStyles.includes( componentStyle ) );
 
-      const iconSize = 29; // size of the icon (square)
+      const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
       const subBoxSize = 10; // size of the sub-box the arrow/on-axis lines creates
       assert && assert( subBoxSize < iconSize );
+
+      if ( componentStyle === ComponentStyles.INVISIBLE ) {
+        return createRadioButtonIcon( new FontAwesomeNode( 'eye_close', { scale: 0.85 } ) );
+      }
 
       // Initialize arrow nodes for the PARALLELOGRAM component style (will be adjusted for different component styles)
       const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, RADIO_BUTTON_VECTOR_OPTIONS );
@@ -318,8 +322,12 @@ define( require => {
 
         iconChildren = [ dashedLinePath, xComponentArrow, yComponentArrow, vectorArrow ];
       }
-      
-      return createRadioButtonIcon( new Node().setChildren( iconChildren ) );
+
+      return createRadioButtonIcon( new Node( {
+        children: iconChildren,
+        maxWidth: iconSize,
+        maxHeight: iconSize
+      } ) );
     },
 
     //========================================================================================
@@ -332,28 +340,27 @@ define( require => {
      */
     createCartesianSnapModeIcon() {
 
-      const iconSize = 26.5; //TODO this and topMargin, leftMargin are brittle
+      const iconSize = RADIO_BUTTON_ICON_SIZE;
 
-      // Create the arrow node that is 45 degrees to the right and up
-      const arrow = new ArrowNode( 0, 0, iconSize, -iconSize, _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+      // Arrow that is 45 degrees to the right and up
+      const vectorNode = new ArrowNode( 0, 0, iconSize, -iconSize, _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
         fill: RADIO_BUTTON_VECTOR_OPTIONS.fill
       } ) );
 
-      const componentArrowOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: 'black'
-      } );
-      const xArrow = new ArrowNode( 0, 0, iconSize, 0, componentArrowOptions );
-      const yArrow = new ArrowNode( iconSize, 0, iconSize, -iconSize, componentArrowOptions );
+      // x and y, Cartesian coordinates
+      const xyArrowOptions = {
+        fill: 'black',
+        tailWidth: 1,
+        headWidth: 6,
+        headHeight: 6
+      };
+      const xNode = new ArrowNode( 0, 0, iconSize, 0, xyArrowOptions );
+      const yNode = new ArrowNode( iconSize, 0, iconSize, -iconSize, xyArrowOptions );
 
-      const xLabel = new Text( '1', { font: RADIO_BUTTON_TEXT_FONT, top: xArrow.bottom - 3, centerX: xArrow.centerX } );
-      const yLabel = new Text( '1', { font: RADIO_BUTTON_TEXT_FONT, centerY: yArrow.centerY + 3, left: yArrow.right - 2 } );
-
-      return createRadioButtonIcon( new Node( {
-        children: [ xArrow, yArrow, arrow, xLabel, yLabel ]
-      } ), {
-        iconHeight: iconSize,
-        topMargin: 5.5,
-        leftMargin: 2.9
+      return new Node( {
+        children: [ vectorNode, xNode, yNode ],
+        maxWidth: iconSize,
+        maxHeight: iconSize
       } );
     },
 
@@ -363,10 +370,10 @@ define( require => {
      */
     createPolarSnapModeIcon() {
 
-      const iconSize = 27.5; // TODO this is brittle, depends on createCartesianSnapModeIcon iconSize
+      const iconSize = RADIO_BUTTON_ICON_SIZE;
       const arcRadius = 20; // arc radius of the curved arrow
 
-      // Create the arrow node that is 45 degrees to the right and up
+      // Arrow that is 45 degrees to the right and up
       const arrow = new ArrowNode( 0, 0, iconSize, -iconSize, _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
         fill: VectorAdditionColors.PURPLE
       } ) );
@@ -375,18 +382,14 @@ define( require => {
       const curvedArrow = new CurvedArrowNode( arcRadius, Util.toRadians( 45 ) );
 
       // horizontal line
-      const line = new Line( 0, 0, iconSize, 0, { stroke: VectorAdditionColors.BLACK } );
-
-      const arrowLabel = new Text( '1', {
-        bottom: arrow.centerY - 1,
-        right: arrow.centerX - 1,
-        font: RADIO_BUTTON_TEXT_FONT
+      const line = new Line( 0, 0, iconSize, 0, {
+        stroke: VectorAdditionColors.BLACK
       } );
 
-      return createRadioButtonIcon( new Node( {
-        children: [ arrow, curvedArrow, line, arrowLabel ]
-      } ), {
-        iconHeight: iconSize
+      return new Node( {
+        children: [ arrow, curvedArrow, line ],
+        maxWidth: iconSize,
+        maxHeight: iconSize
       } );
     },
 
@@ -404,11 +407,14 @@ define( require => {
 
       assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
 
-      const arrowLength = 37;
-      const tipX = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? arrowLength : 0;
-      const tipY = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? 0 : arrowLength;
+      const iconSize = RADIO_BUTTON_ICON_SIZE;
+      const tipX = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? iconSize : 0;
+      const tipY = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? 0 : iconSize;
 
-      return createRadioButtonIcon( new ArrowNode( 0, 0, tipX, tipY, VectorAdditionConstants.AXES_ARROW_OPTIONS ) );
+      return new ArrowNode( 0, 0, tipX, tipY, _.extend( {}, VectorAdditionConstants.AXES_ARROW_OPTIONS, {
+        maxWidth: iconSize,
+        maxHeight: iconSize
+      } ) );
     },
 
     //========================================================================================
@@ -434,7 +440,7 @@ define( require => {
         symbolOptions: {
           formulaNodeScale: 0.83
         },
-        width: 99,  // {number} width of the icon
+        width: 90,  // {number} width of the icon
         height: 25  // {number} height of the icon
       };
 
@@ -483,9 +489,9 @@ define( require => {
     assert && assert( icon instanceof Node, `invalid icon: ${icon}` );
 
     options = _.extend( {
-      width: 38.5,     // {number} local width of the icon
-      height: 37,      // {number} local height of the icon
-      topMargin: 0,    // {number} right margin of the icon
+      width: RADIO_BUTTON_ICON_SIZE,     // {number} local width of the icon
+      height: RADIO_BUTTON_ICON_SIZE,      // {number} local height of the icon
+      topMargin: 0,    // {number} top margin of the icon
       leftMargin: 0    // {number} left margin of the icon
     }, options );
 

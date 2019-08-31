@@ -78,6 +78,7 @@ define( require => {
 
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode, {
+            contentHeight: 90,
             left: coordinateSnapRadioButtonGroup.left,
             bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
           } )

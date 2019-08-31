@@ -73,8 +73,8 @@ define( require => {
                                       // If null, no radio buttons will be made.
 
         // superclass options
-        minWidth: 140,
-        maxWidth: 170
+        minWidth: 160,
+        maxWidth: 160
 
       }, options );
 
@@ -128,25 +128,20 @@ define( require => {
       // Component style radio buttons
       if ( options.componentStyleProperty ) {
 
+        // Add a HSeparator
+        const panelContentMaxWidth = _.maxBy( panelContent, node => node.width ).width;
+        const panelContentWidth = _.max( [ panelContentMaxWidth, options.minWidth - 2 * options.xMargin ] );
+        panelContent.push( new HSeparator( panelContentWidth, { stroke: VectorAdditionColors.BLACK } ) );
+
         // Create the 'Components' text
         const componentsText = new Text( componentsString, {
           font: VectorAdditionConstants.PANEL_FONT,
           maxWidth: maxPanelContentWidth
         } );
-
-        // Create the radio buttons
-        const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( options.componentStyleProperty );
-
-        const panelContentMaxWidth = _.maxBy( panelContent, node => node.width ).width;
-
-        const panelContentWidth = _.max( [ panelContentMaxWidth, options.minWidth - 2 * options.xMargin ] );
-
-        // Add a HSeparator
-        panelContent.push( new HSeparator( panelContentWidth, { stroke: VectorAdditionColors.BLACK } ) );
-
         panelContent.push( componentsText );
 
-        // Add the Radio buttons (aligned in the center)
+        // Create the radio buttons, centered in the panel
+        const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( options.componentStyleProperty );
         panelContent.push( new AlignBox( componentStyleRadioButtonGroup, {
           alignBounds: new Bounds2( 0, 0, panelContentWidth, componentStyleRadioButtonGroup.height ),
           maxWidth: panelContentWidth

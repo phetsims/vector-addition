@@ -67,15 +67,16 @@ define( require => {
       selectedLineWidth: 1.5,
       cornerRadius: 8,
       deselectedButtonOpacity: 0.35,
-      yMargin: 4.5,
-      xMargin: 4.5
+      buttonContentXMargin: 8,
+      buttonContentYMargin: 8,
+      orientation: 'horizontal'
     }, VectorAdditionColors.RADIO_BUTTON_COLORS ),
 
     // Margin between scene radio buttons and left side of ScreenView
     RADIO_BUTTONS_X_MARGIN: 45,
 
     // Space above and below scene radio buttons
-    RADIO_BUTTONS_Y_SPACING: 20,
+    RADIO_BUTTONS_Y_SPACING: 15,
 
     //----------------------------------------------------------------------------------------
     // Panel constants
@@ -84,7 +85,7 @@ define( require => {
     PANEL_OPTIONS: _.extend( {
       cornerRadius: PANEL_CORNER_RADIUS,
       xMargin: PANEL_X_MARGIN,
-      yMargin: 10
+      yMargin: PANEL_Y_MARGIN
     }, VectorAdditionColors.PANEL_COLORS ),
 
     PANEL_FONT: new PhetFont( 16 ), // font used on all panel-like container text nodes

@@ -126,7 +126,7 @@ define( require => {
         equationGraph.vectorSet, {
         expandedProperty: baseVectorsExpandedProperty,
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-          top: graphControlPanelBottom + 20
+          top: graphControlPanelBottom + 8
         } );
 
       // Add the base vectors accordion box (semi-global)

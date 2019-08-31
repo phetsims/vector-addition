@@ -17,10 +17,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
-  // constants
-  const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
-
-
   class GraphOrientationRadioButtonGroup extends RadioButtonGroup {
 
     /**
@@ -37,14 +33,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {}, RADIO_BUTTON_OPTIONS, {
-
-        // Superclass options
-        orientation: 'horizontal',
-        buttonContentXMargin: RADIO_BUTTON_OPTIONS.xMargin,
-        buttonContentYMargin: RADIO_BUTTON_OPTIONS.yMargin
-
-      }, options );
+      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
 
       //----------------------------------------------------------------------------------------
       // Add the radio buttons for each graph orientation

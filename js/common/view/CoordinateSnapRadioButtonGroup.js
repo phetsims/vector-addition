@@ -19,9 +19,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
-  // constants
-  const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
-
   class CoordinateSnapRadioButtonGroup extends RadioButtonGroup {
 
     /**
@@ -36,14 +33,7 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {}, RADIO_BUTTON_OPTIONS, {
-
-        // Superclass options
-        buttonContentXMargin: RADIO_BUTTON_OPTIONS.xMargin,
-        buttonContentYMargin: RADIO_BUTTON_OPTIONS.yMargin,
-        orientation: 'horizontal'
-
-      }, options );
+      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
 
       //----------------------------------------------------------------------------------------
 

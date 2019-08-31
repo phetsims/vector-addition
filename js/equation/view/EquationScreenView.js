@@ -43,7 +43,6 @@ define( require => {
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-
         equationModel.componentStyleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
