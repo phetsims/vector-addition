@@ -53,7 +53,7 @@ define( require => {
       const sumCheckboxContainer = new Node();
       [ cartesianGraph, polarGraph ].forEach( labGraph => {
 
-        // Create the 2 sum checkboxes for each graph inside of a VBox
+        // Create the 2 sum checkboxes for each vector set inside of a VBox
         const sumCheckboxes = new VBox( {
           children: [
             new SumCheckbox( labGraph.sumVisibleProperty1, labGraph.vectorSet1.vectorColorPalette ),
