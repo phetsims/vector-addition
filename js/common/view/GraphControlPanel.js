@@ -23,9 +23,9 @@ define( require => {
 
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AngleCheckbox = require( 'VECTOR_ADDITION/common/view/AngleCheckbox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
-  const Checkbox = require( 'SUN/Checkbox' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const GridCheckbox = require( 'SCENERY_PHET/GridCheckbox' );
@@ -33,20 +33,18 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const Text = require( 'SCENERY/nodes/Text' );
+  const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // strings
   const componentsString = require( 'string!VECTOR_ADDITION/components' );
-  const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
   //----------------------------------------------------------------------------------------
   // constants
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-  const CHECKBOX_ICON_SPACING = VectorAdditionConstants.CHECKBOX_ICON_SPACING;
 
   class GraphControlPanel extends Panel {
 
@@ -104,19 +102,11 @@ define( require => {
       }
 
       // Values checkbox
-      const valuesTextLength = maxPanelContentWidth - CHECKBOX_OPTIONS.boxWidth - CHECKBOX_ICON_SPACING;
-      panelContent.push( new Checkbox( new Text( valuesString, {
-          font: VectorAdditionConstants.CHECKBOX_FONT,
-          maxWidth: valuesTextLength
-        } ),
-        valuesVisibleProperty,
-        CHECKBOX_OPTIONS ) );
+      panelContent.push( new ValuesCheckbox( valuesVisibleProperty ) );
 
       // Angle checkbox
       if ( options.angleVisibleProperty ) {
-        panelContent.push( new Checkbox( VectorAdditionIconFactory.createAngleIcon(),
-          options.angleVisibleProperty,
-          CHECKBOX_OPTIONS ) );
+        panelContent.push( new AngleCheckbox( options.angleVisibleProperty ) );
       }
 
       // Grid checkbox
