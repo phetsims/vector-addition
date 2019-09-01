@@ -27,12 +27,10 @@ define( require => {
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
-  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -52,9 +50,7 @@ define( require => {
 
   // Checkbox options for the 'Show Base Vectors' checkbox
   const CHECKBOX_OPTIONS = _.extend( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, { spacing: 3.5 } );
-
-  // font for the title of the AccordionBox ('Base Vectors') and the Base Vectors visible checkbox label
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
+  const CHECKBOX_ICON_SPACING = VectorAdditionConstants.CHECKBOX_ICON_SPACING;
 
   // interval spacing of vector angle (in degrees) when vector is in polar mode
   const POLAR_ANGLE_INTERVAL = VectorAdditionConstants.POLAR_ANGLE_INTERVAL;
@@ -94,7 +90,7 @@ define( require => {
         fixedWidth: 190,                   // {number} fixed width of the Accordion Box
 
         // super class options
-        titleNode: new Text( baseVectorsString, { font: PANEL_FONT } )
+        titleNode: new Text( baseVectorsString, { font: VectorAdditionConstants.TITLE_FONT } )
 
       }, options );
 
@@ -178,8 +174,8 @@ define( require => {
       // Create the 'Show Base Vectors' checkbox that toggles the visibility of Base Vectors
 
       const showBaseVectorsText = new Text( showBaseVectorsString, {
-        font: PANEL_FONT,
-        maxWidth: contentWidth - CHECKBOX_OPTIONS.boxWidth - CHECKBOX_OPTIONS.spacing
+        font: VectorAdditionConstants.CHECKBOX_FONT,
+        maxWidth: contentWidth - CHECKBOX_OPTIONS.boxWidth - CHECKBOX_ICON_SPACING
       } );
 
       const baseVectorsCheckbox = new Checkbox( showBaseVectorsText, baseVectorsVisibleProperty, CHECKBOX_OPTIONS );
@@ -226,13 +222,13 @@ define( require => {
 
       vectorSymbolNodeOptions: { // {Object} passed to the Vector Symbol Node
         useRichText: true,  // Use rich text to support sub scripts
-        richTextFont: new MathSymbolFont( { size: 19 } ),
+        richTextFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
         spacing: 1
       },
       vectorSymbolNodeWidth: 20, // {number} fixed width of the Vector Symbol Node
       includeAbsoluteValueBars: false, // {boolean} indicates if the Vector Symbol should have absolute value bars
 
-      equalsSignFont: new PhetFont( { size: 15 } ),  // {Font} font for the equals sign text
+      equalsSignFont: VectorAdditionConstants.EQUATION_FONT,  // {Font} font for the equals sign text
       equalsSignMargin: 3 // {number} left and right margin of the equals sign
 
     }, options );

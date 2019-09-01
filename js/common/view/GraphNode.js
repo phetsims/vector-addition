@@ -15,11 +15,9 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const Node = require( 'SCENERY/nodes/Node' );
   const OriginCircle = require( 'VECTOR_ADDITION/common/view/OriginCircle' );
   const Path = require( 'SCENERY/nodes/Path' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -46,7 +44,7 @@ define( require => {
   const AXES_ARROW_X_EXTENSION = 15; // how far the line extends past the grid, view units
   const AXES_ARROW_Y_EXTENSION = 15;
   const AXES_TEXT_OPTIONS = {
-    font: new MathSymbolFont( 18 ),
+    font: VectorAdditionConstants.AXIS_LABEL_FONT,
     maxWidth: 30
   };
 
@@ -61,7 +59,7 @@ define( require => {
 
   // tick labels
   const TICK_TEXT_OPTIONS = {
-    font: new PhetFont( 16 ),
+    font: VectorAdditionConstants.TICK_LABEL_FONT,
     maxWidth: 30
   };
 

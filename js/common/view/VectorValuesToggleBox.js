@@ -43,9 +43,6 @@ define( require => {
   //----------------------------------------------------------------------------------------
   // constants
 
-  // font for the panel
-  const PANEL_FONT = VectorAdditionConstants.PANEL_FONT;
-
   // margin from the label to the number label (ltr)
   const LABEL_RIGHT_MARGIN = 7;
 
@@ -89,13 +86,17 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Create the scenery node for when the panel is closed, which is the inspectVectorText
-      const inspectVectorText = new Text( vectorValuesString, { font: PANEL_FONT } );
+      const inspectVectorText = new Text( vectorValuesString, {
+        font: VectorAdditionConstants.TITLE_FONT
+      } );
 
       //----------------------------------------------------------------------------------------
       // Create the scenery nodes for when the panel is open
 
       // Text for when there isn't a vector that is active
-      const selectVectorText = new Text( noVectorSelectedString, { font: PANEL_FONT } );
+      const selectVectorText = new Text( noVectorSelectedString, {
+        font: VectorAdditionConstants.TITLE_FONT
+      } );
 
       // Container for the labels and number displays that display the vector's attributes
       const vectorAttributesContainer = new HBox( { spacing: options.spacingMajor } );

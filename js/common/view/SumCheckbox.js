@@ -18,13 +18,6 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
-  // constants
-  const TEXT_OPTIONS = {
-    font: VectorAdditionConstants.PANEL_FONT,
-    maxWidth: 95
-  };
-  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-
   // strings
   const sumString = require( 'string!VECTOR_ADDITION/sum' );
 
@@ -44,20 +37,24 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      const text = new Text( sumString, TEXT_OPTIONS );
+      const text = new Text( sumString, {
+        font: VectorAdditionConstants.CHECKBOX_FONT,
+        maxWidth: 95
+      } );
 
-      super( new LayoutBox( {
+      const content = new LayoutBox( {
         orientation: 'horizontal',
-        spacing: CHECKBOX_OPTIONS.spacing,
+        spacing: VectorAdditionConstants.CHECKBOX_ICON_SPACING,
         children: [
           text,
           VectorAdditionIconFactory.createSumIcon( vectorColorPalette )
         ]
-      } ), sumVisibleProperty, CHECKBOX_OPTIONS );
+      } );
+
+        super( content, sumVisibleProperty, VectorAdditionConstants.CHECKBOX_OPTIONS );
 
       // @public {Text} textNode
       this.textNode = text;
-
     }
   }
 

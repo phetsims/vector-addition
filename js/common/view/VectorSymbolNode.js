@@ -27,13 +27,12 @@ define( require => {
   // modules
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   class VectorSymbolNode extends HBox {
 
@@ -58,12 +57,12 @@ define( require => {
 
         // {Object} passed to the coefficientText instance
         coefficientTextOptions: {
-          font: new PhetFont( 18 )
+          font: VectorAdditionConstants.EQUATION_FONT
         },
 
         // {Object} passed to the absoluteValueText instances
         absoluteValueTextOptions: {
-          font: new PhetFont( 18 )
+          font: VectorAdditionConstants.EQUATION_FONT
         },
 
         // {number} Formula Node should be scaled to match the size of the coefficient text.
@@ -78,7 +77,7 @@ define( require => {
         useRichText: false,
 
         // {Object} passed to the rich text. Only used if options.useRichText is true
-        richTextFont: new MathSymbolFont( 20 )
+        richTextFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT
 
       }, options );
 

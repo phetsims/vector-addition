@@ -13,6 +13,7 @@ define( require => {
 
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
+  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -56,9 +57,9 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Defaults for all Check Boxes
     CHECKBOX_OPTIONS: {
-      boxWidth: 18,
-      spacing: 7.5
+      boxWidth: 18
     },
+    CHECKBOX_ICON_SPACING: 8,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all Radio Button Groups
@@ -88,7 +89,6 @@ define( require => {
       yMargin: PANEL_Y_MARGIN
     }, VectorAdditionColors.PANEL_COLORS ),
 
-    PANEL_FONT: new PhetFont( 16 ), // font used on all panel-like container text nodes
     GRAPH_CONTROL_PANEL_SPACING: 10,  // spacing between items on each GraphControlPanel (See GraphControlPanel.js)
 
     //----------------------------------------------------------------------------------------
@@ -165,7 +165,18 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Interval spacing of vector angle (in degrees) when vector is in polar mode
-    POLAR_ANGLE_INTERVAL: 5
+    POLAR_ANGLE_INTERVAL: 5,
+
+    //----------------------------------------------------------------------------------------
+    // Fonts
+    EQUATION_FONT: new PhetFont( 18 ),
+    EQUATION_SYMBOL_FONT: new MathSymbolFont( 18 ),
+    VECTOR_LABEL_FONT: new PhetFont( 15 ),
+    ANGLE_LABEL_FONT: new PhetFont( 13 ),
+    TICK_LABEL_FONT: new PhetFont( 16 ),
+    AXIS_LABEL_FONT: new MathSymbolFont( 18 ),
+    CHECKBOX_FONT: new PhetFont( 16 ),
+    TITLE_FONT: new PhetFont( 16 )
   };
 
   return vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

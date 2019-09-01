@@ -39,8 +39,7 @@ define( require => {
 
   // constants
   const NUMBER_PICKER_OPTIONS = VectorAdditionConstants.NUMBER_PICKER_OPTIONS;
-  const TEXT_OPTIONS = { font: VectorAdditionConstants.PANEL_FONT };
-
+  const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
   class EquationToggleBox extends ToggleBox {
 

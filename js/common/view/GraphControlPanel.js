@@ -46,6 +46,7 @@ define( require => {
   //----------------------------------------------------------------------------------------
   // constants
   const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
+  const CHECKBOX_ICON_SPACING = VectorAdditionConstants.CHECKBOX_ICON_SPACING;
 
   class GraphControlPanel extends Panel {
 
@@ -103,9 +104,9 @@ define( require => {
       }
 
       // Values checkbox
-      const valuesTextLength = maxPanelContentWidth - CHECKBOX_OPTIONS.boxWidth - CHECKBOX_OPTIONS.spacing;
+      const valuesTextLength = maxPanelContentWidth - CHECKBOX_OPTIONS.boxWidth - CHECKBOX_ICON_SPACING;
       panelContent.push( new Checkbox( new Text( valuesString, {
-          font: VectorAdditionConstants.PANEL_FONT,
+          font: VectorAdditionConstants.CHECKBOX_FONT,
           maxWidth: valuesTextLength
         } ),
         valuesVisibleProperty,
@@ -135,7 +136,7 @@ define( require => {
 
         // Create the 'Components' text
         const componentsText = new Text( componentsString, {
-          font: VectorAdditionConstants.PANEL_FONT,
+          font: VectorAdditionConstants.TITLE_FONT,
           maxWidth: maxPanelContentWidth
         } );
         panelContent.push( componentsText );
