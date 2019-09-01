@@ -18,7 +18,6 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
@@ -35,15 +34,8 @@ define( require => {
   // graph bounds for Equation Graphs
   const EQUATION_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.withOffsets( 0, 0, 0, -5 );
 
-  // Equation Graphs a strictly 2 Two-dimensional
-  const EQUATION_GRAPH_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
-
   // Starting Equation Type
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
-
-  // Starting Base Vector visibility
-  const DEFAULT_BASE_VECTOR_VISIBILITY = false;
-
 
   class EquationGraph extends Graph {
 
@@ -63,15 +55,11 @@ define( require => {
         `invalid vectorColorPalette: ${vectorColorPalette}` );
 
       //----------------------------------------------------------------------------------------
-      super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, EQUATION_GRAPH_ORIENTATION );
+      super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, GraphOrientations.TWO_DIMENSIONAL );
 
 
       // @public (read-only) {EnumerationProperty.<EquationTypes>} equationTypeProperty
       this.equationTypeProperty = new EnumerationProperty( EquationTypes, STARTING_EQUATION_TYPE );
-
-
-      // @public (read-only) {BooleanProperty} baseVectorsVisibleProperty
-      this.baseVectorsVisibleProperty = new BooleanProperty( DEFAULT_BASE_VECTOR_VISIBILITY );
 
 
       // @public (read-only) {EquationVectorSet} vectorSet
@@ -88,7 +76,6 @@ define( require => {
      */
     reset() {
       this.equationTypeProperty.reset();
-      this.baseVectorsVisibleProperty.reset();
       super.reset();
     }
   }

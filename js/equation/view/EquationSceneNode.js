@@ -38,6 +38,7 @@ define( require => {
      * @param {BooleanProperty} vectorValuesExpandedProperty
      * @param {BooleanProperty} equationsExpandedProperty
      * @param {BooleanProperty} baseVectorsExpandedProperty
+     * @param {BooleanProperty} baseVectorsVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {number} graphControlPanelBottom
      * @param {Object} [options]
@@ -49,6 +50,7 @@ define( require => {
                  vectorValuesExpandedProperty,
                  equationsExpandedProperty,
                  baseVectorsExpandedProperty,
+                 baseVectorsVisibleProperty,
                  componentStyleProperty,
                  graphControlPanelBottom,
                  options ) {
@@ -115,7 +117,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Add a Base Vector Accordion Box
 
-      const baseVectorsAccordionBox = new BaseVectorsAccordionBox( equationGraph.baseVectorsVisibleProperty,
+      const baseVectorsAccordionBox = new BaseVectorsAccordionBox( baseVectorsVisibleProperty,
         equationGraph.coordinateSnapMode,
         equationGraph.vectorSet, {
         expandedProperty: baseVectorsExpandedProperty,
@@ -138,7 +140,7 @@ define( require => {
         const baseVector = new VectorNode( equationVector.baseVector, equationGraph, valuesVisibleProperty,
           angleVisibleProperty, VectorAdditionConstants.BASE_VECTOR_OPTIONS );
 
-        equationGraph.baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
+        baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
 
         this.baseVectorContainer.addChild( baseVector );
       } );

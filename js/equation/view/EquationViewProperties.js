@@ -23,6 +23,9 @@ define( require => {
 
       // @public whether the BaseVectorsAccordionBox is expanded
       this.baseVectorsExpandedProperty = new BooleanProperty( false );
+
+      // @public whether base vectors are visible on the graph
+      this.baseVectorsVisibleProperty = new BooleanProperty( false );
     }
 
     /**
@@ -33,6 +36,7 @@ define( require => {
       super.reset();
       this.equationsExpandedProperty.reset();
       this.baseVectorsExpandedProperty.reset();
+      this.baseVectorsVisibleProperty.reset();
     }
   }
 

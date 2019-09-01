@@ -64,6 +64,7 @@ define( require => {
         this.viewProperties.vectorValuesExpandedProperty,
         this.viewProperties.equationsExpandedProperty,
         this.viewProperties.baseVectorsExpandedProperty,
+        this.viewProperties.baseVectorsVisibleProperty,
         equationModel.componentStyleProperty,
         equationGraphControlPanel.bottom
       );
@@ -76,6 +77,7 @@ define( require => {
         this.viewProperties.vectorValuesExpandedProperty,
         this.viewProperties.equationsExpandedProperty,
         this.viewProperties.baseVectorsExpandedProperty,
+        this.viewProperties.baseVectorsVisibleProperty,
         equationModel.componentStyleProperty,
         equationGraphControlPanel.bottom
       );
