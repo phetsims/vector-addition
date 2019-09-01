@@ -22,25 +22,19 @@ define( require => {
   'use strict';
 
   // modules
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const AngleCheckbox = require( 'VECTOR_ADDITION/common/view/AngleCheckbox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
+  const ComponentStyleControl = require( 'VECTOR_ADDITION/common/view/ComponentStyleControl' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const GridCheckbox = require( 'SCENERY_PHET/GridCheckbox' );
   const HSeparator = require( 'SUN/HSeparator' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
-  const Text = require( 'SCENERY/nodes/Text' );
   const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-
-  // strings
-  const componentsString = require( 'string!VECTOR_ADDITION/components' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -123,18 +117,8 @@ define( require => {
         const panelContentWidth = _.max( [ panelContentMaxWidth, options.minWidth - 2 * options.xMargin ] );
         panelContent.push( new HSeparator( panelContentWidth, { stroke: VectorAdditionColors.BLACK } ) );
 
-        // Create the 'Components' text
-        const componentsText = new Text( componentsString, {
-          font: VectorAdditionConstants.TITLE_FONT,
+        panelContent.push( new ComponentStyleControl( options.componentStyleProperty, {
           maxWidth: maxPanelContentWidth
-        } );
-        panelContent.push( componentsText );
-
-        // Create the radio buttons, centered in the panel
-        const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( options.componentStyleProperty );
-        panelContent.push( new AlignBox( componentStyleRadioButtonGroup, {
-          alignBounds: new Bounds2( 0, 0, panelContentWidth, componentStyleRadioButtonGroup.height ),
-          maxWidth: panelContentWidth
         } ) );
       }
 
