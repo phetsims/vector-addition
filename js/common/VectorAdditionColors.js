@@ -31,7 +31,6 @@ define( require => {
     ORIGIN_COLOR: 'rgb( 25, 253, 56 )',
     GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )',
     GRAPH_MINOR_LINE_COLOR: 'rgb( 225, 225, 225 )',
-    GRID_ICON_COLOR: 'rgb( 80, 80, 80 )', // on the control panel
 
     //----------------------------------------------------------------------------------------
     // Panel-like container default colors
