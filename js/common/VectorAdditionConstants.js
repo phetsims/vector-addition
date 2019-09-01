@@ -88,8 +88,15 @@ define( require => {
       xMargin: PANEL_X_MARGIN,
       yMargin: PANEL_Y_MARGIN
     }, VectorAdditionColors.PANEL_COLORS ),
+    PANEL_X_MARGIN: PANEL_X_MARGIN,
+    PANEL_Y_MARGIN: PANEL_Y_MARGIN,
+    PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
 
-    GRAPH_CONTROL_PANEL_SPACING: 10,  // spacing between items on each GraphControlPanel (See GraphControlPanel.js)
+    // fixed width of each GraphControlPanel
+    GRAPH_CONTROL_PANEL_CONTENT_WIDTH: 150,
+
+    // vertical spacing between UI components in each GraphControlPanel
+    GRAPH_CONTROL_PANEL_Y_SPACING: 10,
 
     //----------------------------------------------------------------------------------------
     // Defaults for all AccordionBox instances

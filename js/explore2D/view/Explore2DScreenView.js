@@ -48,9 +48,12 @@ define( require => {
 
       // Control for the graph, at upper right
       const graphControlPanel = new Explore2DGraphControlPanel(
-        this.viewProperties,
         explore2DModel.cartesianGraph.vectorSet,
         explore2DModel.polarGraph.vectorSet,
+        this.viewProperties.coordinateSnapModeProperty,
+        this.viewProperties.valuesVisibleProperty,
+        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.gridVisibleProperty,
         explore2DModel.componentStyleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN

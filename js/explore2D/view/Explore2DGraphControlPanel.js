@@ -1,53 +1,56 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the Panel that appears on the upper-right corner of the 'Explore 2D' screen.
- *
- * Extends GraphControlPanel but adds the following functionality:
- *  - Creates 1 sum checkboxes per graph (for a total of 2 sum checkboxes since there are 2 graphs)
- *  - Toggles visibility of the sum checkboxes based on the coordinateSnapModeProperty
- *  - Has both an angle checkbox and a component style radio button group
- *
- * Graph Control Panels are not meant to be disposed, and links are left as-is.
+ * Explore1DGraphControlPanel is the graph control panel for the 'Explore 2D' screen.
+ * It exists for the lifetime of the sim and is not intended to be disposed.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
-
 define( require => {
   'use strict';
 
   // modules
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const AngleCheckbox = require( 'VECTOR_ADDITION/common/view/AngleCheckbox' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const ComponentStyleControl = require( 'VECTOR_ADDITION/common/view/ComponentStyleControl' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
+  const HSeparator = require( 'SUN/HSeparator' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
+  const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
+  const VectorAdditionGridCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionGridCheckbox' );
+  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-
 
   class Explore2DGraphControlPanel extends GraphControlPanel {
 
     /**
-     * @param {VectorAdditionViewProperties} viewProperties
      * @param {VectorSet} cartesianVectorSet
      * @param {VectorSet} polarVectorSet
+     * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
+     * @param {BooleanProperty} valuesVisibleProperty
+     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options]
      */
-    constructor( viewProperties, cartesianVectorSet, polarVectorSet, componentStyleProperty, options ) {
+    constructor( cartesianVectorSet, polarVectorSet, coordinateSnapModeProperty,
+                 valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty,
+                 componentStyleProperty, options ) {
 
-      assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
       assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
       assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-
-      //----------------------------------------------------------------------------------------
-      // Create the sum checkboxes (polar/cartesian)
+      assert && assert( coordinateSnapModeProperty instanceof EnumerationProperty, `invalid coordinateSnapModeProperty: ${coordinateSnapModeProperty}` );
+      assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
+      assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( angleVisibleProperty instanceof BooleanProperty, `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      assert && assert( gridVisibleProperty instanceof BooleanProperty, `invalid gridVisibleProperty: ${gridVisibleProperty}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
         cartesianVectorSet.vectorColorPalette );
@@ -57,20 +60,38 @@ define( require => {
 
       // Toggle visibility of the sumCheckboxes. Should only be visible if the coordinateSnapMode matches the
       // coordinate snap mode. Is never unlinked since the graph control panel is never disposed.
-      viewProperties.coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
-
-        polarSumCheckbox.visible = coordinateSnapMode === CoordinateSnapModes.POLAR;
-        cartesianSumCheckbox.visible = coordinateSnapMode === CoordinateSnapModes.CARTESIAN;
-
+      coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+        polarSumCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
+        cartesianSumCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
       } );
 
-      //----------------------------------------------------------------------------------------
+      super( [
 
-      super( viewProperties.valuesVisibleProperty, viewProperties.gridVisibleProperty, _.extend( {
-        sumCheckboxContainer: new Node( { children: [ cartesianSumCheckbox, polarSumCheckbox ] } ),
-        angleVisibleProperty: viewProperties.angleVisibleProperty,
-        componentStyleProperty: componentStyleProperty
-      }, options ) );
+        // Sum
+        new Node( {
+          children: [ cartesianSumCheckbox, polarSumCheckbox ]
+        } ),
+
+        // Values
+        new ValuesCheckbox( valuesVisibleProperty ),
+
+        // Angle
+        new AngleCheckbox( angleVisibleProperty ),
+
+        // Grid
+        new VectorAdditionGridCheckbox( gridVisibleProperty ),
+
+        // separator
+        new HSeparator( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {
+          stroke: VectorAdditionColors.BLACK
+        } ),
+
+        // Component Style
+        new ComponentStyleControl( componentStyleProperty, {
+          maxWidth: VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH
+        } )
+
+      ], options );
     }
   }
 

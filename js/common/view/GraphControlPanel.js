@@ -1,134 +1,44 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Base class for the Panel that appears on the upper-right corner of every screen respectively.
- *
- * Encapsulated class for all control panels but accommodates the different control panel content of each screen.
- * See https://github.com/phetsims/vector-addition/issues/79 for context.
- *
- * ## Ordering
- *  - Sum Checkboxes Container (optional)
- *  - Values Visible Checkbox
- *  - Angle Visible Checkbox (optional)
- *  - Grid Visible Checkbox
- *  - Line and Component style radio buttons (optional)
- *
- * Graph Control Panels are created at the start of the sim and are never disposed.
+ * Base class for graph control panels in this sim.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
-
 define( require => {
   'use strict';
 
   // modules
-  const AngleCheckbox = require( 'VECTOR_ADDITION/common/view/AngleCheckbox' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const ComponentStyleControl = require( 'VECTOR_ADDITION/common/view/ComponentStyleControl' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const GridCheckbox = require( 'SCENERY_PHET/GridCheckbox' );
-  const HSeparator = require( 'SUN/HSeparator' );
-  const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
-  const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-
-  //----------------------------------------------------------------------------------------
-  // constants
-  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
 
   class GraphControlPanel extends Panel {
 
     /**
-     * @param {BooleanProperty} valuesVisibleProperty - every graph control panel must have a 'Values' checkbox
-     * @param {BooleanProperty} gridVisibleProperty - every graph control panel must have a 'Grid' checkbox
+     * @param {Node[]} children
      * @param {Object} [options]
      */
-    constructor( valuesVisibleProperty, gridVisibleProperty, options ) {
+    constructor( children, options ) {
 
-      options = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
+      options = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, options );
 
-        // options that are specific to this class
-        sumCheckboxContainer: null,   // {null|Node} Option to add a container of sum checkboxes. If null, no sum
-                                      // checkbox container will be added to the panel. Sum checkboxes are made
-                                      // externally since the number of sum checkboxes vary for different screens.
-
-        angleVisibleProperty: null,   // {null|BooleanProperty} Option to pass a angle visible property. If non null, a
-                                      // checkbox will be created to toggle this property. If null, no angle checkbox
-                                      // will be made.
-
-        componentStyleProperty: null, // {null|EnumerationProperty.<ComponentStyles>} Options to pass a
-                                      // EnumerationProperty of the component styles. If non null, a
-                                      // ComponentStyleRadioButtonGroup will be created to toggle the component style.
-                                      // If null, no radio buttons will be made.
-
-        // superclass options
-        minWidth: 160,
-        maxWidth: 160
-
-      }, options );
-
-      //----------------------------------------------------------------------------------------
-
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
-        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( gridVisibleProperty instanceof BooleanProperty,
-        `invalid gridVisibleProperty: ${gridVisibleProperty}` );
-      assert && assert( !options.sumCheckboxContainer || options.sumCheckboxContainer instanceof Node,
-        `invalid options.sumCheckboxContainer: ${options.sumCheckboxContainer}` );
-      assert && assert( !options.angleVisibleProperty || options.angleVisibleProperty instanceof BooleanProperty,
-        `invalid options.angleVisibleProperty: ${options.angleVisibleProperty}` );
-      assert && assert( !options.componentStyleProperty
-                        || ComponentStyles.includes( options.componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${options.componentStyleProperty}` );
-
-      //----------------------------------------------------------------------------------------
-      const maxPanelContentWidth = options.maxWidth - 2 * options.xMargin;
-
-      const panelContent = [];
-
-      // Sum Checkboxes
-      if ( options.sumCheckboxContainer ) {
-        panelContent.push( options.sumCheckboxContainer );
-      }
-
-      // Values checkbox
-      panelContent.push( new ValuesCheckbox( valuesVisibleProperty ) );
-
-      // Angle checkbox
-      if ( options.angleVisibleProperty ) {
-        panelContent.push( new AngleCheckbox( options.angleVisibleProperty ) );
-      }
-
-      // Grid checkbox
-      panelContent.push( new GridCheckbox( gridVisibleProperty, _.extend( {}, CHECKBOX_OPTIONS, {
-        gridSize: 24
-      } ) ) );
-
-      //----------------------------------------------------------------------------------------
-      // Component style radio buttons
-      if ( options.componentStyleProperty ) {
-
-        // Add a HSeparator
-        const panelContentMaxWidth = _.maxBy( panelContent, node => node.width ).width;
-        const panelContentWidth = _.max( [ panelContentMaxWidth, options.minWidth - 2 * options.xMargin ] );
-        panelContent.push( new HSeparator( panelContentWidth, { stroke: VectorAdditionColors.BLACK } ) );
-
-        panelContent.push( new ComponentStyleControl( options.componentStyleProperty, {
-          maxWidth: maxPanelContentWidth
-        } ) );
-      }
-
-      //----------------------------------------------------------------------------------------
-      // Create the panel
-      super( new VBox( {
-        children: panelContent,
-        spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_SPACING,
+      const content = new VBox( {
+        children: children,
+        spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
         align: 'left'
-      } ), options );
+      } );
+
+      // Make the panel a fixed width
+      assert && assert( options.minWidth === undefined, 'GraphControlPanel sets minWidth' );
+      assert && assert( options.maxWidth === undefined, 'GraphControlPanel sets maxWidth' );
+      const panelWidth = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH + ( 2 * options.xMargin );
+      options.minWidth = panelWidth;
+      options.maxWidth = panelWidth;
+
+      super( content, options );
     }
   }
 

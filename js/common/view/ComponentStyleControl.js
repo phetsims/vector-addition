@@ -32,7 +32,7 @@ define( require => {
 
       options = _.extend( {
         align: 'left',
-        spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_SPACING,
+        spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
         maxWidth: 200
       }, options );
 
