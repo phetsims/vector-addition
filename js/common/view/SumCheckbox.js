@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * 'Sum' check box, used to control visibility of the sum vector
+ * SumCheckbox is the checkbox labeled 'Sum', used to control visibility of a sum vector.
  *
  * @author Brandon Li
  */
@@ -35,26 +35,20 @@ define( require => {
       assert && assert( vectorColorPalette instanceof VectorColorPalette,
         `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-      //----------------------------------------------------------------------------------------
-
-      const text = new Text( sumString, {
+      const textNode = new Text( sumString, {
         font: VectorAdditionConstants.CHECKBOX_FONT,
-        maxWidth: 95
+        maxWidth: 95 // determined empirically
       } );
+
+      const icon = VectorAdditionIconFactory.createSumIcon( vectorColorPalette );
 
       const content = new LayoutBox( {
         orientation: 'horizontal',
         spacing: VectorAdditionConstants.CHECKBOX_ICON_SPACING,
-        children: [
-          text,
-          VectorAdditionIconFactory.createSumIcon( vectorColorPalette )
-        ]
+        children: [ textNode, icon ]
       } );
 
-        super( content, sumVisibleProperty, VectorAdditionConstants.CHECKBOX_OPTIONS );
-
-      // @public {Text} textNode
-      this.textNode = text;
+      super( content, sumVisibleProperty, VectorAdditionConstants.CHECKBOX_OPTIONS );
     }
   }
 
