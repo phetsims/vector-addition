@@ -41,11 +41,9 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {
-        centerY: 70,
-        right: 465,
-        orientation: 'horizontal'
-      }, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
+      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, {
+        buttonContentXMargin: 12
+      }, options );
 
       //----------------------------------------------------------------------------------------
 

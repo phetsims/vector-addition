@@ -68,8 +68,6 @@ define( require => {
                                      // aligned in an AlignBox to ensure that they are the same width.
 
         // super class options
-        centerY: 70,
-        left: 140,
         contentFixedWidth: 205,
         contentFixedHeight: 50,
         contentXSpacing: 17

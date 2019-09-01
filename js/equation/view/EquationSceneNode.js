@@ -53,12 +53,7 @@ define( require => {
                  graphControlPanelBottom,
                  options ) {
 
-
       options = merge( {
-
-        // specific to this class
-        panelCenterY: 100, // {number} centerY of the equationTypesRadioButtonGroup and the equationToggleBox
-
 
         // super-class options
         includeEraser: false,
@@ -73,7 +68,6 @@ define( require => {
 
       }, options );
 
-
       super( equationGraph,
         valuesVisibleProperty,
         angleVisibleProperty,
@@ -82,30 +76,18 @@ define( require => {
         componentStyleProperty,
         options );
 
-
-      //----------------------------------------------------------------------------------------
-      // Add the "Equation Selector Radio Button Group"
-
       // convenience reference
       const graphViewBounds = equationGraph.modelViewTransformProperty.value.modelToViewBounds( equationGraph.graphModelBounds );
 
-      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationGraph.equationTypeProperty,
-        equationGraph.vectorSet.symbols, {
-          centerY: options.panelCenterY,
-          right: graphViewBounds.maxX
-        } );
-
-      this.addChild( equationTypesRadioButtonGroup );
-      equationTypesRadioButtonGroup.moveToBack(); // move to back to keep Vector Containers on top in the super class
-
-
       //----------------------------------------------------------------------------------------
       // Add a Coefficient Selector for each Equation Type
+      let lastEquationToggleBox = null;
       EquationTypes.VALUES.forEach( equationType => {
 
         const equationToggleBox = new EquationToggleBox( equationGraph.vectorSet, equationType, {
           expandedProperty: equationsExpandedProperty,
-          centerY: options.panelCenterY
+          left: graphViewBounds.left,
+          top: this.vectorValuesToggleBox.bottom + 10
         } );
 
         // Doesn't need to be unlinked since the equationToggleBox and the scene is never disposed
@@ -116,7 +98,19 @@ define( require => {
         this.addChild( equationToggleBox );
         equationToggleBox.moveToBack(); // move to back to keep Vector Containers on top in the super class
 
+        lastEquationToggleBox = equationToggleBox;
       } );
+
+      //----------------------------------------------------------------------------------------
+      // Add the "Equation Selector Radio Button Group"
+      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationGraph.equationTypeProperty,
+        equationGraph.vectorSet.symbols, {
+          centerY: lastEquationToggleBox.centerY,
+          left: lastEquationToggleBox.right + 20
+        } );
+
+      this.addChild( equationTypesRadioButtonGroup );
+      equationTypesRadioButtonGroup.moveToBack(); // move to back to keep Vector Containers on top in the super class
 
       //----------------------------------------------------------------------------------------
       // Add a Base Vector Accordion Box
@@ -131,9 +125,7 @@ define( require => {
 
       // Add the base vectors accordion box (semi-global)
       this.addChild( baseVectorsAccordionBox );
-
       baseVectorsAccordionBox.moveToBack();
-
 
       //----------------------------------------------------------------------------------------
       // 'Register' Vectors and add their Base Vectors and their components

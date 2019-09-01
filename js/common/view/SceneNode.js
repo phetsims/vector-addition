@@ -164,7 +164,8 @@ define( require => {
         vectorSumContainer.addChild( vectorSumNode );
       } );
 
-      // @private - create private references to parameters
+      // @private
+      this.vectorValuesToggleBox = vectorValuesToggleBox;
       this.componentStyleProperty = componentStyleProperty;
       this.graph = graph;
       this.valuesVisibleProperty = valuesVisibleProperty;

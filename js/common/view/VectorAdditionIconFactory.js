@@ -432,39 +432,35 @@ define( require => {
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
       assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1 );
 
-      //TODO get rid of options
-      const options = {
-        font: new PhetFont( 14 ),
-        spacing: 4.5,
-        symbolOptions: {
-          formulaNodeScale: 0.83
-        },
-        width: 90,  // {number} width of the icon
-        height: 25  // {number} height of the icon
+      let children = [];
+
+      const textOptions = {
+        font: new PhetFont( 18 )
       };
-
-      //----------------------------------------------------------------------------------------
-
-      let iconChildren = [];
 
       // Gather all the symbols on the left side of the equation into an array (for NEGATION, all symbols are on the
       // left side of the equation)
       const equationLeftSideSymbols = _.dropRight( vectorSymbols, equationType === EquationTypes.NEGATION ? 0 : 1 );
 
       equationLeftSideSymbols.forEach( symbol => {
-        iconChildren.push( new VectorSymbolNode( symbol, null, false, options.symbolOptions ) );
+        children.push( new VectorSymbolNode( symbol, null, false ) );
       } );
 
       // Interleave signs (i.e. '+'/'-') in between each symbol on the left side of the equation
-      iconChildren = interleave( iconChildren, () => {
-        return new Text( equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS, { font: options.font } );
+      children = interleave( children, () => {
+        return new Text( equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS, textOptions );
       } );
 
       // Add the second half of the equation, which is a '=' and the last of the symbols (which is the sum) or a '0'
-      iconChildren.push( new Text( MathSymbols.EQUAL_TO, { font: options.font } ),
-        equationType === EquationTypes.NEGATION ? new Text( '0', { font: options.font } ) : new VectorSymbolNode( _.last( vectorSymbols ), null, false, options.symbolOptions ) );
+      children.push( new Text( MathSymbols.EQUAL_TO, textOptions ) );
+      children.push( equationType === EquationTypes.NEGATION ?
+                     new Text( '0', textOptions ) :
+                     new VectorSymbolNode( _.last( vectorSymbols ), null, false ) );
 
-      return new HBox( { children: iconChildren, spacing: options.spacing } );
+      return new HBox( {
+        children: children,
+        spacing: 8
+      } );
     }
   };
 

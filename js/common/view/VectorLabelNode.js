@@ -83,7 +83,6 @@ define( require => {
       // Create the Vector Symbol Node, set to arbitrary value for now.
       const vectorSymbolNode = new VectorSymbolNode( null, null, false, {
         coefficientTextOptions: TEXT_OPTIONS,
-        formulaNodeScale: 0.97,
         spacing: 1
       } );
 
