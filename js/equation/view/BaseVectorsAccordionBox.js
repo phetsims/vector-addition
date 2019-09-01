@@ -49,7 +49,7 @@ define( require => {
   // constants
 
   // Checkbox options for the 'Show Base Vectors' checkbox
-  const CHECKBOX_OPTIONS = _.extend( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, { spacing: 3.5 } );
+  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
   const CHECKBOX_ICON_SPACING = VectorAdditionConstants.CHECKBOX_ICON_SPACING;
 
   // interval spacing of vector angle (in degrees) when vector is in polar mode
