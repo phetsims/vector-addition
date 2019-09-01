@@ -23,6 +23,7 @@ define( require => {
 
   class SumCheckbox extends Checkbox {
 
+    //TODO we don't need vectorColorPalette, all we need is the sum color
     /**
      * @param {BooleanProperty} sumVisibleProperty
      * @param {VectorColorPalette} vectorColorPalette
