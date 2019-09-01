@@ -438,21 +438,24 @@ define( require => {
         font: new PhetFont( 18 )
       };
 
-      // Gather all the symbols on the left side of the equation into an array (for NEGATION, all symbols are on the
-      // left side of the equation)
+      // Gather all the symbols for the left side of the equation into an array.
+      // For NEGATION, all symbols are on the left side of the equation)
       const equationLeftSideSymbols = _.dropRight( vectorSymbols, equationType === EquationTypes.NEGATION ? 0 : 1 );
 
+      // Create a vector symbol for each symbol on the left side of the equation.
       equationLeftSideSymbols.forEach( symbol => {
         children.push( new VectorSymbolNode( symbol, null, false ) );
       } );
 
-      // Interleave signs (i.e. '+'/'-') in between each symbol on the left side of the equation
+      // Interleave operators (i.e. '+'|'-') in between each symbol on the left side of the equation
       children = interleave( children, () => {
         return new Text( equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS, textOptions );
       } );
 
-      // Add the second half of the equation, which is a '=' and the last of the symbols (which is the sum) or a '0'
+      // '='
       children.push( new Text( MathSymbols.EQUAL_TO, textOptions ) );
+      
+      // Right side of the equation, which is either '0' or the last of the symbols (which is the sum).
       children.push( equationType === EquationTypes.NEGATION ?
                      new Text( '0', textOptions ) :
                      new VectorSymbolNode( _.last( vectorSymbols ), null, false ) );
