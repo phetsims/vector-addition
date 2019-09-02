@@ -6,7 +6,7 @@ Zero-length sum vector label should not be centered on tail location
 
 #153 Equation: different look for base vectors, gray
 
-#139, #150 Disable eraser button when there are no vectors to erase.
+DONE #139, #150 Disable eraser button when there are no vectors to erase.
 
 #148 Collapse equation scenes to one graph for each snap mode.
 
