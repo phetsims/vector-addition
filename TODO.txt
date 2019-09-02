@@ -1,5 +1,4 @@
-
-sumVisibleProperty should be a view Property, it's currently in the model
+TODO list for vector-addition
 
 Should sumVisibleProperty be per scene or global? what about Lab?
 
