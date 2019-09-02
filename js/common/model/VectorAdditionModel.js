@@ -1,11 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Root class (to be subtyped) for the top level model of every screen respectively.
+ * Root class (to be subclassed) for the top-level model of every screen.
  *
  * @author Martin Veillette
  */
-
 define( require => {
   'use strict';
 
@@ -27,8 +26,7 @@ define( require => {
 
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      // @public {EnumerationProperty.<ComponentStyles>} componentStyleProperty - controls the display type
-      //                                                                          (positioning) for component vectors
+      // @public controls the display type (positioning) for component vectors
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, STARTING_COMPONENT_STYLE );
     }
 

@@ -35,10 +35,6 @@ define( require => {
   // constants
   const COMPONENT_VECTOR_SYMBOL = null; // Vector components don't have a symbol
 
-  // rounding for the vector value (on the label with values checked)
-  const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
-
-
   class ComponentVector extends RootVector {
 
     /**
@@ -198,7 +194,7 @@ define( require => {
                              this.vectorComponents.y;
 
       // Round the component value
-      const roundedComponentValue = Util.toFixed( componentValue, VECTOR_VALUE_ROUNDING );
+      const roundedComponentValue = Util.toFixed( componentValue, VectorAdditionConstants.VECTOR_VALUE_ROUNDING );
 
       return {
         coefficient: null, // components never have a coefficient

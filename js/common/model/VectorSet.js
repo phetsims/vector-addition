@@ -28,7 +28,6 @@ define( require => {
   // https://github.com/phetsims/vector-addition/issues/10.
   const SUM_SYMBOL = 's';
 
-
   class VectorSet {
 
     /**

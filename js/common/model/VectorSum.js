@@ -40,7 +40,7 @@ define( require => {
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Graph} graph - graph the vector sum belongs to
      * @param {VectorSet} vectorSet - the vector set that the sum represents
-     * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+     * @param {string|null} symbol - the symbol for the sum vector (e.g. 's', 'c', 'f')
      */
     constructor( initialTailPosition, graph, vectorSet, symbol ) {
 

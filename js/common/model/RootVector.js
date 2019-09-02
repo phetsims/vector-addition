@@ -43,21 +43,18 @@ define( require => {
       assert && assert( vectorColorPalette instanceof VectorColorPalette,
         `invalid vectorColorPalette: ${vectorColorPalette}` );
       assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
-      //----------------------------------------------------------------------------------------
-
-      // @public (read-only) {Vector2Property} tailPositionProperty - the tail position of the vector on the graph
-      this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
       // @public (read-only) {Vector2Property} vectorComponentsProperty - (x and y as scalars, or in other words the
       // actual vector <x, y>). Every vector has a x and a y component (as a scalar).
       this.vectorComponentsProperty = new Vector2Property( initialComponents );
 
+      // @public (read-only) {Vector2Property} tailPositionProperty - the tail position of the vector on the graph
+      this.tailPositionProperty = new Vector2Property( initialTailPosition );
+
       // @public (read-only) {DerivedProperty.<Vector2>} tipPositionProperty - the tip position of the vector. Derived
       // from the tail and the components
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.vectorComponentsProperty ],
         ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
-
-      //----------------------------------------------------------------------------------------
 
       // @public (read-only) {VectorColorPalette}
       this.vectorColorPalette = vectorColorPalette;
