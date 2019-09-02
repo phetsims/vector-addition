@@ -21,10 +21,6 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
 
-  // constants
-  const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
-
-
   class Explore1DModel extends VectorAdditionModel {
 
     /**
@@ -34,19 +30,13 @@ define( require => {
 
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-
       super( tandem );
 
-      //----------------------------------------------------------------------------------------
-
-      // @public (read-only) {BooleanProperty} sumVisibleProperty - Property controlling the visibility of the sum for
-      //                                                            both Graph instances
-      this.sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
+      // @public Property controlling the visibility of the sum for both Graph instances
+      this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
       // @public (read-only) {VectorColorPalette} vector color palette for both graphs
       this.vectorColorPalette = VectorAdditionColors.VECTOR_COLOR_PALETTE_1;
-
-      //----------------------------------------------------------------------------------------
 
       // @public (read-only) {Graph}
       this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL,
@@ -62,17 +52,15 @@ define( require => {
     }
 
     /**
-     * Resets the Explore 1D Model. Called when the reset all button is clicked.
+     * Resets the Explore 1D Model.
      * @public
-     *
      * @override
      */
     reset() {
+      super.reset();
+      this.sumVisibleProperty.reset();
       this.verticalGraph.reset();
       this.horizontalGraph.reset();
-
-      this.sumVisibleProperty.reset();
-      super.reset();
     }
   }
 

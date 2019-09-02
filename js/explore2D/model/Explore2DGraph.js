@@ -11,13 +11,11 @@
  *
  * @author Brandon Li
  */
-
 define( require => {
   'use strict';
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
@@ -27,59 +25,28 @@ define( require => {
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  // constants
-  const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
-
-  // Explore 2D Graphs have the 'default' graph bounds
-  const EXPLORE_2D_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
-
-  // Explore 2D Graphs are two-dimensional
-  const EXPLORE_2D_GRAPH_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
-
-
   class Explore2DGraph extends Graph {
 
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {BooleanProperty} sumVisibleProperty
      * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
      */
-    constructor( coordinateSnapMode, componentStyleProperty, vectorColorPalette ) {
+    constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
 
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
-        `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette,
-        `invalid vectorColorPalette: ${vectorColorPalette}` );
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-
-      super( EXPLORE_2D_GRAPH_BOUNDS, coordinateSnapMode, EXPLORE_2D_GRAPH_ORIENTATION );
-
-      //----------------------------------------------------------------------------------------
-
-      // @public {BooleanProperty} sumVisibleProperty - Property controlling the visibility of the sum for this unique
-      //                                                Graph instance
-      this.sumVisibleProperty = new BooleanProperty( DEFAULT_SUM_VISIBLE );
+      super( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, GraphOrientations.TWO_DIMENSIONAL );
 
       // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 2D' have exactly one vector set
-      this.vectorSet = new VectorSet( this, componentStyleProperty, this.sumVisibleProperty, vectorColorPalette );
+      this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
 
       // Add the one and only vector set
       this.vectorSets.push( this.vectorSet );
-    }
-
-
-    /**
-     * Resets the Explore2DGraph. Essentially the same as the super class, but resets the sum visibility.
-     * @public
-     *
-     * @override
-     */
-    reset() {
-      this.sumVisibleProperty.reset();
-      super.reset();
     }
   }
 
