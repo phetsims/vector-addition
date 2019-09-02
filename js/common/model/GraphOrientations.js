@@ -14,9 +14,9 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   const GraphOrientations = new Enumeration( [
-    'HORIZONTAL',       // 1D, the graph only has only has a x-axis and its vectors are strictly horizontal
-    'VERTICAL',         // 1D, the graph only has only has a y-axis and its vectors are strictly vertical
-    'TWO_DIMENSIONAL'   // 2D, the graph has both axes and its vectors are unconstrained
+    'HORIZONTAL',       // 1D, the graph only has an x-axis, and its vectors are strictly horizontal
+    'VERTICAL',         // 1D, the graph only has a y-axis, and its vectors are strictly vertical
+    'TWO_DIMENSIONAL'   // 2D, the graph has both x & y axes, and its vectors are unconstrained
   ] );
 
   return vectorAddition.register( 'GraphOrientations', GraphOrientations );
