@@ -35,6 +35,7 @@ define( require => {
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const Property = require( 'AXON/Property' );
   const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -126,14 +127,23 @@ define( require => {
       // Add an eraser if necessary
       if ( options.includeEraser ) {
 
-        const eraser = new EraserButton( {
+        const eraserButton = new EraserButton( {
           listener: () => graph.erase(),
           left: graphViewBounds.maxX + 20,
           bottom: graphViewBounds.maxY
         } );
-        this.addChild( eraser );
+        this.addChild( eraserButton );
 
-        eraser.moveToBack(); // move to back to keep the Vector Containers on top
+        eraserButton.moveToBack(); // move to back to keep the Vector Containers on top
+
+        // Disable the eraser button when the number of vectors on the graph is zero, that is, when all vector sets
+        // contain no vectors. This is a bit more complicated than it should be, but it was added late in the
+        // development process.
+        const lengthProperties = _.map( graph.vectorSets, vectorSet => vectorSet.vectors.lengthProperty );
+        Property.multilink( lengthProperties, () => {
+          const numberOfVectors = _.sumBy( lengthProperties, lengthProperty => lengthProperty.value );
+          eraserButton.enabled = ( numberOfVectors !== 0 );
+        } );
       }
 
       //========================================================================================
