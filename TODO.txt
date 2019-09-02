@@ -14,6 +14,7 @@ BUG: Lab screen, check both Sum checkboxes, select one sum on graph, other sum d
 DESIGN: Should sumVisibleProperty be per scene or global? what about Lab?
 DESIGN: Vector toolbox and radio buttons have a very similar look, and are close together. Will there be confusion?
 DESIGN: Do we need to show components for base vectors? See TODO in EquationSceneNode
+DESIGN: What color should component vectors be for 'c' and 'f' in Equation screen?
 
 #107, #134 Equation: Base Vectors accordion box overlaps radio buttons
 #148 Collapse equation scenes to one graph for each snap mode.
