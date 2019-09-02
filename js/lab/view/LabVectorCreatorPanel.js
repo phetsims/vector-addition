@@ -56,7 +56,7 @@ define( require => {
         },
 
         // vertical space between slots in the panel
-        slotSpacing: 30
+        slotSpacing: 20
 
       }, options );
 
