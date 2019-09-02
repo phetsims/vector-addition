@@ -17,3 +17,5 @@ Disable eraser button when there are no vectors to erase.
 Collapse equation scenes to one graph for each snap mode.
 
 Tick labels on graph
+
+Change vector drag bounds and 'drag off' behavior
