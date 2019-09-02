@@ -1,0 +1,11 @@
+
+sumVisibleProperty should be a view Property, it's currently in the model
+sumVisibleProperty isn't global to the first 3 screens
+
+ViewProperties hierarchy needs to be either cleaned up or flattened
+
+VectorAdditionColors.EQUATION_SUM_FILL and EQUATION_SUM_STROKE should be in VectorColorPalettes
+
+Equation: different look for base vectors, gray
+
+Equation: Base Vectors accordion box overlaps radio buttons
