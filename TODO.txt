@@ -8,3 +8,7 @@ VectorAdditionColors.EQUATION_SUM_FILL and EQUATION_SUM_STROKE should be in Vect
 Equation: different look for base vectors, gray
 
 Equation: Base Vectors accordion box overlaps radio buttons
+
+Zero-length sum vector label should not be centered on tail location
+
+Revert origin manipulator diameter to be specified in view coordinates.
