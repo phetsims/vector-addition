@@ -59,6 +59,13 @@ define( require => {
       // Doesn't need to be unlinked since vector sums are never disposed
       sumVisibleProperty.linkAttribute( this, 'visible' );
 
+      // Making an active sum vector invisible clears activeVectorProperty. See #112.
+      sumVisibleProperty.link( sumVisible => {
+         if ( !sumVisible && graph.activeVectorProperty.value === vectorSum ) {
+           graph.activeVectorProperty.value = null;
+         }
+      } );
+
       // Double check that the vector node never is animated back
       // Doesn't need to be unlinked since vector sums are never disposed.
       assert && vectorSum.animateBackProperty.link( ( animateBack ) => {
