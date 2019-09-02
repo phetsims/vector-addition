@@ -45,6 +45,7 @@ define( require => {
 
       assert && assert( cartesianGraph instanceof LabGraph, `invalid cartesianGraph: ${cartesianGraph}` );
       assert && assert( polarGraph instanceof LabGraph, `invalid polarGraph: ${polarGraph}` );
+      assert && assert( coordinateSnapModeProperty instanceof EnumerationProperty, `invalid coordinateSnapModeProperty: ${coordinateSnapModeProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( angleVisibleProperty instanceof BooleanProperty, `invalid angleVisibleProperty: ${angleVisibleProperty}` );
       assert && assert( gridVisibleProperty instanceof BooleanProperty, `invalid gridVisibleProperty: ${gridVisibleProperty}` );

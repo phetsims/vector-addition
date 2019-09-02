@@ -230,18 +230,19 @@ define( require => {
     //========================================================================================
 
     /**
-     * Creates the icon that appears next to the 'Sum' checkbox on the control panel
+     * Creates a vector icon that points to the right, used with various checkboxes.
      * @public
-     * @param {VectorColorPalette} vectorColorPalette
+     * @param {Color|string|null} fill
+     * @param {Color|string|null} stroke
      * @returns {Node}
      */
-    createSumIcon: ( vectorColorPalette ) => {
+    createVectorIcon: ( fill, stroke ) => {
 
-      assert && assert( vectorColorPalette instanceof VectorColorPalette );
+      assert && assert( fill || stroke );
 
       return new ArrowNode( 0, 0, 22, 0, _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
-        fill: vectorColorPalette.sumFill,
-        stroke: vectorColorPalette.sumStroke
+        fill: fill,
+        stroke: stroke
       } ) );
     },
 

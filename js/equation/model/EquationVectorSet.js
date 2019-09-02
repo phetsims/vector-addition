@@ -14,7 +14,6 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationVector = require( 'VECTOR_ADDITION/equation/model/EquationVector' );
   const EquationVectorSum = require( 'VECTOR_ADDITION/equation/model/EquationVectorSum' );
@@ -39,23 +38,18 @@ define( require => {
     baseVectorTail: new Vector2( 45, 5 )
   } ];
 
-  const SUM_VISIBLE_PROPERTY = new BooleanProperty( true ); // Equation Vector Sums are always visible
-
   class EquationVectorSet extends VectorSet {
 
     /**
      * @param {EquationGraph} equationGraph
+     * @param {BooleanProperty} sumVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
      */
-    constructor( equationGraph, componentStyleProperty, vectorColorPalette, coordinateSnapMode ) {
+    constructor( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode ) {
 
-      super( equationGraph,
-        componentStyleProperty,
-        SUM_VISIBLE_PROPERTY,
-        vectorColorPalette,
-        VECTOR_SET_OPTIONS );
+      super( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, VECTOR_SET_OPTIONS );
 
       // @public (read-only) {array.<string>} symbols
       this.symbols = coordinateSnapMode === CoordinateSnapModes.CARTESIAN ?

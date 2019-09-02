@@ -12,6 +12,7 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
   const Tandem = require( 'TANDEM/Tandem' );
@@ -30,14 +31,19 @@ define( require => {
 
       super( tandem );
 
+      // @public
+      this.sumVisibleProperty = new BooleanProperty( true );
+
       // @public (read-only) {graph} cartesianGraph
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
+        this.sumVisibleProperty,
         VectorAdditionColors.VECTOR_COLOR_PALETTE_1 );
 
       // @public (read-only) {graph} polarGraph
       this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
+        this.sumVisibleProperty,
         VectorAdditionColors.VECTOR_COLOR_PALETTE_3 );
     }
 
@@ -48,6 +54,7 @@ define( require => {
      */
     reset() {
       super.reset();
+      this.sumVisibleProperty.reset();
       this.cartesianGraph.reset();
       this.polarGraph.reset();
     }

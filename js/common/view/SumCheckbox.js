@@ -40,7 +40,7 @@ define( require => {
         maxWidth: 95 // determined empirically
       } );
 
-      const icon = VectorAdditionIconFactory.createSumIcon( vectorColorPalette );
+      const icon = VectorAdditionIconFactory.createVectorIcon( vectorColorPalette.sumFill, vectorColorPalette.sumStroke );
 
       const content = new LayoutBox( {
         orientation: 'horizontal',

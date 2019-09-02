@@ -18,7 +18,7 @@ define( require => {
   'use strict';
 
   // modules
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
@@ -42,28 +42,23 @@ define( require => {
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {BooleanProperty} sumVisibleProperty
      * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
      */
-    constructor( coordinateSnapMode, componentStyleProperty, vectorColorPalette ) {
+    constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
 
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
-        `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette,
-        `invalid vectorColorPalette: ${vectorColorPalette}` );
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-      //----------------------------------------------------------------------------------------
       super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, GraphOrientations.TWO_DIMENSIONAL );
-
 
       // @public (read-only) {EnumerationProperty.<EquationTypes>} equationTypeProperty
       this.equationTypeProperty = new EnumerationProperty( EquationTypes, STARTING_EQUATION_TYPE );
 
-
       // @public (read-only) {EquationVectorSet} vectorSet
-      this.vectorSet = new EquationVectorSet( this, componentStyleProperty, vectorColorPalette, coordinateSnapMode );
+      this.vectorSet = new EquationVectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );
 
       this.vectorSets.push( this.vectorSet );
     }

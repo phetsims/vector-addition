@@ -40,6 +40,9 @@ define( require => {
 
       // Controls for the graph, at upper right
       const equationGraphControlPanel = new EquationGraphControlPanel(
+        equationModel.cartesianGraph.vectorSet,
+        equationModel.polarGraph.vectorSet,
+        this.viewProperties.coordinateSnapModeProperty,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.angleVisibleProperty,
         this.viewProperties.gridVisibleProperty,
