@@ -1,6 +1,7 @@
 
 sumVisibleProperty should be a view Property, it's currently in the model
-sumVisibleProperty isn't global to the first 3 screens
+
+Should sumVisibleProperty be per scene or global? what about Lab?
 
 VectorAdditionColors.EQUATION_SUM_FILL and EQUATION_SUM_STROKE should be in VectorColorPalettes
 
