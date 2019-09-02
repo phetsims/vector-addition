@@ -1,23 +1,43 @@
 TODO list for vector-addition
 
-Should sumVisibleProperty be per scene or global? what about Lab?
-
 VectorAdditionColors.EQUATION_SUM_FILL and EQUATION_SUM_STROKE should be in VectorColorPalettes
-
-Equation: different look for base vectors, gray
-
-Equation: Base Vectors accordion box overlaps radio buttons
 
 Zero-length sum vector label should not be centered on tail location
 
-Make origin manipulator smaller, expand pointer areas
+#153 Equation: different look for base vectors, gray
 
-Disable eraser button when there are no vectors to erase.
+#139, #150 Disable eraser button when there are no vectors to erase.
 
-Collapse equation scenes to one graph for each snap mode.
+#148 Collapse equation scenes to one graph for each snap mode.
 
-Tick labels on graph
+#152 Change vector drag bounds and 'drag off' behavior
 
-Change vector drag bounds and 'drag off' behavior
+#140 alignment problem with coefficients in equations
 
-Vector toolbox and radio buttons have a very similar look, and are close together. Will there be confusion?
+#136 add cueing arrows to vector head
+
+#134 layout of stuff to right of graph
+
+#128 layout of stuff above the graph
+
+#127 adjust graph range and MVT
+
+#127 Make origin manipulator smaller, expand pointer areas
+
+#112 Vector Values for 's' are shown after Sum is unchecked
+
+#110 checkbox for 'c' and 'f' vectors
+
+#107 polish icons on snap mode radio buttons
+
+#99 Tick labels on graph
+
+#94 sum vector associated with selected vector should be in front
+
+#93 mitigate overlapping labels
+
+#107, #134 Equation: Base Vectors accordion box overlaps radio buttons
+
+DESIGN: Should sumVisibleProperty be per scene or global? what about Lab?
+
+DESIGN: Vector toolbox and radio buttons have a very similar look, and are close together. Will there be confusion?
