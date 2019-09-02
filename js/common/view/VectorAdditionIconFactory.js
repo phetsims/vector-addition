@@ -371,7 +371,7 @@ define( require => {
     createPolarSnapModeIcon() {
 
       const iconSize = RADIO_BUTTON_ICON_SIZE;
-      const arcRadius = 20; // arc radius of the curved arrow
+      const arcRadius = 30; // arc radius of the curved arrow
 
       // Arrow that is 45 degrees to the right and up
       const arrow = new ArrowNode( 0, 0, iconSize, -iconSize, _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
