@@ -16,3 +16,5 @@ Revert origin manipulator diameter to be specified in view coordinates.
 Disable eraser button when there are no vectors to erase.
 
 Collapse equation scenes to one graph for each snap mode.
+
+Tick labels on graph
