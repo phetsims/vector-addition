@@ -33,33 +33,29 @@ define( require => {
 
     /**
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {Object} [options]
      */
-    constructor( componentStyleProperty, options ) {
+    constructor( componentStyleProperty ) {
 
       assert && assert( componentStyleProperty instanceof Property
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
-
-      //----------------------------------------------------------------------------------------
       const radioButtonsContent = [];
-
       ComponentStyles.VALUES.forEach( componentStyle => {
 
-        const button = new RadioButtonGroupMember( componentStyleProperty, componentStyle, _.extend( {
-          content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
-        }, options ) );
+        const button = new RadioButtonGroupMember( componentStyleProperty, componentStyle,
+          _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, {
+            content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
+          } ) );
 
         radioButtonsContent.push( new AlignBox( button, {
           alignBounds: new Bounds2( 0, 0, button.width, button.height )
         } ) );
       } );
 
-      super( { children: [ new GridLayoutBox( radioButtonsContent ) ] } );
+      super( {
+        children: [ new GridLayoutBox( radioButtonsContent ) ]
+      } );
     }
   }
 
