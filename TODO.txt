@@ -19,3 +19,5 @@ Collapse equation scenes to one graph for each snap mode.
 Tick labels on graph
 
 Change vector drag bounds and 'drag off' behavior
+
+Toolbox and radio buttons have a very similar look, and are close together. Will there be confusion?
