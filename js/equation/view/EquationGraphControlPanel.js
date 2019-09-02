@@ -11,7 +11,7 @@ define( require => {
   'use strict';
 
   // modules
-  const AngleCheckbox = require( 'VECTOR_ADDITION/common/view/AngleCheckbox' );
+  const AnglesCheckbox = require( 'VECTOR_ADDITION/common/view/AnglesCheckbox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const ComponentStyleControl = require( 'VECTOR_ADDITION/common/view/ComponentStyleControl' );
@@ -40,19 +40,19 @@ define( require => {
      * @param {VectorSet} polarVectorSet
      * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} anglesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options]
      */
     constructor( cartesianVectorSet, polarVectorSet, coordinateSnapModeProperty,
-                 valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty, componentStyleProperty, options ) {
+                 valuesVisibleProperty, anglesVisibleProperty, gridVisibleProperty, componentStyleProperty, options ) {
 
       assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
       assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
       assert && assert( coordinateSnapModeProperty instanceof EnumerationProperty, `invalid coordinateSnapModeProperty: ${coordinateSnapModeProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty, `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      assert && assert( anglesVisibleProperty instanceof BooleanProperty, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
       assert && assert( gridVisibleProperty instanceof BooleanProperty, `invalid gridVisibleProperty: ${gridVisibleProperty}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
 
@@ -79,8 +79,8 @@ define( require => {
         // Values
         new ValuesCheckbox( valuesVisibleProperty ),
 
-        // Angle
-        new AngleCheckbox( angleVisibleProperty ),
+        // Angles
+        new AnglesCheckbox( anglesVisibleProperty ),
 
         // Grid
         new VectorAdditionGridCheckbox( gridVisibleProperty ),

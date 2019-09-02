@@ -50,7 +50,7 @@ define( require => {
     /**
      * @param {Graph} graph
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} anglesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {BooleanProperty} vectorValuesExpandedProperty
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
@@ -58,7 +58,7 @@ define( require => {
      */
     constructor( graph,
                  valuesVisibleProperty,
-                 angleVisibleProperty,
+                 anglesVisibleProperty,
                  gridVisibleProperty,
                  vectorValuesExpandedProperty,
                  componentStyleProperty,
@@ -66,7 +66,7 @@ define( require => {
     ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( _.every( [ valuesVisibleProperty, angleVisibleProperty, gridVisibleProperty ] ), BooleanProperty );
+      assert && assert( _.every( [ valuesVisibleProperty, anglesVisibleProperty, gridVisibleProperty ] ), BooleanProperty );
       assert && assert( ComponentStyles.includes( componentStyleProperty.value ) );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
 
@@ -143,7 +143,7 @@ define( require => {
         const vectorSumNode = new VectorSumNode( vectorSet.vectorSum,
           graph,
           valuesVisibleProperty,
-          angleVisibleProperty,
+          anglesVisibleProperty,
           vectorSet.sumVisibleProperty,
           options.sumNodeOptions
         );
@@ -169,7 +169,7 @@ define( require => {
       this.componentStyleProperty = componentStyleProperty;
       this.graph = graph;
       this.valuesVisibleProperty = valuesVisibleProperty;
-      this.angleVisibleProperty = angleVisibleProperty;
+      this.anglesVisibleProperty = anglesVisibleProperty;
     }
 
     /**
@@ -199,7 +199,7 @@ define( require => {
         this.componentStyleProperty,
         this.valuesVisibleProperty );
 
-      const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.angleVisibleProperty );
+      const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.anglesVisibleProperty );
 
       this.vectorComponentContainer.addChild( xComponentNode );
       this.vectorComponentContainer.addChild( yComponentNode );

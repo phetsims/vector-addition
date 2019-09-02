@@ -33,7 +33,7 @@ define( require => {
     /**
      * @param {EquationGraph} equationGraph
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} anglesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
      * @param {BooleanProperty} vectorValuesExpandedProperty
      * @param {BooleanProperty} equationsExpandedProperty
@@ -45,7 +45,7 @@ define( require => {
      */
     constructor( equationGraph,
                  valuesVisibleProperty,
-                 angleVisibleProperty,
+                 anglesVisibleProperty,
                  gridVisibleProperty,
                  vectorValuesExpandedProperty,
                  equationsExpandedProperty,
@@ -72,7 +72,7 @@ define( require => {
 
       super( equationGraph,
         valuesVisibleProperty,
-        angleVisibleProperty,
+        anglesVisibleProperty,
         gridVisibleProperty,
         vectorValuesExpandedProperty,
         componentStyleProperty,
@@ -138,7 +138,7 @@ define( require => {
 
         // TODO: create add the components
         const baseVector = new VectorNode( equationVector.baseVector, equationGraph, valuesVisibleProperty,
-          angleVisibleProperty, VectorAdditionConstants.BASE_VECTOR_OPTIONS );
+          anglesVisibleProperty, VectorAdditionConstants.BASE_VECTOR_OPTIONS );
 
         baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
 

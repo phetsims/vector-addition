@@ -46,6 +46,7 @@ define( require => {
   const VECTOR_SHADOW_OFFSET_Y = 2.1;
 
   class VectorNode extends RootVectorNode {
+
     /**
      * @param {Vector} vector- the vector model
      * @param {Graph} graph - the graph the vector belongs to

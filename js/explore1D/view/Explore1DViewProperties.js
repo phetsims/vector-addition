@@ -41,7 +41,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Disable unused Properties. Links don't need to be unlinked since the Explore 1D screen is never disposed.
 
-      assert && this.angleVisibleProperty.link( angleVisible => {
+      assert && this.anglesVisibleProperty.link( angleVisible => {
         if ( angleVisible ) { assert( false, 'Angles are not used in Explore 1D' ); }
       } );
 

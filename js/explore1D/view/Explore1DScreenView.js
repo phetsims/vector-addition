@@ -72,7 +72,7 @@ define( require => {
         const sceneNode = new SceneNode(
           explore1DGraph,
           this.viewProperties.valuesVisibleProperty,
-          this.viewProperties.angleVisibleProperty,
+          this.viewProperties.anglesVisibleProperty,
           this.viewProperties.gridVisibleProperty,
           this.viewProperties.vectorValuesExpandedProperty,
           explore1DModel.componentStyleProperty, {

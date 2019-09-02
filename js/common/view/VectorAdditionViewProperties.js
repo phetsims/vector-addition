@@ -36,7 +36,7 @@ define( require => {
       this.gridVisibleProperty = new BooleanProperty( true );
 
       // @public controls the visibility of the angle
-      this.angleVisibleProperty = new BooleanProperty( false );
+      this.anglesVisibleProperty = new BooleanProperty( false );
 
       // @public controls the snapping mode for the vectors
       this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
@@ -52,7 +52,7 @@ define( require => {
     reset() {
       this.valuesVisibleProperty.reset();
       this.gridVisibleProperty.reset();
-      this.angleVisibleProperty.reset();
+      this.anglesVisibleProperty.reset();
       this.coordinateSnapModeProperty.reset();
       this.vectorValuesExpandedProperty.reset();
     }

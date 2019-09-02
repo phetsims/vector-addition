@@ -19,13 +19,13 @@ define( require => {
      * @param {Vector} vector- the vector model
      * @param {Graph} graph - the graph the vector belongs to
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} anglesVisibleProperty
      * @param {Object} [arrowOptions]
      */
-    constructor( vector, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions ) {
+    constructor( vector, graph, valuesVisibleProperty, anglesVisibleProperty, arrowOptions ) {
 
 
-      super( vector, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions );
+      super( vector, graph, valuesVisibleProperty, anglesVisibleProperty, arrowOptions );
 
 
       // Double check that the vector node never is animated back

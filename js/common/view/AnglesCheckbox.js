@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * AngleCheckbox is the checkbox labeled with an angle icon, used to control visibility of angles on vectors.
+ * AnglesCheckbox is the checkbox labeled with an angle icon, used to control visibility of angles on vectors.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -14,21 +14,21 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
-  class AngleCheckbox extends Checkbox {
+  class AnglesCheckbox extends Checkbox {
 
     /**
-     * @param {Property.<boolean>} angleVisibleProperty
+     * @param {Property.<boolean>} anglesVisibleProperty
      * @param {Object} [options]
      */
-    constructor( angleVisibleProperty, options ) {
+    constructor( anglesVisibleProperty, options ) {
 
       options = _.extend( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, options );
 
       const content = VectorAdditionIconFactory.createAngleIcon();
 
-      super( content, angleVisibleProperty, options );
+      super( content, anglesVisibleProperty, options );
     }
   }
 
-  return vectorAddition.register( 'AngleCheckbox', AngleCheckbox );
+  return vectorAddition.register( 'AnglesCheckbox', AnglesCheckbox );
 } );

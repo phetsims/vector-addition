@@ -60,14 +60,14 @@ define( require => {
   class VectorAngleNode extends Node {
     /**
      * @param {Vector} vector - the model for the vector that the angle represents
-     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} anglesVisibleProperty
      * @param {Graph} graph
      */
-    constructor( vector, angleVisibleProperty, graph ) {
+    constructor( vector, anglesVisibleProperty, graph ) {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty,
-        `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      assert && assert( anglesVisibleProperty instanceof BooleanProperty,
+        `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
 
       //----------------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ define( require => {
       // Observe when the angle visible Property is changing and update the visibility of the angle node. The angle is
       // only visible when the vector is both active and the angle checkbox is clicked
       const angleVisibleMultilink = Property.multilink(
-        [ angleVisibleProperty, vector.isOnGraphProperty ],
+        [ anglesVisibleProperty, vector.isOnGraphProperty ],
         ( angleVisible, isOnGraph ) => {
           
           // Visible if the angle checkbox is clicked and the vector is on the graph

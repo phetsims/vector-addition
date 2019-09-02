@@ -51,7 +51,7 @@ define( require => {
         labModel.polarGraph,
         this.viewProperties.coordinateSnapModeProperty,
         this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.anglesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
         labModel.componentStyleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
@@ -73,7 +73,7 @@ define( require => {
         const sceneNode = new SceneNode(
           labGraph,
           this.viewProperties.valuesVisibleProperty,
-          this.viewProperties.angleVisibleProperty,
+          this.viewProperties.anglesVisibleProperty,
           this.viewProperties.gridVisibleProperty,
           this.viewProperties.vectorValuesExpandedProperty,
           labModel.componentStyleProperty

@@ -52,7 +52,7 @@ define( require => {
         explore2DModel.polarGraph.vectorSet,
         this.viewProperties.coordinateSnapModeProperty,
         this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.anglesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
         explore2DModel.componentStyleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
@@ -75,7 +75,7 @@ define( require => {
         const sceneNode = new SceneNode(
           explore2DGraph,
           this.viewProperties.valuesVisibleProperty,
-          this.viewProperties.angleVisibleProperty,
+          this.viewProperties.anglesVisibleProperty,
           this.viewProperties.gridVisibleProperty,
           this.viewProperties.vectorValuesExpandedProperty,
           explore2DModel.componentStyleProperty

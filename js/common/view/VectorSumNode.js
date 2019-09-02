@@ -27,18 +27,18 @@ define( require => {
      * @param {VectorSum} vectorSum - the model for the vector sum
      * @param {Graph} graph - the graph the sum belongs to
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} angleVisibleProperty
+     * @param {BooleanProperty} anglesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
      * @param {Object} [arrowOptions]
      */
-    constructor( vectorSum, graph, valuesVisibleProperty, angleVisibleProperty, sumVisibleProperty, arrowOptions ) {
+    constructor( vectorSum, graph, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, arrowOptions ) {
 
       assert && assert( vectorSum instanceof VectorSum, `invalid vectorSum: ${vectorSum}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty,
-        `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      assert && assert( anglesVisibleProperty instanceof BooleanProperty,
+        `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
@@ -53,7 +53,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( vectorSum, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions );
+      super( vectorSum, graph, valuesVisibleProperty, anglesVisibleProperty, arrowOptions );
 
       // Update the visibility of the sum node based on the sum visible Property.
       // Doesn't need to be unlinked since vector sums are never disposed

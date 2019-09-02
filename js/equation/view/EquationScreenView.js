@@ -44,7 +44,7 @@ define( require => {
         equationModel.polarGraph.vectorSet,
         this.viewProperties.coordinateSnapModeProperty,
         this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.anglesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
         equationModel.componentStyleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
@@ -62,7 +62,7 @@ define( require => {
       const polarScene = new EquationSceneNode(
         equationModel.polarGraph,
         this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.anglesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
         this.viewProperties.vectorValuesExpandedProperty,
         this.viewProperties.equationsExpandedProperty,
@@ -75,7 +75,7 @@ define( require => {
       const cartesianScene = new EquationSceneNode(
         equationModel.cartesianGraph,
         this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.angleVisibleProperty,
+        this.viewProperties.anglesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
         this.viewProperties.vectorValuesExpandedProperty,
         this.viewProperties.equationsExpandedProperty,
