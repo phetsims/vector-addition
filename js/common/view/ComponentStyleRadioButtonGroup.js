@@ -29,9 +29,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
-  // constants
-  const RADIO_BUTTON_OPTIONS = VectorAdditionConstants.RADIO_BUTTON_OPTIONS;
-
   class ComponentStyleRadioButtonGroup extends Node {
 
     /**
@@ -46,7 +43,7 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {}, RADIO_BUTTON_OPTIONS, options, { orientation: 'horizontal' } );
+      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
 
       //----------------------------------------------------------------------------------------
       const radioButtonsContent = [];
