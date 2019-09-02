@@ -1,7 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View-specific Properties for the Equation screen.
+ * View-specific Properties for the 'Equation' screen. Expands on the base view Properties, and adds Properties
+ * that are unique to this screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

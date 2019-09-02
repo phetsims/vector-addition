@@ -9,7 +9,6 @@
  *
  * @author Brandon Li
  */
-
 define( require => {
   'use strict';
 
@@ -20,48 +19,40 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
-  // constants
-
-  // default graph orientation
-  const DEFAULT_VECTOR_ORIENTATION = GraphOrientations.HORIZONTAL;
-
-
   class Explore1DViewProperties extends VectorAdditionViewProperties {
 
-    /**
-     * @extends {VectorAdditionViewProperties}
-     */
     constructor() {
 
       super();
 
       // @public {EnumerationProperty.<GraphOrientations>} - Property that controls the Graph Orientation
-      this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, DEFAULT_VECTOR_ORIENTATION );
+      this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, GraphOrientations.HORIZONTAL );
 
       //----------------------------------------------------------------------------------------
       // Disable unused Properties. Links don't need to be unlinked since the Explore 1D screen is never disposed.
 
       assert && this.anglesVisibleProperty.link( angleVisible => {
-        if ( angleVisible ) { assert( false, 'Angles are not used in Explore 1D' ); }
+        if ( angleVisible ) {
+          throw new Error( 'Angles are not supported in Explore 1D' );
+        }
       } );
 
       // Disable polar / cartesian mode.
       assert && this.coordinateSnapModeProperty.link( coordinateSnapMode => {
         if ( coordinateSnapMode !== CoordinateSnapModes.CARTESIAN ) {
-          assert( false, 'Explore 1D only uses cartesian' );
+          throw new Error( 'Explore 1D only uses Cartesian' );
         }
       } );
-
     }
 
     /**
-     * Resets the view properties
+     * Resets the view Properties.
      * @public
      * @override
      */
     reset() {
-      this.graphOrientationProperty.reset();
       super.reset();
+      this.graphOrientationProperty.reset();
     }
   }
 

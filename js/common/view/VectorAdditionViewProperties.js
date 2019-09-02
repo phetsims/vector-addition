@@ -1,17 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View-specific Properties for the sim. Can be subtyped if necessary to add more properties.
- *
- * Responsibilities are:
- *  - values visibility
- *  - angle visibility
- *  - grid visibility
- *  - coordinate snap mode
+ * View-specific Properties for the sim. Can be subclasses if necessary to add more Properties.
  *
  * @author Brandon Li
  */
-
 define( require => {
   'use strict';
 
@@ -21,10 +14,6 @@ define( require => {
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  // constants
-  const STARTING_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
-
-
   class VectorAdditionViewProperties {
 
     constructor() {
@@ -32,14 +21,14 @@ define( require => {
       // @public indicates if the labels should contain the magnitudes
       this.valuesVisibleProperty = new BooleanProperty( false );
 
-      // @public indicates if the graph background grid is visible
-      this.gridVisibleProperty = new BooleanProperty( true );
-
       // @public controls the visibility of the angle
       this.anglesVisibleProperty = new BooleanProperty( false );
 
+      // @public indicates if the graph background grid is visible
+      this.gridVisibleProperty = new BooleanProperty( true );
+
       // @public controls the snapping mode for the vectors
-      this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, STARTING_COORDINATE_SNAP_MODE );
+      this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, CoordinateSnapModes.CARTESIAN );
 
       // @public whether the VectorValuesToggleBox is expanded
       this.vectorValuesExpandedProperty = new BooleanProperty( true );
@@ -51,8 +40,8 @@ define( require => {
      */
     reset() {
       this.valuesVisibleProperty.reset();
-      this.gridVisibleProperty.reset();
       this.anglesVisibleProperty.reset();
+      this.gridVisibleProperty.reset();
       this.coordinateSnapModeProperty.reset();
       this.vectorValuesExpandedProperty.reset();
     }
