@@ -97,6 +97,11 @@ define( require => {
       fill: 'rgb( 5, 200, 0 )',
       sumFill: 'rgb( 5, 200, 0 )',
       componentFill: 'rgb( 150, 205, 150 )'
+    } ),
+
+    // base vectors (gray)
+    BASE_VECTOR_COLOR_PALETTE: new VectorColorPalette( {
+      fill: 'rgb( 180, 180, 180 )'
     } )
   };
 
