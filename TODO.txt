@@ -14,3 +14,5 @@ Zero-length sum vector label should not be centered on tail location
 Revert origin manipulator diameter to be specified in view coordinates.
 
 Disable eraser button when there are no vectors to erase.
+
+Collapse equation scenes to one graph for each snap mode.
