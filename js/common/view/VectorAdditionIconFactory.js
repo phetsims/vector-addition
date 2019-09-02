@@ -479,7 +479,7 @@ define( require => {
    * @param {Vector2[]} tipLocations - tip locations of all vectors (vectors are aligned tip to tail)
    * @param {Vector2} startingTailLocation - tail location of the first vector
    * @param {Object} [arrowOptions] - passed to arrow nodes
-   * @returns {Array.<ArrowNode>}
+   * @returns {ArrowNode[]}
    */
   function createTipToTailArrowNodes( tipLocations, startingTailLocation, arrowOptions ) {
 

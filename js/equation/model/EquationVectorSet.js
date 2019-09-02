@@ -51,7 +51,7 @@ define( require => {
 
       super( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, VECTOR_SET_OPTIONS );
 
-      // @public (read-only) {array.<string>} symbols
+      // @public (read-only) {string[]} symbols
       this.symbols = coordinateSnapMode === CoordinateSnapModes.CARTESIAN ?
                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;

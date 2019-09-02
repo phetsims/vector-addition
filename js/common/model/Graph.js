@@ -66,7 +66,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public {array.<VectorSet>} vectorSets - the vectorSets for this graph
+      // @public {VectorSet[]} vectorSets - the vectorSets for this graph
       this.vectorSets = [];
 
       // @public (read-only) {GraphOrientations} orientation - orientation for the graph (final variable)
