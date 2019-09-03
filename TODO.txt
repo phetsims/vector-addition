@@ -1,15 +1,11 @@
 TODO list for vector-addition
 
-DONE: #107 polish icons on snap mode radio buttons
-
 VectorAdditionColors.EQUATION_SUM_FILL and EQUATION_SUM_STROKE should be in VectorColorPalettes
 
-BUG: Lab screen, check both Sum checkboxes, select one sum on graph, other sum disappears from graph
-DESIGN: Should sumVisibleProperty be per scene or global? what about Lab?
-DESIGN: Vector toolbox and radio buttons have a very similar look, and are close together. Will there be confusion?
-DESIGN: Do we need to show components for base vectors? See TODO in EquationSceneNode
-DESIGN: What color should component vectors be for 'c' and 'f' in Equation screen?
-
+#160 Lab screen, check both Sum checkboxes, select one sum on graph, other sum disappears from graph
+#159 What color should component vectors be for 'c' and 'f' in Equation screen?
+#158 should components be shown for base vectors?
+#157 scope of 'Sum' checkboxes
 #156 Zero-length sum vector label should not be centered on tail location
 #107, #134 Equation: Base Vectors accordion box overlaps radio buttons
 #148 Collapse equation scenes to one graph for each snap mode.
