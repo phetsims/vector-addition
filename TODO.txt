@@ -19,3 +19,6 @@ VectorAdditionColors.EQUATION_SUM_FILL and EQUATION_SUM_STROKE should be in Vect
 #99 Tick labels on graph
 #94 sum vector associated with selected vector should be in front
 #93 mitigate overlapping labels
+#91 dragging tip to tail vectors
+#87 memory leak
+#84 dashed component vectors and 'dashedComponent' branch
