@@ -70,8 +70,8 @@ define( require => {
      * @override
      */
     reset() {
-      this.equationTypeProperty.reset();
       super.reset();
+      this.equationTypeProperty.reset();
     }
   }
 
