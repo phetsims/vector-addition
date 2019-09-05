@@ -74,34 +74,50 @@ define( require => {
     // blue
     VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
       fill: 'rgb( 10, 170, 250 )',
-      sumFill: 'rgb( 10, 170, 250 )',
-      componentFill: 'rgb( 120, 200, 255 )'
+      componentFill: 'rgb( 120, 200, 255 )',
+      sumFill: 'rgb( 10, 170, 250 )'
     } ),
 
     // red
     VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
       fill: 'rgb( 232, 25, 9 )',
-      sumFill: 'rgb( 232, 25, 9 )',
-      componentFill: 'rgb( 245, 120, 120 )'
+      componentFill: 'rgb( 245, 120, 120 )',
+      sumFill: 'rgb( 232, 25, 9 )'
     } ),
 
     // purple
     VECTOR_COLOR_PALETTE_3: new VectorColorPalette( {
       fill: PURPLE,
-      sumFill: PURPLE,
-      componentFill: 'rgb( 216, 191, 216 )'
+      componentFill: 'rgb( 216, 191, 216 )',
+      sumFill: PURPLE
     } ),
 
     // green
     VECTOR_COLOR_PALETTE_4: new VectorColorPalette( {
       fill: 'rgb( 5, 200, 0 )',
-      sumFill: 'rgb( 5, 200, 0 )',
-      componentFill: 'rgb( 150, 205, 150 )'
+      componentFill: 'rgb( 150, 205, 150 )',
+      sumFill: 'rgb( 5, 200, 0 )'
     } ),
 
     // base vectors (gray)
     BASE_VECTOR_COLOR_PALETTE: new VectorColorPalette( {
       fill: 'rgb( 180, 180, 180 )'
+    } ),
+
+    // Equation screen, blue
+    EQUATION_VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
+      fill: 'rgb( 10, 170, 250 )',
+      componentFill: 'rgb( 120, 200, 255 )',
+      sumFill: BLACK,
+      sumComponentFill: 'rgb( 130, 130, 130 )'
+    } ),
+
+    // Equation screen, purple
+    EQUATION_VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
+      fill: PURPLE,
+      componentFill: 'rgb( 216, 191, 216 )',
+      sumFill: PURPLE,
+      sumComponentFill: 'rgb( 130, 130, 130 )'
     } )
   };
 

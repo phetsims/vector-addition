@@ -22,13 +22,17 @@ define( require => {
         fill: 'black',
         stroke: null,
 
+        // colors used for component vectors
+        componentFill: 'gray',
+        componentStroke: null,
+
         // colors used for sum vectors
         sumFill: 'white',
         sumStroke: 'black',
 
-        // colors used for component vectors
-        componentFill: 'gray',
-        componentStroke: null,
+        // defaults to componentFill and componentStroke
+        sumComponentFill: null,
+        sumComponentStroke: null,
 
         // colors used for the background behind the label on a non-active vector
         labelBackgroundFill: 'rgb( 235, 235, 235 )',
@@ -39,10 +43,12 @@ define( require => {
       // @public (read-only)
       this.fill = options.fill;
       this.stroke = options.stroke;
-      this.sumFill = options.sumFill;
-      this.sumStroke = options.sumStroke;
       this.componentFill = options.componentFill;
       this.componentStroke = options.componentStroke;
+      this.sumFill = options.sumFill;
+      this.sumStroke = options.sumStroke;
+      this.sumComponentFill = options.sumComponentFill || options.componentFill;
+      this.sumComponentStroke = options.componentStroke || options.componentStroke;
       this.labelBackgroundFill = options.labelBackgroundFill;
       this.labelBackgroundStroke = options.labelBackgroundStroke;
     }

@@ -38,13 +38,13 @@ define( require => {
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorAdditionColors.VECTOR_COLOR_PALETTE_1 );
+        VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1 );
 
       // @public (read-only) {graph} polarGraph
       this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorAdditionColors.VECTOR_COLOR_PALETTE_3 );
+        VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_2 );
     }
 
     /**
