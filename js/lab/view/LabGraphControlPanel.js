@@ -33,6 +33,8 @@ define( require => {
      * @param {LabGraph} cartesianGraph
      * @param {LabGraph} polarGraph
      * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
+     * @param {Property.<boolean>} sumVisibleProperty1
+     * @param {Property.<boolean>} sumVisibleProperty2
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} anglesVisibleProperty
      * @param {BooleanProperty} gridVisibleProperty
@@ -40,6 +42,7 @@ define( require => {
      * @param {Object} [options]
      */
     constructor( cartesianGraph, polarGraph, coordinateSnapModeProperty,
+                 sumVisibleProperty1, sumVisibleProperty2,
                  valuesVisibleProperty, anglesVisibleProperty, gridVisibleProperty,
                  componentStyleProperty, options ) {
 
@@ -57,8 +60,8 @@ define( require => {
         // Create the 2 sum checkboxes for each vector set inside of a VBox
         const sumCheckboxes = new VBox( {
           children: [
-            new SumCheckbox( labGraph.sumVisibleProperty1, labGraph.vectorSet1.vectorColorPalette ),
-            new SumCheckbox( labGraph.sumVisibleProperty2, labGraph.vectorSet2.vectorColorPalette )
+            new SumCheckbox( sumVisibleProperty1, labGraph.vectorSet1.vectorColorPalette ),
+            new SumCheckbox( sumVisibleProperty2, labGraph.vectorSet2.vectorColorPalette )
           ],
           spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING
         } );

@@ -50,6 +50,8 @@ define( require => {
         labModel.cartesianGraph,
         labModel.polarGraph,
         this.viewProperties.coordinateSnapModeProperty,
+        labModel.sumVisibleProperty1,
+        labModel.sumVisibleProperty2,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.anglesVisibleProperty,
         this.viewProperties.gridVisibleProperty,

@@ -17,7 +17,6 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
@@ -29,25 +28,24 @@ define( require => {
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  // constants
-  const DEFAULT_SUM_VISIBLE = VectorAdditionConstants.DEFAULT_SUM_VISIBLE;
-
   // Lab Graphs have the 'default' graph bounds
   const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
   // Lab Graphs are two-dimensional
   const LAB_GRAPH_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
 
-
   class LabGraph extends Graph {
 
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {Property.<boolean>} sumVisibleProperty1
+     * @param {Property.<boolean>} sumVisibleProperty2
      * @param {VectorColorPalette} vectorColorPalette1 - color palette for the first vector set
      * @param {VectorColorPalette} vectorColorPalette2 - color palette for the second vector set
      */
-    constructor( coordinateSnapMode, componentStyleProperty, vectorColorPalette1, vectorColorPalette2 ) {
+    constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty1, sumVisibleProperty2,
+                 vectorColorPalette1, vectorColorPalette2 ) {
 
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
@@ -59,49 +57,20 @@ define( require => {
       assert && assert( vectorColorPalette2 instanceof VectorColorPalette,
         `invalid vectorColorPalette2: ${vectorColorPalette2}` );
 
-
       super( LAB_GRAPH_BOUNDS, coordinateSnapMode, LAB_GRAPH_ORIENTATION );
 
-      //----------------------------------------------------------------------------------------
-      // Create the 2 sum visible properties (one for each vector set)
-
-      // @public {BooleanProperty} sumVisibleProperty1 - Property controlling the visibility of the sum for the
-      //                                                 first vector set
-      this.sumVisibleProperty1 = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      // @public {BooleanProperty} sumVisibleProperty2 - Property controlling the visibility of the sum for the
-      //                                                 second vector set
-      this.sumVisibleProperty2 = new BooleanProperty( DEFAULT_SUM_VISIBLE );
-
-      //----------------------------------------------------------------------------------------
-      // Create and add the vector sets (a total of 2 vector sets per graph)
-
-      const graphBounds = LAB_GRAPH_BOUNDS; // convenience reference
-
       // @public (read-only) {VectorSet} vectorSet1
-      this.vectorSet1 = new VectorSet( this, componentStyleProperty, this.sumVisibleProperty1, vectorColorPalette1, {
-        initialSumTailPosition: new Vector2( graphBounds.minX + 1 * graphBounds.width / 3, graphBounds.centerY )
+      this.vectorSet1 = new VectorSet( this, componentStyleProperty, sumVisibleProperty1, vectorColorPalette1, {
+        initialSumTailPosition: new Vector2( LAB_GRAPH_BOUNDS.minX + 1 * LAB_GRAPH_BOUNDS.width / 3, LAB_GRAPH_BOUNDS.centerY )
       } );
 
       // @public (read-only) {VectorSet} vectorSet2
-      this.vectorSet2 = new VectorSet( this, componentStyleProperty, this.sumVisibleProperty2, vectorColorPalette2, {
-        initialSumTailPosition: new Vector2( graphBounds.minX + 2 * graphBounds.width / 3, graphBounds.centerY )
+      this.vectorSet2 = new VectorSet( this, componentStyleProperty, sumVisibleProperty2, vectorColorPalette2, {
+        initialSumTailPosition: new Vector2( LAB_GRAPH_BOUNDS.minX + 2 * LAB_GRAPH_BOUNDS.width / 3, LAB_GRAPH_BOUNDS.centerY )
       } );
 
       // Add the vector sets
       this.vectorSets.push( this.vectorSet1, this.vectorSet2 );
-    }
-
-    /**
-     * Resets the LabGraph. Essentially the same as the super class, but resets the sum visibility.
-     * @public
-     *
-     * @override
-     */
-    reset() {
-      this.sumVisibleProperty1.reset();
-      this.sumVisibleProperty2.reset();
-      super.reset();
     }
   }
 
