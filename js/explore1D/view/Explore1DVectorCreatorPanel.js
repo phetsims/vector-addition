@@ -33,7 +33,7 @@ define( require => {
      * @param {Explore1DGraph} explore1DGraph
      * @param {SceneNode} sceneNode
      * @param {string[]} symbols - the symbols corresponding to each slot
-     * @@param {Object} [options]
+     * @param {Object} [options]
      */
     constructor( explore1DGraph, sceneNode, symbols, options ) {
 

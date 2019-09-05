@@ -40,7 +40,7 @@ define( require => {
      * @param {string|null} symbol - optional symbol to display (See comment at the top of the file)
      * @param {number|null} coefficient - optional coefficient to display
      * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
-     * @param {Object} [options]
+     * @param {Object} [options] TODO #165 options not passed to super
      */
     constructor( symbol, coefficient, includeAbsoluteValueBars, options ) {
 

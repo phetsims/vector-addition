@@ -45,7 +45,7 @@ define( require => {
      * @param {ModelViewTransform2} modelViewTransformProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Property.<RootVector|null>} activeVectorProperty
-     * @param {Object} [options]
+     * @param {Object} [options] TODO #165 options not passed to super
      */
     constructor( rootVector, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
 

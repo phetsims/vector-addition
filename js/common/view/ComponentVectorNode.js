@@ -46,7 +46,7 @@ define( require => {
      * @param {Graph} graph - the graph the component vector belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
-     * @param {Object} [options]
+     * @param {Object} [options] TODO #165 options not passed to super
      */
     constructor( componentVector, graph, componentStyleProperty, valuesVisibleProperty, options ) {
 
