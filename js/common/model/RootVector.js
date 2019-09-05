@@ -67,8 +67,8 @@ define( require => {
      * @public
      */
     reset() {
-      this.tailPositionProperty.reset();
       this.vectorComponentsProperty.reset();
+      this.tailPositionProperty.reset();
     }
 
     /**
