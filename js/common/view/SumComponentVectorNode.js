@@ -24,16 +24,15 @@ define( require => {
 
   class SumComponentVectorNode extends ComponentVectorNode {
 
-    //TODO VectorComponent does not exist
     /**
-     * @param {VectorComponent} vectorComponentModel - the vector model for the component
+     * @param {ComponentVector} componentVector - the vector model for the component
      * @param {Graph} graph - the graph the component belongs to
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
      * @param {Object} [options]
      */
-    constructor( vectorComponentModel,
+    constructor( componentVector,
                  graph,
                  componentStyleProperty,
                  valuesVisibleProperty,
@@ -51,7 +50,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      super( vectorComponentModel, graph, componentStyleProperty, valuesVisibleProperty, options );
+      super( componentVector, graph, componentStyleProperty, valuesVisibleProperty, options );
 
       // @private {BooleanProperty} sumVisibleProperty
       this.sumVisibleProperty = sumVisibleProperty;
@@ -60,10 +59,10 @@ define( require => {
       // Doesn't need to be unlinked since vector sums are never disposed.
       sumVisibleProperty.link( () => {
 
-        this.updateComponentVector( vectorComponentModel,
+        this.updateComponentVector( componentVector,
           graph.modelViewTransformProperty.value,
           componentStyleProperty.value,
-          vectorComponentModel.isParentVectorActiveProperty );
+          componentVector.isParentVectorActiveProperty );
 
       } );
     }
@@ -72,13 +71,13 @@ define( require => {
      * Handles visibility base on the sum visibility
      * @private
      *
-     * @param {vectorComponentModel} vectorComponentModel
+     * @param {ComponentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
      * @param {boolean} isParentActive
      */
-    updateComponentVector( vectorComponentModel, modelViewTransform, componentStyle, isParentActive ) {
-      super.updateComponentVector( vectorComponentModel, modelViewTransform, componentStyle, isParentActive );
+    updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
+      super.updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive );
 
       // SumVisible is not defined in superclass. Sum component is visible when both the sum is visible
       // and component style isn't invisible

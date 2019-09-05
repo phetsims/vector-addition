@@ -132,7 +132,7 @@ define( require => {
      *  - Determines visibility (i.e. components shouldn't be visible on INVISIBLE)
      * @protected
      *
-     * @param {componentVector} componentVector
+     * @param {ComponentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentStyles} componentStyle
      * @param {boolean} isParentActive
