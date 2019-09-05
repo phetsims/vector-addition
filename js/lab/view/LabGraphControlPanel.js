@@ -54,10 +54,10 @@ define( require => {
       assert && assert( gridVisibleProperty instanceof BooleanProperty, `invalid gridVisibleProperty: ${gridVisibleProperty}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
 
+      // Create 2 'Sum' checkboxes for each graph
       const sumCheckboxContainer = new Node();
       [ cartesianGraph, polarGraph ].forEach( labGraph => {
 
-        // Create the 2 sum checkboxes for each vector set inside of a VBox
         const sumCheckboxes = new VBox( {
           children: [
             new SumCheckbox( sumVisibleProperty1, labGraph.vectorSet1.vectorColorPalette ),
@@ -65,15 +65,13 @@ define( require => {
           ],
           spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING
         } );
+        sumCheckboxContainer.addChild( sumCheckboxes );
 
         // Toggle visibility of the sumCheckboxes. Should only be visible if the coordinateSnapMode matches the
         // labGraph's coordinateSnapMode. Is never unlinked since the graph control panel is never disposed.
         coordinateSnapModeProperty.link( coordinateSnapMode => {
           sumCheckboxes.visible = coordinateSnapMode === labGraph.coordinateSnapMode;
         } );
-
-        // Add the sum checkbox VBox to the sum checkbox container
-        sumCheckboxContainer.addChild( sumCheckboxes );
       } );
 
       super( [
