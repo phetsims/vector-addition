@@ -62,8 +62,8 @@ define( require => {
       const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty,
         polarVectorSet.vectorSum.symbol, VECTOR_CHECKBOX_OPTIONS );
 
-      // Toggle visibility of the sumCheckboxes. Should only be visible if the coordinateSnapMode matches the
-      // coordinate snap mode. Is never unlinked since the graph control panel is never disposed.
+      // Toggle visibility of the SumCheckboxes to match coordinate snap mode.
+      // Is never unlinked since the graph control panel is never disposed.
       coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
         cartesianVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
         polarVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
