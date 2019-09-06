@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the graph, including its grid, axes, ticks, and origin dot.
+ * GraphNode draws the graph, including its grid, axes, ticks, and origin dot.
  * The origin dot is draggable, which changes the modelViewTransformProperty of the graph.
  *
  * @author Martin Veillette
