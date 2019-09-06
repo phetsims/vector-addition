@@ -86,7 +86,7 @@ define( require => {
           stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR,
           lineWidth: MINOR_GRID_LINE_WIDTH
         } ),
-        new GridLinesNode( graph, graphViewBounds, gridVisibilityProperty )
+        new MajorAndMinorGridLines( graph, graphViewBounds, gridVisibilityProperty )
       ];
 
       // Create axes as needed, based on graph orientation
@@ -105,7 +105,10 @@ define( require => {
     }
   }
 
-  class GridLinesNode extends Node {
+  /**
+   * Draws the major and minor grid lines.  Handles visibility of the grid.
+   */
+  class MajorAndMinorGridLines extends Node {
 
     /**
      * @param {Graph} graph - the model graph for the node
@@ -142,7 +145,7 @@ define( require => {
 
   /**
    * Draws grid lines at some spacing. Used to draw major and minor grid lines.
-   * Optimized to take advantage of constant view bounds.
+   * Updates when the origin changes. Optimized to take advantage of constant view bounds.
    */
   class GridLines extends Path {
 
