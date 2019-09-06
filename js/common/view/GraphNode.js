@@ -251,7 +251,7 @@ define( require => {
      * @abstract
      */
     updateAxisArrow( graphViewBounds, graphViewOrigin ) {
-      throw new Error( 'abstract method must be implemented' );
+      throw new Error( 'abstract method must be implemented by subclass' );
     }
 
     /**
@@ -261,7 +261,7 @@ define( require => {
      * @abstract
      */
     updateAxisLabels( graphViewOrigin ) {
-      throw new Error( 'abstract method must be implemented' );
+      throw new Error( 'abstract method must be implemented by subclass' );
     }
 
     /**
@@ -273,7 +273,7 @@ define( require => {
      * @abstract
      */
     createTicksShape( graphModelBounds, modelViewTransform ) {
-      throw new Error( 'abstract method must be implemented' );
+      throw new Error( 'abstract method must be implemented by subclass' );
     }
   }
 
@@ -291,7 +291,6 @@ define( require => {
      * @param {Bounds2} graphViewBounds - the bounds of the grid in view coordinates
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      * @protected
-     * @override
      */
     updateAxisArrow( graphViewBounds, graphViewOrigin ) {
       this.axisArrow.setTailAndTip(
@@ -306,7 +305,6 @@ define( require => {
      * Updates the location of the labels
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      * @protected
-     * @override
      */
     updateAxisLabels( graphViewOrigin ) {
 
@@ -327,7 +325,6 @@ define( require => {
      * @param {ModelViewTransform2} modelViewTransform - the new modelViewTransform
      * @returns {Shape} the new axis ticks shape in View coordinates
      * @protected
-     * @override
      */
     createTicksShape( graphModelBounds, modelViewTransform ) {
 
@@ -363,7 +360,6 @@ define( require => {
      * @param {Bounds2} graphViewBounds - the bounds of the grid in view coordinates
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      * @protected
-     * @override
      */
     updateAxisArrow( graphViewBounds, graphViewOrigin ) {
       this.axisArrow.setTailAndTip(
@@ -378,7 +374,6 @@ define( require => {
      * Updates the location of the labels
      * @param {Vector2} graphViewOrigin - the origin location in view coordinates
      * @protected
-     * @override
      */
     updateAxisLabels( graphViewOrigin ) {
 
@@ -399,7 +394,6 @@ define( require => {
      * @param {ModelViewTransform2} modelViewTransform - the new modelViewTransform
      * @returns {Shape} the new axis ticks shape in View coordinates
      * @protected
-     * @override
      */
     createTicksShape( graphModelBounds, modelViewTransform ) {
 
