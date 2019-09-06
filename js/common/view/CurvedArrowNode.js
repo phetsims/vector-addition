@@ -19,13 +19,13 @@ define( require => {
   'use strict';
 
   // modules
+  const Color = require( 'SCENERY/util/Color' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Shape = require( 'KITE/Shape' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
   class CurvedArrowNode extends Node {
 
@@ -49,13 +49,13 @@ define( require => {
 
         // {Object} options passed to the Path that creates the arrow's curved tail (arc)
         arcOptions: {
-          stroke: VectorAdditionColors.BLACK,
+          stroke: Color.BLACK,
           lineWidth: 1.2
         },
 
         // {Object} options passed to the Path that creates the arrow's head
         arrowOptions: {
-          fill: VectorAdditionColors.BLACK
+          fill: Color.BLACK
         }
 
       }, options );

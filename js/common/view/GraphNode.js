@@ -13,6 +13,7 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Color = require( 'SCENERY/util/Color' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -52,7 +53,7 @@ define( require => {
   const ORIGIN_TICK_LENGTH = 2; // model units
   const TICK_MARK_OPTIONS = {
     lineWidth: 1,
-    stroke: VectorAdditionColors.BLACK
+    stroke: Color.BLACK
   };
 
   // tick labels
@@ -85,7 +86,7 @@ define( require => {
 
       const children = [
         new Rectangle( graphViewBounds, {
-          fill: VectorAdditionColors.WHITE,
+          fill: Color.WHITE,
           stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR,
           lineWidth: MINOR_GRID_LINE_WIDTH
         } ),

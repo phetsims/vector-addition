@@ -20,6 +20,7 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const Color = require( 'SCENERY/util/Color' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
@@ -264,7 +265,7 @@ define( require => {
         .lineTo( Math.cos( angle ) * wedgeLength, -Math.sin( angle ) * wedgeLength );
 
       return new Node().setChildren( [
-        new Path( wedgeShape, { stroke: VectorAdditionColors.BLACK } ),
+        new Path( wedgeShape, { stroke: Color.BLACK } ),
         new CurvedArrowNode( curvedArrowRadius, angle )
       ] );
     },
@@ -375,7 +376,7 @@ define( require => {
 
       // Arrow that is 45 degrees to the right and up
       const arrow = new ArrowNode( 0, 0, iconSize, -iconSize, _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors.PURPLE
+        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_3.fill
       } ) );
 
       // Curved arrow that indicates the angle
@@ -383,7 +384,7 @@ define( require => {
 
       // horizontal line
       const line = new Line( 0, 0, iconSize, 0, {
-        stroke: VectorAdditionColors.BLACK
+        stroke: Color.BLACK
       } );
 
       return new Node( {

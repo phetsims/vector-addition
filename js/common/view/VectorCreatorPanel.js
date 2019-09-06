@@ -17,10 +17,10 @@ define( require => {
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const Bounds2 = require( 'DOT/Bounds2' );
+  const Color = require( 'SCENERY/util/Color' );
   const Panel = require( 'SUN/Panel' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
@@ -51,8 +51,8 @@ define( require => {
         contentWidth: 80, // {number} fixed width of the panel content
         contentHeight: 120, // {number} fixed height of the panel content
 
-        fill: VectorAdditionColors.WHITE,
-        stroke: VectorAdditionColors.BLACK
+        fill: Color.WHITE,
+        stroke: Color.BLACK
       }, options );
 
 

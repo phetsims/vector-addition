@@ -9,6 +9,7 @@ define( require => {
   'use strict';
 
   // modules
+  const Color = require( 'SCENERY/util/Color' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   class VectorColorPalette {
@@ -19,16 +20,16 @@ define( require => {
       options = _.extend( {
 
         // colors used for non-sum and non-component vectors
-        fill: 'black',
+        fill: Color.BLACK,
         stroke: null,
 
         // colors used for component vectors
-        componentFill: 'gray',
+        componentFill: Color.GRAY,
         componentStroke: null,
 
         // colors used for sum vectors
-        sumFill: 'white',
-        sumStroke: 'black',
+        sumFill: Color.WHITE,
+        sumStroke: Color.BLACK,
 
         // defaults to componentFill and componentStroke
         sumComponentFill: null,

@@ -12,6 +12,7 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Color = require( 'SCENERY/util/Color' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Line = require( 'SCENERY/nodes/Line' );
@@ -22,7 +23,6 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   //----------------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ define( require => {
       super();
 
       // @private {Line} baseline - line that is parallel to the x axis.
-      this.baseLine = new Line( 0, 0, MAX_BASELINE_WIDTH, 0, { stroke: VectorAdditionColors.BLACK } );
+      this.baseLine = new Line( 0, 0, MAX_BASELINE_WIDTH, 0, { stroke: Color.BLACK } );
 
       // @private {CurvedArrowNode} curvedArrow - arrow in a circle shape from the baseline to the vector
       this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS, vector.angle ? vector.angle : 0, );

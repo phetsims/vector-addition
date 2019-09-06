@@ -12,6 +12,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Checkbox = require( 'SUN/Checkbox' );
+  const Color = require( 'SCENERY/util/Color' );
   const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -32,8 +33,8 @@ define( require => {
       assert && assert( typeof symbol === 'string', `invalid symbol: ${symbol}` );
 
       options = _.extend( {
-        vectorFill: 'white',
-        vectorStroke: 'black'
+        vectorFill: Color.WHITE,
+        vectorStroke: Color.BLACK
       }, options );
 
       const symbolNode = new FormulaNode( `\\vec{${symbol}\}`, {

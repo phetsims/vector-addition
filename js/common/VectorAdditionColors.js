@@ -10,15 +10,13 @@ define( require => {
   'use strict';
 
   // modules
+  const Color = require( 'SCENERY/util/Color' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
   // shared colors
-  const WHITE = 'rgb( 255, 255, 255 )';
-  const BLACK = 'rgb( 0, 0, 0 )';
-  const GREY = 'rgb( 190, 190, 190 )';
+  const BLUE = 'rgb( 10, 170, 250 )';
   const PURPLE = 'rgb( 188, 3, 255 )';
-
 
   const VectorAdditionColors = {
 
@@ -42,7 +40,7 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Radio Button Group default colors
     RADIO_BUTTON_COLORS: {
-      baseColor: WHITE,
+      baseColor: Color.WHITE,
       selectedStroke: 'rgb( 65, 154, 201 )',
       deselectedStroke: 'rgb( 50, 50, 50 )'
     },
@@ -53,29 +51,22 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Color of the Sum Vectors (c, f) on the 'Equation' screen
-    EQUATION_SUM_FILL: BLACK,
+    EQUATION_SUM_FILL: Color.BLACK,
     EQUATION_SUM_STROKE: null,
 
     //----------------------------------------------------------------------------------------
     // On axis lines, aka leader lines
-    ON_AXIS_LINES_NON_ACTIVE_STROKE: BLACK, // stroke when the vector isn't active
-    ON_AXIS_LINES_ACTIVE_STROKE: BLACK, // stroke when the vector is active
-
-    //----------------------------------------------------------------------------------------
-    // References, see https://github.com/phetsims/sun/issues/312
-    WHITE: WHITE,
-    BLACK: BLACK,
-    GREY: GREY,
-    PURPLE: PURPLE,
+    ON_AXIS_LINES_NON_ACTIVE_STROKE: Color.BLACK, // stroke when the vector isn't active
+    ON_AXIS_LINES_ACTIVE_STROKE: Color.BLACK, // stroke when the vector is active
 
     //----------------------------------------------------------------------------------------
     // Vector color palettes
 
     // blue
     VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
-      fill: 'rgb( 10, 170, 250 )',
+      fill: BLUE,
       componentFill: 'rgb( 120, 200, 255 )',
-      sumFill: 'rgb( 10, 170, 250 )'
+      sumFill: BLUE
     } ),
 
     // red
@@ -106,9 +97,10 @@ define( require => {
 
     // Equation screen, blue
     EQUATION_VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
-      fill: 'rgb( 10, 170, 250 )',
+      fill: BLUE,
       componentFill: 'rgb( 120, 200, 255 )',
-      sumFill: BLACK,
+      sumFill: Color.BLACK,
+      sumStroke: null,
       sumComponentFill: 'rgb( 130, 130, 130 )'
     } ),
 
@@ -116,7 +108,8 @@ define( require => {
     EQUATION_VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
       fill: PURPLE,
       componentFill: 'rgb( 216, 191, 216 )',
-      sumFill: PURPLE,
+      sumFill: Color.BLACK,
+      sumStroke: null,
       sumComponentFill: 'rgb( 130, 130, 130 )'
     } )
   };

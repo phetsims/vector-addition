@@ -13,6 +13,7 @@ define( require => {
 
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
+  const Color = require( 'SCENERY/util/Color' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const ScreenView = require( 'JOIST/ScreenView' );
@@ -50,7 +51,7 @@ define( require => {
       tailWidth: 3,
       headWidth: 10,
       headHeight: 10,
-      fill: VectorAdditionColors.BLACK,
+      fill: Color.BLACK,
       stroke: null
     },
 
@@ -122,7 +123,7 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Defaults for all Number Picker instances
     NUMBER_PICKER_OPTIONS: {
-      color: VectorAdditionColors.BLACK,
+      color: Color.BLACK,
       cornerRadius: 3.5,
       arrowYSpacing: 1.5,
       arrowHeight: 4,

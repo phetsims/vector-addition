@@ -13,6 +13,7 @@ define( require => {
   // modules
   const AnglesCheckbox = require( 'VECTOR_ADDITION/common/view/AnglesCheckbox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Color = require( 'SCENERY/util/Color' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const ComponentStyleControl = require( 'VECTOR_ADDITION/common/view/ComponentStyleControl' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
@@ -87,7 +88,7 @@ define( require => {
 
         // separator
         new HSeparator( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {
-          stroke: VectorAdditionColors.BLACK
+          stroke: Color.BLACK
         } ),
 
         // Component Style
