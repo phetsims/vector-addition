@@ -181,7 +181,7 @@ define( require => {
     EQUATION_SYMBOL_FONT: new MathSymbolFont( 18 ),
     VECTOR_LABEL_FONT: new PhetFont( 15 ),
     ANGLE_LABEL_FONT: new PhetFont( 13 ),
-    TICK_LABEL_FONT: new PhetFont( 16 ),
+    TICK_LABEL_FONT: new PhetFont( 14 ),
     AXIS_LABEL_FONT: new MathSymbolFont( 18 ),
     CHECKBOX_FONT: new PhetFont( 16 ),
     TITLE_FONT: new PhetFont( 16 )

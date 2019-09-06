@@ -27,7 +27,7 @@ define( require => {
 
   // origin
   const ORIGIN_COLOR = Color.toColor( VectorAdditionColors.ORIGIN_COLOR );
-  const ORIGIN_DIAMETER = 1.2; // in model coordinates
+  const ORIGIN_DIAMETER = 1; // in model coordinates
   const ORIGIN_OPTIONS = {
     cursor: 'move',
     fill: ORIGIN_COLOR.withAlpha( 0.15 ),

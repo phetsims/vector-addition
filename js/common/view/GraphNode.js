@@ -58,10 +58,12 @@ define( require => {
   // tick labels
   const TICK_LABEL_OPTIONS = {
     font: VectorAdditionConstants.TICK_LABEL_FONT,
+    fill: 'rgb( 130, 130, 130 )',
     maxWidth: 30
   };
-  const TICK_LABEL_X_OFFSET = -20; // from x = 0
-  const TICK_LABEL_Y_OFFSET = 20; // from y = 0
+  const TICK_LABEL_SPACING = 10; // model units
+  const TICK_LABEL_X_OFFSET = 15; // from x = 0, view units
+  const TICK_LABEL_Y_OFFSET = 15; // from y = 0, view units
 
   //----------------------------------------------------------------------------------------
 
@@ -296,44 +298,69 @@ define( require => {
 
       graph.modelViewTransformProperty.link( modelViewTransform => {
 
-        const shape = new Shape();
+        const viewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
+        const tickMarksShape = new Shape();
+        const tickLabels = [];
 
-        // x-axis ticks
         if ( graph.orientation !== GraphOrientations.VERTICAL ) {
+
+          // x tick marks
           const firstXTick = graph.graphModelBounds.minX - ( graph.graphModelBounds.minX % MAJOR_TICK_SPACING );
           for ( let xValue = firstXTick; xValue <= graph.graphModelBounds.maxX; xValue = xValue + MAJOR_TICK_SPACING ) {
             const tickLength = ( xValue === 0 ) ? ORIGIN_TICK_LENGTH : TICK_LENGTH; // origin tick is different
-            shape.moveTo( xValue, -tickLength / 2 ).verticalLineTo( tickLength / 2 );
+            tickMarksShape.moveTo( xValue, -tickLength / 2 ).verticalLineTo( tickLength / 2 );
+          }
+
+          // x tick labels
+          const firstXLabel = graph.graphModelBounds.minX - ( graph.graphModelBounds.minX % TICK_LABEL_SPACING );
+          for ( let xValue = firstXLabel; xValue <= graph.graphModelBounds.maxX; xValue = xValue + TICK_LABEL_SPACING ) {
+            if ( xValue !== 0 ) {
+              const tickLabel = new Text( xValue, TICK_LABEL_OPTIONS );
+              tickLabel.centerX = modelViewTransform.modelToViewX( xValue );
+              tickLabel.top = viewOrigin.y + TICK_LABEL_Y_OFFSET;
+              tickLabels.push( tickLabel );
+            }
           }
         }
 
-        // y-axis ticks
         if ( graph.orientation !== GraphOrientations.HORIZONTAL ) {
+
+          // y tick marks
           const firstYTick = graph.graphModelBounds.minY - ( graph.graphModelBounds.minY % MAJOR_TICK_SPACING );
           for ( let yValue = firstYTick; yValue <= graph.graphModelBounds.maxY; yValue = yValue + MAJOR_TICK_SPACING ) {
             const tickLength = ( yValue === 0 ) ? ORIGIN_TICK_LENGTH : TICK_LENGTH; // origin tick is different
-            shape.moveTo( -tickLength / 2, yValue ).horizontalLineTo( tickLength / 2 );
+            tickMarksShape.moveTo( -tickLength / 2, yValue ).horizontalLineTo( tickLength / 2 );
+          }
+
+          // y tick labels
+          const firstYLabel = graph.graphModelBounds.minY - ( graph.graphModelBounds.minY % TICK_LABEL_SPACING );
+          for ( let yValue = firstYLabel; yValue <= graph.graphModelBounds.maxY; yValue = yValue + TICK_LABEL_SPACING ) {
+            if ( yValue !== 0 ) {
+              const tickLabel = new Text( yValue, TICK_LABEL_OPTIONS );
+              tickLabel.right = viewOrigin.x - TICK_LABEL_X_OFFSET;
+              tickLabel.centerY = modelViewTransform.modelToViewY( yValue );
+              tickLabels.push( tickLabel );
+            }
           }
         }
 
-        tickMarksPath.shape = modelViewTransform.modelToViewShape( shape );
-
         // Origin tick label
-        tickLabelsParent.removeAllChildren();
         if ( graph.orientation !== GraphOrientations.TWO_DIMENSIONAL ) {
 
-          const viewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
-
-          tickLabelsParent.addChild( originLabel );
+          tickLabels.push( originLabel );
+          
           if ( graph.orientation === GraphOrientations.HORIZONTAL ) {
             originLabel.centerX = viewOrigin.x;
             originLabel.top = viewOrigin.y + TICK_LABEL_Y_OFFSET;
           }
           else {
-            originLabel.right = viewOrigin.x + TICK_LABEL_X_OFFSET;
+            originLabel.right = viewOrigin.x - TICK_LABEL_X_OFFSET;
             originLabel.centerY = viewOrigin.y;
           }
         }
+
+        tickMarksPath.shape = modelViewTransform.modelToViewShape( tickMarksShape );
+        tickLabelsParent.children = tickLabels;
       } );
     }
   }
