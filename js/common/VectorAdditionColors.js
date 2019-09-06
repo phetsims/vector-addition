@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Colors for the 'Vector Addition'
+ * Colors for the 'Vector Addition' sim.
  *
  * @author Brandon Li
  */
@@ -65,29 +65,25 @@ define( require => {
     // blue
     VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
       fill: BLUE,
-      componentFill: 'rgb( 120, 200, 255 )',
-      sumFill: BLUE
+      componentFill: 'rgb( 120, 200, 255 )'
     } ),
 
     // red
     VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
       fill: 'rgb( 232, 25, 9 )',
-      componentFill: 'rgb( 245, 120, 120 )',
-      sumFill: 'rgb( 232, 25, 9 )'
+      componentFill: 'rgb( 245, 120, 120 )'
     } ),
 
     // purple
     VECTOR_COLOR_PALETTE_3: new VectorColorPalette( {
       fill: PURPLE,
-      componentFill: 'rgb( 216, 191, 216 )',
-      sumFill: PURPLE
+      componentFill: 'rgb( 216, 191, 216 )'
     } ),
 
     // green
     VECTOR_COLOR_PALETTE_4: new VectorColorPalette( {
       fill: 'rgb( 5, 200, 0 )',
-      componentFill: 'rgb( 150, 205, 150 )',
-      sumFill: 'rgb( 5, 200, 0 )'
+      componentFill: 'rgb( 150, 205, 150 )'
     } ),
 
     // base vectors (gray)

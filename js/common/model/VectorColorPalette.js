@@ -16,7 +16,7 @@ define( require => {
 
     constructor( options ) {
 
-      // all colors are {Color|string}, where {string} is a CSS color string
+      // all colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'
       options = _.extend( {
 
         // colors used for non-sum and non-component vectors
@@ -28,11 +28,11 @@ define( require => {
         componentStroke: null,
 
         // colors used for sum vectors
-        sumFill: Color.WHITE,
+        sumFill: null, // defaults to options.fill
         sumStroke: Color.BLACK,
 
         // defaults to componentFill and componentStroke
-        sumComponentFill: null,
+        sumComponentFill: null, // defaults to options.componentFill
         sumComponentStroke: null,
 
         // colors used for the background behind the label on a non-active vector
@@ -46,10 +46,10 @@ define( require => {
       this.stroke = options.stroke;
       this.componentFill = options.componentFill;
       this.componentStroke = options.componentStroke;
-      this.sumFill = options.sumFill;
+      this.sumFill = options.sumFill || options.fill;
       this.sumStroke = options.sumStroke;
       this.sumComponentFill = options.sumComponentFill || options.componentFill;
-      this.sumComponentStroke = options.componentStroke || options.componentStroke;
+      this.sumComponentStroke = options.sumComponentStroke;
       this.labelBackgroundFill = options.labelBackgroundFill;
       this.labelBackgroundStroke = options.labelBackgroundStroke;
     }
