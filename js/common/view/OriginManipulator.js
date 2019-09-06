@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * OriginCircle shows the origin on the graph, and can be dragged to reposition the origin.
+ * OriginManipulator shows the origin on the graph, and can be dragged to reposition the origin.
  *
  * @author Martin Veillette
  */
@@ -38,7 +38,7 @@ define( require => {
     stroke: ORIGIN_COLOR.darkerColor()
   };
 
-  class OriginCircle extends ShadedSphereNode {
+  class OriginManipulator extends ShadedSphereNode {
 
     /**
      * @param {Graph} graph - the model for the graph
@@ -90,5 +90,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'OriginCircle', OriginCircle );
+  return vectorAddition.register( 'OriginManipulator', OriginManipulator );
 } );

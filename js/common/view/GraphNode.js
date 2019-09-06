@@ -1,8 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * GraphNode draws the graph, including its grid, axes, ticks, and origin dot.
- * The origin dot is draggable, which changes the modelViewTransformProperty of the graph.
+ * GraphNode draws the graph, including its grid, axes, ticks, and origin manipulator.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,7 +16,7 @@ define( require => {
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const OriginCircle = require( 'VECTOR_ADDITION/common/view/OriginCircle' );
+  const OriginManipulator = require( 'VECTOR_ADDITION/common/view/OriginManipulator' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
@@ -98,7 +97,7 @@ define( require => {
         children.push( new YAxisNode( graph, graphViewBounds ) );
       }
 
-      children.push( new OriginCircle( graph ) );
+      children.push( new OriginManipulator( graph ) );
 
       super( {
         children: children
