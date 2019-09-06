@@ -114,7 +114,7 @@ define( require => {
 
         //----------------------------------------------------------------------------------------
         // Toggle the visibility
-        vectorValueText.visible = labelDisplayData.value ? true : false;
+        vectorValueText.visible = !!labelDisplayData.value;
         backgroundRectangle.visible = vectorSymbolNode.visible || vectorValueText.visible;
 
         // Update the children of the label content container
