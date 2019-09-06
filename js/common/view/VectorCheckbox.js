@@ -10,10 +10,10 @@ define( require => {
   'use strict';
 
   // modules
+  const ArrowOverSymbolNode = require( 'VECTOR_ADDITION/common/view/ArrowOverSymbolNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Checkbox = require( 'SUN/Checkbox' );
   const Color = require( 'SCENERY/util/Color' );
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -37,7 +37,7 @@ define( require => {
         vectorStroke: Color.BLACK
       }, options );
 
-      const symbolNode = new FormulaNode( `\\vec{${symbol}\}`, {
+      const symbolNode = new ArrowOverSymbolNode( symbol, {
         maxWidth: 95 // determined empirically
       } );
 

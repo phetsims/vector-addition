@@ -15,10 +15,6 @@
     ],
     "requirejsNamespace": "VECTOR_ADDITION",
     "runnable": true,
-    "preload": [
-      "../sherpa/lib/katex-0.11.0-css-all.js",
-      "../sherpa/lib/katex-0.11.0.min.js"
-    ],
     "supportedBrands": [
       "phet",
       "adapted-from-phet"

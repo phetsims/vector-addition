@@ -3,7 +3,7 @@
 /**
  * View for the Vectors Symbol.
  *
- * Encapsulated Node for just a Vector Symbol that mixes FormulaNode and textNodes. It contains
+ * Encapsulated Node for just a Vector Symbol that mixes ArrowOverSymbolNode and textNodes. It contains
  *  - Absolute value bars (text node)
  *  - A Coefficient (text node)
  *  - A vector symbol (formula node)
@@ -25,7 +25,7 @@ define( require => {
   'use strict';
 
   // modules
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
+  const ArrowOverSymbolNode = require( 'VECTOR_ADDITION/common/view/ArrowOverSymbolNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
@@ -103,7 +103,7 @@ define( require => {
 
       const symbolNode = options.useRichText ?
                          new RichText( '' ).setFont( options.richTextFont ) :
-                         new FormulaNode( '', { scale: options.formulaNodeScale } );
+                         new ArrowOverSymbolNode( '' );
 
       const coefficientText = new Text( '', options.coefficientTextOptions );
 
@@ -129,7 +129,7 @@ define( require => {
             symbolNode.setText( this.symbol );
           }
           else {
-            symbolNode.setFormula( `\\vec{${this.symbol}\}` );
+            symbolNode.setSymbol( this.symbol );
           }
         }
 

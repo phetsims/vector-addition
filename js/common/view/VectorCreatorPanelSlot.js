@@ -27,9 +27,9 @@ define( require => {
 
   // modules
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const ArrowOverSymbolNode = require( 'VECTOR_ADDITION/common/view/ArrowOverSymbolNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
-  const FormulaNode = require( 'SCENERY_PHET/FormulaNode' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
@@ -111,7 +111,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       if ( options.symbol ) {
-        this.addChild( new FormulaNode( `\\vec{${options.symbol}\}`, { scale: 0.95 } ) );
+        this.addChild( new ArrowOverSymbolNode( options.symbol ) );
       }
 
       //----------------------------------------------------------------------------------------

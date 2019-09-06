@@ -20,13 +20,13 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const ArrowOverSymbolNode = require( 'VECTOR_ADDITION/common/view/ArrowOverSymbolNode' );
   const Color = require( 'SCENERY/util/Color' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
   const interleave = require( 'PHET_CORE/interleave' );
   const Line = require( 'SCENERY/nodes/Line' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
@@ -45,7 +45,6 @@ define( require => {
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
-  const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   //----------------------------------------------------------------------------------------
   // constants
@@ -446,7 +445,7 @@ define( require => {
 
       // Create a vector symbol for each symbol on the left side of the equation.
       equationLeftSideSymbols.forEach( symbol => {
-        children.push( new VectorSymbolNode( symbol, null, false ) );
+        children.push( new ArrowOverSymbolNode( symbol ) );
       } );
 
       // Interleave operators (i.e. '+'|'-') in between each symbol on the left side of the equation
@@ -460,12 +459,17 @@ define( require => {
       // Right side of the equation, which is either '0' or the last of the symbols (which is the sum).
       children.push( equationType === EquationTypes.NEGATION ?
                      new Text( '0', textOptions ) :
-                     new VectorSymbolNode( _.last( vectorSymbols ), null, false ) );
+                     new ArrowOverSymbolNode( _.last( vectorSymbols ), null, false ) );
 
-      return new HBox( {
-        children: children,
-        spacing: 8
-      } );
+      const spacing = 8;
+      for ( let i = 0; i < children.length; i++ ) {
+        children[ i ].y = 0;
+        if ( i > 0 ) {
+          children[ i ].left = children[ i - 1 ].right + spacing;
+        }
+      }
+
+      return new Node( { children: children } );
     }
   };
 
