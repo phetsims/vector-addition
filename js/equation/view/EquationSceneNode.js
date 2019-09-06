@@ -24,7 +24,6 @@ define( require => {
   const merge = require( 'PHET_CORE/merge' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
@@ -59,10 +58,6 @@ define( require => {
 
         // super-class options
         includeEraser: false,
-        sumNodeOptions: {
-          fill: VectorAdditionColors.EQUATION_SUM_FILL,
-          stroke: VectorAdditionColors.EQUATION_SUM_STROKE
-        },
         vectorValuesToggleBoxOptions: {
           spacingMajor: 25,
           contentFixedWidth: 470

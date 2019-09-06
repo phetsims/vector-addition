@@ -77,8 +77,7 @@ define( require => {
 
         // all options are specific to this class
         includeEraser: true, // {boolean} Indicates if an Eraser Button should be included
-        vectorValuesToggleBoxOptions: null, // {Object} Options passed to the VectorValuesToggleBox
-        sumNodeOptions: null // {Object} Options passed to the Sum Node
+        vectorValuesToggleBoxOptions: null // {Object} Options passed to the VectorValuesToggleBox
       }, options );
 
       super();
@@ -150,13 +149,14 @@ define( require => {
       // Add the Vector Sum Node and its components for each Vector Set in the graph
       //========================================================================================
       graph.vectorSets.forEach( vectorSet => {
+
         const vectorSumNode = new VectorSumNode( vectorSet.vectorSum,
           graph,
           valuesVisibleProperty,
           anglesVisibleProperty,
-          vectorSet.sumVisibleProperty,
-          options.sumNodeOptions
+          vectorSet.sumVisibleProperty
         );
+
         const xComponentSumNode = new SumComponentVectorNode( vectorSet.vectorSum.xComponentVector,
           graph,
           componentStyleProperty,
@@ -169,9 +169,9 @@ define( require => {
           valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
+        vectorSumContainer.addChild( vectorSumNode );
         vectorSumComponentContainer.addChild( xComponentSumNode );
         vectorSumComponentContainer.addChild( yComponentSumNode );
-        vectorSumContainer.addChild( vectorSumNode );
       } );
 
       // @private

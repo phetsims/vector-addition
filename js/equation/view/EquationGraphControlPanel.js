@@ -28,12 +28,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  // constants
-  const VECTOR_CHECKBOX_OPTIONS = {
-    vectorFill: VectorAdditionColors.EQUATION_SUM_FILL,
-    vectorStroke: VectorAdditionColors.EQUATION_SUM_STROKE
-  };
-
   class EquationGraphControlPanel extends GraphControlPanel {
 
     /**
@@ -58,10 +52,16 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty,
-        cartesianVectorSet.vectorSum.symbol, VECTOR_CHECKBOX_OPTIONS );
+        cartesianVectorSet.vectorSum.symbol, {
+          vectorFill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumFill,
+          vectorStroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumStroke
+        } );
 
       const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty,
-        polarVectorSet.vectorSum.symbol, VECTOR_CHECKBOX_OPTIONS );
+        polarVectorSet.vectorSum.symbol, {
+          vectorFill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_2.sumFill,
+          vectorStroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_2.sumStroke
+        } );
 
       // Toggle visibility of the SumCheckboxes to match coordinate snap mode.
       // Is never unlinked since the graph control panel is never disposed.

@@ -184,15 +184,15 @@ define( require => {
       // vectors, tip to tail
       const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
         _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
-          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
+          fill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.fill,
+          stroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.stroke
         } ) );
 
       // sum
       arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
         _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
-          fill: VectorAdditionColors.EQUATION_SUM_FILL,
-          stroke: VectorAdditionColors.EQUATION_SUM_STROKE
+          fill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumFill,
+          stroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumStroke
         } ) ) );
       
       return createScreenIcon( arrowNodes );
