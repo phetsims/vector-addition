@@ -187,10 +187,11 @@ define( require => {
      * @override
      * @protected
      *
-     * @param {componentVector} componentVector
+     * @param {ComponentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
+     * @param {boolean} valuesVisible
      */
-    updateLabelPositioning( componentVector, modelViewTransform ) {
+    updateLabelPositioning( componentVector, modelViewTransform, valuesVisible ) {
 
       if ( componentVector.magnitude === 0 ) {
         // If the magnitude of the componentVector is 0, then position the label node on the 'tail' and no-op
