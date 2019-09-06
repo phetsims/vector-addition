@@ -144,7 +144,7 @@ define( require => {
   }
 
   /**
-   * Draws grid lines at some spacing. Used to draw major and minor grid lines.
+   * Draws grid lines at some spacing. Used to draw one type of grid line (major or minor).
    * Updates when the origin changes. Optimized to take advantage of constant view bounds.
    */
   class GridLines extends Path {
