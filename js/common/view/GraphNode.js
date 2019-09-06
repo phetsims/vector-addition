@@ -45,21 +45,23 @@ define( require => {
     maxWidth: 30
   };
 
-  // ticks
+  // tick marks
   const MAJOR_TICK_SPACING = 5; // model units
   const MINOR_TICK_SPACING = 1; // model units
   const TICK_LENGTH = 1; // model units
   const ORIGIN_TICK_LENGTH = 2; // model units
-  const TICKS_OPTIONS = {
+  const TICK_MARK_OPTIONS = {
     lineWidth: 1,
     stroke: VectorAdditionColors.BLACK
   };
 
   // tick labels
-  const TICK_TEXT_OPTIONS = {
+  const TICK_LABEL_OPTIONS = {
     font: VectorAdditionConstants.TICK_LABEL_FONT,
     maxWidth: 30
   };
+  const TICK_LABEL_X_OFFSET = -20; // from x = 0
+  const TICK_LABEL_Y_OFFSET = 20; // from y = 0
 
   //----------------------------------------------------------------------------------------
 
@@ -284,9 +286,9 @@ define( require => {
      */
     constructor( graph ) {
 
-      const tickMarksPath = new Path( new Shape(), TICKS_OPTIONS );
+      const tickMarksPath = new Path( new Shape(), TICK_MARK_OPTIONS );
       const tickLabelsParent = new Node();
-      const originLabel = new Text( '0', TICK_TEXT_OPTIONS );
+      const originLabel = new Text( '0', TICK_LABEL_OPTIONS );
 
       super( {
         children: [ tickMarksPath, tickLabelsParent ]
@@ -325,10 +327,10 @@ define( require => {
           tickLabelsParent.addChild( originLabel );
           if ( graph.orientation === GraphOrientations.HORIZONTAL ) {
             originLabel.centerX = viewOrigin.x;
-            originLabel.top = viewOrigin.y + 20;
+            originLabel.top = viewOrigin.y + TICK_LABEL_Y_OFFSET;
           }
           else {
-            originLabel.right = viewOrigin.x - 20;
+            originLabel.right = viewOrigin.x + TICK_LABEL_X_OFFSET;
             originLabel.centerY = viewOrigin.y;
           }
         }
