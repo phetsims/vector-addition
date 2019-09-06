@@ -5,6 +5,7 @@
  * modelViewTransformProperty of the graph.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
@@ -34,11 +35,8 @@ define( require => {
   // constants
 
   // grid
-  const GRAPH_BACKGROUND = VectorAdditionColors.WHITE;
   const MAJOR_GRID_LINE_WIDTH = 1.8; // view units
-  const MAJOR_GRID_LINE_COLOR = VectorAdditionColors.GRAPH_MAJOR_LINE_COLOR;
   const MINOR_GRID_LINE_WIDTH = 1.2; // view units
-  const MINOR_GRID_LINE_COLOR = VectorAdditionColors.GRAPH_MINOR_LINE_COLOR;
 
   // axes
   const AXES_ARROW_X_EXTENSION = 15; // how far the line extends past the grid, view units
@@ -50,6 +48,7 @@ define( require => {
 
   // ticks
   const MAJOR_TICK_SPACING = 5; // model units
+  const MINOR_TICK_SPACING = 1; // model units
   const TICK_LENGTH = 1; // model units
   const ORIGIN_TICK_LENGTH = 2; // model units
   const TICKS_OPTIONS = {
@@ -83,11 +82,11 @@ define( require => {
 
       const children = [
         new Rectangle( graphViewBounds, {
-          fill: GRAPH_BACKGROUND,
-          stroke: MINOR_GRID_LINE_COLOR,
+          fill: VectorAdditionColors.WHITE,
+          stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR,
           lineWidth: MINOR_GRID_LINE_WIDTH
         } ),
-        new GridLinesNode( graph, gridVisibilityProperty )
+        new GridLinesNode( graph, graphViewBounds, gridVisibilityProperty )
       ];
 
       // Create axes as needed, based on graph orientation
@@ -110,32 +109,63 @@ define( require => {
 
     /**
      * @param {Graph} graph - the model graph for the node
+     * @param {Bounds2} graphViewBounds
      * @param {BooleanProperty} gridVisibilityProperty
      */
-    constructor( graph, gridVisibilityProperty ) {
+    constructor( graph, graphViewBounds, gridVisibilityProperty ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( gridVisibilityProperty instanceof BooleanProperty,
         `invalid gridVisibilityProperty: ${gridVisibilityProperty}` );
 
-      // Create the path for the major grid lines. Initialize it with and an empty shape to be updated later.
-      const majorGridLinesPath = new Path( new Shape(), {
+      const majorGridLines = new GridLines( graph, graphViewBounds, {
+        spacing: MAJOR_TICK_SPACING,
         lineWidth: MAJOR_GRID_LINE_WIDTH,
-        stroke: MAJOR_GRID_LINE_COLOR
+        stroke: VectorAdditionColors.GRAPH_MAJOR_LINE_COLOR
       } );
 
-      // Create the path for the minor grid lines. Initialize it with and an empty shape to be updated later.
-      const minorGridLinesPath = new Path( new Shape(), {
+      const minorGridLinesPath = new GridLines( graph, graphViewBounds, {
+        spacing: MINOR_TICK_SPACING,
         lineWidth: MINOR_GRID_LINE_WIDTH,
-        stroke: MINOR_GRID_LINE_COLOR
+        stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR
       } );
 
       super( {
-        children: [ minorGridLinesPath, majorGridLinesPath ]
+        children: [ minorGridLinesPath, majorGridLines ]
       } );
 
-      // Update the grid when the modelViewTransform changes (triggered when the origin is moved)
-      // Link present for the lifetime of the simulation since graph nodes are never disposed and exists the entire sim.
+      // Observe changes to the grid visibility Property, and update visibility.
+      // No need to unlink since GraphNodes exist for the lifetime of the sim.
+      gridVisibilityProperty.linkAttribute( this, 'visible' );
+    }
+  }
+
+  /**
+   * Draws grid lines at some spacing. Used to draw major and minor grid lines.
+   * Optimized to take advantage of constant view bounds.
+   */
+  class GridLines extends Path {
+
+    /**
+     * @param {Graph} graph - the model graph for the node
+     * @param {Bounds2} graphViewBounds
+     * @param {Object} [options]
+     */
+    constructor( graph, graphViewBounds, options ) {
+
+      options = _.extend( {
+        spacing: 1,
+        lineWidth: 1,
+        stroke: 'black'
+      }, options );
+
+      super( new Shape(), options );
+
+      // @private
+      this.graphViewBounds = graphViewBounds;
+
+      // Update when the modelViewTransform changes, triggered when the origin is moved.
+      // No need to unlink since GraphNodes exist for the lifetime of the sim.
       graph.modelViewTransformProperty.link( ( modelViewTransform ) => {
 
         // Convenience variables
@@ -144,43 +174,32 @@ define( require => {
         const graphMinY = graph.graphModelBounds.minY;
         const graphMaxY = graph.graphModelBounds.maxY;
 
-        // Create two shapes for the different grid lines.
-        const majorGridLinesShape = new Shape();
-        const minorGridLinesShape = new Shape();
+        const shape = new Shape();
 
-        //----------------------------------------------------------------------------------------
-        // Create the Horizontal Grid Lines.
-        for ( let yValue = graphMinY; yValue <= graphMaxY; yValue++ ) {
-
-          const isMajor = ( yValue % MAJOR_TICK_SPACING === 0 );
-          if ( isMajor ) {
-            majorGridLinesShape.moveTo( graphMinX, yValue ).horizontalLineTo( graphMaxX );
-          }
-          else {
-            minorGridLinesShape.moveTo( graphMinX, yValue ).horizontalLineTo( graphMaxX );
-          }
+        // Vertical lines
+        const firstX = graphMinX - ( graphMinX % options.spacing );
+        for ( let xValue = firstX; xValue <= graphMaxX; xValue += options.spacing ) {
+          shape.moveTo( xValue, graphMinY ).verticalLineTo( graphMaxY );
         }
 
-        //----------------------------------------------------------------------------------------
-        // Create the Vertical Grid Lines
-        for ( let xValue = graphMinX; xValue <= graphMaxX; xValue++ ) {
-
-          const isMajor = ( xValue % MAJOR_TICK_SPACING === 0 );
-          if ( isMajor ) {
-            majorGridLinesShape.moveTo( xValue, graphMinY ).verticalLineTo( graphMaxY );
-          }
-          else {
-            minorGridLinesShape.moveTo( xValue, graphMinY ).verticalLineTo( graphMaxY );
-          }
+        // Horizontal lines
+        const firstY = graphMinY - ( graphMinY % options.spacing );
+        for ( let yValue = firstY; yValue <= graphMaxY; yValue += options.spacing ) {
+          shape.moveTo( graphMinX, yValue ).horizontalLineTo( graphMaxX );
         }
 
-        majorGridLinesPath.setShape( modelViewTransform.modelToViewShape( majorGridLinesShape ).makeImmutable() );
-        minorGridLinesPath.setShape( modelViewTransform.modelToViewShape( minorGridLinesShape ).makeImmutable() );
+        this.setShape( modelViewTransform.modelToViewShape( shape ) );
       } );
+    }
 
-      // Observe changes to the grid visibility Property, and update visibility. Link exists throughout the entire sim
-      // since graphs last the entire sim and are never disposed.
-      gridVisibilityProperty.linkAttribute( this, 'visible' );
+    /**
+     * Performance optimization, since the grid's view bounds are constant.
+     * @public
+     * @override
+     * @returns {Bounds2}
+     */
+    computeShapeBounds() {
+       return this.graphViewBounds;
     }
   }
 
