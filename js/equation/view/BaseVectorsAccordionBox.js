@@ -148,7 +148,10 @@ define( require => {
           leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.magnitudeProperty,
             MAGNITUDE_RANGE,
             `${baseVector.symbol}`, {
-              includeAbsoluteValueBars: true
+              includeAbsoluteValueBars: true,
+              vectorSymbolNodeOptions: {
+                useRichText: false
+              }
             } );
 
           // Angle
