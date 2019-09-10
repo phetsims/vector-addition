@@ -38,14 +38,14 @@ define( require => {
   };
   const ACTIVE_VECTOR_LABEL_BACKGROUND = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND;
 
-
   class VectorLabelNode extends Node {
+    
     /**
      * @param {RootVector} rootVector
      * @param {ModelViewTransform2} modelViewTransformProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Property.<RootVector|null>} activeVectorProperty
-     * @param {Object} [options] TODO #165 options not passed to super
+     * @param {Object} [options]
      */
     constructor( rootVector, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
 
@@ -92,9 +92,10 @@ define( require => {
       // Create a horizontal layout box for the symbol and the value
       const vectorLabelContent = new HBox( { spacing: options.symbolValueSpacing } );
 
-      super( {
-        children: [ backgroundRectangle, vectorLabelContent ]
-      } );
+      assert && assert( !options.children, 'VectorLabelNode sets children' );
+      options.children = [ backgroundRectangle, vectorLabelContent ];
+
+      super( options );
 
       //----------------------------------------------------------------------------------------
 
@@ -159,6 +160,7 @@ define( require => {
     /**
      * Disposes the label node
      * @public
+     * @override
      */
     dispose() {
       this.disposeVectorLabelNode();
