@@ -390,22 +390,13 @@ define( require => {
     }
 
     /**
-     * Gets the constrained bounds of the tail. In other words, based on the tip and the components of the vector, this
-     * returns a new bounds that is for the tail and ensures that in this bounds the vector will stay in the graph.
-     * See https://github.com/phetsims/vector-addition/blob/master/doc/images/vector-tail-drag-bounds.png
-     * for an annotated image.
+     * Gets the constrained bounds of the tail. The tail must be within 1 unit of the edge of the graph.
+     * See https://github.com/phetsims/vector-addition/issues/152
      * @private
      */
     getConstrainedTailBounds() {
-
-      // Sift the bounds the components vector. This is the furthest the vector tail can drag.
-      const shiftedBounds = this.graph.graphModelBounds.shifted( -this.vectorComponents.x,
-        -this.vectorComponents.y );
-
-      // Since it was shifted, return the intersection
-      return this.graph.graphModelBounds.intersection( shiftedBounds );
+      return this.graph.graphModelBounds.eroded( 1 );
     }
-
 
     //----------------------------------------------------------------------------------------
     // Functionality 4: Methods to drop a vector, to animate a vector, and to pop a vector off the graph
