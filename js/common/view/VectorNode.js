@@ -52,9 +52,9 @@ define( require => {
      * @param {Graph} graph - the graph the vector belongs to
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} angleVisibleProperty
-     * @param {Object} [arrowOptions]
+     * @param {Object} [options]
      */
-    constructor( vector, graph, valuesVisibleProperty, angleVisibleProperty, arrowOptions ) {
+    constructor( vector, graph, valuesVisibleProperty, angleVisibleProperty, options ) {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
@@ -62,23 +62,23 @@ define( require => {
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( angleVisibleProperty instanceof BooleanProperty,
         `invalid angleVisibleProperty: ${angleVisibleProperty}` );
-      assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
-        `Extra prototype on arrowOptions: ${arrowOptions}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 
-      arrowOptions = _.extend( {
-
-        // Passed to superclass
-        fill: vector.vectorColorPalette.fill,
-        stroke: vector.vectorColorPalette.stroke
-      }, arrowOptions );
+      options = _.extend( {
+        arrowOptions: {
+          fill: vector.vectorColorPalette.fill,
+          stroke: vector.vectorColorPalette.stroke
+        }
+      }, options );
 
       super( vector,
         graph.modelViewTransformProperty,
         valuesVisibleProperty,
         graph.activeVectorProperty,
-        arrowOptions );
+        options );
 
       //----------------------------------------------------------------------------------------
       // Private references

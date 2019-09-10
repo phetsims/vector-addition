@@ -29,9 +29,9 @@ define( require => {
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} anglesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
-     * @param {Object} [arrowOptions]
+     * @param {Object} [options]
      */
-    constructor( vectorSum, graph, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, arrowOptions ) {
+    constructor( vectorSum, graph, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, options ) {
 
       assert && assert( vectorSum instanceof VectorSum, `invalid vectorSum: ${vectorSum}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
@@ -41,19 +41,21 @@ define( require => {
         `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty,
         `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
-        `Extra prototype on arrowOptions: ${arrowOptions}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 
-      arrowOptions = _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
-        fill: vectorSum.vectorColorPalette.sumFill,
-        stroke: vectorSum.vectorColorPalette.sumStroke
-      }, arrowOptions );
+      options = _.extend( {
+        arrowOptions: _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
+          fill: vectorSum.vectorColorPalette.sumFill,
+          stroke: vectorSum.vectorColorPalette.sumStroke
+        } )
+      }, options );
 
       //----------------------------------------------------------------------------------------
 
-      super( vectorSum, graph, valuesVisibleProperty, anglesVisibleProperty, arrowOptions );
+      super( vectorSum, graph, valuesVisibleProperty, anglesVisibleProperty, options );
 
       // Update the visibility of the sum node based on the sum visible Property.
       // Doesn't need to be unlinked since vector sums are never disposed

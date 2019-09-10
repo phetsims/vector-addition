@@ -15,18 +15,17 @@ define( require => {
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   class EquationVectorNode extends VectorNode {
+
     /**
      * @param {Vector} vector- the vector model
      * @param {Graph} graph - the graph the vector belongs to
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} anglesVisibleProperty
-     * @param {Object} [arrowOptions]
+     * @param {Object} [options]
      */
-    constructor( vector, graph, valuesVisibleProperty, anglesVisibleProperty, arrowOptions ) {
+    constructor( vector, graph, valuesVisibleProperty, anglesVisibleProperty, options ) {
 
-
-      super( vector, graph, valuesVisibleProperty, anglesVisibleProperty, arrowOptions );
-
+      super( vector, graph, valuesVisibleProperty, anglesVisibleProperty, options );
 
       // Double check that the vector node never is animated back
       // Doesn't need to be unlinked since vector sums are never disposed.
@@ -36,15 +35,13 @@ define( require => {
         }
       } );
 
-
       vector.coefficientProperty.link( () => {
         this.labelNode.updateLabelNode( valuesVisibleProperty.value );
       } );
-
     }
 
     /**
-     * Double check to make sure vector sums are never disposed
+     * Double check to make sure EquationVectorNodes are never disposed
      * @public
      * @override
      */

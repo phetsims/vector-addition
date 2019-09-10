@@ -82,7 +82,7 @@ define( require => {
         graph.modelViewTransformProperty,
         valuesVisibleProperty,
         graph.activeVectorProperty,
-        options.arrowOptions );
+        options );
 
       //----------------------------------------------------------------------------------------
 

@@ -17,6 +17,7 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
@@ -37,9 +38,9 @@ define( require => {
      * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Property.<RootVector>|null} activeVectorProperty
-     * @param {Object} [arrowOptions]
+     * @param {Object} [options]
      */
-    constructor( rootVector, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, arrowOptions ) {
+    constructor( rootVector, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
 
       assert && assert( rootVector instanceof RootVector, `invalid rootVector: ${rootVector}` );
       assert && assert( modelViewTransformProperty instanceof Property
@@ -50,23 +51,27 @@ define( require => {
       assert && assert( activeVectorProperty instanceof Property
                         && activeVectorProperty.value instanceof RootVector || activeVectorProperty.value === null,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
-      assert && assert( !arrowOptions || Object.getPrototypeOf( arrowOptions ) === Object.prototype,
-        `Extra prototype on Options: ${arrowOptions}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on options: ${options}` );
 
-      arrowOptions = _.extend( {
-        cursor: 'move'
-      }, VectorAdditionConstants.VECTOR_OPTIONS, arrowOptions );
+      options = merge( {
+
+        // {Object} options passed to ArrowNode
+        arrowOptions: {
+          cursor: 'move'
+        }
+      }, options );
 
       //----------------------------------------------------------------------------------------
 
-      super();
+      super( options );
 
       // Define a vector node in which the tail location (view coordinates) is (0, 0). Get the tip location in view
       // coordinates
       const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( rootVector.vectorComponents );
 
       // @protected {ArrowNode} arrowNode - Create an arrow node that represents an actual vector.
-      this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, arrowOptions );
+      this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, options.arrowOptions );
 
       // @protected {VectorLabelNode} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
       // The location of this depends on the angle of the vector. Since the positioning of 'next' is different for every
