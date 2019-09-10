@@ -2,8 +2,12 @@ TODO list for vector-addition
 
 DONE
 #170 move VectorSymbolNode constructor parameters to options
-
 #165 options not passed to super
+
+NEW ISSUE
+EquationVectorNode is not used
+
+TODO
 #160 Lab screen, check both Sum checkboxes, select one sum on graph, other sum disappears from graph
 #159 What color should component vectors be for 'c' and 'f' in Equation screen?
 #158 should components be shown for base vectors?
