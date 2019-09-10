@@ -102,7 +102,7 @@ define( require => {
           new Property( equationVector.coefficientProperty.range ),
           NUMBER_PICKER_OPTIONS );
 
-        const vectorSymbolNode = new VectorSymbolNode( equationVector.symbol, null, false );
+        const vectorSymbolNode = new VectorSymbolNode( { symbol: equationVector.symbol } );
 
         equationChildren.push( new HBox( {
           spacing: options.labelNumberPickerSpacing,
@@ -112,7 +112,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Step 2: If the Equation Type is negation, add a Vector Symbol Node for the Sum, pushing it to the same array.
-      const sumSymbolNode = new VectorSymbolNode( equationVectorSet.vectorSum.symbol, null, false );
+      const sumSymbolNode = new VectorSymbolNode( { symbol: equationVectorSet.vectorSum.symbol } );
 
       if ( equationType === EquationTypes.NEGATION ) {
         equationChildren.push( sumSymbolNode );

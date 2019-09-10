@@ -133,36 +133,42 @@ define( require => {
         if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
 
           // X Component
-          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.xComponentProperty,
-            COMPONENT_RANGE,
-            `${baseVector.symbol}<sub>${symbolXString}</sub>` );
+          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.xComponentProperty, COMPONENT_RANGE, {
+            vectorSymbolNodeOptions: {
+              symbol: `${baseVector.symbol}<sub>${symbolXString}</sub>`,
+              useRichText: true
+            }
+          } );
 
           // Y Component
-          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.yComponentProperty,
-            COMPONENT_RANGE,
-            `${baseVector.symbol}<sub>${symbolYString}</sub>` );
+          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.yComponentProperty, COMPONENT_RANGE, {
+            vectorSymbolNodeOptions: {
+              symbol: `${baseVector.symbol}<sub>${symbolYString}</sub>`,
+              useRichText: true
+            }
+          } );
         }
         else {
 
           // Magnitude
-          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.magnitudeProperty,
-            MAGNITUDE_RANGE,
-            `${baseVector.symbol}`, {
-              includeAbsoluteValueBars: true,
-              vectorSymbolNodeOptions: {
-                useRichText: false
-              }
-            } );
+          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.magnitudeProperty, MAGNITUDE_RANGE, {
+            vectorSymbolNodeOptions: {
+              symbol: baseVector.symbol,
+              includeAbsoluteValueBars: true
+            }
+          } );
 
           // Angle
-          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.angleDegreesProperty,
-            ANGLE_RANGE,
-            `${MathSymbols.THETA}<sub>${baseVector.symbol}</sub>`, {
-              numberPickerOptions: { // increment by the polar Angle interval
-                upFunction: value => { return value + POLAR_ANGLE_INTERVAL; },
-                downFunction: value => { return value - POLAR_ANGLE_INTERVAL; }
-              }
-            } );
+          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.angleDegreesProperty, ANGLE_RANGE, {
+            vectorSymbolNodeOptions: {
+              symbol: `${MathSymbols.THETA}<sub>${baseVector.symbol}</sub>`,
+              useRichText: true
+            },
+            numberPickerOptions: { // increment by the polar Angle interval
+              upFunction: value => { return value + POLAR_ANGLE_INTERVAL; },
+              downFunction: value => { return value - POLAR_ANGLE_INTERVAL; }
+            }
+          } );
         }
 
         // Displayed Horizontally, push a HBox to the content children array
@@ -213,33 +219,30 @@ define( require => {
    *
    * @param {NumberProperty} numberProperty - number Property that goes in the Number Picker
    * @param {Range} numberRange - static numberRange of the number Property
-   * @param {string} vectorSymbol - symbol passed to the Vector Symbol Node
    * @param {Object} [options]
    * @returns {HBox}
    */
-  function createNumberPickerWithLabel( numberProperty, numberRange, vectorSymbol, options ) {
+  function createNumberPickerWithLabel( numberProperty, numberRange, options ) {
 
     options = merge( {
 
-      numberPickerOptions: _.clone( VectorAdditionConstants.NUMBER_PICKER_OPTIONS ), // {Object} for NumberPicker
+      // {Object} options passed to NumberPicker
+      numberPickerOptions: _.clone( VectorAdditionConstants.NUMBER_PICKER_OPTIONS ),
 
-      vectorSymbolNodeOptions: { // {Object} passed to the Vector Symbol Node
-        useRichText: true,  // Use rich text to support sub scripts
+      // {Object} options passed to VectorSymbolNode
+      vectorSymbolNodeOptions: {
         richTextFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
         spacing: 1
       },
-      vectorSymbolNodeWidth: 20, // {number} fixed width of the Vector Symbol Node
-      includeAbsoluteValueBars: false, // {boolean} indicates if the Vector Symbol should have absolute value bars
+
+      vectorSymbolNodeWidth: 20, // {number} fixed width of the VectorSymbolNode
 
       equalsSignFont: VectorAdditionConstants.EQUATION_FONT,  // {Font} font for the equals sign text
       equalsSignMargin: 3 // {number} left and right margin of the equals sign
 
     }, options );
 
-    const vectorSymbolNode = new VectorSymbolNode( vectorSymbol,
-      null, // Should never have a 'coefficient'
-      options.includeAbsoluteValueBars,
-      options.vectorSymbolNodeOptions );
+    const vectorSymbolNode = new VectorSymbolNode( options.vectorSymbolNodeOptions );
 
     const equalsSign = new Text( MathSymbols.EQUAL_TO, { font: options.equalsSignFont } );
 

@@ -81,7 +81,7 @@ define( require => {
       const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options.backgroundRectangleOptions );
 
       // Create the Vector Symbol Node, set to arbitrary value for now.
-      const vectorSymbolNode = new VectorSymbolNode( null, null, false, {
+      const vectorSymbolNode = new VectorSymbolNode( {
         coefficientTextOptions: TEXT_OPTIONS,
         spacing: 1
       } );

@@ -37,23 +37,25 @@ define( require => {
   class VectorSymbolNode extends HBox {
 
     /**
-     * @param {string|null} symbol - optional symbol to display (See comment at the top of the file)
-     * @param {number|null} coefficient - optional coefficient to display
-     * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
      * @param {Object} [options]
      */
-    constructor( symbol, coefficient, includeAbsoluteValueBars, options ) {
+    constructor( options ) {
 
-      assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
-      assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
-      assert && assert( typeof includeAbsoluteValueBars === 'boolean',
-        `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 
       options = merge( {
+
+        // {string|null} optional symbol to display
+        symbol: null,
+
+        // {number|null} optional coefficient to display
+        coefficient: null,
+
+        // {boolean} whether to surround with absolute value bars, to indicate 'magnitude'
+        includeAbsoluteValueBars: false,
 
         // {Object} passed to the coefficientText instance
         coefficientTextOptions: {
@@ -81,19 +83,22 @@ define( require => {
 
       }, options );
 
+      assert && assert( typeof options.symbol === 'string' || options.symbol === null, `invalid symbol: ${options.symbol}` );
+      assert && assert( typeof options.coefficient === 'number' || options.coefficient === null, `invalid coefficient: ${options.coefficient}` );
+
       super( options );
 
       //----------------------------------------------------------------------------------------
       // Create private references to constructor args
 
       // @private {String|null} symbol
-      this.symbol = symbol;
+      this.symbol = options.symbol;
 
       // @private {number|null} coefficient
-      this.coefficient = coefficient;
+      this.coefficient = options.coefficient;
 
       // @private {boolean} includeAbsoluteValueBars
-      this.includeAbsoluteValueBars = includeAbsoluteValueBars;
+      this.includeAbsoluteValueBars = options.includeAbsoluteValueBars;
 
       //----------------------------------------------------------------------------------------
       // Create arbitrary nodes that represent the content of the symbol node, to be set later.

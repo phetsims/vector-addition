@@ -109,16 +109,18 @@ define( require => {
       // Create the scenery nodes to display the vector. Each attribute has a label and a VectorValuesNumberDisplay
       //----------------------------------------------------------------------------------------
 
-      const magnitudeDisplayNode = new VectorSymbolNode( null, null, true );
+      const magnitudeDisplayNode = new VectorSymbolNode( {
+        includeAbsoluteValueBars: true
+      } );
       const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE );
 
       const angleText = new Text( MathSymbols.THETA, { font: new PhetFont( 18 ) } );
       const angleNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
 
-      const xComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
+      const xComponentText = new VectorSymbolNode( { useRichText: true } );
       const xComponentNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT );
 
-      const yComponentText = new VectorSymbolNode( null, null, false, { useRichText: true } );
+      const yComponentText = new VectorSymbolNode( { useRichText: true } );
       const yComponentNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
