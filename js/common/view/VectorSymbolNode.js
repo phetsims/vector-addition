@@ -40,7 +40,7 @@ define( require => {
      * @param {string|null} symbol - optional symbol to display (See comment at the top of the file)
      * @param {number|null} coefficient - optional coefficient to display
      * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
-     * @param {Object} [options] TODO #165 options not passed to super
+     * @param {Object} [options]
      */
     constructor( symbol, coefficient, includeAbsoluteValueBars, options ) {
 
@@ -69,19 +69,19 @@ define( require => {
         // Only used if options.useRichText is false
         formulaNodeScale: 1,
 
-        // {number} spacing of the text nodes / formula nodes
-        spacing: 2,
-
         // {boolean} flag to indicate if rich text should be used instead of a formula node.
         // NOTE: if true, a vector arrow will not be drawn
         useRichText: false,
 
         // {Object} passed to the rich text. Only used if options.useRichText is true
-        richTextFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT
+        richTextFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
+
+        // HBox options
+        spacing: 2 // {number} spacing of the text nodes / formula nodes
 
       }, options );
 
-      super( { spacing: options.spacing } );
+      super( options );
 
       //----------------------------------------------------------------------------------------
       // Create private references to constructor args
