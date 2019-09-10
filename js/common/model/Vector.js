@@ -61,7 +61,7 @@ define( require => {
      * @param {Graph} graph - the graph the vector belongs to
      * @param {VectorSet} vectorSet - the vector set the vector belongs to
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
-     * @param {Object} [options] TODO #165 options not passed to super
+     * @param {Object} [options] - not propagated to super
      */
     constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol, options ) {
 
