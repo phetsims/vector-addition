@@ -133,42 +133,39 @@ define( require => {
         if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
 
           // X Component
-          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.xComponentProperty, COMPONENT_RANGE, {
-            vectorSymbolNodeOptions: {
+          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.xComponentProperty, COMPONENT_RANGE,
+            new VectorSymbolNode( {
               symbol: `${baseVector.symbol}<sub>${symbolXString}</sub>`,
               useRichText: true
-            }
-          } );
+            } ) );
 
           // Y Component
-          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.yComponentProperty, COMPONENT_RANGE, {
-            vectorSymbolNodeOptions: {
+          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.yComponentProperty, COMPONENT_RANGE,
+            new VectorSymbolNode( {
               symbol: `${baseVector.symbol}<sub>${symbolYString}</sub>`,
               useRichText: true
-            }
-          } );
+            } ) );
         }
         else {
 
           // Magnitude
-          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.magnitudeProperty, MAGNITUDE_RANGE, {
-            vectorSymbolNodeOptions: {
+          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.magnitudeProperty, MAGNITUDE_RANGE,
+            new VectorSymbolNode( {
               symbol: baseVector.symbol,
               includeAbsoluteValueBars: true
-            }
-          } );
+            } ) );
 
           // Angle
-          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.angleDegreesProperty, ANGLE_RANGE, {
-            vectorSymbolNodeOptions: {
+          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.angleDegreesProperty, ANGLE_RANGE,
+            new VectorSymbolNode( {
               symbol: `${MathSymbols.THETA}<sub>${baseVector.symbol}</sub>`,
               useRichText: true
-            },
-            numberPickerOptions: { // increment by the polar Angle interval
-              upFunction: value => { return value + POLAR_ANGLE_INTERVAL; },
-              downFunction: value => { return value - POLAR_ANGLE_INTERVAL; }
-            }
-          } );
+            } ), {
+              numberPickerOptions: { // increment by the polar Angle interval
+                upFunction: value => { return value + POLAR_ANGLE_INTERVAL; },
+                downFunction: value => { return value - POLAR_ANGLE_INTERVAL; }
+              }
+            } );
         }
 
         // Displayed Horizontally, push a HBox to the content children array
@@ -219,10 +216,11 @@ define( require => {
    *
    * @param {NumberProperty} numberProperty - number Property that goes in the Number Picker
    * @param {Range} numberRange - static numberRange of the number Property
+   * @param {Node} vectorSymbolNode
    * @param {Object} [options]
    * @returns {HBox}
    */
-  function createNumberPickerWithLabel( numberProperty, numberRange, options ) {
+  function createNumberPickerWithLabel( numberProperty, numberRange, vectorSymbolNode, options ) {
 
     options = merge( {
 
@@ -241,8 +239,6 @@ define( require => {
       equalsSignMargin: 3 // {number} left and right margin of the equals sign
 
     }, options );
-
-    const vectorSymbolNode = new VectorSymbolNode( options.vectorSymbolNodeOptions );
 
     const equalsSign = new Text( MathSymbols.EQUAL_TO, { font: options.equalsSignFont } );
 
