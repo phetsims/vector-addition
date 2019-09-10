@@ -5,7 +5,6 @@ TODO list for vector-addition
 #159 What color should component vectors be for 'c' and 'f' in Equation screen?
 #158 should components be shown for base vectors?
 #156 Zero-length sum vector label should not be centered on tail location
-#152 Change vector drag bounds and 'drag off' behavior
 #148 Collapse equation scenes to one graph for each snap mode.
 #140 alignment problem with coefficients in equations
 #136 add cueing arrows to vector head
