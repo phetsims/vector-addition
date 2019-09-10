@@ -39,12 +39,7 @@ define( require => {
      * @param {Property.<RootVector>|null} activeVectorProperty
      * @param {Object} [arrowOptions]
      */
-    constructor( rootVector,
-                 modelViewTransformProperty,
-                 valuesVisibleProperty,
-                 activeVectorProperty,
-                 arrowOptions
-    ) {
+    constructor( rootVector, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, arrowOptions ) {
 
       assert && assert( rootVector instanceof RootVector, `invalid rootVector: ${rootVector}` );
       assert && assert( modelViewTransformProperty instanceof Property
