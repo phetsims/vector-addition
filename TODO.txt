@@ -1,9 +1,5 @@
 TODO list for vector-addition
 
-DONE
-#170 move VectorSymbolNode constructor parameters to options
-#165 options not passed to super
-
 NEW ISSUE
 EquationVectorNode is not used
 
