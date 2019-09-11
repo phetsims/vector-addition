@@ -243,15 +243,12 @@ define( require => {
     /**
      * Adds a Vector Creator Panel to the scene.
      * @public
-     *
-     * @param {VectorCreatorPanel}
+     * @param {VectorCreatorPanel} vectorCreatorPanel
      */
     addVectorCreatorPanel( vectorCreatorPanel ) {
-
       assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel );
 
       this.addChild( vectorCreatorPanel );
-
       vectorCreatorPanel.moveToBack(); // move to back to ensure the Vector Containers are on top
     }
   }
