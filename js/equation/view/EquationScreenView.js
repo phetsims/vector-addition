@@ -55,8 +55,8 @@ define( require => {
       // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
-          right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,
-          bottom: this.resetAllButton.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
+          right: this.resetAllButton.left - 20,
+          bottom: this.resetAllButton.bottom
         } );
 
       const polarScene = new EquationSceneNode(
