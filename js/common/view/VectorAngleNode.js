@@ -17,7 +17,6 @@ define( require => {
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Line = require( 'SCENERY/nodes/Line' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
@@ -46,8 +45,6 @@ define( require => {
 
   // rounding of the angle label
   const ANGLE_ROUNDING = VectorAdditionConstants.NUMBER_DISPLAY_ROUNDING;
-
-  const ANGLE_LABEL_FONT = new PhetFont( 13 );
 
   // Angles greater than 35 deg position the label between the vector and the baseline, and angles under 35
   // place the label on the other side of the baseline. See
@@ -81,7 +78,7 @@ define( require => {
       this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS, vector.angle ? vector.angle : 0, );
 
       // @private {Text} labelText - set to an arbitrary string for now.
-      this.labelText = new Text( '', { font: ANGLE_LABEL_FONT } );
+      this.labelText = new Text( '', { font: VectorAdditionConstants.ANGLE_LABEL_FONT } );
 
       this.setChildren( [ this.baseLine, this.curvedArrow, this.labelText ] );
 

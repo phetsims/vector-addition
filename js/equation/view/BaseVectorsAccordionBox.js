@@ -19,9 +19,7 @@ define( require => {
 
   // modules
   const AccordionBox = require( 'SUN/AccordionBox' );
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const Checkbox = require( 'SUN/Checkbox' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
@@ -33,6 +31,7 @@ define( require => {
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   const Property = require( 'AXON/Property' );
   const Range = require( 'DOT/Range' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -136,14 +135,14 @@ define( require => {
           leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.xComponentProperty, COMPONENT_RANGE,
             new VectorSymbolNode( {
               symbol: `${baseVector.symbol}<sub>${symbolXString}</sub>`,
-              useRichText: true
+              showVectorArrow: false
             } ) );
 
           // Y Component
           rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.yComponentProperty, COMPONENT_RANGE,
             new VectorSymbolNode( {
               symbol: `${baseVector.symbol}<sub>${symbolYString}</sub>`,
-              useRichText: true
+              showVectorArrow: false
             } ) );
         }
         else {
@@ -157,9 +156,8 @@ define( require => {
 
           // Angle
           rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.angleDegreesProperty, ANGLE_RANGE,
-            new VectorSymbolNode( {
-              symbol: `${MathSymbols.THETA}<sub>${baseVector.symbol}</sub>`,
-              useRichText: true
+            new RichText( `${MathSymbols.THETA}<sub>${baseVector.symbol}</sub>`, {
+              font: VectorAdditionConstants.EQUATION_SYMBOL_FONT
             } ), {
               numberPickerOptions: { // increment by the polar Angle interval
                 upFunction: value => { return value + POLAR_ANGLE_INTERVAL; },
@@ -227,14 +225,6 @@ define( require => {
       // {Object} options passed to NumberPicker
       numberPickerOptions: _.clone( VectorAdditionConstants.NUMBER_PICKER_OPTIONS ),
 
-      // {Object} options passed to VectorSymbolNode
-      vectorSymbolNodeOptions: {
-        richTextFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
-        spacing: 1
-      },
-
-      vectorSymbolNodeWidth: 20, // {number} fixed width of the VectorSymbolNode
-
       equalsSignFont: VectorAdditionConstants.EQUATION_FONT,  // {Font} font for the equals sign text
       equalsSignMargin: 3 // {number} left and right margin of the equals sign
 
@@ -244,17 +234,9 @@ define( require => {
 
     const numberPicker = new NumberPicker( numberProperty, new Property( numberRange ), options.numberPickerOptions );
 
-    // Align the VectorSymbolNode in a AlignBox to ensure the correct alignment and sizing, which ensures that
-    // all HBoxes have equal widths (since the NumberPicker and the equals sign Text don't change size).
-    const alignedVectorSymbolNode = new AlignBox( vectorSymbolNode, {
-      alignBounds: new Bounds2( 0, 0, options.vectorSymbolNodeWidth, vectorSymbolNode.height ),
-      maxWidth: options.vectorSymbolNodeWidth
-    } );
-    vectorSymbolNode.maxWidth = options.vectorSymbolNodeWidth;
-
     return new HBox( {
       spacing: options.equalsSignMargin,
-      children: [ alignedVectorSymbolNode, equalsSign, numberPicker ]
+      children: [ vectorSymbolNode, equalsSign, numberPicker ]
     } );
   }
 

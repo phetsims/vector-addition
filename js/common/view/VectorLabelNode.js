@@ -23,20 +23,14 @@ define( require => {
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Property = require( 'AXON/Property' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const RootVector = require( 'VECTOR_ADDITION/common/model/RootVector' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
-
-  // constants
-  const TEXT_OPTIONS = {
-    font: new PhetFont( 15 )
-  };
-  const ACTIVE_VECTOR_LABEL_BACKGROUND = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND;
 
   class VectorLabelNode extends Node {
     
@@ -82,12 +76,13 @@ define( require => {
 
       // Create the Vector Symbol Node, set to arbitrary value for now.
       const vectorSymbolNode = new VectorSymbolNode( {
-        coefficientTextOptions: TEXT_OPTIONS,
+        symbolFont: VectorAdditionConstants.VECTOR_LABEL_SYMBOL_FONT,
+        font: VectorAdditionConstants.VECTOR_LABEL_FONT,
         spacing: 1
       } );
 
       // Create the text for the value
-      const vectorValueText = new Text( '', TEXT_OPTIONS );
+      const vectorValueText = new Text( '', { font: VectorAdditionConstants.VECTOR_LABEL_FONT } );
 
       // Create a horizontal layout box for the symbol and the value
       const vectorLabelContent = new HBox( { spacing: options.symbolValueSpacing } );
@@ -127,7 +122,7 @@ define( require => {
 
           // Active vectors have different background colors
           backgroundRectangle.fill = activeVectorProperty.value === rootVector ?
-                                     ACTIVE_VECTOR_LABEL_BACKGROUND :
+                                     VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND :
                                      options.backgroundRectangleOptions.fill;
 
 

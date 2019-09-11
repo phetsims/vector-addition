@@ -1,22 +1,26 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the Vectors Symbol.
+ * VectorSymbolNode is responsible for displaying vector symbols in a variety of forms.
  *
- * Encapsulated Node for just a Vector Symbol that mixes ArrowOverSymbolNode and textNodes. It contains
- *  - Absolute value bars (text node)
- *  - A Coefficient (text node)
- *  - A vector symbol (formula node)
+ * The symbol includes zero or more of the following, all of which can be mutated:
+ *  - vector symbol, e.g. 'a'
+ *  - arrow over the vector symbol
+ *  - absolute value bars, to indicate magnitude, e.g. |a|
+ *  - coefficient
  *
- * For instance, the Vector 'a' could have a symbol node of '|-3a|'. This can be achieved by passing a symbol ('a'), a
- * coefficient (-3), and a boolean value representing if the absolute value bars are there (true in this case).
+ * For instance, the vector 'a' could have a symbol of '|-3a|'. This can be achieved with this combination of
+ * options:
  *
- * Auto formats coefficients (e.g. if vector 'a' had the coefficients -1, the symbol node would display '-a').
+ * {
+ *   symbol: 'a',
+ *   coefficient: -3,
+ *   showVectorArrow: false,
+ *   includeAbsoluteValueBars: true
+ * }
  *
- * This is used in the 'Vector Values' panel to represent the magnitude number display and is also used in the
- * VectorLabel for the label of the vector.
- *
- * Contains methods to change the magnitude boolean value, the symbol, and the coefficient.
+ * The coefficient is auto formatted. A coefficient of 1 is hidden, while a coefficient of -1 is displayed as
+ * unary minus. E.g. if vector 'a' has the coefficient -1, the displated symbol would be '-a'.
  *
  * @author Brandon Li
  */
@@ -54,31 +58,20 @@ define( require => {
         // {number|null} optional coefficient to display
         coefficient: null,
 
+        // {boolean} flag to whether to show an arrow above the vector symbol
+        showVectorArrow: true,
+
         // {boolean} whether to surround with absolute value bars, to indicate 'magnitude'
         includeAbsoluteValueBars: false,
 
-        // {Object} passed to the coefficientText instance
-        coefficientTextOptions: {
-          font: VectorAdditionConstants.EQUATION_FONT
-        },
+        // {Font} font used for the vector symbol
+        symbolFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
 
-        // {Object} passed to the absoluteValueText instances
-        absoluteValueTextOptions: {
-          font: VectorAdditionConstants.EQUATION_FONT
-        },
-
-        // {number} Formula Node should be scaled to match the size of the coefficient text.
-        // Only used if options.useRichText is false
-        formulaNodeScale: 1,
-
-        // {boolean} flag to indicate if rich text should be used instead of a formula node.
-        // NOTE: if true, a vector arrow will not be drawn
-        useRichText: false,
-
-        // {Object} passed to the rich text. Only used if options.useRichText is true
-        richTextFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
+        // {Font} font used for everything that is not a symbol
+        font: VectorAdditionConstants.EQUATION_FONT,
 
         // HBox options
+        align: 'origin', // so that text baselines are aligned
         spacing: 2 // {number} spacing of the text nodes / formula nodes
 
       }, options );
@@ -88,32 +81,21 @@ define( require => {
 
       super( options );
 
-      //----------------------------------------------------------------------------------------
-      // Create private references to constructor args
-
-      // @private {String|null} symbol
+      // @private
       this.symbol = options.symbol;
-
-      // @private {number|null} coefficient
       this.coefficient = options.coefficient;
-
-      // @private {boolean} includeAbsoluteValueBars
       this.includeAbsoluteValueBars = options.includeAbsoluteValueBars;
 
-      //----------------------------------------------------------------------------------------
-      // Create arbitrary nodes that represent the content of the symbol node, to be set later.
-      const leftBar = new Text( '|', options.absoluteValueTextOptions );
+      // Create all of the pieces of the VectorSymbolNode. Values will be set later, and these
+      // will be added as children as needed based on how the VectorSymbolNode is configured.
+      const leftBar = new Text( '|', { font: options.font } );
+      const rightBar = new Text( '|', { font: options.font } );
+      const coefficientText = new Text( '', { font: options.font } );
+      const symbolNode = options.showVectorArrow ?
+                         new ArrowOverSymbolNode( '', { font: options.symbolFont } ) :
+                         new RichText( '', { font: options.symbolFont } );
 
-      const rightBar = new Text( '|', options.absoluteValueTextOptions );
-
-      const symbolNode = options.useRichText ?
-                         new RichText( '' ).setFont( options.richTextFont ) :
-                         new ArrowOverSymbolNode( '' );
-
-      const coefficientText = new Text( '', options.coefficientTextOptions );
-
-      //----------------------------------------------------------------------------------------
-      // @private {function} updateVectorSymbolNode - function that updates the vector symbol node
+      // @private function that updates the vector symbol node
       this.updateVectorSymbolNode = () => {
 
         // Auto format the coefficient
@@ -125,35 +107,27 @@ define( require => {
           coefficient = `${this.coefficient}`;
         }
 
-        //----------------------------------------------------------------------------------------
         // Set the coefficient and symbol text to match our properties
         coefficient && coefficientText.setText( coefficient );
-
         if ( this.symbol ) {
-          if ( options.useRichText ) {
-            symbolNode.setText( this.symbol );
+          if ( options.showVectorArrow ) {
+            symbolNode.setSymbol( this.symbol );
           }
           else {
-            symbolNode.setSymbol( this.symbol );
+            symbolNode.setText( this.symbol );
           }
         }
 
+        // Add the pieces that are relevant for the current configuration.
         const children = [];
-
-        //----------------------------------------------------------------------------------------
-        // Reassign the children of the HBox
         this.includeAbsoluteValueBars && children.push( leftBar );
-
         coefficient && children.push( coefficientText );
-
         this.symbol && children.push( symbolNode );
-
         this.includeAbsoluteValueBars && children.push( rightBar );
-
         this.setChildren( children );
 
         // Set the visibility to true only if we have a child to display
-        this.visible = children.length !== 0;
+        this.visible = ( children.length !== 0 );
       };
 
       // Update the vector symbol node
@@ -161,9 +135,8 @@ define( require => {
     }
 
     /**
-     * Sets the 'Include Absolute Value Bars' flag (toggles if the absolute value bars are displayed).
+     * Determines whether absolute value bars are displayed to indicate 'magnitude'.
      * @public
-     *
      * @param {boolean} includeAbsoluteValueBars
      */
     setIncludeAbsoluteValueBars( includeAbsoluteValueBars ) {
@@ -174,9 +147,8 @@ define( require => {
     }
 
     /**
-     * Sets the symbol string
+     * Sets the symbol.
      * @public
-     *
      * @param {string|null} symbol - the symbol to display. Null means no symbol is displayed.
      */
     setSymbol( symbol ) {
@@ -187,8 +159,7 @@ define( require => {
     }
 
     /**
-     * Sets the Coefficient to display. Will Auto format (e.g. if vector 'a' had the coefficients -1,
-     * the symbol node would display '-a').
+     * Sets the coefficient.
      * @public
      * @param {number|null} coefficient
      */
@@ -200,15 +171,13 @@ define( require => {
     }
 
     /**
-     * Performance method that sets all the attributes of the VectorSymbolNode.
+     * Performance method that sets all the attributes of the VectorSymbolNode and does 1 update.
      * @public
-     *
      * @param {string|null} symbol - the symbol to display (See comment at the top of the file)
      * @param {number|null} coefficient - the coefficient to display
      * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
      */
     setVectorSymbolNode( symbol, coefficient, includeAbsoluteValueBars ) {
-
       assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
       assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
       assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );

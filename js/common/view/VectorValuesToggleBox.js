@@ -25,7 +25,6 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Text = require( 'SCENERY/nodes/Text' );
   const ToggleBox = require( 'VECTOR_ADDITION/common/view/ToggleBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -49,13 +48,14 @@ define( require => {
   // margin from the number display to the label (ltr)
   const LABEL_LEFT_MARGIN = 17;
 
-  // width for all labels (except the magnitude label)
-  const LABEL_WIDTH = 25;
-
   // width of the magnitude label
-  const MAGNITUDE_LABEL_WIDTH = 30;
+  const MAGNITUDE_LABEL_WIDTH = 50;
 
+  // width of the angle label
   const ANGLE_LABEL_WIDTH = 15;
+
+  // width of the component labels
+  const COMPONENT_LABEL_WIDTH = 35;
 
   // possible types of attributes to display
   const ATTRIBUTE_DISPLAY_TYPES = VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES;
@@ -114,13 +114,13 @@ define( require => {
       } );
       const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE );
 
-      const angleText = new Text( MathSymbols.THETA, { font: new PhetFont( 18 ) } );
+      const angleText = new Text( MathSymbols.THETA, { font: VectorAdditionConstants.EQUATION_SYMBOL_FONT } );
       const angleNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
 
-      const xComponentText = new VectorSymbolNode( { useRichText: true } );
+      const xComponentText = new VectorSymbolNode( { showVectorArrow: false } );
       const xComponentNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT );
 
-      const yComponentText = new VectorSymbolNode( { useRichText: true } );
+      const yComponentText = new VectorSymbolNode( { showVectorArrow: false } );
       const yComponentNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
@@ -128,7 +128,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Function that adds a label and display container combo, putting the label in a fixed sized AlignBox
-      const addNumberDisplayAndLabel = ( label, numberDisplay, labelWidth = LABEL_WIDTH ) => {
+      const addNumberDisplayAndLabel = ( label, numberDisplay, labelWidth ) => {
 
         // Align the label in a AlignBox to set a fixed width
         const fixedWidthLabel = new AlignBox( label, {
@@ -146,8 +146,8 @@ define( require => {
 
       addNumberDisplayAndLabel( magnitudeDisplayNode, magnitudeNumberDisplay, MAGNITUDE_LABEL_WIDTH );
       addNumberDisplayAndLabel( angleText, angleNumberDisplay, ANGLE_LABEL_WIDTH );
-      addNumberDisplayAndLabel( xComponentText, xComponentNumberDisplay );
-      addNumberDisplayAndLabel( yComponentText, yComponentNumberDisplay );
+      addNumberDisplayAndLabel( xComponentText, xComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
+      addNumberDisplayAndLabel( yComponentText, yComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
 
       //----------------------------------------------------------------------------------------
 

@@ -180,7 +180,8 @@ define( require => {
     // Fonts
     EQUATION_FONT: new PhetFont( 18 ),
     EQUATION_SYMBOL_FONT: new MathSymbolFont( 18 ),
-    VECTOR_LABEL_FONT: new PhetFont( 15 ),
+    VECTOR_LABEL_FONT: new PhetFont( 18 ),
+    VECTOR_LABEL_SYMBOL_FONT: new MathSymbolFont( 18 ),
     ANGLE_LABEL_FONT: new PhetFont( 13 ),
     TICK_LABEL_FONT: new PhetFont( 14 ),
     AXIS_LABEL_FONT: new MathSymbolFont( 18 ),

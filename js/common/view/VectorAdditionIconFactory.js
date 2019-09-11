@@ -27,12 +27,12 @@ define( require => {
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
   const interleave = require( 'PHET_CORE/interleave' );
   const Line = require( 'SCENERY/nodes/Line' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
-  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Screen = require( 'JOIST/Screen' );
   const ScreenIcon = require( 'JOIST/ScreenIcon' );
   const Shape = require( 'KITE/Shape' );
@@ -436,7 +436,7 @@ define( require => {
       let children = [];
 
       const textOptions = {
-        font: new PhetFont( 18 )
+        font: VectorAdditionConstants.EQUATION_FONT
       };
 
       // Gather all the symbols for the left side of the equation into an array.
@@ -450,7 +450,8 @@ define( require => {
 
       // Interleave operators (i.e. '+'|'-') in between each symbol on the left side of the equation
       children = interleave( children, () => {
-        return new Text( equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS, textOptions );
+        const operator = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
+        return new Text( operator, textOptions );
       } );
 
       // '='
@@ -461,15 +462,11 @@ define( require => {
                      new Text( '0', textOptions ) :
                      new ArrowOverSymbolNode( _.last( vectorSymbols ), null, false ) );
 
-      const spacing = 8;
-      for ( let i = 0; i < children.length; i++ ) {
-        children[ i ].y = 0;
-        if ( i > 0 ) {
-          children[ i ].left = children[ i - 1 ].right + spacing;
-        }
-      }
-
-      return new Node( { children: children } );
+      return new HBox( {
+        children: children,
+        spacing: 8,
+        align: 'origin' // so that text baselines are aligned
+      } );
     }
   };
 
