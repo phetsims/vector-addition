@@ -1,9 +1,5 @@
 TODO list for vector-addition
 
-NEW ISSUE
-EquationVectorNode is not used
-
-TODO
 #160 Lab screen, check both Sum checkboxes, select one sum on graph, other sum disappears from graph
 #156 Zero-length sum vector label should not be centered on tail location
 #148 Collapse equation scenes to one graph for each snap mode.
