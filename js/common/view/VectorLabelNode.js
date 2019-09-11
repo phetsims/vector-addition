@@ -85,7 +85,10 @@ define( require => {
       const vectorValueText = new Text( '', { font: VectorAdditionConstants.VECTOR_LABEL_FONT } );
 
       // Create a horizontal layout box for the symbol and the value
-      const vectorLabelContent = new HBox( { spacing: options.symbolValueSpacing } );
+      const vectorLabelContent = new HBox( {
+        spacing: options.symbolValueSpacing,
+        align: 'origin' // so that text baselines will be aligned
+      } );
 
       assert && assert( !options.children, 'VectorLabelNode sets children' );
       options.children = [ backgroundRectangle, vectorLabelContent ];
