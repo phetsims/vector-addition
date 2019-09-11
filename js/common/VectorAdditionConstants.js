@@ -94,7 +94,7 @@ define( require => {
     PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
 
     // fixed width of each GraphControlPanel
-    GRAPH_CONTROL_PANEL_CONTENT_WIDTH: 150,
+    GRAPH_CONTROL_PANEL_CONTENT_WIDTH: 173,
 
     // vertical spacing between UI components in each GraphControlPanel
     GRAPH_CONTROL_PANEL_Y_SPACING: 10,

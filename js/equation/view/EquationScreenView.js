@@ -55,7 +55,7 @@ define( require => {
       // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
-          right: this.resetAllButton.left - 20,
+          right: this.resetAllButton.left - 16,
           bottom: this.resetAllButton.bottom
         } );
 
