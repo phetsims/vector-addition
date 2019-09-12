@@ -285,7 +285,7 @@ define( require => {
      * @private
      *
      * ## Common Invariants (for both cartesian and polar mode)
-     *  - Vector tail must be in a position that both the tail and tip are in the graph
+     *  - Vector tail must be within constrained drag bounds
      *
      * ## Invariants for cartesian mode:
      *  - Vector tail must be on an exact model coordinate
@@ -353,7 +353,7 @@ define( require => {
      * @public
      * @param {Vector2} tipPosition
      */
-    dragTipToPosition( tipPosition ) {
+    moveTipToPosition( tipPosition ) {
 
       // Declare this vector as active when it's dragging
       this.graph.activeVectorProperty.value = this;
@@ -366,7 +366,7 @@ define( require => {
      * @public
      * @param {Vector2} tailPosition
      */
-    dragTailToPosition( tailPosition ) {
+    moveTailToPosition( tailPosition ) {
 
       // Declare this vector as active when it's dragging
       this.graph.activeVectorProperty.value = this;
@@ -464,7 +464,6 @@ define( require => {
 
       // Ensure dropped tail position satisfies invariants
       this.setTailWithInvariants( tailPosition );
-      this.setTipWithInvariants( this.tip );
 
       // When the vector is first dropped, it is active
       this.graph.activeVectorProperty.value = this;

@@ -324,7 +324,7 @@ define( require => {
       const vectorTipPosition = this.vector.tail
         .plus( this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
 
-      this.vector.dragTipToPosition( vectorTipPosition );
+      this.vector.moveTipToPosition( vectorTipPosition );
     }
 
     /**
@@ -345,7 +345,7 @@ define( require => {
       }
       else {
         // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds
-        this.vector.dragTailToPosition( tailPosition );
+        this.vector.moveTailToPosition( tailPosition );
       }
     }
   }
