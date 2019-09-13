@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Base class (meant to be subtyped) for vector views for all types of vectors (sum, component, etc.).
+ * Base class for vector views for all types of vectors (sum, component, etc.).
  * Primarily responsibilities are:
  *  - Create an Arrow Node that mirrors a vector models tail/tip position
  *  - Create Other Nodes that ALL vectors in the sim have (ie. labels etc.)
