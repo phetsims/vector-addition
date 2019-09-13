@@ -17,7 +17,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
-  const BASE_VECTOR_OPTIONS = {
+  const OPTIONS = {
     isRemovable: false,       // Base Vectors are not removable
     isTipDraggable: false,    // Base Vectors are not draggable by the tip
     isOnGraphInitially: true  // Base Vectors are always on the equationGraph
@@ -35,7 +35,7 @@ define( require => {
      */
     constructor( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol ) {
 
-      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, BASE_VECTOR_OPTIONS );
+      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, OPTIONS );
     }
   }
 

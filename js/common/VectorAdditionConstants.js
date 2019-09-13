@@ -155,10 +155,7 @@ define( require => {
 
     // Defaults for base vectors
     BASE_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
-      arrowOptions: {
-        fill: VectorAdditionColors.BASE_VECTOR_COLOR_PALETTE.fill,
-        stroke: VectorAdditionColors.BASE_VECTOR_COLOR_PALETTE.stroke
-      }
+      lineWidth: 1.5
     } ),
 
     DEFAULT_VECTOR_LENGTH: 5, // side length of the arrow when initially dropped onto the graph.

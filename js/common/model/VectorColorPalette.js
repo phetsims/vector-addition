@@ -37,7 +37,11 @@ define( require => {
 
         // colors used for the background behind the label on a non-active vector
         labelBackgroundFill: 'rgb( 235, 235, 235 )',
-        labelBackgroundStroke: null
+        labelBackgroundStroke: null,
+
+        // colors used for base vectors
+        baseVectorFill: Color.WHITE,
+        baseVectorStroke: null // defaults to options.fill
 
       }, options );
 
@@ -52,6 +56,8 @@ define( require => {
       this.sumComponentStroke = options.sumComponentStroke;
       this.labelBackgroundFill = options.labelBackgroundFill;
       this.labelBackgroundStroke = options.labelBackgroundStroke;
+      this.baseVectorFill = options.baseVectorFill;
+      this.baseVectorStroke = options.baseVectorStroke || options.fill;
     }
   }
 

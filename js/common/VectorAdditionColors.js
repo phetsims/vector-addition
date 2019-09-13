@@ -81,11 +81,6 @@ define( require => {
       componentFill: 'rgb( 150, 205, 150 )'
     } ),
 
-    // base vectors (gray)
-    BASE_VECTOR_COLOR_PALETTE: new VectorColorPalette( {
-      fill: 'rgb( 180, 180, 180 )'
-    } ),
-
     // Equation screen, blue
     EQUATION_VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
       fill: BLUE,
