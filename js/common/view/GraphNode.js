@@ -80,9 +80,7 @@ define( require => {
       assert && assert( gridVisibilityProperty instanceof BooleanProperty,
         `invalid gridVisibilityProperty: ${gridVisibilityProperty}` );
 
-      // Transform the model grid bounds into the view coordinates. This will stay constant as the background rectangle
-      // won't move, even though the model view transform will change
-      const graphViewBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
+      const graphViewBounds = graph.graphViewBounds;
 
       const children = [
         new Rectangle( graphViewBounds, {

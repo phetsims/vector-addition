@@ -46,6 +46,8 @@ define( require => {
       // @private view-specific Properties
       this.viewProperties = new Explore1DViewProperties();
 
+      const graphViewBounds = explore1DModel.verticalGraph.graphViewBounds;
+
       // Controls for the graph, at upper right
       const graphControlPanel = new Explore1DGraphControlPanel(
         explore1DModel.sumVisibleProperty,
@@ -53,7 +55,7 @@ define( require => {
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.gridVisibleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-          top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
+          top: graphViewBounds.top
         } );
       this.addChild( graphControlPanel );
 

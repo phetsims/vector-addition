@@ -86,7 +86,7 @@ define( require => {
       // Create one and only Graph Node
       const graphNode = new GraphNode( graph, gridVisibleProperty );
 
-      const graphViewBounds = graph.modelViewTransformProperty.value.modelToViewBounds( graph.graphModelBounds );
+      const graphViewBounds = graph.graphViewBounds;
 
       // Create the one and only 'Vector Values' toggle box
       const vectorValuesToggleBox = new VectorValuesToggleBox( graph, _.extend( {

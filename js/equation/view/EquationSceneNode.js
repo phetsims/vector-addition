@@ -76,7 +76,7 @@ define( require => {
       this.vectorValuesToggleBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
       // convenience reference
-      const graphViewBounds = equationGraph.modelViewTransformProperty.value.modelToViewBounds( equationGraph.graphModelBounds );
+      const graphViewBounds = equationGraph.graphViewBounds;
 
       //----------------------------------------------------------------------------------------
       // Add a Coefficient Selector for each Equation Type

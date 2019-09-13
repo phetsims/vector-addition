@@ -78,8 +78,8 @@ define( require => {
         valueType: Bounds2
       } );
 
-      // Determine the view bounds for the graph, the graph view bounds are constant for the entire sim.
-      const graphViewBounds = new Bounds2( options.bottomLeft.x,
+      // @public (read-only) Determine the view bounds for the graph, the graph view bounds are constant for the entire sim.
+      this.graphViewBounds = new Bounds2( options.bottomLeft.x,
         options.bottomLeft.y - MODEL_TO_VIEW_SCALE * initialGraphBounds.height,
         options.bottomLeft.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
         options.bottomLeft.y );
@@ -88,7 +88,7 @@ define( require => {
       // coordinate transform between model (graph coordinates) and view coordinates.
       this.modelViewTransformProperty = new DerivedProperty( [ this.graphModelBoundsProperty ],
         ( graphModelBounds ) => {
-          return ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, graphViewBounds );
+          return ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, this.graphViewBounds );
         }, {
           valueType: ModelViewTransform2
         } );
