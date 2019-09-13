@@ -263,11 +263,22 @@ define( require => {
         .moveTo( wedgeLength, 0 )
         .horizontalLineTo( 0 )
         .lineTo( Math.cos( angle ) * wedgeLength, -Math.sin( angle ) * wedgeLength );
+      const wedgeNode = new Path( wedgeShape, {
+        stroke: Color.BLACK
+      } );
+      
+      const curvedArrowNode = new CurvedArrowNode( curvedArrowRadius, angle );
 
-      return new Node().setChildren( [
-        new Path( wedgeShape, { stroke: Color.BLACK } ),
-        new CurvedArrowNode( curvedArrowRadius, angle )
-      ] );
+      const thetaNode = new Text( MathSymbols.THETA, {
+        font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
+        scale: 0.75,
+        left: curvedArrowNode.right + 4,
+        centerY: wedgeNode.centerY
+      } );
+
+      return new Node( {
+        children: [ wedgeNode, curvedArrowNode, thetaNode ]
+      } );
     },
 
     //========================================================================================
