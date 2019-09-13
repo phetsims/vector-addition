@@ -49,6 +49,7 @@ define( require => {
   const COMPONENT_RANGE = new Range( -10, 10 );
   const MAGNITUDE_RANGE = new Range( -10, 10 );
   const ANGLE_RANGE = new Range( -180, 180 );
+  const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 
   class BaseVectorsAccordionBox extends AccordionBox {
 
@@ -119,14 +120,16 @@ define( require => {
           leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.xComponentProperty, COMPONENT_RANGE,
             new VectorSymbolNode( {
               symbol: `${baseVector.symbol}<sub>${symbolXString}</sub>`,
-              showVectorArrow: false
+              showVectorArrow: false,
+              maxWidth: LABEL_MAX_WIDTH
             } ) );
 
           // Y Component
           rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.yComponentProperty, COMPONENT_RANGE,
             new VectorSymbolNode( {
               symbol: `${baseVector.symbol}<sub>${symbolYString}</sub>`,
-              showVectorArrow: false
+              showVectorArrow: false,
+              maxWidth: LABEL_MAX_WIDTH
             } ) );
         }
         else {
@@ -135,13 +138,15 @@ define( require => {
           leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.magnitudeProperty, MAGNITUDE_RANGE,
             new VectorSymbolNode( {
               symbol: baseVector.symbol,
-              includeAbsoluteValueBars: true
+              includeAbsoluteValueBars: true,
+              maxWidth: LABEL_MAX_WIDTH
             } ) );
 
           // Angle
           rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.angleDegreesProperty, ANGLE_RANGE,
             new RichText( `${MathSymbols.THETA}<sub>${baseVector.symbol}</sub>`, {
-              font: VectorAdditionConstants.EQUATION_SYMBOL_FONT
+              font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
+              maxWidth: LABEL_MAX_WIDTH
             } ), {
               numberPickerOptions: { // increment by the polar Angle interval
                 upFunction: value => { return value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL; },
@@ -184,7 +189,8 @@ define( require => {
       const accordionBoxContent = new VBox( {
         children: [ fixedWidthPickers, baseVectorsCheckbox ],
         spacing: options.ySpacing,
-        align: 'left'
+        align: 'left',
+        maxWidth: minWidth
       } );
 
       super( accordionBoxContent, options );
