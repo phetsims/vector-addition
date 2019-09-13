@@ -186,7 +186,7 @@ define( require => {
       const accordionBoxContent = new VBox( {
         children: [ fixedWidthPickers, baseVectorsCheckbox ],
         spacing: options.ySpacing,
-        align: 'center',
+        align: 'left',
         maxWidth: options.contentWidth
       } );
 
