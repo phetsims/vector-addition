@@ -5,11 +5,11 @@
  * and a cartesian 'scene' and 'Explore 1D' has a horizontal and a vertical 'scene'.
  *
  * ## A 'Scene Node' contains:
- *  - a single Graph Node
- *  - a single Vector Values Panel
+ *  - a single GraphNode
+ *  - a single VectorValuesToggleBox
  *  - Handle z-layering of all vector types (see https://github.com/phetsims/vector-addition/issues/19)
- *  - An option to include an Eraser Button
- *  - A method to add a Vector Creator Panel
+ *  - An option to include an EraserButton
+ *  - A method to add a VectorCreatorPanel
  *
  * ## API
  *  - Not required to tell the Scene Node to create the Vector Sum Nodes and their Components (does this automatically
@@ -17,7 +17,7 @@
  *  - However, it is required to 'tell' the Scene Node when other Vectors are created (see registerVector()). Once this
  *    is called, the Vector Nodes/Components are made and deleted once the Vector is removed.
  *
- * NOTE: Scene Node will not toggle its visibility based on when the Graph Orientation or the Coordinate Snap Mode
+ * NOTE: SceneNode will not toggle its visibility based on when the GraphOrientation or the CoordinateSnapMode
  *       changes. This must be done externally.
  *
  * @author Brandon Li
