@@ -15,6 +15,7 @@ define( require => {
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Property = require( 'AXON/Property' );
   const ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
+  const Shape = require( 'KITE/Shape' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -58,7 +59,7 @@ define( require => {
 
       super( diameter, _.extend( { center: origin }, ORIGIN_OPTIONS ) );
 
-      //----------------------------------------------------------------------------------------
+      this.touchArea = Shape.circle( 0, 0, diameter );
 
       // Create a dragBounds to constrain the drag
       const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds(
@@ -81,7 +82,6 @@ define( require => {
         graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originLocation ) );
       } );
 
-      //----------------------------------------------------------------------------------------
       // Observe when the models model view transform changes to update the location of the circle. This is never
       // unlinked since graphs exists throughout the entire sim.
       graph.modelViewTransformProperty.link( modelViewTransform => {
