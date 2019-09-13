@@ -29,13 +29,13 @@ define( require => {
 
   // Array of the Object literals that represent the initial state of Vectors on a Equation Vector Set
   const EQUATION_SET_VECTORS = [ {
-    vectorTail: new Vector2( 5, 10 ),
+    vectorTail: new Vector2( 5, 5 ),
     vectorComponents: new Vector2( 0, 5 ),
-    baseVectorTail: new Vector2( 45, 20 )
+    baseVectorTail: new Vector2( 35, 15 )
   }, {
-    vectorTail: new Vector2( 15, 10 ),
+    vectorTail: new Vector2( 15, 5 ),
     vectorComponents: new Vector2( 5, 5 ),
-    baseVectorTail: new Vector2( 45, 5 )
+    baseVectorTail: new Vector2( 35, 5 )
   } ];
 
   class EquationVectorSet extends VectorSet {

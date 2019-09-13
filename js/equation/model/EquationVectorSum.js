@@ -27,7 +27,7 @@ define( require => {
   const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
   // constants
-  const EQUATION_SUM_TAIL_POSITION = new Vector2( 25, 10 );
+  const EQUATION_SUM_TAIL_POSITION = new Vector2( 25, 5 );
 
   class EquationVectorSum extends VectorSum {
 
