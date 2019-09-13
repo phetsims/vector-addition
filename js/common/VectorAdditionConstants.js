@@ -48,8 +48,8 @@ define( require => {
     // Graph Constants
     DEFAULT_GRAPH_BOUNDS: new Bounds2( -5, -5, 45, 25 ),
     DEFAULT_SUM_VISIBLE: false,
-    AXES_ARROW_X_EXTENSION: 20, // how far the x-axis arrow extends past the end of the graph
-    AXES_ARROW_Y_EXTENSION: 15, // how far the y-axis arrow extends past the end of the graph
+    AXES_ARROW_X_EXTENSION: 20, // how far the x-axis arrow extends past the edge of the graph's grid
+    AXES_ARROW_Y_EXTENSION: 15, // how far the y-axis arrow extends past the edge of the graph's grid
     AXES_ARROW_OPTIONS: {
       doubleHead: true,
       tailWidth: 3,
