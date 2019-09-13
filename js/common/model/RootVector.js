@@ -3,8 +3,8 @@
 /**
  * Root class (should be subclasses) for vector models for all types of vectors.
  *
- * For an overview of the class hierarchy, see https://github.com/phetsims/vector-addition/blob/master/doc/implementation-notes.md.
- * Additional notes about the class hierarchy can be found in https://github.com/phetsims/vector-addition/issues/31.
+ * For an overview of the class hierarchy,
+ * see https://github.com/phetsims/vector-addition/blob/master/doc/implementation-notes.md
  *
  * Responsibilities are:
  *  - tip and tail position Properties

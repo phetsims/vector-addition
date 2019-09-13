@@ -6,7 +6,8 @@
  *  - Create an Arrow Node that mirrors a vector models tail/tip position
  *  - Create Other Nodes that ALL vectors in the sim have (ie. labels etc.)
  *
- * For an overview of the vector class hierarchy visit https://github.com/phetsims/vector-addition/issues/31
+ * For an overview of the class hierarchy,
+ * see https://github.com/phetsims/vector-addition/blob/master/doc/implementation-notes.md
  *
  * @author Brandon Li
  */
