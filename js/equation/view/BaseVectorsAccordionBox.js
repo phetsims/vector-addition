@@ -102,7 +102,7 @@ define( require => {
       // On Polar, the two Number Pickers toggle the magnitude and the angle respectively.
       //----------------------------------------------------------------------------------------
 
-      const pickers = []; // empty (for now) array of pairs of pickers and their labels
+      const pickers = []; // {HBox[]} pairs of pickers and their labels
 
       // Each Vector in the equationVectorSet gets 2 NumberPickers, so loop through the equationVectorSet
       equationVectorSet.vectors.forEach( equationVector => {
