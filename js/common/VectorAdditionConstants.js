@@ -27,8 +27,8 @@ define( require => {
   const PANEL_Y_MARGIN = 10;
 
   const VECTOR_ARROW_OPTIONS = {
-    headWidth: 12,
-    headHeight: 14,
+    headWidth: 10,
+    headHeight: 12,
     tailWidth: 3,
     lineWidth: 0
   };
