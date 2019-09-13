@@ -134,7 +134,7 @@ define( require => {
         // TODO: create add the components
         const baseVector = new VectorNode( equationVector.baseVector, equationGraph, valuesVisibleProperty,
           anglesVisibleProperty, {
-            arrowOptions: _.extend( {}, VectorAdditionConstants.BASE_VECTOR_OPTIONS, {
+            arrowOptions: _.extend( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
               fill: equationGraph.vectorSet.vectorColorPalette.baseVectorFill,
               stroke: equationGraph.vectorSet.vectorColorPalette.baseVectorStroke
             } )

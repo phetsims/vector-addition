@@ -36,7 +36,7 @@ define( require => {
   };
 
   // arrow options for the vector shadow
-  const VECTOR_SHADOW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+  const SHADOW_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
     fill: Color.BLACK,
     opacity: 0.28
   } );
@@ -100,7 +100,7 @@ define( require => {
       const angleNode = new VectorAngleNode( vector, angleVisibleProperty, graph );
 
       // Create an arrow node that represents the shadow of the vector
-      const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, VECTOR_SHADOW_OPTIONS );
+      const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, SHADOW_VECTOR_ARROW_OPTIONS );
 
       // Create a circle at the tip of the vector. This is used to allow the user to only change the angle of the
       // arrowNode by only dragging the tip

@@ -55,11 +55,11 @@ define( require => {
 
   // Defaults constants for radio button icons (except for the equation types radio button icons)
   // size (width and height) of all arrow nodes inside of radio buttons
-  const RADIO_BUTTON_VECTOR_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+  const RADIO_BUTTON_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
     stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
   } );
-  const RADIO_BUTTON_COMPONENT_VECTOR_OPTIONS = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
+  const RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
     fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill,
     stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentStroke
   } );
@@ -81,7 +81,7 @@ define( require => {
      */
     createExplore1DScreenIcon() {
 
-      const vectorOptions = _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+      const vectorOptions = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
         stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
       } );
@@ -112,18 +112,18 @@ define( require => {
 
       // vector
       const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
-        _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
           stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
         } ) );
       
       // component vectors
-      const componentOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
+      const componentArrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill,
         stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentStroke
       } );
-      const xComponentNode = new ArrowNode( 0, 0, vector.x, 0, componentOptions );
-      const yComponentNode = new ArrowNode( vector.x, 0, vector.x, vector.y, componentOptions );
+      const xComponentNode = new ArrowNode( 0, 0, vector.x, 0, componentArrowOptions );
+      const yComponentNode = new ArrowNode( vector.x, 0, vector.x, vector.y, componentArrowOptions );
 
       return createScreenIcon( [ xComponentNode, yComponentNode, vectorNode ] );
     },
@@ -151,13 +151,13 @@ define( require => {
       const startingTailLocation = new Vector2( SCREEN_ICON_WIDTH / 4, 0 );
 
       const group1ArrowNodes = createTipToTailArrowNodes( group1TipLocations, startingTailLocation,
-        _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
           stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
         } ) );
 
       const group2ArrowNodes = createTipToTailArrowNodes( group2TipLocations, startingTailLocation,
-        _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_2.fill,
           stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_2.stroke
         } ) );
@@ -182,14 +182,14 @@ define( require => {
 
       // vectors, tip to tail
       const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
-        _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.fill,
           stroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.stroke
         } ) );
 
       // sum
       arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
-        _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
+        _.extend( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumFill,
           stroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumStroke
         } ) ) );
@@ -217,7 +217,7 @@ define( require => {
       const arrowComponents = initialVectorComponents.normalized().timesScalar( arrowLength );
 
       return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y,
-        _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
+        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           arrowLength: arrowLength,
           cursor: 'pointer',
           fill: vectorColorPalette.fill,
@@ -240,7 +240,7 @@ define( require => {
 
       assert && assert( fill || stroke );
 
-      return new ArrowNode( 0, 0, 22, 0, _.extend( {}, VectorAdditionConstants.SUM_VECTOR_OPTIONS, {
+      return new ArrowNode( 0, 0, 22, 0, _.extend( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
         fill: fill,
         stroke: stroke
       } ) );
@@ -293,9 +293,9 @@ define( require => {
       assert && assert( subBoxSize < iconSize );
 
       // Initialize arrow nodes for the PARALLELOGRAM component style (will be adjusted for different component styles)
-      const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, RADIO_BUTTON_VECTOR_OPTIONS );
-      const xComponentArrow = new ArrowNode( 0, 0, iconSize, 0, RADIO_BUTTON_COMPONENT_VECTOR_OPTIONS );
-      const yComponentArrow = new ArrowNode( 0, 0, 0, -iconSize, RADIO_BUTTON_COMPONENT_VECTOR_OPTIONS );
+      const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, RADIO_BUTTON_VECTOR_ARROW_OPTIONS );
+      const xComponentArrow = new ArrowNode( 0, 0, iconSize, 0, RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS );
+      const yComponentArrow = new ArrowNode( 0, 0, 0, -iconSize, RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS );
 
       let iconChildren = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
 
@@ -343,9 +343,10 @@ define( require => {
       const iconSize = RADIO_BUTTON_ICON_SIZE;
 
       // Arrow that is 45 degrees to the right and up
-      const vectorNode = new ArrowNode( 0, 0, iconSize, -iconSize, _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: RADIO_BUTTON_VECTOR_OPTIONS.fill
-      } ) );
+      const vectorNode = new ArrowNode( 0, 0, iconSize, -iconSize,
+        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+          fill: RADIO_BUTTON_VECTOR_ARROW_OPTIONS.fill
+        } ) );
 
       // x and y, Cartesian coordinates
       const xyArrowOptions = {
@@ -374,9 +375,10 @@ define( require => {
       const arcRadius = 30; // arc radius of the curved arrow
 
       // Arrow that is 45 degrees to the right and up
-      const arrow = new ArrowNode( 0, 0, iconSize, -iconSize, _.extend( {}, VectorAdditionConstants.VECTOR_OPTIONS, {
-        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_3.fill
-      } ) );
+      const arrow = new ArrowNode( 0, 0, iconSize, -iconSize,
+        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_3.fill
+        } ) );
 
       // Curved arrow that indicates the angle
       const curvedArrow = new CurvedArrowNode( arcRadius, Util.toRadians( 45 ) );

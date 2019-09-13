@@ -45,7 +45,7 @@ define( require => {
         `Extra prototype on Options: ${options}` );
 
       options = merge( {
-        arrowOptions: _.extend( {}, VectorAdditionConstants.SUM_COMPONENT_VECTOR_OPTIONS, {
+        arrowOptions: _.extend( {}, VectorAdditionConstants.SUM_COMPONENT_VECTOR_ARROW_OPTIONS, {
           fill: componentVector.vectorColorPalette.sumComponentFill,
           stroke: componentVector.vectorColorPalette.sumComponentStroke
         } )

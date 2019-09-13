@@ -25,7 +25,7 @@ define( require => {
   const PANEL_X_MARGIN = 9;
   const PANEL_Y_MARGIN = 10;
 
-  const VECTOR_OPTIONS = {
+  const VECTOR_ARROW_OPTIONS = {
     headWidth: 11.5,
     headHeight: 8.5,
     tailWidth: 4,
@@ -136,25 +136,25 @@ define( require => {
     // Constants for Vectors
 
     // Defaults for all vectors
-    VECTOR_OPTIONS: VECTOR_OPTIONS,
+    VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
 
     // Defaults for component vectors
-    COMPONENT_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
+    COMPONENT_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {
       opacity: 0.75
     } ),
     
     // Defaults for sum vectors
-    SUM_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
+    SUM_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {
       lineWidth: 0.75
     } ),
 
     // Defaults for components of sum vectors
-    SUM_COMPONENT_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
+    SUM_COMPONENT_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {
       lineWidth: 0.5
     } ),
 
     // Defaults for base vectors
-    BASE_VECTOR_OPTIONS: _.extend( {}, VECTOR_OPTIONS, {
+    BASE_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {
       lineWidth: 1.5
     } ),
 

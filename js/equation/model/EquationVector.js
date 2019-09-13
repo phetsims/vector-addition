@@ -38,12 +38,11 @@ define( require => {
   const COEFFICIENT_RANGE = new Range( -5, 5 );
 
   // super class options
-  const VECTOR_OPTIONS = {
+  const OPTIONS = {
     isRemovable: false,       // Equation Vectors are not removable
     isTipDraggable: false,    // Equation Vectors are not draggable by the tip
     isOnGraphInitially: true  // Equation Vectors are always on the equationGraph
   };
-
 
   class EquationVector extends Vector {
 
@@ -64,7 +63,7 @@ define( require => {
     ) {
 
 
-      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, VECTOR_OPTIONS );
+      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, OPTIONS );
 
 
       // @public (read-only)

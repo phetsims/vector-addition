@@ -71,7 +71,7 @@ define( require => {
         },
 
         // {Object} - options passed to the super class to stylize the arrowOptions.
-        arrowOptions: _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_OPTIONS, {
+        arrowOptions: _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
           fill: componentVector.vectorColorPalette.componentFill,
           stroke: componentVector.vectorColorPalette.componentStroke
         } )
