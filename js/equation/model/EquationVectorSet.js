@@ -56,10 +56,9 @@ define( require => {
                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
 
-      //----------------------------------------------------------------------------------------
-      // Create the equationVectors, one less then symbols
-      // For example, if symbols were [ 'A', 'B', 'C' ], 'A' and 'B' would be equation Vector symbols
-      // and C would be the equation vector sum
+      //----------------------------------------------------------------------------------------------------
+      // Create the equationVectors, one less then symbols. For example, if symbols were [ 'a', 'b', 'c' ],
+      // 'a' and 'c' would be equation Vector symbols and 'c' would be the equation vector sum.
       assert && assert( this.symbols.length - 1 === EQUATION_SET_VECTORS.length );
 
       for ( let i = 0; i < EQUATION_SET_VECTORS.length; i++ ) {
