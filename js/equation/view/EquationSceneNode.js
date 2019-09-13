@@ -125,13 +125,13 @@ define( require => {
       baseVectorsAccordionBox.moveToBack();
 
       //----------------------------------------------------------------------------------------
-      // 'Register' Vectors and add their Base Vectors and their components
+      // 'Register' vectors and add their base vectors.
+      // Base vectors do not have component vectors, see https://github.com/phetsims/vector-addition/issues/158
       equationGraph.vectorSet.vectors.forEach( equationVector => {
 
         // register the vector to create the Nodes
         this.registerVector( equationVector, equationGraph.vectorSet );
 
-        // TODO: create add the components
         const baseVector = new VectorNode( equationVector.baseVector, equationGraph, valuesVisibleProperty,
           anglesVisibleProperty, {
             arrowOptions: _.extend( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
