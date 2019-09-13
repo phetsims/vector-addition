@@ -68,10 +68,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       options = _.extend( {
-        arrowOptions: {
+        arrowOptions: _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: vector.vectorColorPalette.fill,
           stroke: vector.vectorColorPalette.stroke
-        }
+        } )
       }, options );
 
       super( vector,

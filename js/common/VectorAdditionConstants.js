@@ -26,9 +26,9 @@ define( require => {
   const PANEL_Y_MARGIN = 10;
 
   const VECTOR_ARROW_OPTIONS = {
-    headWidth: 11.5,
-    headHeight: 8.5,
-    tailWidth: 4,
+    headWidth: 12,
+    headHeight: 14,
+    tailWidth: 3,
     lineWidth: 0
   };
 
@@ -45,7 +45,7 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Graph Constants
-    DEFAULT_GRAPH_BOUNDS: new Bounds2( -5, -5, 55, 35 ),
+    DEFAULT_GRAPH_BOUNDS: new Bounds2( -5, -5, 45, 25 ),
     DEFAULT_SUM_VISIBLE: false,
     AXES_ARROW_X_EXTENSION: 20, // how far the x-axis arrow extends past the end of the graph
     AXES_ARROW_Y_EXTENSION: 15, // how far the y-axis arrow extends past the end of the graph

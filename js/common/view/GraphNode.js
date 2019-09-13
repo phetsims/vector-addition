@@ -39,8 +39,8 @@ define( require => {
   const MINOR_GRID_LINE_WIDTH = 1.2; // view units
 
   // axes
-  const AXES_ARROW_X_EXTENSION = 15; // how far the line extends past the grid, view units
-  const AXES_ARROW_Y_EXTENSION = 15;
+  const AXES_ARROW_X_EXTENSION = VectorAdditionConstants.AXES_ARROW_X_EXTENSION;
+  const AXES_ARROW_Y_EXTENSION = VectorAdditionConstants.AXES_ARROW_Y_EXTENSION;
   const AXES_TEXT_OPTIONS = {
     font: VectorAdditionConstants.AXIS_LABEL_FONT,
     maxWidth: 30

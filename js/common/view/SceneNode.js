@@ -39,7 +39,6 @@ define( require => {
   const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
@@ -93,7 +92,7 @@ define( require => {
       const vectorValuesToggleBox = new VectorValuesToggleBox( graph, _.extend( {
         expandedProperty: vectorValuesExpandedProperty,
         centerX: graphViewBounds.centerX,
-        top: VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
+        top: 35 // determined empirically
       }, options.vectorValuesToggleBoxOptions ) );
 
       //----------------------------------------------------------------------------------------
@@ -129,7 +128,7 @@ define( require => {
         const eraserButton = new EraserButton( {
           listener: () => graph.erase(),
           right: graphViewBounds.maxX,
-          top: graphViewBounds.maxY + 10
+          top: graphViewBounds.maxY + 15
         } );
         this.addChild( eraserButton );
 

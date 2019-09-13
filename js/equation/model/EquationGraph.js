@@ -32,7 +32,7 @@ define( require => {
   // constants
 
   // graph bounds for Equation Graphs
-  const EQUATION_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.withOffsets( 0, 0, 0, -5 );
+  const EQUATION_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
   // Starting Equation Type
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;

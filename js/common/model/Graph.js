@@ -33,8 +33,6 @@ define( require => {
   // view coordinates of the graph node's bottom left location to calculate the model view transform. To calculate the
   // bottom left coordinate, access to the information about the screen view is necessary.
   const SCREEN_VIEW_BOUNDS = VectorAdditionConstants.SCREEN_VIEW_BOUNDS;
-  const SCREEN_VIEW_X_MARGIN = VectorAdditionConstants.SCREEN_VIEW_X_MARGIN;
-  const SCREEN_VIEW_Y_MARGIN = VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
   // References to how far the axes arrow extends past the graph.
   const AXES_ARROW_X_EXTENSION = VectorAdditionConstants.AXES_ARROW_X_EXTENSION;
@@ -42,11 +40,12 @@ define( require => {
 
   // Calculate the grid's bottom left location in view coordinates, constant for all graph nodes.
   const GRID_BOTTOM_LEFT = new Vector2(
-    SCREEN_VIEW_BOUNDS.minX + AXES_ARROW_X_EXTENSION + SCREEN_VIEW_X_MARGIN / 2,
-    SCREEN_VIEW_BOUNDS.maxY - AXES_ARROW_Y_EXTENSION - SCREEN_VIEW_Y_MARGIN / 2);
+    SCREEN_VIEW_BOUNDS.minX + AXES_ARROW_X_EXTENSION + 10,
+    SCREEN_VIEW_BOUNDS.maxY - AXES_ARROW_Y_EXTENSION - 45
+  );
 
   // scale of the coordinate transformation of model coordinates to view coordinates
-  const MODEL_TO_VIEW_SCALE = 12.3;
+  const MODEL_TO_VIEW_SCALE = 14.5;
 
   class Graph {
 
