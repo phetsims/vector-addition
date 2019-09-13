@@ -32,6 +32,9 @@ define( require => {
     lineWidth: 0
   };
 
+  // fixed width of panels and accordion boxes on right side of the screen
+  const RIGHT_PANEL_WIDTH = 175;
+
   const VectorAdditionConstants = {
 
     //----------------------------------------------------------------------------------------
@@ -94,7 +97,8 @@ define( require => {
     PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
 
     // fixed width of each GraphControlPanel
-    GRAPH_CONTROL_PANEL_CONTENT_WIDTH: 173,
+    GRAPH_CONTROL_PANEL_CONTENT_WIDTH: RIGHT_PANEL_WIDTH,
+    BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH: RIGHT_PANEL_WIDTH,
 
     // vertical spacing between UI components in each GraphControlPanel
     GRAPH_CONTROL_PANEL_Y_SPACING: 10,

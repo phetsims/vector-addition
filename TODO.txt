@@ -2,8 +2,6 @@ TODO list for vector-addition
 
 #153 clean up layout based on alignment of checkbox in BaseVectorsAccordionBox
 
-Width of graph control panel and BaseVectorsAccordionBox are the same only due to eyeballing.
-
 #160 Lab screen, check both Sum checkboxes, select one sum on graph, other sum disappears from graph
 #148 Collapse equation scenes to one graph for each snap mode.
 #140 alignment problem with coefficients in equations

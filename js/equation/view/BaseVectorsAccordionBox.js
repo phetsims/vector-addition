@@ -77,7 +77,7 @@ define( require => {
         // specific to this class
         xSpacing: 11, // {number} spacing between the left Number Picker and the right label
         ySpacing: 15, // {number} y spacing between UI components
-        fixedWidth: 190, // {number} fixed width of the Accordion Box
+        contentWidth: VectorAdditionConstants.BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH, // fixed content width
 
         // super class options
         titleNode: new Text( baseVectorsString, { font: VectorAdditionConstants.TITLE_FONT } )
@@ -85,13 +85,8 @@ define( require => {
       }, options );
 
 
-      // Assign a max width of the title node. Calculated by taking the total width and subtracting everything that
-      // isn't the title
-      options.titleNode.maxWidth = options.fixedWidth       // total width
-                                   - options.titleXMargin   // margin between the title right edge
-                                   - options.titleXSpacing  // space between the title and the button
-                                   - options.expandCollapseButtonOptions.sideLength // button size
-                                   - options.buttonXMargin; // margin between the button and the left edge
+      // Assign a max width of the title node.
+      options.titleNode.maxWidth = 0.75 * options.contentWidth;
 
       //----------------------------------------------------------------------------------------
       // Create the Number Pickers / labels
@@ -169,8 +164,7 @@ define( require => {
       } );
 
       // Ensure that the accordion box is a fixed width.
-      const minWidth = options.fixedWidth - ( 2 * options.contentXMargin );
-      const strut = new HStrut( minWidth, {
+      const strut = new HStrut( options.contentWidth, {
         pickable: false,
         center: pickersVBox.center
       } );
@@ -189,8 +183,8 @@ define( require => {
       const accordionBoxContent = new VBox( {
         children: [ fixedWidthPickers, baseVectorsCheckbox ],
         spacing: options.ySpacing,
-        align: 'left',
-        maxWidth: minWidth
+        align: 'center',
+        maxWidth: options.contentWidth
       } );
 
       super( accordionBoxContent, options );
