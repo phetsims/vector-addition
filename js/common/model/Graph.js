@@ -30,18 +30,11 @@ define( require => {
   // constants
 
   // Since the origin is being dragged, modelViewTransform is in the model. That being said, it is necessary to know the
-  // view coordinates of the graph node's bottom left location to calculate the model view transform. To calculate the
-  // bottom left coordinate, access to the information about the screen view is necessary.
-  const SCREEN_VIEW_BOUNDS = VectorAdditionConstants.SCREEN_VIEW_BOUNDS;
-
-  // References to how far the axes arrow extends past the graph.
-  const AXES_ARROW_X_EXTENSION = VectorAdditionConstants.AXES_ARROW_X_EXTENSION;
-  const AXES_ARROW_Y_EXTENSION = VectorAdditionConstants.AXES_ARROW_Y_EXTENSION;
-
-  // Calculate the grid's bottom left location in view coordinates, constant for all graph nodes.
-  const GRID_BOTTOM_LEFT = new Vector2(
-    SCREEN_VIEW_BOUNDS.minX + AXES_ARROW_X_EXTENSION + 10,
-    SCREEN_VIEW_BOUNDS.maxY - AXES_ARROW_Y_EXTENSION - 45
+  // view coordinates of the graph node's bottom left location to calculate the model view transform.
+  // Calculate the default for the grid's bottom left location, in view coordinates.
+  const DEFAULT_BOTTOM_LEFT = new Vector2(
+    VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minX + VectorAdditionConstants.AXES_ARROW_X_EXTENSION + 10,
+    VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxY - VectorAdditionConstants.AXES_ARROW_Y_EXTENSION - 45
   );
 
   // scale of the coordinate transformation of model coordinates to view coordinates
@@ -55,13 +48,18 @@ define( require => {
      *                                                   strictly polar or cartesian.
      * @param {GraphOrientations} orientation - the orientation of the graph. A graph is either strictly horizontal,
      *                                          vertical, or two dimensional.
+     * @param {Object} [options]
      */
-    constructor( initialGraphBounds, coordinateSnapMode, orientation ) {
+    constructor( initialGraphBounds, coordinateSnapMode, orientation, options ) {
 
       assert && assert( initialGraphBounds instanceof Bounds2, `invalid initialGraphBounds: ${initialGraphBounds}` );
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
         `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( GraphOrientations.includes( orientation ), `invalid orientation: ${orientation}` );
+
+      options = _.extend( {
+         bottomLeft: DEFAULT_BOTTOM_LEFT // bottom left corner of the graph, in view coordinates
+      }, options );
 
       //----------------------------------------------------------------------------------------
 
@@ -81,10 +79,10 @@ define( require => {
       } );
 
       // Determine the view bounds for the graph, the graph view bounds are constant for the entire sim.
-      const graphViewBounds = new Bounds2( GRID_BOTTOM_LEFT.x,
-        GRID_BOTTOM_LEFT.y - MODEL_TO_VIEW_SCALE * initialGraphBounds.height,
-        GRID_BOTTOM_LEFT.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
-        GRID_BOTTOM_LEFT.y );
+      const graphViewBounds = new Bounds2( options.bottomLeft.x,
+        options.bottomLeft.y - MODEL_TO_VIEW_SCALE * initialGraphBounds.height,
+        options.bottomLeft.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
+        options.bottomLeft.y );
 
       // @public (read-only) {DerivedProperty.<ModelViewTransform2>} modelViewTransformProperty - Property of the
       // coordinate transform between model (graph coordinates) and view coordinates.
@@ -147,6 +145,8 @@ define( require => {
       return this.graphModelBoundsProperty.value;
     }
   }
+
+  Graph.DEFAULT_BOTTOM_LEFT = DEFAULT_BOTTOM_LEFT;
 
   return vectorAddition.register( 'Graph', Graph );
 } );

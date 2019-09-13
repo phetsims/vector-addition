@@ -173,6 +173,9 @@ define( require => {
         vectorSumComponentContainer.addChild( yComponentSumNode );
       } );
 
+      // @protected for layout in subclasses
+      this.vectorValuesToggleBox = vectorValuesToggleBox;
+
       // @private
       this.vectorValuesToggleBox = vectorValuesToggleBox;
       this.componentStyleProperty = componentStyleProperty;
