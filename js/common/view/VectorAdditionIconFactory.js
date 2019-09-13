@@ -232,18 +232,19 @@ define( require => {
     /**
      * Creates a vector icon that points to the right, used with various checkboxes.
      * @public
-     * @param {Color|string|null} fill
-     * @param {Color|string|null} stroke
+     * @param {Object} [options]
      * @returns {Node}
      */
-    createVectorIcon: ( fill, stroke ) => {
+    createVectorIcon( options ) {
 
-      assert && assert( fill || stroke );
+      options = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        fill: Color.BLACK,
+        stroke: null,
+        lineWidth: 1,
+        length: 22
+      }, options );
 
-      return new ArrowNode( 0, 0, 22, 0, _.extend( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
-        fill: fill,
-        stroke: stroke
-      } ) );
+      return new ArrowNode( 0, 0, options.length, 0, options );
     },
 
     /**

@@ -41,7 +41,10 @@ define( require => {
         maxWidth: 95 // determined empirically
       } );
 
-      const icon = VectorAdditionIconFactory.createVectorIcon( options.vectorFill, options.vectorStroke );
+      const icon = VectorAdditionIconFactory.createVectorIcon( {
+        fill: options.vectorFill,
+        stroke: options.vectorStroke
+      } );
 
       const content = new LayoutBox( {
         orientation: 'horizontal',
