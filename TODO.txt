@@ -1,15 +1,14 @@
 TODO list for vector-addition
 
-#153 clean up layout based on alignment of checkbox in BaseVectorsAccordionBox
-
+#177 dashed component vectors
+#173 move selected vector to front
+#171 EquationNode is not used
 #160 Lab screen, check both Sum checkboxes, select one sum on graph, other sum disappears from graph
 #148 Collapse equation scenes to one graph for each snap mode.
-#140 alignment problem with coefficients in equations
 #136 add cueing arrows to vector head
-#134 layout of stuff to right of graph
 #128 layout of stuff above the graph
-#127 adjust graph range and MVT
-#127 Make origin manipulator smaller, expand pointer areas
+#97 implementation-notes.md
+#96 model.md
 #94 sum vector associated with selected vector should be in front
 #93 mitigate overlapping labels
 #87 memory leak
