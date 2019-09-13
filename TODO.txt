@@ -5,7 +5,6 @@ TODO list for vector-addition
 Width of graph control panel and BaseVectorsAccordionBox are the same only due to eyeballing.
 
 #160 Lab screen, check both Sum checkboxes, select one sum on graph, other sum disappears from graph
-#156 Zero-length sum vector label should not be centered on tail location
 #148 Collapse equation scenes to one graph for each snap mode.
 #140 alignment problem with coefficients in equations
 #136 add cueing arrows to vector head
@@ -13,9 +12,7 @@ Width of graph control panel and BaseVectorsAccordionBox are the same only due t
 #128 layout of stuff above the graph
 #127 adjust graph range and MVT
 #127 Make origin manipulator smaller, expand pointer areas
-#107, #134 Equation: Base Vectors accordion box overlaps radio buttons
 #94 sum vector associated with selected vector should be in front
 #93 mitigate overlapping labels
-#91 dragging tip to tail vectors
 #87 memory leak
 #84 dashed component vectors and 'dashedComponent' branch
