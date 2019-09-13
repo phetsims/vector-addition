@@ -36,29 +36,19 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   // strings
   const baseVectorsString = require( 'string!VECTOR_ADDITION/baseVectors' );
-  const showBaseVectorsString = require( 'string!VECTOR_ADDITION/showBaseVectors' );
   const symbolXString = require( 'string!VECTOR_ADDITION/symbol.x' );
   const symbolYString = require( 'string!VECTOR_ADDITION/symbol.y' );
 
-  //----------------------------------------------------------------------------------------
   // constants
-
-  // Checkbox options for the 'Show Base Vectors' checkbox
-  const CHECKBOX_OPTIONS = VectorAdditionConstants.CHECKBOX_OPTIONS;
-  const CHECKBOX_ICON_SPACING = VectorAdditionConstants.CHECKBOX_ICON_SPACING;
-
-  // interval spacing of vector angle (in degrees) when vector is in polar mode
-  const POLAR_ANGLE_INTERVAL = VectorAdditionConstants.POLAR_ANGLE_INTERVAL;
-
-  // tentative ranges on Number Pickers
+  // ranges for Number Pickers
   const COMPONENT_RANGE = new Range( -10, 10 );
-  const ANGLE_RANGE = new Range( -180, 180 );
   const MAGNITUDE_RANGE = new Range( -10, 10 );
-
+  const ANGLE_RANGE = new Range( -180, 180 );
 
   class BaseVectorsAccordionBox extends AccordionBox {
 
@@ -84,9 +74,9 @@ define( require => {
       options = _.extend( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
         // specific to this class
-        numberPickerWithLabelsSpacing: 11, // {number} spacing between the left Number Picker and the right label
-        ySpacing: 13,                      // {number} y spacing between UI components
-        fixedWidth: 190,                   // {number} fixed width of the Accordion Box
+        xSpacing: 11, // {number} spacing between the left Number Picker and the right label
+        ySpacing: 15, // {number} y spacing between UI components
+        fixedWidth: 190, // {number} fixed width of the Accordion Box
 
         // super class options
         titleNode: new Text( baseVectorsString, { font: VectorAdditionConstants.TITLE_FONT } )
@@ -102,12 +92,6 @@ define( require => {
                                    - options.expandCollapseButtonOptions.sideLength // button size
                                    - options.buttonXMargin; // margin between the button and the left edge
 
-
-      //----------------------------------------------------------------------------------------
-      // Convenience reference of the width of the content inside the Accordion Box
-      const contentWidth = options.fixedWidth - ( 2 * options.contentXMargin );
-
-
       //----------------------------------------------------------------------------------------
       // Create the Number Pickers / labels
       //
@@ -118,7 +102,7 @@ define( require => {
       // On Polar, the two Number Pickers toggle the magnitude and the angle respectively.
       //----------------------------------------------------------------------------------------
 
-      const accordionBoxContentChildren = []; // empty (for now) array of the children of the content
+      const pickers = []; // empty (for now) array of pairs of pickers and their labels
 
       // Each Vector in the equationVectorSet gets 2 NumberPickers, so loop through the equationVectorSet
       equationVectorSet.vectors.forEach( equationVector => {
@@ -160,51 +144,52 @@ define( require => {
               font: VectorAdditionConstants.EQUATION_SYMBOL_FONT
             } ), {
               numberPickerOptions: { // increment by the polar Angle interval
-                upFunction: value => { return value + POLAR_ANGLE_INTERVAL; },
-                downFunction: value => { return value - POLAR_ANGLE_INTERVAL; }
+                upFunction: value => { return value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL; },
+                downFunction: value => { return value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL; }
               }
             } );
         }
 
         // Displayed Horizontally, push a HBox to the content children array
-        accordionBoxContentChildren.push( new HBox( {
-          spacing: options.numberPickerWithLabelsSpacing,
+        pickers.push( new HBox( {
+          spacing: options.xSpacing,
           children: [ leftNumberPickerAndLabel, rightNumberPickerAndLabel ]
         } ) );
       } );
-
-
-      //----------------------------------------------------------------------------------------
-      // Create the 'Show Base Vectors' checkbox that toggles the visibility of Base Vectors
-
-      const showBaseVectorsText = new Text( showBaseVectorsString, {
-        font: VectorAdditionConstants.CHECKBOX_FONT,
-        maxWidth: contentWidth - CHECKBOX_OPTIONS.boxWidth - CHECKBOX_ICON_SPACING
+      
+      const pickersVBox = new VBox( {
+        children: pickers,
+        spacing: options.ySpacing,
+        align: 'center'
       } );
 
-      const baseVectorsCheckbox = new Checkbox( showBaseVectorsText, baseVectorsVisibleProperty, CHECKBOX_OPTIONS );
+      // Ensure that the accordion box is a fixed width.
+      const minWidth = options.fixedWidth - ( 2 * options.contentXMargin );
+      const strut = new HStrut( minWidth, {
+        pickable: false,
+        center: pickersVBox.center
+      } );
+      const fixedWidthPickers = new Node( { children: [ strut, pickersVBox ] } );
 
-      accordionBoxContentChildren.push( baseVectorsCheckbox );
-
-      //----------------------------------------------------------------------------------------
-      // Create the accordion box
+      // Create the checkbox that toggles the visibility of Base Vectors
+      const baseVectorsIcon = VectorAdditionIconFactory.createVectorIcon( {
+        fill: equationVectorSet.vectorColorPalette.baseVectorFill,
+        stroke: equationVectorSet.vectorColorPalette.baseVectorStroke,
+        lineWidth: VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS.lineWidth,
+        length: 50
+      } );
+      const baseVectorsCheckbox = new Checkbox( baseVectorsIcon, baseVectorsVisibleProperty,
+        VectorAdditionConstants.CHECKBOX_OPTIONS );
 
       const accordionBoxContent = new VBox( {
-        children: accordionBoxContentChildren,
-        spacing: options.ySpacing
+        children: [ fixedWidthPickers, baseVectorsCheckbox ],
+        spacing: options.ySpacing,
+        align: 'left'
       } );
 
-      super( new Node().setChildren( [
-        accordionBoxContent,
-        new HStrut( contentWidth, { pickable: false, center: accordionBoxContent.center } ) // Add a 'min' width
-      ] ), options );
+      super( accordionBoxContent, options );
     }
   }
-
-
-  //========================================================================================
-  // Helper functions
-  //========================================================================================
 
   /**
    * Layouts a Vector Symbol Node, a equals sign (Text), and a Number Picker horizontally in a HBox.
@@ -226,7 +211,7 @@ define( require => {
       numberPickerOptions: _.clone( VectorAdditionConstants.NUMBER_PICKER_OPTIONS ),
 
       equalsSignFont: VectorAdditionConstants.EQUATION_FONT,  // {Font} font for the equals sign text
-      equalsSignMargin: 3 // {number} left and right margin of the equals sign
+      spacing: 3 // {number} space around the equals sign
 
     }, options );
 
@@ -235,8 +220,8 @@ define( require => {
     const numberPicker = new NumberPicker( numberProperty, new Property( numberRange ), options.numberPickerOptions );
 
     return new HBox( {
-      spacing: options.equalsSignMargin,
-      children: [ vectorSymbolNode, equalsSign, numberPicker ]
+      children: [ vectorSymbolNode, equalsSign, numberPicker ],
+      spacing: options.spacing
     } );
   }
 

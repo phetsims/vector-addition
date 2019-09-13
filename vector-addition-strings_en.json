@@ -38,9 +38,6 @@
   "baseVectors": {
     "value": "Base Vectors"
   },
-  "showBaseVectors": {
-    "value": "Show Base Vectors"
-  },
   "equation": {
     "value": "Equation"
   }
