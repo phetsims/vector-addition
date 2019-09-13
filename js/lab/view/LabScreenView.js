@@ -64,8 +64,8 @@ define( require => {
       // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
-          right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,
-          bottom: this.resetAllButton.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
+          left: graphControlPanel.left,
+          bottom: this.resetAllButton.bottom
         } );
       this.addChild( coordinateSnapRadioButtonGroup );
 
@@ -83,7 +83,6 @@ define( require => {
 
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode, {
-            contentHeight: 90,
             left: coordinateSnapRadioButtonGroup.left,
             bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
           } )

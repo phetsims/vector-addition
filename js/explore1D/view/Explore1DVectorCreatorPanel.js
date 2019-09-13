@@ -54,7 +54,7 @@ define( require => {
 
 
         // super-class options
-        slotSpacing: explore1DGraph.orientation === GraphOrientations.VERTICAL ? 15 : 18
+        slotSpacing: explore1DGraph.orientation === GraphOrientations.VERTICAL ? 22 : 28
 
       }, options );
 

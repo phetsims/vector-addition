@@ -47,7 +47,7 @@ define( require => {
       this.viewProperties = new Explore1DViewProperties();
 
       // Controls for the graph, at upper right
-      const explore1DGraphControlPanel = new Explore1DGraphControlPanel(
+      const graphControlPanel = new Explore1DGraphControlPanel(
         explore1DModel.sumVisibleProperty,
         explore1DModel.vectorColorPalette,
         this.viewProperties.valuesVisibleProperty,
@@ -55,13 +55,13 @@ define( require => {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
-      this.addChild( explore1DGraphControlPanel );
+      this.addChild( graphControlPanel );
 
       // Graph Orientation radio buttons, at lower right
       const graphOrientationRadioButtonGroup = new GraphOrientationRadioButtonGroup(
         this.viewProperties.graphOrientationProperty, {
-          right: this.layoutBounds.maxX - VectorAdditionConstants.RADIO_BUTTONS_X_MARGIN,
-          bottom: this.resetAllButton.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
+          left: graphControlPanel.left,
+          bottom: this.resetAllButton.bottom
         } );
       this.addChild( graphOrientationRadioButtonGroup );
 

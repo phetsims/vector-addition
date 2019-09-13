@@ -128,8 +128,8 @@ define( require => {
 
         const eraserButton = new EraserButton( {
           listener: () => graph.erase(),
-          left: graphViewBounds.maxX + 20,
-          bottom: graphViewBounds.maxY
+          right: graphViewBounds.maxX,
+          top: graphViewBounds.maxY + 10
         } );
         this.addChild( eraserButton );
 

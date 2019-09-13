@@ -39,7 +39,7 @@ define( require => {
       this.viewProperties = new EquationViewProperties();
 
       // Controls for the graph, at upper right
-      const equationGraphControlPanel = new EquationGraphControlPanel(
+      const graphControlPanel = new EquationGraphControlPanel(
         equationModel.cartesianGraph.vectorSet,
         equationModel.polarGraph.vectorSet,
         this.viewProperties.coordinateSnapModeProperty,
@@ -55,7 +55,7 @@ define( require => {
       // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty, {
-          right: this.resetAllButton.left - 16,
+          left: graphControlPanel.left,
           bottom: this.resetAllButton.bottom
         } );
 
@@ -69,7 +69,7 @@ define( require => {
         this.viewProperties.baseVectorsExpandedProperty,
         this.viewProperties.baseVectorsVisibleProperty,
         equationModel.componentStyleProperty,
-        equationGraphControlPanel.bottom
+        graphControlPanel.bottom
       );
 
       const cartesianScene = new EquationSceneNode(
@@ -82,7 +82,7 @@ define( require => {
         this.viewProperties.baseVectorsExpandedProperty,
         this.viewProperties.baseVectorsVisibleProperty,
         equationModel.componentStyleProperty,
-        equationGraphControlPanel.bottom
+        graphControlPanel.bottom
       );
 
       // Toggle visibility of scenes based on which coordinate snap mode it is.
@@ -92,7 +92,7 @@ define( require => {
         cartesianScene.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
       } );
 
-      this.addChild( equationGraphControlPanel );
+      this.addChild( graphControlPanel );
       this.addChild( coordinateSnapRadioButtonGroup );
       this.addChild( polarScene );
       this.addChild( cartesianScene );

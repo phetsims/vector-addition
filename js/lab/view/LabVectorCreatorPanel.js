@@ -51,12 +51,12 @@ define( require => {
 
         // {Object} passed to both of the VectorCreatorPanelSlot instances
         vectorCreatorPanelSlotOptions: {
-          iconArrowSize: 40,  // Determined empirically - should be slightly larger
+          iconArrowSize: 50,  // Determined empirically - should be slightly larger
           isInfinite: true    // Slots are infinite
         },
 
         // vertical space between slots in the panel
-        slotSpacing: 20
+        slotSpacing: 40
 
       }, options );
 

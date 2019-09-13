@@ -47,9 +47,9 @@ define( require => {
         // options specific to this class
         xAlign: 'center',  // 'left' || 'center' || 'right' - horizontal alignment of the panel slots
         yAlign: 'center', // 'top' || 'center' || 'bottom' - vertical alignment of the panel slots
-        slotSpacing: 20, // {number} - the spacing between slots
+        slotSpacing: 30, // {number} - the spacing between slots
         contentWidth: 80, // {number} fixed width of the panel content
-        contentHeight: 120, // {number} fixed height of the panel content
+        contentHeight: 145, // {number} fixed height of the panel content
 
         fill: Color.WHITE,
         stroke: Color.BLACK
