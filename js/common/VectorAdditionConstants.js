@@ -16,6 +16,7 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Range = require( 'DOT/Range' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
@@ -99,6 +100,12 @@ define( require => {
 
     // vertical spacing between UI components in each GraphControlPanel
     GRAPH_CONTROL_PANEL_Y_SPACING: 10,
+
+    //----------------------------------------------------------------------------------------
+    // Ranges
+    COMPONENT_RANGE: new Range( -10, 10 ),
+    MAGNITUDE_RANGE: new Range( -10, 10 ),
+    ANGLE_RANGE: new Range( -180, 180 ),
 
     //----------------------------------------------------------------------------------------
     // Defaults for all AccordionBox instances

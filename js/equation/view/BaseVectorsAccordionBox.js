@@ -30,7 +30,6 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   const Property = require( 'AXON/Property' );
-  const Range = require( 'DOT/Range' );
   const RichText = require( 'SCENERY/nodes/RichText' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
@@ -45,10 +44,6 @@ define( require => {
   const symbolYString = require( 'string!VECTOR_ADDITION/symbol.y' );
 
   // constants
-  // ranges for Number Pickers
-  const COMPONENT_RANGE = new Range( -10, 10 );
-  const MAGNITUDE_RANGE = new Range( -10, 10 );
-  const ANGLE_RANGE = new Range( -180, 180 );
   const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 
   class BaseVectorsAccordionBox extends AccordionBox {
@@ -112,7 +107,9 @@ define( require => {
         if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
 
           // X Component
-          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.xComponentProperty, COMPONENT_RANGE,
+          leftNumberPickerAndLabel = createNumberPickerWithLabel(
+            baseVector.xComponentProperty,
+            VectorAdditionConstants.COMPONENT_RANGE,
             new VectorSymbolNode( {
               symbol: `${baseVector.symbol}<sub>${symbolXString}</sub>`,
               showVectorArrow: false,
@@ -120,7 +117,9 @@ define( require => {
             } ) );
 
           // Y Component
-          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.yComponentProperty, COMPONENT_RANGE,
+          rightNumberPickerAndLabel = createNumberPickerWithLabel(
+            baseVector.yComponentProperty,
+            VectorAdditionConstants.COMPONENT_RANGE,
             new VectorSymbolNode( {
               symbol: `${baseVector.symbol}<sub>${symbolYString}</sub>`,
               showVectorArrow: false,
@@ -130,7 +129,9 @@ define( require => {
         else {
 
           // Magnitude
-          leftNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.magnitudeProperty, MAGNITUDE_RANGE,
+          leftNumberPickerAndLabel = createNumberPickerWithLabel(
+            baseVector.magnitudeProperty,
+            VectorAdditionConstants.MAGNITUDE_RANGE,
             new VectorSymbolNode( {
               symbol: baseVector.symbol,
               includeAbsoluteValueBars: true,
@@ -138,7 +139,9 @@ define( require => {
             } ) );
 
           // Angle
-          rightNumberPickerAndLabel = createNumberPickerWithLabel( baseVector.angleDegreesProperty, ANGLE_RANGE,
+          rightNumberPickerAndLabel = createNumberPickerWithLabel(
+            baseVector.angleDegreesProperty,
+            VectorAdditionConstants.ANGLE_RANGE,
             new RichText( `${MathSymbols.THETA}<sub>${baseVector.symbol}</sub>`, {
               font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
               maxWidth: LABEL_MAX_WIDTH

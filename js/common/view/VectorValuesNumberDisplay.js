@@ -38,10 +38,6 @@ define( require => {
     'X_COMPONENT',
     'Y_COMPONENT' ] );
 
-  // range of the angle display
-  const ANGLE_RANGE = new Range( -180, 180 );
-
-
   class VectorValuesNumberDisplay extends NumberDisplay {
     /**
      * @param {Graph} graph - the graph that contains the vectors to display
@@ -66,7 +62,7 @@ define( require => {
       let numberDisplayRange;
 
       if ( attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.ANGLE ) {
-        numberDisplayRange = ANGLE_RANGE;
+        numberDisplayRange = VectorAdditionConstants.ANGLE_RANGE;
       }
       else if ( attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE ) {
         numberDisplayRange = new Range( 0, maxMagnitude );
