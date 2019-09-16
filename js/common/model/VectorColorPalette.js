@@ -23,17 +23,15 @@ define( require => {
         fill: Color.BLACK,
         stroke: null,
 
-        // colors used for component vectors
+        // colors used for component vectors. They are of type DashedArrowNode, which cannot be stroked.
         componentFill: Color.GRAY,
-        componentStroke: null,
 
         // colors used for sum vectors
         sumFill: null, // defaults to options.fill
         sumStroke: Color.BLACK,
 
-        // defaults to componentFill and componentStroke
+        // color used for sum component vectors
         sumComponentFill: null, // defaults to options.componentFill
-        sumComponentStroke: null,
 
         // colors used for the background behind the label on a non-active vector
         labelBackgroundFill: 'rgb( 235, 235, 235 )',
@@ -45,15 +43,17 @@ define( require => {
 
       }, options );
 
+      // Components cannot be stroked, so flag attempts to specify a stroke
+      assert && assert( options.componentStroke === undefined, 'componentStroke is not supported' );
+      assert && assert( options.sumComponentStroke === undefined, 'sumComponentStroke is not supported' );
+
       // @public (read-only)
       this.fill = options.fill;
       this.stroke = options.stroke;
       this.componentFill = options.componentFill;
-      this.componentStroke = options.componentStroke;
       this.sumFill = options.sumFill || options.fill;
       this.sumStroke = options.sumStroke;
       this.sumComponentFill = options.sumComponentFill || options.componentFill;
-      this.sumComponentStroke = options.sumComponentStroke;
       this.labelBackgroundFill = options.labelBackgroundFill;
       this.labelBackgroundStroke = options.labelBackgroundStroke;
       this.baseVectorFill = options.baseVectorFill;

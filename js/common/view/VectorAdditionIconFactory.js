@@ -24,6 +24,7 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
+  const DashedArrowNode = require( 'VECTOR_ADDITION/common/view/DashedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
@@ -60,8 +61,7 @@ define( require => {
     stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
   } );
   const RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill,
-    stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentStroke
+    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill
   } );
   const RADIO_BUTTON_ICON_SIZE = 45;
 
@@ -119,11 +119,10 @@ define( require => {
       
       // component vectors
       const componentArrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill,
-        stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentStroke
+        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill
       } );
-      const xComponentNode = new ArrowNode( 0, 0, vector.x, 0, componentArrowOptions );
-      const yComponentNode = new ArrowNode( vector.x, 0, vector.x, vector.y, componentArrowOptions );
+      const xComponentNode = new DashedArrowNode( 0, 0, vector.x, 0, componentArrowOptions );
+      const yComponentNode = new DashedArrowNode( vector.x, 0, vector.x, vector.y, componentArrowOptions );
 
       return createScreenIcon( [ xComponentNode, yComponentNode, vectorNode ] );
     },
@@ -306,8 +305,8 @@ define( require => {
 
       // Initialize arrow nodes for the PARALLELOGRAM component style (will be adjusted for different component styles)
       const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, RADIO_BUTTON_VECTOR_ARROW_OPTIONS );
-      const xComponentArrow = new ArrowNode( 0, 0, iconSize, 0, RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS );
-      const yComponentArrow = new ArrowNode( 0, 0, 0, -iconSize, RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS );
+      const xComponentArrow = new DashedArrowNode( 0, 0, iconSize, 0, RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS );
+      const yComponentArrow = new DashedArrowNode( 0, 0, 0, -iconSize, RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS );
 
       let iconChildren = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
 

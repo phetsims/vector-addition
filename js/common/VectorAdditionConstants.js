@@ -30,8 +30,12 @@ define( require => {
     headWidth: 10,
     headHeight: 12,
     tailWidth: 3.5,
-    lineWidth: 0
+    stroke: null
   };
+  const COMPONENT_VECTOR_ARROW_OPTIONS = _.extend( {}, VECTOR_ARROW_OPTIONS, {
+    tailWidth: 3,
+    tailDash: [ 6, 4 ]
+  } );
 
   // fixed width of panels and accordion boxes on right side of the screen
   const RIGHT_PANEL_WIDTH = 175;
@@ -146,8 +150,8 @@ define( require => {
     // Defaults for all vectors
     VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
 
-    // Defaults for component vectors
-    COMPONENT_VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
+    // Defaults for component vectors, DashedArrowNode instances
+    COMPONENT_VECTOR_ARROW_OPTIONS: COMPONENT_VECTOR_ARROW_OPTIONS,
     
     // Defaults for sum vectors
     SUM_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {
@@ -155,9 +159,7 @@ define( require => {
     } ),
 
     // Defaults for components of sum vectors
-    SUM_COMPONENT_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {
-      lineWidth: 0.5
-    } ),
+    SUM_COMPONENT_VECTOR_ARROW_OPTIONS: COMPONENT_VECTOR_ARROW_OPTIONS,
 
     // Defaults for base vectors
     BASE_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {

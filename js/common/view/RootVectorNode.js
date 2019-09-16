@@ -18,6 +18,7 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const DashedArrowNode = require( 'VECTOR_ADDITION/common/view/DashedArrowNode' );
   const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -57,7 +58,9 @@ define( require => {
 
       options = merge( {
 
-        // {Object} options passed to ArrowNode
+        arrowType: 'solid',
+
+        // {Object} options passed to ArrowNode or DashedArrowNode
         arrowOptions: {
           cursor: 'move'
         }
@@ -72,7 +75,12 @@ define( require => {
       const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( rootVector.vectorComponents );
 
       // @protected {ArrowNode} arrowNode - Create an arrow node that represents an actual vector.
-      this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, options.arrowOptions );
+      if ( options.arrowType === 'solid' ) {
+        this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, options.arrowOptions );
+      }
+      else {
+        this.arrowNode = new DashedArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, options.arrowOptions );
+      }
 
       // @protected {VectorLabelNode} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
       // The location of this depends on the angle of the vector. Since the positioning of 'next' is different for every
@@ -119,7 +127,7 @@ define( require => {
       const tipDeltaLocation = modelViewTransform.modelToViewDelta( rootVector.vectorComponents );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
 
-      if ( rootVector.magnitude > 0 ) {
+      if ( rootVector.magnitude > 0 && this.arrowNode.shape ) {
         // Make the arrow easier to grab
         this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( ARROW_MOUSEAREA_OFFSET );
       }

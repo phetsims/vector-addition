@@ -70,10 +70,11 @@ define( require => {
           lineDash: NON_ACTIVE_LINE_DASH
         },
 
+        arrowType: 'dashed',
+
         // {Object} - options passed to the super class to stylize the arrowOptions.
         arrowOptions: _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-          fill: componentVector.vectorColorPalette.componentFill,
-          stroke: componentVector.vectorColorPalette.componentStroke
+          fill: componentVector.vectorColorPalette.componentFill
         } )
 
       }, options );
