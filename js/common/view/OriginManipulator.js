@@ -73,7 +73,8 @@ define( require => {
       this.addInputListener( new DragListener( {
         locationProperty: originLocationProperty,
         translateNode: false,
-        dragBoundsProperty: new Property( restrictedGraphViewBounds )
+        dragBoundsProperty: new Property( restrictedGraphViewBounds ),
+        pressCursor: ORIGIN_OPTIONS.cursor
       } ) );
 
       // Observe the drag listener location. Link present for the lifetime of the simulation since graphs aren't removed

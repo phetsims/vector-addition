@@ -219,7 +219,7 @@ define( require => {
       return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           arrowLength: arrowLength,
-          cursor: 'pointer',
+          cursor: 'move',
           fill: vectorColorPalette.fill,
           stroke: vectorColorPalette.stroke
         } ) );

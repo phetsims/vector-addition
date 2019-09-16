@@ -17,6 +17,7 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
   const RootVectorNode = require( 'VECTOR_ADDITION/common/view/RootVectorNode' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
@@ -67,8 +68,9 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {
+      options = merge( {
         arrowOptions: _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+          cursor: 'move',
           fill: vector.vectorColorPalette.fill,
           stroke: vector.vectorColorPalette.stroke
         } )
@@ -134,6 +136,7 @@ define( require => {
       // @public (read-only) {DragListener} - drag listener for translating the vector. Should only be a input listener
       // when the vector isn't animating back.
       this.bodyDragListener = new DragListener( {
+        pressCursor: options.arrowOptions.cursor,
         targetNode: this,
         locationProperty: tailLocationProperty,
         start: () => {
