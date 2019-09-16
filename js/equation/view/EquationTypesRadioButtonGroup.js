@@ -29,6 +29,7 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   class EquationTypesRadioButtonGroup extends RadioButtonGroup {
+
     /**
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
      * @param {string[]} vectorSymbols - symbols on the buttons
