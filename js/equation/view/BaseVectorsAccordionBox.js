@@ -19,8 +19,8 @@ define( require => {
 
   // modules
   const AccordionBox = require( 'SUN/AccordionBox' );
+  const BaseVectorsCheckbox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsCheckbox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Checkbox = require( 'SUN/Checkbox' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const HBox = require( 'SCENERY/nodes/HBox' );
@@ -35,7 +35,6 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   // strings
@@ -174,14 +173,7 @@ define( require => {
       const fixedWidthPickers = new Node( { children: [ strut, pickersVBox ] } );
 
       // Create the checkbox that toggles the visibility of Base Vectors
-      const baseVectorsIcon = VectorAdditionIconFactory.createVectorIcon( {
-        fill: equationVectorSet.vectorColorPalette.baseVectorFill,
-        stroke: equationVectorSet.vectorColorPalette.baseVectorStroke,
-        lineWidth: VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS.lineWidth,
-        length: 50
-      } );
-      const baseVectorsCheckbox = new Checkbox( baseVectorsIcon, baseVectorsVisibleProperty,
-        VectorAdditionConstants.CHECKBOX_OPTIONS );
+      const baseVectorsCheckbox = new BaseVectorsCheckbox( baseVectorsVisibleProperty, equationVectorSet.vectorColorPalette );
 
       const accordionBoxContent = new VBox( {
         children: [ fixedWidthPickers, baseVectorsCheckbox ],
