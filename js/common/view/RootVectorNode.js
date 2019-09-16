@@ -80,7 +80,9 @@ define( require => {
       this.labelNode = new VectorLabelNode( rootVector,
         modelViewTransformProperty,
         valuesVisibleProperty,
-        activeVectorProperty );
+        activeVectorProperty, {
+          cursor: 'move'
+        } );
 
       // Add children to this node
       this.setChildren( [ this.arrowNode, this.labelNode ] );
