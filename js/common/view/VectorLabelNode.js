@@ -53,7 +53,7 @@ define( require => {
                         && activeVectorProperty.value instanceof RootVector || activeVectorProperty.value === null,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+        `Extra prototype on options: ${options}` );
 
       options = merge( {
 

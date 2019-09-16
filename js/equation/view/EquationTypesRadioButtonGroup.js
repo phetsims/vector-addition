@@ -40,7 +40,7 @@ define( require => {
       assert && assert( equationTypeProperty instanceof EnumerationProperty,
         `invalid equationTypeProperty: ${equationTypeProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+        `Extra prototype on options: ${options}` );
 
       options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
         buttonContentXMargin: 12

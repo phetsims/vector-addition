@@ -231,8 +231,8 @@ define( require => {
     setTipWithInvariants( tipPosition ) {
 
       assert && assert( tipPosition instanceof Vector2, `invalid tipPosition: ${tipPosition}` );
-      assert && assert( this.isOnGraphProperty.value === true );
-      assert && assert( !this.inProgressAnimation );
+      assert && assert( this.isOnGraphProperty.value === true, 'this.isOnGraphProperty must be true' );
+      assert && assert( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
       // Flag to get the tip point that satisfies invariants (to be calculated below)
       let tipPositionWithInvariants;
@@ -300,8 +300,8 @@ define( require => {
     setTailWithInvariants( tailPosition ) {
 
       assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
-      assert && assert( this.isOnGraphProperty.value === true );
-      assert && assert( !this.inProgressAnimation );
+      assert && assert( this.isOnGraphProperty.value === true, 'this.isOnGraphProperty must be true' );
+      assert && assert( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
       const constrainedTailBounds = this.getConstrainedTailBounds();
 

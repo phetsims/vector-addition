@@ -40,7 +40,7 @@ define( require => {
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
       assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+        `Extra prototype on options: ${options}` );
 
       options = merge( {
 

@@ -59,7 +59,7 @@ define( require => {
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+        `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 

@@ -59,8 +59,6 @@ define( require => {
         // See VectorAdditionConstants.ACCORDION_BOX_OPTIONS for the rest of the defaults
       }, options );
 
-      assert && assert( typeof options.isExpandedInitially === 'boolean',
-        `invalid options.isExpandedInitially: ${options.isExpandedInitially}` );
       assert && assert( closedContent instanceof Node, `invalid closedContent: ${closedContent}` );
       assert && assert( openContent instanceof Node, `invalid openContent: ${openContent}` );
 

@@ -35,7 +35,7 @@ define( require => {
       assert && assert( _.every( panelSlots, slot => slot instanceof VectorCreatorPanelSlot ),
         `invalid panelSlots: ${panelSlots}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+        `Extra prototype on options: ${options}` );
 
       options = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
 

@@ -62,7 +62,7 @@ define( require => {
       assert && assert( equationVectorSet instanceof EquationVectorSet,
         `invalid equationVectorSet: ${equationVectorSet}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+        `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 

@@ -36,8 +36,7 @@ define( require => {
      */
     constructor( componentStyleProperty ) {
 
-      assert && assert( componentStyleProperty instanceof Property
-      && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof Property && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       // Create the description of the buttons
@@ -73,7 +72,7 @@ define( require => {
       assert && assert( content.filter( node => node instanceof Node ).length === content.length,
         `invalid content: ${content}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+        `Extra prototype on options: ${options}` );
 
       options = _.extend( {
         rows: 2, // {number} - number of rows

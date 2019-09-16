@@ -71,7 +71,7 @@ define( require => {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+        `Extra prototype on options: ${options}` );
 
       options = _.extend( {
 

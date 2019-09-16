@@ -210,9 +210,9 @@ define( require => {
      */
     createVectorCreatorPanelIcon( initialVectorComponents, vectorColorPalette, arrowLength ) {
 
-      assert && assert( initialVectorComponents instanceof Vector2 );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette );
-      assert && assert( typeof arrowLength === 'number' );
+      assert && assert( initialVectorComponents instanceof Vector2, `invalid initialVectorComponents: ${initialVectorComponents}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
+      assert && assert( typeof arrowLength === 'number' && arrowLength > 0, `invalid arrowLength: ${arrowLength}` );
 
       const arrowComponents = initialVectorComponents.normalized().timesScalar( arrowLength );
 
@@ -293,7 +293,7 @@ define( require => {
      */
     createComponentStyleRadioButtonIcon( componentStyle ) {
 
-      assert && assert( ComponentStyles.includes( componentStyle ) );
+      assert && assert( ComponentStyles.includes( componentStyle ), `invalid componentStyle: ${componentStyle}` );
 
       const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
 
@@ -302,7 +302,7 @@ define( require => {
       }
 
       const subBoxSize = RADIO_BUTTON_ICON_SIZE / 3; // size of the sub-box the arrow/on-axis lines creates
-      assert && assert( subBoxSize < iconSize );
+      assert && assert( subBoxSize < iconSize, `subBoxSize ${subBoxSize} must be < iconSize ${iconSize}` );
 
       // Initialize arrow nodes for the PARALLELOGRAM component style (will be adjusted for different component styles)
       const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, RADIO_BUTTON_VECTOR_ARROW_OPTIONS );
@@ -446,7 +446,8 @@ define( require => {
     createEquationTypeIcon( equationType, vectorSymbols ) {
 
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
-      assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1 );
+      assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1,
+        `invalid vectorSymbols: ${vectorSymbols}` );
 
       let children = [];
 
@@ -500,8 +501,8 @@ define( require => {
    */
   function createTipToTailArrowNodes( tipLocations, startingTailLocation, arrowOptions ) {
 
-    assert && assert( _.every( tipLocations, tip => tip instanceof Vector2 ) );
-    assert && assert( startingTailLocation instanceof Vector2 );
+    assert && assert( _.every( tipLocations, tip => tip instanceof Vector2 ), `invalid tipLocations: ${tipLocations}` );
+    assert && assert( startingTailLocation instanceof Vector2, `invalid startingTailLocation: ${startingTailLocation}` );
 
     const arrowNodes = [];
     for ( let i = 0; i < tipLocations.length; i++ ) {

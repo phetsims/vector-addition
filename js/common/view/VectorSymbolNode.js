@@ -46,7 +46,7 @@ define( require => {
     constructor( options ) {
 
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on Options: ${options}` );
+        `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 

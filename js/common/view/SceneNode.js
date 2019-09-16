@@ -27,9 +27,8 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
@@ -66,9 +65,10 @@ define( require => {
     ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( _.every( [ valuesVisibleProperty, anglesVisibleProperty, gridVisibleProperty ] ), BooleanProperty );
-      assert && assert( ComponentStyles.includes( componentStyleProperty.value ) );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty,
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
+        `Extra prototype on options: ${options}` );
 
       //========================================================================================
 
@@ -199,7 +199,7 @@ define( require => {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
-      assert && assert( !forwardingEvent || forwardingEvent instanceof Event );
+      assert && assert( !forwardingEvent || forwardingEvent instanceof Event, `invalid forwardingEvent: ${forwardingEvent}` );
 
       const xComponentNode = new ComponentVectorNode( vector.xComponentVector,
         this.graph,
@@ -248,7 +248,7 @@ define( require => {
      * @param {VectorCreatorPanel} vectorCreatorPanel
      */
     addVectorCreatorPanel( vectorCreatorPanel ) {
-      assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel );
+      assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel, `invalid vectorCreatorPanel: ${vectorCreatorPanel}` );
 
       this.addChild( vectorCreatorPanel );
       vectorCreatorPanel.moveToBack(); // move to back to ensure the Vector Containers are on top
