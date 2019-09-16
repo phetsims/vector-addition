@@ -147,9 +147,7 @@ define( require => {
     VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
 
     // Defaults for component vectors
-    COMPONENT_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {
-      opacity: 0.75
-    } ),
+    COMPONENT_VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
     
     // Defaults for sum vectors
     SUM_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {

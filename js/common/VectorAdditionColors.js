@@ -60,31 +60,31 @@ define( require => {
     // blue
     VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
       fill: BLUE,
-      componentFill: 'rgb( 120, 200, 255 )'
+      componentFill: 'rgb( 167, 213, 251 )'
     } ),
 
     // red
     VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
       fill: 'rgb( 232, 25, 9 )',
-      componentFill: 'rgb( 245, 120, 120 )'
+      componentFill: 'rgb( 233, 156, 154 )'
     } ),
 
     // purple
     VECTOR_COLOR_PALETTE_3: new VectorColorPalette( {
       fill: PURPLE,
-      componentFill: 'rgb( 216, 191, 216 )'
+      componentFill: 'rgb( 214, 199, 216 )'
     } ),
 
     // green
     VECTOR_COLOR_PALETTE_4: new VectorColorPalette( {
       fill: 'rgb( 5, 200, 0 )',
-      componentFill: 'rgb( 150, 205, 150 )'
+      componentFill: 'rgb( 185, 216, 180 )'
     } ),
 
     // Equation screen, blue
     EQUATION_VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
       fill: BLUE,
-      componentFill: 'rgb( 120, 200, 255 )',
+      componentFill: 'rgb( 167, 213, 251 )',
       sumFill: Color.BLACK,
       sumStroke: null,
       sumComponentFill: 'rgb( 130, 130, 130 )'
@@ -93,7 +93,7 @@ define( require => {
     // Equation screen, purple
     EQUATION_VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
       fill: PURPLE,
-      componentFill: 'rgb( 216, 191, 216 )',
+      componentFill: 'rgb( 214, 199, 216 )',
       sumFill: Color.BLACK,
       sumStroke: null,
       sumComponentFill: 'rgb( 130, 130, 130 )'
