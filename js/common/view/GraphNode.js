@@ -35,8 +35,8 @@ define( require => {
   // constants
 
   // grid
-  const MAJOR_GRID_LINE_WIDTH = 1.8; // view units
-  const MINOR_GRID_LINE_WIDTH = 1.2; // view units
+  const MAJOR_GRID_LINE_WIDTH = 1.5; // view units
+  const MINOR_GRID_LINE_WIDTH = 1; // view units
 
   // axes
   const AXES_ARROW_X_EXTENSION = VectorAdditionConstants.AXES_ARROW_X_EXTENSION;

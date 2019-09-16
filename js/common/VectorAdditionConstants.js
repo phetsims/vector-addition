@@ -29,7 +29,7 @@ define( require => {
   const VECTOR_ARROW_OPTIONS = {
     headWidth: 10,
     headHeight: 12,
-    tailWidth: 3,
+    tailWidth: 3.5,
     lineWidth: 0
   };
 
@@ -52,7 +52,7 @@ define( require => {
     AXES_ARROW_Y_EXTENSION: 15, // how far the y-axis arrow extends past the edge of the graph's grid
     AXES_ARROW_OPTIONS: {
       doubleHead: true,
-      tailWidth: 3,
+      tailWidth: 1.5,
       headWidth: 10,
       headHeight: 10,
       fill: Color.BLACK,
