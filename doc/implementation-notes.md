@@ -1,5 +1,6 @@
 TODO implementation overview
 
+"Active" vector means "selected" vector.
 
 Vector class hierarchy:
 
