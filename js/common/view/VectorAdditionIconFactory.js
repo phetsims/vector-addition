@@ -241,7 +241,7 @@ define( require => {
         fill: Color.BLACK,
         stroke: null,
         lineWidth: 1,
-        length: 22
+        length: 30
       }, options );
 
       return new ArrowNode( 0, 0, options.length, 0, options );
