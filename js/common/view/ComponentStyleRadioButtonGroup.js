@@ -40,7 +40,8 @@ define( require => {
       && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
-      const radioButtonsContent = [];
+      // Create the description of the buttons
+      const content = [];
       ComponentStyles.VALUES.forEach( componentStyle => {
 
         const button = new RadioButtonGroupMember( componentStyleProperty, componentStyle,
@@ -48,13 +49,13 @@ define( require => {
             content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
           } ) );
 
-        radioButtonsContent.push( new AlignBox( button, {
+        content.push( new AlignBox( button, {
           alignBounds: new Bounds2( 0, 0, button.width, button.height )
         } ) );
       } );
 
       super( {
-        children: [ new GridLayoutBox( radioButtonsContent ) ]
+        children: [ new GridLayoutBox( content ) ]
       } );
     }
   }

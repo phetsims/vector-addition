@@ -45,20 +45,16 @@ define( require => {
         buttonContentXMargin: 12
       }, options );
 
-      //----------------------------------------------------------------------------------------
+      // Create the description of the buttons
+      const content = [];
+      EquationTypes.VALUES.forEach( equationType => {
+        content.push( {
+          value: equationType,
+          node: VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbols )
+        } );
+      } );
 
-      const equationTypesRadioButtonContent = [ {
-        value: EquationTypes.ADDITION,
-        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.ADDITION, vectorSymbols )
-      }, {
-        value: EquationTypes.SUBTRACTION,
-        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.SUBTRACTION, vectorSymbols )
-      }, {
-        value: EquationTypes.NEGATION,
-        node: VectorAdditionIconFactory.createEquationTypeIcon( EquationTypes.NEGATION, vectorSymbols )
-      } ];
-
-      super( equationTypeProperty, equationTypesRadioButtonContent, options );
+      super( equationTypeProperty, content, options );
     }
   }
 

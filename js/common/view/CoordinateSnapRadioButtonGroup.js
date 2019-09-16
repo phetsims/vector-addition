@@ -35,9 +35,8 @@ define( require => {
 
       options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
 
-      //----------------------------------------------------------------------------------------
-
-      const radioButtonContent = [ {
+      // Create the description of the buttons
+      const content = [ {
         value: CoordinateSnapModes.CARTESIAN,
         node: VectorAdditionIconFactory.createCartesianSnapModeIcon()
       }, {
@@ -45,7 +44,7 @@ define( require => {
         node: VectorAdditionIconFactory.createPolarSnapModeIcon()
       } ];
 
-      super( coordinateSnapModeProperty, radioButtonContent, options );
+      super( coordinateSnapModeProperty, content, options );
     }
   }
 

@@ -419,7 +419,8 @@ define( require => {
      */
     createGraphOrientationIcon( graphOrientation ) {
 
-      assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
+      assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ),
+        `invalid graphOrientation: ${graphOrientation}` );
 
       const iconSize = RADIO_BUTTON_ICON_SIZE;
       const tipX = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? iconSize : 0;

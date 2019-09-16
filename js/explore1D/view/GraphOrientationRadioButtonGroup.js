@@ -31,24 +31,18 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      //----------------------------------------------------------------------------------------
-
       options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
 
-      //----------------------------------------------------------------------------------------
-      // Add the radio buttons for each graph orientation
-      const radioButtonContent = [];
-
+      // Create the description of the buttons
+      const content = [];
       [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ].forEach( graphOrientation => {
-
-        radioButtonContent.push( {
+        content.push( {
           value: graphOrientation,
           node: VectorAdditionIconFactory.createGraphOrientationIcon( graphOrientation )
         } );
-
       } );
 
-      super( graphOrientationProperty, radioButtonContent, options );
+      super( graphOrientationProperty, content, options );
     }
   }
 
