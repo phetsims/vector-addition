@@ -108,12 +108,14 @@ define( require => {
           return new Vector2( x, y );
         };
 
-        // limit head height to tail length
+        // Limit the head height to the tail length.
         const headHeight = Math.min( this.headHeight, 0.99 * length );
 
-        //TODO #177 shorten the tail so that it ends where the head begins
-        // Describe the tail as a line segment
-        this.tailNode.shape = Shape.lineSegment( tailX, tailY, tipX, tipY );
+        // Adjust the tip location so that it doesn't overlap the head.
+        const adjustedTip = xHatUnit.times( length - headHeight );
+
+        // Describe the tail as a line segment.
+        this.tailNode.shape = Shape.lineSegment( tailX, tailY, adjustedTip.x, adjustedTip.y );
 
         // Describe the head as a triangle
         this.headNode.shape = new Shape()
@@ -122,7 +124,7 @@ define( require => {
           .lineToPoint( getPoint( length - headHeight, -this.headWidth / 2 ) )
           .close();
       }
-    }
+    } 
 
     /**
      * Sets the tip location.
