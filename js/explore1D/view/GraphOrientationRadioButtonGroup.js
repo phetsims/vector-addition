@@ -33,7 +33,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
+      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
 
       //----------------------------------------------------------------------------------------
       // Add the radio buttons for each graph orientation

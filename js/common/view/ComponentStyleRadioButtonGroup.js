@@ -44,7 +44,7 @@ define( require => {
       ComponentStyles.VALUES.forEach( componentStyle => {
 
         const button = new RadioButtonGroupMember( componentStyleProperty, componentStyle,
-          _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, {
+          _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
             content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
           } ) );
 

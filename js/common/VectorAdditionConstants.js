@@ -67,8 +67,8 @@ define( require => {
     CHECKBOX_ICON_SPACING: 8,
 
     //----------------------------------------------------------------------------------------
-    // Defaults for all Radio Button Groups
-    RADIO_BUTTON_OPTIONS: _.extend( {
+    // Defaults for all RadioButtonGroups
+    RADIO_BUTTON_GROUP_OPTIONS: _.extend( {
       deselectedLineWidth: 1,
       selectedLineWidth: 1.5,
       cornerRadius: 8,
@@ -76,7 +76,7 @@ define( require => {
       buttonContentXMargin: 8,
       buttonContentYMargin: 8,
       orientation: 'horizontal'
-    }, VectorAdditionColors.RADIO_BUTTON_COLORS ),
+    }, VectorAdditionColors.RADIO_BUTTON_GROUP_COLORS ),
 
     // Space above and below scene radio buttons
     RADIO_BUTTONS_Y_SPACING: 15,

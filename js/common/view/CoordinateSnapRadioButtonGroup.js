@@ -33,7 +33,7 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on Options: ${options}` );
 
-      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_OPTIONS, options );
+      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
 
       //----------------------------------------------------------------------------------------
 

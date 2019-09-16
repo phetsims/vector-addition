@@ -46,10 +46,10 @@ define( require => {
     },
 
     //----------------------------------------------------------------------------------------
-    // Radio Button Group default colors
-    RADIO_BUTTON_COLORS: {
+    // RadioButtonGroup default colors
+    RADIO_BUTTON_GROUP_COLORS: {
       baseColor: Color.WHITE,
-      selectedStroke: 'rgb( 65, 154, 201 )',
+      selectedStroke: 'rgb( 65, 154, 201 )', // blue
       deselectedStroke: 'rgb( 50, 50, 50 )'
     },
 
