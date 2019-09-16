@@ -4,6 +4,7 @@
  * Colors for the 'Vector Addition' sim.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
@@ -15,8 +16,15 @@ define( require => {
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
   // shared colors
-  const BLUE = 'rgb( 10, 170, 250 )';
-  const PURPLE = 'rgb( 188, 3, 255 )';
+  const BLUE_FILL = 'rgb( 10, 170, 250 )';
+  const BLUE_COMPONENT_FILL = 'rgb( 167, 213, 251 )';
+  const PURPLE_FILL = 'rgb( 188, 3, 255 )';
+  const PURPLE_COMPONENT_FILL = 'rgb( 214, 199, 216 )';
+  const EQUATION_COLOR_PALETTE_OPTIONS = {
+    sumFill: Color.BLACK,
+    sumStroke: null,
+    sumComponentFill: 'rgb( 130, 130, 130 )'
+  };
 
   const VectorAdditionColors = {
 
@@ -59,8 +67,8 @@ define( require => {
 
     // blue
     VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
-      fill: BLUE,
-      componentFill: 'rgb( 167, 213, 251 )'
+      fill: BLUE_FILL,
+      componentFill: BLUE_COMPONENT_FILL
     } ),
 
     // red
@@ -71,8 +79,8 @@ define( require => {
 
     // purple
     VECTOR_COLOR_PALETTE_3: new VectorColorPalette( {
-      fill: PURPLE,
-      componentFill: 'rgb( 214, 199, 216 )'
+      fill: PURPLE_FILL,
+      componentFill: PURPLE_COMPONENT_FILL
     } ),
 
     // green
@@ -82,22 +90,16 @@ define( require => {
     } ),
 
     // Equation screen, blue
-    EQUATION_VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
-      fill: BLUE,
-      componentFill: 'rgb( 167, 213, 251 )',
-      sumFill: Color.BLACK,
-      sumStroke: null,
-      sumComponentFill: 'rgb( 130, 130, 130 )'
-    } ),
+    EQUATION_VECTOR_COLOR_PALETTE_1: new VectorColorPalette( _.extend( {}, EQUATION_COLOR_PALETTE_OPTIONS, {
+      fill: BLUE_FILL,
+      componentFill: BLUE_COMPONENT_FILL
+    } ) ),
 
     // Equation screen, purple
-    EQUATION_VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
-      fill: PURPLE,
-      componentFill: 'rgb( 214, 199, 216 )',
-      sumFill: Color.BLACK,
-      sumStroke: null,
-      sumComponentFill: 'rgb( 130, 130, 130 )'
-    } )
+    EQUATION_VECTOR_COLOR_PALETTE_2: new VectorColorPalette( _.extend( {}, EQUATION_COLOR_PALETTE_OPTIONS, {
+      fill: PURPLE_FILL,
+      componentFill: PURPLE_COMPONENT_FILL
+    } ) )
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );
