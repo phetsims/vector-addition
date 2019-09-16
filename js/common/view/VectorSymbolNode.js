@@ -20,7 +20,7 @@
  * }
  *
  * The coefficient is auto formatted. A coefficient of 1 is hidden, while a coefficient of -1 is displayed as
- * unary minus. E.g. if vector 'a' has the coefficient -1, the displated symbol would be '-a'.
+ * unary minus. E.g. if vector 'a' has the coefficient -1, the displayed symbol would be '-a'.
  *
  * @author Brandon Li
  */
