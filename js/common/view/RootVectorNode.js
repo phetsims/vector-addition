@@ -30,7 +30,7 @@ define( require => {
   const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
 
   // constants
-  const ARROW_MOUSEAREA_OFFSET = 3; // offset to make the arrow easier to grab
+  const ARROW_MOUSE_AREA_OFFSET = 3; // offset to make the arrow easier to grab
   const LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
   class RootVectorNode extends Node {
@@ -129,7 +129,7 @@ define( require => {
 
       if ( rootVector.magnitude > 0 && this.arrowNode.shape ) {
         // Make the arrow easier to grab
-        this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( ARROW_MOUSEAREA_OFFSET );
+        this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( ARROW_MOUSE_AREA_OFFSET );
       }
     }
 
