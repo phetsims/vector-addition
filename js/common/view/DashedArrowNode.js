@@ -86,16 +86,17 @@ define( require => {
       this.tipX = tipX;
       this.tipY = tipY;
 
-      if ( tipX === tailX && tipY === tailY ) {
+      // Represent the arrow as a vector
+      const vector = new Vector2( tipX - tailX, tipY - tailY );
 
-        // if the arrow has zero length, then nothing will be drawn
+      if ( vector.magnitude === 0 ) {
+
+        // if the arrow has zero magnitude, then nothing will be drawn
         this.tailNode.shape = null;
         this.headNode.shape = null;
       }
       else {
 
-        // Represent the arrow as a vector
-        const vector = new Vector2( tipX - tailX, tipY - tailY );
         const length = vector.magnitude;
 
         // Set up a coordinate frame that goes from tail to tip.
