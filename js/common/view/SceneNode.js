@@ -98,15 +98,12 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create containers for each and every type of Vector to handle z-layering of all vector types.
 
-      // @protected {Node}
-      this.baseVectorContainer = new Node();          // Container for the Base Vectors on the Equation Screen
-
       // @private {Node}
       this.vectorContainer = new Node();              // Container for the Vector Nodes
       this.vectorComponentContainer = new Node();     // Container for the Vector Component Nodes
-
-      const vectorSumContainer = new Node();          // Container for the Vector Sum Container
-      const vectorSumComponentContainer = new Node(); // Container for the Component Nodes of Vector Sums
+      this.vectorSumContainer = new Node();          // Container for the Vector Sum Container
+      this.vectorSumComponentContainer = new Node(); // Container for the Component Nodes of Vector Sums
+      this.baseVectorContainer = new Node();          // Container for the Base Vectors on the Equation Screen
 
       // Add the children in the correct z-order
       this.setChildren( [
@@ -115,8 +112,8 @@ define( require => {
         this.baseVectorContainer,
         this.vectorComponentContainer,
         this.vectorContainer,
-        vectorSumComponentContainer,
-        vectorSumContainer
+        this.vectorSumComponentContainer,
+        this.vectorSumContainer
       ] );
 
       //========================================================================================
@@ -166,9 +163,9 @@ define( require => {
           valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
-        vectorSumContainer.addChild( vectorSumNode );
-        vectorSumComponentContainer.addChild( xComponentSumNode );
-        vectorSumComponentContainer.addChild( yComponentSumNode );
+        this.addVectorSumNode( vectorSumNode );
+        this.addVectorSumComponentNode( xComponentSumNode );
+        this.addVectorSumComponentNode( yComponentSumNode );
       } );
 
       // @protected for layout in subclasses
@@ -199,6 +196,8 @@ define( require => {
       assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
       assert && assert( !forwardingEvent || forwardingEvent instanceof Event, `invalid forwardingEvent: ${forwardingEvent}` );
 
+      const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.anglesVisibleProperty );
+
       const xComponentNode = new ComponentVectorNode( vector.xComponentVector,
         this.graph,
         this.componentStyleProperty,
@@ -209,11 +208,9 @@ define( require => {
         this.componentStyleProperty,
         this.valuesVisibleProperty );
 
-      const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.anglesVisibleProperty );
-
-      this.vectorComponentContainer.addChild( xComponentNode );
-      this.vectorComponentContainer.addChild( yComponentNode );
-      this.vectorContainer.addChild( vectorNode );
+      this.addVectorNode( vectorNode );
+      this.addVectorComponentNode( xComponentNode );
+      this.addVectorComponentNode( yComponentNode );
 
       if ( forwardingEvent ) {
         vectorNode.bodyDragListener.press( forwardingEvent, vectorNode );
@@ -250,6 +247,51 @@ define( require => {
 
       this.addChild( vectorCreatorPanel );
       vectorCreatorPanel.moveToBack(); // move to back to ensure the Vector Containers are on top
+    }
+
+    /**
+     * Adds a main vector to the scene.
+     * @param {VectorNode} node
+     * @private
+     */
+    addVectorNode( node ) {
+      this.vectorContainer.addChild( node );
+    }
+
+    /**
+     * Adds a main component vector to the scene.
+     * @param {VectorNode} node
+     * @private
+     */
+    addVectorComponentNode( node ) {
+      this.vectorComponentContainer.addChild( node );
+    }
+
+    /**
+     * Adds a sum vector to the scene.
+     * @param {VectorNode} node
+     * @private
+     */
+    addVectorSumNode( node ) {
+      this.vectorSumContainer.addChild( node );
+    }
+
+    /**
+     * Adds a sum component vector to the scene.
+     * @param {VectorNode} node
+     * @private
+     */
+    addVectorSumComponentNode( node ) {
+      this.vectorSumComponentContainer.addChild( node );
+    }
+
+    /**
+     * Adds a base vector to the scene.
+     * @protected
+     * @param {VectorNode} node
+     */
+    addBaseVectorNode( node ) {
+      this.baseVectorContainer.addChild( node );
     }
   }
 

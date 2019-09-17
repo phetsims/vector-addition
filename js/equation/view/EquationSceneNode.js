@@ -134,7 +134,7 @@ define( require => {
         // register the vector to create the Nodes
         this.registerVector( equationVector, equationGraph.vectorSet );
 
-        const baseVector = new VectorNode( equationVector.baseVector, equationGraph, valuesVisibleProperty,
+        const baseVectorNode = new VectorNode( equationVector.baseVector, equationGraph, valuesVisibleProperty,
           anglesVisibleProperty, {
             arrowOptions: _.extend( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
               fill: equationGraph.vectorSet.vectorColorPalette.baseVectorFill,
@@ -142,9 +142,9 @@ define( require => {
             } )
         } );
 
-        baseVectorsVisibleProperty.linkAttribute( baseVector, 'visible' );
+        baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
 
-        this.baseVectorContainer.addChild( baseVector );
+        this.addBaseVectorNode( baseVectorNode );
       } );
     }
   }
