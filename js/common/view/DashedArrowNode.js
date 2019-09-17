@@ -37,7 +37,7 @@ define( require => {
         headWidth: 10,
         tailWidth: 5,
         fill: 'black',
-        tailDash: [ 3, 3 ]
+        tailDash: [ 3, 3 ] // {number[]} describes the dash, similar to SCENERY/LineStyle lineDash
       }, options );
 
       const tailNode = new Path( null, {
