@@ -35,20 +35,21 @@ define( require => {
       // @public Property controlling the visibility of the sum for both Graph instances
       this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
-      // @public (read-only) {VectorColorPalette} vector color palette for both graphs
-      this.vectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
-
-      // @public (read-only) {Graph}
-      this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL,
-        this.componentStyleProperty,
-        this.sumVisibleProperty,
-        this.vectorColorPalette );
+      // @public (read-only) {VectorColorPalette}
+      this.horizontalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
+      this.verticalVectorColorPalette = VectorAdditionColors.PURPLE_COLOR_PALETTE;
 
       // @public (read-only) {Graph}
       this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        this.vectorColorPalette );
+        this.horizontalVectorColorPalette );
+
+      // @public (read-only) {Graph}
+      this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL,
+        this.componentStyleProperty,
+        this.sumVisibleProperty,
+        this.verticalVectorColorPalette );
     }
 
     /**
@@ -59,8 +60,8 @@ define( require => {
     reset() {
       super.reset();
       this.sumVisibleProperty.reset();
-      this.verticalGraph.reset();
       this.horizontalGraph.reset();
+      this.verticalGraph.reset();
     }
   }
 

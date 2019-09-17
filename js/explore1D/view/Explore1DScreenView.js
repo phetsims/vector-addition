@@ -50,8 +50,9 @@ define( require => {
 
       // Controls for the graph, at upper right
       const graphControlPanel = new Explore1DGraphControlPanel(
-        explore1DModel.sumVisibleProperty,
-        explore1DModel.vectorColorPalette,
+        explore1DModel.horizontalGraph.vectorSet,
+        explore1DModel.verticalGraph.vectorSet,
+        this.viewProperties.graphOrientationProperty,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.gridVisibleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
