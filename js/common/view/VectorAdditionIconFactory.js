@@ -156,8 +156,8 @@ define( require => {
 
       const group2ArrowNodes = createTipToTailArrowNodes( group2TipLocations, startingTailLocation,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.RED_COLOR_PALETTE.mainFill,
-          stroke: VectorAdditionColors.RED_COLOR_PALETTE.mainStroke
+          fill: VectorAdditionColors.LAB_RED_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.LAB_RED_COLOR_PALETTE.mainStroke
         } ) );
 
       return createScreenIcon( group2ArrowNodes.concat( group1ArrowNodes ) );
@@ -346,17 +346,18 @@ define( require => {
 
     /**
      * Creates the icon for the Cartesian snap mode radio button.
+     * @param {VectorColorPalette} vectorColorPalette
      * @returns {Node}
      */
-    createCartesianSnapModeIcon() {
+    createCartesianSnapModeIcon( vectorColorPalette ) {
 
       const iconSize = RADIO_BUTTON_ICON_SIZE;
 
       // Arrow that is 45 degrees to the right and up
       const vectorNode = new ArrowNode( 0, 0, iconSize, -iconSize,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
-          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
+          fill: vectorColorPalette.mainFill,
+          stroke: vectorColorPalette.mainStroke
         } ) );
 
       // x and y, Cartesian coordinates
@@ -378,9 +379,10 @@ define( require => {
 
     /**
      * Creates the icon for the Polar snap mode radio button.
+     * @param {VectorColorPalette} vectorColorPalette
      * @returns {Node}
      */
-    createPolarSnapModeIcon() {
+    createPolarSnapModeIcon( vectorColorPalette ) {
 
       const iconSize = RADIO_BUTTON_ICON_SIZE;
       const arcRadius = 30; // arc radius of the curved arrow
@@ -388,8 +390,8 @@ define( require => {
       // Arrow that is 45 degrees to the right and up
       const arrow = new ArrowNode( 0, 0, iconSize, -iconSize,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.PURPLE_COLOR_PALETTE.mainFill,
-          stroke: VectorAdditionColors.PURPLE_COLOR_PALETTE.mainStroke
+          fill: vectorColorPalette.mainFill,
+          stroke: vectorColorPalette.mainStroke
         } ) );
 
       // Curved arrow that indicates the angle

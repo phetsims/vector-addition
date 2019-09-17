@@ -62,12 +62,24 @@ define( require => {
       mainFill: 'rgb( 188, 3, 255 )'
     } ),
 
-    RED_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 232, 25, 9 )'
+    LAB_BLUE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 10, 170, 250 )',
+      sumFill: 'rgb( 6, 118 , 177 )'
     } ),
 
-    GREEN_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 5, 200, 0 )'
+    LAB_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 188, 3, 255 )',
+      sumFill: 'rgb( 111, 1, 152 )'
+    } ),
+
+    LAB_RED_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 232, 25, 9 )',
+      sumFill: 'rgb( 133, 14, 5 )'
+    } ),
+
+    LAB_GREEN_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 5, 200, 0 )',
+      sumFill: 'rgb( 5, 120, 0 )'
     } )
   };
 

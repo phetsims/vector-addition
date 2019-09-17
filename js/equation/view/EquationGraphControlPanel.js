@@ -24,7 +24,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCheckbox = require( 'VECTOR_ADDITION/common/view/VectorCheckbox' );
   const VectorAdditionGridCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionGridCheckbox' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
@@ -53,14 +52,14 @@ define( require => {
 
       const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty,
         cartesianVectorSet.vectorSum.symbol, {
-          vectorFill: VectorAdditionColors.BLUE_COLOR_PALETTE.sumFill,
-          vectorStroke: VectorAdditionColors.BLUE_COLOR_PALETTE.sumStroke
+          vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
+          vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke
         } );
 
       const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty,
         polarVectorSet.vectorSum.symbol, {
-          vectorFill: VectorAdditionColors.RED_COLOR_PALETTE.sumFill,
-          vectorStroke: VectorAdditionColors.RED_COLOR_PALETTE.sumStroke
+          vectorFill: polarVectorSet.vectorColorPalette.sumFill,
+          vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
         } );
 
       // Toggle visibility of the SumCheckboxes to match coordinate snap mode.

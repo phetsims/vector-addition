@@ -23,9 +23,11 @@ define( require => {
 
     /**
      * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
+     * @param {VectorColorPalette} cartesianVectorColorPalette
+     * @param {VectorColorPalette} polarVectorColorPalette
      * @param {Object} [options]
      */
-    constructor( coordinateSnapModeProperty, options ) {
+    constructor( coordinateSnapModeProperty, cartesianVectorColorPalette, polarVectorColorPalette, options ) {
 
       assert && assert( coordinateSnapModeProperty instanceof EnumerationProperty
       && CoordinateSnapModes.includes( coordinateSnapModeProperty.value ),
@@ -38,10 +40,10 @@ define( require => {
       // Create the description of the buttons
       const content = [ {
         value: CoordinateSnapModes.CARTESIAN,
-        node: VectorAdditionIconFactory.createCartesianSnapModeIcon()
+        node: VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette )
       }, {
         value: CoordinateSnapModes.POLAR,
-        node: VectorAdditionIconFactory.createPolarSnapModeIcon()
+        node: VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette )
       } ];
 
       super( coordinateSnapModeProperty, content, options );
