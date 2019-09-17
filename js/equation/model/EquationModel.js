@@ -44,7 +44,7 @@ define( require => {
       this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorAdditionColors.RED_COLOR_PALETTE );
+        VectorAdditionColors.PURPLE_COLOR_PALETTE );
     }
 
     /**
