@@ -151,7 +151,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      const updateCoefficient = ( coefficient ) => {
+      const updateCoefficient = coefficient => {
         magnitudeDisplayNode.setCoefficient( coefficient );
         xComponentText.setCoefficient( coefficient );
         yComponentText.setCoefficient( coefficient );

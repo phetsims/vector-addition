@@ -103,7 +103,7 @@ define( require => {
       // changes, update the view as well
       this.vectorObserver = Property.multilink(
         [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, activeVectorProperty ],
-        ( valuesVisible ) => {
+        valuesVisible => {
 
           // Update the appearance of the vector
           this.updateVector( rootVector, modelViewTransformProperty.value );

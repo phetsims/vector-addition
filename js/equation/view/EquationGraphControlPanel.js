@@ -65,7 +65,7 @@ define( require => {
 
       // Toggle visibility of the SumCheckboxes to match coordinate snap mode.
       // Is never unlinked since the graph control panel is never disposed.
-      coordinateSnapModeProperty.link( ( coordinateSnapMode ) => {
+      coordinateSnapModeProperty.link( coordinateSnapMode => {
         cartesianVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
         polarVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
       } );

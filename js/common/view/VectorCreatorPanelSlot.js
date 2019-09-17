@@ -118,7 +118,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Creation of Vectors (See ## Implementation of creation of Vectors above)
       //----------------------------------------------------------------------------------------
-      iconNode.addInputListener( DragListener.createForwardingListener( ( event ) => {
+      iconNode.addInputListener( DragListener.createForwardingListener( event => {
 
         //----------------------------------------------------------------------------------------
         // Step 1: When the icon is clicked, create a new Vector

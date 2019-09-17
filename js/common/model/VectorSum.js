@@ -50,7 +50,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Observe changes to the vector array. Never removed because the vector sum exists throughout the entire sim.
-      vectorSet.vectors.addItemAddedListener( ( addedVector ) => {
+      vectorSet.vectors.addItemAddedListener( addedVector => {
 
         // Observe when the vector changes to update the sum calculation
         const addedVectorMultilink = Property.multilink(
@@ -59,7 +59,7 @@ define( require => {
           } );
 
         // If the vector is removed, dispose of the multilink
-        const vectorRemovedListener = ( removedVector ) => {
+        const vectorRemovedListener = removedVector => {
           if ( removedVector === addedVector ) {
 
             // Recalculate the sum
@@ -100,14 +100,14 @@ define( require => {
     updateSum( vectors ) {
 
       // Filter to get only the vectors that are on the graph
-      const onGraphVectors = vectors.filter( ( vector ) => {
+      const onGraphVectors = vectors.filter( vector => {
         return vector.isOnGraphProperty.value;
       } );
 
       // Loop through and calculate the sum of all vectors that are on the graph
       const sumVectorComponents = new Vector2( 0, 0 );
 
-      onGraphVectors.forEach( ( vector ) => {
+      onGraphVectors.forEach( vector => {
         sumVectorComponents.add( vector.vectorComponents );
       } );
 

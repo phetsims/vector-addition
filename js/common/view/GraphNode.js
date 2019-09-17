@@ -172,7 +172,7 @@ define( require => {
 
       // Update when the modelViewTransform changes, triggered when the origin is moved.
       // No need to unlink since GraphNodes exist for the lifetime of the sim.
-      graph.modelViewTransformProperty.link( ( modelViewTransform ) => {
+      graph.modelViewTransformProperty.link( modelViewTransform => {
 
         // Convenience variables
         const graphMinX = graph.graphModelBounds.minX;

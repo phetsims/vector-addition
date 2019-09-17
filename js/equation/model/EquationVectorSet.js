@@ -94,7 +94,7 @@ define( require => {
       // In the Equations screen, vectors are created automatically at startup, and there is no way to created them
       // via the UI.  So we want to keep them around, but reset them.
       // See https://github.com/phetsims/vector-addition/issues/143
-      this.vectors.forEach( ( vector ) => {
+      this.vectors.forEach( vector => {
         vector.reset();
       } );
 

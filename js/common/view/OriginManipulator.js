@@ -78,7 +78,7 @@ define( require => {
       } ) );
 
       // Observe the drag listener location. Link present for the lifetime of the simulation since graphs aren't removed
-      originLocationProperty.lazyLink( ( originLocation ) => {
+      originLocationProperty.lazyLink( originLocation => {
         // Tell the model to update the origin
         graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originLocation ) );
       } );

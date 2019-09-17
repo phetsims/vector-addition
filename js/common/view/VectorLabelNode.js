@@ -98,7 +98,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Function to change the label node and the background rectangle
-      const updateLabelNode = ( valuesVisible ) => {
+      const updateLabelNode = valuesVisible => {
 
         // Get the label display information
         const labelDisplayData = rootVector.getLabelContent( valuesVisible );

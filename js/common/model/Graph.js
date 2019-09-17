@@ -87,7 +87,7 @@ define( require => {
       // @public (read-only) {DerivedProperty.<ModelViewTransform2>} modelViewTransformProperty - Property of the
       // coordinate transform between model (graph coordinates) and view coordinates.
       this.modelViewTransformProperty = new DerivedProperty( [ this.graphModelBoundsProperty ],
-        ( graphModelBounds ) => {
+        graphModelBounds => {
           return ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, this.graphViewBounds );
         }, {
           valueType: ModelViewTransform2
@@ -96,7 +96,7 @@ define( require => {
       // @public {Property.<Vector|null>} activeVectorProperty - the active vector. A graph only has one active
       // vector at a time. If null, there are no active vectors at the time. To be set externally.
       this.activeVectorProperty = new Property( null, {
-        isValidValue: ( value ) => {
+        isValidValue: value => {
           return value === null || value instanceof Vector;
         }
       } );

@@ -83,7 +83,7 @@ define( require => {
 
         // Observe when the coefficient Property changes. If the equation Type matches, the coefficient
         // Properties match. Doesn't need to be unlinked.
-        this.coefficientProperty.link( ( coefficient ) => {
+        this.coefficientProperty.link( coefficient => {
           if ( equationGraph.equationTypeProperty.value === equationType ) {
             coefficientProperty.value = coefficient;
           }
