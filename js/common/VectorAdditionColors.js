@@ -54,22 +54,57 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Vector color palettes
 
-    BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 10, 170, 250 )'
+    //TODO #184 remove duplication in VectorColorPalette instances when colors are finalized
+
+    // Explore 1D screen
+
+    EXPLORE_1D_BLUE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 10, 170, 250 )',
+      mainStroke: null,
+      componentFill: 'rgb( 10, 170, 250 )',
+      sumFill: 'black',
+      sumStroke: null,
+      sumComponentFill: 'black'
     } ),
 
-    PURPLE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 188, 3, 255 )'
+    // Explore 2D screen
+
+    EXPLORE_2D_BLUE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 10, 170, 250 )',
+      mainStroke: null,
+      componentFill: 'rgb( 10, 170, 250 )',
+      sumFill: 'black',
+      sumStroke: null,
+      sumComponentFill: 'black'
     } ),
+
+    EXPLORE_2D_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 188, 3, 255 )',
+      mainStroke: null,
+      componentFill: 'rgb( 188, 3, 255 )',
+      sumFill: 'black',
+      sumStroke: null,
+      sumComponentFill: 'black'
+    } ),
+
+    // Lab screen
 
     LAB_BLUE_COLOR_PALETTE: new VectorColorPalette( {
       mainFill: 'rgb( 10, 170, 250 )',
-      sumFill: 'rgb( 6, 118 , 177 )'
+      mainStroke: null,
+      componentFill: 'rgb( 10, 170, 250 )',
+      sumFill: 'rgb( 6, 118 , 177 )',
+      sumStroke: null,
+      sumComponentFill: 'black'
     } ),
 
     LAB_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
       mainFill: 'rgb( 188, 3, 255 )',
-      sumFill: 'rgb( 111, 1, 152 )'
+      mainStroke: null,
+      componentFill: 'rgb( 188, 3, 255 )',
+      sumFill: 'rgb( 111, 1, 152 )',
+      sumStroke: null,
+      sumComponentFill: 'rgb( 111, 1, 152 )'
     } ),
 
     LAB_RED_COLOR_PALETTE: new VectorColorPalette( {
@@ -80,6 +115,30 @@ define( require => {
     LAB_GREEN_COLOR_PALETTE: new VectorColorPalette( {
       mainFill: 'rgb( 5, 200, 0 )',
       sumFill: 'rgb( 5, 120, 0 )'
+    } ),
+
+    // Equation screen
+
+    EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 10, 170, 250 )',
+      mainStroke: null,
+      componentFill: 'rgb( 10, 170, 250 )',
+      sumFill: 'black',
+      sumStroke: null,
+      sumComponentFill: 'black',
+      baseVectorFill: 'white',
+      baseVectorStroke: 'rgb( 10, 170, 250 )'
+    } ),
+
+    EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 188, 3, 255 )',
+      mainStroke: null,
+      componentFill: 'rgb( 188, 3, 255 )',
+      sumFill: 'black',
+      sumStroke: null,
+      sumComponentFill: 'black',
+      baseVectorFill: 'white',
+      baseVectorStroke: 'rgb( 188, 3, 255 )'
     } )
   };
 

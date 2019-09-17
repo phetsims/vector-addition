@@ -81,8 +81,8 @@ define( require => {
     createExplore1DScreenIcon() {
 
       const vectorOptions = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
-        stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
+        fill: VectorAdditionColors.EXPLORE_1D_BLUE_COLOR_PALETTE.mainFill,
+        stroke: VectorAdditionColors.EXPLORE_1D_BLUE_COLOR_PALETTE.mainStroke
       } );
 
       // Vector pointing to the right, the full width of the icon
@@ -112,13 +112,13 @@ define( require => {
       // vector
       const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
-          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
+          fill: VectorAdditionColors.EXPLORE_2D_BLUE_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.EXPLORE_2D_BLUE_COLOR_PALETTE.mainStroke
         } ) );
       
       // component vectors
       const componentArrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-        fill: VectorAdditionColors.BLUE_COLOR_PALETTE.componentFill
+        fill: VectorAdditionColors.EXPLORE_2D_BLUE_COLOR_PALETTE.componentFill
       } );
       const xComponentNode = new DashedArrowNode( 0, 0, vector.x, 0, componentArrowOptions );
       const yComponentNode = new DashedArrowNode( vector.x, 0, vector.x, vector.y, componentArrowOptions );
@@ -150,8 +150,8 @@ define( require => {
 
       const group1ArrowNodes = createTipToTailArrowNodes( group1TipLocations, startingTailLocation,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
-          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
+          fill: VectorAdditionColors.LAB_BLUE_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.LAB_BLUE_COLOR_PALETTE.mainStroke
         } ) );
 
       const group2ArrowNodes = createTipToTailArrowNodes( group2TipLocations, startingTailLocation,
@@ -181,15 +181,15 @@ define( require => {
       // vectors, tip to tail
       const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
-          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
+          fill: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.mainStroke
         } ) );
 
       // sum
       arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
         _.extend( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.sumFill,
-          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.sumStroke
+          fill: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.sumFill,
+          stroke: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.sumStroke
         } ) ) );
       
       return createScreenIcon( arrowNodes );

@@ -35,8 +35,8 @@ define( require => {
       this.sumVisibleProperty = new BooleanProperty( true );
 
       // @public (read-only) {VectorColorPalette}
-      this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
-      this.polarVectorColorPalette = VectorAdditionColors.PURPLE_COLOR_PALETTE;
+      this.cartesianVectorColorPalette = VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE;
+      this.polarVectorColorPalette = VectorAdditionColors.EQUATION_PURPLE_COLOR_PALETTE;
 
       // @public (read-only) {graph} cartesianGraph
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
