@@ -15,6 +15,12 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
+  // the four basic colors used in VectorColorPalettes
+  const BLUE = 'rgb( 10, 170, 250 )';
+  const PURPLE = 'rgb( 188, 3, 255 )';
+  const RED = 'rgb( 232, 25, 9 )';
+  const GREEN = 'rgb( 5, 200, 0 )';
+
   const VectorAdditionColors = {
 
     //----------------------------------------------------------------------------------------
@@ -59,86 +65,94 @@ define( require => {
     // Explore 1D screen
 
     EXPLORE_1D_BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 10, 170, 250 )',
+      mainFill: BLUE,
       mainStroke: null,
-      componentFill: 'rgb( 10, 170, 250 )',
-      sumFill: 'black',
-      sumStroke: null,
-      sumComponentFill: 'black'
+      componentFill: BLUE,
+      sumFill: BLUE,
+      sumStroke: 'black',
+      sumComponentFill: BLUE
     } ),
 
     // Explore 2D screen
 
     EXPLORE_2D_BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 10, 170, 250 )',
+      mainFill: BLUE,
       mainStroke: null,
-      componentFill: 'rgb( 10, 170, 250 )',
-      sumFill: 'black',
-      sumStroke: null,
-      sumComponentFill: 'black'
+      componentFill: BLUE,
+      sumFill: BLUE,
+      sumStroke: 'black',
+      sumComponentFill: BLUE
     } ),
 
     EXPLORE_2D_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 188, 3, 255 )',
+      mainFill: PURPLE,
       mainStroke: null,
-      componentFill: 'rgb( 188, 3, 255 )',
-      sumFill: 'black',
-      sumStroke: null,
-      sumComponentFill: 'black'
+      componentFill: PURPLE,
+      sumFill: PURPLE,
+      sumStroke: 'black',
+      sumComponentFill: PURPLE
     } ),
 
     // Lab screen
 
     LAB_BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 10, 170, 250 )',
+      mainFill: BLUE,
       mainStroke: null,
-      componentFill: 'rgb( 10, 170, 250 )',
-      sumFill: 'rgb( 6, 118 , 177 )',
-      sumStroke: null,
-      sumComponentFill: 'black'
+      componentFill: BLUE,
+      sumFill: BLUE,
+      sumStroke: 'black',
+      sumComponentFill: BLUE
     } ),
 
     LAB_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 188, 3, 255 )',
+      mainFill: PURPLE,
       mainStroke: null,
-      componentFill: 'rgb( 188, 3, 255 )',
-      sumFill: 'rgb( 111, 1, 152 )',
-      sumStroke: null,
-      sumComponentFill: 'rgb( 111, 1, 152 )'
+      componentFill: PURPLE,
+      sumFill: PURPLE,
+      sumStroke: 'black',
+      sumComponentFill: PURPLE
     } ),
 
     LAB_RED_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 232, 25, 9 )',
-      sumFill: 'rgb( 133, 14, 5 )'
+      mainFill: RED,
+      mainStroke: null,
+      componentFill: RED,
+      sumFill: RED,
+      sumStroke: 'black',
+      sumComponentFill: RED
     } ),
 
     LAB_GREEN_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 5, 200, 0 )',
-      sumFill: 'rgb( 5, 120, 0 )'
+      mainFill: GREEN,
+      mainStroke: null,
+      componentFill: GREEN,
+      sumFill: GREEN,
+      sumStroke: 'black',
+      sumComponentFill: GREEN
     } ),
 
     // Equation screen
 
     EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 10, 170, 250 )',
+      mainFill: BLUE,
       mainStroke: null,
-      componentFill: 'rgb( 10, 170, 250 )',
-      sumFill: 'black',
-      sumStroke: null,
-      sumComponentFill: 'black',
+      componentFill: BLUE,
+      sumFill: BLUE,
+      sumStroke: 'black',
+      sumComponentFill: BLUE,
       baseVectorFill: 'white',
-      baseVectorStroke: 'rgb( 10, 170, 250 )'
+      baseVectorStroke: BLUE
     } ),
 
     EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 188, 3, 255 )',
+      mainFill: PURPLE,
       mainStroke: null,
-      componentFill: 'rgb( 188, 3, 255 )',
-      sumFill: 'black',
-      sumStroke: null,
-      sumComponentFill: 'black',
+      componentFill: PURPLE,
+      sumFill: PURPLE,
+      sumStroke: 'black',
+      sumComponentFill: PURPLE,
       baseVectorFill: 'white',
-      baseVectorStroke: 'rgb( 188, 3, 255 )'
+      baseVectorStroke: PURPLE
     } )
   };
 
