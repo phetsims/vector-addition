@@ -112,11 +112,13 @@ define( require => {
         // Limit the head height to the tail length.
         const headHeight = Math.min( this.headHeight, 0.99 * length );
 
-        // Adjust the tip location so that it doesn't overlap the head.
-        const adjustedTip = xHatUnit.times( length - headHeight );
+        // Adjust the end of the tail towards the tip, so that it doesn't overlap the head.
+        const scaledUnit = xHatUnit.times( length - headHeight );
+        const tailX2 = tailX + scaledUnit.x;
+        const tailY2 = tailY + scaledUnit.y;
 
         // Describe the tail as a line segment.
-        this.tailNode.shape = Shape.lineSegment( tailX, tailY, adjustedTip.x, adjustedTip.y );
+        this.tailNode.shape = Shape.lineSegment( tailX, tailY, tailX2, tailY2 );
 
         // Describe the head as a triangle
         this.headNode.shape = new Shape()
