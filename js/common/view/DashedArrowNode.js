@@ -36,18 +36,18 @@ define( require => {
         headHeight: 10,
         headWidth: 10,
         tailWidth: 5,
-        fill: 'black',
+        fill: 'black', // color used for the entire arrow (fills the head and strokes the tail)
         tailDash: [ 3, 3 ] // {number[]} describes the dash, similar to SCENERY/LineStyle lineDash
       }, options );
+
+      const headNode = new Path( null, {
+        fill: options.fill
+      } );
 
       const tailNode = new Path( null, {
         stroke: options.fill,
         lineWidth: options.tailWidth,
         lineDash: options.tailDash
-      } );
-
-      const headNode = new Path( null, {
-        fill: options.fill
       } );
 
       assert && assert( !options.children, 'DashedArrowNode sets children' );
