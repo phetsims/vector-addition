@@ -34,17 +34,21 @@ define( require => {
       // @public
       this.sumVisibleProperty = new BooleanProperty( true );
 
+      // @public (read-only) {VectorColorPalette}
+      this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
+      this.polarVectorColorPalette = VectorAdditionColors.PURPLE_COLOR_PALETTE;
+
       // @public (read-only) {graph} cartesianGraph
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorAdditionColors.BLUE_COLOR_PALETTE );
+        this.cartesianVectorColorPalette );
 
       // @public (read-only) {graph} polarGraph
       this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorAdditionColors.PURPLE_COLOR_PALETTE );
+        this.polarVectorColorPalette );
     }
 
     /**

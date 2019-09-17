@@ -34,17 +34,21 @@ define( require => {
       // @public Property controlling the visibility of the sum for both Graph instances
       this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
+      // @public (read-only) {VectorColorPalette}
+      this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
+      this.polarVectorColorPalette = VectorAdditionColors.PURPLE_COLOR_PALETTE;
+
       // @public (read-only) {Graph} cartesianGraph
       this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorAdditionColors.BLUE_COLOR_PALETTE );
+        this.cartesianVectorColorPalette );
 
       // @public (read-only) {Graph} polarGraph
       this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorAdditionColors.PURPLE_COLOR_PALETTE );
+        this.polarVectorColorPalette );
     }
 
     /**

@@ -19,7 +19,6 @@ define( require => {
   const EquationViewProperties = require( 'VECTOR_ADDITION/equation/view/EquationViewProperties' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
@@ -56,8 +55,8 @@ define( require => {
       // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty,
-        VectorAdditionColors.BLUE_COLOR_PALETTE,
-        VectorAdditionColors.PURPLE_COLOR_PALETTE, {
+        equationModel.cartesianVectorColorPalette,
+        equationModel.polarVectorColorPalette, {
           left: graphControlPanel.left,
           bottom: this.resetAllButton.bottom
         } );
