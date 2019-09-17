@@ -38,13 +38,13 @@ define( require => {
       this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorAdditionColors.VECTOR_COLOR_PALETTE_1 );
+        VectorAdditionColors.BLUE_COLOR_PALETTE );
 
       // @public (read-only) {Graph} polarGraph
       this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        VectorAdditionColors.VECTOR_COLOR_PALETTE_3 );
+        VectorAdditionColors.PURPLE_COLOR_PALETTE );
     }
 
     /**

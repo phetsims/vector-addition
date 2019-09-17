@@ -15,17 +15,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
-  // shared colors
-  const BLUE_FILL = 'rgb( 10, 170, 250 )';
-  const BLUE_COMPONENT_FILL = 'rgb( 167, 213, 251 )';
-  const PURPLE_FILL = 'rgb( 188, 3, 255 )';
-  const PURPLE_COMPONENT_FILL = 'rgb( 214, 199, 216 )';
-  const EQUATION_COLOR_PALETTE_OPTIONS = {
-    sumFill: Color.BLACK,
-    sumStroke: null,
-    sumComponentFill: 'rgb( 130, 130, 130 )'
-  };
-
   const VectorAdditionColors = {
 
     //----------------------------------------------------------------------------------------
@@ -65,41 +54,21 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Vector color palettes
 
-    // blue
-    VECTOR_COLOR_PALETTE_1: new VectorColorPalette( {
-      fill: BLUE_FILL,
-      componentFill: BLUE_COMPONENT_FILL
+    BLUE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 10, 170, 250 )'
     } ),
 
-    // red
-    VECTOR_COLOR_PALETTE_2: new VectorColorPalette( {
-      fill: 'rgb( 232, 25, 9 )',
-      componentFill: 'rgb( 233, 156, 154 )'
+    PURPLE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 188, 3, 255 )'
     } ),
 
-    // purple
-    VECTOR_COLOR_PALETTE_3: new VectorColorPalette( {
-      fill: PURPLE_FILL,
-      componentFill: PURPLE_COMPONENT_FILL
+    RED_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 232, 25, 9 )'
     } ),
 
-    // green
-    VECTOR_COLOR_PALETTE_4: new VectorColorPalette( {
-      fill: 'rgb( 5, 200, 0 )',
-      componentFill: 'rgb( 185, 216, 180 )'
-    } ),
-
-    // Equation screen, blue
-    EQUATION_VECTOR_COLOR_PALETTE_1: new VectorColorPalette( _.extend( {}, EQUATION_COLOR_PALETTE_OPTIONS, {
-      fill: BLUE_FILL,
-      componentFill: BLUE_COMPONENT_FILL
-    } ) ),
-
-    // Equation screen, purple
-    EQUATION_VECTOR_COLOR_PALETTE_2: new VectorColorPalette( _.extend( {}, EQUATION_COLOR_PALETTE_OPTIONS, {
-      fill: PURPLE_FILL,
-      componentFill: PURPLE_COMPONENT_FILL
-    } ) )
+    GREEN_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 5, 200, 0 )'
+    } )
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );

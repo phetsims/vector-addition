@@ -154,11 +154,9 @@ define( require => {
     COMPONENT_VECTOR_ARROW_OPTIONS: COMPONENT_VECTOR_ARROW_OPTIONS,
     
     // Defaults for sum vectors
-    SUM_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {
-      lineWidth: 0.75
-    } ),
+    SUM_VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
 
-    // Defaults for components of sum vectors
+    // Defaults for sum component vectors
     SUM_COMPONENT_VECTOR_ARROW_OPTIONS: COMPONENT_VECTOR_ARROW_OPTIONS,
 
     // Defaults for base vectors
@@ -166,8 +164,8 @@ define( require => {
       lineWidth: 1.5
     } ),
 
-    DEFAULT_VECTOR_LENGTH: 5, // side length of the arrow when initially dropped onto the graph.
-    VECTOR_LABEL_OFFSET: 0.45, // the offset in model coordinates of the label with respect to the vector
+    DEFAULT_VECTOR_LENGTH: 5, // length of a vector when initially dropped onto the graph, in model coordinates
+    VECTOR_LABEL_OFFSET: 0.45, // offset of a label from its vector, in model coordinates
 
     //----------------------------------------------------------------------------------------
     // Rounding

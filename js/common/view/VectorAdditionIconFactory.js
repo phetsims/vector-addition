@@ -57,11 +57,10 @@ define( require => {
   // Defaults constants for radio button icons (except for the equation types radio button icons)
   // size (width and height) of all arrow nodes inside of radio buttons
   const RADIO_BUTTON_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
-    stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
+    fill: Color.BLACK
   } );
   const RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-    fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill
+    fill: Color.BLACK
   } );
   const RADIO_BUTTON_ICON_SIZE = 45;
 
@@ -82,8 +81,8 @@ define( require => {
     createExplore1DScreenIcon() {
 
       const vectorOptions = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
-        stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
+        fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
+        stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
       } );
 
       // Vector pointing to the right, the full width of the icon
@@ -113,13 +112,13 @@ define( require => {
       // vector
       const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
-          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
+          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
         } ) );
       
       // component vectors
       const componentArrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-        fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.componentFill
+        fill: VectorAdditionColors.BLUE_COLOR_PALETTE.componentFill
       } );
       const xComponentNode = new DashedArrowNode( 0, 0, vector.x, 0, componentArrowOptions );
       const yComponentNode = new DashedArrowNode( vector.x, 0, vector.x, vector.y, componentArrowOptions );
@@ -151,14 +150,14 @@ define( require => {
 
       const group1ArrowNodes = createTipToTailArrowNodes( group1TipLocations, startingTailLocation,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.fill,
-          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_1.stroke
+          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
         } ) );
 
       const group2ArrowNodes = createTipToTailArrowNodes( group2TipLocations, startingTailLocation,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_2.fill,
-          stroke: VectorAdditionColors.VECTOR_COLOR_PALETTE_2.stroke
+          fill: VectorAdditionColors.RED_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.RED_COLOR_PALETTE.mainStroke
         } ) );
 
       return createScreenIcon( group2ArrowNodes.concat( group1ArrowNodes ) );
@@ -182,15 +181,15 @@ define( require => {
       // vectors, tip to tail
       const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.fill,
-          stroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.stroke
+          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
         } ) );
 
       // sum
       arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
         _.extend( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumFill,
-          stroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumStroke
+          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.sumFill,
+          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.sumStroke
         } ) ) );
       
       return createScreenIcon( arrowNodes );
@@ -219,8 +218,8 @@ define( require => {
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           arrowLength: arrowLength,
           cursor: 'move',
-          fill: vectorColorPalette.fill,
-          stroke: vectorColorPalette.stroke
+          fill: vectorColorPalette.mainFill,
+          stroke: vectorColorPalette.mainStroke
         } ) );
     },
 
@@ -356,7 +355,8 @@ define( require => {
       // Arrow that is 45 degrees to the right and up
       const vectorNode = new ArrowNode( 0, 0, iconSize, -iconSize,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: RADIO_BUTTON_VECTOR_ARROW_OPTIONS.fill
+          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
         } ) );
 
       // x and y, Cartesian coordinates
@@ -388,7 +388,8 @@ define( require => {
       // Arrow that is 45 degrees to the right and up
       const arrow = new ArrowNode( 0, 0, iconSize, -iconSize,
         _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.VECTOR_COLOR_PALETTE_3.fill
+          fill: VectorAdditionColors.PURPLE_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.PURPLE_COLOR_PALETTE.mainStroke
         } ) );
 
       // Curved arrow that indicates the angle

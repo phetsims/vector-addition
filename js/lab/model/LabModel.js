@@ -43,16 +43,16 @@ define( require => {
         this.componentStyleProperty,
         this.sumVisibleProperty1,
         this.sumVisibleProperty2,
-        VectorAdditionColors.VECTOR_COLOR_PALETTE_1,
-        VectorAdditionColors.VECTOR_COLOR_PALETTE_2 );
+        VectorAdditionColors.BLUE_COLOR_PALETTE,
+        VectorAdditionColors.RED_COLOR_PALETTE );
 
       // @public (read-only) {Graph} polarGraph
       this.polarGraph = new LabGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty1,
         this.sumVisibleProperty2,
-        VectorAdditionColors.VECTOR_COLOR_PALETTE_3,
-        VectorAdditionColors.VECTOR_COLOR_PALETTE_4 );
+        VectorAdditionColors.PURPLE_COLOR_PALETTE,
+        VectorAdditionColors.GREEN_COLOR_PALETTE );
     }
 
     /**

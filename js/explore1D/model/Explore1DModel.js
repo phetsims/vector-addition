@@ -36,7 +36,7 @@ define( require => {
       this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
       // @public (read-only) {VectorColorPalette} vector color palette for both graphs
-      this.vectorColorPalette = VectorAdditionColors.VECTOR_COLOR_PALETTE_1;
+      this.vectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
 
       // @public (read-only) {Graph}
       this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL,

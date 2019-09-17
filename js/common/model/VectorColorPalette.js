@@ -19,19 +19,19 @@ define( require => {
       // all colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'
       options = _.extend( {
 
-        // colors used for non-sum and non-component vectors
-        fill: Color.BLACK,
-        stroke: null,
+        // colors used for main vectors
+        mainFill: Color.BLACK,
+        mainStroke: null,
 
         // colors used for component vectors. They are of type DashedArrowNode, which cannot be stroked.
-        componentFill: Color.GRAY,
+        componentFill: null, // defaults to options.mainFill
 
         // colors used for sum vectors
-        sumFill: null, // defaults to options.fill
-        sumStroke: Color.BLACK,
+        sumFill: Color.BLACK,
+        sumStroke: null,
 
-        // color used for sum component vectors
-        sumComponentFill: null, // defaults to options.componentFill
+        // color used for sum component vectors. They are of type DashedArrowNode, which cannot be stroked.
+        sumComponentFill: null, // defaults to options.sumFill
 
         // colors used for the background behind the label on a non-active vector
         labelBackgroundFill: 'rgb( 235, 235, 235 )',
@@ -39,25 +39,25 @@ define( require => {
 
         // colors used for base vectors
         baseVectorFill: Color.WHITE,
-        baseVectorStroke: null // defaults to options.fill
+        baseVectorStroke: null // defaults to options.mainFill
 
       }, options );
 
-      // Components cannot be stroked, so flag attempts to specify a stroke
+      // Component vectors cannot be stroked, so flag attempts to specify a stroke.
       assert && assert( options.componentStroke === undefined, 'componentStroke is not supported' );
       assert && assert( options.sumComponentStroke === undefined, 'sumComponentStroke is not supported' );
 
       // @public (read-only)
-      this.fill = options.fill;
-      this.stroke = options.stroke;
-      this.componentFill = options.componentFill;
-      this.sumFill = options.sumFill || options.fill;
+      this.mainFill = options.mainFill;
+      this.mainStroke = options.mainStroke;
+      this.componentFill = options.componentFill || options.mainFill;
+      this.sumFill = options.sumFill;
       this.sumStroke = options.sumStroke;
-      this.sumComponentFill = options.sumComponentFill || options.componentFill;
+      this.sumComponentFill = options.sumComponentFill || options.sumFill;
       this.labelBackgroundFill = options.labelBackgroundFill;
       this.labelBackgroundStroke = options.labelBackgroundStroke;
       this.baseVectorFill = options.baseVectorFill;
-      this.baseVectorStroke = options.baseVectorStroke || options.fill;
+      this.baseVectorStroke = options.baseVectorStroke || options.mainFill;
     }
   }
 

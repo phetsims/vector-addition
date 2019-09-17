@@ -71,8 +71,8 @@ define( require => {
       options = merge( {
         arrowOptions: _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           cursor: 'move',
-          fill: vector.vectorColorPalette.fill,
-          stroke: vector.vectorColorPalette.stroke
+          fill: vector.vectorColorPalette.mainFill,
+          stroke: vector.vectorColorPalette.mainStroke
         } )
       }, options );
 

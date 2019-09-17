@@ -53,14 +53,14 @@ define( require => {
 
       const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty,
         cartesianVectorSet.vectorSum.symbol, {
-          vectorFill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumFill,
-          vectorStroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_1.sumStroke
+          vectorFill: VectorAdditionColors.BLUE_COLOR_PALETTE.sumFill,
+          vectorStroke: VectorAdditionColors.BLUE_COLOR_PALETTE.sumStroke
         } );
 
       const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty,
         polarVectorSet.vectorSum.symbol, {
-          vectorFill: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_2.sumFill,
-          vectorStroke: VectorAdditionColors.EQUATION_VECTOR_COLOR_PALETTE_2.sumStroke
+          vectorFill: VectorAdditionColors.RED_COLOR_PALETTE.sumFill,
+          vectorStroke: VectorAdditionColors.RED_COLOR_PALETTE.sumStroke
         } );
 
       // Toggle visibility of the SumCheckboxes to match coordinate snap mode.
