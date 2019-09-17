@@ -100,7 +100,6 @@ define( require => {
 
       // @protected {Node}
       this.baseVectorContainer = new Node();          // Container for the Base Vectors on the Equation Screen
-      this.baseVectorComponentContainer = new Node(); // Container for the Component Nodes of Base Vectors
 
       // @private {Node}
       this.vectorContainer = new Node();              // Container for the Vector Nodes
@@ -113,7 +112,6 @@ define( require => {
       this.setChildren( [
         graphNode,
         vectorValuesToggleBox,
-        this.baseVectorComponentContainer,
         this.baseVectorContainer,
         this.vectorComponentContainer,
         this.vectorContainer,
