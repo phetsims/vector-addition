@@ -30,7 +30,8 @@ define( require => {
   const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
 
   // constants
-  const ARROW_MOUSE_AREA_OFFSET = 3; // offset to make the arrow easier to grab
+  const ARROW_MOUSE_AREA_OFFSET = 3;
+  const ARROW_TOUCH_AREA_OFFSET = 3;
   const LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
   class RootVectorNode extends Node {
@@ -127,9 +128,10 @@ define( require => {
       const tipDeltaLocation = modelViewTransform.modelToViewDelta( rootVector.vectorComponents );
       this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
 
+      // Make the arrow easier to grab by setting pointer areas
       if ( rootVector.magnitude > 0 && this.arrowNode.shape ) {
-        // Make the arrow easier to grab
         this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( ARROW_MOUSE_AREA_OFFSET );
+        this.arrowNode.touchArea = this.arrowNode.shape.getOffsetShape( ARROW_TOUCH_AREA_OFFSET );
       }
     }
 

@@ -39,7 +39,8 @@ define( require => {
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   // constants
-  const ICON_OFFSET_MOUSE_AREA = 8; // icon offset to make the icon easier to grab
+  const VECTOR_MOUSE_AREA_OFFSET = 8;
+  const VECTOR_TOUCH_AREA_OFFSET = 8;
 
   // The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
   // contains the same local width regardless of the initial vector components. This ensures that
@@ -92,12 +93,12 @@ define( require => {
         vectorSet.vectorColorPalette, options.iconArrowSize );
 
       // Make the iconNode easier to grab
-      iconNode.mouseArea = iconNode.shape.getOffsetShape( ICON_OFFSET_MOUSE_AREA );
+      iconNode.mouseArea = iconNode.shape.getOffsetShape( VECTOR_MOUSE_AREA_OFFSET );
+      iconNode.touchArea = iconNode.shape.getOffsetShape( VECTOR_TOUCH_AREA_OFFSET );
 
       // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
       const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
         .normalized().timesScalar( options.iconArrowSize ) );
-
 
       // Create a fixed-size box for the icon. The Icon is placed in an alignBox to ensure the Icon
       // contains the same local width regardless of the initial vector components. This ensures that
