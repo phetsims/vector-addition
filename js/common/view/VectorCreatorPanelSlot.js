@@ -180,7 +180,7 @@ define( require => {
         vectorSet.vectors.addItemRemovedListener( removeVectorListener );
 
 
-      }, { allowTouchSnag: true } ) );
+      } ) );
     }
   }
 
