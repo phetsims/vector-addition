@@ -37,7 +37,7 @@ define( require => {
 
       // @public (read-only) {VectorColorPalette}
       this.horizontalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
-      this.verticalVectorColorPalette = VectorAdditionColors.PURPLE_COLOR_PALETTE;
+      this.verticalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
 
       // @public (read-only) {Graph}
       this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL,
