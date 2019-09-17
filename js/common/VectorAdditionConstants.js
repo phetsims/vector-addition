@@ -34,7 +34,7 @@ define( require => {
   };
   const COMPONENT_VECTOR_ARROW_OPTIONS = _.extend( {}, VECTOR_ARROW_OPTIONS, {
     tailWidth: 3,
-    tailDash: [ 6, 4 ]
+    tailDash: [ 6, 3 ]
   } );
 
   // fixed width of panels and accordion boxes on right side of the screen
