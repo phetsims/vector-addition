@@ -140,8 +140,6 @@ define( require => {
      */
     updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
 
-      isParentActive && this.moveToFront();
-
       // Component vectors are visible when it isn't INVISIBLE and it is on the graph.
       this.visible = componentVector.isOnGraphProperty.value
                      && componentStyle !== ComponentStyles.INVISIBLE;

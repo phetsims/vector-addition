@@ -139,12 +139,12 @@ define( require => {
         pressCursor: options.arrowOptions.cursor,
         targetNode: this,
         locationProperty: tailLocationProperty,
-        start: () => {
 
+        start: () => {
           assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
             'body drag listener should be removed when the vector is animating back.' );
-          this.moveToFront();
         },
+
         end: () => {
 
           assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
@@ -228,7 +228,6 @@ define( require => {
           start: () => {
             assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
               'tip drag listener should be removed when the vector is animating back.' );
-            this.moveToFront();
           }
         } );
 

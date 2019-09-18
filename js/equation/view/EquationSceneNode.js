@@ -95,7 +95,7 @@ define( require => {
         } );
 
         this.addChild( equationToggleBox );
-        equationToggleBox.moveToBack(); // move to back to keep Vector Containers on top in the super class
+        equationToggleBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
 
         lastEquationToggleBox = equationToggleBox;
       } );
@@ -109,7 +109,7 @@ define( require => {
         } );
 
       this.addChild( equationTypesRadioButtonGroup );
-      equationTypesRadioButtonGroup.moveToBack(); // move to back to keep Vector Containers on top in the super class
+      equationTypesRadioButtonGroup.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
 
       //----------------------------------------------------------------------------------------
       // Add a Base Vector Accordion Box
@@ -124,7 +124,7 @@ define( require => {
 
       // Add the base vectors accordion box (semi-global)
       this.addChild( baseVectorsAccordionBox );
-      baseVectorsAccordionBox.moveToBack();
+      baseVectorsAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
 
       //----------------------------------------------------------------------------------------
       // 'Register' vectors and add their base vectors.
@@ -145,6 +145,14 @@ define( require => {
         baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
 
         this.addBaseVectorNode( baseVectorNode );
+
+        // When the base vector becomes selected, move it to the front.
+        // Unlink is unnecessary because base vectors exist for the lifetime of the sim.
+        equationGraph.activeVectorProperty.link( activeVector => {
+          if ( activeVector === baseVectorNode.vector ) {
+            baseVectorNode.moveToFront();
+          }
+        } );
       } );
     }
   }

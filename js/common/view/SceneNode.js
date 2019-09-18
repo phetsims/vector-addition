@@ -119,7 +119,7 @@ define( require => {
         } );
         this.addChild( eraserButton );
 
-        eraserButton.moveToBack(); // move to back to keep the Vector Containers on top
+        eraserButton.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
 
         // Disable the eraser button when the number of vectors on the graph is zero, that is, when all vector sets
         // contain no vectors. This is a bit more complicated than it should be, but it was added late in the
@@ -158,6 +158,16 @@ define( require => {
         this.vectorContainer.addChild( xSumComponentVectorNode );
         this.vectorContainer.addChild( ySumComponentVectorNode );
         this.vectorContainer.addChild( sumVectorNode );
+        
+        // When the sum vector becomes selected, move it and its components to the front.
+        // Unlink is unnecessary because sum vectors exist for the lifetime of the sim.
+        graph.activeVectorProperty.link( activeVector => {
+          if ( activeVector === sumVectorNode.vector ) {
+            xSumComponentVectorNode.moveToFront();
+            ySumComponentVectorNode.moveToFront();
+            sumVectorNode.moveToFront();
+          }
+        } );
       } );
 
       // @protected for layout in subclasses
@@ -190,23 +200,34 @@ define( require => {
 
       const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.anglesVisibleProperty );
 
-      const xComponentNode = new ComponentVectorNode( vector.xComponentVector,
+      const xComponentVectorNode = new ComponentVectorNode( vector.xComponentVector,
         this.graph,
         this.componentStyleProperty,
         this.valuesVisibleProperty );
 
-      const yComponentNode = new ComponentVectorNode( vector.yComponentVector,
+      const yComponentVectorNode = new ComponentVectorNode( vector.yComponentVector,
         this.graph,
         this.componentStyleProperty,
         this.valuesVisibleProperty );
 
-      this.vectorContainer.addChild( xComponentNode );
-      this.vectorContainer.addChild( yComponentNode );
+      this.vectorContainer.addChild( xComponentVectorNode );
+      this.vectorContainer.addChild( yComponentVectorNode );
       this.vectorContainer.addChild( vectorNode );
 
       if ( forwardingEvent ) {
         vectorNode.bodyDragListener.press( forwardingEvent, vectorNode );
       }
+      
+      // When the vector becomes selected, move it and its components to the front.
+      // Unlinked below if the vector is removable.
+      const activeVectorListener = activeVector => {
+        if ( activeVector === vectorNode.vector ) {
+          xComponentVectorNode.moveToFront();
+          yComponentVectorNode.moveToFront();
+          vectorNode.moveToFront();
+        }
+      };
+      this.graph.activeVectorProperty.link( activeVectorListener );
 
       //----------------------------------------------------------------------------------------
       // If the Vector could be removed, observe when the Vector Set deletes the Vector to dispose
@@ -216,12 +237,13 @@ define( require => {
         const removalListener = removedVector => {
           if ( removedVector === vector ) {
 
-            xComponentNode.dispose();
-            yComponentNode.dispose();
+            xComponentVectorNode.dispose();
+            yComponentVectorNode.dispose();
             vectorNode.dispose();
 
-            // remove the listener
+            // remove listeners
             vectorSet.vectors.removeItemRemovedListener( removalListener );
+            this.graph.activeVectorProperty.unlink( activeVectorListener );
           }
         };
 
@@ -238,7 +260,7 @@ define( require => {
       assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel, `invalid vectorCreatorPanel: ${vectorCreatorPanel}` );
 
       this.addChild( vectorCreatorPanel );
-      vectorCreatorPanel.moveToBack(); // move to back to ensure that vectorContainer remains in front
+      vectorCreatorPanel.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
     }
 
     /**
