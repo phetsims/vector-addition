@@ -1,14 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level view for the 'Explore 1D' screen.
- *
- * Extends VectorAdditionScreenView but adds:
- *  - Explore 1D Graph Control Panel
- *  - Graph Orientation Radio Button Group
- *  - Scene nodes for each graph (horizontal/vertical)
- *  - Vector Creator Panels for each graph
- *
+ * Explore1DScreenView is the view for the 'Explore 1D' screen.
  * ScreenViews are never disposed.
  *
  * @author Martin Veillette

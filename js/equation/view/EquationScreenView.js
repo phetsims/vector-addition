@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level view for the 'Equation' screen.
+ * EquationScreenView is the view for the 'Equation' screen.
  * ScreenViews are never disposed.
  *
  * @author Martin Veillette

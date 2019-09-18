@@ -1,14 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level view for the 'Explore 2D' screen.
- *
- * Extends VectorAdditionScreenView but adds:
- *  - Coordinate Snap Radio Button Group
- *  - Explore 2D Graph Control Panel
- *  - Scene nodes for each graph
- *  - Vector Creator Panels for each graph
- *
+ * Explore2DScreenView is the view for the 'Explore 2D' screen.
  * ScreenViews are never disposed.
  *
  * @author Martin Veillette

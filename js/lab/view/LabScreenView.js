@@ -1,14 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level view for the 'Lab' screen.
- *
- * Extends VectorAdditionScreenView but adds:
- *  - Coordinate Snap Radio Button Group
- *  - Lab Graph Control Panel
- *  - Scene nodes for each graph
- *  - Vector Creator Panels for each graph
- *
+ * LabScreenView is the view for the 'Lab' screen.
  * ScreenViews are never disposed.
  *
  * @author Martin Veillette
