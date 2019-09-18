@@ -25,7 +25,6 @@ define( require => {
     sumComponentFill: 'rgb( 130, 130, 130 )'
   };
 
-
   const VectorAdditionColors = {
 
     //----------------------------------------------------------------------------------------
