@@ -52,9 +52,7 @@ define( require => {
       const graphControlPanel = new Explore1DGraphControlPanel(
         model.horizontalGraph.vectorSet,
         model.verticalGraph.vectorSet,
-        this.viewProperties.graphOrientationProperty,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.gridVisibleProperty, {
+        this.viewProperties, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: graphViewBounds.top
         } );

@@ -49,13 +49,10 @@ define( require => {
       const graphControlPanel = new LabGraphControlPanel(
         model.cartesianGraph,
         model.polarGraph,
-        this.viewProperties.coordinateSnapModeProperty,
+        model.componentStyleProperty,
         model.sumVisibleProperty1,
         model.sumVisibleProperty2,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.anglesVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        model.componentStyleProperty, {
+        this.viewProperties, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );

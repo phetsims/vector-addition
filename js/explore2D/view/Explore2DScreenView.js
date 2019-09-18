@@ -50,11 +50,8 @@ define( require => {
       const graphControlPanel = new Explore2DGraphControlPanel(
         model.cartesianGraph.vectorSet,
         model.polarGraph.vectorSet,
-        this.viewProperties.coordinateSnapModeProperty,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.anglesVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        model.componentStyleProperty, {
+        model.componentStyleProperty,
+        this.viewProperties, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );

@@ -12,7 +12,6 @@ define( require => {
 
   // modules
   const AnglesCheckbox = require( 'VECTOR_ADDITION/common/view/AnglesCheckbox' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Color = require( 'SCENERY/util/Color' );
   const ComponentStyleControl = require( 'VECTOR_ADDITION/common/view/ComponentStyleControl' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
@@ -24,35 +23,28 @@ define( require => {
   const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionGridCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionGridCheckbox' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionGridCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionGridCheckbox' );
+  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
   class LabGraphControlPanel extends GraphControlPanel {
 
     /**
      * @param {LabGraph} cartesianGraph
      * @param {LabGraph} polarGraph
-     * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Property.<boolean>} sumVisibleProperty1
      * @param {Property.<boolean>} sumVisibleProperty2
-     * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} anglesVisibleProperty
-     * @param {BooleanProperty} gridVisibleProperty
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {VectorAdditionViewProperties} viewProperties
      * @param {Object} [options]
      */
-    constructor( cartesianGraph, polarGraph, coordinateSnapModeProperty,
-                 sumVisibleProperty1, sumVisibleProperty2,
-                 valuesVisibleProperty, anglesVisibleProperty, gridVisibleProperty,
-                 componentStyleProperty, options ) {
+    constructor( cartesianGraph, polarGraph, componentStyleProperty,
+                 sumVisibleProperty1, sumVisibleProperty2, viewProperties, options ) {
 
       assert && assert( cartesianGraph instanceof LabGraph, `invalid cartesianGraph: ${cartesianGraph}` );
       assert && assert( polarGraph instanceof LabGraph, `invalid polarGraph: ${polarGraph}` );
-      assert && assert( coordinateSnapModeProperty instanceof EnumerationProperty, `invalid coordinateSnapModeProperty: ${coordinateSnapModeProperty}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( anglesVisibleProperty instanceof BooleanProperty, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
-      assert && assert( gridVisibleProperty instanceof BooleanProperty, `invalid gridVisibleProperty: ${gridVisibleProperty}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
 
       // Create 2 'Sum' checkboxes for each graph
       const sumCheckboxContainer = new Node();
@@ -69,7 +61,7 @@ define( require => {
 
         // Toggle visibility of the sumCheckboxes. Should only be visible if the coordinateSnapMode matches the
         // labGraph's coordinateSnapMode. Is never unlinked since the graph control panel is never disposed.
-        coordinateSnapModeProperty.link( coordinateSnapMode => {
+        viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
           sumCheckboxes.visible = coordinateSnapMode === labGraph.coordinateSnapMode;
         } );
       } );
@@ -80,13 +72,13 @@ define( require => {
         sumCheckboxContainer,
 
         // Values
-        new ValuesCheckbox( valuesVisibleProperty ),
+        new ValuesCheckbox( viewProperties.valuesVisibleProperty ),
 
         // Angles
-        new AnglesCheckbox( anglesVisibleProperty ),
+        new AnglesCheckbox( viewProperties.anglesVisibleProperty ),
 
         // Grid
-        new VectorAdditionGridCheckbox( gridVisibleProperty ),
+        new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty ),
 
         // separator
         new HSeparator( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {

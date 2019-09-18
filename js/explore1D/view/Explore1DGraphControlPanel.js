@@ -11,8 +11,6 @@ define( require => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -20,6 +18,7 @@ define( require => {
   const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionGridCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionGridCheckbox' );
+  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
   class Explore1DGraphControlPanel extends GraphControlPanel {
@@ -27,22 +26,14 @@ define( require => {
     /**
      * @param {VectorSet} horizontalVectorSet
      * @param {VectorSet} verticalVectorSet
-     * @param {EnumerationProperty.<GraphOrientations>} graphOrientationProperty
-     * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} gridVisibleProperty
+     * @param {VectorAdditionViewProperties} viewProperties
      * @param {Object} [options]
      */
-    constructor( horizontalVectorSet, verticalVectorSet, graphOrientationProperty,
-                 valuesVisibleProperty, gridVisibleProperty, options ) {
+    constructor( horizontalVectorSet, verticalVectorSet, viewProperties, options ) {
 
       assert && assert( horizontalVectorSet instanceof VectorSet, `invalid horizontalVectorSet: ${horizontalVectorSet}` );
       assert && assert( verticalVectorSet instanceof VectorSet, `invalid verticalVectorSet: ${verticalVectorSet}` );
-      assert && assert( graphOrientationProperty instanceof EnumerationProperty,
-        `invalid graphOrientationProperty: ${graphOrientationProperty}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
-        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( gridVisibleProperty instanceof BooleanProperty,
-        `invalid gridVisibleProperty: ${gridVisibleProperty}` );
+      assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
 
       const horizontalSumCheckbox = new SumCheckbox( horizontalVectorSet.sumVisibleProperty,
         horizontalVectorSet.vectorColorPalette );
@@ -52,7 +43,7 @@ define( require => {
 
       // Toggle visibility of the SumCheckboxes to match graph orientation.
       // Is never unlinked since the graph control panel is never disposed.
-      graphOrientationProperty.link( gridOrientation => {
+      viewProperties.graphOrientationProperty.link( gridOrientation => {
         horizontalSumCheckbox.visible = ( gridOrientation === GraphOrientations.HORIZONTAL );
         verticalSumCheckbox.visible = ( gridOrientation === GraphOrientations.VERTICAL );
       } );
@@ -65,10 +56,10 @@ define( require => {
         } ),
 
         // Values
-        new ValuesCheckbox( valuesVisibleProperty ),
+        new ValuesCheckbox( viewProperties.valuesVisibleProperty ),
 
         // Grid
-        new VectorAdditionGridCheckbox( gridVisibleProperty )
+        new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty )
       ], options );
     }
   }
