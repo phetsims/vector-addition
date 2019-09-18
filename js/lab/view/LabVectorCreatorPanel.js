@@ -27,7 +27,6 @@ define( require => {
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
-
   class LabVectorCreatorPanel extends VectorCreatorPanel {
 
     /**
@@ -47,7 +46,6 @@ define( require => {
         // {Vector2} - initial components of newly created Vectors
         initialVectorComponents: new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH,
           VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ),
-
 
         // {Object} passed to both of the VectorCreatorPanelSlot instances
         vectorCreatorPanelSlotOptions: {

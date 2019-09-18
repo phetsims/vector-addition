@@ -25,7 +25,6 @@ define( require => {
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
-
   class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
 
     /**
@@ -42,8 +41,6 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on options: ${options}` );
 
-      //----------------------------------------------------------------------------------------
-
       options = _.extend( {
 
         // {Vector2} - initial components of newly created Vectors
@@ -51,7 +48,6 @@ define( require => {
           VectorAdditionConstants.DEFAULT_VECTOR_LENGTH )
 
       }, options );
-
 
       //----------------------------------------------------------------------------------------
       // Loop through each symbol, creating a slot which corresponds with that symbol
@@ -68,7 +64,6 @@ define( require => {
           } );
 
         panelSlots.push( panelSlot );
-
       } );
 
       super( panelSlots, options );

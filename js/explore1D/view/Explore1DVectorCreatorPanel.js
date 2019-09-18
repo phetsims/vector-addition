@@ -26,7 +26,6 @@ define( require => {
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
-
   class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
     /**
@@ -52,7 +51,6 @@ define( require => {
                                  new Vector2( 0, VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ) :
                                  new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH, 0 ),
 
-
         // super-class options
         slotSpacing: explore1DGraph.orientation === GraphOrientations.VERTICAL ? 22 : 28
 
@@ -73,7 +71,6 @@ define( require => {
           } );
 
         panelSlots.push( panelSlot );
-
       } );
 
       super( panelSlots, options );
