@@ -137,9 +137,9 @@ define( require => {
       mainFill: BLUE,
       mainStroke: null,
       componentFill: BLUE,
-      sumFill: BLUE,
-      sumStroke: 'black',
-      sumComponentFill: BLUE,
+      sumFill: 'black',
+      sumStroke: null,
+      sumComponentFill: 'rgb( 130, 130, 130 )',
       baseVectorFill: 'white',
       baseVectorStroke: BLUE
     } ),
@@ -148,9 +148,9 @@ define( require => {
       mainFill: PURPLE,
       mainStroke: null,
       componentFill: PURPLE,
-      sumFill: PURPLE,
-      sumStroke: 'black',
-      sumComponentFill: PURPLE,
+      sumFill: 'black',
+      sumStroke: null,
+      sumComponentFill: 'rgb( 130, 130, 130 )',
       baseVectorFill: 'white',
       baseVectorStroke: PURPLE
     } )
