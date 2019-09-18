@@ -203,7 +203,7 @@ define( require => {
         // surround the symbol in absolute value bars if there is a value
         symbol: symbol,
         value: value,
-        includeAbsoluteValueBars: value !== null && symbol !== null ? true : false
+        includeAbsoluteValueBars: ( value !== null && symbol !== null )
       };
     }
 
