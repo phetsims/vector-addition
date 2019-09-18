@@ -33,28 +33,28 @@ define( require => {
   class Explore2DScreenView extends VectorAdditionScreenView {
 
     /**
-     * @param {Explore2DModel} explore2DModel
+     * @param {Explore2DModel} model
      * @param {Tandem} tandem
      */
-    constructor( explore2DModel, tandem ) {
+    constructor( model, tandem ) {
 
-      assert && assert( explore2DModel instanceof Explore2DModel, `invalid explore2DModel: ${explore2DModel}` );
+      assert && assert( model instanceof Explore2DModel, `invalid model: ${model}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      super( explore2DModel, tandem );
+      super( model, tandem );
 
       // @private view-specific Properties
       this.viewProperties = new VectorAdditionViewProperties();
 
       // Control for the graph, at upper right
       const graphControlPanel = new Explore2DGraphControlPanel(
-        explore2DModel.cartesianGraph.vectorSet,
-        explore2DModel.polarGraph.vectorSet,
+        model.cartesianGraph.vectorSet,
+        model.polarGraph.vectorSet,
         this.viewProperties.coordinateSnapModeProperty,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.anglesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-        explore2DModel.componentStyleProperty, {
+        model.componentStyleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
@@ -63,27 +63,27 @@ define( require => {
       // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty,
-        explore2DModel.cartesianVectorColorPalette,
-        explore2DModel.polarVectorColorPalette, {
+        model.cartesianVectorColorPalette,
+        model.polarVectorColorPalette, {
           left: graphControlPanel.left,
           bottom: this.resetAllButton.bottom
         } );
       this.addChild( coordinateSnapRadioButtonGroup );
 
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
-      [ explore2DModel.polarGraph, explore2DModel.cartesianGraph ].forEach( explore2DGraph => {
+      [ model.polarGraph, model.cartesianGraph ].forEach( graph => {
 
         // Create the scene node
-        const sceneNode = new SceneNode( explore2DGraph, this.viewProperties, explore2DModel.componentStyleProperty );
+        const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty );
 
         // Vector symbols depend on whether snap mode is Cartesian or Polar
-        const vectorSymbols = ( explore2DGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
+        const vectorSymbols = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
                               VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
                               VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
 
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel(
-          explore2DGraph,
+          graph,
           sceneNode,
           vectorSymbols, {
             left: coordinateSnapRadioButtonGroup.left,
@@ -92,9 +92,9 @@ define( require => {
         );
 
         // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
-        // explore2DGraph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
+        // graph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
         this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-          sceneNode.visible = ( coordinateSnapMode === explore2DGraph.coordinateSnapMode );
+          sceneNode.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
         } );
 
         // Add the scene node

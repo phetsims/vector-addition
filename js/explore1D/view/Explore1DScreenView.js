@@ -33,25 +33,25 @@ define( require => {
   class Explore1DScreenView extends VectorAdditionScreenView {
 
     /**
-     * @param {Explore1DModel} explore1DModel
+     * @param {Explore1DModel} model
      * @param {Tandem} tandem
      */
-    constructor( explore1DModel, tandem ) {
+    constructor( model, tandem ) {
 
-      assert && assert( explore1DModel instanceof Explore1DModel, `invalid explore1DModel: ${explore1DModel}` );
+      assert && assert( model instanceof Explore1DModel, `invalid model: ${model}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      super( explore1DModel, tandem );
+      super( model, tandem );
 
       // @private view-specific Properties
       this.viewProperties = new Explore1DViewProperties();
 
-      const graphViewBounds = explore1DModel.verticalGraph.graphViewBounds;
+      const graphViewBounds = model.verticalGraph.graphViewBounds;
 
       // Controls for the graph, at upper right
       const graphControlPanel = new Explore1DGraphControlPanel(
-        explore1DModel.horizontalGraph.vectorSet,
-        explore1DModel.verticalGraph.vectorSet,
+        model.horizontalGraph.vectorSet,
+        model.verticalGraph.vectorSet,
         this.viewProperties.graphOrientationProperty,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.gridVisibleProperty, {
@@ -69,30 +69,30 @@ define( require => {
       this.addChild( graphOrientationRadioButtonGroup );
 
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
-      [ explore1DModel.verticalGraph, explore1DModel.horizontalGraph ].forEach( explore1DGraph => {
+      [ model.verticalGraph, model.horizontalGraph ].forEach( graph => {
 
         // Create the scene node
-        const sceneNode = new SceneNode( explore1DGraph, this.viewProperties, explore1DModel.componentStyleProperty, {
+        const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty, {
           vectorValuesAccordionBoxOptions: {
             isExpandedInitially: false
           }
         } );
 
         // Vector symbols depend on graph orientation
-        const vectorSymbols = ( explore1DGraph.orientation === GraphOrientations.HORIZONTAL ) ?
+        const vectorSymbols = ( graph.orientation === GraphOrientations.HORIZONTAL ) ?
                               VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
                               VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
 
         // Add the vector creator panel
-        sceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( explore1DGraph, sceneNode, vectorSymbols, {
+        sceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( graph, sceneNode, vectorSymbols, {
             left: graphOrientationRadioButtonGroup.left,
             bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
           } ) );
 
         // Toggle visibility of the SceneNode. Should only be visible if the graph orientation matches the
-        // explore1DGraph's graph orientation. Is never unlinked since the screen view is never disposed.
+        // graph's graph orientation. Is never unlinked since the screen view is never disposed.
         this.viewProperties.graphOrientationProperty.link( graphOrientation => {
-          sceneNode.visible = ( graphOrientation === explore1DGraph.orientation );
+          sceneNode.visible = ( graphOrientation === graph.orientation );
         } );
 
         // Add the scene node

@@ -32,15 +32,15 @@ define( require => {
   class EquationSceneNode extends SceneNode {
 
     /**
-     * @param {EquationGraph} equationGraph
+     * @param {EquationGraph} graph
      * @param {EquationViewProperties} viewProperties
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {number} graphControlPanelBottom
      * @param {Object} [options]
      */
-    constructor( equationGraph, viewProperties, componentStyleProperty, graphControlPanelBottom, options ) {
+    constructor( graph, viewProperties, componentStyleProperty, graphControlPanelBottom, options ) {
 
-      assert && assert( equationGraph instanceof EquationGraph, `invalid equationGraph: ${equationGraph}` );
+      assert && assert( graph instanceof EquationGraph, `invalid graph: ${graph}` );
       assert && assert( viewProperties instanceof EquationViewProperties, `invalid viewProperties: ${viewProperties}` );
 
       options = merge( {
@@ -54,27 +54,27 @@ define( require => {
 
       }, options );
 
-      super( equationGraph, viewProperties, componentStyleProperty, options );
+      super( graph, viewProperties, componentStyleProperty, options );
 
       this.vectorValuesToggleBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
       // convenience reference
-      const graphViewBounds = equationGraph.graphViewBounds;
+      const graphViewBounds = graph.graphViewBounds;
 
       //----------------------------------------------------------------------------------------
       // Add a Coefficient Selector for each Equation Type
       let lastEquationToggleBox = null;
       EquationTypes.VALUES.forEach( equationType => {
 
-        const equationToggleBox = new EquationToggleBox( equationGraph.vectorSet, equationType, {
+        const equationToggleBox = new EquationToggleBox( graph.vectorSet, equationType, {
           expandedProperty: viewProperties.equationsExpandedProperty,
           left: graphViewBounds.left,
           top: this.vectorValuesToggleBox.bottom + 10
         } );
 
         // Doesn't need to be unlinked since the equationToggleBox and the scene is never disposed
-        equationGraph.equationTypeProperty.link( () => {
-          equationToggleBox.visible = equationType === equationGraph.equationTypeProperty.value;
+        graph.equationTypeProperty.link( () => {
+          equationToggleBox.visible = equationType === graph.equationTypeProperty.value;
         } );
 
         this.addChild( equationToggleBox );
@@ -85,8 +85,8 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Add the "Equation Selector Radio Button Group"
-      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( equationGraph.equationTypeProperty,
-        equationGraph.vectorSet.symbols, {
+      const equationTypesRadioButtonGroup = new EquationTypesRadioButtonGroup( graph.equationTypeProperty,
+        graph.vectorSet.symbols, {
           centerY: lastEquationToggleBox.centerY,
           left: lastEquationToggleBox.right + 20
         } );
@@ -98,8 +98,8 @@ define( require => {
       // Add a Base Vector Accordion Box
 
       const baseVectorsAccordionBox = new BaseVectorsAccordionBox( viewProperties.baseVectorsVisibleProperty,
-        equationGraph.coordinateSnapMode,
-        equationGraph.vectorSet, {
+        graph.coordinateSnapMode,
+        graph.vectorSet, {
         expandedProperty: viewProperties.baseVectorsExpandedProperty,
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: graphControlPanelBottom + 8
@@ -112,17 +112,17 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // 'Register' vectors and add their base vectors.
       // Base vectors do not have component vectors, see https://github.com/phetsims/vector-addition/issues/158
-      equationGraph.vectorSet.vectors.forEach( equationVector => {
+      graph.vectorSet.vectors.forEach( equationVector => {
 
         // register the vector to create the Nodes
-        this.registerVector( equationVector, equationGraph.vectorSet );
+        this.registerVector( equationVector, graph.vectorSet );
 
-        const baseVectorNode = new VectorNode( equationVector.baseVector, equationGraph,
+        const baseVectorNode = new VectorNode( equationVector.baseVector, graph,
           viewProperties.valuesVisibleProperty,
           viewProperties.anglesVisibleProperty, {
             arrowOptions: _.extend( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
-              fill: equationGraph.vectorSet.vectorColorPalette.baseVectorFill,
-              stroke: equationGraph.vectorSet.vectorColorPalette.baseVectorStroke
+              fill: graph.vectorSet.vectorColorPalette.baseVectorFill,
+              stroke: graph.vectorSet.vectorColorPalette.baseVectorStroke
             } )
         } );
 
@@ -132,7 +132,7 @@ define( require => {
 
         // When the base vector becomes selected, move it to the front.
         // Unlink is unnecessary because base vectors exist for the lifetime of the sim.
-        equationGraph.activeVectorProperty.link( activeVector => {
+        graph.activeVectorProperty.link( activeVector => {
           if ( activeVector === baseVectorNode.vector ) {
             baseVectorNode.moveToFront();
           }

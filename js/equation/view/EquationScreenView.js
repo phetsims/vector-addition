@@ -25,28 +25,28 @@ define( require => {
   class EquationScreenView extends VectorAdditionScreenView {
 
     /**
-     * @param {EquationModel} equationModel
+     * @param {EquationModel} model
      * @param {Tandem} tandem
      */
-    constructor( equationModel, tandem ) {
+    constructor( model, tandem ) {
 
-      assert && assert( equationModel instanceof EquationModel, `invalid equationModel: ${equationModel}` );
+      assert && assert( model instanceof EquationModel, `invalid model: ${model}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      super( equationModel, tandem );
+      super( model, tandem );
 
       // @private view-specific Properties
       this.viewProperties = new EquationViewProperties();
 
       // Controls for the graph, at upper right
       const graphControlPanel = new EquationGraphControlPanel(
-        equationModel.cartesianGraph.vectorSet,
-        equationModel.polarGraph.vectorSet,
+        model.cartesianGraph.vectorSet,
+        model.polarGraph.vectorSet,
         this.viewProperties.coordinateSnapModeProperty,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.anglesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-        equationModel.componentStyleProperty, {
+        model.componentStyleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         }
@@ -55,28 +55,28 @@ define( require => {
       // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty,
-        equationModel.cartesianVectorColorPalette,
-        equationModel.polarVectorColorPalette, {
+        model.cartesianVectorColorPalette,
+        model.polarVectorColorPalette, {
           left: graphControlPanel.left,
           bottom: this.resetAllButton.bottom
         } );
 
       const polarScene = new EquationSceneNode(
-        equationModel.polarGraph,
+        model.polarGraph,
         this.viewProperties,
-        equationModel.componentStyleProperty,
+        model.componentStyleProperty,
         graphControlPanel.bottom
       );
 
       const cartesianScene = new EquationSceneNode(
-        equationModel.cartesianGraph,
+        model.cartesianGraph,
         this.viewProperties,
-        equationModel.componentStyleProperty,
+        model.componentStyleProperty,
         graphControlPanel.bottom
       );
 
       // Toggle visibility of scenes based on which coordinate snap mode it is.
-      // Doesn't need to be unlinked since the scenes and equation scenes are never disposed.
+      // Doesn't need to be unlinked since this exists for the lifetime of the sim.
       this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
         polarScene.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
         cartesianScene.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );

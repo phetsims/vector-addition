@@ -32,30 +32,30 @@ define( require => {
   class LabScreenView extends VectorAdditionScreenView {
 
     /**
-     * @param {LabModel} labModel
+     * @param {LabModel} model
      * @param {Tandem} tandem
      */
-    constructor( labModel, tandem ) {
+    constructor( model, tandem ) {
 
-      assert && assert( labModel instanceof LabModel, `invalid labModel: ${labModel}` );
+      assert && assert( model instanceof LabModel, `invalid model: ${model}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      super( labModel, tandem );
+      super( model, tandem );
 
       // @private view-specific Properties
       this.viewProperties = new VectorAdditionViewProperties();
 
       // Controls for the graph, at upper right
       const graphControlPanel = new LabGraphControlPanel(
-        labModel.cartesianGraph,
-        labModel.polarGraph,
+        model.cartesianGraph,
+        model.polarGraph,
         this.viewProperties.coordinateSnapModeProperty,
-        labModel.sumVisibleProperty1,
-        labModel.sumVisibleProperty2,
+        model.sumVisibleProperty1,
+        model.sumVisibleProperty2,
         this.viewProperties.valuesVisibleProperty,
         this.viewProperties.anglesVisibleProperty,
         this.viewProperties.gridVisibleProperty,
-        labModel.componentStyleProperty, {
+        model.componentStyleProperty, {
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
         } );
@@ -64,29 +64,29 @@ define( require => {
       // Coordinate Snap radio buttons, at lower right
       const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
         this.viewProperties.coordinateSnapModeProperty,
-        labModel.cartesianVectorColorPalette1,
-        labModel.polarVectorColorPalette1, {
+        model.cartesianVectorColorPalette1,
+        model.polarVectorColorPalette1, {
           left: graphControlPanel.left,
           bottom: this.resetAllButton.bottom
         } );
       this.addChild( coordinateSnapRadioButtonGroup );
 
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
-      [ labModel.polarGraph, labModel.cartesianGraph ].forEach( labGraph => {
+      [ model.polarGraph, model.cartesianGraph ].forEach( graph => {
 
-        const sceneNode = new SceneNode( labGraph, this.viewProperties, labModel.componentStyleProperty );
+        const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty );
 
         // Add the vector creator panel
-        sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode, {
+        sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( graph, sceneNode, {
             left: coordinateSnapRadioButtonGroup.left,
             bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
           } )
         );
 
         // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
-        // labGraph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
+        // graph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
         this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-          sceneNode.visible = coordinateSnapMode === labGraph.coordinateSnapMode;
+          sceneNode.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
         } );
 
         // Add the scene node
