@@ -28,14 +28,14 @@ define( require => {
   class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
 
     /**
-     * @param {Explore2DGraph} explore2DGraph
+     * @param {Explore2DGraph} graph
      * @param {SceneNode} sceneNode
      * @param {string[]} symbols - the symbols corresponding to each slot
      * @param {Object} [options]
      */
-    constructor( explore2DGraph, sceneNode, symbols, options ) {
+    constructor( graph, sceneNode, symbols, options ) {
 
-      assert && assert( explore2DGraph instanceof Explore2DGraph, `invalid explore2DGraph: ${explore2DGraph}` );
+      assert && assert( graph instanceof Explore2DGraph, `invalid graph: ${graph}` );
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
       assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
@@ -56,8 +56,8 @@ define( require => {
 
       symbols.forEach( symbol => {
 
-        const panelSlot = new VectorCreatorPanelSlot( explore2DGraph,
-          explore2DGraph.vectorSet,
+        const panelSlot = new VectorCreatorPanelSlot( graph,
+          graph.vectorSet,
           sceneNode,
           options.initialVectorComponents, {
             symbol: symbol

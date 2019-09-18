@@ -48,21 +48,21 @@ define( require => {
 
       // Create 2 'Sum' checkboxes for each graph
       const sumCheckboxContainer = new Node();
-      [ cartesianGraph, polarGraph ].forEach( labGraph => {
+      [ cartesianGraph, polarGraph ].forEach( graph => {
 
         const sumCheckboxes = new VBox( {
           children: [
-            new SumCheckbox( sumVisibleProperty1, labGraph.vectorSet1.vectorColorPalette ),
-            new SumCheckbox( sumVisibleProperty2, labGraph.vectorSet2.vectorColorPalette )
+            new SumCheckbox( sumVisibleProperty1, graph.vectorSet1.vectorColorPalette ),
+            new SumCheckbox( sumVisibleProperty2, graph.vectorSet2.vectorColorPalette )
           ],
           spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING
         } );
         sumCheckboxContainer.addChild( sumCheckboxes );
 
         // Toggle visibility of the sumCheckboxes. Should only be visible if the coordinateSnapMode matches the
-        // labGraph's coordinateSnapMode. Is never unlinked since the graph control panel is never disposed.
+        // graph's coordinateSnapMode. Is never unlinked since the graph control panel is never disposed.
         viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-          sumCheckboxes.visible = coordinateSnapMode === labGraph.coordinateSnapMode;
+          sumCheckboxes.visible = coordinateSnapMode === graph.coordinateSnapMode;
         } );
       } );
 

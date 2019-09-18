@@ -29,14 +29,14 @@ define( require => {
   class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
     /**
-     * @param {Explore1DGraph} explore1DGraph
+     * @param {Explore1DGraph} graph
      * @param {SceneNode} sceneNode
      * @param {string[]} symbols - the symbols corresponding to each slot
      * @param {Object} [options]
      */
-    constructor( explore1DGraph, sceneNode, symbols, options ) {
+    constructor( graph, sceneNode, symbols, options ) {
 
-      assert && assert( explore1DGraph instanceof Explore1DGraph, `invalid explore1DGraph: ${explore1DGraph}` );
+      assert && assert( graph instanceof Explore1DGraph, `invalid graph: ${graph}` );
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
       assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
@@ -47,12 +47,12 @@ define( require => {
       options = _.extend( {
 
         // {Vector2} - initial components of newly created Vectors
-        initialVectorComponents: explore1DGraph.orientation === GraphOrientations.VERTICAL ?
+        initialVectorComponents: graph.orientation === GraphOrientations.VERTICAL ?
                                  new Vector2( 0, VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ) :
                                  new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH, 0 ),
 
         // super-class options
-        slotSpacing: explore1DGraph.orientation === GraphOrientations.VERTICAL ? 22 : 28
+        slotSpacing: ( graph.orientation === GraphOrientations.VERTICAL ) ? 22 : 28
 
       }, options );
 
@@ -63,8 +63,8 @@ define( require => {
 
       symbols.forEach( symbol => {
 
-        const panelSlot = new VectorCreatorPanelSlot( explore1DGraph,
-          explore1DGraph.vectorSet,
+        const panelSlot = new VectorCreatorPanelSlot( graph,
+          graph.vectorSet,
           sceneNode,
           options.initialVectorComponents, {
             symbol: symbol

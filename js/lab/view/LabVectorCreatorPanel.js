@@ -30,13 +30,13 @@ define( require => {
   class LabVectorCreatorPanel extends VectorCreatorPanel {
 
     /**
-     * @param {LabGraph} labGraph
+     * @param {LabGraph} graph
      * @param {SceneNode} sceneNode
      * @param {Object} [options]
      */
-    constructor( labGraph, sceneNode, options ) {
+    constructor( graph, sceneNode, options ) {
 
-      assert && assert( labGraph instanceof LabGraph, `invalid labGraph: ${labGraph}` );
+      assert && assert( graph instanceof LabGraph, `invalid graph: ${graph}` );
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on options: ${options}` );
@@ -63,9 +63,9 @@ define( require => {
 
       const slots = [];
 
-      labGraph.vectorSets.forEach( vectorSet => {
+      graph.vectorSets.forEach( vectorSet => {
 
-        slots.push( new VectorCreatorPanelSlot( labGraph,
+        slots.push( new VectorCreatorPanelSlot( graph,
           vectorSet,
           sceneNode,
           options.initialVectorComponents,
