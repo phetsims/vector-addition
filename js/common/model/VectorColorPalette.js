@@ -59,6 +59,15 @@ define( require => {
       this.baseVectorFill = options.baseVectorFill;
       this.baseVectorStroke = options.baseVectorStroke || options.mainFill;
     }
+
+    /**
+     * Prevent attempts to use stroke fields that do not exist for component vectors.
+     * Component vectors are rendered using DashedArrowNode, which does not support stroke.
+     * @public
+     */
+    get componentStroke() { throw new Error( 'VectorColorPalette does not have componentStroke' ); }
+
+    get sumComponentStroke() { throw new Error( 'VectorColorPalette does not have sumComponentStroke' ); }
   }
 
   return vectorAddition.register( 'VectorColorPalette', VectorColorPalette );

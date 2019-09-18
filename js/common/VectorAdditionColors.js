@@ -15,11 +15,16 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
-  // the four basic colors used in VectorColorPalettes
-  const BLUE = 'rgb( 10, 170, 250 )';
-  const PURPLE = 'rgb( 188, 3, 255 )';
-  const RED = 'rgb( 232, 25, 9 )';
-  const GREEN = 'rgb( 5, 200, 0 )';
+  // Colors that are used in more than one VectorColorPalette
+  const MAIN_BLUE = 'rgb( 10, 170, 250 )';
+  const MAIN_PURPLE = 'rgb( 188, 3, 255 )';
+
+  // VectorColorPalette options that are common to both color palettes in the Equation screen
+  const EQUATION_COLOR_PALETTE_OPTIONS = {
+    sumFill: Color.BLACK,
+    sumComponentFill: 'rgb( 130, 130, 130 )'
+  };
+
 
   const VectorAdditionColors = {
 
@@ -60,100 +65,33 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Vector color palettes
 
-    //TODO #184 remove duplication in VectorColorPalette instances when colors are finalized
-
-    // Explore 1D screen
-
-    EXPLORE_1D_BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: BLUE,
-      mainStroke: null,
-      componentFill: BLUE,
-      sumFill: BLUE,
-      sumStroke: 'black',
-      sumComponentFill: BLUE
+    BLUE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: MAIN_BLUE,
+      sumFill: 'rgb( 5, 85, 125 )'
     } ),
 
-    // Explore 2D screen
-
-    EXPLORE_2D_BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: BLUE,
-      mainStroke: null,
-      componentFill: BLUE,
-      sumFill: BLUE,
-      sumStroke: 'black',
-      sumComponentFill: BLUE
+    PURPLE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: MAIN_PURPLE,
+      sumFill: 'rgb( 84, 2, 128 )'
     } ),
 
-    EXPLORE_2D_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: PURPLE,
-      mainStroke: null,
-      componentFill: PURPLE,
-      sumFill: PURPLE,
-      sumStroke: 'black',
-      sumComponentFill: PURPLE
+    RED_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 255, 53, 133 )',
+      sumFill: '#800133'
     } ),
 
-    // Lab screen
-
-    LAB_BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: BLUE,
-      mainStroke: null,
-      componentFill: BLUE,
-      sumFill: BLUE,
-      sumStroke: 'black',
-      sumComponentFill: BLUE
-    } ),
-
-    LAB_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: PURPLE,
-      mainStroke: null,
-      componentFill: PURPLE,
-      sumFill: PURPLE,
-      sumStroke: 'black',
-      sumComponentFill: PURPLE
-    } ),
-
-    LAB_RED_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: RED,
-      mainStroke: null,
-      componentFill: RED,
-      sumFill: RED,
-      sumStroke: 'black',
-      sumComponentFill: RED
-    } ),
-
-    LAB_GREEN_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: GREEN,
-      mainStroke: null,
-      componentFill: GREEN,
-      sumFill: GREEN,
-      sumStroke: 'black',
-      sumComponentFill: GREEN
+    GREEN_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: 'rgb( 5, 200, 0 )',
+      sumFill: 'rgb( 2, 75, 0 )'
     } ),
 
     // Equation screen
-
-    EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: BLUE,
-      mainStroke: null,
-      componentFill: BLUE,
-      sumFill: 'black',
-      sumStroke: null,
-      sumComponentFill: 'rgb( 130, 130, 130 )',
-      baseVectorFill: 'white',
-      baseVectorStroke: BLUE
-    } ),
-
-    EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: PURPLE,
-      mainStroke: null,
-      componentFill: PURPLE,
-      sumFill: 'black',
-      sumStroke: null,
-      sumComponentFill: 'rgb( 130, 130, 130 )',
-      baseVectorFill: 'white',
-      baseVectorStroke: PURPLE
-    } )
+    EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( _.extend( {}, EQUATION_COLOR_PALETTE_OPTIONS, {
+      mainFill: MAIN_BLUE
+    } ) ),
+    EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( _.extend( {}, EQUATION_COLOR_PALETTE_OPTIONS, {
+      mainFill: MAIN_PURPLE
+    } ) )
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );

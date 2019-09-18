@@ -39,10 +39,10 @@ define( require => {
       this.sumVisibleProperty2 = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
       // @public (read-only) {VectorColorPalette}
-      this.cartesianVectorColorPalette1 = VectorAdditionColors.LAB_BLUE_COLOR_PALETTE;
-      this.cartesianVectorColorPalette2 = VectorAdditionColors.LAB_RED_COLOR_PALETTE;
-      this.polarVectorColorPalette1 = VectorAdditionColors.LAB_PURPLE_COLOR_PALETTE;
-      this.polarVectorColorPalette2 = VectorAdditionColors.LAB_GREEN_COLOR_PALETTE;
+      this.cartesianVectorColorPalette1 = VectorAdditionColors.BLUE_COLOR_PALETTE;
+      this.cartesianVectorColorPalette2 = VectorAdditionColors.RED_COLOR_PALETTE;
+      this.polarVectorColorPalette1 = VectorAdditionColors.PURPLE_COLOR_PALETTE;
+      this.polarVectorColorPalette2 = VectorAdditionColors.GREEN_COLOR_PALETTE;
 
       // @public (read-only) {Graph} cartesianGraph
       this.cartesianGraph = new LabGraph( CoordinateSnapModes.CARTESIAN,

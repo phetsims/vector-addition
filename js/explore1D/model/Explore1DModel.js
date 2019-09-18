@@ -36,8 +36,8 @@ define( require => {
       this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
       // @public (read-only) {VectorColorPalette}
-      this.horizontalVectorColorPalette = VectorAdditionColors.EXPLORE_1D_BLUE_COLOR_PALETTE;
-      this.verticalVectorColorPalette = VectorAdditionColors.EXPLORE_1D_BLUE_COLOR_PALETTE;
+      this.horizontalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
+      this.verticalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
 
       // @public (read-only) {Graph}
       this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL,
