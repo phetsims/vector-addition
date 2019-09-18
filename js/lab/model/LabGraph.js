@@ -6,7 +6,7 @@
  * Characteristics of a Lab Graph (which extends Graph) are:
  *  - Lab graphs have exactly 2 vector sets each
  *  - Each vector set has its own sum visible property respectively
- *  - Each vector set has a vector sum that starts in a different position
+ *  - Each vector set has a sum vector that starts in a different position
  *  - Two-dimensional
  *  - Color palette for each vector set
  *

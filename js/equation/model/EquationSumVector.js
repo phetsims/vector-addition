@@ -21,19 +21,19 @@ define( require => {
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const Property = require( 'AXON/Property' );
+  const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
   // constants
   const EQUATION_SUM_TAIL_POSITION = new Vector2( 25, 5 );
 
-  class EquationVectorSum extends VectorSum {
+  class EquationSumVector extends SumVector {
 
     /**
-     * @param {Graph} graph - graph the vector sum belongs to
-     * @param {VectorSet} vectorSet - the vector set that the sum represents
+     * @param {Graph} graph - graph the sum vector belongs to
+     * @param {VectorSet} vectorSet - the vector set that the sum vector represents
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
@@ -86,7 +86,7 @@ define( require => {
 
     //TODO VectorsModel does not exist
     /**
-     * Calculate the vector sum for the equation screen.
+     * Calculate the sum vector for the Equation screen.
      * @param {ObservableArray.<VectorsModel>} vectors
      * @public
      * @override
@@ -130,7 +130,7 @@ define( require => {
     /**
      * See RootVector.getLabelContent() for context
      *
-     * Gets the label content information to display the vector model. Equation Vector Sums always show their tag.
+     * Gets the label content information to display the vector model. Equation sum vectors always show their label.
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
      * @returns {object} {
@@ -165,5 +165,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationVectorSum', EquationVectorSum );
+  return vectorAddition.register( 'EquationSumVector', EquationSumVector );
 } );

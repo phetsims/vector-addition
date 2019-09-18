@@ -28,10 +28,10 @@ define( require => {
       super( vector, graph, valuesVisibleProperty, anglesVisibleProperty, options );
 
       // Double check that the vector node never is animated back
-      // Doesn't need to be unlinked since vector sums are never disposed.
+      // Doesn't need to be unlinked since sum vectors are never disposed.
       assert && this.animateBackProperty.link( animateBack => {
         if ( animateBack === true ) {
-          assert( false, 'vector sums are never animated back' );
+          assert( false, 'EquationVectorNode instances should never be animated back' );
         }
       } );
 
@@ -45,7 +45,7 @@ define( require => {
      * @public
      * @override
      */
-    dispose() { assert && assert( false, 'vector sums are never disposed' ); }
+    dispose() { assert && assert( false, 'EquationVectorNode instances should never be disposed' ); }
   }
 
   return vectorAddition.register( 'EquationVectorNode', EquationVectorNode );

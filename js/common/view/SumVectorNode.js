@@ -1,9 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Vector for the vector sum.
+ * SumVectorNode is the view for a sum vector.
  *
- * Extends Vector Node but adds the following functionality:
+ * Extends VectorNode but adds the following functionality:
  *  - a distinct appearance
  *  - toggle visibility based on the sumVisibleProperty
  *  - disables ability to take the sum vector node off of the graph
@@ -17,23 +17,23 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
-  const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
-  class VectorSumNode extends VectorNode {
+  class SumVectorNode extends VectorNode {
     /**
-     * @param {VectorSum} vectorSum - the model for the vector sum
+     * @param {SumVector} sumVector - the model for the sum vector
      * @param {Graph} graph - the graph the sum belongs to
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} anglesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
      * @param {Object} [options]
      */
-    constructor( vectorSum, graph, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, options ) {
+    constructor( sumVector, graph, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, options ) {
 
-      assert && assert( vectorSum instanceof VectorSum, `invalid vectorSum: ${vectorSum}` );
+      assert && assert( sumVector instanceof SumVector, `invalid sumVector: ${sumVector}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty,
         `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
@@ -48,42 +48,42 @@ define( require => {
 
       options = _.extend( {
         arrowOptions: _.extend( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
-          fill: vectorSum.vectorColorPalette.sumFill,
-          stroke: vectorSum.vectorColorPalette.sumStroke
+          fill: sumVector.vectorColorPalette.sumFill,
+          stroke: sumVector.vectorColorPalette.sumStroke
         } )
       }, options );
 
       //----------------------------------------------------------------------------------------
 
-      super( vectorSum, graph, valuesVisibleProperty, anglesVisibleProperty, options );
+      super( sumVector, graph, valuesVisibleProperty, anglesVisibleProperty, options );
 
       // Update the visibility of the sum node based on the sum visible Property.
-      // Doesn't need to be unlinked since vector sums are never disposed
+      // Doesn't need to be unlinked since sum vectors are never disposed
       sumVisibleProperty.linkAttribute( this, 'visible' );
 
       // Making an active sum vector invisible clears activeVectorProperty. See #112.
       sumVisibleProperty.link( sumVisible => {
-         if ( !sumVisible && graph.activeVectorProperty.value === vectorSum ) {
+         if ( !sumVisible && graph.activeVectorProperty.value === sumVector ) {
            graph.activeVectorProperty.value = null;
          }
       } );
 
       // Double check that the vector node never is animated back
-      // Doesn't need to be unlinked since vector sums are never disposed.
-      assert && vectorSum.animateBackProperty.link( animateBack => {
+      // Doesn't need to be unlinked since sum vectors are never disposed.
+      assert && sumVector.animateBackProperty.link( animateBack => {
         if ( animateBack ) {
-          assert( false, 'vector sums are never animated back' );
+          assert( false, 'SumVectorNode instances never animated back' );
         }
       } );
     }
 
     /**
-     * Double check to make sure vector sums are never disposed
+     * Double check to make sure sum vectors are never disposed
      * @public
      * @override
      */
-    dispose() { assert && assert( false, 'vector sums are never disposed' ); }
+    dispose() { assert && assert( false, 'SumVectorNode instances should never be disposed' ); }
   }
 
-  return vectorAddition.register( 'VectorSumNode', VectorSumNode );
+  return vectorAddition.register( 'SumVectorNode', SumVectorNode );
 } );

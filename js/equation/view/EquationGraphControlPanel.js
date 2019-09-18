@@ -51,13 +51,13 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty,
-        cartesianVectorSet.vectorSum.symbol, {
+        cartesianVectorSet.sumVector.symbol, {
           vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
           vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke
         } );
 
       const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty,
-        polarVectorSet.vectorSum.symbol, {
+        polarVectorSet.sumVector.symbol, {
           vectorFill: polarVectorSet.vectorColorPalette.sumFill,
           vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
         } );

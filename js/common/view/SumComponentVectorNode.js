@@ -58,7 +58,7 @@ define( require => {
       this.sumVisibleProperty = sumVisibleProperty;
 
       // Observe when the sum visibility to update the vector component.
-      // Doesn't need to be unlinked since vector sums are never disposed.
+      // Doesn't need to be unlinked since sum vectors are never disposed.
       sumVisibleProperty.link( () => {
 
         this.updateComponentVector( componentVector,
@@ -89,11 +89,11 @@ define( require => {
     }
 
     /**
-     * Double check to make sure vector sum components are never disposed
+     * Double check to make sure sum vector components are never disposed
      * @public
      * @override
      */
-    dispose() { assert && assert( false, 'Vector sum components are never disposed.' ); }
+    dispose() { assert && assert( false, 'SumComponentVectorNode instances should never be disposed.' ); }
   }
 
   return vectorAddition.register( 'SumComponentVectorNode', SumComponentVectorNode );

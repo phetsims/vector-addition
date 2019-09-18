@@ -5,7 +5,7 @@
  *
  * A 'VectorSet' contains:
  *  - an observable array of vectors
- *  - a vector sum of those vectors.
+ *  - a sum vector of those vectors
  *
  * A Graph can support multiple vectorSets. (e.g. lab screen has 2 vector sets per graph)
  *
@@ -20,11 +20,11 @@ define( require => {
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
+  const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
-  const VectorSum = require( 'VECTOR_ADDITION/common/model/VectorSum' );
 
-  // The symbol for the vector sum. The reason this isn't translatable is:
+  // The symbol for the sum vector. The reason this isn't translatable is:
   // https://github.com/phetsims/vector-addition/issues/10.
   const SUM_SYMBOL = 's';
 
@@ -41,8 +41,8 @@ define( require => {
 
       options = _.extend( {
 
-        // {boolean} false means that the default VectorSum will not be created, and a subclass is responsible
-        // for initializing this.vectorSum.
+        // {boolean} false means that the default SumVector will not be created, and a subclass is responsible
+        // for initializing this.sumVector.
         initializeSum: true,
 
         // {Vector2} initial tail position of the sum. Only used if options.initializeSum = true
@@ -77,13 +77,13 @@ define( require => {
       // Create the sum
 
       if ( options.initializeSum ) {
-        // @public (read-only) {Vector} the vector sum model.
-        this.vectorSum = new VectorSum( options.initialSumTailPosition, graph, this, SUM_SYMBOL );
+        // @public (read-only) {SumVector} the sum vector model.
+        this.sumVector = new SumVector( options.initialSumTailPosition, graph, this, SUM_SYMBOL );
       }
     }
 
     /**
-     * Resets the vector set, by clearing the vectors array and resetting the vectorSum. Called when the graph is erased.
+     * Resets the vector set, by clearing the vectors array and resetting the sumVector. Called when the graph is erased.
      * @public
      */
     reset() {
@@ -93,8 +93,8 @@ define( require => {
         this.vectors.pop().dispose();
       }
 
-      assert && assert( this.vectorSum, 'vectorSum was never initialized' );
-      this.vectorSum.reset();
+      assert && assert( this.sumVector, 'sumVector was never initialized' );
+      this.sumVector.reset();
     }
   }
 

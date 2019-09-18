@@ -1,12 +1,12 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a vector sum. A vector sum is the sum of all vectors for only one vector set.
+ * Model for a sum vector. A sum vector is the sum of all vectors for only one vector set.
  *
  * However, it's not as simple as just a quick add up, as vectors can change states and go from being on the graph to
  * off of the graph or vise versa.
  *
- * Vector Sums are created at the start of the sim, and exist throughout the entire simulation, leaving links as is.
+ * SumVectors are created at the start of the sim, and exist throughout the entire simulation, leaving links as is.
  * However, they can be reset (which solely resets the location).
  *
  * @author Martin Veillette
@@ -25,31 +25,31 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // constants
-  const VECTOR_SUM_OPTIONS = {
-    isTipDraggable: false, // Vector sums are not draggable by the tip.
-    isRemovable: false, // Vector sums are not removable which means they are also not disposable
-    isOnGraphInitially: true // Vector sums are always on the graph
+  const SUM_VECTOR_OPTIONS = {
+    isTipDraggable: false, // Sum vector are not draggable by the tip.
+    isRemovable: false, // Sum vector are not removable which means they are also not disposable
+    isOnGraphInitially: true // Sum vector are always on the graph
   };
 
   // rounding for the vector value (on the label with values checked)
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
-  class VectorSum extends Vector {
+  class SumVector extends Vector {
 
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
-     * @param {Graph} graph - graph the vector sum belongs to
+     * @param {Graph} graph - graph the sum vector belongs to
      * @param {VectorSet} vectorSet - the vector set that the sum represents
      * @param {string|null} symbol - the symbol for the sum vector (e.g. 's', 'c', 'f')
      */
     constructor( initialTailPosition, graph, vectorSet, symbol ) {
 
       // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-      super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbol, VECTOR_SUM_OPTIONS );
+      super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbol, SUM_VECTOR_OPTIONS );
 
       //----------------------------------------------------------------------------------------
 
-      // Observe changes to the vector array. Never removed because the vector sum exists throughout the entire sim.
+      // Observe changes to the vector array. Never removed because the sum vector exists throughout the entire sim.
       vectorSet.vectors.addItemAddedListener( addedVector => {
 
         // Observe when the vector changes to update the sum calculation
@@ -74,8 +74,8 @@ define( require => {
       } );
 
       //----------------------------------------------------------------------------------------
-      // @private {function} isSymbolDisplayed - function to check if the vector sum should display its symbol.
-      // The vector sum only displays the symbol when either a vector in its vector set is active, the sum is active, or
+      // @private {function} isSymbolDisplayed - function to check if the sum vector should display its symbol.
+      // The sum vector only displays the symbol when either a vector in its vector set is active, the sum is active, or
       // the activeVectorProperty.value is null
       this.isSymbolDisplayed = () => {
         return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
@@ -89,10 +89,10 @@ define( require => {
      * @public
      * @override
      */
-    dispose() { assert && assert( false, 'Vector sums should never be disposed' ); }
+    dispose() { assert && assert( false, 'SumVector instances should never be disposed' ); }
 
     /**
-     * Update the vector sum components. Calculated from all the vectors that are on the graph.
+     * Update the sum vector components. Calculated from all the vectors that are on the graph.
      * @protected
      *
      * @param {ObservableArray.<VectorsModel>} vectors
@@ -120,7 +120,7 @@ define( require => {
      * @public
      * See RootVector.getLabelContent() for context
      *
-     * Gets the label content information to display the vector sum. Vector Sums only display their symbol when either
+     * Gets the label content information to display the sum vector. Sum vector only display their symbol when either
      * a vector in its vector set is active, the sum is active, or the activeVectorProperty.value is null
      *
      * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
@@ -153,5 +153,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'VectorSum', VectorSum );
+  return vectorAddition.register( 'SumVector', SumVector );
 } );

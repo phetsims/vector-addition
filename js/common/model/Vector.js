@@ -317,7 +317,7 @@ define( require => {
         const vectorsInVectorSet = this.vectorSet.vectors.getArray().filter( vector => {
           return vector !== this;
         } );
-        vectorsInVectorSet.push( this.vectorSet.vectorSum );
+        vectorsInVectorSet.push( this.vectorSet.sumVector );
 
         //----------------------------------------------------------------------------------------
         // Vector's must snap to other vectors to allow tip to tail sum comparisons.

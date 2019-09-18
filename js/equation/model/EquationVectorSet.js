@@ -5,7 +5,7 @@
  *
  * Extends VectorSet but:
  *  - locks the vector set. EquationVectorSets have a defined amount of vectors.
- *  - creates a EquationVectorSum
+ *  - creates a EquationSumVector
  *
  * @author Brandon Li
  */
@@ -16,7 +16,7 @@ define( require => {
   // modules
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationVector = require( 'VECTOR_ADDITION/equation/model/EquationVector' );
-  const EquationVectorSum = require( 'VECTOR_ADDITION/equation/model/EquationVectorSum' );
+  const EquationSumVector = require( 'VECTOR_ADDITION/equation/model/EquationSumVector' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -58,7 +58,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------------------
       // Create the equationVectors, one less then symbols. For example, if symbols were [ 'a', 'b', 'c' ],
-      // 'a' and 'c' would be equation Vector symbols and 'c' would be the equation vector sum.
+      // 'a' and 'c' would be equation Vector symbols and 'c' would be the equation sum vector.
       assert && assert( this.symbols.length - 1 === EQUATION_SET_VECTORS.length );
 
       for ( let i = 0; i < EQUATION_SET_VECTORS.length; i++ ) {
@@ -74,10 +74,10 @@ define( require => {
       }
 
       //----------------------------------------------------------------------------------------
-      // Create the vector sum
+      // Create the sum vector
 
-      // @public (read-only) {EquationVectorSum}
-      this.vectorSum = new EquationVectorSum( equationGraph,
+      // @public (read-only) {EquationSumVector}
+      this.sumVector = new EquationSumVector( equationGraph,
         this,
         equationGraph.equationTypeProperty,
         _.last( this.symbols ) );
@@ -98,7 +98,7 @@ define( require => {
         vector.reset();
       } );
 
-      this.vectorSum.reset();
+      this.sumVector.reset();
     }
   }
 

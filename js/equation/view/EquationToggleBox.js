@@ -112,7 +112,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Step 2: If the Equation Type is negation, add a Vector Symbol Node for the Sum, pushing it to the same array.
-      const sumSymbolNode = new VectorSymbolNode( { symbol: equationVectorSet.vectorSum.symbol } );
+      const sumSymbolNode = new VectorSymbolNode( { symbol: equationVectorSet.sumVector.symbol } );
 
       if ( equationType === EquationTypes.NEGATION ) {
         equationChildren.push( sumSymbolNode );

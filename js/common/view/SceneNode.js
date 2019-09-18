@@ -12,7 +12,7 @@
  *  - A method to add a VectorCreatorPanel
  *
  * ## API
- *  - Not required to tell the Scene Node to create the Vector Sum Nodes and their Components (does this automatically
+ *  - Not required to tell the Scene Node to create the SumVectorNodes and their Components (does this automatically
  *    for each VectorSet in the Graph)
  *  - However, it is required to 'tell' the Scene Node when other Vectors are created (see registerVector()). Once this
  *    is called, the Vector Nodes/Components are made and deleted once the Vector is removed.
@@ -41,7 +41,7 @@ define( require => {
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-  const VectorSumNode = require( 'VECTOR_ADDITION/common/view/VectorSumNode' );
+  const SumVectorNode = require( 'VECTOR_ADDITION/common/view/SumVectorNode' );
   const VectorValuesToggleBox = require( 'VECTOR_ADDITION/common/view/VectorValuesToggleBox' );
 
   class SceneNode extends Node {
@@ -132,32 +132,32 @@ define( require => {
       }
 
       //========================================================================================
-      // Add the Vector Sum Node and its components for each Vector Set in the graph
+      // Add the SumVectorNode and its components for each VectorSet in the graph
       //========================================================================================
       graph.vectorSets.forEach( vectorSet => {
 
-        const vectorSumNode = new VectorSumNode( vectorSet.vectorSum,
+        const sumVectorNode = new SumVectorNode( vectorSet.sumVector,
           graph,
           valuesVisibleProperty,
           anglesVisibleProperty,
           vectorSet.sumVisibleProperty
         );
 
-        const xComponentSumNode = new SumComponentVectorNode( vectorSet.vectorSum.xComponentVector,
+        const xSumComponentVectorNode = new SumComponentVectorNode( vectorSet.sumVector.xComponentVector,
           graph,
           componentStyleProperty,
           valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
-        const yComponentSumNode = new SumComponentVectorNode( vectorSet.vectorSum.yComponentVector,
+        const ySumComponentVectorNode = new SumComponentVectorNode( vectorSet.sumVector.yComponentVector,
           graph,
           componentStyleProperty,
           valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
-        this.vectorContainer.addChild( xComponentSumNode );
-        this.vectorContainer.addChild( yComponentSumNode );
-        this.vectorContainer.addChild( vectorSumNode );
+        this.vectorContainer.addChild( xSumComponentVectorNode );
+        this.vectorContainer.addChild( ySumComponentVectorNode );
+        this.vectorContainer.addChild( sumVectorNode );
       } );
 
       // @protected for layout in subclasses
