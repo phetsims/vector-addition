@@ -84,7 +84,7 @@ define( require => {
 
       const children = [
         new Rectangle( graphViewBounds, {
-          fill: Color.WHITE,
+          fill: VectorAdditionColors.GRAPH_BACKGROUND_COLOR,
           stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR,
           lineWidth: MINOR_GRID_LINE_WIDTH
         } ),

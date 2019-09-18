@@ -33,9 +33,11 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Graph colors
-    ORIGIN_COLOR: 'rgb( 25, 253, 56 )',
+    GRAPH_BACKGROUND_COLOR: Color.WHITE,
     GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )',
     GRAPH_MINOR_LINE_COLOR: 'rgb( 225, 225, 225 )',
+
+    ORIGIN_COLOR: 'rgb( 25, 253, 56 )',
 
     //----------------------------------------------------------------------------------------
     // Panel-like container default colors
