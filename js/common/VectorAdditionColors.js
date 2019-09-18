@@ -86,12 +86,13 @@ define( require => {
     } ),
 
     // Equation screen
-    EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( _.extend( {}, EQUATION_COLOR_PALETTE_OPTIONS, {
+    EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( _.extend( {
       mainFill: MAIN_BLUE
-    } ) ),
-    EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( _.extend( {}, EQUATION_COLOR_PALETTE_OPTIONS, {
+    }, EQUATION_COLOR_PALETTE_OPTIONS ) ),
+
+    EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( _.extend( {
       mainFill: MAIN_PURPLE
-    } ) )
+    }, EQUATION_COLOR_PALETTE_OPTIONS ) )
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );
