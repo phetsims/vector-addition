@@ -293,7 +293,7 @@ define( require => {
           fill: Color.BLACK
         } ) );
       const componentOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-        fill: Color.BLACK
+        fill: Color.GRAY
       } );
       const xComponentArrow = new DashedArrowNode( 0, 0, iconSize, 0, componentOptions );
       const yComponentArrow = new DashedArrowNode( 0, 0, 0, -iconSize, componentOptions );
