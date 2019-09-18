@@ -1,9 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level model for the 'Explore 2D' screen, which contains:
- *  - polar graph
- *  - cartesian graph
+ * Explore2DModel is the model for the 'Explore 2D' screen.
  *
  * @author Martin Veillette
  */
@@ -38,13 +36,13 @@ define( require => {
       this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
       this.polarVectorColorPalette = VectorAdditionColors.PURPLE_COLOR_PALETTE;
 
-      // @public (read-only) {Graph} cartesianGraph
+      // @public (read-only) graph for Cartesian snap mode
       this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         this.sumVisibleProperty,
         this.cartesianVectorColorPalette );
 
-      // @public (read-only) {Graph} polarGraph
+      // @public (read-only) graph for Polar snap mode
       this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty,
@@ -52,7 +50,7 @@ define( require => {
     }
 
     /**
-     * Resets the Explore 2D Model.
+     * Resets the Explore2DModel.
      * @public
      * @override
      */

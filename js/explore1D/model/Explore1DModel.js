@@ -1,9 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level model for the 'Explore 1D' screen, which contains:
- *  - polar graph
- *  - cartesian graph
+ * Explore1DModel is the model for the 'Explore 1D' screen.
  *
  * @author Martin Veillette
  */
@@ -39,13 +37,13 @@ define( require => {
       this.horizontalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
       this.verticalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
 
-      // @public (read-only) {Graph}
+      // @public (read-only) graph for the horizontal (x-axis) orientation
       this.horizontalGraph = new Explore1DGraph( GraphOrientations.HORIZONTAL,
         this.componentStyleProperty,
         this.sumVisibleProperty,
         this.horizontalVectorColorPalette );
 
-      // @public (read-only) {Graph}
+      // @public (read-only) graph for the vertical (y-axis) orientation
       this.verticalGraph = new Explore1DGraph( GraphOrientations.VERTICAL,
         this.componentStyleProperty,
         this.sumVisibleProperty,
@@ -53,7 +51,7 @@ define( require => {
     }
 
     /**
-     * Resets the Explore 1D Model.
+     * Resets the Explore1DModel.
      * @public
      * @override
      */

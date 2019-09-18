@@ -1,9 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Top level model for the 'Lab' screen, which contains:
- *  - polar graph
- *  - cartesian graph
+ * LabModel is the model for the 'Lab' screen.
  *
  * @author Martin Veillette
  */
@@ -44,7 +42,7 @@ define( require => {
       this.polarVectorColorPalette1 = VectorAdditionColors.PURPLE_COLOR_PALETTE;
       this.polarVectorColorPalette2 = VectorAdditionColors.GREEN_COLOR_PALETTE;
 
-      // @public (read-only) {Graph} cartesianGraph
+      // @public (read-only) graph for Cartesian snap mode
       this.cartesianGraph = new LabGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         this.sumVisibleProperty1,
@@ -52,7 +50,7 @@ define( require => {
         this.cartesianVectorColorPalette1,
         this.cartesianVectorColorPalette2 );
 
-      // @public (read-only) {Graph} polarGraph
+      // @public (read-only) graph for Polar snap mode
       this.polarGraph = new LabGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty1,
@@ -62,7 +60,7 @@ define( require => {
     }
 
     /**
-     * Resets the Lab Model.
+     * Resets the LabModel.
      * @public
      * @override
      */

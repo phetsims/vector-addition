@@ -1,9 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for the 'Equation' screen, which contains:
- * - cartesian graph
- * - polar graph
+ * EquationModel is the model for the 'Equation' screen.
  *
  * @author Brandon Li
  */
@@ -38,13 +36,13 @@ define( require => {
       this.cartesianVectorColorPalette = VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE;
       this.polarVectorColorPalette = VectorAdditionColors.EQUATION_PURPLE_COLOR_PALETTE;
 
-      // @public (read-only) {graph} cartesianGraph
+      // @public (read-only) graph for Cartesian snap mode
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         this.sumVisibleProperty,
         this.cartesianVectorColorPalette );
 
-      // @public (read-only) {graph} polarGraph
+      // @public (read-only) graph for Polar snap mode
       this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty,
@@ -52,7 +50,7 @@ define( require => {
     }
 
     /**
-     * Resets the Equation Model. Called when the reset all button is clicked.
+     * Resets the EquationModel.
      * @public
      * @override
      */
