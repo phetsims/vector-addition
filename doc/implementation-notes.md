@@ -12,15 +12,15 @@ RootVector
       CartesianBaseVector
       PolarBaseVector
     EquationVector
-    VectorSum 
-      EquationVectorSum
+    SumVector
+      EquationSumVector
   ComponentVector
    
 // view
 RootVectorNode
   VectorNode  
     EquationVectorNode
-    VectorSumNode
+    SumVectorNode
   ComponentVectorNode
     SumComponentVectorNode 
 ```
