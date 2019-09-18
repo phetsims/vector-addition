@@ -238,7 +238,7 @@ define( require => {
       assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel, `invalid vectorCreatorPanel: ${vectorCreatorPanel}` );
 
       this.addChild( vectorCreatorPanel );
-      vectorCreatorPanel.moveToBack(); // move to back to ensure the Vector Containers are on top
+      vectorCreatorPanel.moveToBack(); // move to back to ensure that vectorContainer remains in front
     }
 
     /**
