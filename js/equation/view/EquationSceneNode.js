@@ -18,9 +18,11 @@ define( require => {
 
   // modules
   const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsAccordionBox' );
+  const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
   const EquationToggleBox = require( 'VECTOR_ADDITION/equation/view/EquationToggleBox' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
+  const EquationViewProperties = require( 'VECTOR_ADDITION/equation/view/EquationViewProperties' );
   const merge = require( 'PHET_CORE/merge' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -31,28 +33,15 @@ define( require => {
 
     /**
      * @param {EquationGraph} equationGraph
-     * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} anglesVisibleProperty
-     * @param {BooleanProperty} gridVisibleProperty
-     * @param {BooleanProperty} vectorValuesExpandedProperty
-     * @param {BooleanProperty} equationsExpandedProperty
-     * @param {BooleanProperty} baseVectorsExpandedProperty
-     * @param {BooleanProperty} baseVectorsVisibleProperty
+     * @param {EquationViewProperties} viewProperties
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {number} graphControlPanelBottom
      * @param {Object} [options]
      */
-    constructor( equationGraph,
-                 valuesVisibleProperty,
-                 anglesVisibleProperty,
-                 gridVisibleProperty,
-                 vectorValuesExpandedProperty,
-                 equationsExpandedProperty,
-                 baseVectorsExpandedProperty,
-                 baseVectorsVisibleProperty,
-                 componentStyleProperty,
-                 graphControlPanelBottom,
-                 options ) {
+    constructor( equationGraph, viewProperties, componentStyleProperty, graphControlPanelBottom, options ) {
+
+      assert && assert( equationGraph instanceof EquationGraph, `invalid equationGraph: ${equationGraph}` );
+      assert && assert( viewProperties instanceof EquationViewProperties, `invalid viewProperties: ${viewProperties}` );
 
       options = merge( {
 
@@ -65,13 +54,7 @@ define( require => {
 
       }, options );
 
-      super( equationGraph,
-        valuesVisibleProperty,
-        anglesVisibleProperty,
-        gridVisibleProperty,
-        vectorValuesExpandedProperty,
-        componentStyleProperty,
-        options );
+      super( equationGraph, viewProperties, componentStyleProperty, options );
 
       this.vectorValuesToggleBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
@@ -84,7 +67,7 @@ define( require => {
       EquationTypes.VALUES.forEach( equationType => {
 
         const equationToggleBox = new EquationToggleBox( equationGraph.vectorSet, equationType, {
-          expandedProperty: equationsExpandedProperty,
+          expandedProperty: viewProperties.equationsExpandedProperty,
           left: graphViewBounds.left,
           top: this.vectorValuesToggleBox.bottom + 10
         } );
@@ -114,10 +97,10 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Add a Base Vector Accordion Box
 
-      const baseVectorsAccordionBox = new BaseVectorsAccordionBox( baseVectorsVisibleProperty,
+      const baseVectorsAccordionBox = new BaseVectorsAccordionBox( viewProperties.baseVectorsVisibleProperty,
         equationGraph.coordinateSnapMode,
         equationGraph.vectorSet, {
-        expandedProperty: baseVectorsExpandedProperty,
+        expandedProperty: viewProperties.baseVectorsExpandedProperty,
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: graphControlPanelBottom + 8
         } );
@@ -134,15 +117,16 @@ define( require => {
         // register the vector to create the Nodes
         this.registerVector( equationVector, equationGraph.vectorSet );
 
-        const baseVectorNode = new VectorNode( equationVector.baseVector, equationGraph, valuesVisibleProperty,
-          anglesVisibleProperty, {
+        const baseVectorNode = new VectorNode( equationVector.baseVector, equationGraph,
+          viewProperties.valuesVisibleProperty,
+          viewProperties.anglesVisibleProperty, {
             arrowOptions: _.extend( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
               fill: equationGraph.vectorSet.vectorColorPalette.baseVectorFill,
               stroke: equationGraph.vectorSet.vectorColorPalette.baseVectorStroke
             } )
         } );
 
-        baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
+        viewProperties.baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
 
         this.addBaseVectorNode( baseVectorNode );
 

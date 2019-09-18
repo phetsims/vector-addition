@@ -42,29 +42,21 @@ define( require => {
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
   const SumVectorNode = require( 'VECTOR_ADDITION/common/view/SumVectorNode' );
+  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
   const VectorValuesToggleBox = require( 'VECTOR_ADDITION/common/view/VectorValuesToggleBox' );
 
   class SceneNode extends Node {
 
     /**
      * @param {Graph} graph
-     * @param {BooleanProperty} valuesVisibleProperty
-     * @param {BooleanProperty} anglesVisibleProperty
-     * @param {BooleanProperty} gridVisibleProperty
-     * @param {BooleanProperty} vectorValuesExpandedProperty
+     * @param {VectorAdditionViewProperties} viewProperties
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Object} [options] - all options are specific to this class
      */
-    constructor( graph,
-                 valuesVisibleProperty,
-                 anglesVisibleProperty,
-                 gridVisibleProperty,
-                 vectorValuesExpandedProperty,
-                 componentStyleProperty,
-                 options
-    ) {
+    constructor( graph, viewProperties, componentStyleProperty, options ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty,
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
@@ -84,13 +76,13 @@ define( require => {
       //========================================================================================
 
       // Create one and only Graph Node
-      const graphNode = new GraphNode( graph, gridVisibleProperty );
+      const graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty );
 
       const graphViewBounds = graph.graphViewBounds;
 
       // Create the one and only 'Vector Values' toggle box
       const vectorValuesToggleBox = new VectorValuesToggleBox( graph, _.extend( {
-        expandedProperty: vectorValuesExpandedProperty,
+        expandedProperty: viewProperties.vectorValuesExpandedProperty,
         centerX: graphViewBounds.centerX,
         top: 35 // determined empirically
       }, options.vectorValuesToggleBoxOptions ) );
@@ -138,21 +130,21 @@ define( require => {
 
         const sumVectorNode = new SumVectorNode( vectorSet.sumVector,
           graph,
-          valuesVisibleProperty,
-          anglesVisibleProperty,
+          viewProperties.valuesVisibleProperty,
+          viewProperties.anglesVisibleProperty,
           vectorSet.sumVisibleProperty
         );
 
         const xSumComponentVectorNode = new SumComponentVectorNode( vectorSet.sumVector.xComponentVector,
           graph,
           componentStyleProperty,
-          valuesVisibleProperty,
+          viewProperties.valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
         const ySumComponentVectorNode = new SumComponentVectorNode( vectorSet.sumVector.yComponentVector,
           graph,
           componentStyleProperty,
-          valuesVisibleProperty,
+          viewProperties.valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
         this.vectorContainer.addChild( xSumComponentVectorNode );
@@ -175,10 +167,10 @@ define( require => {
 
       // @private
       this.vectorValuesToggleBox = vectorValuesToggleBox;
-      this.componentStyleProperty = componentStyleProperty;
       this.graph = graph;
-      this.valuesVisibleProperty = valuesVisibleProperty;
-      this.anglesVisibleProperty = anglesVisibleProperty;
+      this.valuesVisibleProperty = viewProperties.valuesVisibleProperty;
+      this.anglesVisibleProperty = viewProperties.anglesVisibleProperty;
+      this.componentStyleProperty = componentStyleProperty;
     }
 
     /**

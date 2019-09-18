@@ -63,26 +63,14 @@ define( require => {
 
       const polarScene = new EquationSceneNode(
         equationModel.polarGraph,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.anglesVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        this.viewProperties.vectorValuesExpandedProperty,
-        this.viewProperties.equationsExpandedProperty,
-        this.viewProperties.baseVectorsExpandedProperty,
-        this.viewProperties.baseVectorsVisibleProperty,
+        this.viewProperties,
         equationModel.componentStyleProperty,
         graphControlPanel.bottom
       );
 
       const cartesianScene = new EquationSceneNode(
         equationModel.cartesianGraph,
-        this.viewProperties.valuesVisibleProperty,
-        this.viewProperties.anglesVisibleProperty,
-        this.viewProperties.gridVisibleProperty,
-        this.viewProperties.vectorValuesExpandedProperty,
-        this.viewProperties.equationsExpandedProperty,
-        this.viewProperties.baseVectorsExpandedProperty,
-        this.viewProperties.baseVectorsVisibleProperty,
+        this.viewProperties,
         equationModel.componentStyleProperty,
         graphControlPanel.bottom
       );

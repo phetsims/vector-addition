@@ -74,14 +74,7 @@ define( require => {
       // Create and add the Scene Nodes and Vector Creator Panels for each graph
       [ labModel.polarGraph, labModel.cartesianGraph ].forEach( labGraph => {
 
-        const sceneNode = new SceneNode(
-          labGraph,
-          this.viewProperties.valuesVisibleProperty,
-          this.viewProperties.anglesVisibleProperty,
-          this.viewProperties.gridVisibleProperty,
-          this.viewProperties.vectorValuesExpandedProperty,
-          labModel.componentStyleProperty
-        );
+        const sceneNode = new SceneNode( labGraph, this.viewProperties, labModel.componentStyleProperty );
 
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( labGraph, sceneNode, {

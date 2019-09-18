@@ -74,14 +74,7 @@ define( require => {
       [ explore2DModel.polarGraph, explore2DModel.cartesianGraph ].forEach( explore2DGraph => {
 
         // Create the scene node
-        const sceneNode = new SceneNode(
-          explore2DGraph,
-          this.viewProperties.valuesVisibleProperty,
-          this.viewProperties.anglesVisibleProperty,
-          this.viewProperties.gridVisibleProperty,
-          this.viewProperties.vectorValuesExpandedProperty,
-          explore2DModel.componentStyleProperty
-        );
+        const sceneNode = new SceneNode( explore2DGraph, this.viewProperties, explore2DModel.componentStyleProperty );
 
         // Vector symbols depend on whether snap mode is Cartesian or Polar
         const vectorSymbols = ( explore2DGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?

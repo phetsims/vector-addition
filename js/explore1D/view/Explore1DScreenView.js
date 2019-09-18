@@ -72,17 +72,11 @@ define( require => {
       [ explore1DModel.verticalGraph, explore1DModel.horizontalGraph ].forEach( explore1DGraph => {
 
         // Create the scene node
-        const sceneNode = new SceneNode(
-          explore1DGraph,
-          this.viewProperties.valuesVisibleProperty,
-          this.viewProperties.anglesVisibleProperty,
-          this.viewProperties.gridVisibleProperty,
-          this.viewProperties.vectorValuesExpandedProperty,
-          explore1DModel.componentStyleProperty, {
-            vectorValuesAccordionBoxOptions: {
-              isExpandedInitially: false
-            }
-          } );
+        const sceneNode = new SceneNode( explore1DGraph, this.viewProperties, explore1DModel.componentStyleProperty, {
+          vectorValuesAccordionBoxOptions: {
+            isExpandedInitially: false
+          }
+        } );
 
         // Vector symbols depend on graph orientation
         const vectorSymbols = ( explore1DGraph.orientation === GraphOrientations.HORIZONTAL ) ?
