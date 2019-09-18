@@ -77,7 +77,7 @@ define( require => {
 
     RED_COLOR_PALETTE: new VectorColorPalette( {
       mainFill: 'rgb( 255, 53, 133 )',
-      sumFill: '#800133'
+      sumFill: 'rgb( 128, 1, 51 )'
     } ),
 
     GREEN_COLOR_PALETTE: new VectorColorPalette( {
