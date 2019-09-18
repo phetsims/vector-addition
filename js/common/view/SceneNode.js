@@ -244,10 +244,12 @@ define( require => {
     /**
      * Adds a base vector to the scene.
      * @protected
-     * @param {VectorNode} node
+     * @param {VectorNode} vectorNode
      */
-    addBaseVectorNode( node ) {
-      this.vectorContainer.addChild( node );
+    addBaseVectorNode( vectorNode ) {
+      assert && assert( vectorNode instanceof VectorNode, `invalid vectorNode: ${vectorNode}` );
+
+      this.vectorContainer.addChild( vectorNode );
     }
   }
 
