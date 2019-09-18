@@ -47,30 +47,15 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
-  //----------------------------------------------------------------------------------------
   // constants
-
-  // Defaults for the screen icons
   const SCREEN_ICON_WIDTH = 70;
   const SCREEN_ICON_HEIGHT = SCREEN_ICON_WIDTH / Screen.HOME_SCREEN_ICON_ASPECT_RATIO; // w/h = ratio <=> h = w/ratio
-
-  // Defaults constants for radio button icons (except for the equation types radio button icons)
-  // size (width and height) of all arrow nodes inside of radio buttons
-  const RADIO_BUTTON_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-    fill: Color.BLACK
-  } );
-  const RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-    fill: Color.BLACK
-  } );
   const RADIO_BUTTON_ICON_SIZE = 45;
-
-  //----------------------------------------------------------------------------------------
-  // Uses and Object literal so no instance is required
 
   const VectorAdditionIconFactory = {
 
     //========================================================================================
-    // 1. Screen Icons (https://github.com/phetsims/vector-addition/issues/76)
+    // Screen icons, see https://github.com/phetsims/vector-addition/issues/76)
     //========================================================================================
 
     /**
@@ -196,7 +181,7 @@ define( require => {
     },
 
     //========================================================================================
-    // 2. Vector Creator Panel Icon
+    // VectorCreatorPanel icons
     //========================================================================================
 
     /**
@@ -224,7 +209,7 @@ define( require => {
     },
 
     //========================================================================================
-    // 3. Checkbox icons (i.e. sum icon, angle icon)
+    // Checkbox icons (i.e. sum icon, angle icon)
     //========================================================================================
 
     /**
@@ -280,7 +265,7 @@ define( require => {
     },
 
     //========================================================================================
-    // 4. Component Style Radio Button Icons
+    // ComponentStyles icons, used on Component radio buttons
     //========================================================================================
 
     /**
@@ -303,9 +288,15 @@ define( require => {
       assert && assert( subBoxSize < iconSize, `subBoxSize ${subBoxSize} must be < iconSize ${iconSize}` );
 
       // Initialize arrow nodes for the PARALLELOGRAM component style (will be adjusted for different component styles)
-      const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, RADIO_BUTTON_VECTOR_ARROW_OPTIONS );
-      const xComponentArrow = new DashedArrowNode( 0, 0, iconSize, 0, RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS );
-      const yComponentArrow = new DashedArrowNode( 0, 0, 0, -iconSize, RADIO_BUTTON_COMPONENT_VECTOR_ARROW_OPTIONS );
+      const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize,
+        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+          fill: Color.BLACK
+        } ) );
+      const componentOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+        fill: Color.BLACK
+      } );
+      const xComponentArrow = new DashedArrowNode( 0, 0, iconSize, 0, componentOptions );
+      const yComponentArrow = new DashedArrowNode( 0, 0, 0, -iconSize, componentOptions );
 
       let iconChildren = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
 
@@ -340,9 +331,10 @@ define( require => {
       } );
     },
 
-    //========================================================================================
-    // 5. Coordinate Snap Mode Icons (polar/cartesian, see https://github.com/phetsims/vector-addition/issues/21)
-    //========================================================================================
+    //=========================================================================================================
+    // CoordinateSnapModes icons, used on scene radio buttons,
+    // see https://github.com/phetsims/vector-addition/issues/21)
+    //=========================================================================================================
 
     /**
      * Creates the icon for the Cartesian snap mode radio button.
@@ -409,9 +401,9 @@ define( require => {
       } );
     },
 
-    //========================================================================================
-    // 6. Graph Orientation Icons (horizontal/vertical)
-    //========================================================================================
+    //================================================================================================
+    // GraphOrientations icons (horizontal/vertical), used on scene radio buttons in Explore 1D screen
+    //================================================================================================
 
     /**
      * Creates the icon used on the radio buttons on 'Explore 1D' screen that toggles the graph orientation.
@@ -435,7 +427,7 @@ define( require => {
     },
 
     //========================================================================================
-    // 7. Equation Types Icons
+    // EquationTypes icons, used on radio buttons in Equation screen
     //========================================================================================
 
     /**
