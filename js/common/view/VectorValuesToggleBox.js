@@ -156,6 +156,7 @@ define( require => {
         xComponentText.setCoefficient( coefficient );
         yComponentText.setCoefficient( coefficient );
       };
+      
       // Observe changes to when the graphs active vector Property changes to update the panel.
       // Doesn't need to be unlinked since the panel exists for the entire simulation.
       graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
