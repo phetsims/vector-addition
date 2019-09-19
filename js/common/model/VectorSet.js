@@ -88,13 +88,20 @@ define( require => {
      */
     reset() {
 
-      // Dispose each vector
-      while ( this.vectors.length ) {
-        this.vectors.pop().dispose();
-      }
+      this.erase();
 
       assert && assert( this.sumVector, 'sumVector was never initialized' );
       this.sumVector.reset();
+    }
+
+    /**
+     * Erases all vectors (except the sum) from the VectorSet.
+     * @public
+     */
+    erase() {
+      while ( this.vectors.length ) {
+        this.vectors.pop().dispose();
+      }
     }
   }
 

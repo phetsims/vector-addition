@@ -108,7 +108,8 @@ define( require => {
      */
     reset() {
       this.graphModelBoundsProperty.reset();
-      this.erase();
+      this.vectorSets.forEach( vectorSet => vectorSet.reset() );
+      this.activeVectorProperty.reset();
     }
 
     /**
@@ -116,8 +117,7 @@ define( require => {
      * @public
      */
     erase() {
-      // Reset each vectorSet
-      this.vectorSets.forEach( vectorSet => vectorSet.reset() );
+      this.vectorSets.forEach( vectorSet => vectorSet.erase() );
       this.activeVectorProperty.reset();
     }
 
