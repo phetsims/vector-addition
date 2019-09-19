@@ -146,8 +146,8 @@ define( require => {
               maxWidth: LABEL_MAX_WIDTH
             } ), {
               numberPickerOptions: { // increment by the polar Angle interval
-                upFunction: value => { return value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL; },
-                downFunction: value => { return value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL; }
+                upFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
+                downFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL
               }
             } );
         }
