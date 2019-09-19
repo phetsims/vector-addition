@@ -34,7 +34,7 @@ define( require => {
 
       super(
         () => new EquationModel( tandem.createTandem( 'equationModel' ) ),
-        ( equationModel ) => new EquationScreenView( equationModel, tandem.createTandem( 'equationView' ) ),
+        equationModel => new EquationScreenView( equationModel, tandem.createTandem( 'equationView' ) ),
         options
       );
     }
