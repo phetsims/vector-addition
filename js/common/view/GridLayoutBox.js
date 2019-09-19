@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * GridLayoutBox lays out is children in a grid.  Children are provided in row-major order.
+ * GridLayoutBox lays out its children in a grid. Children are provided in row-major order.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
