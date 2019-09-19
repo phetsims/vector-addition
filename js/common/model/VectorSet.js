@@ -1,13 +1,13 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a VectorSet
+ * VectorSet is the model for a related set of vectors, and contains:
  *
- * A 'VectorSet' contains:
- *  - an observable array of vectors
+ *  - an ObservableArray of vectors
  *  - a sum vector of those vectors
+ *  - a color palette that is common to all vectors
  *
- * A Graph can support multiple vectorSets. (e.g. lab screen has 2 vector sets per graph)
+ * A Graph can support multiple VectorSets. (e.g. Lab screen has 2 VectorSets per Graph)
  *
  * @author Brandon Li
  */
@@ -24,16 +24,16 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
-  // The symbol for the sum vector. The reason this isn't translatable is:
-  // https://github.com/phetsims/vector-addition/issues/10.
+  // The symbol for the sum vector.
+  // The reason this isn't translatable is https://github.com/phetsims/vector-addition/issues/10.
   const SUM_SYMBOL = 's';
 
   class VectorSet {
 
     /**
-     * @param {Graph} graph - the graph the vector set belongs to
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - shared componentStyleProperty for the set
-     * @param {BooleanProperty} sumVisibleProperty - each vector set has one sum visible Property
+     * @param {Graph} graph - the graph the VectorSet belongs to
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - component style for all vectors
+     * @param {BooleanProperty} sumVisibleProperty - controls whether the sum vector is visible
      * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
      * @param {Object} [options]
      */
@@ -58,32 +58,26 @@ define( require => {
       assert && assert( vectorColorPalette instanceof VectorColorPalette,
         `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-      //----------------------------------------------------------------------------------------
-
-      // @public {ObservableArray.<Vector>} vectors - ObservableArray of the vectors in the vector set excluding
-      //                                              sum
+      // @public {ObservableArray.<Vector>} the vectors in the VectorSet, excluding the sum vector
       this.vectors = new ObservableArray();
 
       // @public (read-only) {VectorColorPalette}
       this.vectorColorPalette = vectorColorPalette;
 
-      // @public (read-only) {BooleanProperty} sumVisibleProperty - one vectorSet can only have one sum visible Property
+      // @public (read-only) {BooleanProperty} sumVisibleProperty
       this.sumVisibleProperty = sumVisibleProperty;
 
       // @public (read-only) {componentStyleProperty} componentStyleProperty
       this.componentStyleProperty = componentStyleProperty;
 
-      //----------------------------------------------------------------------------------------
-      // Create the sum
-
       if ( options.initializeSum ) {
-        // @public (read-only) {SumVector} the sum vector model.
+        // @public (read-only)
         this.sumVector = new SumVector( options.initialSumTailPosition, graph, this, SUM_SYMBOL );
       }
     }
 
     /**
-     * Resets the vector set, by clearing the vectors array and resetting the sumVector. Called when the graph is erased.
+     * Resets the VectorSet.  Called when the Reset All button is pressed.
      * @public
      */
     reset() {
@@ -95,7 +89,7 @@ define( require => {
     }
 
     /**
-     * Erases all vectors (except the sum) from the VectorSet.
+     * Erases all vectors (except the sum) from the VectorSet. Called when the eraser button is pressed.
      * @public
      */
     erase() {
