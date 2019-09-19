@@ -188,6 +188,7 @@ define( require => {
 
     /**
      * Sets the tail position.
+     * This keeps the tip position constant, and (as a side effect) changes magnitude.
      * @public
      * @param {number} x
      * @param {number} y
@@ -207,6 +208,7 @@ define( require => {
 
     /**
      * Sets the tail position.
+     * This keeps the tip position constant, and (as a side effect) changes magnitude.
      * @public
      * @param {Vector2} tail
      */
@@ -224,6 +226,7 @@ define( require => {
 
     /**
      * Sets the tail's x coordinate.
+     * This keeps the tip position constant, and (as a side effect) changes magnitude.
      * @public
      * @param {number} tailX
      */
@@ -240,6 +243,7 @@ define( require => {
 
     /**
      * Sets the tail's y coordinate.
+     * This keeps the tip position constant, and (as a side effect) changes magnitude.
      * @public
      * @param {number} tailY
      */
@@ -256,6 +260,7 @@ define( require => {
 
     /**
      * Sets the tip position.
+     * This keeps the tail position constant, and (as a side effect) changes magnitude.
      * @public
      * @param {number} x
      * @param {number} y
@@ -272,6 +277,7 @@ define( require => {
 
     /**
      * Sets the tip position.
+     * This keeps the tail position constant, and (as a side effect) changes magnitude.
      * @public
      * @param {Vector2} tip
      */
