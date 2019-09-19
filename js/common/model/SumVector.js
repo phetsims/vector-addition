@@ -1,13 +1,12 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a sum vector. A sum vector is the sum of all vectors for only one vector set.
+ * SumVector is the model of a sum vector. A sum vector is the sum of all vectors for one VectorSet.
  *
  * However, it's not as simple as just a quick add up, as vectors can change states and go from being on the graph to
  * off of the graph or vise versa.
  *
- * SumVectors are created at the start of the sim, and exist throughout the entire simulation, leaving links as is.
- * However, they can be reset (which solely resets the location).
+ * SumVectors are created at the start of the sim, and exist for the lifetime of the sim.
  *
  * @author Martin Veillette
  * @author Brandon Li
@@ -26,9 +25,9 @@ define( require => {
 
   // constants
   const SUM_VECTOR_OPTIONS = {
-    isTipDraggable: false, // Sum vector are not draggable by the tip.
-    isRemovable: false, // Sum vector are not removable which means they are also not disposable
-    isOnGraphInitially: true // Sum vector are always on the graph
+    isTipDraggable: false, // Sum vectors are not draggable by the tip.
+    isRemovable: false, // Sum vectors are not removable which means they are also not disposable
+    isOnGraphInitially: true // Sum vectors are always on the graph
   };
 
   // rounding for the vector value (on the label with values checked)
@@ -39,7 +38,7 @@ define( require => {
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Graph} graph - graph the sum vector belongs to
-     * @param {VectorSet} vectorSet - the vector set that the sum represents
+     * @param {VectorSet} vectorSet - the VectorSet that the sum represents
      * @param {string|null} symbol - the symbol for the sum vector (e.g. 's', 'c', 'f')
      */
     constructor( initialTailPosition, graph, vectorSet, symbol ) {
@@ -47,12 +46,10 @@ define( require => {
       // Initialize an arbitrary vector model. Its components and magnitude to be set later.
       super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbol, SUM_VECTOR_OPTIONS );
 
-      //----------------------------------------------------------------------------------------
-
-      // Observe changes to the vector array. Never removed because the sum vector exists throughout the entire sim.
+      // Observe changes to the vector array. Never removed because SumVectors exists for the lifetime of the sim.
       vectorSet.vectors.addItemAddedListener( addedVector => {
 
-        // Observe when the vector changes to update the sum calculation
+        // When the vector changes, update the sum calculation
         const addedVectorMultilink = Property.multilink(
           [ addedVector.vectorComponentsProperty, addedVector.isOnGraphProperty ], () => {
             this.updateSum( vectorSet.vectors );
@@ -73,15 +70,14 @@ define( require => {
         vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
       } );
 
-      //----------------------------------------------------------------------------------------
       // @private {function} isSymbolDisplayed - function to check if the sum vector should display its symbol.
-      // The sum vector only displays the symbol when either a vector in its vector set is active, the sum is active, or
-      // the activeVectorProperty.value is null
-      this.isSymbolDisplayed = () => {
-        return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
-               || graph.activeVectorProperty.value === this
-               || graph.activeVectorProperty.value === null;
-      };
+            // The sum vector only displays the symbol when either a vector in its vector set is active, the sum is active, or
+            // the activeVectorProperty.value is null
+            this.isSymbolDisplayed = () => {
+              return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
+                     || graph.activeVectorProperty.value === this
+                     || graph.activeVectorProperty.value === null;
+            };
     }
 
     /**
