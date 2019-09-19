@@ -1,12 +1,12 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a graph. A screen can have multiple graphs. Graphs should be subtypes.
+ * Graph is the base class for graphs, intended to be subclasses. A screen can have multiple graphs.
  *
  * Graphs are responsible for:
  *   - Keeping track of where the origin is dragged and updating a modelViewTransformProperty.
- *   - Keeping track of the active vector on a graph.
- *   - Controlling vector sets. A graph can have an unknown and varied amount of vector sets.
+ *   - Keeping track of the active (selected) vector on a graph.
+ *   - Managing one or more VectorSets
  *
  * @author Brandon Li
  */
@@ -53,8 +53,7 @@ define( require => {
     constructor( initialGraphBounds, coordinateSnapMode, orientation, options ) {
 
       assert && assert( initialGraphBounds instanceof Bounds2, `invalid initialGraphBounds: ${initialGraphBounds}` );
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
-        `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
       assert && assert( GraphOrientations.includes( orientation ), `invalid orientation: ${orientation}` );
 
       options = _.extend( {
@@ -63,29 +62,28 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @public {VectorSet[]} vectorSets - the vectorSets for this graph
+      // @public {VectorSet[]} the vectorSets for this graph
       this.vectorSets = [];
 
-      // @public (read-only) {GraphOrientations} orientation - orientation for the graph (final variable)
+      // @public (read-only) {GraphOrientations} orientation of the graph
       this.orientation = orientation;
 
-      // @public (read-only) {CoordinateSnapModes} coordinateSnapMode - coordinate snap mode for the graph
+      // @public (read-only) {CoordinateSnapModes} coordinate snap mode for the graph, Cartestain or polar
       this.coordinateSnapMode = coordinateSnapMode;
 
-      // @private {Property.<Bounds2>} graphModelBoundsProperty - the Property of the graph bounds. To be set internally
-      // only. Read access can be found at get graphModelBounds().
+      // @private {Property.<Bounds2>} bounds of the graph, in model coordinates.
+      // Use graphModelBounds() to read this.
       this.graphModelBoundsProperty = new Property( initialGraphBounds, {
         valueType: Bounds2
       } );
 
-      // @public (read-only) Determine the view bounds for the graph, the graph view bounds are constant for the entire sim.
+      // @public (read-only) bounds of the graph in view coordinates, constant for the lifetime of the sim.
       this.graphViewBounds = new Bounds2( options.bottomLeft.x,
         options.bottomLeft.y - MODEL_TO_VIEW_SCALE * initialGraphBounds.height,
         options.bottomLeft.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
         options.bottomLeft.y );
 
-      // @public (read-only) {DerivedProperty.<ModelViewTransform2>} modelViewTransformProperty - Property of the
-      // coordinate transform between model (graph coordinates) and view coordinates.
+      // @public (read-only) {DerivedProperty.<ModelViewTransform2>} maps graph coordinates between model and view
       this.modelViewTransformProperty = new DerivedProperty( [ this.graphModelBoundsProperty ],
         graphModelBounds => {
           return ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, this.graphViewBounds );
@@ -93,8 +91,8 @@ define( require => {
           valueType: ModelViewTransform2
         } );
 
-      // @public {Property.<Vector|null>} activeVectorProperty - the active vector. A graph only has one active
-      // vector at a time. If null, there are no active vectors at the time. To be set externally.
+      // @public {Property.<Vector|null>} activeVectorProperty - the active (selected) vector.
+      // A graph has at most one active vector. If null, there is no active vector.
       this.activeVectorProperty = new Property( null, {
         isValidValue: value => {
           return value === null || value instanceof Vector;
@@ -103,7 +101,7 @@ define( require => {
     }
 
     /**
-     * Resets the graph. Called when the reset all button is clicked.
+     * Resets the graph.
      * @public
      */
     reset() {
@@ -113,7 +111,7 @@ define( require => {
     }
 
     /**
-     * Erases the graph. Called when the eraser button is clicked.
+     * Erases the graph.
      * @public
      */
     erase() {
@@ -122,8 +120,7 @@ define( require => {
     }
 
     /**
-     * Moves the origin to a point. Solely shifts the bounds to match.
-     * Point must be on the graph.
+     * Moves the origin to a specified point on the graph.
      * @public
      * @param {Vector2} point
      */
@@ -131,7 +128,7 @@ define( require => {
       assert && assert( point instanceof Vector2 && this.graphModelBoundsProperty.value.containsPoint( point ),
         `invalid point: ${point}` );
 
-      // Round the point to only allow transformations to points on a grid intersection
+      // Round to integer
       const roundedPoint = point.roundSymmetric();
       this.graphModelBoundsProperty.value = this.graphModelBounds.shifted( -roundedPoint.x, -roundedPoint.y );
     }
