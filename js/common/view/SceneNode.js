@@ -226,14 +226,13 @@ define( require => {
       };
       this.graph.activeVectorProperty.link( activeVectorListener );
 
-      //----------------------------------------------------------------------------------------
-      // If the Vector could be removed, observe when the Vector Set deletes the Vector to dispose
-      // the Nodes
+      // If the Vector is removed from the VectorSet, clean up.
       if ( vector.isRemovable ) {
 
         const removalListener = removedVector => {
           if ( removedVector === vector ) {
 
+            // dispose the Nodes that were created
             xComponentVectorNode.dispose();
             yComponentVectorNode.dispose();
             vectorNode.dispose();
