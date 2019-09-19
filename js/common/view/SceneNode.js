@@ -155,6 +155,8 @@ define( require => {
         // Unlink is unnecessary because sum vectors exist for the lifetime of the sim.
         graph.activeVectorProperty.link( activeVector => {
           if ( activeVector === sumVectorNode.vector ) {
+
+            // order is important - sum should be in front of components
             xSumComponentVectorNode.moveToFront();
             ySumComponentVectorNode.moveToFront();
             sumVectorNode.moveToFront();
@@ -214,6 +216,8 @@ define( require => {
       // Unlinked below if the vector is removable.
       const activeVectorListener = activeVector => {
         if ( activeVector === vectorNode.vector ) {
+
+          // order is important - vector should be in front of components
           xComponentVectorNode.moveToFront();
           yComponentVectorNode.moveToFront();
           vectorNode.moveToFront();
