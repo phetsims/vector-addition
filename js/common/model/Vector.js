@@ -104,7 +104,7 @@ define( require => {
 
         // Get the tail location on the old graph, and move the vector to the new model position of the old location
         const tailLocation = oldModelViewTransform.modelToViewPosition( this.tail );
-        this.translateTailToPosition( newModelViewTransform.viewToModelPosition( tailLocation ) );
+        this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailLocation ) );
       };
 
       // Observe when the graph model view transform Property changes, and update the tail position. Unlinked below.
@@ -315,25 +315,25 @@ define( require => {
 
           // Snap tail to other vector's tails
           if ( vector.tail.distance( tailPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-            this.translateTailToPosition( vector.tail );
+            this.moveToTailPosition( vector.tail );
             return;
           }
 
           // Snap tail to other vector's tip
           if ( vector.tip.distance( tailPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-            this.translateTailToPosition( vector.tip );
+            this.moveToTailPosition( vector.tip );
             return;
           }
 
           // Snap tip to other vector's tail
           if ( vector.tail.distance( tipPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-            this.translateTailToPosition( vector.tail.minus( this.vectorComponents ) );
+            this.moveToTailPosition( vector.tail.minus( this.vectorComponents ) );
             return;
           }
         }
       }
 
-      this.translateTailToPosition( tailPositionOnGraph.roundedSymmetric() );
+      this.moveToTailPosition( tailPositionOnGraph.roundedSymmetric() );
     }
 
     /**

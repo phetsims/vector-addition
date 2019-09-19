@@ -1,14 +1,15 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Root class (should be subclasses) for vector models for all types of vectors.
+ * RootVector is the root class for vector models, for all types of vectors.
+ * It is abstract and intended to be subclassed.
  *
- * For an overview of the class hierarchy,
- * see https://github.com/phetsims/vector-addition/blob/master/doc/implementation-notes.md
+ * For an overview of the class hierarchy, see
+ * https://github.com/phetsims/vector-addition/blob/master/doc/implementation-notes.md
  *
  * Responsibilities are:
  *  - tip and tail position Properties
- *  - vector components (x and y as scalars, or in other words the actual vector <x, y>)
+ *  - components (x and y as scalars, or in other words the actual vector <x, y>)
  *  - vector color palette
  *  - abstract method for label information (see getLabelContent() for detailed documentation)
  *
@@ -30,7 +31,6 @@ define( require => {
 
     /**
      * @abstract
-     *
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {VectorColorPalette} vectorColorPalette - color palette for this vector
@@ -40,30 +40,28 @@ define( require => {
 
       assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
       assert && assert( initialComponents instanceof Vector2, `invalid initialComponents: ${initialComponents}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette,
-        `invalid vectorColorPalette: ${vectorColorPalette}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
       assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
 
-      // @public (read-only) {Vector2Property} vectorComponentsProperty - (x and y as scalars, or in other words the
-      // actual vector <x, y>). Every vector has a x and a y component (as a scalar).
+      // @public (read-only) {Vector2Property} the vector's components, its x and y scalar values
       this.vectorComponentsProperty = new Vector2Property( initialComponents );
 
-      // @public (read-only) {Vector2Property} tailPositionProperty - the tail position of the vector on the graph
+      // @public (read-only) {Vector2Property} the tail position of the vector on the graph
       this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
-      // @public (read-only) {DerivedProperty.<Vector2>} tipPositionProperty - the tip position of the vector. Derived
-      // from the tail and the components
+      // @public (read-only) {DerivedProperty.<Vector2>} the tip position of the vector on the graph
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.vectorComponentsProperty ],
         ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
 
-      // @public (read-only) {VectorColorPalette}
+      // @public (read-only) {VectorColorPalette} the color palette used to render the vector
       this.vectorColorPalette = vectorColorPalette;
 
-      // @public (read-only) {string} symbol
+      // @public (read-only) {string} the symbol used to represent the vector
       this.symbol = symbol;
     }
 
     /**
+     * Resets the vector.
      * @public
      */
     reset() {
@@ -138,21 +136,38 @@ define( require => {
     }
 
     /**
-     * Gets the magnitude of the vector (is always positive).
+     * Gets the magnitude of the vector (always positive).
      * @public
      * @returns {number}
      */
     get magnitude() { return this.vectorComponents.magnitude; }
 
     /**
-     * Gets the yComponent (scalar).
+     * Gets the x component (scalar).
+     * @public
+     * @returns {number}
+     */
+    get xComponent() { return this.vectorComponents.x; }
+
+    /**
+     * Sets the x component (scalar).
+     * @public
+     * @param {number} xComponent
+     */
+    set xComponent( xComponent ) {
+      assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
+      this.vectorComponents = this.vectorComponents.copy().setX( xComponent );
+    }
+    
+    /**
+     * Gets the y component (scalar).
      * @public
      * @returns {number}
      */
     get yComponent() { return this.vectorComponents.y; }
 
     /**
-     * Sets the yComponent (scalar). Keeps the xComponent, tail position constant.
+     * Sets the y component (scalar).
      * @public
      * @param {number} yComponent
      */
@@ -162,124 +177,17 @@ define( require => {
     }
 
     /**
-     * Gets the xComponent (scalar).
+     * Moves the vector to the specified tail position.
+     * This keeps the magnitude constant, and (as a side effect) changes the tip position.
      * @public
-     * @returns {number}
+     * @param {Vector2} position
      */
-    get xComponent() { return this.vectorComponents.x; }
-
-    /**
-     * Sets the xComponent (scalar). Keeps the yComponent, tail position constant.
-     * @public
-     * @param {number} xComponent
-     */
-    set xComponent( xComponent ) {
-      assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
-      this.vectorComponents = this.vectorComponents.copy().setX( xComponent );
+    moveToTailPosition( position ) {
+      this.tailPositionProperty.value = position;
     }
 
     /**
-     * Gets the tail position
-     * @public
-     * @returns {Vector2}
-     */
-    get tail() { return this.tailPositionProperty.value; }
-
-    /**
-     * Sets the tail position. This will change the magnitude/components but keep the tip position the same.
-     * @public
-     * @param {Vector2} tail
-     */
-    set tail( tail ) {
-      assert && assert( tail instanceof Vector2, `invalid tail: ${tail}` );
-      this.setTailXY( tail.x, tail.y );
-    }
-
-    /**
-     * Gets the tailX
-     * @public
-     * @returns {number}
-     */
-    get tailX() { return this.tailPositionProperty.value.x; }
-
-    /**
-     * Sets the tailX. This changes the magnitude/components but will keep the tip position the same.
-     * @public
-     * @param {number} tailX
-     */
-    set tailX( tailX ) {
-      this.setTailXY( tailX, this.tailY );
-    }
-
-    /**
-     * Gets the tailY
-     * @public
-     * @returns {number}
-     */
-    get tailY() { return this.tailPositionProperty.value.y; }
-
-    /**
-     * Sets the tailY. This changes the magnitude/components but will keep the tip the same.
-     * @public
-     * @param {number} tailY
-     */
-    set tailY( tailY ) {
-      this.setTailXY( this.tailX, tailY );
-    }
-
-    /**
-     * Gets the tip position
-     * @public
-     * @returns {Vector2}
-     */
-    get tip() { return this.tipPositionProperty.value; }
-
-    /**
-     * Sets the tip position. This will change the magnitude/components, but keep the tail constant.
-     * @public
-     * @param {Vector2} tip
-     */
-    set tip( tip ) {
-      assert && assert( tip instanceof Vector2, `invalid tip: ${tip}` );
-      this.setTipXY( tip.x, tip.y );
-    }
-
-    /**
-     * Gets the tipX.
-     * @public
-     * @returns {number}
-     */
-    get tipX() { return this.tipPositionProperty.value.x; }
-
-    /**
-     * Gets the tipY.
-     * @public
-     * @returns {number}
-     */
-    get tipY() { return this.tipPositionProperty.value.y; }
-
-    /**
-     * Gets the angle in radians of the vector between $\theta\in(-\pi,\pi]$. Is null when the components are of 0
-     * magnitude.
-     * @public
-     * @returns {number|null}
-     */
-    get angle() {
-      return !this.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? this.vectorComponents.angle : null;
-    }
-
-    /**
-     * Gets the angle in degrees of the vector between $\theta\in(-\180,\180]$. Is null when the components are of 0
-     * magnitude.
-     * @public
-     * @returns {number|null}
-     */
-    get angleDegrees() {
-      return this.angle !== null ? Util.toDegrees( this.angle ) : null;
-    }
-
-    /**
-     * Sets the tail position. This will change the magnitude of the vector, but the tip will remain constant.
+     * Sets the tail position.
      * @public
      * @param {number} x
      * @param {number} y
@@ -291,14 +199,63 @@ define( require => {
       // Keep a reference to the original tip
       const tip = this.tip;
 
-      this.translateTailToPosition( new Vector2( x, y ) );
+      this.moveToTailPosition( new Vector2( x, y ) );
 
       // Set the tip back
       this.tip = tip;
     }
 
     /**
-     * Sets the tip position. This will change the magnitude of the vector, but the tail will remain constant.
+     * Sets the tail position.
+     * @public
+     * @param {Vector2} tail
+     */
+    set tail( tail ) {
+      assert && assert( tail instanceof Vector2, `invalid tail: ${tail}` );
+      this.setTailXY( tail.x, tail.y );
+    }
+
+    /**
+     * Gets the tail position.
+     * @public
+     * @returns {Vector2}
+     */
+    get tail() { return this.tailPositionProperty.value; }
+
+    /**
+     * Sets the tail's x coordinate.
+     * @public
+     * @param {number} tailX
+     */
+    set tailX( tailX ) {
+      this.setTailXY( tailX, this.tailY );
+    }
+
+    /**
+     * Gets the tail's x coordnate.
+     * @public
+     * @returns {number}
+     */
+    get tailX() { return this.tailPositionProperty.value.x; }
+
+    /**
+     * Sets the tail's y coordinate.
+     * @public
+     * @param {number} tailY
+     */
+    set tailY( tailY ) {
+      this.setTailXY( this.tailX, tailY );
+    }
+
+    /**
+     * Gets the tail's y coordinate.
+     * @public
+     * @returns {number}
+     */
+    get tailY() { return this.tailPositionProperty.value.y; }
+
+    /**
+     * Sets the tip position.
      * @public
      * @param {number} x
      * @param {number} y
@@ -309,19 +266,60 @@ define( require => {
 
       // Since tipPositionProperty is a DerivedProperty, we cannot directly set it.
       // Instead, we will update the vector components, keeping the tail constant.
-
       const tip = new Vector2( x, y );
-
       this.vectorComponents = this.vectorComponents.plus( tip.minus( this.tip ) );
     }
 
     /**
-     * Translates the tail to this point. This keeps the magnitude constant, and changes the tip position.
+     * Sets the tip position.
      * @public
-     * @param {Vector2} position
+     * @param {Vector2} tip
      */
-    translateTailToPosition( position ) {
-      this.tailPositionProperty.value = position;
+    set tip( tip ) {
+      assert && assert( tip instanceof Vector2, `invalid tip: ${tip}` );
+      this.setTipXY( tip.x, tip.y );
+    }
+
+    /**
+     * Gets the tip position.
+     * @public
+     * @returns {Vector2}
+     */
+    get tip() { return this.tipPositionProperty.value; }
+
+    /**
+     * Gets the tip's x coordinate.
+     * @public
+     * @returns {number}
+     */
+    get tipX() { return this.tipPositionProperty.value.x; }
+
+    /**
+     * Gets the tip's y coordinate.
+     * @public
+     * @returns {number}
+     */
+    get tipY() { return this.tipPositionProperty.value.y; }
+
+    /**
+     * Gets the angle of the vector in radians, measured clockwise from the horizontal.
+     * null when the vector has 0 magnitude.
+     * @public
+     * @returns {number|null}
+     */
+    get angle() {
+      return this.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : this.vectorComponents.angle;
+    }
+
+    /**
+     * Gets the angle of the vector in degrees, measured clockwise from the horizontal.
+     * null when the vector has 0 magnitude.
+     * @public
+     * @returns {number|null}
+     */
+    get angleDegrees() {
+      const angleRadians = this.angle;
+      return ( angleRadians === null ) ? null : Util.toDegrees( angleRadians );
     }
   }
 

@@ -103,7 +103,7 @@ define( require => {
         equationGraph.equationTypeProperty.link( currentEquationType => {
           if ( currentEquationType === equationType ) {
             this.coefficientProperty.value = coefficientProperty.value;
-            this.translateTailToPosition( tailPositionProperty.value );
+            this.moveToTailPosition( tailPositionProperty.value );
           }
         } );
       } );

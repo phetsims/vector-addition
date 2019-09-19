@@ -72,7 +72,7 @@ define( require => {
 
         equationTypeProperty.link( currentEquationType => {
           if ( currentEquationType === equationType ) {
-            this.translateTailToPosition( tailPositionProperty.value );
+            this.moveToTailPosition( tailPositionProperty.value );
           }
         } );
 
