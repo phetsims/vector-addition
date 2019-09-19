@@ -116,24 +116,12 @@ define( require => {
     }
 
     /**
+     * Gets the label content information to be displayed on the vector.
+     * See RootVector.getLabelContent for details.
      * @override
      * @public
-     * See RootVector.getLabelContent() for context
-     *
-     * Gets the label content information to display the sum vector. Sum vector only display their symbol when either
-     * a vector in its vector set is active, the sum is active, or the activeVectorProperty.value is null
-     *
-     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
-     * @returns {object} {
-     *    coefficient: {string|null}             // The coefficient (e.g. if the label displayed '|3v|=15', the
-     *                                           // coefficient would be '3'). Null means to not display a coefficient
-     *    symbol: {string|null}                  // The symbol (e.g. if the label displayed '|3v|=15', the symbol would
-     *                                           // be 'v'). Null means to not display a symbol
-     *    value: {string|null}                   // The value (e.g. if the label displayed '|3v|=15', the value would
-     *                                           // be '=15'). Null means to not display a value
-     *    includeAbsoluteValueBars: {boolean}    // Include absolute value bars (e.g. if the label displayed '|3v|=15
-     *                                           // the includeAbsoluteValueBars would be true)
-     * }
+     * @param {boolean} valuesVisible - whether the values are visible
+     * @returns {Object} see RootVector.getLabelContent
      */
     getLabelContent( valuesVisible ) {
       if ( !this.isSymbolDisplayed() ) {

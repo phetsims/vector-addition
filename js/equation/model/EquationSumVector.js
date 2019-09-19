@@ -128,23 +128,12 @@ define( require => {
     }
 
     /**
-     * See RootVector.getLabelContent() for context
-     *
-     * Gets the label content information to display the vector model. Equation sum vectors always show their label.
-     *
-     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
-     * @returns {object} {
-     *    coefficient: {string|null}             // The coefficient (e.g. if the label displayed '|3v|=15', the
-     *                                           // coefficient would be '3'). Null means to not display a coefficient
-     *    symbol: {string|null}                  // The symbol (e.g. if the label displayed '|3v|=15', the symbol would
-     *                                           // be 'v'). Null means to not display a symbol
-     *    value: {string|null}                   // The value (e.g. if the label displayed '|3v|=15', the value would
-     *                                           // be '=15'). Null means to not display a value
-     *    includeAbsoluteValueBars: {boolean}    // Include absolute value bars (e.g. if the label displayed '|3v|=15
-     *                                           // the includeAbsoluteValueBars would be true)
-     * }
-     * @public
+     * Gets the label content information to be displayed on the vector.
+     * See RootVector.getLabelContent for details.
      * @override
+     * @public
+     * @param {boolean} valuesVisible - whether the values are visible
+     * @returns {Object} see RootVector.getLabelContent
      */
     getLabelContent( valuesVisible ) {
       return _.extend( super.getLabelContent( valuesVisible ), {

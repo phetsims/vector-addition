@@ -72,13 +72,12 @@ define( require => {
     }
 
     /**
-     * @abstract
-     *
-     * This gets the label content information to display on the vector. Labels are different for different vectors.
+     * Gets the label content information to display on the vector. Labels are different for different vector types.
      *
      * For instance, vectors with values visible display their symbol (i.e. a, b, c, ...) AND their magnitude, while
-     * their components only display the x or y component. In the same example, vectors display their magnitude (+)
-     * while components display the component, which can be negative.
+     * their component vectors only display the x or y component. In the same example, vectors display their magnitude
+     * (which is always positive), while component vectors display the component vector's scalar value, which may be
+     * negative.
      *
      * Additionally, the label displays different content depending on the screen.
      * See https://github.com/phetsims/vector-addition/issues/39.
@@ -87,28 +86,38 @@ define( require => {
      *  - Whether the vector has a coefficient and if it should display it
      *  - Whether the values are visible (determined by the values checkbox)
      *  - Whether the magnitude/component is of length 0. See
-     *     https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
+     *    https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
      *  - Whether the vector has a symbol (e.g. the vectors on lab screen don't have symbols)
      *  - Whether the vector is active (https://github.com/phetsims/vector-addition/issues/39#issuecomment-506586411)
      *
      * These factors play different roles for different vector types, making it difficult to generalize. Thus, an
      * abstract method is used to determine the content.
      *
-     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
+     * @abstract
+     * @public
+     * @param {boolean} valuesVisible - whether the values are visible (determined by the Values checkbox)
+     * @returns {Object} a description of the label, with these fields:
      *
-     * @returns {object} {
-     *    coefficient: {string|null}  // The coefficient (e.g. if the label displayed '|3v|=15', the coefficient would
-     *                                // be '3'). 'null' means to not display a coefficient
-     *    symbol: {string|null}       // The symbol (e.g. if the label displayed '|3v|=15', the symbol would be 'v')
-     *                                // 'null' means to not display a symbol
-     *    value: {string|null}        // The value (e.g. if the label displayed '|3v|=15', the value would be '=15')
-     *                                // 'null' means to not display a value
-     *    includeAbsoluteValueBars: {boolean}      // Include absolute value bars (e.g. if the label displayed '|3v|=15' the
-     *                                // includeAbsoluteValueBars would be true)
+     * {
+     *    // The coefficient (e.g. if the label displayed '|3v|=15', the coefficient would be '3').
+     *    // Null means to not display a coefficient
+     *    coefficient: {string|null},
+     *
+     *    // The symbol (e.g. if the label displayed '|3v|=15', the symbol would be 'v').
+     *    // Null means to not display a symbol
+     *    symbol: {string|null},
+     *
+     *    // The value (e.g. if the label displayed '|3v|=15', the value would be '=15').
+     *    // Null means to not display a value
+     *    value: {string|null},
+     *
+     *    // Include absolute value bars (e.g. if the label displayed '|3v|=15 the includeAbsoluteValueBars
+     *    // would be true)
+     *    includeAbsoluteValueBars: {boolean}
      * }
      */
     getLabelContent( valuesVisible ) {
-      throw new Error( 'getLabelContent must be implemented by sub classes' );
+      throw new Error( 'getLabelContent must be implemented by subclass' );
     }
 
     /**

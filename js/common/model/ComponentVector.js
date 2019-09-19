@@ -1,12 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a Component Vector if a vector.
- *
- * A Component Vector is a component (as a vector, not a scalar) of a parent vector.
- *
- * For instance, if vector 'a' were to be <5, 5>, its x component vector would be <5, 0> (as a vector, not a scalar).
- * The component vector's 'parent vector' would be vector 'a'.
+ * ComponentVector is the model of a component vector. It is a vector (not a scalar) that describes the x or y
+ * component of some parent vector.  For instance, if parent vector 'a' is <5, 6>, then its x component vector
+ * is <5, 0>, and its y component vector is <0, 6>.
  *
  * 'Is a' relationship with RootVector but adds the following functionality:
  *    - Updates its tail position/components based on a parent vector's changing tail/tip
@@ -33,15 +30,15 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // constants
-  const COMPONENT_VECTOR_SYMBOL = null; // Vector components don't have a symbol
+  const COMPONENT_VECTOR_SYMBOL = null; // Component vectors don't have a symbol
 
   class ComponentVector extends RootVector {
 
     /**
-     * @param {Vector} parentVector - the vector to which the component is associated with
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - Property of the style of components
-     * @param {Property.<Vector|null>} activeVectorProperty - Property of the graph's active vector
-     * @param {Enumeration} componentType - type of component vector (x or y) (see ComponentVector.COMPONENT_TYPES)
+     * @param {Vector} parentVector - the vector that this component vector is associated with
+     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {Property.<Vector|null>} activeVectorProperty - which vector is active (selected)
+     * @param {Enumeration} componentType - type of component vector (x or y), see ComponentVector.COMPONENT_TYPES
      */
     constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
@@ -168,41 +165,33 @@ define( require => {
     }
 
     /**
+     * Gets the label content information to be displayed on the vector.
+     * See RootVector.getLabelContent for details.
      * @override
      * @public
-     * See RootVector.getLabelContent() for context
-     *
-     * Gets the label content information to display the vector model.
-     *
-     * @param {boolean} valuesVisible - if the values are visible (determined by the values checkbox)
-     * @returns {object} {
-     *    coefficient: {string|null}             // The coefficient (e.g. if the label displayed '|3v|=15', the
-     *                                           // coefficient would be '3'). Null means to not display a coefficient
-     *    symbol: {string|null}                  // The symbol (e.g. if the label displayed '|3v|=15', the symbol would
-     *                                           // be 'v'). Null means to not display a symbol
-     *    value: {string|null}                   // The value (e.g. if the label displayed '|3v|=15', the value would
-     *                                           // be '=15'). Null means to not display a value
-     *    includeAbsoluteValueBars: {boolean}    // Include absolute value bars (e.g. if the label displayed '|3v|=15
-     *                                           // the includeAbsoluteValueBars would be true)
-     * }
+     * @param {boolean} valuesVisible - whether the values are visible
+     * @returns {Object} see RootVector.getLabelContent
      */
     getLabelContent( valuesVisible ) {
 
-      // Get the component value, which can be negative and depends on the type of component
-      const componentValue = this.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ?
-                             this.vectorComponents.x :
-                             this.vectorComponents.y;
+      // Get the component vector's value (a scalar, possibly negative)
+      let value = ( this.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ) ?
+                  this.vectorComponents.x :
+                  this.vectorComponents.y;
 
-      // Round the component value
-      const roundedComponentValue = Util.toFixed( componentValue, VectorAdditionConstants.VECTOR_VALUE_ROUNDING );
+      // Round the value
+      value = Util.toFixed( value, VectorAdditionConstants.VECTOR_VALUE_ROUNDING );
+
+      // Component vectors only show their values if and only if the values are visible and if the component isn't 0
+      if ( !valuesVisible || value === 0 ) {
+        value = null;
+      }
 
       return {
-        coefficient: null, // components never have a coefficient
-        symbol: null, // components never have a symbol
+        coefficient: null, // component vectors never have a coefficient
+        symbol: null, // component vectors never have a symbol
         includeAbsoluteValueBars: false,
-
-        // Components only show their values if and only if the values are visible and if the component isn't 0
-        value: valuesVisible && Math.abs( roundedComponentValue ) > 0 ? roundedComponentValue : null
+        value: value
       };
     }
 
@@ -218,21 +207,21 @@ define( require => {
     get midPoint() { return this.vectorComponents.timesScalar( 0.5 ).plus( this.tail ); }
 
     /**
-     * Gets the parent's tail position
+     * Gets the parent vector's tail position
      * @public
      * @returns {Vector2}
      */
     get parentTail() { return this.parentVector.tail; }
 
     /**
-     * Gets the parent's tip position
+     * Gets the parent vector's tip position
      * @public
      * @returns {Vector2}
      */
     get parentTip() { return this.parentVector.tip; }
 
     /**
-     * Gets the parent's mid-point position
+     * Gets the parent vector's mid-point position
      * @public
      * @returns {Vector2}
      */
