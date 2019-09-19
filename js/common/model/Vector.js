@@ -52,7 +52,6 @@ define( require => {
   // rounding for the vector value (on the label with values checked)
   const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
 
-
   class Vector extends RootVector {
 
     /**
@@ -88,10 +87,10 @@ define( require => {
       // @public (read-only) {string} fallBackSymbol (see declaration of VECTOR_FALL_BACK_SYMBOL for documentation)
       this.fallBackSymbol = VECTOR_FALL_BACK_SYMBOL;
 
-      // @private {Graph} graph - indicates the graph the vector model belongs to
+      // @private {Graph} graph - indicates the Graph the vector model belongs to
       this.graph = graph;
 
-      // @private {VectorSet} vectorSet - indicates the vector set the vector belongs in.
+      // @private {VectorSet} vectorSet - indicates the VectorSet the vector belongs in.
       this.vectorSet = vectorSet;
 
       //----------------------------------------------------------------------------------------
@@ -107,7 +106,7 @@ define( require => {
         this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailLocation ) );
       };
 
-      // Observe when the graph model view transform Property changes, and update the tail position. Unlinked below.
+      // Observe when the graph modelViewTransformProperty changes, and update the tail position. Unlinked below.
       this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
 
       //----------------------------------------------------------------------------------------
@@ -140,7 +139,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // @private {function} disposeVector - unlink the modelViewTransform link, called in the dispose method
+      // @private
       this.disposeVector = () => {
         this.graph.modelViewTransformProperty.unlink( updateTailPosition );
       };
@@ -203,11 +202,11 @@ define( require => {
      * Sets the tip of the vector but ensures the vector satisfies invariants for polar/cartesian mode.
      * @protected
      *
-     * ## Common Invariants (for both cartesian and polar mode):
+     * ## Common Invariants (for both Cartesian and polar mode):
      *  - Vector tip must be within the graph bounds
      *  - Vector must not be set to the tail (0 magnitude)
      *
-     * ## Invariants for cartesian mode:
+     * ## Invariants for Cartesian mode:
      *  - Vector tip must be on an exact model coordinate
      *
      * ## Invariants for polar mode:
@@ -337,7 +336,7 @@ define( require => {
     }
 
     /**
-     * Moves the tip to this position but ensures it satisfies invariants for polar and cartesian mode.
+     * Moves the tip to this position but ensures it satisfies invariants for polar and Cartesian mode.
      * @public
      * @param {Vector2} tipPosition
      */
@@ -350,7 +349,7 @@ define( require => {
     }
 
     /**
-     * Moves the tail to this position but ensures it satisfies invariants for polar and cartesian mode.
+     * Moves the tail to this position but ensures it satisfies invariants for polar and Cartesian mode.
      * @public
      * @param {Vector2} tailPosition
      */
@@ -359,7 +358,7 @@ define( require => {
       // Declare this vector as active when it's dragging
       this.graph.activeVectorProperty.value = this;
 
-      // Ensure that the tail satisfies invariants for polar/cartesian mode
+      // Ensure that the tail satisfies invariants for polar/Cartesian mode
       this.setTailWithInvariants( tailPosition );
 
       //----------------------------------------------------------------------------------------
