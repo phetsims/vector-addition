@@ -37,7 +37,7 @@ define( require => {
         }
       } );
 
-      // Disable polar / cartesian mode.
+      // Disable polar/Cartesian mode.
       assert && this.coordinateSnapModeProperty.link( coordinateSnapMode => {
         if ( coordinateSnapMode !== CoordinateSnapModes.CARTESIAN ) {
           throw new Error( 'Explore 1D only uses Cartesian' );

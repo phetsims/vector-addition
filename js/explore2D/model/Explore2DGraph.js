@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a single graph on the 'Explore 2D' screen. 'Explore 2D' has a total of 2 graphs (polar and cartesian).
+ * Model for a single graph on the 'Explore 2D' screen. 'Explore 2D' has a total of 2 graphs (polar and Cartesian).
  *
  * Characteristics of a Explore 2D Graph (which extends Graph) are:
  *  - Explore 2D graphs have exactly 1 vector sets each

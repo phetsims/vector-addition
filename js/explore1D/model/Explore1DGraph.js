@@ -1,13 +1,13 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a single graph on the 'Explore 1D' screen. 'Explore 1D' has a total of 2 graphs (polar and cartesian).
+ * Model for a single graph on the 'Explore 1D' screen. 'Explore 1D' has a total of 2 graphs (polar and Cartesian).
  *
  * Characteristics of a Explore 1D Graph (which extends Graph) are:
  *  - Explore 1D graphs have exactly 1 vector sets each
  *  - Have a shared sum visible property across all graphs
  *  - are either Horizontal or Vertical
- *  - Are strictly cartesian
+ *  - Are strictly Cartesian
  *  - Same width/height as default graph bounds, but the origin is in the center
  *
  * @author Brandon Li
@@ -44,7 +44,7 @@ define( require => {
     DEFAULT_GRAPH_BOUNDS.width / 2,
     DEFAULT_GRAPH_BOUNDS.height / 2 );
 
-  // All graphs on 'Explore 1D' are strictly cartesian
+  // All graphs on 'Explore 1D' are strictly Cartesian
   const EXPLORE_1D_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
 
 

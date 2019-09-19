@@ -2,7 +2,7 @@
 
 /**
  * View for a scene node. Scene nodes allow screens to have multiple 'scenes'. For instance, 'Explore 2D' has a polar
- * and a cartesian 'scene' and 'Explore 1D' has a horizontal and a vertical 'scene'.
+ * and a Cartesian 'scene' and 'Explore 1D' has a horizontal and a vertical 'scene'.
  *
  * ## A 'Scene Node' contains:
  *  - a single GraphNode

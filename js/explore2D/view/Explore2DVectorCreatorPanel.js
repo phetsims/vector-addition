@@ -8,7 +8,7 @@
  *  - Each Slot creates Vectors and adds them to a the same VectorSet
  *  - Slots are non-infinite
  *
- * For the 'Explore 2D' screen, there are 2 of these panels (for polar/cartesian). They are not meant to be disposed.
+ * For the 'Explore 2D' screen, there are 2 of these panels (for polar/Cartesian). They are not meant to be disposed.
  *
  * @author Brandon Li
  */

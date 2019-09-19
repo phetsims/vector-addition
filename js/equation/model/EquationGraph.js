@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a single graph on the  Equation' screen. Equation' has a total of 2 graphs (polar and cartesian).
+ * Model for a single graph on the  Equation' screen. Equation' has a total of 2 graphs (polar and Cartesian).
  *
  * Characteristics of a Equation Graph (which extends Graph) are:
  *  - have exactly 1 vector set

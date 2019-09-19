@@ -45,7 +45,7 @@ define( require => {
     /**
      * @param {Bounds2} initialGraphBounds - the model bounds of the graph at the start of the sim
      * @param {CoordinateSnapModes} coordinateSnapMode - the coordinate snap mode of the graph. A graph is either
-     *                                                   strictly polar or cartesian.
+     *                                                   strictly polar or Cartesian.
      * @param {GraphOrientations} orientation - the orientation of the graph. A graph is either strictly horizontal,
      *                                          vertical, or two dimensional.
      * @param {Object} [options]

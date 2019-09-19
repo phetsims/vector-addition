@@ -6,7 +6,7 @@
  * Extends RootVector but adds the following functionality (annotated in the file):
  *  1. update the tail when the origin moves (modelViewTransformProperty)
  *  2. instantiate x and y component vectors
- *  3. ability to correctly drag the vector by the tail and the tip in both polar and cartesian mode
+ *  3. ability to correctly drag the vector by the tail and the tip in both polar and Cartesian mode
  *  4. methods to drop a vector, to animate a vector, and to pop a vector off the graph
  *
  * @author Brandon Li
@@ -195,11 +195,11 @@ define( require => {
     }
 
     //----------------------------------------------------------------------------------------
-    // Functionality 3: Ability to correctly drag the vector by the tail and the tip in both polar and cartesian mode
+    // Functionality 3: Ability to correctly drag the vector by the tail and the tip in both polar and Cartesian mode
     //----------------------------------------------------------------------------------------
 
     /**
-     * Sets the tip of the vector but ensures the vector satisfies invariants for polar/cartesian mode.
+     * Sets the tip of the vector but ensures the vector satisfies invariants for polar/Cartesian mode.
      * @protected
      *
      * ## Common Invariants (for both Cartesian and polar mode):
@@ -268,13 +268,13 @@ define( require => {
     }
 
     /**
-     * Sets the tail of the vector but ensures the vector satisfies invariants for polar/cartesian mode.
+     * Sets the tail of the vector but ensures the vector satisfies invariants for polar/Cartesian mode.
      * @private
      *
-     * ## Common Invariants (for both cartesian and polar mode)
+     * ## Common Invariants (for both Cartesian and polar mode)
      *  - Vector tail must be within constrained drag bounds
      *
-     * ## Invariants for cartesian mode:
+     * ## Invariants for Cartesian mode:
      *  - Vector tail must be on an exact model coordinate
      *
      * ## Invariants for polar mode:

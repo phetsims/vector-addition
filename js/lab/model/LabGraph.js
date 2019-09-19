@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a single graph on the 'Lab' screen. 'Lab' has a total of 2 graphs (polar and cartesian).
+ * Model for a single graph on the 'Lab' screen. 'Lab' has a total of 2 graphs (polar and Cartesian).
  *
  * Characteristics of a Lab Graph (which extends Graph) are:
  *  - Lab graphs have exactly 2 vector sets each

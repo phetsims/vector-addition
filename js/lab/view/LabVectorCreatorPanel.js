@@ -9,7 +9,7 @@
  *  - Slots are infinite
  *  - Vectors that are created do not have symbols
  *
- * For the 'Lab' screen, there are 2 of these panels (for polar/cartesian). They are not meant to be disposed.
+ * For the 'Lab' screen, there are 2 of these panels (for polar/Cartesian). They are not meant to be disposed.
  *
  * @author Brandon Li
  */
