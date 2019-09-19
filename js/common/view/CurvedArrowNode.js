@@ -151,8 +151,8 @@ define( require => {
     }
 
     /**
-     * @override
      * Disposes the Curved Arrow Node
+     * @override
      * @public
      */
     dispose() {
@@ -163,29 +163,24 @@ define( require => {
     /**
      * Sets the angle of the arc.
      * @public
-     *
-     * @param {number} angle - the end angle (in radians) of the curved arrow. The arrow is assumed to start at 0
-     *                         radians.
+     * @param {number} angle - the end angle (in radians) of the curved arrow. The arrow is assumed to start at 0 radians.
      */
     setAngle( angle ) {
-
       assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
-      this.angle = angle;
 
+      this.angle = angle;
       this.updateArrowNode();
     }
 
     /**
      * Sets the radius of the arc.
      * @public
-     *
      * @param {number} radius - the radius of curved arrow.
      */
     setRadius( radius ) {
-
       assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
-      this.radius = radius;
 
+      this.radius = radius;
       this.updateArrowNode();
     }
   }

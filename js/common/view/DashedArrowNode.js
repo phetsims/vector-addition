@@ -33,11 +33,14 @@ define( require => {
     constructor( tailX, tailY, tipX, tipY, options ) {
 
       options = _.extend( {
+
+        tailDash: [ 3, 3 ], // {number[]} describes the dash, similar to SCENERY/LineStyle lineDash
+
+        // These option names are identical to the ArrowNode API
         headHeight: 10,
         headWidth: 10,
         tailWidth: 5,
-        fill: 'black', // color used for the entire arrow (fills the head and strokes the tail)
-        tailDash: [ 3, 3 ] // {number[]} describes the dash, similar to SCENERY/LineStyle lineDash
+        fill: 'black' // color used for the entire arrow (fills the head and strokes the tail)
       }, options );
 
       const headNode = new Path( null, {
