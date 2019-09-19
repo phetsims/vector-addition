@@ -164,6 +164,7 @@ define( require => {
         if ( activeVector !== null ) {
           vectorAttributesContainer.visible = true;
           selectVectorText.visible = false;
+
           // Get the vector symbol
           const vectorSymbol = activeVector.symbol ? activeVector.symbol : activeVector.fallBackSymbol;
 
@@ -180,7 +181,6 @@ define( require => {
         selectVectorText.centerY = panelOpenContent.centerY;
         vectorAttributesContainer.centerY = panelOpenContent.centerY;
 
-
         if ( activeVector && activeVector.coefficientProperty ) {
           activeVector.coefficientProperty.link( updateCoefficient );
         }
@@ -189,7 +189,6 @@ define( require => {
           // reset
           updateCoefficient( ( activeVector && activeVector.coefficientProperty ) ? activeVector.coefficientProperty.value : 1 );
         }
-
       } );
 
       selectVectorText.centerY = panelOpenContent.centerY;
