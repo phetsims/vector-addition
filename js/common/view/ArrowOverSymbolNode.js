@@ -28,7 +28,7 @@ define( require => {
 
       options = _.extend( {
         font: DEFAULT_FONT,
-        spacing: 3,
+        spacing: 3, // vertical spacing between arrow and symbol
         arrowScale: 0.65
       }, options );
 
