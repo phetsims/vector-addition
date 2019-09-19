@@ -21,6 +21,7 @@
  *       changes. This must be done externally.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
