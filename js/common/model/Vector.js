@@ -129,13 +129,13 @@ define( require => {
       this.xComponentVector = new ComponentVector( this,
         vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
-        ComponentVector.COMPONENT_TYPES.X_COMPONENT );
+        ComponentVector.ComponentTypes.X_COMPONENT );
 
       // @public (read only) {ComponentVector} yComponentVector
       this.yComponentVector = new ComponentVector( this,
         vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
-        ComponentVector.COMPONENT_TYPES.Y_COMPONENT );
+        ComponentVector.ComponentTypes.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
 

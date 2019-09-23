@@ -207,7 +207,7 @@ define( require => {
       const parentMidPoint = componentVector.parentMidPoint;
 
       //----------------------------------------------------------------------------------------
-      if ( componentVector.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ) {
+      if ( componentVector.componentType === ComponentVector.ComponentTypes.X_COMPONENT ) {
 
         // Get the label height. Negative since the y axis is inverted in the view
         const labelHeight = modelViewTransform.viewToModelDeltaY( -this.labelNode.height );
@@ -220,7 +220,7 @@ define( require => {
           labelOffset.setXY( 0, COMPONENT_LABEL_OFFSET + labelHeight / 2 );
         }
       }
-      else if ( componentVector.componentType === ComponentVector.COMPONENT_TYPES.Y_COMPONENT ) {
+      else if ( componentVector.componentType === ComponentVector.ComponentTypes.Y_COMPONENT ) {
 
         const labelWidth = modelViewTransform.viewToModelDeltaX( this.labelNode.width );
 

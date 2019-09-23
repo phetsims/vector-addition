@@ -38,7 +38,7 @@ define( require => {
      * @param {Vector} parentVector - the vector that this component vector is associated with
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
      * @param {Property.<Vector|null>} activeVectorProperty - which vector is active (selected)
-     * @param {Enumeration} componentType - type of component vector (x or y), see ComponentVector.COMPONENT_TYPES
+     * @param {Enumeration} componentType - type of component vector (x or y), see ComponentVector.ComponentTypes
      */
     constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
@@ -47,7 +47,7 @@ define( require => {
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( activeVectorProperty instanceof Property,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
-      assert && assert( ComponentVector.COMPONENT_TYPES.includes( componentType ),
+      assert && assert( ComponentVector.ComponentTypes.includes( componentType ),
         `invalid componentType: ${componentType}` );
 
 
@@ -110,7 +110,7 @@ define( require => {
      */
     updateComponent( componentStyle, parentTail, parentTip ) {
 
-      if ( this.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ) {
+      if ( this.componentType === ComponentVector.ComponentTypes.X_COMPONENT ) {
 
         //----------------------------------------------------------------------------------------
         // Update the x component vector
@@ -133,7 +133,7 @@ define( require => {
         }
 
       }
-      else if ( this.componentType === ComponentVector.COMPONENT_TYPES.Y_COMPONENT ) {
+      else if ( this.componentType === ComponentVector.ComponentTypes.Y_COMPONENT ) {
 
         //----------------------------------------------------------------------------------------
         // Update the y component vector
@@ -175,7 +175,7 @@ define( require => {
     getLabelContent( valuesVisible ) {
 
       // Get the component vector's value (a scalar, possibly negative)
-      let value = ( this.componentType === ComponentVector.COMPONENT_TYPES.X_COMPONENT ) ?
+      let value = ( this.componentType === ComponentVector.ComponentTypes.X_COMPONENT ) ?
                   this.vectorComponents.x :
                   this.vectorComponents.y;
 
@@ -230,8 +230,8 @@ define( require => {
     }
   }
 
-  // @public (read-only) {Enumeration} COMPONENT_TYPES - Enumeration of the possible types of components
-  ComponentVector.COMPONENT_TYPES = new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
+  // @public (read-only) {Enumeration} ComponentTypes - Enumeration of the possible types of components
+  ComponentVector.ComponentTypes = new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
 
   return vectorAddition.register( 'ComponentVector', ComponentVector );
 } );
