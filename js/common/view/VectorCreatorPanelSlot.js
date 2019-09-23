@@ -14,10 +14,10 @@
  *
  * ## Implementation of creation of Vectors:
  *  1. Once the icon is clicked, a Vector is made.
- *  2. A call to the Scene Node is made, passing the created Vector. The Scene Node then creates the subsequent views
- *     for the Vector (Vector Node and Vector Component Node), layering the views correctly and forwarding the event.
+ *  2. A call to the SceneNode is made, passing the created Vector. The Scene Node then creates the subsequent views
+ *     for the Vector (VectorNode and VectorComponentNode), layering the views correctly and forwarding the event.
  *  3. Once the Vector indicates the Vector was dropped outside the Graph, the slot will then animate the Vector and
- *     dispose the vector, signaling to the Scene Node to dispose of the views.
+ *     dispose the vector, signaling to the SceneNode to dispose of the views.
  *
  * @author Brandon Li
  */
@@ -149,7 +149,7 @@ define( require => {
 
         //----------------------------------------------------------------------------------------
         // Step 3: Once the Vector indicates the Vector was dropped outside the Graph, animate and
-        // dispose the Vector, signaling to the Scene Node to dispose of the views.
+        // dispose the Vector, signaling to the SceneNode to dispose of the views.
         //----------------------------------------------------------------------------------------
 
         const animateVectorBackListener = animateBack => {
