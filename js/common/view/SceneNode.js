@@ -68,7 +68,7 @@ define( require => {
       options = _.extend( {
 
         // all options are specific to this class
-        includeEraser: true, // {boolean} Indicates if an Eraser Button should be included
+        includeEraser: true, // {boolean} Indicates if an EraserButton should be included
         vectorValuesToggleBoxOptions: null // {Object} Options passed to the VectorValuesToggleBox
       }, options );
 
@@ -184,8 +184,8 @@ define( require => {
      * @param {Vector} vector - the vector model
      * @param {VectorSet} vectorSet - the VectorSet the vector belongs to
      * @param {Event} [forwardingEvent] - if provided, if will forward this event to the Vector body drag listener.
-     *                                    This is used to forward the click event from the Vector Creator Panel to the
-     *                                    Vector Node. If not provided, not event is forwarded.
+     *                                    This is used to forward the click event from the VectorCreatorPanel to the
+     *                                    VectorNode. If not provided, not event is forwarded.
      */
     registerVector( vector, vectorSet, forwardingEvent ) {
 
@@ -248,7 +248,7 @@ define( require => {
     }
 
     /**
-     * Adds a Vector Creator Panel to the scene.
+     * Adds a VectorCreatorPanel to the scene.
      * @public
      * @param {VectorCreatorPanel} vectorCreatorPanel
      */
