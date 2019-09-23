@@ -14,7 +14,7 @@ define( require => {
 
   // modules
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
-  const GridLayoutBox = require( 'VECTOR_ADDITION/common/view/GridLayoutBox' );
+  const GridBox = require( 'VECTOR_ADDITION/common/view/GridBox' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const RadioButtonGroupMember = require( 'SUN/buttons/RadioButtonGroupMember' );
@@ -42,13 +42,13 @@ define( require => {
       } );
 
       // Arrange the buttons in a grid
-      const gridLayoutBox = new GridLayoutBox( {
+      const gridBox = new GridBox( {
         children: buttons,
         columns: 2
       } );
 
       super( {
-        children: [ gridLayoutBox ]
+        children: [ gridBox ]
       } );
     }
   }

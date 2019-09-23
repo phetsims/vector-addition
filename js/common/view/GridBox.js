@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * GridLayoutBox lays out its children in a grid. Children are provided in row-major order.
+ * GridBox lays out its children in a grid. Children are provided in row-major order.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -19,7 +19,7 @@ define( require => {
   const X_ALIGN_VALUES = [ 'left', 'center', 'right' ];
   const Y_ALIGN_VALUES = [ 'top', 'center', 'bottom' ];
 
-  class GridLayoutBox extends Node {
+  class GridBox extends Node {
 
     /**
      * @param {Object} [options]
@@ -76,5 +76,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'GridLayoutBox', GridLayoutBox );
+  return vectorAddition.register( 'GridBox', GridBox );
 } );
