@@ -177,12 +177,12 @@ define( require => {
     }
 
     /**
-     * 'Registers a Vector' by creating the Vector Node and the Component Nodes for a newly created Vector. The Nodes
-     * are deleted if Vector is ever removed from its Vector Set.
+     * 'Registers a Vector' by creating the VectorNode and the ComponentVectorNodes for a newly created Vector.
+     * The Nodes are deleted if Vector is ever removed from its VectorSet.
      * @public
      *
-     * @param {Vector} vector - the Vector Model
-     * @param {VectorSet} vectorSet - the Vector Set the vector belongs to
+     * @param {Vector} vector - the vector model
+     * @param {VectorSet} vectorSet - the VectorSet the vector belongs to
      * @param {Event} [forwardingEvent] - if provided, if will forward this event to the Vector body drag listener.
      *                                    This is used to forward the click event from the Vector Creator Panel to the
      *                                    Vector Node. If not provided, not event is forwarded.
