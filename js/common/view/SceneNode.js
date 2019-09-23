@@ -124,6 +124,9 @@ define( require => {
         } );
       }
 
+      // private {Node[]} a layer for each VectorSet
+      this.vectorSetParents = [];
+
       //========================================================================================
       // Add the SumVectorNode and its components for each VectorSet in the graph
       //========================================================================================
@@ -148,10 +151,12 @@ define( require => {
           viewProperties.valuesVisibleProperty,
           vectorSet.sumVisibleProperty );
 
-        this.vectorContainer.addChild( xSumComponentVectorNode );
-        this.vectorContainer.addChild( ySumComponentVectorNode );
-        this.vectorContainer.addChild( sumVectorNode );
-        
+        const vectorSetParent = new Node( {
+          children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ]
+        } );
+        this.vectorContainer.addChild( vectorSetParent );
+        this.vectorSetParents.push( vectorSetParent );
+
         // When the sum vector becomes selected, move it and its components to the front.
         // Unlink is unnecessary because sum vectors exist for the lifetime of the sim.
         graph.activeVectorProperty.link( activeVector => {
@@ -205,18 +210,27 @@ define( require => {
         this.componentStyleProperty,
         this.valuesVisibleProperty );
 
-      this.vectorContainer.addChild( xComponentVectorNode );
-      this.vectorContainer.addChild( yComponentVectorNode );
-      this.vectorContainer.addChild( vectorNode );
+      // Identify the Node that is the parent for this VectorSet.
+      // See see https://github.com/phetsims/vector-addition/issues/94
+      const index = this.graph.vectorSets.indexOf( vectorSet );
+      assert && assert( index !== -1, `vectorSet not found: ${vectorSet}` );
+      const vectorSetParent = this.vectorSetParents[ index ];
+
+      vectorSetParent.addChild( xComponentVectorNode );
+      vectorSetParent.addChild( yComponentVectorNode );
+      vectorSetParent.addChild( vectorNode );
 
       if ( forwardingEvent ) {
         vectorNode.bodyDragListener.press( forwardingEvent, vectorNode );
       }
       
-      // When the vector becomes selected, move it and its components to the front.
+      // When the vector becomes active (selected), move it and its components to the front.
       // Unlinked below if the vector is removable.
       const activeVectorListener = activeVector => {
         if ( activeVector === vectorNode.vector ) {
+
+          // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
+          vectorSetParent.moveToFront();
 
           // order is important - vector should be in front of components
           xComponentVectorNode.moveToFront();
