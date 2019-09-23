@@ -71,12 +71,10 @@ define( require => {
       } );
 
       // @private {function} isSymbolDisplayed - function to check if the sum vector should display its symbol.
-      // The sum vector only displays the symbol when either a vector in its vector set is active, the sum is active,
-      // or the activeVectorProperty.value is null
+      // The sum vector only displays its symbol when a vector in its vector set is active, or the sum is active.
       this.isSymbolDisplayed = () => {
         return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
-               || graph.activeVectorProperty.value === this
-               || graph.activeVectorProperty.value === null;
+               || graph.activeVectorProperty.value === this;
       };
     }
 
