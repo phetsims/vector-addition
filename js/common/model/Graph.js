@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Graph is the base class for graphs, intended to be subclasses. A screen can have multiple graphs.
+ * Graph is the base class for graphs, intended to be sub-classed. A screen can have multiple graphs.
  *
  * Graphs are responsible for:
  *   - Keeping track of where the origin is dragged and updating a modelViewTransformProperty.
