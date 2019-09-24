@@ -50,7 +50,7 @@ define( require => {
       // @public (read-only) whether the sum is defined.  The sum is defined if there is at least one vector on
       // the graph. It would be preferable to set its Vector2 value to null, but this was discovered very late
       // in development, when that was not practical. See https://github.com/phetsims/vector-addition/issues/187
-      this.isDefinedProperty = new BooleanProperty( false );
+      this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.lengthProperty.value > 0 );
 
       // Observe changes to the vector array. Never removed because SumVectors exists for the lifetime of the sim.
       vectorSet.vectors.addItemAddedListener( addedVector => {
