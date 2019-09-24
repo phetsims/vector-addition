@@ -55,7 +55,6 @@ define( require => {
 
       super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, OPTIONS );
 
-
       // @public (read-only)
       this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
         range: COEFFICIENT_RANGE

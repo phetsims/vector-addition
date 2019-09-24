@@ -42,14 +42,10 @@ define( require => {
      */
     constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( activeVectorProperty instanceof Property,
-        `invalid activeVectorProperty: ${activeVectorProperty}` );
-      assert && assert( ComponentVector.ComponentTypes.includes( componentType ),
-        `invalid componentType: ${componentType}` );
-
+      assert && assert( activeVectorProperty instanceof Property, `invalid activeVectorProperty: ${activeVectorProperty}` );
+      assert && assert( ComponentVector.ComponentTypes.includes( componentType ), `invalid componentType: ${componentType}` );
 
       super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
 

@@ -27,7 +27,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
-
   class ToggleBox extends AccordionBox {
 
     /**

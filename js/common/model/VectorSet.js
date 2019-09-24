@@ -50,13 +50,10 @@ define( require => {
 
       }, options );
 
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( sumVisibleProperty instanceof BooleanProperty,
-        `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette,
-        `invalid vectorColorPalette: ${vectorColorPalette}` );
+      assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
       // @public {ObservableArray.<Vector>} the vectors in the VectorSet, excluding the sum vector
       this.vectors = new ObservableArray();

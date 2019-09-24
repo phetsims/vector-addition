@@ -38,8 +38,7 @@ define( require => {
 
       assert && assert( graph instanceof LabGraph, `invalid graph: ${graph}` );
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       options = merge( {
 

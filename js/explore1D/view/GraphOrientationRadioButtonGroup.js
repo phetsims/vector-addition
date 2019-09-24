@@ -25,11 +25,9 @@ define( require => {
      */
     constructor( graphOrientationProperty, options ) {
 
-      assert && assert( graphOrientationProperty instanceof EnumerationProperty
-      && GraphOrientations.includes( graphOrientationProperty.value ),
+      assert && assert( graphOrientationProperty instanceof EnumerationProperty && GraphOrientations.includes( graphOrientationProperty.value ),
         `invalid graphOrientationProperty: ${graphOrientationProperty}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
 

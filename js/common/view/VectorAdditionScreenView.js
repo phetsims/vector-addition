@@ -26,8 +26,7 @@ define( require => {
      */
     constructor( vectorAdditionModel, tandem ) {
 
-      assert && assert( vectorAdditionModel instanceof VectorAdditionModel,
-        `invalid vectorAdditionModel: ${vectorAdditionModel}` );
+      assert && assert( vectorAdditionModel instanceof VectorAdditionModel, `invalid vectorAdditionModel: ${vectorAdditionModel}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       super( {

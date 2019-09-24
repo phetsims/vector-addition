@@ -61,10 +61,8 @@ define( require => {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
-      assert && assert( initialVectorComponents instanceof Vector2,
-        `invalid initialVectorComponents: ${initialVectorComponents}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( initialVectorComponents instanceof Vector2, `invalid initialVectorComponents: ${initialVectorComponents}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 

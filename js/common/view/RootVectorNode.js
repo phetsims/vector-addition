@@ -46,13 +46,10 @@ define( require => {
     constructor( rootVector, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
 
       assert && assert( rootVector instanceof RootVector, `invalid rootVector: ${rootVector}` );
-      assert && assert( modelViewTransformProperty instanceof Property
-      && modelViewTransformProperty.value instanceof ModelViewTransform2,
+      assert && assert( modelViewTransformProperty instanceof Property && modelViewTransformProperty.value instanceof ModelViewTransform2,
         `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
-        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( activeVectorProperty instanceof Property
-                        && activeVectorProperty.value instanceof RootVector || activeVectorProperty.value === null,
+      assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( activeVectorProperty instanceof Property && activeVectorProperty.value instanceof RootVector || activeVectorProperty.value === null,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on options: ${options}` );

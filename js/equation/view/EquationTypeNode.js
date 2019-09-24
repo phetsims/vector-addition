@@ -39,11 +39,9 @@ define( require => {
      */
     constructor( equationVectorSet, equationType, options ) {
 
-      assert && assert( equationVectorSet instanceof EquationVectorSet,
-        `invalid equationVectorSet: ${equationVectorSet}` );
+      assert && assert( equationVectorSet instanceof EquationVectorSet, `invalid equationVectorSet: ${equationVectorSet}` );
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 

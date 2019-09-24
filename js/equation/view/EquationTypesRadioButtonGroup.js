@@ -37,10 +37,8 @@ define( require => {
      */
     constructor( equationTypeProperty, vectorSymbols, options ) {
 
-      assert && assert( equationTypeProperty instanceof EnumerationProperty,
-        `invalid equationTypeProperty: ${equationTypeProperty}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
         buttonContentXMargin: 12

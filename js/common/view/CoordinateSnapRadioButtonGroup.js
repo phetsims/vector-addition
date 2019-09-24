@@ -30,15 +30,11 @@ define( require => {
      */
     constructor( coordinateSnapModeProperty, cartesianVectorColorPalette, polarVectorColorPalette, options ) {
 
-      assert && assert( coordinateSnapModeProperty instanceof EnumerationProperty
-      && CoordinateSnapModes.includes( coordinateSnapModeProperty.value ),
+      assert && assert( coordinateSnapModeProperty instanceof EnumerationProperty && CoordinateSnapModes.includes( coordinateSnapModeProperty.value ),
         `invalid coordinateSnapModeProperty: ${coordinateSnapModeProperty}` );
-      assert && assert( cartesianVectorColorPalette instanceof VectorColorPalette,
-        `invalid cartesianVectorColorPalette: ${cartesianVectorColorPalette}` );
-      assert && assert( polarVectorColorPalette instanceof VectorColorPalette,
-        `invalid polarVectorColorPalette: ${polarVectorColorPalette}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( cartesianVectorColorPalette instanceof VectorColorPalette, `invalid cartesianVectorColorPalette: ${cartesianVectorColorPalette}` );
+      assert && assert( polarVectorColorPalette instanceof VectorColorPalette, `invalid polarVectorColorPalette: ${polarVectorColorPalette}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
 

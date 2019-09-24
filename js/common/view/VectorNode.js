@@ -59,12 +59,9 @@ define( require => {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
-        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( angleVisibleProperty instanceof BooleanProperty,
-        `invalid angleVisibleProperty: ${angleVisibleProperty}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( angleVisibleProperty instanceof BooleanProperty, `invalid angleVisibleProperty: ${angleVisibleProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 

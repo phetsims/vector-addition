@@ -30,10 +30,8 @@ define( require => {
     constructor( sumVisibleProperty, vectorColorPalette ) {
 
       // Type check arguments
-      assert && assert( sumVisibleProperty instanceof BooleanProperty,
-        `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette,
-        `invalid vectorColorPalette: ${vectorColorPalette}` );
+      assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
       const textNode = new Text( sumString, {
         font: VectorAdditionConstants.CHECKBOX_FONT,

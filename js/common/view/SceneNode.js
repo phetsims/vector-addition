@@ -58,10 +58,8 @@ define( require => {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty,
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       //========================================================================================
 

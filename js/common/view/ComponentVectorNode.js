@@ -50,16 +50,12 @@ define( require => {
      */
     constructor( componentVector, graph, componentStyleProperty, valuesVisibleProperty, options ) {
 
-      assert && assert( componentVector instanceof ComponentVector,
-        `invalid componentVector: ${componentVector}` );
+      assert && assert( componentVector instanceof ComponentVector, `invalid componentVector: ${componentVector}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
-        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 

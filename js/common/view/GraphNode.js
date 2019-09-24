@@ -77,8 +77,7 @@ define( require => {
     constructor( graph, gridVisibilityProperty ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( gridVisibilityProperty instanceof BooleanProperty,
-        `invalid gridVisibilityProperty: ${gridVisibilityProperty}` );
+      assert && assert( gridVisibilityProperty instanceof BooleanProperty, `invalid gridVisibilityProperty: ${gridVisibilityProperty}` );
 
       const graphViewBounds = graph.graphViewBounds;
 

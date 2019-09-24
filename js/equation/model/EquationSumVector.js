@@ -32,8 +32,7 @@ define( require => {
      */
     constructor( graph, vectorSet, equationTypeProperty, symbol ) {
 
-      assert && assert( equationTypeProperty instanceof EnumerationProperty
-      && EquationTypes.includes( equationTypeProperty.value ),
+      assert && assert( equationTypeProperty instanceof EnumerationProperty && EquationTypes.includes( equationTypeProperty.value ),
         `invalid equationTypeProperty: ${equationTypeProperty}` );
 
       super( EQUATION_SUM_TAIL_POSITION, graph, vectorSet, symbol );

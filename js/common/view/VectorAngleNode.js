@@ -53,7 +53,6 @@ define( require => {
 
   const DEGREES = '\u00B0'; // TODO: this should be in Math Symbols. https://github.com/phetsims/scenery-phet/issues/514
 
-
   class VectorAngleNode extends Node {
     /**
      * @param {Vector} vector - the model for the vector that the angle represents
@@ -63,8 +62,7 @@ define( require => {
     constructor( vector, anglesVisibleProperty, graph ) {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
-      assert && assert( anglesVisibleProperty instanceof BooleanProperty,
-        `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
+      assert && assert( anglesVisibleProperty instanceof BooleanProperty, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
 
       //----------------------------------------------------------------------------------------

@@ -22,6 +22,7 @@ define( require => {
   const screenExplore2DString = require( 'string!VECTOR_ADDITION/screen.explore2D' );
 
   class Explore2DScreen extends Screen {
+
     /**
      * @param {Tandem} tandem
      */

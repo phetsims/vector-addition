@@ -33,10 +33,8 @@ define( require => {
   const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
   // See https://github.com/phetsims/vector-addition/issues/127
-  assert && assert( DEFAULT_GRAPH_BOUNDS.width % 2 === 0,
-    `DEFAULT_GRAPH_BOUNDS.width must be even: ${DEFAULT_GRAPH_BOUNDS.width}` );
-  assert && assert( DEFAULT_GRAPH_BOUNDS.height % 2 === 0,
-    `DEFAULT_GRAPH_BOUNDS.height must be even: ${DEFAULT_GRAPH_BOUNDS.height}` );
+  assert && assert( DEFAULT_GRAPH_BOUNDS.width % 2 === 0, `DEFAULT_GRAPH_BOUNDS.width must be even: ${DEFAULT_GRAPH_BOUNDS.width}` );
+  assert && assert( DEFAULT_GRAPH_BOUNDS.height % 2 === 0, `DEFAULT_GRAPH_BOUNDS.height must be even: ${DEFAULT_GRAPH_BOUNDS.height}` );
   
   // graph bounds for 'Explore 1D' - origin is at the center
   const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
@@ -59,13 +57,10 @@ define( require => {
     constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
 
       assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( sumVisibleProperty instanceof BooleanProperty,
-        `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette,
-        `invalid vectorColorPalette: ${vectorColorPalette}` );
+      assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
 
       super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, graphOrientation );

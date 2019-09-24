@@ -28,8 +28,8 @@ define( require => {
      * @param {string|null} symbol - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
      */
     constructor( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol ) {
-      assert && assert( equationGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN,
-        `invalid coordinateSnapMode: ${equationGraph.coordinateSnapMode}` );
+
+      assert && assert( equationGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN, `invalid coordinateSnapMode: ${equationGraph.coordinateSnapMode}` );
 
       super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol );
 

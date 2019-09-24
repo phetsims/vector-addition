@@ -14,6 +14,8 @@ define( require => {
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
+  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -29,6 +31,9 @@ define( require => {
      * @param {Object} [options]
      */
     constructor( componentStyleProperty, options ) {
+
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
+        `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       options = _.extend( {
         align: 'left',

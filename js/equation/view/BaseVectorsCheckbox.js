@@ -25,10 +25,8 @@ define( require => {
     constructor( baseVectorsVisibleProperty, vectorColorPalette ) {
 
       // Type check arguments
-      assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty,
-        `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette,
-        `invalid vectorColorPalette: ${vectorColorPalette}` );
+      assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty, `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
+      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
       const icon = VectorAdditionIconFactory.createVectorIcon( {
         fill: vectorColorPalette.baseVectorFill,

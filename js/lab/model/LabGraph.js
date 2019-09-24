@@ -47,15 +47,11 @@ define( require => {
     constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty1, sumVisibleProperty2,
                  vectorColorPalette1, vectorColorPalette2 ) {
 
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
-        `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty
-      && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( vectorColorPalette1 instanceof VectorColorPalette,
-        `invalid vectorColorPalette1: ${vectorColorPalette1}` );
-      assert && assert( vectorColorPalette2 instanceof VectorColorPalette,
-        `invalid vectorColorPalette2: ${vectorColorPalette2}` );
+      assert && assert( vectorColorPalette1 instanceof VectorColorPalette, `invalid vectorColorPalette1: ${vectorColorPalette1}` );
+      assert && assert( vectorColorPalette2 instanceof VectorColorPalette, `invalid vectorColorPalette2: ${vectorColorPalette2}` );
 
       super( LAB_GRAPH_BOUNDS, coordinateSnapMode, LAB_GRAPH_ORIENTATION );
 

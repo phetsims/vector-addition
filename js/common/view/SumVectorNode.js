@@ -36,14 +36,10 @@ define( require => {
 
       assert && assert( sumVector instanceof SumVector, `invalid sumVector: ${sumVector}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( valuesVisibleProperty instanceof BooleanProperty,
-        `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-      assert && assert( anglesVisibleProperty instanceof BooleanProperty,
-        `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
-      assert && assert( sumVisibleProperty instanceof BooleanProperty,
-        `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
+      assert && assert( anglesVisibleProperty instanceof BooleanProperty, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
+      assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 

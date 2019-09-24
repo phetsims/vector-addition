@@ -55,14 +55,10 @@ define( require => {
      */
     constructor( baseVectorsVisibleProperty, coordinateSnapMode, equationVectorSet, options ) {
 
-      assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty,
-        `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ),
-        `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-      assert && assert( equationVectorSet instanceof EquationVectorSet,
-        `invalid equationVectorSet: ${equationVectorSet}` );
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-        `Extra prototype on options: ${options}` );
+      assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty, `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
+      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+      assert && assert( equationVectorSet instanceof EquationVectorSet, `invalid equationVectorSet: ${equationVectorSet}` );
+      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
 

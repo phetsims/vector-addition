@@ -31,8 +31,8 @@ define( require => {
      * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
      */
     constructor( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol ) {
-      assert && assert( equationGraph.coordinateSnapMode === CoordinateSnapModes.POLAR,
-        `invalid coordinateSnapMode: ${equationGraph.coordinateSnapMode}` );
+
+      assert && assert( equationGraph.coordinateSnapMode === CoordinateSnapModes.POLAR, `invalid coordinateSnapMode: ${equationGraph.coordinateSnapMode}` );
 
       super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol );
 

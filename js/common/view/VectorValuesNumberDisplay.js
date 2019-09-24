@@ -47,8 +47,7 @@ define( require => {
     constructor( graph, attributeDisplayType ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( ATTRIBUTE_DISPLAY_TYPES.includes( attributeDisplayType ),
-        `invalid attributeDisplayType: ${attributeDisplayType}` );
+      assert && assert( ATTRIBUTE_DISPLAY_TYPES.includes( attributeDisplayType ), `invalid attributeDisplayType: ${attributeDisplayType}` );
 
       //----------------------------------------------------------------------------------------
       // Calculate the range
