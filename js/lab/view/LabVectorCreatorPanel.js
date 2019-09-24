@@ -1,11 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the panel with vectors to drag onto the 'Lab' screen.
+ * LabVectorCreatorPanel is a specialization of VectorCreatorPanel (the vector 'toolbox') for the 'Lab' screen.
  *
- * 'Extends' VectorCreatorPanel but has the following characteristics:
+ * Extends VectorCreatorPanel but has the following characteristics:
  *  - Creates a creator panel slot per VectorSet in a LabGraph.
- *  - Each Slot creates Vectors and adds them to a different VectorSet.
+ *  - Each slot creates Vectors and adds them to a different VectorSet.
  *  - Slots are infinite
  *  - Vectors that are created do not have symbols
  *
