@@ -15,17 +15,16 @@ define( require => {
 
   const EquationTypes = new Enumeration( [
 
-    'ADDITION',     // Adding two vectors to get a third.
-                    // Shown as 'A + B = C' || 'D + E = F' on the Equation Types Radio Buttons
+    // Adding two vectors to get a third. Shown as 'a + b = c' or 'd + e = f'
+    'ADDITION',
 
-    'SUBTRACTION',  // Subtracting a vector from another to get a third.
-                    // Shown as 'A - B = C' || 'D - E = F' on the Equation Types Radio Buttons
+    // Subtracting a vector from another to get a third. Shown as 'a - b = c' or 'd - e = f'
+    'SUBTRACTION',
 
-
-    'NEGATION'      // Negating the sum of two vectors to get a third.
-                    // Derived from '-( A + B ) = C'. Simplified to 'A + B + C = 0'
-                    //
-                    // Shown as 'A + B + C = 0' || 'D + E + F = 0' on the Equation Types Radio Buttons
+    // Negating the sum of two vectors to get a third.
+    // Derived from '-( a + b ) = c', simplified to 'a + b + c = 0'
+    // Shown as 'a + b + c = 0' or 'd + e + f = 0'
+    'NEGATION'
 
   ] );
 
