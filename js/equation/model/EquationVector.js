@@ -1,19 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * See https://github.com/phetsims/vector-addition/issues/63 for an overview of how EquationVectors fit into the class
- * hierarchy.
- *
- * Extends Vector and adds the following functionality:
- *  - Instantiate a Base Vector. When the Base Vector's components change, this vector matches (multiply by coefficient)
- *  - 3 Coefficient Properties (1 for each equation type). The Equation Vector scales its components by the coefficient
- *    Property that corresponds with the current Equation Type.
- *  - 3 Tail Position Properties (1 for each equation type). See https://github.com/phetsims/vector-addition/issues/80
- *  - Disables tip dragging and removing of vectors
- *
- * Equation vectors are created at the start of the sim, and are never disposed. They require a symbol.
+ * EquationVector is a specialization of Vector for the 'Equation' screen.  It adds mutable coefficient and base vector.
+ * Instances exist for the lifetime of the sim and do not need to be disposed.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
@@ -22,13 +14,11 @@ define( require => {
   // modules
   const CartesianBaseVector = require( 'VECTOR_ADDITION/equation/model/CartesianBaseVector' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const PolarBaseVector = require( 'VECTOR_ADDITION/equation/model/PolarBaseVector' );
   const Property = require( 'AXON/Property' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
@@ -70,45 +60,6 @@ define( require => {
       this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
         range: COEFFICIENT_RANGE
       } );
-
-      // Loop through each Equation Type - each Equation Type has a separate coefficient Property
-      // and a separate tail Position Property
-      EquationTypes.VALUES.forEach( equationType => {
-
-        const coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
-          range: COEFFICIENT_RANGE
-        } );
-
-        const tailPositionProperty = new Vector2Property( this.tail );
-
-        // Observe when the coefficient Property changes. If the equation Type matches, the coefficient
-        // Properties match. Doesn't need to be unlinked.
-        this.coefficientProperty.link( coefficient => {
-          if ( equationGraph.equationTypeProperty.value === equationType ) {
-            coefficientProperty.value = coefficient;
-          }
-        } );
-
-        // Observe when the tail Position Property changes. If the equation Type matches, the tail
-        // Properties match. Doesn't need to be unlinked.
-        this.tailPositionProperty.link( tailPosition => {
-          if ( equationGraph.equationTypeProperty.value === equationType ) {
-            tailPositionProperty.value = tailPosition;
-          }
-        } );
-
-        // On the other hand, observe when the equation Type changes. If the equation Type now matches,
-        // the coefficientProperty must change to match the separate coefficientProperty, and the tailPosition
-        // must be translated to match the separate tail Position. Doesn't need to be unlinked.
-        equationGraph.equationTypeProperty.link( currentEquationType => {
-          if ( currentEquationType === equationType ) {
-            this.coefficientProperty.value = coefficientProperty.value;
-            this.moveToTailPosition( tailPositionProperty.value );
-          }
-        } );
-      } );
-
-      //----------------------------------------------------------------------------------------
 
       // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.
       this.setTipWithInvariants( this.tip );

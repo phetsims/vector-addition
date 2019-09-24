@@ -1,17 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * See https://github.com/phetsims/vector-addition/issues/63 for context.
- *
- * Extends Vector and adds the following functionality:
- *  - Takes an array of EquationVectors and calculates its components based on the vectors and the
- *    equationType
- *  - Separate Tail Positions for each Equation Type
- *  - Disables tip dragging and removing of vectors
- *
- * Equation sum vectors are created at the start of the sim, and are never disposed. They require a symbol.
+ * EquationSumVector is a specialization of SumVector for the 'Equation' screen.  It computes the 'sum' differently
+ * depending on the equation type.  Instances exist for the lifetime of the sim and do not need to be disposed.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
@@ -23,7 +17,6 @@ define( require => {
   const Property = require( 'AXON/Property' );
   const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
   const Vector2 = require( 'DOT/Vector2' );
-  const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
@@ -49,39 +42,17 @@ define( require => {
       this.vectorSet = vectorSet;
       this.equationTypeProperty = equationTypeProperty;
 
-      //----------------------------------------------------------------------------------------
-      // Observe when each vector changes and/or when the equationType changes to calculate the sum
+      // Observe when each vector changes and/or when the equationType changes to calculate the sum.
+      // Doesn't need to be unlinked since each vector in equationVectorSet are never disposed and the equation vector
+      // sum is never disposed
       const dependencies = [];
-
       vectorSet.vectors.forEach( vector => {
         dependencies.push( vector.vectorComponentsProperty );
       } );
-
-      // Doesn't need to be unlinked since each vector in equationVectorSet are never disposed and the equation vector
-      // sum is never disposed
       Property.multilink( _.concat( [ equationTypeProperty ], dependencies ),
         () => {
           this.updateSum( vectorSet.vectors );
         } );
-
-      //----------------------------------------------------------------------------------------
-      // Integrate separate tail positions for each equation type
-      EquationTypes.VALUES.forEach( equationType => {
-
-        const tailPositionProperty = new Vector2Property( this.tail );
-
-        equationTypeProperty.link( currentEquationType => {
-          if ( currentEquationType === equationType ) {
-            this.moveToTailPosition( tailPositionProperty.value );
-          }
-        } );
-
-        this.tailPositionProperty.link( tailPosition => {
-          if ( equationTypeProperty.value === equationType ) {
-            tailPositionProperty.value = tailPosition;
-          }
-        } );
-      } );
     }
 
     /**

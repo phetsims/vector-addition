@@ -75,12 +75,10 @@ define( require => {
 
       options = _.extend( {
 
-        // super class options
+        // superclass options
         contentFixedWidth: 440, // {number|null} fixed size of the panel (see superclass)
         contentFixedHeight: 45, // {number|null} fixed size of the panel (see superclass)
-        isExpandedInitially: true,
-
-        spacingMajor: LABEL_LEFT_MARGIN
+        isExpandedInitially: true
 
       }, options );
 
@@ -99,7 +97,7 @@ define( require => {
       } );
 
       // Container for the labels and number displays that display the vector's attributes
-      const vectorAttributesContainer = new HBox( { spacing: options.spacingMajor } );
+      const vectorAttributesContainer = new HBox( { spacing: LABEL_LEFT_MARGIN } );
 
       // Create the content container for the open content
       const panelOpenContent = new Node();
