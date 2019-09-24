@@ -1,14 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the panel with vectors to drag onto the 'Explore 1D' screen.
- *
- * 'Extends' VectorCreatorPanel but has the following characteristics:
- *  - Creates a slot per symbol (which happens to be 3)
- *  - Each Slot creates Vectors and adds them to a the same VectorSet
- *  - Slots are non-infinite
- *
- * For the 'Explore 1D' screen, there are 2 of these panels (for horizontal/vertical).
+ * Explore1DVectorCreatorPanel is a specialization of VectorCreatorPanel (the vector 'toolbox') for the 'Explore 1D' screen.
  *
  * @author Brandon Li
  */

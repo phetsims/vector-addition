@@ -3,14 +3,6 @@
 /**
  * LabVectorCreatorPanel is a specialization of VectorCreatorPanel (the vector 'toolbox') for the 'Lab' screen.
  *
- * Extends VectorCreatorPanel but has the following characteristics:
- *  - Creates a creator panel slot per VectorSet in a LabGraph.
- *  - Each slot creates Vectors and adds them to a different VectorSet.
- *  - Slots are infinite
- *  - Vectors that are created do not have symbols
- *
- * For the 'Lab' screen, there are 2 of these panels (for polar/Cartesian). They are not meant to be disposed.
- *
  * @author Brandon Li
  */
 

@@ -1,14 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the panel with vectors to drag onto the 'Explore 2D' screen.
- *
- * 'Extends' VectorCreatorPanel but has the following characteristics:
- *  - Creates a slot per symbol (which happens to be 3)
- *  - Each Slot creates Vectors and adds them to a the same VectorSet
- *  - Slots are non-infinite
- *
- * For the 'Explore 2D' screen, there are 2 of these panels (for polar/Cartesian). They are not meant to be disposed.
+ * Explore2DVectorCreatorPanel is a specialization of VectorCreatorPanel (the vector 'toolbox') for the 'Explore 2D' screen.
  *
  * @author Brandon Li
  */

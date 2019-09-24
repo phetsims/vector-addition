@@ -1,11 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Panel that contains 'slots' that can be clicked on to create new vectors.
- *
- * ## Implementation
- *  - Each slot is a VectorCreatorPanelSlot (See ./VectorCreatorPanelSlot.js).
- *  - This class solely takes in an array of these slots and lays them out correctly.
+ * VectorCreatorPanel (aka vector 'toolbox') is a Panel that contains 'slots' that can be clicked on to create
+ * new vectors. Instances exist for the lifetime of the sim, and are not meant to be disposed.
  *
  * @author Martin Veillette
  * @author Brandon Li
@@ -54,9 +51,6 @@ define( require => {
         fill: Color.WHITE,
         stroke: Color.BLACK
       }, options );
-
-
-      //----------------------------------------------------------------------------------------
 
       // Create the container for the slots in a vertical alignment
       const slotsContainer = new VBox( {
