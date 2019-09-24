@@ -47,9 +47,9 @@ define( require => {
       // Initialize an arbitrary vector model. Its components and magnitude to be set later.
       super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbol, SUM_VECTOR_OPTIONS );
 
-      // @public (read-only) whether the sum is defined.
-      // The sum is defined if there is at least one vector on the graph.
-      // See https://github.com/phetsims/vector-addition/issues/187
+      // @public (read-only) whether the sum is defined.  The sum is defined if there is at least one vector on
+      // the graph. It would be preferable to set its Vector2 value to null, but this was discovered very late
+      // in development, when that was not practical. See https://github.com/phetsims/vector-addition/issues/187
       this.isDefinedProperty = new BooleanProperty( false );
 
       // Observe changes to the vector array. Never removed because SumVectors exists for the lifetime of the sim.
