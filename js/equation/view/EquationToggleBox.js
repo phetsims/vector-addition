@@ -1,18 +1,11 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationToggleBox is the toggle box in the Equation screen that displays the equation and allows the user to change
+ * EquationToggleBox is the toggle box in the Equation screen that displays an equation and allows the user to change
  * the coefficients of the vectors.
  *
- * ## Content
- *  - When closed, the panel displays a text that says 'Equation'
- *  - When open, the panel displays a series of NumberPickers and VectorSymbolNodes in a 'equation' layout.
- *
- * NOTE: this displays the 'equation' for a SINGLE Equation Type. This means that it will not change its content
- *       when the Equation Type changes. Instead, create an EquationToggleBox for each Equation Type and
- *       toggle the visibility when the Equation Type changes.
- *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
