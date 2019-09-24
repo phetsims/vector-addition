@@ -84,10 +84,9 @@ define( require => {
       } );
     }
 
-    //TODO VectorsModel does not exist
     /**
      * Calculate the sum vector for the Equation screen.
-     * @param {ObservableArray.<VectorsModel>} vectors
+     * @param {ObservableArray.<Vector>} vectors
      * @public
      * @override
      */
