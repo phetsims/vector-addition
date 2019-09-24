@@ -14,9 +14,9 @@ define( require => {
 
   // modules
   const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GridBox = require( 'VECTOR_ADDITION/common/view/GridBox' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const Property = require( 'AXON/Property' );
   const RadioButtonGroupMember = require( 'SUN/buttons/RadioButtonGroupMember' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -29,7 +29,7 @@ define( require => {
      */
     constructor( componentStyleProperty ) {
 
-      assert && assert( componentStyleProperty instanceof Property && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       // Create the radio buttons
