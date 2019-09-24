@@ -1,14 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a single graph on the 'Lab' screen. 'Lab' has a total of 2 graphs (polar and Cartesian).
- *
- * Characteristics of a Lab Graph (which extends Graph) are:
- *  - Lab graphs have exactly 2 vector sets each
- *  - Each vector set has its own sum visible property respectively
- *  - Each vector set has a sum vector that starts in a different position
- *  - Two-dimensional
- *  - Color palette for each vector set
+ * LabGraph is a specialization of Graph for the 'Lab' screen. 'Lab' has 2 Graph instances (polar and Cartesian).
  *
  * @author Brandon Li
  */
