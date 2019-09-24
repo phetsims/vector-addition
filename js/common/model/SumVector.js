@@ -16,6 +16,7 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
@@ -45,6 +46,11 @@ define( require => {
 
       // Initialize an arbitrary vector model. Its components and magnitude to be set later.
       super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbol, SUM_VECTOR_OPTIONS );
+
+      // @public (read-only) whether the sum is defined.
+      // The sum is defined if there is at least one vector on the graph.
+      // See https://github.com/phetsims/vector-addition/issues/187
+      this.isDefinedProperty = new BooleanProperty( false );
 
       // Observe changes to the vector array. Never removed because SumVectors exists for the lifetime of the sim.
       vectorSet.vectors.addItemAddedListener( addedVector => {
@@ -107,6 +113,9 @@ define( require => {
 
       // Set the sum to the calculated sum
       this.vectorComponents = sumVectorComponents;
+
+      // The sum is defined if there is at least one vector on the graph.
+      this.isDefinedProperty.value = ( onGraphVectors.length > 0 );
     }
 
     /**

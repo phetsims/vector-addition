@@ -17,6 +17,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const Property = require( 'AXON/Property' );
   const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -57,9 +58,13 @@ define( require => {
 
       super( sumVector, graph, valuesVisibleProperty, anglesVisibleProperty, options );
 
-      // Update the visibility of the sum node based on the sum visible Property.
-      // Doesn't need to be unlinked since sum vectors are never disposed
-      sumVisibleProperty.linkAttribute( this, 'visible' );
+      // Make the sum vector visible only if it is defined, meaning that there is at least 1 vector on the graph.
+      // see https://github.com/phetsims/vector-addition/issues/187
+      Property.multilink(
+        [ sumVisibleProperty, sumVector.isDefinedProperty ],
+        ( sumVisible, isDefined ) => {
+          this.visible = ( sumVisible && isDefined );
+      } );
 
       // Making an active sum vector invisible clears activeVectorProperty. See #112.
       sumVisibleProperty.link( sumVisible => {
