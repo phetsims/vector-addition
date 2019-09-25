@@ -33,7 +33,7 @@ define( require => {
         // color used for sum component vectors. They are of type DashedArrowNode, which cannot be stroked.
         sumComponentFill: null, // defaults to options.sumFill
 
-        // colors used for the background behind the label on a non-active vector
+        // colors used for the background behind the label on a non-active (unselected) vector
         labelBackgroundFill: 'rgb( 235, 235, 235 )',
         labelBackgroundStroke: null,
 
