@@ -11,12 +11,8 @@ define( require => {
   'use strict';
 
   // modules
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const Bounds2 = require( 'DOT/Bounds2' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const interleave = require( 'PHET_CORE/interleave' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -59,87 +55,77 @@ define( require => {
 
       }, options );
 
-      //----------------------------------------------------------------------------------------
-      // Create the 'equation' layout. This is achieved in 5 steps:
-      //    1. Create a HBox of a NumberPicker and a VectorSymbolNodes for each Vector in the Vector Set, pushing them
-      //       to an array (called equationChildren)
-      //    2. If the Equation Type is negation, add a Vector Symbol Node for the Sum, pushing it to the same array.
-      //    3. Interleave (insert between each child) of equationChildren a 'sign': if the Equation Type is subtraction,
-      //       insert a '-', otherwise insert a '+'.
-      //    4. Insert the '='
-      //    5. If the equation type is negation, add a '0' text. Otherwise, add a Vector Symbol Node for the Sum.
-      //
-      // With this algorithm, all three equation types are supported: 'Ma + Nb = c', 'Ma - Nb = c', 'Ma + Nb + c = 0',
-      // where M and N are coefficients.
+      // Create all of the pieces of the equation
+      const equationChildren = [];
+      let maxVectorSymbolHeight = 0;
 
-      let equationChildren = [];
+      // Left side
+      for ( let i = 0; i < equationVectorSet.vectors.length; i++ ) {
 
-      //----------------------------------------------------------------------------------------
-      // Step 1: Loop through the VectorSet and push a HBox of a NumberPicker and a VectorSymbolNode for each Vector.
-      equationVectorSet.vectors.forEach( equationVector => {
+        if ( i > 0 ) {
+          const signText = equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS;
+          equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
+        }
+
+        const equationVector = equationVectorSet.vectors.get( i );
 
         assert && assert( equationVector.coefficientProperty.range,
           'coefficientProperty must have an associated range' );
         
-        // Create the number picker that toggles the coefficient of the Vector
-        const numberPicker = new NumberPicker( equationVector.coefficientProperty,
+        equationChildren.push( new NumberPicker( equationVector.coefficientProperty,
           new Property( equationVector.coefficientProperty.range ),
-          NUMBER_PICKER_OPTIONS );
+          NUMBER_PICKER_OPTIONS ) );
 
         const vectorSymbolNode = new VectorSymbolNode( { symbol: equationVector.symbol } );
-
-        equationChildren.push( new HBox( {
-          spacing: options.labelNumberPickerSpacing,
-          children: [ numberPicker, vectorSymbolNode ]
-        } ) );
-      } );
-
-      //----------------------------------------------------------------------------------------
-      // Step 2: If the Equation Type is negation, add a Vector Symbol Node for the Sum, pushing it to the same array.
-      const sumSymbolNode = new VectorSymbolNode( { symbol: equationVectorSet.sumVector.symbol } );
-
-      if ( equationType === EquationTypes.NEGATION ) {
-        equationChildren.push( sumSymbolNode );
+        equationChildren.push( vectorSymbolNode );
+        maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }
 
-      //----------------------------------------------------------------------------------------
-      // Step 3: Interleave (insert between each child) of equationChildren a 'sign': if the Equation Type is
-      //         subtraction, insert a '-', otherwise insert a '+'.
-      equationChildren = interleave( equationChildren, () => {
-
+      if ( equationType === EquationTypes.NEGATION ) {
         const signText = equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS;
+        equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
 
-        // Align the 'sign' text in a Align Box to ensure that the '+' and the '-' are the same size
-        return new AlignBox( new Text( signText, TEXT_OPTIONS ), {
-          alignBounds: new Bounds2( 0, 0, options.signTextWidth, 1 ),
-          maxWidth: options.signTextWidth
-        } );
+        const vectorSymbolNode = new VectorSymbolNode( { symbol: equationVectorSet.sumVector.symbol } );
+        equationChildren.push( vectorSymbolNode );
+        maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
+      }
 
-      } );
-
-      //----------------------------------------------------------------------------------------
-      // Step 4: insert the equals sign
+      // =
       equationChildren.push( new Text( MathSymbols.EQUAL_TO, TEXT_OPTIONS ) );
 
-
-      //----------------------------------------------------------------------------------------
-      // Step 5: If the equation type is negation, add a '0' text. Otherwise, add a Vector Symbol Node for the Sum.
-      if (equationType === EquationTypes.NEGATION ) {
+      // Right size
+      if ( equationType === EquationTypes.NEGATION ) {
         equationChildren.push( new Text( '0', TEXT_OPTIONS ) );
       }
       else {
-        equationChildren.push( sumSymbolNode );
+        const vectorSymbolNode = new VectorSymbolNode( { symbol: equationVectorSet.sumVector.symbol } );
+        equationChildren.push( vectorSymbolNode );
+        maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }
 
       //----------------------------------------------------------------------------------------
-      // At this point, the equationChildren have been successfully created and are ready to be added
-      // to an HBox for layout.
-      const hBox = new HBox( {
-        spacing: options.textSpacing,
-        children: equationChildren
-      } );
+      // At this point, the equationChildren have been successfully created and are ready to lay out.
+      // This layout algorithm keeps text Nodes aligned on their baselines, and empirically adjusts the
+      // vertical position of NumberPickers. See https://github.com/phetsims/vector-addition/issues/128
+
+      for ( let i = 0; i < equationChildren.length; i++ ) {
+        const child = equationChildren[ i ];
+        if ( child instanceof NumberPicker ) {
+          child.centerY = -maxVectorSymbolHeight / 3;
+        }
+        if ( i > 0 ) {
+          const previousChild = equationChildren[ i - 1 ] ;
+          if ( previousChild instanceof NumberPicker ) {
+             child.left = previousChild.right + options.labelNumberPickerSpacing;
+          }
+          else {
+            child.left = previousChild.right + options.textSpacing;
+          }
+        }
+      }
+
       assert && assert( !options.children, 'EquationTypeNode sets children' );
-      options.children = [ hBox ];
+      options.children = equationChildren;
 
       super( options );
     }
