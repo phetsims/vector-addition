@@ -59,7 +59,7 @@ define( require => {
       //                                                           the component is also on the graph (and vise versa).
       this.isOnGraphProperty = parentVector.isOnGraphProperty;
 
-      // @private (read-only) {Vector} parentVector - private reference to the parent vector
+      // @public (read-only) {Vector} parentVector - private reference to the parent vector
       this.parentVector = parentVector;
 
       // @public (read-only) {DerivedProperty.<boolean>} isParentVectorActiveProperty - determines if the parent

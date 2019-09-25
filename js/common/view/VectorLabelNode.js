@@ -145,11 +145,6 @@ define( require => {
       // Update the background
       if ( this.backgroundRectangle.visible ) {
 
-        // Active vectors have different background colors
-        this.backgroundRectangle.fill = ( this.activeVectorProperty.value === this.rootVector ) ?
-                                        VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND :
-                                        this.rootVector.vectorColorPalette.labelBackgroundFill;
-
         // Set the background size
         this.backgroundRectangle.setRectWidth( this.vectorLabelContent.width + 2 * this.xMargin );
         this.backgroundRectangle.setRectHeight( this.vectorLabelContent.height + 2 * this.yMargin );
@@ -157,6 +152,17 @@ define( require => {
         // Update positioning
         this.vectorLabelContent.center = this.backgroundRectangle.center;
       }
+    }
+
+    /**
+     * Determines whether the label is highlighted.
+     * @param {boolean} highlighted
+     * @public
+     */
+    setHighlighted( highlighted ) {
+      this.backgroundRectangle.fill = highlighted ?
+                                      VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND :
+                                      this.rootVector.vectorColorPalette.labelBackgroundFill;
     }
   }
 

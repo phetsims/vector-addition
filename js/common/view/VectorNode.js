@@ -275,10 +275,16 @@ define( require => {
         vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
       };
 
-      // Observe changes to the vector model.
+      // Observe changes to the vector model. Must be disposed.
       const vectorOnGraphObserver = Property.multilink(
         [ vector.isOnGraphProperty, vector.vectorComponentsProperty, this.vector.animateBackProperty ],
         onGraphListener );
+
+      // Highlight the vector's label when it is selected. Must be unlinked.
+      const activeVectorListener = activeVector => {
+        this.labelNode.setHighlighted( activeVector === vector );
+      };
+      graph.activeVectorProperty.link( activeVectorListener );
 
       //----------------------------------------------------------------------------------------
       // Dispose
@@ -289,10 +295,11 @@ define( require => {
         if ( vector.isTipDraggable ) {
           this.disposeTipDrag();
         }
+
         this.vector.animateBackProperty.unlink( removeBodyDragListener );
         tailLocationProperty.unlink( tailListener );
-
         vector.vectorComponentsProperty.unlink( updateTipCircleLocation );
+        graph.activeVectorProperty.unlink( activeVectorListener );
 
         tipCircle.dispose();
         angleNode.dispose();
