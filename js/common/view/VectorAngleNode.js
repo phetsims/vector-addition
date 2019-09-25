@@ -171,20 +171,24 @@ define( require => {
       if ( angleDegrees !== null ) {
 
         if ( angleDegrees > ANGLE_UNDER_BASELINE_THRESHOLD ) {
+
           // Position the label next to the arc, halfway across the arc
           this.labelText.setTranslation( ( this.curvedArrow.radius + LABEL_OFFSET ) * Math.cos( vector.angle / 2 ),
             -( this.curvedArrow.radius + LABEL_OFFSET ) * Math.sin( vector.angle / 2 ) );
         }
         else if ( angleDegrees > 0 ) {
+
           // Position the label halfway across, but on the other side of the baseline
           this.labelText.setTranslation( this.curvedArrow.radius / 2, this.curvedArrow.radius / 2 );
         }
         else if ( angleDegrees > -ANGLE_UNDER_BASELINE_THRESHOLD ) {
+
           // Position the label halfway across, but on the other side of the baseline
           this.labelText.setTranslation( this.curvedArrow.radius / 2,
             -this.curvedArrow.radius / 2 + this.labelText.height / 2 );
         }
         else {
+
           // Position the label next to the arc, halfway across the arc
           this.labelText.setTranslation( ( this.curvedArrow.radius + LABEL_OFFSET ) * Math.cos( vector.angle / 2 ),
             -( this.curvedArrow.radius + LABEL_OFFSET ) * Math.sin( vector.angle / 2 ) + this.labelText.height / 2
