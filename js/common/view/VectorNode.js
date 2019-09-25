@@ -116,15 +116,13 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       const updateTipCircleLocation = () => {
-        const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
-        tipCircle.center = tipDeltaLocation;
+        tipCircle.center = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
       };
       vector.vectorComponentsProperty.link( updateTipCircleLocation ); // unlinked in this.disposeVectorNode
 
       //----------------------------------------------------------------------------------------
       // Create Body Drag
       //----------------------------------------------------------------------------------------
-
 
       // Create a Property for the location of the tail of the vector. Used for the tail drag listener.
       const tailLocationProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
@@ -303,7 +301,7 @@ define( require => {
     }
 
     /**
-     * Disposes the vector node
+     * Disposes the VectorNode
      * @public
      * @override
      */
@@ -313,7 +311,7 @@ define( require => {
     }
 
     /**
-     * Updates the model vector, which will then round the new location depending on the coordinate snap mode
+     * Updates the vector model, which will then round the new location depending on the coordinate snap mode
      * @param {Vector2} tipLocation - the drag listener location
      * @private
      */
