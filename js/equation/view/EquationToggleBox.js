@@ -23,6 +23,7 @@ define( require => {
   const ToggleBox = require( 'VECTOR_ADDITION/common/view/ToggleBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+  const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
 
   // strings
   const equationString = require( 'string!VECTOR_ADDITION/equation' );
@@ -73,11 +74,21 @@ define( require => {
         } );
       } );
 
-      // When the toggle box is expanded, show the interactive equation and radio buttons
-      const openContent = new HBox( {
-        children: [ radioButtonGroup, equationsParent ],
-        spacing: 50
-      } );
+      // Put radio buttons on left vs right, depending on query parameter.
+      // See https://github.com/phetsims/vector-addition/issues/128
+      let openContent = null;
+      if ( VectorAdditionQueryParameters.equationButtons === 'left' ) {
+        openContent = new HBox( {
+          children: [ radioButtonGroup, equationsParent ],
+          spacing: 40
+        } );
+      }
+      else {
+        openContent = new HBox( {
+          children: [ equationsParent, radioButtonGroup ],
+          spacing: 20
+        } );
+      }
 
       super( closedContent, openContent, options );
     }

@@ -38,6 +38,18 @@ define( require => {
       type: 'number',
       isValidValue: value => ( value > 0 ),
       defaultValue: 1
+    },
+
+    /**
+     * Whether the equation buttons are on the left or right in the 'Equation' accordion box.
+     * See https://github.com/phetsims/vector-addition/issues/128
+     *
+     * For internal testing only.
+     */
+    equationButtons: {
+      type: 'string',
+      isValidValue: value => ( value === 'left' || value === 'right' ),
+      defaultValue: 'right'
     }
 
   } );
