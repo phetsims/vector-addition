@@ -10,8 +10,8 @@ define( require => {
   'use strict';
 
   // modules
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const LabGraph = require( 'VECTOR_ADDITION/lab/model/LabGraph' );
-  const merge = require( 'PHET_CORE/merge' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -32,35 +32,28 @@ define( require => {
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      options = merge( {
-
-        // {Vector2} - initial components of newly created Vectors
-        initialVectorComponents: new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH,
-          VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ),
-
-        // {Object} passed to both of the VectorCreatorPanelSlot instances
-        vectorCreatorPanelSlotOptions: {
-          iconArrowSize: 50,  // Determined empirically - should be slightly larger
-          isInfinite: true    // Slots are infinite
-        },
-
-        // vertical space between slots in the panel
+      options = _.extend( {
         slotSpacing: 40
-
       }, options );
 
-      //----------------------------------------------------------------------------------------
-      // Create a 'slot' for each Vector Set in the LabGraph (which happens to be 2)
+      // Create the initial vector components
+      let initialVectorComponents = null;
+      if ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+        initialVectorComponents =
+          new Vector2( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH, VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH );
+      }
+      else {
+        initialVectorComponents =
+          Vector2.createPolar( VectorAdditionConstants.POLAR_VECTOR_MAGNITUDE, VectorAdditionConstants.POLAR_VECTOR_ANGLE );
+      }
 
+      // Create a slot for each VectorSet
       const slots = [];
-
       graph.vectorSets.forEach( vectorSet => {
-
-        slots.push( new VectorCreatorPanelSlot( graph,
-          vectorSet,
-          sceneNode,
-          options.initialVectorComponents,
-          options.vectorCreatorPanelSlotOptions ) );
+        slots.push( new VectorCreatorPanelSlot( graph, vectorSet, sceneNode, initialVectorComponents, {
+          iconArrowSize: 50, // Determined empirically - should be slightly larger
+          isInfinite: true // Each slot can create an infinite number of vectors
+        } ) );
       } );
 
       super( slots, options );

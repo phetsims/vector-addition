@@ -10,6 +10,7 @@ define( require => {
   'use strict';
 
   // modules
+  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const Explore2DGraph = require( 'VECTOR_ADDITION/explore2D/model/Explore2DGraph' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -33,29 +34,23 @@ define( require => {
       assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      options = _.extend( {
+      // Create the initial vector components
+      let initialVectorComponents = null;
+      if ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+        initialVectorComponents =
+          new Vector2( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH, VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH );
+      }
+      else {
+        initialVectorComponents =
+          Vector2.createPolar( VectorAdditionConstants.POLAR_VECTOR_MAGNITUDE, VectorAdditionConstants.POLAR_VECTOR_ANGLE );
+      }
 
-        // {Vector2} - initial components of newly created Vectors
-        initialVectorComponents: new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH,
-          VectorAdditionConstants.DEFAULT_VECTOR_LENGTH )
-
-      }, options );
-
-      //----------------------------------------------------------------------------------------
-      // Loop through each symbol, creating a slot which corresponds with that symbol
-      //----------------------------------------------------------------------------------------
+      // Create a slot for each symbol
       const panelSlots = [];
-
       symbols.forEach( symbol => {
-
-        const panelSlot = new VectorCreatorPanelSlot( graph,
-          graph.vectorSet,
-          sceneNode,
-          options.initialVectorComponents, {
-            symbol: symbol
-          } );
-
-        panelSlots.push( panelSlot );
+        panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents, {
+          symbol: symbol
+        } ) );
       } );
 
       super( panelSlots, options );

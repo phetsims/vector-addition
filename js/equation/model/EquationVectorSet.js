@@ -27,16 +27,41 @@ define( require => {
     initializeSum: false // Equation vector set will initialize all the vectors
   };
 
-  // Array of the Object literals that represent the initial state of Vectors on a Equation Vector Set
-  const EQUATION_SET_VECTORS = [ {
-    vectorTail: new Vector2( 5, 5 ),
-    vectorComponents: new Vector2( 0, 5 ),
-    baseVectorTail: new Vector2( 35, 15 )
-  }, {
-    vectorTail: new Vector2( 15, 5 ),
-    vectorComponents: new Vector2( 5, 5 ),
-    baseVectorTail: new Vector2( 35, 5 )
-  } ];
+  // Describes the initial vectors for Cartesian snap mode
+  const CARTESTIAN_VECTOR_DESCRIPTIONS = [
+
+    // a
+    {
+      vectorComponents: new Vector2( 0, 5 ),
+      vectorTail: new Vector2( 5, 5 ),
+      baseVectorTail: new Vector2( 35, 15 )
+    },
+
+    // b
+    {
+      vectorComponents: new Vector2( 5, 5 ),
+      vectorTail: new Vector2( 15, 5 ),
+      baseVectorTail: new Vector2( 35, 5 )
+    }
+  ];
+  
+  // Describes the initial vectors for polar snap mode
+  const POLAR_VECTOR_DESCRIPTIONS = [
+
+    // d
+    {
+      vectorComponents: Vector2.createPolar( 5, 0 ),
+      vectorTail: new Vector2( 5, 5 ),
+      baseVectorTail: new Vector2( 35, 15 )
+    },
+
+    // e
+    {
+      vectorComponents: Vector2.createPolar( 7, Math.PI / 4 ),
+      vectorTail: new Vector2( 15, 5 ),
+      baseVectorTail: new Vector2( 35, 5 )
+    }
+  ];
 
   class EquationVectorSet extends VectorSet {
 
@@ -52,20 +77,24 @@ define( require => {
       super( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, VECTOR_SET_OPTIONS );
 
       // @public (read-only) {string[]} symbols
-      this.symbols = coordinateSnapMode === CoordinateSnapModes.CARTESIAN ?
+      this.symbols = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
 
       //----------------------------------------------------------------------------------------------------
       // Create the equationVectors, one less then symbols. For example, if symbols were [ 'a', 'b', 'c' ],
       // 'a' and 'c' would be equation Vector symbols and 'c' would be the equation sum vector.
-      assert && assert( this.symbols.length - 1 === EQUATION_SET_VECTORS.length );
 
-      for ( let i = 0; i < EQUATION_SET_VECTORS.length; i++ ) {
+      const vectorDescriptions = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
+                                 CARTESTIAN_VECTOR_DESCRIPTIONS :
+                                 POLAR_VECTOR_DESCRIPTIONS;
+      assert && assert( vectorDescriptions.length === this.symbols.length - 1 );
 
-        const equationVector = new EquationVector( EQUATION_SET_VECTORS[ i ].vectorTail,
-          EQUATION_SET_VECTORS[ i ].vectorComponents,
-          EQUATION_SET_VECTORS[ i ].baseVectorTail,
+      for ( let i = 0; i < vectorDescriptions.length; i++ ) {
+
+        const equationVector = new EquationVector( vectorDescriptions[ i ].vectorTail,
+          vectorDescriptions[ i ].vectorComponents,
+          vectorDescriptions[ i ].baseVectorTail,
           equationGraph,
           this,
           this.symbols[ i ] );
@@ -77,9 +106,7 @@ define( require => {
       // Create the sum vector
 
       // @public (read-only) {EquationSumVector}
-      this.sumVector = new EquationSumVector( equationGraph,
-        this,
-        equationGraph.equationTypeProperty,
+      this.sumVector = new EquationSumVector( equationGraph, this, equationGraph.equationTypeProperty,
         _.last( this.symbols ) );
     }
 

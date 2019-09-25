@@ -34,35 +34,21 @@ define( require => {
       assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      //----------------------------------------------------------------------------------------
-
       options = _.extend( {
-
-        // {Vector2} - initial components of newly created Vectors
-        initialVectorComponents: graph.orientation === GraphOrientations.VERTICAL ?
-                                 new Vector2( 0, VectorAdditionConstants.DEFAULT_VECTOR_LENGTH ) :
-                                 new Vector2( VectorAdditionConstants.DEFAULT_VECTOR_LENGTH, 0 ),
-
-        // super-class options
         slotSpacing: ( graph.orientation === GraphOrientations.VERTICAL ) ? 22 : 28
-
       }, options );
 
-      //----------------------------------------------------------------------------------------
-      // Loop through each symbol, creating a slot which corresponds with that symbol
-      //----------------------------------------------------------------------------------------
+      // Create the initial vector components
+      const initialVectorComponents = ( graph.orientation === GraphOrientations.VERTICAL ) ?
+                                       new Vector2( 0, VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH ) :
+                                       new Vector2( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH, 0 );
+
+      // Create a slot for each symbol
       const panelSlots = [];
-
       symbols.forEach( symbol => {
-
-        const panelSlot = new VectorCreatorPanelSlot( graph,
-          graph.vectorSet,
-          sceneNode,
-          options.initialVectorComponents, {
-            symbol: symbol
-          } );
-
-        panelSlots.push( panelSlot );
+        panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents, {
+          symbol: symbol
+        } ) );
       } );
 
       super( panelSlots, options );
