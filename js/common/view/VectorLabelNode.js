@@ -148,6 +148,7 @@ define( require => {
         this.labelMultilink.dispose();
       };
 
+      // @public (read-only)
       this.updateLabelNode = updateLabelNode;
     }
 
