@@ -4,6 +4,8 @@
  * ArrowOverSymbolNode is a symbol with a vector arrow centered above it.
  * Origin is at the lower left of the symbol's baseline.
  *
+ * NOTE: I would have preferred to call this VectorSymbolNode, but that name was already taken.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 define( require => {
