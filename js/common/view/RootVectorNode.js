@@ -155,7 +155,8 @@ define( require => {
       const modelAngle = rootVector.angle;
 
       //----------------------------------------------------------------------------------------
-      // convenience variables
+      // Determine how the labels should be positioned.
+      
       // Add a flip if x is negative
       const xFlip = ( rootVector.xComponent < 0 ) ? Math.PI : 0;
 
