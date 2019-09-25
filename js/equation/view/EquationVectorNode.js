@@ -35,9 +35,7 @@ define( require => {
         }
       } );
 
-      vector.coefficientProperty.link( () => {
-        this.labelNode.updateLabelNode( valuesVisibleProperty.value );
-      } );
+      vector.coefficientProperty.link( () => this.labelNode.update() );
     }
 
     /**

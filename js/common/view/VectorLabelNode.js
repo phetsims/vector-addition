@@ -1,15 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for the label 'next' to a vector.
- *
- * See RootVector.getLabelContent() for context.
- *
- * The label node contains:
- *  - A Vector Symbol Node
- *  - A Text node to display a value string
+ * VectorLabelNode is the label that appears on a vector.  It may show only the vector's symbol, or the vector's value.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
@@ -33,7 +28,7 @@ define( require => {
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   class VectorLabelNode extends Node {
-    
+
     /**
      * @param {RootVector} rootVector
      * @param {ModelViewTransform2} modelViewTransformProperty
@@ -52,25 +47,19 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       options = merge( {
-
-        backgroundRectangleOptions: { // {Object} passed to the backgroundRectangle
-          fill: rootVector.vectorColorPalette.labelBackgroundFill,
-          stroke: rootVector.vectorColorPalette.labelBackgroundStroke,
-          cornerRadius: 4
-        },
-
-        xMargin: 5,                   // {number} horizontal margin
-        yMargin: 1,                   // {number} vertical margin
-        symbolValueSpacing: 7         // {number} spacing between the vector symbol node and the value
-
+        xMargin: 5, // {number} horizontal margin
+        yMargin: 1,  // {number} vertical margin
+        symbolValueSpacing: 7 // {number} spacing between the vector symbol node and the value
       }, options );
 
-      //----------------------------------------------------------------------------------------
-
       // Create the background rectangle, set as an arbitrary rectangle for now
-      const backgroundRectangle = new Rectangle( 0, 0, 1, 1, options.backgroundRectangleOptions );
+      const backgroundRectangle = new Rectangle( 0, 0, 1, 1, {
+        fill: rootVector.vectorColorPalette.labelBackgroundFill,
+        stroke: rootVector.vectorColorPalette.labelBackgroundStroke,
+        cornerRadius: 4
+      } );
 
-      // Create the Vector Symbol Node, set to arbitrary value for now.
+      // Create the VectorSymbolNode, set to arbitrary value for now.
       const vectorSymbolNode = new VectorSymbolNode( {
         symbolFont: VectorAdditionConstants.VECTOR_LABEL_SYMBOL_FONT,
         font: VectorAdditionConstants.VECTOR_LABEL_FONT,
@@ -91,65 +80,27 @@ define( require => {
 
       super( options );
 
-      //----------------------------------------------------------------------------------------
-
-      // Function to change the label node and the background rectangle
-      const updateLabelNode = valuesVisible => {
-
-        // Get the label display information
-        const labelDisplayData = rootVector.getLabelContent( valuesVisible );
-
-        // Update the VectorSymbolNode
-        vectorSymbolNode.setVectorSymbolNode( labelDisplayData.symbol,
-          labelDisplayData.coefficient,
-          labelDisplayData.includeAbsoluteValueBars );
-
-        // Update the vector value text
-        labelDisplayData.value && vectorValueText.setText( vectorSymbolNode.visible ? `${MathSymbols.EQUAL_TO} ${labelDisplayData.value}` : labelDisplayData.value );
-
-        //----------------------------------------------------------------------------------------
-        // Toggle the visibility
-        vectorValueText.visible = !!labelDisplayData.value;
-        backgroundRectangle.visible = vectorSymbolNode.visible || vectorValueText.visible;
-
-        // Update the children of the label content container
-        vectorLabelContent.setChildren( [ vectorSymbolNode, vectorValueText ].filter( node => ( node.visible ) ) );
-
-        //----------------------------------------------------------------------------------------
-        // Update the background
-        if ( backgroundRectangle.visible ) {
-
-          // Active vectors have different background colors
-          backgroundRectangle.fill = activeVectorProperty.value === rootVector ?
-                                     VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND :
-                                     options.backgroundRectangleOptions.fill;
-
-
-          // Set the background size
-          backgroundRectangle.setRectWidth( vectorLabelContent.width + 2 * options.xMargin );
-          backgroundRectangle.setRectHeight( vectorLabelContent.height + 2 * options.yMargin );
-
-          // Update positioning
-          vectorLabelContent.center = backgroundRectangle.center;
-        }
-      };
-
-      //----------------------------------------------------------------------------------------
+      // @private
+      this.rootVector = rootVector;
+      this.valuesVisibleProperty = valuesVisibleProperty;
+      this.activeVectorProperty = activeVectorProperty;
+      this.xMargin = options.xMargin;
+      this.yMargin = options.yMargin;
+      this.backgroundRectangle = backgroundRectangle;
+      this.vectorSymbolNode = vectorSymbolNode;
+      this.vectorValueText = vectorValueText;
+      this.vectorLabelContent = vectorLabelContent;
 
       // Observe changes to the model vector, and update the label node
-      this.labelMultilink = new Multilink( [ valuesVisibleProperty,
-          rootVector.tailPositionProperty,
-          rootVector.tipPositionProperty,
-          activeVectorProperty ],
-        updateLabelNode );
+      this.labelMultilink = new Multilink(
+        [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, activeVectorProperty ],
+        () => this.update()
+      );
 
       // @private {function} function to dispose listeners
       this.disposeVectorLabelNode = () => {
         this.labelMultilink.dispose();
       };
-
-      // @public (read-only)
-      this.updateLabelNode = updateLabelNode;
     }
 
     /**
@@ -160,6 +111,52 @@ define( require => {
     dispose() {
       this.disposeVectorLabelNode();
       super.dispose();
+    }
+
+    /**
+     * Updates the label and background rectangle.
+     * @public
+     */
+    update() {
+
+      // Get the label display information
+      const labelDisplayData = this.rootVector.getLabelContent( this.valuesVisibleProperty.value );
+
+      // Update the VectorSymbolNode
+      this.vectorSymbolNode.setVectorSymbolNode( labelDisplayData.symbol,
+        labelDisplayData.coefficient,
+        labelDisplayData.includeAbsoluteValueBars );
+
+      // Update the displayed value
+      if ( labelDisplayData.value ) {
+        const valueText = this.vectorSymbolNode.visible ? `${MathSymbols.EQUAL_TO} ${labelDisplayData.value}` : labelDisplayData.value;
+        this.vectorValueText.setText( valueText );
+      }
+
+      // Toggle the visibility
+      this.vectorValueText.visible = !!labelDisplayData.value;
+      this.backgroundRectangle.visible = ( this.vectorSymbolNode.visible || this.vectorValueText.visible );
+
+      // Update the children of the label content container
+      this.vectorLabelContent.setChildren(
+        [ this.vectorSymbolNode, this.vectorValueText ].filter( node => ( node.visible ) )
+      );
+
+      // Update the background
+      if ( this.backgroundRectangle.visible ) {
+
+        // Active vectors have different background colors
+        this.backgroundRectangle.fill = ( this.activeVectorProperty.value === this.rootVector ) ?
+                                        VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND :
+                                        this.rootVector.vectorColorPalette.labelBackgroundFill;
+
+        // Set the background size
+        this.backgroundRectangle.setRectWidth( this.vectorLabelContent.width + 2 * this.xMargin );
+        this.backgroundRectangle.setRectHeight( this.vectorLabelContent.height + 2 * this.yMargin );
+
+        // Update positioning
+        this.vectorLabelContent.center = this.backgroundRectangle.center;
+      }
     }
   }
 
