@@ -157,11 +157,11 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // convenience variables
       // Add a flip if x is negative
-      const xFlip = ( rootVector.xComponent >= 0 ) ? 0 : Math.PI;
+      const xFlip = ( rootVector.xComponent < 0 ) ? Math.PI : 0;
 
       // Add a flip if y is negative
-      const yFlip = ( rootVector.yComponent >= 0 ) ? 0 : Math.PI;
-
+      const yFlip = ( rootVector.yComponent < 0 ) ? Math.PI : 0;
+      
       //----------------------------------------------------------------------------------------
       // Add extra offset to consider the size of the label. The offset is the margin between the arrow and the label
 
