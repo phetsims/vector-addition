@@ -145,7 +145,8 @@ define( require => {
       // Reset the rotation
       this.labelNode.setRotation( 0 );
 
-      if ( rootVector.magnitude === 0 ) { // don't do anything if the magnitude is 0
+      // If the magnitude is 0, center the label on the vector's position.
+      if ( rootVector.magnitude === 0 ) {
         this.labelNode.center = modelViewTransform.modelToViewDelta( Vector2.ZERO );
         return;
       }
@@ -160,7 +161,6 @@ define( require => {
 
       // Add a flip if y is negative
       const yFlip = ( rootVector.yComponent >= 0 ) ? 0 : Math.PI;
-
 
       //----------------------------------------------------------------------------------------
       // Add extra offset to consider the size of the label. The offset is the margin between the arrow and the label
@@ -179,9 +179,8 @@ define( require => {
         this.labelNode.setRotation( viewAngle + xFlip );
       }
 
-      // Create an offset that is perpendicular to the vector, and is pointing in the positive theta if x is positive
-      // and negative theta if x is positive
-      const offset = Vector2.createPolar( LABEL_OFFSET + labelSize, modelAngle + Math.PI / 2 + yFlip + xFlip );
+      // Create an offset that is perpendicular to the vector
+      const offset = Vector2.createPolar( LABEL_OFFSET + labelSize, modelAngle + Math.PI / 2 + yFlip );
 
       // Create label halfway above the vector
       const midPoint = rootVector.vectorComponents.timesScalar( 0.5 );
