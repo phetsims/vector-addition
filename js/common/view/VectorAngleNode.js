@@ -176,7 +176,7 @@ define( require => {
           this.labelText.setTranslation( ( this.curvedArrow.radius + LABEL_OFFSET ) * Math.cos( vector.angle / 2 ),
             -( this.curvedArrow.radius + LABEL_OFFSET ) * Math.sin( vector.angle / 2 ) );
         }
-        else if ( angleDegrees > 0 ) {
+        else if ( angleDegrees >= 0 ) {
 
           // Position the label halfway across, but on the other side of the baseline
           this.labelText.setTranslation( this.curvedArrow.radius / 2, this.curvedArrow.radius / 2 );
