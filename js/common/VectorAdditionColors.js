@@ -55,7 +55,7 @@ define( require => {
     },
 
     //----------------------------------------------------------------------------------------
-    // Label background on active vectors
+    // Label background on active (selected) vectors
     ACTIVE_VECTOR_LABEL_BACKGROUND: 'rgb( 240, 240, 100 )',
 
     //----------------------------------------------------------------------------------------
