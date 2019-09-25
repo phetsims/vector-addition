@@ -99,16 +99,22 @@ define( require => {
       //  - vectorComponentsProperty - to update the on-axis lines drawings locations
       //
       // @private {Multilink} componentVectorMultilink
-      this.componentVectorMultilink = Property.multilink( [ componentStyleProperty,
-        componentVector.isParentVectorActiveProperty,
-        componentVector.isOnGraphProperty,
-        componentVector.vectorComponentsProperty ], ( componentStyle, isParentActive ) => {
+      this.componentVectorMultilink = Property.multilink(
+        [ componentStyleProperty, componentVector.isParentVectorActiveProperty,
+          componentVector.isOnGraphProperty, componentVector.vectorComponentsProperty ],
+        ( componentStyle, isParentActive ) => {
 
-        this.updateComponentVector( componentVector,
-          graph.modelViewTransformProperty.value,
-          componentStyle,
-          isParentActive );
-      } );
+          this.updateComponentVector( componentVector,
+            graph.modelViewTransformProperty.value,
+            componentStyle,
+            isParentActive );
+        } );
+
+      // @private
+      this.disposeComponentVectorNode = () => {
+        this.onAxisLinesPath.dispose();
+        Property.unmultilink( this.componentVectorMultilink );
+      };
     }
 
     /**
@@ -118,8 +124,7 @@ define( require => {
      * @public
      */
     dispose() {
-      this.onAxisLinesPath.dispose();
-      Property.unmultilink( this.componentVectorMultilink );
+      this.disposeComponentVectorNode();
       super.dispose();
     }
 
