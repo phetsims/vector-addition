@@ -19,7 +19,7 @@ define( require => {
       // all colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'
       options = _.extend( {
 
-        // colors used for main vectors
+        // colors used for main vectors (aka parent vectors)
         mainFill: Color.BLACK,
         mainStroke: null,
 
