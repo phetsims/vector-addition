@@ -81,7 +81,7 @@ define( require => {
         children: vBoxChildren,
         resize: options.resize,
         spacing: options.ySpacing,
-        align: 'origin'
+        align: 'left'
       } );
 
       // Replace options.children with the layout
