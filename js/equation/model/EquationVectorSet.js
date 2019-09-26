@@ -32,14 +32,15 @@ define( require => {
 
     // a
     {
-      vectorComponents: new Vector2( 0, 5 ),
+      vectorComponents: new Vector2( 0, VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH ),
       vectorTail: new Vector2( 5, 5 ),
       baseVectorTail: new Vector2( 35, 15 )
     },
 
     // b
     {
-      vectorComponents: new Vector2( 5, 5 ),
+      vectorComponents: new Vector2( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH,
+        VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH ),
       vectorTail: new Vector2( 15, 5 ),
       baseVectorTail: new Vector2( 35, 5 )
     }
@@ -50,14 +51,15 @@ define( require => {
 
     // d
     {
-      vectorComponents: Vector2.createPolar( 5, 0 ),
+      vectorComponents: Vector2.createPolar( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH, 0 ),
       vectorTail: new Vector2( 5, 5 ),
       baseVectorTail: new Vector2( 35, 15 )
     },
 
     // e
     {
-      vectorComponents: Vector2.createPolar( 8, Math.PI / 4 ),
+      vectorComponents: Vector2.createPolar( VectorAdditionConstants.POLAR_VECTOR_MAGNITUDE,
+        VectorAdditionConstants.POLAR_VECTOR_ANGLE ),
       vectorTail: new Vector2( 15, 5 ),
       baseVectorTail: new Vector2( 35, 5 )
     }

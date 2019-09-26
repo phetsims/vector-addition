@@ -168,7 +168,7 @@ define( require => {
     CARTESIAN_COMPONENT_LENGTH: 5,
 
     // initial magnitude and angle of a new vector, for polar snap mode
-    POLAR_VECTOR_MAGNITUDE: 7,
+    POLAR_VECTOR_MAGNITUDE: 8,
     POLAR_VECTOR_ANGLE: Math.PI / 4,
 
     // offset of a label from its vector, in model coordinates
