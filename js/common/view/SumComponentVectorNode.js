@@ -79,11 +79,14 @@ define( require => {
     updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
       super.updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive );
 
-      // SumVisible is not defined in superclass. Sum component is visible when both the sum is visible
-      // and component style isn't invisible
-      this.visible = this.sumVisibleProperty ?
-                     this.sumVisibleProperty.value && componentStyle !== ComponentStyles.INVISIBLE :
-                     false;
+      this.visible = (
+        // components are visible
+        componentStyle !== ComponentStyles.INVISIBLE &&
+        // sum is visible
+        ( !!this.sumVisibleProperty && this.sumVisibleProperty.value ) &&
+        // sum is defined
+        componentVector.parentVector.isDefinedProperty.value
+      );
     }
 
     /**
