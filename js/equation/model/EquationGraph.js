@@ -71,7 +71,6 @@ define( require => {
     /**
      * Resets the Equation Graph.
      * @public
-     *
      * @override
      */
     reset() {

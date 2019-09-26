@@ -65,8 +65,6 @@ define( require => {
         orientation: graphOrientation
       } );
 
-      //----------------------------------------------------------------------------------------
-
       // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 1D' have exactly one vector set
       this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
 
