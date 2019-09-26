@@ -49,6 +49,14 @@ define( require => {
 
       super( coordinateSnapModeProperty, content, options );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'CoordinateSnapRadioButtonGroup is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'CoordinateSnapRadioButtonGroup', CoordinateSnapRadioButtonGroup );

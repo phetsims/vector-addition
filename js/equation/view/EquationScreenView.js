@@ -2,7 +2,6 @@
 
 /**
  * EquationScreenView is the view for the 'Equation' screen.
- * ScreenViews are never disposed.
  *
  * @author Martin Veillette
  */

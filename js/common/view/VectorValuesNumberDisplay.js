@@ -110,6 +110,14 @@ define( require => {
     }
 
     /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'VectorValuesNumberDisplay is not intended to be disposed' );
+    }
+
+    /**
      * Gets the value to display based on the attribute display type and a vector
      * @private
      *

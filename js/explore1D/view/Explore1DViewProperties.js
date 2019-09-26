@@ -28,16 +28,14 @@ define( require => {
       // @public {EnumerationProperty.<GraphOrientations>} - Property that controls the Graph Orientation
       this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, GraphOrientations.HORIZONTAL );
 
-      //----------------------------------------------------------------------------------------
-      // Disable unused Properties. Links don't need to be unlinked since the Explore 1D screen is never disposed.
-
+      // Disable angle indicator, not supported by this screen.
       assert && this.anglesVisibleProperty.link( angleVisible => {
         if ( angleVisible ) {
           throw new Error( 'Angles are not supported in Explore 1D' );
         }
       } );
 
-      // Disable polar/Cartesian mode.
+      // Disable polar/Cartesian mode, not supported by this screen.
       assert && this.coordinateSnapModeProperty.link( coordinateSnapMode => {
         if ( coordinateSnapMode !== CoordinateSnapModes.CARTESIAN ) {
           throw new Error( 'Explore 1D only uses Cartesian' );

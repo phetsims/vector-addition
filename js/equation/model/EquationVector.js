@@ -89,6 +89,14 @@ define( require => {
     }
 
     /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'EquationVector is not intended to be disposed' );
+    }
+
+    /**
      * Resets the equation vector. Called when the reset all button is clicked.
      * @public
      * @override

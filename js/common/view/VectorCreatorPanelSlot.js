@@ -180,6 +180,14 @@ define( require => {
 
       } ) );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'VectorCreatorPanelSlot is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'VectorCreatorPanelSlot', VectorCreatorPanelSlot );

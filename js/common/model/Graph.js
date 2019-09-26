@@ -99,6 +99,13 @@ define( require => {
     }
 
     /**
+     * @public
+     */
+    dispose() {
+      throw new Error( 'Graph is not intended to be disposed' );
+    }
+
+    /**
      * Resets the graph.
      * @public
      */

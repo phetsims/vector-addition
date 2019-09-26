@@ -23,7 +23,7 @@ define( require => {
 
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      // @public controls the display type (positioning) for component vectors
+      // @public the representation (style) used to display component vectors
       this.componentStyleProperty = new EnumerationProperty( ComponentStyles, ComponentStyles.INVISIBLE );
     }
 
@@ -33,6 +33,13 @@ define( require => {
      */
     reset() {
       this.componentStyleProperty.reset();
+    }
+
+    /**
+     * @public
+     */
+    dispose() {
+      throw new Error( 'VectorAdditionModel is not intended to be disposed' );
     }
   }
 

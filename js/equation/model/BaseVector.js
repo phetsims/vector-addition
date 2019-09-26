@@ -37,6 +37,14 @@ define( require => {
 
       super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, OPTIONS );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'BaseVector is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'BaseVector', BaseVector );

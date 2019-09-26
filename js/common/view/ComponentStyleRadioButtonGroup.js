@@ -50,6 +50,14 @@ define( require => {
         children: [ gridBox ]
       } );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'ComponentStyleRadioButtonGroup is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'ComponentStyleRadioButtonGroup', ComponentStyleRadioButtonGroup );

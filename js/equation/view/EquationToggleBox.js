@@ -92,6 +92,14 @@ define( require => {
 
       super( closedContent, openContent, options );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'EquationToggleBox is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'EquationToggleBox', EquationToggleBox );

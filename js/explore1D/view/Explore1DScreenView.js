@@ -2,7 +2,6 @@
 
 /**
  * Explore1DScreenView is the view for the 'Explore 1D' screen.
- * ScreenViews are never disposed.
  *
  * @author Martin Veillette
  */

@@ -54,6 +54,14 @@ define( require => {
     reset() {
       throw new Error( 'reset must be implemented by sub classes' );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'VectorAdditionScreenView is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'VectorAdditionScreenView', VectorAdditionScreenView );

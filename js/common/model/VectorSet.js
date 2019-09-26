@@ -74,6 +74,13 @@ define( require => {
     }
 
     /**
+     * @public
+     */
+    dispose() {
+      throw new Error( 'VectorSet is not intended to be disposed' );
+    }
+
+    /**
      * Resets the VectorSet.  Called when the Reset All button is pressed.
      * @public
      */

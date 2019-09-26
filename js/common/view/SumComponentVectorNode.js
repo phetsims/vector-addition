@@ -68,6 +68,14 @@ define( require => {
     }
 
     /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'SumComponentVectorNode is not intended to be disposed.' );
+    }
+
+    /**
      * Handles visibility base on the sum visibility
      * @private
      *
@@ -88,13 +96,6 @@ define( require => {
         componentVector.parentVector.isDefinedProperty.value
       );
     }
-
-    /**
-     * Double check to make sure sum vector components are never disposed
-     * @public
-     * @override
-     */
-    dispose() { assert && assert( false, 'SumComponentVectorNode instances should never be disposed.' ); }
   }
 
   return vectorAddition.register( 'SumComponentVectorNode', SumComponentVectorNode );

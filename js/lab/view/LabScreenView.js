@@ -2,7 +2,6 @@
 
 /**
  * LabScreenView is the view for the 'Lab' screen.
- * ScreenViews are never disposed.
  *
  * @author Martin Veillette
  */
