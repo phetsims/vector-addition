@@ -32,8 +32,8 @@ define( require => {
         columns: 2, // {number} number of columns
         xSpacing: 8, // {number} spacing between each column
         ySpacing: 8, // {number} spacing between each row
-        xAlign: 'left', // {string} horizontal alignment of each child in its grid cell, see X_ALIGN_VALUES
-        yAlign: 'top', // {string} vertical alignment of each child in its grid cell, see Y_ALIGN_VALUES
+        xAlign: 'center', // {string} horizontal alignment of each child in its grid cell, see X_ALIGN_VALUES
+        yAlign: 'center', // {string} vertical alignment of each child in its grid cell, see Y_ALIGN_VALUES
         resize: true // {boolean} - whether to update the layout when children change
       }, options );
 
