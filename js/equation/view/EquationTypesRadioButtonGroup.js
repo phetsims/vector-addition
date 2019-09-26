@@ -55,6 +55,14 @@ define( require => {
 
       super( equationTypeProperty, content, options );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'EquationTypesRadioButtonGroup is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'EquationTypesRadioButtonGroup', EquationTypesRadioButtonGroup );

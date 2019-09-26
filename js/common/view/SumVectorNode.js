@@ -79,11 +79,12 @@ define( require => {
     }
 
     /**
-     * Double check to make sure sum vectors are never disposed
      * @public
      * @override
      */
-    dispose() { assert && assert( false, 'SumVectorNode instances should never be disposed' ); }
+    dispose() {
+      throw new Error( 'SumVectorNode is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'SumVectorNode', SumVectorNode );

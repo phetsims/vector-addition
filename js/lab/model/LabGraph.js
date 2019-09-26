@@ -14,7 +14,6 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -24,18 +23,15 @@ define( require => {
   // Lab Graphs have the 'default' graph bounds
   const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
-  // Lab Graphs are two-dimensional
-  const LAB_GRAPH_ORIENTATION = GraphOrientations.TWO_DIMENSIONAL;
-
   class LabGraph extends Graph {
 
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {Property.<boolean>} sumVisibleProperty1
-     * @param {Property.<boolean>} sumVisibleProperty2
-     * @param {VectorColorPalette} vectorColorPalette1 - color palette for the first vector set
-     * @param {VectorColorPalette} vectorColorPalette2 - color palette for the second vector set
+     * @param {Property.<boolean>} sumVisibleProperty1 - whether the sum for the first VectorSet is visible
+     * @param {Property.<boolean>} sumVisibleProperty2 - whether the sum for the second VectorSet is visible
+     * @param {VectorColorPalette} vectorColorPalette1 - color palette for the first VectorSet
+     * @param {VectorColorPalette} vectorColorPalette2 - color palette for the second VectorSet
      */
     constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty1, sumVisibleProperty2,
                  vectorColorPalette1, vectorColorPalette2 ) {
@@ -46,7 +42,7 @@ define( require => {
       assert && assert( vectorColorPalette1 instanceof VectorColorPalette, `invalid vectorColorPalette1: ${vectorColorPalette1}` );
       assert && assert( vectorColorPalette2 instanceof VectorColorPalette, `invalid vectorColorPalette2: ${vectorColorPalette2}` );
 
-      super( LAB_GRAPH_BOUNDS, coordinateSnapMode, LAB_GRAPH_ORIENTATION );
+      super( LAB_GRAPH_BOUNDS, coordinateSnapMode );
 
       // @public (read-only) {VectorSet} vectorSet1
       this.vectorSet1 = new VectorSet( this, componentStyleProperty, sumVisibleProperty1, vectorColorPalette1, {

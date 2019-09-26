@@ -197,6 +197,14 @@ define( require => {
 
       super( inspectVectorText, panelOpenContent, options );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'VectorValuesToggleBox is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'VectorValuesToggleBox', VectorValuesToggleBox );

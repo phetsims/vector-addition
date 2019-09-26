@@ -42,14 +42,21 @@ define( require => {
       } );
 
       // Arrange the buttons in a grid
-      const gridBox = new GridBox( {
-        children: buttons,
+      const gridBox = new GridBox( buttons, {
         columns: 2
       } );
 
       super( {
         children: [ gridBox ]
       } );
+    }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'ComponentStyleRadioButtonGroup is not intended to be disposed' );
     }
   }
 

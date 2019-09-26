@@ -61,6 +61,14 @@ define( require => {
 
       super( options );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'ComponentStyleControl is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'ComponentStyleControl', ComponentStyleControl );

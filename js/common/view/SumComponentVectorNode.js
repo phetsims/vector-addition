@@ -68,6 +68,14 @@ define( require => {
     }
 
     /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'SumComponentVectorNode is not intended to be disposed.' );
+    }
+
+    /**
      * Handles visibility base on the sum visibility
      * @private
      *
@@ -79,19 +87,15 @@ define( require => {
     updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
       super.updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive );
 
-      // SumVisible is not defined in superclass. Sum component is visible when both the sum is visible
-      // and component style isn't invisible
-      this.visible = this.sumVisibleProperty ?
-                     this.sumVisibleProperty.value && componentStyle !== ComponentStyles.INVISIBLE :
-                     false;
+      this.visible = (
+        // components are visible
+        componentStyle !== ComponentStyles.INVISIBLE &&
+        // sum is visible
+        ( !!this.sumVisibleProperty && this.sumVisibleProperty.value ) &&
+        // sum is defined
+        componentVector.parentVector.isDefinedProperty.value
+      );
     }
-
-    /**
-     * Double check to make sure sum vector components are never disposed
-     * @public
-     * @override
-     */
-    dispose() { assert && assert( false, 'SumComponentVectorNode instances should never be disposed.' ); }
   }
 
   return vectorAddition.register( 'SumComponentVectorNode', SumComponentVectorNode );

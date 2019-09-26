@@ -2,7 +2,6 @@
 
 /**
  * Explore2DScreenView is the view for the 'Explore 2D' screen.
- * ScreenViews are never disposed.
  *
  * @author Martin Veillette
  */

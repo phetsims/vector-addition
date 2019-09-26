@@ -180,6 +180,14 @@ define( require => {
     }
 
     /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'SceneNode is not intended to be disposed' );
+    }
+
+    /**
      * 'Registers a Vector' by creating the VectorNode and the ComponentVectorNodes for a newly created Vector.
      * The Nodes are deleted if Vector is ever removed from its VectorSet.
      * @public

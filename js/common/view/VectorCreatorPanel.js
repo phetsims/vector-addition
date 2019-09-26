@@ -69,6 +69,14 @@ define( require => {
 
       super( fixedSizeSlotsContainer, options );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'VectorCreatorPanel is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'VectorCreatorPanel', VectorCreatorPanel );

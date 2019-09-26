@@ -105,6 +105,14 @@ define( require => {
         children: children
       } );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'GraphNode is not intended to be disposed' );
+    }
   }
 
   /**

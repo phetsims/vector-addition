@@ -40,6 +40,14 @@ define( require => {
 
       super( content, options );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'GraphControlPanel is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'GraphControlPanel', GraphControlPanel );

@@ -85,11 +85,12 @@ define( require => {
     }
 
     /**
-     * The sum is never disposed. Double check to make sure the sum isn't ever disposed.
      * @public
      * @override
      */
-    dispose() { assert && assert( false, 'SumVector instances should never be disposed' ); }
+    dispose() {
+      throw new Error( 'SumVector is not intended to be disposed' );
+    }
 
     /**
      * Update the sum vector components. Calculated from all the vectors that are on the graph.

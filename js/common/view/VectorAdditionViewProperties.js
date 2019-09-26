@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View-specific Properties for the sim. Can be subclasses if necessary to add more Properties.
+ * View-specific Properties for the sim. Can be subclassed to add more Properties.
  *
  * @author Brandon Li
  */
@@ -44,6 +44,13 @@ define( require => {
       this.gridVisibleProperty.reset();
       this.coordinateSnapModeProperty.reset();
       this.vectorValuesExpandedProperty.reset();
+    }
+
+    /**
+     * @public
+     */
+    dispose() {
+      throw new Error( 'VectorAdditionViewProperties are not intended to be disposed' );
     }
   }
 

@@ -89,6 +89,14 @@ define( require => {
         this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
       } );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      throw new Error( 'OriginManipulator is not intended to be disposed' );
+    }
   }
 
   return vectorAddition.register( 'OriginManipulator', OriginManipulator );
