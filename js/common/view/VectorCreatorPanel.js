@@ -75,7 +75,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'VectorCreatorPanel is not intended to be disposed' );
+      assert && assert( false, 'VectorCreatorPanel is not intended to be disposed' );
     }
   }
 

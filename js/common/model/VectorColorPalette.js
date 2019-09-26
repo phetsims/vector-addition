@@ -61,13 +61,19 @@ define( require => {
     }
 
     /**
-     * Prevent attempts to use stroke fields that do not exist for component vectors.
+     * Catches attempts to use stroke fields that do not exist for component vectors.
      * Component vectors are rendered using DashedArrowNode, which does not support stroke.
      * @public
      */
-    get componentStroke() { throw new Error( 'VectorColorPalette does not have componentStroke' ); }
+    get componentStroke() {
+      assert && assert( false, 'VectorColorPalette does not have componentStroke' );
+      return null;
+    }
 
-    get sumComponentStroke() { throw new Error( 'VectorColorPalette does not have sumComponentStroke' ); }
+    get sumComponentStroke() {
+      assert && assert( false, 'VectorColorPalette does not have sumComponentStroke' );
+      return null;
+    }
   }
 
   return vectorAddition.register( 'VectorColorPalette', VectorColorPalette );

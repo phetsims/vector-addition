@@ -43,7 +43,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'BaseVector is not intended to be disposed' );
+      assert && assert( false, 'BaseVector is not intended to be disposed' );
     }
   }
 

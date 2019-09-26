@@ -95,7 +95,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'OriginManipulator is not intended to be disposed' );
+      assert && assert( false, 'OriginManipulator is not intended to be disposed' );
     }
   }
 

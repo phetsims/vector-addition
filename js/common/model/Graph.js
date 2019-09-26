@@ -102,7 +102,7 @@ define( require => {
      * @public
      */
     dispose() {
-      throw new Error( 'Graph is not intended to be disposed' );
+      assert && assert( false, 'Graph is not intended to be disposed' );
     }
 
     /**

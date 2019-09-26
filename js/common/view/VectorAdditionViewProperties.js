@@ -50,7 +50,7 @@ define( require => {
      * @public
      */
     dispose() {
-      throw new Error( 'VectorAdditionViewProperties are not intended to be disposed' );
+      assert && assert( false, 'VectorAdditionViewProperties are not intended to be disposed' );
     }
   }
 

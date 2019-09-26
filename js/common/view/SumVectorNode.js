@@ -83,7 +83,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'SumVectorNode is not intended to be disposed' );
+      assert && assert( false, 'SumVectorNode is not intended to be disposed' );
     }
   }
 

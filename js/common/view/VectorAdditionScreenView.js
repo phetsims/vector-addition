@@ -47,20 +47,20 @@ define( require => {
     }
 
     /**
+     * @public
+     * @override
+     */
+    dispose() {
+      assert && assert( false, 'VectorAdditionScreenView is not intended to be disposed' );
+    }
+
+    /**
      * Resets the screen view
      * @public
      * @abstract
      */
     reset() {
       throw new Error( 'reset must be implemented by sub classes' );
-    }
-
-    /**
-     * @public
-     * @override
-     */
-    dispose() {
-      throw new Error( 'VectorAdditionScreenView is not intended to be disposed' );
     }
   }
 

@@ -186,7 +186,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'VectorCreatorPanelSlot is not intended to be disposed' );
+      assert && assert( false, 'VectorCreatorPanelSlot is not intended to be disposed' );
     }
   }
 

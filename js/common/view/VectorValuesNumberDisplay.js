@@ -114,7 +114,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'VectorValuesNumberDisplay is not intended to be disposed' );
+      assert && assert( false, 'VectorValuesNumberDisplay is not intended to be disposed' );
     }
 
     /**

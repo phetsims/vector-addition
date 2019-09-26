@@ -39,7 +39,7 @@ define( require => {
      * @public
      */
     dispose() {
-      throw new Error( 'VectorAdditionModel is not intended to be disposed' );
+      assert && assert( false, 'VectorAdditionModel is not intended to be disposed' );
     }
   }
 

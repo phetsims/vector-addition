@@ -77,7 +77,7 @@ define( require => {
      * @public
      */
     dispose() {
-      throw new Error( 'VectorSet is not intended to be disposed' );
+      assert && assert( false, 'VectorSet is not intended to be disposed' );
     }
 
     /**

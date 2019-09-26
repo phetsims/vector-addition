@@ -111,7 +111,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'GraphNode is not intended to be disposed' );
+      assert && assert( false, 'GraphNode is not intended to be disposed' );
     }
   }
 

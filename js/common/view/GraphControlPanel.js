@@ -46,7 +46,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'GraphControlPanel is not intended to be disposed' );
+      assert && assert( false, 'GraphControlPanel is not intended to be disposed' );
     }
   }
 

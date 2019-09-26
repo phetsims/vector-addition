@@ -55,7 +55,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'CoordinateSnapRadioButtonGroup is not intended to be disposed' );
+      assert && assert( false, 'CoordinateSnapRadioButtonGroup is not intended to be disposed' );
     }
   }
 

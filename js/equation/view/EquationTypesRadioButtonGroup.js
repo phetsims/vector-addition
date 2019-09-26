@@ -61,7 +61,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'EquationTypesRadioButtonGroup is not intended to be disposed' );
+      assert && assert( false, 'EquationTypesRadioButtonGroup is not intended to be disposed' );
     }
   }
 

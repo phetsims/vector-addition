@@ -184,7 +184,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'SceneNode is not intended to be disposed' );
+      assert && assert( false, 'SceneNode is not intended to be disposed' );
     }
 
     /**

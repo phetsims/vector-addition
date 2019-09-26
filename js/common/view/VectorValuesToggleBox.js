@@ -203,7 +203,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'VectorValuesToggleBox is not intended to be disposed' );
+      assert && assert( false, 'VectorValuesToggleBox is not intended to be disposed' );
     }
   }
 

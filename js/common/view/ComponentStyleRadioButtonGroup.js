@@ -56,7 +56,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'ComponentStyleRadioButtonGroup is not intended to be disposed' );
+      assert && assert( false, 'ComponentStyleRadioButtonGroup is not intended to be disposed' );
     }
   }
 

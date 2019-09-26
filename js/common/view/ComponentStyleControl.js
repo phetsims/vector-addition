@@ -67,7 +67,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'ComponentStyleControl is not intended to be disposed' );
+      assert && assert( false, 'ComponentStyleControl is not intended to be disposed' );
     }
   }
 

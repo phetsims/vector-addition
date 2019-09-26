@@ -98,7 +98,7 @@ define( require => {
      * @override
      */
     dispose() {
-      throw new Error( 'EquationToggleBox is not intended to be disposed' );
+      assert && assert( false, 'EquationToggleBox is not intended to be disposed' );
     }
   }
 
