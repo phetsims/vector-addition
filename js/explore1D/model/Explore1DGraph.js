@@ -45,7 +45,6 @@ define( require => {
   // All graphs on 'Explore 1D' are strictly Cartesian
   const EXPLORE_1D_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
 
-
   class Explore1DGraph extends Graph {
 
     /**
@@ -62,8 +61,9 @@ define( require => {
       assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-
-      super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, graphOrientation );
+      super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, {
+        orientation: graphOrientation
+      } );
 
       //----------------------------------------------------------------------------------------
 

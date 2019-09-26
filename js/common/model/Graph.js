@@ -46,18 +46,16 @@ define( require => {
      * @param {Bounds2} initialGraphBounds - the model bounds of the graph at the start of the sim
      * @param {CoordinateSnapModes} coordinateSnapMode - the coordinate snap mode of the graph. A graph is either
      *                                                   strictly polar or Cartesian.
-     * @param {GraphOrientations} orientation - the orientation of the graph. A graph is either strictly horizontal,
-     *                                          vertical, or two dimensional.
      * @param {Object} [options]
      */
-    constructor( initialGraphBounds, coordinateSnapMode, orientation, options ) {
+    constructor( initialGraphBounds, coordinateSnapMode, options ) {
 
       assert && assert( initialGraphBounds instanceof Bounds2, `invalid initialGraphBounds: ${initialGraphBounds}` );
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-      assert && assert( GraphOrientations.includes( orientation ), `invalid orientation: ${orientation}` );
 
       options = _.extend( {
-         bottomLeft: DEFAULT_BOTTOM_LEFT // bottom left corner of the graph, in view coordinates
+        orientation: GraphOrientations.TWO_DIMENSIONAL,
+        bottomLeft: DEFAULT_BOTTOM_LEFT // bottom left corner of the graph, in view coordinates
       }, options );
 
       //----------------------------------------------------------------------------------------
@@ -66,7 +64,7 @@ define( require => {
       this.vectorSets = [];
 
       // @public (read-only) {GraphOrientations} orientation of the graph
-      this.orientation = orientation;
+      this.orientation = options.orientation;
 
       // @public (read-only) {CoordinateSnapModes} coordinate snap mode for the graph, Cartestain or polar
       this.coordinateSnapMode = coordinateSnapMode;
