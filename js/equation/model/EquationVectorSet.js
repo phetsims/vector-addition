@@ -57,7 +57,7 @@ define( require => {
 
     // e
     {
-      vectorComponents: Vector2.createPolar( 7, Math.PI / 4 ),
+      vectorComponents: Vector2.createPolar( 8, Math.PI / 4 ),
       vectorTail: new Vector2( 15, 5 ),
       baseVectorTail: new Vector2( 35, 5 )
     }
