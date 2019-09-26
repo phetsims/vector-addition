@@ -26,9 +26,12 @@ define( require => {
   class GridBox extends Node {
 
     /**
+     * @param {Node[]} nodes - the Nodes in the grid, in row-major order
      * @param {Object} [options]
      */
-    constructor( options ) {
+    constructor( nodes, options ) {
+
+      assert && assert( Array.isArray( nodes ), 'invalid nodes' );
 
       options = _.extend( {
         columns: 2, // {number} number of columns
@@ -39,7 +42,6 @@ define( require => {
       }, options );
 
       // Validate option values
-      assert && assert( Array.isArray( options.children ), `invalid children: ${options.children}` );
       assert && assert( typeof options.columns === 'number' && options.columns > 0, `invalid columns: ${options.columns}` );
       assert && assert( typeof options.xSpacing === 'number', `invalid xSpacing: ${options.xSpacing}` );
       assert && assert( typeof options.ySpacing === 'number', `invalid ySpacing: ${options.ySpacing}` );
@@ -52,17 +54,17 @@ define( require => {
         matchVertical: true
       } );
 
-      // Process options.children, in row-major order
+      // Process the Nodes, in row-major order
       const vBoxChildren = [];
       let i = 0;
-      while ( i < options.children.length ) {
+      while ( i < nodes.length ) {
 
         const hBoxChildren = [];
-        for ( let column = 0; column < options.columns && i < options.children.length; column++ ) {
+        for ( let column = 0; column < options.columns && i < nodes.length; column++ ) {
 
           // Wrap each child in an AlignBox, so that every Node in the grid has the same effective bounds,
           // and is aligned within those bounds as specified by options xAlign and yAlign.
-          hBoxChildren.push( new AlignBox( options.children[ i++ ], {
+          hBoxChildren.push( new AlignBox( nodes[ i++ ], {
             group: alignGroup,
             xAlign: options.xAlign,
             yAlign: options.yAlign
@@ -82,7 +84,7 @@ define( require => {
         align: 'left'
       } );
 
-      // Replace options.children with the layout
+      assert && assert( !options.children, 'GridBox sets children' );
       options.children = [ vBox ];
 
       super( options );
