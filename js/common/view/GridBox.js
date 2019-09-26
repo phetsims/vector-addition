@@ -10,6 +10,8 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const Node = require( 'SCENERY/nodes/Node' );
   const VBox = require( 'SCENERY/nodes/VBox' );
@@ -30,8 +32,8 @@ define( require => {
         columns: 2, // {number} number of columns
         xSpacing: 8, // {number} spacing between each column
         ySpacing: 8, // {number} spacing between each row
-        xAlign: 'left', // {string} horizontal alignment of rows, see X_ALIGN_VALUES
-        yAlign: 'center', // {string} vertical alignment within a row, see Y_ALIGN_VALUES
+        xAlign: 'center', // {string} horizontal alignment of each child in its grid cell, see X_ALIGN_VALUES
+        yAlign: 'center', // {string} vertical alignment of each child in its grid cell, see Y_ALIGN_VALUES
         resize: true // {boolean} - whether to update the layout when children change
       }, options );
 
@@ -44,6 +46,12 @@ define( require => {
       assert && assert( _.includes( Y_ALIGN_VALUES, options.yAlign ), `invalid xAlign: ${options.yAlign}` );
       assert && assert( typeof options.resize === 'boolean', `invalid resize: ${options.resize}` );
 
+      // Use an AlignGroup to ensure that every Node in the grid has the same effective bounds.
+      const alignGroup = new AlignGroup( {
+        matchHorizontal: true,
+        matchVertical: true
+      } );
+
       // Process options.children, in row-major order
       const vBoxChildren = [];
       let i = 0;
@@ -51,14 +59,21 @@ define( require => {
 
         const hBoxChildren = [];
         for ( let column = 0; column < options.columns && i < options.children.length; column++ ) {
-          hBoxChildren.push( options.children[ i++ ] );
+
+          // Wrap each child in an AlignBox, so that every Node in the grid has the same effective bounds,
+          // and is aligned within those bounds as specified by options xAlign and yAlign.
+          hBoxChildren.push( new AlignBox( options.children[ i++ ], {
+            group: alignGroup,
+            xAlign: options.xAlign,
+            yAlign: options.yAlign
+          } ) );
         }
 
         vBoxChildren.push( new HBox( {
           children: hBoxChildren,
           resize: options.resize,
           spacing: options.xSpacing,
-          align: options.xAlign
+          align: 'origin'
         } ) );
       }
 
@@ -66,7 +81,7 @@ define( require => {
         children: vBoxChildren,
         resize: options.resize,
         spacing: options.ySpacing,
-        align: options.xAlign
+        align: 'origin'
       } );
 
       // Replace options.children with the layout

@@ -34,9 +34,11 @@ define( require => {
 
       // Create the radio buttons
       const buttons = [];
+      let scale = 0.2;
       ComponentStyles.VALUES.forEach( componentStyle => {
+        scale = scale + 0.2;
         buttons.push( new RadioButtonGroupMember( componentStyleProperty, componentStyle,
-          _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
+          _.extend( { scale: scale }, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
             content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
           } ) ) );
       } );
