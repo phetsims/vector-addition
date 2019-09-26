@@ -14,9 +14,6 @@ define( require => {
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  // constants
-  const STARTING_COMPONENT_STYLE = ComponentStyles.INVISIBLE;
-
   class VectorAdditionModel {
 
     /**
@@ -27,7 +24,7 @@ define( require => {
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       // @public controls the display type (positioning) for component vectors
-      this.componentStyleProperty = new EnumerationProperty( ComponentStyles, STARTING_COMPONENT_STYLE );
+      this.componentStyleProperty = new EnumerationProperty( ComponentStyles, ComponentStyles.INVISIBLE );
     }
 
     /**
