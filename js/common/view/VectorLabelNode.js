@@ -104,7 +104,6 @@ define( require => {
     }
 
     /**
-     * Disposes the label node
      * @public
      * @override
      */

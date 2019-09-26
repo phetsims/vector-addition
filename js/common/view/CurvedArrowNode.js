@@ -151,7 +151,6 @@ define( require => {
     }
 
     /**
-     * Disposes the Curved Arrow Node
      * @override
      * @public
      */

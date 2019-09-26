@@ -114,8 +114,8 @@ define( require => {
     }
 
     /**
-     * Disposes the angle node. Does the same as super class except unlink listeners.
      * @public
+     * @override
      */
     dispose() {
       this.disposeVectorAngleNode();

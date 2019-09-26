@@ -126,9 +126,7 @@ define( require => {
     }
 
     /**
-     * Disposes the vector component node
      * @override
-     *
      * @public
      */
     dispose() {

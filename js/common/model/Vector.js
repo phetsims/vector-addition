@@ -149,7 +149,6 @@ define( require => {
     }
 
     /**
-     * Disposes the vector. Called when either the graph is erased or the vector is animated off the graph.
      * @public
      */
     dispose() {

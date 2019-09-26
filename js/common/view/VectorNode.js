@@ -308,7 +308,6 @@ define( require => {
     }
 
     /**
-     * Disposes the VectorNode
      * @public
      * @override
      */

@@ -88,7 +88,6 @@ define( require => {
     }
 
     /**
-     * Disposes the vector component. Called when the parent vector is disposed.
      * @public
      */
     dispose() {
