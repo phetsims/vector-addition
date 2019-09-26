@@ -41,7 +41,7 @@ define( require => {
 
       // Validate option values
       assert && assert( Array.isArray( options.children ), `invalid children: ${options.children}` );
-      assert && assert( typeof options.columns === 'number', `invalid columns: ${options.columns}` );
+      assert && assert( typeof options.columns === 'number' && options.columns > 0, `invalid columns: ${options.columns}` );
       assert && assert( typeof options.xSpacing === 'number', `invalid xSpacing: ${options.xSpacing}` );
       assert && assert( typeof options.ySpacing === 'number', `invalid ySpacing: ${options.ySpacing}` );
       assert && assert( _.includes( X_ALIGN_VALUES, options.xAlign ), `invalid xAlign: ${options.xAlign}` );
