@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * GridBox lays out its children in a grid. Children are provided in row-major order.
+ * GridBox lays out its children in a grid composed of cells. Children are provided in row-major order.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -30,10 +30,10 @@ define( require => {
 
       options = _.extend( {
         columns: 2, // {number} number of columns
-        xSpacing: 8, // {number} spacing between each column
-        ySpacing: 8, // {number} spacing between each row
-        xAlign: 'center', // {string} horizontal alignment of each child in its grid cell, see X_ALIGN_VALUES
-        yAlign: 'center', // {string} vertical alignment of each child in its grid cell, see Y_ALIGN_VALUES
+        xSpacing: 8, // {number} horizontal spacing between cells
+        ySpacing: 8, // {number} vertical spacing between cells
+        xAlign: 'center', // {string} horizontal alignment of each Node in its cell, see X_ALIGN_VALUES
+        yAlign: 'center', // {string} vertical alignment of each Node in its cell, see Y_ALIGN_VALUES
         resize: true // {boolean} - whether to update the layout when children change
       }, options );
 
