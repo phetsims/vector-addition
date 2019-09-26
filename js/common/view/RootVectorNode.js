@@ -108,6 +108,22 @@ define( require => {
           // Update the appearance of the label
           this.updateLabelPositioning( rootVector, modelViewTransformProperty.value, valuesVisible );
         } );
+
+      // @private
+      this.disposeRootVectorNode = () => {
+        this.arrowNode.dispose();
+        this.labelNode.dispose();
+        this.vectorObserver.dispose();
+      };
+    }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      this.disposeRootVectorNode();
+      super.dispose();
     }
 
     /**
@@ -187,18 +203,6 @@ define( require => {
       const midPoint = rootVector.vectorComponents.timesScalar( 0.5 );
 
       this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
-    }
-
-    /**
-     * Disposes the vector
-     * @public
-     * @override
-     */
-    dispose() {
-      this.arrowNode.dispose();
-      this.labelNode.dispose();
-      this.vectorObserver.dispose();
-      super.dispose();
     }
   }
 

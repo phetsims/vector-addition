@@ -142,6 +142,9 @@ define( require => {
       // @private
       this.disposeVector = () => {
         this.graph.modelViewTransformProperty.unlink( updateTailPosition );
+        this.xComponentVector.dispose();
+        this.yComponentVector.dispose();
+        this.inProgressAnimation && this.inProgressAnimation.stop();
       };
     }
 
@@ -151,9 +154,6 @@ define( require => {
      */
     dispose() {
       this.disposeVector();
-      this.xComponentVector.dispose();
-      this.yComponentVector.dispose();
-      this.inProgressAnimation && this.inProgressAnimation.stop();
     }
 
     /**
