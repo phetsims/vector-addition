@@ -35,8 +35,7 @@ define( require => {
         xSpacing: 8, // {number} horizontal spacing between cells
         ySpacing: 8, // {number} vertical spacing between cells
         xAlign: 'center', // {string} horizontal alignment of each Node in its cell, see X_ALIGN_VALUES
-        yAlign: 'center', // {string} vertical alignment of each Node in its cell, see Y_ALIGN_VALUES
-        resize: true // {boolean} - whether to update the layout when children change
+        yAlign: 'center' // {string} vertical alignment of each Node in its cell, see Y_ALIGN_VALUES
       }, options );
 
       // Validate option values
@@ -46,7 +45,6 @@ define( require => {
       assert && assert( typeof options.ySpacing === 'number', `invalid ySpacing: ${options.ySpacing}` );
       assert && assert( _.includes( X_ALIGN_VALUES, options.xAlign ), `invalid xAlign: ${options.xAlign}` );
       assert && assert( _.includes( Y_ALIGN_VALUES, options.yAlign ), `invalid xAlign: ${options.yAlign}` );
-      assert && assert( typeof options.resize === 'boolean', `invalid resize: ${options.resize}` );
 
       // Use an AlignGroup to ensure that every Node in the grid has the same effective bounds.
       const alignGroup = new AlignGroup( {
@@ -73,7 +71,6 @@ define( require => {
 
         vBoxChildren.push( new HBox( {
           children: hBoxChildren,
-          resize: options.resize,
           spacing: options.xSpacing,
           align: 'origin'
         } ) );
@@ -81,7 +78,6 @@ define( require => {
 
       const vBox = new VBox( {
         children: vBoxChildren,
-        resize: options.resize,
         spacing: options.ySpacing,
         align: 'left'
       } );
