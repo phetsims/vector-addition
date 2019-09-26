@@ -32,10 +32,10 @@ define( require => {
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
      * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
-     * @param {Property.<boolean>} sumVisibleProperty1
-     * @param {Property.<boolean>} sumVisibleProperty2
-     * @param {VectorColorPalette} vectorColorPalette1 - color palette for the first vector set
-     * @param {VectorColorPalette} vectorColorPalette2 - color palette for the second vector set
+     * @param {Property.<boolean>} sumVisibleProperty1 - whether the sum for the first VectorSet is visible
+     * @param {Property.<boolean>} sumVisibleProperty2 - whether the sum for the second VectorSet is visible
+     * @param {VectorColorPalette} vectorColorPalette1 - color palette for the first VectorSet
+     * @param {VectorColorPalette} vectorColorPalette2 - color palette for the second VectorSet
      */
     constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty1, sumVisibleProperty2,
                  vectorColorPalette1, vectorColorPalette2 ) {
