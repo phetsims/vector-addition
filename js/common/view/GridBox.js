@@ -1,7 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * GridBox lays out its children in a grid composed of cells. Children are provided in row-major order.
+ * GridBox lays out its children in a grid composed of cells. Children are provided in row-major order,
+ * so cells are filled left-to-right, top-to-bottom.  All cells have the same dimensions, and alignment
+ * of children within the cells can be specified.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
