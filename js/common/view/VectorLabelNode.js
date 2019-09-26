@@ -54,8 +54,8 @@ define( require => {
 
       // Create the background rectangle, set as an arbitrary rectangle for now
       const backgroundRectangle = new Rectangle( 0, 0, 1, 1, {
-        fill: rootVector.vectorColorPalette.labelBackgroundFill,
-        stroke: rootVector.vectorColorPalette.labelBackgroundStroke,
+        fill: VectorAdditionConstants.INACTIVE_VECTOR_LABEL_BACKGROUND_FILL,
+        stroke: VectorAdditionConstants.INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE,
         cornerRadius: 4
       } );
 
@@ -159,9 +159,14 @@ define( require => {
      * @public
      */
     setHighlighted( highlighted ) {
-      this.backgroundRectangle.fill = highlighted ?
-                                      VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND :
-                                      this.rootVector.vectorColorPalette.labelBackgroundFill;
+      if ( highlighted ) {
+        this.backgroundRectangle.fill = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND_FILL;
+        this.backgroundRectangle.stroke = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE;
+      }
+      else {
+        this.backgroundRectangle.fill = VectorAdditionColors.INACTIVE_VECTOR_LABEL_BACKGROUND_FILL;
+        this.backgroundRectangle.stroke = VectorAdditionColors.INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE;
+      }
     }
   }
 

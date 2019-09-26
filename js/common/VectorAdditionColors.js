@@ -55,8 +55,11 @@ define( require => {
     },
 
     //----------------------------------------------------------------------------------------
-    // Label background on active (selected) vectors
-    ACTIVE_VECTOR_LABEL_BACKGROUND: 'rgb( 240, 240, 100 )',
+    // Label background on vectors
+    ACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 240, 240, 100 )',
+    ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: null,
+    INACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 235, 235, 235 )',
+    INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: null,
 
     //----------------------------------------------------------------------------------------
     // On axis lines, aka leader lines
