@@ -104,7 +104,10 @@ define( require => {
       if ( options.includeEraser ) {
 
         const eraserButton = new EraserButton( {
-          listener: () => graph.erase(),
+          listener: () => {
+            this.interruptSubtreeInput(); // cancel all interactions for the scene
+            graph.erase();
+          },
           right: graphViewBounds.maxX,
           top: graphViewBounds.maxY + 15
         } );
