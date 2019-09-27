@@ -31,7 +31,7 @@ define( require => {
 
     /**
      * @param {RootVector} rootVector
-     * @param {ModelViewTransform2} modelViewTransformProperty
+     * @param {ModelViewTransform2} modelViewTransformProperty TODO not used!
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Property.<RootVector|null>} activeVectorProperty
      * @param {Object} [options]

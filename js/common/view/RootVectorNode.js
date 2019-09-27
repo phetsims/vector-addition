@@ -83,6 +83,7 @@ define( require => {
       // @protected {VectorLabelNode} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
       // The location of this depends on the angle of the vector. Since the positioning of 'next' is different for every
       // vector, use an overridable method to position it. ( updateLabelPositioning() )
+      // dispose is required because this observes the Properties that are passed to it.
       this.labelNode = new VectorLabelNode( rootVector,
         modelViewTransformProperty,
         valuesVisibleProperty,
@@ -111,8 +112,7 @@ define( require => {
 
       // @private
       this.disposeRootVectorNode = () => {
-        this.arrowNode.dispose(); //TODO #199 is dispose necessary?
-        this.labelNode.dispose(); //TODO #199 is dispose necessary?
+        this.labelNode.dispose();
         Property.unmultilink( updateMultilink );
       };
     }

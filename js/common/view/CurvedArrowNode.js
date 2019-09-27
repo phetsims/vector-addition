@@ -141,21 +141,6 @@ define( require => {
         }
       };
       this.updateArrowNode();
-
-      // @private {function}
-      this.disposeCurvedArrowNode = () => {
-        arrowheadPath.dispose(); //TODO #199 is dispose necessary?
-        arcPath.dispose(); //TODO #199 is dispose necessary?
-      };
-    }
-
-    /**
-     * @override
-     * @public
-     */
-    dispose() {
-      this.disposeCurvedArrowNode();
-      super.dispose();
     }
 
     /**

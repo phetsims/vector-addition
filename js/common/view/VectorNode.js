@@ -308,8 +308,6 @@ define( require => {
         graph.activeVectorProperty.unlink( activeVectorListener );
 
         angleNode.dispose();
-        tipCircle.dispose(); //TODO #199 is dispose necessary?
-        vectorShadowNode.dispose(); //TODO #199 is dispose necessary?
       };
     }
 

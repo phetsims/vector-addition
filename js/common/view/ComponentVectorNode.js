@@ -88,7 +88,6 @@ define( require => {
 
       // @private {Path} onAxisLinesPath
       this.onAxisLinesPath = new Path( new Shape(), options.onAxisLinesOptions );
-
       this.addChild( this.onAxisLinesPath );
 
       //----------------------------------------------------------------------------------------
@@ -121,7 +120,6 @@ define( require => {
 
       // @private
       this.disposeComponentVectorNode = () => {
-        this.onAxisLinesPath.dispose(); //TODO #199 is dispose necessary?
         Property.unmultilink( this.componentVectorMultilink );
         graph.activeVectorProperty.unlink( activeVectorListener );
       };
@@ -156,7 +154,7 @@ define( require => {
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
 
       // On axis lines only visible if the component style is ON_AXIS
-      this.onAxisLinesPath.visible = componentStyle === ComponentStyles.ON_AXIS;
+      this.onAxisLinesPath.visible = ( componentStyle === ComponentStyles.ON_AXIS );
 
       // Update the on-axis lines only if its the on-axis style
       if ( this.onAxisLinesPath.visible ) {

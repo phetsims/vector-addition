@@ -111,7 +111,6 @@ define( require => {
       this.disposeVectorAngleNode = () => {
         vector.vectorComponentsProperty.unlink( updateAngleNodeListener );
         Property.unmultilink( angleVisibleMultilink );
-        this.curvedArrow.dispose(); //TODO #199 is dispose necessary?
       };
     }
 
