@@ -97,14 +97,14 @@ define( require => {
       };
 
       // Observe when the graph's active vector changes and update the vectorComponents link.
-      // Doesn't need to be unlinked since the number display lasts the entire sim.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
 
-        // Unlink the previous link if the old active vector exists
+        // unlink the previous link if the old active vector exists
         oldActiveVector && oldActiveVector.vectorComponentsProperty.unlink( activeVectorComponentsListener );
 
         // Observe when the active vector changes and update the number display value if and only if the active vector
-        // exists
+        // exists. unlink is required when active vector changes.
         activeVector && activeVector.vectorComponentsProperty.link( activeVectorComponentsListener );
       } );
     }

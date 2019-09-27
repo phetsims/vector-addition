@@ -29,6 +29,7 @@ define( require => {
       this.graphOrientationProperty = new EnumerationProperty( GraphOrientations, GraphOrientations.HORIZONTAL );
 
       // Vector angle visualization is not supported by this screen.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       assert && this.anglesVisibleProperty.link( angleVisible => {
         if ( angleVisible ) {
           assert && assert( false, 'Explore 1D does not support angles' );
@@ -36,6 +37,7 @@ define( require => {
       } );
 
       // Polar snap mode is not supported by this screen.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       assert && this.coordinateSnapModeProperty.link( coordinateSnapMode => {
         if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
           assert && assert( false, 'Explore 1D does not support polar snap mode' );

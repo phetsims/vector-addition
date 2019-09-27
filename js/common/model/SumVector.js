@@ -55,7 +55,7 @@ define( require => {
       // Observe changes to the vector array. Never removed because SumVectors exists for the lifetime of the sim.
       vectorSet.vectors.addItemAddedListener( addedVector => {
 
-        // When the vector changes, update the sum calculation
+        // When the vector changes, update the sum calculation. unmultilink is required when the vector is removed.
         const addedVectorMultilink = Property.multilink(
           [ addedVector.vectorComponentsProperty, addedVector.isOnGraphProperty ], () => {
             this.updateSum( vectorSet.vectors );

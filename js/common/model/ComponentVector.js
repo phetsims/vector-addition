@@ -72,6 +72,7 @@ define( require => {
 
       // Observe when the component style changes and/or when the parent vector's tip/tail changes. When
       // the parent changes or when the component style changes, the component vector also changes.
+      // unmultilink is required on dispose.
       const updateComponentMultilink = Property.multilink( [
         componentStyleProperty,
         parentVector.tailPositionProperty,

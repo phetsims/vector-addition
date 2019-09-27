@@ -163,8 +163,7 @@ define( require => {
 
           } );
         };
-        vector.animateBackProperty.link( animateVectorBackListener );
-
+        vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
 
         //----------------------------------------------------------------------------------------
         // Observe when the vector is removed to unlink listeners
@@ -176,8 +175,6 @@ define( require => {
           }
         };
         vectorSet.vectors.addItemRemovedListener( removeVectorListener );
-
-
       } ) );
     }
 

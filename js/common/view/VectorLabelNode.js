@@ -91,7 +91,7 @@ define( require => {
       this.vectorValueText = vectorValueText;
       this.vectorLabelContent = vectorLabelContent;
 
-      // Observe changes to the model vector, and update the label node
+      // Observe changes to the model vector, and update the label node. Dispose is required.
       this.labelMultilink = new Multilink(
         [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, activeVectorProperty ],
         () => this.update()

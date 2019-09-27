@@ -118,7 +118,7 @@ define( require => {
       const updateTipCircleLocation = () => {
         tipCircle.center = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
       };
-      vector.vectorComponentsProperty.link( updateTipCircleLocation ); // unlinked in this.disposeVectorNode
+      vector.vectorComponentsProperty.link( updateTipCircleLocation ); // unlinked is required when disposed
 
       //----------------------------------------------------------------------------------------
       // Create Body Drag
@@ -236,7 +236,9 @@ define( require => {
         const tipListener = tipLocation => {
           this.updateTipPosition( tipLocation );
         };
-        // Observe the view location Property to call a tip listener that updates the tail in the model
+
+        // Observe the view location Property to call a tip listener that updates the tail in the model.
+        // unlink is required.
         tipLocationProperty.lazyLink( tipListener );
 
         // Observe when the vector is animating back

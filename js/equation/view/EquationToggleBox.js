@@ -68,7 +68,7 @@ define( require => {
         const equationTypeNode = new EquationTypeNode( vectorSet, equationType );
         equationsParent.addChild( equationTypeNode );
 
-        // Doesn't need to be unlinked since the equationToggleBox and the scene is never disposed
+        // unlink is unnecessary, exists for the lifetime of the sim.
         equationTypeProperty.link( () => {
           equationTypeNode.visible = ( equationType === equationTypeProperty.value );
         } );

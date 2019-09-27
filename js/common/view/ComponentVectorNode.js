@@ -97,7 +97,8 @@ define( require => {
       //                             and to draw lines on the on-axis componentStyle
       //  - isOnGraphProperty - components shouldn't be visible if the vector isn't on the graph
       //  - vectorComponentsProperty - to update the on-axis lines drawings locations
-      // Must be disposed.
+      //
+      // unmultilink is required on dispose.
       //
       // @private {Multilink} componentVectorMultilink
       this.componentVectorMultilink = Property.multilink(
@@ -111,7 +112,8 @@ define( require => {
             isParentActive );
         } );
 
-      // Highlight the component vector's label when its parent vector is selected. Must be unlinked.
+      // Highlight the component vector's label when its parent vector is selected.
+      // unlink is required on dispose.
       const activeVectorListener = activeVector => {
         this.labelNode.setHighlighted( activeVector === componentVector.parentVector );
       };

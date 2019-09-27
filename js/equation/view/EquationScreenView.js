@@ -71,7 +71,7 @@ define( require => {
       );
 
       // Toggle visibility of scenes based on which coordinate snap mode it is.
-      // Doesn't need to be unlinked since this exists for the lifetime of the sim.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
         polarScene.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
         cartesianScene.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );

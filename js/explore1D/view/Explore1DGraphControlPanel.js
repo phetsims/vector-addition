@@ -41,8 +41,8 @@ define( require => {
       const verticalSumCheckbox = new SumCheckbox( verticalVectorSet.sumVisibleProperty,
         verticalVectorSet.vectorColorPalette );
 
-      // Toggle visibility of the SumCheckboxes to match graph orientation.
-      // Is never unlinked since the graph control panel is never disposed.
+      // Show the Sum checkbox that matches the selected scene.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       viewProperties.graphOrientationProperty.link( gridOrientation => {
         horizontalSumCheckbox.visible = ( gridOrientation === GraphOrientations.HORIZONTAL );
         verticalSumCheckbox.visible = ( gridOrientation === GraphOrientations.VERTICAL );

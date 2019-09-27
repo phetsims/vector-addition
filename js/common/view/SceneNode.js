@@ -115,6 +115,7 @@ define( require => {
         // Disable the eraser button when the number of vectors on the graph is zero, that is, when all vector sets
         // contain no vectors. This is a bit more complicated than it should be, but it was added late in the
         // development process.
+        // unlink is unnecessary, exists for the lifetime of the sim.
         const lengthProperties = _.map( graph.vectorSets, vectorSet => vectorSet.vectors.lengthProperty );
         Property.multilink( lengthProperties, () => {
           const numberOfVectors = _.sumBy( lengthProperties, lengthProperty => lengthProperty.value );
@@ -156,7 +157,7 @@ define( require => {
         this.vectorSetParents.push( vectorSetParent );
 
         // When the sum vector becomes selected, move it and its components to the front.
-        // Unlink is unnecessary because sum vectors exist for the lifetime of the sim.
+        // unlink is unnecessary, exists for the lifetime of the sim.
         graph.activeVectorProperty.link( activeVector => {
           if ( activeVector === sumVectorNode.vector ) {
 
@@ -231,7 +232,7 @@ define( require => {
       }
       
       // When the vector becomes active (selected), move it and its components to the front.
-      // Unlinked below if the vector is removable.
+      // unlink is required when the vector is removed.
       const activeVectorListener = activeVector => {
         if ( activeVector === vectorNode.vector ) {
 

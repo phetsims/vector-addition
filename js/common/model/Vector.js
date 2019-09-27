@@ -106,7 +106,8 @@ define( require => {
         this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailLocation ) );
       };
 
-      // Observe when the graph modelViewTransformProperty changes, and update the tail position. Unlinked below.
+      // Observe when the graph modelViewTransformProperty changes, and update the tail position.
+      // unlink is required on dispose.
       this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
 
       //----------------------------------------------------------------------------------------

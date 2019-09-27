@@ -79,8 +79,8 @@ define( require => {
             bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
           } ) );
 
-        // Toggle visibility of the SceneNode. Should only be visible if the graph orientation matches the
-        // graph's graph orientation. Is never unlinked since the screen view is never disposed.
+        // Switch between scenes to match graph orientation.
+        // unlink is unnecessary, exists for the lifetime of the sim.
         this.viewProperties.graphOrientationProperty.link( graphOrientation => {
           sceneNode.visible = ( graphOrientation === graph.orientation );
         } );

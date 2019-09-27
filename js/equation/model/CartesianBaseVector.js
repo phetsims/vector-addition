@@ -40,7 +40,7 @@ define( require => {
       this.yComponentProperty = new NumberProperty( this.yComponent );
 
       // Observe when the component NumberProperties change and update the components to match.
-      // Don't need to be unlinked since base vectors exist for the lifetime of the sim.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       this.xComponentProperty.link( xComponent => { this.xComponent = xComponent; } );
       this.yComponentProperty.link( yComponent => { this.yComponent = yComponent; } );
     }

@@ -56,7 +56,7 @@ define( require => {
       this.sumVisibleProperty = sumVisibleProperty;
 
       // Observe when the sum visibility to update the vector component.
-      // Doesn't need to be unlinked since sum vectors are never disposed.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       sumVisibleProperty.link( () => {
 
         this.updateComponentVector( componentVector,

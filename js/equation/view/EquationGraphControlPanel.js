@@ -55,8 +55,8 @@ define( require => {
           vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
         } );
 
-      // Toggle visibility of the SumCheckboxes to match coordinate snap mode.
-      // Is never unlinked since the graph control panel is never disposed.
+      // Show the Sum checkbox that matches the selected scene.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
         cartesianVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
         polarVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );

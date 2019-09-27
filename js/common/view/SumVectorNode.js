@@ -55,7 +55,8 @@ define( require => {
       super( sumVector, graph, valuesVisibleProperty, anglesVisibleProperty, options );
 
       // Make the sum vector visible only if it is defined, meaning that there is at least 1 vector on the graph.
-      // see https://github.com/phetsims/vector-addition/issues/187
+      // See https://github.com/phetsims/vector-addition/issues/187
+      // unlink is unnecessary, exists for the lifetime of the sim.
       Property.multilink(
         [ sumVisibleProperty, sumVector.isDefinedProperty ],
         ( sumVisible, isDefined ) => {
@@ -63,6 +64,7 @@ define( require => {
       } );
 
       // Making an active sum vector invisible clears activeVectorProperty. See #112.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       sumVisibleProperty.link( sumVisible => {
          if ( !sumVisible && graph.activeVectorProperty.value === sumVector ) {
            graph.activeVectorProperty.value = null;
@@ -70,7 +72,7 @@ define( require => {
       } );
 
       // Double check that the vector node never is animated back
-      // Doesn't need to be unlinked since sum vectors are never disposed.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       assert && sumVector.animateBackProperty.link( animateBack => {
         if ( animateBack ) {
           assert( false, 'SumVectorNode instances never animated back' );

@@ -80,8 +80,8 @@ define( require => {
           } )
         );
 
-        // Toggle visibility of the SceneNode. Should only be visible if the coordinateSnapMode matches the
-        // graph's coordinateSnapMode. Is never unlinked since the screen view is never disposed.
+        // Switch between scenes to match coordinate snap mode.
+        // unlink is unnecessary, exists for the lifetime of the sim.
         this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
           sceneNode.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
         } );

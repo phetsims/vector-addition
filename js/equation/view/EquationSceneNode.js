@@ -95,7 +95,7 @@ define( require => {
         this.addBaseVectorNode( baseVectorNode );
 
         // When the base vector becomes selected, move it to the front.
-        // Unlink is unnecessary because base vectors exist for the lifetime of the sim.
+        // unlink is unnecessary because base vectors exist for the lifetime of the sim.
         graph.activeVectorProperty.link( activeVector => {
           if ( activeVector === baseVectorNode.vector ) {
             baseVectorNode.moveToFront();

@@ -84,7 +84,7 @@ define( require => {
       } );
 
       // Observe when the models model view transform changes to update the location of the circle.
-      // Unnecessary to unlink since OriginManipulator exists for the lifetime of the sim.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       graph.modelViewTransformProperty.link( modelViewTransform => {
         this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
       } );

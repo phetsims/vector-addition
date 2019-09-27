@@ -178,7 +178,7 @@ define( require => {
       this.graphViewBounds = graphViewBounds;
 
       // Update when the modelViewTransform changes, triggered when the origin is moved.
-      // No need to unlink since GraphNodes exist for the lifetime of the sim.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       graph.modelViewTransformProperty.link( modelViewTransform => {
 
         // Convenience variables
@@ -243,7 +243,7 @@ define( require => {
       } );
 
       // When the origin moves, adjust the position of the axis.
-      // No need to unlink since GraphNodes exist for the lifetime of the sim.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       graph.modelViewTransformProperty.link( modelViewTransform => {
         this.y = modelViewTransform.modelToViewY( 0 );
       } );
@@ -277,7 +277,7 @@ define( require => {
       } );
 
       // When the origin moves, adjust the position of the axis.
-      // No need to unlink since GraphNodes exist for the lifetime of the sim.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       graph.modelViewTransformProperty.link( modelViewTransform => {
         this.x = modelViewTransform.modelToViewX( 0 );
       } );
@@ -302,6 +302,8 @@ define( require => {
         children: [ tickMarksPath, tickLabelsParent ]
       } );
 
+      // Update ticks when the graph's origin moves.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       graph.modelViewTransformProperty.link( modelViewTransform => {
 
         const viewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );

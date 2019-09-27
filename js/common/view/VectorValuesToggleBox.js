@@ -155,7 +155,7 @@ define( require => {
       };
       
       // Observe changes to when the graphs active vector Property changes to update the panel.
-      // Doesn't need to be unlinked since the panel exists for the entire simulation.
+      // unlink is unnecessary, exists for the lifetime of the sim.
       graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
 
         if ( activeVector !== null ) {
@@ -179,8 +179,9 @@ define( require => {
         vectorAttributesContainer.centerY = panelOpenContent.centerY;
 
         if ( activeVector && activeVector.coefficientProperty ) {
-          activeVector.coefficientProperty.link( updateCoefficient );
+          activeVector.coefficientProperty.link( updateCoefficient ); // unlink required when active vector changes
         }
+
         if ( oldActiveVector && oldActiveVector.coefficientProperty ) {
           oldActiveVector.coefficientProperty.unlink( updateCoefficient );
           // reset
