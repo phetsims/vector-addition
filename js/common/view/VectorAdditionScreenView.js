@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Base class for the top level views of each screen.
+ * Base class for the top-level view of each screen.
  *
  * @author Martin Veillette
  */
@@ -21,12 +21,12 @@ define( require => {
 
     /**
      * @abstract
-     * @param {VectorAdditionModel} vectorAdditionModel
+     * @param {VectorAdditionModel} model
      * @param {Tandem} tandem
      */
-    constructor( vectorAdditionModel, tandem ) {
+    constructor( model, tandem ) {
 
-      assert && assert( vectorAdditionModel instanceof VectorAdditionModel, `invalid vectorAdditionModel: ${vectorAdditionModel}` );
+      assert && assert( model instanceof VectorAdditionModel, `invalid model: ${model}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       super( {
@@ -36,7 +36,7 @@ define( require => {
       // @protected for layout
       this.resetAllButton = new ResetAllButton( {
         listener: () => {
-          vectorAdditionModel.reset();
+          model.reset();
           this.reset();
         },
         right: this.layoutBounds.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
