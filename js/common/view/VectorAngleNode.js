@@ -110,7 +110,7 @@ define( require => {
       // @private {function} disposeVectorAngleNode - function to unlink listeners, called in dispose()
       this.disposeVectorAngleNode = () => {
         vector.vectorComponentsProperty.unlink( updateAngleNodeListener );
-        angleVisibleMultilink.dispose();
+        Property.unmultilink( angleVisibleMultilink );
         this.curvedArrow.dispose();
       };
     }

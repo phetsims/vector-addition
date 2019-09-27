@@ -56,7 +56,7 @@ define( require => {
 
       // Make the sum vector visible only if it is defined, meaning that there is at least 1 vector on the graph.
       // See https://github.com/phetsims/vector-addition/issues/187
-      // unlink is unnecessary, exists for the lifetime of the sim.
+      // unmultilink is unnecessary, exists for the lifetime of the sim.
       Property.multilink(
         [ sumVisibleProperty, sumVector.isDefinedProperty ],
         ( sumVisible, isDefined ) => {

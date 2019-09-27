@@ -280,8 +280,8 @@ define( require => {
         vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
       };
 
-      // Observe changes to the vector model. Must be disposed.
-      const vectorOnGraphObserver = Property.multilink(
+      // Observe changes to the vector model. Must be unmultilinked on dispose.
+      const vectorOnGraphMultilink = Property.multilink(
         [ vector.isOnGraphProperty, vector.vectorComponentsProperty, this.vector.animateBackProperty ],
         onGraphListener );
 
@@ -295,7 +295,7 @@ define( require => {
       // Dispose
       // @private {function}
       this.disposeVectorNode = () => {
-        vectorOnGraphObserver.dispose();
+        Property.unmultilink( vectorOnGraphMultilink );
 
         if ( vector.isTipDraggable ) {
           this.disposeTipDrag();

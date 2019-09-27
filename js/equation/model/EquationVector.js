@@ -81,7 +81,7 @@ define( require => {
       }
 
       // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
-      // unlink is unnecessary, exists for the lifetime of the sim.
+      // unmultilink is unnecessary, exists for the lifetime of the sim.
       Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
         ( baseVector, coefficient ) => {
           this.vectorComponents = baseVector.timesScalar( coefficient );

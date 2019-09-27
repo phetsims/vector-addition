@@ -42,7 +42,7 @@ define( require => {
       this.equationTypeProperty = equationTypeProperty;
 
       // Observe when each vector changes and/or when the equationType changes to calculate the sum.
-      // unlink is unnecessary, exists for the lifetime of the sim.
+      // unmultilink is unnecessary, exists for the lifetime of the sim.
       const dependencies = [];
       vectorSet.vectors.forEach( vector => {
         dependencies.push( vector.vectorComponentsProperty );

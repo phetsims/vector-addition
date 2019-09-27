@@ -43,7 +43,7 @@ define( require => {
       this.angleDegreesProperty = new NumberProperty( Util.toDegrees( this.angle ) );
 
       // Observe when the angle or magnitude changes, and update the components to match.
-      // unlink is unnecessary, exists for the lifetime of the sim.
+      // unmultilink is unnecessary, exists for the lifetime of the sim.
       Property.multilink(
         [ this.magnitudeProperty, this.angleDegreesProperty ],
         ( magnitude, angleDegrees ) => {
