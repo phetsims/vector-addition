@@ -148,8 +148,10 @@ define( require => {
     updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
 
       // Component vectors are visible when it isn't INVISIBLE and it is on the graph.
-      this.visible = componentVector.isOnGraphProperty.value
-                     && componentStyle !== ComponentStyles.INVISIBLE;
+      this.visible = componentVector.isOnGraphProperty.value &&
+                     componentStyle !== ComponentStyles.INVISIBLE;
+      
+      this.labelNode.visible = ( componentVector.magnitude !== 0 );
 
       // On axis lines only visible if the component style is ON_AXIS
       this.onAxisLinesPath.visible = componentStyle === ComponentStyles.ON_AXIS;
@@ -198,8 +200,6 @@ define( require => {
      * @param {boolean} valuesVisible
      */
     updateLabelPositioning( componentVector, modelViewTransform, valuesVisible ) {
-
-      this.labelNode.visible = ( componentVector.magnitude !== 0 );
 
       // If the magnitude of the componentVector is 0, then position the label node on the 'tail'
       if ( componentVector.magnitude === 0 ) {
