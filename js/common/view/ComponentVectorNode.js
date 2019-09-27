@@ -121,7 +121,7 @@ define( require => {
 
       // @private
       this.disposeComponentVectorNode = () => {
-        this.onAxisLinesPath.dispose();
+        this.onAxisLinesPath.dispose(); //TODO #199 is dispose necessary?
         Property.unmultilink( this.componentVectorMultilink );
         graph.activeVectorProperty.unlink( activeVectorListener );
       };

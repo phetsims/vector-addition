@@ -111,8 +111,8 @@ define( require => {
 
       // @private
       this.disposeRootVectorNode = () => {
-        this.arrowNode.dispose();
-        this.labelNode.dispose();
+        this.arrowNode.dispose(); //TODO #199 is dispose necessary?
+        this.labelNode.dispose(); //TODO #199 is dispose necessary?
         Property.unmultilink( updateMultilink );
       };
     }

@@ -98,7 +98,8 @@ define( require => {
       // Since the tail is (0, 0) for the view, the tip is the delta location of the tip
       const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
 
-      // Create a scenery node representing the arc of an angle and the numerical display of the angle
+      // Create a scenery node representing the arc of an angle and the numerical display of the angle.
+      // dispose is necessary because it observes angleVisibleProperty.
       const angleNode = new VectorAngleNode( vector, angleVisibleProperty, graph );
 
       // Create an arrow node that represents the shadow of the vector
@@ -291,9 +292,7 @@ define( require => {
       };
       graph.activeVectorProperty.link( activeVectorListener );
 
-      //----------------------------------------------------------------------------------------
-      // Dispose
-      // @private {function}
+      // @private
       this.disposeVectorNode = () => {
         Property.unmultilink( vectorOnGraphMultilink );
 
@@ -306,9 +305,9 @@ define( require => {
         vector.vectorComponentsProperty.unlink( updateTipCircleLocation );
         graph.activeVectorProperty.unlink( activeVectorListener );
 
-        tipCircle.dispose();
         angleNode.dispose();
-        vectorShadowNode.dispose();
+        tipCircle.dispose(); //TODO #199 is dispose necessary?
+        vectorShadowNode.dispose(); //TODO #199 is dispose necessary?
       };
     }
 

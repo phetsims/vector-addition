@@ -144,8 +144,8 @@ define( require => {
 
       // @private {function}
       this.disposeCurvedArrowNode = () => {
-        arrowheadPath.dispose();
-        arcPath.dispose();
+        arrowheadPath.dispose(); //TODO #199 is dispose necessary?
+        arcPath.dispose(); //TODO #199 is dispose necessary?
       };
     }
 
