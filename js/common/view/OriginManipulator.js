@@ -77,14 +77,14 @@ define( require => {
         pressCursor: ORIGIN_OPTIONS.cursor
       } ) );
 
-      // Observe the drag listener location. Link present for the lifetime of the simulation since graphs aren't removed
+      // Observe the drag listener location. Link present for the lifetime of the simulation.
       originLocationProperty.lazyLink( originLocation => {
         // Tell the model to update the origin
         graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originLocation ) );
       } );
 
-      // Observe when the models model view transform changes to update the location of the circle. This is never
-      // unlinked since graphs exists throughout the entire sim.
+      // Observe when the models model view transform changes to update the location of the circle.
+      // Unnecessary to unlink since OriginManipulator exists for the lifetime of the sim.
       graph.modelViewTransformProperty.link( modelViewTransform => {
         this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
       } );
