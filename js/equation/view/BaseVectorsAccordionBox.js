@@ -65,7 +65,7 @@ define( require => {
       options = _.extend( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
         // specific to this class
-        xSpacing: 11, // {number} spacing between the left Number Picker and the right label
+        xSpacing: 11, // {number} spacing between the left NumberPicker and the right label
         ySpacing: 15, // {number} y spacing between UI components
         contentWidth: VectorAdditionConstants.BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH, // fixed content width
 
@@ -81,11 +81,11 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the Number Pickers / labels
       //
-      // Each Vector in the equationVectorSet gets 2 Number Pickers displayed horizontally. Each Number Picker has
+      // Each Vector in the equationVectorSet gets 2 NumberPickers displayed horizontally. Each NumberPicker has
       // a 'label'.
       //
-      // On Cartesian, the two Number Pickers toggle the X and the Y component respectively.
-      // On Polar, the two Number Pickers toggle the magnitude and the angle respectively.
+      // On Cartesian, the two NumberPickers toggle the X and the Y component respectively.
+      // On Polar, the two NumberPickers toggle the magnitude and the angle respectively.
       //----------------------------------------------------------------------------------------
 
       const pickers = []; // {HBox[]} pairs of pickers and their labels
@@ -141,7 +141,7 @@ define( require => {
               font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
               maxWidth: LABEL_MAX_WIDTH
             } ), {
-              numberPickerOptions: { // increment by the polar Angle interval
+              numberPickerOptions: { // increment by the polar angle interval
                 upFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
                 downFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL
               }
@@ -183,12 +183,12 @@ define( require => {
   }
 
   /**
-   * Layouts a Vector Symbol Node, a equals sign (Text), and a Number Picker horizontally in a HBox.
+   * Layouts a VectorSymbolNode, a equals sign (Text), and a NumberPicker horizontally in a HBox.
    *
    * The VectorSymbolNode is then aligned in a AlignBox to ensure the correct alignment and sizing, which ensures that
    * all HBoxes have equal widths (since the NumberPicker and the equals sign Text don't change size).
    *
-   * @param {NumberProperty} numberProperty - number Property that goes in the Number Picker
+   * @param {NumberProperty} numberProperty - number Property that goes in the NumberPicker
    * @param {Range} numberRange - static numberRange of the number Property
    * @param {Node} vectorSymbolNode
    * @param {Object} [options]

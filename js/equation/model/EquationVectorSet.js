@@ -1,11 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a VectorSet on the 'Equation' screen
+ * EquationVectorSet is a specialization of VectorSet for the 'Equation' screen.  It adds:
  *
- * Extends VectorSet but:
- *  - locks the vector set. EquationVectorSets have a defined amount of vectors.
- *  - creates a EquationSumVector
+ *  - a predefined set of vectors; vectors cannot be added or removed
+ *  - an EquationSumVector
  *
  * @author Brandon Li
  */

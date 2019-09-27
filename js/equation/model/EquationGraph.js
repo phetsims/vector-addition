@@ -3,13 +3,9 @@
 /**
  * Model for a single graph on the  Equation' screen. Equation' has a total of 2 graphs (polar and Cartesian).
  *
- * Characteristics of a Equation Graph (which extends Graph) are:
- *  - have exactly 1 vector set
- *  - Has a Equation Types Property (addition/subtraction/negation) per graph
- *  - Same graph bounds as default graph bounds but subtracts 5 from the top
- *  - Has a Base Vectors Visible Property
- *  - Two-dimensional
- *  - Color palette for vectors on the graph
+ * Characteristics of an EquationGraph (which extends Graph) are:
+ *  - have exactly 1 VectorSet
+ *  - has a Property to select the equation type (addition/subtraction/negation) per graph
  *
  * @author Brandon Li
  */

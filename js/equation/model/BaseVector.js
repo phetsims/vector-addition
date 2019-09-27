@@ -18,19 +18,19 @@ define( require => {
 
   // constants
   const OPTIONS = {
-    isRemovable: false,       // Base Vectors are not removable
-    isTipDraggable: false,    // Base Vectors are not draggable by the tip
-    isOnGraphInitially: true  // Base Vectors are always on the equationGraph
+    isRemovable: false,       // BaseVectors are not removable
+    isTipDraggable: false,    // BaseVectors are not draggable by the tip
+    isOnGraphInitially: true  // BaseVectors are always on the equationGraph
   };
 
   class BaseVector extends Vector {
 
     /**
      * @abstract
-     * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
-     * @param {Vector2} initialComponents - starting components of the Base Vector
-     * @param {EquationGraph} equationGraph - the equation graph the Base Vector belongs to
-     * @param {EquationVectorSet} equationVectorSet - the set that the Base Vector belongs to
+     * @param {Vector2} initialTailPosition - starting tail position of the BaseVector
+     * @param {Vector2} initialComponents - starting components of the BaseVector
+     * @param {EquationGraph} equationGraph - the equation graph the BaseVector belongs to
+     * @param {EquationVectorSet} equationVectorSet - the set that the BaseVector belongs to
      * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
      */
     constructor( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol ) {
