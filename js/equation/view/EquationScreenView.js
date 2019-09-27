@@ -70,9 +70,10 @@ define( require => {
         graphControlPanel.bottom
       );
 
-      // Toggle visibility of scenes based on which coordinate snap mode it is.
+      // Switch between scenes to match coordinate snap mode.
       // unlink is unnecessary, exists for the lifetime of the sim.
       this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
+        this.interruptSubtreeInput(); // cancel interactions when switching scenes
         polarScene.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
         cartesianScene.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
       } );

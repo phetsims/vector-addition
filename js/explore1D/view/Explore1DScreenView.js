@@ -82,6 +82,7 @@ define( require => {
         // Switch between scenes to match graph orientation.
         // unlink is unnecessary, exists for the lifetime of the sim.
         this.viewProperties.graphOrientationProperty.link( graphOrientation => {
+          this.interruptSubtreeInput(); // cancel interactions when switching scenes
           sceneNode.visible = ( graphOrientation === graph.orientation );
         } );
 
