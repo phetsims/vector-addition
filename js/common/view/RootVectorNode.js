@@ -96,9 +96,9 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Update the tail/tip location when the vector's tail/tip position changes
 
-      // @protected {Multilink} - observe changes to the tail/tip and mirror the positioning. If the values visibility
-      // changes, update the view as well.  Dispose is required.
-      this.vectorObserver = Property.multilink(
+      // Observe changes to the tail/tip and mirror the positioning. If the values visibility changes, update the
+      // view as well.  unmultilink is required on dispose.
+      const updateMultilink = Property.multilink(
         [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, activeVectorProperty ],
         valuesVisible => {
 
@@ -113,7 +113,7 @@ define( require => {
       this.disposeRootVectorNode = () => {
         this.arrowNode.dispose();
         this.labelNode.dispose();
-        this.vectorObserver.dispose();
+        Property.unmultilink( updateMultilink );
       };
     }
 
