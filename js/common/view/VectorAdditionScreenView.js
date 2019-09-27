@@ -55,12 +55,12 @@ define( require => {
     }
 
     /**
-     * Resets the screen view
      * @public
-     * @abstract
      */
     reset() {
-      throw new Error( 'reset must be implemented by sub classes' );
+
+      // cancel any interactions that are in progress
+      this.interruptSubtreeInput();
     }
   }
 

@@ -88,6 +88,7 @@ define( require => {
      * @override
      */
     reset() {
+      super.reset();
       this.viewProperties.reset();
     }
   }
