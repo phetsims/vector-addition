@@ -69,7 +69,7 @@ define( require => {
       // Create a Property of to track the view's origin in view coordinates
       const originLocationProperty = new Vector2Property( origin );
 
-      // Add a drag listener, doesn't need to be removed since the graph exists throughout the entire sim
+      // Add a drag listener, doesn't need to be removed since the graph exists for the lifetime of the sim.
       this.addInputListener( new DragListener( {
         locationProperty: originLocationProperty,
         translateNode: false,
