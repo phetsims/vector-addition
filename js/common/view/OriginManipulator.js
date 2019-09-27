@@ -69,7 +69,7 @@ define( require => {
       // Create a Property of to track the view's origin in view coordinates
       const originLocationProperty = new Vector2Property( origin );
 
-      // Add a drag listener, doesn't need to be removed since the graph exists for the lifetime of the sim.
+      // Add a drag listener. removeInputListener is unnecessary, since this class owns the listener.
       this.addInputListener( new DragListener( {
         locationProperty: originLocationProperty,
         translateNode: false,
@@ -77,7 +77,8 @@ define( require => {
         pressCursor: ORIGIN_OPTIONS.cursor
       } ) );
 
-      // Observe the drag listener location. Link present for the lifetime of the simulation.
+      // Update the origin location.
+      // unlink is unnecessary, exists for the lifetime of the simulation.
       originLocationProperty.lazyLink( originLocation => {
         // Tell the model to update the origin
         graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originLocation ) );

@@ -116,6 +116,8 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Creation of Vectors (See ## Implementation of creation of Vectors above)
       //----------------------------------------------------------------------------------------
+
+      // removeInputListener is unnecessary, exists for the lifetime of the sim.
       iconNode.addInputListener( DragListener.createForwardingListener( event => {
 
         //----------------------------------------------------------------------------------------

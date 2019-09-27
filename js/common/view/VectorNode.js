@@ -171,7 +171,8 @@ define( require => {
         }
       } );
 
-      // The body can be translated by the arrow or the label
+      // The body can be translated by the arrow or the label.
+      // removeInputListener is required when the vector is animating back to the creator panel.
       this.arrowNode.addInputListener( this.bodyDragListener );
       this.labelNode.addInputListener( this.bodyDragListener );
 
@@ -179,7 +180,8 @@ define( require => {
       // Add listeners
       //----------------------------------------------------------------------------------------
 
-      // Observe the view location Property to call a tail listener that updates the tail in the model
+      // Observe the view location Property to call a tail listener that updates the tail in the model.
+      // unlink is required when the vector is animating back to the creator panel
       const tailListener = tailLocation => {
         this.updateTailPosition( tailLocation );
 
@@ -226,6 +228,7 @@ define( require => {
           }
         } );
 
+        // removeInputListener is required when the vector is animating back to the creator panel (toolbox)
         tipCircle.addInputListener( tipDragListener );
 
         //----------------------------------------------------------------------------------------
@@ -238,7 +241,7 @@ define( require => {
         };
 
         // Observe the view location Property to call a tip listener that updates the tail in the model.
-        // unlink is required.
+        // unlink is required when the vector is animating back to the creator panel.
         tipLocationProperty.lazyLink( tipListener );
 
         // Observe when the vector is animating back
