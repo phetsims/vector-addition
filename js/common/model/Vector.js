@@ -341,10 +341,6 @@ define( require => {
      * @param {Vector2} tipPosition
      */
     moveTipToPosition( tipPosition ) {
-
-      // Declare this vector as active when it's dragging
-      this.graph.activeVectorProperty.value = this;
-
       this.setTipWithInvariants( tipPosition );
     }
 
@@ -354,9 +350,6 @@ define( require => {
      * @param {Vector2} tailPosition
      */
     moveTailToPosition( tailPosition ) {
-
-      // Declare this vector as active when it's dragging
-      this.graph.activeVectorProperty.value = this;
 
       // Ensure that the tail satisfies invariants for polar/Cartesian mode
       this.setTailWithInvariants( tailPosition );
