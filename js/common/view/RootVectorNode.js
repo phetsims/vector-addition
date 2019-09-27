@@ -84,12 +84,9 @@ define( require => {
       // The location of this depends on the angle of the vector. Since the positioning of 'next' is different for every
       // vector, use an overridable method to position it. ( updateLabelPositioning() )
       // dispose is required because this observes the Properties that are passed to it.
-      this.labelNode = new VectorLabelNode( rootVector,
-        modelViewTransformProperty,
-        valuesVisibleProperty,
-        activeVectorProperty, {
-          cursor: 'move'
-        } );
+      this.labelNode = new VectorLabelNode( rootVector, valuesVisibleProperty, activeVectorProperty, {
+        cursor: 'move'
+      } );
 
       // Add children to this node
       this.setChildren( [ this.arrowNode, this.labelNode ] );

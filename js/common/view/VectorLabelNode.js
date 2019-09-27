@@ -15,7 +15,6 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
-  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Multilink = require( 'AXON/Multilink' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
@@ -31,16 +30,13 @@ define( require => {
 
     /**
      * @param {RootVector} rootVector
-     * @param {ModelViewTransform2} modelViewTransformProperty TODO not used!
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Property.<RootVector|null>} activeVectorProperty
      * @param {Object} [options]
      */
-    constructor( rootVector, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
+    constructor( rootVector, valuesVisibleProperty, activeVectorProperty, options ) {
 
       assert && assert( rootVector instanceof RootVector, `invalid rootVector: ${rootVector}` );
-      assert && assert( modelViewTransformProperty instanceof Property && modelViewTransformProperty.value instanceof ModelViewTransform2,
-        `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( activeVectorProperty instanceof Property && activeVectorProperty.value instanceof RootVector || activeVectorProperty.value === null,
         `invalid activeVectorProperty: ${activeVectorProperty}` );
