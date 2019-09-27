@@ -52,8 +52,8 @@ define( require => {
 
     /**
      * @param {Graph} graph - the graph to drop the vector onto
-     * @param {VectorSet} vectorSet - the vectorSet that the slot adds vectors to
-     * @param {SceneNode} sceneNode - the scene node the slot belongs in
+     * @param {VectorSet} vectorSet - the VectorSet that the slot adds Vectors to
+     * @param {SceneNode} sceneNode - the SceneNode that this slot appears in
      * @param {Vector2} initialVectorComponents - the initial vector components to pass to created vectors
      * @param {Object} [options]
      */

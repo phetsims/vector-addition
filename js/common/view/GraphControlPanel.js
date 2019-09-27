@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Base class for graph control panels in this sim.
+ * GraphControlPanel is the base class for graph control panels. These panels contain controls that affect the graph.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)

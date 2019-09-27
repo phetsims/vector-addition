@@ -94,8 +94,8 @@ define( require => {
       vector.vectorComponentsProperty.link( updateAngleNodeListener );
 
       //----------------------------------------------------------------------------------------
-      // Observe when the angle visible Property is changing and update the visibility of the angle node. The angle is
-      // only visible when the vector is both active and the angle checkbox is clicked.
+      // Observe when the angle visible Property is changing and update the visibility of the angle node.
+      // The angle is only visible when the vector is both active and the angle checkbox is clicked.
       // Must be disposed on dispose.
       const angleVisibleMultilink = Property.multilink(
         [ anglesVisibleProperty, vector.isOnGraphProperty ],

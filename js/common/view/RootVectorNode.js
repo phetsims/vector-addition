@@ -3,8 +3,8 @@
 /**
  * Base class for vector views for all types of vectors (sum, component, etc.).
  * Primarily responsibilities are:
- *  - Create an Arrow Node that mirrors a vector models tail/tip position
- *  - Create Other Nodes that ALL vectors in the sim have (ie. labels etc.)
+ *  - Create an ArrowNode or DashedArrowNode that displays a vector's tail/tip position
+ *  - Create other Nodes that ALL vectors in the sim have (i.e. labels etc.)
  *
  * For an overview of the class hierarchy,
  * see https://github.com/phetsims/vector-addition/blob/master/doc/implementation-notes.md

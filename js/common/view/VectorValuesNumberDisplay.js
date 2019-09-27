@@ -1,7 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a Number Display that goes on the 'Vector Values' Panel at the top of the scene.
+ * VectorValuesNumberDisplay is a subclass of NumberDisplay for displaying a value that is associated with a Vector.
+ * Instances appear in the 'Vector Values' toggle box.
  *
  * Displays a single vector attribute (i.e. magnitude etc.) of a single active vector that is on the specified graph.
  *
@@ -120,8 +121,7 @@ define( require => {
     /**
      * Gets the value to display based on the attribute display type and a vector
      * @private
-     *
-     * @param {Vector|null} activeVector - vector to derive the number display value from
+     * @param {Vector|null} activeVector - vector to derive the NumberDisplay value from
      * @returns {number|null} value to display
      */
     getNumberDisplayValue( activeVector ) {

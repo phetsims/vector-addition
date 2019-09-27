@@ -74,7 +74,7 @@ define( require => {
 
       //========================================================================================
 
-      // Create one and only Graph Node
+      // Create one and only GraphNode
       const graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty );
 
       const graphViewBounds = graph.graphViewBounds;
@@ -100,7 +100,7 @@ define( require => {
       ] );
 
       //========================================================================================
-      // Add an eraser if necessary
+      // Add an eraser button if necessary
       if ( options.includeEraser ) {
 
         const eraserButton = new EraserButton( {
