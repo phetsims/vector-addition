@@ -432,7 +432,7 @@ define( require => {
         // Remove listener
         animation.finishEmitter.removeListener( animationFinished );
       };
-      animation.finishEmitter.addListener( animationFinished );
+      animation.finishEmitter.addListener( animationFinished ); // removeListener required when animation finishes
     }
 
     /**
