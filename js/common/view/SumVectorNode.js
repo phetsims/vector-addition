@@ -71,6 +71,14 @@ define( require => {
          }
       } );
 
+      // When the sum vector becomes invisible, interrupt interactions.
+      // See https://github.com/phetsims/vector-addition/issues/201
+      this.on( 'visibility', () => {
+        if ( !this.visible ) {
+          this.interruptSubtreeInput();
+        }
+      } );
+
       // Double check that the vector node never is animated back
       // unlink is unnecessary, exists for the lifetime of the sim.
       assert && sumVector.animateBackProperty.link( animateBack => {
