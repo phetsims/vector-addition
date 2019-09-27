@@ -82,6 +82,7 @@ define( require => {
         options.bottomLeft.y );
 
       // @public (read-only) {DerivedProperty.<ModelViewTransform2>} maps graph coordinates between model and view
+      // dispose is unnecessary, exists for the lifetime of the sim.
       this.modelViewTransformProperty = new DerivedProperty( [ this.graphModelBoundsProperty ],
         graphModelBounds => {
           return ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, this.graphViewBounds );

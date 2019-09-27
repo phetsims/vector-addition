@@ -63,7 +63,7 @@ define( require => {
       this.parentVector = parentVector;
 
       // @public (read-only) {DerivedProperty.<boolean>} isParentVectorActiveProperty - determines if the parent
-      // vector is active.
+      // vector is active. Must be disposed on dispose.
       this.isParentVectorActiveProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => {
         return activeVector && ( activeVector === parentVector );
       } );

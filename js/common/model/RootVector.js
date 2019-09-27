@@ -50,6 +50,7 @@ define( require => {
       this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
       // @public (read-only) {DerivedProperty.<Vector2>} the tip position of the vector on the graph
+      // dispose is unnecessary, since this class owns all dependencies.
       this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.vectorComponentsProperty ],
         ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
 
