@@ -177,7 +177,7 @@ define( require => {
         onAxisLines.moveToPoint( Vector2.ZERO ).lineToPoint( parentTailLocation );
         onAxisLines.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
 
-        this.onAxisLinesPath.setShape( onAxisLines.makeImmutable() );
+        this.onAxisLinesPath.setShape( onAxisLines );
 
         if ( isParentActive ) {
           this.onAxisLinesPath.stroke = VectorAdditionColors.ON_AXIS_LINES_ACTIVE_STROKE;

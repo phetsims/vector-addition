@@ -125,8 +125,7 @@ define( require => {
           this.radius,
           0,
           arrowheadPath.visible ? -correctedAngle : -this.angle, isAnticlockwise );
-        arcPath.setShape( arcShape.makeImmutable() );
-
+        arcPath.setShape( arcShape );
 
         if ( arrowheadPath.visible ) {
 
