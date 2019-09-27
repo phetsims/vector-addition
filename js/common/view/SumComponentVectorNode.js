@@ -89,7 +89,9 @@ define( require => {
 
       this.visible = (
         // components are visible
-        componentStyle !== ComponentStyles.INVISIBLE &&
+        ( componentStyle !== ComponentStyles.INVISIBLE ) &&
+        // component magnitude is not 0
+        ( componentVector.magnitude !== 0 ) &&
         // sum is visible
         ( !!this.sumVisibleProperty && this.sumVisibleProperty.value ) &&
         // sum is defined

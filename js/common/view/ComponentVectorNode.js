@@ -199,6 +199,8 @@ define( require => {
      */
     updateLabelPositioning( componentVector, modelViewTransform, valuesVisible ) {
 
+      this.labelNode.visible = ( componentVector.magnitude !== 0 );
+
       // If the magnitude of the componentVector is 0, then position the label node on the 'tail'
       if ( componentVector.magnitude === 0 ) {
         this.labelNode.center = Vector2.ZERO;
