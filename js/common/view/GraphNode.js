@@ -212,7 +212,7 @@ define( require => {
      * @returns {Bounds2}
      */
     computeShapeBounds() {
-       return this.graphViewBounds;
+      return this.graphViewBounds;
     }
   }
 
@@ -356,7 +356,7 @@ define( require => {
         if ( graph.orientation !== GraphOrientations.TWO_DIMENSIONAL ) {
 
           tickLabels.push( originLabel );
-          
+
           if ( graph.orientation === GraphOrientations.HORIZONTAL ) {
             originLabel.centerX = viewOrigin.x;
             originLabel.top = viewOrigin.y + TICK_LABEL_Y_OFFSET;

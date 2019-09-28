@@ -3,7 +3,6 @@
 /**
  * EquationTypeNode displays an interactive equation for one of the EquationTypes enumeration values.
  *
- * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -39,8 +38,6 @@ define( require => {
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      //----------------------------------------------------------------------------------------
-
       options = _.extend( {
 
         // {number} spacing between the NumberPicker and the VectorSymbolNode
@@ -71,7 +68,7 @@ define( require => {
 
         assert && assert( equationVector.coefficientProperty.range,
           'coefficientProperty must have an associated range' );
-        
+
         equationChildren.push( new NumberPicker( equationVector.coefficientProperty,
           new Property( equationVector.coefficientProperty.range ),
           NUMBER_PICKER_OPTIONS ) );
@@ -103,20 +100,17 @@ define( require => {
         maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }
 
-      //----------------------------------------------------------------------------------------
-      // At this point, the equationChildren have been successfully created and are ready to lay out.
       // This layout algorithm keeps text Nodes aligned on their baselines, and empirically adjusts the
       // vertical position of NumberPickers. See https://github.com/phetsims/vector-addition/issues/128
-
       for ( let i = 0; i < equationChildren.length; i++ ) {
         const child = equationChildren[ i ];
         if ( child instanceof NumberPicker ) {
           child.centerY = -maxVectorSymbolHeight / 3;
         }
         if ( i > 0 ) {
-          const previousChild = equationChildren[ i - 1 ] ;
+          const previousChild = equationChildren[ i - 1 ];
           if ( previousChild instanceof NumberPicker ) {
-             child.left = previousChild.right + options.labelNumberPickerSpacing;
+            child.left = previousChild.right + options.labelNumberPickerSpacing;
           }
           else {
             child.left = previousChild.right + options.textSpacing;

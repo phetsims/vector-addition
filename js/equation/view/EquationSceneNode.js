@@ -67,7 +67,7 @@ define( require => {
       const baseVectorsAccordionBox = new BaseVectorsAccordionBox( viewProperties.baseVectorsVisibleProperty,
         graph.coordinateSnapMode,
         graph.vectorSet, {
-        expandedProperty: viewProperties.baseVectorsExpandedProperty,
+          expandedProperty: viewProperties.baseVectorsExpandedProperty,
           right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
           top: graphControlPanelBottom + 8
         } );
@@ -88,7 +88,7 @@ define( require => {
               fill: graph.vectorSet.vectorColorPalette.baseVectorFill,
               stroke: graph.vectorSet.vectorColorPalette.baseVectorStroke
             } )
-        } );
+          } );
 
         viewProperties.baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
 

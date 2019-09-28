@@ -29,11 +29,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
 
-  // constants
-  const ARROW_MOUSE_AREA_OFFSET = 3;
-  const ARROW_TOUCH_AREA_OFFSET = 3;
-  const LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
-
   class RootVectorNode extends Node {
 
     /**
@@ -140,8 +135,8 @@ define( require => {
 
       // Make the arrow easier to grab by setting pointer areas
       if ( rootVector.magnitude > 0 && this.arrowNode.shape ) {
-        this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( ARROW_MOUSE_AREA_OFFSET );
-        this.arrowNode.touchArea = this.arrowNode.shape.getOffsetShape( ARROW_TOUCH_AREA_OFFSET );
+        this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_MOUSE_AREA_DILATION );
+        this.arrowNode.touchArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_TOUCH_AREA_DILATION );
       }
     }
 
@@ -169,13 +164,13 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Determine how the labels should be positioned.
-      
+
       // Add a flip if x is negative
       const xFlip = ( rootVector.xComponent < 0 ) ? Math.PI : 0;
 
       // Add a flip if y is negative
       const yFlip = ( rootVector.yComponent < 0 ) ? Math.PI : 0;
-      
+
       //----------------------------------------------------------------------------------------
       // Add extra offset to consider the size of the label. The offset is the margin between the arrow and the label
 
@@ -194,7 +189,7 @@ define( require => {
       }
 
       // Create an offset that is perpendicular to the vector
-      const offset = Vector2.createPolar( LABEL_OFFSET + labelSize, modelAngle + Math.PI / 2 + yFlip );
+      const offset = Vector2.createPolar( VectorAdditionConstants.VECTOR_LABEL_OFFSET + labelSize, modelAngle + Math.PI / 2 + yFlip );
 
       // Create label halfway above the vector
       const midPoint = rootVector.vectorComponents.timesScalar( 0.5 );

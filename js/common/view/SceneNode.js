@@ -21,7 +21,6 @@
  *       changes. This must be done externally.
  *
  * @author Brandon Li
- * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
@@ -233,7 +232,7 @@ define( require => {
       if ( forwardingEvent ) {
         vectorNode.bodyDragListener.press( forwardingEvent, vectorNode );
       }
-      
+
       // When the vector becomes active (selected), move it and its components to the front.
       // unlink is required when the vector is removed.
       const activeVectorListener = activeVector => {

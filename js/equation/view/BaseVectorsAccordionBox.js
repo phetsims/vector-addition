@@ -154,7 +154,7 @@ define( require => {
           children: [ leftNumberPickerAndLabel, rightNumberPickerAndLabel ]
         } ) );
       } );
-      
+
       const pickersVBox = new VBox( {
         children: pickers,
         spacing: options.ySpacing,
@@ -184,10 +184,17 @@ define( require => {
       // unlink is not necessary, exists for the lifetime of the sim.
       this.expandedProperty.lazyLink( expanded => {
         if ( !expanded ) {
-          console.log( 'interrupt' );
           this.interruptSubtreeInput();
         }
       } );
+    }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      assert && assert( false, 'BaseVectorsAccordionBox is not intended to be disposed' );
     }
   }
 

@@ -13,6 +13,7 @@
  *  7. Equation Type icons (On the 'Equation' Screen)
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
@@ -100,7 +101,7 @@ define( require => {
           fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
           stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
         } ) );
-      
+
       // component vectors
       const componentArrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: VectorAdditionColors.BLUE_COLOR_PALETTE.componentFill
@@ -176,7 +177,7 @@ define( require => {
           fill: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.sumFill,
           stroke: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.sumStroke
         } ) ) );
-      
+
       return createScreenIcon( arrowNodes );
     },
 
@@ -236,7 +237,7 @@ define( require => {
      * @returns {Node}
      */
     createAngleIcon() {
-      
+
       // values determined empirically
       const wedgeLength = 20;
       const angle = Util.toRadians( 50 );
@@ -249,7 +250,7 @@ define( require => {
       const wedgeNode = new Path( wedgeShape, {
         stroke: Color.BLACK
       } );
-      
+
       const curvedArrowNode = new CurvedArrowNode( curvedArrowRadius, angle );
 
       const thetaNode = new Text( MathSymbols.THETA, {
@@ -469,7 +470,7 @@ define( require => {
 
       // '='
       children.push( new Text( MathSymbols.EQUAL_TO, textOptions ) );
-      
+
       // Right side of the equation, which is either '0' or the last of the symbols (which is the sum).
       children.push( equationType === EquationTypes.NEGATION ?
                      new Text( '0', textOptions ) :

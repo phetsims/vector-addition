@@ -13,13 +13,14 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Circle = require( 'SCENERY/nodes/Circle' );
   const Color = require( 'SCENERY/util/Color' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const merge = require( 'PHET_CORE/merge' );
+  const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
   const RootVectorNode = require( 'VECTOR_ADDITION/common/view/RootVectorNode' );
+  const Shape = require( 'KITE/Shape' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -27,14 +28,6 @@ define( require => {
   const VectorAngleNode = require( 'VECTOR_ADDITION/common/view/VectorAngleNode' );
 
   // constants
-
-  // radius of the invisible circle at the tip of the vector
-  const TIP_CIRCLE_RADIUS = 10;
-  const TIP_CIRCLE_OPTIONS = {
-    opacity: 0,
-    dilated: 10,
-    cursor: 'pointer'
-  };
 
   // arrow options for the vector shadow
   const SHADOW_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -105,21 +98,8 @@ define( require => {
       // Create an arrow node that represents the shadow of the vector
       const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, SHADOW_VECTOR_ARROW_OPTIONS );
 
-      // Create a circle at the tip of the vector. This is used to allow the user to only change the angle of the
-      // arrowNode by only dragging the tip
-      const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
-
       // Reconfigure scene graph z-layering
-      this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode, tipCircle ] );
-
-      //----------------------------------------------------------------------------------------
-      // Update the tip circle so the user can indefinitely drag the tip
-      //----------------------------------------------------------------------------------------
-
-      const updateTipCircleLocation = () => {
-        tipCircle.center = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
-      };
-      vector.vectorComponentsProperty.link( updateTipCircleLocation ); // unlinked is required when disposed
+      this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode ] );
 
       //----------------------------------------------------------------------------------------
       // Create Body Drag
@@ -215,14 +195,40 @@ define( require => {
       // Create Tip Drag
       //----------------------------------------------------------------------------------------
 
+      let vectorComponentsListener = null;
+
       if ( vector.isTipDraggable ) {
+
+        // Create a triangle at the tip of the vector. This is used to allow the user to only change the
+        // scale and angle of the vector by  dragging the tip.
+        const tipShape = new Shape()
+          .moveTo( 0, 0 )
+          .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2 )
+          .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2 )
+          .close();
+        const tipNode = new Path( tipShape, {
+          stroke: phet.chipper.queryParameters.dev ? 'red' : null,
+          cursor: 'pointer'
+        } );
+        this.addChild( tipNode );
+
+        // set pointer areas for the tip
+        tipNode.touchArea = tipShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
+        tipNode.mouseArea = tipShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
+
+        // When the vector changes, transform the tip.
+        vectorComponentsListener = vectorComponents => {
+          tipNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
+          tipNode.rotation = -vectorComponents.angle;
+        };
+        vector.vectorComponentsProperty.link( vectorComponentsListener ); // unlinked is required when disposed
 
         // Create a Property of the location of the tip of the vector. The location of the tip is measured with respect
         // to the tail.
         const tipLocationProperty = new Vector2Property( tipDeltaLocation );
 
         const tipDragListener = new DragListener( {
-          targetNode: tipCircle,
+          targetNode: tipNode,
           locationProperty: tipLocationProperty,
           start: () => {
             assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
@@ -232,7 +238,7 @@ define( require => {
         } );
 
         // removeInputListener is required when the vector is animating back to the creator panel (toolbox)
-        tipCircle.addInputListener( tipDragListener );
+        tipNode.addInputListener( tipDragListener );
 
         //----------------------------------------------------------------------------------------
         // Add listeners
@@ -250,7 +256,7 @@ define( require => {
         // Observe when the vector is animating back
         const removeTipDragListener = isAnimatingBack => {
           if ( isAnimatingBack ) {
-            tipCircle.removeInputListener( tipDragListener );
+            tipNode.removeInputListener( tipDragListener );
           }
         };
         this.vector.animateBackProperty.lazyLink( removeTipDragListener );
@@ -304,7 +310,7 @@ define( require => {
 
         this.vector.animateBackProperty.unlink( removeBodyDragListener );
         tailLocationProperty.unlink( tailListener );
-        vector.vectorComponentsProperty.unlink( updateTipCircleLocation );
+        vectorComponentsListener && vector.vectorComponentsProperty.unlink( vectorComponentsListener );
         graph.activeVectorProperty.unlink( activeVectorListener );
 
         angleNode.dispose();

@@ -40,8 +40,8 @@ define( require => {
 
       // Create the initial vector components
       const initialVectorComponents = ( graph.orientation === GraphOrientations.VERTICAL ) ?
-                                       new Vector2( 0, VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH ) :
-                                       new Vector2( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH, 0 );
+                                      new Vector2( 0, VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH ) :
+                                      new Vector2( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH, 0 );
 
       // Create a slot for each symbol
       const panelSlots = [];

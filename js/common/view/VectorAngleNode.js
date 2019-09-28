@@ -43,9 +43,6 @@ define( require => {
   // the offset of the angle label from the curved arrow
   const LABEL_OFFSET = 3.5;
 
-  // rounding of the angle label
-  const ANGLE_ROUNDING = VectorAdditionConstants.NUMBER_DISPLAY_ROUNDING;
-
   // Angles greater than 35 deg position the label between the vector and the baseline, and angles under 35
   // place the label on the other side of the baseline. See
   // https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.on5p73bbry7g.
@@ -100,7 +97,7 @@ define( require => {
       const angleVisibleMultilink = Property.multilink(
         [ anglesVisibleProperty, vector.isOnGraphProperty ],
         ( angleVisible, isOnGraph ) => {
-          
+
           // Visible if the angle checkbox is clicked and the vector is on the graph
           this.visible = angleVisible && isOnGraph;
           this.updateAngleNode( vector, graph.modelViewTransformProperty.value );
@@ -152,7 +149,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Update the label text.
       this.labelText.setText( angleDegrees !== null ?
-                              `${Util.toFixed( vector.angleDegrees, ANGLE_ROUNDING )}${DEGREES}` :
+                              `${Util.toFixed( vector.angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )}${DEGREES}` :
                               '' );
 
       //----------------------------------------------------------------------------------------

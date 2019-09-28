@@ -61,44 +61,28 @@ define( require => {
       assert && assert( closedContent instanceof Node, `invalid closedContent: ${closedContent}` );
       assert && assert( openContent instanceof Node, `invalid openContent: ${openContent}` );
 
-      //----------------------------------------------------------------------------------------
-      // Create the content container
-      //----------------------------------------------------------------------------------------
+      // Determine the content width
+      const contentWidth = options.contentFixedWidth || _.max( [ closedContent.width, openContent.width ] );
+      const contentHeight = options.contentFixedHeight || _.max( [ closedContent.height, openContent.height ] );
 
-      // Convenience References
-      const contentWidth = options.contentFixedWidth ? options.contentFixedWidth :
-                           _.max( [ closedContent.width, openContent.width ] );
-
-      const contentHeight = options.contentFixedHeight ? options.contentFixedHeight :
-                            _.max( [ closedContent.height, openContent.height ] );
-
-
-      // Align the closed and open content in a align box, adding a strict bounds
-      const openContentAlignBox = new AlignBox( openContent, {
-        xAlign: options.contentAlign,
-        alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight ),
-        maxWidth: contentWidth,
-        maxHeight: contentHeight
-      } );
-
-      const closedContentAlignBox = new AlignBox( closedContent, {
-        xAlign: options.contentAlign,
-        alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight ),
-        maxWidth: contentWidth,
-        maxHeight: contentHeight
-      } );
-
-
-      closedContent.maxWidth = contentWidth;
+      // Constrain the content width and height
       openContent.maxWidth = contentWidth;
-
-      closedContent.maxHeight = contentHeight;
       openContent.maxHeight = contentHeight;
+      closedContent.maxWidth = contentWidth;
+      closedContent.maxHeight = contentHeight;
+
+      // Put the content in AlignBoxes, to handle alignment
+      const alignBoxOptions = {
+        xAlign: options.contentAlign,
+        alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
+      };
+      const openContentAlignBox = new AlignBox( openContent, alignBoxOptions );
+      const closedContentAlignBox = new AlignBox( closedContent, alignBoxOptions );
 
       super( openContentAlignBox, _.extend( {
         expandedProperty: new BooleanProperty( options.isExpandedInitially ),
         showTitleWhenExpanded: false,
-        titleNode: closedContentAlignBox,
+        titleNode: closedContentAlignBox, // unorthodox use of AccordionBox, but it works
         titleBarExpandCollapse: false
       }, options ) );
     }

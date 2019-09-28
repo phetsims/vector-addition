@@ -53,7 +53,7 @@ define( require => {
 
       // Origin, in view coordinates
       const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
-      
+
       // Diameter, view coordinates
       const diameter = modelViewTransform.modelToViewDeltaX( ORIGIN_DIAMETER );
 

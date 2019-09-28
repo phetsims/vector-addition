@@ -176,7 +176,7 @@ define( require => {
                   this.vectorComponents.y;
 
       // Round the value
-      value = Util.toFixed( value, VectorAdditionConstants.VECTOR_VALUE_ROUNDING );
+      value = Util.toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
       // Component vectors only show their values if and only if the values are visible and if the component isn't 0
       if ( !valuesVisible || value === 0 ) {
