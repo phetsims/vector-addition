@@ -13,6 +13,7 @@
  *  7. Equation Type icons (On the 'Equation' Screen)
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
