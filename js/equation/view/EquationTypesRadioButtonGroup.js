@@ -15,6 +15,7 @@
  * EquationTypesRadioButtonGroup is never disposed and exists for the entire simulation.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {

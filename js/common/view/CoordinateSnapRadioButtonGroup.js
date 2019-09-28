@@ -6,6 +6,7 @@
  * See https://github.com/phetsims/vector-addition/issues/21 for a visual.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
@@ -39,13 +40,16 @@ define( require => {
       options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
 
       // Create the description of the buttons
-      const content = [ {
-        value: CoordinateSnapModes.CARTESIAN,
-        node: VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette )
-      }, {
-        value: CoordinateSnapModes.POLAR,
-        node: VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette )
-      } ];
+      const content = [
+        {
+          value: CoordinateSnapModes.CARTESIAN,
+          node: VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette )
+        },
+        {
+          value: CoordinateSnapModes.POLAR,
+          node: VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette )
+        }
+      ];
 
       super( coordinateSnapModeProperty, content, options );
     }

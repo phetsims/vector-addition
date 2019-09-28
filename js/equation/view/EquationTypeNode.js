@@ -3,7 +3,6 @@
 /**
  * EquationTypeNode displays an interactive equation for one of the EquationTypes enumeration values.
  *
- * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -38,8 +37,6 @@ define( require => {
       assert && assert( equationVectorSet instanceof EquationVectorSet, `invalid equationVectorSet: ${equationVectorSet}` );
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
-
-      //----------------------------------------------------------------------------------------
 
       options = _.extend( {
 
@@ -103,11 +100,8 @@ define( require => {
         maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }
 
-      //----------------------------------------------------------------------------------------
-      // At this point, the equationChildren have been successfully created and are ready to lay out.
       // This layout algorithm keeps text Nodes aligned on their baselines, and empirically adjusts the
       // vertical position of NumberPickers. See https://github.com/phetsims/vector-addition/issues/128
-
       for ( let i = 0; i < equationChildren.length; i++ ) {
         const child = equationChildren[ i ];
         if ( child instanceof NumberPicker ) {
