@@ -25,31 +25,34 @@ define( require => {
   const PANEL_CORNER_RADIUS = 5;
   const PANEL_X_MARGIN = 9;
   const PANEL_Y_MARGIN = 10;
+  const RIGHT_PANEL_WIDTH = 175; // fixed width of panels and accordion boxes on right side of the screen
 
+  // options for vector arrows (ArrowNode)
   const VECTOR_ARROW_OPTIONS = {
     headWidth: 10,
     headHeight: 12,
     tailWidth: 3.5,
     stroke: null
   };
+
+  // options for component vector arrows (DashedArrowNode)
   const COMPONENT_VECTOR_ARROW_OPTIONS = _.extend( {}, VECTOR_ARROW_OPTIONS, {
     tailWidth: 3,
     tailDash: [ 6, 3 ]
   } );
 
-  // fixed width of panels and accordion boxes on right side of the screen
-  const RIGHT_PANEL_WIDTH = 175;
-
   const VectorAdditionConstants = {
 
     //----------------------------------------------------------------------------------------
-    // ScreenView constants
+    // ScreenViews
+
     SCREEN_VIEW_X_MARGIN: 20,
     SCREEN_VIEW_Y_MARGIN: 16,
     SCREEN_VIEW_BOUNDS: ScreenView.DEFAULT_LAYOUT_BOUNDS,
 
     //----------------------------------------------------------------------------------------
-    // Graph Constants
+    // Graphs
+
     DEFAULT_GRAPH_BOUNDS: new Bounds2( -5, -5, 45, 25 ),
     DEFAULT_SUM_VISIBLE: false,
     AXES_ARROW_X_EXTENSION: 20, // how far the x-axis arrow extends past the edge of the graph's grid
@@ -64,14 +67,16 @@ define( require => {
     },
 
     //----------------------------------------------------------------------------------------
-    // Defaults for all Check Boxes
+    // Checkboxes
+
     CHECKBOX_OPTIONS: {
       boxWidth: 18
     },
     CHECKBOX_ICON_SPACING: 8,
 
     //----------------------------------------------------------------------------------------
-    // Defaults for all RadioButtonGroups
+    // RadioButtonGroups
+
     RADIO_BUTTON_GROUP_OPTIONS: _.extend( {
       deselectedLineWidth: 1,
       selectedLineWidth: 1.5,
@@ -86,14 +91,14 @@ define( require => {
     RADIO_BUTTONS_Y_SPACING: 15,
 
     //----------------------------------------------------------------------------------------
-    // Panel constants
+    // Panel-like containers
 
-    // Defaults for all panel-like containers
     PANEL_OPTIONS: _.extend( {
       cornerRadius: PANEL_CORNER_RADIUS,
       xMargin: PANEL_X_MARGIN,
       yMargin: PANEL_Y_MARGIN
     }, VectorAdditionColors.PANEL_COLORS ),
+
     PANEL_X_MARGIN: PANEL_X_MARGIN,
     PANEL_Y_MARGIN: PANEL_Y_MARGIN,
     PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
@@ -107,12 +112,14 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Ranges
+
     COMPONENT_RANGE: new Range( -10, 10 ),
     MAGNITUDE_RANGE: new Range( -10, 10 ),
     ANGLE_RANGE: new Range( -180, 180 ),
 
     //----------------------------------------------------------------------------------------
-    // Defaults for all AccordionBox instances
+    // AccordionBoxes and ToggleBoxes
+
     ACCORDION_BOX_OPTIONS: _.extend( {
       cornerRadius: PANEL_CORNER_RADIUS,
       contentXMargin: PANEL_X_MARGIN,
@@ -133,7 +140,8 @@ define( require => {
     }, VectorAdditionColors.PANEL_COLORS ),
 
     //----------------------------------------------------------------------------------------
-    // Defaults for all Number Picker instances
+    // NumberPickers
+
     NUMBER_PICKER_OPTIONS: {
       color: Color.BLACK,
       cornerRadius: 3.5,
@@ -145,7 +153,11 @@ define( require => {
     },
 
     //----------------------------------------------------------------------------------------
-    // Constants for Vectors
+    // Vectors
+
+    // Vector symbols, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
+    VECTOR_SYMBOLS_GROUP_1: [ 'a', 'b', 'c' ],
+    VECTOR_SYMBOLS_GROUP_2: [ 'd', 'e', 'f' ],
 
     // Defaults for all vectors
     VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
@@ -182,22 +194,18 @@ define( require => {
     VECTOR_HEAD_TOUCH_AREA_DILATION: 8,
     VECTOR_HEAD_MOUSE_AREA_DILATION: 6,
 
-    //----------------------------------------------------------------------------------------
-    // Rounding
-    NUMBER_DISPLAY_ROUNDING: 1, // rounding for all number display instances
-    VECTOR_VALUE_ROUNDING: 1,   // rounding for the vector 'values' in decimal points
-
-    //----------------------------------------------------------------------------------------
-    // Vector symbols, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
-    VECTOR_SYMBOLS_GROUP_1: [ 'a', 'b', 'c' ],
-    VECTOR_SYMBOLS_GROUP_2: [ 'd', 'e', 'f' ],
-
-    //----------------------------------------------------------------------------------------
     // Interval spacing of vector angle (in degrees) when vector is in polar mode
     POLAR_ANGLE_INTERVAL: 5,
 
     //----------------------------------------------------------------------------------------
+    // Rounding
+
+    NUMBER_DISPLAY_ROUNDING: 1, // rounding for all number display instances
+    VECTOR_VALUE_ROUNDING: 1,   // rounding for the vector 'values' in decimal points
+
+    //----------------------------------------------------------------------------------------
     // Fonts
+
     EQUATION_FONT: new PhetFont( 18 ),
     EQUATION_SYMBOL_FONT: new MathSymbolFont( 18 ),
     VECTOR_LABEL_FONT: new PhetFont( 18 ),
