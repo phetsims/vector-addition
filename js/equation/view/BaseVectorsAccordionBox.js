@@ -188,6 +188,14 @@ define( require => {
         }
       } );
     }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      assert && assert( false, 'BaseVectorsAccordionBox is not intended to be disposed' );
+    }
   }
 
   /**
