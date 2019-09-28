@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View for a the component of the sum vector.
+ * View for the component of the sum vector.
  *
  * Extends ComponentVectorNode but adds the following functionality:
  *  - a distinct appearance
