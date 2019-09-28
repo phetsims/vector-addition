@@ -149,7 +149,7 @@ define( require => {
         xComponentText.setCoefficient( coefficient );
         yComponentText.setCoefficient( coefficient );
       };
-      
+
       // Observe changes to when the graphs active vector Property changes to update the panel.
       // unlink is unnecessary, exists for the lifetime of the sim.
       graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {

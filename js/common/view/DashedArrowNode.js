@@ -130,7 +130,7 @@ define( require => {
           .lineToPoint( getPoint( length - headHeight, -this.headWidth / 2 ) )
           .close();
       }
-    } 
+    }
 
     /**
      * Sets the tip location.

@@ -159,7 +159,7 @@ define( require => {
       assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
       this.vectorComponents = this.vectorComponents.copy().setX( xComponent );
     }
-    
+
     /**
      * Gets the y component (scalar).
      * @public

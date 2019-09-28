@@ -68,7 +68,7 @@ define( require => {
 
         assert && assert( equationVector.coefficientProperty.range,
           'coefficientProperty must have an associated range' );
-        
+
         equationChildren.push( new NumberPicker( equationVector.coefficientProperty,
           new Property( equationVector.coefficientProperty.range ),
           NUMBER_PICKER_OPTIONS ) );
@@ -108,9 +108,9 @@ define( require => {
           child.centerY = -maxVectorSymbolHeight / 3;
         }
         if ( i > 0 ) {
-          const previousChild = equationChildren[ i - 1 ] ;
+          const previousChild = equationChildren[ i - 1 ];
           if ( previousChild instanceof NumberPicker ) {
-             child.left = previousChild.right + options.labelNumberPickerSpacing;
+            child.left = previousChild.right + options.labelNumberPickerSpacing;
           }
           else {
             child.left = previousChild.right + options.textSpacing;

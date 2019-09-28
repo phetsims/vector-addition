@@ -150,7 +150,7 @@ define( require => {
       // Component vectors are visible when it isn't INVISIBLE and it is on the graph.
       this.visible = componentVector.isOnGraphProperty.value &&
                      componentStyle !== ComponentStyles.INVISIBLE;
-      
+
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
 
       // On axis lines only visible if the component style is ON_AXIS

@@ -75,9 +75,9 @@ define( require => {
 
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( graph, sceneNode, vectorSymbols, {
-            left: graphOrientationRadioButtonGroup.left,
-            bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
-          } ) );
+          left: graphOrientationRadioButtonGroup.left,
+          bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
+        } ) );
 
         // Switch between scenes to match graph orientation.
         // unlink is unnecessary, exists for the lifetime of the sim.

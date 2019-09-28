@@ -44,7 +44,7 @@ define( require => {
       baseVectorTail: new Vector2( 35, 5 )
     }
   ];
-  
+
   // Describes the initial vectors for polar snap mode
   const POLAR_VECTOR_DESCRIPTIONS = [
 

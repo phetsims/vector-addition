@@ -203,8 +203,8 @@ define( require => {
         // scale and angle of the vector by  dragging the tip.
         const tipShape = new Shape()
           .moveTo( 0, 0 )
-          .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2)
-          .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2)
+          .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2 )
+          .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2 )
           .close();
         const tipNode = new Path( tipShape, {
           stroke: phet.chipper.queryParameters.dev ? 'red' : null,

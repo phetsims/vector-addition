@@ -97,7 +97,7 @@ define( require => {
       const angleVisibleMultilink = Property.multilink(
         [ anglesVisibleProperty, vector.isOnGraphProperty ],
         ( angleVisible, isOnGraph ) => {
-          
+
           // Visible if the angle checkbox is clicked and the vector is on the graph
           this.visible = angleVisible && isOnGraph;
           this.updateAngleNode( vector, graph.modelViewTransformProperty.value );

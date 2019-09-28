@@ -61,14 +61,14 @@ define( require => {
         [ sumVisibleProperty, sumVector.isDefinedProperty ],
         ( sumVisible, isDefined ) => {
           this.visible = ( sumVisible && isDefined );
-      } );
+        } );
 
       // Making an active sum vector invisible clears activeVectorProperty. See #112.
       // unlink is unnecessary, exists for the lifetime of the sim.
       sumVisibleProperty.link( sumVisible => {
-         if ( !sumVisible && graph.activeVectorProperty.value === sumVector ) {
-           graph.activeVectorProperty.value = null;
-         }
+        if ( !sumVisible && graph.activeVectorProperty.value === sumVector ) {
+          graph.activeVectorProperty.value = null;
+        }
       } );
 
       // When the sum vector becomes invisible, interrupt interactions.

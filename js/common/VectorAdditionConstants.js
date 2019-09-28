@@ -164,7 +164,7 @@ define( require => {
 
     // Defaults for component vectors, DashedArrowNode instances
     COMPONENT_VECTOR_ARROW_OPTIONS: COMPONENT_VECTOR_ARROW_OPTIONS,
-    
+
     // Defaults for sum vectors
     SUM_VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
 

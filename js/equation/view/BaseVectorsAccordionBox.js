@@ -154,7 +154,7 @@ define( require => {
           children: [ leftNumberPickerAndLabel, rightNumberPickerAndLabel ]
         } ) );
       } );
-      
+
       const pickersVBox = new VBox( {
         children: pickers,
         spacing: options.ySpacing,
