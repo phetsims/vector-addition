@@ -174,6 +174,14 @@ define( require => {
     // offset of a label from its vector, in model coordinates
     VECTOR_LABEL_OFFSET: 0.45,
 
+    // dilation of vector (arrow) pointer areas
+    VECTOR_TOUCH_AREA_DILATION: 3,
+    VECTOR_MOUSE_AREA_DILATION: 3,
+
+    // dilation of vector head pointer areas, for vectors that can be scales/rotated
+    VECTOR_HEAD_TOUCH_AREA_DILATION: 8,
+    VECTOR_HEAD_MOUSE_AREA_DILATION: 6,
+
     //----------------------------------------------------------------------------------------
     // Rounding
     NUMBER_DISPLAY_ROUNDING: 1, // rounding for all number display instances
