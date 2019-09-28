@@ -28,11 +28,13 @@ define( require => {
   const VectorAdditionColors = {
 
     //----------------------------------------------------------------------------------------
-    // Screen colors
+    // Screen
+
     SCREEN_BACKGROUND: 'rgb( 255, 250, 227 )', // light yellow
 
     //----------------------------------------------------------------------------------------
-    // Graph colors
+    // Graph
+
     GRAPH_BACKGROUND_COLOR: Color.WHITE,
     GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )', // gray
     GRAPH_MINOR_LINE_COLOR: 'rgb( 225, 225, 225 )', // lighter gray
@@ -40,14 +42,16 @@ define( require => {
     ORIGIN_COLOR: 'rgb( 25, 253, 56 )',
 
     //----------------------------------------------------------------------------------------
-    // Panel-like container default colors
+    // Panel-like containers
+
     PANEL_COLORS: {
       stroke: 'rgb( 190, 190, 190 )',
       fill: 'rgb( 240, 240, 240 )'
     },
 
     //----------------------------------------------------------------------------------------
-    // RadioButtonGroup default colors
+    // RadioButtonGroups
+
     RADIO_BUTTON_GROUP_COLORS: {
       baseColor: Color.WHITE,
       selectedStroke: 'rgb( 65, 154, 201 )', // blue
@@ -56,13 +60,15 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Label background on vectors
+
     ACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 240, 240, 100 )', // yellow
     ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgb( 230, 230, 90 )', // slightly darker yellow
     INACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 235, 235, 235 )', // gray
     INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgb( 215, 215, 215 )', // slightly darker gray
 
     //----------------------------------------------------------------------------------------
-    // On axis lines, aka leader lines
+    // On-axis lines, aka leader lines, for component vectors
+
     ON_AXIS_LINES_NON_ACTIVE_STROKE: Color.BLACK, // stroke when the vector isn't active
     ON_AXIS_LINES_ACTIVE_STROKE: Color.BLACK, // stroke when the vector is active
 
