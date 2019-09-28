@@ -30,22 +30,19 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
-  // enumeration of the possible attributes to display
-  const ATTRIBUTE_DISPLAY_TYPES = new Enumeration( [ 'MAGNITUDE',
-    'ANGLE',
-    'X_COMPONENT',
-    'Y_COMPONENT' ] );
+  // enumeration of the quantities related to a vector that we want to display
+  const VectorQuantities = new Enumeration( [ 'MAGNITUDE', 'ANGLE', 'X_COMPONENT', 'Y_COMPONENT' ] );
 
   class VectorValuesNumberDisplay extends NumberDisplay {
+
     /**
      * @param {Graph} graph - the graph that contains the vectors to display
-     * @param {Enumeration} attributeDisplayType - the attribute to display
-     *                                             (see VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES)
+     * @param {VectorQuantities} vectorQuantity - the vector quantity to display
      */
-    constructor( graph, attributeDisplayType ) {
+    constructor( graph, vectorQuantity ) {
 
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( ATTRIBUTE_DISPLAY_TYPES.includes( attributeDisplayType ), `invalid attributeDisplayType: ${attributeDisplayType}` );
+      assert && assert( VectorQuantities.includes( vectorQuantity ), `invalid vectorQuantity: ${vectorQuantity}` );
 
       //----------------------------------------------------------------------------------------
       // Calculate the range
@@ -58,16 +55,16 @@ define( require => {
 
       let numberDisplayRange;
 
-      if ( attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.ANGLE ) {
+      if ( vectorQuantity === VectorQuantities.ANGLE ) {
         numberDisplayRange = VectorAdditionConstants.ANGLE_RANGE;
       }
-      else if ( attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE ) {
+      else if ( vectorQuantity === VectorQuantities.MAGNITUDE ) {
         numberDisplayRange = new Range( 0, maxMagnitude );
       }
-      else if ( attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT ) {
+      else if ( vectorQuantity === VectorQuantities.X_COMPONENT ) {
         numberDisplayRange = new Range( -graphWidth, graphWidth );
       }
-      else if ( attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT ) {
+      else if ( vectorQuantity === VectorQuantities.Y_COMPONENT ) {
         numberDisplayRange = new Range( -graphHeight, graphHeight );
       }
 
@@ -84,8 +81,8 @@ define( require => {
         decimalPlaces: VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES
       } );
 
-      // @private {Enumeration} (final) reference to the attribute display type
-      this.attributeDisplayType = attributeDisplayType;
+      // @private {VectorQuantities} (final)
+      this.vectorQuantity = vectorQuantity;
 
       //----------------------------------------------------------------------------------------
       // Create links
@@ -125,30 +122,29 @@ define( require => {
      */
     getNumberDisplayValue( activeVector ) {
 
-      assert && assert( activeVector instanceof Vector || activeVector === null,
-        `invalid activeVector: ${activeVector}` );
+      assert && assert( activeVector instanceof Vector || activeVector === null, `invalid activeVector: ${activeVector}` );
 
       if ( !activeVector ) {
         return null;
       }
 
-      if ( this.attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE ) {
+      if ( this.vectorQuantity === VectorQuantities.MAGNITUDE ) {
         return activeVector.magnitude;
       }
-      else if ( this.attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.ANGLE ) {
+      else if ( this.vectorQuantity === VectorQuantities.ANGLE ) {
         return activeVector.angleDegrees;
       }
-      else if ( this.attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT ) {
+      else if ( this.vectorQuantity === VectorQuantities.X_COMPONENT ) {
         return activeVector.xComponent;
       }
-      else if ( this.attributeDisplayType === ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT ) {
+      else if ( this.vectorQuantity === VectorQuantities.Y_COMPONENT ) {
         return activeVector.yComponent;
       }
     }
   }
 
-  // @public {Enumeration} possible attributes to display
-  VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES = ATTRIBUTE_DISPLAY_TYPES;
+  // @public {VectorQuantities} possible quantities to display
+  VectorValuesNumberDisplay.VectorQuantities = VectorQuantities;
 
   return vectorAddition.register( 'VectorValuesNumberDisplay', VectorValuesNumberDisplay );
 } );

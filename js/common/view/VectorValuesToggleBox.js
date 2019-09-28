@@ -57,10 +57,6 @@ define( require => {
   // width of the component labels
   const COMPONENT_LABEL_WIDTH = 35;
 
-  // possible types of attributes to display
-  const ATTRIBUTE_DISPLAY_TYPES = VectorValuesNumberDisplay.ATTRIBUTE_DISPLAY_TYPES;
-
-
   class VectorValuesToggleBox extends ToggleBox {
 
     /**
@@ -109,16 +105,16 @@ define( require => {
       const magnitudeDisplayNode = new VectorSymbolNode( {
         includeAbsoluteValueBars: true
       } );
-      const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.MAGNITUDE );
+      const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, VectorValuesNumberDisplay.VectorQuantities.MAGNITUDE );
 
       const angleText = new Text( MathSymbols.THETA, { font: VectorAdditionConstants.EQUATION_SYMBOL_FONT } );
-      const angleNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.ANGLE );
+      const angleNumberDisplay = new VectorValuesNumberDisplay( graph, VectorValuesNumberDisplay.VectorQuantities.ANGLE );
 
       const xComponentText = new VectorSymbolNode( { showVectorArrow: false } );
-      const xComponentNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.X_COMPONENT );
+      const xComponentNumberDisplay = new VectorValuesNumberDisplay( graph, VectorValuesNumberDisplay.VectorQuantities.X_COMPONENT );
 
       const yComponentText = new VectorSymbolNode( { showVectorArrow: false } );
-      const yComponentNumberDisplay = new VectorValuesNumberDisplay( graph, ATTRIBUTE_DISPLAY_TYPES.Y_COMPONENT );
+      const yComponentNumberDisplay = new VectorValuesNumberDisplay( graph, VectorValuesNumberDisplay.VectorQuantities.Y_COMPONENT );
 
       //----------------------------------------------------------------------------------------
       // Add the new scenery nodes
