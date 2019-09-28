@@ -80,7 +80,8 @@ define( require => {
       // The sum vector only displays its symbol when a vector in its vector set is active, or the sum is active.
       this.isSymbolDisplayed = () => {
         return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
-               || graph.activeVectorProperty.value === this;
+               || graph.activeVectorProperty.value === this
+               || graph.activeVectorProperty.value === null;
       };
     }
 
