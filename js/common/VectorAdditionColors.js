@@ -16,8 +16,8 @@ define( require => {
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
   // Colors that are used in more than one VectorColorPalette
-  const MAIN_BLUE = 'rgb( 10, 170, 250 )';
-  const MAIN_PURPLE = 'rgb( 188, 3, 255 )';
+  const BLUE = 'rgb( 10, 170, 250 )';
+  const PURPLE = 'rgb( 188, 3, 255 )';
 
   // VectorColorPalette options that are common to both color palettes in the Equation screen
   const EQUATION_COLOR_PALETTE_OPTIONS = {
@@ -29,13 +29,13 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Screen colors
-    SCREEN_BACKGROUND: 'rgb( 255, 250, 227 )',
+    SCREEN_BACKGROUND: 'rgb( 255, 250, 227 )', // light yellow
 
     //----------------------------------------------------------------------------------------
     // Graph colors
     GRAPH_BACKGROUND_COLOR: Color.WHITE,
-    GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )',
-    GRAPH_MINOR_LINE_COLOR: 'rgb( 225, 225, 225 )',
+    GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )', // gray
+    GRAPH_MINOR_LINE_COLOR: 'rgb( 225, 225, 225 )', // lighter gray
 
     ORIGIN_COLOR: 'rgb( 25, 253, 56 )',
 
@@ -56,10 +56,10 @@ define( require => {
 
     //----------------------------------------------------------------------------------------
     // Label background on vectors
-    ACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 240, 240, 100 )',
-    ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgb( 230, 230, 90 )',
-    INACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 235, 235, 235 )',
-    INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgb( 215, 215, 215 )',
+    ACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 240, 240, 100 )', // yellow
+    ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgb( 230, 230, 90 )', // slightly darker yellow
+    INACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 235, 235, 235 )', // gray
+    INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgb( 215, 215, 215 )', // slightly darker gray
 
     //----------------------------------------------------------------------------------------
     // On axis lines, aka leader lines
@@ -70,32 +70,32 @@ define( require => {
     // Vector color palettes
 
     BLUE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: MAIN_BLUE,
-      sumFill: 'rgb( 5, 85, 125 )'
+      mainFill: BLUE,
+      sumFill: 'rgb( 5, 85, 125 )' // darker blue
     } ),
 
     PURPLE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: MAIN_PURPLE,
-      sumFill: 'rgb( 84, 2, 128 )'
+      mainFill: PURPLE,
+      sumFill: 'rgb( 84, 2, 128 )' // darker purple
     } ),
 
     RED_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 255, 53, 133 )',
-      sumFill: 'rgb( 128, 1, 51 )'
+      mainFill: 'rgb( 255, 53, 133 )', // red
+      sumFill: 'rgb( 128, 1, 51 )' // darker red
     } ),
 
     GREEN_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 5, 200, 0 )',
-      sumFill: 'rgb( 2, 75, 0 )'
+      mainFill: 'rgb( 5, 200, 0 )', // green
+      sumFill: 'rgb( 2, 75, 0 )' // darker green
     } ),
 
     // Equation screen
     EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( _.extend( {
-      mainFill: MAIN_BLUE
+      mainFill: BLUE
     }, EQUATION_COLOR_PALETTE_OPTIONS ) ),
 
     EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( _.extend( {
-      mainFill: MAIN_PURPLE
+      mainFill: PURPLE
     }, EQUATION_COLOR_PALETTE_OPTIONS ) )
   };
 
