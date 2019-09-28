@@ -184,7 +184,6 @@ define( require => {
       // unlink is not necessary, exists for the lifetime of the sim.
       this.expandedProperty.lazyLink( expanded => {
         if ( !expanded ) {
-          console.log( 'interrupt' );
           this.interruptSubtreeInput();
         }
       } );
