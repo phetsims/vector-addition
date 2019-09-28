@@ -30,9 +30,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
-  // constants
-  const NUMBER_DISPLAY_ROUNDING = VectorAdditionConstants.NUMBER_DISPLAY_ROUNDING;
-
   // enumeration of the possible attributes to display
   const ATTRIBUTE_DISPLAY_TYPES = new Enumeration( [ 'MAGNITUDE',
     'ANGLE',
@@ -83,7 +80,9 @@ define( require => {
         isValidValue: value => ( typeof value === 'number' || value === null )
       } );
 
-      super( numberDisplayProperty, numberDisplayRange, { decimalPlaces: NUMBER_DISPLAY_ROUNDING } );
+      super( numberDisplayProperty, numberDisplayRange, {
+        decimalPlaces: VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES
+      } );
 
       // @private {Enumeration} (final) reference to the attribute display type
       this.attributeDisplayType = attributeDisplayType;

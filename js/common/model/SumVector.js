@@ -31,9 +31,6 @@ define( require => {
     isOnGraphInitially: true // Sum vectors are always on the graph
   };
 
-  // rounding for the vector value (on the label with values checked)
-  const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
-
   class SumVector extends Vector {
 
     /**
@@ -132,7 +129,7 @@ define( require => {
       if ( !this.isSymbolDisplayed() ) {
 
         // Get the rounded magnitude
-        const roundedMagnitude = Util.toFixed( this.magnitude, VECTOR_VALUE_ROUNDING );
+        const roundedMagnitude = Util.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
         return _.extend( super.getLabelContent( valuesVisible ), {
           symbol: null,

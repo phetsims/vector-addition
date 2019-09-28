@@ -49,9 +49,6 @@ define( require => {
   // distance between a vector's tail or tip to another vector/s tail or tip to snap to the other vectors in polar mode.
   const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 
-  // rounding for the vector value (on the label with values checked)
-  const VECTOR_VALUE_ROUNDING = VectorAdditionConstants.VECTOR_VALUE_ROUNDING;
-
   class Vector extends RootVector {
 
     /**
@@ -167,7 +164,7 @@ define( require => {
     getLabelContent( valuesVisible ) {
 
       // Get the rounded magnitude
-      const roundedMagnitude = Util.toFixed( this.magnitude, VECTOR_VALUE_ROUNDING );
+      const roundedMagnitude = Util.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
       // Create flags to indicate the symbol and the value
       let symbol = null;

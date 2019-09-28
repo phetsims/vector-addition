@@ -198,10 +198,9 @@ define( require => {
     POLAR_ANGLE_INTERVAL: 5,
 
     //----------------------------------------------------------------------------------------
-    // Rounding
+    // Decimal places
 
-    NUMBER_DISPLAY_ROUNDING: 1, // rounding for all number display instances
-    VECTOR_VALUE_ROUNDING: 1,   // rounding for the vector 'values' in decimal points
+    VECTOR_VALUE_DECIMAL_PLACES: 1, // for all vector-related values (magnitude, angle, components)
 
     //----------------------------------------------------------------------------------------
     // Fonts
