@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Radio button group for switching between polar and Cartesian mode.
+ * Radio button group for switching between polar and Cartesian snap modes.
  *
  * See https://github.com/phetsims/vector-addition/issues/21 for a visual.
  *
