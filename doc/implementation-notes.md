@@ -1,26 +1,25 @@
 TODO implementation overview
 
-"Active" vector means "selected" vector.
+"Active" vector means "selected" vector.  There is (at most) one active vector.
 
 Vector class hierarchy:
 
 ``` 
 // model
 RootVector
-  Vector
+  Vector (interactive)
     BaseVector
       CartesianBaseVector
       PolarBaseVector
     EquationVector
     SumVector
       EquationSumVector
-  ComponentVector
+  ComponentVector (not interactive)
    
 // view
 RootVectorNode
-  VectorNode  
-    EquationVectorNode
+  VectorNode (interactive) 
     SumVectorNode
-  ComponentVectorNode
+  ComponentVectorNode (not interactive)
     SumComponentVectorNode 
 ```
