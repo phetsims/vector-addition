@@ -65,13 +65,13 @@ define( require => {
       const contentWidth = options.contentFixedWidth || _.max( [ closedContent.width, openContent.width ] );
       const contentHeight = options.contentFixedHeight || _.max( [ closedContent.height, openContent.height ] );
 
+      // Constrain the content width and height
       openContent.maxWidth = contentWidth;
       openContent.maxHeight = contentHeight;
-
       closedContent.maxWidth = contentWidth;
       closedContent.maxHeight = contentHeight;
 
-      // Put the open and closed content in AlignBoxes, to constrain size and handle alignment
+      // Put the content in AlignBoxes, to handle alignment
       const alignBoxOptions = {
         xAlign: options.contentAlign,
         alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
