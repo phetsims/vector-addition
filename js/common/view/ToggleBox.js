@@ -82,7 +82,7 @@ define( require => {
       super( openContentAlignBox, _.extend( {
         expandedProperty: new BooleanProperty( options.isExpandedInitially ),
         showTitleWhenExpanded: false,
-        titleNode: closedContentAlignBox,
+        titleNode: closedContentAlignBox, // unorthodox use of AccordionBox, but it works
         titleBarExpandCollapse: false
       }, options ) );
     }
