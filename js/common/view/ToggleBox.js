@@ -65,13 +65,8 @@ define( require => {
       // Create the content container
       //----------------------------------------------------------------------------------------
 
-      // Convenience References
-      const contentWidth = options.contentFixedWidth ? options.contentFixedWidth :
-                           _.max( [ closedContent.width, openContent.width ] );
-
-      const contentHeight = options.contentFixedHeight ? options.contentFixedHeight :
-                            _.max( [ closedContent.height, openContent.height ] );
-
+      const contentWidth = options.contentFixedWidth || _.max( [ closedContent.width, openContent.width ] );
+      const contentHeight = options.contentFixedHeight || _.max( [ closedContent.height, openContent.height ] );
 
       // Align the closed and open content in a align box, adding a strict bounds
       const openContentAlignBox = new AlignBox( openContent, {
@@ -87,7 +82,6 @@ define( require => {
         maxWidth: contentWidth,
         maxHeight: contentHeight
       } );
-
 
       closedContent.maxWidth = contentWidth;
       openContent.maxWidth = contentWidth;
