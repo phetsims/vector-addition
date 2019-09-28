@@ -71,7 +71,7 @@ define( require => {
       options = _.extend( {
 
         // superclass options
-        contentFixedWidth: 440, // {number|null} fixed size of the panel (see superclass)
+        contentFixedWidth: 500, // {number|null} fixed size of the panel (see superclass)
         contentFixedHeight: 45, // {number|null} fixed size of the panel (see superclass)
         isExpandedInitially: true
 
