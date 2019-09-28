@@ -28,14 +28,6 @@ define( require => {
 
   // constants
 
-  // radius of the invisible circle at the tip of the vector
-  const TIP_CIRCLE_RADIUS = 10;
-  const TIP_CIRCLE_OPTIONS = {
-    opacity: 0,
-    dilated: 10,
-    cursor: 'pointer'
-  };
-
   // arrow options for the vector shadow
   const SHADOW_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
     fill: Color.BLACK,
@@ -107,7 +99,10 @@ define( require => {
 
       // Create a circle at the tip of the vector. This is used to allow the user to only change the angle of the
       // arrowNode by only dragging the tip
-      const tipCircle = new Circle( TIP_CIRCLE_RADIUS, _.extend( { center: tipDeltaLocation }, TIP_CIRCLE_OPTIONS ) );
+      const tipCircle = new Circle( VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, {
+        stroke: phet.chipper.queryParameters.dev ? 'red' : null,
+        cursor: 'pointer'
+      } );
 
       // Reconfigure scene graph z-layering
       this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode, tipCircle ] );
