@@ -16,6 +16,7 @@ define( require => {
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -47,8 +48,6 @@ define( require => {
   // place the label on the other side of the baseline. See
   // https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.on5p73bbry7g.
   const ANGLE_UNDER_BASELINE_THRESHOLD = 35;
-
-  const DEGREES = '\u00B0'; // TODO: this should be in Math Symbols. https://github.com/phetsims/scenery-phet/issues/514
 
   class VectorAngleNode extends Node {
     /**
@@ -148,9 +147,11 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
       // Update the label text.
-      this.labelText.setText( angleDegrees !== null ?
-                              `${Util.toFixed( vector.angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )}${DEGREES}` :
-                              '' );
+      this.labelText.setText(
+        angleDegrees !== null ?
+        `${Util.toFixed( vector.angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )}${MathSymbols.DEGREES}` :
+        ''
+      );
 
       //----------------------------------------------------------------------------------------
       // Update the curved arrow radius
