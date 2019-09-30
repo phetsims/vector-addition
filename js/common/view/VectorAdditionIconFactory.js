@@ -75,7 +75,7 @@ define( require => {
       const rightVectorNode = new ArrowNode( 0, 0, SCREEN_ICON_WIDTH, 0, vectorOptions );
 
       // Vector pointing to the left, partial width of the icon
-      const leftVectorNode = new ArrowNode( 0.33 * SCREEN_ICON_WIDTH, 0, 0, 0, vectorOptions );
+      const leftVectorNode = new ArrowNode( 0.5 * SCREEN_ICON_WIDTH, 0, 0, 0, vectorOptions );
 
       const vBox = new VBox( {
         align: 'right',
