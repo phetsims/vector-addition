@@ -73,7 +73,7 @@ In Cartesian snap mode:
 
 In Polar snap mode:
 * the graph shows vectors labeled d&#8407;, e&#8407;, and f&#8407;
-* base vectors are provided for d&#8407; and ew&#8407;
+* base vectors are provided for d&#8407; and e&#8407;
 * magnitude and angle can be changed for base vectors
 * base vector magnitude range is [-10,10], integers
 * base vector angle range is [-180,180] degress, in 5-degree intervals
