@@ -50,7 +50,7 @@ define( require => {
     /**
      * @param {Graph} graph
      * @param {VectorAdditionViewProperties} viewProperties
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {Object} [options] - all options are specific to this class, not passed to superclass
      */
     constructor( graph, viewProperties, componentStyleProperty, options ) {

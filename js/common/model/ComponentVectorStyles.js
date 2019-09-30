@@ -13,7 +13,7 @@ define( require => {
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  const ComponentStyles = new Enumeration( [
+  const ComponentVectorStyles = new Enumeration( [
     'INVISIBLE',        // Component vectors are not displayed at all
 
     'PARALLELOGRAM',    // Component vector's initial points and the original vector's initial points coincide
@@ -24,5 +24,5 @@ define( require => {
     'ON_AXIS'           // Component vectors are displayed on the x and y axes
   ] );
 
-  return vectorAddition.register( 'ComponentStyles', ComponentStyles );
+  return vectorAddition.register( 'ComponentVectorStyles', ComponentVectorStyles );
 } );

@@ -4,7 +4,7 @@
  * View for a ComponentVector
  *
  * Extends RootVectorNode but add the following functionality:
- *  - determines visibility by the component style (i.e. should be invisible on ComponentStyles.INVISIBLE)
+ *  - determines visibility by the component style (i.e. should be invisible on ComponentVectorStyles.INVISIBLE)
  *  - draws lines for the on-axis component style
  *  - custom label positioning
  *  - distinct appearance
@@ -17,7 +17,7 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const ComponentVector = require( 'VECTOR_ADDITION/common/model/ComponentVector' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
@@ -44,7 +44,7 @@ define( require => {
     /**
      * @param {ComponentVector} componentVector - the component vector model the node represents
      * @param {Graph} graph - the graph the component vector belongs to
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {Object} [options]
      */
@@ -52,7 +52,7 @@ define( require => {
 
       assert && assert( componentVector instanceof ComponentVector, `invalid componentVector: ${componentVector}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
@@ -142,19 +142,19 @@ define( require => {
      *
      * @param {ComponentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
-     * @param {ComponentStyles} componentStyle
+     * @param {ComponentVectorStyles} componentStyle
      * @param {boolean} isParentActive
      */
     updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
 
       // Component vectors are visible when it isn't INVISIBLE and it is on the graph.
       this.visible = componentVector.isOnGraphProperty.value &&
-                     componentStyle !== ComponentStyles.INVISIBLE;
+                     componentStyle !== ComponentVectorStyles.INVISIBLE;
 
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
 
       // On axis lines only visible if the component style is ON_AXIS
-      this.onAxisLinesPath.visible = ( componentStyle === ComponentStyles.ON_AXIS );
+      this.onAxisLinesPath.visible = ( componentStyle === ComponentVectorStyles.ON_AXIS );
 
       // Update the on-axis lines only if its the on-axis style
       if ( this.onAxisLinesPath.visible ) {

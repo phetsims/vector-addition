@@ -33,7 +33,7 @@ define( require => {
     /**
      * @param {EquationGraph} graph
      * @param {EquationViewProperties} viewProperties
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {number} graphControlPanelBottom
      * @param {Object} [options]
      */

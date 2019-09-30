@@ -10,7 +10,7 @@ define( require => {
   'use strict';
 
   // modules
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
@@ -27,7 +27,7 @@ define( require => {
 
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {Property.<boolean>} sumVisibleProperty1 - whether the sum for the first VectorSet is visible
      * @param {Property.<boolean>} sumVisibleProperty2 - whether the sum for the second VectorSet is visible
      * @param {VectorColorPalette} vectorColorPalette1 - color palette for the first VectorSet
@@ -37,7 +37,7 @@ define( require => {
                  vectorColorPalette1, vectorColorPalette2 ) {
 
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( vectorColorPalette1 instanceof VectorColorPalette, `invalid vectorColorPalette1: ${vectorColorPalette1}` );
       assert && assert( vectorColorPalette2 instanceof VectorColorPalette, `invalid vectorColorPalette2: ${vectorColorPalette2}` );

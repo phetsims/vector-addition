@@ -9,7 +9,7 @@ define( require => {
   'use strict';
 
   // modules
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -24,7 +24,7 @@ define( require => {
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       // @public the representation (style) used to display component vectors
-      this.componentStyleProperty = new EnumerationProperty( ComponentStyles, ComponentStyles.INVISIBLE );
+      this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyles, ComponentVectorStyles.INVISIBLE );
     }
 
     /**

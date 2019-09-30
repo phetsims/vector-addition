@@ -23,7 +23,7 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const ArrowOverSymbolNode = require( 'VECTOR_ADDITION/common/view/ArrowOverSymbolNode' );
   const Color = require( 'SCENERY/util/Color' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
   const DashedArrowNode = require( 'VECTOR_ADDITION/common/view/DashedArrowNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
@@ -266,22 +266,22 @@ define( require => {
     },
 
     //========================================================================================
-    // ComponentStyles icons, used on Component radio buttons
+    // ComponentVectorStyles icons, used on Component radio buttons
     //========================================================================================
 
     /**
      * Creates the icons that go on the Component Style Radio Button based on a component style
      * @public
-     * @param {ComponentStyles} componentStyle
+     * @param {ComponentVectorStyles} componentStyle
      * @returns {Node}
      */
     createComponentStyleRadioButtonIcon( componentStyle ) {
 
-      assert && assert( ComponentStyles.includes( componentStyle ), `invalid componentStyle: ${componentStyle}` );
+      assert && assert( ComponentVectorStyles.includes( componentStyle ), `invalid componentStyle: ${componentStyle}` );
 
       const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
 
-      if ( componentStyle === ComponentStyles.INVISIBLE ) {
+      if ( componentStyle === ComponentVectorStyles.INVISIBLE ) {
         return createEyeCloseIcon( iconSize );
       }
 
@@ -304,10 +304,10 @@ define( require => {
 
       let iconChildren = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
 
-      if ( componentStyle === ComponentStyles.TRIANGLE ) {
+      if ( componentStyle === ComponentVectorStyles.TRIANGLE ) {
         yComponentArrow.setTailAndTip( iconSize, 0, iconSize, -iconSize );
       }
-      else if ( componentStyle === ComponentStyles.ON_AXIS ) {
+      else if ( componentStyle === ComponentVectorStyles.ON_AXIS ) {
         vectorArrow.setTailAndTip( subBoxSize, -subBoxSize, iconSize, -iconSize );
         xComponentArrow.setTailAndTip( subBoxSize, 0, iconSize, 0 );
         yComponentArrow.setTailAndTip( 0, -subBoxSize, 0, -iconSize );
@@ -538,7 +538,7 @@ define( require => {
   }
 
   /**
-   * Create the close eye icon, for ComponentStyles.INVISIBLE.
+   * Create the close eye icon, for ComponentVectorStyles.INVISIBLE.
    * @param {number} iconSize
    * @returns {Node}
    */

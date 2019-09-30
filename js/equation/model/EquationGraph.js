@@ -40,7 +40,7 @@ define( require => {
 
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {BooleanProperty} sumVisibleProperty
      * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
      */

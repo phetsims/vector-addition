@@ -32,7 +32,7 @@ define( require => {
     /**
      * @param {LabGraph} cartesianGraph
      * @param {LabGraph} polarGraph
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {Property.<boolean>} sumVisibleProperty1
      * @param {Property.<boolean>} sumVisibleProperty2
      * @param {VectorAdditionViewProperties} viewProperties

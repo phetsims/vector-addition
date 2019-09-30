@@ -18,7 +18,7 @@ define( require => {
   'use strict';
 
   // modules
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
@@ -36,13 +36,13 @@ define( require => {
 
     /**
      * @param {Vector} parentVector - the vector that this component vector is associated with
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {Property.<Vector|null>} activeVectorProperty - which vector is active (selected)
      * @param {Enumeration} componentType - type of component vector (x or y), see ComponentVector.ComponentTypes
      */
     constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
-      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( activeVectorProperty instanceof Property, `invalid activeVectorProperty: ${activeVectorProperty}` );
       assert && assert( ComponentVector.ComponentTypes.includes( componentType ), `invalid componentType: ${componentType}` );
@@ -100,7 +100,7 @@ define( require => {
      * the parent vector's tail/tip.
      * @private
      *
-     * @param {ComponentStyles} componentStyle
+     * @param {ComponentVectorStyles} componentStyle
      * @param {Vector2} parentTail - the position of the parent vector's tail
      * @param {Vector2} parentTip - the position of the parent vector's tip
      */
@@ -113,7 +113,7 @@ define( require => {
         //----------------------------------------------------------------------------------------
 
         // Triangle and Parallelogram results in the same x component vector
-        if ( componentStyle === ComponentStyles.TRIANGLE || componentStyle === ComponentStyles.PARALLELOGRAM ) {
+        if ( componentStyle === ComponentVectorStyles.TRIANGLE || componentStyle === ComponentVectorStyles.PARALLELOGRAM ) {
 
           // Shared tail position as parent
           this.tail = parentTail;
@@ -121,7 +121,7 @@ define( require => {
           // Tip is at the parent's tip x and at the parent's tail y.
           this.setTipXY( parentTip.x, parentTail.y );
         }
-        else if ( componentStyle === ComponentStyles.ON_AXIS ) {
+        else if ( componentStyle === ComponentVectorStyles.ON_AXIS ) {
 
           // From parent tailX to parent tipX. However its y value is 0 since it is on the x-axis
           this.setTailXY( parentTail.x, 0 );
@@ -135,7 +135,7 @@ define( require => {
         // Update the y component vector
         //----------------------------------------------------------------------------------------
 
-        if ( componentStyle === ComponentStyles.TRIANGLE ) {
+        if ( componentStyle === ComponentVectorStyles.TRIANGLE ) {
 
           // Shared tip position as the parent
           this.tip = parentTip;
@@ -143,7 +143,7 @@ define( require => {
           // Tail is at the parent's tip x and at the parent's tail y.
           this.setTailXY( parentTip.x, parentTail.y );
         }
-        else if ( componentStyle === ComponentStyles.PARALLELOGRAM ) {
+        else if ( componentStyle === ComponentVectorStyles.PARALLELOGRAM ) {
 
           // Shared tail position as parent
           this.tail = parentTail;
@@ -151,7 +151,7 @@ define( require => {
           // Tip is at the parents tailX and at the parents tipY
           this.setTipXY( parentTail.x, parentTip.y );
         }
-        else if ( componentStyle === ComponentStyles.ON_AXIS ) {
+        else if ( componentStyle === ComponentVectorStyles.ON_AXIS ) {
 
           // Same tailY, however its x value is 0 since it is on the y-axis
           this.setTailXY( 0, parentTail.y );

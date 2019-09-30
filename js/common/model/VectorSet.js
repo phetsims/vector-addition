@@ -17,7 +17,7 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
@@ -32,7 +32,7 @@ define( require => {
 
     /**
      * @param {Graph} graph - the graph the VectorSet belongs to
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty - component style for all vectors
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty - component style for all vectors
      * @param {BooleanProperty} sumVisibleProperty - controls whether the sum vector is visible
      * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
      * @param {Object} [options]
@@ -50,7 +50,7 @@ define( require => {
 
       }, options );
 
-      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );

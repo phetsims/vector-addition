@@ -16,7 +16,7 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const merge = require( 'PHET_CORE/merge' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -27,7 +27,7 @@ define( require => {
     /**
      * @param {ComponentVector} componentVector - the vector model for the component
      * @param {Graph} graph - the graph the component belongs to
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {BooleanProperty} valuesVisibleProperty
      * @param {BooleanProperty} sumVisibleProperty
      * @param {Object} [options]
@@ -81,7 +81,7 @@ define( require => {
      *
      * @param {ComponentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
-     * @param {ComponentStyles} componentStyle
+     * @param {ComponentVectorStyles} componentStyle
      * @param {boolean} isParentActive
      */
     updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
@@ -89,7 +89,7 @@ define( require => {
 
       this.visible = (
         // components are visible
-        ( componentStyle !== ComponentStyles.INVISIBLE ) &&
+        ( componentStyle !== ComponentVectorStyles.INVISIBLE ) &&
         // component magnitude is not 0
         ( componentVector.magnitude !== 0 ) &&
         // sum is visible

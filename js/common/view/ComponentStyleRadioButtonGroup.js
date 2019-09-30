@@ -13,7 +13,7 @@ define( require => {
   'use strict';
 
   // modules
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GridBox = require( 'VECTOR_ADDITION/common/view/GridBox' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -25,16 +25,16 @@ define( require => {
   class ComponentStyleRadioButtonGroup extends Node {
 
     /**
-     * @param {EnumerationProperty.<ComponentStyles>} componentStyleProperty
+     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      */
     constructor( componentStyleProperty ) {
 
-      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       // Create the radio buttons
       const buttons = [];
-      ComponentStyles.VALUES.forEach( componentStyle => {
+      ComponentVectorStyles.VALUES.forEach( componentStyle => {
         buttons.push( new RadioButtonGroupMember( componentStyleProperty, componentStyle,
           _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
             content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )

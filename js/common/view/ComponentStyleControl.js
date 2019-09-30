@@ -14,7 +14,7 @@ define( require => {
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
-  const ComponentStyles = require( 'VECTOR_ADDITION/common/model/ComponentStyles' );
+  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
@@ -27,12 +27,12 @@ define( require => {
   class ComponentStyleControl extends VBox {
 
     /**
-     * @param {EnumerationProperty} componentStyleProperty - value of type ComponentStyles
+     * @param {EnumerationProperty} componentStyleProperty - value of type ComponentVectorStyles
      * @param {Object} [options]
      */
     constructor( componentStyleProperty, options ) {
 
-      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentStyles.includes( componentStyleProperty.value ),
+      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
       options = _.extend( {
