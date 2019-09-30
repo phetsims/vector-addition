@@ -24,9 +24,9 @@ In addition to this document, you are encouraged to be read:
 
 This section describes how this simulation addresses implementation considerations that are typically encountered in PhET simulations.
 
-**Memory Management**: TODO
-
 **Coordinate Transforms**: TODO
+
+**Memory Management**: TODO
 
 **Query Parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and
 testing. Sim-specific query parameters are documented in
