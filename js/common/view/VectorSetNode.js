@@ -15,6 +15,7 @@ define( require => {
   'use strict';
 
   // modules
+  const BaseVector = require( 'VECTOR_ADDITION/equation/model/BaseVector' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Event = require( 'SCENERY/input/Event' );
@@ -25,6 +26,7 @@ define( require => {
   const SumVectorNode = require( 'VECTOR_ADDITION/common/view/SumVectorNode' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
@@ -165,6 +167,46 @@ define( require => {
 
         this.vectorSet.vectors.addItemRemovedListener( removalListener );
       }
+    }
+
+    /**
+     * Adds a base vector to the VectorSetNode.  Base vectors are never removed.
+     * Base vectors do not have component vectors, see https://github.com/phetsims/vector-addition/issues/158
+     * @param {BaseVector} baseVector
+     * @param {Property.<boolean>} baseVectorsVisibleProperty
+     * @public
+     */
+    addBaseVector( baseVector, baseVectorsVisibleProperty ) {
+
+      assert && assert( baseVector instanceof BaseVector, 'invalid baseVector' );
+      assert && assert( baseVectorsVisibleProperty instanceof Property, 'invalid baseVectorsVisibleProperty' );
+
+      // Node for the base vector
+      const baseVectorNode = new VectorNode( baseVector, this.graph,
+        this.valuesVisibleProperty,
+        this.anglesVisibleProperty, {
+          arrowOptions: _.extend( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
+            fill: this.graph.vectorSet.vectorColorPalette.baseVectorFill,
+            stroke: this.graph.vectorSet.vectorColorPalette.baseVectorStroke
+          } )
+        } );
+      this.addChild( baseVectorNode );
+
+      // Handle visibility
+      baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
+
+      // When the base vector becomes actrive (selected), move it (and the entire vector set) to the front.
+      // unlink is unnecessary because base vectors exist for the lifetime of the sim.
+      this.graph.activeVectorProperty.link( activeVector => {
+        if ( activeVector === baseVectorNode.vector ) {
+
+          // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
+          this.moveToFront();
+
+          // move the base vector to the front
+          baseVectorNode.moveToFront();
+        }
+      } );
     }
   }
 

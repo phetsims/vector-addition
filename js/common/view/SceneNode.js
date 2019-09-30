@@ -38,7 +38,6 @@ define( require => {
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
   const VectorSetNode = require( 'VECTOR_ADDITION/common/view/VectorSetNode' );
@@ -87,14 +86,14 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create containers for each and every type of Vector to handle z-layering of all vector types.
 
-      // @private {Node} parent for all vectors
-      this.vectorContainer = new Node(); //TODO this should go away, add base vectors to VectorSetNode
+      // @private {Node} parent for all VectorSetNodes
+      this.vectorSetNodesParent = new Node(); //TODO this should go away, add base vectors to VectorSetNode
 
       // Add the children in the correct z-order
       this.setChildren( [
         graphNode,
         vectorValuesToggleBox,
-        this.vectorContainer
+        this.vectorSetNodesParent
       ] );
 
       // Add an eraser button if necessary
@@ -129,7 +128,7 @@ define( require => {
       graph.vectorSets.forEach( vectorSet => {
         const vectorSetNode = new VectorSetNode( graph, vectorSet,
           viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentStyleProperty );
-        this.vectorContainer.addChild( vectorSetNode );
+        this.vectorSetNodesParent.addChild( vectorSetNode );
         this.vectorSetNodes.push( vectorSetNode );
       } );
 
@@ -176,6 +175,17 @@ define( require => {
       // Delegate registration to the VectorSetNode
       this.getVectorSetNode( vectorSet ).registerVector( vector, forwardingEvent );
     }
+    
+    /**
+     * Adds a base vector to the scene.  Delegates to VectorSetNode.
+     * @protected
+     * @param {VectorSet} vectorSet
+     * @param {BaseVector} baseVector
+     * @param {Property.<boolean>} baseVectorsVisibleProperty
+     */
+    addBaseVector( vectorSet, baseVector, baseVectorsVisibleProperty ) {
+      this.getVectorSetNode( vectorSet ).addBaseVector( baseVector, baseVectorsVisibleProperty );
+    }
 
     /**
      * Adds a VectorCreatorPanel to the scene.
@@ -187,17 +197,6 @@ define( require => {
 
       this.addChild( vectorCreatorPanel );
       vectorCreatorPanel.moveToBack();
-    }
-
-    /**
-     * Adds a base vector to the scene.
-     * @protected
-     * @param {VectorNode} vectorNode
-     */
-    addBaseVectorNode( vectorNode ) {
-      assert && assert( vectorNode instanceof VectorNode, `invalid vectorNode: ${vectorNode}` );
-
-      this.vectorContainer.addChild( vectorNode );
     }
   }
 

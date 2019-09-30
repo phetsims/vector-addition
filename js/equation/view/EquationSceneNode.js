@@ -26,7 +26,6 @@ define( require => {
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
 
   class EquationSceneNode extends SceneNode {
 
@@ -74,33 +73,10 @@ define( require => {
       this.addChild( baseVectorsAccordionBox );
       baseVectorsAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
 
-      // 'Register' vectors and add their base vectors.
-      // Base vectors do not have component vectors, see https://github.com/phetsims/vector-addition/issues/158
-      graph.vectorSet.vectors.forEach( equationVector => {
-
-        // register the vector to create the Nodes
-        this.registerVector( equationVector, graph.vectorSet );
-
-        const baseVectorNode = new VectorNode( equationVector.baseVector, graph,
-          viewProperties.valuesVisibleProperty,
-          viewProperties.anglesVisibleProperty, {
-            arrowOptions: _.extend( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
-              fill: graph.vectorSet.vectorColorPalette.baseVectorFill,
-              stroke: graph.vectorSet.vectorColorPalette.baseVectorStroke
-            } )
-          } );
-
-        viewProperties.baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
-
-        this.addBaseVectorNode( baseVectorNode );
-
-        // When the base vector becomes selected, move it to the front.
-        // unlink is unnecessary because base vectors exist for the lifetime of the sim.
-        graph.activeVectorProperty.link( activeVector => {
-          if ( activeVector === baseVectorNode.vector ) {
-            baseVectorNode.moveToFront();
-          }
-        } );
+      // Add vectors and their base vectors.
+      graph.vectorSet.vectors.forEach( vector => {
+        this.registerVector( vector, graph.vectorSet );
+        this.addBaseVector( graph.vectorSet, vector.baseVector, viewProperties.baseVectorsVisibleProperty );
       } );
     }
   }
