@@ -38,3 +38,21 @@ The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 * the sum vector for a set of n vectors is v&#8407;<sub>1</sub> + v&#8407;<sub>2</sub> + ... + v&#8407;<sub>n</sub> = s&#8407;
 
 ## Equation screen
+
+The _Equation_ screen introduces the concepts of base vectors, equations, and coefficients.  Like the _Explore 2D_ and _Lab_ screens, it has Cartesian and polar "snap modes" that determine which vector quantities snap to integer values.  Vectors in this screen are pre-populated on the graph; the student does not add and remove vectors.
+
+In Cartesian snap mode:
+* the graph shows vectors labeled a&#8407;, b&#8407;, and c&#8407;
+* base vector x and y components can be changed for a&#8407; and b&#8407;
+* coefficients can be changed for a&#8407; and b&#8407;
+* vector c&#8407; is derived based on which equation is selected
+* the equation selections are: a&#8407; + b&#8407; = c&#8407;, a&#8407; - b&#8407; = c&#8407;, a&#8407; + b&#8407; + c&#8407; = 0
+
+In polar snap mode:
+* the graph shows vectors labeled d&#8407;, e&#8407;, and f&#8407;
+* base vector magnitude and angle can be changed for d&#8407; and e&#8407;
+* coefficients can be changed for d&#8407; and e&#8407;
+* vector f&#8407; is derived based on which equation is selected
+* the equation selections are: d&#8407; + e&#8407; = f&#8407;, d&#8407; - e&#8407; = f&#8407;, d&#8407; + e&#8407; + f&#8407; = 0
+
+
