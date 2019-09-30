@@ -64,7 +64,7 @@ The _Equation_ screen has a couple of differences in how the student manipulates
 In Cartesian snap mode:
 * the graph shows vectors labeled a&#8407;, b&#8407;, and c&#8407;
 * base vectors are provided for a&#8407; and b&#8407;
-* x and y components can be changed for base vectors a&#8407; and b&#8407;; range is [-10,10], integers
+* x and y components can be changed for base vectors; range is [-10,10], integers
 * coefficients can be changed for a&#8407; and b&#8407;; range is [-5,5], integers
 * vector c&#8407; is derived based on the selection of one of these equations:
   * a&#8407; + b&#8407; = c&#8407;
@@ -74,7 +74,7 @@ In Cartesian snap mode:
 In Polar snap mode:
 * the graph shows vectors labeled d&#8407;, e&#8407;, and f&#8407;
 * base vectors are provided for d&#8407; and ew&#8407;
-* magnitude and angle can be changed for base vectors d&#8407; and e&#8407;
+* magnitude and angle can be changed for base vectors
 * base vector magnitude range is [-10,10], integers
 * base vector angle range is [-180,180] degress, in 5-degree intervals
 * coefficients can be changed for d&#8407; and e&#8407;; range is [-5,5], integers
