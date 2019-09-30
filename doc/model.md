@@ -25,7 +25,7 @@ In the vertical orientation:
 
 ## Explore 2D screen
 
-The _Explore 2D_ screen facilitates exploration of vectors in 2 dimensions, and introduces component vector (and their various representations).
+The _Explore 2D_ screen facilitates exploration of vectors in 2 dimensions, and introduces component vectors (and their various representations).
 
 To manipulate vectors:
 * add/remove vectors by dragging them between the toolbox and the graph
