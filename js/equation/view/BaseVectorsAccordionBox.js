@@ -150,6 +150,7 @@ define( require => {
 
         // Displayed Horizontally, push a HBox to the content children array
         pickers.push( new HBox( {
+          align: 'origin',
           spacing: options.xSpacing,
           children: [ leftNumberPickerAndLabel, rightNumberPickerAndLabel ]
         } ) );
@@ -224,11 +225,16 @@ define( require => {
 
     const equalsSign = new Text( MathSymbols.EQUAL_TO, { font: options.equalsSignFont } );
 
+    // Empirically set the vertical position of the NumberPicker, and wrap it in a Node to work with HBox.
+    // See https://github.com/phetsims/vector-addition/issues/209
     const numberPicker = new NumberPicker( numberProperty, new Property( numberRange ), options.numberPickerOptions );
-
+    numberPicker.centerY = -equalsSign.height / 3;
+    const numberPickerParent = new Node( { children: [ numberPicker ] } );
+    
     return new HBox( {
-      children: [ vectorSymbolNode, equalsSign, numberPicker ],
-      spacing: options.spacing
+      align: 'origin',
+      spacing: options.spacing,
+      children: [ vectorSymbolNode, equalsSign, numberPickerParent ]
     } );
   }
 
