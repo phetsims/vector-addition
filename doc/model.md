@@ -11,7 +11,7 @@ In the horizontal orientation:
 * the sum vector computation is a&#8407; + b&#8407; + c&#8407; = s&#8407; 
 
 In the vertical orientation
-* the y component of all vectors is zero
+* the x component of all vectors is zero
 * the sum vector computation is d&#8407; + e&#8407; + f&#8407; = s&#8407; 
 
 ## Explore 2D screen
