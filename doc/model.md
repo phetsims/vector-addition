@@ -11,7 +11,7 @@ In the horizontal orientation:
 * the y component of all vectors is zero
 * the sum vector computation is a&#8407; + b&#8407; + c&#8407; = s&#8407; 
 
-In the vertical orientation
+In the vertical orientation:
 * 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
 * the x component of all vectors is zero
 * the sum vector computation is d&#8407; + e&#8407; + f&#8407; = s&#8407; 
