@@ -98,7 +98,7 @@ define( require => {
         ( angleVisible, isOnGraph ) => {
 
           // Visible if the angle checkbox is clicked and the vector is on the graph
-          this.visible = angleVisible && isOnGraph;
+          this.visible = ( angleVisible && isOnGraph );
           this.updateAngleNode( vector, graph.modelViewTransformProperty.value );
         } );
 
@@ -136,7 +136,7 @@ define( require => {
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
 
       // Don't show he angle node if the magnitude is 0;
-      this.visible = this.visible && vector.magnitude !== 0;
+      this.visible = ( this.visible && vector.magnitude !== 0 );
 
       // convenience reference.
       const angleDegrees = vector.angleDegrees;
