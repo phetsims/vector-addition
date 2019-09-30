@@ -10,7 +10,6 @@ To manipulate vectors:
 * add/remove vectors by dragging them between the toolbox and the graph
 * move a vector by dragging its tail (constrained to the graph's grid)
 * scale a vector by dragging its tip (can be dragged outside the graph's grid)
-* component vectors cannot be directly manipulated
 
 Selection of the orientation is controlled by the radio buttons at the lower-right of the screen.
 
@@ -32,6 +31,7 @@ To manipulate vectors:
 * add/remove vectors by dragging them between the toolbox and the graph
 * move a vector by dragging its tail (constrained to the graph's grid)
 * scale or rotate a vector by dragging its tip (can be dragged outside the graph's grid)
+* component vectors cannot be directly manipulated
 
 There are 2 "snap modes" that determine which vector quantities snap to integer values. Selection of the snap mode is controlled by the radio buttons at the lower-right of the screen.
 
