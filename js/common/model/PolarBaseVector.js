@@ -13,7 +13,7 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVector = require( 'VECTOR_ADDITION/equation/model/BaseVector' );
+  const BaseVector = require( 'VECTOR_ADDITION/common/model/BaseVector' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Property = require( 'AXON/Property' );

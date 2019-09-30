@@ -15,7 +15,7 @@ define( require => {
   'use strict';
 
   // modules
-  const BaseVector = require( 'VECTOR_ADDITION/equation/model/BaseVector' );
+  const BaseVector = require( 'VECTOR_ADDITION/common/model/BaseVector' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Event = require( 'SCENERY/input/Event' );

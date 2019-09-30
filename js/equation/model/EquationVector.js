@@ -12,9 +12,9 @@ define( require => {
   'use strict';
 
   // modules
-  const CartesianBaseVector = require( 'VECTOR_ADDITION/equation/model/CartesianBaseVector' );
+  const CartesianBaseVector = require( 'VECTOR_ADDITION/common/model/CartesianBaseVector' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const PolarBaseVector = require( 'VECTOR_ADDITION/equation/model/PolarBaseVector' );
+  const PolarBaseVector = require( 'VECTOR_ADDITION/common/model/PolarBaseVector' );
   const Property = require( 'AXON/Property' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
