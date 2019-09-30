@@ -32,7 +32,7 @@ In polar snap mode:
 
 ## Lab screen 
 
-The _Lab_ screen is similar to the _Explore 2D_ screen, with two differences:
+The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 * each snap mode has 2 sets of vectors (blue and red for Cartesian, purple and green for polar)
 * an infinite number of vectors can be created for each set of vectors
 * the sum vector for a set of n vectors is v&#8407;<sub>1</sub> + v&#8407;<sub>2</sub> + ... + v&#8407;<sub>n</sub> = s&#8407;
