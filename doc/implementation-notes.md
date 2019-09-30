@@ -19,6 +19,7 @@ In addition to this document, you are encouraged to be read:
 * component (scalar) versus componentVector (vector)
 * graph orientation, see `GraphOrientations`
 * coordinate snap mode, see `CoordinateSnapMode`
+* component vector styles, see `ComponentStyles`
 
 ## General Considerations
 
