@@ -27,7 +27,8 @@ In Cartesian snap mode:
 
 In polar snap mode:
 * 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
-* vector magnitude and angle (in degress) snap to integer values
+* vector magnitude snaps to integer values
+* vector angle snaps to 5-degree increments
 * the sum vector is d&#8407; + e&#8407; + f&#8407; = s&#8407; 
 
 ## Lab screen 
@@ -39,20 +40,32 @@ The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 
 ## Equation screen
 
-The _Equation_ screen introduces the concepts of base vectors, equations, and coefficients.  Like the _Explore 2D_ and _Lab_ screens, it has Cartesian and polar "snap modes" that determine which vector quantities snap to integer values.  Vectors in this screen are pre-populated on the graph; the student does not add and remove vectors.
+The _Equation_ screen introduces the concepts of base vectors, equations, and coefficients.  Like the _Explore 2D_ and _Lab_ screens, it has Cartesian and polar "snap modes" that determine which vector quantities snap to integer values.  
+
+The _Equation_ screen has a couple of difference in how the student manipulates vectors:
+* Vectors are pre-populated on the graph; the student does not add and remove vectors.
+* Vectors can be moved directly on the graph, but their other properties must be changed using spinners.
 
 In Cartesian snap mode:
 * the graph shows vectors labeled a&#8407;, b&#8407;, and c&#8407;
-* base vector x and y components can be changed for a&#8407; and b&#8407;
+* base vector x and y components can be changed for a&#8407; and b&#8407; (range is [-10,10], integers)
 * coefficients can be changed for a&#8407; and b&#8407;
 * vector c&#8407; is derived based on which equation is selected
-* the equation selections are: a&#8407; + b&#8407; = c&#8407;, a&#8407; - b&#8407; = c&#8407;, a&#8407; + b&#8407; + c&#8407; = 0
+* the equation selections are: 
+  * a&#8407; + b&#8407; = c&#8407;
+  * a&#8407; - b&#8407; = c&#8407;
+  * a&#8407; + b&#8407; + c&#8407; = 0
 
 In polar snap mode:
 * the graph shows vectors labeled d&#8407;, e&#8407;, and f&#8407;
 * base vector magnitude and angle can be changed for d&#8407; and e&#8407;
+* base vector magnitude range is [-10,10], integers
+* base vector angle range is [-180,180] degress, in 5-degree increments
 * coefficients can be changed for d&#8407; and e&#8407;
 * vector f&#8407; is derived based on which equation is selected
-* the equation selections are: d&#8407; + e&#8407; = f&#8407;, d&#8407; - e&#8407; = f&#8407;, d&#8407; + e&#8407; + f&#8407; = 0
+* the equation selections are: 
+  * d&#8407; + e&#8407; = f&#8407;
+  * d&#8407; - e&#8407; = f&#8407;
+  * d&#8407; + e&#8407; + f&#8407; = 0
 
 
