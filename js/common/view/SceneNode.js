@@ -21,13 +21,13 @@
  *       changes. This must be done externally.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
   'use strict';
 
   // modules
-  const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   const Event = require( 'SCENERY/input/Event' );
@@ -35,14 +35,13 @@ define( require => {
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
-  const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorNode = require( 'VECTOR_ADDITION/common/view/VectorNode' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
-  const SumVectorNode = require( 'VECTOR_ADDITION/common/view/SumVectorNode' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
+  const VectorSetNode = require( 'VECTOR_ADDITION/common/view/VectorSetNode' );
   const VectorValuesToggleBox = require( 'VECTOR_ADDITION/common/view/VectorValuesToggleBox' );
 
   class SceneNode extends Node {
@@ -89,7 +88,7 @@ define( require => {
       // Create containers for each and every type of Vector to handle z-layering of all vector types.
 
       // @private {Node} parent for all vectors
-      this.vectorContainer = new Node();
+      this.vectorContainer = new Node(); //TODO this should go away, add base vectors to VectorSetNode
 
       // Add the children in the correct z-order
       this.setChildren( [
@@ -98,7 +97,6 @@ define( require => {
         this.vectorContainer
       ] );
 
-      //========================================================================================
       // Add an eraser button if necessary
       if ( options.includeEraser ) {
 
@@ -113,8 +111,7 @@ define( require => {
           touchAreaYDilation: 7
         } );
         this.addChild( eraserButton );
-
-        eraserButton.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
+        eraserButton.moveToBack();
 
         // Disable the eraser button when the number of vectors on the graph is zero, that is, when all vector sets
         // contain no vectors. This is a bit more complicated than it should be, but it was added late in the
@@ -127,61 +124,20 @@ define( require => {
         } );
       }
 
-      // private {Node[]} a layer for each VectorSet
-      this.vectorSetParents = [];
-
-      //========================================================================================
-      // Add the SumVectorNode and its components for each VectorSet in the graph
-      //========================================================================================
+      // private {VectorSetNode[]} a layer for each VectorSet
+      this.vectorSetNodes = [];
       graph.vectorSets.forEach( vectorSet => {
-
-        const sumVectorNode = new SumVectorNode( vectorSet.sumVector,
-          graph,
-          viewProperties.valuesVisibleProperty,
-          viewProperties.anglesVisibleProperty,
-          vectorSet.sumVisibleProperty
-        );
-
-        const xSumComponentVectorNode = new SumComponentVectorNode( vectorSet.sumVector.xComponentVector,
-          graph,
-          componentStyleProperty,
-          viewProperties.valuesVisibleProperty,
-          vectorSet.sumVisibleProperty );
-
-        const ySumComponentVectorNode = new SumComponentVectorNode( vectorSet.sumVector.yComponentVector,
-          graph,
-          componentStyleProperty,
-          viewProperties.valuesVisibleProperty,
-          vectorSet.sumVisibleProperty );
-
-        const vectorSetParent = new Node( {
-          children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ]
-        } );
-        this.vectorContainer.addChild( vectorSetParent );
-        this.vectorSetParents.push( vectorSetParent );
-
-        // When the sum vector becomes selected, move it and its components to the front.
-        // unlink is unnecessary, exists for the lifetime of the sim.
-        graph.activeVectorProperty.link( activeVector => {
-          if ( activeVector === sumVectorNode.vector ) {
-
-            // order is important - sum should be in front of components
-            xSumComponentVectorNode.moveToFront();
-            ySumComponentVectorNode.moveToFront();
-            sumVectorNode.moveToFront();
-          }
-        } );
+        const vectorSetNode = new VectorSetNode( graph, vectorSet,
+          viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentStyleProperty );
+        this.vectorContainer.addChild( vectorSetNode );
+        this.vectorSetNodes.push( vectorSetNode );
       } );
 
       // @protected for layout in subclasses
       this.vectorValuesToggleBox = vectorValuesToggleBox;
 
       // @private
-      this.vectorValuesToggleBox = vectorValuesToggleBox;
-      this.graph = graph;
-      this.valuesVisibleProperty = viewProperties.valuesVisibleProperty;
-      this.anglesVisibleProperty = viewProperties.anglesVisibleProperty;
-      this.componentStyleProperty = componentStyleProperty;
+      this.vectorSets = graph.vectorSets;
     }
 
     /**
@@ -193,15 +149,23 @@ define( require => {
     }
 
     /**
-     * 'Registers a Vector' by creating the VectorNode and the ComponentVectorNodes for a newly created Vector.
-     * The Nodes are deleted if Vector is ever removed from its VectorSet.
+     * Gets the VectorSetNode associated with a VectorSet.
+     * @private
+     * @param {VectorSet} vectorSet
+     * @returns {VectorSetNode}
+     */
+    getVectorSetNode( vectorSet ) {
+      const index = this.vectorSets.indexOf( vectorSet );
+      assert && assert( index !== -1, `vectorSet not found: ${vectorSet}` );
+      return this.vectorSetNodes[ index ];
+    }
+
+    /**
+     * Registers a Vector, delegates to VectorSetNode.
      * @public
-     *
      * @param {Vector} vector - the vector model
      * @param {VectorSet} vectorSet - the VectorSet the vector belongs to
-     * @param {Event} [forwardingEvent] - if provided, if will forward this event to the Vector body drag listener.
-     *                                    This is used to forward the click event from the VectorCreatorPanel to the
-     *                                    VectorNode. If not provided, not event is forwarded.
+     * @param {Event} [forwardingEvent] - see VectorSetNode
      */
     registerVector( vector, vectorSet, forwardingEvent ) {
 
@@ -209,67 +173,8 @@ define( require => {
       assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
       assert && assert( !forwardingEvent || forwardingEvent instanceof Event, `invalid forwardingEvent: ${forwardingEvent}` );
 
-      const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.anglesVisibleProperty );
-
-      const xComponentVectorNode = new ComponentVectorNode( vector.xComponentVector,
-        this.graph,
-        this.componentStyleProperty,
-        this.valuesVisibleProperty );
-
-      const yComponentVectorNode = new ComponentVectorNode( vector.yComponentVector,
-        this.graph,
-        this.componentStyleProperty,
-        this.valuesVisibleProperty );
-
-      // Identify the Node that is the parent for this VectorSet.
-      // See see https://github.com/phetsims/vector-addition/issues/94
-      const index = this.graph.vectorSets.indexOf( vectorSet );
-      assert && assert( index !== -1, `vectorSet not found: ${vectorSet}` );
-      const vectorSetParent = this.vectorSetParents[ index ];
-
-      vectorSetParent.addChild( xComponentVectorNode );
-      vectorSetParent.addChild( yComponentVectorNode );
-      vectorSetParent.addChild( vectorNode );
-
-      if ( forwardingEvent ) {
-        vectorNode.bodyDragListener.press( forwardingEvent, vectorNode );
-      }
-
-      // When the vector becomes active (selected), move it and its components to the front.
-      // unlink is required when the vector is removed.
-      const activeVectorListener = activeVector => {
-        if ( activeVector === vectorNode.vector ) {
-
-          // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
-          vectorSetParent.moveToFront();
-
-          // order is important - vector should be in front of components
-          xComponentVectorNode.moveToFront();
-          yComponentVectorNode.moveToFront();
-          vectorNode.moveToFront();
-        }
-      };
-      this.graph.activeVectorProperty.link( activeVectorListener );
-
-      // If the Vector is removed from the VectorSet, clean up.
-      if ( vector.isRemovable ) {
-
-        const removalListener = removedVector => {
-          if ( removedVector === vector ) {
-
-            // dispose the Nodes that were created
-            xComponentVectorNode.dispose();
-            yComponentVectorNode.dispose();
-            vectorNode.dispose();
-
-            // remove listeners
-            vectorSet.vectors.removeItemRemovedListener( removalListener );
-            this.graph.activeVectorProperty.unlink( activeVectorListener );
-          }
-        };
-
-        vectorSet.vectors.addItemRemovedListener( removalListener );
-      }
+      // Delegate registration to the VectorSetNode
+      this.getVectorSetNode( vectorSet ).registerVector( vector, forwardingEvent );
     }
 
     /**
@@ -281,7 +186,7 @@ define( require => {
       assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel, `invalid vectorCreatorPanel: ${vectorCreatorPanel}` );
 
       this.addChild( vectorCreatorPanel );
-      vectorCreatorPanel.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
+      vectorCreatorPanel.moveToBack();
     }
 
     /**
