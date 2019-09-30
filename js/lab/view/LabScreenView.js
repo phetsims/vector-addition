@@ -67,10 +67,9 @@ define( require => {
 
         // Add the vector creator panel
         sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( graph, sceneNode, {
-            left: coordinateSnapRadioButtonGroup.left,
-            bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
-          } )
-        );
+          left: coordinateSnapRadioButtonGroup.left,
+          bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
+        } ) );
 
         // Switch between scenes to match coordinate snap mode.
         // unlink is unnecessary, exists for the lifetime of the sim.
