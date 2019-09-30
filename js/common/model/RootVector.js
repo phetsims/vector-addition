@@ -11,7 +11,7 @@
  *  - tip and tail position Properties
  *  - components (x and y as scalars, or in other words the actual vector <x, y>)
  *  - vector color palette
- *  - abstract method for label information (see getLabelContent() for detailed documentation)
+ *  - abstract method for label information, see getLabelContent
  *
  * @author Brandon Li
  */

@@ -181,13 +181,10 @@ define( require => {
       }
 
       return {
-        // vector models don't have coefficients
-        coefficient: null,
-
-        // surround the symbol in absolute value bars if there is a value
+        coefficient: null, // vector models don't have coefficients
         symbol: symbol,
         value: value,
-        includeAbsoluteValueBars: ( value !== null && symbol !== null )
+        includeAbsoluteValueBars: ( value !== null && symbol !== null ) // absolute value bars if there is a value
       };
     }
 
