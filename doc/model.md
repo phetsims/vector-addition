@@ -42,7 +42,7 @@ In Cartesian snap mode:
 In polar snap mode:
 * 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
 * vector magnitude snaps to integer values
-* vector angle snaps to 5-degree increments
+* vector angle snaps to 5-degree intervals
 * the sum vector is d&#8407; + e&#8407; + f&#8407; = s&#8407; 
 
 ## Lab screen 
@@ -74,7 +74,7 @@ In polar snap mode:
 * the graph shows vectors labeled d&#8407;, e&#8407;, and f&#8407;
 * base vector magnitude and angle can be changed for d&#8407; and e&#8407;
 * base vector magnitude range is [-10,10], integers
-* base vector angle range is [-180,180] degress, in 5-degree increments
+* base vector angle range is [-180,180] degress, in 5-degree intervals
 * coefficients can be changed for d&#8407; and e&#8407;
 * vector f&#8407; is derived based on which equation is selected
 * the equation selections are: 
