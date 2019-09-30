@@ -4,7 +4,7 @@ This document is a high-level description of the model used in PhET's _Vector Ad
 
 ## Explore 1D screen
 
-In the _Explore 1D_ screen facilitates exploration of vectors in 1 dimension. Vectors are constrained to either horizontal or vertical orientation.
+The _Explore 1D_ screen facilitates exploration of vectors in 1 dimension. Vectors are constrained to either horizontal or vertical orientation.
 
 To manipulate vectors:
 * add/remove vectors by dragging them between the toolbox and the graph
@@ -25,7 +25,7 @@ In the vertical orientation:
 
 ## Explore 2D screen
 
-In the _Explore 2D_ screen facilitates exploration of vectors in 2 dimensions.
+The _Explore 2D_ screen facilitates exploration of vectors in 2 dimensions, and introduces vector components (and their various representations).
 
 To manipulate vectors:
 * add/remove vectors by dragging them between the toolbox and the graph
