@@ -8,8 +8,8 @@ The _Explore 1D_ screen facilitates exploration of vectors in 1 dimension. Vecto
 
 To manipulate vectors:
 * add/remove vectors by dragging them between the toolbox and the graph
-* drag a vector's tail to translate
-* drag a non-sum vector's tip to scale
+* move a vector by dragging its tail
+* scale a vector by dragging its tip
 
 Selection of the orientation is controlled by the radio buttons at the lower-right of the screen.
 
@@ -29,8 +29,8 @@ The _Explore 2D_ screen facilitates exploration of vectors in 2 dimensions, and 
 
 To manipulate vectors:
 * add/remove vectors by dragging them between the toolbox and the graph
-* drag a vector's tail to translate
-* drag a non-sum vector's tip to rotate or scale
+* move a vector by dragging its tail
+* scale or rotate a vector by dragging its tip
 
 There are 2 "snap modes" that determine which vector quantities snap to integer values. Selection of the snap mode is controlled by the radio buttons at the lower-right of the screen.
 
@@ -56,7 +56,7 @@ The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 
 The _Equation_ screen introduces the concepts of base vectors, equations, and coefficients.  Like the _Explore 2D_ and _Lab_ screens, it has Cartesian and polar "snap modes" that determine which vector quantities snap to integer values.  
 
-The _Equation_ screen has a couple of difference in how the student manipulates vectors:
+The _Equation_ screen has a couple of differences in how the student manipulates vectors:
 * Vectors are pre-populated on the graph; the student does not add and remove vectors.
 * Vectors can be moved directly on the graph, but their other properties must be changed using spinners.
 
