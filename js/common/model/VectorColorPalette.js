@@ -46,12 +46,12 @@ define( require => {
       // @public (read-only)
       this.mainFill = options.mainFill;
       this.mainStroke = options.mainStroke;
-      this.componentFill = options.componentFill || options.mainFill;
+      this.componentFill = ( options.componentFill || options.mainFill );
       this.sumFill = options.sumFill;
       this.sumStroke = options.sumStroke;
-      this.sumComponentFill = options.sumComponentFill || options.sumFill;
+      this.sumComponentFill = ( options.sumComponentFill || options.sumFill );
       this.baseVectorFill = options.baseVectorFill;
-      this.baseVectorStroke = options.baseVectorStroke || options.mainFill;
+      this.baseVectorStroke = ( options.baseVectorStroke || options.mainFill );
     }
 
     /**

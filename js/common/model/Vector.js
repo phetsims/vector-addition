@@ -172,7 +172,7 @@ define( require => {
 
       // If the vector has a symbol or is active, the vector always displays a symbol.
       if ( this.symbol || this.graph.activeVectorProperty.value === this ) {
-        symbol = this.symbol || this.fallBackSymbol;
+        symbol = ( this.symbol || this.fallBackSymbol );
       }
 
       // If the values are on, the vector always displays a value.

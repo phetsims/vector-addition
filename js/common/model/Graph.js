@@ -94,7 +94,7 @@ define( require => {
       // A graph has at most one active vector. If null, there is no active vector.
       this.activeVectorProperty = new Property( null, {
         isValidValue: value => {
-          return value === null || value instanceof Vector;
+          return ( value === null || value instanceof Vector );
         }
       } );
     }
