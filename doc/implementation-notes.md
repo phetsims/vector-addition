@@ -20,6 +20,7 @@ In addition to this document, you are encouraged to read:
 * graph orientation, see `GraphOrientations`
 * coordinate snap mode, see `CoordinateSnapMode`
 * component vector styles, see `ComponentStyles`
+* for vectors, "position" or "point" refers to model coordinates, while "location" refers to view coordinates
 
 ## General Considerations
 
