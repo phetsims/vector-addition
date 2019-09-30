@@ -8,8 +8,8 @@ The _Explore 1D_ screen facilitates exploration of vectors in 1 dimension. Vecto
 
 To manipulate vectors:
 * add/remove vectors by dragging them between the toolbox and the graph
-* move a vector by dragging its tail
-* scale a vector by dragging its tip
+* move a vector by dragging its tail (constrained to the graph's grid)
+* scale a vector by dragging its tip (can be dragged outside the graph's grid)
 
 Selection of the orientation is controlled by the radio buttons at the lower-right of the screen.
 
@@ -29,8 +29,8 @@ The _Explore 2D_ screen facilitates exploration of vectors in 2 dimensions, and 
 
 To manipulate vectors:
 * add/remove vectors by dragging them between the toolbox and the graph
-* move a vector by dragging its tail
-* scale or rotate a vector by dragging its tip
+* move a vector by dragging its tail (constrained to the graph's grid)
+* scale or rotate a vector by dragging its tip (can be dragged outside the graph's grid)
 
 There are 2 "snap modes" that determine which vector quantities snap to integer values. Selection of the snap mode is controlled by the radio buttons at the lower-right of the screen.
 
