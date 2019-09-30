@@ -14,14 +14,19 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   const ComponentVectorStyles = new Enumeration( [
-    'INVISIBLE',        // Component vectors are not displayed at all
 
-    'PARALLELOGRAM',    // Component vector's initial points and the original vector's initial points coincide
+    // Component vectors are not displayed at all
+    'INVISIBLE',
 
-    'TRIANGLE',         // Component vectors are displayed head to tail, such that the component vectors
-                        // align to create a right triangle with the original vector
+    // Component vectors' initial points and the original vector's initial points coincide
+    'PARALLELOGRAM',
 
-    'ON_AXIS'           // Component vectors are displayed on the x and y axes
+    // Component vectors are displayed head to tail, such that the component vectors
+    // align to create a right triangle with the original vector
+    'TRIANGLE',
+
+    // Component vectors are displayed as projections on the x and y axes
+    'ON_AXIS'
   ] );
 
   return vectorAddition.register( 'ComponentVectorStyles', ComponentVectorStyles );
