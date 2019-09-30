@@ -18,7 +18,7 @@ In the vertical orientation:
 
 ## Explore 2D screen
 
-In the _Explore 2D_ screen, there are 2 "snap mode", controlled by the radio buttons at the lower-right of the screen.
+In the _Explore 2D_ screen, there are 2 "snap modes" that determine which vector quanities snap to integer values. Selection of the snap mode is controlled by the radio buttons at the lower-right of the screen.
 
 In Cartesian snap mode:
 * 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
