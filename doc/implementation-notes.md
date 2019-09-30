@@ -17,8 +17,8 @@ In addition to this document, you are encouraged to be read:
 
 * "Active" vector means "selected" vector.  There is (at most) one active vector.
 * component (scalar) versus componentVector (vector)
-* graph orientation
-* coordinate snap mode
+* graph orientation, see `GraphOrientations`
+* coordinate snap mode, see `CoordinateSnapMode`
 
 ## General Considerations
 
