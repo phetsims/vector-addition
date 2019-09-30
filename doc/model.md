@@ -6,6 +6,11 @@ This document is a high-level description of the model used in PhET's _Vector Ad
 
 In the _Explore 1D_ screen, vectors are constrained to horizontal and vertical orientations. 
 
+To manipulate vectors:
+* add/remove vectors by dragging them between the toolbox and the graph
+* drag a vector's tail to translate
+* drag a vector's tip to scale
+
 In the horizontal orientation:
 * 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
 * the y component of all vectors is zero
@@ -19,6 +24,11 @@ In the vertical orientation:
 ## Explore 2D screen
 
 In the _Explore 2D_ screen, there are 2 "snap modes" that determine which vector quantities snap to integer values. Selection of the snap mode is controlled by the radio buttons at the lower-right of the screen.
+
+To manipulate vectors:
+* add/remove vectors by dragging them between the toolbox and the graph
+* drag a vector's tail to translate
+* drag a vector's tip to rotate or scale
 
 In Cartesian snap mode:
 * 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
