@@ -108,7 +108,9 @@ define( require => {
             graph.erase();
           },
           right: graphViewBounds.maxX,
-          top: graphViewBounds.maxY + 15
+          top: graphViewBounds.maxY + 15,
+          touchAreaXDilation: 7,
+          touchAreaYDilation: 7
         } );
         this.addChild( eraserButton );
 
