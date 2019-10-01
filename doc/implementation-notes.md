@@ -37,7 +37,21 @@ testing. Sim-specific query parameters are documented in
 **Assertions**: The implementation makes heavy use of `assert` to verify pre/post assumptions and perform type checking. 
 This sim performs type-checking for almost all function arguments via `assert`. If you are making modifications to this sim, do so with assertions enabled via the `ea` query parameter.
 
+**Creator Pattern**:
+
+A `VectorSet` is a set of related vectors. The vectors in the set contribute to a sum vector, and share the same `VectorColorPalette`.
+
+`VectorCreatorPanel` is the vector "toolbox". It contains one `VectorCreatorPanelSlot` for each `VectorSet`, with each slot being represented by an icon in the toolbox.  Each `VectorSet` also has an associated `VectorSetNode`, which manages creation and layering of Nodes related to vectors in the set. 
+
+_Adding a vector_: When a vector icon in the toolbox is clicked, `VectorCreatorPanelSlot` creates a new `Vector` and adds it to the associated `VectorSet`.  It then delegates creation of the vector's view to `VectorSetNode` (see `registerVector`).
+
+_Removing a vector_: When a vector is added, `VectorCreatorPanelSlot` creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or when the `VectorSet` associated with the slot is cleared by pressing the eraser button or Reset All button (see `removeVectorListener`).  `VectorSetNode` similarly creates a closure that observers the `VectorSet` and removes Nodes associated with a vector that is removed.  
+
+**Scenes**: TODO
+
 ## Model
+
+`VectorSet` TODO
 
 ### Vector class hierarchy:
 
@@ -54,6 +68,8 @@ RootVector
 ```
 
 ## View
+
+`VectorSetNode` TODO
 
 ### Vector class hierarchy:
 
