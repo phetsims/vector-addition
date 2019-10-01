@@ -55,7 +55,9 @@ define( require => {
       assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-      // @public {ObservableArray.<Vector>} the vectors in the VectorSet, excluding the sum vector
+      // @public {ObservableArray.<Vector>} the vectors in the VectorSet
+      // This array contains only what is referred to as main or primary vectors. It does not contain sum vectors,
+      // component vectors, or base vectors.
       this.vectors = new ObservableArray();
 
       // @public (read-only) {VectorColorPalette}
