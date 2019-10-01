@@ -87,7 +87,7 @@ define( require => {
       // Create containers for each and every type of Vector to handle z-layering of all vector types.
 
       // @private {Node} parent for all VectorSetNodes
-      this.vectorSetNodesParent = new Node(); //TODO this should go away, add base vectors to VectorSetNode
+      this.vectorSetNodesParent = new Node();
 
       // Add the children in the correct z-order
       this.setChildren( [
