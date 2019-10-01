@@ -418,10 +418,8 @@ define( require => {
     }
 
     /**
-     * Drops the vector onto the graph. Called at the end of the drag when not on the graph if the user drops the vector
-     * onto the graph.
+     * Drops the vector onto the graph.
      * @public
-     *
      * @param {Vector2} tailPosition - the tail position to drop the vector onto
      */
     dropOntoGraph( tailPosition ) {
