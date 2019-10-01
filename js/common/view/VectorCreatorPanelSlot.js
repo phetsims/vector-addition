@@ -157,12 +157,10 @@ define( require => {
           // Get the position of the icon node relative to the scene. Used to animate the vector to the icon position.
           const iconPosition = graph.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
           animateBack && vector.animateToPoint( iconPosition, iconComponents, () => {
-            iconNode.visible = true;
 
             // Remove the vector model
             vectorSet.vectors.remove( vector );
             vector.dispose();
-
           } );
         };
         vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
