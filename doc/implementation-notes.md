@@ -39,7 +39,7 @@ This sim performs type-checking for almost all function arguments via `assert`. 
 
 **Creator Pattern**:
 
-A `VectorSet` is a set of related vectors. The vectors in the set contribute to a sum vector, and share the same styling (fill, stroke,...)
+A `VectorSet` is a set of related vectors. The vectors in the set contribute to a sum vector, and share the same `VectorColorPalette`.
 
 `VectorCreatorPanel` is the vector "toolbox". It contains one `VectorCreatorPanelSlot` for each `VectorSet`, with each slot being represented by an icon in the toolbox.  Each `VectorSet` also has an associated `VectorSetNode`, which manages creation and layering of Nodes related to vectors in the set. 
 
