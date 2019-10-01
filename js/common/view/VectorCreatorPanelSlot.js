@@ -153,20 +153,21 @@ define( require => {
         //----------------------------------------------------------------------------------------
 
         const animateVectorBackListener = animateBack => {
+          if ( animateBack ) {
 
-          // Get the position of the icon node relative to the scene. Used to animate the vector to the icon position.
-          const iconPosition = graph.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
-          animateBack && vector.animateToPoint( iconPosition, iconComponents, () => {
+            // Get the model position of the icon node.
+            const iconPosition = graph.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
 
-            // Remove the vector model
-            vectorSet.vectors.remove( vector );
-            vector.dispose();
-          } );
+            // Animate the vector to its icon in the panel.
+            vector.animateToPoint( iconPosition, iconComponents, () => {
+              vectorSet.vectors.remove( vector );
+              vector.dispose();
+            } );
+          }
         };
         vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
 
-        //----------------------------------------------------------------------------------------
-        // Observe when the vector is removed to unlink listeners
+        // Observe when the vector is removed and clean up.
         const removeVectorListener = removedVector => {
           if ( removedVector === vector ) {
             iconNode.visible = true;
