@@ -103,7 +103,7 @@ define( require => {
       this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode ] );
 
       //----------------------------------------------------------------------------------------
-      // Create Body Drag
+      // Create translation drag listener
       //----------------------------------------------------------------------------------------
 
       // Create a Property for the location of the tail of the vector. Used for the tail drag listener.
@@ -193,7 +193,7 @@ define( require => {
       this.vector.animateBackProperty.lazyLink( removeBodyDragListener );
 
       //----------------------------------------------------------------------------------------
-      // Create Tip Drag
+      // Creates scale/rotate drag listener
       //----------------------------------------------------------------------------------------
 
       let vectorComponentsListener = null;
