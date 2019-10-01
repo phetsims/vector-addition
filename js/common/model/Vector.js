@@ -382,15 +382,15 @@ define( require => {
      *
      * @param {Vector2} point - animates the center of the vector to this point
      * @param {Vector2} finalComponents - animates the components to the final components
-     * @param {function} endedCallback - callback when the animation ends, either naturally or stopped prematurely
+     * @param {function} finishCallback - callback when the animation finishes naturally, not when stopped
      */
-    animateToPoint( point, finalComponents, endedCallback ) {
+    animateToPoint( point, finalComponents, finishCallback ) {
 
       assert && assert( !this.inProgressAnimation, 'Can\'t animate to position when we are in animation currently' );
       assert && assert( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the graph' );
       assert && assert( point instanceof Vector2, `invalid point: ${point}` );
       assert && assert( finalComponents instanceof Vector2, `invalid finalComponents: ${finalComponents}` );
-      assert && assert( typeof endedCallback === 'function', `invalid endedCallback: ${endedCallback}` );
+      assert && assert( typeof finishCallback === 'function', `invalid finishCallback: ${finishCallback}` );
 
       // Calculate the tail position to animate to
       const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
@@ -408,13 +408,13 @@ define( require => {
         } ]
       } ).start();
 
-      // Called when the animation ends, either naturally or stopped prematurely
-      const animationEnded = () => {
-        this.inProgressAnimation.endedEmitter.removeListener( animationEnded );
+      // Called when the animation finishes naturally
+      const finishListener = () => {
+        this.inProgressAnimation.finishEmitter.removeListener( finishListener );
         this.inProgressAnimation = null;
-        endedCallback();
+        finishCallback();
       };
-      this.inProgressAnimation.endedEmitter.addListener( animationEnded );
+      this.inProgressAnimation.finishEmitter.addListener( finishListener );
     }
 
     /**
