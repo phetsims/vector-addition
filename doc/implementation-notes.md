@@ -43,9 +43,9 @@ A `VectorSet` is a set of related vectors. The vectors in the set contribute to 
 
 `VectorCreatorPanel` is the vector "toolbox". It contains one `VectorCreatorPanelSlot` for each `VectorSet`, with each slot being represented by an icon in the toolbox.  Each `VectorSet` also has an associated `VectorSetNode`, which manages creation and layering of Nodes related to vectors in the set. 
 
-Adding a vector: `VectorCreatorPanel` contains one `VectorCreatorPanelSlot` for each `VectorSet`. When a vector icon in the panel is clicked, `VectorCreatorPanelSlot` creates a new `Vector` and adds it to the associated `VectorSet`.  It then delegates creation of the vector's view to `VectorSetNode` (see `registerVector`).
+_Adding a vector_: When a vector icon in the toolbox is clicked, `VectorCreatorPanelSlot` creates a new `Vector` and adds it to the associated `VectorSet`.  It then delegates creation of the vector's view to `VectorSetNode` (see `registerVector`).
 
-Removing a vector: When a vector is added, `VectorCreatorPanelSlot` creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or when the `VectorSet` associated with the slot is cleared by pressing the eraser button or Reset All button (see `removeVectorListener`).  `VectorSetNode` similarly creates a closure that observers the `VectorSet` and remove Nodes associated with a `Vector` that is removed.  
+_Removing a vector_: When a vector is added, `VectorCreatorPanelSlot` creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or when the `VectorSet` associated with the slot is cleared by pressing the eraser button or Reset All button (see `removeVectorListener`).  `VectorSetNode` similarly creates a closure that observers the `VectorSet` and removes Nodes associated with a vector that is removed.  
 
 ## Model
 
