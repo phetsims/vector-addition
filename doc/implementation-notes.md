@@ -32,7 +32,7 @@ This section describes how this simulation addresses implementation consideratio
 
 **Query Parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and
 testing. Sim-specific query parameters are documented in
-[VectorAdditionQueryParameters](https://github.com/phetsims/gas-properties/blob/master/js/common/VectorAdditionQueryParameters.js).
+[VectorAdditionQueryParameters](https://github.com/phetsims/vector-addition/blob/master/js/common/VectorAdditionQueryParameters.js).
 
 **Assertions**: The implementation makes heavy use of `assert` to verify pre/post assumptions and perform type checking. 
 This sim performs type-checking for almost all function arguments via `assert`. If you are making modifications to this sim, do so with assertions enabled via the `ea` query parameter.
