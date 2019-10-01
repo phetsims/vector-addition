@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.0.0-dev.28 Mon Sep 30 2019 12:44:09 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# vector-addition 1.0.0-dev.29 Tue Oct 01 2019 12:53:31 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "bc48bea78261612fdafa51506f72db65e0b17cab",
+    "sha": "f940422fd5a40e3d43a44e9524fa00f64eba1eb8",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "joist": {
-    "sha": "605b51658f65e0066db6ca8691e9a4f4a41eb3b3",
+    "sha": "fd56ebdab51c1a7fe1bc0bf5013e43b94129e0f2",
     "branch": "master"
   },
   "kite": {
@@ -29,11 +29,11 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "f09a6f88ec7174c12141020303b75141ac6bb199",
+    "sha": "9796420c1531b2fc857dca6b5c6965d628586704",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "387755de5d8dcf01b633caeefd563e66fdabb749",
+    "sha": "70fd4ab5321e6e09d314c4bf4bb3633d2bb24ec4",
     "branch": "master"
   },
   "phet-io-wrappers": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "5476cdf540dbb46fd96ecd40b967a3e5f82cc6b4",
+    "sha": "a6e1035ed82e48fce2d5b6ea20777364a9e51999",
     "branch": "master"
   },
   "sherpa": {
@@ -65,15 +65,15 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "3ab17b7776b269b70b69b05d6871e995c512c494",
+    "sha": "ec09fe383a09dbe8976a963d4bfb53e51624d4e3",
     "branch": "master"
   },
   "tambo": {
-    "sha": "5a34d2b75fc84db2c67e25f49613e278ece92d0c",
+    "sha": "ade513d5d0926b0cc05e50b22db8b26c3df3f87b",
     "branch": "master"
   },
   "tandem": {
-    "sha": "d74621ff7d3b28f40a3ad93e31443886033eeb38",
+    "sha": "6f2e43b07b3f28a25bb7a820b556f65be73a0f30",
     "branch": "master"
   },
   "twixt": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "vector-addition": {
-    "sha": "1cca9463cd0afe0e65a5b95697a3eaf99d5e7f4e",
+    "sha": "2a0a25c2a646d74cde39da361971379c9463000f",
     "branch": "master"
   }
 }
