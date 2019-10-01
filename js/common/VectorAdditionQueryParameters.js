@@ -49,7 +49,7 @@ define( require => {
     equationButtons: {
       type: 'string',
       isValidValue: value => ( value === 'left' || value === 'right' ),
-      defaultValue: 'right'
+      defaultValue: 'left'
     }
 
   } );
