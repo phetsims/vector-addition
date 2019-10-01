@@ -47,6 +47,8 @@ _Adding a vector_: When a vector icon in the toolbox is clicked, `VectorCreatorP
 
 _Removing a vector_: When a vector is added, `VectorCreatorPanelSlot` creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or when the `VectorSet` associated with the slot is cleared by pressing the eraser button or Reset All button (see `removeVectorListener`).  `VectorSetNode` similarly creates a closure that observers the `VectorSet` and removes Nodes associated with a vector that is removed.  
 
+**Scenes**: TODO
+
 ## Model
 
 `VectorSet` TODO
