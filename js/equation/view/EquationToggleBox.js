@@ -12,6 +12,8 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypeNode = require( 'VECTOR_ADDITION/equation/view/EquationTypeNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
@@ -36,12 +38,16 @@ define( require => {
     /**
      * @param {EquationVectorSet} vectorSet
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
+     * @param {AlignGroup} equationButtonsAlignGroup - used to make all equation radio buttons the same size
+     * @param {AlignGroup} equationsAlignGroup - used to make all interactive equations the same size
      * @param {Object} [options]
      */
-    constructor( vectorSet, equationTypeProperty, options ) {
+    constructor( vectorSet, equationTypeProperty, equationButtonsAlignGroup, equationsAlignGroup, options ) {
 
       assert && assert( vectorSet instanceof EquationVectorSet, `invalid vectorSet: ${vectorSet}` );
       assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
+      assert && assert( equationButtonsAlignGroup instanceof AlignGroup, `invalid equationButtonsAlignGroup: ${equationButtonsAlignGroup}` );
+      assert && assert( equationsAlignGroup instanceof AlignGroup, `invalid equationsAlignGroup: ${equationsAlignGroup}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       options = _.extend( {
@@ -57,16 +63,20 @@ define( require => {
       const closedContent = new Text( equationString, TEXT_OPTIONS );
 
       // Radio buttons for selecting equation type
-      const radioButtonGroup = new EquationTypesRadioButtonGroup( equationTypeProperty, vectorSet.symbols, {
-        scale: 0.85
-      } );
+      const radioButtonGroup = new EquationTypesRadioButtonGroup(
+        equationTypeProperty, vectorSet.symbols, equationButtonsAlignGroup, {
+          scale: 0.85
+        } );
 
       // Create an equation of each type, only one of which will be visible at a time.
       const equationsParent = new Node();
       EquationTypes.VALUES.forEach( equationType => {
 
         const equationTypeNode = new EquationTypeNode( vectorSet, equationType );
-        equationsParent.addChild( equationTypeNode );
+        equationsParent.addChild( new AlignBox( equationTypeNode, {
+          group: equationsAlignGroup,
+          xAlign: 'left'
+        } ) );
 
         // unlink is unnecessary, exists for the lifetime of the sim.
         equationTypeProperty.link( () => {

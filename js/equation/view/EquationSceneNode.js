@@ -18,6 +18,7 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsAccordionBox' );
   const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
   const EquationToggleBox = require( 'VECTOR_ADDITION/equation/view/EquationToggleBox' );
@@ -34,12 +35,17 @@ define( require => {
      * @param {EquationViewProperties} viewProperties
      * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {number} graphControlPanelBottom
+     * @param {AlignGroup} equationButtonsAlignGroup - used to make all equation radio buttons the same size
+     * @param {AlignGroup} equationsAlignGroup - used to make all interactive equations the same size
      * @param {Object} [options]
      */
-    constructor( graph, viewProperties, componentStyleProperty, graphControlPanelBottom, options ) {
+    constructor( graph, viewProperties, componentStyleProperty, graphControlPanelBottom,
+                 equationButtonsAlignGroup, equationsAlignGroup, options ) {
 
       assert && assert( graph instanceof EquationGraph, `invalid graph: ${graph}` );
       assert && assert( viewProperties instanceof EquationViewProperties, `invalid viewProperties: ${viewProperties}` );
+      assert && assert( equationButtonsAlignGroup instanceof AlignGroup, `invalid equationButtonsAlignGroup: ${equationButtonsAlignGroup}` );
+      assert && assert( equationsAlignGroup instanceof AlignGroup, `invalid equationsAlignGroup: ${equationsAlignGroup}` );
 
       options = merge( {
 
@@ -54,11 +60,12 @@ define( require => {
       this.vectorValuesToggleBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
       // Add the 'Equation' toggle box
-      const equationToggleBox = new EquationToggleBox( graph.vectorSet, graph.equationTypeProperty, {
-        expandedProperty: viewProperties.equationsExpandedProperty,
-        centerX: graph.graphViewBounds.centerX,
-        top: this.vectorValuesToggleBox.bottom + 10
-      } );
+      const equationToggleBox = new EquationToggleBox( graph.vectorSet, graph.equationTypeProperty,
+        equationButtonsAlignGroup, equationsAlignGroup, {
+          expandedProperty: viewProperties.equationsExpandedProperty,
+          centerX: graph.graphViewBounds.centerX,
+          top: this.vectorValuesToggleBox.bottom + 10
+        } );
       this.addChild( equationToggleBox );
       equationToggleBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
 

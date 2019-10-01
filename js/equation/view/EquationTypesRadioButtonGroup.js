@@ -22,6 +22,8 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
@@ -34,11 +36,13 @@ define( require => {
     /**
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
      * @param {string[]} vectorSymbols - symbols on the buttons
+     * @param {AlignGroup} alignGroup
      * @param {Object} [options]
      */
-    constructor( equationTypeProperty, vectorSymbols, options ) {
+    constructor( equationTypeProperty, vectorSymbols, alignGroup, options ) {
 
       assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
+      assert && assert( alignGroup instanceof AlignGroup, `invalid alignGroup: ${alignGroup}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
@@ -50,7 +54,9 @@ define( require => {
       EquationTypes.VALUES.forEach( equationType => {
         content.push( {
           value: equationType,
-          node: VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbols )
+          node: new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbols ), {
+            group: alignGroup
+          } )
         } );
       } );
 

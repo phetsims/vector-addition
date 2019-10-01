@@ -10,6 +10,7 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const EquationGraphControlPanel = require( 'VECTOR_ADDITION/equation/view/EquationGraphControlPanel' );
@@ -56,18 +57,34 @@ define( require => {
           bottom: this.resetAllButton.bottom
         } );
 
+      // Used to make all of the radio button in the Equation toggle box the same effective size.
+      const equationButtonsAlignGroup = new AlignGroup( {
+        matchHorizontal: true,
+        matchVertical: true
+      } );
+
+      // Used to make all of the interactive equations in the Equation toggle box the same effective size.
+      const equationsAlignGroup = new AlignGroup( {
+        matchHorizontal: true,
+        matchVertical: true
+      } );
+
       const polarScene = new EquationSceneNode(
         model.polarGraph,
         this.viewProperties,
         model.componentStyleProperty,
-        graphControlPanel.bottom
+        graphControlPanel.bottom,
+        equationButtonsAlignGroup,
+        equationsAlignGroup
       );
 
       const cartesianScene = new EquationSceneNode(
         model.cartesianGraph,
         this.viewProperties,
         model.componentStyleProperty,
-        graphControlPanel.bottom
+        graphControlPanel.bottom,
+        equationButtonsAlignGroup,
+        equationsAlignGroup
       );
 
       // Switch between scenes to match coordinate snap mode.
