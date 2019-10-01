@@ -129,7 +129,7 @@ define( require => {
 
       // Optional event forwarding
       if ( forwardingEvent ) {
-        vectorNode.bodyDragListener.press( forwardingEvent, vectorNode );
+        vectorNode.forwardEvent( forwardingEvent );
       }
 
       // When the vector becomes active (selected), move it and its components to the front.

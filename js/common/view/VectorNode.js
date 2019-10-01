@@ -15,6 +15,7 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Color = require( 'SCENERY/util/Color' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
+  const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const merge = require( 'PHET_CORE/merge' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -109,9 +110,8 @@ define( require => {
       const tailLocationProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
         vector.tail ) );
 
-      // @public (read-only) {DragListener} - drag listener for translating the vector. Should only be a input listener
-      // when the vector isn't animating back.
-      this.bodyDragListener = new DragListener( {
+      // @private drag listener for translating the vector
+      this.translationDragListener = new DragListener( {
         pressCursor: options.arrowOptions.cursor,
         targetNode: this,
         locationProperty: tailLocationProperty,
@@ -133,7 +133,7 @@ define( require => {
             // Get the cursor position as this determines to animate back or to drop the vector.
             // See https://github.com/phetsims/vector-addition/issues/50
             const cursorPosition = this.modelViewTransformProperty.value
-              .viewToModelDelta( this.bodyDragListener.localPoint ).plus( this.vector.tail );
+              .viewToModelDelta( this.translationDragListener.localPoint ).plus( this.vector.tail );
 
             // If the cursor is on the graph, drop the vector on the graph
             if ( graph.graphModelBounds.containsPoint( cursorPosition ) ) {
@@ -155,8 +155,8 @@ define( require => {
 
       // The body can be translated by the arrow or the label.
       // removeInputListener is required when the vector is animating back to the creator panel.
-      this.arrowNode.addInputListener( this.bodyDragListener );
-      this.labelNode.addInputListener( this.bodyDragListener );
+      this.arrowNode.addInputListener( this.translationDragListener );
+      this.labelNode.addInputListener( this.translationDragListener );
 
       //----------------------------------------------------------------------------------------
       // Add listeners
@@ -171,7 +171,7 @@ define( require => {
           const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
 
           const cursorPosition = this.modelViewTransformProperty.value
-            .viewToModelDelta( this.bodyDragListener.localPoint ).plus( tailPosition );
+            .viewToModelDelta( this.translationDragListener.localPoint ).plus( tailPosition );
 
           if ( vector.isOnGraphProperty.value && !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
             vector.popOffOfGraph();
@@ -184,8 +184,9 @@ define( require => {
       // Observe when the vector is animating back
       const removeBodyDragListener = isAnimatingBack => {
         if ( isAnimatingBack ) {
-          this.arrowNode.removeInputListener( this.bodyDragListener );
-          this.labelNode.removeInputListener( this.bodyDragListener );
+          console.log( 'removeBodyDragListener' );//XXX
+          this.arrowNode.removeInputListener( this.translationDragListener );
+          this.labelNode.removeInputListener( this.translationDragListener );
           this.cursor = 'default';
         }
       };
@@ -199,36 +200,36 @@ define( require => {
 
       if ( vector.isTipDraggable ) {
 
-        // Create a triangle at the tip of the vector. This is used to allow the user to only change the
-        // scale and angle of the vector by  dragging the tip.
-        const tipShape = new Shape()
+        // Create a triangle at the head of the vector. This is used to allow the user to only change the
+        // scale and angle of the vector by dragging the head.
+        const headShape = new Shape()
           .moveTo( 0, 0 )
           .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2 )
           .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2 )
           .close();
-        const tipNode = new Path( tipShape, {
+        const headNode = new Path( headShape, {
           stroke: phet.chipper.queryParameters.dev ? 'red' : null,
           cursor: 'pointer'
         } );
-        this.addChild( tipNode );
+        this.addChild( headNode );
 
-        // set pointer areas for the tip
-        tipNode.touchArea = tipShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
-        tipNode.mouseArea = tipShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
+        // set pointer areas for the head
+        headNode.touchArea = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
+        headNode.mouseArea = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
 
-        // When the vector changes, transform the tip.
+        // When the vector changes, transform the head.
         vectorComponentsListener = vectorComponents => {
-          tipNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
-          tipNode.rotation = -vectorComponents.angle;
+          headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
+          headNode.rotation = -vectorComponents.angle;
         };
         vector.vectorComponentsProperty.link( vectorComponentsListener ); // unlinked is required when disposed
 
-        // Create a Property of the location of the tip of the vector. The location of the tip is measured with respect
-        // to the tail.
+        // Location of the tip of the vector, relative to the tail.
         const tipLocationProperty = new Vector2Property( tipDeltaLocation );
 
-        const tipDragListener = new DragListener( {
-          targetNode: tipNode,
+        // Drag listener to scale/rotate the vector, attached to the vector's head.
+        const scaleRotateDragListener = new DragListener( {
+          targetNode: headNode,
           locationProperty: tipLocationProperty,
           start: () => {
             assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
@@ -238,7 +239,7 @@ define( require => {
         } );
 
         // removeInputListener is required when the vector is animating back to the creator panel (toolbox)
-        tipNode.addInputListener( tipDragListener );
+        headNode.addInputListener( scaleRotateDragListener );
 
         //----------------------------------------------------------------------------------------
         // Add listeners
@@ -256,7 +257,7 @@ define( require => {
         // Observe when the vector is animating back
         const removeTipDragListener = isAnimatingBack => {
           if ( isAnimatingBack ) {
-            tipNode.removeInputListener( tipDragListener );
+            headNode.removeInputListener( scaleRotateDragListener );
           }
         };
         this.vector.animateBackProperty.lazyLink( removeTipDragListener );
@@ -363,6 +364,16 @@ define( require => {
         // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds
         this.vector.moveTailToPosition( tailPosition );
       }
+    }
+
+    /**
+     * Forwards an event to translationDragListener. Used for dragging vectors out of the toolbox. 
+     * @param {Event} event
+     * @public
+     */
+    forwardEvent( event ) {
+      assert && assert( event instanceof Event, 'invalid event' );
+      this.translationDragListener.press( event, this );
     }
   }
 
