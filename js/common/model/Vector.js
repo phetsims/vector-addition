@@ -382,22 +382,20 @@ define( require => {
      *
      * @param {Vector2} point - animates the center of the vector to this point
      * @param {Vector2} finalComponents - animates the components to the final components
-     * @param {function} finishedCallback - callback if and only if the animation finishes
+     * @param {function} endedCallback - callback when the animation ends, either naturally or stopped prematurely
      */
-    animateToPoint( point, finalComponents, finishedCallback ) {
+    animateToPoint( point, finalComponents, endedCallback ) {
 
       assert && assert( !this.inProgressAnimation, 'Can\'t animate to position when we are in animation currently' );
       assert && assert( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the graph' );
       assert && assert( point instanceof Vector2, `invalid point: ${point}` );
       assert && assert( finalComponents instanceof Vector2, `invalid finalComponents: ${finalComponents}` );
-      assert && assert( typeof finishedCallback === 'function', `invalid finishedCallback: ${finishedCallback}` );
-
-      //----------------------------------------------------------------------------------------
+      assert && assert( typeof endedCallback === 'function', `invalid endedCallback: ${endedCallback}` );
 
       // Calculate the tail position to animate to
       const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
 
-      const animation = new Animation( {
+      this.inProgressAnimation = new Animation( {
         duration: _.max( [ MIN_ANIMATION_TIME, this.tail.distance( tailPosition ) / AVERAGE_ANIMATION_SPEED ] ),
         targets: [ {
           property: this.tailPositionProperty,
@@ -410,16 +408,13 @@ define( require => {
         } ]
       } ).start();
 
-      this.inProgressAnimation = animation;
-
-      const animationFinished = () => {
+      // Called when the animation ends, either naturally or stopped prematurely
+      const animationEnded = () => {
+        this.inProgressAnimation.endedEmitter.removeListener( animationEnded );
         this.inProgressAnimation = null;
-        finishedCallback();
-
-        // Remove listener
-        animation.finishEmitter.removeListener( animationFinished );
+        endedCallback();
       };
-      animation.finishEmitter.addListener( animationFinished ); // removeListener required when animation finishes
+      this.inProgressAnimation.endedEmitter.addListener( animationEnded );
     }
 
     /**
