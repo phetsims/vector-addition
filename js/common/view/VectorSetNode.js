@@ -152,6 +152,8 @@ define( require => {
       if ( vector.isRemovable ) {
 
         const removalListener = removedVector => {
+          assert && assert( removedVector.isRemovable, 'vector is not removable' );
+
           if ( removedVector === vector ) {
 
             // dispose the Nodes that were created
