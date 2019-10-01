@@ -88,14 +88,14 @@ define( require => {
       this.vectorLabelContent = vectorLabelContent;
 
       // Observe changes to the model vector, and update the label node. Dispose is required.
-      this.labelMultilink = new Multilink(
+      const labelMultilink = new Multilink(
         [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, activeVectorProperty ],
         () => this.update()
       );
 
       // @private {function} function to dispose listeners
       this.disposeVectorLabelNode = () => {
-        this.labelMultilink.dispose();
+        labelMultilink.dispose();
       };
     }
 
