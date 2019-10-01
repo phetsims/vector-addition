@@ -56,7 +56,7 @@ define( require => {
       assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
       // @public {ObservableArray.<Vector>} the vectors in the VectorSet
-      // This array contains only what is referred to as main or primary vectors. It does not contain sum vectors,
+      // This array contains only what is referred to as main or parent vectors. It does not contain sum vectors,
       // component vectors, or base vectors.
       this.vectors = new ObservableArray();
 
