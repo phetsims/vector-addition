@@ -5,6 +5,8 @@
  * component of some parent vector.  For instance, if parent vector 'a' is <5, 6>, then its x component vector
  * is <5, 0>, and its y component vector is <0, 6>.
  *
+ * ComponentVectors are not interactive.
+ *
  * 'Is a' relationship with RootVector but adds the following functionality:
  *    - Updates its tail position/components based on a parent vector's changing tail/tip
  *    - Updates its tail position based on the component style Property

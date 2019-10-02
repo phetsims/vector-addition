@@ -1,7 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Vector is the model for an interactive vector.
+ * Vector is the model for a vector that can be directly manipulated.  It can be translated and (optionally)
+ * scaled and rotated.
  *
  * Extends RootVector but adds the following functionality (annotated in the file):
  *  1. update the tail when the origin moves (modelViewTransformProperty)

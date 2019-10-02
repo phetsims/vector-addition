@@ -2,9 +2,10 @@
 
 /**
  * SumVector is the model of a sum vector. A sum vector is the sum of all vectors for one VectorSet.
- *
  * However, it's not as simple as just a quick add up, as vectors can change states and go from being on the graph to
  * off of the graph or vise versa.
+ *
+ * SumVectors can be directly manipulated. They can be translated, but not rotated or scale.
  *
  * SumVectors are created at the start of the sim, and exist for the lifetime of the sim.
  *
