@@ -11,6 +11,7 @@
  *
  * @author Brandon Li
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
@@ -169,10 +170,6 @@ define( require => {
       };
     }
 
-    //----------------------------------------------------------------------------------------
-    // Functionality 3: Ability to correctly drag the vector by the tail and the tip in both polar and Cartesian mode
-    //----------------------------------------------------------------------------------------
-
     /**
      * Sets the tip of the vector but ensures the vector satisfies invariants for polar/Cartesian mode.
      * @protected
@@ -329,7 +326,6 @@ define( require => {
       // Ensure that the tail satisfies invariants for polar/Cartesian mode
       this.setTailWithInvariants( tailPosition );
 
-      //----------------------------------------------------------------------------------------
       // Add ability to remove vectors
       if ( this.isRemovable ) {
         const constrainedTailBounds = this.getConstrainedTailBounds();
@@ -352,10 +348,6 @@ define( require => {
     getConstrainedTailBounds() {
       return this.graph.graphModelBounds.eroded( 1 );
     }
-
-    //----------------------------------------------------------------------------------------
-    // Functionality 4: Methods to drop a vector, to animate a vector, and to pop a vector off the graph
-    //----------------------------------------------------------------------------------------
 
     /**
      * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
