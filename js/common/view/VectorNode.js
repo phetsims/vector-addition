@@ -185,6 +185,7 @@ define( require => {
       const disposeTranslate = () => {
         this.arrowNode.removeInputListener( this.translationDragListener );
         this.labelNode.removeInputListener( this.translationDragListener );
+        this.translationDragListener.dispose();
         this.vector.animateBackProperty.unlink( removeTranslationDragListener );
         tailLocationProperty.unlink( tailListener );
       };
