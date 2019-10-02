@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.0.0-dev.31 Tue Oct 01 2019 14:00:29 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# vector-addition 1.0.0-dev.32 Tue Oct 01 2019 18:39:40 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "master"
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "3cc3c0a388de20ff19f63d0e3f9473681b2a1756",
+    "sha": "4bf463d2f14a6be487607b11a596f6662bbbdd92",
     "branch": "master"
   },
   "scenery-phet": {
@@ -65,7 +65,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "ec09fe383a09dbe8976a963d4bfb53e51624d4e3",
+    "sha": "0e1725730b15cac89221415ec0a73f8c20c2adc6",
     "branch": "master"
   },
   "tambo": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "vector-addition": {
-    "sha": "e5d833e6e65cdd453fc0aa9ec10697d5f861ea50",
+    "sha": "7a7bbea4b0aa1f77d526fbf7f5bc82a88db412af",
     "branch": "master"
   }
 }
