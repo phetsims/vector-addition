@@ -489,7 +489,7 @@ define( require => {
   //========================================================================================
 
   /**
-   * Creates Vector Icons (ArrowNode) tip to tail based on an array of tip locations along the tail location of the
+   * Creates Vector Icons (ArrowNode) tip to tail based on an array of tip locations along with the tail location of the
    * first Vector. ArrowNodes are created and pushed to a given array.
    *
    * @param {Vector2[]} tipLocations - tip locations of all vectors (vectors are aligned tip to tail)
