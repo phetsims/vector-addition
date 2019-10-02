@@ -153,11 +153,11 @@ define( require => {
       this.arrowNode.addInputListener( this.translationDragListener );
       this.labelNode.addInputListener( this.translationDragListener );
 
-      // Observe when the vector is animating back
+      // Disable translate interaction when the vector is animating back to the toolbox.
       const removeTranslationDragListener = isAnimatingBack => {
         if ( isAnimatingBack ) {
-          this.arrowNode.removeInputListener( this.translationDragListener );
-          this.labelNode.removeInputListener( this.translationDragListener );
+          this.arrowNode.pickable = !isAnimatingBack;
+          this.labelNode.pickable = !isAnimatingBack;
           this.cursor = 'default';
         }
       };
@@ -182,12 +182,8 @@ define( require => {
 
       // dispose of things related to vector translation
       const disposeTranslate = () => {
-        if ( this.arrowNode.hasInputListener( this.translationDragListener ) ) {
-          this.arrowNode.removeInputListener( this.translationDragListener );
-        }
-        if ( this.labelNode.hasInputListener( this.translationDragListener ) ) {
-          this.labelNode.removeInputListener( this.translationDragListener );
-        }
+        this.arrowNode.removeInputListener( this.translationDragListener );
+        this.labelNode.removeInputListener( this.translationDragListener );
         this.vector.animateBackProperty.unlink( removeTranslationDragListener );
         tailLocationProperty.unlink( tailListener );
       };
@@ -246,22 +242,18 @@ define( require => {
         };
         tipLocationProperty.lazyLink( tipListener );
 
-        // Observe when the vector is animating back
-        const removeScaleRotateDragListener = isAnimatingBack => {
-          if ( isAnimatingBack ) {
-            headNode.removeInputListener( scaleRotateDragListener );
-          }
+        // Disable scale/rotate interaction when the vector is animating back to the toolbox.
+        const disableScaleRotateDragListener = isAnimatingBack => {
+          headNode.pickable = !isAnimatingBack;
         };
-        this.vector.animateBackProperty.lazyLink( removeScaleRotateDragListener );
+        this.vector.animateBackProperty.lazyLink( disableScaleRotateDragListener );
 
         // @private {function} - to dispose things that are related to optional rotate/scale
         this.disposeRotateScale = () => {
-          if ( headNode.hasInputListener( scaleRotateDragListener ) ) {
-            headNode.removeInputListener( scaleRotateDragListener );
-          }
+          headNode.removeInputListener( scaleRotateDragListener );
           vector.vectorComponentsProperty.unlink( vectorComponentsListener );
           tipLocationProperty.unlink( tipListener );
-          this.vector.animateBackProperty.unlink( removeScaleRotateDragListener );
+          this.vector.animateBackProperty.unlink( disableScaleRotateDragListener );
         };
       }
 
@@ -269,7 +261,7 @@ define( require => {
       // Appearance
       //----------------------------------------------------------------------------------------
 
-      // Update the appearance of the vector's shadow
+      // Update the appearance of the vector's shadow. Must be unmultilinked.
       const shadowMultilink = Property.multilink(
         [ vector.isOnGraphProperty, vector.vectorComponentsProperty, this.vector.animateBackProperty ],
         ( isOnGraph, vectorComponents, animateBack ) => {
@@ -283,7 +275,7 @@ define( require => {
           vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
         } );
       
-      // Show the vector's label when it's on the graph
+      // Show the vector's label when it's on the graph. Must be unlinked.
       const isOnGraphListener = isOnGraph => ( this.labelNode.visible = isOnGraph );
       vector.isOnGraphProperty.link( isOnGraphListener );
 
