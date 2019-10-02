@@ -5,6 +5,7 @@
  * support tip dragging and tail translation dragging as well as removing and animating vector back to the creator.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 define( require => {
