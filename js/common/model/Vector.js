@@ -73,69 +73,50 @@ define( require => {
 
       super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbol );
 
-      //----------------------------------------------------------------------------------------
-
-      // @public (read-only) {boolean} isTipDraggable - indicates if the tip can be dragged
+      // @public (read-only) {boolean} indicates if the tip can be dragged
       this.isTipDraggable = options.isTipDraggable;
 
-      // @public (read-only) {boolean} isRemovable - indicates if the vector can be removed
+      // @public (read-only) {boolean} indicates if the vector can be removed
       this.isRemovable = options.isRemovable;
 
       // @public (read-only) {string} fallBackSymbol (see declaration of VECTOR_FALL_BACK_SYMBOL for documentation)
       this.fallBackSymbol = VECTOR_FALL_BACK_SYMBOL;
 
-      // @private {Graph} graph - indicates the Graph the vector model belongs to
+      // @private {Graph} the graph that the vector model belongs to
       this.graph = graph;
 
-      // @private {VectorSet} vectorSet - indicates the VectorSet the vector belongs in.
+      // @private {VectorSet} the vector set that the vector belongs to
       this.vectorSet = vectorSet;
 
-      //----------------------------------------------------------------------------------------
-      // Functionality 1: Update tail position when the origin moves (modelViewTransformProperty)
-      //----------------------------------------------------------------------------------------
+      // @public (read-only) indicates whether the vector is in on the graph
+      this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially );
 
-      // Function to update the position of the tail of the vector based on the modelViewTransform. The tail view
-      // location stays the same, but the tail model position changes.
+      // @public (read-only) {Animation|null} reference to any animation that is currently in progress
+      this.inProgressAnimation = null;
+
+      // @public (read-only) indicates if the vector should be animated back to the toolbox
+      this.animateBackProperty = new BooleanProperty( false );
+
+      // @public (read only) the vector's x component vector
+      this.xComponentVector = new ComponentVector( this,
+        vectorSet.componentStyleProperty,
+        graph.activeVectorProperty,
+        ComponentVector.ComponentTypes.X_COMPONENT );
+
+      // @public (read only) the vector's y component vector
+      this.yComponentVector = new ComponentVector( this,
+        vectorSet.componentStyleProperty,
+        graph.activeVectorProperty,
+        ComponentVector.ComponentTypes.Y_COMPONENT );
+
+      // When the graph's origin changes, update the tail position. unlink is required on dispose.
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
 
         // Get the tail location on the old graph, and move the vector to the new model position of the old location
         const tailLocation = oldModelViewTransform.modelToViewPosition( this.tail );
         this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailLocation ) );
       };
-
-      // Observe when the graph modelViewTransformProperty changes, and update the tail position.
-      // unlink is required on dispose.
       this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
-
-      //----------------------------------------------------------------------------------------
-
-      // @public (read-only) {BooleanProperty} isOnGraphProperty - indicates if the vector is in the play area
-      this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially );
-
-      // @public (read-only) {Animation|null} inProgressAnimationProperty - tracks any animation that is currently in
-      // progress.
-      this.inProgressAnimation = null;
-
-      // @public (read-only) {BooleanProperty} animateBackProperty - indicates if the vector should be animated back
-      this.animateBackProperty = new BooleanProperty( false );
-
-      //----------------------------------------------------------------------------------------
-      // Functionality 2: Create Vector Component Models
-      //----------------------------------------------------------------------------------------
-
-      // @public (read only) {ComponentVector} xComponentVector
-      this.xComponentVector = new ComponentVector( this,
-        vectorSet.componentStyleProperty,
-        graph.activeVectorProperty,
-        ComponentVector.ComponentTypes.X_COMPONENT );
-
-      // @public (read only) {ComponentVector} yComponentVector
-      this.yComponentVector = new ComponentVector( this,
-        vectorSet.componentStyleProperty,
-        graph.activeVectorProperty,
-        ComponentVector.ComponentTypes.Y_COMPONENT );
-
-      //----------------------------------------------------------------------------------------
 
       // @private
       this.disposeVector = () => {
