@@ -210,12 +210,10 @@ define( require => {
       // Flag to indicate the label offset translation.
       const labelOffset = new Vector2( 0, 0 );
 
-      //----------------------------------------------------------------------------------------
       // Convenience variables
       const componentMidPoint = componentVector.midPoint;
       const parentMidPoint = componentVector.parentMidPoint;
 
-      //----------------------------------------------------------------------------------------
       if ( componentVector.componentType === ComponentVector.ComponentTypes.X_COMPONENT ) {
 
         // Get the label height. Negative since the y axis is inverted in the view
@@ -242,10 +240,8 @@ define( require => {
         }
       }
 
-      // Get the middle of the vector with respect to the component tail as the origin
-      const deltaMidPoint = componentVector.vectorComponents.timesScalar( 0.5 );
-
-      this.labelNode.center = modelViewTransform.modelToViewDelta( deltaMidPoint.plus( labelOffset ) );
+      // Position the label
+      this.labelNode.center = RootVectorNode.computeLabelCenter( componentVector, modelViewTransform, labelOffset );
     }
   }
 

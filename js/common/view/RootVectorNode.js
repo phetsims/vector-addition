@@ -191,10 +191,37 @@ define( require => {
       // Create an offset that is perpendicular to the vector
       const offset = Vector2.createPolar( VectorAdditionConstants.VECTOR_LABEL_OFFSET + labelSize, modelAngle + Math.PI / 2 + yFlip );
 
-      // Create label halfway above the vector
-      const midPoint = rootVector.vectorComponents.timesScalar( 0.5 );
+      // Position the label
+      this.labelNode.center = RootVectorNode.computeLabelCenter( rootVector, modelViewTransform, offset );
+    }
 
-      this.labelNode.center = modelViewTransform.modelToViewDelta( midPoint.plus( offset ) );
+    /**
+     * Computes the center location for the label.
+     * See https://github.com/phetsims/vector-addition/issues/212
+     *
+     * @param {RootVector} vector
+     * @param {ModelViewTransform2} modelViewTransform
+     * @param {Vector2} offset - perpendicular offset
+     * @returns {Vector2}
+     */
+    static computeLabelCenter( vector, modelViewTransform, offset ) {
+      assert && assert( vector instanceof RootVector, 'invalid vector' );
+      assert && assert( modelViewTransform instanceof ModelViewTransform2, 'invalid modelViewTransform' );
+      assert && assert( offset instanceof Vector2, 'invalid offset' );
+
+      // Use a maximum magnitude so that labels won't go offscreen.
+      const maxMagnitude = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width;
+
+      // Create a vector parallel to rootVector that determines where the label will be placed.
+      let labelVector = null;
+      if ( vector.vectorComponents.magnitude < maxMagnitude ) {
+        labelVector = vector.vectorComponents;
+      }
+      else {
+        labelVector = vector.vectorComponents.normalized().timesScalar( maxMagnitude );
+      }
+
+      return modelViewTransform.modelToViewDelta( labelVector.timesScalar( 0.5 ).plus( offset ) );
     }
   }
 
