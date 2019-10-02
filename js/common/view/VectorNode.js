@@ -154,10 +154,10 @@ define( require => {
       this.labelNode.addInputListener( this.translationDragListener );
 
       // Disable translate interaction when the vector is animating back to the toolbox.
-      const removeTranslationDragListener = isAnimatingBack => {
-        if ( isAnimatingBack ) {
-          this.arrowNode.pickable = !isAnimatingBack;
-          this.labelNode.pickable = !isAnimatingBack;
+      const removeTranslationDragListener = animateBack => {
+        if ( animateBack ) {
+          this.arrowNode.pickable = !animateBack;
+          this.labelNode.pickable = !animateBack;
           this.cursor = 'default';
         }
       };
@@ -243,8 +243,8 @@ define( require => {
         tipLocationProperty.lazyLink( tipListener );
 
         // Disable scale/rotate interaction when the vector is animating back to the toolbox.
-        const disableScaleRotateDragListener = isAnimatingBack => {
-          headNode.pickable = !isAnimatingBack;
+        const disableScaleRotateDragListener = animateBack => {
+          headNode.pickable = !animateBack;
         };
         this.vector.animateBackProperty.lazyLink( disableScaleRotateDragListener );
 
