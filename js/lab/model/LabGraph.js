@@ -14,6 +14,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -46,12 +47,18 @@ define( require => {
 
       // @public (read-only) {VectorSet} vectorSet1
       this.vectorSet1 = new VectorSet( this, componentStyleProperty, sumVisibleProperty1, vectorColorPalette1, {
-        initialSumTailPosition: new Vector2( LAB_GRAPH_BOUNDS.minX + 1 * LAB_GRAPH_BOUNDS.width / 3, LAB_GRAPH_BOUNDS.centerY )
+        initialSumTailPosition: new Vector2(
+          Util.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 /3 ) * LAB_GRAPH_BOUNDS.width ),
+          Util.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
+        )
       } );
 
       // @public (read-only) {VectorSet} vectorSet2
       this.vectorSet2 = new VectorSet( this, componentStyleProperty, sumVisibleProperty2, vectorColorPalette2, {
-        initialSumTailPosition: new Vector2( LAB_GRAPH_BOUNDS.minX + 2 * LAB_GRAPH_BOUNDS.width / 3, LAB_GRAPH_BOUNDS.centerY )
+        initialSumTailPosition: new Vector2(
+          Util.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
+          Util.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
+        )
       } );
 
       // Add the vector sets
