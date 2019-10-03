@@ -5,6 +5,9 @@
  * so cells are filled left-to-right, top-to-bottom.  All cells have the same dimensions, and alignment
  * of children within the cells can be specified.
  *
+ * Unlike LayoutBox (and it subclasses HBox and VBox), adding/removing children does NOT change the contents
+ * of the grid, they will decorate the GridBox.  To change the contents of the grid, use setContents.
+ *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
