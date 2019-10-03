@@ -17,7 +17,7 @@ In addition to this document, you are encouraged to read:
 
 * _active_ vector means "selected" vector.  There is (at most) one active vector.
 * _component_ is a scalar, while _component vector_ is a vector
-* _graph orientation_ pertains to 1-dimensional graphs, and is horizontal or vertical, see [GraphOrientations](https://github.com/phetsims/vector-addition/blob/master/js/common/model/GraphOrientations.js)
+* _graph orientation_ is horizontal, vertical, or two-dimensional, see [GraphOrientations](https://github.com/phetsims/vector-addition/blob/master/js/common/model/GraphOrientations.js)
 * _coordinate snap mode_ refers to which vector quantities will snap to integer values, see [CoordinateSnapModes](https://github.com/phetsims/vector-addition/blob/master/js/common/model/CoordinateSnapModes.js)
 * _component vector styles_ refers to the representation used to display component vectors, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js)
 * for vectors, "position" or "point" refers to model coordinates, while "location" refers to view coordinates
