@@ -29,7 +29,7 @@ define( require => {
   class GridBox extends Node {
 
     /**
-     * @param {Node[]} contents - the contentss of the grid, in row-major order
+     * @param {Node[]} contents - the contents of the grid, in row-major order
      * @param {Object} [options]
      */
     constructor( contents, options ) {
