@@ -1,5 +1,6 @@
 // Copyright 2019, University of Colorado Boulder
 
+//TODO move to scenery? https://github.com/phetsims/vector-addition/issues/190
 /**
  * GridBox lays out its children in a grid composed of cells. Children are provided in row-major order,
  * so cells are filled left-to-right, top-to-bottom.  All cells have the same dimensions, and alignment
