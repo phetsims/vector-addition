@@ -28,6 +28,16 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorLabelNode = require( 'VECTOR_ADDITION/common/view/VectorLabelNode' );
+  
+  // constants
+
+  // Used to prevent vector label from going off-screen. This is the magnitude of a vector that fills the
+  // graph along a diagonal, minus the margin that constrains dragging of the vector's tail.
+  // See https://github.com/phetsims/vector-addition/issues/212#issuecomment-537628386 for a screenshot.
+  const MAX_LABEL_VECTOR_MAGNITUDE = new Vector2(
+    VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width - VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN,
+    VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height - VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN
+  ).magnitude;
 
   class RootVectorNode extends Node {
 
@@ -209,16 +219,13 @@ define( require => {
       assert && assert( modelViewTransform instanceof ModelViewTransform2, 'invalid modelViewTransform' );
       assert && assert( offset instanceof Vector2, 'invalid offset' );
 
-      // Use a maximum magnitude so that labels won't go offscreen.
-      const maxMagnitude = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width;
-
       // Create a vector parallel to rootVector that determines where the label will be placed.
       let labelVector = null;
-      if ( vector.vectorComponents.magnitude < maxMagnitude ) {
+      if ( vector.vectorComponents.magnitude < MAX_LABEL_VECTOR_MAGNITUDE ) {
         labelVector = vector.vectorComponents;
       }
       else {
-        labelVector = vector.vectorComponents.normalized().timesScalar( maxMagnitude );
+        labelVector = vector.vectorComponents.normalized().timesScalar( MAX_LABEL_VECTOR_MAGNITUDE );
       }
 
       return modelViewTransform.modelToViewDelta( labelVector.timesScalar( 0.5 ).plus( offset ) );

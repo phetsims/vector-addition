@@ -197,6 +197,10 @@ define( require => {
     // Interval spacing of vector angle (in degrees) when vector is in polar mode
     POLAR_ANGLE_INTERVAL: 5,
 
+    // When dragging tot translate a vector, the tail of the vector must remain this much inside the
+    // bounds of the graph, in model units.
+    VECTOR_TAIL_DRAG_MARGIN: 1,
+
     //----------------------------------------------------------------------------------------
     // Decimal places
 

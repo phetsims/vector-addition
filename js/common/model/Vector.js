@@ -342,12 +342,12 @@ define( require => {
     }
 
     /**
-     * Gets the constrained bounds of the tail. The tail must be within 1 unit of the edge of the graph.
-     * See https://github.com/phetsims/vector-addition/issues/152
+     * Gets the constrained bounds of the tail. The tail must be within VECTOR_TAIL_DRAG_MARGIN units of the edges
+     * of the graph. See https://github.com/phetsims/vector-addition/issues/152
      * @private
      */
     getConstrainedTailBounds() {
-      return this.graph.graphModelBounds.eroded( 1 );
+      return this.graph.graphModelBounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
     }
 
     /**
