@@ -61,10 +61,10 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Label background on vectors
 
-    ACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 240, 240, 100 )', // yellow
-    ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgb( 230, 230, 90 )', // slightly darker yellow
-    INACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgb( 235, 235, 235 )', // gray
-    INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgb( 215, 215, 215 )', // slightly darker gray
+    ACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgba( 240, 240, 100, 0.8 )', // yellow
+    ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgba( 230, 230, 90, 0.8 )', // slightly darker yellow
+    INACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgba( 235, 235, 235, 0.5 )', // gray
+    INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgba( 215, 215, 215, 0.5 )', // slightly darker gray
 
     //----------------------------------------------------------------------------------------
     // On-axis lines, aka leader lines, for component vectors
