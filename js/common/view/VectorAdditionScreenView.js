@@ -30,7 +30,8 @@ define( require => {
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       super( {
-        layoutBounds: VectorAdditionConstants.SCREEN_VIEW_BOUNDS
+        layoutBounds: VectorAdditionConstants.SCREEN_VIEW_BOUNDS,
+        tandem: tandem
       } );
 
       // @protected for layout
