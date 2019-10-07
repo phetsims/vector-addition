@@ -115,7 +115,9 @@ define( require => {
         start: () => {
           assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
             'body drag listener should be removed when the vector is animating back.' );
-          graph.activeVectorProperty.value = vector;
+          if ( vector.isOnGraphProperty.value ) {
+            graph.activeVectorProperty.value = vector;
+          }
         },
 
         end: () => {
