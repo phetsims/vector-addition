@@ -27,7 +27,6 @@ define( require => {
       defaultValue: 10
     },
 
-
     /**
      * The minimum distance between a vector's tail to another vector's tail or tip to snap to the other vector in polar
      * mode. See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
@@ -38,20 +37,7 @@ define( require => {
       type: 'number',
       isValidValue: value => ( value > 0 ),
       defaultValue: 1
-    },
-
-    /**
-     * Whether the equation buttons are on the left or right in the 'Equation' accordion box.
-     * See https://github.com/phetsims/vector-addition/issues/128
-     *
-     * For internal testing only.
-     */
-    equationButtons: {
-      type: 'string',
-      isValidValue: value => ( value === 'left' || value === 'right' ),
-      defaultValue: 'left'
     }
-
   } );
 
 
