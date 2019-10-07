@@ -122,11 +122,11 @@ define( require => {
 
           assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
             'body drag listener should be removed when the vector is animating back.' );
-          //----------------------------------------------------------------------------------------
-          // Determine to drop the vector or to animate the vector back if we aren't on the graph
+
+          // Determine whether to drop the vector on the graph, or animate the vector back to the toolbox.
           if ( !this.vector.isOnGraphProperty.value ) {
 
-            // Get the cursor position as this determines to animate back or to drop the vector.
+            // Get the cursor position as this determines whether the vector is destined for the graph or toolbox.
             // See https://github.com/phetsims/vector-addition/issues/50
             const cursorPosition = this.modelViewTransformProperty.value
               .viewToModelDelta( this.translationDragListener.localPoint ).plus( this.vector.tail );
@@ -137,12 +137,12 @@ define( require => {
               // Drop the vector where the shadow was positioned
               const shadowOffset = this.modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
                 .minus( vector.vectorComponents.timesScalar( 0.5 ) );
-
               const shadowTailPosition = vector.tail.plus( shadowOffset );
-
               this.vector.dropOntoGraph( shadowTailPosition );
             }
-            else { // otherwise, animate the vector back
+            else {
+
+              // otherwise, animate the vector back
               this.vector.animateBackProperty.value = true;
             }
           }
