@@ -41,10 +41,6 @@ define( require => {
   // axes
   const AXES_ARROW_X_EXTENSION = VectorAdditionConstants.AXES_ARROW_X_EXTENSION;
   const AXES_ARROW_Y_EXTENSION = VectorAdditionConstants.AXES_ARROW_Y_EXTENSION;
-  const AXES_TEXT_OPTIONS = {
-    font: VectorAdditionConstants.AXIS_LABEL_FONT,
-    maxWidth: 30
-  };
 
   // tick marks
   const MAJOR_TICK_SPACING = 5; // model units
@@ -233,10 +229,12 @@ define( require => {
         VectorAdditionConstants.AXES_ARROW_OPTIONS
       );
 
-      const axisLabel = new Text( symbolXString, _.extend( {}, AXES_TEXT_OPTIONS, {
+      const axisLabel = new Text( symbolXString, {
+        font: VectorAdditionConstants.AXIS_LABEL_FONT,
+        maxWidth: 30,
         left: arrowNode.right + 6,
         centerY: arrowNode.centerY
-      } ) );
+      } );
 
       super( {
         children: [ arrowNode, axisLabel ]
@@ -267,10 +265,12 @@ define( require => {
         VectorAdditionConstants.AXES_ARROW_OPTIONS
       );
 
-      const axisLabel = new Text( symbolYString, _.extend( {}, AXES_TEXT_OPTIONS, {
+      const axisLabel = new Text( symbolYString, {
+        font: VectorAdditionConstants.AXIS_LABEL_FONT,
+        maxWidth: 30,
         centerX: arrowNode.centerX,
         bottom: arrowNode.top - 3
-      } ) );
+      } );
 
       super( {
         children: [ arrowNode, axisLabel ]
