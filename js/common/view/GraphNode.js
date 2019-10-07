@@ -231,7 +231,7 @@ define( require => {
 
       const axisLabel = new Text( symbolXString, {
         font: VectorAdditionConstants.AXIS_LABEL_FONT,
-        maxWidth: 30,
+        maxWidth: 22,
         left: arrowNode.right + 6,
         centerY: arrowNode.centerY
       } );
