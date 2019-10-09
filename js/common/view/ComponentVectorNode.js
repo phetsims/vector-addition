@@ -36,8 +36,9 @@ define( require => {
   // offset of the label
   const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
-  const NON_ACTIVE_LINE_DASH = [ 3, 10 ];
-  const ACTIVE_LINE_DASH = [];
+  // Line dash for leader lines, displayed when component vectors are projected onto axes
+  const NON_ACTIVE_LEADER_LINES_DASH = [ 3, 10 ];
+  const ACTIVE_LEADER_LINES_DASH = [];
 
   class ComponentVectorNode extends RootVectorNode {
 
@@ -61,11 +62,6 @@ define( require => {
 
       options = merge( {
 
-        // {Object} - options passed to the dashed lines shape.
-        onAxisLinesOptions: {
-          lineDash: NON_ACTIVE_LINE_DASH
-        },
-
         arrowType: 'dashed',
 
         // {Object} - options passed to the super class to stylize the arrowOptions.
@@ -86,9 +82,12 @@ define( require => {
       // Create a path that represents the dashed lines corresponding to the on-axis style.
       // The shape of the path will be updated later.
 
-      // @private {Path} onAxisLinesPath
-      this.onAxisLinesPath = new Path( new Shape(), options.onAxisLinesOptions );
-      this.addChild( this.onAxisLinesPath );
+      // @private {Path} leader lines, displayed when component vectors are projected onto axes
+      this.leaderLinesPath = new Path( new Shape(), {
+        lineWidth: 1,
+        lineDash: NON_ACTIVE_LEADER_LINES_DASH
+      } );
+      this.addChild( this.leaderLinesPath );
 
       //----------------------------------------------------------------------------------------
       // Create a multilink to observe:
@@ -136,7 +135,7 @@ define( require => {
 
     /**
      * Updates the component vector node:
-     *  - Draws on-axis lines when componentStyle is ON_AXIS
+     *  - Draws leader lines when componentStyle is ON_AXIS
      *  - Determines visibility (i.e. components shouldn't be visible on INVISIBLE)
      * @protected
      *
@@ -153,13 +152,13 @@ define( require => {
 
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
 
-      // On axis lines only visible if the component style is ON_AXIS
-      this.onAxisLinesPath.visible = ( componentStyle === ComponentVectorStyles.ON_AXIS );
+      // Leader lines are only visible when component vectors are projected onto axes
+      this.leaderLinesPath.visible = ( componentStyle === ComponentVectorStyles.ON_AXIS );
 
-      // Update the on-axis lines only if its the on-axis style
-      if ( this.onAxisLinesPath.visible ) {
+      // Update leader lines only if its the on-axis style
+      if ( this.leaderLinesPath.visible ) {
 
-        // Since the on-axis lines are a child of this view, the origin of the view is at the tail of the component
+        // Since the leader lines are a child of this view, the origin of the view is at the tail of the component
         // vector. Get the tip location relative to the tail of the component vector (which is the components)
         const tipLocation = modelViewTransform.modelToViewDelta( componentVector.vectorComponents );
 
@@ -170,22 +169,19 @@ define( require => {
         const parentTipLocation = modelViewTransform.modelToViewDelta( componentVector.parentTip
           .minus( componentVector.tail ) );
 
-        // Create new shape for the dashed lines
-        const onAxisLines = new Shape();
-
-        // Draw the dashed lines
-        onAxisLines.moveToPoint( Vector2.ZERO ).lineToPoint( parentTailLocation );
-        onAxisLines.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
-
-        this.onAxisLinesPath.setShape( onAxisLines );
+        // Create new shape for the leader lines
+        const leaderLinesShape = new Shape();
+        leaderLinesShape.moveToPoint( Vector2.ZERO ).lineToPoint( parentTailLocation );
+        leaderLinesShape.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
+        this.leaderLinesPath.setShape( leaderLinesShape );
 
         if ( isParentActive ) {
-          this.onAxisLinesPath.stroke = VectorAdditionColors.ON_AXIS_LINES_ACTIVE_STROKE;
-          this.onAxisLinesPath.lineDash = ACTIVE_LINE_DASH;
+          this.leaderLinesPath.stroke = VectorAdditionColors.LEADER_LINES_ACTIVE_STROKE;
+          this.leaderLinesPath.lineDash = ACTIVE_LEADER_LINES_DASH;
         }
         else {
-          this.onAxisLinesPath.stroke = VectorAdditionColors.ON_AXIS_LINES_NON_ACTIVE_STROKE;
-          this.onAxisLinesPath.lineDash = NON_ACTIVE_LINE_DASH;
+          this.leaderLinesPath.stroke = VectorAdditionColors.LEADER_LINES_NON_ACTIVE_STROKE;
+          this.leaderLinesPath.lineDash = NON_ACTIVE_LEADER_LINES_DASH;
         }
       }
     }

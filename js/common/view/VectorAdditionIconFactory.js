@@ -285,7 +285,7 @@ define( require => {
         return createEyeCloseIcon( iconSize );
       }
 
-      const subBoxSize = RADIO_BUTTON_ICON_SIZE / 3; // size of the sub-box the arrow/on-axis lines creates
+      const subBoxSize = RADIO_BUTTON_ICON_SIZE / 3; // size of the sub-box the leader lines create
       assert && assert( subBoxSize < iconSize, `subBoxSize ${subBoxSize} must be < iconSize ${iconSize}` );
 
       // Options for main and component arrows
@@ -312,20 +312,20 @@ define( require => {
         xComponentArrow.setTailAndTip( subBoxSize, 0, iconSize, 0 );
         yComponentArrow.setTailAndTip( 0, -subBoxSize, 0, -iconSize );
 
-        // Create the on-axis lines
-        const dashedLineShape = new Shape().moveTo( 0, -subBoxSize )
+        // Create the leader lines
+        const leaderLinesShape = new Shape().moveTo( 0, -subBoxSize )
           .horizontalLineTo( subBoxSize )
           .verticalLineToRelative( subBoxSize )
           .moveTo( 0, -iconSize )
           .horizontalLineTo( iconSize )
           .verticalLineToRelative( iconSize );
 
-        const dashedLinePath = new Path( dashedLineShape, {
+        const leaderLinesPath = new Path( leaderLinesShape, {
           lineDash: [ 2.9, 2 ],
           stroke: 'black'
         } );
 
-        iconChildren = [ dashedLinePath, xComponentArrow, yComponentArrow, vectorArrow ];
+        iconChildren = [ leaderLinesPath, xComponentArrow, yComponentArrow, vectorArrow ];
       }
 
       return new Node( {

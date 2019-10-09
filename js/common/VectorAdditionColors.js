@@ -67,10 +67,10 @@ define( require => {
     INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgba( 215, 215, 215, 0.5 )', // slightly darker gray
 
     //----------------------------------------------------------------------------------------
-    // On-axis lines, aka leader lines, for component vectors
+    // Leader lines, for component vectors projected onto axes
 
-    ON_AXIS_LINES_NON_ACTIVE_STROKE: Color.BLACK, // stroke when the vector isn't active
-    ON_AXIS_LINES_ACTIVE_STROKE: Color.BLACK, // stroke when the vector is active
+    LEADER_LINES_NON_ACTIVE_STROKE: Color.BLACK, // stroke when the vector isn't active
+    LEADER_LINES_ACTIVE_STROKE: Color.BLACK, // stroke when the vector is active
 
     //----------------------------------------------------------------------------------------
     // Vector color palettes
