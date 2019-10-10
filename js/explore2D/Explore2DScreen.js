@@ -5,7 +5,6 @@
  *
  * @author Martin Veillette
  */
-
 define( require => {
   'use strict';
 

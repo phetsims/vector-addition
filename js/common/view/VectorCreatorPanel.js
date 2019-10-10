@@ -7,7 +7,6 @@
  * @author Martin Veillette
  * @author Brandon Li
  */
-
 define( require => {
   'use strict';
 

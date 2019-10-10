@@ -8,7 +8,6 @@
  *
  * @author Brandon Li
  */
-
 define( require => {
   'use strict';
 

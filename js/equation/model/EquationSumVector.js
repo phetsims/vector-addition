@@ -7,7 +7,6 @@
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
-
 define( require => {
   'use strict';
 

@@ -1,6 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
+ * The 'Equation' screen.
+ *
  * @author Martin Veillette
  */
 define( require => {

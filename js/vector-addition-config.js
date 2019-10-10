@@ -7,7 +7,6 @@
  * RequireJS configuration file for the vector-addition sim.
  * Paths are relative to the location of this file.
  */
-
 require.config( {
 
   deps: [ 'vector-addition-main' ],
