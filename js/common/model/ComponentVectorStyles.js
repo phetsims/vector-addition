@@ -17,12 +17,12 @@ define( require => {
     // Component vectors are not displayed at all
     'INVISIBLE',
 
-    // Component vectors' initial points and the original vector's initial points coincide
-    'PARALLELOGRAM',
-
-    // Component vectors are displayed head to tail, such that the component vectors
+    // Component vectors are displayed tip to tail, such that the component vectors
     // align to create a right triangle with the original vector
     'TRIANGLE',
+
+    // Component vectors' initial points and the original vector's initial points coincide
+    'PARALLELOGRAM',
 
     // Component vectors are displayed as projections on the x and y axes
     'PROJECTION'

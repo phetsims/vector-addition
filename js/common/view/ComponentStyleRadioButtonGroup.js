@@ -31,7 +31,7 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
-      // Create the radio buttons
+      // Create the radio buttons. Note that order of enum values determines order of buttons.
       const buttons = [];
       ComponentVectorStyles.VALUES.forEach( componentStyle => {
         buttons.push( new RadioButtonGroupMember( componentStyleProperty, componentStyle,
