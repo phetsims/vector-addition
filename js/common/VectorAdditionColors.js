@@ -38,7 +38,7 @@ define( require => {
     GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )', // gray
     GRAPH_MINOR_LINE_COLOR: 'rgb( 225, 225, 225 )', // lighter gray
 
-    ORIGIN_COLOR: 'rgb( 25, 253, 56 )',
+    ORIGIN_COLOR: 'rgb( 150, 150, 150 )',
 
     //----------------------------------------------------------------------------------------
     // Panel-like containers
