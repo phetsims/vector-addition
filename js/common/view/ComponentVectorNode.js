@@ -5,7 +5,7 @@
  *
  * Extends RootVectorNode but add the following functionality:
  *  - determines visibility by the component style (i.e. should be invisible on ComponentVectorStyles.INVISIBLE)
- *  - draws lines for the on-axis component style
+ *  - draws lines for the PROJECTION component vector style
  *  - custom label positioning
  *  - distinct appearance
  *
@@ -79,7 +79,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      // Create a path that represents the dashed lines corresponding to the on-axis style.
+      // Create a path that represents the dashed lines corresponding to the PROJECTION style.
       // The shape of the path will be updated later.
 
       // @private {Path} leader lines, displayed when component vectors are projected onto axes
@@ -92,9 +92,9 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create a multilink to observe:
       //  - componentStyleProperty - to determine visibility (i.e. components shouldn't be visible on INVISIBLE)
-      //                             and to draw lines on the on-axis componentStyle
+      //                             and to draw lines on the PROJECTION componentStyle
       //  - isOnGraphProperty - components shouldn't be visible if the vector isn't on the graph
-      //  - vectorComponentsProperty - to update the on-axis lines drawings locations
+      //  - vectorComponentsProperty - to update the leader lines drawings locations
       //
       // unmultilink is required on dispose.
       //
@@ -153,9 +153,9 @@ define( require => {
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
 
       // Leader lines are only visible when component vectors are projected onto axes
-      this.leaderLinesPath.visible = ( componentStyle === ComponentVectorStyles.ON_AXIS );
+      this.leaderLinesPath.visible = ( componentStyle === ComponentVectorStyles.PROJECTON );
 
-      // Update leader lines only if its the on-axis style
+      // Update leader lines only if they are visible (with PROJECTION style)
       if ( this.leaderLinesPath.visible ) {
 
         // Since the leader lines are a child of this view, the origin of the view is at the tail of the component

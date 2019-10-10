@@ -26,7 +26,7 @@ define( require => {
     'TRIANGLE',
 
     // Component vectors are displayed as projections on the x and y axes
-    'ON_AXIS'
+    'PROJECTION'
   ] );
 
   return vectorAddition.register( 'ComponentVectorStyles', ComponentVectorStyles );

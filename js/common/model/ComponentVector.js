@@ -123,7 +123,7 @@ define( require => {
           // Tip is at the parent's tip x and at the parent's tail y.
           this.setTipXY( parentTip.x, parentTail.y );
         }
-        else if ( componentStyle === ComponentVectorStyles.ON_AXIS ) {
+        else if ( componentStyle === ComponentVectorStyles.PROJECTON ) {
 
           // From parent tailX to parent tipX. However its y value is 0 since it is on the x-axis
           this.setTailXY( parentTail.x, 0 );
@@ -153,7 +153,7 @@ define( require => {
           // Tip is at the parents tailX and at the parents tipY
           this.setTipXY( parentTail.x, parentTip.y );
         }
-        else if ( componentStyle === ComponentVectorStyles.ON_AXIS ) {
+        else if ( componentStyle === ComponentVectorStyles.PROJECTON ) {
 
           // Same tailY, however its x value is 0 since it is on the y-axis
           this.setTailXY( 0, parentTail.y );
