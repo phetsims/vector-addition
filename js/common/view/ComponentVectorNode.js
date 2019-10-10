@@ -152,7 +152,7 @@ define( require => {
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
 
       // Leader lines are only visible when component vectors are projected onto axes
-      this.leaderLinesPath.visible = ( componentStyle === ComponentVectorStyles.PROJECTON );
+      this.leaderLinesPath.visible = ( componentStyle === ComponentVectorStyles.PROJECTION );
 
       // Update leader lines only if they are visible (with PROJECTION style)
       if ( this.leaderLinesPath.visible ) {

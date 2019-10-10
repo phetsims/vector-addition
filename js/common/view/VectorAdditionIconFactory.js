@@ -306,7 +306,7 @@ define( require => {
       if ( componentStyle === ComponentVectorStyles.TRIANGLE ) {
         yComponentArrow.setTailAndTip( iconSize, 0, iconSize, -iconSize );
       }
-      else if ( componentStyle === ComponentVectorStyles.PROJECTON ) {
+      else if ( componentStyle === ComponentVectorStyles.PROJECTION ) {
         vectorArrow.setTailAndTip( subBoxSize, -subBoxSize, iconSize, -iconSize );
         xComponentArrow.setTailAndTip( subBoxSize, 0, iconSize, 0 );
         yComponentArrow.setTailAndTip( 0, -subBoxSize, 0, -iconSize );
