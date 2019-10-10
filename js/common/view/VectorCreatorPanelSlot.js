@@ -68,9 +68,9 @@ define( require => {
 
       options = _.extend( {
 
-        symbol: null,       // {string|null} the symbol to pass to created vectors
-        isInfinite: false,  // {boolean} indicates if the slot regenerates vectors once clicked
-        iconArrowSize: 30   // {number} indicates the magnitude of the icon in view coordinates
+        symbol: null, // {string|null} the symbol to pass to created vectors
+        numberOfVectors: 1,  // {number} the number of vectors that can exist that were created by this slot
+        iconArrowSize: 30 // {number} indicates the magnitude of the icon in view coordinates
 
       }, options );
 
@@ -144,8 +144,8 @@ define( require => {
 
         sceneNode.registerVector( vector, vectorSet, event );
 
-        // Change the visibility to allow or not allow infinite slots
-        iconNode.visible = options.isInfinite;
+        // Hide the icon when we've reached the numberOfVectors limit
+        iconNode.visible = ( vectorSet.vectors.lengthProperty.value < options.numberOfVectors );
 
         //----------------------------------------------------------------------------------------
         // Step 3: Once the Vector indicates the Vector was dropped outside the Graph, animate and
