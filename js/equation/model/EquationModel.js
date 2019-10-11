@@ -39,13 +39,15 @@ define( require => {
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        this.cartesianVectorColorPalette );
+        this.cartesianVectorColorPalette
+      );
 
       // @public (read-only) graph for Polar snap mode
       this.polarGraph = new EquationGraph( CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty,
-        this.polarVectorColorPalette );
+        this.polarVectorColorPalette
+      );
     }
 
     /**

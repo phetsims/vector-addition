@@ -42,20 +42,24 @@ define( require => {
       this.polarVectorColorPalette2 = VectorAdditionColors.GREEN_COLOR_PALETTE;
 
       // @public (read-only) graph for Cartesian snap mode
-      this.cartesianGraph = new LabGraph( CoordinateSnapModes.CARTESIAN,
+      this.cartesianGraph = new LabGraph(
+        CoordinateSnapModes.CARTESIAN,
         this.componentStyleProperty,
         this.sumVisibleProperty1,
         this.sumVisibleProperty2,
         this.cartesianVectorColorPalette1,
-        this.cartesianVectorColorPalette2 );
+        this.cartesianVectorColorPalette2
+      );
 
       // @public (read-only) graph for Polar snap mode
-      this.polarGraph = new LabGraph( CoordinateSnapModes.POLAR,
+      this.polarGraph = new LabGraph(
+        CoordinateSnapModes.POLAR,
         this.componentStyleProperty,
         this.sumVisibleProperty1,
         this.sumVisibleProperty2,
         this.polarVectorColorPalette1,
-        this.polarVectorColorPalette2 );
+        this.polarVectorColorPalette2
+      );
     }
 
     /**
