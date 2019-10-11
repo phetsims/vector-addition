@@ -15,6 +15,7 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const Color = require( 'SCENERY/util/Color' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
@@ -32,7 +33,7 @@ define( require => {
       assert && assert( vectorVisibleProperty instanceof BooleanProperty, `invalid vectorVisibleProperty: ${vectorVisibleProperty}` );
       assert && assert( typeof symbol === 'string', `invalid symbol: ${symbol}` );
 
-      options = _.extend( {
+      options = merge( {
         vectorFill: Color.WHITE,
         vectorStroke: Color.BLACK
       }, options );

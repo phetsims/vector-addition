@@ -31,6 +31,7 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -65,7 +66,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {
+      options = merge( {
 
         symbol: null, // {string|null} the symbol to pass to created vectors
         numberOfVectors: 1,  // {number} the number of vectors that can exist that were created by this slot

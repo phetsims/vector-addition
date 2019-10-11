@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const Checkbox = require( 'SUN/Checkbox' );
+  const merge = require( 'PHET_CORE/merge' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
@@ -22,7 +23,7 @@ define( require => {
      */
     constructor( anglesVisibleProperty, options ) {
 
-      options = _.extend( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, options );
+      options =   merge( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, options );
 
       const content = VectorAdditionIconFactory.createAngleIcon();
 

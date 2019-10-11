@@ -10,6 +10,7 @@ define( require => {
   'use strict';
 
   // modules
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -23,7 +24,7 @@ define( require => {
      */
     constructor( children, options ) {
 
-      options = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, options );
+      options = merge( {}, VectorAdditionConstants.PANEL_OPTIONS, options );
 
       const content = new VBox( {
         children: children,

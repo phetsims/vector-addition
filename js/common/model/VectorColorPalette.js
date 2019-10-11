@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const Color = require( 'SCENERY/util/Color' );
+  const merge = require( 'PHET_CORE/merge' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   class VectorColorPalette {
@@ -17,7 +18,7 @@ define( require => {
     constructor( options ) {
 
       // all colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'
-      options = _.extend( {
+      options = merge( {
 
         // colors used for main vectors (aka parent vectors)
         mainFill: Color.BLACK,

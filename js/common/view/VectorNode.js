@@ -31,7 +31,7 @@ define( require => {
   // constants
 
   // arrow options for the vector shadow
-  const SHADOW_VECTOR_ARROW_OPTIONS = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+  const SHADOW_VECTOR_ARROW_OPTIONS = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
     fill: Color.BLACK,
     opacity: 0.28
   } );
@@ -60,7 +60,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       options = merge( {
-        arrowOptions: _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        arrowOptions: merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           cursor: 'move',
           fill: vector.vectorColorPalette.mainFill,
           stroke: vector.vectorColorPalette.mainStroke

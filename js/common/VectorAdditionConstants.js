@@ -14,6 +14,7 @@ define( require => {
   const Bounds2 = require( 'DOT/Bounds2' );
   const Color = require( 'SCENERY/util/Color' );
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
+  const merge = require( 'PHET_CORE/merge' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const Range = require( 'DOT/Range' );
   const ScreenView = require( 'JOIST/ScreenView' );
@@ -35,7 +36,7 @@ define( require => {
   };
 
   // options for component vector arrows (DashedArrowNode)
-  const COMPONENT_VECTOR_ARROW_OPTIONS = _.extend( {}, VECTOR_ARROW_OPTIONS, {
+  const COMPONENT_VECTOR_ARROW_OPTIONS = merge( {}, VECTOR_ARROW_OPTIONS, {
     tailWidth: 3,
     tailDash: [ 6, 3 ]
   } );
@@ -76,7 +77,7 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // RadioButtonGroups
 
-    RADIO_BUTTON_GROUP_OPTIONS: _.extend( {
+    RADIO_BUTTON_GROUP_OPTIONS: merge( {
       deselectedLineWidth: 1,
       selectedLineWidth: 1.5,
       cornerRadius: 8,
@@ -92,7 +93,7 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // Panel-like containers
 
-    PANEL_OPTIONS: _.extend( {
+    PANEL_OPTIONS: merge( {
       cornerRadius: PANEL_CORNER_RADIUS,
       xMargin: PANEL_X_MARGIN,
       yMargin: PANEL_Y_MARGIN
@@ -119,7 +120,7 @@ define( require => {
     //----------------------------------------------------------------------------------------
     // AccordionBoxes and ToggleBoxes
 
-    ACCORDION_BOX_OPTIONS: _.extend( {
+    ACCORDION_BOX_OPTIONS: merge( {
       cornerRadius: PANEL_CORNER_RADIUS,
       contentXMargin: PANEL_X_MARGIN,
       contentYMargin: PANEL_Y_MARGIN,
@@ -171,7 +172,7 @@ define( require => {
     SUM_COMPONENT_VECTOR_ARROW_OPTIONS: COMPONENT_VECTOR_ARROW_OPTIONS,
 
     // Defaults for base vectors
-    BASE_VECTOR_ARROW_OPTIONS: _.extend( {}, VECTOR_ARROW_OPTIONS, {
+    BASE_VECTOR_ARROW_OPTIONS: merge( {}, VECTOR_ARROW_OPTIONS, {
       lineWidth: 1.5
     } ),
 

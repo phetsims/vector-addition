@@ -16,6 +16,7 @@ define( require => {
   const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
   const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const merge = require( 'PHET_CORE/merge' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -35,7 +36,7 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
         `invalid componentStyleProperty: ${componentStyleProperty}` );
 
-      options = _.extend( {
+      options = merge( {
         align: 'left',
         spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
         maxWidth: 200

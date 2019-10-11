@@ -11,6 +11,7 @@ define( require => {
   // modules
   const Explore1DGraph = require( 'VECTOR_ADDITION/explore1D/model/Explore1DGraph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const merge = require( 'PHET_CORE/merge' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -32,7 +33,7 @@ define( require => {
       assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      options = _.extend( {
+      options = merge( {
         slotSpacing: ( graph.orientation === GraphOrientations.VERTICAL ) ? 22 : 28
       }, options );
 

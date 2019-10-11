@@ -15,6 +15,7 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const OriginManipulator = require( 'VECTOR_ADDITION/common/view/OriginManipulator' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -161,7 +162,7 @@ define( require => {
      */
     constructor( graph, graphViewBounds, options ) {
 
-      options = _.extend( {
+      options = merge( {
         spacing: 1,
         lineWidth: 1,
         stroke: 'black'

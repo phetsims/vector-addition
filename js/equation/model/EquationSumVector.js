@@ -13,6 +13,7 @@ define( require => {
   // modules
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
+  const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
   const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -103,7 +104,7 @@ define( require => {
      * @returns {Object} see RootVector.getLabelContent
      */
     getLabelContent( valuesVisible ) {
-      return _.extend( super.getLabelContent( valuesVisible ), {
+      return merge( super.getLabelContent( valuesVisible ), {
         symbol: this.symbol
       } );
     }

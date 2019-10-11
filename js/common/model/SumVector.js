@@ -17,6 +17,7 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
@@ -131,7 +132,7 @@ define( require => {
         // Get the rounded magnitude
         const roundedMagnitude = Util.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
-        return _.extend( super.getLabelContent( valuesVisible ), {
+        return merge( super.getLabelContent( valuesVisible ), {
           symbol: null,
           includeAbsoluteValueBars: false,
           value: valuesVisible ? roundedMagnitude : null

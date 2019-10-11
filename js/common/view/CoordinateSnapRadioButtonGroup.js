@@ -14,6 +14,7 @@ define( require => {
   // modules
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const merge = require( 'PHET_CORE/merge' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
@@ -36,7 +37,7 @@ define( require => {
       assert && assert( polarVectorColorPalette instanceof VectorColorPalette, `invalid polarVectorColorPalette: ${polarVectorColorPalette}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
+      options = merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
 
       // Create the description of the buttons
       const content = [

@@ -25,6 +25,7 @@ define( require => {
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
+  const merge = require( 'PHET_CORE/merge' );
   const RadioButtonGroup = require( 'SUN/buttons/RadioButtonGroup' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -44,7 +45,7 @@ define( require => {
       assert && assert( alignGroup instanceof AlignGroup, `invalid alignGroup: ${alignGroup}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      options = _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
+      options = merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
         buttonContentXMargin: 12
       }, options );
 

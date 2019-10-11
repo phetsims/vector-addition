@@ -13,6 +13,7 @@ define( require => {
 
   // modules
   const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -28,7 +29,7 @@ define( require => {
      */
     constructor( symbol, options ) {
 
-      options = _.extend( {
+      options = merge( {
         font: DEFAULT_FONT,
         spacing: 3, // vertical spacing between arrow and symbol
         arrowScale: 0.65

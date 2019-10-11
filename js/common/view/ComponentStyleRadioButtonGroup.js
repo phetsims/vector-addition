@@ -15,6 +15,7 @@ define( require => {
   const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const GridBox = require( 'VECTOR_ADDITION/common/view/GridBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const RadioButtonGroupMember = require( 'SUN/buttons/RadioButtonGroupMember' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -35,7 +36,7 @@ define( require => {
       const buttons = [];
       ComponentVectorStyles.VALUES.forEach( componentStyle => {
         buttons.push( new RadioButtonGroupMember( componentStyleProperty, componentStyle,
-          _.extend( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
+          merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
             content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
           } ) ) );
       } );

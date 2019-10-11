@@ -12,6 +12,7 @@ define( require => {
   const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
@@ -37,7 +38,7 @@ define( require => {
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      options = _.extend( {
+      options = merge( {
 
         // {number} spacing between the NumberPicker and the VectorSymbolNode
         labelNumberPickerSpacing: 7,

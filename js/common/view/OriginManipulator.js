@@ -12,6 +12,7 @@ define( require => {
   const Color = require( 'SCENERY/util/Color' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
   const ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
   const Shape = require( 'KITE/Shape' );
@@ -56,7 +57,7 @@ define( require => {
       // Diameter, view coordinates
       const diameter = modelViewTransform.modelToViewDeltaX( ORIGIN_DIAMETER );
 
-      super( diameter, _.extend( { center: origin }, ORIGIN_OPTIONS ) );
+      super( diameter, merge( { center: origin }, ORIGIN_OPTIONS ) );
 
       this.touchArea = Shape.circle( 0, 0, diameter );
 

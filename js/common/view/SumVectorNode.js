@@ -16,6 +16,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
   const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -42,8 +43,8 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {
-        arrowOptions: _.extend( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
+      options = merge( {
+        arrowOptions: merge( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
           fill: sumVector.vectorColorPalette.sumFill,
           stroke: sumVector.vectorColorPalette.sumStroke
         } )

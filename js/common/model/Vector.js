@@ -24,6 +24,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const Easing = require( 'TWIXT/Easing' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const merge = require( 'PHET_CORE/merge' );
   const RootVector = require( 'VECTOR_ADDITION/common/model/RootVector' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -62,7 +63,7 @@ define( require => {
      */
     constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol, options ) {
 
-      options = _.extend( {
+      options = merge( {
         isTipDraggable: true, // {boolean} - flag indicating if the tip can be dragged
         isRemovable: true, // {boolean} - flag indicating if the vector can be removed from the graph
         isOnGraphInitially: false // {boolean} - flag indicating if the vector is on the graph upon initialization

@@ -18,6 +18,7 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
+  const merge = require( 'PHET_CORE/merge' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -38,7 +39,7 @@ define( require => {
      */
     constructor( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options ) {
 
-      options = _.extend( {
+      options = merge( {
 
         // {boolean} false means that the default SumVector will not be created, and a subclass is responsible
         // for initializing this.sumVector.

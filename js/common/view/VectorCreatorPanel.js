@@ -14,6 +14,7 @@ define( require => {
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Color = require( 'SCENERY/util/Color' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -33,7 +34,7 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
         `Extra prototype on options: ${options}` );
 
-      options = _.extend( {}, VectorAdditionConstants.PANEL_OPTIONS, {
+      options = merge( {}, VectorAdditionConstants.PANEL_OPTIONS, {
 
         // super class options
         lineWidth: 0.8,

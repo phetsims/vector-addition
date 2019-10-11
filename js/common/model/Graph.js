@@ -18,6 +18,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Property = require( 'AXON/Property' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
@@ -52,7 +53,7 @@ define( require => {
       assert && assert( initialGraphBounds instanceof Bounds2, `invalid initialGraphBounds: ${initialGraphBounds}` );
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
 
-      options = _.extend( {
+      options = merge( {
         orientation: GraphOrientations.TWO_DIMENSIONAL,
         bottomLeft: DEFAULT_BOTTOM_LEFT // bottom left corner of the graph, in view coordinates
       }, options );

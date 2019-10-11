@@ -15,6 +15,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationVector = require( 'VECTOR_ADDITION/equation/model/EquationVector' );
   const EquationSumVector = require( 'VECTOR_ADDITION/equation/model/EquationSumVector' );
+  const merge = require( 'PHET_CORE/merge' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -69,7 +70,7 @@ define( require => {
      */
     constructor( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode, options ) {
 
-      options = _.extend( {
+      options = merge( {
 
         // EquationVectorSet will initialize its own sum vector, because the sum vector in this screen is different.
         // It's not truly a sum, and its computation depends on which equation type is selected (see EquationTypes).

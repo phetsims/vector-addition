@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const Checkbox = require( 'SUN/Checkbox' );
+  const merge = require( 'PHET_CORE/merge' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -25,7 +26,7 @@ define( require => {
      */
     constructor( valuesVisibleProperty, options ) {
 
-      options = _.extend( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, options );
+      options = merge( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, options );
 
       const content = new Text( valuesString, {
         font: VectorAdditionConstants.CHECKBOX_FONT,

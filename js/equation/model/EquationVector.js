@@ -15,6 +15,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const PolarBaseVector = require( 'VECTOR_ADDITION/common/model/PolarBaseVector' );
   const Property = require( 'AXON/Property' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Range = require( 'DOT/Range' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
@@ -115,7 +116,7 @@ define( require => {
      * @returns {Object} see RootVector.getLabelContent
      */
     getLabelContent( valuesVisible ) {
-      return _.extend( super.getLabelContent( valuesVisible ), {
+      return merge( super.getLabelContent( valuesVisible ), {
         coefficient: this.coefficientProperty.value
       } );
     }

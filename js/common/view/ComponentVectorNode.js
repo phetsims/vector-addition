@@ -64,7 +64,7 @@ define( require => {
         arrowType: 'dashed',
 
         // {Object} - options passed to the super class to stylize the arrowOptions.
-        arrowOptions: _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+        arrowOptions: merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
           fill: componentVector.vectorColorPalette.componentFill
         } )
 

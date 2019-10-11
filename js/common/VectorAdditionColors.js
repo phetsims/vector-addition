@@ -11,6 +11,7 @@ define( require => {
 
   // modules
   const Color = require( 'SCENERY/util/Color' );
+  const merge = require( 'PHET_CORE/merge' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
@@ -95,11 +96,11 @@ define( require => {
     } ),
 
     // Equation screen
-    EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( _.extend( {
+    EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( merge( {
       mainFill: BLUE
     }, EQUATION_COLOR_PALETTE_OPTIONS ) ),
 
-    EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( _.extend( {
+    EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( merge( {
       mainFill: PURPLE
     }, EQUATION_COLOR_PALETTE_OPTIONS ) )
   };

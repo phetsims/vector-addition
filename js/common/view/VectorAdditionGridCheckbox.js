@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const GridCheckbox = require( 'SCENERY_PHET/GridCheckbox' );
+  const merge = require( 'PHET_CORE/merge' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
@@ -21,7 +22,7 @@ define( require => {
      */
     constructor( gridVisibleProperty, options ) {
 
-      options = _.extend( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
+      options = merge( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
         gridSize: 24
       } );
 

@@ -20,6 +20,7 @@ define( require => {
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
@@ -48,7 +49,7 @@ define( require => {
       assert && assert( anglesVisibleProperty instanceof Property, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
       assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
 
-      options = _.extend( {}, options );
+      options = merge( {}, options );
 
       // Every VectorSet has a sum vector and sum component vectors, so create them
       const sumVectorNode = new SumVectorNode( vectorSet.sumVector, graph,
@@ -187,7 +188,7 @@ define( require => {
       const baseVectorNode = new VectorNode( baseVector, this.graph,
         this.valuesVisibleProperty,
         this.anglesVisibleProperty, {
-          arrowOptions: _.extend( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
+          arrowOptions: merge( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
             fill: this.graph.vectorSet.vectorColorPalette.baseVectorFill,
             stroke: this.graph.vectorSet.vectorColorPalette.baseVectorStroke
           } )

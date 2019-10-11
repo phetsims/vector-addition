@@ -11,6 +11,7 @@ define( require => {
   // modules
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const LabGraph = require( 'VECTOR_ADDITION/lab/model/LabGraph' );
+  const merge = require( 'PHET_CORE/merge' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -31,7 +32,7 @@ define( require => {
       assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      options = _.extend( {
+      options = merge( {
         slotSpacing: 40
       }, options );
 

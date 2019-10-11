@@ -19,6 +19,7 @@ define( require => {
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const HBox = require( 'SCENERY/nodes/HBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -35,7 +36,7 @@ define( require => {
      */
     constructor( contents, options ) {
 
-      options = _.extend( {
+      options = merge( {
         columns: 2, // {number} number of columns
         xSpacing: 8, // {number} horizontal spacing between cells
         ySpacing: 8, // {number} vertical spacing between cells

@@ -79,7 +79,7 @@ define( require => {
       const openContentAlignBox = new AlignBox( openContent, alignBoxOptions );
       const closedContentAlignBox = new AlignBox( closedContent, alignBoxOptions );
 
-      super( openContentAlignBox, _.extend( {
+      super( openContentAlignBox, merge( {
         expandedProperty: new BooleanProperty( options.isExpandedInitially ),
         showTitleWhenExpanded: false,
         titleNode: closedContentAlignBox, // unorthodox use of AccordionBox, but it works

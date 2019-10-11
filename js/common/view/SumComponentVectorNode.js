@@ -42,7 +42,7 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       options = merge( {
-        arrowOptions: _.extend( {}, VectorAdditionConstants.SUM_COMPONENT_VECTOR_ARROW_OPTIONS, {
+        arrowOptions: merge( {}, VectorAdditionConstants.SUM_COMPONENT_VECTOR_ARROW_OPTIONS, {
           fill: componentVector.vectorColorPalette.sumComponentFill
         } )
       }, options );
