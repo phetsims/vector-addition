@@ -32,6 +32,7 @@ define( require => {
   const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
@@ -59,11 +60,17 @@ define( require => {
 
       //========================================================================================
 
-      options = _.extend( {
+      options = merge( {
 
         // all options are specific to this class
         includeEraser: true, // {boolean} Indicates if an EraserButton should be included
-        vectorValuesToggleBoxOptions: null // {Object} Options passed to the VectorValuesToggleBox
+
+        // {Object} Options passed to the VectorValuesToggleBox
+        vectorValuesToggleBoxOptions: {
+          expandedProperty: viewProperties.vectorValuesExpandedProperty,
+          centerX: graph.graphViewBounds.centerX,
+          top: 35 // determined empirically
+        }
       }, options );
 
       super();
@@ -73,14 +80,8 @@ define( require => {
       // Create one and only GraphNode
       const graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty );
 
-      const graphViewBounds = graph.graphViewBounds;
-
       // Create the one and only 'Vector Values' toggle box
-      const vectorValuesToggleBox = new VectorValuesToggleBox( graph, _.extend( {
-        expandedProperty: viewProperties.vectorValuesExpandedProperty,
-        centerX: graphViewBounds.centerX,
-        top: 35 // determined empirically
-      }, options.vectorValuesToggleBoxOptions ) );
+      const vectorValuesToggleBox = new VectorValuesToggleBox( graph, options.vectorValuesToggleBoxOptions );
 
       //----------------------------------------------------------------------------------------
       // Create containers for each and every type of Vector to handle z-layering of all vector types.
@@ -103,8 +104,8 @@ define( require => {
             this.interruptSubtreeInput(); // cancel all interactions for the scene
             graph.erase();
           },
-          right: graphViewBounds.maxX,
-          top: graphViewBounds.maxY + 15,
+          right: graph.graphViewBounds.maxX,
+          top: graph.graphViewBounds.maxY + 15,
           touchAreaXDilation: 7,
           touchAreaYDilation: 7
         } );
