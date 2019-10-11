@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.0.0-dev.39 Thu Oct 10 2019 19:29:50 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# vector-addition 1.0.0-dev.40 Fri Oct 11 2019 13:00:49 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "b51d294b90d6822939dfe64acb3d96f4c8249bc1",
+    "sha": "1fcccd228af5c80d4e5dae58e9211ff61415e84d",
     "branch": "master"
   },
   "dot": {
@@ -29,7 +29,7 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "91bb985a5eb37cff9b31836af7ddcace8be32a34",
+    "sha": "8320e1b64da15e58acfc1f2942513dd204c56142",
     "branch": "master"
   },
   "phet-io": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "43b903bfca701d880d41235ff970f4df251cf9b9",
+    "sha": "21f0a264bd7fda25cf046e776a3c3f96103524b3",
     "branch": "master"
   },
   "sherpa": {
@@ -65,7 +65,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "ab5a3de59107a109be98ed138d39306d9c88b6c0",
+    "sha": "151f6963769da480b86c19d073280c29d85b7752",
     "branch": "master"
   },
   "tambo": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "vector-addition": {
-    "sha": "2152141f97d06a06564daa0015c8d8653a05da96",
+    "sha": "c60ee67db4df29b8495a349a23daef2cf6ed4bbd",
     "branch": "master"
   }
 }
