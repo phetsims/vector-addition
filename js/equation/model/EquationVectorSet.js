@@ -21,11 +21,6 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  // constants
-  const VECTOR_SET_OPTIONS = {
-    initializeSum: false // Equation vector set will initialize all the vectors
-  };
-
   // Describes the initial vectors for Cartesian snap mode. See https://github.com/phetsims/vector-addition/issues/227
   const CARTESTIAN_VECTOR_DESCRIPTIONS = [
 
@@ -70,10 +65,22 @@ define( require => {
      * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
+     * @param {Object} [options]
      */
-    constructor( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode ) {
+    constructor( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode, options ) {
 
-      super( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, VECTOR_SET_OPTIONS );
+      options = _.extend( {
+
+        // EquationVectorSet will initialize its own sum vector, because the sum vector in this screen is different.
+        // It's not truly a sum, and its computation depends on which equation type is selected (see EquationTypes).
+        initializeSum: false,
+
+        // offsets for sum component vectors in PROJECTION style
+        sumProjectionXOffset: 0.5,
+        sumProjectionYOffset: 0.5
+      }, options );
+
+      super( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
       // @public (read-only) {string[]} symbols
       this.symbols = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
@@ -91,9 +98,17 @@ define( require => {
 
       for ( let i = 0; i < vectorDescriptions.length; i++ ) {
 
-        const equationVector = new EquationVector( vectorDescriptions[ i ].vectorTail,
-          vectorDescriptions[ i ].vectorComponents,
-          vectorDescriptions[ i ].baseVectorTail,
+        const vectorDescription = vectorDescriptions[ i ];
+
+        // verify that all fields in the description are present
+        assert && assert( vectorDescription.vectorTail, 'missing vectorTail' );
+        assert && assert( vectorDescription.vectorComponents, 'missing vectorComponents' );
+        assert && assert( vectorDescription.baseVectorTail, 'missing baseVectorTail' );
+
+        const equationVector = new EquationVector(
+          vectorDescription.vectorTail,
+          vectorDescription.vectorComponents,
+          vectorDescription.baseVectorTail,
           equationGraph,
           this,
           this.symbols[ i ] );
@@ -107,6 +122,7 @@ define( require => {
       // @public (read-only) {EquationSumVector}
       this.sumVector = new EquationSumVector( equationGraph, this, equationGraph.equationTypeProperty,
         _.last( this.symbols ) );
+      this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
 
     /**

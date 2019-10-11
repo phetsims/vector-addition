@@ -63,14 +63,10 @@ define( require => {
     constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol, options ) {
 
       options = _.extend( {
-
         isTipDraggable: true, // {boolean} - flag indicating if the tip can be dragged
         isRemovable: true, // {boolean} - flag indicating if the vector can be removed from the graph
         isOnGraphInitially: false // {boolean} - flag indicating if the vector is on the graph upon initialization
-
       }, options );
-
-      assert && assert( _.every( options, option => typeof option === 'boolean' ) );
 
       super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbol );
 
@@ -102,13 +98,15 @@ define( require => {
       this.xComponentVector = new ComponentVector( this,
         vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
-        ComponentVector.ComponentTypes.X_COMPONENT );
+        ComponentVector.ComponentTypes.X_COMPONENT
+      );
 
       // @public (read only) the vector's y component vector
       this.yComponentVector = new ComponentVector( this,
         vectorSet.componentStyleProperty,
         graph.activeVectorProperty,
-        ComponentVector.ComponentTypes.Y_COMPONENT );
+        ComponentVector.ComponentTypes.Y_COMPONENT
+      );
 
       // When the graph's origin changes, update the tail position. unlink is required on dispose.
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
@@ -420,6 +418,17 @@ define( require => {
 
       this.isOnGraphProperty.value = false;
       this.graph.activeVectorProperty.value = null;
+    }
+
+    /**
+     * Sets the offset from the x and y axis that is used for PROJECTION style for component vectors.
+     * @param projectionXOffset - x offset, in model coordinates
+     * @param projectionYOffset - y offset, in model coordinates
+     * @public
+     */
+    setProjectionOffsets( projectionXOffset, projectionYOffset ) {
+      this.xComponentVector.setProjectionOffsets( projectionXOffset, projectionYOffset );
+      this.yComponentVector.setProjectionOffsets( projectionXOffset, projectionYOffset );
     }
   }
 

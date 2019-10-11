@@ -45,7 +45,16 @@ define( require => {
         initializeSum: true,
 
         // {Vector2} initial tail position of the sum. Only used if options.initializeSum = true
-        initialSumTailPosition: graph.graphModelBounds.center
+        initialSumTailPosition: graph.graphModelBounds.center,
+
+        // Offsets from the x and y axes, used for the PROJECTION style for the primary vectors' component vectors,
+        // in model coordinates. See https://github.com/phetsims/vector-addition/issues/225
+        projectionXOffsetStart: -0.5,
+        projectionYOffsetStart: -0.5,
+        projectionXOffsetDelta: -0.7,
+        projectionYOffsetDelta: -0.7,
+        sumProjectionXOffset: 0.5,
+        sumProjectionYOffset: 0.5
 
       }, options );
 
@@ -69,9 +78,22 @@ define( require => {
       this.componentStyleProperty = componentStyleProperty;
 
       if ( options.initializeSum ) {
+
         // @public (read-only)
         this.sumVector = new SumVector( options.initialSumTailPosition, graph, this, SUM_SYMBOL );
+        this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
       }
+
+      // Whenever a vector is added or removed, adjust the offsets of all component vectors for PROJECTION style.
+      // See https://github.com/phetsims/vector-addition/issues/225
+      // unlink is unnecessary, since VectorSet own this.vectors.
+      this.vectors.lengthProperty.link( length => {
+        for ( let i = 0; i < length; i++ ) {
+          const xOffset = options.projectionXOffsetStart + i * options.projectionXOffsetDelta;
+          const yOffset = options.projectionYOffsetStart + i * options.projectionYOffsetDelta;
+          this.vectors.get( i ).setProjectionOffsets( xOffset, yOffset );
+        }
+      } );
     }
 
     /**

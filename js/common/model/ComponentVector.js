@@ -50,9 +50,6 @@ define( require => {
 
       super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
 
-      //----------------------------------------------------------------------------------------
-      // Create references
-
       // @public (read-only) {Enumeration} componentType - type of component vector (x or y)
       this.componentType = componentType;
 
@@ -69,18 +66,23 @@ define( require => {
         return activeVector && ( activeVector === parentVector );
       } );
 
-      //----------------------------------------------------------------------------------------
+      // @private references to constructor args
+      this.componentStyleProperty = componentStyleProperty;
+      this.parentVector = parentVector;
+
+      // @private offsets from axes in PROJECTION style.
+      // These are managed by the VectorSet and set via setProjectionOffsets.
+      // See https://github.com/phetsims/vector-addition/issues/225
+      this.projectionXOffset = 0;
+      this.projectionYOffset = 0;
 
       // Observe when the component style changes and/or when the parent vector's tip/tail changes. When
       // the parent changes or when the component style changes, the component vector also changes.
       // unmultilink is required on dispose.
-      const updateComponentMultilink = Property.multilink( [
-        componentStyleProperty,
-        parentVector.tailPositionProperty,
-        parentVector.tipPositionProperty
-      ], ( componentStyle, parentTail, parentTip ) => {
-        this.updateComponent( componentStyle, parentTail, parentTip );
-      } );
+      const updateComponentMultilink = Property.multilink(
+        [ componentStyleProperty, parentVector.tailPositionProperty, parentVector.tipPositionProperty ],
+        () => this.updateComponent()
+      );
 
       // @private {function} disposeComponentVector - disposes the component vector. Called in the dispose method.
       this.disposeComponentVector = () => {
@@ -97,15 +99,28 @@ define( require => {
     }
 
     /**
+     * Sets the offset from the x and y axis that is used for PROJECTION style.
+     * See https://github.com/phetsims/vector-addition/issues/225.
+     * @param projectionXOffset - x offset, in model coordinates
+     * @param projectionYOffset - y offset, in model coordinates
+     * @public
+     */
+    setProjectionOffsets( projectionXOffset, projectionYOffset ) {
+      this.projectionXOffset = projectionXOffset;
+      this.projectionYOffset = projectionYOffset;
+      this.updateComponent();
+    }
+
+    /**
      * Updates the component vector's tail/tip/components to match the component style and correct components to match
      * the parent vector's tail/tip.
      * @private
-     *
-     * @param {ComponentVectorStyles} componentStyle
-     * @param {Vector2} parentTail - the position of the parent vector's tail
-     * @param {Vector2} parentTip - the position of the parent vector's tip
      */
-    updateComponent( componentStyle, parentTail, parentTip ) {
+    updateComponent() {
+
+      const componentStyle = this.componentStyleProperty.value;
+      const parentTail = this.parentVector.tailPositionProperty.value;
+      const parentTip =  this.parentVector.tipPositionProperty.value;
 
       if ( this.componentType === ComponentVector.ComponentTypes.X_COMPONENT ) {
 
@@ -125,8 +140,8 @@ define( require => {
         else if ( componentStyle === ComponentVectorStyles.PROJECTION ) {
 
           // From parent tailX to parent tipX. However its y value is 0 since it is on the x-axis
-          this.setTailXY( parentTail.x, 0 );
-          this.setTipXY( parentTip.x, 0 );
+          this.setTailXY( parentTail.x, this.projectionYOffset );
+          this.setTipXY( parentTip.x, this.projectionYOffset );
         }
 
       }
@@ -155,8 +170,8 @@ define( require => {
         else if ( componentStyle === ComponentVectorStyles.PROJECTION ) {
 
           // Same tailY, however its x value is 0 since it is on the y-axis
-          this.setTailXY( 0, parentTail.y );
-          this.setTipXY( 0, parentTip.y );
+          this.setTailXY( this.projectionXOffset, parentTail.y );
+          this.setTipXY( this.projectionXOffset, parentTip.y );
         }
       }
     }

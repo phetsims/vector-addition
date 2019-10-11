@@ -44,20 +44,41 @@ define( require => {
 
       super( LAB_GRAPH_BOUNDS, coordinateSnapMode );
 
-      // @public (read-only) {VectorSet} vectorSet1
-      this.vectorSet1 = new VectorSet( this, componentStyleProperty, sumVisibleProperty1, vectorColorPalette1, {
+      const vectorSet1Options = {
+
         initialSumTailPosition: new Vector2(
-          Util.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 /3 ) * LAB_GRAPH_BOUNDS.width ),
+          Util.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
           Util.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
-        )
-      } );
+        ),
+
+        // offsets for component vectors in PROJECTION style, in model coordinates, determined empirically
+        // see https://github.com/phetsims/vector-addition/issues/225
+        projectionXOffsetStart: -0.5,
+        projectionYOffsetStart: -0.5,
+        projectionXOffsetDelta: -0.4,
+        projectionYOffsetDelta: -0.4,
+        sumProjectionXOffset: 0.5,
+        sumProjectionYOffset: 0.5
+      };
+
+      // @public (read-only) {VectorSet} vectorSet1
+      this.vectorSet1 = new VectorSet( this, componentStyleProperty, sumVisibleProperty1, vectorColorPalette1, vectorSet1Options );
 
       // @public (read-only) {VectorSet} vectorSet2
       this.vectorSet2 = new VectorSet( this, componentStyleProperty, sumVisibleProperty2, vectorColorPalette2, {
+
         initialSumTailPosition: new Vector2(
           Util.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
           Util.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
-        )
+        ),
+
+        // similarly for vectorSet2, not to overlap with vectorSet1
+        projectionXOffsetStart: vectorSet1Options.projectionXOffsetStart + vectorSet1Options.projectionXOffsetDelta / 2,
+        projectionYOffsetStart: vectorSet1Options.projectionXOffsetStart + vectorSet1Options.projectionYOffsetDelta / 2,
+        projectionXOffsetDelta: vectorSet1Options.projectionXOffsetDelta,
+        projectionYOffsetDelta: vectorSet1Options.projectionYOffsetDelta,
+        sumProjectionXOffset: 1,
+        sumProjectionYOffset: 1
       } );
 
       // Add the vector sets
