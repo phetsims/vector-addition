@@ -23,6 +23,7 @@ define( require => {
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Text = require( 'SCENERY/nodes/Text' );
   const ToggleBox = require( 'VECTOR_ADDITION/common/view/ToggleBox' );
@@ -67,7 +68,7 @@ define( require => {
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      options = _.extend( {
+      options = merge( {
 
         // superclass options
         contentFixedWidth: 500, // {number|null} fixed size of the panel (see superclass)

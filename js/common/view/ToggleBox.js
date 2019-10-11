@@ -22,6 +22,7 @@ define( require => {
   const AlignBox = require( 'SCENERY/nodes/AlignBox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -35,7 +36,7 @@ define( require => {
      */
     constructor( closedContent, openContent, options ) {
 
-      options = _.extend( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
+      options = merge( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
         isExpandedInitially: true, // {boolean} - false means the box will start off as closed
 

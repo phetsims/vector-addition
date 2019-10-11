@@ -61,7 +61,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------
 
-      options = _.extend( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
+      options = merge( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
         // specific to this class
         xSpacing: 11, // {number} spacing between the left NumberPicker and the right label

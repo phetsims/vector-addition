@@ -19,6 +19,7 @@ define( require => {
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equation/view/EquationTypesRadioButtonGroup' );
   const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
   const HBox = require( 'SCENERY/nodes/HBox' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Text = require( 'SCENERY/nodes/Text' );
   const ToggleBox = require( 'VECTOR_ADDITION/common/view/ToggleBox' );
@@ -48,7 +49,7 @@ define( require => {
       assert && assert( equationsAlignGroup instanceof AlignGroup, `invalid equationsAlignGroup: ${equationsAlignGroup}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      options = _.extend( {
+      options = merge( {
 
         // superclass options
         contentFixedWidth: 670,
