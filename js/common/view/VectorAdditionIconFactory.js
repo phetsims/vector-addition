@@ -32,6 +32,7 @@ define( require => {
   const interleave = require( 'PHET_CORE/interleave' );
   const Line = require( 'SCENERY/nodes/Line' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Screen = require( 'JOIST/Screen' );
@@ -65,7 +66,7 @@ define( require => {
      */
     createExplore1DScreenIcon() {
 
-      const vectorOptions = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      const vectorOptions = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
         stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
       } );
@@ -96,13 +97,13 @@ define( require => {
 
       // vector
       const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
-        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
           stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
         } ) );
 
       // component vectors
-      const componentArrowOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+      const componentArrowOptions = merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: VectorAdditionColors.BLUE_COLOR_PALETTE.componentFill
       } );
       const xComponentNode = new DashedArrowNode( 0, 0, vector.x, 0, componentArrowOptions );
@@ -134,13 +135,13 @@ define( require => {
       const startingTailLocation = new Vector2( SCREEN_ICON_WIDTH / 4, 0 );
 
       const group1ArrowNodes = createTipToTailArrowNodes( group1TipLocations, startingTailLocation,
-        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
           stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
         } ) );
 
       const group2ArrowNodes = createTipToTailArrowNodes( group2TipLocations, startingTailLocation,
-        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.RED_COLOR_PALETTE.mainFill,
           stroke: VectorAdditionColors.RED_COLOR_PALETTE.mainStroke
         } ) );
@@ -165,14 +166,14 @@ define( require => {
 
       // vectors, tip to tail
       const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
-        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.mainFill,
           stroke: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.mainStroke
         } ) );
 
       // sum
       arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
-        _.extend( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
+        merge( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.sumFill,
           stroke: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.sumStroke
         } ) ) );
@@ -200,7 +201,7 @@ define( require => {
       const arrowComponents = initialVectorComponents.normalized().timesScalar( arrowLength );
 
       return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y,
-        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           arrowLength: arrowLength,
           cursor: 'move',
           fill: vectorColorPalette.mainFill,
@@ -220,7 +221,7 @@ define( require => {
      */
     createVectorIcon( options ) {
 
-      options = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      options = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: Color.BLACK,
         stroke: null,
         lineWidth: 1,
@@ -288,11 +289,11 @@ define( require => {
       assert && assert( subBoxSize < iconSize, `subBoxSize ${subBoxSize} must be < iconSize ${iconSize}` );
 
       // Options for main and component arrows
-      const mainOptions = _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      const mainOptions = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
         stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
       } );
-      const componentOptions = _.extend( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+      const componentOptions = merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: VectorAdditionColors.BLUE_COLOR_PALETTE.componentFill
       } );
 
@@ -350,7 +351,7 @@ define( require => {
 
       // Arrow that is 45 degrees to the right and up
       const vectorNode = new ArrowNode( 0, 0, iconSize, -iconSize,
-        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: vectorColorPalette.mainFill,
           stroke: vectorColorPalette.mainStroke
         } ) );
@@ -384,7 +385,7 @@ define( require => {
 
       // Arrow that is 45 degrees to the right and up
       const arrow = new ArrowNode( 0, 0, iconSize, -iconSize,
-        _.extend( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: vectorColorPalette.mainFill,
           stroke: vectorColorPalette.mainStroke
         } ) );
@@ -423,7 +424,7 @@ define( require => {
       const tipX = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? iconSize : 0;
       const tipY = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? 0 : iconSize;
 
-      return new ArrowNode( 0, 0, tipX, tipY, _.extend( {}, VectorAdditionConstants.AXES_ARROW_OPTIONS, {
+      return new ArrowNode( 0, 0, tipX, tipY, merge( {}, VectorAdditionConstants.AXES_ARROW_OPTIONS, {
         maxWidth: iconSize,
         maxHeight: iconSize
       } ) );
@@ -473,7 +474,7 @@ define( require => {
       // Right side of the equation, which is either '0' or the last of the symbols (which is the sum).
       children.push( equationType === EquationTypes.NEGATION ?
                      new Text( '0', textOptions ) :
-                     new ArrowOverSymbolNode( _.last( vectorSymbols ), null, false ) );
+                     new ArrowOverSymbolNode( _.last( vectorSymbols ) ) );
 
       return new HBox( {
         children: children,
