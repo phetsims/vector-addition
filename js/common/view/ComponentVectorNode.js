@@ -83,7 +83,7 @@ define( require => {
 
       // @private {Path} leader lines, displayed when component vectors are projected onto axes
       this.leaderLinesPath = new Path( new Shape(), {
-        lineWidth: 1,
+        lineWidth: 0.5,
         lineDash: NON_ACTIVE_LEADER_LINES_DASH
       } );
       this.addChild( this.leaderLinesPath );
