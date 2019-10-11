@@ -169,10 +169,11 @@ define( require => {
           .minus( componentVector.tail ) );
 
         // Create new shape for the leader lines
-        const leaderLinesShape = new Shape();
-        leaderLinesShape.moveToPoint( Vector2.ZERO ).lineToPoint( parentTailLocation );
-        leaderLinesShape.moveToPoint( tipLocation ).lineToPoint( parentTipLocation );
-        this.leaderLinesPath.setShape( leaderLinesShape );
+        this.leaderLinesPath.shape = new Shape()
+          .moveToPoint( Vector2.ZERO )
+          .lineToPoint( parentTailLocation )
+          .moveToPoint( tipLocation )
+          .lineToPoint( parentTipLocation );
 
         if ( isParentActive ) {
           this.leaderLinesPath.stroke = VectorAdditionColors.LEADER_LINES_ACTIVE_STROKE;
