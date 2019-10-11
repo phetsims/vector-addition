@@ -14,7 +14,6 @@ define( require => {
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
   const VectorCreatorPanelSlot = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanelSlot' );
 
@@ -37,10 +36,11 @@ define( require => {
         slotSpacing: ( graph.orientation === GraphOrientations.VERTICAL ) ? 22 : 28
       }, options );
 
-      // Create the initial vector components
+      // Create the initial vector components, they are the same for every symbol.
+      // See https://github.com/phetsims/vector-addition/issues/227
       const initialVectorComponents = ( graph.orientation === GraphOrientations.VERTICAL ) ?
-                                      new Vector2( 0, VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH ) :
-                                      new Vector2( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH, 0 );
+                                      new Vector2( 0, 5 ) :
+                                      new Vector2( 5, 0 );
 
       // Create a slot for each symbol
       const panelSlots = [];

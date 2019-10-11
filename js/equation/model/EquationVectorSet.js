@@ -15,6 +15,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EquationVector = require( 'VECTOR_ADDITION/equation/model/EquationVector' );
   const EquationSumVector = require( 'VECTOR_ADDITION/equation/model/EquationSumVector' );
+  const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -25,39 +26,37 @@ define( require => {
     initializeSum: false // Equation vector set will initialize all the vectors
   };
 
-  // Describes the initial vectors for Cartesian snap mode
+  // Describes the initial vectors for Cartesian snap mode. See https://github.com/phetsims/vector-addition/issues/227
   const CARTESTIAN_VECTOR_DESCRIPTIONS = [
 
     // a
     {
-      vectorComponents: new Vector2( 0, VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH ),
+      vectorComponents: new Vector2( 0, 5 ),
       vectorTail: new Vector2( 5, 5 ),
       baseVectorTail: new Vector2( 35, 15 )
     },
 
     // b
     {
-      vectorComponents: new Vector2( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH,
-        VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH ),
+      vectorComponents: new Vector2( 5, 5 ),
       vectorTail: new Vector2( 15, 5 ),
       baseVectorTail: new Vector2( 35, 5 )
     }
   ];
 
-  // Describes the initial vectors for polar snap mode
+  // Describes the initial vectors for polar snap mode. See https://github.com/phetsims/vector-addition/issues/227
   const POLAR_VECTOR_DESCRIPTIONS = [
 
     // d
     {
-      vectorComponents: Vector2.createPolar( VectorAdditionConstants.CARTESIAN_COMPONENT_LENGTH, 0 ),
+      vectorComponents: Vector2.createPolar( 5, 0 ),
       vectorTail: new Vector2( 5, 5 ),
       baseVectorTail: new Vector2( 35, 15 )
     },
 
     // e
     {
-      vectorComponents: Vector2.createPolar( VectorAdditionConstants.POLAR_VECTOR_MAGNITUDE,
-        VectorAdditionConstants.POLAR_VECTOR_ANGLE ),
+      vectorComponents: Vector2.createPolar( 8, Util.toRadians( 45 ) ),
       vectorTail: new Vector2( 15, 5 ),
       baseVectorTail: new Vector2( 35, 5 )
     }

@@ -69,8 +69,8 @@ define( require => {
 
         symbol: null, // {string|null} the symbol to pass to created vectors
         numberOfVectors: 1,  // {number} the number of vectors that can exist that were created by this slot
-        iconArrowSize: 30 // {number} indicates the magnitude of the icon in view coordinates
-
+        iconArrowSize: 30, // {number} indicates the magnitude of the icon in view coordinates
+        iconVectorComponents: null // {Vector2|null} used for vector icon, defaults to initialVectorComponents
       }, options );
 
       super( { spacing: 5 } );
@@ -83,7 +83,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
 
       // Get the components in view coordinates.
-      const iconViewComponents = modelViewTransform.viewToModelDelta( initialVectorComponents );
+      const iconViewComponents = modelViewTransform.viewToModelDelta( options.iconVectorComponents || initialVectorComponents );
 
       // Create the icon.
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
