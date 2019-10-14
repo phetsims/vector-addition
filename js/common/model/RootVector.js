@@ -50,8 +50,11 @@ define( require => {
 
       // @public (read-only) {DerivedProperty.<Vector2>} the tip position of the vector on the graph
       // dispose is unnecessary, since this class owns all dependencies.
-      this.tipPositionProperty = new DerivedProperty( [ this.tailPositionProperty, this.vectorComponentsProperty ],
-        ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ) );
+      this.tipPositionProperty = new DerivedProperty(
+        [ this.tailPositionProperty, this.vectorComponentsProperty ],
+        ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ),
+        { valueType: Vector2 }
+      );
 
       // @public (read-only) {VectorColorPalette} the color palette used to render the vector
       this.vectorColorPalette = vectorColorPalette;

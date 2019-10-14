@@ -83,12 +83,11 @@ define( require => {
 
       // @public (read-only) {DerivedProperty.<ModelViewTransform2>} maps graph coordinates between model and view
       // dispose is unnecessary, exists for the lifetime of the sim.
-      this.modelViewTransformProperty = new DerivedProperty( [ this.graphModelBoundsProperty ],
-        graphModelBounds => {
-          return ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, this.graphViewBounds );
-        }, {
-          valueType: ModelViewTransform2
-        } );
+      this.modelViewTransformProperty = new DerivedProperty(
+        [ this.graphModelBoundsProperty ],
+        graphModelBounds => ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, this.graphViewBounds ),
+        { valueType: ModelViewTransform2 }
+      );
 
       // @public {Property.<Vector|null>} activeVectorProperty - the active (selected) vector.
       // A graph has at most one active vector. If null, there is no active vector.

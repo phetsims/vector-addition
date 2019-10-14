@@ -62,9 +62,11 @@ define( require => {
 
       // @public (read-only) {DerivedProperty.<boolean>} isParentVectorActiveProperty - determines if the parent
       // vector is active. Must be disposed on dispose.
-      this.isParentVectorActiveProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => {
-        return activeVector && ( activeVector === parentVector );
-      } );
+      this.isParentVectorActiveProperty = new DerivedProperty(
+        [ activeVectorProperty ],
+        activeVector => ( !!activeVector && ( activeVector === parentVector ) ),
+        { valueType: 'boolean' }
+      );
 
       // @private references to constructor args
       this.componentStyleProperty = componentStyleProperty;
