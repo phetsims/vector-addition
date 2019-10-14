@@ -24,14 +24,14 @@ define( require => {
   const CARTESTIAN_INITIAL_VECTOR_COMPONENTS = [
     new Vector2( 6, 8 ), // a
     new Vector2( 8, 6 ), // b
-    new Vector2( 0, -5 ) // c
+    new Vector2( 0, -10 ) // c
   ];
 
   // initial values for vectors in Polar scene, see https://github.com/phetsims/vector-addition/issues/227
   const POLAR_INITIAL_VECTOR_COMPONENTS = [
     Vector2.createPolar( 8, Util.toRadians( 30 ) ), // d
     Vector2.createPolar( 8, Util.toRadians( 60 ) ), // e
-    Vector2.createPolar( 5, Util.toRadians( -90 ) ) // f
+    Vector2.createPolar( 8, Util.toRadians( -90 ) ) // f
   ];
 
   class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
