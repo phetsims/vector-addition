@@ -48,8 +48,6 @@ define( require => {
         } )
       }, options );
 
-      //----------------------------------------------------------------------------------------
-
       super( componentVector, graph, componentStyleProperty, valuesVisibleProperty, options );
 
       // @private {BooleanProperty} sumVisibleProperty
@@ -77,7 +75,6 @@ define( require => {
     /**
      * Handles visibility base on the sum visibility
      * @private
-     *
      * @param {ComponentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
      * @param {ComponentVectorStyles} componentStyle
