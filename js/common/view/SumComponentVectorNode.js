@@ -55,7 +55,7 @@ define( require => {
       // @private {BooleanProperty} sumVisibleProperty
       this.sumVisibleProperty = sumVisibleProperty;
 
-      // Observe when the sum visibility to update the vector component.
+      // Update when the sum becomes visible or defined.
       // unlink is unnecessary, exists for the lifetime of the sim.
       Property.multilink(
         [ sumVisibleProperty, componentVector.parentVector.isDefinedProperty ],
