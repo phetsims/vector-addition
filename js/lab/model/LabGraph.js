@@ -53,12 +53,12 @@ define( require => {
 
         // offsets for component vectors in PROJECTION style, in model coordinates, determined empirically
         // see https://github.com/phetsims/vector-addition/issues/225
-        projectionXOffsetStart: -0.5,
-        projectionYOffsetStart: -0.5,
+        projectionXOffsetStart: -0.44,
+        projectionYOffsetStart: -0.44,
         projectionXOffsetDelta: -0.4,
         projectionYOffsetDelta: -0.4,
-        sumProjectionXOffset: 0.5,
-        sumProjectionYOffset: 0.5
+        sumProjectionXOffset: 0.44,
+        sumProjectionYOffset: 0.44
       };
 
       // @public (read-only) {VectorSet} vectorSet1
@@ -72,13 +72,15 @@ define( require => {
           Util.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
         ),
 
-        // similarly for vectorSet2, not to overlap with vectorSet1
+        // similarly for vectorSet2, not to obscure vectorSet1 (overlap is OK)
         projectionXOffsetStart: vectorSet1Options.projectionXOffsetStart + vectorSet1Options.projectionXOffsetDelta / 2,
         projectionYOffsetStart: vectorSet1Options.projectionXOffsetStart + vectorSet1Options.projectionYOffsetDelta / 2,
         projectionXOffsetDelta: vectorSet1Options.projectionXOffsetDelta,
         projectionYOffsetDelta: vectorSet1Options.projectionYOffsetDelta,
-        sumProjectionXOffset: 1,
-        sumProjectionYOffset: 1
+
+        // chosen empirically, so that there is no overlap with sum component vectors of vectorSet1
+        sumProjectionXOffset: 1.1,
+        sumProjectionYOffset: 1.1
       } );
 
       // Add the vector sets

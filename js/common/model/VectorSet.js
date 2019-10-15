@@ -50,12 +50,12 @@ define( require => {
 
         // Offsets from the x and y axes, used for the PROJECTION style for the primary vectors' component vectors,
         // in model coordinates. See https://github.com/phetsims/vector-addition/issues/225
-        projectionXOffsetStart: -0.5,
-        projectionYOffsetStart: -0.5,
+        projectionXOffsetStart: -0.44,
+        projectionYOffsetStart: -0.44,
         projectionXOffsetDelta: -0.7,
         projectionYOffsetDelta: -0.7,
-        sumProjectionXOffset: 0.5,
-        sumProjectionYOffset: 0.5
+        sumProjectionXOffset: 0.44,
+        sumProjectionYOffset: 0.44
 
       }, options );
 
