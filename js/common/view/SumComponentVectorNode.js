@@ -18,6 +18,7 @@ define( require => {
   const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const merge = require( 'PHET_CORE/merge' );
+  const Property = require( 'AXON/Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
@@ -56,14 +57,13 @@ define( require => {
 
       // Observe when the sum visibility to update the vector component.
       // unlink is unnecessary, exists for the lifetime of the sim.
-      sumVisibleProperty.link( () => {
-
-        this.updateComponentVector( componentVector,
+      Property.multilink(
+        [ sumVisibleProperty, componentVector.parentVector.isDefinedProperty ],
+        () => this.updateComponentVector( componentVector,
           graph.modelViewTransformProperty.value,
           componentStyleProperty.value,
-          componentVector.isParentVectorActiveProperty );
-
-      } );
+          componentVector.isParentVectorActiveProperty )
+      );
     }
 
     /**
