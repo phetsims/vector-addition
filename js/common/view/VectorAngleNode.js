@@ -120,7 +120,6 @@ define( require => {
      *  - baseline length
      *
      * @private
-     *
      * @param {Vector} vector - model vector to base the angle off of
      * @param {ModelViewTransform2} modelViewTransform
      */
@@ -134,11 +133,9 @@ define( require => {
       // convenience reference.
       const angleDegrees = vector.angleDegrees;
 
-      //----------------------------------------------------------------------------------------
       // Update the curved arrow node angle
       this.curvedArrow.setAngle( vector.angle ? vector.angle : 0 );
 
-      //----------------------------------------------------------------------------------------
       // Update the label text.
       this.labelText.setText(
         angleDegrees !== null ?
@@ -146,7 +143,6 @@ define( require => {
         ''
       );
 
-      //----------------------------------------------------------------------------------------
       // Update the curved arrow radius
       const viewMagnitude = modelViewTransform.modelToViewDeltaX( vector.magnitude );
 
@@ -154,11 +150,9 @@ define( require => {
         this.curvedArrow.setRadius( _.min( [ MAX_RADIUS_SCALE * viewMagnitude, MAX_CURVED_ARROW_RADIUS ] ) );
       }
 
-      //----------------------------------------------------------------------------------------
       // Update the baseline
       this.baseLine.setX2( _.min( [ this.curvedArrow.radius / MAX_BASELINE_SCALE, MAX_BASELINE_WIDTH ] ) );
 
-      //----------------------------------------------------------------------------------------
       // Position the label text
       if ( angleDegrees !== null ) {
 
