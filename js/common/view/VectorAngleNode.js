@@ -112,7 +112,7 @@ define( require => {
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( modelViewTransform instanceof ModelViewTransform2, `invalid modelViewTransform: ${modelViewTransform}` );
 
-      // Don't show he angle node if the magnitude is 0;
+      // Don't show the angle if the magnitude is 0;
       this.visible = ( this.visible && vector.magnitude !== 0 );
 
       // convenience reference.
