@@ -24,7 +24,6 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
-  //----------------------------------------------------------------------------------------
   // constants
 
   // maximum radius of the curved arrow - the radius is changed to keep the curved arrow smaller than the vector.
@@ -49,6 +48,7 @@ define( require => {
   const ANGLE_UNDER_BASELINE_THRESHOLD = 35;
 
   class VectorAngleNode extends Node {
+
     /**
      * @param {Vector} vector - the model for the vector that the angle represents
      * @param {BooleanProperty} anglesVisibleProperty
@@ -59,8 +59,6 @@ define( require => {
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( anglesVisibleProperty instanceof BooleanProperty, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
       assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-
-      //----------------------------------------------------------------------------------------
 
       super();
 
@@ -75,8 +73,6 @@ define( require => {
 
       this.setChildren( [ this.baseLine, this.curvedArrow, this.labelText ] );
 
-      //----------------------------------------------------------------------------------------
-
       // Function that updates the angle node
       const updateAngleNodeListener = () => {
         if ( this.visible ) {
@@ -88,7 +84,6 @@ define( require => {
       // unlink is required on dispose.
       vector.vectorComponentsProperty.link( updateAngleNodeListener );
 
-      //----------------------------------------------------------------------------------------
       // Observe when the angle visible Property is changing and update the visibility of the angle node.
       // The angle is only visible when the vector is both active and the angle checkbox is clicked.
       // Must be disposed on dispose.
@@ -101,7 +96,6 @@ define( require => {
           this.updateAngleNode( vector, graph.modelViewTransformProperty.value );
         } );
 
-      //----------------------------------------------------------------------------------------
       // @private {function} disposeVectorAngleNode - function to unlink listeners, called in dispose()
       this.disposeVectorAngleNode = () => {
         vector.vectorComponentsProperty.unlink( updateAngleNodeListener );
