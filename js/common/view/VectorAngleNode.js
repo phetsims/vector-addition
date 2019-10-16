@@ -77,8 +77,10 @@ define( require => {
       const angleVisibleMultilink = Property.multilink(
         [ anglesVisibleProperty, vector.isOnGraphProperty, vector.vectorComponentsProperty ],
         ( angleVisible, isOnGraph, vectorComponents ) => {
-          this.visible = ( angleVisible && isOnGraph );
-          this.updateAngleNode( vector, modelViewTransformProperty.value );
+          this.visible = ( angleVisible && isOnGraph && vector.magnitude !== 0 );
+          if ( this.visible ) {
+            this.updateAngleNode( vector, modelViewTransformProperty.value );
+          }
         } );
 
       // @private {function} disposeVectorAngleNode - function to unlink listeners, called in dispose()
@@ -111,9 +113,6 @@ define( require => {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( modelViewTransform instanceof ModelViewTransform2, `invalid modelViewTransform: ${modelViewTransform}` );
-
-      // Don't show the angle if the magnitude is 0;
-      this.visible = ( this.visible && vector.magnitude !== 0 );
 
       // convenience reference.
       const angleDegrees = vector.angleDegrees;
