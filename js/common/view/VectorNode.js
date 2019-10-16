@@ -30,15 +30,15 @@ define( require => {
 
   // constants
 
-  // arrow options for the vector shadow
-  const SHADOW_VECTOR_ARROW_OPTIONS = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+  // options for the vector shadow
+  const SHADOW_OPTIONS = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
     fill: Color.BLACK,
     opacity: 0.28
   } );
 
-  // offsets for vector shadows in view coordinates
-  const VECTOR_SHADOW_OFFSET_X = 3.2;
-  const VECTOR_SHADOW_OFFSET_Y = 2.1;
+  // offsets for vector shadow in view coordinates
+  const SHADOW_OFFSET_X = 3.2;
+  const SHADOW_OFFSET_Y = 2.1;
 
   class VectorNode extends RootVectorNode {
 
@@ -89,10 +89,10 @@ define( require => {
 
       // Create a scenery node representing the arc of an angle and the numerical display of the angle.
       // dispose is necessary because it observes angleVisibleProperty.
-      const angleNode = new VectorAngleNode( vector, angleVisibleProperty, graph );
+      const angleNode = new VectorAngleNode( vector, angleVisibleProperty, graph.modelViewTransformProperty );
 
       // Create an arrow node that represents the shadow of the vector
-      const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, SHADOW_VECTOR_ARROW_OPTIONS );
+      const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, SHADOW_OPTIONS );
 
       // Reconfigure scene graph z-layering
       this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode ] );
@@ -271,8 +271,8 @@ define( require => {
           vectorShadowNode.visible = ( !animateBack && !isOnGraph );
           vectorShadowNode.resetTransform();
           if ( !isOnGraph && vectorShadowNode.getBounds().isValid() ) {
-            vectorShadowNode.left = this.arrowNode.left + VECTOR_SHADOW_OFFSET_X;
-            vectorShadowNode.top = this.arrowNode.top + VECTOR_SHADOW_OFFSET_Y;
+            vectorShadowNode.left = this.arrowNode.left + SHADOW_OFFSET_X;
+            vectorShadowNode.top = this.arrowNode.top + SHADOW_OFFSET_Y;
           }
           const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorComponents );
           vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );

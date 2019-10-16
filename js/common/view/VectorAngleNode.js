@@ -13,9 +13,9 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Color = require( 'SCENERY/util/Color' );
   const CurvedArrowNode = require( 'VECTOR_ADDITION/common/view/CurvedArrowNode' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Line = require( 'SCENERY/nodes/Line' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -52,13 +52,13 @@ define( require => {
     /**
      * @param {Vector} vector - the model for the vector that the angle represents
      * @param {BooleanProperty} anglesVisibleProperty
-     * @param {Graph} graph
+     * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
      */
-    constructor( vector, anglesVisibleProperty, graph ) {
+    constructor( vector, anglesVisibleProperty, modelViewTransformProperty ) {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( anglesVisibleProperty instanceof BooleanProperty, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
-      assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+      assert && assert( modelViewTransformProperty instanceof Property, `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
 
       super();
 
@@ -73,32 +73,16 @@ define( require => {
 
       this.setChildren( [ this.baseLine, this.curvedArrow, this.labelText ] );
 
-      // Function that updates the angle node
-      const updateAngleNodeListener = () => {
-        if ( this.visible ) {
-          this.updateAngleNode( vector, graph.modelViewTransformProperty.value );
-        }
-      };
-
-      // Observe when the vector model's components change to update the angle node
-      // unlink is required on dispose.
-      vector.vectorComponentsProperty.link( updateAngleNodeListener );
-
-      // Observe when the angle visible Property is changing and update the visibility of the angle node.
-      // The angle is only visible when the vector is both active and the angle checkbox is clicked.
-      // Must be disposed on dispose.
+      // Update the angle and its visibility. Must be disposed on dispose.
       const angleVisibleMultilink = Property.multilink(
-        [ anglesVisibleProperty, vector.isOnGraphProperty ],
-        ( angleVisible, isOnGraph ) => {
-
-          // Visible if the angle checkbox is clicked and the vector is on the graph
+        [ anglesVisibleProperty, vector.isOnGraphProperty, vector.vectorComponentsProperty ],
+        ( angleVisible, isOnGraph, vectorComponents ) => {
           this.visible = ( angleVisible && isOnGraph );
-          this.updateAngleNode( vector, graph.modelViewTransformProperty.value );
+          this.updateAngleNode( vector, modelViewTransformProperty.value );
         } );
 
       // @private {function} disposeVectorAngleNode - function to unlink listeners, called in dispose()
       this.disposeVectorAngleNode = () => {
-        vector.vectorComponentsProperty.unlink( updateAngleNodeListener );
         Property.unmultilink( angleVisibleMultilink );
       };
     }
@@ -121,11 +105,12 @@ define( require => {
      *
      * @private
      * @param {Vector} vector - model vector to base the angle off of
-     * @param {ModelViewTransform2} modelViewTransform
+     * @param {ModelViewTransform2} modelViewTransform2
      */
     updateAngleNode( vector, modelViewTransform ) {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
+      assert && assert( modelViewTransform instanceof ModelViewTransform2, `invalid modelViewTransform: ${modelViewTransform}` );
 
       // Don't show he angle node if the magnitude is 0;
       this.visible = ( this.visible && vector.magnitude !== 0 );
@@ -138,14 +123,12 @@ define( require => {
 
       // Update the label text.
       this.labelText.setText(
-        angleDegrees !== null ?
-        `${Util.toFixed( vector.angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )}${MathSymbols.DEGREES}` :
-        ''
+        ( angleDegrees === null ) ? '' :
+        `${Util.toFixed( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )}${MathSymbols.DEGREES}`
       );
 
       // Update the curved arrow radius
       const viewMagnitude = modelViewTransform.modelToViewDeltaX( vector.magnitude );
-
       if ( viewMagnitude !== 0 ) {
         this.curvedArrow.setRadius( _.min( [ MAX_RADIUS_SCALE * viewMagnitude, MAX_CURVED_ARROW_RADIUS ] ) );
       }
