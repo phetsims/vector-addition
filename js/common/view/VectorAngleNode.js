@@ -105,7 +105,7 @@ define( require => {
      *
      * @private
      * @param {Vector} vector - model vector to base the angle off of
-     * @param {ModelViewTransform2} modelViewTransform2
+     * @param {ModelViewTransform2} modelViewTransform
      */
     updateAngleNode( vector, modelViewTransform ) {
 
