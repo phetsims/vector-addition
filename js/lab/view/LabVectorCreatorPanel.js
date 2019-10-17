@@ -39,8 +39,8 @@ define( require => {
       // Create the initial vector components, the same for all vectors in a set.
       // See https://github.com/phetsims/vector-addition/issues/227
       const initialVectorComponents = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
-                                    new Vector2( 8, 6 ) :
-                                    Vector2.createPolar( 8, Util.toRadians( 45 ) );
+                                      new Vector2( 8, 6 ) :
+                                      Vector2.createPolar( 8, Util.toRadians( 45 ) );
 
       // Create a slot for each VectorSet
       const slots = [];
