@@ -198,7 +198,7 @@ define( require => {
       // Handle visibility
       baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
 
-      // When the base vector becomes actrive (selected), move it (and the entire vector set) to the front.
+      // When the base vector becomes active (selected), move it (and the entire vector set) to the front.
       // unlink is unnecessary because base vectors exist for the lifetime of the sim.
       this.graph.activeVectorProperty.link( activeVector => {
         if ( activeVector === baseVectorNode.vector ) {
