@@ -91,7 +91,7 @@ define( require => {
       // dispose is necessary because it observes angleVisibleProperty.
       const angleNode = new VectorAngleNode( vector, angleVisibleProperty, graph.modelViewTransformProperty );
 
-      // Create an arrow node that represents the shadow of the vector
+      // Create a shadow for the vector, visible when the vector is being dragged around off the graph.
       const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, SHADOW_OPTIONS );
 
       // Reconfigure scene graph z-layering
