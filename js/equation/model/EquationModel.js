@@ -33,7 +33,7 @@ define( require => {
 
       // @public (read-only) {VectorColorPalette}
       this.cartesianVectorColorPalette = VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE;
-      this.polarVectorColorPalette = VectorAdditionColors.EQUATION_PURPLE_COLOR_PALETTE;
+      this.polarVectorColorPalette = VectorAdditionColors.EQUATION_PINK_COLOR_PALETTE;
 
       // @public (read-only) graph for Cartesian snap mode
       this.cartesianGraph = new EquationGraph( CoordinateSnapModes.CARTESIAN,

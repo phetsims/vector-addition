@@ -142,8 +142,8 @@ define( require => {
 
       const group2ArrowNodes = createTipToTailArrowNodes( group2TipLocations, startingTailLocation,
         merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.RED_COLOR_PALETTE.mainFill,
-          stroke: VectorAdditionColors.RED_COLOR_PALETTE.mainStroke
+          fill: VectorAdditionColors.ORANGE_COLOR_PALETTE.mainFill,
+          stroke: VectorAdditionColors.ORANGE_COLOR_PALETTE.mainStroke
         } ) );
 
       return createScreenIcon( group2ArrowNodes.concat( group1ArrowNodes ) );

@@ -17,7 +17,7 @@ define( require => {
 
   // Colors that are used in more than one VectorColorPalette
   const BLUE = 'rgb( 10, 170, 250 )';
-  const PURPLE = 'rgb( 188, 3, 255 )';
+  const PINK = '#f149ff';
 
   // VectorColorPalette options that are common to both color palettes in the Equation screen
   const EQUATION_COLOR_PALETTE_OPTIONS = {
@@ -77,22 +77,22 @@ define( require => {
 
     BLUE_COLOR_PALETTE: new VectorColorPalette( {
       mainFill: BLUE,
-      sumFill: 'rgb( 5, 85, 125 )' // darker blue
+      sumFill: '#0a46fa' // darker blue
     } ),
 
-    PURPLE_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: PURPLE,
-      sumFill: 'rgb( 84, 2, 128 )' // darker purple
+    PINK_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: PINK,
+      sumFill: '#a200de' // darker purple
     } ),
 
-    RED_COLOR_PALETTE: new VectorColorPalette( {
-      mainFill: 'rgb( 255, 53, 133 )', // red
-      sumFill: 'rgb( 128, 1, 51 )' // darker red
+    ORANGE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: '#ff9023', // orange
+      sumFill: '#d20000' // red
     } ),
 
     GREEN_COLOR_PALETTE: new VectorColorPalette( {
       mainFill: 'rgb( 5, 200, 0 )', // green
-      sumFill: 'rgb( 2, 75, 0 )' // darker green
+      sumFill: '#058200' // darker green
     } ),
 
     // Equation screen
@@ -100,8 +100,8 @@ define( require => {
       mainFill: BLUE
     }, EQUATION_COLOR_PALETTE_OPTIONS ) ),
 
-    EQUATION_PURPLE_COLOR_PALETTE: new VectorColorPalette( merge( {
-      mainFill: PURPLE
+    EQUATION_PINK_COLOR_PALETTE: new VectorColorPalette( merge( {
+      mainFill: PINK
     }, EQUATION_COLOR_PALETTE_OPTIONS ) )
   };
 

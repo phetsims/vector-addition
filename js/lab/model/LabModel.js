@@ -37,8 +37,8 @@ define( require => {
 
       // @public (read-only) {VectorColorPalette}
       this.cartesianVectorColorPalette1 = VectorAdditionColors.BLUE_COLOR_PALETTE;
-      this.cartesianVectorColorPalette2 = VectorAdditionColors.RED_COLOR_PALETTE;
-      this.polarVectorColorPalette1 = VectorAdditionColors.PURPLE_COLOR_PALETTE;
+      this.cartesianVectorColorPalette2 = VectorAdditionColors.ORANGE_COLOR_PALETTE;
+      this.polarVectorColorPalette1 = VectorAdditionColors.PINK_COLOR_PALETTE;
       this.polarVectorColorPalette2 = VectorAdditionColors.GREEN_COLOR_PALETTE;
 
       // @public (read-only) graph for Cartesian snap mode
