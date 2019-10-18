@@ -87,7 +87,7 @@ define( require => {
 
     ORANGE_COLOR_PALETTE: new VectorColorPalette( {
       mainFill: '#ff9023', // orange
-      sumFill: '#d20000' // red
+      sumFill: '#e63c00' // burnt orange
     } ),
 
     GREEN_COLOR_PALETTE: new VectorColorPalette( {
