@@ -73,14 +73,6 @@ define( require => {
 
         vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
       } );
-
-      // @private {function} isSymbolDisplayed - function to check if the sum vector should display its symbol.
-      // The sum vector only displays its symbol when a vector in its vector set is active, or the sum is active.
-      this.isSymbolDisplayed = () => {
-        return vectorSet.vectors.some( vector => vector === graph.activeVectorProperty.value )
-               || graph.activeVectorProperty.value === this
-               || graph.activeVectorProperty.value === null;
-      };
     }
 
     /**
@@ -127,7 +119,14 @@ define( require => {
      * @returns {Object} see RootVector.getLabelContent
      */
     getLabelContent( valuesVisible ) {
-      if ( this.isSymbolDisplayed() ) {
+
+      // The sum vector only displays its symbol when a vector in its vector set is active, or the sum is active.
+      const activeVector = this.graph.activeVectorProperty.value;
+      const isSymbolDisplayed = this.vectorSet.vectors.some( vector => vector === activeVector ) ||
+                                activeVector === this ||
+                                activeVector === null;
+
+      if ( isSymbolDisplayed ) {
 
         // No change in behavior - do like we do for other vectors.
         return super.getLabelContent( valuesVisible );

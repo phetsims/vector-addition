@@ -80,10 +80,10 @@ define( require => {
       // @public (read-only) {string} fallBackSymbol (see declaration of VECTOR_FALL_BACK_SYMBOL for documentation)
       this.fallBackSymbol = VECTOR_FALL_BACK_SYMBOL;
 
-      // @private {Graph} the graph that the vector model belongs to
+      // @protected {Graph} the graph that the vector model belongs to
       this.graph = graph;
 
-      // @private {VectorSet} the vector set that the vector belongs to
+      // @protected {VectorSet} the vector set that the vector belongs to
       this.vectorSet = vectorSet;
 
       // @public (read-only) indicates whether the vector is in on the graph
