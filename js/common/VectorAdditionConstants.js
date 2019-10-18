@@ -71,6 +71,7 @@ define( require => {
 
     CHECKBOX_BOX_WIDTH: 18,
     CHECKBOX_ICON_SPACING: 8,
+    CHECKBOX_Y_SPACING: 4,
 
     //----------------------------------------------------------------------------------------
     // RadioButtonGroups

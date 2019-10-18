@@ -11,6 +11,8 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const AnglesCheckbox = require( 'VECTOR_ADDITION/common/view/AnglesCheckbox' );
   const Color = require( 'SCENERY/util/Color' );
   const ComponentStyleControl = require( 'VECTOR_ADDITION/common/view/ComponentStyleControl' );
@@ -46,16 +48,24 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
 
+      // To make all checkboxes the same height
+      const alignBoxOptions = {
+        group: new AlignGroup( {
+          matchHorizontal: false,
+          matchVertical: true
+        } )
+      };
+      
       // Create 2 'Sum' checkboxes for each graph
       const sumCheckboxContainer = new Node();
       [ cartesianGraph, polarGraph ].forEach( graph => {
 
         const sumCheckboxes = new VBox( {
           children: [
-            new SumCheckbox( sumVisibleProperty1, graph.vectorSet1.vectorColorPalette ),
-            new SumCheckbox( sumVisibleProperty2, graph.vectorSet2.vectorColorPalette )
+            new AlignBox( new SumCheckbox( sumVisibleProperty1, graph.vectorSet1.vectorColorPalette ), alignBoxOptions ),
+            new AlignBox( new SumCheckbox( sumVisibleProperty2, graph.vectorSet2.vectorColorPalette ), alignBoxOptions )
           ],
-          spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING
+          spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING
         } );
         sumCheckboxContainer.addChild( sumCheckboxes );
 
@@ -66,19 +76,28 @@ define( require => {
         } );
       } );
 
+      // Values
+      const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
+
+      // Angles
+      const anglesCheckbox = new AnglesCheckbox( viewProperties.anglesVisibleProperty );
+
+      // Grid
+      const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
+
       super( [
 
-        // Sums
-        sumCheckboxContainer,
-
-        // Values
-        new ValuesCheckbox( viewProperties.valuesVisibleProperty ),
-
-        // Angles
-        new AnglesCheckbox( viewProperties.anglesVisibleProperty ),
-
-        // Grid
-        new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty ),
+        // checkboxes
+        new VBox( {
+          spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
+          align: 'left',
+          children: [
+            sumCheckboxContainer,
+            new AlignBox( valuesCheckbox, alignBoxOptions ),
+            new AlignBox( anglesCheckbox, alignBoxOptions ),
+            new AlignBox( gridCheckbox, alignBoxOptions )
+          ]
+        } ),
 
         // separator
         new HSeparator( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {

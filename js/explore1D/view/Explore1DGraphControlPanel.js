@@ -11,12 +11,16 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const Node = require( 'SCENERY/nodes/Node' );
   const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
   const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionGridCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionGridCheckbox' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
@@ -48,18 +52,37 @@ define( require => {
         verticalSumCheckbox.visible = ( gridOrientation === GraphOrientations.VERTICAL );
       } );
 
+      // Values
+      const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
+
+      // Grid
+      const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
+
+      // To make all checkboxes the same height
+      const alignBoxOptions = {
+        group: new AlignGroup( {
+          matchHorizontal: false,
+          matchVertical: true
+        } )
+      };
+
       super( [
 
-        // Sum
-        new Node( {
-          children: [ horizontalSumCheckbox, verticalSumCheckbox ]
-        } ),
-
-        // Values
-        new ValuesCheckbox( viewProperties.valuesVisibleProperty ),
-
-        // Grid
-        new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty )
+        // checkboxes
+        new VBox( {
+          spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
+          align: 'left',
+          children: [
+            new Node( {
+              children: [
+                new AlignBox( horizontalSumCheckbox, alignBoxOptions ),
+                new AlignBox( verticalSumCheckbox, alignBoxOptions )
+              ]
+            } ),
+            new AlignBox( valuesCheckbox, alignBoxOptions ),
+            new AlignBox( gridCheckbox, alignBoxOptions )
+          ]
+        } )
       ], options );
     }
   }

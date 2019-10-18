@@ -29,7 +29,7 @@ define( require => {
 
       super( gridVisibleProperty, options );
 
-      this.touchArea = this.localBounds.dilatedXY( 5, 4 );
+      this.touchArea = this.localBounds.dilatedXY( 5, 1 );
     }
   }
 

@@ -26,7 +26,7 @@ define( require => {
       options = merge( {
         boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
         touchAreaXDilation: 5,
-        touchAreaYDilation: 4
+        touchAreaYDilation: 3.5
       }, options );
 
       super( content, property, options );
