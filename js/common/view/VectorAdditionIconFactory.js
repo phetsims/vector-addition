@@ -66,9 +66,11 @@ define( require => {
      */
     createExplore1DScreenIcon() {
 
+      const colorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
+
       const vectorOptions = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
-        stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
+        fill: colorPalette.mainFill,
+        stroke: colorPalette.mainStroke
       } );
 
       // Vector pointing to the right, the full width of the icon
@@ -94,17 +96,18 @@ define( require => {
     createExplore2DScreenIcon() {
 
       const vector = new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT * 0.8 );
+      const colorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
 
       // vector
       const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
         merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
-          stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
+          fill: colorPalette.mainFill,
+          stroke: colorPalette.mainStroke
         } ) );
 
       // component vectors
       const componentArrowOptions = merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-        fill: VectorAdditionColors.BLUE_COLOR_PALETTE.componentFill
+        fill: colorPalette.componentFill
       } );
       const xComponentNode = new DashedArrowNode( 0, 0, vector.x, 0, componentArrowOptions );
       const yComponentNode = new DashedArrowNode( vector.x, 0, vector.x, vector.y, componentArrowOptions );
@@ -125,7 +128,7 @@ define( require => {
         new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT )
       ];
 
-      // {Vector2[]} the tip locations of the group 2 (red) arrows (aligned tip to tail)
+      // {Vector2[]} the tip locations of the group 2 (orange) arrows (aligned tip to tail)
       const group2TipLocations = [
         new Vector2( 0, -SCREEN_ICON_HEIGHT * 0.7 ),
         new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT )
@@ -164,18 +167,20 @@ define( require => {
       const startTail = Vector2.ZERO;
       const lastTip = _.last( tipLocations );
 
+      const colorPalette = VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE;
+
       // vectors, tip to tail
       const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
         merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.mainFill,
-          stroke: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.mainStroke
+          fill: colorPalette.mainFill,
+          stroke: colorPalette.mainStroke
         } ) );
 
       // sum
       arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
         merge( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
-          fill: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.sumFill,
-          stroke: VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE.sumStroke
+          fill: colorPalette.sumFill,
+          stroke: colorPalette.sumStroke
         } ) ) );
 
       return createScreenIcon( arrowNodes );
