@@ -56,7 +56,7 @@ define( require => {
   const VectorAdditionIconFactory = {
 
     //========================================================================================
-    // Screen icons, see https://github.com/phetsims/vector-addition/issues/76)
+    // Screen icons, see https://github.com/phetsims/vector-addition/issues/76
     //========================================================================================
 
     /**
