@@ -127,19 +127,20 @@ define( require => {
      * @returns {Object} see RootVector.getLabelContent
      */
     getLabelContent( valuesVisible ) {
-      if ( !this.isSymbolDisplayed() ) {
+      if ( this.isSymbolDisplayed() ) {
 
-        // Get the rounded magnitude
+        // No change in behavior - do like we do for other vectors.
+        return super.getLabelContent( valuesVisible );
+      }
+      else {
+
+        // Omit the symbol, display only the value, if values are visible.
         const roundedMagnitude = Util.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
-
         return merge( super.getLabelContent( valuesVisible ), {
           symbol: null,
           includeAbsoluteValueBars: false,
           value: valuesVisible ? roundedMagnitude : null
         } );
-      }
-      else {
-        return super.getLabelContent( valuesVisible );
       }
     }
   }
