@@ -120,11 +120,14 @@ define( require => {
      */
     getLabelContent( valuesVisible ) {
 
-      // The sum vector only displays its symbol when a vector in its vector set is active, or the sum is active.
+      // The sum vector displays its symbol when:
+      // - the sum vector is active (selected), or
+      // - a vector in its vector set is active, or
+      // - there is only one vector set and no vector is active (selected), see #241
       const activeVector = this.graph.activeVectorProperty.value;
-      const isSymbolDisplayed = this.vectorSet.vectors.some( vector => vector === activeVector ) ||
-                                activeVector === this ||
-                                activeVector === null;
+      const isSymbolDisplayed = activeVector === this ||
+                                this.vectorSet.vectors.some( vector => vector === activeVector ) ||
+                                ( this.graph.vectorSets.length === 1 && activeVector === null );
 
       if ( isSymbolDisplayed ) {
 
