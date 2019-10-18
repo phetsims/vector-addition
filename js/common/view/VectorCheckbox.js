@@ -12,15 +12,15 @@ define( require => {
   // modules
   const ArrowOverSymbolNode = require( 'VECTOR_ADDITION/common/view/ArrowOverSymbolNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Checkbox = require( 'SUN/Checkbox' );
   const Color = require( 'SCENERY/util/Color' );
   const LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   const merge = require( 'PHET_CORE/merge' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionCheckbox' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
-  class VectorCheckbox extends Checkbox {
+  class VectorCheckbox extends VectorAdditionCheckbox {
 
     /**
      * @param {BooleanProperty} vectorVisibleProperty
@@ -53,7 +53,7 @@ define( require => {
         children: [ symbolNode, icon ]
       } );
 
-      super( content, vectorVisibleProperty, VectorAdditionConstants.CHECKBOX_OPTIONS );
+      super( content, vectorVisibleProperty, options );
     }
   }
 

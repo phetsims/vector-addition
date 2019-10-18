@@ -22,11 +22,14 @@ define( require => {
      */
     constructor( gridVisibleProperty, options ) {
 
-      options = merge( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
+      options = merge( {
+        boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
         gridSize: 24
-      } );
+      }, options );
 
       super( gridVisibleProperty, options );
+
+      this.touchArea = this.localBounds.dilatedXY( 5, 4 );
     }
   }
 

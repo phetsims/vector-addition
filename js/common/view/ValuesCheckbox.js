@@ -9,24 +9,21 @@ define( require => {
   'use strict';
 
   // modules
-  const Checkbox = require( 'SUN/Checkbox' );
-  const merge = require( 'PHET_CORE/merge' );
   const Text = require( 'SCENERY/nodes/Text' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionCheckbox' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // strings
   const valuesString = require( 'string!VECTOR_ADDITION/values' );
 
-  class ValuesCheckbox extends Checkbox {
+  class ValuesCheckbox extends VectorAdditionCheckbox {
 
     /**
      * @param {Property.<boolean>} valuesVisibleProperty
      * @param {Object} [options]
      */
     constructor( valuesVisibleProperty, options ) {
-
-      options = merge( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, options );
 
       const content = new Text( valuesString, {
         font: VectorAdditionConstants.CHECKBOX_FONT,

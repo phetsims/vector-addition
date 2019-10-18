@@ -65,7 +65,7 @@ define( require => {
 
         // specific to this class
         xSpacing: 11, // {number} spacing between the left NumberPicker and the right label
-        ySpacing: 15, // {number} y spacing between UI components
+        ySpacing: 17, // {number} y spacing between UI components
         contentWidth: VectorAdditionConstants.BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH, // fixed content width
 
         // super class options

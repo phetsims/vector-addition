@@ -10,19 +10,20 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Checkbox = require( 'SUN/Checkbox' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionCheckbox' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
-  class BaseVectorsCheckbox extends Checkbox {
+  class BaseVectorsCheckbox extends VectorAdditionCheckbox {
 
     /**
      * @param {BooleanProperty} baseVectorsVisibleProperty
      * @param {VectorColorPalette} vectorColorPalette
+     * @param {Object} [options]
      */
-    constructor( baseVectorsVisibleProperty, vectorColorPalette ) {
+    constructor( baseVectorsVisibleProperty, vectorColorPalette, options ) {
 
       // Type check arguments
       assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty, `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
@@ -35,7 +36,7 @@ define( require => {
         length: 50
       } );
 
-      super( icon, baseVectorsVisibleProperty, VectorAdditionConstants.CHECKBOX_OPTIONS );
+      super( icon, baseVectorsVisibleProperty, options );
     }
   }
 
