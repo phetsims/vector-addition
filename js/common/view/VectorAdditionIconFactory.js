@@ -96,7 +96,7 @@ define( require => {
     createExplore2DScreenIcon() {
 
       const vector = new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT * 0.8 );
-      const colorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
+      const colorPalette = VectorAdditionColors.PINK_COLOR_PALETTE;
 
       // vector
       const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
