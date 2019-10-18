@@ -215,7 +215,10 @@ define( require => {
     options = merge( {
 
       // {Object} options passed to NumberPicker
-      numberPickerOptions: _.clone( VectorAdditionConstants.NUMBER_PICKER_OPTIONS ),
+      numberPickerOptions: merge( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
+        touchAreaXDilation: 20,
+        touchAreaYDilation: 10
+      } ),
 
       equalsSignFont: VectorAdditionConstants.EQUATION_FONT,  // {Font} font for the equals sign text
       spacing: 3 // {number} space around the equals sign
