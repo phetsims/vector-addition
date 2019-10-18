@@ -22,7 +22,10 @@ define( require => {
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   // constants
-  const NUMBER_PICKER_OPTIONS = VectorAdditionConstants.NUMBER_PICKER_OPTIONS;
+  const NUMBER_PICKER_OPTIONS = merge( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
+    touchAreaXDilation: 20,
+    touchAreaYDilation: 14
+  } );
   const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
   class EquationTypeNode extends Node {
