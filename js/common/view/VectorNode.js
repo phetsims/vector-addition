@@ -161,7 +161,7 @@ define( require => {
         }
       };
       this.vector.animateBackProperty.lazyLink( removeTranslationDragListener );
-           
+
       // Translate when the vector's tail position changes.
       // unlink is required when the vector is animating back to the creator panel
       const tailListener = tailLocation => {
@@ -274,7 +274,7 @@ define( require => {
           const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorComponents );
           vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
         } );
-      
+
       // Show the vector's label when it's on the graph. Must be unlinked.
       const isOnGraphListener = isOnGraph => ( this.labelNode.visible = isOnGraph );
       vector.isOnGraphProperty.link( isOnGraphListener );
@@ -353,7 +353,7 @@ define( require => {
     }
 
     /**
-     * Forwards an event to translationDragListener. Used for dragging vectors out of the toolbox. 
+     * Forwards an event to translationDragListener. Used for dragging vectors out of the toolbox.
      * @param {Event} event
      * @public
      */
