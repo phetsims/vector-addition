@@ -33,7 +33,9 @@ define( require => {
     headWidth: VectorAdditionQueryParameters.headWidth,
     headHeight: VectorAdditionQueryParameters.headHeight,
     tailWidth: VectorAdditionQueryParameters.tailWidth,
-    stroke: null
+    stroke: null,
+    isHeadDynamic: true,
+    fractionalHeadHeight: 0.5
   };
 
   // options for component vector arrows (DashedArrowNode)
