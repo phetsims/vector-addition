@@ -44,7 +44,7 @@ define( require => {
     headWidth: {
       type: 'number',
       isValidValue: value => ( value > 0 ),
-      defaultValue: 10
+      defaultValue: 12
     },
 
     /**
@@ -55,7 +55,7 @@ define( require => {
     headHeight: {
       type: 'number',
       isValidValue: value => ( value > 0 ),
-      defaultValue: 12
+      defaultValue: 14
     },
 
     /**
