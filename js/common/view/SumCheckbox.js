@@ -36,7 +36,7 @@ define( require => {
 
       const textNode = new Text( sumString, {
         font: VectorAdditionConstants.CHECKBOX_FONT,
-        maxWidth: 95 // determined empirically
+        maxWidth: 75 // determined empirically
       } );
 
       const icon = VectorAdditionIconFactory.createVectorIcon( {
