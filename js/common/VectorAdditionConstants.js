@@ -20,6 +20,7 @@ define( require => {
   const ScreenView = require( 'JOIST/ScreenView' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+  const VectorAdditionQueryParameters = require( 'VECTOR_ADDITION/common/VectorAdditionQueryParameters' );
 
   // shared constants within this file
   const PANEL_CORNER_RADIUS = 5;
@@ -29,9 +30,9 @@ define( require => {
 
   // options for vector arrows (ArrowNode)
   const VECTOR_ARROW_OPTIONS = {
-    headWidth: 10,
-    headHeight: 12,
-    tailWidth: 3.5,
+    headWidth: VectorAdditionQueryParameters.headWidth,
+    headHeight: VectorAdditionQueryParameters.headHeight,
+    tailWidth: VectorAdditionQueryParameters.tailWidth,
     stroke: null
   };
 
