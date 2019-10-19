@@ -46,7 +46,7 @@ define( require => {
       const slots = [];
       graph.vectorSets.forEach( vectorSet => {
         slots.push( new VectorCreatorPanelSlot( graph, vectorSet, sceneNode, initialVectorComponents, {
-          iconArrowSize: 50, // Determined empirically - should be slightly larger
+          iconArrowSize: 57, // Determined empirically - should be slightly larger
           numberOfVectors: 10 // Each slot can create 10 vectors
         } ) );
       } );
