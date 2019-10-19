@@ -22,6 +22,7 @@ define( require => {
   const ObservableArray = require( 'AXON/ObservableArray' );
   const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
   // The symbol for the sum vector.
@@ -39,6 +40,15 @@ define( require => {
      */
     constructor( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options ) {
 
+      // Compute values for the options that are related to the PROJECTION style component vectors.
+      // See https://github.com/phetsims/vector-addition/issues/225
+      const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth;
+      assert && assert( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
+      const modelHeadWidth = graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth );
+      const axisSpacing = graph.modelViewTransformProperty.value.viewToModelDeltaX( 1.5 );
+      const offsetStart = ( modelHeadWidth / 2 ) + axisSpacing;
+      const offsetDelta = modelHeadWidth;
+
       options = merge( {
 
         // {boolean} false means that the default SumVector will not be created, and a subclass is responsible
@@ -48,14 +58,15 @@ define( require => {
         // {Vector2} initial tail position of the sum. Only used if options.initializeSum = true
         initialSumTailPosition: graph.graphModelBounds.center,
 
-        // Offsets from the x and y axes, used for the PROJECTION style for the primary vectors' component vectors,
-        // in model coordinates. See https://github.com/phetsims/vector-addition/issues/225
-        projectionXOffsetStart: -0.44,
-        projectionYOffsetStart: -0.44,
-        projectionXOffsetDelta: -0.7,
-        projectionYOffsetDelta: -0.7,
-        sumProjectionXOffset: 0.44,
-        sumProjectionYOffset: 0.44
+        // Offsets for primary component vectors in PROJECTION style
+        projectionXOffsetStart: -offsetStart,
+        projectionYOffsetStart: -offsetStart,
+        projectionXOffsetDelta: -offsetDelta,
+        projectionYOffsetDelta: -offsetDelta,
+
+        // Offsets for sum component vectors in PROJECTION style
+        sumProjectionXOffset: offsetStart,
+        sumProjectionYOffset: offsetStart
 
       }, options );
 
@@ -77,6 +88,12 @@ define( require => {
 
       // @public (read-only) {componentStyleProperty} componentStyleProperty
       this.componentStyleProperty = componentStyleProperty;
+
+      // @public (read-only)
+      this.projectionXOffsetStart = options.projectionXOffsetStart;
+      this.projectionYOffsetStart = options.projectionYOffsetStart;
+      this.sumProjectionXOffset = options.sumProjectionXOffset;
+      this.sumProjectionYOffset = options.sumProjectionYOffset;
 
       if ( options.initializeSum ) {
 

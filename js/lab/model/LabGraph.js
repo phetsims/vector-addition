@@ -44,25 +44,26 @@ define( require => {
 
       super( LAB_GRAPH_BOUNDS, coordinateSnapMode );
 
-      const vectorSet1Options = {
+      // Compute values for the options that are related to the PROJECTION style component vectors.
+      // PROJECTION component vectors are more closely spaced in this screen, and we have 2 sum vectors.
+      // See https://github.com/phetsims/vector-addition/issues/225
+      const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth;
+      assert && assert( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
+      const modelHeadWidth = this.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth );
+      const offsetDelta = -( modelHeadWidth / 2 );
+
+      // @public (read-only) {VectorSet} vectorSet1
+      this.vectorSet1 = new VectorSet( this, componentStyleProperty, sumVisibleProperty1, vectorColorPalette1, {
 
         initialSumTailPosition: new Vector2(
           Util.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
           Util.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
         ),
 
-        // offsets for component vectors in PROJECTION style, in model coordinates, determined empirically
-        // see https://github.com/phetsims/vector-addition/issues/225
-        projectionXOffsetStart: -0.44,
-        projectionYOffsetStart: -0.44,
-        projectionXOffsetDelta: -0.4,
-        projectionYOffsetDelta: -0.4,
-        sumProjectionXOffset: 0.44,
-        sumProjectionYOffset: 0.44
-      };
-
-      // @public (read-only) {VectorSet} vectorSet1
-      this.vectorSet1 = new VectorSet( this, componentStyleProperty, sumVisibleProperty1, vectorColorPalette1, vectorSet1Options );
+        // non-sum component vectors are interleaved with vectorSet2, overlap is OK
+        projectionXOffsetDelta: offsetDelta,
+        projectionYOffsetDelta: offsetDelta
+      } );
 
       // @public (read-only) {VectorSet} vectorSet2
       this.vectorSet2 = new VectorSet( this, componentStyleProperty, sumVisibleProperty2, vectorColorPalette2, {
@@ -72,15 +73,15 @@ define( require => {
           Util.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
         ),
 
-        // similarly for vectorSet2, not to obscure vectorSet1 (overlap is OK)
-        projectionXOffsetStart: vectorSet1Options.projectionXOffsetStart + vectorSet1Options.projectionXOffsetDelta / 2,
-        projectionYOffsetStart: vectorSet1Options.projectionXOffsetStart + vectorSet1Options.projectionYOffsetDelta / 2,
-        projectionXOffsetDelta: vectorSet1Options.projectionXOffsetDelta,
-        projectionYOffsetDelta: vectorSet1Options.projectionYOffsetDelta,
+        // non-sum component vectors are interleaved with vectorSet1, overlap is OK
+        projectionXOffsetStart: this.vectorSet1.projectionXOffsetStart + offsetDelta / 2,
+        projectionYOffsetStart: this.vectorSet1.projectionYOffsetStart + offsetDelta / 2,
+        projectionXOffsetDelta: offsetDelta,
+        projectionYOffsetDelta: offsetDelta,
 
-        // chosen empirically, so that there is no overlap with sum component vectors of vectorSet1
-        sumProjectionXOffset: 1.1,
-        sumProjectionYOffset: 1.1
+        // sum component vectors are spaced so that they don't overlap with vectorSet1
+        sumProjectionXOffset: this.vectorSet1.sumProjectionXOffset + modelHeadWidth,
+        sumProjectionYOffset: this.vectorSet1.sumProjectionYOffset + modelHeadWidth
       } );
 
       // Add the vector sets
