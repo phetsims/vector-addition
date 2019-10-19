@@ -67,9 +67,6 @@ define( require => {
         } )
       }, options );
 
-      assert && assert( options.arrowOptions.headHeight + 1 < graph.modelViewTransformProperty.value.modelToViewDeltaX( 1 ),
-        `invalid headHeight: ${options.arrowOptions.headHeight}, must be < 1 model unit, so that tail is visible for vectors with magnitude=1` );
-
       super( vector,
         graph.modelViewTransformProperty,
         valuesVisibleProperty,
