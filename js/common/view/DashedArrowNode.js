@@ -37,11 +37,14 @@ define( require => {
 
         tailDash: [ 3, 3 ], // {number[]} describes the dash, similar to SCENERY/LineStyle lineDash
 
-        // These option names are identical to the ArrowNode API
+        // These options are identical to the ArrowNode API, and must behave the same
         headHeight: 10,
         headWidth: 10,
         tailWidth: 5,
-        fill: 'black' // color used for the entire arrow (fills the head and strokes the tail)
+        fill: 'black', // color used for the entire arrow (fills the head and strokes the tail)
+        isHeadDynamic: false, // determines whether to scale down the arrow head height for fractionalHeadHeight constraint
+        fractionalHeadHeight: 0.5 // head will be scaled when head size is less than fractionalHeadHeight * arrow length
+
       }, options );
 
       const headNode = new Path( null, {
@@ -62,6 +65,8 @@ define( require => {
       // @private
       this.headHeight = options.headHeight;
       this.headWidth = options.headWidth;
+      this.isHeadDynamic = options.isHeadDynamic;
+      this.fractionalHeadHeight = options.fractionalHeadHeight;
       this.tailNode = tailNode;
       this.headNode = headNode;
 
@@ -114,7 +119,12 @@ define( require => {
         };
 
         // Limit the head height to the tail length.
-        const headHeight = Math.min( this.headHeight, 0.99 * length );
+        let headHeight = Math.min( this.headHeight, 0.99 * length );
+
+        // Scale the head, if enabled and necessary.
+        if ( this.isHeadDynamic && ( this.headHeight > this.fractionalHeadHeight * length ) ) {
+          headHeight = this.fractionalHeadHeight * length;
+        }
 
         // Adjust the end of the tail towards the tip, so that it doesn't overlap the head.
         const scaledUnit = xHatUnit.times( length - headHeight );
