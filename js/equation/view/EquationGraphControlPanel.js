@@ -58,7 +58,7 @@ define( require => {
           vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
         } );
 
-      // Show the Sum checkbox that matches the selected scene.
+      // Show the vector checkbox ('c' or 'f') that matches the selected scene.
       // unlink is unnecessary, exists for the lifetime of the sim.
       viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
         cartesianVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
