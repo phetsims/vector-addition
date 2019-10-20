@@ -78,7 +78,7 @@ define( require => {
 
       super( [
 
-        // checkboxes
+        // checkboxes, wrapped with AlignBox so that they are all the same height
         new VBox( {
           spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
           align: 'left',
