@@ -147,12 +147,11 @@ define( require => {
         }
       } );
 
-      // The body can be translated by the arrow or the label.
-      // removeInputListener is required when the vector is animating back to the creator panel.
+      // The body can be translated by the arrow or the label. removeInputListener is required on dispose.
       this.arrowNode.addInputListener( this.translationDragListener );
       this.labelNode.addInputListener( this.translationDragListener );
 
-      // Disable translate interaction when the vector is animating back to the toolbox.
+      // Disable translate interaction when the vector is animating back to the toolbox. unlink is required on dispose.
       const removeTranslationDragListener = animateBack => {
         if ( animateBack ) {
           this.arrowNode.pickable = !animateBack;
@@ -162,8 +161,7 @@ define( require => {
       };
       this.vector.animateBackProperty.lazyLink( removeTranslationDragListener );
 
-      // Translate when the vector's tail position changes.
-      // unlink is required when the vector is animating back to the creator panel
+      // Translate when the vector's tail position changes. unlink is required on dispose.
       const tailListener = tailLocation => {
         this.updateTailPosition( tailLocation );
         if ( vector.isRemovable ) {
@@ -238,7 +236,7 @@ define( require => {
         };
         vector.vectorComponentsProperty.link( vectorComponentsListener );
 
-        // Disable interaction when the vector is animating back to the toolbox. unlink is required on dispose.
+        // Disable scale/rotate interaction when the vector is animating back to the toolbox. unlink is required on dispose.
         const disableScaleRotateDragListener = animateBack => {
           headNode.pickable = !animateBack;
         };
