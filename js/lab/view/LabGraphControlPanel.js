@@ -104,7 +104,7 @@ define( require => {
           stroke: Color.BLACK
         } ),
 
-        // Component Style
+        // Components radio buttons
         new ComponentStyleControl( componentStyleProperty, {
           maxWidth: VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH
         } )
