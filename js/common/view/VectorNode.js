@@ -194,8 +194,7 @@ define( require => {
 
       if ( vector.isTipDraggable ) {
 
-        // Create a triangle at the head of the vector. This is used to allow the user to only change the
-        // scale and angle of the vector by dragging the head.
+        // Create an invisible triangle at the head of the vector.
         const headShape = new Shape()
           .moveTo( 0, 0 )
           .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2 )
@@ -207,14 +206,14 @@ define( require => {
         } );
         this.addChild( headNode );
 
-        // set pointer areas for the head
+        // Set pointer areas for the head.
         headNode.touchArea = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
         headNode.mouseArea = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
 
         // Location of the tip of the vector, relative to the tail.
         const tipLocationProperty = new Vector2Property( tipDeltaLocation );
 
-        // Drag listener to scale/rotate the vector, attached to the vector's head.
+        // Drag listener to scale/rotate the vector, attached to the invisible head.
         const scaleRotateDragListener = new DragListener( {
           targetNode: headNode,
           locationProperty: tipLocationProperty,
@@ -226,21 +225,20 @@ define( require => {
         } );
         headNode.addInputListener( scaleRotateDragListener );
 
-        // When the vector changes, transform the head.
-        const vectorComponentsListener = vectorComponents => {
-          headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
-          headNode.rotation = -vectorComponents.angle;
-        };
-        vector.vectorComponentsProperty.link( vectorComponentsListener ); // unlinked is required when disposed
-
-        // Move the tip to match the vector model.
-        // unlink is required when the vector is animating back to the creator panel.
+        // Move the tip to match the vector model. unlink is required on dispose.
         const tipListener = tipLocation => {
           this.updateTipPosition( tipLocation );
         };
         tipLocationProperty.lazyLink( tipListener );
 
-        // Disable scale/rotate interaction when the vector is animating back to the toolbox.
+        // When the vector changes, transform the head. unlinked is required when disposed.
+        const vectorComponentsListener = vectorComponents => {
+          headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
+          headNode.rotation = -vectorComponents.angle;
+        };
+        vector.vectorComponentsProperty.link( vectorComponentsListener );
+
+        // Disable interaction when the vector is animating back to the toolbox. unlink is required on dispose.
         const disableScaleRotateDragListener = animateBack => {
           headNode.pickable = !animateBack;
         };
@@ -249,8 +247,8 @@ define( require => {
         // @private {function} - to dispose things that are related to optional rotate/scale
         this.disposeRotateScale = () => {
           headNode.removeInputListener( scaleRotateDragListener );
-          vector.vectorComponentsProperty.unlink( vectorComponentsListener );
           tipLocationProperty.unlink( tipListener );
+          vector.vectorComponentsProperty.unlink( vectorComponentsListener );
           this.vector.animateBackProperty.unlink( disableScaleRotateDragListener );
         };
       }
