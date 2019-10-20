@@ -190,6 +190,7 @@ define( require => {
       // Handle vector scaling & rotation
       //----------------------------------------------------------------------------------------
 
+      let disposeRotateScale = null;
       if ( vector.isTipDraggable ) {
 
         // Create an invisible triangle at the head of the vector.
@@ -242,8 +243,8 @@ define( require => {
         };
         this.vector.animateBackProperty.lazyLink( disableScaleRotateDragListener );
 
-        // @private {function} - to dispose things that are related to optional rotate/scale
-        this.disposeRotateScale = () => {
+        // dispose of things that are related to optional rotate/scale
+        disposeRotateScale = () => {
           headNode.removeInputListener( scaleRotateDragListener );
           tipLocationProperty.unlink( tipListener );
           vector.vectorComponentsProperty.unlink( vectorComponentsListener );
@@ -291,7 +292,7 @@ define( require => {
 
         // Dispose of transform handling
         disposeTranslate();
-        this.disposeRotateScale && this.disposeRotateScale();
+        disposeRotateScale && disposeRotateScale();
 
         // Dispose of appearance-related listeners
         Property.unmultilink( shadowMultilink );
