@@ -46,12 +46,14 @@ define( require => {
       assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
       assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
 
+      // 'c' checkbox
       const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty,
         cartesianVectorSet.sumVector.symbol, {
           vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
           vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke
         } );
 
+      // 'f' checkbox
       const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty,
         polarVectorSet.sumVector.symbol, {
           vectorFill: polarVectorSet.vectorColorPalette.sumFill,

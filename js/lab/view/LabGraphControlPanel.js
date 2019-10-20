@@ -56,7 +56,7 @@ define( require => {
         } )
       };
       
-      // Create 2 'Sum' checkboxes for each graph
+      // Create two 'Sum' checkboxes for each graph
       const sumCheckboxContainer = new Node();
       [ cartesianGraph, polarGraph ].forEach( graph => {
 
