@@ -65,7 +65,8 @@ define( require => {
             new AlignBox( new SumCheckbox( sumVisibleProperty1, graph.vectorSet1.vectorColorPalette ), alignBoxOptions ),
             new AlignBox( new SumCheckbox( sumVisibleProperty2, graph.vectorSet2.vectorColorPalette ), alignBoxOptions )
           ],
-          spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING
+          spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
+          align: 'left'
         } );
         sumCheckboxContainer.addChild( sumCheckboxes );
 
