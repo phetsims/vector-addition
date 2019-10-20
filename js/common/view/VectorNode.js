@@ -192,8 +192,6 @@ define( require => {
       // Handle vector scaling & rotation
       //----------------------------------------------------------------------------------------
 
-      let vectorComponentsListener = null;
-
       if ( vector.isTipDraggable ) {
 
         // Create a triangle at the head of the vector. This is used to allow the user to only change the
@@ -229,7 +227,7 @@ define( require => {
         headNode.addInputListener( scaleRotateDragListener );
 
         // When the vector changes, transform the head.
-        vectorComponentsListener = vectorComponents => {
+        const vectorComponentsListener = vectorComponents => {
           headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
           headNode.rotation = -vectorComponents.angle;
         };
