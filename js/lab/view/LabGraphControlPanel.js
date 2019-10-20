@@ -72,7 +72,7 @@ define( require => {
         // Show the Sum checkboxes that match the selected scene.
         // unlink is unnecessary, exists for the lifetime of the sim.
         viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-          sumCheckboxes.visible = coordinateSnapMode === graph.coordinateSnapMode;
+          sumCheckboxes.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
         } );
       } );
 
