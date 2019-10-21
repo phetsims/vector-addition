@@ -19,7 +19,6 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const OriginManipulator = require( 'VECTOR_ADDITION/common/view/OriginManipulator' );
   const Path = require( 'SCENERY/nodes/Path' );
-  const PressListener = require( 'SCENERY/listeners/PressListener' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -103,10 +102,12 @@ define( require => {
       } );
 
       // Clicking in the graph clears the active (selected) vector.
+      // Use a raw 'down' listener so that this doesn't impact the ability to touch snag vectors and origin manipulator.
+      // See https://github.com/phetsims/vector-addition/issues/243
       // No need to remove, exists for the lifetime of the sim.
-      this.addInputListener( new PressListener( {
-        release: () => { graph.activeVectorProperty.value = null; }
-      } ) );
+      this.addInputListener( {
+        down: () => { graph.activeVectorProperty.value = null; }
+      } );
     }
 
     /**
