@@ -61,7 +61,7 @@ define( require => {
       for ( let i = 0; i < symbols.length; i++ ) {
         panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents[ i ], {
           symbol: symbols[ i ],
-          iconArrowSize: 35,
+          iconArrowMagnitude: 35,
           iconVectorComponents: new Vector2( 1, 1 ) // all of the icons in the slots look the same, see #227
         } ) );
       }

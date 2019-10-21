@@ -70,7 +70,7 @@ define( require => {
 
         symbol: null, // {string|null} the symbol to pass to created vectors
         numberOfVectors: 1,  // {number} the number of vectors that can exist that were created by this slot
-        iconArrowSize: 30, // {number} indicates the magnitude of the icon in view coordinates
+        iconArrowMagnitude: 30, // {number} indicates the magnitude of the icon in view coordinates
         iconVectorComponents: null // {Vector2|null} used for vector icon, defaults to initialVectorComponents
       }, options );
 
@@ -88,7 +88,7 @@ define( require => {
 
       // Create the icon.
       const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
-        vectorSet.vectorColorPalette, options.iconArrowSize );
+        vectorSet.vectorColorPalette, options.iconArrowMagnitude );
 
       // Make the iconNode easier to grab
       iconNode.mouseArea = iconNode.shape.getOffsetShape( VECTOR_MOUSE_AREA_OFFSET );
@@ -96,7 +96,7 @@ define( require => {
 
       // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
       const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
-        .normalized().timesScalar( options.iconArrowSize ) );
+        .normalized().timesScalar( options.iconArrowMagnitude ) );
 
       // Create a fixed-size box for the icon. The Icon is placed in an alignBox to ensure the Icon
       // contains the same local width regardless of the initial vector components. This ensures that

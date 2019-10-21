@@ -48,7 +48,7 @@ define( require => {
       symbols.forEach( symbol => {
         panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents, {
           symbol: symbol,
-          iconArrowSize: 35
+          iconArrowMagnitude: 35
         } ) );
       } );
 
