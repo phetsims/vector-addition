@@ -193,11 +193,14 @@ define( require => {
       let disposeScaleRotate = null;
       if ( vector.isTipDraggable ) {
 
+        const headWidth = options.arrowOptions.headWidth;
+        const headHeight = options.arrowOptions.headHeight;
+
         // Create an invisible triangle at the head of the vector.
         const headShape = new Shape()
           .moveTo( 0, 0 )
-          .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2 )
-          .lineTo( -VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headHeight, VectorAdditionConstants.VECTOR_ARROW_OPTIONS.headWidth / 2 )
+          .lineTo( -headHeight, -headWidth / 2 )
+          .lineTo( -headHeight, headWidth / 2 )
           .close();
         const headNode = new Path( headShape, {
           stroke: phet.chipper.queryParameters.dev ? 'red' : null,
