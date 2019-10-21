@@ -44,7 +44,8 @@ define( require => {
 
       const icon = VectorAdditionIconFactory.createVectorIcon( {
         fill: options.vectorFill,
-        stroke: options.vectorStroke
+        stroke: options.vectorStroke,
+        length: 35
       } );
 
       const content = new LayoutBox( {
