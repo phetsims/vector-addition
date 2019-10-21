@@ -43,7 +43,7 @@ define( require => {
         tailWidth: 5,
         fill: 'black', // color used for the entire arrow (fills the head and strokes the tail)
         isHeadDynamic: false, // determines whether to scale down the arrow head height for fractionalHeadHeight constraint
-        fractionalHeadHeight: 0.5 // head will be scaled when head size is greater than fractionalHeadHeight * arrow length
+        fractionalHeadHeight: 0.5 // head will be scaled when head height is greater than fractionalHeadHeight * arrow length
 
       }, options );
 
