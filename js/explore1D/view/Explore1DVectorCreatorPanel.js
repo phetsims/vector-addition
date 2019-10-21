@@ -34,7 +34,7 @@ define( require => {
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       options = merge( {
-        slotSpacing: ( graph.orientation === GraphOrientations.VERTICAL ) ? 22 : 28
+        slotSpacing: ( graph.orientation === GraphOrientations.VERTICAL ) ? 18 : 28
       }, options );
 
       // Create the initial vector components, they are the same for every symbol.
