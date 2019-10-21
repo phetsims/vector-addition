@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.0.0-dev.48 Sat Oct 19 2019 15:20:52 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# vector-addition 1.0.0-dev.49 Mon Oct 21 2019 12:27:47 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "master"
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "4166a0c0007e38aa9e30215105299bf4e642b29d",
+    "sha": "2f5614925571eb0a9bcf5459ac6e7e078d7a133e",
     "branch": "master"
   },
   "sherpa": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "vector-addition": {
-    "sha": "05ce8fa96a9b3ca17ec2322a9c3a49f64125e28b",
+    "sha": "d57c86282a646af1908d36ec3eccf3ac47cd9711",
     "branch": "master"
   }
 }
