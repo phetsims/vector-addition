@@ -34,7 +34,7 @@ define( require => {
       new Explore1DScreen( Tandem.rootTandem.createTandem( 'explore1DScreen' ) ),
       new Explore2DScreen( Tandem.rootTandem.createTandem( 'explore2DScreen' ) ),
       new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) ),
-      new EquationScreen( Tandem.rootTandem.createTandem( 'equationScreen' ) )
+      new EquationScreen( Tandem.rootTandem.createTandem( 'equationsScreen' ) )
     ];
     const sim = new Sim( vectorAdditionTitleString, screens, options );
     sim.start();
