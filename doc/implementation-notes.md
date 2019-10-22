@@ -84,6 +84,21 @@ RootVectorNode
     SumComponentVectorNode 
 ```
 
-## Equation screen
+## Screen differences
 
-TODO describe differences
+All screens are based on the same framework and common classes. This section enumerated the differences in specific screens.
+
+_Explore 1D_ screen:
+* scenes are based on the graph orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar)
+* vector components are not displayed
+* vector angle is not displayed, since all vectors have the same angle
+
+_Lab_ screen:
+* each scene has 2 vector sets, and therefore 2 sum vectors
+* multiple instances of each vector type can be created
+* vectors are not labeled uniquely; they are labeled as 'v' and 's', with only one such label visible at a time
+
+_Equation_ screen:
+* vectors cannot be added/removed from the graph
+* base vectors are provided
+* each vector set has one vector whose computation depends on which equation is selected, see [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equation/model/EquationTypes.js)
