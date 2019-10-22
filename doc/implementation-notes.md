@@ -87,9 +87,9 @@ RootVector (abstract root class)
     BaseVector
       CartesianBaseVector
       PolarBaseVector
-    EquationVector (adds functionality for Equation screen)
+    EquationsVector (adds functionality for Equations screen)
     SumVector
-      EquationSumVector (adds functionality for Equation screen)
+      EquationsSumVector (adds functionality for Equations screen)
   ComponentVector (not interactive)
 ```
 
@@ -144,7 +144,7 @@ _Lab_ screen:
 * Vectors are not labeled uniquely. They are generically labeled as v&#8407; and s&#8407;, with only one such label visible at a time.
 * In the view, all vectors in a set are in the same layer. Selecting any vector in a set moves the entire set to the front.
 
-_Equation_ screen:
+_Equations_ screen:
 * Base vectors are provided, and you can change their values using spinners.
 * Each vector set has one vector (c&#8407 or f&#8407) whose computation depends on which equation is selected, see [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equation/model/EquationTypes.js).
 * Equation coefficients can be changed using spinners. 
