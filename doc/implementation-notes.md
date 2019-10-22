@@ -114,7 +114,7 @@ mentioned above. For example, the `getLabelContent` method found throughout the 
 
 ## Screen differences
 
-If you're in tthe position of having to maintain or enhance this sim, it helps to have a birds-eye view of the similarities
+If you're in the position of having to maintain or enhance this sim, it helps to have a birds-eye view of the similarities
 and differences between the screens.
 
 The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has these features:
