@@ -70,7 +70,7 @@ _Adding a vector_: When a vector icon in the toolbox is clicked, `VectorCreatorP
 _Removing a vector_: When a vector is added, `VectorCreatorPanelSlot` creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or when the `VectorSet` associated with the slot is cleared by pressing the eraser button or Reset All button (see `removeVectorListener`).  `VectorSetNode` similarly creates a closure that observers the `VectorSet` and removes Nodes associated with a vector that is removed.  
 
 ### Scenes
-A scene consists of a graph and its vector set(s). In this sim, there is no "scene" model element, and scenes are managed sole by the view. [SceneNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/SceneNode.js) is the base class. In the _Explore 1D_ screen, there 2 scenes, corresponding to the horizontal and vertical graph orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch beteween scenes using the radio buttons that are located at the bottom-right of the ScreenView.
+A scene consists of a graph and its vector set(s). In this sim, there is no "scene" model element, and scenes are managed sole by the view. [SceneNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/SceneNode.js) is the base class. In the _Explore 1D_ screen, there 2 scenes, corresponding to the horizontal and vertical graph orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch between scenes using the radio buttons that are located at the bottom-right of the ScreenView.
 
 ## Vectors: Model and View
 
