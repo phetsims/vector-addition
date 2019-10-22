@@ -92,7 +92,7 @@ RootVectorNode (abstract base class)
     SumComponentVectorNode 
 ```
 
-These class hierarchies make sense, and feel natural when you work with them. But there are a couple of things to be aware of:
+These class hierarchies make sense, and feel natural when you work with them. But there are a couple of things to be aware of (the "gotchas" mentioned above):
 
 * Classes in both hierarchies have a bit too much knowledge of their associated `VectorSet` and `Graph`. See https://github.com/phetsims/vector-addition/issues/234.  This increases coupling, and (depending on what you
 need to change) can make it difficult to change `VectorSet` or `Graph` without affecting vector classes.
