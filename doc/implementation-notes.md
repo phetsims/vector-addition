@@ -114,38 +114,38 @@ mentioned above. For example, the `getLabelContent` method found throughout the 
 
 ## Screen differences
 
-If you're in he position of having to maintain or enhance this sim, it helps to have a birds-eye view of the similarities
+If you're in tthe position of having to maintain or enhance this sim, it helps to have a birds-eye view of the similarities
 and differences between the screens.
 
 The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has these features:
-* there is a scene for each snap mode (Cartesian and Polar)
-* each scene has 1 vector set, and therefore 1 sum vector
-* vectors in the Cartesian vector set are labeled a&#8407;, b&#8407;, and c&#8407;
-* vectors in the Polar vector set are labeled d&#8407;, e&#8407;, and f&#8407;
-* one instance of each vector can be created via direct manipulation; drag out of the toolbox to create, drag back to the toolbox to delete
-* vectors can be transformed via direct manipulation; drag a vector's tail to translate; drag a vector's head to scale and rotate
-* sum vectors can only be translated via direct manipulation; by definition, their magnitude and angle depends on the other vectors in the vector set
-* 3 visual representations of component vectors are supported, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js)
-* ability to display vector sum and angles
-* ability to hide the graph's grid
+* There are 2 scenes, one for each snap mode (Cartesian and Polar).
+* Each scene has 1 vector set, and therefore 1 sum vector.
+* Vectors in the Cartesian vector set are labeled a&#8407;, b&#8407;, and c&#8407;.
+* Vectors in the Polar vector set are labeled d&#8407;, e&#8407;, and f&#8407;.
+* One instance of each vector can be created via direct manipulation. Drag out of the toolbox to create, drag back to the toolbox to delete.
+* Vectors can be transformed via direct manipulation. Drag a vector's tail to translate; drag a vector's head to scale and rotate.
+* Sum vectors can only be translated via direct manipulation. By definition, their magnitude and angle depends on the other vectors in the vector set.
+* Three visual representations of component vectors are supported, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js).
+* Vector sum and angles can be displayed.
+* The graph's grid can be hidden.
 
 The other screens can be described in terms of their differences from the _Explore 2D_ screen.
 
 _Explore 1D_ screen:
-* scenes are based on graph orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar)
-* vectors can be translated and scaled via direct manipulation, but not rotated
-* vector components are not displayed
-* vector angle is not displayed
+* Scenes are based on graph orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar).
+* Vectors can be translated and scaled via direct manipulation, but not rotated.
+* Component vectors are not displayed.
+* Vector angles are not displayed.
 
 _Lab_ screen:
-* each scene has 2 vector sets, and therefore 2 sum vectors
-* multiple instances of each vector type can be created via direct manipulation
-* vectors are not labeled uniquely; they are labeled as v&#8407; and s&#8407;, with only one such label visible at a time
+* Each scene has 2 vector sets, and therefore 2 sum vectors.
+* Multiple instances of each vector type can be created via direct manipulation.
+* Vectors are not labeled uniquely. They are labeled as v&#8407; and s&#8407;, with only one such label visible at a time.
 
 _Equation_ screen:
-* base vectors are provided, and you can change their values using pickers
-* each vector set has one vector ('c' or 'f') whose computation depends on which equation is selected, see [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equation/model/EquationTypes.js)
-* equation coefficients can be changed using pickers 
-* vectors cannot be added/removed from the graph
-* vectors cannot be directly rotated/scaled on the graph; they must be indirectly rotated/scaled using the pickers for base vectors and equations
+* Base vectors are provided, and you can change their values using spinners.
+* Each vector set has one vector ('c' or 'f') whose computation depends on which equation is selected, see [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equation/model/EquationTypes.js).
+* Equation coefficients can be changed using spinners. 
+* Vectors cannot be added to or removed from the graph.
+* Vectors cannot be rotated or scaled via direct maniipulation. They must be indirectly rotated/scaled using the spinners for base vectors and equations.
 
