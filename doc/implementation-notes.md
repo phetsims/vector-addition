@@ -15,7 +15,7 @@ In addition to this document, you are encouraged to read:
 
 ## Terminology
 
-... that you'll see used through the code.
+... that you'll see used throughout the code.
 
 * _active_ vector means "selected" vector.  There is (at most) one active vector.
 * _component_ is a scalar, while _component vector_ is a vector
