@@ -139,8 +139,8 @@ _Explore 1D_ screen:
 
 _Lab_ screen:
 * Each scene has 2 vector sets, and therefore 2 sum vectors.
-* Multiple instances of each vector type can be created via direct manipulation.
-* Vectors are not labeled uniquely. They are labeled as v&#8407; and s&#8407;, with only one such label visible at a time.
+* For each vector set, 10 vectors can be created via direct manipulation.
+* Vectors are not labeled uniquely. They are generically labeled as v&#8407; and s&#8407;, with only one such label visible at a time.
 
 _Equation_ screen:
 * Base vectors are provided, and you can change their values using spinners.
