@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationScreenView is the view for the 'Equation' screen.
+ * EquationsScreenView is the view for the 'Equations' screen.
  *
  * @author Martin Veillette
  */
@@ -13,7 +13,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
   const EquationGraphControlPanel = require( 'VECTOR_ADDITION/equations/view/EquationGraphControlPanel' );
-  const EquationModel = require( 'VECTOR_ADDITION/equations/model/EquationModel' );
+  const EquationsModel = require( 'VECTOR_ADDITION/equations/model/EquationsModel' );
   const EquationSceneNode = require( 'VECTOR_ADDITION/equations/view/EquationSceneNode' );
   const EquationViewProperties = require( 'VECTOR_ADDITION/equations/view/EquationViewProperties' );
   const Tandem = require( 'TANDEM/Tandem' );
@@ -21,15 +21,15 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorAdditionScreenView = require( 'VECTOR_ADDITION/common/view/VectorAdditionScreenView' );
 
-  class EquationScreenView extends VectorAdditionScreenView {
+  class EquationsScreenView extends VectorAdditionScreenView {
 
     /**
-     * @param {EquationModel} model
+     * @param {EquationsModel} model
      * @param {Tandem} tandem
      */
     constructor( model, tandem ) {
 
-      assert && assert( model instanceof EquationModel, `invalid model: ${model}` );
+      assert && assert( model instanceof EquationsModel, `invalid model: ${model}` );
       assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
       super( model, tandem );
@@ -110,5 +110,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationScreenView', EquationScreenView );
+  return vectorAddition.register( 'EquationsScreenView', EquationsScreenView );
 } );

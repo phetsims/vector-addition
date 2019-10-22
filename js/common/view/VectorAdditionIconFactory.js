@@ -153,11 +153,11 @@ define( require => {
     },
 
     /**
-     * Creates the icon for the 'Equation' Screen.
+     * Creates the icon for the 'Equations' Screen.
      * @public
      * @returns {ScreenIcon}
      */
-    createEquationScreenIcon() {
+    createEquationsScreenIcon() {
 
       // {Vector2[]} the tip locations of the vectors on the icon (vectors are aligned tip to tail)
       const tipLocations = [

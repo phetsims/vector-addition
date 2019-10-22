@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationModel is the model for the 'Equation' screen.
+ * EquationsModel is the model for the 'Equations' screen.
  *
  * @author Brandon Li
  */
@@ -17,7 +17,7 @@ define( require => {
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
   const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
 
-  class EquationModel extends VectorAdditionModel {
+  class EquationsModel extends VectorAdditionModel {
 
     /**
      * @param {Tandem} tandem
@@ -51,7 +51,7 @@ define( require => {
     }
 
     /**
-     * Resets the EquationModel.
+     * Resets the EquationsModel.
      * @public
      * @override
      */
@@ -63,5 +63,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationModel', EquationModel );
+  return vectorAddition.register( 'EquationsModel', EquationsModel );
 } );
