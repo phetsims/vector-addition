@@ -125,7 +125,7 @@ The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has t
 * One instance of each vector can be created via direct manipulation. Drag out of the toolbox to create, drag back to the toolbox to delete.
 * Vectors can be transformed via direct manipulation. Drag a vector's tail to translate; drag a vector's head to scale and rotate.
 * Sum vectors can only be translated via direct manipulation. By definition, their magnitude and angle depends on the other vectors in the vector set.
-* Selecting a vector moves it to the front, highlights it, and displays its associated value in the "Vector Values" accordion box.
+* Selecting a vector moves it to the front, highlights it, and displays its associated values in the "Vector Values" accordion box.
 * Three visual representations of component vectors are supported, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js).
 * Vector sum and angles can be displayed.
 * The graph's grid can be hidden.
