@@ -144,8 +144,8 @@ define( require => {
 
       // Make the arrow easier to grab by setting pointer areas
       if ( rootVector.magnitude > 0 && this.arrowNode.shape ) {
-        // this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_MOUSE_AREA_DILATION );
-        // this.arrowNode.touchArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_TOUCH_AREA_DILATION );
+        this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_MOUSE_AREA_DILATION );
+        this.arrowNode.touchArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_TOUCH_AREA_DILATION );
       }
     }
 
