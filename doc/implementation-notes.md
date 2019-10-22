@@ -66,7 +66,7 @@ A scene consists of a graph and its vector set(s). In this sim, there is no "sce
 The implementation of most this sim is relatively straightforward, and should be easy to understand for anyone who is
 familiar with PhET sim development.  
 
-The part that is most interesting is the implementation of vectors. Source code documentation descriibes things well, so we won't repeat that information here. We'll show you the structure of the class hierachies and mention a couple of "gotchas", and then it's up to you to explore the source code. 
+The part that is most interesting is the implementation of vectors. Source code documentation describes things well, so we won't repeat that information here. We'll show you the structure of the class hierachies, mention a couple of "gotchas", and then it's up to you to explore the source code. 
 
 The model class hierarchy for vectors is shown below. Note the distinction between interactive and non-interactive vectors.
 
@@ -94,10 +94,12 @@ RootVectorNode (abstract base class)
 
 These class hierarchies make sense, and feel natural when you work with them. But there are a couple of things to be aware of (the "gotchas" mentioned above):
 
-* Classes in both hierarchies have a bit too much knowledge of their associated `VectorSet` and `Graph`. See https://github.com/phetsims/vector-addition/issues/234.  This increases coupling, and (depending on what you
-need to change) can make it difficult to change `VectorSet` or `Graph` without affecting vector classes.
+* Classes in both hierarchies have a bit too much knowledge of their associated `VectorSet` and `Graph`. 
+This increases coupling, and (depending on what you need to change) can make it difficult to change `VectorSet` 
+or `Graph` without affecting vector classes. For further discussion, see https://github.com/phetsims/vector-addition/issues/234.  
 
-* Model classes handle some responsibilities that arguably belong in view classes. For example, the `getLabelContent` method found throughout the model classes is responsible for assembling the info that the view uses to label a vector. This contributes to the coupling mentioned above.
+* Model classes handle some responsibilities that arguably belong in view classes, and this contibutes to the coupling
+mentioned above. For example, the `getLabelContent` method found throughout the model classes is responsible for assembling a vector's label. The model rightly contains the information that appears in a label, but which information appears in a label should be a concern of the view.
 
 ## Screen differences
 
