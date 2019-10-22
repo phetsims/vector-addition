@@ -509,7 +509,7 @@ define( require => {
 
     const arrowNodes = [];
     for ( let i = 0; i < tipLocations.length; i++ ) {
-      const tailLocation = i === 0 ? startingTailLocation : tipLocations[ i - 1 ];
+      const tailLocation = ( i === 0 ) ? startingTailLocation : tipLocations[ i - 1 ];
       const tipLocation = tipLocations[ i ];
       arrowNodes.push( new ArrowNode( tailLocation.x, tailLocation.y, tipLocation.x, tipLocation.y, arrowOptions ) );
     }

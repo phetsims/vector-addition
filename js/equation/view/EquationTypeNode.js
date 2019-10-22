@@ -63,7 +63,7 @@ define( require => {
       for ( let i = 0; i < equationVectorSet.vectors.length; i++ ) {
 
         if ( i > 0 ) {
-          const signText = equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS;
+          const signText = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
           equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
         }
 
@@ -82,7 +82,7 @@ define( require => {
       }
 
       if ( equationType === EquationTypes.NEGATION ) {
-        const signText = equationType === EquationTypes.SUBTRACTION ? MathSymbols.MINUS : MathSymbols.PLUS;
+        const signText = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
         equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
 
         const vectorSymbolNode = new VectorSymbolNode( { symbol: equationVectorSet.sumVector.symbol } );
