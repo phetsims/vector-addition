@@ -17,7 +17,6 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  const Matrix3 = require( 'DOT/Matrix3' );
   const merge = require( 'PHET_CORE/merge' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
@@ -233,9 +232,15 @@ define( require => {
         };
         tipLocationProperty.lazyLink( tipListener );
 
-        // Pointer areas for the head
-        const headTouchAreaShape = headShape.getOffsetShape( headTouchAreaDilation );
-        const headMouseAreaShape = headShape.getOffsetShape( headMouseAreaDilation );
+        // Pointer area shapes for the head, in 3 different sizes.
+        // A pair of these is used, based on the magnitude of the vector and whether its head is scale.
+        // See below and https://github.com/phetsims/vector-addition/issues/240#issuecomment-544682818
+        const largeMouseAreaShape = headShape.getOffsetShape( headMouseAreaDilation );
+        const largeTouchAreaShape = headShape.getOffsetShape( headTouchAreaDilation );
+        const mediumMouseAreaShape = createDilatedHead( headWidth, headHeight, headMouseAreaDilation );
+        const mediumTouchAreaShape = createDilatedHead( headWidth, headHeight, headTouchAreaDilation );
+        const smallMouseAreaShape = createDilatedHead( headWidth, 0.65 * headWidth, headMouseAreaDilation );
+        const smallTouchAreaShape = createDilatedHead( headWidth, 0.65 * headWidth, headTouchAreaDilation );
 
         // When the vector changes, transform the head and adjust its pointer areas. unlinked is required when disposed.
         const vectorComponentsListener = vectorComponents => {
@@ -244,35 +249,32 @@ define( require => {
           const SHORT_MAGNITUDE = 3;
           if ( vectorComponents.magnitude <= SHORT_MAGNITUDE ) {
 
-            // adjust the pointer areas so that the tail on a short vector can still be grabbed
+            // We have a 'short' vector, so adjust the head's pointer areas so that the tail can still be grabbed.
             const viewComponents = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
             const viewMagnitude = viewComponents.magnitude;
             const maxHeadHeight = options.arrowOptions.fractionalHeadHeight * viewMagnitude;
 
-            const dilationFudgeFactor = 0.85; // set empirically to align pointer areas with base of head
-            const touchAreaScale = ( headHeight - dilationFudgeFactor * headTouchAreaDilation ) / headHeight;
-            const mouseAreaScale = ( headHeight - dilationFudgeFactor * headMouseAreaDilation ) / headHeight;
-            const scaledHeadTouchAreaShape = headTouchAreaShape.transformed( Matrix3.scale( touchAreaScale, 1 ) );
-            const scaledHeadMouseAreaShape = headMouseAreaShape.transformed( Matrix3.scale( mouseAreaScale, 1 ) );
-
             if ( headHeight > maxHeadHeight ) {
 
-              // head is being scaled down, so translate pointer areas to be align with base of head
-              headNode.touchArea = scaledHeadTouchAreaShape.transformed( Matrix3.translation( headHeight - maxHeadHeight, 0 ) );
-              headNode.mouseArea = scaledHeadMouseAreaShape.transformed( Matrix3.translation( headHeight - maxHeadHeight, 0 ) );
+              // head is scaled (see ArrowNode fractionalHeadHeight), use small pointer areas
+              headNode.mouseArea = smallMouseAreaShape;
+              headNode.touchArea = smallTouchAreaShape;
             }
             else {
-              headNode.touchArea = scaledHeadTouchAreaShape;
-              headNode.mouseArea = scaledHeadMouseAreaShape;
+
+              // head is not scaled, use medium pointer areas
+              headNode.mouseArea = mediumMouseAreaShape;
+              headNode.touchArea = mediumTouchAreaShape;
             }
           }
           else {
 
-            // use the full points areas
-            headNode.mouseArea = headMouseAreaShape;
-            headNode.touchArea = headTouchAreaShape;
+            // We have a 'long' vector, so use the large pointer areas.
+            headNode.mouseArea = largeMouseAreaShape;
+            headNode.touchArea = largeTouchAreaShape;
           }
 
+          // Transform the invisible head to match the location and angle of the actual vector.
           headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
           headNode.rotation = -vectorComponents.angle;
         };
@@ -397,6 +399,25 @@ define( require => {
       assert && assert( event instanceof Event, 'invalid event' );
       this.translationDragListener.press( event, this );
     }
+  }
+
+  /**
+   * Creates a (rough) dilated shape for a vector head.  The head is pointing to the right.
+   * @param {number} headWidth
+   * @param {number} headHeight
+   * @param {number} dilation
+   * @returns {Shape}
+   */
+  function createDilatedHead( headWidth, headHeight, dilation ) {
+
+    // Starting from the upper left and moving clockwise
+    return new Shape()
+      .moveTo( -headHeight, -headHeight / 2 - dilation )
+      .lineTo( 0, -dilation )
+      .lineTo( dilation, 0 )
+      .lineTo( 0, dilation )
+      .lineTo( -headHeight, headWidth / 2 + dilation )
+      .close();
   }
 
   return vectorAddition.register( 'VectorNode', VectorNode );
