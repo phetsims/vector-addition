@@ -104,7 +104,7 @@ The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has t
 * vectors in the Cartesian vector set are labeled a&#8407;, b&#8407;, and c&#8407;
 * vectors in the Polar vector set are labeled d&#8407;, e&#8407;, and f&#8407;
 * one instance of each vector can be created via direct manipulation; drag out of the toolbox to create, drag back to the toolbox to delete
-* vector can be transformed via direct manipulation; drag a vector's tail to translate; drag a vector's head to scale and rotate
+* vectors can be transformed via direct manipulation; drag a vector's tail to translate; drag a vector's head to scale and rotate
 * sum vectors can only be translated via direct manipulation; by definition, their magnitude and angle depends on the other vectors in the vector set
 * 3 visual representations of component vectors are supported, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js)
 * ability to display vector sum and angles
