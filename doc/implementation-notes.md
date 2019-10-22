@@ -77,7 +77,7 @@ A scene consists of a graph and its vector set(s). In this sim, there is no "sce
 The implementation of most this sim is relatively straightforward, and should be easy to understand for anyone who is
 familiar with PhET sim development.  
 
-The part that is most interesting is the implementation of vectors. Source code documentation describes things well, so we won't repeat that information here. We'll show you the structure of the class hierachies, mention a couple of "gotchas", and then it's up to you to explore the source code. 
+The part that is most interesting is the implementation of vectors. Source code documentation describes things well, so we won't repeat that information here. We'll summarize the structure of the class hierachies, mention a couple of "gotchas", and then it's up to you to explore the source code. 
 
 The model class hierarchy for vectors is shown below. Note the distinction between interactive and non-interactive vectors.
 
