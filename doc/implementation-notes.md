@@ -28,23 +28,27 @@ In addition to this document, you are encouraged to read:
 
 This section describes how this simulation addresses implementation considerations that are typically encountered in PhET simulations.
 
-**Coordinate Transforms**: The transform between model and view coordinate frames can be found in [Graph](https://github.com/phetsims/vector-addition/blob/master/js/common/model/Graph.js). `this.modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.
+### Coordinate Transforms
+The transform between model and view coordinate frames can be found in [Graph](https://github.com/phetsims/vector-addition/blob/master/js/common/model/Graph.js). `this.modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.
 
-**Memory Management**:
+### Memory Management
 The dynamic objects in the sim are the vectors, and their model and view classes implement `dispose`. On the model side, that includes [RootVector](https://github.com/phetsims/vector-addition/blob/master/js/common/model/RootVector.js) and its subclasses; on the view side, [RootVectorNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/RootVectorNode.js) and its subclasses.  All other objects are instantiated at startup, and exist for the lifetime of the sim.  
 
 Classes that are not intended (and in fact, not designed) to be disposed have a `dispose` method that fails an assertion if called.  
 
 Calls to methods that add observers (`link`, `addListener`,...) have a comment indicating whether the observer needs to be deregistered, or whether the relationship exists for the lifetime of the sim.
 
-**Query Parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and
+### Query Parameters
+Query parameters are used to enable sim-specific features, mainly for debugging and
 testing. Sim-specific query parameters are documented in
 [VectorAdditionQueryParameters](https://github.com/phetsims/vector-addition/blob/master/js/common/VectorAdditionQueryParameters.js).
 
-**Assertions**: The implementation makes heavy use of `assert` to verify pre/post assumptions and perform type checking. 
+### Assertions
+The implementation makes heavy use of `assert` to verify pre/post assumptions and perform type checking. 
 This sim performs type-checking for almost all function arguments via `assert`. If you are making modifications to this sim, do so with assertions enabled via the `ea` query parameter.
 
-**Creator Pattern**: This sim uses the creator pattern to dynamically create and dispose of vectors. For an overview of this pattern, see [Creator](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#creator-with-drag-forwarding) in the [_PhET Software Design Patterns_](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md). Here's how that pattern is implemented in this sim:
+### Creator Pattern
+This sim uses the creator pattern to dynamically create and dispose of vectors. For an overview of this pattern, see [Creator](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#creator-with-drag-forwarding) in the [_PhET Software Design Patterns_](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md). Here's how that pattern is implemented in this sim:
 
 A [VectorSet](https://github.com/phetsims/vector-addition/blob/master/js/common/model/VectorSet.js) is a set of related vectors. The vectors in the set contribute to a sum vector, and share the same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/master/js/common/model/VectorColorPalette.js).
 
@@ -54,7 +58,8 @@ _Adding a vector_: When a vector icon in the toolbox is clicked, `VectorCreatorP
 
 _Removing a vector_: When a vector is added, `VectorCreatorPanelSlot` creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or when the `VectorSet` associated with the slot is cleared by pressing the eraser button or Reset All button (see `removeVectorListener`).  `VectorSetNode` similarly creates a closure that observers the `VectorSet` and removes Nodes associated with a vector that is removed.  
 
-**Scenes**: A scene consists of a graph and its vector set(s). In this sim, there is no "scene" model element, and scenes are managed sole by the view. [SceneNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/SceneNode.js) is the base class. In the _Explore 1D_ screen, there 2 scenes, corresponding to the horizontal and vertical graph orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch beteween scenes using the radio buttons that are located at the bottom-right of the ScreenView.
+### Scenes
+A scene consists of a graph and its vector set(s). In this sim, there is no "scene" model element, and scenes are managed sole by the view. [SceneNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/SceneNode.js) is the base class. In the _Explore 1D_ screen, there 2 scenes, corresponding to the horizontal and vertical graph orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch beteween scenes using the radio buttons that are located at the bottom-right of the ScreenView.
 
 ## Model
 
