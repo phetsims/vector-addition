@@ -17,6 +17,7 @@ define( require => {
   const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
+  const Matrix3 = require( 'DOT/Matrix3' );
   const merge = require( 'PHET_CORE/merge' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
@@ -193,8 +194,11 @@ define( require => {
       let disposeScaleRotate = null;
       if ( vector.isTipDraggable ) {
 
+        // To improve readability
         const headWidth = options.arrowOptions.headWidth;
         const headHeight = options.arrowOptions.headHeight;
+        const headTouchAreaDilation = VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION;
+        const headMouseAreaDilation = VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION;
 
         // Create an invisible triangle at the head of the vector.
         const headShape = new Shape()
@@ -207,10 +211,6 @@ define( require => {
           cursor: 'pointer'
         } );
         this.addChild( headNode );
-
-        // Set pointer areas for the head.
-        headNode.touchArea = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
-        headNode.mouseArea = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
 
         // Location of the tip of the vector, relative to the tail.
         const tipLocationProperty = new Vector2Property( tipDeltaLocation );
@@ -233,8 +233,46 @@ define( require => {
         };
         tipLocationProperty.lazyLink( tipListener );
 
-        // When the vector changes, transform the head. unlinked is required when disposed.
+        // Pointer areas for the head
+        const headTouchAreaShape = headShape.getOffsetShape( headTouchAreaDilation );
+        const headMouseAreaShape = headShape.getOffsetShape( headMouseAreaDilation );
+
+        // When the vector changes, transform the head and adjust its pointer areas. unlinked is required when disposed.
         const vectorComponentsListener = vectorComponents => {
+
+          // Adjust pointer areas. See https://github.com/phetsims/vector-addition/issues/240#issuecomment-544682818
+          const SHORT_MAGNITUDE = 3;
+          if ( vectorComponents.magnitude <= SHORT_MAGNITUDE ) {
+
+            // adjust the pointer areas so that the tail on a short vector can still be grabbed
+            const viewComponents = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
+            const viewMagnitude = viewComponents.magnitude;
+            const maxHeadHeight = options.arrowOptions.fractionalHeadHeight * viewMagnitude;
+
+            const dilationFudgeFactor = 0.85; // set empirically to align pointer areas with base of head
+            const touchAreaScale = ( headHeight - dilationFudgeFactor * headTouchAreaDilation ) / headHeight;
+            const mouseAreaScale = ( headHeight - dilationFudgeFactor * headMouseAreaDilation ) / headHeight;
+            const scaledHeadTouchAreaShape = headTouchAreaShape.transformed( Matrix3.scale( touchAreaScale, 1 ) );
+            const scaledHeadMouseAreaShape = headMouseAreaShape.transformed( Matrix3.scale( mouseAreaScale, 1 ) );
+
+            if ( headHeight > maxHeadHeight ) {
+
+              // head is being scaled down, so translate pointer areas to be align with base of head
+              headNode.touchArea = scaledHeadTouchAreaShape.transformed( Matrix3.translation( headHeight - maxHeadHeight, 0 ) );
+              headNode.mouseArea = scaledHeadMouseAreaShape.transformed( Matrix3.translation( headHeight - maxHeadHeight, 0 ) );
+            }
+            else {
+              headNode.touchArea = scaledHeadTouchAreaShape;
+              headNode.mouseArea = scaledHeadMouseAreaShape;
+            }
+          }
+          else {
+
+            // use the full points areas
+            headNode.mouseArea = headMouseAreaShape;
+            headNode.touchArea = headTouchAreaShape;
+          }
+
           headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
           headNode.rotation = -vectorComponents.angle;
         };
