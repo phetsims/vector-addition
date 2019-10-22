@@ -40,7 +40,7 @@ testing. Sim-specific query parameters are documented in
 **Assertions**: The implementation makes heavy use of `assert` to verify pre/post assumptions and perform type checking. 
 This sim performs type-checking for almost all function arguments via `assert`. If you are making modifications to this sim, do so with assertions enabled via the `ea` query parameter.
 
-**Creator Pattern**:
+**Creator Pattern**: This sim uses the creator pattern to dynamically create and dispose of vectors. For an overview of this pattern, see [Creator](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#creator-with-drag-forwarding) in the [_PhET Software Design Patterns_](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md). Here's how that pattern is implemented in this sim:
 
 A [VectorSet](https://github.com/phetsims/vector-addition/blob/master/js/common/model/VectorSet.js) is a set of related vectors. The vectors in the set contribute to a sum vector, and share the same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/master/js/common/model/VectorColorPalette.js).
 
