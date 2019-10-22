@@ -61,29 +61,26 @@ _Removing a vector_: When a vector is added, `VectorCreatorPanelSlot` creates cl
 ### Scenes
 A scene consists of a graph and its vector set(s). In this sim, there is no "scene" model element, and scenes are managed sole by the view. [SceneNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/SceneNode.js) is the base class. In the _Explore 1D_ screen, there 2 scenes, corresponding to the horizontal and vertical graph orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch beteween scenes using the radio buttons that are located at the bottom-right of the ScreenView.
 
-## Model
+## Vectors: Model and View
 
-`VectorSet` TODO
+The implementation of most this sim is relatively striaghtforward, and should be easy to understand for anyone who is
+familiar with PhET sim development.  The part that is most interesting is the implementation of vectors.  
 
-### Vector class hierarchy:
+The model class hierarchy for vectors is shown below. Note the distinction between interactive and non-interactive vectors.
 
 ``` 
-RootVector
+RootVector (abstract root class)
   Vector (interactive)
     BaseVector
       CartesianBaseVector
       PolarBaseVector
-    EquationVector
+    EquationVector (adds functionality for Equation screen)
     SumVector
-      EquationSumVector
+      EquationSumVector (adds functionality for Equation screen)
   ComponentVector (not interactive)
 ```
 
-## View
-
-`VectorSetNode` TODO
-
-### Vector class hierarchy:
+The view class hierachy for vectors is shown below. Again, note the distinction between interactive and non-interactive vectors.
 
 ```
 RootVectorNode
@@ -92,6 +89,10 @@ RootVectorNode
   ComponentVectorNode (not interactive)
     SumComponentVectorNode 
 ```
+
+This class hierarchy generally makes sense, but there are a few things to be aware of when you start working with it.
+
+* 
 
 ## Screen differences
 
