@@ -19,8 +19,8 @@ define( require => {
   const BLUE = 'rgb( 10, 170, 250 )';
   const PINK = '#f149ff';
 
-  // VectorColorPalette options that are common to both color palettes in the Equation screen
-  const EQUATION_COLOR_PALETTE_OPTIONS = {
+  // VectorColorPalette options that are common to both color palettes in the Equations screen
+  const EQUATIONS_COLOR_PALETTE_OPTIONS = {
     sumFill: Color.BLACK,
     sumComponentFill: 'rgb( 130, 130, 130 )'
   };
@@ -95,14 +95,14 @@ define( require => {
       sumFill: '#058200' // darker green
     } ),
 
-    // Equation screen
-    EQUATION_BLUE_COLOR_PALETTE: new VectorColorPalette( merge( {
+    // Equations screen
+    EQUATIONS_BLUE_COLOR_PALETTE: new VectorColorPalette( merge( {
       mainFill: BLUE
-    }, EQUATION_COLOR_PALETTE_OPTIONS ) ),
+    }, EQUATIONS_COLOR_PALETTE_OPTIONS ) ),
 
-    EQUATION_PINK_COLOR_PALETTE: new VectorColorPalette( merge( {
+    EQUATIONS_PINK_COLOR_PALETTE: new VectorColorPalette( merge( {
       mainFill: PINK
-    }, EQUATION_COLOR_PALETTE_OPTIONS ) )
+    }, EQUATIONS_COLOR_PALETTE_OPTIONS ) )
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );

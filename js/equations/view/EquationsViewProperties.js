@@ -20,7 +20,7 @@ define( require => {
       super();
 
       // @public whether the EquationToggleBox is expanded
-      this.equationsExpandedProperty = new BooleanProperty( true );
+      this.equationExpandedProperty = new BooleanProperty( true );
 
       // @public whether the BaseVectorsAccordionBox is expanded
       this.baseVectorsExpandedProperty = new BooleanProperty( false );
@@ -35,7 +35,7 @@ define( require => {
      */
     reset() {
       super.reset();
-      this.equationsExpandedProperty.reset();
+      this.equationExpandedProperty.reset();
       this.baseVectorsExpandedProperty.reset();
       this.baseVectorsVisibleProperty.reset();
     }

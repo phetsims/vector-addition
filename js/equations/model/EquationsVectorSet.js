@@ -90,7 +90,7 @@ define( require => {
 
       //----------------------------------------------------------------------------------------------------
       // Create the vectors, one less then symbols. For example, if symbols were [ 'a', 'b', 'c' ],
-      // 'a' and 'c' would be equation Vector symbols and 'c' would be the equation sum vector.
+      // 'a' and 'c' would be vector symbols and 'c' would be the sum vector.
 
       const vectorDescriptions = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
                                  CARTESTIAN_VECTOR_DESCRIPTIONS :

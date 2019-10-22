@@ -2,7 +2,7 @@
 
 /**
  * VectorCheckbox is a checkbox that is labeled with a vector symbol and vector arrow.
- * It's used to control the visibility of the sum ('c' or 'f') vector in the Equation screen.
+ * It's used to control the visibility of the sum ('c' or 'f') vector in the Equations screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

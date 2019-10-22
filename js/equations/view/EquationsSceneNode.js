@@ -4,10 +4,10 @@
  * EquationsSceneNode is a SceneNode that is specific to the 'Equations' screen.
  *
  * 'Is A' relationship with SceneNode but adds:
- *  - a EquationTypeRadio Button Group
- *  - a Coefficient Selector Panel for each Equation Type
- *  - a Base Vector Accordion Box
- *  - 'register' Vectors and add their Base Vectors and their components
+ *  - a RadioButtonGroup for EquationTypes
+ *  - a Coefficient Selector Panel for each member of EquationTypes
+ *  - a BaseVectorAccordionBox
+ *  - 'register' Vectors and add their BaseVectors and components
  *  - Disables the Eraser button
  *
  * @author Brandon Li
@@ -61,7 +61,7 @@ define( require => {
       // Add the 'Equation' toggle box
       const equationToggleBox = new EquationToggleBox( graph.vectorSet, graph.equationTypeProperty,
         equationButtonsAlignGroup, equationsAlignGroup, {
-          expandedProperty: viewProperties.equationsExpandedProperty,
+          expandedProperty: viewProperties.equationExpandedProperty,
           centerX: graph.graphViewBounds.centerX,
           top: this.vectorValuesToggleBox.bottom + 10
         } );

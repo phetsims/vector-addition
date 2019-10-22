@@ -10,7 +10,7 @@
  *  4. Component Style Icons
  *  5. Coordinate Snap Mode Icons (polar and Cartesian)
  *  6. Graph Orientation icons (horizontal and vertical - on the 'Explore 1D' screen)
- *  7. Equation Type icons (On the 'Equation' Screen)
+ *  7. Equation Type icons (On the 'Equations' Screen)
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -167,7 +167,7 @@ define( require => {
       const startTail = Vector2.ZERO;
       const lastTip = _.last( tipLocations );
 
-      const colorPalette = VectorAdditionColors.EQUATION_BLUE_COLOR_PALETTE;
+      const colorPalette = VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE;
 
       // vectors, tip to tail
       const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
@@ -436,11 +436,11 @@ define( require => {
     },
 
     //========================================================================================
-    // EquationTypes icons, used on radio buttons in Equation screen
+    // EquationTypes icons, used on radio buttons in Equations screen
     //========================================================================================
 
     /**
-     * Creates the Icon that appears on the Equation Types radio button icons on the 'Equation' screen.
+     * Creates the Icon that appears on the EquationTypes radio button icons on the 'Equations' screen.
      * @public
      * @param {EquationTypes} equationType
      * @param {string[]} vectorSymbols - symbols on the buttons (the last symbol is the sum's symbol)

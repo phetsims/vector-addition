@@ -32,7 +32,7 @@ define( require => {
   // Bottom left corner, in view coordinates.
   const BOTTOM_LEFT = new Vector2( Graph.DEFAULT_BOTTOM_LEFT.x, Graph.DEFAULT_BOTTOM_LEFT.y + 40 );
 
-  // Starting Equation Type
+  // Starting equation type
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
 
   class EquationsGraph extends Graph {

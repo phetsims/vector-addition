@@ -22,15 +22,15 @@ define( require => {
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
      * @param {Vector2} initialComponents - starting components of the Base Vector
-     * @param {EquationGraph} equationGraph - the equation graph the Base Vector belongs to
-     * @param {EquationVectorSet} equationVectorSet - the set that the Base Vector belongs to
+     * @param {EquationsGraph} graph - the graph the Base Vector belongs to
+     * @param {EquationsVectorSet} vectorSet - the set that the Base Vector belongs to
      * @param {string|null} symbol - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
      */
-    constructor( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol ) {
+    constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
 
-      assert && assert( equationGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN, `invalid coordinateSnapMode: ${equationGraph.coordinateSnapMode}` );
+      assert && assert( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
 
-      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol );
+      super( initialTailPosition, initialComponents, graph, vectorSet, symbol );
 
       // @public (read-only) Property to set the x component
       this.xComponentProperty = new NumberProperty( this.xComponent );

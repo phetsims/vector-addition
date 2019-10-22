@@ -29,9 +29,9 @@ define( require => {
 
   // super class options
   const OPTIONS = {
-    isRemovable: false,       // Equation Vectors are not removable
-    isTipDraggable: false,    // Equation Vectors are not draggable by the tip
-    isOnGraphInitially: true  // Equation Vectors are always on the graph
+    isRemovable: false,       // Equations vectors are not removable
+    isTipDraggable: false,    // Equations vectors are not draggable by the tip
+    isOnGraphInitially: true  // Equations vectors are always on the graph
   };
 
   class EquationsVector extends Vector {
@@ -40,7 +40,7 @@ define( require => {
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {Vector2} baseVectorTailPosition - starting tail position of the base vector
-     * @param {EquationsGraph} graph - the equation graph the vector belongs to
+     * @param {EquationsGraph} graph - the graph the vector belongs to
      * @param {EquationsVectorSet} vectorSet - the VectorSet that the vector belongs to
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
@@ -91,7 +91,7 @@ define( require => {
     }
 
     /**
-     * Resets the equation vector. Called when the reset all button is clicked.
+     * Resets the vector.
      * @public
      * @override
      */

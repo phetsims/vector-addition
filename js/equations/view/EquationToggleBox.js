@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationToggleBox is the toggle box in the Equations screen that displays an interactive equation.
+ * EquationToggleBox is the toggle box labeled 'Equation' in the 'Equations' screen.
  * It allows the user to select the form of the equation, and change the coefficients of the vectors.
  *
  * @author Brandon Li
