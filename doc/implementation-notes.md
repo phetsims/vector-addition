@@ -29,7 +29,7 @@ In addition to this document, you are encouraged to read:
 This section describes how this simulation addresses implementation considerations that are typically encountered in PhET simulations.
 
 ### Coordinate Transforms
-The transform between model and view coordinate frames can be found in [Graph](https://github.com/phetsims/vector-addition/blob/master/js/common/model/Graph.js). `this.modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.
+The transform between model and view coordinate frames can be found in [Graph](https://github.com/phetsims/vector-addition/blob/master/js/common/model/Graph.js), where `modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.
 
 ### Memory Management
 The dynamic objects in the sim are the vectors, and their model and view classes implement `dispose`. On the model side, that includes [RootVector](https://github.com/phetsims/vector-addition/blob/master/js/common/model/RootVector.js) and its subclasses; on the view side, [RootVectorNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/RootVectorNode.js) and its subclasses.  All other objects are instantiated at startup, and exist for the lifetime of the sim.  
