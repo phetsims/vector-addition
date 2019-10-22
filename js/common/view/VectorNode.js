@@ -239,8 +239,9 @@ define( require => {
         const largeTouchAreaShape = headShape.getOffsetShape( headTouchAreaDilation );
         const mediumMouseAreaShape = createDilatedHead( headWidth, headHeight, headMouseAreaDilation );
         const mediumTouchAreaShape = createDilatedHead( headWidth, headHeight, headTouchAreaDilation );
-        const smallMouseAreaShape = createDilatedHead( headWidth, 0.65 * headWidth, headMouseAreaDilation );
-        const smallTouchAreaShape = createDilatedHead( headWidth, 0.65 * headWidth, headTouchAreaDilation );
+        const SMALL_HEAD_SCALE = 0.65; // determined empirically
+        const smallMouseAreaShape = createDilatedHead( headWidth, SMALL_HEAD_SCALE * headHeight, headMouseAreaDilation );
+        const smallTouchAreaShape = createDilatedHead( headWidth, SMALL_HEAD_SCALE * headHeight, headTouchAreaDilation );
 
         // When the vector changes, transform the head and adjust its pointer areas. unlinked is required when disposed.
         const vectorComponentsListener = vectorComponents => {
