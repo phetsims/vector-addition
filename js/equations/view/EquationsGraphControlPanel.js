@@ -1,8 +1,8 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationGraphControlPanel is the graph control panel for the 'Equation' screen.
- *  It exists for the lifetime of the sim and is not intended to be disposed.
+ * EquationsGraphControlPanel is the graph control panel for the 'Equations' screen.
+ * It exists for the lifetime of the sim and is not intended to be disposed.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -30,7 +30,7 @@ define( require => {
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  class EquationGraphControlPanel extends GraphControlPanel {
+  class EquationsGraphControlPanel extends GraphControlPanel {
 
     /**
      * @param {VectorSet} cartesianVectorSet
@@ -117,5 +117,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationGraphControlPanel', EquationGraphControlPanel );
+  return vectorAddition.register( 'EquationsGraphControlPanel', EquationsGraphControlPanel );
 } );

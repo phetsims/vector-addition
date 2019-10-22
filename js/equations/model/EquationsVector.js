@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationVector is a specialization of Vector for the 'Equation' screen.  It adds mutable coefficient and base vector.
+ * EquationsVector is a specialization of Vector for the 'Equations' screen.  It adds mutable coefficient and base vector.
  * Instances exist for the lifetime of the sim and do not need to be disposed.
  *
  * @author Brandon Li
@@ -31,29 +31,29 @@ define( require => {
   const OPTIONS = {
     isRemovable: false,       // Equation Vectors are not removable
     isTipDraggable: false,    // Equation Vectors are not draggable by the tip
-    isOnGraphInitially: true  // Equation Vectors are always on the equationGraph
+    isOnGraphInitially: true  // Equation Vectors are always on the graph
   };
 
-  class EquationVector extends Vector {
+  class EquationsVector extends Vector {
 
     /**
      * @param {Vector2} initialTailPosition - starting tail position of the vector
      * @param {Vector2} initialComponents - starting components of the vector
      * @param {Vector2} baseVectorTailPosition - starting tail position of the base vector
-     * @param {EquationGraph} equationGraph - the equation graph the vector belongs to
-     * @param {EquationVectorSet} equationVectorSet - the equationVectorSet that the vector belongs to
+     * @param {EquationsGraph} graph - the equation graph the vector belongs to
+     * @param {EquationsVectorSet} vectorSet - the VectorSet that the vector belongs to
      * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
      */
     constructor( initialTailPosition,
                  initialComponents,
                  baseVectorTailPosition,
-                 equationGraph,
-                 equationVectorSet,
+                 graph,
+                 vectorSet,
                  symbol
     ) {
 
 
-      super( initialTailPosition, initialComponents, equationGraph, equationVectorSet, symbol, OPTIONS );
+      super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );
 
       // @public (read-only)
       this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
@@ -65,19 +65,13 @@ define( require => {
 
       // @public (read-only) {BaseVector} instantiate a base vector based on snap mode
       this.baseVector = null;
-      if ( equationGraph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+      if ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
         this.baseVector = new CartesianBaseVector( baseVectorTailPosition,
-          this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-          equationGraph,
-          equationVectorSet,
-          symbol );
+          this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbol );
       }
       else {
         this.baseVector = new PolarBaseVector( baseVectorTailPosition,
-          this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-          equationGraph,
-          equationVectorSet,
-          symbol );
+          this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbol );
       }
 
       // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
@@ -93,7 +87,7 @@ define( require => {
      * @override
      */
     dispose() {
-      assert && assert( false, 'EquationVector is not intended to be disposed' );
+      assert && assert( false, 'EquationsVector is not intended to be disposed' );
     }
 
     /**
@@ -122,5 +116,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationVector', EquationVector );
+  return vectorAddition.register( 'EquationsVector', EquationsVector );
 } );

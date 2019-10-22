@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationToggleBox is the toggle box in the Equation screen that displays an interactive equation.
+ * EquationToggleBox is the toggle box in the Equations screen that displays an interactive equation.
  * It allows the user to select the form of the equation, and change the coefficients of the vectors.
  *
  * @author Brandon Li
@@ -17,7 +17,7 @@ define( require => {
   const EquationTypeNode = require( 'VECTOR_ADDITION/equations/view/EquationTypeNode' );
   const EquationTypes = require( 'VECTOR_ADDITION/equations/model/EquationTypes' );
   const EquationTypesRadioButtonGroup = require( 'VECTOR_ADDITION/equations/view/EquationTypesRadioButtonGroup' );
-  const EquationVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationVectorSet' );
+  const EquationsVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationsVectorSet' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -35,7 +35,7 @@ define( require => {
   class EquationToggleBox extends ToggleBox {
 
     /**
-     * @param {EquationVectorSet} vectorSet
+     * @param {EquationsVectorSet} vectorSet
      * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
      * @param {AlignGroup} equationButtonsAlignGroup - used to make all equation radio buttons the same size
      * @param {AlignGroup} equationsAlignGroup - used to make all interactive equations the same size
@@ -43,7 +43,7 @@ define( require => {
      */
     constructor( vectorSet, equationTypeProperty, equationButtonsAlignGroup, equationsAlignGroup, options ) {
 
-      assert && assert( vectorSet instanceof EquationVectorSet, `invalid vectorSet: ${vectorSet}` );
+      assert && assert( vectorSet instanceof EquationsVectorSet, `invalid vectorSet: ${vectorSet}` );
       assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
       assert && assert( equationButtonsAlignGroup instanceof AlignGroup, `invalid equationButtonsAlignGroup: ${equationButtonsAlignGroup}` );
       assert && assert( equationsAlignGroup instanceof AlignGroup, `invalid equationsAlignGroup: ${equationsAlignGroup}` );

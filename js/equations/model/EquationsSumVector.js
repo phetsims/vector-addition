@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationSumVector is a specialization of SumVector for the 'Equation' screen.  It computes the 'sum' differently
+ * EquationsSumVector is a specialization of SumVector for the 'Equations' screen.  It computes the 'sum' differently
  * depending on the equation type.  Instances exist for the lifetime of the sim and do not need to be disposed.
  *
  * @author Brandon Li
@@ -20,9 +20,9 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
   // constants
-  const EQUATION_SUM_TAIL_POSITION = new Vector2( 25, 5 );
+  const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
 
-  class EquationSumVector extends SumVector {
+  class EquationsSumVector extends SumVector {
 
     /**
      * @param {Graph} graph - graph the sum vector belongs to
@@ -35,7 +35,7 @@ define( require => {
       assert && assert( equationTypeProperty instanceof EnumerationProperty && EquationTypes.includes( equationTypeProperty.value ),
         `invalid equationTypeProperty: ${equationTypeProperty}` );
 
-      super( EQUATION_SUM_TAIL_POSITION, graph, vectorSet, symbol );
+      super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbol );
 
       // @private
       this.vectorSet = vectorSet;
@@ -54,7 +54,7 @@ define( require => {
     }
 
     /**
-     * Calculate the sum vector for the Equation screen.
+     * Calculate the sum vector for the Equations screen.
      * @param {ObservableArray.<Vector>} vectors
      * @public
      * @override
@@ -84,6 +84,7 @@ define( require => {
         this.vectorComponents = calculatedComponents;
       }
       else if ( equationType === EquationTypes.NEGATION ) {
+
         // Same as addition but negated  : a + b = -c or a + b + c = 0
         const sum = new Vector2( 0, 0 );
 
@@ -122,5 +123,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationSumVector', EquationSumVector );
+  return vectorAddition.register( 'EquationsSumVector', EquationsSumVector );
 } );

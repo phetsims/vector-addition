@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * BaseVectorsAccordionBox appears on the right side of the 'Equation' screen. It contains pickers for modifying the
+ * BaseVectorsAccordionBox appears on the right side of the 'Equations' screen. It contains pickers for modifying the
  * base vectors, and a checkbox to show/hide the base vectors.
  *
  * 'Is a' relationship with AccordionBox but adds the following functionality:
@@ -21,7 +21,7 @@ define( require => {
   const BaseVectorsCheckbox = require( 'VECTOR_ADDITION/equations/view/BaseVectorsCheckbox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EquationVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationVectorSet' );
+  const EquationsVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationsVectorSet' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
@@ -49,14 +49,14 @@ define( require => {
     /**
      * @param {BooleanProperty} baseVectorsVisibleProperty
      * @param {CoordinateSnapModes} coordinateSnapMode
-     * @param {EquationVectorSet} equationVectorSet
+     * @param {EquationsVectorSet} vectorSet
      * @param {Object} [options]
      */
-    constructor( baseVectorsVisibleProperty, coordinateSnapMode, equationVectorSet, options ) {
+    constructor( baseVectorsVisibleProperty, coordinateSnapMode, vectorSet, options ) {
 
       assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty, `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
       assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-      assert && assert( equationVectorSet instanceof EquationVectorSet, `invalid equationVectorSet: ${equationVectorSet}` );
+      assert && assert( vectorSet instanceof EquationsVectorSet, `invalid vectorSet: ${vectorSet}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
       //----------------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ define( require => {
       //----------------------------------------------------------------------------------------
       // Create the Number Pickers / labels
       //
-      // Each Vector in the equationVectorSet gets 2 NumberPickers displayed horizontally. Each NumberPicker has
+      // Each Vector in the vectorSet gets 2 NumberPickers displayed horizontally. Each NumberPicker has
       // a 'label'.
       //
       // On Cartesian, the two NumberPickers toggle the X and the Y component respectively.
@@ -89,10 +89,10 @@ define( require => {
 
       const pickers = []; // {HBox[]} pairs of pickers and their labels
 
-      // Each Vector in the equationVectorSet gets 2 NumberPickers, so loop through the equationVectorSet
-      equationVectorSet.vectors.forEach( equationVector => {
+      // Each Vector in the vectorSet gets 2 NumberPickers, so loop through the vectorSet
+      vectorSet.vectors.forEach( vector => {
 
-        const baseVector = equationVector.baseVector; // convenience reference
+        const baseVector = vector.baseVector; // convenience reference
 
         // Empty references to the 2 NumberPickers/labels per Vector. To be set later.
         let leftNumberPickerAndLabel;
@@ -169,7 +169,7 @@ define( require => {
       const fixedWidthPickers = new Node( { children: [ strut, pickersVBox ] } );
 
       // Create the checkbox that toggles the visibility of Base Vectors
-      const baseVectorsCheckbox = new BaseVectorsCheckbox( baseVectorsVisibleProperty, equationVectorSet.vectorColorPalette );
+      const baseVectorsCheckbox = new BaseVectorsCheckbox( baseVectorsVisibleProperty, vectorSet.vectorColorPalette );
 
       const accordionBoxContent = new VBox( {
         children: [ fixedWidthPickers, baseVectorsCheckbox ],

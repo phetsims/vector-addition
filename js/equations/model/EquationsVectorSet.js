@@ -1,10 +1,10 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationVectorSet is a specialization of VectorSet for the 'Equation' screen.  It adds:
+ * EquationsVectorSet is a specialization of VectorSet for the 'Equations' screen.  It adds:
  *
  *  - a predefined set of vectors; vectors cannot be added or removed
- *  - an EquationSumVector
+ *  - an EquationsSumVector
  *
  * @author Brandon Li
  */
@@ -13,8 +13,8 @@ define( require => {
 
   // modules
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EquationVector = require( 'VECTOR_ADDITION/equations/model/EquationVector' );
-  const EquationSumVector = require( 'VECTOR_ADDITION/equations/model/EquationSumVector' );
+  const EquationsVector = require( 'VECTOR_ADDITION/equations/model/EquationsVector' );
+  const EquationsSumVector = require( 'VECTOR_ADDITION/equations/model/EquationsSumVector' );
   const merge = require( 'PHET_CORE/merge' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -58,21 +58,21 @@ define( require => {
     }
   ];
 
-  class EquationVectorSet extends VectorSet {
+  class EquationsVectorSet extends VectorSet {
 
     /**
-     * @param {EquationGraph} equationGraph
+     * @param {EquationsGraph} graph
      * @param {BooleanProperty} sumVisibleProperty
      * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
      * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
      * @param {Object} [options]
      */
-    constructor( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode, options ) {
+    constructor( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode, options ) {
 
       options = merge( {
 
-        // EquationVectorSet will initialize its own sum vector, because the sum vector in this screen is different.
+        // EquationsVectorSet will initialize its own sum vector, because the sum vector in this screen is different.
         // It's not truly a sum, and its computation depends on which equation type is selected (see EquationTypes).
         initializeSum: false,
 
@@ -81,7 +81,7 @@ define( require => {
         sumProjectionYOffset: 0.5
       }, options );
 
-      super( equationGraph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options );
+      super( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
       // @public (read-only) {string[]} symbols
       this.symbols = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
@@ -89,7 +89,7 @@ define( require => {
                      VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
 
       //----------------------------------------------------------------------------------------------------
-      // Create the equationVectors, one less then symbols. For example, if symbols were [ 'a', 'b', 'c' ],
+      // Create the vectors, one less then symbols. For example, if symbols were [ 'a', 'b', 'c' ],
       // 'a' and 'c' would be equation Vector symbols and 'c' would be the equation sum vector.
 
       const vectorDescriptions = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
@@ -106,22 +106,22 @@ define( require => {
         assert && assert( vectorDescription.vectorComponents, 'missing vectorComponents' );
         assert && assert( vectorDescription.baseVectorTail, 'missing baseVectorTail' );
 
-        const equationVector = new EquationVector(
+        const vector = new EquationsVector(
           vectorDescription.vectorTail,
           vectorDescription.vectorComponents,
           vectorDescription.baseVectorTail,
-          equationGraph,
+          graph,
           this,
           this.symbols[ i ] );
 
-        this.vectors.push( equationVector );
+        this.vectors.push( vector );
       }
 
       //----------------------------------------------------------------------------------------
       // Create the sum vector
 
-      // @public (read-only) {EquationSumVector}
-      this.sumVector = new EquationSumVector( equationGraph, this, equationGraph.equationTypeProperty,
+      // @public (read-only) {EquationsSumVector}
+      this.sumVector = new EquationsSumVector( graph, this, graph.equationTypeProperty,
         _.last( this.symbols ) );
       this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
@@ -143,5 +143,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationVectorSet', EquationVectorSet );
+  return vectorAddition.register( 'EquationsVectorSet', EquationsVectorSet );
 } );

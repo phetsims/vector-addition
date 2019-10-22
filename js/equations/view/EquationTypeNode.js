@@ -10,7 +10,7 @@ define( require => {
 
   // modules
   const EquationTypes = require( 'VECTOR_ADDITION/equations/model/EquationTypes' );
-  const EquationVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationVectorSet' );
+  const EquationsVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationsVectorSet' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );
@@ -31,13 +31,13 @@ define( require => {
   class EquationTypeNode extends Node {
 
     /**
-     * @param {EquationVectorSet} equationVectorSet
+     * @param {EquationsVectorSet} vectorSet
      * @param {EquationTypes} equationType
      * @param {Object} [options]
      */
-    constructor( equationVectorSet, equationType, options ) {
+    constructor( vectorSet, equationType, options ) {
 
-      assert && assert( equationVectorSet instanceof EquationVectorSet, `invalid equationVectorSet: ${equationVectorSet}` );
+      assert && assert( vectorSet instanceof EquationsVectorSet, `invalid vectorSet: ${vectorSet}` );
       assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
       assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
@@ -60,23 +60,23 @@ define( require => {
       let maxVectorSymbolHeight = 0;
 
       // Left side
-      for ( let i = 0; i < equationVectorSet.vectors.length; i++ ) {
+      for ( let i = 0; i < vectorSet.vectors.length; i++ ) {
 
         if ( i > 0 ) {
           const signText = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
           equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
         }
 
-        const equationVector = equationVectorSet.vectors.get( i );
+        const vector = vectorSet.vectors.get( i );
 
-        assert && assert( equationVector.coefficientProperty.range,
+        assert && assert( vector.coefficientProperty.range,
           'coefficientProperty must have an associated range' );
 
-        equationChildren.push( new NumberPicker( equationVector.coefficientProperty,
-          new Property( equationVector.coefficientProperty.range ),
+        equationChildren.push( new NumberPicker( vector.coefficientProperty,
+          new Property( vector.coefficientProperty.range ),
           NUMBER_PICKER_OPTIONS ) );
 
-        const vectorSymbolNode = new VectorSymbolNode( { symbol: equationVector.symbol } );
+        const vectorSymbolNode = new VectorSymbolNode( { symbol: vector.symbol } );
         equationChildren.push( vectorSymbolNode );
         maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }
@@ -85,7 +85,7 @@ define( require => {
         const signText = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
         equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
 
-        const vectorSymbolNode = new VectorSymbolNode( { symbol: equationVectorSet.sumVector.symbol } );
+        const vectorSymbolNode = new VectorSymbolNode( { symbol: vectorSet.sumVector.symbol } );
         equationChildren.push( vectorSymbolNode );
         maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }
@@ -98,7 +98,7 @@ define( require => {
         equationChildren.push( new Text( '0', TEXT_OPTIONS ) );
       }
       else {
-        const vectorSymbolNode = new VectorSymbolNode( { symbol: equationVectorSet.sumVector.symbol } );
+        const vectorSymbolNode = new VectorSymbolNode( { symbol: vectorSet.sumVector.symbol } );
         equationChildren.push( vectorSymbolNode );
         maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }

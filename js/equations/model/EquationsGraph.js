@@ -1,9 +1,9 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Model for a single graph on the  Equation' screen. Equation' has a total of 2 graphs (polar and Cartesian).
+ * Model for a single graph on the 'Equations' screen, which has 2 graphs (Polar and Cartesian).
  *
- * Characteristics of an EquationGraph (which extends Graph) are:
+ * Characteristics of an EquationsGraph (which extends Graph) are:
  *  - have exactly 1 VectorSet
  *  - has a Property to select the equation type (addition/subtraction/negation) per graph
  *
@@ -17,7 +17,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EquationTypes = require( 'VECTOR_ADDITION/equations/model/EquationTypes' );
-  const EquationVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationVectorSet' );
+  const EquationsVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationsVectorSet' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -26,8 +26,8 @@ define( require => {
 
   // constants
 
-  // graph bounds for Equation Graphs
-  const EQUATION_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
+  // graph bounds for EquationsGraphs
+  const EQUATIONS_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
   // Bottom left corner, in view coordinates.
   const BOTTOM_LEFT = new Vector2( Graph.DEFAULT_BOTTOM_LEFT.x, Graph.DEFAULT_BOTTOM_LEFT.y + 40 );
@@ -35,7 +35,7 @@ define( require => {
   // Starting Equation Type
   const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
 
-  class EquationGraph extends Graph {
+  class EquationsGraph extends Graph {
 
     /**
      * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
@@ -50,21 +50,21 @@ define( require => {
       assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
       assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-      super( EQUATION_GRAPH_BOUNDS, coordinateSnapMode, {
+      super( EQUATIONS_GRAPH_BOUNDS, coordinateSnapMode, {
         bottomLeft: BOTTOM_LEFT
       } );
 
       // @public (read-only) {EnumerationProperty.<EquationTypes>} equationTypeProperty
       this.equationTypeProperty = new EnumerationProperty( EquationTypes, STARTING_EQUATION_TYPE );
 
-      // @public (read-only) {EquationVectorSet} vectorSet
-      this.vectorSet = new EquationVectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );
+      // @public (read-only) {EquationsVectorSet} vectorSet
+      this.vectorSet = new EquationsVectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );
 
       this.vectorSets.push( this.vectorSet );
     }
 
     /**
-     * Resets the Equation Graph.
+     * Resets the graph.
      * @public
      * @override
      */
@@ -74,5 +74,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationGraph', EquationGraph );
+  return vectorAddition.register( 'EquationsGraph', EquationsGraph );
 } );

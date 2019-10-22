@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * View-specific Properties for the 'Equation' screen. Expands on the base view Properties, and adds Properties
+ * View-specific Properties for the 'Equations' screen. Expands on the base view Properties, and adds Properties
  * that are unique to this screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -14,7 +14,7 @@ define( require => {
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
 
-  class EquationViewProperties extends VectorAdditionViewProperties {
+  class EquationsViewProperties extends VectorAdditionViewProperties {
 
     constructor() {
       super();
@@ -41,5 +41,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationViewProperties', EquationViewProperties );
+  return vectorAddition.register( 'EquationsViewProperties', EquationsViewProperties );
 } );

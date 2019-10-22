@@ -12,10 +12,10 @@ define( require => {
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const CoordinateSnapRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/CoordinateSnapRadioButtonGroup' );
-  const EquationGraphControlPanel = require( 'VECTOR_ADDITION/equations/view/EquationGraphControlPanel' );
+  const EquationsGraphControlPanel = require( 'VECTOR_ADDITION/equations/view/EquationsGraphControlPanel' );
   const EquationsModel = require( 'VECTOR_ADDITION/equations/model/EquationsModel' );
-  const EquationSceneNode = require( 'VECTOR_ADDITION/equations/view/EquationSceneNode' );
-  const EquationViewProperties = require( 'VECTOR_ADDITION/equations/view/EquationViewProperties' );
+  const EquationsSceneNode = require( 'VECTOR_ADDITION/equations/view/EquationsSceneNode' );
+  const EquationsViewProperties = require( 'VECTOR_ADDITION/equations/view/EquationsViewProperties' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -35,10 +35,10 @@ define( require => {
       super( model, tandem );
 
       // @private view-specific Properties
-      this.viewProperties = new EquationViewProperties();
+      this.viewProperties = new EquationsViewProperties();
 
       // Controls for the graph, at upper right
-      const graphControlPanel = new EquationGraphControlPanel(
+      const graphControlPanel = new EquationsGraphControlPanel(
         model.cartesianGraph.vectorSet,
         model.polarGraph.vectorSet,
         model.componentStyleProperty,
@@ -68,7 +68,7 @@ define( require => {
         matchVertical: true
       } );
 
-      const polarScene = new EquationSceneNode(
+      const polarScene = new EquationsSceneNode(
         model.polarGraph,
         this.viewProperties,
         model.componentStyleProperty,
@@ -77,7 +77,7 @@ define( require => {
         equationsAlignGroup
       );
 
-      const cartesianScene = new EquationSceneNode(
+      const cartesianScene = new EquationsSceneNode(
         model.cartesianGraph,
         this.viewProperties,
         model.componentStyleProperty,

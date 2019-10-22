@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * EquationSceneNode is a SceneNode that is specific to the 'Equation' screen.
+ * EquationsSceneNode is a SceneNode that is specific to the 'Equations' screen.
  *
  * 'Is A' relationship with SceneNode but adds:
  *  - a EquationTypeRadio Button Group
@@ -19,19 +19,19 @@ define( require => {
   // modules
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equations/view/BaseVectorsAccordionBox' );
-  const EquationGraph = require( 'VECTOR_ADDITION/equations/model/EquationGraph' );
+  const EquationsGraph = require( 'VECTOR_ADDITION/equations/model/EquationsGraph' );
   const EquationToggleBox = require( 'VECTOR_ADDITION/equations/view/EquationToggleBox' );
-  const EquationViewProperties = require( 'VECTOR_ADDITION/equations/view/EquationViewProperties' );
+  const EquationsViewProperties = require( 'VECTOR_ADDITION/equations/view/EquationsViewProperties' );
   const merge = require( 'PHET_CORE/merge' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
-  class EquationSceneNode extends SceneNode {
+  class EquationsSceneNode extends SceneNode {
 
     /**
-     * @param {EquationGraph} graph
-     * @param {EquationViewProperties} viewProperties
+     * @param {EquationsGraph} graph
+     * @param {EquationsViewProperties} viewProperties
      * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
      * @param {number} graphControlPanelBottom
      * @param {AlignGroup} equationButtonsAlignGroup - used to make all equation radio buttons the same size
@@ -41,8 +41,8 @@ define( require => {
     constructor( graph, viewProperties, componentStyleProperty, graphControlPanelBottom,
                  equationButtonsAlignGroup, equationsAlignGroup, options ) {
 
-      assert && assert( graph instanceof EquationGraph, `invalid graph: ${graph}` );
-      assert && assert( viewProperties instanceof EquationViewProperties, `invalid viewProperties: ${viewProperties}` );
+      assert && assert( graph instanceof EquationsGraph, `invalid graph: ${graph}` );
+      assert && assert( viewProperties instanceof EquationsViewProperties, `invalid viewProperties: ${viewProperties}` );
       assert && assert( equationButtonsAlignGroup instanceof AlignGroup, `invalid equationButtonsAlignGroup: ${equationButtonsAlignGroup}` );
       assert && assert( equationsAlignGroup instanceof AlignGroup, `invalid equationsAlignGroup: ${equationsAlignGroup}` );
 
@@ -87,5 +87,5 @@ define( require => {
     }
   }
 
-  return vectorAddition.register( 'EquationSceneNode', EquationSceneNode );
+  return vectorAddition.register( 'EquationsSceneNode', EquationsSceneNode );
 } );
