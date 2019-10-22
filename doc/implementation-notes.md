@@ -15,6 +15,8 @@ In addition to this document, you are encouraged to read:
 
 ## Terminology
 
+... that you'll see used through the code.
+
 * _active_ vector means "selected" vector.  There is (at most) one active vector.
 * _component_ is a scalar, while _component vector_ is a vector
 * _graph orientation_ is horizontal, vertical, or two-dimensional, see [GraphOrientations](https://github.com/phetsims/vector-addition/blob/master/js/common/model/GraphOrientations.js)
@@ -26,9 +28,10 @@ In addition to this document, you are encouraged to read:
 
 This section describes how this simulation addresses implementation considerations that are typically encountered in PhET simulations.
 
-**Coordinate Transforms**: TODO
+**Coordinate Transforms**: The transform between model and view coordinate frames can be found in [Graph](https://github.com/phetsims/vector-addition/blob/master/js/common/model/Graph.js). `this.modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.
 
-**Memory Management**: TODO
+**Memory Management**:
+The dynamic objects in the sim are the vectors, and their model and view classes implement `dispose`. On the model side, that includes `RootVector` and its subclasses; on the view side, `RootVectorNode` and its subclasses.  All other objects are instantiated at startup, and exist for the lifetime of the sim.  Classes that are not intended (and in fact, not designed) to be disposed have a `dispose` method that fails an assertion if called.  Calls to methods that add observers (`link`, `addListener`,...) have a conment indicating whether the observer needs to be deregistered, or whether the relationship exists for the lifetime of the sim.
 
 **Query Parameters**: Query parameters are used to enable sim-specific features, mainly for debugging and
 testing. Sim-specific query parameters are documented in
