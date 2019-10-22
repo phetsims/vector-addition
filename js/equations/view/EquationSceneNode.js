@@ -18,10 +18,10 @@ define( require => {
 
   // modules
   const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsAccordionBox' );
-  const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
-  const EquationToggleBox = require( 'VECTOR_ADDITION/equation/view/EquationToggleBox' );
-  const EquationViewProperties = require( 'VECTOR_ADDITION/equation/view/EquationViewProperties' );
+  const BaseVectorsAccordionBox = require( 'VECTOR_ADDITION/equations/view/BaseVectorsAccordionBox' );
+  const EquationGraph = require( 'VECTOR_ADDITION/equations/model/EquationGraph' );
+  const EquationToggleBox = require( 'VECTOR_ADDITION/equations/view/EquationToggleBox' );
+  const EquationViewProperties = require( 'VECTOR_ADDITION/equations/view/EquationViewProperties' );
   const merge = require( 'PHET_CORE/merge' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );

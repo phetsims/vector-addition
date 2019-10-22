@@ -13,8 +13,8 @@ define( require => {
 
   // modules
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EquationVector = require( 'VECTOR_ADDITION/equation/model/EquationVector' );
-  const EquationSumVector = require( 'VECTOR_ADDITION/equation/model/EquationSumVector' );
+  const EquationVector = require( 'VECTOR_ADDITION/equations/model/EquationVector' );
+  const EquationSumVector = require( 'VECTOR_ADDITION/equations/model/EquationSumVector' );
   const merge = require( 'PHET_CORE/merge' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );

@@ -18,10 +18,10 @@ define( require => {
 
   // modules
   const AccordionBox = require( 'SUN/AccordionBox' );
-  const BaseVectorsCheckbox = require( 'VECTOR_ADDITION/equation/view/BaseVectorsCheckbox' );
+  const BaseVectorsCheckbox = require( 'VECTOR_ADDITION/equations/view/BaseVectorsCheckbox' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
+  const EquationVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationVectorSet' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );

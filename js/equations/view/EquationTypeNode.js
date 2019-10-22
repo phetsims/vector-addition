@@ -9,8 +9,8 @@ define( require => {
   'use strict';
 
   // modules
-  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
-  const EquationVectorSet = require( 'VECTOR_ADDITION/equation/model/EquationVectorSet' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equations/model/EquationTypes' );
+  const EquationVectorSet = require( 'VECTOR_ADDITION/equations/model/EquationVectorSet' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
   const NumberPicker = require( 'SCENERY_PHET/NumberPicker' );

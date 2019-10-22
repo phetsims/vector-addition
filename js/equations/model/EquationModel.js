@@ -11,7 +11,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EquationGraph = require( 'VECTOR_ADDITION/equation/model/EquationGraph' );
+  const EquationGraph = require( 'VECTOR_ADDITION/equations/model/EquationGraph' );
   const Tandem = require( 'TANDEM/Tandem' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );

@@ -12,7 +12,7 @@ define( require => {
 
   // modules
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const EquationTypes = require( 'VECTOR_ADDITION/equation/model/EquationTypes' );
+  const EquationTypes = require( 'VECTOR_ADDITION/equations/model/EquationTypes' );
   const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
   const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
