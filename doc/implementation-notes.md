@@ -99,6 +99,9 @@ _Lab_ screen:
 * vectors are not labeled uniquely; they are labeled as 'v' and 's', with only one such label visible at a time
 
 _Equation_ screen:
+* base vectors are provided, and you can change their values using pickers
+* each vector set has one vector ('c' or 'f') whose computation depends on which equation is selected, see [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equation/model/EquationTypes.js)
+* equation coefficients can be changed using pickers 
 * vectors cannot be added/removed from the graph
-* base vectors are provided
-* each vector set has one vector whose computation depends on which equation is selected, see [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equation/model/EquationTypes.js)
+* vectors cannot be directly rotated/scaled on the graph; they must be indirectly rotated/scaled using the pickers for base vectors and equations
+
