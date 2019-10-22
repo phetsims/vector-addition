@@ -53,11 +53,11 @@ The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 * 10 vectors can be created for each set of vectors
 * the sum for a set of n vectors is v&#8407;<sub>1</sub> + v&#8407;<sub>2</sub> + ... + v&#8407;<sub>n</sub> = s&#8407;
 
-## Equation screen
+## Equations screen
 
-The _Equation_ screen introduces the concepts of base vectors, equations, and coefficients.  Like the _Explore 2D_ and _Lab_ screens, it has Cartesian and Polar "snap modes" that determine which vector quantities snap to integer values.  
+The _Equations_ screen introduces the concepts of base vectors, equations, and coefficients.  Like the _Explore 2D_ and _Lab_ screens, it has Cartesian and Polar "snap modes" that determine which vector quantities snap to integer values.  
 
-The _Equation_ screen has a couple of differences in how the student manipulates vectors:
+The _Equations_ screen has a couple of differences in how the student manipulates vectors:
 * Vectors are pre-populated on the graph; the student does not add and remove vectors.
 * Vectors can be moved directly on the graph, but their other properties must be changed using spinners.
 
