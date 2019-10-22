@@ -18,7 +18,7 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
 
   // strings
-  const screenEquationString = require( 'string!VECTOR_ADDITION/screen.equation' );
+  const screenEquationsString = require( 'string!VECTOR_ADDITION/screen.equations' );
 
   class EquationScreen extends Screen {
 
@@ -28,7 +28,7 @@ define( require => {
     constructor( tandem ) {
 
       const options = {
-        name: screenEquationString,
+        name: screenEquationsString,
         backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
         homeScreenIcon: VectorAdditionIconFactory.createEquationScreenIcon(),
         tandem: tandem
