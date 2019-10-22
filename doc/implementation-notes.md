@@ -103,7 +103,9 @@ The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has t
 * each scene has 1 vector set, and therefore 1 sum vector
 * vectors in the Cartesian vector set are labeled a&#8407;, b&#8407;, and c&#8407;
 * vectors in the Polar vector set are labeled d&#8407;, e&#8407;, and f&#8407;
-* one instance of each vector can be created
+* one instance of each vector can be created via direct manipulation; drag out of the toolbox to create, drag back to the toolbox to delete
+* vector can be transformed via direct manipulation; drag a vector's tail to translate; drag a vector's head to scale and rotate
+* sum vectors can only be translated via direct manipulation; by definition, their magnitude and angle depends on the other vectors in the vector set
 * 3 visual representations of component vectors are supported, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js)
 * ability to display vector sum and angles
 * ability to hide the graph's grid
@@ -112,12 +114,13 @@ The other screens can be described in terms of their differences from the _Explo
 
 _Explore 1D_ screen:
 * scenes are based on graph orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar)
+* vectors can be translated and scaled via direct manipulation, but not rotated
 * vector components are not displayed
-* vector angle is not displayed, since all vectors have the same angle
+* vector angle is not displayed
 
 _Lab_ screen:
 * each scene has 2 vector sets, and therefore 2 sum vectors
-* multiple instances of each vector type can be created
+* multiple instances of each vector type can be created via direct manipulation
 * vectors are not labeled uniquely; they are labeled as v&#8407; and s&#8407;, with only one such label visible at a time
 
 _Equation_ screen:
