@@ -120,8 +120,8 @@ and differences between the screens.
 The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has these features:
 * There are 2 scenes, one for each snap mode (Cartesian and Polar).
 * Each scene has 1 vector set, and therefore 1 sum vector.
-* Vectors in the Cartesian vector set are labeled a&#8407;, b&#8407;, and c&#8407;.
-* Vectors in the Polar vector set are labeled d&#8407;, e&#8407;, and f&#8407;.
+* Vectors in the Cartesian scene are labeled a&#8407;, b&#8407;, and c&#8407;.
+* Vectors in the Polar scene are labeled d&#8407;, e&#8407;, and f&#8407;.
 * One instance of each vector can be created via direct manipulation. Drag out of the toolbox to create, drag back to the toolbox to delete.
 * Vectors can be transformed via direct manipulation. Drag a vector's tail to translate; drag a vector's head to scale and rotate.
 * Sum vectors can only be translated via direct manipulation. By definition, their magnitude and angle depends on the other vectors in the vector set.
