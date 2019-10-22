@@ -42,11 +42,11 @@ This sim performs type-checking for almost all function arguments via `assert`. 
 
 **Creator Pattern**:
 
-A `VectorSet` is a set of related vectors. The vectors in the set contribute to a sum vector, and share the same `VectorColorPalette`.
+A [VectorSet](https://github.com/phetsims/vector-addition/blob/master/js/common/model/VectorSet.js) is a set of related vectors. The vectors in the set contribute to a sum vector, and share the same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/master/js/common/model/VectorColorPalette.js).
 
-`VectorCreatorPanel` is the vector "toolbox". It contains one `VectorCreatorPanelSlot` for each `VectorSet`, with each slot being represented by an icon in the toolbox.  Each `VectorSet` also has an associated `VectorSetNode`, which manages creation and layering of Nodes related to vectors in the set. 
+[VectorCreatorPanel](https://github.com/phetsims/vector-addition/blob/master/js/common/view/VectorCreatorPanel.js) is the vector "toolbox". It contains one [VectorCreatorPanelSlot](https://github.com/phetsims/vector-addition/blob/master/js/common/view/VectorCreatorPanelSlot.js) for each `VectorSet`, with each slot being represented by an icon in the toolbox.  Each `VectorSet` also has an associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/VectorSetNode.js), which manages creation and layering of Nodes related to vectors in the set. 
 
-_Adding a vector_: When a vector icon in the toolbox is clicked, `VectorCreatorPanelSlot` creates a new `Vector` and adds it to the associated `VectorSet`.  It then delegates creation of the vector's view to `VectorSetNode` (see `registerVector`).
+_Adding a vector_: When a vector icon in the toolbox is clicked, `VectorCreatorPanelSlot` creates a new vector and adds it to the associated `VectorSet`.  It then delegates creation of the vector's view to `VectorSetNode` (see `registerVector`).
 
 _Removing a vector_: When a vector is added, `VectorCreatorPanelSlot` creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or when the `VectorSet` associated with the slot is cleared by pressing the eraser button or Reset All button (see `removeVectorListener`).  `VectorSetNode` similarly creates a closure that observers the `VectorSet` and removes Nodes associated with a vector that is removed.  
 
