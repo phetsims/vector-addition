@@ -34,9 +34,20 @@ The transform between model and view coordinate frames can be found in [Graph](h
 ### Memory Management
 The dynamic objects in the sim are the vectors, and their model and view classes implement `dispose`. On the model side, that includes [RootVector](https://github.com/phetsims/vector-addition/blob/master/js/common/model/RootVector.js) and its subclasses; on the view side, [RootVectorNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/RootVectorNode.js) and its subclasses.  
 
-All other objects are instantiated at startup, and exist for the lifetime of the sim. Classes that are not intended (and in fact, not designed) to be disposed have a `dispose` method that fails an assertion if called.  
+All other objects are instantiated at startup, and exist for the lifetime of the sim. Classes that are not intended (and in fact, not designed) to be disposed have a `dispose` method that fails an assertion if called. For example:
 
-Calls to methods that add observers (`link`, `addListener`,...) have a comment indicating whether the observer needs to be deregistered, or whether the relationship exists for the lifetime of the sim.
+```js
+dispose() {
+  assert && assert( false, 'SceneNode is not intended to be disposed' );
+}
+```
+
+Calls to methods that add observers (`link`, `addListener`,...) have a comment indicating whether the observer needs to be deregistered, or whether the relationship exists for the lifetime of the sim. For example:
+
+```js
+// unlink is unnecessary, exists for the lifetime of the sim.
+graph.activeVectorProperty.link( ... );
+```
 
 ### Query Parameters
 Query parameters are used to enable sim-specific features, mainly for debugging and
