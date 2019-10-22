@@ -69,7 +69,7 @@ familiar with PhET sim development.  The part that is most interesting is the im
 The model class hierarchy for vectors is shown below. Note the distinction between interactive and non-interactive vectors.
 
 ``` 
-[RootVector](https://github.com/phetsims/vector-addition/blob/master/js/common/model/RootVector.js) (abstract root class)
+RootVector (abstract root class)
   Vector (interactive)
     BaseVector
       CartesianBaseVector
@@ -83,7 +83,7 @@ The model class hierarchy for vectors is shown below. Note the distinction betwe
 The view class hierachy for vectors is shown below. Again, note the distinction between interactive and non-interactive vectors.
 
 ```
-RootVectorNode
+RootVectorNode (abstract base class)
   VectorNode (interactive) 
     SumVectorNode
   ComponentVectorNode (not interactive)
