@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.0.0-dev.51 Mon Oct 21 2019 20:38:02 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# vector-addition 1.0.0-dev.52 Mon Oct 21 2019 20:40:32 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "master"
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "vector-addition": {
-    "sha": "01b25ebdadc02b88188b5248b22de7ca1bb61449",
+    "sha": "45d0bbc345d1a42ddb554b3e0c499d4c84f3eff6",
     "branch": "master"
   }
 }
