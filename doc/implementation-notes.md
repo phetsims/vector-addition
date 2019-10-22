@@ -95,17 +95,30 @@ RootVectorNode
 
 ## Screen differences
 
-All screens are based on the same framework and common classes. This section enumerated the differences in specific screens.
+If you're in he position of having to maintain or enhance this sim, it helps to have a birds-eye view of the similarities
+and differences between the screens.
+
+The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has these features:
+* there is a scene for each snap mode (Cartesian and Polar)
+* each scene has 1 vector set, and therefore 1 sum vector
+* vectors in the Cartesian vector set are labeled a&#8407;, b&#8407;, and c&#8407;
+* vectors in the Polar vector set are labeled d&#8407;, e&#8407;, and f&#8407;
+* one instance of each vector can be created
+* 3 visual representations of component vectors are supported, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js)
+* ability to display vector sum and angles
+* ability to hide the graph's grid
+
+The other screens can be described in terms of their differences from the _Explore 2D_ screen.
 
 _Explore 1D_ screen:
-* scenes are based on the graph orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar)
+* scenes are based on graph orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar)
 * vector components are not displayed
 * vector angle is not displayed, since all vectors have the same angle
 
 _Lab_ screen:
 * each scene has 2 vector sets, and therefore 2 sum vectors
 * multiple instances of each vector type can be created
-* vectors are not labeled uniquely; they are labeled as 'v' and 's', with only one such label visible at a time
+* vectors are not labeled uniquely; they are labeled as v&#8407; and s&#8407;, with only one such label visible at a time
 
 _Equation_ screen:
 * base vectors are provided, and you can change their values using pickers
