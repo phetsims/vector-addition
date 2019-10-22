@@ -90,9 +90,12 @@ RootVectorNode
     SumComponentVectorNode 
 ```
 
-This class hierarchy generally makes sense, but there are a few things to be aware of when you start working with it.
+These class hierarchies make sense, and feel natural when you work with them. But there are a couple of things to be aware of:
 
-* 
+* Classes in both hierarchies have a bit too much knowledge of their associated `VectorSet` and `Graph`. See https://github.com/phetsims/vector-addition/issues/234.  This increases coupling, and (depending on what you
+need to change) can make it difficult to change `VectorSet` or `Graph` without affecting vector classes.
+
+* Model classes handle some responsibilities that would typically be in the view classes. For example, the `getLabelContent` method found throughout the model classes is responsible for assembling the info that the view uses to label a vector. This contributes to the coupling mentioned above.
 
 ## Screen differences
 
