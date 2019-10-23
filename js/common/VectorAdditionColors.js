@@ -11,19 +11,13 @@ define( require => {
 
   // modules
   const Color = require( 'SCENERY/util/Color' );
-  const merge = require( 'PHET_CORE/merge' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
   // Colors that are used in more than one VectorColorPalette
   const BLUE = 'rgb( 10, 170, 250 )';
   const PINK = '#f149ff';
-
-  // VectorColorPalette options that are common to both color palettes in the Equations screen
-  const EQUATIONS_COLOR_PALETTE_OPTIONS = {
-    sumFill: Color.BLACK,
-    sumComponentFill: 'rgb( 130, 130, 130 )'
-  };
+  const EQUATIONS_SUM_FILL = 'black';
 
   const VectorAdditionColors = {
 
@@ -96,13 +90,15 @@ define( require => {
     } ),
 
     // Equations screen
-    EQUATIONS_BLUE_COLOR_PALETTE: new VectorColorPalette( merge( {
-      mainFill: BLUE
-    }, EQUATIONS_COLOR_PALETTE_OPTIONS ) ),
+    EQUATIONS_BLUE_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: BLUE,
+      sumFill: EQUATIONS_SUM_FILL
+    } ),
 
-    EQUATIONS_PINK_COLOR_PALETTE: new VectorColorPalette( merge( {
-      mainFill: PINK
-    }, EQUATIONS_COLOR_PALETTE_OPTIONS ) )
+    EQUATIONS_PINK_COLOR_PALETTE: new VectorColorPalette( {
+      mainFill: PINK,
+      sumFill: EQUATIONS_SUM_FILL
+    } )
   };
 
   return vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );
