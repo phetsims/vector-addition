@@ -22,11 +22,13 @@ define( require => {
   const VectorSymbolNode = require( 'VECTOR_ADDITION/common/view/VectorSymbolNode' );
 
   // constants
+  const TEXT_OPTIONS = {
+    font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT
+  };
   const NUMBER_PICKER_OPTIONS = merge( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
     touchAreaXDilation: 20,
     touchAreaYDilation: 14
   } );
-  const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
   class EquationTypeNode extends Node {
 
@@ -76,7 +78,10 @@ define( require => {
           new Property( vector.coefficientProperty.range ),
           NUMBER_PICKER_OPTIONS ) );
 
-        const vectorSymbolNode = new VectorSymbolNode( { symbol: vector.symbol } );
+        const vectorSymbolNode = new VectorSymbolNode( {
+          symbol: vector.symbol,
+          symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
+        } );
         equationChildren.push( vectorSymbolNode );
         maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }
@@ -85,7 +90,10 @@ define( require => {
         const signText = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
         equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
 
-        const vectorSymbolNode = new VectorSymbolNode( { symbol: vectorSet.sumVector.symbol } );
+        const vectorSymbolNode = new VectorSymbolNode( {
+          symbol: vectorSet.sumVector.symbol,
+          symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
+        } );
         equationChildren.push( vectorSymbolNode );
         maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }
@@ -98,7 +106,10 @@ define( require => {
         equationChildren.push( new Text( '0', TEXT_OPTIONS ) );
       }
       else {
-        const vectorSymbolNode = new VectorSymbolNode( { symbol: vectorSet.sumVector.symbol } );
+        const vectorSymbolNode = new VectorSymbolNode( {
+          symbol: vectorSet.sumVector.symbol,
+          symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
+        } );
         equationChildren.push( vectorSymbolNode );
         maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
       }
