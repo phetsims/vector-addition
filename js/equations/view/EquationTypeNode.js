@@ -25,10 +25,6 @@ define( require => {
   const TEXT_OPTIONS = {
     font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT
   };
-  const NUMBER_PICKER_OPTIONS = merge( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
-    touchAreaXDilation: 20,
-    touchAreaYDilation: 14
-  } );
 
   class EquationTypeNode extends Node {
 
@@ -61,6 +57,13 @@ define( require => {
       const equationChildren = [];
       let maxVectorSymbolHeight = 0;
 
+      const numberPickerOptions = merge( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
+        touchAreaXDilation: 20,
+        touchAreaYDilation: 14,
+        font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT,
+        color: vectorSet.vectorColorPalette.mainFill
+      } );
+
       // Left side
       for ( let i = 0; i < vectorSet.vectors.length; i++ ) {
 
@@ -76,7 +79,7 @@ define( require => {
 
         equationChildren.push( new NumberPicker( vector.coefficientProperty,
           new Property( vector.coefficientProperty.range ),
-          NUMBER_PICKER_OPTIONS ) );
+          numberPickerOptions ) );
 
         const vectorSymbolNode = new VectorSymbolNode( {
           symbol: vector.symbol,

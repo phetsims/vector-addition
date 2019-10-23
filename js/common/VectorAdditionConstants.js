@@ -215,8 +215,8 @@ define( require => {
 
     EQUATION_FONT: new PhetFont( 18 ),
     EQUATION_SYMBOL_FONT: new MathSymbolFont( 18 ),
-    INTERACTIVE_EQUATION_FONT: new PhetFont( 18 ), // for interactive equation in Equations screen
-    INTERACTIVE_EQUATION_SYMBOL_FONT: new MathSymbolFont( 18 ), // for interactive equation in Equations screen
+    INTERACTIVE_EQUATION_FONT: new PhetFont( 20 ), // for interactive equation in Equations screen
+    INTERACTIVE_EQUATION_SYMBOL_FONT: new MathSymbolFont( 20 ), // for interactive equation in Equations screen
     VECTOR_LABEL_FONT: new PhetFont( 18 ),
     VECTOR_LABEL_SYMBOL_FONT: new MathSymbolFont( 18 ),
     ANGLE_LABEL_FONT: new PhetFont( 13 ),
