@@ -46,6 +46,15 @@ define( require => {
 
   const VectorAdditionConstants = {
 
+    // Shared by vector-addition-main.js and its derivatives (vector-addition-equations-main.js)
+    // See https://github.com/phetsims/vector-addition/issues/98
+    CREDITS: {
+      leadDesign: 'Michael Dubson, Amy Rouinfar',
+      softwareDevelopment: 'Brandon Li, Martin Veillette, Chris Malley (PixelZoom, Inc.)',
+      team: 'Diana L\u00f3pez Tavares, Amanda McGarry, Ariel Paul, Kathy Perkins',
+      qualityAssurance: 'Katie Woessner'
+    },
+
     //----------------------------------------------------------------------------------------
     // ScreenViews
 

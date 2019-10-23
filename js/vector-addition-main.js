@@ -16,27 +16,24 @@ define( require => {
   const Sim = require( 'JOIST/Sim' );
   const SimLauncher = require( 'JOIST/SimLauncher' );
   const Tandem = require( 'TANDEM/Tandem' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // strings
   const vectorAdditionTitleString = require( 'string!VECTOR_ADDITION/vector-addition.title' );
 
-  const options = {
-    credits: {
-      leadDesign: 'Michael Dubson, Amy Rouinfar',
-      softwareDevelopment: 'Brandon Li, Martin Veillette, Chris Malley (PixelZoom, Inc.)',
-      team: 'Diana L\u00f3pez Tavares, Amanda McGarry, Ariel Paul, Kathy Perkins',
-      qualityAssurance: 'Katie Woessner'
-    }
-  };
-
   SimLauncher.launch( () => {
+
     const screens = [
       new Explore1DScreen( Tandem.rootTandem.createTandem( 'explore1DScreen' ) ),
       new Explore2DScreen( Tandem.rootTandem.createTandem( 'explore2DScreen' ) ),
       new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) ),
       new EquationsScreen( Tandem.rootTandem.createTandem( 'equationsScreen' ) )
     ];
-    const sim = new Sim( vectorAdditionTitleString, screens, options );
+
+    const sim = new Sim( vectorAdditionTitleString, screens, {
+      credits: VectorAdditionConstants.CREDITS
+    } );
+
     sim.start();
   } );
 } );
