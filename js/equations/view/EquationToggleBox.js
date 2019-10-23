@@ -64,7 +64,7 @@ define( require => {
       // Radio buttons for selecting equation type
       const radioButtonGroup = new EquationTypesRadioButtonGroup(
         equationTypeProperty, vectorSet.symbols, equationButtonsAlignGroup, {
-          scale: 0.85
+          scale: 0.75
         } );
 
       // Create an equation of each type, only one of which will be visible at a time.
@@ -86,7 +86,7 @@ define( require => {
       // Radio buttons on the left, equation on the right. See https://github.com/phetsims/vector-addition/issues/128
       const openContent = new HBox( {
         children: [ radioButtonGroup, equationsParent ],
-        spacing: 40
+        spacing: 55
       } );
 
       super( closedContent, openContent, options );
