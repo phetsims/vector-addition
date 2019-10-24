@@ -52,7 +52,7 @@ define( require => {
       leadDesign: 'Michael Dubson, Amy Rouinfar',
       softwareDevelopment: 'Brandon Li, Martin Veillette, Chris Malley (PixelZoom, Inc.)',
       team: 'Diana L\u00f3pez Tavares, Amanda McGarry, Ariel Paul, Kathy Perkins',
-      qualityAssurance: 'Katie Woessner'
+      qualityAssurance: 'Megan Lai, Katie Woessner'
     },
 
     //----------------------------------------------------------------------------------------
