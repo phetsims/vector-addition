@@ -9,7 +9,7 @@ Before reading this document, please read:
 * [model.md](https://github.com/phetsims/vector-addition/blob/master/doc/model.md), a high-level description of the simulation model
 
 In addition to this document, you are encouraged to read: 
-* [PhET Development Overview](http://bit.ly/phet-html5-development-overview)  
+* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)  
 * [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md)
 * [Vector Addition HTML5](https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit), the design document
 
