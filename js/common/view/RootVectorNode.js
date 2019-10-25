@@ -147,6 +147,9 @@ define( require => {
         this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_MOUSE_AREA_DILATION );
         this.arrowNode.touchArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_TOUCH_AREA_DILATION );
       }
+
+      // See https://github.com/phetsims/vector-addition/issues/252
+      this.arrowNode.visible = ( rootVector.magnitude > 0 );
     }
 
     /**
