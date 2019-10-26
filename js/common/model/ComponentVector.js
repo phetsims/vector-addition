@@ -57,7 +57,7 @@ define( require => {
       //                                                           the component is also on the graph (and vise versa).
       this.isOnGraphProperty = parentVector.isOnGraphProperty;
 
-      // @public (read-only) {Vector} parentVector - private reference to the parent vector
+      // @public (read-only) {Vector} parentVector - the parent vector for this component vector
       this.parentVector = parentVector;
 
       // @public (read-only) {DerivedProperty.<boolean>} isParentVectorActiveProperty - determines if the parent
@@ -70,7 +70,6 @@ define( require => {
 
       // @private references to constructor args
       this.componentStyleProperty = componentStyleProperty;
-      this.parentVector = parentVector;
 
       // @private offsets from axes in PROJECTION style.
       // These are managed by the VectorSet and set via setProjectionOffsets.
