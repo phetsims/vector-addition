@@ -17,7 +17,7 @@ In addition to this document, you are encouraged to read:
 
 ... that you'll see used throughout the code.
 
-* _active_ vector means "selected" vector.  There is (at most) one active vector.
+* _active_ vector and _selected_ vector are synonyms.  There is (at most) one active vector.
 * _component_ is a scalar, while _component vector_ is a vector
 * _coordinate snap mode_ refers to which vector quantities will snap to integer values, see [CoordinateSnapModes](https://github.com/phetsims/vector-addition/blob/master/js/common/model/CoordinateSnapModes.js)
 * _component vector styles_ refers to the representation used to display component vectors, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js)
