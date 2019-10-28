@@ -98,7 +98,7 @@ define( require => {
 
       // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
       const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
-        .normalized().timesScalar( options.iconArrowSize ) );
+        .normalized().timesScalar( options.iconArrowMagnitude ) );
 
       // Create a fixed-size box for the icon. The Icon is placed in an alignBox to ensure the Icon
       // contains the same local width regardless of the initial vector components. This ensures that
