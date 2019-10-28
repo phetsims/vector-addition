@@ -39,16 +39,20 @@ define( require => {
 
       // Create the initial vector components, they are the same for every symbol.
       // See https://github.com/phetsims/vector-addition/issues/227
-      const initialVectorComponents = ( graph.orientation === GraphOrientations.VERTICAL ) ?
-                                      new Vector2( 0, 5 ) :
-                                      new Vector2( 5, 0 );
+      const isHorizontal = ( graph.orientation === GraphOrientations.HORIZONTAL );
+      const initialVectorComponents = isHorizontal ?  new Vector2( 5, 0 ) : new Vector2( 0, 5 );
 
       // Create a slot for each symbol
       const panelSlots = [];
       symbols.forEach( symbol => {
         panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents, {
           symbol: symbol,
-          iconArrowMagnitude: 35
+          iconArrowMagnitude: 35,
+
+          // pointer area dilation for icons, identical for mouseArea and touchArea,
+          // see https://github.com/phetsims/vector-addition/issues/250
+          iconPointerAreaXDilation: isHorizontal ? 10 : 20,
+          iconPointerAreaYDilation: isHorizontal ? 15 : 5
         } ) );
       } );
 

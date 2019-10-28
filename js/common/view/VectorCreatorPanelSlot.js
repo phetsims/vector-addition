@@ -38,10 +38,6 @@ define( require => {
   const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
   const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
 
-  // constants
-  const VECTOR_MOUSE_AREA_OFFSET = 8;
-  const VECTOR_TOUCH_AREA_OFFSET = 8;
-
   // The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
   // contains the same local width regardless of the initial vector components. This ensures that
   // the label of the slot is in the same place regardless of the icon size.
@@ -71,7 +67,13 @@ define( require => {
         symbol: null, // {string|null} the symbol to pass to created vectors
         numberOfVectors: 1,  // {number} the number of vectors that can exist that were created by this slot
         iconArrowMagnitude: 30, // {number} indicates the magnitude of the icon in view coordinates
-        iconVectorComponents: null // {Vector2|null} used for vector icon, defaults to initialVectorComponents
+        iconVectorComponents: null, // {Vector2|null} used for vector icon, defaults to initialVectorComponents
+
+        // pointer area dilation for icons, identical for mouseArea and touchArea,
+        // see https://github.com/phetsims/vector-addition/issues/250
+        iconPointerAreaXDilation: 10,
+        iconPointerAreaYDilation: 10
+
       }, options );
 
       super( { spacing: 5 } );
@@ -91,12 +93,12 @@ define( require => {
         vectorSet.vectorColorPalette, options.iconArrowMagnitude );
 
       // Make the iconNode easier to grab
-      iconNode.mouseArea = iconNode.shape.getOffsetShape( VECTOR_MOUSE_AREA_OFFSET );
-      iconNode.touchArea = iconNode.shape.getOffsetShape( VECTOR_TOUCH_AREA_OFFSET );
+      iconNode.mouseArea = iconNode.localBounds.dilatedXY( options.iconPointerAreaXDilation, options.iconPointerAreaYDilation );
+      iconNode.touchArea = iconNode.localBounds.dilatedXY( options.iconPointerAreaXDilation, options.iconPointerAreaYDilation );
 
       // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
       const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
-        .normalized().timesScalar( options.iconArrowMagnitude ) );
+        .normalized().timesScalar( options.iconArrowSize ) );
 
       // Create a fixed-size box for the icon. The Icon is placed in an alignBox to ensure the Icon
       // contains the same local width regardless of the initial vector components. This ensures that
