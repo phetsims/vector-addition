@@ -77,14 +77,26 @@ _Adding a vector_: When a vector icon in the toolbox is clicked, `VectorCreatorP
 _Removing a vector_: When a vector is added, `VectorCreatorPanelSlot` creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or when the `VectorSet` associated with the slot is cleared by pressing the eraser button or Reset All button (see `removeVectorListener`).  `VectorSetNode` similarly creates a closure that observers the `VectorSet` and removes Nodes associated with a vector that is removed.  
 
 ### Scenes
-A scene consists of a graph and its vector set(s). In this sim, there is no "scene" model element, and scenes are managed sole by the view. [SceneNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/SceneNode.js) is the base class. In the _Explore 1D_ screen, there are 2 scenes, corresponding to the horizontal and vertical graph orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch between scenes using the radio buttons that are located at the bottom-right of the ScreenView.
+A scene consists of a graph and its vector set(s). In this sim, there is
+no "scene" model element, and scenes are managed solely by the view.
+[SceneNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/SceneNode.js)
+is the base class. In the _Explore 1D_ screen, there are 2 scenes,
+corresponding to the horizontal and vertical graph orientations. In the
+other screens, there are 2 scenes, corresponding to the Cartesian and
+Polar snap modes. Switch between scenes using the radio buttons that are
+located at the bottom-right of the ScreenView.
 
 ## Vectors: Model and View
 
-The implementation of most oof this sim is relatively straightforward, and should be easy to understand for anyone who is
-familiar with PhET sim development.  
+The implementation of most of this sim is relatively straightforward,
+and should be easy to understand for anyone who is familiar with PhET
+sim development.
 
-The part that is most interesting is the implementation of vectors. Source code documentation describes things well, so we won't repeat that information here. We'll summarize the structure of the class hierachies, mention a couple of "gotchas", and then it's up to you to explore the source code. 
+The part that is most interesting is the implementation of vectors.
+Source code documentation describes things well, so we won't repeat that
+information here. We'll summarize the structure of the class
+hierarchies, mention a couple of "gotchas", and then it's up to you to
+explore the source code.
 
 The model class hierarchy for vectors is shown below. Note the distinction between interactive and non-interactive vectors.
 
@@ -100,7 +112,8 @@ RootVector (abstract root class)
   ComponentVector (not interactive)
 ```
 
-The view class hierachy for vectors is shown below. Again, note the distinction between interactive and non-interactive vectors.
+The view class hierarchy for vectors is shown below. Again, note the
+distinction between interactive and non-interactive vectors.
 
 ```
 RootVectorNode (abstract base class)
@@ -116,8 +129,14 @@ These class hierarchies make sense, and feel natural when you work with them. Bu
 This increases coupling, and (depending on what you need to change) can make it difficult to change `VectorSet` 
 or `Graph` without affecting vector classes. For further discussion, see https://github.com/phetsims/vector-addition/issues/234.  
 
-* Model classes handle some responsibilities that arguably belong in view classes, and this contibutes to the coupling
-mentioned above. For example, the `getLabelContent` method found throughout the model classes is responsible for assembling a vector's label. The model rightly contains the information that appears in a label. But the information that appears in the label depends on the state of the view, so assembling that information should be a responsibility of the view.
+* Model classes handle some responsibilities that arguably belong in 
+  view classes, and this contributes to the coupling mentioned above.
+  For example, the `getLabelContent` method found throughout the model
+  classes is responsible for assembling a vector's label. The model
+  rightly contains the information that appears in a label. But the
+  information that appears in the label depends on the state of the
+  view, so assembling that information should be a responsibility of the
+  view.
 
 ## Screen differences
 
@@ -131,7 +150,9 @@ The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has t
 * Vectors in the Polar scene are labeled d&#8407;, e&#8407;, f&#8407;.
 * One instance of each vector can be created via direct manipulation. Drag out of the toolbox to create, drag back to the toolbox to delete.
 * Vectors can be transformed via direct manipulation. Drag a vector's tail to translate; drag a vector's head to scale and rotate.
-* Sum vectors can only be translated via direct manipulation. By definition, their magnitude and angle depends on the other vectors in the vector set.
+* Sum vectors can only be translated via direct manipulation. By
+  definition, their magnitude and angle depend on the other vectors in
+  the vector set.
 * Selecting a vector moves it to the front, highlights it, and displays its associated values in the "Vector Values" accordion box.
 * Three visual representations of component vectors are supported, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js).
 * Vector sum and angles can be displayed.
