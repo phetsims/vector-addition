@@ -51,6 +51,7 @@ Calls to methods that add observers (`link`, `addListener`,...) have a comment i
 const activeVectorListener = activeVector => { ... };
 this.graph.activeVectorProperty.link( activeVectorListener );
 
+// Observe when the graph's active vector changes and update the vectorComponents link.
 // unlink is unnecessary, exists for the lifetime of the sim.
 graph.activeVectorProperty.link( ... );
 ```
