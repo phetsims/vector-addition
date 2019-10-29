@@ -117,7 +117,7 @@ This increases coupling, and (depending on what you need to change) can make it 
 or `Graph` without affecting vector classes. For further discussion, see https://github.com/phetsims/vector-addition/issues/234.  
 
 * Model classes handle some responsibilities that arguably belong in view classes, and this contibutes to the coupling
-mentioned above. For example, the `getLabelContent` method found throughout the model classes is responsible for assembling a vector's label. The model rightly contains the information that appears in a label. But the information that appears in the label depends on the state of the view, so assumbling that information should be a responsibility of the view.
+mentioned above. For example, the `getLabelContent` method found throughout the model classes is responsible for assembling a vector's label. The model rightly contains the information that appears in a label. But the information that appears in the label depends on the state of the view, so assembling that information should be a responsibility of the view.
 
 ## Screen differences
 
