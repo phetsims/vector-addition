@@ -43,9 +43,14 @@ dispose() {
 }
 ```
 
-Calls to methods that add observers (`link`, `addListener`,...) have a comment indicating whether the observer needs to be deregistered, or whether the relationship exists for the lifetime of the sim. For example:
+Calls to methods that add observers (`link`, `addListener`,...) have a comment indicating whether the observer needs to be deregistered, or whether the relationship exists for the lifetime of the sim. Examples:
 
 ```js
+// When the vector becomes active, move it and its components to the front.
+// unlink is required when the vector is removed.
+const activeVectorListener = activeVector => { ... };
+this.graph.activeVectorProperty.link( activeVectorListener );
+
 // unlink is unnecessary, exists for the lifetime of the sim.
 graph.activeVectorProperty.link( ... );
 ```
