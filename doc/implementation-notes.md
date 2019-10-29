@@ -174,7 +174,9 @@ _Lab_ screen:
 
 _Equations_ screen:
 * Base vectors are provided, and you can change their values using spinners.
-* Each vector set has one vector (c&#8407; or f&#8407;) whose computation depends on which equation is selected, see [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equation/model/EquationTypes.js).
+* Each vector set has one vector (c&#8407; or f&#8407;) whose
+  computation depends on which equation is selected, see
+  [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equations/model/EquationTypes.js).
 * Equation coefficients can be changed using spinners. 
 * Vectors cannot be added to or removed from the graph.
 * Vectors cannot be rotated or scaled via direct maniipulation. They must be indirectly rotated/scaled using the spinners for base vectors and equations.
