@@ -167,7 +167,7 @@ define( require => {
 
       // If the magnitude is effectively 0, center the label on the vector's position.
       // See https://github.com/phetsims/vector-addition/issues/260
-      if ( Math.abs( rootVector.magnitude ) < 1E-10 ) {
+      if ( rootVector.magnitude < 1E-10 ) {
         this.labelNode.center = modelViewTransform.modelToViewDelta( Vector2.ZERO );
         return;
       }
