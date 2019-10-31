@@ -72,9 +72,18 @@ A [VectorSet](https://github.com/phetsims/vector-addition/blob/master/js/common/
 
 [VectorCreatorPanel](https://github.com/phetsims/vector-addition/blob/master/js/common/view/VectorCreatorPanel.js) is the vector "toolbox". It contains one [VectorCreatorPanelSlot](https://github.com/phetsims/vector-addition/blob/master/js/common/view/VectorCreatorPanelSlot.js) for each `VectorSet`, with each slot being represented by an icon in the toolbox.  Each `VectorSet` also has an associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/VectorSetNode.js), which manages creation and layering of Nodes related to vectors in the set. 
 
-_Adding a vector_: When a vector icon in the toolbox is clicked, `VectorCreatorPanelSlot` creates a new vector and adds it to the associated `VectorSet`.  It then delegates creation of the vector's view to `VectorSetNode` (see `registerVector`).
+_Adding a vector_: When a vector icon in the toolbox is clicked,
+`VectorCreatorPanelSlot` creates a new vector and adds it to the
+associated `VectorSet`. It then delegates the  of the vector's view to
+`VectorSetNode` (see `registerVector`).
 
-_Removing a vector_: When a vector is added, `VectorCreatorPanelSlot` creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or when the `VectorSet` associated with the slot is cleared by pressing the eraser button or Reset All button (see `removeVectorListener`).  `VectorSetNode` similarly creates a closure that observers the `VectorSet` and removes Nodes associated with a vector that is removed.  
+_Removing a vector_: When a vector is added, `VectorCreatorPanelSlot`
+creates closures that handle disposing of the vector when it's returned
+to the slot (see `animateVectorBackListener`) or when the `VectorSet`
+associated with the slot is cleared by pressing the eraser button or
+Reset All button (see `removeVectorListener`). `VectorSetNode` similarly
+creates a closure that observers the `VectorSet` and removes Nodes
+associated with a vector that is removed.
 
 ### Scenes
 A scene consists of a graph and its vector set(s). In this sim, there is
@@ -129,10 +138,10 @@ These class hierarchies make sense, and feel natural when you work with them. Bu
 This increases coupling, and (depending on what you need to change) can make it difficult to change `VectorSet` 
 or `Graph` without affecting vector classes. For further discussion, see https://github.com/phetsims/vector-addition/issues/234.  
 
-* Model classes handle some responsibilities that arguably belong in 
+* Model classes handle some responsibilities that arguably belong in
   view classes, and this contributes to the coupling mentioned above.
   For example, the `getLabelContent` method found throughout the model
-  classes is responsible for assembling a vector's label. The model
+  class is responsible for assembling a vector's label. The model
   rightly contains the information that appears in a label. But the
   information that appears in the label depends on the state of the
   view, so assembling that information should be a responsibility of the
@@ -179,5 +188,7 @@ _Equations_ screen:
   [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equations/model/EquationTypes.js).
 * Equation coefficients can be changed using spinners. 
 * Vectors cannot be added to or removed from the graph.
-* Vectors cannot be rotated or scaled via direct maniipulation. They must be indirectly rotated/scaled using the spinners for base vectors and equations.
+* Vectors cannot be rotated or scaled via direct manipulation. They must
+  be indirectly rotated/scaled using the spinners for base vectors and
+  equations.
 
