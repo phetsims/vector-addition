@@ -38,9 +38,6 @@ define( require => {
     VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height - VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN
   ).magnitude;
 
-  // magnitude smaller than this value is effectively zero
-  const ZERO_MAGNITUDE_THRESHOLD = 1E-10;
-
   class RootVectorNode extends Node {
 
     /**
@@ -170,7 +167,7 @@ define( require => {
 
       // If the magnitude is effectively 0, center the label on the vector's position.
       // See https://github.com/phetsims/vector-addition/issues/260
-      if ( rootVector.magnitude < ZERO_MAGNITUDE_THRESHOLD ) {
+      if ( rootVector.magnitude < VectorAdditionConstants.ZERO_THRESHOLD ) {
         this.labelNode.center = modelViewTransform.modelToViewDelta( Vector2.ZERO );
         return;
       }
