@@ -24,6 +24,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
   const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
 
   class RootVector {
@@ -177,6 +178,17 @@ define( require => {
     set yComponent( yComponent ) {
       assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
       this.vectorComponents = this.vectorComponents.copy().setY( yComponent );
+    }
+
+    /**
+     * Is either of this vector's components effectively zero?
+     * See https://github.com/phetsims/vector-addition/issues/264
+     * @public
+     * @returns {boolean}
+     */
+    hasZeroComponent() {
+      return Math.abs( this.xComponent ) < VectorAdditionConstants.ZERO_THRESHOLD ||
+             Math.abs( this.yComponent ) < VectorAdditionConstants.ZERO_THRESHOLD;
     }
 
     /**

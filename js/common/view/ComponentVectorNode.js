@@ -149,7 +149,15 @@ define( require => {
       this.visible = componentVector.isOnGraphProperty.value &&
                      componentStyle !== ComponentVectorStyles.INVISIBLE;
 
-      this.labelNode.visible = ( componentVector.magnitude !== 0 );
+      if ( componentStyle === ComponentVectorStyles.PROJECTION ) {
+        this.labelNode.visible = ( componentVector.magnitude !== 0 );
+      }
+      else {
+
+        // Hide the label if either of the parent vector's components is zero,
+        // see https://github.com/phetsims/vector-addition/issues/264
+        this.labelNode.visible = !componentVector.parentVector.hasZeroComponent();
+      }
 
       // Leader lines are only visible when component vectors are projected onto axes
       this.leaderLinesPath.visible = ( componentStyle === ComponentVectorStyles.PROJECTION );

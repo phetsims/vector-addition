@@ -205,6 +205,9 @@ define( require => {
     // bounds of the graph, in model units.
     VECTOR_TAIL_DRAG_MARGIN: 1,
 
+    // vector components or magnitudes smaller than this value are treated as effectively zero
+    ZERO_THRESHOLD: 1E-10,
+
     //----------------------------------------------------------------------------------------
     // Decimal places
 
