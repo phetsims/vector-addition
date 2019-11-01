@@ -77,35 +77,35 @@ define( require => {
 
       const graphViewBounds = graph.graphViewBounds;
 
-      const children = [
-        new Rectangle( graphViewBounds, {
-          fill: VectorAdditionColors.GRAPH_BACKGROUND_COLOR,
-          stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR,
-          lineWidth: MINOR_GRID_LINE_WIDTH
-        } ),
-        new MajorAndMinorGridLines( graph, graphViewBounds, gridVisibilityProperty ),
-        new TicksNode( graph )
-      ];
+      const graphComponents = new Node( {
+        children: [
+          new Rectangle( graphViewBounds, {
+            fill: VectorAdditionColors.GRAPH_BACKGROUND_COLOR,
+            stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR,
+            lineWidth: MINOR_GRID_LINE_WIDTH
+          } ),
+          new MajorAndMinorGridLines( graph, graphViewBounds, gridVisibilityProperty ),
+          new TicksNode( graph )
+        ]
+      } );
 
-      // Create axes as needed, based on graph orientation
+      // Add axes as needed, based on graph orientation
       if ( graph.orientation !== GraphOrientations.VERTICAL ) {
-        children.push( new XAxisNode( graph, graphViewBounds ) );
+        graphComponents.addChild( new XAxisNode( graph, graphViewBounds ) );
       }
       if ( graph.orientation !== GraphOrientations.HORIZONTAL ) {
-        children.push( new YAxisNode( graph, graphViewBounds ) );
+        graphComponents.addChild( new YAxisNode( graph, graphViewBounds ) );
       }
 
-      children.push( new OriginManipulator( graph ) );
-
       super( {
-        children: children
+        children: [ graphComponents, new OriginManipulator( graph ) ]
       } );
 
       // Clicking in the graph clears the active (selected) vector.
       // Use a raw 'down' listener so that this doesn't impact the ability to touch snag vectors and origin manipulator.
       // See https://github.com/phetsims/vector-addition/issues/243
       // No need to remove, exists for the lifetime of the sim.
-      this.addInputListener( {
+      graphComponents.addInputListener( {
         down: () => { graph.activeVectorProperty.value = null; }
       } );
     }
