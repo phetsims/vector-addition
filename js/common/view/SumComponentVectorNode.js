@@ -59,7 +59,7 @@ define( require => {
         () => this.updateComponentVector( componentVector,
           graph.modelViewTransformProperty.value,
           componentStyleProperty.value,
-          componentVector.isParentVectorActiveProperty )
+          componentVector.isParentVectorActiveProperty.value )
       );
     }
 
