@@ -72,7 +72,7 @@ define( require => {
     }
 
     /**
-     * Handles visibility base on the sum visibility
+     * Handles visibility of sum component vectors.
      * @private
      * @param {ComponentVector} componentVector
      * @param {ModelViewTransform2} modelViewTransform
@@ -85,8 +85,6 @@ define( require => {
       this.visible = (
         // components are visible
         ( componentStyle !== ComponentVectorStyles.INVISIBLE ) &&
-        // component magnitude is not 0
-        ( componentVector.magnitude !== 0 ) &&
         // sum is visible
         ( !!this.sumVisibleProperty && this.sumVisibleProperty.value ) &&
         // sum is defined
