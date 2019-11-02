@@ -77,35 +77,37 @@ define( require => {
 
       const graphViewBounds = graph.graphViewBounds;
 
-      const graphComponents = new Node( {
-        children: [
-          new Rectangle( graphViewBounds, {
-            fill: VectorAdditionColors.GRAPH_BACKGROUND_COLOR,
-            stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR,
-            lineWidth: MINOR_GRID_LINE_WIDTH
-          } ),
-          new MajorAndMinorGridLines( graph, graphViewBounds, gridVisibilityProperty ),
-          new TicksNode( graph )
-        ]
+      const background = new Rectangle( graphViewBounds, {
+        fill: VectorAdditionColors.GRAPH_BACKGROUND_COLOR,
+        stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR,
+        lineWidth: MINOR_GRID_LINE_WIDTH
       } );
 
-      // Add axes as needed, based on graph orientation
+      const children = [
+        background,
+        new MajorAndMinorGridLines( graph, graphViewBounds, gridVisibilityProperty ),
+        new TicksNode( graph )
+      ];
+
+      // Create axes as needed, based on graph orientation
       if ( graph.orientation !== GraphOrientations.VERTICAL ) {
-        graphComponents.addChild( new XAxisNode( graph, graphViewBounds ) );
+        children.push( new XAxisNode( graph, graphViewBounds ) );
       }
       if ( graph.orientation !== GraphOrientations.HORIZONTAL ) {
-        graphComponents.addChild( new YAxisNode( graph, graphViewBounds ) );
+        children.push( new YAxisNode( graph, graphViewBounds ) );
       }
 
+      children.push( new OriginManipulator( graph ) );
+
       super( {
-        children: [ graphComponents, new OriginManipulator( graph ) ]
+        children: children
       } );
 
       // Clicking in the graph clears the active (selected) vector.
       // Use a raw 'down' listener so that this doesn't impact the ability to touch snag vectors and origin manipulator.
       // See https://github.com/phetsims/vector-addition/issues/243
       // No need to remove, exists for the lifetime of the sim.
-      graphComponents.addInputListener( {
+      background.addInputListener( {
         down: () => { graph.activeVectorProperty.value = null; }
       } );
     }
@@ -148,7 +150,8 @@ define( require => {
       } );
 
       super( {
-        children: [ minorGridLinesPath, majorGridLines ]
+        children: [ minorGridLinesPath, majorGridLines ],
+        pickable: false
       } );
 
       // Observe changes to the grid visibility Property, and update visibility.
@@ -245,7 +248,8 @@ define( require => {
       } );
 
       super( {
-        children: [ arrowNode, axisLabel ]
+        children: [ arrowNode, axisLabel ],
+        pickable: false
       } );
 
       // When the origin moves, adjust the position of the axis.
@@ -281,7 +285,8 @@ define( require => {
       } );
 
       super( {
-        children: [ arrowNode, axisLabel ]
+        children: [ arrowNode, axisLabel ],
+        pickable: false
       } );
 
       // When the origin moves, adjust the position of the axis.
@@ -307,7 +312,8 @@ define( require => {
       const originLabel = new Text( '0', TICK_LABEL_OPTIONS );
 
       super( {
-        children: [ tickMarksPath, tickLabelsParent ]
+        children: [ tickMarksPath, tickLabelsParent ],
+        pickable: false
       } );
 
       // Update ticks when the graph's origin moves.
