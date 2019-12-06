@@ -12,7 +12,7 @@ define( require => {
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  const ComponentVectorStyles = new Enumeration( [
+  const ComponentVectorStyles = Enumeration.byKeys( [
 
     // Component vectors are not displayed at all
     'INVISIBLE',

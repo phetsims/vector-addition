@@ -244,7 +244,7 @@ define( require => {
   }
 
   // @public (read-only) {Enumeration} ComponentTypes - Enumeration of the possible types of components
-  ComponentVector.ComponentTypes = new Enumeration( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
+  ComponentVector.ComponentTypes = Enumeration.byKeys( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
 
   return vectorAddition.register( 'ComponentVector', ComponentVector );
 } );

@@ -30,7 +30,7 @@ define( require => {
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
 
   // enumeration of the quantities related to a vector that we want to display
-  const VectorQuantities = new Enumeration( [ 'MAGNITUDE', 'ANGLE', 'X_COMPONENT', 'Y_COMPONENT' ] );
+  const VectorQuantities = Enumeration.byKeys( [ 'MAGNITUDE', 'ANGLE', 'X_COMPONENT', 'Y_COMPONENT' ] );
 
   class VectorValuesNumberDisplay extends NumberDisplay {
 

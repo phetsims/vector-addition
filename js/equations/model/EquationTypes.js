@@ -12,7 +12,7 @@ define( require => {
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  const EquationTypes = new Enumeration( [
+  const EquationTypes = Enumeration.byKeys( [
 
     // Adding two vectors to get a third. Shown as 'a + b = c' or 'd + e = f'
     'ADDITION',

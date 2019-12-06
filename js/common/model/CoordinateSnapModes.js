@@ -12,7 +12,7 @@ define( require => {
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
 
-  const CoordinateSnapModes = new Enumeration( [
+  const CoordinateSnapModes = Enumeration.byKeys( [
 
     'CARTESIAN',  // Vector tail and tip are snapped to an exact grid coordinate (components are always integers).
 
