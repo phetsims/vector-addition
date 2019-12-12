@@ -24,10 +24,10 @@ define( require => {
   SimLauncher.launch( () => {
 
     const screens = [
-      new Explore1DScreen( Tandem.rootTandem.createTandem( 'explore1DScreen' ) ),
-      new Explore2DScreen( Tandem.rootTandem.createTandem( 'explore2DScreen' ) ),
-      new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) ),
-      new EquationsScreen( Tandem.rootTandem.createTandem( 'equationsScreen' ) )
+      new Explore1DScreen( Tandem.ROOT.createTandem( 'explore1DScreen' ) ),
+      new Explore2DScreen( Tandem.ROOT.createTandem( 'explore2DScreen' ) ),
+      new LabScreen( Tandem.ROOT.createTandem( 'labScreen' ) ),
+      new EquationsScreen( Tandem.ROOT.createTandem( 'equationsScreen' ) )
     ];
 
     const sim = new Sim( vectorAdditionTitleString, screens, {
