@@ -15,12 +15,12 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Color = require( 'SCENERY/util/Color' );
   const DragListener = require( 'SCENERY/listeners/DragListener' );
-  const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const merge = require( 'PHET_CORE/merge' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Property = require( 'AXON/Property' );
   const RootVectorNode = require( 'VECTOR_ADDITION/common/view/RootVectorNode' );
+  const SceneryEvent = require( 'SCENERY/input/SceneryEvent' );
   const Shape = require( 'KITE/Shape' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2Property = require( 'DOT/Vector2Property' );
@@ -393,11 +393,11 @@ define( require => {
 
     /**
      * Forwards an event to translationDragListener. Used for dragging vectors out of the toolbox.
-     * @param {Event} event
+     * @param {SceneryEvent} event
      * @public
      */
     forwardEvent( event ) {
-      assert && assert( event instanceof Event, 'invalid event' );
+      assert && assert( event instanceof SceneryEvent, 'invalid event' );
       this.translationDragListener.press( event, this );
     }
   }

@@ -18,11 +18,11 @@ define( require => {
   const BaseVector = require( 'VECTOR_ADDITION/common/model/BaseVector' );
   const ComponentVectorNode = require( 'VECTOR_ADDITION/common/view/ComponentVectorNode' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
+  const SceneryEvent = require( 'SCENERY/input/SceneryEvent' );
   const SumComponentVectorNode = require( 'VECTOR_ADDITION/common/view/SumComponentVectorNode' );
   const SumVectorNode = require( 'VECTOR_ADDITION/common/view/SumVectorNode' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
@@ -102,14 +102,15 @@ define( require => {
      * The Nodes are deleted if Vector is ever removed from its VectorSet.
      * @public
      * @param {Vector} vector - the vector model
-     * @param {Event} [forwardingEvent] - if provided, if will forward this event to the Vector body drag listener.
-     *                                    This is used to forward the click event from the VectorCreatorPanel to the
-     *                                    VectorNode. If not provided, no event is forwarded.
+     * @param {SceneryEvent} [forwardingEvent] - if provided, if will forward this event to the Vector body drag
+     *                                           listener. This is used to forward the click event from the
+     *                                           VectorCreatorPanel to the VectorNode. If not provided, no event is
+     *                                           forwarded.
      */
     registerVector( vector, forwardingEvent ) {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
-      assert && assert( !forwardingEvent || forwardingEvent instanceof Event, `invalid forwardingEvent: ${forwardingEvent}` );
+      assert && assert( !forwardingEvent || forwardingEvent instanceof SceneryEvent, `invalid forwardingEvent: ${forwardingEvent}` );
 
       // Create the view for the vector and its component vectors
       const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.anglesVisibleProperty );

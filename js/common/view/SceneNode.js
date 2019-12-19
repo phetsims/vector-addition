@@ -29,12 +29,12 @@ define( require => {
   // modules
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  const Event = require( 'SCENERY/input/Event' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
   const GraphNode = require( 'VECTOR_ADDITION/common/view/GraphNode' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
+  const SceneryEvent = require( 'SCENERY/input/SceneryEvent' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
@@ -164,18 +164,18 @@ define( require => {
      * @public
      * @param {Vector} vector - the vector model
      * @param {VectorSet} vectorSet - the VectorSet the vector belongs to
-     * @param {Event} [forwardingEvent] - see VectorSetNode
+     * @param {SceneryEvent} [forwardingEvent] - see VectorSetNode
      */
     registerVector( vector, vectorSet, forwardingEvent ) {
 
       assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
       assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
-      assert && assert( !forwardingEvent || forwardingEvent instanceof Event, `invalid forwardingEvent: ${forwardingEvent}` );
+      assert && assert( !forwardingEvent || forwardingEvent instanceof SceneryEvent, `invalid forwardingEvent: ${forwardingEvent}` );
 
       // Delegate registration to the VectorSetNode
       this.getVectorSetNode( vectorSet ).registerVector( vector, forwardingEvent );
     }
-    
+
     /**
      * Adds a base vector to the scene.  Delegates to VectorSetNode.
      * @protected
