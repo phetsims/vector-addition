@@ -19,7 +19,7 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Property = require( 'AXON/Property' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -123,7 +123,7 @@ define( require => {
       // Update the label text.
       this.labelText.setText(
         ( angleDegrees === null ) ? '' :
-        `${Util.toFixed( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )}${MathSymbols.DEGREES}`
+        `${Utils.toFixed( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )}${MathSymbols.DEGREES}`
       );
 
       // Update the curved arrow radius

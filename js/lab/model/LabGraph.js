@@ -13,7 +13,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -56,8 +56,8 @@ define( require => {
       this.vectorSet1 = new VectorSet( this, componentStyleProperty, sumVisibleProperty1, vectorColorPalette1, {
 
         initialSumTailPosition: new Vector2(
-          Util.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
-          Util.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
+          Utils.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
+          Utils.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
         ),
 
         // non-sum component vectors are interleaved with vectorSet2, overlap is OK
@@ -69,8 +69,8 @@ define( require => {
       this.vectorSet2 = new VectorSet( this, componentStyleProperty, sumVisibleProperty2, vectorColorPalette2, {
 
         initialSumTailPosition: new Vector2(
-          Util.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
-          Util.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
+          Utils.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
+          Utils.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
         ),
 
         // non-sum component vectors are interleaved with vectorSet1, overlap is OK

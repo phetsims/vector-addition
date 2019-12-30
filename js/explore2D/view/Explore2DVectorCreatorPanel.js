@@ -12,7 +12,7 @@ define( require => {
   const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
   const Explore2DGraph = require( 'VECTOR_ADDITION/explore2D/model/Explore2DGraph' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
@@ -29,9 +29,9 @@ define( require => {
 
   // initial values for vectors in Polar scene, see https://github.com/phetsims/vector-addition/issues/227
   const POLAR_INITIAL_VECTOR_COMPONENTS = [
-    Vector2.createPolar( 8, Util.toRadians( 30 ) ), // d
-    Vector2.createPolar( 8, Util.toRadians( 60 ) ), // e
-    Vector2.createPolar( 8, Util.toRadians( -90 ) ) // f
+    Vector2.createPolar( 8, Utils.toRadians( 30 ) ), // d
+    Vector2.createPolar( 8, Utils.toRadians( 60 ) ), // e
+    Vector2.createPolar( 8, Utils.toRadians( -90 ) ) // f
   ];
 
   class Explore2DVectorCreatorPanel extends VectorCreatorPanel {

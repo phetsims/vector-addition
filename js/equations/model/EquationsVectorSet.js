@@ -16,7 +16,7 @@ define( require => {
   const EquationsVector = require( 'VECTOR_ADDITION/equations/model/EquationsVector' );
   const EquationsSumVector = require( 'VECTOR_ADDITION/equations/model/EquationsSumVector' );
   const merge = require( 'PHET_CORE/merge' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -52,7 +52,7 @@ define( require => {
 
     // e
     {
-      vectorComponents: Vector2.createPolar( 8, Util.toRadians( 45 ) ),
+      vectorComponents: Vector2.createPolar( 8, Utils.toRadians( 45 ) ),
       vectorTail: new Vector2( 15, 5 ),
       baseVectorTail: new Vector2( 35, 5 )
     }

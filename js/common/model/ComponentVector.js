@@ -25,7 +25,7 @@ define( require => {
   const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const Property = require( 'AXON/Property' );
   const RootVector = require( 'VECTOR_ADDITION/common/model/RootVector' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -193,7 +193,7 @@ define( require => {
                   this.vectorComponents.y;
 
       // Round the value
-      value = Util.toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+      value = Utils.toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
       // Component vectors only show their values if and only if the values are visible and if the component isn't 0
       if ( !valuesVisible || value === 0 ) {

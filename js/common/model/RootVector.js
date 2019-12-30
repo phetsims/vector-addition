@@ -20,7 +20,7 @@ define( require => {
 
   // modules
   const DerivedProperty = require( 'AXON/DerivedProperty' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -340,7 +340,7 @@ define( require => {
      */
     get angleDegrees() {
       const angleRadians = this.angle;
-      return ( angleRadians === null ) ? null : Util.toDegrees( angleRadians );
+      return ( angleRadians === null ) ? null : Utils.toDegrees( angleRadians );
     }
   }
 

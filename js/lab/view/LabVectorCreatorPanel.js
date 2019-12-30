@@ -13,7 +13,7 @@ define( require => {
   const LabGraph = require( 'VECTOR_ADDITION/lab/model/LabGraph' );
   const merge = require( 'PHET_CORE/merge' );
   const SceneNode = require( 'VECTOR_ADDITION/common/view/SceneNode' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorCreatorPanel = require( 'VECTOR_ADDITION/common/view/VectorCreatorPanel' );
@@ -40,7 +40,7 @@ define( require => {
       // See https://github.com/phetsims/vector-addition/issues/227
       const initialVectorComponents = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
                                       new Vector2( 8, 6 ) :
-                                      Vector2.createPolar( 8, Util.toRadians( 45 ) );
+                                      Vector2.createPolar( 8, Utils.toRadians( 45 ) );
 
       // Create a slot for each VectorSet
       const slots = [];

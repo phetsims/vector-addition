@@ -19,7 +19,7 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const merge = require( 'PHET_CORE/merge' );
   const Property = require( 'AXON/Property' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -137,7 +137,7 @@ define( require => {
       else {
 
         // Omit the symbol, display only the value, if values are visible.
-        const roundedMagnitude = Util.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+        const roundedMagnitude = Utils.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
         return merge( super.getLabelContent( valuesVisible ), {
           symbol: null,
           includeAbsoluteValueBars: false,

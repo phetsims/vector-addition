@@ -40,7 +40,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const Spacer = require( 'SCENERY/nodes/Spacer' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
@@ -245,7 +245,7 @@ define( require => {
 
       // values determined empirically
       const wedgeLength = 20;
-      const angle = Util.toRadians( 50 );
+      const angle = Utils.toRadians( 50 );
       const curvedArrowRadius = 16;
 
       const wedgeShape = new Shape()
@@ -396,7 +396,7 @@ define( require => {
         } ) );
 
       // Curved arrow that indicates the angle
-      const curvedArrow = new CurvedArrowNode( arcRadius, Util.toRadians( 45 ) );
+      const curvedArrow = new CurvedArrowNode( arcRadius, Utils.toRadians( 45 ) );
 
       // horizontal line
       const line = new Line( 0, 0, iconSize, 0, {

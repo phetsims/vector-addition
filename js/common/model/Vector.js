@@ -26,7 +26,7 @@ define( require => {
   const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
   const merge = require( 'PHET_CORE/merge' );
   const RootVector = require( 'VECTOR_ADDITION/common/model/RootVector' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
   const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
@@ -145,7 +145,7 @@ define( require => {
     getLabelContent( valuesVisible ) {
 
       // Get the rounded magnitude
-      const roundedMagnitude = Util.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+      const roundedMagnitude = Utils.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
       // Create flags to indicate the symbol and the value
       let symbol = null;
@@ -207,10 +207,10 @@ define( require => {
 
         const vectorComponents = tipPosition.minus( this.tail );
 
-        const roundedMagnitude = Util.roundSymmetric( vectorComponents.magnitude );
+        const roundedMagnitude = Utils.roundSymmetric( vectorComponents.magnitude );
 
-        const angleInRadians = Util.toRadians( POLAR_ANGLE_INTERVAL );
-        const roundedAngle = angleInRadians * Util.roundSymmetric( vectorComponents.angle / angleInRadians );
+        const angleInRadians = Utils.toRadians( POLAR_ANGLE_INTERVAL );
+        const roundedAngle = angleInRadians * Utils.roundSymmetric( vectorComponents.angle / angleInRadians );
 
         // Calculate the rounded polar vector
         const polarVector = vectorComponents.setPolar( roundedMagnitude, roundedAngle );
