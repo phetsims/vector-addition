@@ -30,8 +30,8 @@ define( require => {
   // constants
 
   // Since the origin is being dragged, modelViewTransform is in the model. That being said, it is necessary to know the
-  // view coordinates of the graph node's bottom left location to calculate the model view transform.
-  // Calculate the default for the grid's bottom left location, in view coordinates.
+  // view coordinates of the graph node's bottom-left to calculate the model view transform.
+  // Calculate the default for the grid's bottom-left, in view coordinates.
   const DEFAULT_BOTTOM_LEFT = new Vector2(
     VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minX + VectorAdditionConstants.AXES_ARROW_X_EXTENSION + 10,
     VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxY - VectorAdditionConstants.AXES_ARROW_Y_EXTENSION - 45
