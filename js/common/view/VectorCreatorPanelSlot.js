@@ -127,13 +127,13 @@ define( require => {
         //----------------------------------------------------------------------------------------
 
         // Find where the icon was clicked relative to the scene node (view coordinates)
-        const vectorCenterLocation = sceneNode.globalToLocalPoint( event.pointer.point );
+        const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
 
         // Convert the view coordinates of where the icon was clicked into model coordinates
-        const vectorCenterPosition = graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterLocation );
+        const vectorCenterModel = graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
         // Calculate where the tail position is relative to the scene node
-        const vectorTailPosition = vectorCenterPosition.minus( initialVectorComponents.timesScalar( 0.5 ) );
+        const vectorTailPosition = vectorCenterModel.minus( initialVectorComponents.timesScalar( 0.5 ) );
 
         // Create the new Vector Model
         const vector = new Vector( vectorTailPosition, initialVectorComponents, graph, vectorSet, options.symbol );

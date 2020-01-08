@@ -81,15 +81,15 @@ define( require => {
       // Create Nodes
       //----------------------------------------------------------------------------------------
 
-      // Since the tail is (0, 0) for the view, the tip is the delta location of the tip
-      const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
+      // Since the tail is (0, 0) for the view, the tip is the delta position of the tip
+      const tipDeltaPosition = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
 
       // Create a scenery node representing the arc of an angle and the numerical display of the angle.
       // dispose is necessary because it observes angleVisibleProperty.
       const angleNode = new VectorAngleNode( vector, angleVisibleProperty, graph.modelViewTransformProperty );
 
       // Create a shadow for the vector, visible when the vector is being dragged around off the graph.
-      const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, SHADOW_OPTIONS );
+      const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, SHADOW_OPTIONS );
 
       // Reconfigure scene graph z-layering
       this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode ] );
@@ -98,15 +98,15 @@ define( require => {
       // Handle vector translation
       //----------------------------------------------------------------------------------------
 
-      // Create a Property for the location of the tail of the vector. Used for the tail drag listener.
-      const tailLocationProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
+      // Create a Property for the position of the tail of the vector. Used for the tail drag listener.
+      const tailPositionProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
         vector.tail ) );
 
       // @private drag listener for translating the vector
       this.translationDragListener = new DragListener( {
         pressCursor: options.arrowOptions.cursor,
         targetNode: this,
-        locationProperty: tailLocationProperty,
+        locationProperty: tailPositionProperty,
 
         start: () => {
           assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
@@ -162,20 +162,20 @@ define( require => {
       this.vector.animateBackProperty.lazyLink( removeTranslationDragListener );
 
       // Translate when the vector's tail position changes. unlink is required on dispose.
-      const tailListener = tailLocation => {
-        this.updateTailPosition( tailLocation );
+      const tailListener = tailPositionView => {
+        this.updateTailPosition( tailPositionView );
         if ( vector.isRemovable ) {
-          const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
+          const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
 
-          const cursorPosition = this.modelViewTransformProperty.value
-            .viewToModelDelta( this.translationDragListener.localPoint ).plus( tailPosition );
+          const cursorPositionModel = this.modelViewTransformProperty.value
+            .viewToModelDelta( this.translationDragListener.localPoint ).plus( tailPositionModel );
 
-          if ( vector.isOnGraphProperty.value && !graph.graphModelBounds.containsPoint( cursorPosition ) ) {
+          if ( vector.isOnGraphProperty.value && !graph.graphModelBounds.containsPoint( cursorPositionModel ) ) {
             vector.popOffOfGraph();
           }
         }
       };
-      tailLocationProperty.lazyLink( tailListener );
+      tailPositionProperty.lazyLink( tailListener );
 
       // dispose of things related to vector translation
       const disposeTranslate = () => {
@@ -183,7 +183,7 @@ define( require => {
         this.labelNode.removeInputListener( this.translationDragListener );
         this.translationDragListener.dispose();
         this.vector.animateBackProperty.unlink( removeTranslationDragListener );
-        tailLocationProperty.unlink( tailListener );
+        tailPositionProperty.unlink( tailListener );
       };
 
       //----------------------------------------------------------------------------------------
@@ -211,13 +211,13 @@ define( require => {
         } );
         this.addChild( headNode );
 
-        // Location of the tip of the vector, relative to the tail.
-        const tipLocationProperty = new Vector2Property( tipDeltaLocation );
+        // Position of the tip of the vector, relative to the tail.
+        const tipPositionProperty = new Vector2Property( tipDeltaPosition );
 
         // Drag listener to scale/rotate the vector, attached to the invisible head.
         const scaleRotateDragListener = new DragListener( {
           targetNode: headNode,
-          locationProperty: tipLocationProperty,
+          locationProperty: tipPositionProperty,
           start: () => {
             assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
               'tip drag listener should be removed when the vector is animating back.' );
@@ -227,10 +227,10 @@ define( require => {
         headNode.addInputListener( scaleRotateDragListener );
 
         // Move the tip to match the vector model. unlink is required on dispose.
-        const tipListener = tipLocation => {
-          this.updateTipPosition( tipLocation );
+        const tipListener = tipPosition => {
+          this.updateTipPosition( tipPosition );
         };
-        tipLocationProperty.lazyLink( tipListener );
+        tipPositionProperty.lazyLink( tipListener );
 
         // Pointer area shapes for the head, in 3 different sizes.
         // A pair of these is used, based on the magnitude of the vector and whether its head is scale.
@@ -275,7 +275,7 @@ define( require => {
             headNode.touchArea = largeTouchAreaShape;
           }
 
-          // Transform the invisible head to match the location and angle of the actual vector.
+          // Transform the invisible head to match the position and angle of the actual vector.
           headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
           headNode.rotation = -vectorComponents.angle;
         };
@@ -290,7 +290,7 @@ define( require => {
         // dispose of things that are related to optional scale/rotate
         disposeScaleRotate = () => {
           headNode.removeInputListener( scaleRotateDragListener );
-          tipLocationProperty.unlink( tipListener );
+          tipPositionProperty.unlink( tipListener );
           vector.vectorComponentsProperty.unlink( vectorComponentsListener );
           this.vector.animateBackProperty.unlink( disableScaleRotateDragListener );
         };
@@ -310,8 +310,8 @@ define( require => {
             vectorShadowNode.left = this.arrowNode.left + SHADOW_OFFSET_X;
             vectorShadowNode.top = this.arrowNode.top + SHADOW_OFFSET_Y;
           }
-          const tipDeltaLocation = this.modelViewTransformProperty.value.modelToViewDelta( vectorComponents );
-          vectorShadowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
+          const tipDeltaPosition = this.modelViewTransformProperty.value.modelToViewDelta( vectorComponents );
+          vectorShadowNode.setTip( tipDeltaPosition.x, tipDeltaPosition.y );
         } );
 
       // Show the vector's label when it's on the graph. Must be unlinked.
@@ -355,39 +355,39 @@ define( require => {
     }
 
     /**
-     * Updates the vector model, which will then round the new location depending on the coordinate snap mode
-     * @param {Vector2} tipLocation - the drag listener location
+     * Updates the vector model, which will then round the new position depending on the coordinate snap mode
+     * @param {Vector2} tipPositionView - the drag listener position
      * @private
      */
-    updateTipPosition( tipLocation ) {
+    updateTipPosition( tipPositionView ) {
       assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
         'Cannot drag tip when animating back' );
       assert && assert( this.vector.isOnGraphProperty.value === true, 'Cannot drag tip when not on graph' );
 
-      const vectorTipPosition = this.vector.tail
-        .plus( this.modelViewTransformProperty.value.viewToModelDelta( tipLocation ) );
+      const tipPositionModel = this.vector.tail
+        .plus( this.modelViewTransformProperty.value.viewToModelDelta( tipPositionView ) );
 
-      this.vector.moveTipToPosition( vectorTipPosition );
+      this.vector.moveTipToPosition( tipPositionModel );
     }
 
     /**
      * Updates the model vector's tail position. Called when the vector is being translated.
-     * @param {Vector2} tailLocation
+     * @param {Vector2} tailPositionView
      * @private
      */
-    updateTailPosition( tailLocation ) {
+    updateTailPosition( tailPositionView ) {
       assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
         'Cannot drag tail when animating back' );
 
-      const tailPosition = this.modelViewTransformProperty.value.viewToModelPosition( tailLocation );
+      const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
 
       // Allow translation to anywhere if it isn't on the graph
       if ( this.vector.isOnGraphProperty.value === false ) {
-        this.vector.moveToTailPosition( tailPosition );
+        this.vector.moveToTailPosition( tailPositionModel );
       }
       else {
         // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds
-        this.vector.moveTailToPosition( tailPosition );
+        this.vector.moveTailToPosition( tailPositionModel );
       }
     }
 

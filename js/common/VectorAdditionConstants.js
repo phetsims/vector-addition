@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Constants used in multiple locations within the 'Vector Addition' simulation.
+ * Constants used throughout the 'Vector Addition' simulation.
  *
  * @author Martin Veillette
  * @author Brandon Li

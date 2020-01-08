@@ -67,24 +67,24 @@ define( require => {
       );
 
       // Create a Property of to track the view's origin in view coordinates
-      const originLocationProperty = new Vector2Property( origin );
+      const originPositionProperty = new Vector2Property( origin );
 
       // Add a drag listener. removeInputListener is unnecessary, since this class owns the listener.
       this.addInputListener( new DragListener( {
-        locationProperty: originLocationProperty,
+        locationProperty: originPositionProperty,
         translateNode: false,
         dragBoundsProperty: new Property( restrictedGraphViewBounds ),
         pressCursor: ORIGIN_OPTIONS.cursor
       } ) );
 
-      // Update the origin location.
+      // Update the origin position.
       // unlink is unnecessary, exists for the lifetime of the simulation.
-      originLocationProperty.lazyLink( originLocation => {
+      originPositionProperty.lazyLink( originPosition => {
         // Tell the model to update the origin
-        graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originLocation ) );
+        graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originPosition ) );
       } );
 
-      // Observe when the models model view transform changes to update the location of the circle.
+      // Observe when the models model view transform changes to update the position of the circle.
       // unlink is unnecessary, exists for the lifetime of the sim.
       graph.modelViewTransformProperty.link( modelViewTransform => {
         this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );

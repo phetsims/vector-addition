@@ -122,28 +122,28 @@ define( require => {
      */
     createLabScreenIcon() {
 
-      // {Vector2[]} the tip locations of the group 1 (blue) arrows (aligned tip to tail)
-      const group1TipLocations = [
+      // {Vector2[]} the tip positions of the group 1 (blue) arrows (aligned tip to tail)
+      const group1TipPositions = [
         new Vector2( SCREEN_ICON_WIDTH * 0.63, 0 ),
         new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT )
       ];
 
-      // {Vector2[]} the tip locations of the group 2 (orange) arrows (aligned tip to tail)
-      const group2TipLocations = [
+      // {Vector2[]} the tip positions of the group 2 (orange) arrows (aligned tip to tail)
+      const group2TipPositions = [
         new Vector2( 0, -SCREEN_ICON_HEIGHT * 0.7 ),
         new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT )
       ];
 
-      // starting tail location of 1st vector
-      const startingTailLocation = new Vector2( SCREEN_ICON_WIDTH / 4, 0 );
+      // starting tail position of 1st vector
+      const startingTailPosition = new Vector2( SCREEN_ICON_WIDTH / 4, 0 );
 
-      const group1ArrowNodes = createTipToTailArrowNodes( group1TipLocations, startingTailLocation,
+      const group1ArrowNodes = createTipToTailArrowNodes( group1TipPositions, startingTailPosition,
         merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
           stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
         } ) );
 
-      const group2ArrowNodes = createTipToTailArrowNodes( group2TipLocations, startingTailLocation,
+      const group2ArrowNodes = createTipToTailArrowNodes( group2TipPositions, startingTailPosition,
         merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: VectorAdditionColors.ORANGE_COLOR_PALETTE.mainFill,
           stroke: VectorAdditionColors.ORANGE_COLOR_PALETTE.mainStroke
@@ -159,18 +159,18 @@ define( require => {
      */
     createEquationsScreenIcon() {
 
-      // {Vector2[]} the tip locations of the vectors on the icon (vectors are aligned tip to tail)
-      const tipLocations = [
+      // {Vector2[]} the tip positions of the vectors on the icon (vectors are aligned tip to tail)
+      const tipPositions = [
         new Vector2( SCREEN_ICON_WIDTH * 0.15, -SCREEN_ICON_HEIGHT * 0.75 ),
         new Vector2( SCREEN_ICON_WIDTH * 0.85, -SCREEN_ICON_HEIGHT )
       ];
       const startTail = Vector2.ZERO;
-      const lastTip = _.last( tipLocations );
+      const lastTip = _.last( tipPositions );
 
       const colorPalette = VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE;
 
       // vectors, tip to tail
-      const arrowNodes = createTipToTailArrowNodes( tipLocations, startTail,
+      const arrowNodes = createTipToTailArrowNodes( tipPositions, startTail,
         merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           fill: colorPalette.mainFill,
           stroke: colorPalette.mainStroke
@@ -494,24 +494,24 @@ define( require => {
   //========================================================================================
 
   /**
-   * Creates Vector Icons (ArrowNode) tip to tail based on an array of tip locations along with the tail location of the
+   * Creates Vector Icons (ArrowNode) tip to tail based on an array of tip positions along with the tail position of the
    * first Vector. ArrowNodes are created and pushed to a given array.
    *
-   * @param {Vector2[]} tipLocations - tip locations of all vectors (vectors are aligned tip to tail)
-   * @param {Vector2} startingTailLocation - tail location of the first vector
+   * @param {Vector2[]} tipPositions - tip positions of all vectors (vectors are aligned tip to tail)
+   * @param {Vector2} startingTailPosition - tail position of the first vector
    * @param {Object} [arrowOptions] - passed to arrow nodes
    * @returns {ArrowNode[]}
    */
-  function createTipToTailArrowNodes( tipLocations, startingTailLocation, arrowOptions ) {
+  function createTipToTailArrowNodes( tipPositions, startingTailPosition, arrowOptions ) {
 
-    assert && assert( _.every( tipLocations, tip => tip instanceof Vector2 ), `invalid tipLocations: ${tipLocations}` );
-    assert && assert( startingTailLocation instanceof Vector2, `invalid startingTailLocation: ${startingTailLocation}` );
+    assert && assert( _.every( tipPositions, tip => tip instanceof Vector2 ), `invalid tipPositions: ${tipPositions}` );
+    assert && assert( startingTailPosition instanceof Vector2, `invalid startingTailPosition: ${startingTailPosition}` );
 
     const arrowNodes = [];
-    for ( let i = 0; i < tipLocations.length; i++ ) {
-      const tailLocation = ( i === 0 ) ? startingTailLocation : tipLocations[ i - 1 ];
-      const tipLocation = tipLocations[ i ];
-      arrowNodes.push( new ArrowNode( tailLocation.x, tailLocation.y, tipLocation.x, tipLocation.y, arrowOptions ) );
+    for ( let i = 0; i < tipPositions.length; i++ ) {
+      const tailPosition = ( i === 0 ) ? startingTailPosition : tipPositions[ i - 1 ];
+      const tipPosition = tipPositions[ i ];
+      arrowNodes.push( new ArrowNode( tailPosition.x, tailPosition.y, tipPosition.x, tipPosition.y, arrowOptions ) );
     }
     return arrowNodes;
   }

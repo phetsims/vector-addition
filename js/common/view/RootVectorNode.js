@@ -72,20 +72,20 @@ define( require => {
 
       super( options );
 
-      // Define a vector node in which the tail location (view coordinates) is (0, 0). Get the tip location in view
+      // Define a vector node in which the tail position (view coordinates) is (0, 0). Get the tip position in view
       // coordinates
-      const tipDeltaLocation = modelViewTransformProperty.value.modelToViewDelta( rootVector.vectorComponents );
+      const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( rootVector.vectorComponents );
 
       // @protected {ArrowNode} arrowNode - Create an arrow node that represents an actual vector.
       if ( options.arrowType === 'solid' ) {
-        this.arrowNode = new ArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, options.arrowOptions );
+        this.arrowNode = new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions );
       }
       else {
-        this.arrowNode = new DashedArrowNode( 0, 0, tipDeltaLocation.x, tipDeltaLocation.y, options.arrowOptions );
+        this.arrowNode = new DashedArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions );
       }
 
       // @protected {VectorLabelNode} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
-      // The location of this depends on the angle of the vector. Since the positioning of 'next' is different for every
+      // The position of this depends on the angle of the vector. Since the positioning of 'next' is different for every
       // vector, use an overridable method to position it. ( updateLabelPositioning() )
       // dispose is required because this observes the Properties that are passed to it.
       this.labelNode = new VectorLabelNode( rootVector, valuesVisibleProperty, activeVectorProperty, {
@@ -96,7 +96,7 @@ define( require => {
       this.setChildren( [ this.arrowNode, this.labelNode ] );
 
       //----------------------------------------------------------------------------------------
-      // Update the tail/tip location when the vector's tail/tip position changes
+      // Update the tail/tip position when the vector's tail/tip position changes
 
       // Observe changes to the tail/tip and mirror the positioning. If the values visibility changes, update the
       // view as well.  unmultilink is required on dispose.
@@ -138,9 +138,9 @@ define( require => {
       // Since the tail is defined at (0, 0) for the vector, the vector must be translated.
       this.translation = modelViewTransform.modelToViewPosition( rootVector.tail );
 
-      // Get the tip location in view coordinates
-      const tipDeltaLocation = modelViewTransform.modelToViewDelta( rootVector.vectorComponents );
-      this.arrowNode.setTip( tipDeltaLocation.x, tipDeltaLocation.y );
+      // Get the tip position in view coordinates
+      const tipDeltaPosition = modelViewTransform.modelToViewDelta( rootVector.vectorComponents );
+      this.arrowNode.setTip( tipDeltaPosition.x, tipDeltaPosition.y );
 
       // Make the arrow easier to grab by setting pointer areas
       if ( rootVector.magnitude > VectorAdditionConstants.ZERO_THRESHOLD && this.arrowNode.shape ) {
@@ -209,7 +209,7 @@ define( require => {
     }
 
     /**
-     * Computes the center location for the label.
+     * Computes the center position for the label.
      * See https://github.com/phetsims/vector-addition/issues/212
      *
      * @param {RootVector} vector

@@ -81,7 +81,7 @@ define( require => {
     }
 
     /**
-     * Sets the tail and tip locations.
+     * Sets the tail and tip positions.
      * @param {number} tailX
      * @param {number} tailY
      * @param {number} tipX
@@ -144,7 +144,7 @@ define( require => {
     }
 
     /**
-     * Sets the tip location.
+     * Sets the tip position.
      * @param {number} tipX
      * @param {number} tipY
      * @public

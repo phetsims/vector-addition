@@ -23,7 +23,6 @@ In addition to this document, you are encouraged to read:
 * _component vector styles_ refers to the representation used to display component vectors, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js)
 * _creator panel_ and _toolbox_ are synonyms for the UI component that creates vectors 
 * _graph orientation_ is horizontal, vertical, or two-dimensional, see [GraphOrientations](https://github.com/phetsims/vector-addition/blob/master/js/common/model/GraphOrientations.js)
-* for vectors, _position_ or _point_ refers to model coordinates, while _location_ refers to view coordinates 
 
 ## General Considerations
 

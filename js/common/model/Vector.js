@@ -111,10 +111,8 @@ define( require => {
 
       // When the graph's origin changes, update the tail position. unlink is required on dispose.
       const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
-
-        // Get the tail location on the old graph, and move the vector to the new model position of the old location
-        const tailLocation = oldModelViewTransform.modelToViewPosition( this.tail );
-        this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailLocation ) );
+        const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
+        this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailPositionView ) );
       };
       this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
 

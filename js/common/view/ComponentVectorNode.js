@@ -93,7 +93,7 @@ define( require => {
       //  - componentStyleProperty - to determine visibility (i.e. components shouldn't be visible on INVISIBLE)
       //                             and to draw lines on the PROJECTION componentStyle
       //  - isOnGraphProperty - components shouldn't be visible if the vector isn't on the graph
-      //  - vectorComponentsProperty - to update the leader lines drawings locations
+      //  - vectorComponentsProperty - to update the leader lines drawings positions
       //
       // unmultilink is required on dispose.
       //
@@ -166,22 +166,23 @@ define( require => {
       if ( this.leaderLinesPath.visible ) {
 
         // Since the leader lines are a child of this view, the origin of the view is at the tail of the component
-        // vector. Get the tip location relative to the tail of the component vector (which is the components)
-        const tipLocation = modelViewTransform.modelToViewDelta( componentVector.vectorComponents );
+        // vector. Get the tip position relative to the tail of the component vector (which is the components)
+        const tipPosition = modelViewTransform.modelToViewDelta( componentVector.vectorComponents );
 
-        // Get the parent tail location relative to the origin of the view (the tail of the component vector)
-        const parentTailLocation = modelViewTransform.modelToViewDelta( componentVector.parentTail
+        // Get the parent tail position relative to the origin of the view (the tail of the component vector)
+        const parentTailPosition = modelViewTransform.modelToViewDelta( componentVector.parentTail
           .minus( componentVector.tail ) );
-        // Get the parent tip location relative to the origin of the view (the tail of the component vector)
-        const parentTipLocation = modelViewTransform.modelToViewDelta( componentVector.parentTip
+
+        // Get the parent tip position relative to the origin of the view (the tail of the component vector)
+        const parentTipPosition = modelViewTransform.modelToViewDelta( componentVector.parentTip
           .minus( componentVector.tail ) );
 
         // Create new shape for the leader lines
         this.leaderLinesPath.shape = new Shape()
           .moveToPoint( Vector2.ZERO )
-          .lineToPoint( parentTailLocation )
-          .moveToPoint( tipLocation )
-          .lineToPoint( parentTipLocation );
+          .lineToPoint( parentTailPosition )
+          .moveToPoint( tipPosition )
+          .lineToPoint( parentTipPosition );
 
         if ( isParentActive ) {
           this.leaderLinesPath.stroke = VectorAdditionColors.LEADER_LINES_ACTIVE_STROKE;
