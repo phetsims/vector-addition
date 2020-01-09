@@ -106,7 +106,7 @@ define( require => {
       this.translationDragListener = new DragListener( {
         pressCursor: options.arrowOptions.cursor,
         targetNode: this,
-        locationProperty: tailPositionProperty,
+        positionProperty: tailPositionProperty,
 
         start: () => {
           assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
@@ -217,7 +217,7 @@ define( require => {
         // Drag listener to scale/rotate the vector, attached to the invisible head.
         const scaleRotateDragListener = new DragListener( {
           targetNode: headNode,
-          locationProperty: tipPositionProperty,
+          positionProperty: tipPositionProperty,
           start: () => {
             assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
               'tip drag listener should be removed when the vector is animating back.' );

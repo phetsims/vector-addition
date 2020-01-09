@@ -71,7 +71,7 @@ define( require => {
 
       // Add a drag listener. removeInputListener is unnecessary, since this class owns the listener.
       this.addInputListener( new DragListener( {
-        locationProperty: originPositionProperty,
+        positionProperty: originPositionProperty,
         translateNode: false,
         dragBoundsProperty: new Property( restrictedGraphViewBounds ),
         pressCursor: ORIGIN_OPTIONS.cursor
