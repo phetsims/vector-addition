@@ -66,7 +66,7 @@ define( require => {
       this.baseLine = new Line( 0, 0, MAX_BASELINE_WIDTH, 0, { stroke: Color.BLACK } );
 
       // @private {CurvedArrowNode} curvedArrow - arrow in a circle shape from the baseline to the vector
-      this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS, vector.angle ? vector.angle : 0, );
+      this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS, vector.angle ? vector.angle : 0 );
 
       // @private {Text} labelText - set to an arbitrary string for now.
       this.labelText = new Text( '', { font: VectorAdditionConstants.ANGLE_LABEL_FONT } );
