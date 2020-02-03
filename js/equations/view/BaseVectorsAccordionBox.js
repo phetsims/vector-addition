@@ -214,7 +214,7 @@ define( require => {
 
     options = merge( {
 
-      // {Object} options passed to NumberPicker
+      // options passed to NumberPicker
       numberPickerOptions: merge( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
         touchAreaXDilation: 20,
         touchAreaYDilation: 10
