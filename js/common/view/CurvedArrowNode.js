@@ -46,13 +46,13 @@ define( require => {
         arrowheadWidth: 8,  // {number} the arrowhead width (before rotation)
         arrowheadHeight: 6, // {number} the arrowhead height (before rotation)
 
-        // {Object} options passed to the Path that creates the arrow's curved tail (arc)
+        // options passed to the Path that creates the arrow's curved tail (arc)
         arcOptions: {
           stroke: Color.BLACK,
           lineWidth: 1.2
         },
 
-        // {Object} options passed to the Path that creates the arrow's head
+        // options passed to the Path that creates the arrow's head
         arrowOptions: {
           fill: Color.BLACK
         }

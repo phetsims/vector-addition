@@ -62,7 +62,7 @@ define( require => {
 
         arrowType: 'solid',
 
-        // {Object} options passed to ArrowNode or DashedArrowNode
+        // options passed to ArrowNode or DashedArrowNode
         arrowOptions: {
           cursor: 'move'
         }
