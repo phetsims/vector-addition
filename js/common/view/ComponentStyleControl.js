@@ -7,70 +7,67 @@
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Brandon Li
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const ComponentStyleRadioButtonGroup = require( 'VECTOR_ADDITION/common/view/ComponentStyleRadioButtonGroup' );
-  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import vectorAdditionStrings from '../../vector-addition-strings.js';
+import vectorAddition from '../../vectorAddition.js';
+import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import ComponentStyleRadioButtonGroup from './ComponentStyleRadioButtonGroup.js';
 
-  // strings
-  const componentsString = require( 'string!VECTOR_ADDITION/components' );
+const componentsString = vectorAdditionStrings.components;
 
-  class ComponentStyleControl extends VBox {
+class ComponentStyleControl extends VBox {
 
-    /**
-     * @param {EnumerationProperty} componentStyleProperty - value of type ComponentVectorStyles
-     * @param {Object} [options]
-     */
-    constructor( componentStyleProperty, options ) {
+  /**
+   * @param {EnumerationProperty} componentStyleProperty - value of type ComponentVectorStyles
+   * @param {Object} [options]
+   */
+  constructor( componentStyleProperty, options ) {
 
-      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+      `invalid componentStyleProperty: ${componentStyleProperty}` );
 
-      options = merge( {
-        align: 'left',
-        spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
-        maxWidth: 200
-      }, options );
+    options = merge( {
+      align: 'left',
+      spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
+      maxWidth: 200
+    }, options );
 
-      const children = [];
+    const children = [];
 
-      // 'Components' label, left justified
-      const componentsText = new Text( componentsString, {
-        font: VectorAdditionConstants.TITLE_FONT,
-        maxWidth: options.maxWidth
-      } );
-      children.push( componentsText );
+    // 'Components' label, left justified
+    const componentsText = new Text( componentsString, {
+      font: VectorAdditionConstants.TITLE_FONT,
+      maxWidth: options.maxWidth
+    } );
+    children.push( componentsText );
 
-      // Radio buttons, centered in maxWidth by using an AlignBox
-      const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( componentStyleProperty );
-      children.push( new AlignBox( componentStyleRadioButtonGroup, {
-        alignBounds: new Bounds2( 0, 0, options.maxWidth, componentStyleRadioButtonGroup.height )
-      } ) );
+    // Radio buttons, centered in maxWidth by using an AlignBox
+    const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( componentStyleProperty );
+    children.push( new AlignBox( componentStyleRadioButtonGroup, {
+      alignBounds: new Bounds2( 0, 0, options.maxWidth, componentStyleRadioButtonGroup.height )
+    } ) );
 
-      assert && assert( !options.children, 'ComponentStyleControl sets children' );
-      options.children = children;
+    assert && assert( !options.children, 'ComponentStyleControl sets children' );
+    options.children = children;
 
-      super( options );
-    }
-
-    /**
-     * @public
-     * @override
-     */
-    dispose() {
-      assert && assert( false, 'ComponentStyleControl is not intended to be disposed' );
-    }
+    super( options );
   }
 
-  return vectorAddition.register( 'ComponentStyleControl', ComponentStyleControl );
-} );
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'ComponentStyleControl is not intended to be disposed' );
+  }
+}
+
+vectorAddition.register( 'ComponentStyleControl', ComponentStyleControl );
+export default ComponentStyleControl;

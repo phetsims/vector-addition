@@ -5,76 +5,73 @@
  *
  * @author Martin Veillette
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const LabGraph = require( 'VECTOR_ADDITION/lab/model/LabGraph' );
-  const Tandem = require( 'TANDEM/Tandem' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import vectorAddition from '../../vectorAddition.js';
+import LabGraph from './LabGraph.js';
 
-  class LabModel extends VectorAdditionModel {
+class LabModel extends VectorAdditionModel {
 
-    /**
-     * @param {Tandem} tandem
-     */
-    constructor( tandem ) {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-      assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      super( tandem );
+    super( tandem );
 
-      // @public visibility of the sum for the first vector set
-      this.sumVisibleProperty1 = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
+    // @public visibility of the sum for the first vector set
+    this.sumVisibleProperty1 = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
-      // @public visibility of the sum for the second vector set
-      this.sumVisibleProperty2 = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
+    // @public visibility of the sum for the second vector set
+    this.sumVisibleProperty2 = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
-      // @public (read-only) {VectorColorPalette}
-      this.cartesianVectorColorPalette1 = VectorAdditionColors.BLUE_COLOR_PALETTE;
-      this.cartesianVectorColorPalette2 = VectorAdditionColors.ORANGE_COLOR_PALETTE;
-      this.polarVectorColorPalette1 = VectorAdditionColors.PINK_COLOR_PALETTE;
-      this.polarVectorColorPalette2 = VectorAdditionColors.GREEN_COLOR_PALETTE;
+    // @public (read-only) {VectorColorPalette}
+    this.cartesianVectorColorPalette1 = VectorAdditionColors.BLUE_COLOR_PALETTE;
+    this.cartesianVectorColorPalette2 = VectorAdditionColors.ORANGE_COLOR_PALETTE;
+    this.polarVectorColorPalette1 = VectorAdditionColors.PINK_COLOR_PALETTE;
+    this.polarVectorColorPalette2 = VectorAdditionColors.GREEN_COLOR_PALETTE;
 
-      // @public (read-only) graph for Cartesian snap mode
-      this.cartesianGraph = new LabGraph(
-        CoordinateSnapModes.CARTESIAN,
-        this.componentStyleProperty,
-        this.sumVisibleProperty1,
-        this.sumVisibleProperty2,
-        this.cartesianVectorColorPalette1,
-        this.cartesianVectorColorPalette2
-      );
+    // @public (read-only) graph for Cartesian snap mode
+    this.cartesianGraph = new LabGraph(
+      CoordinateSnapModes.CARTESIAN,
+      this.componentStyleProperty,
+      this.sumVisibleProperty1,
+      this.sumVisibleProperty2,
+      this.cartesianVectorColorPalette1,
+      this.cartesianVectorColorPalette2
+    );
 
-      // @public (read-only) graph for Polar snap mode
-      this.polarGraph = new LabGraph(
-        CoordinateSnapModes.POLAR,
-        this.componentStyleProperty,
-        this.sumVisibleProperty1,
-        this.sumVisibleProperty2,
-        this.polarVectorColorPalette1,
-        this.polarVectorColorPalette2
-      );
-    }
-
-    /**
-     * Resets the LabModel.
-     * @public
-     * @override
-     */
-    reset() {
-      super.reset();
-      this.sumVisibleProperty1.reset();
-      this.sumVisibleProperty2.reset();
-      this.cartesianGraph.reset();
-      this.polarGraph.reset();
-    }
+    // @public (read-only) graph for Polar snap mode
+    this.polarGraph = new LabGraph(
+      CoordinateSnapModes.POLAR,
+      this.componentStyleProperty,
+      this.sumVisibleProperty1,
+      this.sumVisibleProperty2,
+      this.polarVectorColorPalette1,
+      this.polarVectorColorPalette2
+    );
   }
 
-  return vectorAddition.register( 'LabModel', LabModel );
-} );
+  /**
+   * Resets the LabModel.
+   * @public
+   * @override
+   */
+  reset() {
+    super.reset();
+    this.sumVisibleProperty1.reset();
+    this.sumVisibleProperty2.reset();
+    this.cartesianGraph.reset();
+    this.polarGraph.reset();
+  }
+}
+
+vectorAddition.register( 'LabModel', LabModel );
+export default LabModel;

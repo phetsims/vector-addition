@@ -8,76 +8,73 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const MathSymbolFont = require( 'SCENERY_PHET/MathSymbolFont' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+import merge from '../../../../phet-core/js/merge.js';
+import MathSymbolFont from '../../../../scenery-phet/js/MathSymbolFont.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import vectorAddition from '../../vectorAddition.js';
 
-  // const
-  const DEFAULT_FONT = new MathSymbolFont( 18 );
+// const
+const DEFAULT_FONT = new MathSymbolFont( 18 );
 
-  class ArrowOverSymbolNode extends Node {
+class ArrowOverSymbolNode extends Node {
 
-    /**
-     * @param {string} symbol
-     * @param {Object} [options]
-     */
-    constructor( symbol, options ) {
+  /**
+   * @param {string} symbol
+   * @param {Object} [options]
+   */
+  constructor( symbol, options ) {
 
-      options = merge( {
-        font: DEFAULT_FONT,
-        spacing: 3, // vertical spacing between arrow and symbol
-        arrowScale: 0.65
-      }, options );
+    options = merge( {
+      font: DEFAULT_FONT,
+      spacing: 3, // vertical spacing between arrow and symbol
+      arrowScale: 0.65
+    }, options );
 
-      const symbolNode = new Text( symbol, {
-        font: options.font,
-        boundsMethod: 'accurate' // so that options.spacing is effective
-      } );
+    const symbolNode = new Text( symbol, {
+      font: options.font,
+      boundsMethod: 'accurate' // so that options.spacing is effective
+    } );
 
-      const rightArrowNode = new Text( '\u2192', {
-        font: options.font,
-        boundsMethod: 'accurate', // so that options.spacing is effective
-        scale: options.arrowScale
-      } );
+    const rightArrowNode = new Text( '\u2192', {
+      font: options.font,
+      boundsMethod: 'accurate', // so that options.spacing is effective
+      scale: options.arrowScale
+    } );
 
-      assert && assert( !options.children, 'ArrowOverSymbolNode sets children' );
-      options.children = [ symbolNode, rightArrowNode ];
+    assert && assert( !options.children, 'ArrowOverSymbolNode sets children' );
+    options.children = [ symbolNode, rightArrowNode ];
 
-      super( options );
+    super( options );
 
-      // @private
-      this.symbolNode = symbolNode;
-      this.rightArrowNode = rightArrowNode;
-      this.spacing = options.spacing;
+    // @private
+    this.symbolNode = symbolNode;
+    this.rightArrowNode = rightArrowNode;
+    this.spacing = options.spacing;
 
-      this.updateLayout();
-    }
-
-    /**
-     * Changes the symbol.
-     * @param {string} symbol
-     */
-    setSymbol( symbol ) {
-      this.symbolNode.text = symbol;
-      this.updateLayout();
-    }
-
-    /**
-     * @private
-     */
-    updateLayout() {
-
-      // Reposition the arrow
-      this.rightArrowNode.centerX = this.symbolNode.centerX;
-      this.rightArrowNode.bottom = this.symbolNode.top - this.spacing;
-    }
+    this.updateLayout();
   }
 
-  return vectorAddition.register( 'ArrowOverSymbolNode', ArrowOverSymbolNode );
-} );
+  /**
+   * Changes the symbol.
+   * @param {string} symbol
+   */
+  setSymbol( symbol ) {
+    this.symbolNode.text = symbol;
+    this.updateLayout();
+  }
+
+  /**
+   * @private
+   */
+  updateLayout() {
+
+    // Reposition the arrow
+    this.rightArrowNode.centerX = this.symbolNode.centerX;
+    this.rightArrowNode.bottom = this.symbolNode.top - this.spacing;
+  }
+}
+
+vectorAddition.register( 'ArrowOverSymbolNode', ArrowOverSymbolNode );
+export default ArrowOverSymbolNode;

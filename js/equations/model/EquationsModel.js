@@ -5,63 +5,60 @@
  *
  * @author Brandon Li
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EquationsGraph = require( 'VECTOR_ADDITION/equations/model/EquationsGraph' );
-  const Tandem = require( 'TANDEM/Tandem' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import vectorAddition from '../../vectorAddition.js';
+import EquationsGraph from './EquationsGraph.js';
 
-  class EquationsModel extends VectorAdditionModel {
+class EquationsModel extends VectorAdditionModel {
 
-    /**
-     * @param {Tandem} tandem
-     */
-    constructor( tandem ) {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-      assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      super( tandem );
+    super( tandem );
 
-      // @public
-      this.sumVisibleProperty = new BooleanProperty( true );
+    // @public
+    this.sumVisibleProperty = new BooleanProperty( true );
 
-      // @public (read-only) {VectorColorPalette}
-      this.cartesianVectorColorPalette = VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE;
-      this.polarVectorColorPalette = VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE;
+    // @public (read-only) {VectorColorPalette}
+    this.cartesianVectorColorPalette = VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE;
+    this.polarVectorColorPalette = VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE;
 
-      // @public (read-only) graph for Cartesian snap mode
-      this.cartesianGraph = new EquationsGraph( CoordinateSnapModes.CARTESIAN,
-        this.componentStyleProperty,
-        this.sumVisibleProperty,
-        this.cartesianVectorColorPalette
-      );
+    // @public (read-only) graph for Cartesian snap mode
+    this.cartesianGraph = new EquationsGraph( CoordinateSnapModes.CARTESIAN,
+      this.componentStyleProperty,
+      this.sumVisibleProperty,
+      this.cartesianVectorColorPalette
+    );
 
-      // @public (read-only) graph for Polar snap mode
-      this.polarGraph = new EquationsGraph( CoordinateSnapModes.POLAR,
-        this.componentStyleProperty,
-        this.sumVisibleProperty,
-        this.polarVectorColorPalette
-      );
-    }
-
-    /**
-     * Resets the EquationsModel.
-     * @public
-     * @override
-     */
-    reset() {
-      super.reset();
-      this.sumVisibleProperty.reset();
-      this.cartesianGraph.reset();
-      this.polarGraph.reset();
-    }
+    // @public (read-only) graph for Polar snap mode
+    this.polarGraph = new EquationsGraph( CoordinateSnapModes.POLAR,
+      this.componentStyleProperty,
+      this.sumVisibleProperty,
+      this.polarVectorColorPalette
+    );
   }
 
-  return vectorAddition.register( 'EquationsModel', EquationsModel );
-} );
+  /**
+   * Resets the EquationsModel.
+   * @public
+   * @override
+   */
+  reset() {
+    super.reset();
+    this.sumVisibleProperty.reset();
+    this.cartesianGraph.reset();
+    this.polarGraph.reset();
+  }
+}
+
+vectorAddition.register( 'EquationsModel', EquationsModel );
+export default EquationsModel;

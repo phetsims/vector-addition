@@ -6,50 +6,47 @@
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const merge = require( 'PHET_CORE/merge' );
-  const Panel = require( 'SUN/Panel' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+import merge from '../../../../phet-core/js/merge.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Panel from '../../../../sun/js/Panel.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-  class GraphControlPanel extends Panel {
+class GraphControlPanel extends Panel {
 
-    /**
-     * @param {Node[]} children
-     * @param {Object} [options]
-     */
-    constructor( children, options ) {
+  /**
+   * @param {Node[]} children
+   * @param {Object} [options]
+   */
+  constructor( children, options ) {
 
-      options = merge( {}, VectorAdditionConstants.PANEL_OPTIONS, options );
+    options = merge( {}, VectorAdditionConstants.PANEL_OPTIONS, options );
 
-      const content = new VBox( {
-        children: children,
-        spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
-        align: 'left'
-      } );
+    const content = new VBox( {
+      children: children,
+      spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
+      align: 'left'
+    } );
 
-      // Make the panel a fixed width
-      assert && assert( options.minWidth === undefined, 'GraphControlPanel sets minWidth' );
-      assert && assert( options.maxWidth === undefined, 'GraphControlPanel sets maxWidth' );
-      const panelWidth = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH + ( 2 * options.xMargin );
-      options.minWidth = panelWidth;
-      options.maxWidth = panelWidth;
+    // Make the panel a fixed width
+    assert && assert( options.minWidth === undefined, 'GraphControlPanel sets minWidth' );
+    assert && assert( options.maxWidth === undefined, 'GraphControlPanel sets maxWidth' );
+    const panelWidth = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH + ( 2 * options.xMargin );
+    options.minWidth = panelWidth;
+    options.maxWidth = panelWidth;
 
-      super( content, options );
-    }
-
-    /**
-     * @public
-     * @override
-     */
-    dispose() {
-      assert && assert( false, 'GraphControlPanel is not intended to be disposed' );
-    }
+    super( content, options );
   }
 
-  return vectorAddition.register( 'GraphControlPanel', GraphControlPanel );
-} );
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'GraphControlPanel is not intended to be disposed' );
+  }
+}
+
+vectorAddition.register( 'GraphControlPanel', GraphControlPanel );
+export default GraphControlPanel;

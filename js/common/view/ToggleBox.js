@@ -14,79 +14,76 @@
  *
  * @author Brandon Li
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AccordionBox = require( 'SUN/AccordionBox' );
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import AccordionBox from '../../../../sun/js/AccordionBox.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-  class ToggleBox extends AccordionBox {
+class ToggleBox extends AccordionBox {
 
-    /**
-     * @param {Node} closedContent - content when the box is closed
-     * @param {Node} openContent - content when the box is open
-     * @param {Object} [options]
-     */
-    constructor( closedContent, openContent, options ) {
+  /**
+   * @param {Node} closedContent - content when the box is closed
+   * @param {Node} openContent - content when the box is open
+   * @param {Object} [options]
+   */
+  constructor( closedContent, openContent, options ) {
 
-      options = merge( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
+    options = merge( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
-        isExpandedInitially: true, // {boolean} - false means the box will start off as closed
+      isExpandedInitially: true, // {boolean} - false means the box will start off as closed
 
 
-        contentYMargin: 0,
-        titleYMargin: 0,
-        buttonYMargin: 0,
+      contentYMargin: 0,
+      titleYMargin: 0,
+      buttonYMargin: 0,
 
-        // content align
-        contentAlign: 'left',    // {string} - 'left', 'center', or 'right'
-        contentFixedWidth: null, // {number|null} if provided, the content will scale to fix this width. Otherwise,
-                                 // the fixed size is calculated by the largest of the content nodes and its respective
-                                 // margin
+      // content align
+      contentAlign: 'left',    // {string} - 'left', 'center', or 'right'
+      contentFixedWidth: null, // {number|null} if provided, the content will scale to fix this width. Otherwise,
+                               // the fixed size is calculated by the largest of the content nodes and its respective
+                               // margin
 
-        contentFixedHeight: null  // {number|null} if provided, the content will scale to fix this height. Otherwise,
-                                  // the fixed size is calculated by the largest of the content nodes and its respective
-                                  // margin
+      contentFixedHeight: null  // {number|null} if provided, the content will scale to fix this height. Otherwise,
+                                // the fixed size is calculated by the largest of the content nodes and its respective
+                                // margin
 
-        // See VectorAdditionConstants.ACCORDION_BOX_OPTIONS for the rest of the defaults
-      }, options );
+      // See VectorAdditionConstants.ACCORDION_BOX_OPTIONS for the rest of the defaults
+    }, options );
 
-      assert && assert( closedContent instanceof Node, `invalid closedContent: ${closedContent}` );
-      assert && assert( openContent instanceof Node, `invalid openContent: ${openContent}` );
+    assert && assert( closedContent instanceof Node, `invalid closedContent: ${closedContent}` );
+    assert && assert( openContent instanceof Node, `invalid openContent: ${openContent}` );
 
-      // Determine the content width
-      const contentWidth = options.contentFixedWidth || _.max( [ closedContent.width, openContent.width ] );
-      const contentHeight = options.contentFixedHeight || _.max( [ closedContent.height, openContent.height ] );
+    // Determine the content width
+    const contentWidth = options.contentFixedWidth || _.max( [ closedContent.width, openContent.width ] );
+    const contentHeight = options.contentFixedHeight || _.max( [ closedContent.height, openContent.height ] );
 
-      // Constrain the content width and height
-      openContent.maxWidth = contentWidth;
-      openContent.maxHeight = contentHeight;
-      closedContent.maxWidth = contentWidth;
-      closedContent.maxHeight = contentHeight;
+    // Constrain the content width and height
+    openContent.maxWidth = contentWidth;
+    openContent.maxHeight = contentHeight;
+    closedContent.maxWidth = contentWidth;
+    closedContent.maxHeight = contentHeight;
 
-      // Put the content in AlignBoxes, to handle alignment
-      const alignBoxOptions = {
-        xAlign: options.contentAlign,
-        alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
-      };
-      const openContentAlignBox = new AlignBox( openContent, alignBoxOptions );
-      const closedContentAlignBox = new AlignBox( closedContent, alignBoxOptions );
+    // Put the content in AlignBoxes, to handle alignment
+    const alignBoxOptions = {
+      xAlign: options.contentAlign,
+      alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
+    };
+    const openContentAlignBox = new AlignBox( openContent, alignBoxOptions );
+    const closedContentAlignBox = new AlignBox( closedContent, alignBoxOptions );
 
-      super( openContentAlignBox, merge( {
-        expandedProperty: new BooleanProperty( options.isExpandedInitially ),
-        showTitleWhenExpanded: false,
-        titleNode: closedContentAlignBox, // unorthodox use of AccordionBox, but it works
-        titleBarExpandCollapse: false
-      }, options ) );
-    }
+    super( openContentAlignBox, merge( {
+      expandedProperty: new BooleanProperty( options.isExpandedInitially ),
+      showTitleWhenExpanded: false,
+      titleNode: closedContentAlignBox, // unorthodox use of AccordionBox, but it works
+      titleBarExpandCollapse: false
+    }, options ) );
   }
+}
 
-  return vectorAddition.register( 'ToggleBox', ToggleBox );
-} );
+vectorAddition.register( 'ToggleBox', ToggleBox );
+export default ToggleBox;

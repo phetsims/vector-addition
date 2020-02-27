@@ -11,43 +11,40 @@
  *
  * @author Brandon Li
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import Graph from '../../common/model/Graph.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
+import VectorSet from '../../common/model/VectorSet.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import vectorAddition from '../../vectorAddition.js';
 
-  class Explore2DGraph extends Graph {
+class Explore2DGraph extends Graph {
 
-    /**
-     * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
-     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty
-     * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
-     */
-    constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
+  /**
+   * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {BooleanProperty} sumVisibleProperty
+   * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
+   */
+  constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
 
-      assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
+    assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-      super( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS, coordinateSnapMode );
+    super( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS, coordinateSnapMode );
 
-      // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 2D' have exactly one vector set
-      this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
+    // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 2D' have exactly one vector set
+    this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
 
-      // Add the one and only vector set
-      this.vectorSets.push( this.vectorSet );
-    }
+    // Add the one and only vector set
+    this.vectorSets.push( this.vectorSet );
   }
+}
 
-  return vectorAddition.register( 'Explore2DGraph', Explore2DGraph );
-} );
+vectorAddition.register( 'Explore2DGraph', Explore2DGraph );
+export default Explore2DGraph;

@@ -5,40 +5,37 @@
  *
  * @author Martin Veillette
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const LabModel = require( 'VECTOR_ADDITION/lab/model/LabModel' );
-  const LabScreenView = require( 'VECTOR_ADDITION/lab/view/LabScreenView' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import VectorAdditionColors from '../common/VectorAdditionColors.js';
+import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
+import vectorAdditionStrings from '../vector-addition-strings.js';
+import vectorAddition from '../vectorAddition.js';
+import LabModel from './model/LabModel.js';
+import LabScreenView from './view/LabScreenView.js';
 
-  // strings
-  const screenLabString = require( 'string!VECTOR_ADDITION/screen.lab' );
+const screenLabString = vectorAdditionStrings.screen.lab;
 
-  class LabScreen extends Screen {
+class LabScreen extends Screen {
 
-    /**
-     * @param {Tandem} tandem
-     */
-    constructor( tandem ) {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-      const options = {
-        name: screenLabString,
-        backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
-        homeScreenIcon: VectorAdditionIconFactory.createLabScreenIcon(),
-        tandem: tandem
-      };
+    const options = {
+      name: screenLabString,
+      backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
+      homeScreenIcon: VectorAdditionIconFactory.createLabScreenIcon(),
+      tandem: tandem
+    };
 
-      super( () => new LabModel( tandem.createTandem( 'labModel' ) ),
-        model => new LabScreenView( model, tandem.createTandem( 'labView' ) ),
-        options );
-    }
+    super( () => new LabModel( tandem.createTandem( 'labModel' ) ),
+      model => new LabScreenView( model, tandem.createTandem( 'labView' ) ),
+      options );
   }
+}
 
-  return vectorAddition.register( 'LabScreen', LabScreen );
-} );
+vectorAddition.register( 'LabScreen', LabScreen );
+export default LabScreen;

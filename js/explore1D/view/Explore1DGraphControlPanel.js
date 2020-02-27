@@ -7,85 +7,82 @@
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const SumCheckbox = require( 'VECTOR_ADDITION/common/view/SumCheckbox' );
-  const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionGridCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionGridCheckbox' );
-  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
+import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
+import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import GraphOrientations from '../../common/model/GraphOrientations.js';
+import VectorSet from '../../common/model/VectorSet.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import GraphControlPanel from '../../common/view/GraphControlPanel.js';
+import SumCheckbox from '../../common/view/SumCheckbox.js';
+import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
+import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
+import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import vectorAddition from '../../vectorAddition.js';
 
-  class Explore1DGraphControlPanel extends GraphControlPanel {
+class Explore1DGraphControlPanel extends GraphControlPanel {
 
-    /**
-     * @param {VectorSet} horizontalVectorSet
-     * @param {VectorSet} verticalVectorSet
-     * @param {VectorAdditionViewProperties} viewProperties
-     * @param {Object} [options]
-     */
-    constructor( horizontalVectorSet, verticalVectorSet, viewProperties, options ) {
+  /**
+   * @param {VectorSet} horizontalVectorSet
+   * @param {VectorSet} verticalVectorSet
+   * @param {VectorAdditionViewProperties} viewProperties
+   * @param {Object} [options]
+   */
+  constructor( horizontalVectorSet, verticalVectorSet, viewProperties, options ) {
 
-      assert && assert( horizontalVectorSet instanceof VectorSet, `invalid horizontalVectorSet: ${horizontalVectorSet}` );
-      assert && assert( verticalVectorSet instanceof VectorSet, `invalid verticalVectorSet: ${verticalVectorSet}` );
-      assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
+    assert && assert( horizontalVectorSet instanceof VectorSet, `invalid horizontalVectorSet: ${horizontalVectorSet}` );
+    assert && assert( verticalVectorSet instanceof VectorSet, `invalid verticalVectorSet: ${verticalVectorSet}` );
+    assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
 
-      const horizontalSumCheckbox = new SumCheckbox( horizontalVectorSet.sumVisibleProperty,
-        horizontalVectorSet.vectorColorPalette );
+    const horizontalSumCheckbox = new SumCheckbox( horizontalVectorSet.sumVisibleProperty,
+      horizontalVectorSet.vectorColorPalette );
 
-      const verticalSumCheckbox = new SumCheckbox( verticalVectorSet.sumVisibleProperty,
-        verticalVectorSet.vectorColorPalette );
+    const verticalSumCheckbox = new SumCheckbox( verticalVectorSet.sumVisibleProperty,
+      verticalVectorSet.vectorColorPalette );
 
-      // Show the Sum checkbox that matches the selected scene.
-      // unlink is unnecessary, exists for the lifetime of the sim.
-      viewProperties.graphOrientationProperty.link( gridOrientation => {
-        horizontalSumCheckbox.visible = ( gridOrientation === GraphOrientations.HORIZONTAL );
-        verticalSumCheckbox.visible = ( gridOrientation === GraphOrientations.VERTICAL );
-      } );
+    // Show the Sum checkbox that matches the selected scene.
+    // unlink is unnecessary, exists for the lifetime of the sim.
+    viewProperties.graphOrientationProperty.link( gridOrientation => {
+      horizontalSumCheckbox.visible = ( gridOrientation === GraphOrientations.HORIZONTAL );
+      verticalSumCheckbox.visible = ( gridOrientation === GraphOrientations.VERTICAL );
+    } );
 
-      // Values
-      const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
+    // Values
+    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
 
-      // Grid
-      const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
+    // Grid
+    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
 
-      // To make all checkboxes the same height
-      const alignBoxOptions = {
-        group: new AlignGroup( {
-          matchHorizontal: false,
-          matchVertical: true
-        } )
-      };
+    // To make all checkboxes the same height
+    const alignBoxOptions = {
+      group: new AlignGroup( {
+        matchHorizontal: false,
+        matchVertical: true
+      } )
+    };
 
-      super( [
+    super( [
 
-        // checkboxes, wrapped with AlignBox so that they are all the same height
-        new VBox( {
-          spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
-          align: 'left',
-          children: [
-            new Node( {
-              children: [
-                new AlignBox( horizontalSumCheckbox, alignBoxOptions ),
-                new AlignBox( verticalSumCheckbox, alignBoxOptions )
-              ]
-            } ),
-            new AlignBox( valuesCheckbox, alignBoxOptions ),
-            new AlignBox( gridCheckbox, alignBoxOptions )
-          ]
-        } )
-      ], options );
-    }
+      // checkboxes, wrapped with AlignBox so that they are all the same height
+      new VBox( {
+        spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
+        align: 'left',
+        children: [
+          new Node( {
+            children: [
+              new AlignBox( horizontalSumCheckbox, alignBoxOptions ),
+              new AlignBox( verticalSumCheckbox, alignBoxOptions )
+            ]
+          } ),
+          new AlignBox( valuesCheckbox, alignBoxOptions ),
+          new AlignBox( gridCheckbox, alignBoxOptions )
+        ]
+      } )
+    ], options );
   }
+}
 
-  return vectorAddition.register( 'Explore1DGraphControlPanel', Explore1DGraphControlPanel );
-} );
+vectorAddition.register( 'Explore1DGraphControlPanel', Explore1DGraphControlPanel );
+export default Explore1DGraphControlPanel;

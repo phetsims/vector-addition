@@ -5,35 +5,32 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Checkbox = require( 'SUN/Checkbox' );
-  const merge = require( 'PHET_CORE/merge' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+import merge from '../../../../phet-core/js/merge.js';
+import Checkbox from '../../../../sun/js/Checkbox.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-  class VectorAdditionCheckbox extends Checkbox {
+class VectorAdditionCheckbox extends Checkbox {
 
-    /**
-     * @param {Node} content
-     * @param {Property.<boolean>} property
-     * @param {Object} [options]
-     */
-    constructor( content, property, options ) {
+  /**
+   * @param {Node} content
+   * @param {Property.<boolean>} property
+   * @param {Object} [options]
+   */
+  constructor( content, property, options ) {
 
-      options = merge( {
-        boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
-        touchAreaXDilation: 5,
-        touchAreaYDilation: 3.5
-      }, options );
+    options = merge( {
+      boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
+      touchAreaXDilation: 5,
+      touchAreaYDilation: 3.5
+    }, options );
 
-      super( content, property, options );
+    super( content, property, options );
 
-      this.touchArea = this.localBounds.dilatedXY( options.touchAreaXDilation, options.touchAreaYDilation );
-    }
+    this.touchArea = this.localBounds.dilatedXY( options.touchAreaXDilation, options.touchAreaYDilation );
   }
+}
 
-  return vectorAddition.register( 'VectorAdditionCheckbox', VectorAdditionCheckbox );
-} );
+vectorAddition.register( 'VectorAdditionCheckbox', VectorAdditionCheckbox );
+export default VectorAdditionCheckbox;

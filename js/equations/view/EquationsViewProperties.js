@@ -6,40 +6,37 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import vectorAddition from '../../vectorAddition.js';
 
-  class EquationsViewProperties extends VectorAdditionViewProperties {
+class EquationsViewProperties extends VectorAdditionViewProperties {
 
-    constructor() {
-      super();
+  constructor() {
+    super();
 
-      // @public whether the EquationToggleBox is expanded
-      this.equationExpandedProperty = new BooleanProperty( true );
+    // @public whether the EquationToggleBox is expanded
+    this.equationExpandedProperty = new BooleanProperty( true );
 
-      // @public whether the BaseVectorsAccordionBox is expanded
-      this.baseVectorsExpandedProperty = new BooleanProperty( false );
+    // @public whether the BaseVectorsAccordionBox is expanded
+    this.baseVectorsExpandedProperty = new BooleanProperty( false );
 
-      // @public whether base vectors are visible on the graph
-      this.baseVectorsVisibleProperty = new BooleanProperty( false );
-    }
-
-    /**
-     * @public
-     * @override
-     */
-    reset() {
-      super.reset();
-      this.equationExpandedProperty.reset();
-      this.baseVectorsExpandedProperty.reset();
-      this.baseVectorsVisibleProperty.reset();
-    }
+    // @public whether base vectors are visible on the graph
+    this.baseVectorsVisibleProperty = new BooleanProperty( false );
   }
 
-  return vectorAddition.register( 'EquationsViewProperties', EquationsViewProperties );
-} );
+  /**
+   * @public
+   * @override
+   */
+  reset() {
+    super.reset();
+    this.equationExpandedProperty.reset();
+    this.baseVectorsExpandedProperty.reset();
+    this.baseVectorsVisibleProperty.reset();
+  }
+}
+
+vectorAddition.register( 'EquationsViewProperties', EquationsViewProperties );
+export default EquationsViewProperties;

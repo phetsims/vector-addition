@@ -5,27 +5,24 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionCheckbox' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
+import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
-  class AnglesCheckbox extends VectorAdditionCheckbox {
+class AnglesCheckbox extends VectorAdditionCheckbox {
 
-    /**
-     * @param {Property.<boolean>} anglesVisibleProperty
-     * @param {Object} [options]
-     */
-    constructor( anglesVisibleProperty, options ) {
+  /**
+   * @param {Property.<boolean>} anglesVisibleProperty
+   * @param {Object} [options]
+   */
+  constructor( anglesVisibleProperty, options ) {
 
-      const content = VectorAdditionIconFactory.createAngleIcon();
+    const content = VectorAdditionIconFactory.createAngleIcon();
 
-      super( content, anglesVisibleProperty, options );
-    }
+    super( content, anglesVisibleProperty, options );
   }
+}
 
-  return vectorAddition.register( 'AnglesCheckbox', AnglesCheckbox );
-} );
+vectorAddition.register( 'AnglesCheckbox', AnglesCheckbox );
+export default AnglesCheckbox;

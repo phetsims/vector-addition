@@ -8,58 +8,55 @@
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BaseVector = require( 'VECTOR_ADDITION/common/model/BaseVector' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const NumberProperty = require( 'AXON/NumberProperty' );
-  const Property = require( 'AXON/Property' );
-  const Utils = require( 'DOT/Utils' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import vectorAddition from '../../vectorAddition.js';
+import BaseVector from './BaseVector.js';
+import CoordinateSnapModes from './CoordinateSnapModes.js';
 
-  class PolarBaseVector extends BaseVector {
+class PolarBaseVector extends BaseVector {
 
-    /**
-     * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
-     * @param {Vector2} initialComponents - starting components of the Base Vector
-     * @param {EquationsGraph} graph - the graph the Base Vector belongs to
-     * @param {EquationsVectorSet} vectorSet - the set that the Base Vector belongs to
-     * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
-     */
-    constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
+  /**
+   * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
+   * @param {Vector2} initialComponents - starting components of the Base Vector
+   * @param {EquationsGraph} graph - the graph the Base Vector belongs to
+   * @param {EquationsVectorSet} vectorSet - the set that the Base Vector belongs to
+   * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   */
+  constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
 
-      assert && assert( graph.coordinateSnapMode === CoordinateSnapModes.POLAR, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
+    assert && assert( graph.coordinateSnapMode === CoordinateSnapModes.POLAR, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
 
-      super( initialTailPosition, initialComponents, graph, vectorSet, symbol );
+    super( initialTailPosition, initialComponents, graph, vectorSet, symbol );
 
-      // @public (read-only) Property to set the magnitude
-      this.magnitudeProperty = new NumberProperty( this.magnitude );
+    // @public (read-only) Property to set the magnitude
+    this.magnitudeProperty = new NumberProperty( this.magnitude );
 
-      // @public (read-only) Property to set the angle
-      this.angleDegreesProperty = new NumberProperty( Utils.toDegrees( this.angle ) );
+    // @public (read-only) Property to set the angle
+    this.angleDegreesProperty = new NumberProperty( Utils.toDegrees( this.angle ) );
 
-      // Observe when the angle or magnitude changes, and update the components to match.
-      // unmultilink is unnecessary, exists for the lifetime of the sim.
-      Property.multilink(
-        [ this.magnitudeProperty, this.angleDegreesProperty ],
-        ( magnitude, angleDegrees ) => {
-          this.vectorComponents = Vector2.createPolar( magnitude, Utils.toRadians( angleDegrees ) );
-        } );
-    }
-
-    /**
-     * @public
-     * @override
-     */
-    reset() {
-      super.reset();
-      this.magnitudeProperty.reset();
-      this.angleDegreesProperty.reset();
-    }
+    // Observe when the angle or magnitude changes, and update the components to match.
+    // unmultilink is unnecessary, exists for the lifetime of the sim.
+    Property.multilink(
+      [ this.magnitudeProperty, this.angleDegreesProperty ],
+      ( magnitude, angleDegrees ) => {
+        this.vectorComponents = Vector2.createPolar( magnitude, Utils.toRadians( angleDegrees ) );
+      } );
   }
 
-  return vectorAddition.register( 'PolarBaseVector', PolarBaseVector );
-} );
+  /**
+   * @public
+   * @override
+   */
+  reset() {
+    super.reset();
+    this.magnitudeProperty.reset();
+    this.angleDegreesProperty.reset();
+  }
+}
+
+vectorAddition.register( 'PolarBaseVector', PolarBaseVector );
+export default PolarBaseVector;

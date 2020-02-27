@@ -5,34 +5,31 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Text = require( 'SCENERY/nodes/Text' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionCheckbox' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+import Text from '../../../../scenery/js/nodes/Text.js';
+import vectorAdditionStrings from '../../vector-addition-strings.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 
-  // strings
-  const valuesString = require( 'string!VECTOR_ADDITION/values' );
+const valuesString = vectorAdditionStrings.values;
 
-  class ValuesCheckbox extends VectorAdditionCheckbox {
+class ValuesCheckbox extends VectorAdditionCheckbox {
 
-    /**
-     * @param {Property.<boolean>} valuesVisibleProperty
-     * @param {Object} [options]
-     */
-    constructor( valuesVisibleProperty, options ) {
+  /**
+   * @param {Property.<boolean>} valuesVisibleProperty
+   * @param {Object} [options]
+   */
+  constructor( valuesVisibleProperty, options ) {
 
-      const content = new Text( valuesString, {
-        font: VectorAdditionConstants.CHECKBOX_FONT,
-        maxWidth: 116 // determined empirically
-      } );
+    const content = new Text( valuesString, {
+      font: VectorAdditionConstants.CHECKBOX_FONT,
+      maxWidth: 116 // determined empirically
+    } );
 
-      super( content, valuesVisibleProperty, options );
-    }
+    super( content, valuesVisibleProperty, options );
   }
+}
 
-  return vectorAddition.register( 'ValuesCheckbox', ValuesCheckbox );
-} );
+vectorAddition.register( 'ValuesCheckbox', ValuesCheckbox );
+export default ValuesCheckbox;

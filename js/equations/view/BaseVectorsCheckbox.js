@@ -5,40 +5,37 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionCheckbox' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
-  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import VectorAdditionCheckbox from '../../common/view/VectorAdditionCheckbox.js';
+import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
+import vectorAddition from '../../vectorAddition.js';
 
-  class BaseVectorsCheckbox extends VectorAdditionCheckbox {
+class BaseVectorsCheckbox extends VectorAdditionCheckbox {
 
-    /**
-     * @param {BooleanProperty} baseVectorsVisibleProperty
-     * @param {VectorColorPalette} vectorColorPalette
-     * @param {Object} [options]
-     */
-    constructor( baseVectorsVisibleProperty, vectorColorPalette, options ) {
+  /**
+   * @param {BooleanProperty} baseVectorsVisibleProperty
+   * @param {VectorColorPalette} vectorColorPalette
+   * @param {Object} [options]
+   */
+  constructor( baseVectorsVisibleProperty, vectorColorPalette, options ) {
 
-      // Type check arguments
-      assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty, `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
+    // Type check arguments
+    assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty, `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
+    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-      const icon = VectorAdditionIconFactory.createVectorIcon( {
-        fill: vectorColorPalette.baseVectorFill,
-        stroke: vectorColorPalette.baseVectorStroke,
-        lineWidth: VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS.lineWidth,
-        length: 50
-      } );
+    const icon = VectorAdditionIconFactory.createVectorIcon( {
+      fill: vectorColorPalette.baseVectorFill,
+      stroke: vectorColorPalette.baseVectorStroke,
+      lineWidth: VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS.lineWidth,
+      length: 50
+    } );
 
-      super( icon, baseVectorsVisibleProperty, options );
-    }
+    super( icon, baseVectorsVisibleProperty, options );
   }
+}
 
-  return vectorAddition.register( 'BaseVectorsCheckbox', BaseVectorsCheckbox );
-} );
+vectorAddition.register( 'BaseVectorsCheckbox', BaseVectorsCheckbox );
+export default BaseVectorsCheckbox;

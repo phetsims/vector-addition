@@ -11,119 +11,116 @@
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+import merge from '../../../../phet-core/js/merge.js';
+import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
+import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import vectorAddition from '../../vectorAddition.js';
 
-  // constants
-  const X_ALIGN_VALUES = [ 'left', 'center', 'right' ];
-  const Y_ALIGN_VALUES = [ 'top', 'center', 'bottom' ];
+// constants
+const X_ALIGN_VALUES = [ 'left', 'center', 'right' ];
+const Y_ALIGN_VALUES = [ 'top', 'center', 'bottom' ];
 
-  class GridBox extends Node {
+class GridBox extends Node {
 
-    /**
-     * @param {Node[]} contents - the contents of the grid, in row-major order
-     * @param {Object} [options]
-     */
-    constructor( contents, options ) {
+  /**
+   * @param {Node[]} contents - the contents of the grid, in row-major order
+   * @param {Object} [options]
+   */
+  constructor( contents, options ) {
 
-      options = merge( {
-        columns: 2, // {number} number of columns
-        xSpacing: 8, // {number} horizontal spacing between cells
-        ySpacing: 8, // {number} vertical spacing between cells
-        xAlign: 'center', // {string} horizontal alignment of each Node in its cell, see X_ALIGN_VALUES
-        yAlign: 'center' // {string} vertical alignment of each Node in its cell, see Y_ALIGN_VALUES
-      }, options );
+    options = merge( {
+      columns: 2, // {number} number of columns
+      xSpacing: 8, // {number} horizontal spacing between cells
+      ySpacing: 8, // {number} vertical spacing between cells
+      xAlign: 'center', // {string} horizontal alignment of each Node in its cell, see X_ALIGN_VALUES
+      yAlign: 'center' // {string} vertical alignment of each Node in its cell, see Y_ALIGN_VALUES
+    }, options );
 
-      // Validate option values
-      assert && assert( typeof options.columns === 'number' && options.columns > 0, `invalid columns: ${options.columns}` );
-      assert && assert( typeof options.xSpacing === 'number', `invalid xSpacing: ${options.xSpacing}` );
-      assert && assert( typeof options.ySpacing === 'number', `invalid ySpacing: ${options.ySpacing}` );
-      assert && assert( _.includes( X_ALIGN_VALUES, options.xAlign ), `invalid xAlign: ${options.xAlign}` );
-      assert && assert( _.includes( Y_ALIGN_VALUES, options.yAlign ), `invalid xAlign: ${options.yAlign}` );
+    // Validate option values
+    assert && assert( typeof options.columns === 'number' && options.columns > 0, `invalid columns: ${options.columns}` );
+    assert && assert( typeof options.xSpacing === 'number', `invalid xSpacing: ${options.xSpacing}` );
+    assert && assert( typeof options.ySpacing === 'number', `invalid ySpacing: ${options.ySpacing}` );
+    assert && assert( _.includes( X_ALIGN_VALUES, options.xAlign ), `invalid xAlign: ${options.xAlign}` );
+    assert && assert( _.includes( Y_ALIGN_VALUES, options.yAlign ), `invalid xAlign: ${options.yAlign}` );
 
-      const vBox = new VBox( {
-        spacing: options.ySpacing,
-        align: 'left'
-      } );
+    const vBox = new VBox( {
+      spacing: options.ySpacing,
+      align: 'left'
+    } );
 
-      assert && assert( !options.children, 'GridBox sets children' );
-      options.children = [ vBox ];
+    assert && assert( !options.children, 'GridBox sets children' );
+    options.children = [ vBox ];
 
-      super( options );
+    super( options );
 
-      // @private
-      this.contents = contents;
-      this.vBox = vBox;
-      this.columns = options.columns;
-      this.xSpacing = options.xSpacing;
-      this.xAlign = options.xAlign;
-      this.yAlign = options.yAlign;
+    // @private
+    this.contents = contents;
+    this.vBox = vBox;
+    this.columns = options.columns;
+    this.xSpacing = options.xSpacing;
+    this.xAlign = options.xAlign;
+    this.yAlign = options.yAlign;
 
-      this.setContents( contents );
-    }
+    this.setContents( contents );
+  }
 
-    /**
-     * Gets the contents of the grid, in row-major order.
-     * @returns {Node[]}
-     * @public
-     */
-    getContents() {
-      return this.contents;
-    }
+  /**
+   * Gets the contents of the grid, in row-major order.
+   * @returns {Node[]}
+   * @public
+   */
+  getContents() {
+    return this.contents;
+  }
 
-    /**
-     * Sets the contents of the grid, in row-major order.
-     * @param {Node[]} contents - the contents of the grid, in row-major order
-     * @public
-     */
-    setContents( contents ) {
-      assert && assert( Array.isArray( contents ), 'contents must be an Array' );
-      assert && assert( _.every( contents, element => element instanceof Node ), 'every element in contents must be a Node' );
+  /**
+   * Sets the contents of the grid, in row-major order.
+   * @param {Node[]} contents - the contents of the grid, in row-major order
+   * @public
+   */
+  setContents( contents ) {
+    assert && assert( Array.isArray( contents ), 'contents must be an Array' );
+    assert && assert( _.every( contents, element => element instanceof Node ), 'every element in contents must be a Node' );
 
-      this.contents = contents;
+    this.contents = contents;
 
-      // Use an AlignGroup to ensure that every Node in the grid has the same effective bounds.
-      const alignGroup = new AlignGroup( {
-        matchHorizontal: true,
-        matchVertical: true
-      } );
+    // Use an AlignGroup to ensure that every Node in the grid has the same effective bounds.
+    const alignGroup = new AlignGroup( {
+      matchHorizontal: true,
+      matchVertical: true
+    } );
 
-      // Process the Nodes, in row-major order
-      const vBoxChildren = [];
-      let i = 0;
-      while ( i < contents.length ) {
+    // Process the Nodes, in row-major order
+    const vBoxChildren = [];
+    let i = 0;
+    while ( i < contents.length ) {
 
-        const hBoxChildren = [];
-        for ( let column = 0; column < this.columns && i < contents.length; column++ ) {
+      const hBoxChildren = [];
+      for ( let column = 0; column < this.columns && i < contents.length; column++ ) {
 
-          // Wrap each child in an AlignBox, so that every Node in the grid has the same effective bounds,
-          // and is aligned within those bounds as specified by options xAlign and yAlign.
-          hBoxChildren.push( new AlignBox( contents[ i++ ], {
-            group: alignGroup,
-            xAlign: this.xAlign,
-            yAlign: this.yAlign
-          } ) );
-        }
-
-        vBoxChildren.push( new HBox( {
-          children: hBoxChildren,
-          spacing: this.xSpacing,
-          align: 'origin'
+        // Wrap each child in an AlignBox, so that every Node in the grid has the same effective bounds,
+        // and is aligned within those bounds as specified by options xAlign and yAlign.
+        hBoxChildren.push( new AlignBox( contents[ i++ ], {
+          group: alignGroup,
+          xAlign: this.xAlign,
+          yAlign: this.yAlign
         } ) );
       }
 
-      this.vBox.children = vBoxChildren;
+      vBoxChildren.push( new HBox( {
+        children: hBoxChildren,
+        spacing: this.xSpacing,
+        align: 'origin'
+      } ) );
     }
-  }
 
-  return vectorAddition.register( 'GridBox', GridBox );
-} );
+    this.vBox.children = vBoxChildren;
+  }
+}
+
+vectorAddition.register( 'GridBox', GridBox );
+export default GridBox;

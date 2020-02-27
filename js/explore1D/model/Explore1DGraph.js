@@ -12,65 +12,62 @@
  *
  * @author Brandon Li
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const Bounds2 = require( 'DOT/Bounds2' );
-  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Graph = require( 'VECTOR_ADDITION/common/model/Graph' );
-  const GraphOrientations = require( 'VECTOR_ADDITION/common/model/GraphOrientations' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorColorPalette = require( 'VECTOR_ADDITION/common/model/VectorColorPalette' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import Graph from '../../common/model/Graph.js';
+import GraphOrientations from '../../common/model/GraphOrientations.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
+import VectorSet from '../../common/model/VectorSet.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import vectorAddition from '../../vectorAddition.js';
 
-  // constants
-  const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
+// constants
+const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
-  // See https://github.com/phetsims/vector-addition/issues/127
-  assert && assert( DEFAULT_GRAPH_BOUNDS.width % 2 === 0, `DEFAULT_GRAPH_BOUNDS.width must be even: ${DEFAULT_GRAPH_BOUNDS.width}` );
-  assert && assert( DEFAULT_GRAPH_BOUNDS.height % 2 === 0, `DEFAULT_GRAPH_BOUNDS.height must be even: ${DEFAULT_GRAPH_BOUNDS.height}` );
+// See https://github.com/phetsims/vector-addition/issues/127
+assert && assert( DEFAULT_GRAPH_BOUNDS.width % 2 === 0, `DEFAULT_GRAPH_BOUNDS.width must be even: ${DEFAULT_GRAPH_BOUNDS.width}` );
+assert && assert( DEFAULT_GRAPH_BOUNDS.height % 2 === 0, `DEFAULT_GRAPH_BOUNDS.height must be even: ${DEFAULT_GRAPH_BOUNDS.height}` );
 
-  // graph bounds for 'Explore 1D' - origin is at the center
-  const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
-    -DEFAULT_GRAPH_BOUNDS.height / 2,
-    DEFAULT_GRAPH_BOUNDS.width / 2,
-    DEFAULT_GRAPH_BOUNDS.height / 2 );
+// graph bounds for 'Explore 1D' - origin is at the center
+const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
+  -DEFAULT_GRAPH_BOUNDS.height / 2,
+  DEFAULT_GRAPH_BOUNDS.width / 2,
+  DEFAULT_GRAPH_BOUNDS.height / 2 );
 
-  // All graphs on 'Explore 1D' are strictly Cartesian
-  const EXPLORE_1D_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
+// All graphs on 'Explore 1D' are strictly Cartesian
+const EXPLORE_1D_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
 
-  class Explore1DGraph extends Graph {
+class Explore1DGraph extends Graph {
 
-    /**
-     * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
-     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-     * @param {BooleanProperty} sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
-     * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on this graph
-     */
-    constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
+  /**
+   * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {BooleanProperty} sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
+   * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on this graph
+   */
+  constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
 
-      assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-      assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
+    assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
+    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+      `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-      super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, {
-        orientation: graphOrientation
-      } );
+    super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, {
+      orientation: graphOrientation
+    } );
 
-      // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 1D' have exactly one vector set
-      this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
+    // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 1D' have exactly one vector set
+    this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
 
-      // Add the one and only vector set
-      this.vectorSets.push( this.vectorSet );
-    }
+    // Add the one and only vector set
+    this.vectorSets.push( this.vectorSet );
   }
+}
 
-  return vectorAddition.register( 'Explore1DGraph', Explore1DGraph );
-} );
+vectorAddition.register( 'Explore1DGraph', Explore1DGraph );
+export default Explore1DGraph;

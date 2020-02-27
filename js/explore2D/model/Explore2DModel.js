@@ -5,62 +5,59 @@
  *
  * @author Martin Veillette
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const Explore2DGraph = require( 'VECTOR_ADDITION/explore2D/model/Explore2DGraph' );
-  const Tandem = require( 'TANDEM/Tandem' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionModel = require( 'VECTOR_ADDITION/common/model/VectorAdditionModel' );
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import vectorAddition from '../../vectorAddition.js';
+import Explore2DGraph from './Explore2DGraph.js';
 
-  class Explore2DModel extends VectorAdditionModel {
+class Explore2DModel extends VectorAdditionModel {
 
-    /**
-     * @param {Tandem} tandem
-     */
-    constructor( tandem ) {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-      assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      super( tandem );
+    super( tandem );
 
-      // @public Property controlling the visibility of the sum for both Graph instances
-      this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
+    // @public Property controlling the visibility of the sum for both Graph instances
+    this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
-      // @public (read-only) {VectorColorPalette}
-      this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
-      this.polarVectorColorPalette = VectorAdditionColors.PINK_COLOR_PALETTE;
+    // @public (read-only) {VectorColorPalette}
+    this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
+    this.polarVectorColorPalette = VectorAdditionColors.PINK_COLOR_PALETTE;
 
-      // @public (read-only) graph for Cartesian snap mode
-      this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN,
-        this.componentStyleProperty,
-        this.sumVisibleProperty,
-        this.cartesianVectorColorPalette );
+    // @public (read-only) graph for Cartesian snap mode
+    this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN,
+      this.componentStyleProperty,
+      this.sumVisibleProperty,
+      this.cartesianVectorColorPalette );
 
-      // @public (read-only) graph for Polar snap mode
-      this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR,
-        this.componentStyleProperty,
-        this.sumVisibleProperty,
-        this.polarVectorColorPalette );
-    }
-
-    /**
-     * Resets the Explore2DModel.
-     * @public
-     * @override
-     */
-    reset() {
-      super.reset();
-      this.sumVisibleProperty.reset();
-      this.cartesianGraph.reset();
-      this.polarGraph.reset();
-    }
+    // @public (read-only) graph for Polar snap mode
+    this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR,
+      this.componentStyleProperty,
+      this.sumVisibleProperty,
+      this.polarVectorColorPalette );
   }
 
-  return vectorAddition.register( 'Explore2DModel', Explore2DModel );
-} );
+  /**
+   * Resets the Explore2DModel.
+   * @public
+   * @override
+   */
+  reset() {
+    super.reset();
+    this.sumVisibleProperty.reset();
+    this.cartesianGraph.reset();
+    this.polarGraph.reset();
+  }
+}
+
+vectorAddition.register( 'Explore2DModel', Explore2DModel );
+export default Explore2DModel;

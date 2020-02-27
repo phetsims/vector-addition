@@ -8,57 +8,54 @@
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const GridBox = require( 'VECTOR_ADDITION/common/view/GridBox' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const RadioButtonGroupMember = require( 'SUN/buttons/RadioButtonGroupMember' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import merge from '../../../../phet-core/js/merge.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import RadioButtonGroupMember from '../../../../sun/js/buttons/RadioButtonGroupMember.js';
+import vectorAddition from '../../vectorAddition.js';
+import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import GridBox from './GridBox.js';
+import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
-  class ComponentStyleRadioButtonGroup extends Node {
+class ComponentStyleRadioButtonGroup extends Node {
 
-    /**
-     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-     */
-    constructor( componentStyleProperty ) {
+  /**
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
+   */
+  constructor( componentStyleProperty ) {
 
-      assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
-        `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+      `invalid componentStyleProperty: ${componentStyleProperty}` );
 
-      // Create the radio buttons. Note that order of enum values determines order of buttons.
-      const buttons = [];
-      ComponentVectorStyles.VALUES.forEach( componentStyle => {
-        buttons.push( new RadioButtonGroupMember( componentStyleProperty, componentStyle,
-          merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
-            content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
-          } ) ) );
-      } );
+    // Create the radio buttons. Note that order of enum values determines order of buttons.
+    const buttons = [];
+    ComponentVectorStyles.VALUES.forEach( componentStyle => {
+      buttons.push( new RadioButtonGroupMember( componentStyleProperty, componentStyle,
+        merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
+          content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
+        } ) ) );
+    } );
 
-      // Arrange the buttons in a grid
-      const gridBox = new GridBox( buttons, {
-        columns: 2
-      } );
+    // Arrange the buttons in a grid
+    const gridBox = new GridBox( buttons, {
+      columns: 2
+    } );
 
-      super( {
-        children: [ gridBox ]
-      } );
-    }
-
-    /**
-     * @public
-     * @override
-     */
-    dispose() {
-      assert && assert( false, 'ComponentStyleRadioButtonGroup is not intended to be disposed' );
-    }
+    super( {
+      children: [ gridBox ]
+    } );
   }
 
-  return vectorAddition.register( 'ComponentStyleRadioButtonGroup', ComponentStyleRadioButtonGroup );
-} );
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'ComponentStyleRadioButtonGroup is not intended to be disposed' );
+  }
+}
+
+vectorAddition.register( 'ComponentStyleRadioButtonGroup', ComponentStyleRadioButtonGroup );
+export default ComponentStyleRadioButtonGroup;

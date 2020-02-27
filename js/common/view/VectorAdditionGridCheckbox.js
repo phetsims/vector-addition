@@ -5,33 +5,30 @@
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const GridCheckbox = require( 'SCENERY_PHET/GridCheckbox' );
-  const merge = require( 'PHET_CORE/merge' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+import merge from '../../../../phet-core/js/merge.js';
+import GridCheckbox from '../../../../scenery-phet/js/GridCheckbox.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-  class VectorAdditionGridCheckbox extends GridCheckbox {
+class VectorAdditionGridCheckbox extends GridCheckbox {
 
-    /**
-     * @param {Property.<boolean>} gridVisibleProperty
-     * @param {Object} [options]
-     */
-    constructor( gridVisibleProperty, options ) {
+  /**
+   * @param {Property.<boolean>} gridVisibleProperty
+   * @param {Object} [options]
+   */
+  constructor( gridVisibleProperty, options ) {
 
-      options = merge( {
-        boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
-        gridSize: 24
-      }, options );
+    options = merge( {
+      boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
+      gridSize: 24
+    }, options );
 
-      super( gridVisibleProperty, options );
+    super( gridVisibleProperty, options );
 
-      this.touchArea = this.localBounds.dilatedXY( 5, 1 );
-    }
+    this.touchArea = this.localBounds.dilatedXY( 5, 1 );
   }
+}
 
-  return vectorAddition.register( 'VectorAdditionGridCheckbox', VectorAdditionGridCheckbox );
-} );
+vectorAddition.register( 'VectorAdditionGridCheckbox', VectorAdditionGridCheckbox );
+export default VectorAdditionGridCheckbox;

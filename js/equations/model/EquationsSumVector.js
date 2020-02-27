@@ -7,121 +7,118 @@
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const EquationTypes = require( 'VECTOR_ADDITION/equations/model/EquationTypes' );
-  const merge = require( 'PHET_CORE/merge' );
-  const Property = require( 'AXON/Property' );
-  const SumVector = require( 'VECTOR_ADDITION/common/model/SumVector' );
-  const Vector2 = require( 'DOT/Vector2' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import SumVector from '../../common/model/SumVector.js';
+import vectorAddition from '../../vectorAddition.js';
+import EquationTypes from './EquationTypes.js';
 
-  // constants
-  const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
+// constants
+const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
 
-  class EquationsSumVector extends SumVector {
+class EquationsSumVector extends SumVector {
 
-    /**
-     * @param {Graph} graph - graph the sum vector belongs to
-     * @param {VectorSet} vectorSet - the vector set that the sum vector represents
-     * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
-     * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
-     */
-    constructor( graph, vectorSet, equationTypeProperty, symbol ) {
+  /**
+   * @param {Graph} graph - graph the sum vector belongs to
+   * @param {VectorSet} vectorSet - the vector set that the sum vector represents
+   * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
+   * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   */
+  constructor( graph, vectorSet, equationTypeProperty, symbol ) {
 
-      assert && assert( equationTypeProperty instanceof EnumerationProperty && EquationTypes.includes( equationTypeProperty.value ),
-        `invalid equationTypeProperty: ${equationTypeProperty}` );
+    assert && assert( equationTypeProperty instanceof EnumerationProperty && EquationTypes.includes( equationTypeProperty.value ),
+      `invalid equationTypeProperty: ${equationTypeProperty}` );
 
-      super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbol );
+    super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbol );
 
-      // @private
-      this.vectorSet = vectorSet;
-      this.equationTypeProperty = equationTypeProperty;
+    // @private
+    this.vectorSet = vectorSet;
+    this.equationTypeProperty = equationTypeProperty;
 
-      // Observe when each vector changes and/or when the equationType changes to calculate the sum.
-      // unmultilink is unnecessary, exists for the lifetime of the sim.
-      const dependencies = [];
-      vectorSet.vectors.forEach( vector => {
-        dependencies.push( vector.vectorComponentsProperty );
+    // Observe when each vector changes and/or when the equationType changes to calculate the sum.
+    // unmultilink is unnecessary, exists for the lifetime of the sim.
+    const dependencies = [];
+    vectorSet.vectors.forEach( vector => {
+      dependencies.push( vector.vectorComponentsProperty );
+    } );
+    Property.multilink( _.concat( [ equationTypeProperty ], dependencies ),
+      () => {
+        this.updateSum( vectorSet.vectors );
       } );
-      Property.multilink( _.concat( [ equationTypeProperty ], dependencies ),
-        () => {
-          this.updateSum( vectorSet.vectors );
-        } );
-    }
+  }
 
-    /**
-     * Calculate the sum vector for the Equations screen.
-     * @param {ObservableArray.<Vector>} vectors
-     * @public
-     * @override
-     */
-    updateSum( vectors ) {
+  /**
+   * Calculate the sum vector for the Equations screen.
+   * @param {ObservableArray.<Vector>} vectors
+   * @public
+   * @override
+   */
+  updateSum( vectors ) {
 
-      const equationType = this.equationTypeProperty.value;
+    const equationType = this.equationTypeProperty.value;
 
-      // Denoted by 'a' + 'b' = 'c'
-      if ( equationType === EquationTypes.ADDITION ) {
-        const sum = new Vector2( 0, 0 );
+    // Denoted by 'a' + 'b' = 'c'
+    if ( equationType === EquationTypes.ADDITION ) {
+      const sum = new Vector2( 0, 0 );
 
-        vectors.forEach( vector => {
-          sum.add( vector.vectorComponents );
-        } );
-
-        this.vectorComponents = sum;
-      }
-      else if ( equationType === EquationTypes.SUBTRACTION ) {
-        const calculatedComponents = vectors.get( 0 ).vectorComponents.copy();
-
-        // Subtract from the first vector
-        _.drop( vectors.getArray() ).forEach( vector => {
-          calculatedComponents.subtract( vector.vectorComponents );
-        } );
-
-        this.vectorComponents = calculatedComponents;
-      }
-      else if ( equationType === EquationTypes.NEGATION ) {
-
-        // Same as addition but negated  : a + b = -c or a + b + c = 0
-        const sum = new Vector2( 0, 0 );
-
-        vectors.forEach( vector => {
-          sum.add( vector.vectorComponents );
-        } );
-
-        this.vectorComponents = sum.negate();
-      }
-    }
-
-    /**
-     * Gets the label content information to be displayed on the vector.
-     * See RootVector.getLabelContent for details.
-     * @override
-     * @public
-     * @param {boolean} valuesVisible - whether the values are visible
-     * @returns {Object} see RootVector.getLabelContent
-     */
-    getLabelContent( valuesVisible ) {
-      return merge( super.getLabelContent( valuesVisible ), {
-        symbol: this.symbol
+      vectors.forEach( vector => {
+        sum.add( vector.vectorComponents );
       } );
+
+      this.vectorComponents = sum;
     }
+    else if ( equationType === EquationTypes.SUBTRACTION ) {
+      const calculatedComponents = vectors.get( 0 ).vectorComponents.copy();
 
-    /**
-     * @public
-     * @override
-     */
-    reset() {
-      super.reset();
+      // Subtract from the first vector
+      _.drop( vectors.getArray() ).forEach( vector => {
+        calculatedComponents.subtract( vector.vectorComponents );
+      } );
 
-      // In the Equations screen, vectors are never removed, so we need to explicitly call updateSum.
-      // See https://github.com/phetsims/vector-addition/issues/129
-      this.updateSum( this.vectorSet.vectors );
+      this.vectorComponents = calculatedComponents;
+    }
+    else if ( equationType === EquationTypes.NEGATION ) {
+
+      // Same as addition but negated  : a + b = -c or a + b + c = 0
+      const sum = new Vector2( 0, 0 );
+
+      vectors.forEach( vector => {
+        sum.add( vector.vectorComponents );
+      } );
+
+      this.vectorComponents = sum.negate();
     }
   }
 
-  return vectorAddition.register( 'EquationsSumVector', EquationsSumVector );
-} );
+  /**
+   * Gets the label content information to be displayed on the vector.
+   * See RootVector.getLabelContent for details.
+   * @override
+   * @public
+   * @param {boolean} valuesVisible - whether the values are visible
+   * @returns {Object} see RootVector.getLabelContent
+   */
+  getLabelContent( valuesVisible ) {
+    return merge( super.getLabelContent( valuesVisible ), {
+      symbol: this.symbol
+    } );
+  }
+
+  /**
+   * @public
+   * @override
+   */
+  reset() {
+    super.reset();
+
+    // In the Equations screen, vectors are never removed, so we need to explicitly call updateSum.
+    // See https://github.com/phetsims/vector-addition/issues/129
+    this.updateSum( this.vectorSet.vectors );
+  }
+}
+
+vectorAddition.register( 'EquationsSumVector', EquationsSumVector );
+export default EquationsSumVector;

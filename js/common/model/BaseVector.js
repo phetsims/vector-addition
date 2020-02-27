@@ -8,43 +8,40 @@
  *
  * @author Brandon Li
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Vector = require( 'VECTOR_ADDITION/common/model/Vector' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+import vectorAddition from '../../vectorAddition.js';
+import Vector from './Vector.js';
 
-  // constants
-  const OPTIONS = {
-    isRemovable: false,       // BaseVectors are not removable
-    isTipDraggable: false,    // BaseVectors are not draggable by the tip
-    isOnGraphInitially: true  // BaseVectors are always on the graph
-  };
+// constants
+const OPTIONS = {
+  isRemovable: false,       // BaseVectors are not removable
+  isTipDraggable: false,    // BaseVectors are not draggable by the tip
+  isOnGraphInitially: true  // BaseVectors are always on the graph
+};
 
-  class BaseVector extends Vector {
+class BaseVector extends Vector {
 
-    /**
-     * @abstract
-     * @param {Vector2} initialTailPosition - starting tail position of the BaseVector
-     * @param {Vector2} initialComponents - starting components of the BaseVector
-     * @param {EquationsGraph} graph - the graph the BaseVector belongs to
-     * @param {EquationsVectorSet} vectorSet - the set that the BaseVector belongs to
-     * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
-     */
-    constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
+  /**
+   * @abstract
+   * @param {Vector2} initialTailPosition - starting tail position of the BaseVector
+   * @param {Vector2} initialComponents - starting components of the BaseVector
+   * @param {EquationsGraph} graph - the graph the BaseVector belongs to
+   * @param {EquationsVectorSet} vectorSet - the set that the BaseVector belongs to
+   * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   */
+  constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
 
-      super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );
-    }
-
-    /**
-     * @public
-     * @override
-     */
-    dispose() {
-      assert && assert( false, 'BaseVector is not intended to be disposed' );
-    }
+    super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );
   }
 
-  return vectorAddition.register( 'BaseVector', BaseVector );
-} );
+  /**
+   * @public
+   * @override
+   */
+  dispose() {
+    assert && assert( false, 'BaseVector is not intended to be disposed' );
+  }
+}
+
+vectorAddition.register( 'BaseVector', BaseVector );
+export default BaseVector;

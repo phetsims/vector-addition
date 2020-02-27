@@ -7,115 +7,112 @@
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
-  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
-  const AnglesCheckbox = require( 'VECTOR_ADDITION/common/view/AnglesCheckbox' );
-  const Color = require( 'SCENERY/util/Color' );
-  const CoordinateSnapModes = require( 'VECTOR_ADDITION/common/model/CoordinateSnapModes' );
-  const ComponentStyleControl = require( 'VECTOR_ADDITION/common/view/ComponentStyleControl' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const GraphControlPanel = require( 'VECTOR_ADDITION/common/view/GraphControlPanel' );
-  const HSeparator = require( 'SUN/HSeparator' );
-  const Node = require( 'SCENERY/nodes/Node' );
-  const ValuesCheckbox = require( 'VECTOR_ADDITION/common/view/ValuesCheckbox' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorCheckbox = require( 'VECTOR_ADDITION/common/view/VectorCheckbox' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
-  const VectorAdditionGridCheckbox = require( 'VECTOR_ADDITION/common/view/VectorAdditionGridCheckbox' );
-  const VectorAdditionViewProperties = require( 'VECTOR_ADDITION/common/view/VectorAdditionViewProperties' );
-  const VectorSet = require( 'VECTOR_ADDITION/common/model/VectorSet' );
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
+import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import VBox from '../../../../scenery/js/nodes/VBox.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import HSeparator from '../../../../sun/js/HSeparator.js';
+import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import VectorSet from '../../common/model/VectorSet.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
+import ComponentStyleControl from '../../common/view/ComponentStyleControl.js';
+import GraphControlPanel from '../../common/view/GraphControlPanel.js';
+import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
+import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
+import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import VectorCheckbox from '../../common/view/VectorCheckbox.js';
+import vectorAddition from '../../vectorAddition.js';
 
-  class EquationsGraphControlPanel extends GraphControlPanel {
+class EquationsGraphControlPanel extends GraphControlPanel {
 
-    /**
-     * @param {VectorSet} cartesianVectorSet
-     * @param {VectorSet} polarVectorSet
-     * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-     * @param {VectorAdditionViewProperties} viewProperties
-     * @param {Object} [options]
-     */
-    constructor( cartesianVectorSet, polarVectorSet, componentStyleProperty, viewProperties, options ) {
+  /**
+   * @param {VectorSet} cartesianVectorSet
+   * @param {VectorSet} polarVectorSet
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {VectorAdditionViewProperties} viewProperties
+   * @param {Object} [options]
+   */
+  constructor( cartesianVectorSet, polarVectorSet, componentStyleProperty, viewProperties, options ) {
 
-      assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
-      assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
-      assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
-      assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
+    assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
+    assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
+    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
 
-      // 'c' checkbox
-      const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty,
-        cartesianVectorSet.sumVector.symbol, {
-          vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
-          vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke
-        } );
-
-      // 'f' checkbox
-      const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty,
-        polarVectorSet.sumVector.symbol, {
-          vectorFill: polarVectorSet.vectorColorPalette.sumFill,
-          vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
-        } );
-
-      // Show the vector checkbox ('c' or 'f') that matches the selected scene.
-      // unlink is unnecessary, exists for the lifetime of the sim.
-      viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-        cartesianVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
-        polarVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
+    // 'c' checkbox
+    const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty,
+      cartesianVectorSet.sumVector.symbol, {
+        vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
+        vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke
       } );
 
-      // To make all checkboxes the same height
-      const alignBoxOptions = {
-        group: new AlignGroup( {
-          matchHorizontal: false,
-          matchVertical: true
-        } )
-      };
+    // 'f' checkbox
+    const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty,
+      polarVectorSet.sumVector.symbol, {
+        vectorFill: polarVectorSet.vectorColorPalette.sumFill,
+        vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
+      } );
 
-      // Values
-      const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
+    // Show the vector checkbox ('c' or 'f') that matches the selected scene.
+    // unlink is unnecessary, exists for the lifetime of the sim.
+    viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
+      cartesianVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
+      polarVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
+    } );
 
-      // Angles
-      const anglesCheckbox = new AnglesCheckbox( viewProperties.anglesVisibleProperty );
+    // To make all checkboxes the same height
+    const alignBoxOptions = {
+      group: new AlignGroup( {
+        matchHorizontal: false,
+        matchVertical: true
+      } )
+    };
 
-      // Grid
-      const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
+    // Values
+    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
 
-      super( [
+    // Angles
+    const anglesCheckbox = new AnglesCheckbox( viewProperties.anglesVisibleProperty );
 
-        // checkboxes, wrapped with AlignBox so that they are all the same height
-        new VBox( {
-          spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
-          align: 'left',
-          children: [
-            new Node( {
-              children: [
-                new AlignBox( cartesianVectorCheckbox, alignBoxOptions ),
-                new AlignBox( polarVectorCheckbox, alignBoxOptions )
-              ]
-            } ),
-            new AlignBox( valuesCheckbox, alignBoxOptions ),
-            new AlignBox( anglesCheckbox, alignBoxOptions ),
-            new AlignBox( gridCheckbox, alignBoxOptions )
-          ]
-        } ),
+    // Grid
+    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
 
-        // separator
-        new HSeparator( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {
-          stroke: Color.BLACK
-        } ),
+    super( [
 
-        // Components radio buttons
-        new ComponentStyleControl( componentStyleProperty, {
-          maxWidth: VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH
-        } )
+      // checkboxes, wrapped with AlignBox so that they are all the same height
+      new VBox( {
+        spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
+        align: 'left',
+        children: [
+          new Node( {
+            children: [
+              new AlignBox( cartesianVectorCheckbox, alignBoxOptions ),
+              new AlignBox( polarVectorCheckbox, alignBoxOptions )
+            ]
+          } ),
+          new AlignBox( valuesCheckbox, alignBoxOptions ),
+          new AlignBox( anglesCheckbox, alignBoxOptions ),
+          new AlignBox( gridCheckbox, alignBoxOptions )
+        ]
+      } ),
 
-      ], options );
-    }
+      // separator
+      new HSeparator( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {
+        stroke: Color.BLACK
+      } ),
+
+      // Components radio buttons
+      new ComponentStyleControl( componentStyleProperty, {
+        maxWidth: VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH
+      } )
+
+    ], options );
   }
+}
 
-  return vectorAddition.register( 'EquationsGraphControlPanel', EquationsGraphControlPanel );
-} );
+vectorAddition.register( 'EquationsGraphControlPanel', EquationsGraphControlPanel );
+export default EquationsGraphControlPanel;

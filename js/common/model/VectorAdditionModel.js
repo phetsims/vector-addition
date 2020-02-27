@@ -5,43 +5,40 @@
  *
  * @author Martin Veillette
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const ComponentVectorStyles = require( 'VECTOR_ADDITION/common/model/ComponentVectorStyles' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
-  const Tandem = require( 'TANDEM/Tandem' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import vectorAddition from '../../vectorAddition.js';
+import ComponentVectorStyles from './ComponentVectorStyles.js';
 
-  class VectorAdditionModel {
+class VectorAdditionModel {
 
-    /**
-     * @param {Tandem} tandem
-     */
-    constructor( tandem ) {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-      assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
-      // @public the representation (style) used to display component vectors
-      this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyles, ComponentVectorStyles.INVISIBLE );
-    }
-
-    /**
-     * Resets the model.
-     * @public
-     */
-    reset() {
-      this.componentStyleProperty.reset();
-    }
-
-    /**
-     * @public
-     */
-    dispose() {
-      assert && assert( false, 'VectorAdditionModel is not intended to be disposed' );
-    }
+    // @public the representation (style) used to display component vectors
+    this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyles, ComponentVectorStyles.INVISIBLE );
   }
 
-  return vectorAddition.register( 'VectorAdditionModel', VectorAdditionModel );
-} );
+  /**
+   * Resets the model.
+   * @public
+   */
+  reset() {
+    this.componentStyleProperty.reset();
+  }
+
+  /**
+   * @public
+   */
+  dispose() {
+    assert && assert( false, 'VectorAdditionModel is not intended to be disposed' );
+  }
+}
+
+vectorAddition.register( 'VectorAdditionModel', VectorAdditionModel );
+export default VectorAdditionModel;

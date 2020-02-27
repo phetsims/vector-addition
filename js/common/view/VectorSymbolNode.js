@@ -24,169 +24,166 @@
  *
  * @author Brandon Li
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const ArrowOverSymbolNode = require( 'VECTOR_ADDITION/common/view/ArrowOverSymbolNode' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
-  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
-  const merge = require( 'PHET_CORE/merge' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
-  const Text = require( 'SCENERY/nodes/Text' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionConstants = require( 'VECTOR_ADDITION/common/VectorAdditionConstants' );
+import merge from '../../../../phet-core/js/merge.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import HBox from '../../../../scenery/js/nodes/HBox.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 
-  class VectorSymbolNode extends HBox {
+class VectorSymbolNode extends HBox {
 
-    /**
-     * @param {Object} [options]
-     */
-    constructor( options ) {
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-      assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
-      //----------------------------------------------------------------------------------------
+    //----------------------------------------------------------------------------------------
 
-      options = merge( {
+    options = merge( {
 
-        // {string|null} optional symbol to display
-        symbol: null,
+      // {string|null} optional symbol to display
+      symbol: null,
 
-        // {number|null} optional coefficient to display
-        coefficient: null,
+      // {number|null} optional coefficient to display
+      coefficient: null,
 
-        // {boolean} flag to whether to show an arrow above the vector symbol
-        showVectorArrow: true,
+      // {boolean} flag to whether to show an arrow above the vector symbol
+      showVectorArrow: true,
 
-        // {boolean} whether to surround with absolute value bars, to indicate 'magnitude'
-        includeAbsoluteValueBars: false,
+      // {boolean} whether to surround with absolute value bars, to indicate 'magnitude'
+      includeAbsoluteValueBars: false,
 
-        // {Font} font used for the vector symbol
-        symbolFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
+      // {Font} font used for the vector symbol
+      symbolFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
 
-        // {Font} font used for everything that is not a symbol
-        font: VectorAdditionConstants.EQUATION_FONT,
+      // {Font} font used for everything that is not a symbol
+      font: VectorAdditionConstants.EQUATION_FONT,
 
-        // HBox options
-        align: 'origin', // so that text baselines are aligned
-        spacing: 2 // {number} spacing of the text nodes / formula nodes
+      // HBox options
+      align: 'origin', // so that text baselines are aligned
+      spacing: 2 // {number} spacing of the text nodes / formula nodes
 
-      }, options );
+    }, options );
 
-      assert && assert( typeof options.symbol === 'string' || options.symbol === null, `invalid symbol: ${options.symbol}` );
-      assert && assert( typeof options.coefficient === 'number' || options.coefficient === null, `invalid coefficient: ${options.coefficient}` );
+    assert && assert( typeof options.symbol === 'string' || options.symbol === null, `invalid symbol: ${options.symbol}` );
+    assert && assert( typeof options.coefficient === 'number' || options.coefficient === null, `invalid coefficient: ${options.coefficient}` );
 
-      super( options );
+    super( options );
 
-      // @private
-      this.symbol = options.symbol;
-      this.coefficient = options.coefficient;
-      this.includeAbsoluteValueBars = options.includeAbsoluteValueBars;
+    // @private
+    this.symbol = options.symbol;
+    this.coefficient = options.coefficient;
+    this.includeAbsoluteValueBars = options.includeAbsoluteValueBars;
 
-      // Create all of the pieces of the VectorSymbolNode. Values will be set later, and these
-      // will be added as children as needed based on how the VectorSymbolNode is configured.
-      const leftBar = new Text( '|', { font: options.font } );
-      const rightBar = new Text( '|', { font: options.font } );
-      const coefficientText = new Text( '', { font: options.font } );
-      const symbolNode = options.showVectorArrow ?
-                         new ArrowOverSymbolNode( '', { font: options.symbolFont } ) :
-                         new RichText( '', { font: options.symbolFont } );
+    // Create all of the pieces of the VectorSymbolNode. Values will be set later, and these
+    // will be added as children as needed based on how the VectorSymbolNode is configured.
+    const leftBar = new Text( '|', { font: options.font } );
+    const rightBar = new Text( '|', { font: options.font } );
+    const coefficientText = new Text( '', { font: options.font } );
+    const symbolNode = options.showVectorArrow ?
+                       new ArrowOverSymbolNode( '', { font: options.symbolFont } ) :
+                       new RichText( '', { font: options.symbolFont } );
 
-      // @private function that updates the vector symbol node
-      this.updateVectorSymbolNode = () => {
+    // @private function that updates the vector symbol node
+    this.updateVectorSymbolNode = () => {
 
-        // Auto format the coefficient
-        let coefficient = null;
-        if ( this.coefficient === -1 ) {
-          coefficient = MathSymbols.UNARY_MINUS;
+      // Auto format the coefficient
+      let coefficient = null;
+      if ( this.coefficient === -1 ) {
+        coefficient = MathSymbols.UNARY_MINUS;
+      }
+      else if ( this.coefficient !== 1 && this.coefficient !== null ) {
+        coefficient = `${this.coefficient}`;
+      }
+
+      // Set the coefficient and symbol text to match our properties
+      coefficient && coefficientText.setText( coefficient );
+      if ( this.symbol ) {
+        if ( options.showVectorArrow ) {
+          symbolNode.setSymbol( this.symbol );
         }
-        else if ( this.coefficient !== 1 && this.coefficient !== null ) {
-          coefficient = `${this.coefficient}`;
+        else {
+          symbolNode.setText( this.symbol );
         }
+      }
 
-        // Set the coefficient and symbol text to match our properties
-        coefficient && coefficientText.setText( coefficient );
-        if ( this.symbol ) {
-          if ( options.showVectorArrow ) {
-            symbolNode.setSymbol( this.symbol );
-          }
-          else {
-            symbolNode.setText( this.symbol );
-          }
-        }
+      // Add the pieces that are relevant for the current configuration.
+      const children = [];
+      this.includeAbsoluteValueBars && children.push( leftBar );
+      coefficient && children.push( coefficientText );
+      this.symbol && children.push( symbolNode );
+      this.includeAbsoluteValueBars && children.push( rightBar );
+      this.setChildren( children );
 
-        // Add the pieces that are relevant for the current configuration.
-        const children = [];
-        this.includeAbsoluteValueBars && children.push( leftBar );
-        coefficient && children.push( coefficientText );
-        this.symbol && children.push( symbolNode );
-        this.includeAbsoluteValueBars && children.push( rightBar );
-        this.setChildren( children );
+      // Set the visibility to true only if we have a child to display
+      this.visible = ( children.length !== 0 );
+    };
 
-        // Set the visibility to true only if we have a child to display
-        this.visible = ( children.length !== 0 );
-      };
-
-      // Update the vector symbol node
-      this.updateVectorSymbolNode();
-    }
-
-    /**
-     * Determines whether absolute value bars are displayed to indicate 'magnitude'.
-     * @public
-     * @param {boolean} includeAbsoluteValueBars
-     */
-    setIncludeAbsoluteValueBars( includeAbsoluteValueBars ) {
-      assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
-
-      this.includeAbsoluteValueBars = includeAbsoluteValueBars;
-      this.updateVectorSymbolNode();
-    }
-
-    /**
-     * Sets the symbol.
-     * @public
-     * @param {string|null} symbol - the symbol to display. Null means no symbol is displayed.
-     */
-    setSymbol( symbol ) {
-      assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
-
-      this.symbol = symbol;
-      this.updateVectorSymbolNode();
-    }
-
-    /**
-     * Sets the coefficient.
-     * @public
-     * @param {number|null} coefficient
-     */
-    setCoefficient( coefficient ) {
-      assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
-
-      this.coefficient = coefficient;
-      this.updateVectorSymbolNode();
-    }
-
-    /**
-     * Performance method that sets all the attributes of the VectorSymbolNode and does 1 update.
-     * @public
-     * @param {string|null} symbol - the symbol to display (See comment at the top of the file)
-     * @param {number|null} coefficient - the coefficient to display
-     * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
-     */
-    setVectorSymbolNode( symbol, coefficient, includeAbsoluteValueBars ) {
-      assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
-      assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
-      assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
-
-      this.symbol = symbol;
-      this.coefficient = coefficient;
-      this.includeAbsoluteValueBars = includeAbsoluteValueBars;
-
-      this.updateVectorSymbolNode();
-    }
+    // Update the vector symbol node
+    this.updateVectorSymbolNode();
   }
 
-  return vectorAddition.register( 'VectorSymbolNode', VectorSymbolNode );
-} );
+  /**
+   * Determines whether absolute value bars are displayed to indicate 'magnitude'.
+   * @public
+   * @param {boolean} includeAbsoluteValueBars
+   */
+  setIncludeAbsoluteValueBars( includeAbsoluteValueBars ) {
+    assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
+
+    this.includeAbsoluteValueBars = includeAbsoluteValueBars;
+    this.updateVectorSymbolNode();
+  }
+
+  /**
+   * Sets the symbol.
+   * @public
+   * @param {string|null} symbol - the symbol to display. Null means no symbol is displayed.
+   */
+  setSymbol( symbol ) {
+    assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
+
+    this.symbol = symbol;
+    this.updateVectorSymbolNode();
+  }
+
+  /**
+   * Sets the coefficient.
+   * @public
+   * @param {number|null} coefficient
+   */
+  setCoefficient( coefficient ) {
+    assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
+
+    this.coefficient = coefficient;
+    this.updateVectorSymbolNode();
+  }
+
+  /**
+   * Performance method that sets all the attributes of the VectorSymbolNode and does 1 update.
+   * @public
+   * @param {string|null} symbol - the symbol to display (See comment at the top of the file)
+   * @param {number|null} coefficient - the coefficient to display
+   * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
+   */
+  setVectorSymbolNode( symbol, coefficient, includeAbsoluteValueBars ) {
+    assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
+    assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
+    assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
+
+    this.symbol = symbol;
+    this.coefficient = coefficient;
+    this.includeAbsoluteValueBars = includeAbsoluteValueBars;
+
+    this.updateVectorSymbolNode();
+  }
+}
+
+vectorAddition.register( 'VectorSymbolNode', VectorSymbolNode );
+export default VectorSymbolNode;

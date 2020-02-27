@@ -5,39 +5,36 @@
  *
  * @author Martin Veillette
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Explore1DModel = require( 'VECTOR_ADDITION/explore1D/model/Explore1DModel' );
-  const Explore1DScreenView = require( 'VECTOR_ADDITION/explore1D/view/Explore1DScreenView' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
-  const vectorAddition = require( 'VECTOR_ADDITION/vectorAddition' );
-  const VectorAdditionColors = require( 'VECTOR_ADDITION/common/VectorAdditionColors' );
-  const VectorAdditionIconFactory = require( 'VECTOR_ADDITION/common/view/VectorAdditionIconFactory' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import VectorAdditionColors from '../common/VectorAdditionColors.js';
+import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
+import vectorAdditionStrings from '../vector-addition-strings.js';
+import vectorAddition from '../vectorAddition.js';
+import Explore1DModel from './model/Explore1DModel.js';
+import Explore1DScreenView from './view/Explore1DScreenView.js';
 
-  // strings
-  const screenExplore1DString = require( 'string!VECTOR_ADDITION/screen.explore1D' );
+const screenExplore1DString = vectorAdditionStrings.screen.explore1D;
 
-  class Explore1DScreen extends Screen {
-    /**
-     * @param {Tandem} tandem
-     */
-    constructor( tandem ) {
+class Explore1DScreen extends Screen {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-      const options = {
-        name: screenExplore1DString,
-        backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
-        homeScreenIcon: VectorAdditionIconFactory.createExplore1DScreenIcon(),
-        tandem: tandem
-      };
+    const options = {
+      name: screenExplore1DString,
+      backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
+      homeScreenIcon: VectorAdditionIconFactory.createExplore1DScreenIcon(),
+      tandem: tandem
+    };
 
-      super( () => new Explore1DModel( tandem.createTandem( 'explore1DModel' ) ),
-        model => new Explore1DScreenView( model, tandem.createTandem( 'explore1DView' ) ),
-        options );
-    }
+    super( () => new Explore1DModel( tandem.createTandem( 'explore1DModel' ) ),
+      model => new Explore1DScreenView( model, tandem.createTandem( 'explore1DView' ) ),
+      options );
   }
+}
 
-  return vectorAddition.register( 'Explore1DScreen', Explore1DScreen );
-} );
+vectorAddition.register( 'Explore1DScreen', Explore1DScreen );
+export default Explore1DScreen;
