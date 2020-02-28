@@ -1,4 +1,4 @@
-// Copyright 2019, University of Colorado Boulder
+// Copyright 2019-2020, University of Colorado Boulder
 
 /**
  * SumVector is the model of a sum vector. A sum vector is the sum of all vectors for one VectorSet.

@@ -1,4 +1,4 @@
-// Copyright 2019, University of Colorado Boulder
+// Copyright 2019-2020, University of Colorado Boulder
 
 /**
  * GridBox lays out its children in a grid composed of cells. Children are provided in row-major order,

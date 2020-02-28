@@ -1,4 +1,4 @@
-// Copyright 2019, University of Colorado Boulder
+// Copyright 2019-2020, University of Colorado Boulder
 
 /**
  * GraphNode draws the graph, including its grid, axes, ticks, and origin manipulator.

@@ -1,4 +1,4 @@
-// Copyright 2019, University of Colorado Boulder
+// Copyright 2019-2020, University of Colorado Boulder
 
 /**
  * VectorValuesNumberDisplay is a subclass of NumberDisplay for displaying a value that is associated with a Vector.
