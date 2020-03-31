@@ -7,7 +7,7 @@
  */
 
 import Text from '../../../../scenery/js/nodes/Text.js';
-import vectorAdditionStrings from '../../vector-addition-strings.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';

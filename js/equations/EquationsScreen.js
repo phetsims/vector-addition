@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
-import vectorAdditionStrings from '../vector-addition-strings.js';
+import vectorAdditionStrings from '../vectorAdditionStrings.js';
 import vectorAddition from '../vectorAddition.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';

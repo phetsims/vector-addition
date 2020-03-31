@@ -14,7 +14,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import vectorAdditionStrings from '../../vector-addition-strings.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';

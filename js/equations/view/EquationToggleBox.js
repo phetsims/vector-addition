@@ -17,7 +17,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import ToggleBox from '../../common/view/ToggleBox.js';
-import vectorAdditionStrings from '../../vector-addition-strings.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import EquationTypes from '../model/EquationTypes.js';

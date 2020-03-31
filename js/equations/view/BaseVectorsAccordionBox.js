@@ -29,7 +29,7 @@ import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
-import vectorAdditionStrings from '../../vector-addition-strings.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';

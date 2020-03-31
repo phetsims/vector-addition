@@ -14,7 +14,7 @@ import EquationsScreen from './equations/EquationsScreen.js';
 import Explore1DScreen from './explore1D/Explore1DScreen.js';
 import Explore2DScreen from './explore2D/Explore2DScreen.js';
 import LabScreen from './lab/LabScreen.js';
-import vectorAdditionStrings from './vector-addition-strings.js';
+import vectorAdditionStrings from './vectorAdditionStrings.js';
 
 const vectorAdditionTitleString = vectorAdditionStrings[ 'vector-addition' ].title;
 
