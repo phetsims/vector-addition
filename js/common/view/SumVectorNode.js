@@ -70,7 +70,7 @@ class SumVectorNode extends VectorNode {
 
     // When the sum vector becomes invisible, interrupt interactions.
     // See https://github.com/phetsims/vector-addition/issues/201
-    this.on( 'visibility', () => {
+    this.visibleProperty.lazyLink( () => {
       if ( !this.visible ) {
         this.interruptSubtreeInput();
       }
