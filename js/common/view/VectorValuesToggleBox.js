@@ -22,19 +22,13 @@ import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ToggleBox from './ToggleBox.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
-
-//----------------------------------------------------------------------------------------
-const noVectorSelectedString = vectorAdditionStrings.noVectorSelected;
-const symbolXString = vectorAdditionStrings.symbol.x;
-const symbolYString = vectorAdditionStrings.symbol.y;
-const vectorValuesString = vectorAdditionStrings.vectorValues;
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -76,7 +70,7 @@ class VectorValuesToggleBox extends ToggleBox {
 
     //----------------------------------------------------------------------------------------
     // Create the scenery node for when the panel is closed, which is the inspectVectorText
-    const inspectVectorText = new Text( vectorValuesString, {
+    const inspectVectorText = new Text( vectorAdditionStrings.vectorValues, {
       font: VectorAdditionConstants.TITLE_FONT
     } );
 
@@ -84,7 +78,7 @@ class VectorValuesToggleBox extends ToggleBox {
     // Create the scenery nodes for when the panel is open
 
     // Text for when there isn't a vector that is active
-    const selectVectorText = new Text( noVectorSelectedString, {
+    const selectVectorText = new Text( vectorAdditionStrings.noVectorSelected, {
       font: VectorAdditionConstants.TITLE_FONT
     } );
 
@@ -160,8 +154,8 @@ class VectorValuesToggleBox extends ToggleBox {
 
         // Update labels (angle label is the same)
         magnitudeDisplayNode.setSymbol( vectorSymbol );
-        xComponentText.setSymbol( `${vectorSymbol}<sub>${symbolXString}</sub>` );
-        yComponentText.setSymbol( `${vectorSymbol}<sub>${symbolYString}</sub>` );
+        xComponentText.setSymbol( `${vectorSymbol}<sub>${vectorAdditionStrings.symbol.x}</sub>` );
+        yComponentText.setSymbol( `${vectorSymbol}<sub>${vectorAdditionStrings.symbol.y}</sub>` );
       }
       else {
         vectorAttributesContainer.visible = false;

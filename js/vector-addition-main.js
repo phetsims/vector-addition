@@ -16,8 +16,6 @@ import Explore2DScreen from './explore2D/Explore2DScreen.js';
 import LabScreen from './lab/LabScreen.js';
 import vectorAdditionStrings from './vectorAdditionStrings.js';
 
-const vectorAdditionTitleString = vectorAdditionStrings[ 'vector-addition' ].title;
-
 SimLauncher.launch( () => {
 
   const screens = [
@@ -27,7 +25,7 @@ SimLauncher.launch( () => {
     new EquationsScreen( Tandem.ROOT.createTandem( 'equationsScreen' ) )
   ];
 
-  const sim = new Sim( vectorAdditionTitleString, screens, {
+  const sim = new Sim( vectorAdditionStrings[ 'vector-addition' ].title, screens, {
     credits: VectorAdditionConstants.CREDITS
   } );
 

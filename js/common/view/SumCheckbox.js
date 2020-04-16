@@ -9,14 +9,12 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-
-const sumString = vectorAdditionStrings.sum;
 
 class SumCheckbox extends VectorAdditionCheckbox {
 
@@ -31,7 +29,7 @@ class SumCheckbox extends VectorAdditionCheckbox {
     assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
     assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-    const textNode = new Text( sumString, {
+    const textNode = new Text( vectorAdditionStrings.sum, {
       font: VectorAdditionConstants.CHECKBOX_FONT,
       maxWidth: 75 // determined empirically
     } );

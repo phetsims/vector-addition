@@ -29,14 +29,10 @@ import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
-
-const baseVectorsString = vectorAdditionStrings.baseVectors;
-const symbolXString = vectorAdditionStrings.symbol.x;
-const symbolYString = vectorAdditionStrings.symbol.y;
 
 // constants
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
@@ -66,7 +62,7 @@ class BaseVectorsAccordionBox extends AccordionBox {
       contentWidth: VectorAdditionConstants.BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH, // fixed content width
 
       // super class options
-      titleNode: new Text( baseVectorsString, { font: VectorAdditionConstants.TITLE_FONT } )
+      titleNode: new Text( vectorAdditionStrings.baseVectors, { font: VectorAdditionConstants.TITLE_FONT } )
 
     }, options );
 
@@ -102,7 +98,7 @@ class BaseVectorsAccordionBox extends AccordionBox {
           baseVector.xComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
-            symbol: `${baseVector.symbol}<sub>${symbolXString}</sub>`,
+            symbol: `${baseVector.symbol}<sub>${vectorAdditionStrings.symbol.x}</sub>`,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ) );
@@ -112,7 +108,7 @@ class BaseVectorsAccordionBox extends AccordionBox {
           baseVector.yComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
-            symbol: `${baseVector.symbol}<sub>${symbolYString}</sub>`,
+            symbol: `${baseVector.symbol}<sub>${vectorAdditionStrings.symbol.y}</sub>`,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ) );

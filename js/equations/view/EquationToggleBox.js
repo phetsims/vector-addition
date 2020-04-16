@@ -17,14 +17,12 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import ToggleBox from '../../common/view/ToggleBox.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import EquationTypes from '../model/EquationTypes.js';
 import EquationTypeNode from './EquationTypeNode.js';
 import EquationTypesRadioButtonGroup from './EquationTypesRadioButtonGroup.js';
-
-const equationString = vectorAdditionStrings.equation;
 
 // constants
 const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
@@ -56,7 +54,7 @@ class EquationToggleBox extends ToggleBox {
     }, options );
 
     // When the toggle box is collapsed, show 'Equation'
-    const closedContent = new Text( equationString, TEXT_OPTIONS );
+    const closedContent = new Text( vectorAdditionStrings.equation, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type
     const radioButtonGroup = new EquationTypesRadioButtonGroup(

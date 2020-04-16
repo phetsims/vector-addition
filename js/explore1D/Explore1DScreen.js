@@ -10,12 +10,10 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
-import vectorAdditionStrings from '../vectorAdditionStrings.js';
 import vectorAddition from '../vectorAddition.js';
+import vectorAdditionStrings from '../vectorAdditionStrings.js';
 import Explore1DModel from './model/Explore1DModel.js';
 import Explore1DScreenView from './view/Explore1DScreenView.js';
-
-const screenExplore1DString = vectorAdditionStrings.screen.explore1D;
 
 class Explore1DScreen extends Screen {
   /**
@@ -24,7 +22,7 @@ class Explore1DScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: screenExplore1DString,
+      name: vectorAdditionStrings.screen.explore1D,
       backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
       homeScreenIcon: VectorAdditionIconFactory.createExplore1DScreenIcon(),
       tandem: tandem

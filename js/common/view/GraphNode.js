@@ -17,16 +17,13 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
 import GraphOrientations from '../model/GraphOrientations.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import OriginManipulator from './OriginManipulator.js';
-
-const symbolXString = vectorAdditionStrings.symbol.x;
-const symbolYString = vectorAdditionStrings.symbol.y;
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -237,7 +234,7 @@ class XAxisNode extends Node {
       VectorAdditionConstants.AXES_ARROW_OPTIONS
     );
 
-    const axisLabel = new Text( symbolXString, {
+    const axisLabel = new Text( vectorAdditionStrings.symbol.x, {
       font: VectorAdditionConstants.AXIS_LABEL_FONT,
       maxWidth: 22,
       left: arrowNode.right + 6,
@@ -274,7 +271,7 @@ class YAxisNode extends Node {
       VectorAdditionConstants.AXES_ARROW_OPTIONS
     );
 
-    const axisLabel = new Text( symbolYString, {
+    const axisLabel = new Text( vectorAdditionStrings.symbol.y, {
       font: VectorAdditionConstants.AXIS_LABEL_FONT,
       maxWidth: 30,
       centerX: arrowNode.centerX,

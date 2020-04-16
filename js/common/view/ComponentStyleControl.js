@@ -14,13 +14,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
+import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentStyleRadioButtonGroup from './ComponentStyleRadioButtonGroup.js';
-
-const componentsString = vectorAdditionStrings.components;
 
 class ComponentStyleControl extends VBox {
 
@@ -42,7 +40,7 @@ class ComponentStyleControl extends VBox {
     const children = [];
 
     // 'Components' label, left justified
-    const componentsText = new Text( componentsString, {
+    const componentsText = new Text( vectorAdditionStrings.components, {
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: options.maxWidth
     } );

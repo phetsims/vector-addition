@@ -10,12 +10,10 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
-import vectorAdditionStrings from '../vectorAdditionStrings.js';
 import vectorAddition from '../vectorAddition.js';
+import vectorAdditionStrings from '../vectorAdditionStrings.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
-
-const screenLabString = vectorAdditionStrings.screen.lab;
 
 class LabScreen extends Screen {
 
@@ -25,7 +23,7 @@ class LabScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: screenLabString,
+      name: vectorAdditionStrings.screen.lab,
       backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
       homeScreenIcon: VectorAdditionIconFactory.createLabScreenIcon(),
       tandem: tandem
