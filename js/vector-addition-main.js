@@ -7,7 +7,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import VectorAdditionConstants from './common/VectorAdditionConstants.js';
 import EquationsScreen from './equations/EquationsScreen.js';
@@ -16,7 +16,7 @@ import Explore2DScreen from './explore2D/Explore2DScreen.js';
 import LabScreen from './lab/LabScreen.js';
 import vectorAdditionStrings from './vectorAdditionStrings.js';
 
-SimLauncher.launch( () => {
+simLauncher.launch( () => {
 
   const screens = [
     new Explore1DScreen( Tandem.ROOT.createTandem( 'explore1DScreen' ) ),
