@@ -59,6 +59,7 @@ class ArrowOverSymbolNode extends Node {
   /**
    * Changes the symbol.
    * @param {string} symbol
+   * @public
    */
   setSymbol( symbol ) {
     this.symbolNode.text = symbol;

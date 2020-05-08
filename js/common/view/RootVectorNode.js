@@ -213,6 +213,7 @@ class RootVectorNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform
    * @param {Vector2} offset - perpendicular offset
    * @returns {Vector2}
+   * @public
    */
   static computeLabelCenter( vector, modelViewTransform, offset ) {
     assert && assert( vector instanceof RootVector, 'invalid vector' );
