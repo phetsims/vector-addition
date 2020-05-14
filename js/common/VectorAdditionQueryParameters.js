@@ -14,7 +14,7 @@ const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
   /**
    * The maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector
    * outside the graph. See https://github.com/phetsims/vector-addition/issues/46
-   * For internal testing only.
+   * For internal use only.
    */
   vectorDragThreshold: {
     type: 'number',
@@ -25,7 +25,7 @@ const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
   /**
    * The minimum distance between a vector's tail to another vector's tail or tip to snap to the other vector in polar
    * mode. See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
-   * For internal testing only.
+   * For internal use only.
    */
   polarSnapDistance: {
     type: 'number',
@@ -36,7 +36,7 @@ const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
   /**
    * Head width for all vectors and their component vectors.
    * See https://github.com/phetsims/vector-addition/issues/240.
-   * For internal testing only.
+   * For internal use only.
    */
   headWidth: {
     type: 'number',
@@ -47,7 +47,7 @@ const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
   /**
    * Head height for all vectors and their component vectors.
    * See https://github.com/phetsims/vector-addition/issues/240.
-   * For internal testing only.
+   * For internal use only.
    */
   headHeight: {
     type: 'number',
@@ -58,7 +58,7 @@ const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
   /**
    * Tail width for all vectors and their component vectors.
    * See https://github.com/phetsims/vector-addition/issues/240.
-   * For internal testing only.
+   * For internal use only.
    */
   tailWidth: {
     type: 'number',
