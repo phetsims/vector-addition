@@ -267,7 +267,7 @@ class Vector extends RootVector {
       const tipPositionOnGraph = tailPositionOnGraph.plus( this.vectorComponents );
 
       // Get all the vectors in the vector including the sum and excluding this vector
-      const vectorsInVectorSet = this.vectorSet.vectors.getArray().filter( vector => {
+      const vectorsInVectorSet = this.vectorSet.vectors.filter( vector => {
         return vector !== this;
       } );
       vectorsInVectorSet.push( this.vectorSet.sumVector );
