@@ -134,8 +134,8 @@ class BaseVectorsAccordionBox extends AccordionBox {
             maxWidth: LABEL_MAX_WIDTH
           } ), {
             numberPickerOptions: { // increment by the polar angle interval
-              upFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
-              downFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL
+              incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
+              decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL
             }
           } );
       }
