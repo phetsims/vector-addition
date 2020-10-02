@@ -14,7 +14,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import merge from '../../../../phet-core/js/merge.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -75,7 +75,7 @@ class VectorSet {
     // @public {ObservableArray.<Vector>} the vectors in the VectorSet
     // This array contains only what is referred to as main or parent vectors. It does not contain sum vectors,
     // component vectors, or base vectors.
-    this.vectors = new ObservableArray();
+    this.vectors = createObservableArray();
 
     // @public (read-only) {VectorColorPalette}
     this.vectorColorPalette = vectorColorPalette;
