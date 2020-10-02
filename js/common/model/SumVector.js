@@ -84,7 +84,7 @@ class SumVector extends Vector {
    * Update the sum vector components. Calculated from all the vectors that are on the graph.
    * @protected
    *
-   * @param {ObservableArray.<VectorsModel>} vectors
+   * @param {ObservableArrayDef.<VectorsModel>} vectors
    */
   updateSum( vectors ) {
 

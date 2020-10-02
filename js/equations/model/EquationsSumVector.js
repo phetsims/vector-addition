@@ -52,7 +52,7 @@ class EquationsSumVector extends SumVector {
 
   /**
    * Calculate the sum vector for the Equations screen.
-   * @param {ObservableArray.<Vector>} vectors
+   * @param {ObservableArrayDef.<Vector>} vectors
    * @public
    * @override
    */

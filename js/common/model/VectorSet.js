@@ -3,7 +3,7 @@
 /**
  * VectorSet is the model for a related set of vectors, and contains:
  *
- *  - an ObservableArray of vectors
+ *  - an ObservableArrayDef of vectors
  *  - a sum vector of those vectors
  *  - a color palette that is common to all vectors
  *
@@ -72,7 +72,7 @@ class VectorSet {
     assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
     assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
-    // @public {ObservableArray.<Vector>} the vectors in the VectorSet
+    // @public {ObservableArrayDef.<Vector>} the vectors in the VectorSet
     // This array contains only what is referred to as main or parent vectors. It does not contain sum vectors,
     // component vectors, or base vectors.
     this.vectors = createObservableArray();
