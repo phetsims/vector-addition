@@ -74,7 +74,7 @@ class EquationsSumVector extends SumVector {
       const calculatedComponents = vectors.get( 0 ).vectorComponents.copy();
 
       // Subtract from the first vector
-      _.drop( vectors.getArray() ).forEach( vector => {
+      _.drop( vectors ).forEach( vector => {
         calculatedComponents.subtract( vector.vectorComponents );
       } );
 
