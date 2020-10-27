@@ -12,7 +12,7 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import RadioButtonGroupMember from '../../../../sun/js/buttons/RadioButtonGroupMember.js';
+import RectangularRadioButton from '../../../../sun/js/buttons/RectangularRadioButton.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -32,7 +32,7 @@ class ComponentStyleRadioButtonGroup extends Node {
     // Create the radio buttons. Note that order of enum values determines order of buttons.
     const buttons = [];
     ComponentVectorStyles.VALUES.forEach( componentStyle => {
-      buttons.push( new RadioButtonGroupMember( componentStyleProperty, componentStyle,
+      buttons.push( new RectangularRadioButton( componentStyleProperty, componentStyle,
         merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
           content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
         } ) ) );
