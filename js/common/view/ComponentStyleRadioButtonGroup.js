@@ -2,7 +2,7 @@
 
 /**
  * ComponentStyleRadioButtonGroup is a group of radio buttons, arranged in a grid, for selecting component style.
- * It does not use RadioButtonGroup, because that class does not support a grid layout.
+ * It does not use RectangularRadioButtonGroup, because that class does not support a grid layout.
  * See https://github.com/phetsims/sun/issues/513 for context.
  *
  * @author Brandon Li

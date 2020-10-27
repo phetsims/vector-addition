@@ -4,7 +4,7 @@
  * EquationsSceneNode is a SceneNode that is specific to the 'Equations' screen.
  *
  * 'Is A' relationship with SceneNode but adds:
- *  - a RadioButtonGroup for EquationTypes
+ *  - a RectangularRadioButtonGroup for EquationTypes
  *  - a Coefficient Selector Panel for each member of EquationTypes
  *  - a BaseVectorAccordionBox
  *  - 'register' Vectors and add their BaseVectors and components

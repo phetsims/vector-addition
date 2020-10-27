@@ -5,7 +5,7 @@
  *
  * See EquationTypes.js
  *
- * 'Is a' relationship with RadioButtonGroup but adds:
+ * 'Is a' relationship with RectangularRadioButtonGroup but adds:
  *    - Radio button for 'ADDITION' => 'a' + 'b' = 'c'
  *    - Radio button for 'SUBTRACTION' => 'a' - 'b' = 'c'
  *    - Radio button for 'NEGATION' => 'a' + 'b' + 'c' = 0
@@ -22,13 +22,13 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
-import RadioButtonGroup from '../../../../sun/js/buttons/RadioButtonGroup.js';
+import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationTypes from '../model/EquationTypes.js';
 
-class EquationTypesRadioButtonGroup extends RadioButtonGroup {
+class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
    * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
