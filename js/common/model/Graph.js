@@ -132,7 +132,7 @@ class Graph {
 
     // Round to integer
     const roundedPoint = point.roundSymmetric();
-    this.graphModelBoundsProperty.value = this.graphModelBounds.shifted( -roundedPoint.x, -roundedPoint.y );
+    this.graphModelBoundsProperty.value = this.graphModelBounds.shiftedXY( -roundedPoint.x, -roundedPoint.y );
   }
 
   /**
