@@ -359,7 +359,6 @@ class VectorNode extends RootVectorNode {
   updateTipPosition( tipPositionView ) {
     assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
       'Cannot drag tip when animating back' );
-    assert && assert( this.vector.isOnGraphProperty.value === true, 'Cannot drag tip when not on graph' );
 
     const tipPositionModel = this.vector.tail
       .plus( this.modelViewTransformProperty.value.viewToModelDelta( tipPositionView ) );
