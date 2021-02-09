@@ -148,10 +148,6 @@ class VectorNode extends RootVectorNode {
     this.arrowNode.addInputListener( this.translationDragListener );
     this.labelNode.addInputListener( this.translationDragListener );
 
-    // Disable interaction when the vector is animating back to the toolbox. unlink is required on dispose.
-    const removeTranslationDragListener = animateBack => animateBack && this.disableInteraction();
-    this.vector.animateBackProperty.lazyLink( removeTranslationDragListener );
-
     // Translate when the vector's tail position changes. unlink is required on dispose.
     const tailListener = tailPositionView => {
       this.updateTailPosition( tailPositionView );
@@ -173,7 +169,6 @@ class VectorNode extends RootVectorNode {
       this.arrowNode.removeInputListener( this.translationDragListener );
       this.labelNode.removeInputListener( this.translationDragListener );
       this.translationDragListener.dispose();
-      this.vector.animateBackProperty.unlink( removeTranslationDragListener );
       tailPositionProperty.unlink( tailListener );
     };
 
@@ -272,16 +267,11 @@ class VectorNode extends RootVectorNode {
       };
       vector.vectorComponentsProperty.link( vectorComponentsListener );
 
-      // Disable interaction when the vector is animating back to the toolbox. unlink is required on dispose.
-      const disableScaleRotateDragListener = animateBack => animateBack && this.disableInteraction();
-      this.vector.animateBackProperty.lazyLink( disableScaleRotateDragListener );
-
       // dispose of things that are related to optional scale/rotate
       disposeScaleRotate = () => {
         headNode.removeInputListener( scaleRotateDragListener );
         tipPositionProperty.unlink( tipListener );
         vector.vectorComponentsProperty.unlink( vectorComponentsListener );
-        this.vector.animateBackProperty.unlink( disableScaleRotateDragListener );
       };
     }
 
@@ -313,9 +303,16 @@ class VectorNode extends RootVectorNode {
     };
     graph.activeVectorProperty.link( activeVectorListener );
 
-    //----------------------------------------------------------------------------------------
-    // Dispose
-    //----------------------------------------------------------------------------------------
+    // Disable interaction when the vector is animating back to the toolbox, where it will be disposed.
+    // unlink is required on dispose.
+    const animateBackListener = animateBack => {
+      if ( animateBack ) {
+        this.interruptSubtreeInput();
+        this.pickable = false;
+        this.cursor = 'default';
+      }
+    };
+    this.vector.animateBackProperty.lazyLink( animateBackListener );
 
     // @private
     this.disposeVectorNode = () => {
@@ -331,6 +328,7 @@ class VectorNode extends RootVectorNode {
       Property.unmultilink( shadowMultilink );
       vector.isOnGraphProperty.unlink( isOnGraphListener );
       graph.activeVectorProperty.unlink( activeVectorListener );
+      this.vector.animateBackProperty.unlink( animateBackListener );
     };
   }
 
@@ -341,16 +339,6 @@ class VectorNode extends RootVectorNode {
   dispose() {
     this.disposeVectorNode();
     super.dispose();
-  }
-
-  /**
-   * Interrupts and disables all interaction with this Node.
-   * @private
-   */
-  disableInteraction() {
-    this.interruptSubtreeInput();
-    this.pickable = false;
-    this.cursor = 'default';
   }
 
   /**
