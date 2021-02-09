@@ -148,15 +148,8 @@ class VectorNode extends RootVectorNode {
     this.arrowNode.addInputListener( this.translationDragListener );
     this.labelNode.addInputListener( this.translationDragListener );
 
-    // Disable translate interaction when the vector is animating back to the toolbox. unlink is required on dispose.
-    const removeTranslationDragListener = animateBack => {
-      if ( animateBack ) {
-        this.interruptSubtreeInput();
-        this.arrowNode.pickable = !animateBack;
-        this.labelNode.pickable = !animateBack;
-        this.cursor = 'default';
-      }
-    };
+    // Disable interaction when the vector is animating back to the toolbox. unlink is required on dispose.
+    const removeTranslationDragListener = animateBack => animateBack && this.disableInteraction();
     this.vector.animateBackProperty.lazyLink( removeTranslationDragListener );
 
     // Translate when the vector's tail position changes. unlink is required on dispose.
@@ -279,11 +272,8 @@ class VectorNode extends RootVectorNode {
       };
       vector.vectorComponentsProperty.link( vectorComponentsListener );
 
-      // Disable scale/rotate interaction when the vector is animating back to the toolbox. unlink is required on dispose.
-      const disableScaleRotateDragListener = animateBack => {
-        this.interruptSubtreeInput();
-        headNode.pickable = !animateBack;
-      };
+      // Disable interaction when the vector is animating back to the toolbox. unlink is required on dispose.
+      const disableScaleRotateDragListener = animateBack => animateBack && this.disableInteraction();
       this.vector.animateBackProperty.lazyLink( disableScaleRotateDragListener );
 
       // dispose of things that are related to optional scale/rotate
@@ -351,6 +341,16 @@ class VectorNode extends RootVectorNode {
   dispose() {
     this.disposeVectorNode();
     super.dispose();
+  }
+
+  /**
+   * Interrupts and disables all interaction with this Node.
+   * @private
+   */
+  disableInteraction() {
+    this.interruptSubtreeInput();
+    this.pickable = false;
+    this.cursor = 'default';
   }
 
   /**
