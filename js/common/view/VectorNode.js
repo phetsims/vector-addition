@@ -151,6 +151,7 @@ class VectorNode extends RootVectorNode {
     // Disable translate interaction when the vector is animating back to the toolbox. unlink is required on dispose.
     const removeTranslationDragListener = animateBack => {
       if ( animateBack ) {
+        this.interruptSubtreeInput();
         this.arrowNode.pickable = !animateBack;
         this.labelNode.pickable = !animateBack;
         this.cursor = 'default';
@@ -280,6 +281,7 @@ class VectorNode extends RootVectorNode {
 
       // Disable scale/rotate interaction when the vector is animating back to the toolbox. unlink is required on dispose.
       const disableScaleRotateDragListener = animateBack => {
+        this.interruptSubtreeInput();
         headNode.pickable = !animateBack;
       };
       this.vector.animateBackProperty.lazyLink( disableScaleRotateDragListener );
