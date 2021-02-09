@@ -169,7 +169,6 @@ class Vector extends RootVector {
    * @protected
    *
    * ## Common Invariants (for both Cartesian and polar mode):
-   *  - Vector tip must be within the graph bounds
    *  - Vector must not be set to the tail (0 magnitude)
    *
    * ## Invariants for Cartesian mode:
@@ -184,7 +183,6 @@ class Vector extends RootVector {
   setTipWithInvariants( tipPosition ) {
 
     assert && assert( tipPosition instanceof Vector2, `invalid tipPosition: ${tipPosition}` );
-    assert && assert( this.isOnGraphProperty.value === true, 'this.isOnGraphProperty must be true' );
     assert && assert( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
     // Flag to get the tip point that satisfies invariants (to be calculated below)
@@ -237,9 +235,6 @@ class Vector extends RootVector {
    * Sets the tail of the vector but ensures the vector satisfies invariants for polar/Cartesian mode.
    * @private
    *
-   * ## Common Invariants (for both Cartesian and polar mode)
-   *  - Vector tail must be within constrained drag bounds
-   *
    * ## Invariants for Cartesian mode:
    *  - Vector tail must be on an exact model coordinate
    *
@@ -253,7 +248,6 @@ class Vector extends RootVector {
   setTailWithInvariants( tailPosition ) {
 
     assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
-    assert && assert( this.isOnGraphProperty.value === true, 'this.isOnGraphProperty must be true' );
     assert && assert( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
     const constrainedTailBounds = this.getConstrainedTailBounds();
