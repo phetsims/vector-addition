@@ -7,6 +7,7 @@
  * @author Brandon Li
  */
 
+import logGlobal from '../../../phet-core/js/logGlobal.js';
 import vectorAddition from '../vectorAddition.js';
 
 const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
@@ -71,7 +72,9 @@ assert && assert( VectorAdditionQueryParameters.tailWidth < VectorAdditionQueryP
 
 vectorAddition.register( 'VectorAdditionQueryParameters', VectorAdditionQueryParameters );
 
-// log the values of all sim-specific query parameters
-phet.log && phet.log( 'query parameters: ' + JSON.stringify( VectorAdditionQueryParameters, null, 2 ) );
+// Log query parameters
+logGlobal( 'phet.chipper.queryParameters' );
+logGlobal( 'phet.preloads.phetio.queryParameters' );
+logGlobal( 'phet.vectorAddition.VectorAdditionQueryParameters' );
 
 export default VectorAdditionQueryParameters;
