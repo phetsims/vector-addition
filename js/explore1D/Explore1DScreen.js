@@ -28,8 +28,8 @@ class Explore1DScreen extends Screen {
       tandem: tandem
     };
 
-    super( () => new Explore1DModel( tandem.createTandem( 'explore1DModel' ) ),
-      model => new Explore1DScreenView( model, tandem.createTandem( 'explore1DView' ) ),
+    super( () => new Explore1DModel( tandem.createTandem( 'model' ) ),
+      model => new Explore1DScreenView( model, tandem.createTandem( 'view' ) ),
       options );
   }
 }

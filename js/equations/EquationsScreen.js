@@ -30,8 +30,8 @@ class EquationsScreen extends Screen {
     };
 
     super(
-      () => new EquationsModel( tandem.createTandem( 'equationsModel' ) ),
-      model => new EquationsScreenView( model, tandem.createTandem( 'equationsView' ) ),
+      () => new EquationsModel( tandem.createTandem( 'model' ) ),
+      model => new EquationsScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );
   }

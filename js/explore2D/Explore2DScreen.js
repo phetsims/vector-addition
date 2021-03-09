@@ -29,8 +29,8 @@ class Explore2DScreen extends Screen {
       tandem: tandem
     };
 
-    super( () => new Explore2DModel( tandem.createTandem( 'explore2DModel' ) ),
-      model => new Explore2DScreenView( model, tandem.createTandem( 'explore2DView' ) ),
+    super( () => new Explore2DModel( tandem.createTandem( 'model' ) ),
+      model => new Explore2DScreenView( model, tandem.createTandem( 'view' ) ),
       options );
   }
 }
