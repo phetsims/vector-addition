@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.0.1-rc.1 Fri Apr 23 2021 15:49:59 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# vector-addition 1.0.1-rc.1 Mon May 10 2021 12:32:04 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "HEAD"
@@ -45,8 +45,8 @@
     "branch": "HEAD"
   },
   "phetmarks": {
-    "sha": "dd3d828ebbf48dc84b59bda5a4f76a0f7f716870",
-    "branch": "HEAD"
+    "sha": "c18b406e30a9c9a00e13ed96fce6e0fd5810ae5b",
+    "branch": "vector-addition-1.0"
   },
   "query-string-machine": {
     "sha": "1a087d03e660caca68406f4ac92ae08510a506a8",
@@ -85,7 +85,7 @@
     "branch": "HEAD"
   },
   "vector-addition": {
-    "sha": "ec83d4c512e66ef017c5e71545de11053ae2b690",
+    "sha": "a6feb1e8dfd2c1009a11f3c1b76f2f8f7324b6cf",
     "branch": "1.0"
   }
 }
