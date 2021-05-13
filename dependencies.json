@@ -53,7 +53,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "d117c6bcc8598741533957771b998da1e1d0b5a7",
+    "sha": "dd2d75a02795826ec91fab3e88ea8cae08af84be",
     "branch": "HEAD"
   },
   "scenery-phet": {
@@ -85,7 +85,7 @@
     "branch": "HEAD"
   },
   "vector-addition": {
-    "sha": "6a118b1d68508702a812a5ac28e86d92b8645819",
+    "sha": "38936932326f6d3310e5b3df55832495722e945d",
     "branch": "1.0"
   }
 }
