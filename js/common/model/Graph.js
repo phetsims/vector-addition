@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2021, University of Colorado Boulder
 
 /**
  * Graph is the base class for graphs, intended to be sub-classed. A screen can have multiple graphs.
