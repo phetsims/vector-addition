@@ -136,6 +136,7 @@ class VectorValuesNumberDisplay extends NumberDisplay {
     else if ( this.vectorQuantity === VectorQuantities.Y_COMPONENT ) {
       return activeVector.yComponent;
     }
+    throw new Error( 'invalid case for getNumberDisplayValue' );
   }
 }
 
