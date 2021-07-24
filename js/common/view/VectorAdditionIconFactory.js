@@ -33,7 +33,7 @@ import Spacer from '../../../../scenery/js/nodes/Spacer.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import eyeSlashRegularShape from '../../../../sherpa/js/fontawesome-5/eyeSlashRegularShape.js';
+import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import EquationTypes from '../../equations/model/EquationTypes.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
@@ -548,7 +548,7 @@ function createEyeCloseIcon( iconSize ) {
 
   const spacer = new Spacer( iconSize, iconSize );
 
-  const eyeIcon = new Path( eyeSlashRegularShape, {
+  const eyeIcon = new Path( eyeSlashSolidShape, {
     scale: 0.068, // determined empirically
     fill: 'black',
     center: spacer.center
