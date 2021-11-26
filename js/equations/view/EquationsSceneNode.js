@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2021, University of Colorado Boulder
 
 /**
  * EquationsSceneNode is a SceneNode that is specific to the 'Equations' screen.

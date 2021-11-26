@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2021, University of Colorado Boulder
 
 /**
  * VectorAngleNode is the angle indicator that appears on vectors on the graph when the angle checkbox is checked.

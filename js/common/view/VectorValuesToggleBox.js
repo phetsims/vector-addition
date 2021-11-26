@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2021, University of Colorado Boulder
 
 /**
  * VectorValuesToggleBox is the toggle box at the top of the screen. It displays the active vector's magnitude,

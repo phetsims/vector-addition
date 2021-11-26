@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2021, University of Colorado Boulder
 
 /**
  * Explore1DGraphControlPanel is the graph control panel for the 'Explore 2D' screen.
