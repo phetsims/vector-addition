@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Color from '../../../scenery/js/util/Color.js';
+import { Color } from '../../../scenery/js/imports.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorColorPalette from './model/VectorColorPalette.js';
 

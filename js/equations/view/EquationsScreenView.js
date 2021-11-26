@@ -6,7 +6,7 @@
  * @author Martin Veillette
  */
 
-import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
+import { AlignGroup } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';

@@ -15,8 +15,8 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import SceneryEvent from '../../../../scenery/js/input/SceneryEvent.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { SceneryEvent } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
 import Graph from '../model/Graph.js';

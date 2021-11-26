@@ -15,7 +15,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
+import { AlignGroup } from '../../../../scenery/js/imports.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import SceneNode from '../../common/view/SceneNode.js';
 import vectorAddition from '../../vectorAddition.js';

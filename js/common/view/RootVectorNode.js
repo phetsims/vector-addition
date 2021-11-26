@@ -18,7 +18,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import RootVector from '../model/RootVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';

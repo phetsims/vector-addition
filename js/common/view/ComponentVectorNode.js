@@ -18,7 +18,7 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
+import { Path } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';

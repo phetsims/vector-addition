@@ -8,10 +8,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
-import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
+import { AlignBox } from '../../../../scenery/js/imports.js';
+import { AlignGroup } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { VBox } from '../../../../scenery/js/imports.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';

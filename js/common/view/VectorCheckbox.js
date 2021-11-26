@@ -9,8 +9,8 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
-import Color from '../../../../scenery/js/util/Color.js';
+import { LayoutBox } from '../../../../scenery/js/imports.js';
+import { Color } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';

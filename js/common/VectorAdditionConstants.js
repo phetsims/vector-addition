@@ -14,7 +14,7 @@ import ScreenView from '../../../joist/js/ScreenView.js';
 import merge from '../../../phet-core/js/merge.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import Color from '../../../scenery/js/util/Color.js';
+import { Color } from '../../../scenery/js/imports.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionColors from './VectorAdditionColors.js';
 import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';

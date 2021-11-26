@@ -13,11 +13,11 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
-import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
-import HBox from '../../../../scenery/js/nodes/HBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
+import { AlignBox } from '../../../../scenery/js/imports.js';
+import { AlignGroup } from '../../../../scenery/js/imports.js';
+import { HBox } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { VBox } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 
 // constants

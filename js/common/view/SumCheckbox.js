@@ -7,8 +7,8 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import LayoutBox from '../../../../scenery/js/nodes/LayoutBox.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import { LayoutBox } from '../../../../scenery/js/imports.js';
+import { Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';

@@ -11,9 +11,9 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import VBox from '../../../../scenery/js/nodes/VBox.js';
+import { AlignBox } from '../../../../scenery/js/imports.js';
+import { Text } from '../../../../scenery/js/imports.js';
+import { VBox } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';

@@ -11,7 +11,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import RectangularRadioButton from '../../../../sun/js/buttons/RectangularRadioButton.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';

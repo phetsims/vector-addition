@@ -20,8 +20,8 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
-import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
+import { AlignBox } from '../../../../scenery/js/imports.js';
+import { AlignGroup } from '../../../../scenery/js/imports.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';

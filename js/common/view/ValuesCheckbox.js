@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Text from '../../../../scenery/js/nodes/Text.js';
+import { Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
