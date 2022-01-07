@@ -21,7 +21,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorStyles from './ComponentVectorStyles.js';
@@ -36,7 +36,7 @@ class ComponentVector extends RootVector {
    * @param {Vector} parentVector - the vector that this component vector is associated with
    * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {Property.<Vector|null>} activeVectorProperty - which vector is active (selected)
-   * @param {Enumeration} componentType - type of component vector (x or y), see ComponentVector.ComponentTypes
+   * @param {EnumerationDeprecated} componentType - type of component vector (x or y), see ComponentVector.ComponentTypes
    */
   constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
@@ -47,7 +47,7 @@ class ComponentVector extends RootVector {
 
     super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
 
-    // @public (read-only) {Enumeration} componentType - type of component vector (x or y)
+    // @public (read-only) {EnumerationDeprecated} componentType - type of component vector (x or y)
     this.componentType = componentType;
 
     // @public (read-only) {BooleanProperty} isOnGraphProperty - matches the parent. When the parent is on the graph,
@@ -240,8 +240,8 @@ class ComponentVector extends RootVector {
   }
 }
 
-// @public (read-only) {Enumeration} ComponentTypes - Enumeration of the possible types of components
-ComponentVector.ComponentTypes = Enumeration.byKeys( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
+// @public (read-only) {EnumerationDeprecated} ComponentTypes - Enumeration of the possible types of components
+ComponentVector.ComponentTypes = EnumerationDeprecated.byKeys( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
 
 vectorAddition.register( 'ComponentVector', ComponentVector );
 export default ComponentVector;

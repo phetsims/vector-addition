@@ -6,10 +6,10 @@
  * @author Brandon Li
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import vectorAddition from '../../vectorAddition.js';
 
-const EquationTypes = Enumeration.byKeys( [
+const EquationTypes = EnumerationDeprecated.byKeys( [
 
   // Adding two vectors to get a third. Shown as 'a + b = c' or 'd + e = f'
   'ADDITION',

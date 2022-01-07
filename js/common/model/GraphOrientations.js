@@ -6,10 +6,10 @@
  * @author Martin Veillette
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import vectorAddition from '../../vectorAddition.js';
 
-const GraphOrientations = Enumeration.byKeys( [
+const GraphOrientations = EnumerationDeprecated.byKeys( [
 
   // 1D, the graph only has an x-axis, and its vectors are strictly horizontal
   'HORIZONTAL',

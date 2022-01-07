@@ -6,10 +6,10 @@
  * @author Brandon Li
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import vectorAddition from '../../vectorAddition.js';
 
-const CoordinateSnapModes = Enumeration.byKeys( [
+const CoordinateSnapModes = EnumerationDeprecated.byKeys( [
 
   'CARTESIAN',  // Vector tail and tip are snapped to an exact grid coordinate (components are always integers).
 

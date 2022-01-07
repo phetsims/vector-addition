@@ -6,10 +6,10 @@
  * @author Brandon Li
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import vectorAddition from '../../vectorAddition.js';
 
-const ComponentVectorStyles = Enumeration.byKeys( [
+const ComponentVectorStyles = EnumerationDeprecated.byKeys( [
 
   // Component vectors are not displayed at all
   'INVISIBLE',

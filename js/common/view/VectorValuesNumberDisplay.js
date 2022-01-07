@@ -19,7 +19,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
@@ -27,7 +27,7 @@ import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 // enumeration of the quantities related to a vector that we want to display
-const VectorQuantities = Enumeration.byKeys( [ 'MAGNITUDE', 'ANGLE', 'X_COMPONENT', 'Y_COMPONENT' ] );
+const VectorQuantities = EnumerationDeprecated.byKeys( [ 'MAGNITUDE', 'ANGLE', 'X_COMPONENT', 'Y_COMPONENT' ] );
 
 class VectorValuesNumberDisplay extends NumberDisplay {
 
