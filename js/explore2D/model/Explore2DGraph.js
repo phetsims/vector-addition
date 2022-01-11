@@ -13,7 +13,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import Graph from '../../common/model/Graph.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
@@ -25,14 +25,14 @@ class Explore2DGraph extends Graph {
 
   /**
    * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {BooleanProperty} sumVisibleProperty
    * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
    */
   constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
 
     assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
     assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 

@@ -6,7 +6,7 @@
  * @author Brandon Li
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
@@ -24,7 +24,7 @@ class LabGraph extends Graph {
 
   /**
    * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {Property.<boolean>} sumVisibleProperty1 - whether the sum for the first VectorSet is visible
    * @param {Property.<boolean>} sumVisibleProperty2 - whether the sum for the second VectorSet is visible
    * @param {VectorColorPalette} vectorColorPalette1 - color palette for the first VectorSet
@@ -34,7 +34,7 @@ class LabGraph extends Graph {
                vectorColorPalette1, vectorColorPalette2 ) {
 
     assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
       `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( vectorColorPalette1 instanceof VectorColorPalette, `invalid vectorColorPalette1: ${vectorColorPalette1}` );
     assert && assert( vectorColorPalette2 instanceof VectorColorPalette, `invalid vectorColorPalette2: ${vectorColorPalette2}` );

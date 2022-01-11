@@ -18,7 +18,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox } from '../../../../scenery/js/imports.js';
 import { AlignGroup } from '../../../../scenery/js/imports.js';
@@ -31,14 +31,14 @@ import EquationTypes from '../model/EquationTypes.js';
 class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
-   * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
+   * @param {EnumerationDeprecatedProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
    * @param {string[]} vectorSymbols - symbols on the buttons
    * @param {AlignGroup} alignGroup
    * @param {Object} [options]
    */
   constructor( equationTypeProperty, vectorSymbols, alignGroup, options ) {
 
-    assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
+    assert && assert( equationTypeProperty instanceof EnumerationDeprecatedProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
     assert && assert( alignGroup instanceof AlignGroup, `invalid alignGroup: ${alignGroup}` );
     assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 

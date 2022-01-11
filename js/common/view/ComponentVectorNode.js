@@ -13,7 +13,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -41,7 +41,7 @@ class ComponentVectorNode extends RootVectorNode {
   /**
    * @param {ComponentVector} componentVector - the component vector model the node represents
    * @param {Graph} graph - the graph the component vector belongs to
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {BooleanProperty} valuesVisibleProperty
    * @param {Object} [options]
    */
@@ -49,7 +49,7 @@ class ComponentVectorNode extends RootVectorNode {
 
     assert && assert( componentVector instanceof ComponentVector, `invalid componentVector: ${componentVector}` );
     assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
       `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
     assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );

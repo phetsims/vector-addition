@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox } from '../../../../scenery/js/imports.js';
 import { AlignGroup } from '../../../../scenery/js/imports.js';
@@ -31,7 +31,7 @@ class EquationToggleBox extends ToggleBox {
 
   /**
    * @param {EquationsVectorSet} vectorSet
-   * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
+   * @param {EnumerationDeprecatedProperty.<EquationTypes>} equationTypeProperty
    * @param {AlignGroup} equationButtonsAlignGroup - used to make all equation radio buttons the same size
    * @param {AlignGroup} equationsAlignGroup - used to make all interactive equations the same size
    * @param {Object} [options]
@@ -39,7 +39,7 @@ class EquationToggleBox extends ToggleBox {
   constructor( vectorSet, equationTypeProperty, equationButtonsAlignGroup, equationsAlignGroup, options ) {
 
     assert && assert( vectorSet instanceof EquationsVectorSet, `invalid vectorSet: ${vectorSet}` );
-    assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
+    assert && assert( equationTypeProperty instanceof EnumerationDeprecatedProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
     assert && assert( equationButtonsAlignGroup instanceof AlignGroup, `invalid equationButtonsAlignGroup: ${equationButtonsAlignGroup}` );
     assert && assert( equationsAlignGroup instanceof AlignGroup, `invalid equationsAlignGroup: ${equationsAlignGroup}` );
     assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );

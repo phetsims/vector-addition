@@ -17,7 +17,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -34,13 +34,13 @@ class ComponentVector extends RootVector {
 
   /**
    * @param {Vector} parentVector - the vector that this component vector is associated with
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {Property.<Vector|null>} activeVectorProperty - which vector is active (selected)
    * @param {EnumerationDeprecated} componentType - type of component vector (x or y), see ComponentVector.ComponentTypes
    */
   constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
-    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
       `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( activeVectorProperty instanceof Property, `invalid activeVectorProperty: ${activeVectorProperty}` );
     assert && assert( ComponentVector.ComponentTypes.includes( componentType ), `invalid componentType: ${componentType}` );

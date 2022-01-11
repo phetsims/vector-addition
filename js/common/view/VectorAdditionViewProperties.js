@@ -7,7 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import vectorAddition from '../../vectorAddition.js';
 import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
 
@@ -25,7 +25,7 @@ class VectorAdditionViewProperties {
     this.gridVisibleProperty = new BooleanProperty( true );
 
     // @public controls the snapping mode for the vectors
-    this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes, CoordinateSnapModes.CARTESIAN );
+    this.coordinateSnapModeProperty = new EnumerationDeprecatedProperty( CoordinateSnapModes, CoordinateSnapModes.CARTESIAN );
 
     // @public whether the VectorValuesToggleBox is expanded
     this.vectorValuesExpandedProperty = new BooleanProperty( true );

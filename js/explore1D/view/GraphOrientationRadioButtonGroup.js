@@ -6,7 +6,7 @@
  * @author Brandon Li
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
@@ -17,12 +17,12 @@ import vectorAddition from '../../vectorAddition.js';
 class GraphOrientationRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
-   * @param {EnumerationProperty.<GraphOrientations>} graphOrientationProperty
+   * @param {EnumerationDeprecatedProperty.<GraphOrientations>} graphOrientationProperty
    * @param {Object} [options]
    */
   constructor( graphOrientationProperty, options ) {
 
-    assert && assert( graphOrientationProperty instanceof EnumerationProperty && GraphOrientations.includes( graphOrientationProperty.value ),
+    assert && assert( graphOrientationProperty instanceof EnumerationDeprecatedProperty && GraphOrientations.includes( graphOrientationProperty.value ),
       `invalid graphOrientationProperty: ${graphOrientationProperty}` );
     assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 

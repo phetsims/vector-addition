@@ -24,7 +24,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
@@ -45,14 +45,14 @@ class SceneNode extends Node {
   /**
    * @param {Graph} graph
    * @param {VectorAdditionViewProperties} viewProperties
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {Object} [options] - all options are specific to this class, not passed to superclass
    */
   constructor( graph, viewProperties, componentStyleProperty, options ) {
 
     assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
     assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
     //========================================================================================
