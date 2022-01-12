@@ -1,4 +1,4 @@
-// Copyright 2019-2021, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  *  LabGraphControlPanel is the graph control panel for the 'Lab' screen.

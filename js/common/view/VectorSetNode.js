@@ -1,4 +1,4 @@
-// Copyright 2019-2021, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * VectorSetNode is responsible for creating the view for all vectors associated with a VectorSet.

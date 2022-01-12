@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * EquationsSumVector is a specialization of SumVector for the 'Equations' screen.  It computes the 'sum' differently

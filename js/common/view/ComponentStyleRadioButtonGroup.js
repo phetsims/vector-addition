@@ -1,4 +1,4 @@
-// Copyright 2019-2021, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * ComponentStyleRadioButtonGroup is a group of radio buttons, arranged in a grid, for selecting component style.
