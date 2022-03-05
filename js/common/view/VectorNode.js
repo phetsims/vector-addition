@@ -1,4 +1,4 @@
-// Copyright 2019-2021, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * View for the vectors that are dragged onto the graph. These vectors are created in VectorCreatorPanelSlot.js and
