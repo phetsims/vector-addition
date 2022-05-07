@@ -9,25 +9,25 @@ import vectorAddition from './vectorAddition.js';
 
 type StringsType = {
   'vector-addition': {
-    'title': string
-  },
+    'title': string;
+  };
   'screen': {
-    'equations': string,
-    'explore1D': string,
-    'explore2D': string,
-    'lab': string
-  },
-  'sum': string,
-  'values': string,
-  'components': string,
-  'noVectorSelected': string,
-  'vectorValues': string,
+    'equations': string;
+    'explore1D': string;
+    'explore2D': string;
+    'lab': string;
+  };
+  'sum': string;
+  'values': string;
+  'components': string;
+  'noVectorSelected': string;
+  'vectorValues': string;
   'symbol': {
-    'x': string,
-    'y': string
-  },
-  'baseVectors': string,
-  'equation': string
+    'x': string;
+    'y': string;
+  };
+  'baseVectors': string;
+  'equation': string;
 };
 
 const vectorAdditionStrings = getStringModule( 'VECTOR_ADDITION' ) as StringsType;
