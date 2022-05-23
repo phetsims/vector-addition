@@ -9,6 +9,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -71,7 +72,7 @@ class VectorAngleNode extends Node {
     this.setChildren( [ this.baseLine, this.curvedArrow, this.labelText ] );
 
     // Update the angle and its visibility. Must be disposed on dispose.
-    const angleVisibleMultilink = Property.multilink(
+    const angleVisibleMultilink = Multilink.multilink(
       [ anglesVisibleProperty, vector.isOnGraphProperty, vector.vectorComponentsProperty ],
       ( angleVisible, isOnGraph, vectorComponents ) => {
         this.visible = ( angleVisible && isOnGraph && vector.magnitude !== 0 );
@@ -82,7 +83,7 @@ class VectorAngleNode extends Node {
 
     // @private {function} disposeVectorAngleNode - function to unlink listeners, called in dispose()
     this.disposeVectorAngleNode = () => {
-      Property.unmultilink( angleVisibleMultilink );
+      Multilink.unmultilink( angleVisibleMultilink );
     };
   }
 

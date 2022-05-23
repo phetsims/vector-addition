@@ -12,7 +12,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
@@ -54,7 +54,7 @@ class SumVectorNode extends VectorNode {
     // Make the sum vector visible only if it is defined, meaning that there is at least 1 vector on the graph.
     // See https://github.com/phetsims/vector-addition/issues/187
     // unmultilink is unnecessary, exists for the lifetime of the sim.
-    Property.multilink(
+    Multilink.multilink(
       [ sumVisibleProperty, sumVector.isDefinedProperty ],
       ( sumVisible, isDefined ) => {
         this.visible = ( sumVisible && isDefined );

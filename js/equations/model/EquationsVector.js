@@ -9,7 +9,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
@@ -73,7 +73,7 @@ class EquationsVector extends Vector {
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
     // unmultilink is unnecessary, exists for the lifetime of the sim.
-    Property.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
+    Multilink.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
       ( baseVector, coefficient ) => {
         this.vectorComponents = baseVector.timesScalar( coefficient );
       } );

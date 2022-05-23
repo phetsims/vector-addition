@@ -9,7 +9,7 @@
  */
 
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import SumVector from '../../common/model/SumVector.js';
@@ -44,7 +44,7 @@ class EquationsSumVector extends SumVector {
     vectorSet.vectors.forEach( vector => {
       dependencies.push( vector.vectorComponentsProperty );
     } );
-    Property.multilink( _.concat( [ equationTypeProperty ], dependencies ),
+    Multilink.multilink( _.concat( [ equationTypeProperty ], dependencies ),
       () => {
         this.updateSum( vectorSet.vectors );
       } );

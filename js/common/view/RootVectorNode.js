@@ -13,6 +13,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -97,7 +98,7 @@ class RootVectorNode extends Node {
 
     // Observe changes to the tail/tip and mirror the positioning. If the values visibility changes, update the
     // view as well.  unmultilink is required on dispose.
-    const updateMultilink = Property.multilink(
+    const updateMultilink = Multilink.multilink(
       [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, activeVectorProperty ],
       valuesVisible => {
 
@@ -111,7 +112,7 @@ class RootVectorNode extends Node {
     // @private
     this.disposeRootVectorNode = () => {
       this.labelNode.dispose();
-      Property.unmultilink( updateMultilink );
+      Multilink.unmultilink( updateMultilink );
     };
   }
 

@@ -9,7 +9,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -280,7 +280,7 @@ class VectorNode extends RootVectorNode {
     //----------------------------------------------------------------------------------------
 
     // Update the appearance of the vector's shadow. Must be unmultilinked.
-    const shadowMultilink = Property.multilink(
+    const shadowMultilink = Multilink.multilink(
       [ vector.isOnGraphProperty, vector.vectorComponentsProperty, this.vector.animateBackProperty ],
       ( isOnGraph, vectorComponents, animateBack ) => {
         vectorShadowNode.visible = ( !animateBack && !isOnGraph );
@@ -325,7 +325,7 @@ class VectorNode extends RootVectorNode {
       disposeScaleRotate && disposeScaleRotate();
 
       // Dispose of appearance-related listeners
-      Property.unmultilink( shadowMultilink );
+      Multilink.unmultilink( shadowMultilink );
       vector.isOnGraphProperty.unlink( isOnGraphListener );
       graph.activeVectorProperty.unlink( activeVectorListener );
       this.vector.animateBackProperty.unlink( animateBackListener );

@@ -14,7 +14,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -51,7 +51,7 @@ class SumVector extends Vector {
     vectorSet.vectors.addItemAddedListener( addedVector => {
 
       // When the vector changes, update the sum calculation. unmultilink is required when the vector is removed.
-      const addedVectorMultilink = Property.multilink(
+      const addedVectorMultilink = Multilink.multilink(
         [ addedVector.vectorComponentsProperty, addedVector.isOnGraphProperty ], () => {
           this.updateSum( vectorSet.vectors );
         } );
@@ -63,7 +63,7 @@ class SumVector extends Vector {
           // Recalculate the sum
           this.updateSum( vectorSet.vectors );
 
-          Property.unmultilink( addedVectorMultilink );
+          Multilink.unmultilink( addedVectorMultilink );
           vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };

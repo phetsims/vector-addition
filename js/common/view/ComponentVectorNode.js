@@ -14,7 +14,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -95,7 +95,7 @@ class ComponentVectorNode extends RootVectorNode {
     // unmultilink is required on dispose.
     //
     // @private {Multilink} componentVectorMultilink
-    this.componentVectorMultilink = Property.multilink(
+    this.componentVectorMultilink = Multilink.multilink(
       [ componentStyleProperty, componentVector.isParentVectorActiveProperty,
         componentVector.isOnGraphProperty, componentVector.vectorComponentsProperty ],
       ( componentStyle, isParentActive ) => {
@@ -115,7 +115,7 @@ class ComponentVectorNode extends RootVectorNode {
 
     // @private
     this.disposeComponentVectorNode = () => {
-      Property.unmultilink( this.componentVectorMultilink );
+      Multilink.unmultilink( this.componentVectorMultilink );
       graph.activeVectorProperty.unlink( activeVectorListener );
     };
   }

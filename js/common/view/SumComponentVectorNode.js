@@ -12,7 +12,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
@@ -51,7 +51,7 @@ class SumComponentVectorNode extends ComponentVectorNode {
 
     // Update when the sum becomes visible or defined.
     // unlink is unnecessary, exists for the lifetime of the sim.
-    Property.multilink(
+    Multilink.multilink(
       [ sumVisibleProperty, componentVector.parentVector.isDefinedProperty ],
       () => this.updateComponentVector( componentVector,
         graph.modelViewTransformProperty.value,

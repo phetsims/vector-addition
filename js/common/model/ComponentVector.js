@@ -17,6 +17,7 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -77,14 +78,14 @@ class ComponentVector extends RootVector {
     // Observe when the component style changes and/or when the parent vector's tip/tail changes. When
     // the parent changes or when the component style changes, the component vector also changes.
     // unmultilink is required on dispose.
-    const updateComponentMultilink = Property.multilink(
+    const updateComponentMultilink = Multilink.multilink(
       [ componentStyleProperty, parentVector.tailPositionProperty, parentVector.tipPositionProperty ],
       () => this.updateComponent()
     );
 
     // @private {function} disposeComponentVector - disposes the component vector. Called in the dispose method.
     this.disposeComponentVector = () => {
-      Property.unmultilink( updateComponentMultilink );
+      Multilink.unmultilink( updateComponentMultilink );
       this.isParentVectorActiveProperty.dispose();
     };
   }

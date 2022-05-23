@@ -10,7 +10,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -40,7 +40,7 @@ class PolarBaseVector extends BaseVector {
 
     // Observe when the angle or magnitude changes, and update the components to match.
     // unmultilink is unnecessary, exists for the lifetime of the sim.
-    Property.multilink(
+    Multilink.multilink(
       [ this.magnitudeProperty, this.angleDegreesProperty ],
       ( magnitude, angleDegrees ) => {
         this.vectorComponents = Vector2.createPolar( magnitude, Utils.toRadians( angleDegrees ) );

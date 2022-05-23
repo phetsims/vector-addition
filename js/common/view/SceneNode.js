@@ -25,7 +25,7 @@
  */
 
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import { SceneryEvent } from '../../../../scenery/js/imports.js';
@@ -114,7 +114,7 @@ class SceneNode extends Node {
       // development process.
       // unmultilink is unnecessary, exists for the lifetime of the sim.
       const lengthProperties = _.map( graph.vectorSets, vectorSet => vectorSet.vectors.lengthProperty );
-      Property.multilink( lengthProperties, () => {
+      Multilink.multilink( lengthProperties, () => {
         const numberOfVectors = _.sumBy( lengthProperties, lengthProperty => lengthProperty.value );
         eraserButton.enabled = ( numberOfVectors !== 0 );
       } );
