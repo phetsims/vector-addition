@@ -7,8 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import { LayoutBox } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import { HBox, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import vectorAdditionStrings from '../../vectorAdditionStrings.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
@@ -40,8 +39,7 @@ class SumCheckbox extends VectorAdditionCheckbox {
       length: 35
     } );
 
-    const content = new LayoutBox( {
-      orientation: 'horizontal',
+    const content = new HBox( {
       spacing: VectorAdditionConstants.CHECKBOX_ICON_SPACING,
       children: [ textNode, icon ]
     } );

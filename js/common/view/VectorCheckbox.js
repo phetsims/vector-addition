@@ -9,8 +9,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { LayoutBox } from '../../../../scenery/js/imports.js';
-import { Color } from '../../../../scenery/js/imports.js';
+import { Color, HBox } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
@@ -45,8 +44,7 @@ class VectorCheckbox extends VectorAdditionCheckbox {
       length: 35
     } );
 
-    const content = new LayoutBox( {
-      orientation: 'horizontal',
+    const content = new HBox( {
       spacing: VectorAdditionConstants.CHECKBOX_ICON_SPACING,
       children: [ symbolNode, icon ]
     } );
