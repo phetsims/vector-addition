@@ -14,7 +14,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import Property from '../../../../axon/js/Property.js';
+import Property, { AbstractProperty } from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -40,7 +40,7 @@ class RootVectorNode extends Node {
 
   /**
    * @param {RootVector} rootVector - the vector model
-   * @param {Property.<ModelViewTransform2>} modelViewTransformProperty
+   * @param {AbstractProperty.<ModelViewTransform2>} modelViewTransformProperty
    * @param {BooleanProperty} valuesVisibleProperty
    * @param {Property.<RootVector>|null} activeVectorProperty
    * @param {Object} [options]
@@ -48,7 +48,7 @@ class RootVectorNode extends Node {
   constructor( rootVector, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
 
     assert && assert( rootVector instanceof RootVector, `invalid rootVector: ${rootVector}` );
-    assert && assert( modelViewTransformProperty instanceof Property && modelViewTransformProperty.value instanceof ModelViewTransform2,
+    assert && assert( modelViewTransformProperty instanceof AbstractProperty && modelViewTransformProperty.value instanceof ModelViewTransform2,
       `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
     assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
     assert && assert( activeVectorProperty instanceof Property && activeVectorProperty.value instanceof RootVector || activeVectorProperty.value === null,
