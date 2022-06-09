@@ -8,7 +8,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import { AbstractProperty } from '../../../../axon/js/Property.js';
+import { ReadOnlyProperty } from '../../../../axon/js/Property.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -50,13 +50,13 @@ class VectorAngleNode extends Node {
   /**
    * @param {Vector} vector - the model for the vector that the angle represents
    * @param {BooleanProperty} anglesVisibleProperty
-   * @param {AbstractProperty.<ModelViewTransform2>} modelViewTransformProperty
+   * @param {ReadOnlyProperty.<ModelViewTransform2>} modelViewTransformProperty
    */
   constructor( vector, anglesVisibleProperty, modelViewTransformProperty ) {
 
     assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
     assert && assert( anglesVisibleProperty instanceof BooleanProperty, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
-    assert && assert( modelViewTransformProperty instanceof AbstractProperty, `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
+    assert && assert( modelViewTransformProperty instanceof ReadOnlyProperty, `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
 
     super();
 
