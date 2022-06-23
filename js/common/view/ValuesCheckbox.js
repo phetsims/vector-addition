@@ -25,7 +25,7 @@ class ValuesCheckbox extends VectorAdditionCheckbox {
       maxWidth: 116 // determined empirically
     } );
 
-    super( content, valuesVisibleProperty, options );
+    super( valuesVisibleProperty, content, options );
   }
 }
 

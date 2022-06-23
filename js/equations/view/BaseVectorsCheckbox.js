@@ -33,7 +33,7 @@ class BaseVectorsCheckbox extends VectorAdditionCheckbox {
       length: 50
     } );
 
-    super( icon, baseVectorsVisibleProperty, options );
+    super( baseVectorsVisibleProperty, icon, options );
   }
 }
 

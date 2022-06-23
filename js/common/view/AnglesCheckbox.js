@@ -20,7 +20,7 @@ class AnglesCheckbox extends VectorAdditionCheckbox {
 
     const content = VectorAdditionIconFactory.createAngleIcon();
 
-    super( content, anglesVisibleProperty, options );
+    super( anglesVisibleProperty, content, options );
   }
 }
 

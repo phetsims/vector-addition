@@ -49,7 +49,7 @@ class VectorCheckbox extends VectorAdditionCheckbox {
       children: [ symbolNode, icon ]
     } );
 
-    super( content, vectorVisibleProperty, options );
+    super( vectorVisibleProperty, content, options );
   }
 }
 

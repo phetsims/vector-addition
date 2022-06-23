@@ -44,7 +44,7 @@ class SumCheckbox extends VectorAdditionCheckbox {
       children: [ textNode, icon ]
     } );
 
-    super( content, sumVisibleProperty, options );
+    super( sumVisibleProperty, content, options );
   }
 }
 

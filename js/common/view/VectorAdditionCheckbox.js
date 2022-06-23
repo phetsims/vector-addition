@@ -14,11 +14,11 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 class VectorAdditionCheckbox extends Checkbox {
 
   /**
-   * @param {Node} content
    * @param {Property.<boolean>} property
+   * @param {Node} content
    * @param {Object} [options]
    */
-  constructor( content, property, options ) {
+  constructor( property, content, options ) {
 
     options = merge( {
       boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
@@ -26,7 +26,7 @@ class VectorAdditionCheckbox extends Checkbox {
       touchAreaYDilation: 3.5
     }, options );
 
-    super( content, property, options );
+    super( property, content, options );
 
     this.touchArea = this.localBounds.dilatedXY( options.touchAreaXDilation, options.touchAreaYDilation );
   }
