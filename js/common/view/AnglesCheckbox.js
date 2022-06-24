@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * AnglesCheckbox is the checkbox labeled with an angle icon, used to control visibility of angles on vectors.
