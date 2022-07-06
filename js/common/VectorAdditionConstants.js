@@ -85,15 +85,17 @@ const VectorAdditionConstants = {
   //----------------------------------------------------------------------------------------
   // RadioButtonGroups
 
-  RADIO_BUTTON_GROUP_OPTIONS: merge( {
-    deselectedLineWidth: 1,
-    selectedLineWidth: 1.5,
-    cornerRadius: 8,
-    deselectedButtonOpacity: 0.35,
-    buttonContentXMargin: 8,
-    buttonContentYMargin: 8,
-    orientation: 'horizontal'
-  }, VectorAdditionColors.RADIO_BUTTON_GROUP_COLORS ),
+  RADIO_BUTTON_GROUP_OPTIONS: {
+    orientation: 'horizontal',
+    radioButtonOptions: merge( {
+      cornerRadius: 8,
+      xMargin: 8,
+      yMargin: 8,
+      selectedLineWidth: 1.5,
+      deselectedLineWidth: 1,
+      deselectedButtonOpacity: 0.35
+    }, VectorAdditionColors.RADIO_BUTTON_GROUP_COLORS )
+  },
 
   // Space above and below scene radio buttons
   RADIO_BUTTONS_Y_SPACING: 15,

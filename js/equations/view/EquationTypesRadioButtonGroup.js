@@ -43,7 +43,7 @@ class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
     assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
     options = merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
-      buttonContentXMargin: 12
+      xMargin: 12
     }, options );
 
     // Create the description of the buttons
