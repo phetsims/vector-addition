@@ -8,15 +8,12 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import { Line } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { Color } from '../../../../scenery/js/imports.js';
+import { Color, Line, Node, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
