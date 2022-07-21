@@ -1,4 +1,4 @@
-// Copyright 2019-2021, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * VectorLabelNode is the label that appears on a vector.  It may show only the vector's symbol, or the vector's value.
