@@ -91,9 +91,11 @@ const VectorAdditionConstants = {
       cornerRadius: 8,
       xMargin: 8,
       yMargin: 8,
-      selectedLineWidth: 1.5,
-      deselectedLineWidth: 1,
-      deselectedButtonOpacity: 0.35
+      buttonAppearanceStrategyOptions: {
+        selectedLineWidth: 1.5,
+        deselectedLineWidth: 1,
+        deselectedButtonOpacity: 0.35
+      }
     }, VectorAdditionColors.RADIO_BUTTON_GROUP_COLORS )
   },
 

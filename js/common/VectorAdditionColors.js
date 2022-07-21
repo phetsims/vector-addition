@@ -45,8 +45,10 @@ const VectorAdditionColors = {
 
   RADIO_BUTTON_GROUP_COLORS: {
     baseColor: Color.WHITE,
-    selectedStroke: 'rgb( 65, 154, 201 )', // blue
-    deselectedStroke: 'rgb( 50, 50, 50 )'
+    buttonAppearanceStrategyOptions: {
+      selectedStroke: 'rgb( 65, 154, 201 )', // blue
+      deselectedStroke: 'rgb( 50, 50, 50 )'
+    }
   },
 
   //----------------------------------------------------------------------------------------
