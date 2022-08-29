@@ -11,38 +11,38 @@ import vectorAddition from './vectorAddition.js';
 type StringsType = {
   'vector-addition': {
     'title': string;
-    'titleProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': TReadOnlyProperty<string>;
   };
   'screen': {
     'equations': string;
-    'equationsProperty': TReadOnlyProperty<string>;
+    'equationsStringProperty': TReadOnlyProperty<string>;
     'explore1D': string;
-    'explore1DProperty': TReadOnlyProperty<string>;
+    'explore1DStringProperty': TReadOnlyProperty<string>;
     'explore2D': string;
-    'explore2DProperty': TReadOnlyProperty<string>;
+    'explore2DStringProperty': TReadOnlyProperty<string>;
     'lab': string;
-    'labProperty': TReadOnlyProperty<string>;
+    'labStringProperty': TReadOnlyProperty<string>;
   };
   'sum': string;
-  'sumProperty': TReadOnlyProperty<string>;
+  'sumStringProperty': TReadOnlyProperty<string>;
   'values': string;
-  'valuesProperty': TReadOnlyProperty<string>;
+  'valuesStringProperty': TReadOnlyProperty<string>;
   'components': string;
-  'componentsProperty': TReadOnlyProperty<string>;
+  'componentsStringProperty': TReadOnlyProperty<string>;
   'noVectorSelected': string;
-  'noVectorSelectedProperty': TReadOnlyProperty<string>;
+  'noVectorSelectedStringProperty': TReadOnlyProperty<string>;
   'vectorValues': string;
-  'vectorValuesProperty': TReadOnlyProperty<string>;
+  'vectorValuesStringProperty': TReadOnlyProperty<string>;
   'symbol': {
     'x': string;
-    'xProperty': TReadOnlyProperty<string>;
+    'xStringProperty': TReadOnlyProperty<string>;
     'y': string;
-    'yProperty': TReadOnlyProperty<string>;
+    'yStringProperty': TReadOnlyProperty<string>;
   };
   'baseVectors': string;
-  'baseVectorsProperty': TReadOnlyProperty<string>;
+  'baseVectorsStringProperty': TReadOnlyProperty<string>;
   'equation': string;
-  'equationProperty': TReadOnlyProperty<string>;
+  'equationStringProperty': TReadOnlyProperty<string>;
 };
 
 const vectorAdditionStrings = getStringModule( 'VECTOR_ADDITION' ) as StringsType;
