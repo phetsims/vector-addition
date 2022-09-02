@@ -25,7 +25,7 @@ simLauncher.launch( () => {
     new EquationsScreen( Tandem.ROOT.createTandem( 'equationsScreen' ) )
   ];
 
-  const sim = new Sim( vectorAdditionStrings[ 'vector-addition' ].title, screens, {
+  const sim = new Sim( vectorAdditionStrings[ 'vector-addition' ].titleStringProperty, screens, {
     credits: VectorAdditionConstants.CREDITS
   } );
 
