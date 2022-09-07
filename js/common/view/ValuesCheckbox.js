@@ -8,7 +8,7 @@
 
 import { Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 
@@ -20,7 +20,7 @@ class ValuesCheckbox extends VectorAdditionCheckbox {
    */
   constructor( valuesVisibleProperty, options ) {
 
-    const content = new Text( vectorAdditionStrings.values, {
+    const content = new Text( VectorAdditionStrings.values, {
       font: VectorAdditionConstants.CHECKBOX_FONT,
       maxWidth: 116 // determined empirically
     } );

@@ -11,7 +11,7 @@ import Screen from '../../../joist/js/Screen.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../vectorAddition.js';
-import vectorAdditionStrings from '../vectorAdditionStrings.js';
+import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
 
@@ -23,7 +23,7 @@ class EquationsScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: vectorAdditionStrings.screen.equations,
+      name: VectorAdditionStrings.screen.equations,
       backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
       homeScreenIcon: VectorAdditionIconFactory.createEquationsScreenIcon(),
       tandem: tandem

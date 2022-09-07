@@ -13,7 +13,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, Text, VBox } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentStyleRadioButtonGroup from './ComponentStyleRadioButtonGroup.js';
@@ -38,7 +38,7 @@ class ComponentStyleControl extends VBox {
     const children = [];
 
     // 'Components' label, left justified
-    const componentsText = new Text( vectorAdditionStrings.components, {
+    const componentsText = new Text( VectorAdditionStrings.components, {
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: options.maxWidth
     } );

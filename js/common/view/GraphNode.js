@@ -14,7 +14,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Color, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
 import GraphOrientations from '../model/GraphOrientations.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
@@ -230,7 +230,7 @@ class XAxisNode extends Node {
       VectorAdditionConstants.AXES_ARROW_OPTIONS
     );
 
-    const axisLabel = new Text( vectorAdditionStrings.symbol.x, {
+    const axisLabel = new Text( VectorAdditionStrings.symbol.x, {
       font: VectorAdditionConstants.AXIS_LABEL_FONT,
       maxWidth: 22,
       left: arrowNode.right + 6,
@@ -267,7 +267,7 @@ class YAxisNode extends Node {
       VectorAdditionConstants.AXES_ARROW_OPTIONS
     );
 
-    const axisLabel = new Text( vectorAdditionStrings.symbol.y, {
+    const axisLabel = new Text( VectorAdditionStrings.symbol.y, {
       font: VectorAdditionConstants.AXIS_LABEL_FONT,
       maxWidth: 30,
       centerX: arrowNode.centerX,

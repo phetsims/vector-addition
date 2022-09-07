@@ -11,7 +11,7 @@ import Screen from '../../../joist/js/Screen.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../vectorAddition.js';
-import vectorAdditionStrings from '../vectorAdditionStrings.js';
+import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import Explore1DModel from './model/Explore1DModel.js';
 import Explore1DScreenView from './view/Explore1DScreenView.js';
 
@@ -22,7 +22,7 @@ class Explore1DScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: vectorAdditionStrings.screen.explore1D,
+      name: VectorAdditionStrings.screen.explore1D,
       backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
       homeScreenIcon: VectorAdditionIconFactory.createExplore1DScreenIcon(),
       tandem: tandem

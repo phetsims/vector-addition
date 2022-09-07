@@ -20,7 +20,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { AlignBox, HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ToggleBox from './ToggleBox.js';
@@ -67,7 +67,7 @@ class VectorValuesToggleBox extends ToggleBox {
 
     //----------------------------------------------------------------------------------------
     // Create the scenery node for when the panel is closed, which is the inspectVectorText
-    const inspectVectorText = new Text( vectorAdditionStrings.vectorValues, {
+    const inspectVectorText = new Text( VectorAdditionStrings.vectorValues, {
       font: VectorAdditionConstants.TITLE_FONT
     } );
 
@@ -75,7 +75,7 @@ class VectorValuesToggleBox extends ToggleBox {
     // Create the scenery nodes for when the panel is open
 
     // Text for when there isn't a vector that is active
-    const selectVectorText = new Text( vectorAdditionStrings.noVectorSelected, {
+    const selectVectorText = new Text( VectorAdditionStrings.noVectorSelected, {
       font: VectorAdditionConstants.TITLE_FONT
     } );
 
@@ -151,8 +151,8 @@ class VectorValuesToggleBox extends ToggleBox {
 
         // Update labels (angle label is the same)
         magnitudeDisplayNode.setSymbol( vectorSymbol );
-        xComponentText.setSymbol( `${vectorSymbol}<sub>${vectorAdditionStrings.symbol.x}</sub>` );
-        yComponentText.setSymbol( `${vectorSymbol}<sub>${vectorAdditionStrings.symbol.y}</sub>` );
+        xComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionStrings.symbol.x}</sub>` );
+        yComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionStrings.symbol.y}</sub>` );
       }
       else {
         vectorAttributesContainer.visible = false;

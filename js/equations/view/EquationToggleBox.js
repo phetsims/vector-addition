@@ -14,7 +14,7 @@ import { AlignBox, AlignGroup, HBox, Node, Text } from '../../../../scenery/js/i
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import ToggleBox from '../../common/view/ToggleBox.js';
 import vectorAddition from '../../vectorAddition.js';
-import vectorAdditionStrings from '../../vectorAdditionStrings.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import EquationTypes from '../model/EquationTypes.js';
 import EquationTypeNode from './EquationTypeNode.js';
@@ -50,7 +50,7 @@ class EquationToggleBox extends ToggleBox {
     }, options );
 
     // When the toggle box is collapsed, show 'Equation'
-    const closedContent = new Text( vectorAdditionStrings.equation, TEXT_OPTIONS );
+    const closedContent = new Text( VectorAdditionStrings.equation, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type
     const radioButtonGroup = new EquationTypesRadioButtonGroup(

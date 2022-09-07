@@ -45,8 +45,8 @@ type StringsType = {
   'equationStringProperty': TReadOnlyProperty<string>;
 };
 
-const vectorAdditionStrings = getStringModule( 'VECTOR_ADDITION' ) as StringsType;
+const VectorAdditionStrings = getStringModule( 'VECTOR_ADDITION' ) as StringsType;
 
-vectorAddition.register( 'vectorAdditionStrings', vectorAdditionStrings );
+vectorAddition.register( 'VectorAdditionStrings', VectorAdditionStrings );
 
-export default vectorAdditionStrings;
+export default VectorAdditionStrings;
