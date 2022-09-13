@@ -10,7 +10,7 @@
 
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import { AlignBox, AlignGroup, Color, Node, VBox } from '../../../../scenery/js/imports.js';
-import HSeparator from '../../../../sun/js/HSeparator.js';
+import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentStyleControl from '../../common/view/ComponentStyleControl.js';
@@ -94,7 +94,7 @@ class LabGraphControlPanel extends GraphControlPanel {
       } ),
 
       // separator
-      new HSeparator( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {
+      new HSeparatorDeprecated( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {
         stroke: Color.BLACK
       } ),
 

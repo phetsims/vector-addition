@@ -10,7 +10,7 @@
 
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import { AlignBox, AlignGroup, Color, Node, VBox } from '../../../../scenery/js/imports.js';
-import HSeparator from '../../../../sun/js/HSeparator.js';
+import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -97,7 +97,7 @@ class EquationsGraphControlPanel extends GraphControlPanel {
       } ),
 
       // separator
-      new HSeparator( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {
+      new HSeparatorDeprecated( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {
         stroke: Color.BLACK
       } ),
 
