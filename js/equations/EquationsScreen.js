@@ -23,7 +23,7 @@ class EquationsScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: VectorAdditionStrings.screen.equations,
+      name: VectorAdditionStrings.screen.equationsStringProperty,
       backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
       homeScreenIcon: VectorAdditionIconFactory.createEquationsScreenIcon(),
       tandem: tandem

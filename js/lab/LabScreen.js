@@ -23,7 +23,7 @@ class LabScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: VectorAdditionStrings.screen.lab,
+      name: VectorAdditionStrings.screen.labStringProperty,
       backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
       homeScreenIcon: VectorAdditionIconFactory.createLabScreenIcon(),
       tandem: tandem

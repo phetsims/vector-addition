@@ -22,7 +22,7 @@ class Explore1DScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: VectorAdditionStrings.screen.explore1D,
+      name: VectorAdditionStrings.screen.explore1DStringProperty,
       backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
       homeScreenIcon: VectorAdditionIconFactory.createExplore1DScreenIcon(),
       tandem: tandem
