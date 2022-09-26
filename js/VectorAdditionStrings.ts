@@ -5,44 +5,44 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import TReadOnlyProperty from '../../axon/js/TReadOnlyProperty.js';
+import LinkableProperty from '../../axon/js/LinkableProperty.js';
 import vectorAddition from './vectorAddition.js';
 
 type StringsType = {
   'vector-addition': {
     'title': string;
-    'titleStringProperty': TReadOnlyProperty<string>;
+    'titleStringProperty': LinkableProperty<string>;
   };
   'screen': {
     'equations': string;
-    'equationsStringProperty': TReadOnlyProperty<string>;
+    'equationsStringProperty': LinkableProperty<string>;
     'explore1D': string;
-    'explore1DStringProperty': TReadOnlyProperty<string>;
+    'explore1DStringProperty': LinkableProperty<string>;
     'explore2D': string;
-    'explore2DStringProperty': TReadOnlyProperty<string>;
+    'explore2DStringProperty': LinkableProperty<string>;
     'lab': string;
-    'labStringProperty': TReadOnlyProperty<string>;
+    'labStringProperty': LinkableProperty<string>;
   };
   'sum': string;
-  'sumStringProperty': TReadOnlyProperty<string>;
+  'sumStringProperty': LinkableProperty<string>;
   'values': string;
-  'valuesStringProperty': TReadOnlyProperty<string>;
+  'valuesStringProperty': LinkableProperty<string>;
   'components': string;
-  'componentsStringProperty': TReadOnlyProperty<string>;
+  'componentsStringProperty': LinkableProperty<string>;
   'noVectorSelected': string;
-  'noVectorSelectedStringProperty': TReadOnlyProperty<string>;
+  'noVectorSelectedStringProperty': LinkableProperty<string>;
   'vectorValues': string;
-  'vectorValuesStringProperty': TReadOnlyProperty<string>;
+  'vectorValuesStringProperty': LinkableProperty<string>;
   'symbol': {
     'x': string;
-    'xStringProperty': TReadOnlyProperty<string>;
+    'xStringProperty': LinkableProperty<string>;
     'y': string;
-    'yStringProperty': TReadOnlyProperty<string>;
+    'yStringProperty': LinkableProperty<string>;
   };
   'baseVectors': string;
-  'baseVectorsStringProperty': TReadOnlyProperty<string>;
+  'baseVectorsStringProperty': LinkableProperty<string>;
   'equation': string;
-  'equationStringProperty': TReadOnlyProperty<string>;
+  'equationStringProperty': LinkableProperty<string>;
 };
 
 const VectorAdditionStrings = getStringModule( 'VECTOR_ADDITION' ) as StringsType;
