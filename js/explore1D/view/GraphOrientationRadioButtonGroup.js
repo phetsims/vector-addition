@@ -33,7 +33,7 @@ class GraphOrientationRadioButtonGroup extends RectangularRadioButtonGroup {
     [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ].forEach( graphOrientation => {
       content.push( {
         value: graphOrientation,
-        node: VectorAdditionIconFactory.createGraphOrientationIcon( graphOrientation )
+        createNode: tandem => VectorAdditionIconFactory.createGraphOrientationIcon( graphOrientation )
       } );
     } );
 

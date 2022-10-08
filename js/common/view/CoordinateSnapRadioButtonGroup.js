@@ -40,11 +40,11 @@ class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup {
     const content = [
       {
         value: CoordinateSnapModes.CARTESIAN,
-        node: VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette )
+        createNode: tandem => VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette )
       },
       {
         value: CoordinateSnapModes.POLAR,
-        node: VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette )
+        createNode: tandem => VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette )
       }
     ];
 
