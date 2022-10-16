@@ -21,7 +21,9 @@ class VectorAdditionGridCheckbox extends GridCheckbox {
 
     options = merge( {
       boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
-      gridSize: 24
+      iconOptions: {
+        iconSize: 24
+      }
     }, options );
 
     super( gridVisibleProperty, options );
