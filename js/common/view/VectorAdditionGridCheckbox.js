@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * VectorAdditionGridCheckbox is a specialization of common-code GridCheckbox, styled for this sim.
