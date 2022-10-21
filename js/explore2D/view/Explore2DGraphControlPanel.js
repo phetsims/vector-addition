@@ -9,8 +9,7 @@
  */
 
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
-import { AlignBox, AlignGroup, Color, Node, VBox } from '../../../../scenery/js/imports.js';
-import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
+import { AlignBox, AlignGroup, Color, HSeparator, Node, VBox } from '../../../../scenery/js/imports.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -89,9 +88,7 @@ class Explore2DGraphControlPanel extends GraphControlPanel {
       } ),
 
       // separator
-      new HSeparatorDeprecated( VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH, {
-        stroke: Color.BLACK
-      } ),
+      new HSeparator( { stroke: Color.BLACK } ),
 
       // Components radio buttons
       new ComponentStyleControl( componentStyleProperty, {
