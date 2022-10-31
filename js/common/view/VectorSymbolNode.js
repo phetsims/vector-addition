@@ -107,7 +107,7 @@ class VectorSymbolNode extends HBox {
           symbolNode.setSymbol( this.symbol );
         }
         else {
-          symbolNode.setText( this.symbol );
+          symbolNode.setString( this.symbol );
         }
       }
 
