@@ -449,7 +449,7 @@ const VectorAdditionIconFactory = {
     };
 
     // Gather all the symbols for the left side of the equation into an array.
-    // For NEGATION, all symbols are on the left side of the equation)
+    // For NEGATION, all symbols are on the left side of the equation
     const equationLeftSideSymbols = _.dropRight( vectorSymbols, equationType === EquationTypes.NEGATION ? 0 : 1 );
 
     // Create a vector symbol for each symbol on the left side of the equation.
