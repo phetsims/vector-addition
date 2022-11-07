@@ -18,7 +18,7 @@ import Explore2DGraph from '../model/Explore2DGraph.js';
 // constants
 
 // initial values for vectors in Cartesian scene, see https://github.com/phetsims/vector-addition/issues/227
-const CARTESTIAN_INITIAL_VECTOR_COMPONENTS = [
+const CARTESIAN_INITIAL_VECTOR_COMPONENTS = [
   new Vector2( 6, 8 ), // a
   new Vector2( 8, 6 ), // b
   new Vector2( 0, -10 ) // c
@@ -49,7 +49,7 @@ class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
     // Get the initial vector components, they are different for each symbol.
     // See https://github.com/phetsims/vector-addition/issues/227
     const initialVectorComponents = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
-                                    CARTESTIAN_INITIAL_VECTOR_COMPONENTS :
+                                    CARTESIAN_INITIAL_VECTOR_COMPONENTS :
                                     POLAR_INITIAL_VECTOR_COMPONENTS;
     assert && assert( initialVectorComponents.length === symbols.length, 'components are required for each symbol' );
 
