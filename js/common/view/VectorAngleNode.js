@@ -24,7 +24,7 @@ import CurvedArrowNode from './CurvedArrowNode.js';
 // maximum radius of the curved arrow - the radius is changed to keep the curved arrow smaller than the vector.
 const MAX_CURVED_ARROW_RADIUS = 25;
 
-// the percent symbol of curved arrow radius when compared to the magnitude of the vector - as long as its less than
+// the percent symbol of curved arrow radius when compared to the magnitude of the vector - as long as it's less than
 // the max curved arrow radius
 const MAX_RADIUS_SCALE = 0.79;
 
