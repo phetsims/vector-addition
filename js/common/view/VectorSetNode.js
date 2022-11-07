@@ -98,7 +98,7 @@ class VectorSetNode extends Node {
    * The Nodes are deleted if Vector is ever removed from its VectorSet.
    * @public
    * @param {Vector} vector - the vector model
-   * @param {SceneryEvent} [forwardingEvent] - if provided, if will forward this event to the Vector body drag
+   * @param {SceneryEvent} [forwardingEvent] - if provided, it will forward this event to the Vector body drag
    *                                           listener. This is used to forward the click event from the
    *                                           VectorCreatorPanel to the VectorNode. If not provided, no event is
    *                                           forwarded.
