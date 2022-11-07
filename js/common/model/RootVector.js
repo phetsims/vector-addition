@@ -247,7 +247,7 @@ class RootVector {
   }
 
   /**
-   * Gets the tail's x coordnate.
+   * Gets the tail's x coordinate.
    * @public
    * @returns {number}
    */

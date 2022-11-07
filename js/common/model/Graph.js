@@ -63,7 +63,7 @@ class Graph {
     // @public (read-only) {GraphOrientations} orientation of the graph
     this.orientation = options.orientation;
 
-    // @public (read-only) {CoordinateSnapModes} coordinate snap mode for the graph, Cartestain or polar
+    // @public (read-only) {CoordinateSnapModes} coordinate snap mode for the graph, Cartesian or polar
     this.coordinateSnapMode = coordinateSnapMode;
 
     // @private {Property.<Bounds2>} bounds of the graph, in model coordinates.
