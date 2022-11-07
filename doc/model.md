@@ -16,12 +16,12 @@ Selection of the orientation is controlled by the radio buttons at the lower-rig
 In the horizontal orientation:
 * 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
 * the y component of all vectors is zero
-* the sum is a&#8407; + b&#8407; + c&#8407; = s&#8407; 
+* the sum is a&#8407; + b&#8407; + c&#8407; = s&#8407;
 
 In the vertical orientation:
 * 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
 * the x component of all vectors is zero
-* the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407; 
+* the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407;
 
 ## Explore 2D screen
 
@@ -38,15 +38,15 @@ There are 2 "snap modes" that determine which vector quantities snap to integer 
 In Cartesian snap mode:
 * 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
 * vector x and y components snap to integer values
-* the sum is a&#8407; + b&#8407; + c&#8407; = s&#8407; 
+* the sum is a&#8407; + b&#8407; + c&#8407; = s&#8407;
 
 In Polar snap mode:
 * 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
 * vector magnitude snaps to integer values
 * vector angle snaps to 5-degree intervals
-* the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407; 
+* the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407;
 
-## Lab screen 
+## Lab screen
 
 The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 * each snap mode has 2 sets of vectors (blue and red for Cartesian, purple and green for Polar)
@@ -55,7 +55,7 @@ The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 
 ## Equations screen
 
-The _Equations_ screen introduces the concepts of base vectors, equations, and coefficients.  Like the _Explore 2D_ and _Lab_ screens, it has Cartesian and Polar "snap modes" that determine which vector quantities snap to integer values.  
+The _Equations_ screen introduces the concepts of base vectors, equations, and coefficients.  Like the _Explore 2D_ and _Lab_ screens, it has Cartesian and Polar "snap modes" that determine which vector quantities snap to integer values.
 
 The _Equations_ screen has a couple of differences in how the student manipulates vectors:
 * Vectors are pre-populated on the graph; the student does not add and remove vectors.
@@ -76,11 +76,9 @@ In Polar snap mode:
 * base vectors are provided for d&#8407; and e&#8407;
 * magnitude and angle can be changed for base vectors
 * base vector magnitude range is [-10,10], integers
-* base vector angle range is [-180,180] degress, in 5-degree intervals
+* base vector angle range is [-180,180] degrees, in 5-degree intervals
 * coefficients can be changed for d&#8407; and e&#8407;; range is [-5,5], integers
 * vector f&#8407; is derived based on the selection of one of these equations:
   * d&#8407; + e&#8407; = f&#8407;
   * d&#8407; - e&#8407; = f&#8407;
   * d&#8407; + e&#8407; + f&#8407; = 0
-
-
