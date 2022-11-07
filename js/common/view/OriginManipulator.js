@@ -80,7 +80,7 @@ class OriginManipulator extends ShadedSphereNode {
       graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originPosition ) );
     } );
 
-    // Observe when the models model view transform changes to update the position of the circle.
+    // Observe when the model view transform changes to update the position of the circle.
     // unlink is unnecessary, exists for the lifetime of the sim.
     graph.modelViewTransformProperty.link( modelViewTransform => {
       this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
