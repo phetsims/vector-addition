@@ -20,7 +20,7 @@ import EquationsSumVector from './EquationsSumVector.js';
 import EquationsVector from './EquationsVector.js';
 
 // Describes the initial vectors for Cartesian snap mode. See https://github.com/phetsims/vector-addition/issues/227
-const CARTESTIAN_VECTOR_DESCRIPTIONS = [
+const CARTESIAN_VECTOR_DESCRIPTIONS = [
 
   // a
   {
@@ -86,11 +86,11 @@ class EquationsVectorSet extends VectorSet {
                    VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
 
     //----------------------------------------------------------------------------------------------------
-    // Create the vectors, one less then symbols. For example, if symbols were [ 'a', 'b', 'c' ],
+    // Create the vectors, one less than symbols. For example, if symbols were [ 'a', 'b', 'c' ],
     // 'a' and 'c' would be vector symbols and 'c' would be the sum vector.
 
     const vectorDescriptions = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
-                               CARTESTIAN_VECTOR_DESCRIPTIONS :
+                               CARTESIAN_VECTOR_DESCRIPTIONS :
                                POLAR_VECTOR_DESCRIPTIONS;
     assert && assert( vectorDescriptions.length === this.symbols.length - 1 );
 
