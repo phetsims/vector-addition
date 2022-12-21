@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.0.5 Wed Dec 14 2022 22:32:12 GMT-0700 (Mountain Standard Time)",
+  "comment": "# vector-addition 1.0.6-rc.1 Tue Dec 20 2022 21:27:22 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "HEAD"
@@ -85,7 +85,7 @@
     "branch": "HEAD"
   },
   "vector-addition": {
-    "sha": "7fb531ba4f125fad684878a3db58988af8fbe20d",
+    "sha": "ad3987470fb456f70067b18e9d0a84a854eae80d",
     "branch": "1.0"
   }
 }
