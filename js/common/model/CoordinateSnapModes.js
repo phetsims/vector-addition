@@ -1,5 +1,6 @@
 // Copyright 2019-2022, University of Colorado Boulder
 
+// @ts-nocheck
 /**
  * Enumeration of the possible 'modes' of snapping vectors to the graph.
  *
