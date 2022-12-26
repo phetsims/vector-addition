@@ -29,7 +29,7 @@ class EquationsSceneNode extends SceneNode {
   /**
    * @param {EquationsGraph} graph
    * @param {EquationsViewProperties} viewProperties
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {number} graphControlPanelBottom
    * @param {AlignGroup} equationButtonsAlignGroup - used to make all equation radio buttons the same size
    * @param {AlignGroup} equationsAlignGroup - used to make all interactive equations the same size

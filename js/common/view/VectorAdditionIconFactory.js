@@ -272,7 +272,7 @@ const VectorAdditionIconFactory = {
    */
   createComponentStyleRadioButtonIcon( componentStyle ) {
 
-    assert && assert( ComponentVectorStyles.includes( componentStyle ), `invalid componentStyle: ${componentStyle}` );
+    assert && assert( ComponentVectorStyles.enumeration.includes( componentStyle ), `invalid componentStyle: ${componentStyle}` );
 
     const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
 
@@ -438,7 +438,7 @@ const VectorAdditionIconFactory = {
    */
   createEquationTypeIcon( equationType, vectorSymbols ) {
 
-    assert && assert( EquationTypes.includes( equationType ), `invalid equationType: ${equationType}` );
+    assert && assert( EquationTypes.enumeration.includes( equationType ), `invalid equationType: ${equationType}` );
     assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1,
       `invalid vectorSymbols: ${vectorSymbols}` );
 

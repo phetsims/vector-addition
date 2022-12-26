@@ -13,7 +13,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
@@ -22,6 +22,7 @@ import { Path } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import ComponentVectorTypes from '../model/ComponentVectorTypes.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -41,7 +42,7 @@ class ComponentVectorNode extends RootVectorNode {
   /**
    * @param {ComponentVector} componentVector - the component vector model the node represents
    * @param {Graph} graph - the graph the component vector belongs to
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {BooleanProperty} valuesVisibleProperty
    * @param {Object} [options]
    */
@@ -49,7 +50,7 @@ class ComponentVectorNode extends RootVectorNode {
 
     assert && assert( componentVector instanceof ComponentVector, `invalid componentVector: ${componentVector}` );
     assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
       `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
     assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
@@ -216,7 +217,7 @@ class ComponentVectorNode extends RootVectorNode {
     const componentMidPoint = componentVector.midPoint;
     const parentMidPoint = componentVector.parentMidPoint;
 
-    if ( componentVector.componentType === ComponentVector.ComponentTypes.X_COMPONENT ) {
+    if ( componentVector.componentType === ComponentVectorTypes.X_COMPONENT ) {
 
       // Get the label height. Negative since the y axis is inverted in the view
       const labelHeight = modelViewTransform.viewToModelDeltaY( -this.labelNode.height );
@@ -229,7 +230,7 @@ class ComponentVectorNode extends RootVectorNode {
         labelOffset.setXY( 0, COMPONENT_LABEL_OFFSET + labelHeight / 2 );
       }
     }
-    else if ( componentVector.componentType === ComponentVector.ComponentTypes.Y_COMPONENT ) {
+    else if ( componentVector.componentType === ComponentVectorTypes.Y_COMPONENT ) {
 
       const labelWidth = modelViewTransform.viewToModelDeltaX( this.labelNode.width );
 

@@ -9,7 +9,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -21,14 +21,14 @@ import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
+   * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
    * @param {VectorColorPalette} cartesianVectorColorPalette
    * @param {VectorColorPalette} polarVectorColorPalette
    * @param {Object} [options]
    */
   constructor( coordinateSnapModeProperty, cartesianVectorColorPalette, polarVectorColorPalette, options ) {
 
-    assert && assert( coordinateSnapModeProperty instanceof EnumerationDeprecatedProperty && CoordinateSnapModes.includes( coordinateSnapModeProperty.value ),
+    assert && assert( coordinateSnapModeProperty instanceof EnumerationProperty && CoordinateSnapModes.enumeration.includes( coordinateSnapModeProperty.value ),
       `invalid coordinateSnapModeProperty: ${coordinateSnapModeProperty}` );
     assert && assert( cartesianVectorColorPalette instanceof VectorColorPalette, `invalid cartesianVectorColorPalette: ${cartesianVectorColorPalette}` );
     assert && assert( polarVectorColorPalette instanceof VectorColorPalette, `invalid polarVectorColorPalette: ${polarVectorColorPalette}` );

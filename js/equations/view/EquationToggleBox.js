@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, AlignGroup, HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -27,7 +27,7 @@ class EquationToggleBox extends ToggleBox {
 
   /**
    * @param {EquationsVectorSet} vectorSet
-   * @param {EnumerationDeprecatedProperty.<EquationTypes>} equationTypeProperty
+   * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
    * @param {AlignGroup} equationButtonsAlignGroup - used to make all equation radio buttons the same size
    * @param {AlignGroup} equationsAlignGroup - used to make all interactive equations the same size
    * @param {Object} [options]
@@ -35,7 +35,7 @@ class EquationToggleBox extends ToggleBox {
   constructor( vectorSet, equationTypeProperty, equationButtonsAlignGroup, equationsAlignGroup, options ) {
 
     assert && assert( vectorSet instanceof EquationsVectorSet, `invalid vectorSet: ${vectorSet}` );
-    assert && assert( equationTypeProperty instanceof EnumerationDeprecatedProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
+    assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
     assert && assert( equationButtonsAlignGroup instanceof AlignGroup, `invalid equationButtonsAlignGroup: ${equationButtonsAlignGroup}` );
     assert && assert( equationsAlignGroup instanceof AlignGroup, `invalid equationsAlignGroup: ${equationsAlignGroup}` );
     assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
@@ -60,7 +60,7 @@ class EquationToggleBox extends ToggleBox {
 
     // Create an equation of each type, only one of which will be visible at a time.
     const equationsParent = new Node();
-    EquationTypes.VALUES.forEach( equationType => {
+    EquationTypes.enumeration.values.forEach( equationType => {
 
       const equationTypeNode = new EquationTypeNode( vectorSet, equationType );
       equationsParent.addChild( new AlignBox( equationTypeNode, {

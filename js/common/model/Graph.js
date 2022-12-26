@@ -48,7 +48,7 @@ class Graph {
   constructor( initialGraphBounds, coordinateSnapMode, options ) {
 
     assert && assert( initialGraphBounds instanceof Bounds2, `invalid initialGraphBounds: ${initialGraphBounds}` );
-    assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+    assert && assert( CoordinateSnapModes.enumeration.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
 
     options = merge( {
       orientation: GraphOrientations.TWO_DIMENSIONAL,

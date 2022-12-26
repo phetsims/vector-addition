@@ -19,15 +19,12 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-
-// enumeration of the quantities related to a vector that we want to display
-const VectorQuantities = EnumerationDeprecated.byKeys( [ 'MAGNITUDE', 'ANGLE', 'X_COMPONENT', 'Y_COMPONENT' ] );
+import VectorQuantities from './VectorQuantities.js';
 
 class VectorValuesNumberDisplay extends NumberDisplay {
 
@@ -38,7 +35,7 @@ class VectorValuesNumberDisplay extends NumberDisplay {
   constructor( graph, vectorQuantity ) {
 
     assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( VectorQuantities.includes( vectorQuantity ), `invalid vectorQuantity: ${vectorQuantity}` );
+    assert && assert( VectorQuantities.enumeration.includes( vectorQuantity ), `invalid vectorQuantity: ${vectorQuantity}` );
 
     //----------------------------------------------------------------------------------------
     // Calculate the range
@@ -139,9 +136,6 @@ class VectorValuesNumberDisplay extends NumberDisplay {
     throw new Error( 'invalid case for getNumberDisplayValue' );
   }
 }
-
-// @public {VectorQuantities} possible quantities to display
-VectorValuesNumberDisplay.VectorQuantities = VectorQuantities;
 
 vectorAddition.register( 'VectorValuesNumberDisplay', VectorValuesNumberDisplay );
 export default VectorValuesNumberDisplay;

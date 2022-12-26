@@ -10,7 +10,7 @@
  * @author Brandon Li
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
@@ -22,8 +22,8 @@ class Explore1DViewProperties extends VectorAdditionViewProperties {
 
     super();
 
-    // @public {EnumerationDeprecatedProperty.<GraphOrientations>} - Property that controls the Graph Orientation
-    this.graphOrientationProperty = new EnumerationDeprecatedProperty( GraphOrientations, GraphOrientations.HORIZONTAL );
+    // @public {EnumerationProperty.<GraphOrientations>} - Property that controls the Graph Orientation
+    this.graphOrientationProperty = new EnumerationProperty( GraphOrientations.HORIZONTAL );
 
     // Vector angle visualization is not supported by this screen.
     // unlink is unnecessary, exists for the lifetime of the sim.

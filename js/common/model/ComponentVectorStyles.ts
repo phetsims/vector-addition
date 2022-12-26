@@ -1,30 +1,31 @@
 // Copyright 2019-2022, University of Colorado Boulder
 
-// @ts-nocheck
 /**
  * Enumeration of the possible 'styles' to display component vectors.
  *
  * @author Brandon Li
  */
 
-import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import vectorAddition from '../../vectorAddition.js';
 
-const ComponentVectorStyles = EnumerationDeprecated.byKeys( [
+export default class ComponentVectorStyles extends EnumerationValue {
 
   // Component vectors are not displayed at all
-  'INVISIBLE',
+  public static readonly INVISIBLE = new ComponentVectorStyles();
 
   // Component vectors are displayed tip to tail, such that the component vectors
   // align to create a right triangle with the original vector
-  'TRIANGLE',
+  public static readonly TRIANGLE = new ComponentVectorStyles();
 
   // Component vectors' initial points and the original vector's initial points coincide
-  'PARALLELOGRAM',
+  public static readonly PARALLELOGRAM = new ComponentVectorStyles();
 
   // Component vectors are displayed as projections on the x and y axes
-  'PROJECTION'
-] );
+  public static readonly PROJECTION = new ComponentVectorStyles();
+
+  public static readonly enumeration = new Enumeration( ComponentVectorStyles );
+}
 
 vectorAddition.register( 'ComponentVectorStyles', ComponentVectorStyles );
-export default ComponentVectorStyles;

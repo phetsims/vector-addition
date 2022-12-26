@@ -14,7 +14,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -30,7 +30,7 @@ class VectorSet {
 
   /**
    * @param {Graph} graph - the graph the VectorSet belongs to
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty - component style for all vectors
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty - component style for all vectors
    * @param {BooleanProperty} sumVisibleProperty - controls whether the sum vector is visible
    * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
    * @param {Object} [options]
@@ -67,7 +67,7 @@ class VectorSet {
 
     }, options );
 
-    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
       `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
     assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );

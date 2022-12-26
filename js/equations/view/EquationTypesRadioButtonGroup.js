@@ -18,7 +18,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, AlignGroup } from '../../../../scenery/js/imports.js';
 import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
@@ -30,14 +30,14 @@ import EquationTypes from '../model/EquationTypes.js';
 class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
-   * @param {EnumerationDeprecatedProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
+   * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
    * @param {string[]} vectorSymbols - symbols on the buttons
    * @param {AlignGroup} alignGroup
    * @param {Object} [options]
    */
   constructor( equationTypeProperty, vectorSymbols, alignGroup, options ) {
 
-    assert && assert( equationTypeProperty instanceof EnumerationDeprecatedProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
+    assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
     assert && assert( alignGroup instanceof AlignGroup, `invalid alignGroup: ${alignGroup}` );
     assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
 
@@ -47,7 +47,7 @@ class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
 
     // Create the description of the buttons
     const content = [];
-    EquationTypes.VALUES.forEach( equationType => {
+    EquationTypes.enumeration.values.forEach( equationType => {
       content.push( {
         value: equationType,
         createNode: tandem => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbols ), {

@@ -12,7 +12,7 @@
  * @author Brandon Li
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { Node, SceneryEvent } from '../../../../scenery/js/imports.js';
@@ -34,7 +34,7 @@ class VectorSetNode extends Node {
    * @param {VectorSet} vectorSet
    * @param {Property.<boolean>} valuesVisibleProperty
    * @param {Property.<boolean>} anglesVisibleProperty
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {Object} [options]
    */
   constructor( graph, vectorSet, valuesVisibleProperty, anglesVisibleProperty, componentStyleProperty, options ) {
@@ -43,7 +43,7 @@ class VectorSetNode extends Node {
     assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
     assert && assert( valuesVisibleProperty instanceof Property, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
     assert && assert( anglesVisibleProperty instanceof Property, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
-    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
 
     options = merge( {}, options );
 

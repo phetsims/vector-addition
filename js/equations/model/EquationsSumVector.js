@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -24,12 +24,12 @@ class EquationsSumVector extends SumVector {
   /**
    * @param {Graph} graph - graph the sum vector belongs to
    * @param {VectorSet} vectorSet - the vector set that the sum vector represents
-   * @param {EnumerationDeprecatedProperty.<EquationTypes>} equationTypeProperty
+   * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
    * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
   constructor( graph, vectorSet, equationTypeProperty, symbol ) {
 
-    assert && assert( equationTypeProperty instanceof EnumerationDeprecatedProperty && EquationTypes.includes( equationTypeProperty.value ),
+    assert && assert( equationTypeProperty instanceof EnumerationProperty && EquationTypes.enumeration.includes( equationTypeProperty.value ),
       `invalid equationTypeProperty: ${equationTypeProperty}` );
 
     super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbol );

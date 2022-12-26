@@ -8,7 +8,7 @@
  * @author Brandon Li
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, Text, VBox } from '../../../../scenery/js/imports.js';
@@ -21,12 +21,12 @@ import ComponentStyleRadioButtonGroup from './ComponentStyleRadioButtonGroup.js'
 class ComponentStyleControl extends VBox {
 
   /**
-   * @param {EnumerationDeprecatedProperty} componentStyleProperty - value of type ComponentVectorStyles
+   * @param {EnumerationProperty} componentStyleProperty - value of type ComponentVectorStyles
    * @param {Object} [options]
    */
   constructor( componentStyleProperty, options ) {
 
-    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
       `invalid componentStyleProperty: ${componentStyleProperty}` );
 
     options = merge( {

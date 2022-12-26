@@ -17,15 +17,15 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorStyles from './ComponentVectorStyles.js';
+import ComponentVectorTypes from './ComponentVectorTypes.js';
 import RootVector from './RootVector.js';
 
 // constants
@@ -35,20 +35,20 @@ class ComponentVector extends RootVector {
 
   /**
    * @param {Vector} parentVector - the vector that this component vector is associated with
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {Property.<Vector|null>} activeVectorProperty - which vector is active (selected)
-   * @param {EnumerationDeprecated} componentType - type of component vector (x or y), see ComponentVector.ComponentTypes
+   * @param {EnumerationProperty} componentType - type of component vector (x or y), see ComponentVectorTypes
    */
   constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
 
-    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
       `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( activeVectorProperty instanceof Property, `invalid activeVectorProperty: ${activeVectorProperty}` );
-    assert && assert( ComponentVector.ComponentTypes.includes( componentType ), `invalid componentType: ${componentType}` );
+    assert && assert( ComponentVectorTypes.enumeration.includes( componentType ), `invalid componentType: ${componentType}` );
 
     super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
 
-    // @public (read-only) {EnumerationDeprecated} componentType - type of component vector (x or y)
+    // @public (read-only) {Enumeration} componentType - type of component vector (x or y)
     this.componentType = componentType;
 
     // @public (read-only) {BooleanProperty} isOnGraphProperty - matches the parent. When the parent is on the graph,
@@ -121,7 +121,7 @@ class ComponentVector extends RootVector {
     const parentTail = this.parentVector.tailPositionProperty.value;
     const parentTip = this.parentVector.tipPositionProperty.value;
 
-    if ( this.componentType === ComponentVector.ComponentTypes.X_COMPONENT ) {
+    if ( this.componentType === ComponentVectorTypes.X_COMPONENT ) {
 
       //----------------------------------------------------------------------------------------
       // Update the x component vector
@@ -144,7 +144,7 @@ class ComponentVector extends RootVector {
       }
 
     }
-    else if ( this.componentType === ComponentVector.ComponentTypes.Y_COMPONENT ) {
+    else if ( this.componentType === ComponentVectorTypes.Y_COMPONENT ) {
 
       //----------------------------------------------------------------------------------------
       // Update the y component vector
@@ -186,7 +186,7 @@ class ComponentVector extends RootVector {
   getLabelContent( valuesVisible ) {
 
     // Get the component vector's value (a scalar, possibly negative)
-    let value = ( this.componentType === ComponentVector.ComponentTypes.X_COMPONENT ) ?
+    let value = ( this.componentType === ComponentVectorTypes.X_COMPONENT ) ?
                 this.vectorComponents.x :
                 this.vectorComponents.y;
 
@@ -240,9 +240,6 @@ class ComponentVector extends RootVector {
     return this.parentVector.vectorComponents.timesScalar( 0.5 ).plus( this.parentVector.tail );
   }
 }
-
-// @public (read-only) {EnumerationDeprecated} ComponentTypes - Enumeration of the possible types of components
-ComponentVector.ComponentTypes = EnumerationDeprecated.byKeys( [ 'X_COMPONENT', 'Y_COMPONENT' ] );
 
 vectorAddition.register( 'ComponentVector', ComponentVector );
 export default ComponentVector;

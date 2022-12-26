@@ -24,7 +24,7 @@ class SumComponentVectorNode extends ComponentVectorNode {
   /**
    * @param {ComponentVector} componentVector - the vector model for the component
    * @param {Graph} graph - the graph the component belongs to
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {BooleanProperty} valuesVisibleProperty
    * @param {BooleanProperty} sumVisibleProperty
    * @param {Object} [options]

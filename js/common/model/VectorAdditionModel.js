@@ -6,7 +6,7 @@
  * @author Martin Veillette
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from './ComponentVectorStyles.js';
@@ -21,7 +21,7 @@ class VectorAdditionModel {
     assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
 
     // @public the representation (style) used to display component vectors
-    this.componentStyleProperty = new EnumerationDeprecatedProperty( ComponentVectorStyles, ComponentVectorStyles.INVISIBLE );
+    this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyles.INVISIBLE );
   }
 
   /**

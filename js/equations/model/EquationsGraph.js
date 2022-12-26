@@ -11,7 +11,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import Graph from '../../common/model/Graph.js';
@@ -36,14 +36,14 @@ class EquationsGraph extends Graph {
 
   /**
    * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {BooleanProperty} sumVisibleProperty
    * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
    */
   constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
 
-    assert && assert( CoordinateSnapModes.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( CoordinateSnapModes.enumeration.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
+    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
     assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
@@ -51,8 +51,8 @@ class EquationsGraph extends Graph {
       bottomLeft: BOTTOM_LEFT
     } );
 
-    // @public (read-only) {EnumerationDeprecatedProperty.<EquationTypes>} equationTypeProperty
-    this.equationTypeProperty = new EnumerationDeprecatedProperty( EquationTypes, STARTING_EQUATION_TYPE );
+    // @public (read-only) {EnumerationProperty.<EquationTypes>} equationTypeProperty
+    this.equationTypeProperty = new EnumerationProperty( STARTING_EQUATION_TYPE );
 
     // @public (read-only) {EquationsVectorSet} vectorSet
     this.vectorSet = new EquationsVectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );

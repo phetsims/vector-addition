@@ -14,7 +14,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
@@ -45,14 +45,14 @@ class Explore1DGraph extends Graph {
 
   /**
    * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {BooleanProperty} sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
    * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on this graph
    */
   constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
 
     assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
-    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty && ComponentVectorStyles.includes( componentStyleProperty.value ),
+    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
       `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
     assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );

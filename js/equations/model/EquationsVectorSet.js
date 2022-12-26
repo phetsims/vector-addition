@@ -60,7 +60,7 @@ class EquationsVectorSet extends VectorSet {
   /**
    * @param {EquationsGraph} graph
    * @param {BooleanProperty} sumVisibleProperty
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
    * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
    * @param {Object} [options]

@@ -25,6 +25,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 import ComponentVector from './ComponentVector.js';
+import ComponentVectorTypes from './ComponentVectorTypes.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 import GraphOrientations from './GraphOrientations.js';
 import RootVector from './RootVector.js';
@@ -96,14 +97,14 @@ class Vector extends RootVector {
     this.xComponentVector = new ComponentVector( this,
       vectorSet.componentStyleProperty,
       graph.activeVectorProperty,
-      ComponentVector.ComponentTypes.X_COMPONENT
+      ComponentVectorTypes.X_COMPONENT
     );
 
     // @public (read only) the vector's y component vector
     this.yComponentVector = new ComponentVector( this,
       vectorSet.componentStyleProperty,
       graph.activeVectorProperty,
-      ComponentVector.ComponentTypes.Y_COMPONENT
+      ComponentVectorTypes.Y_COMPONENT
     );
 
     // When the graph's origin changes, update the tail position. unlink is required on dispose.

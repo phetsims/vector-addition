@@ -8,7 +8,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { AlignBox, AlignGroup, Color, HSeparator, Node, VBox } from '../../../../scenery/js/imports.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorSet from '../../common/model/VectorSet.js';
@@ -27,7 +27,7 @@ class Explore2DGraphControlPanel extends GraphControlPanel {
   /**
    * @param {VectorSet} cartesianVectorSet
    * @param {VectorSet} polarVectorSet
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {VectorAdditionViewProperties} viewProperties
    * @param {Object} [options]
    */
@@ -35,7 +35,7 @@ class Explore2DGraphControlPanel extends GraphControlPanel {
 
     assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
     assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
-    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
 
     const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,

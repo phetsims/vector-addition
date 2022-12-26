@@ -8,7 +8,7 @@
  *  @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { AlignBox, AlignGroup, Color, HSeparator, Node, VBox } from '../../../../scenery/js/imports.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
@@ -26,7 +26,7 @@ class LabGraphControlPanel extends GraphControlPanel {
   /**
    * @param {LabGraph} cartesianGraph
    * @param {LabGraph} polarGraph
-   * @param {EnumerationDeprecatedProperty.<ComponentVectorStyles>} componentStyleProperty
+   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
    * @param {Property.<boolean>} sumVisibleProperty1
    * @param {Property.<boolean>} sumVisibleProperty2
    * @param {VectorAdditionViewProperties} viewProperties
@@ -37,7 +37,7 @@ class LabGraphControlPanel extends GraphControlPanel {
 
     assert && assert( cartesianGraph instanceof LabGraph, `invalid cartesianGraph: ${cartesianGraph}` );
     assert && assert( polarGraph instanceof LabGraph, `invalid polarGraph: ${polarGraph}` );
-    assert && assert( componentStyleProperty instanceof EnumerationDeprecatedProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
     assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
 
     // To make all checkboxes the same height
