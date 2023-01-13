@@ -50,7 +50,7 @@ class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
     EquationTypes.enumeration.values.forEach( equationType => {
       content.push( {
         value: equationType,
-        createNode: tandem => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbols ), {
+        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbols ), {
           group: alignGroup
         } )
       } );
