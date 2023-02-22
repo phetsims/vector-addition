@@ -18,7 +18,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { Node, Path } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class DashedArrowNode extends Node {
+export default class DashedArrowNode extends Node {
 
   /**
    * @param {number} tailX
@@ -151,4 +151,3 @@ class DashedArrowNode extends Node {
 }
 
 vectorAddition.register( 'DashedArrowNode', DashedArrowNode );
-export default DashedArrowNode;

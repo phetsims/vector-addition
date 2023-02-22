@@ -11,7 +11,7 @@ import GridCheckbox from '../../../../scenery-phet/js/GridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-class VectorAdditionGridCheckbox extends GridCheckbox {
+export default class VectorAdditionGridCheckbox extends GridCheckbox {
 
   /**
    * @param {Property.<boolean>} gridVisibleProperty
@@ -31,4 +31,3 @@ class VectorAdditionGridCheckbox extends GridCheckbox {
 }
 
 vectorAddition.register( 'VectorAdditionGridCheckbox', VectorAdditionGridCheckbox );
-export default VectorAdditionGridCheckbox;

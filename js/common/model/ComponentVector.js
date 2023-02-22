@@ -31,7 +31,7 @@ import RootVector from './RootVector.js';
 // constants
 const COMPONENT_VECTOR_SYMBOL = null; // Component vectors don't have a symbol
 
-class ComponentVector extends RootVector {
+export default class ComponentVector extends RootVector {
 
   /**
    * @param {Vector} parentVector - the vector that this component vector is associated with
@@ -242,4 +242,3 @@ class ComponentVector extends RootVector {
 }
 
 vectorAddition.register( 'ComponentVector', ComponentVector );
-export default ComponentVector;

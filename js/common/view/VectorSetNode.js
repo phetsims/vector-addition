@@ -27,7 +27,7 @@ import SumComponentVectorNode from './SumComponentVectorNode.js';
 import SumVectorNode from './SumVectorNode.js';
 import VectorNode from './VectorNode.js';
 
-class VectorSetNode extends Node {
+export default class VectorSetNode extends Node {
 
   /**
    * @param {Graph} graph
@@ -211,4 +211,3 @@ class VectorSetNode extends Node {
 }
 
 vectorAddition.register( 'VectorSetNode', VectorSetNode );
-export default VectorSetNode;

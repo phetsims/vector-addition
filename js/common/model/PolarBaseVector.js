@@ -17,7 +17,7 @@ import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 
-class PolarBaseVector extends BaseVector {
+export default class PolarBaseVector extends BaseVector {
 
   /**
    * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
@@ -59,4 +59,3 @@ class PolarBaseVector extends BaseVector {
 }
 
 vectorAddition.register( 'PolarBaseVector', PolarBaseVector );
-export default PolarBaseVector;

@@ -17,7 +17,7 @@ import vectorAddition from '../../vectorAddition.js';
 // const
 const DEFAULT_FONT = new MathSymbolFont( 18 );
 
-class ArrowOverSymbolNode extends Node {
+export default class ArrowOverSymbolNode extends Node {
 
   /**
    * @param {string} symbol
@@ -77,4 +77,3 @@ class ArrowOverSymbolNode extends Node {
 }
 
 vectorAddition.register( 'ArrowOverSymbolNode', ArrowOverSymbolNode );
-export default ArrowOverSymbolNode;

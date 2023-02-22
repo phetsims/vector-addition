@@ -16,7 +16,7 @@ import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
-class VectorCheckbox extends VectorAdditionCheckbox {
+export default class VectorCheckbox extends VectorAdditionCheckbox {
 
   /**
    * @param {BooleanProperty} vectorVisibleProperty
@@ -54,4 +54,3 @@ class VectorCheckbox extends VectorAdditionCheckbox {
 }
 
 vectorAddition.register( 'VectorCheckbox', VectorCheckbox );
-export default VectorCheckbox;

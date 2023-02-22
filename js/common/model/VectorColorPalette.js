@@ -10,7 +10,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { Color } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class VectorColorPalette {
+export default class VectorColorPalette {
 
   constructor( options ) {
 
@@ -69,4 +69,3 @@ class VectorColorPalette {
 }
 
 vectorAddition.register( 'VectorColorPalette', VectorColorPalette );
-export default VectorColorPalette;

@@ -11,7 +11,7 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-class VectorAdditionCheckbox extends Checkbox {
+export default class VectorAdditionCheckbox extends Checkbox {
 
   /**
    * @param {Property.<boolean>} property
@@ -33,4 +33,3 @@ class VectorAdditionCheckbox extends Checkbox {
 }
 
 vectorAddition.register( 'VectorAdditionCheckbox', VectorAdditionCheckbox );
-export default VectorAdditionCheckbox;

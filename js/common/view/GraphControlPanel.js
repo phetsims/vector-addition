@@ -13,7 +13,7 @@ import Panel from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-class GraphControlPanel extends Panel {
+export default class GraphControlPanel extends Panel {
 
   /**
    * @param {Node[]} children
@@ -49,4 +49,3 @@ class GraphControlPanel extends Panel {
 }
 
 vectorAddition.register( 'GraphControlPanel', GraphControlPanel );
-export default GraphControlPanel;

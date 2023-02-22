@@ -14,7 +14,7 @@ import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 
-class CartesianBaseVector extends BaseVector {
+export default class CartesianBaseVector extends BaseVector {
 
   /**
    * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
@@ -53,4 +53,3 @@ class CartesianBaseVector extends BaseVector {
 }
 
 vectorAddition.register( 'CartesianBaseVector', CartesianBaseVector );
-export default CartesianBaseVector;

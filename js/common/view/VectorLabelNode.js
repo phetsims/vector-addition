@@ -19,7 +19,7 @@ import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 
-class VectorLabelNode extends Node {
+export default class VectorLabelNode extends Node {
 
   /**
    * @param {RootVector} rootVector
@@ -160,4 +160,3 @@ class VectorLabelNode extends Node {
 }
 
 vectorAddition.register( 'VectorLabelNode', VectorLabelNode );
-export default VectorLabelNode;

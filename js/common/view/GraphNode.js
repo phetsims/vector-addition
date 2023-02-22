@@ -54,7 +54,7 @@ const TICK_LABEL_Y_OFFSET = 15; // from y = 0, view units
 
 //----------------------------------------------------------------------------------------
 
-class GraphNode extends Node {
+export default class GraphNode extends Node {
 
   /**
    * @param {Graph} graph - the model graph for the node
@@ -378,4 +378,3 @@ class TicksNode extends Node {
 }
 
 vectorAddition.register( 'GraphNode', GraphNode );
-export default GraphNode;

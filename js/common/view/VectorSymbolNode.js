@@ -32,7 +32,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 
-class VectorSymbolNode extends HBox {
+export default class VectorSymbolNode extends HBox {
 
   /**
    * @param {Object} [options]
@@ -184,4 +184,3 @@ class VectorSymbolNode extends HBox {
 }
 
 vectorAddition.register( 'VectorSymbolNode', VectorSymbolNode );
-export default VectorSymbolNode;

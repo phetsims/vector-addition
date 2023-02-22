@@ -23,7 +23,7 @@ import AccordionBox from '../../../../sun/js/AccordionBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-class ToggleBox extends AccordionBox {
+export default class ToggleBox extends AccordionBox {
 
   /**
    * @param {Node} closedContent - content when the box is closed
@@ -85,4 +85,3 @@ class ToggleBox extends AccordionBox {
 }
 
 vectorAddition.register( 'ToggleBox', ToggleBox );
-export default ToggleBox;

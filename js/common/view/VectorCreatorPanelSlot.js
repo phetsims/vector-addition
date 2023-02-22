@@ -39,7 +39,7 @@ import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 const ARROW_ICON_CONTAINER_WIDTH = 35;
 
 
-class VectorCreatorPanelSlot extends HBox {
+export default class VectorCreatorPanelSlot extends HBox {
 
   /**
    * @param {Graph} graph - the graph to drop the vector onto
@@ -186,4 +186,3 @@ class VectorCreatorPanelSlot extends HBox {
 }
 
 vectorAddition.register( 'VectorCreatorPanelSlot', VectorCreatorPanelSlot );
-export default VectorCreatorPanelSlot;

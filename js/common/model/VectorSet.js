@@ -26,7 +26,7 @@ import VectorColorPalette from './VectorColorPalette.js';
 // The reason this isn't translatable is https://github.com/phetsims/vector-addition/issues/10.
 const SUM_SYMBOL = 's';
 
-class VectorSet {
+export default class VectorSet {
 
   /**
    * @param {Graph} graph - the graph the VectorSet belongs to
@@ -142,4 +142,3 @@ class VectorSet {
 }
 
 vectorAddition.register( 'VectorSet', VectorSet );
-export default VectorSet;

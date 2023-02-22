@@ -13,7 +13,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionModel from '../model/VectorAdditionModel.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-class VectorAdditionScreenView extends ScreenView {
+export default class VectorAdditionScreenView extends ScreenView {
 
   /**
    * @abstract
@@ -62,4 +62,3 @@ class VectorAdditionScreenView extends ScreenView {
 }
 
 vectorAddition.register( 'VectorAdditionScreenView', VectorAdditionScreenView );
-export default VectorAdditionScreenView;

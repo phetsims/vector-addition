@@ -34,7 +34,7 @@ const SHADOW_OPTIONS = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, 
 const SHADOW_OFFSET_X = 3.2;
 const SHADOW_OFFSET_Y = 2.1;
 
-class VectorNode extends RootVectorNode {
+export default class VectorNode extends RootVectorNode {
 
   /**
    * @param {Vector} vector- the vector model
@@ -405,4 +405,3 @@ function createDilatedHead( headWidth, headHeight, dilation ) {
 }
 
 vectorAddition.register( 'VectorNode', VectorNode );
-export default VectorNode;

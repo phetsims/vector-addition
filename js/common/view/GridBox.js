@@ -20,7 +20,7 @@ import vectorAddition from '../../vectorAddition.js';
 const X_ALIGN_VALUES = [ 'left', 'center', 'right' ];
 const Y_ALIGN_VALUES = [ 'top', 'center', 'bottom' ];
 
-class GridBox extends Node {
+export default class GridBox extends Node {
 
   /**
    * @param {Node[]} contents - the contents of the grid, in row-major order
@@ -119,4 +119,3 @@ class GridBox extends Node {
 }
 
 vectorAddition.register( 'GridBox', GridBox );
-export default GridBox;

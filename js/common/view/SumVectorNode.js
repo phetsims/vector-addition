@@ -20,7 +20,7 @@ import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorNode from './VectorNode.js';
 
-class SumVectorNode extends VectorNode {
+export default class SumVectorNode extends VectorNode {
   /**
    * @param {SumVector} sumVector - the model for the sum vector
    * @param {Graph} graph - the graph the sum belongs to
@@ -95,4 +95,3 @@ class SumVectorNode extends VectorNode {
 }
 
 vectorAddition.register( 'SumVectorNode', SumVectorNode );
-export default SumVectorNode;

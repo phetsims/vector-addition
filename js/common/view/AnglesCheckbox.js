@@ -10,7 +10,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
-class AnglesCheckbox extends VectorAdditionCheckbox {
+export default class AnglesCheckbox extends VectorAdditionCheckbox {
 
   /**
    * @param {Property.<boolean>} anglesVisibleProperty
@@ -25,4 +25,3 @@ class AnglesCheckbox extends VectorAdditionCheckbox {
 }
 
 vectorAddition.register( 'AnglesCheckbox', AnglesCheckbox );
-export default AnglesCheckbox;

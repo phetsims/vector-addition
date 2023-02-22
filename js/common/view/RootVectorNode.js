@@ -37,7 +37,7 @@ const MAX_LABEL_VECTOR_MAGNITUDE = new Vector2(
   VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height - VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN
 ).magnitude;
 
-class RootVectorNode extends Node {
+export default class RootVectorNode extends Node {
 
   /**
    * @param {RootVector} rootVector - the vector model
@@ -236,4 +236,3 @@ class RootVectorNode extends Node {
 }
 
 vectorAddition.register( 'RootVectorNode', RootVectorNode );
-export default RootVectorNode;

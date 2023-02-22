@@ -18,7 +18,7 @@ import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
-class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup {
+export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
    * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
@@ -61,4 +61,3 @@ class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup {
 }
 
 vectorAddition.register( 'CoordinateSnapRadioButtonGroup', CoordinateSnapRadioButtonGroup );
-export default CoordinateSnapRadioButtonGroup;

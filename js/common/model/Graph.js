@@ -37,7 +37,7 @@ const DEFAULT_BOTTOM_LEFT = new Vector2(
 // scale of the coordinate transformation of model coordinates to view coordinates
 const MODEL_TO_VIEW_SCALE = 14.5;
 
-class Graph {
+export default class Graph {
 
   /**
    * @param {Bounds2} initialGraphBounds - the model bounds of the graph at the start of the sim
@@ -148,4 +148,3 @@ class Graph {
 Graph.DEFAULT_BOTTOM_LEFT = DEFAULT_BOTTOM_LEFT;
 
 vectorAddition.register( 'Graph', Graph );
-export default Graph;

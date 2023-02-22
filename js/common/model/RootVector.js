@@ -24,7 +24,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorColorPalette from './VectorColorPalette.js';
 
-class RootVector {
+export default class RootVector {
 
   /**
    * @abstract
@@ -342,4 +342,3 @@ class RootVector {
 }
 
 vectorAddition.register( 'RootVector', RootVector );
-export default RootVector;

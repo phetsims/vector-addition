@@ -46,7 +46,7 @@ const ANGLE_LABEL_WIDTH = 15;
 // width of the component labels
 const COMPONENT_LABEL_WIDTH = 35;
 
-class VectorValuesToggleBox extends ToggleBox {
+export default class VectorValuesToggleBox extends ToggleBox {
 
   /**
    * @param {Graph} graph - the graph that contains the vectors to display
@@ -194,4 +194,3 @@ class VectorValuesToggleBox extends ToggleBox {
 }
 
 vectorAddition.register( 'VectorValuesToggleBox', VectorValuesToggleBox );
-export default VectorValuesToggleBox;

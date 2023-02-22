@@ -19,7 +19,7 @@ const OPTIONS = {
   isOnGraphInitially: true  // BaseVectors are always on the graph
 };
 
-class BaseVector extends Vector {
+export default class BaseVector extends Vector {
 
   /**
    * @abstract
@@ -44,4 +44,3 @@ class BaseVector extends Vector {
 }
 
 vectorAddition.register( 'BaseVector', BaseVector );
-export default BaseVector;

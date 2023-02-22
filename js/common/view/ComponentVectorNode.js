@@ -37,7 +37,7 @@ const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 const NON_ACTIVE_LEADER_LINES_DASH = [ 3, 10 ];
 const ACTIVE_LEADER_LINES_DASH = [];
 
-class ComponentVectorNode extends RootVectorNode {
+export default class ComponentVectorNode extends RootVectorNode {
 
   /**
    * @param {ComponentVector} componentVector - the component vector model the node represents
@@ -249,4 +249,3 @@ class ComponentVectorNode extends RootVectorNode {
 }
 
 vectorAddition.register( 'ComponentVectorNode', ComponentVectorNode );
-export default ComponentVectorNode;

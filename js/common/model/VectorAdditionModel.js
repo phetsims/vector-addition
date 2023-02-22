@@ -11,7 +11,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from './ComponentVectorStyles.js';
 
-class VectorAdditionModel {
+export default class VectorAdditionModel {
 
   /**
    * @param {Tandem} tandem
@@ -41,4 +41,3 @@ class VectorAdditionModel {
 }
 
 vectorAddition.register( 'VectorAdditionModel', VectorAdditionModel );
-export default VectorAdditionModel;

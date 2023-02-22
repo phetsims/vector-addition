@@ -18,7 +18,7 @@ import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentStyleRadioButtonGroup from './ComponentStyleRadioButtonGroup.js';
 
-class ComponentStyleControl extends VBox {
+export default class ComponentStyleControl extends VBox {
 
   /**
    * @param {EnumerationProperty} componentStyleProperty - value of type ComponentVectorStyles
@@ -66,4 +66,3 @@ class ComponentStyleControl extends VBox {
 }
 
 vectorAddition.register( 'ComponentStyleControl', ComponentStyleControl );
-export default ComponentStyleControl;

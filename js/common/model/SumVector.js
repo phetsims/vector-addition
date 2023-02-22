@@ -29,7 +29,7 @@ const SUM_VECTOR_OPTIONS = {
   isOnGraphInitially: true // Sum vectors are always on the graph
 };
 
-class SumVector extends Vector {
+export default class SumVector extends Vector {
 
   /**
    * @param {Vector2} initialTailPosition - starting tail position of the vector
@@ -145,4 +145,3 @@ class SumVector extends Vector {
 }
 
 vectorAddition.register( 'SumVector', SumVector );
-export default SumVector;

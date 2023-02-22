@@ -42,7 +42,7 @@ const LABEL_OFFSET = 3.5;
 // https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.on5p73bbry7g.
 const ANGLE_UNDER_BASELINE_THRESHOLD = 35;
 
-class VectorAngleNode extends Node {
+export default class VectorAngleNode extends Node {
 
   /**
    * @param {Vector} vector - the model for the vector that the angle represents
@@ -162,4 +162,3 @@ class VectorAngleNode extends Node {
 }
 
 vectorAddition.register( 'VectorAngleNode', VectorAngleNode );
-export default VectorAngleNode;

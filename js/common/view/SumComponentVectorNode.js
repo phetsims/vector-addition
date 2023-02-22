@@ -19,7 +19,7 @@ import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorNode from './ComponentVectorNode.js';
 
-class SumComponentVectorNode extends ComponentVectorNode {
+export default class SumComponentVectorNode extends ComponentVectorNode {
 
   /**
    * @param {ComponentVector} componentVector - the vector model for the component
@@ -91,4 +91,3 @@ class SumComponentVectorNode extends ComponentVectorNode {
 }
 
 vectorAddition.register( 'SumComponentVectorNode', SumComponentVectorNode );
-export default SumComponentVectorNode;

@@ -15,7 +15,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
-class SumCheckbox extends VectorAdditionCheckbox {
+export default class SumCheckbox extends VectorAdditionCheckbox {
 
   /**
    * @param {BooleanProperty} sumVisibleProperty
@@ -49,4 +49,3 @@ class SumCheckbox extends VectorAdditionCheckbox {
 }
 
 vectorAddition.register( 'SumCheckbox', SumCheckbox );
-export default SumCheckbox;

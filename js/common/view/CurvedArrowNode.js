@@ -21,7 +21,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import { Color, Node, Path } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class CurvedArrowNode extends Node {
+export default class CurvedArrowNode extends Node {
 
   /**
    * @param {number} radius - the radius of curved arrow.
@@ -163,4 +163,3 @@ class CurvedArrowNode extends Node {
 }
 
 vectorAddition.register( 'CurvedArrowNode', CurvedArrowNode );
-export default CurvedArrowNode;

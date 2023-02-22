@@ -49,7 +49,7 @@ const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 // distance between a vector's tail or tip to another vector/s tail or tip to snap to the other vectors in polar mode.
 const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 
-class Vector extends RootVector {
+export default class Vector extends RootVector {
 
   /**
    * @param {Vector2} initialTailPosition - starting tail position of the vector
@@ -424,4 +424,3 @@ class Vector extends RootVector {
 }
 
 vectorAddition.register( 'Vector', Vector );
-export default Vector;

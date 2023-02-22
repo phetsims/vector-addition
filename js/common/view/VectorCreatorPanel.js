@@ -16,7 +16,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorCreatorPanelSlot from './VectorCreatorPanelSlot.js';
 
-class VectorCreatorPanel extends Panel {
+export default class VectorCreatorPanel extends Panel {
 
   /**
    * @param {VectorCreatorPanelSlot[]} panelSlots - array of the panel slots to go into the panel
@@ -75,4 +75,3 @@ class VectorCreatorPanel extends Panel {
 }
 
 vectorAddition.register( 'VectorCreatorPanel', VectorCreatorPanel );
-export default VectorCreatorPanel;

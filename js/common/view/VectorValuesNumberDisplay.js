@@ -26,7 +26,7 @@ import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorQuantities from './VectorQuantities.js';
 
-class VectorValuesNumberDisplay extends NumberDisplay {
+export default class VectorValuesNumberDisplay extends NumberDisplay {
 
   /**
    * @param {Graph} graph - the graph that contains the vectors to display
@@ -138,4 +138,3 @@ class VectorValuesNumberDisplay extends NumberDisplay {
 }
 
 vectorAddition.register( 'VectorValuesNumberDisplay', VectorValuesNumberDisplay );
-export default VectorValuesNumberDisplay;

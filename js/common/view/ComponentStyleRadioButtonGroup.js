@@ -19,7 +19,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import GridBox from './GridBox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
-class ComponentStyleRadioButtonGroup extends Node {
+export default class ComponentStyleRadioButtonGroup extends Node {
 
   /**
    * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
@@ -58,4 +58,3 @@ class ComponentStyleRadioButtonGroup extends Node {
 }
 
 vectorAddition.register( 'ComponentStyleRadioButtonGroup', ComponentStyleRadioButtonGroup );
-export default ComponentStyleRadioButtonGroup;

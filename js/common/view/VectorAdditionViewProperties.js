@@ -11,7 +11,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import vectorAddition from '../../vectorAddition.js';
 import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
 
-class VectorAdditionViewProperties {
+export default class VectorAdditionViewProperties {
 
   constructor() {
 
@@ -52,4 +52,3 @@ class VectorAdditionViewProperties {
 }
 
 vectorAddition.register( 'VectorAdditionViewProperties', VectorAdditionViewProperties );
-export default VectorAdditionViewProperties;

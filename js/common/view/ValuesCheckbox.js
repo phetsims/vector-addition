@@ -12,7 +12,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 
-class ValuesCheckbox extends VectorAdditionCheckbox {
+export default class ValuesCheckbox extends VectorAdditionCheckbox {
 
   /**
    * @param {Property.<boolean>} valuesVisibleProperty
@@ -30,4 +30,3 @@ class ValuesCheckbox extends VectorAdditionCheckbox {
 }
 
 vectorAddition.register( 'ValuesCheckbox', ValuesCheckbox );
-export default ValuesCheckbox;

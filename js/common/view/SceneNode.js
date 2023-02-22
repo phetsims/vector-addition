@@ -39,7 +39,7 @@ import VectorCreatorPanel from './VectorCreatorPanel.js';
 import VectorSetNode from './VectorSetNode.js';
 import VectorValuesToggleBox from './VectorValuesToggleBox.js';
 
-class SceneNode extends Node {
+export default class SceneNode extends Node {
 
   /**
    * @param {Graph} graph
@@ -197,4 +197,3 @@ class SceneNode extends Node {
 }
 
 vectorAddition.register( 'SceneNode', SceneNode );
-export default SceneNode;

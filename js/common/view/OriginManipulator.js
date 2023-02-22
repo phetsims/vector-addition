@@ -35,7 +35,7 @@ const ORIGIN_OPTIONS = {
   stroke: ORIGIN_COLOR.darkerColor()
 };
 
-class OriginManipulator extends ShadedSphereNode {
+export default class OriginManipulator extends ShadedSphereNode {
 
   /**
    * @param {Graph} graph - the model for the graph
@@ -97,4 +97,3 @@ class OriginManipulator extends ShadedSphereNode {
 }
 
 vectorAddition.register( 'OriginManipulator', OriginManipulator );
-export default OriginManipulator;
