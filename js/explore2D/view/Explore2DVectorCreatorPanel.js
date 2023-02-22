@@ -31,7 +31,7 @@ const POLAR_INITIAL_VECTOR_COMPONENTS = [
   Vector2.createPolar( 8, Utils.toRadians( -90 ) ) // f
 ];
 
-class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
+export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
 
   /**
    * @param {Explore2DGraph} graph
@@ -68,4 +68,3 @@ class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
 }
 
 vectorAddition.register( 'Explore2DVectorCreatorPanel', Explore2DVectorCreatorPanel );
-export default Explore2DVectorCreatorPanel;

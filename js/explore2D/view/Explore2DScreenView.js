@@ -18,7 +18,7 @@ import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DVectorCreatorPanel from './Explore2DVectorCreatorPanel.js';
 
-class Explore2DScreenView extends VectorAdditionScreenView {
+export default class Explore2DScreenView extends VectorAdditionScreenView {
 
   /**
    * @param {Explore2DModel} model
@@ -99,4 +99,3 @@ class Explore2DScreenView extends VectorAdditionScreenView {
 }
 
 vectorAddition.register( 'Explore2DScreenView', Explore2DScreenView );
-export default Explore2DScreenView;

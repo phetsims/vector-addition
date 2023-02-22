@@ -17,7 +17,7 @@ import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
 
-class LabScreenView extends VectorAdditionScreenView {
+export default class LabScreenView extends VectorAdditionScreenView {
 
   /**
    * @param {LabModel} model
@@ -90,4 +90,3 @@ class LabScreenView extends VectorAdditionScreenView {
 }
 
 vectorAddition.register( 'LabScreenView', LabScreenView );
-export default LabScreenView;

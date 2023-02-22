@@ -15,7 +15,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DGraph from './Explore2DGraph.js';
 
-class Explore2DModel extends VectorAdditionModel {
+export default class Explore2DModel extends VectorAdditionModel {
 
   /**
    * @param {Tandem} tandem
@@ -60,4 +60,3 @@ class Explore2DModel extends VectorAdditionModel {
 }
 
 vectorAddition.register( 'Explore2DModel', Explore2DModel );
-export default Explore2DModel;

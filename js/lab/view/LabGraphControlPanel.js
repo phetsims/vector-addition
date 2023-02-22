@@ -21,7 +21,7 @@ import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewPr
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
 
-class LabGraphControlPanel extends GraphControlPanel {
+export default class LabGraphControlPanel extends GraphControlPanel {
 
   /**
    * @param {LabGraph} cartesianGraph
@@ -105,4 +105,3 @@ class LabGraphControlPanel extends GraphControlPanel {
 }
 
 vectorAddition.register( 'LabGraphControlPanel', LabGraphControlPanel );
-export default LabGraphControlPanel;

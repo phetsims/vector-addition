@@ -55,7 +55,7 @@ const POLAR_VECTOR_DESCRIPTIONS = [
   }
 ];
 
-class EquationsVectorSet extends VectorSet {
+export default class EquationsVectorSet extends VectorSet {
 
   /**
    * @param {EquationsGraph} graph
@@ -141,4 +141,3 @@ class EquationsVectorSet extends VectorSet {
 }
 
 vectorAddition.register( 'EquationsVectorSet', EquationsVectorSet );
-export default EquationsVectorSet;

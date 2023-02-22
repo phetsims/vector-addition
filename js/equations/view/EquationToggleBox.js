@@ -23,7 +23,7 @@ import EquationTypesRadioButtonGroup from './EquationTypesRadioButtonGroup.js';
 // constants
 const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
-class EquationToggleBox extends ToggleBox {
+export default class EquationToggleBox extends ToggleBox {
 
   /**
    * @param {EquationsVectorSet} vectorSet
@@ -101,4 +101,3 @@ class EquationToggleBox extends ToggleBox {
 }
 
 vectorAddition.register( 'EquationToggleBox', EquationToggleBox );
-export default EquationToggleBox;

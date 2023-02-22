@@ -22,7 +22,7 @@ const TEXT_OPTIONS = {
   font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT
 };
 
-class EquationTypeNode extends Node {
+export default class EquationTypeNode extends Node {
 
   /**
    * @param {EquationsVectorSet} vectorSet
@@ -139,4 +139,3 @@ class EquationTypeNode extends Node {
 }
 
 vectorAddition.register( 'EquationTypeNode', EquationTypeNode );
-export default EquationTypeNode;

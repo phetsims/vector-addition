@@ -22,7 +22,7 @@ import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewPr
 import VectorCheckbox from '../../common/view/VectorCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class EquationsGraphControlPanel extends GraphControlPanel {
+export default class EquationsGraphControlPanel extends GraphControlPanel {
 
   /**
    * @param {VectorSet} cartesianVectorSet
@@ -108,4 +108,3 @@ class EquationsGraphControlPanel extends GraphControlPanel {
 }
 
 vectorAddition.register( 'EquationsGraphControlPanel', EquationsGraphControlPanel );
-export default EquationsGraphControlPanel;

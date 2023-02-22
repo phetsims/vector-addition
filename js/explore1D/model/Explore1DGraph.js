@@ -41,7 +41,7 @@ const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
 // All graphs on 'Explore 1D' are strictly Cartesian
 const EXPLORE_1D_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
 
-class Explore1DGraph extends Graph {
+export default class Explore1DGraph extends Graph {
 
   /**
    * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
@@ -70,4 +70,3 @@ class Explore1DGraph extends Graph {
 }
 
 vectorAddition.register( 'Explore1DGraph', Explore1DGraph );
-export default Explore1DGraph;

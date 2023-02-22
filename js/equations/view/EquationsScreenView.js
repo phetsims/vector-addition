@@ -18,7 +18,7 @@ import EquationsGraphControlPanel from './EquationsGraphControlPanel.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 
-class EquationsScreenView extends VectorAdditionScreenView {
+export default class EquationsScreenView extends VectorAdditionScreenView {
 
   /**
    * @param {EquationsModel} model
@@ -108,4 +108,3 @@ class EquationsScreenView extends VectorAdditionScreenView {
 }
 
 vectorAddition.register( 'EquationsScreenView', EquationsScreenView );
-export default EquationsScreenView;

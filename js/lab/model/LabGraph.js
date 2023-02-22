@@ -20,7 +20,7 @@ import vectorAddition from '../../vectorAddition.js';
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
-class LabGraph extends Graph {
+export default class LabGraph extends Graph {
 
   /**
    * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
@@ -87,4 +87,3 @@ class LabGraph extends Graph {
 }
 
 vectorAddition.register( 'LabGraph', LabGraph );
-export default LabGraph;

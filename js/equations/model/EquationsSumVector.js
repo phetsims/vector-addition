@@ -19,7 +19,7 @@ import EquationTypes from './EquationTypes.js';
 // constants
 const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
 
-class EquationsSumVector extends SumVector {
+export default class EquationsSumVector extends SumVector {
 
   /**
    * @param {Graph} graph - graph the sum vector belongs to
@@ -121,4 +121,3 @@ class EquationsSumVector extends SumVector {
 }
 
 vectorAddition.register( 'EquationsSumVector', EquationsSumVector );
-export default EquationsSumVector;

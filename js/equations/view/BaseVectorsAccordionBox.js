@@ -32,7 +32,7 @@ import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
 // constants
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 
-class BaseVectorsAccordionBox extends AccordionBox {
+export default class BaseVectorsAccordionBox extends AccordionBox {
 
   /**
    * @param {BooleanProperty} baseVectorsVisibleProperty
@@ -229,4 +229,3 @@ function createNumberPickerWithLabel( numberProperty, numberRange, vectorSymbolN
 }
 
 vectorAddition.register( 'BaseVectorsAccordionBox', BaseVectorsAccordionBox );
-export default BaseVectorsAccordionBox;

@@ -32,7 +32,7 @@ const BOTTOM_LEFT = new Vector2( Graph.DEFAULT_BOTTOM_LEFT.x, Graph.DEFAULT_BOTT
 // Starting equation type
 const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
 
-class EquationsGraph extends Graph {
+export default class EquationsGraph extends Graph {
 
   /**
    * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
@@ -72,4 +72,3 @@ class EquationsGraph extends Graph {
 }
 
 vectorAddition.register( 'EquationsGraph', EquationsGraph );
-export default EquationsGraph;

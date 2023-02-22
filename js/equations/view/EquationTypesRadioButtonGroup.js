@@ -27,7 +27,7 @@ import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFacto
 import vectorAddition from '../../vectorAddition.js';
 import EquationTypes from '../model/EquationTypes.js';
 
-class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
+export default class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
    * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
@@ -69,4 +69,3 @@ class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
 }
 
 vectorAddition.register( 'EquationTypesRadioButtonGroup', EquationTypesRadioButtonGroup );
-export default EquationTypesRadioButtonGroup;

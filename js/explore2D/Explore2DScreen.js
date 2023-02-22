@@ -15,7 +15,7 @@ import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import Explore2DModel from './model/Explore2DModel.js';
 import Explore2DScreenView from './view/Explore2DScreenView.js';
 
-class Explore2DScreen extends Screen {
+export default class Explore2DScreen extends Screen {
 
   /**
    * @param {Tandem} tandem
@@ -36,4 +36,3 @@ class Explore2DScreen extends Screen {
 }
 
 vectorAddition.register( 'Explore2DScreen', Explore2DScreen );
-export default Explore2DScreen;

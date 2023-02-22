@@ -21,7 +21,7 @@ import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class Explore2DGraph extends Graph {
+export default class Explore2DGraph extends Graph {
 
   /**
    * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
@@ -47,4 +47,3 @@ class Explore2DGraph extends Graph {
 }
 
 vectorAddition.register( 'Explore2DGraph', Explore2DGraph );
-export default Explore2DGraph;

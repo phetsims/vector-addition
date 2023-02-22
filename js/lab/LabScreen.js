@@ -15,7 +15,7 @@ import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
 
-class LabScreen extends Screen {
+export default class LabScreen extends Screen {
 
   /**
    * @param {Tandem} tandem
@@ -36,4 +36,3 @@ class LabScreen extends Screen {
 }
 
 vectorAddition.register( 'LabScreen', LabScreen );
-export default LabScreen;

@@ -15,7 +15,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DGraph from './Explore1DGraph.js';
 
-class Explore1DModel extends VectorAdditionModel {
+export default class Explore1DModel extends VectorAdditionModel {
 
   /**
    * @param {Tandem} tandem
@@ -60,4 +60,3 @@ class Explore1DModel extends VectorAdditionModel {
 }
 
 vectorAddition.register( 'Explore1DModel', Explore1DModel );
-export default Explore1DModel;

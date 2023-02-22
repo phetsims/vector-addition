@@ -15,7 +15,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from './LabGraph.js';
 
-class LabModel extends VectorAdditionModel {
+export default class LabModel extends VectorAdditionModel {
 
   /**
    * @param {Tandem} tandem
@@ -74,4 +74,3 @@ class LabModel extends VectorAdditionModel {
 }
 
 vectorAddition.register( 'LabModel', LabModel );
-export default LabModel;

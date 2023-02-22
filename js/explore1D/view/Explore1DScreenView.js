@@ -18,7 +18,7 @@ import Explore1DVectorCreatorPanel from './Explore1DVectorCreatorPanel.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import GraphOrientationRadioButtonGroup from './GraphOrientationRadioButtonGroup.js';
 
-class Explore1DScreenView extends VectorAdditionScreenView {
+export default class Explore1DScreenView extends VectorAdditionScreenView {
 
   /**
    * @param {Explore1DModel} model
@@ -98,4 +98,3 @@ class Explore1DScreenView extends VectorAdditionScreenView {
 }
 
 vectorAddition.register( 'Explore1DScreenView', Explore1DScreenView );
-export default Explore1DScreenView;

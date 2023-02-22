@@ -13,7 +13,7 @@ import VectorAdditionCheckbox from '../../common/view/VectorAdditionCheckbox.js'
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class BaseVectorsCheckbox extends VectorAdditionCheckbox {
+export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
 
   /**
    * @param {BooleanProperty} baseVectorsVisibleProperty
@@ -38,4 +38,3 @@ class BaseVectorsCheckbox extends VectorAdditionCheckbox {
 }
 
 vectorAddition.register( 'BaseVectorsCheckbox', BaseVectorsCheckbox );
-export default BaseVectorsCheckbox;

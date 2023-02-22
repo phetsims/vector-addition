@@ -22,7 +22,7 @@ import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridChec
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class Explore2DGraphControlPanel extends GraphControlPanel {
+export default class Explore2DGraphControlPanel extends GraphControlPanel {
 
   /**
    * @param {VectorSet} cartesianVectorSet
@@ -100,4 +100,3 @@ class Explore2DGraphControlPanel extends GraphControlPanel {
 }
 
 vectorAddition.register( 'Explore2DGraphControlPanel', Explore2DGraphControlPanel );
-export default Explore2DGraphControlPanel;

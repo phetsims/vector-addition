@@ -31,7 +31,7 @@ const OPTIONS = {
   isOnGraphInitially: true  // Equations vectors are always on the graph
 };
 
-class EquationsVector extends Vector {
+export default class EquationsVector extends Vector {
 
   /**
    * @param {Vector2} initialTailPosition - starting tail position of the vector
@@ -114,4 +114,3 @@ class EquationsVector extends Vector {
 }
 
 vectorAddition.register( 'EquationsVector', EquationsVector );
-export default EquationsVector;

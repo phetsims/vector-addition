@@ -16,7 +16,7 @@ import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js'
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
 
-class LabVectorCreatorPanel extends VectorCreatorPanel {
+export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
   /**
    * @param {LabGraph} graph
@@ -53,4 +53,3 @@ class LabVectorCreatorPanel extends VectorCreatorPanel {
 }
 
 vectorAddition.register( 'LabVectorCreatorPanel', LabVectorCreatorPanel );
-export default LabVectorCreatorPanel;

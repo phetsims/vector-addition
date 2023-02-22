@@ -14,7 +14,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class GraphOrientationRadioButtonGroup extends RectangularRadioButtonGroup {
+export default class GraphOrientationRadioButtonGroup extends RectangularRadioButtonGroup {
 
   /**
    * @param {EnumerationProperty.<GraphOrientations>} graphOrientationProperty
@@ -42,4 +42,3 @@ class GraphOrientationRadioButtonGroup extends RectangularRadioButtonGroup {
 }
 
 vectorAddition.register( 'GraphOrientationRadioButtonGroup', GraphOrientationRadioButtonGroup );
-export default GraphOrientationRadioButtonGroup;

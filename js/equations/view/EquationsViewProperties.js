@@ -11,7 +11,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class EquationsViewProperties extends VectorAdditionViewProperties {
+export default class EquationsViewProperties extends VectorAdditionViewProperties {
 
   constructor() {
     super();
@@ -39,4 +39,3 @@ class EquationsViewProperties extends VectorAdditionViewProperties {
 }
 
 vectorAddition.register( 'EquationsViewProperties', EquationsViewProperties );
-export default EquationsViewProperties;

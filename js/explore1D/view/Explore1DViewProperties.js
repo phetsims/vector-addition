@@ -16,7 +16,7 @@ import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class Explore1DViewProperties extends VectorAdditionViewProperties {
+export default class Explore1DViewProperties extends VectorAdditionViewProperties {
 
   constructor() {
 
@@ -54,4 +54,3 @@ class Explore1DViewProperties extends VectorAdditionViewProperties {
 }
 
 vectorAddition.register( 'Explore1DViewProperties', Explore1DViewProperties );
-export default Explore1DViewProperties;

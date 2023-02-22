@@ -19,7 +19,7 @@ import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridChec
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 
-class Explore1DGraphControlPanel extends GraphControlPanel {
+export default class Explore1DGraphControlPanel extends GraphControlPanel {
 
   /**
    * @param {VectorSet} horizontalVectorSet
@@ -82,4 +82,3 @@ class Explore1DGraphControlPanel extends GraphControlPanel {
 }
 
 vectorAddition.register( 'Explore1DGraphControlPanel', Explore1DGraphControlPanel );
-export default Explore1DGraphControlPanel;

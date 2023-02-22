@@ -15,7 +15,7 @@ import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js'
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DGraph from '../model/Explore1DGraph.js';
 
-class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
+export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
   /**
    * @param {Explore1DGraph} graph
@@ -58,4 +58,3 @@ class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 }
 
 vectorAddition.register( 'Explore1DVectorCreatorPanel', Explore1DVectorCreatorPanel );
-export default Explore1DVectorCreatorPanel;

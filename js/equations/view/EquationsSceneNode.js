@@ -24,7 +24,7 @@ import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationToggleBox from './EquationToggleBox.js';
 
-class EquationsSceneNode extends SceneNode {
+export default class EquationsSceneNode extends SceneNode {
 
   /**
    * @param {EquationsGraph} graph
@@ -85,4 +85,3 @@ class EquationsSceneNode extends SceneNode {
 }
 
 vectorAddition.register( 'EquationsSceneNode', EquationsSceneNode );
-export default EquationsSceneNode;

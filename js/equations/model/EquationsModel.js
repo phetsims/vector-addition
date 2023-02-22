@@ -14,7 +14,7 @@ import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsGraph from './EquationsGraph.js';
 
-class EquationsModel extends VectorAdditionModel {
+export default class EquationsModel extends VectorAdditionModel {
 
   /**
    * @param {Tandem} tandem
@@ -61,4 +61,3 @@ class EquationsModel extends VectorAdditionModel {
 }
 
 vectorAddition.register( 'EquationsModel', EquationsModel );
-export default EquationsModel;
