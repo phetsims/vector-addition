@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2023, University of Colorado Boulder
 
 /**
  * BaseVector is the abstract base class for base vectors.  It disables tip dragging and removal of vectors.

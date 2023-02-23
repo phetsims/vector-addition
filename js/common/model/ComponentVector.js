@@ -1,4 +1,4 @@
-// Copyright 2019-2022, University of Colorado Boulder
+// Copyright 2019-2023, University of Colorado Boulder
 
 /**
  * ComponentVector is the model of a component vector. It is a vector (not a scalar) that describes the x or y

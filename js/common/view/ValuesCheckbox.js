@@ -1,4 +1,4 @@
-// Copyright 2019-2022, University of Colorado Boulder
+// Copyright 2019-2023, University of Colorado Boulder
 
 /**
  * ValuesCheckbox is the checkbox labeled 'Values', used to control visibility of values on vectors.

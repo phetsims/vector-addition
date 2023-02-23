@@ -1,4 +1,4 @@
-// Copyright 2019-2022, University of Colorado Boulder
+// Copyright 2019-2023, University of Colorado Boulder
 
 /**
  * SumCheckbox is the checkbox labeled 'Sum', used to control visibility of a sum vector.
