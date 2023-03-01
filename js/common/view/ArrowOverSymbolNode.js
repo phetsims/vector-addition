@@ -61,7 +61,7 @@ export default class ArrowOverSymbolNode extends Node {
    * @public
    */
   setSymbol( symbol ) {
-    this.symbolNode.text = symbol;
+    this.symbolNode.string = symbol;
     this.updateLayout();
   }
 

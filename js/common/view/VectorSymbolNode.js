@@ -101,7 +101,7 @@ export default class VectorSymbolNode extends HBox {
       }
 
       // Set the coefficient and symbol text to match our properties
-      coefficient && coefficientText.setText( coefficient );
+      coefficient && coefficientText.setString( coefficient );
       if ( this.symbol ) {
         if ( options.showVectorArrow ) {
           symbolNode.setSymbol( this.symbol );

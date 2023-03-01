@@ -118,7 +118,7 @@ export default class VectorLabelNode extends Node {
     // Update the displayed value
     if ( labelDisplayData.value ) {
       const valueText = this.vectorSymbolNode.visible ? `${MathSymbols.EQUAL_TO} ${labelDisplayData.value}` : labelDisplayData.value;
-      this.vectorValueText.setText( valueText );
+      this.vectorValueText.setString( valueText );
     }
 
     // Toggle the visibility

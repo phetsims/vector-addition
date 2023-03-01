@@ -116,7 +116,7 @@ export default class VectorAngleNode extends Node {
     this.curvedArrow.setAngle( vector.angle ? vector.angle : 0 );
 
     // Update the label text.
-    this.labelText.setText(
+    this.labelText.setString(
       ( angleDegrees === null ) ? '' :
       `${Utils.toFixed( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )}${MathSymbols.DEGREES}`
     );
