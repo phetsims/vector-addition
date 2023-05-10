@@ -19,7 +19,13 @@
       "phet",
       "adapted-from-phet"
     ],
-    "simulation": true
+    "simulation": true,
+    "screenNameKeys": [
+      "VECTOR_ADDITION/screen.explore1D",
+      "VECTOR_ADDITION/screen.explore2D",
+      "VECTOR_ADDITION/screen.lab",
+      "VECTOR_ADDITION/screen.equations"
+    ]
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_es6_eslintrc.js"
