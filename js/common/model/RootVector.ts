@@ -23,49 +23,69 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorColorPalette from './VectorColorPalette.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
-export default class RootVector {
+export type RootVectorLabelContent = {
+
+  // The coefficient (e.g. if the label displayed '|3v|=15', the coefficient would be '3').
+  // null means to not display a coefficient
+  coefficient: string | null;
+
+  // The symbol (e.g. if the label displayed '|3v|=15', the symbol would be 'v').
+  // null means to not display a symbol
+  symbol: string | null;
+
+  // The value (e.g. if the label displayed '|3v|=15', the value would be '=15').
+  // null means to not display a value
+  value: string | null;
+
+  // Include absolute value bars (e.g. if the label displayed '|3v|=15 the includeAbsoluteValueBars
+  // would be true)
+  includeAbsoluteValueBars: boolean;
+};
+
+export default abstract class RootVector {
+
+  // the vector's components, its x and y scalar values
+  public readonly vectorComponentsProperty: Property<Vector2>;
+
+  // the tail position of the vector on the graph
+  public readonly tailPositionProperty: Property<Vector2>;
+
+  // the tip position of the vector on the graph
+  public readonly tipPositionProperty: TReadOnlyProperty<Vector2>;
+
+  // the color palette used to render the vector
+  public readonly vectorColorPalette: VectorColorPalette;
+
+  // the symbol used to represent the vector
+  public readonly symbol: string | null;
 
   /**
-   * @abstract
-   * @param {Vector2} initialTailPosition - starting tail position of the vector
-   * @param {Vector2} initialComponents - starting components of the vector
-   * @param {VectorColorPalette} vectorColorPalette - color palette for this vector
-   * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param initialTailPosition - starting tail position of the vector
+   * @param initialComponents - starting components of the vector
+   * @param vectorColorPalette - color palette for this vector
+   * @param symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
-  constructor( initialTailPosition, initialComponents, vectorColorPalette, symbol ) {
+  protected constructor( initialTailPosition: Vector2, initialComponents: Vector2,
+                         vectorColorPalette: VectorColorPalette, symbol: string | null ) {
 
-    assert && assert( initialTailPosition instanceof Vector2, `invalid initialTailPosition: ${initialTailPosition}` );
-    assert && assert( initialComponents instanceof Vector2, `invalid initialComponents: ${initialComponents}` );
-    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
-    assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
-
-    // @public (read-only) {Vector2Property} the vector's components, its x and y scalar values
     this.vectorComponentsProperty = new Vector2Property( initialComponents );
-
-    // @public (read-only) {Vector2Property} the tail position of the vector on the graph
     this.tailPositionProperty = new Vector2Property( initialTailPosition );
 
-    // @public (read-only) {DerivedProperty.<Vector2>} the tip position of the vector on the graph
-    // dispose is unnecessary, since this class owns all dependencies.
     this.tipPositionProperty = new DerivedProperty(
       [ this.tailPositionProperty, this.vectorComponentsProperty ],
       ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ),
       { valueType: Vector2 }
     );
 
-    // @public (read-only) {VectorColorPalette} the color palette used to render the vector
     this.vectorColorPalette = vectorColorPalette;
 
-    // @public (read-only) {string} the symbol used to represent the vector
     this.symbol = symbol;
   }
 
-  /**
-   * Resets the vector.
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.vectorComponentsProperty.reset();
     this.tailPositionProperty.reset();
   }
@@ -92,98 +112,64 @@ export default class RootVector {
    * These factors play different roles for different vector types, making it difficult to generalize. Thus, an
    * abstract method is used to determine the content.
    *
-   * @abstract
-   * @public
-   * @param {boolean} valuesVisible - whether the values are visible (determined by the Values checkbox)
-   * @returns {Object} a description of the label, with these fields:
-   *
-   * {
-   *    // The coefficient (e.g. if the label displayed '|3v|=15', the coefficient would be '3').
-   *    // Null means to not display a coefficient
-   *    coefficient: {string|null},
-   *
-   *    // The symbol (e.g. if the label displayed '|3v|=15', the symbol would be 'v').
-   *    // Null means to not display a symbol
-   *    symbol: {string|null},
-   *
-   *    // The value (e.g. if the label displayed '|3v|=15', the value would be '=15').
-   *    // Null means to not display a value
-   *    value: {string|null},
-   *
-   *    // Include absolute value bars (e.g. if the label displayed '|3v|=15 the includeAbsoluteValueBars
-   *    // would be true)
-   *    includeAbsoluteValueBars: {boolean}
-   * }
+   * @param valuesVisible - whether the values are visible (determined by the Values checkbox)
    */
-  getLabelContent( valuesVisible ) {
-    throw new Error( 'getLabelContent must be implemented by subclass' );
-  }
+  public abstract getLabelContent( valuesVisible: boolean ): RootVectorLabelContent;
 
   /**
    * Gets the components (scalars) of the vector.
-   * @public
-   * @returns {Vector2}
    */
-  get vectorComponents() { return this.vectorComponentsProperty.value; }
+  public get vectorComponents(): Vector2 {
+    return this.vectorComponentsProperty.value;
+  }
 
   /**
    * Sets the components (scalars) of the vector
-   * @public
-   * @param {Vector2} vectorComponents
    */
-  set vectorComponents( vectorComponents ) {
-    assert && assert( vectorComponents instanceof Vector2, `invalid vectorComponents: ${vectorComponents}` );
+  public set vectorComponents( vectorComponents: Vector2 ) {
     this.vectorComponentsProperty.value = vectorComponents;
   }
 
   /**
    * Gets the magnitude of the vector (always positive).
-   * @public
-   * @returns {number}
    */
-  get magnitude() { return this.vectorComponents.magnitude; }
+  public get magnitude(): number {
+    return this.vectorComponents.magnitude;
+  }
 
   /**
    * Gets the x component (scalar).
-   * @public
-   * @returns {number}
    */
-  get xComponent() { return this.vectorComponents.x; }
+  public get xComponent(): number {
+    return this.vectorComponents.x;
+  }
 
   /**
    * Sets the x component (scalar).
-   * @public
-   * @param {number} xComponent
    */
-  set xComponent( xComponent ) {
-    assert && assert( typeof xComponent === 'number', `invalid xComponent: ${xComponent}` );
+  public set xComponent( xComponent: number ) {
     this.vectorComponents = this.vectorComponents.copy().setX( xComponent );
   }
 
   /**
    * Gets the y component (scalar).
-   * @public
-   * @returns {number}
    */
-  get yComponent() { return this.vectorComponents.y; }
+  public get yComponent(): number {
+    return this.vectorComponents.y;
+  }
 
   /**
    * Sets the y component (scalar).
-   * @public
-   * @param {number} yComponent
    */
-  set yComponent( yComponent ) {
-    assert && assert( typeof yComponent === 'number', `invalid yComponent: ${yComponent}` );
+  public set yComponent( yComponent: number ) {
     this.vectorComponents = this.vectorComponents.copy().setY( yComponent );
   }
 
   /**
    * Is either of this vector's components effectively zero?
    * See https://github.com/phetsims/vector-addition/issues/264
-   * @public
-   * @returns {boolean}
    */
-  hasZeroComponent() {
+  public hasZeroComponent(): boolean {
     return Math.abs( this.xComponent ) < VectorAdditionConstants.ZERO_THRESHOLD ||
            Math.abs( this.yComponent ) < VectorAdditionConstants.ZERO_THRESHOLD;
   }
@@ -191,23 +177,15 @@ export default class RootVector {
   /**
    * Moves the vector to the specified tail position.
    * This keeps the magnitude constant, and (as a side effect) changes the tip position.
-   * @public
-   * @param {Vector2} position
    */
-  moveToTailPosition( position ) {
+  public moveToTailPosition( position: Vector2 ): void {
     this.tailPositionProperty.value = position;
   }
 
   /**
-   * Sets the tail position.
-   * This keeps the tip position constant, and (as a side effect) changes magnitude.
-   * @public
-   * @param {number} x
-   * @param {number} y
+   * Sets the tail position. This keeps the tip position constant, and (as a side effect) changes magnitude.
    */
-  setTailXY( x, y ) {
-    assert && assert( typeof x === 'number', `invalid x: ${x}` );
-    assert && assert( typeof y === 'number', `invalid y: ${y}` );
+  public setTailXY( x: number, y: number ): void {
 
     // Keep a reference to the original tip
     const tip = this.tip;
@@ -219,67 +197,51 @@ export default class RootVector {
   }
 
   /**
-   * Sets the tail position.
-   * This keeps the tip position constant, and (as a side effect) changes magnitude.
-   * @public
-   * @param {Vector2} tail
+   * Sets the tail position. This keeps the tip position constant, and (as a side effect) changes magnitude.
    */
-  set tail( tail ) {
-    assert && assert( tail instanceof Vector2, `invalid tail: ${tail}` );
+  public set tail( tail: Vector2 ) {
     this.setTailXY( tail.x, tail.y );
   }
 
   /**
    * Gets the tail position.
-   * @public
-   * @returns {Vector2}
    */
-  get tail() { return this.tailPositionProperty.value; }
+  public get tail(): Vector2 {
+    return this.tailPositionProperty.value;
+  }
 
   /**
-   * Sets the tail's x coordinate.
-   * This keeps the tip position constant, and (as a side effect) changes magnitude.
-   * @public
-   * @param {number} tailX
+   * Sets the tail's x coordinate. This keeps the tip position constant, and (as a side effect) changes magnitude.
    */
-  set tailX( tailX ) {
+  public set tailX( tailX: number ) {
     this.setTailXY( tailX, this.tailY );
   }
 
   /**
    * Gets the tail's x coordinate.
-   * @public
-   * @returns {number}
    */
-  get tailX() { return this.tailPositionProperty.value.x; }
+  public get tailX(): number {
+    return this.tailPositionProperty.value.x;
+  }
 
   /**
-   * Sets the tail's y coordinate.
-   * This keeps the tip position constant, and (as a side effect) changes magnitude.
-   * @public
-   * @param {number} tailY
+   * Sets the tail's y coordinate. This keeps the tip position constant, and (as a side effect) changes magnitude.
    */
-  set tailY( tailY ) {
+  public set tailY( tailY: number ) {
     this.setTailXY( this.tailX, tailY );
   }
 
   /**
    * Gets the tail's y coordinate.
-   * @public
-   * @returns {number}
    */
-  get tailY() { return this.tailPositionProperty.value.y; }
+  public get tailY(): number {
+    return this.tailPositionProperty.value.y;
+  }
 
   /**
-   * Sets the tip position.
-   * This keeps the tail position constant, and (as a side effect) changes magnitude.
-   * @public
-   * @param {number} x
-   * @param {number} y
+   * Sets the tip position. This keeps the tail position constant, and (as a side effect) changes magnitude.
    */
-  setTipXY( x, y ) {
-    assert && assert( typeof x === 'number', `invalid x: ${x}` );
-    assert && assert( typeof y === 'number', `invalid y: ${y}` );
+  public setTipXY( x: number, y: number ): void {
 
     // Since tipPositionProperty is a DerivedProperty, we cannot directly set it.
     // Instead, we will update the vector components, keeping the tail constant.
@@ -288,54 +250,46 @@ export default class RootVector {
   }
 
   /**
-   * Sets the tip position.
-   * This keeps the tail position constant, and (as a side effect) changes magnitude.
-   * @public
-   * @param {Vector2} tip
+   * Sets the tip position. This keeps the tail position constant, and (as a side effect) changes magnitude.
    */
-  set tip( tip ) {
-    assert && assert( tip instanceof Vector2, `invalid tip: ${tip}` );
+  public set tip( tip: Vector2 ) {
     this.setTipXY( tip.x, tip.y );
   }
 
   /**
    * Gets the tip position.
-   * @public
-   * @returns {Vector2}
    */
-  get tip() { return this.tipPositionProperty.value; }
+  public get tip(): Vector2 {
+    return this.tipPositionProperty.value;
+  }
 
   /**
    * Gets the tip's x coordinate.
-   * @public
-   * @returns {number}
    */
-  get tipX() { return this.tipPositionProperty.value.x; }
+  public get tipX(): number {
+    return this.tipPositionProperty.value.x;
+  }
 
   /**
    * Gets the tip's y coordinate.
-   * @public
-   * @returns {number}
    */
-  get tipY() { return this.tipPositionProperty.value.y; }
+  public get tipY(): number {
+    return this.tipPositionProperty.value.y;
+  }
 
   /**
    * Gets the angle of the vector in radians, measured clockwise from the horizontal.
    * null when the vector has 0 magnitude.
-   * @public
-   * @returns {number|null}
    */
-  get angle() {
+  public get angle(): number | null {
     return this.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : this.vectorComponents.angle;
   }
 
   /**
    * Gets the angle of the vector in degrees, measured clockwise from the horizontal.
    * null when the vector has 0 magnitude.
-   * @public
-   * @returns {number|null}
    */
-  get angleDegrees() {
+  public get angleDegrees(): number | null {
     const angleRadians = this.angle;
     return ( angleRadians === null ) ? null : Utils.toDegrees( angleRadians );
   }
