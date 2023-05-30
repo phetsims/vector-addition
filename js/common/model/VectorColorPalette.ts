@@ -6,42 +6,63 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import { Color } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+// All colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'.
+type PaletteColor = Color | string | null;
+
+type SelfOptions = {
+
+  // Colors for main vectors (aka parent vectors)
+  mainFill?: PaletteColor;
+  mainStroke?: PaletteColor;
+
+  // Colors for component vectors. They are of type DashedArrowNode, which cannot be stroked.
+  // Defaults to options.mainFill
+  componentFill?: PaletteColor; // null defaults to options.mainFill
+
+  // Colors for sum vectors
+  sumFill?: PaletteColor;
+  sumStroke?: PaletteColor;
+
+  // Color for sum component vectors. They are of type DashedArrowNode, which cannot be stroked.
+  sumComponentFill?: PaletteColor; // null defaults to options.sumFill
+
+  // Colors for base vectors
+  baseVectorFill?: PaletteColor;
+  baseVectorStroke?: PaletteColor; // null defaults to options.mainFill
+};
+
+type VectorColorPaletteOptions = SelfOptions;
 
 export default class VectorColorPalette {
 
-  constructor( options ) {
+  public readonly mainFill: PaletteColor;
+  public readonly mainStroke: PaletteColor;
+  public readonly componentFill: PaletteColor;
+  public readonly sumFill: PaletteColor;
+  public readonly sumStroke: PaletteColor;
+  public readonly sumComponentFill: PaletteColor;
+  public readonly baseVectorFill: PaletteColor;
+  public readonly baseVectorStroke: PaletteColor;
 
-    // all colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'
-    options = merge( {
+  public constructor( providedOptions?: VectorColorPaletteOptions ) {
 
-      // colors used for main vectors (aka parent vectors)
+    const options = optionize<VectorColorPaletteOptions, SelfOptions>()( {
+
+      // SelfOptions
       mainFill: Color.BLACK,
       mainStroke: null,
-
-      // colors used for component vectors. They are of type DashedArrowNode, which cannot be stroked.
-      componentFill: null, // defaults to options.mainFill
-
-      // colors used for sum vectors
+      componentFill: null,
       sumFill: Color.BLACK,
       sumStroke: null,
-
-      // color used for sum component vectors. They are of type DashedArrowNode, which cannot be stroked.
-      sumComponentFill: null, // defaults to options.sumFill
-
-      // colors used for base vectors
+      sumComponentFill: null,
       baseVectorFill: Color.WHITE,
-      baseVectorStroke: null // defaults to options.mainFill
+      baseVectorStroke: null
+    }, providedOptions );
 
-    }, options );
-
-    // Component vectors cannot be stroked, so flag attempts to specify a stroke.
-    assert && assert( options.componentStroke === undefined, 'componentStroke is not supported' );
-    assert && assert( options.sumComponentStroke === undefined, 'sumComponentStroke is not supported' );
-
-    // @public (read-only)
     this.mainFill = options.mainFill;
     this.mainStroke = options.mainStroke;
     this.componentFill = ( options.componentFill || options.mainFill );
@@ -50,21 +71,6 @@ export default class VectorColorPalette {
     this.sumComponentFill = ( options.sumComponentFill || options.sumFill );
     this.baseVectorFill = options.baseVectorFill;
     this.baseVectorStroke = ( options.baseVectorStroke || options.mainFill );
-  }
-
-  /**
-   * Catches attempts to use stroke fields that do not exist for component vectors.
-   * Component vectors are rendered using DashedArrowNode, which does not support stroke.
-   * @public
-   */
-  get componentStroke() {
-    assert && assert( false, 'VectorColorPalette does not have componentStroke' );
-    return null;
-  }
-
-  get sumComponentStroke() {
-    assert && assert( false, 'VectorColorPalette does not have sumComponentStroke' );
-    return null;
   }
 }
 
