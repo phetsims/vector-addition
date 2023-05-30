@@ -26,52 +26,59 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorStyles from './ComponentVectorStyles.js';
 import ComponentVectorTypes from './ComponentVectorTypes.js';
-import RootVector from './RootVector.js';
+import RootVector, { RootVectorLabelContent } from './RootVector.js';
+import Vector from './Vector.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const COMPONENT_VECTOR_SYMBOL = null; // Component vectors don't have a symbol
 
 export default class ComponentVector extends RootVector {
 
-  /**
-   * @param {Vector} parentVector - the vector that this component vector is associated with
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {Property.<Vector|null>} activeVectorProperty - which vector is active (selected)
-   * @param {EnumerationProperty} componentType - type of component vector (x or y), see ComponentVectorTypes
-   */
-  constructor( parentVector, componentStyleProperty, activeVectorProperty, componentType ) {
+  // the parent vector for this component vector
+  public readonly parentVector: Vector;
 
-    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
-      `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( activeVectorProperty instanceof Property, `invalid activeVectorProperty: ${activeVectorProperty}` );
-    assert && assert( ComponentVectorTypes.enumeration.includes( componentType ), `invalid componentType: ${componentType}` );
+  // type of component vector (x or y)
+  public readonly componentType: ComponentVectorTypes;
+
+  // Matches the parent. When the parent is on the graph, the component is also on the graph (and vise versa).
+  public readonly isOnGraphProperty: Property<boolean>;
+
+  // Determines if the parent vector is active.
+  public readonly isParentVectorActiveProperty: TReadOnlyProperty<boolean>;
+
+  private readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyles>;
+
+  // Offsets from axes in PROJECTION style. These are managed by the VectorSet and set via setProjectionOffsets.
+  // See https://github.com/phetsims/vector-addition/issues/225
+  private projectionXOffset: number;
+  private projectionYOffset: number;
+
+  private readonly disposeComponentVector: () => void;
+
+  /**
+   * @param parentVector - the vector that this component vector is associated with
+   * @param componentStyleProperty
+   * @param activeVectorProperty - which vector is active (selected)
+   * @param componentType - type of component vector (x or y), see ComponentVectorTypes
+   */
+  public constructor( parentVector: Vector, componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      activeVectorProperty: Property<Vector | null>, componentType: ComponentVectorTypes ) {
 
     super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
 
-    // @public (read-only) {Enumeration} componentType - type of component vector (x or y)
+    this.parentVector = parentVector;
     this.componentType = componentType;
-
-    // @public (read-only) {BooleanProperty} isOnGraphProperty - matches the parent. When the parent is on the graph,
-    //                                                           the component is also on the graph (and vise versa).
     this.isOnGraphProperty = parentVector.isOnGraphProperty;
 
-    // @public (read-only) {Vector} parentVector - the parent vector for this component vector
-    this.parentVector = parentVector;
-
-    // @public (read-only) {DerivedProperty.<boolean>} isParentVectorActiveProperty - determines if the parent
-    // vector is active. Must be disposed on dispose.
     this.isParentVectorActiveProperty = new DerivedProperty(
       [ activeVectorProperty ],
       activeVector => ( !!activeVector && ( activeVector === parentVector ) ),
       { valueType: 'boolean' }
     );
 
-    // @private references to constructor args
     this.componentStyleProperty = componentStyleProperty;
 
-    // @private offsets from axes in PROJECTION style.
-    // These are managed by the VectorSet and set via setProjectionOffsets.
-    // See https://github.com/phetsims/vector-addition/issues/225
     this.projectionXOffset = 0;
     this.projectionYOffset = 0;
 
@@ -83,28 +90,23 @@ export default class ComponentVector extends RootVector {
       () => this.updateComponent()
     );
 
-    // @private {function} disposeComponentVector - disposes the component vector. Called in the dispose method.
     this.disposeComponentVector = () => {
       Multilink.unmultilink( updateComponentMultilink );
       this.isParentVectorActiveProperty.dispose();
     };
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public dispose(): void {
     this.disposeComponentVector();
   }
 
   /**
-   * Sets the offset from the x and y axis that is used for PROJECTION style.
+   * Sets the offset from the x-axis and y-axis that is used for PROJECTION style.
    * See https://github.com/phetsims/vector-addition/issues/225.
    * @param projectionXOffset - x offset, in model coordinates
    * @param projectionYOffset - y offset, in model coordinates
-   * @public
    */
-  setProjectionOffsets( projectionXOffset, projectionYOffset ) {
+  public setProjectionOffsets( projectionXOffset: number, projectionYOffset: number ): void {
     this.projectionXOffset = projectionXOffset;
     this.projectionYOffset = projectionYOffset;
     this.updateComponent();
@@ -113,9 +115,8 @@ export default class ComponentVector extends RootVector {
   /**
    * Updates the component vector's tail/tip/components to match the component style and correct components to match
    * the parent vector's tail/tip.
-   * @private
    */
-  updateComponent() {
+  private updateComponent(): void {
 
     const componentStyle = this.componentStyleProperty.value;
     const parentTail = this.parentVector.tailPositionProperty.value;
@@ -138,7 +139,7 @@ export default class ComponentVector extends RootVector {
       }
       else if ( componentStyle === ComponentVectorStyles.PROJECTION ) {
 
-        // From parent tailX to parent tipX. However its y value is 0 since it is on the x-axis
+        // From parent tailX to parent tipX. However, its y value is 0 since it is on the x-axis
         this.setTailXY( parentTail.x, this.projectionYOffset );
         this.setTipXY( parentTip.x, this.projectionYOffset );
       }
@@ -178,20 +179,16 @@ export default class ComponentVector extends RootVector {
   /**
    * Gets the label content information to be displayed on the vector.
    * See RootVector.getLabelContent for details.
-   * @override
-   * @public
-   * @param {boolean} valuesVisible - whether the values are visible
-   * @returns {Object} see RootVector.getLabelContent
    */
-  getLabelContent( valuesVisible ) {
+  public getLabelContent( valuesVisible: boolean ): RootVectorLabelContent {
 
     // Get the component vector's value (a scalar, possibly negative)
-    let value = ( this.componentType === ComponentVectorTypes.X_COMPONENT ) ?
+    let value: number | null = ( this.componentType === ComponentVectorTypes.X_COMPONENT ) ?
                 this.vectorComponents.x :
                 this.vectorComponents.y;
 
     // Round the value
-    value = Utils.toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+    value = Utils.toFixedNumber( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
     // Component vectors only show their values if and only if the values are visible and if the component isn't 0
     if ( !valuesVisible || value === 0 ) {
@@ -212,31 +209,29 @@ export default class ComponentVector extends RootVector {
 
   /**
    * Gets the mid-point of the component vector
-   * @public
-   * @returns {Vector2}
    */
-  get midPoint() { return this.vectorComponents.timesScalar( 0.5 ).plus( this.tail ); }
+  public get midPoint(): Vector2 {
+    return this.vectorComponents.timesScalar( 0.5 ).plus( this.tail );
+  }
 
   /**
    * Gets the parent vector's tail position
-   * @public
-   * @returns {Vector2}
    */
-  get parentTail() { return this.parentVector.tail; }
+  public get parentTail(): Vector2 {
+    return this.parentVector.tail;
+  }
 
   /**
    * Gets the parent vector's tip position
-   * @public
-   * @returns {Vector2}
    */
-  get parentTip() { return this.parentVector.tip; }
+  public get parentTip(): Vector2 {
+    return this.parentVector.tip;
+  }
 
   /**
    * Gets the parent vector's mid-point position
-   * @public
-   * @returns {Vector2}
    */
-  get parentMidPoint() {
+  public get parentMidPoint(): Vector2 {
     return this.parentVector.vectorComponents.timesScalar( 0.5 ).plus( this.parentVector.tail );
   }
 }

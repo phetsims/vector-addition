@@ -28,17 +28,17 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 export type RootVectorLabelContent = {
 
-  // The coefficient (e.g. if the label displayed '|3v|=15', the coefficient would be '3').
+  // The coefficient (e.g. if the label displayed '|3v|=15', the coefficient would be 3).
   // null means to not display a coefficient
-  coefficient: string | null;
+  coefficient: number | null;
 
   // The symbol (e.g. if the label displayed '|3v|=15', the symbol would be 'v').
   // null means to not display a symbol
   symbol: string | null;
 
-  // The value (e.g. if the label displayed '|3v|=15', the value would be '=15').
+  // The value (e.g. if the label displayed '|3v|=15', the value would be 15).
   // null means to not display a value
-  value: string | null;
+  value: number | null;
 
   // Include absolute value bars (e.g. if the label displayed '|3v|=15 the includeAbsoluteValueBars
   // would be true)

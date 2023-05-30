@@ -116,13 +116,13 @@ export default class VectorLabelNode extends Node {
       labelDisplayData.includeAbsoluteValueBars );
 
     // Update the displayed value
-    if ( labelDisplayData.value ) {
+    if ( labelDisplayData.value !== null ) {
       const valueText = this.vectorSymbolNode.visible ? `${MathSymbols.EQUAL_TO} ${labelDisplayData.value}` : labelDisplayData.value;
       this.vectorValueText.setString( valueText );
     }
 
     // Toggle the visibility
-    this.vectorValueText.visible = !!labelDisplayData.value;
+    this.vectorValueText.visible = ( labelDisplayData.value !== null );
     this.backgroundRectangle.visible = ( this.vectorSymbolNode.visible || this.vectorValueText.visible );
 
     // Update the children of the label content container
