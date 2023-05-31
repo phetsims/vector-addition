@@ -7,37 +7,36 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
-import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
+import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 
-export default class GraphOrientationRadioButtonGroup extends RectangularRadioButtonGroup {
+type SelfOptions = EmptySelfOptions;
 
-  /**
-   * @param {EnumerationProperty.<GraphOrientations>} graphOrientationProperty
-   * @param {Object} [options]
-   */
-  constructor( graphOrientationProperty, options ) {
+type GraphOrientationRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions;
 
-    assert && assert( graphOrientationProperty instanceof EnumerationProperty && GraphOrientations.enumeration.includes( graphOrientationProperty.value ),
-      `invalid graphOrientationProperty: ${graphOrientationProperty}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+export default class GraphOrientationRadioButtonGroup extends RectangularRadioButtonGroup<GraphOrientations> {
 
-    options = merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
+  public constructor( graphOrientationProperty: EnumerationProperty<GraphOrientations>,
+                      providedOptions?: GraphOrientationRadioButtonGroupOptions ) {
+
+    const options = optionize3<GraphOrientationRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
+      {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, providedOptions );
 
     // Create the description of the buttons
-    const content = [];
+    const items: RectangularRadioButtonGroupItem<GraphOrientations>[] = [];
     [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ].forEach( graphOrientation => {
-      content.push( {
+      items.push( {
         value: graphOrientation,
         createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( graphOrientation )
       } );
     } );
 
-    super( graphOrientationProperty, content, options );
+    super( graphOrientationProperty, items, options );
   }
 }
 

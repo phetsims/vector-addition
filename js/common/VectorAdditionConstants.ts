@@ -18,6 +18,7 @@ import { Color } from '../../../scenery/js/imports.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionColors from './VectorAdditionColors.js';
 import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';
+import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 
 // shared constants within this file
 const PANEL_CORNER_RADIUS = 5;
@@ -40,6 +41,20 @@ const COMPONENT_VECTOR_ARROW_OPTIONS = merge( {}, VECTOR_ARROW_OPTIONS, {
   tailWidth: 3,
   tailDash: [ 6, 3 ]
 } );
+
+const RADIO_BUTTON_GROUP_OPTIONS: RectangularRadioButtonGroupOptions = {
+  orientation: 'horizontal',
+  radioButtonOptions: merge( {
+    cornerRadius: 8,
+    xMargin: 8,
+    yMargin: 8,
+    buttonAppearanceStrategyOptions: {
+      selectedLineWidth: 1.5,
+      deselectedLineWidth: 1,
+      deselectedButtonOpacity: 0.35
+    }
+  }, VectorAdditionColors.RADIO_BUTTON_GROUP_COLORS )
+};
 
 const VectorAdditionConstants = {
 
@@ -85,19 +100,7 @@ const VectorAdditionConstants = {
   //----------------------------------------------------------------------------------------
   // RadioButtonGroups
 
-  RADIO_BUTTON_GROUP_OPTIONS: {
-    orientation: 'horizontal',
-    radioButtonOptions: merge( {
-      cornerRadius: 8,
-      xMargin: 8,
-      yMargin: 8,
-      buttonAppearanceStrategyOptions: {
-        selectedLineWidth: 1.5,
-        deselectedLineWidth: 1,
-        deselectedButtonOpacity: 0.35
-      }
-    }, VectorAdditionColors.RADIO_BUTTON_GROUP_COLORS )
-  },
+  RADIO_BUTTON_GROUP_OPTIONS: RADIO_BUTTON_GROUP_OPTIONS,
 
   // Space above and below scene radio buttons
   RADIO_BUTTONS_Y_SPACING: 15,
