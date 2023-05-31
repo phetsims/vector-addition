@@ -21,6 +21,11 @@ import merge from '../../../../phet-core/js/merge.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import Vector from './Vector.js';
+import Graph from './Graph.js';
+import VectorSet from './VectorSet.js';
+import Property from '../../../../axon/js/Property.js';
+import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
+import { RootVectorLabelContent } from './RootVector.js';
 
 // constants
 const SUM_VECTOR_OPTIONS = {
@@ -31,20 +36,22 @@ const SUM_VECTOR_OPTIONS = {
 
 export default class SumVector extends Vector {
 
+  // Whether the sum is defined.  The sum is defined if there is at least one vector on the graph. It would be
+  // preferable to set its Vector2 value to null, but this was discovered very late in development, when that
+  // was not practical. See https://github.com/phetsims/vector-addition/issues/187
+  public readonly isDefinedProperty: Property<boolean>;
+
   /**
-   * @param {Vector2} initialTailPosition - starting tail position of the vector
-   * @param {Graph} graph - graph the sum vector belongs to
-   * @param {VectorSet} vectorSet - the VectorSet that the sum represents
-   * @param {string|null} symbol - the symbol for the sum vector (e.g. 's', 'c', 'f')
+   * @param initialTailPosition - starting tail position of the vector
+   * @param graph - graph the sum vector belongs to
+   * @param vectorSet - the VectorSet that the sum represents
+   * @param symbol - the symbol for the sum vector (e.g. 's', 'c', 'f')
    */
-  constructor( initialTailPosition, graph, vectorSet, symbol ) {
+  public constructor( initialTailPosition: Vector2, graph: Graph, vectorSet: VectorSet, symbol: string | null ) {
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
     super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbol, SUM_VECTOR_OPTIONS );
 
-    // @public (read-only) whether the sum is defined.  The sum is defined if there is at least one vector on
-    // the graph. It would be preferable to set its Vector2 value to null, but this was discovered very late
-    // in development, when that was not practical. See https://github.com/phetsims/vector-addition/issues/187
     this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.lengthProperty.value > 0 );
 
     // Observe changes to the vector array. Never removed because SumVectors exists for the lifetime of the sim.
@@ -57,7 +64,7 @@ export default class SumVector extends Vector {
         } );
 
       // If the vector is removed, dispose of the multilink
-      const vectorRemovedListener = removedVector => {
+      const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === addedVector ) {
 
           // Recalculate the sum
@@ -72,21 +79,15 @@ export default class SumVector extends Vector {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'SumVector is not intended to be disposed' );
+    super.dispose();
   }
 
   /**
    * Update the sum vector components. Calculated from all the vectors that are on the graph.
-   * @protected
-   *
-   * @param {ObservableArrayDef.<VectorsModel>} vectors
    */
-  updateSum( vectors ) {
+  protected updateSum( vectors: ObservableArray<Vector> ): void {
 
     // Filter to get only the vectors that are on the graph
     const onGraphVectors = vectors.filter( vector => {
@@ -110,12 +111,8 @@ export default class SumVector extends Vector {
   /**
    * Gets the label content information to be displayed on the vector.
    * See RootVector.getLabelContent for details.
-   * @override
-   * @public
-   * @param {boolean} valuesVisible - whether the values are visible
-   * @returns {Object} see RootVector.getLabelContent
    */
-  getLabelContent( valuesVisible ) {
+  public override getLabelContent( valuesVisible: boolean ): RootVectorLabelContent {
 
     // The sum vector displays its symbol when:
     // - there is only one sum vector on the graph (see #241), or
