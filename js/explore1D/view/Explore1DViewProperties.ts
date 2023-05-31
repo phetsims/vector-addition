@@ -18,11 +18,12 @@ import vectorAddition from '../../vectorAddition.js';
 
 export default class Explore1DViewProperties extends VectorAdditionViewProperties {
 
-  constructor() {
+  public readonly graphOrientationProperty: EnumerationProperty<GraphOrientations>;
+
+  public constructor() {
 
     super();
 
-    // @public {EnumerationProperty.<GraphOrientations>} - Property that controls the Graph Orientation
     this.graphOrientationProperty = new EnumerationProperty( GraphOrientations.HORIZONTAL );
 
     // Vector angle visualization is not supported by this screen.
@@ -42,12 +43,7 @@ export default class Explore1DViewProperties extends VectorAdditionViewPropertie
     } );
   }
 
-  /**
-   * Resets the view Properties.
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.graphOrientationProperty.reset();
   }

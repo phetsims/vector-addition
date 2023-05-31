@@ -10,32 +10,34 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import vectorAddition from '../../vectorAddition.js';
 import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class VectorAdditionViewProperties {
 
-  constructor() {
+  // indicates if the labels should contain the magnitudes
+  public readonly valuesVisibleProperty: Property<boolean>;
 
-    // @public indicates if the labels should contain the magnitudes
+  // controls the visibility of the angle
+  public readonly anglesVisibleProperty: Property<boolean>;
+
+  // indicates if the graph background grid is visible
+  public readonly gridVisibleProperty: Property<boolean>;
+
+  // controls the snapping mode for the vectors
+  public readonly coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapModes>;
+
+  // whether the VectorValuesToggleBox is expanded
+  public readonly vectorValuesExpandedProperty: Property<boolean>;
+
+  public constructor() {
     this.valuesVisibleProperty = new BooleanProperty( false );
-
-    // @public controls the visibility of the angle
     this.anglesVisibleProperty = new BooleanProperty( false );
-
-    // @public indicates if the graph background grid is visible
     this.gridVisibleProperty = new BooleanProperty( true );
-
-    // @public controls the snapping mode for the vectors
     this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes.CARTESIAN );
-
-    // @public whether the VectorValuesToggleBox is expanded
     this.vectorValuesExpandedProperty = new BooleanProperty( true );
   }
 
-  /**
-   * Resets the view properties
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.valuesVisibleProperty.reset();
     this.anglesVisibleProperty.reset();
     this.gridVisibleProperty.reset();
@@ -43,10 +45,7 @@ export default class VectorAdditionViewProperties {
     this.vectorValuesExpandedProperty.reset();
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public dispose(): void {
     assert && assert( false, 'VectorAdditionViewProperties are not intended to be disposed' );
   }
 }
