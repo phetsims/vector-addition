@@ -13,26 +13,32 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Graph from './Graph.js';
+import VectorSet from './VectorSet.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class CartesianBaseVector extends BaseVector {
 
+  // The x and y components of the vector
+  public readonly xComponentProperty: Property<number>;
+  public readonly yComponentProperty: Property<number>;
+
   /**
-   * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
-   * @param {Vector2} initialComponents - starting components of the Base Vector
-   * @param {EquationsGraph} graph - the graph the Base Vector belongs to
-   * @param {EquationsVectorSet} vectorSet - the set that the Base Vector belongs to
-   * @param {string|null} symbol - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
+   * @param initialTailPosition - starting tail position of the Base Vector
+   * @param initialComponents - starting components of the Base Vector
+   * @param graph - the graph the Base Vector belongs to
+   * @param vectorSet - the set that the Base Vector belongs to
+   * @param symbol - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
    */
-  constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
+  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
+                      vectorSet: VectorSet, symbol: string | null ) {
 
     assert && assert( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbol );
 
-    // @public (read-only) Property to set the x component
     this.xComponentProperty = new NumberProperty( this.xComponent );
-
-    // @public (read-only) Property to set the y component
     this.yComponentProperty = new NumberProperty( this.yComponent );
 
     // Observe when the component NumberProperties change and update the components to match.
@@ -41,11 +47,7 @@ export default class CartesianBaseVector extends BaseVector {
     this.yComponentProperty.link( yComponent => { this.yComponent = yComponent; } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.xComponentProperty.reset();
     this.yComponentProperty.reset();

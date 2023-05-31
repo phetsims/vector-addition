@@ -11,6 +11,9 @@
 
 import vectorAddition from '../../vectorAddition.js';
 import Vector from './Vector.js';
+import Graph from './Graph.js';
+import VectorSet from './VectorSet.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 // constants
 const OPTIONS = {
@@ -19,27 +22,24 @@ const OPTIONS = {
   isOnGraphInitially: true  // BaseVectors are always on the graph
 };
 
-export default class BaseVector extends Vector {
+export default abstract class BaseVector extends Vector {
 
   /**
-   * @abstract
-   * @param {Vector2} initialTailPosition - starting tail position of the BaseVector
-   * @param {Vector2} initialComponents - starting components of the BaseVector
-   * @param {EquationsGraph} graph - the graph the BaseVector belongs to
-   * @param {EquationsVectorSet} vectorSet - the set that the BaseVector belongs to
-   * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   * @param initialTailPosition - starting tail position of the BaseVector
+   * @param initialComponents - starting components of the BaseVector
+   * @param graph - the graph the BaseVector belongs to
+   * @param vectorSet - the set that the BaseVector belongs to
+   * @param symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
-  constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
+  protected constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
+                         vectorSet: VectorSet, symbol: string | null ) {
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'BaseVector is not intended to be disposed' );
+    super.dispose();
   }
 }
 

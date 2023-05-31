@@ -16,26 +16,31 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
+import Graph from './Graph.js';
+import VectorSet from './VectorSet.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class PolarBaseVector extends BaseVector {
 
+  public readonly magnitudeProperty: Property<number>;
+  public readonly angleDegreesProperty: Property<number>;
+
   /**
-   * @param {Vector2} initialTailPosition - starting tail position of the Base Vector
-   * @param {Vector2} initialComponents - starting components of the Base Vector
-   * @param {EquationsGraph} graph - the graph the Base Vector belongs to
-   * @param {EquationsVectorSet} vectorSet - the set that the Base Vector belongs to
-   * @param {string|null} symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   * @param initialTailPosition - starting tail position of the Base Vector
+   * @param initialComponents - starting components of the Base Vector
+   * @param graph - the graph the Base Vector belongs to
+   * @param vectorSet - the set that the Base Vector belongs to
+   * @param symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
-  constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol ) {
+  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
+                      vectorSet: VectorSet, symbol: string | null ) {
 
     assert && assert( graph.coordinateSnapMode === CoordinateSnapModes.POLAR, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbol );
 
-    // @public (read-only) Property to set the magnitude
     this.magnitudeProperty = new NumberProperty( this.magnitude );
-
-    // @public (read-only) Property to set the angle
+    // @ts-expect-error this.angle may be null
     this.angleDegreesProperty = new NumberProperty( Utils.toDegrees( this.angle ) );
 
     // Observe when the angle or magnitude changes, and update the components to match.
@@ -47,11 +52,7 @@ export default class PolarBaseVector extends BaseVector {
       } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.magnitudeProperty.reset();
     this.angleDegreesProperty.reset();
