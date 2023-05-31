@@ -7,32 +7,32 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { Color, HBox } from '../../../../scenery/js/imports.js';
+import { Color, HBox, TColor } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
-import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
+import VectorAdditionCheckbox, { VectorAdditionCheckboxOptions } from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  vectorFill?: TColor;
+  vectorStroke?: TColor;
+};
+
+type VectorCheckboxOptions = SelfOptions;
 
 export default class VectorCheckbox extends VectorAdditionCheckbox {
 
-  /**
-   * @param {BooleanProperty} vectorVisibleProperty
-   * @param {string} symbol
-   * @param {Object} [options]
-   */
-  constructor( vectorVisibleProperty, symbol, options ) {
+  public constructor( vectorVisibleProperty: Property<boolean>, symbol: string, providedOptions?: VectorCheckboxOptions ) {
 
-    // Type check arguments
-    assert && assert( vectorVisibleProperty instanceof BooleanProperty, `invalid vectorVisibleProperty: ${vectorVisibleProperty}` );
-    assert && assert( typeof symbol === 'string', `invalid symbol: ${symbol}` );
+    const options = optionize<VectorCheckboxOptions, SelfOptions, VectorAdditionCheckboxOptions>()( {
 
-    options = merge( {
+      // SelfOptions
       vectorFill: Color.WHITE,
       vectorStroke: Color.BLACK
-    }, options );
+    }, providedOptions );
 
     const symbolNode = new ArrowOverSymbolNode( symbol, {
       maxWidth: 95 // determined empirically

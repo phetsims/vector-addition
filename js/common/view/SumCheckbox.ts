@@ -6,7 +6,6 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import { HBox, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
@@ -14,19 +13,11 @@ import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class SumCheckbox extends VectorAdditionCheckbox {
 
-  /**
-   * @param {BooleanProperty} sumVisibleProperty
-   * @param {VectorColorPalette} vectorColorPalette
-   * @param {Object} [options]
-   */
-  constructor( sumVisibleProperty, vectorColorPalette, options ) {
-
-    // Type check arguments
-    assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
+  public constructor( sumVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette ) {
 
     const textNode = new Text( VectorAdditionStrings.sum, {
       font: VectorAdditionConstants.CHECKBOX_FONT,
@@ -44,7 +35,7 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
       children: [ textNode, icon ]
     } );
 
-    super( sumVisibleProperty, content, options );
+    super( sumVisibleProperty, content );
   }
 }
 

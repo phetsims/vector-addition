@@ -6,25 +6,28 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import { Node } from '../../../../scenery/js/imports.js';
+
+type SelfOptions = EmptySelfOptions;
+
+export type VectorAdditionCheckboxOptions = SelfOptions & CheckboxOptions;
 
 export default class VectorAdditionCheckbox extends Checkbox {
 
-  /**
-   * @param {Property.<boolean>} property
-   * @param {Node} content
-   * @param {Object} [options]
-   */
-  constructor( property, content, options ) {
+  protected constructor( property: Property<boolean>, content: Node, providedOptions?: VectorAdditionCheckboxOptions ) {
 
-    options = merge( {
+    const options = optionize<VectorAdditionCheckboxOptions, SelfOptions, CheckboxOptions>()( {
+
+      // CheckboxOptions
       boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
       touchAreaXDilation: 5,
       touchAreaYDilation: 3.5
-    }, options );
+    }, providedOptions );
 
     super( property, content, options );
 
