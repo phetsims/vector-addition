@@ -26,7 +26,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorStyles from './ComponentVectorStyles.js';
 import ComponentVectorTypes from './ComponentVectorTypes.js';
-import RootVector, { RootVectorLabelContent } from './RootVector.js';
+import RootVector, { LabelDisplayData } from './RootVector.js';
 import Vector from './Vector.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
@@ -177,10 +177,9 @@ export default class ComponentVector extends RootVector {
   }
 
   /**
-   * Gets the label content information to be displayed on the vector.
-   * See RootVector.getLabelContent for details.
+   * See RootVector.getLabelDisplayData for details.
    */
-  public getLabelContent( valuesVisible: boolean ): RootVectorLabelContent {
+  public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // Get the component vector's value (a scalar, possibly negative)
     let value: number | null = ( this.componentType === ComponentVectorTypes.X_COMPONENT ) ?

@@ -94,15 +94,14 @@ export default class EquationsSumVector extends SumVector {
   }
 
   /**
-   * Gets the label content information to be displayed on the vector.
-   * See RootVector.getLabelContent for details.
+   * See RootVector.getLabelDisplayData for details.
    * @override
    * @public
    * @param {boolean} valuesVisible - whether the values are visible
-   * @returns {Object} see RootVector.getLabelContent
+   * @returns {Object} see RootVector.getLabelDisplayData
    */
-  getLabelContent( valuesVisible ) {
-    return merge( super.getLabelContent( valuesVisible ), {
+  getLabelDisplayData( valuesVisible ) {
+    return merge( super.getLabelDisplayData( valuesVisible ), {
       symbol: this.symbol
     } );
   }

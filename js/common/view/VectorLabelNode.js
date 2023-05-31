@@ -108,7 +108,7 @@ export default class VectorLabelNode extends Node {
   update() {
 
     // Get the label display information
-    const labelDisplayData = this.rootVector.getLabelContent( this.valuesVisibleProperty.value );
+    const labelDisplayData = this.rootVector.getLabelDisplayData( this.valuesVisibleProperty.value );
 
     // Update the VectorSymbolNode
     this.vectorSymbolNode.setVectorSymbolNode( labelDisplayData.symbol,

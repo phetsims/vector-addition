@@ -27,7 +27,7 @@ import ComponentVector from './ComponentVector.js';
 import ComponentVectorTypes from './ComponentVectorTypes.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 import GraphOrientations from './GraphOrientations.js';
-import RootVector, { RootVectorLabelContent } from './RootVector.js';
+import RootVector, { LabelDisplayData } from './RootVector.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -156,10 +156,9 @@ export default class Vector extends RootVector {
   }
 
   /**
-   * Gets the label content information to be displayed on the vector.
-   * See RootVector.getLabelContent for details.
+   * See RootVector.getLabelDisplayData for details.
    */
-  public getLabelContent( valuesVisible: boolean ): RootVectorLabelContent {
+  public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // Get the rounded magnitude. Use Utils.toFixed so that we get a consistent number of decimal places.
     const roundedMagnitude = Utils.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );

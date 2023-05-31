@@ -25,7 +25,7 @@ import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
 import Property from '../../../../axon/js/Property.js';
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
-import { RootVectorLabelContent } from './RootVector.js';
+import { LabelDisplayData } from './RootVector.js';
 
 // constants
 const SUM_VECTOR_OPTIONS = {
@@ -109,10 +109,9 @@ export default class SumVector extends Vector {
   }
 
   /**
-   * Gets the label content information to be displayed on the vector.
-   * See RootVector.getLabelContent for details.
+   * See RootVector.getLabelDisplayData for details.
    */
-  public override getLabelContent( valuesVisible: boolean ): RootVectorLabelContent {
+  public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // The sum vector displays its symbol when:
     // - there is only one sum vector on the graph (see #241), or
@@ -126,13 +125,13 @@ export default class SumVector extends Vector {
     if ( isSymbolDisplayed ) {
 
       // No change in behavior - do like we do for other vectors.
-      return super.getLabelContent( valuesVisible );
+      return super.getLabelDisplayData( valuesVisible );
     }
     else {
 
       // Omit the symbol, display only the value, if values are visible.
       const roundedMagnitude = Utils.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
-      return merge( super.getLabelContent( valuesVisible ), {
+      return merge( super.getLabelDisplayData( valuesVisible ), {
         symbol: null,
         includeAbsoluteValueBars: false,
         value: valuesVisible ? roundedMagnitude : null

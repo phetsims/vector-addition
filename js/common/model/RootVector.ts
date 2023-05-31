@@ -11,7 +11,7 @@
  *  - tip and tail position Properties
  *  - components (x and y as scalars, or in other words the actual vector <x, y>)
  *  - vector color palette
- *  - abstract method for label information, see getLabelContent
+ *  - abstract method for label information, see getLabelDisplayData
  *
  * @author Brandon Li
  */
@@ -26,7 +26,7 @@ import VectorColorPalette from './VectorColorPalette.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
-export type RootVectorLabelContent = {
+export type LabelDisplayData = {
 
   // The coefficient (e.g. if the label displayed '|3v|=15', the coefficient would be 3).
   // null means to not display a coefficient
@@ -91,7 +91,7 @@ export default abstract class RootVector {
   }
 
   /**
-   * Gets the label content information to display on the vector. Labels are different for different vector types.
+   * Gets the data that tells how to display a label on the vector. Labels are different for different vector types.
    *
    * For instance, vectors with values visible display their symbol (i.e. a, b, c, ...) AND their magnitude, while
    * their component vectors only display the x or y component. In the same example, vectors display their magnitude
@@ -114,7 +114,7 @@ export default abstract class RootVector {
    *
    * @param valuesVisible - whether the values are visible (determined by the Values checkbox)
    */
-  public abstract getLabelContent( valuesVisible: boolean ): RootVectorLabelContent;
+  public abstract getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData;
 
   /**
    * Gets the components (scalars) of the vector.
