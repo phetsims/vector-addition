@@ -6,25 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionCheckbox from '../../common/view/VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
 
-  /**
-   * @param {BooleanProperty} baseVectorsVisibleProperty
-   * @param {VectorColorPalette} vectorColorPalette
-   * @param {Object} [options]
-   */
-  constructor( baseVectorsVisibleProperty, vectorColorPalette, options ) {
-
-    // Type check arguments
-    assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty, `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
-    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
+  public constructor( baseVectorsVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette ) {
 
     const icon = VectorAdditionIconFactory.createVectorIcon( {
       fill: vectorColorPalette.baseVectorFill,
@@ -33,7 +24,7 @@ export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
       length: 50
     } );
 
-    super( baseVectorsVisibleProperty, icon, options );
+    super( baseVectorsVisibleProperty, icon );
   }
 }
 
