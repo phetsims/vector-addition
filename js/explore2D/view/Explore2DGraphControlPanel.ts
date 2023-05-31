@@ -15,28 +15,28 @@ import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentStyleControl from '../../common/view/ComponentStyleControl.js';
-import GraphControlPanel from '../../common/view/GraphControlPanel.js';
+import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type Explore2DGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class Explore2DGraphControlPanel extends GraphControlPanel {
 
-  /**
-   * @param {VectorSet} cartesianVectorSet
-   * @param {VectorSet} polarVectorSet
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {VectorAdditionViewProperties} viewProperties
-   * @param {Object} [options]
-   */
-  constructor( cartesianVectorSet, polarVectorSet, componentStyleProperty, viewProperties, options ) {
+  public constructor( cartesianVectorSet: VectorSet,
+                      polarVectorSet: VectorSet,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      viewProperties: VectorAdditionViewProperties,
+                      providedOptions?: Explore2DGraphControlPanelOptions ) {
 
-    assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
-    assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
+    const options = providedOptions;
 
     const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
       cartesianVectorSet.vectorColorPalette );

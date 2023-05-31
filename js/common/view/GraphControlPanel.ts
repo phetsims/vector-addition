@@ -7,21 +7,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import { VBox } from '../../../../scenery/js/imports.js';
-import Panel from '../../../../sun/js/Panel.js';
+import { Node, NodeTranslationOptions, VBox } from '../../../../scenery/js/imports.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+export type GraphControlPanelOptions = SelfOptions & NodeTranslationOptions;
 
 export default class GraphControlPanel extends Panel {
 
-  /**
-   * @param {Node[]} children
-   * @param {Object} [options]
-   */
-  constructor( children, options ) {
+  protected constructor( children: Node[], providedOptions?: GraphControlPanelOptions ) {
 
-    options = merge( {}, VectorAdditionConstants.PANEL_OPTIONS, options );
+    const options = optionize3<GraphControlPanelOptions, SelfOptions, PanelOptions>()(
+      {}, VectorAdditionConstants.PANEL_OPTIONS, providedOptions );
 
     const content = new VBox( {
       children: children,
@@ -30,8 +31,6 @@ export default class GraphControlPanel extends Panel {
     } );
 
     // Make the panel a fixed width
-    assert && assert( options.minWidth === undefined, 'GraphControlPanel sets minWidth' );
-    assert && assert( options.maxWidth === undefined, 'GraphControlPanel sets maxWidth' );
     const panelWidth = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH + ( 2 * options.xMargin );
     options.minWidth = panelWidth;
     options.maxWidth = panelWidth;
@@ -39,12 +38,9 @@ export default class GraphControlPanel extends Panel {
     super( content, options );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'GraphControlPanel is not intended to be disposed' );
+    super.dispose();
   }
 }
 

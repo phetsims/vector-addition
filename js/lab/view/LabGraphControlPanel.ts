@@ -13,32 +13,32 @@ import { AlignBox, AlignGroup, Color, HSeparator, Node, VBox } from '../../../..
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentStyleControl from '../../common/view/ComponentStyleControl.js';
-import GraphControlPanel from '../../common/view/GraphControlPanel.js';
+import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type LabGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class LabGraphControlPanel extends GraphControlPanel {
 
-  /**
-   * @param {LabGraph} cartesianGraph
-   * @param {LabGraph} polarGraph
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {Property.<boolean>} sum1VisibleProperty
-   * @param {Property.<boolean>} sum2VisibleProperty
-   * @param {VectorAdditionViewProperties} viewProperties
-   * @param {Object} [options]
-   */
-  constructor( cartesianGraph, polarGraph, componentStyleProperty,
-               sum1VisibleProperty, sum2VisibleProperty, viewProperties, options ) {
+  public constructor( cartesianGraph: LabGraph,
+                      polarGraph: LabGraph,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      sum1VisibleProperty: Property<boolean>,
+                      sum2VisibleProperty: Property<boolean>,
+                      viewProperties: VectorAdditionViewProperties,
+                      providedOptions?: LabGraphControlPanelOptions ) {
 
-    assert && assert( cartesianGraph instanceof LabGraph, `invalid cartesianGraph: ${cartesianGraph}` );
-    assert && assert( polarGraph instanceof LabGraph, `invalid polarGraph: ${polarGraph}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
+    const options = providedOptions;
 
     // To make all checkboxes the same height
     const alignBoxOptions = {

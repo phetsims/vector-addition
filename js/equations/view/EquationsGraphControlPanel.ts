@@ -11,46 +11,48 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { AlignBox, AlignGroup, Color, HSeparator, Node, VBox } from '../../../../scenery/js/imports.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
-import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentStyleControl from '../../common/view/ComponentStyleControl.js';
-import GraphControlPanel from '../../common/view/GraphControlPanel.js';
+import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import VectorCheckbox from '../../common/view/VectorCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+import EquationsVectorSet from '../model/EquationsVectorSet.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type EquationsGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class EquationsGraphControlPanel extends GraphControlPanel {
 
-  /**
-   * @param {VectorSet} cartesianVectorSet
-   * @param {VectorSet} polarVectorSet
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {VectorAdditionViewProperties} viewProperties
-   * @param {Object} [options]
-   */
-  constructor( cartesianVectorSet, polarVectorSet, componentStyleProperty, viewProperties, options ) {
+  public constructor( cartesianVectorSet: EquationsVectorSet,
+                      polarVectorSet: EquationsVectorSet,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      viewProperties: VectorAdditionViewProperties,
+                      providedOptions?: EquationsGraphControlPanelOptions ) {
 
-    assert && assert( cartesianVectorSet instanceof VectorSet, `invalid cartesianVectorSet: ${cartesianVectorSet}` );
-    assert && assert( polarVectorSet instanceof VectorSet, `invalid polarVectorSet: ${polarVectorSet}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
+    const options = providedOptions;
 
     // 'c' checkbox
-    const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty,
-      cartesianVectorSet.sumVector.symbol, {
-        vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
-        vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke
-      } );
+    const cartesianSumSymbol = cartesianVectorSet.sumVector.symbol!;
+    assert && assert( cartesianSumSymbol );
+    const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianSumSymbol, {
+      vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
+      vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke
+    } );
 
     // 'f' checkbox
-    const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty,
-      polarVectorSet.sumVector.symbol, {
-        vectorFill: polarVectorSet.vectorColorPalette.sumFill,
-        vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
-      } );
+    const polarSumSymbol = polarVectorSet.sumVector.symbol!;
+    assert && assert( polarSumSymbol );
+    const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty, polarSumSymbol, {
+      vectorFill: polarVectorSet.vectorColorPalette.sumFill,
+      vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
+    } );
 
     // Show the vector checkbox ('c' or 'f') that matches the selected scene.
     // unlink is unnecessary, exists for the lifetime of the sim.

@@ -12,26 +12,26 @@ import { AlignBox, AlignGroup, Node, VBox } from '../../../../scenery/js/imports
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import GraphControlPanel from '../../common/view/GraphControlPanel.js';
+import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
+import Explore1DViewProperties from './Explore1DViewProperties.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type Explore1DGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class Explore1DGraphControlPanel extends GraphControlPanel {
 
-  /**
-   * @param {VectorSet} horizontalVectorSet
-   * @param {VectorSet} verticalVectorSet
-   * @param {VectorAdditionViewProperties} viewProperties
-   * @param {Object} [options]
-   */
-  constructor( horizontalVectorSet, verticalVectorSet, viewProperties, options ) {
+  public constructor( horizontalVectorSet: VectorSet,
+                      verticalVectorSet: VectorSet,
+                      viewProperties: Explore1DViewProperties,
+                      providedOptions?: Explore1DGraphControlPanelOptions ) {
 
-    assert && assert( horizontalVectorSet instanceof VectorSet, `invalid horizontalVectorSet: ${horizontalVectorSet}` );
-    assert && assert( verticalVectorSet instanceof VectorSet, `invalid verticalVectorSet: ${verticalVectorSet}` );
-    assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
+    const options = providedOptions;
 
     const horizontalSumCheckbox = new SumCheckbox( horizontalVectorSet.sumVisibleProperty,
       horizontalVectorSet.vectorColorPalette );
