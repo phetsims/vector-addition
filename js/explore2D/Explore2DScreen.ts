@@ -7,22 +7,20 @@
  */
 
 import Property from '../../../axon/js/Property.js';
-import Screen from '../../../joist/js/Screen.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import Explore2DModel from './model/Explore2DModel.js';
 import Explore2DScreenView from './view/Explore2DScreenView.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-export default class Explore2DScreen extends Screen {
+export default class Explore2DScreen extends Screen<Explore2DModel, Explore2DScreenView> {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  public constructor( tandem: Tandem ) {
 
-    const options = {
+    const options: ScreenOptions = {
       name: VectorAdditionStrings.screen.explore2DStringProperty,
       backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
       homeScreenIcon: VectorAdditionIconFactory.createExplore2DScreenIcon(),
