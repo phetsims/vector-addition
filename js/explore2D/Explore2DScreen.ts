@@ -27,9 +27,11 @@ export default class Explore2DScreen extends Screen<Explore2DModel, Explore2DScr
       tandem: tandem
     };
 
-    super( () => new Explore2DModel( tandem.createTandem( 'model' ) ),
+    super(
+      () => new Explore2DModel( tandem.createTandem( 'model' ) ),
       model => new Explore2DScreenView( model, tandem.createTandem( 'view' ) ),
-      options );
+      options
+    );
   }
 }
 

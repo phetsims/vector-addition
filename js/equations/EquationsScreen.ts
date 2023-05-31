@@ -14,13 +14,11 @@ import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-export default class EquationsScreen extends Screen {
+export default class EquationsScreen extends Screen<EquationsModel, EquationsScreenView> {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  public constructor( tandem: Tandem ) {
 
     const options = {
       name: VectorAdditionStrings.screen.equationsStringProperty,
