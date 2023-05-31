@@ -38,6 +38,11 @@ export default class GraphOrientationRadioButtonGroup extends RectangularRadioBu
 
     super( graphOrientationProperty, items, options );
   }
+
+  public override dispose(): void {
+    assert && assert( false, 'GraphOrientationRadioButtonGroup is not intended to be disposed' );
+    super.dispose();
+  }
 }
 
 vectorAddition.register( 'GraphOrientationRadioButtonGroup', GraphOrientationRadioButtonGroup );

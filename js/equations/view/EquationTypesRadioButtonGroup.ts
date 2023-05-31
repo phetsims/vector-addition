@@ -19,36 +19,34 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { AlignBox, AlignGroup } from '../../../../scenery/js/imports.js';
-import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import { AlignBox, AlignGroup, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
+import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationTypes from '../model/EquationTypes.js';
+import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 
-export default class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup {
+type SelfOptions = EmptySelfOptions;
 
-  /**
-   * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty - Property of the possible equation types
-   * @param {string[]} vectorSymbols - symbols on the buttons
-   * @param {AlignGroup} alignGroup
-   * @param {Object} [options]
-   */
-  constructor( equationTypeProperty, vectorSymbols, alignGroup, options ) {
+type EquationTypesRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions;
 
-    assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
-    assert && assert( alignGroup instanceof AlignGroup, `invalid alignGroup: ${alignGroup}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+export default class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup<EquationTypes> {
 
-    options = merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
-      xMargin: 12
-    }, options );
+  public constructor( equationTypeProperty: EnumerationProperty<EquationTypes>,
+                      vectorSymbols: string[], // symbols on the buttons
+                      alignGroup: AlignGroup,
+                      providedOptions?: EquationTypesRadioButtonGroupOptions ) {
+
+    const options = optionize4<EquationTypesRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
+      {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
+        xMargin: 12
+      }, providedOptions );
 
     // Create the description of the buttons
-    const content = [];
+    const items: RectangularRadioButtonGroupItem<EquationTypes>[] = [];
     EquationTypes.enumeration.values.forEach( equationType => {
-      content.push( {
+      items.push( {
         value: equationType,
         createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbols ), {
           group: alignGroup
@@ -56,15 +54,12 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
       } );
     } );
 
-    super( equationTypeProperty, content, options );
+    super( equationTypeProperty, items, options );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'EquationTypesRadioButtonGroup is not intended to be disposed' );
+    super.dispose();
   }
 }
 

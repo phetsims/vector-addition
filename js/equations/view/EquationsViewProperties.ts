@@ -10,27 +10,27 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class EquationsViewProperties extends VectorAdditionViewProperties {
 
-  constructor() {
+  // whether the EquationToggleBox is expanded
+  public readonly equationExpandedProperty: Property<boolean>;
+
+  // whether the BaseVectorsAccordionBox is expanded
+  public readonly baseVectorsExpandedProperty: Property<boolean>;
+
+  // whether base vectors are visible on the graph
+  public readonly baseVectorsVisibleProperty: Property<boolean>;
+
+  public constructor() {
     super();
-
-    // @public whether the EquationToggleBox is expanded
     this.equationExpandedProperty = new BooleanProperty( true );
-
-    // @public whether the BaseVectorsAccordionBox is expanded
     this.baseVectorsExpandedProperty = new BooleanProperty( false );
-
-    // @public whether base vectors are visible on the graph
     this.baseVectorsVisibleProperty = new BooleanProperty( false );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.equationExpandedProperty.reset();
     this.baseVectorsExpandedProperty.reset();
