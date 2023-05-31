@@ -14,44 +14,44 @@ import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DGraph from './Explore2DGraph.js';
+import Property from '../../../../axon/js/Property.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  // Property controlling the visibility of the sum for both Graph instances
+  public readonly sumVisibleProperty: Property<boolean>;
 
-    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+  public readonly cartesianVectorColorPalette: VectorColorPalette;
+  public readonly polarVectorColorPalette: VectorColorPalette;
+
+  // graph for Cartesian snap mode
+  public readonly cartesianGraph: Explore2DGraph;
+
+  // graph for Polar snap mode
+  public readonly polarGraph: Explore2DGraph;
+
+  public constructor( tandem: Tandem ) {
 
     super( tandem );
 
-    // @public Property controlling the visibility of the sum for both Graph instances
     this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
 
-    // @public (read-only) {VectorColorPalette}
     this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
     this.polarVectorColorPalette = VectorAdditionColors.PINK_COLOR_PALETTE;
 
-    // @public (read-only) graph for Cartesian snap mode
     this.cartesianGraph = new Explore2DGraph( CoordinateSnapModes.CARTESIAN,
       this.componentStyleProperty,
       this.sumVisibleProperty,
       this.cartesianVectorColorPalette );
 
-    // @public (read-only) graph for Polar snap mode
     this.polarGraph = new Explore2DGraph( CoordinateSnapModes.POLAR,
       this.componentStyleProperty,
       this.sumVisibleProperty,
       this.polarVectorColorPalette );
   }
 
-  /**
-   * Resets the Explore2DModel.
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.sumVisibleProperty.reset();
     this.cartesianGraph.reset();

@@ -12,7 +12,6 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import Graph from '../../common/model/Graph.js';
@@ -20,25 +19,21 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class Explore2DGraph extends Graph {
 
-  /**
-   * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {BooleanProperty} sumVisibleProperty
-   * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
-   */
-  constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
+  // Graphs on 'Explore 2D' have exactly one vector set
+  public readonly vectorSet: VectorSet;
 
-    assert && assert( CoordinateSnapModes.enumeration.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
+  public constructor( coordinateSnapMode: CoordinateSnapModes,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      sumVisibleProperty: Property<boolean>,
+                      vectorColorPalette: VectorColorPalette ) {
 
     super( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS, coordinateSnapMode );
 
-    // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 2D' have exactly one vector set
     this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
 
     // Add the one and only vector set
