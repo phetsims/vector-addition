@@ -71,7 +71,7 @@ export default class Graph {
    * @param coordinateSnapMode - the coordinate snap mode of the graph. A graph is either strictly polar or Cartesian.
    * @param [providedOptions]
    */
-  public constructor( initialGraphBounds: Bounds2, coordinateSnapMode: CoordinateSnapModes, providedOptions?: GraphOptions ) {
+  protected constructor( initialGraphBounds: Bounds2, coordinateSnapMode: CoordinateSnapModes, providedOptions?: GraphOptions ) {
 
     const options = optionize<GraphOptions, SelfOptions>()( {
 
