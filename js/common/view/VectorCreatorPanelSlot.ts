@@ -24,52 +24,57 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { AlignBox, DragListener, HBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, DragListener, HBox, HBoxOptions } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import SceneNode from './SceneNode.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
 // contains the same local width regardless of the initial vector components. This ensures that
 // the label of the slot is in the same place regardless of the icon size.
 const ARROW_ICON_CONTAINER_WIDTH = 35;
 
+type SelfOptions = {
+  symbol?: string | null; // the symbol to pass to created vectors
+  numberOfVectors?: number;  // the number of vectors that can exist that were created by this slot
+  iconArrowMagnitude?: number; // the magnitude of the icon in view coordinates
+  iconVectorComponents?: Vector2 | null; // used for vector icon, defaults to initialVectorComponents
+
+  // pointer area dilation for icons, identical for mouseArea and touchArea,
+  // see https://github.com/phetsims/vector-addition/issues/250
+  iconPointerAreaXDilation?: number;
+  iconPointerAreaYDilation?: number;
+};
+
+type VectorCreatorPanelSlotOptions = SelfOptions;
 
 export default class VectorCreatorPanelSlot extends HBox {
 
   /**
-   * @param {Graph} graph - the graph to drop the vector onto
-   * @param {VectorSet} vectorSet - the VectorSet that the slot adds Vectors to
-   * @param {SceneNode} sceneNode - the SceneNode that this slot appears in
-   * @param {Vector2} initialVectorComponents - the initial vector components to pass to created vectors
-   * @param {Object} [options]
+   * @param graph - the graph to drop the vector onto
+   * @param vectorSet - the VectorSet that the slot adds Vectors to
+   * @param sceneNode - the SceneNode that this slot appears in
+   * @param initialVectorComponents - the initial vector components to pass to created vectors
+   * @param [providedOptions]
    */
-  constructor( graph, vectorSet, sceneNode, initialVectorComponents, options ) {
+  public constructor( graph: Graph, vectorSet: VectorSet, sceneNode: SceneNode, initialVectorComponents: Vector2,
+                      providedOptions?: VectorCreatorPanelSlotOptions ) {
 
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
-    assert && assert( initialVectorComponents instanceof Vector2, `invalid initialVectorComponents: ${initialVectorComponents}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+    const options = optionize<VectorCreatorPanelSlotOptions, SelfOptions, HBoxOptions>()( {
 
-    //----------------------------------------------------------------------------------------
-
-    options = merge( {
-
-      symbol: null, // {string|null} the symbol to pass to created vectors
-      numberOfVectors: 1,  // {number} the number of vectors that can exist that were created by this slot
-      iconArrowMagnitude: 30, // {number} indicates the magnitude of the icon in view coordinates
-      iconVectorComponents: null, // {Vector2|null} used for vector icon, defaults to initialVectorComponents
-
-      // pointer area dilation for icons, identical for mouseArea and touchArea,
-      // see https://github.com/phetsims/vector-addition/issues/250
+      // SelfOptions
+      symbol: null,
+      numberOfVectors: 1,
+      iconArrowMagnitude: 30,
+      iconVectorComponents: null,
       iconPointerAreaXDilation: 10,
       iconPointerAreaYDilation: 10
-
-    }, options );
+    }, providedOptions );
 
     super( { spacing: 5 } );
 
@@ -149,7 +154,7 @@ export default class VectorCreatorPanelSlot extends HBox {
       // dispose the Vector, signaling to the SceneNode to dispose of the views.
       //----------------------------------------------------------------------------------------
 
-      const animateVectorBackListener = animateBack => {
+      const animateVectorBackListener = ( animateBack: boolean ) => {
         if ( animateBack ) {
 
           // Get the model position of the icon node.
@@ -165,7 +170,7 @@ export default class VectorCreatorPanelSlot extends HBox {
       vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
 
       // Observe when the vector is removed and clean up.
-      const removeVectorListener = removedVector => {
+      const removeVectorListener = ( removedVector: Vector ) => {
         if ( removedVector === vector ) {
           iconNode.visible = true;
           vector.animateBackProperty.unlink( animateVectorBackListener );
@@ -176,12 +181,9 @@ export default class VectorCreatorPanelSlot extends HBox {
     } ) );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'VectorCreatorPanelSlot is not intended to be disposed' );
+    super.dispose();
   }
 }
 
