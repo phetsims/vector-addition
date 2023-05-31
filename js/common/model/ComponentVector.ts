@@ -187,8 +187,9 @@ export default class ComponentVector extends RootVector {
                 this.vectorComponents.x :
                 this.vectorComponents.y;
 
-    // Round the value
-    value = Utils.toFixedNumber( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+    // Round the value. Use Utils.toFixed so that we get a consistent number of decimal places.
+    // @ts-expect-error Utils.toFixed returns a string
+    value = Utils.toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
     // Component vectors only show their values if and only if the values are visible and if the component isn't 0
     if ( !valuesVisible || value === 0 ) {

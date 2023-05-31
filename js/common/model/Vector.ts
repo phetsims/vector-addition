@@ -161,8 +161,8 @@ export default class Vector extends RootVector {
    */
   public getLabelContent( valuesVisible: boolean ): RootVectorLabelContent {
 
-    // Get the rounded magnitude
-    const roundedMagnitude = Utils.toFixedNumber( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+    // Get the rounded magnitude. Use Utils.toFixed so that we get a consistent number of decimal places.
+    const roundedMagnitude = Utils.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
     // Create flags to indicate the symbol and the value
     let symbol = null;
@@ -175,6 +175,7 @@ export default class Vector extends RootVector {
 
     // If the values are on, the vector always displays a value.
     if ( valuesVisible ) {
+      // @ts-expect-error roundMagnitude is a string
       value = roundedMagnitude;
     }
 
