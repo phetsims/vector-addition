@@ -16,28 +16,30 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
+import Property from '../../../../axon/js/Property.js';
 
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
 export default class LabGraph extends Graph {
 
-  /**
-   * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {Property.<boolean>} sumVisibleProperty1 - whether the sum for the first VectorSet is visible
-   * @param {Property.<boolean>} sumVisibleProperty2 - whether the sum for the second VectorSet is visible
-   * @param {VectorColorPalette} vectorColorPalette1 - color palette for the first VectorSet
-   * @param {VectorColorPalette} vectorColorPalette2 - color palette for the second VectorSet
-   */
-  constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty1, sumVisibleProperty2,
-               vectorColorPalette1, vectorColorPalette2 ) {
+  public readonly vectorSet1: VectorSet;
+  public readonly vectorSet2: VectorSet;
 
-    assert && assert( CoordinateSnapModes.enumeration.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
-      `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( vectorColorPalette1 instanceof VectorColorPalette, `invalid vectorColorPalette1: ${vectorColorPalette1}` );
-    assert && assert( vectorColorPalette2 instanceof VectorColorPalette, `invalid vectorColorPalette2: ${vectorColorPalette2}` );
+  /**
+   * @param coordinateSnapMode - coordinateSnapMode for the graph
+   * @param componentStyleProperty
+   * @param sum1VisibleProperty - whether the sum for the first VectorSet is visible
+   * @param sum2VisibleProperty - whether the sum for the second VectorSet is visible
+   * @param vectorColorPalette1 - color palette for the first VectorSet
+   * @param vectorColorPalette2 - color palette for the second VectorSet
+   */
+  public constructor( coordinateSnapMode: CoordinateSnapModes,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      sum1VisibleProperty: Property<boolean>,
+                      sum2VisibleProperty: Property<boolean>,
+                      vectorColorPalette1: VectorColorPalette,
+                      vectorColorPalette2: VectorColorPalette ) {
 
     super( LAB_GRAPH_BOUNDS, coordinateSnapMode );
 
@@ -49,8 +51,7 @@ export default class LabGraph extends Graph {
     const modelHeadWidth = this.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth );
     const offsetDelta = -( modelHeadWidth / 2 );
 
-    // @public (read-only) {VectorSet} vectorSet1
-    this.vectorSet1 = new VectorSet( this, componentStyleProperty, sumVisibleProperty1, vectorColorPalette1, {
+    this.vectorSet1 = new VectorSet( this, componentStyleProperty, sum1VisibleProperty, vectorColorPalette1, {
 
       initialSumTailPosition: new Vector2(
         Utils.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
@@ -62,8 +63,7 @@ export default class LabGraph extends Graph {
       projectionYOffsetDelta: offsetDelta
     } );
 
-    // @public (read-only) {VectorSet} vectorSet2
-    this.vectorSet2 = new VectorSet( this, componentStyleProperty, sumVisibleProperty2, vectorColorPalette2, {
+    this.vectorSet2 = new VectorSet( this, componentStyleProperty, sum2VisibleProperty, vectorColorPalette2, {
 
       initialSumTailPosition: new Vector2(
         Utils.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),

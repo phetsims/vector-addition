@@ -38,8 +38,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
       model.cartesianGraph,
       model.polarGraph,
       model.componentStyleProperty,
-      model.sumVisibleProperty1,
-      model.sumVisibleProperty2,
+      model.sum1VisibleProperty,
+      model.sum2VisibleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN

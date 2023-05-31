@@ -27,13 +27,13 @@ export default class LabGraphControlPanel extends GraphControlPanel {
    * @param {LabGraph} cartesianGraph
    * @param {LabGraph} polarGraph
    * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {Property.<boolean>} sumVisibleProperty1
-   * @param {Property.<boolean>} sumVisibleProperty2
+   * @param {Property.<boolean>} sum1VisibleProperty
+   * @param {Property.<boolean>} sum2VisibleProperty
    * @param {VectorAdditionViewProperties} viewProperties
    * @param {Object} [options]
    */
   constructor( cartesianGraph, polarGraph, componentStyleProperty,
-               sumVisibleProperty1, sumVisibleProperty2, viewProperties, options ) {
+               sum1VisibleProperty, sum2VisibleProperty, viewProperties, options ) {
 
     assert && assert( cartesianGraph instanceof LabGraph, `invalid cartesianGraph: ${cartesianGraph}` );
     assert && assert( polarGraph instanceof LabGraph, `invalid polarGraph: ${polarGraph}` );
@@ -54,8 +54,8 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
       const sumCheckboxes = new VBox( {
         children: [
-          new AlignBox( new SumCheckbox( sumVisibleProperty1, graph.vectorSet1.vectorColorPalette ), alignBoxOptions ),
-          new AlignBox( new SumCheckbox( sumVisibleProperty2, graph.vectorSet2.vectorColorPalette ), alignBoxOptions )
+          new AlignBox( new SumCheckbox( sum1VisibleProperty, graph.vectorSet1.vectorColorPalette ), alignBoxOptions ),
+          new AlignBox( new SumCheckbox( sum2VisibleProperty, graph.vectorSet2.vectorColorPalette ), alignBoxOptions )
         ],
         spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
         align: 'left'
