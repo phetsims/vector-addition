@@ -18,7 +18,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -28,7 +27,13 @@ import ComponentVector from './ComponentVector.js';
 import ComponentVectorTypes from './ComponentVectorTypes.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 import GraphOrientations from './GraphOrientations.js';
-import RootVector from './RootVector.js';
+import RootVector, { RootVectorLabelContent } from './RootVector.js';
+import Graph from './Graph.js';
+import VectorSet from './VectorSet.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -49,58 +54,82 @@ const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 // distance between a vector's tail or tip to another vector/s tail or tip to snap to the other vectors in polar mode.
 const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 
+type SelfOptions = {
+  isTipDraggable?: boolean; // flag indicating if the tip can be dragged
+  isRemovable?: boolean; // flag indicating if the vector can be removed from the graph
+  isOnGraphInitially?: boolean; // flag indicating if the vector is on the graph upon initialization
+};
+
+export type VectorOptions = SelfOptions;
+
 export default class Vector extends RootVector {
 
-  /**
-   * @param {Vector2} initialTailPosition - starting tail position of the vector
-   * @param {Vector2} initialComponents - starting components of the vector
-   * @param {Graph} graph - the graph the vector belongs to
-   * @param {VectorSet} vectorSet - the vector set the vector belongs to
-   * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
-   * @param {Object} [options] - not propagated to super
-   */
-  constructor( initialTailPosition, initialComponents, graph, vectorSet, symbol, options ) {
+  // indicates if the tip can be dragged
+  public readonly isTipDraggable: boolean;
 
-    options = merge( {
-      isTipDraggable: true, // {boolean} - flag indicating if the tip can be dragged
-      isRemovable: true, // {boolean} - flag indicating if the vector can be removed from the graph
-      isOnGraphInitially: false // {boolean} - flag indicating if the vector is on the graph upon initialization
-    }, options );
+  // indicates if the vector can be removed
+  public readonly isRemovable: boolean;
+
+  // fallBackSymbol - see declaration of VECTOR_FALL_BACK_SYMBOL for documentation
+  public readonly fallBackSymbol: string;
+
+  // the graph that the vector model belongs to
+  public readonly graph: Graph;
+
+  // the vector set that the vector belongs to
+  public readonly vectorSet: VectorSet;
+
+  // indicates whether the vector is on the graph
+  public readonly isOnGraphProperty: Property<boolean>;
+
+  // {Animation|null} reference to any animation that is currently in progress
+  public inProgressAnimation: Animation | null;
+
+  // indicates if the vector should be animated back to the toolbox
+  public readonly animateBackProperty: Property<boolean>;
+
+  // the vector's x and y component vectors
+  public readonly xComponentVector: ComponentVector;
+  public readonly yComponentVector: ComponentVector;
+
+  private readonly disposeVector: () => void;
+
+  /**
+   * @param initialTailPosition - starting tail position of the vector
+   * @param initialComponents - starting components of the vector
+   * @param graph - the graph the vector belongs to
+   * @param vectorSet - the vector set the vector belongs to
+   * @param symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param [providedOptions] - not propagated to super!
+   */
+  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph, vectorSet: VectorSet,
+                      symbol: string | null, providedOptions?: VectorOptions ) {
+
+    const options = optionize<VectorOptions, SelfOptions>()( {
+
+      // SelfOptions
+      isTipDraggable: true,
+      isRemovable: true,
+      isOnGraphInitially: false
+    }, providedOptions );
 
     super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbol );
 
-    // @public (read-only) {boolean} indicates if the tip can be dragged
     this.isTipDraggable = options.isTipDraggable;
-
-    // @public (read-only) {boolean} indicates if the vector can be removed
     this.isRemovable = options.isRemovable;
-
-    // @public (read-only) {string} fallBackSymbol (see declaration of VECTOR_FALL_BACK_SYMBOL for documentation)
     this.fallBackSymbol = VECTOR_FALL_BACK_SYMBOL;
-
-    // @protected {Graph} the graph that the vector model belongs to
     this.graph = graph;
-
-    // @protected {VectorSet} the vector set that the vector belongs to
     this.vectorSet = vectorSet;
-
-    // @public (read-only) indicates whether the vector is in on the graph
     this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially );
-
-    // @public (read-only) {Animation|null} reference to any animation that is currently in progress
     this.inProgressAnimation = null;
-
-    // @public (read-only) indicates if the vector should be animated back to the toolbox
     this.animateBackProperty = new BooleanProperty( false );
 
-    // @public (read only) the vector's x component vector
     this.xComponentVector = new ComponentVector( this,
       vectorSet.componentStyleProperty,
       graph.activeVectorProperty,
       ComponentVectorTypes.X_COMPONENT
     );
 
-    // @public (read only) the vector's y component vector
     this.yComponentVector = new ComponentVector( this,
       vectorSet.componentStyleProperty,
       graph.activeVectorProperty,
@@ -108,13 +137,12 @@ export default class Vector extends RootVector {
     );
 
     // When the graph's origin changes, update the tail position. unlink is required on dispose.
-    const updateTailPosition = ( newModelViewTransform, oldModelViewTransform ) => {
+    const updateTailPosition = ( newModelViewTransform: ModelViewTransform2, oldModelViewTransform: ModelViewTransform2 ) => {
       const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
       this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailPositionView ) );
     };
     this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
 
-    // @private
     this.disposeVector = () => {
       this.graph.modelViewTransformProperty.unlink( updateTailPosition );
       this.xComponentVector.dispose();
@@ -123,29 +151,22 @@ export default class Vector extends RootVector {
     };
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public dispose(): void {
     this.disposeVector();
   }
 
   /**
    * Gets the label content information to be displayed on the vector.
    * See RootVector.getLabelContent for details.
-   * @override
-   * @public
-   * @param {boolean} valuesVisible - whether the values are visible
-   * @returns {Object} see RootVector.getLabelContent
    */
-  getLabelContent( valuesVisible ) {
+  public getLabelContent( valuesVisible: boolean ): RootVectorLabelContent {
 
     // Get the rounded magnitude
-    const roundedMagnitude = Utils.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+    const roundedMagnitude = Utils.toFixedNumber( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
 
     // Create flags to indicate the symbol and the value
     let symbol = null;
-    let value = null;
+    let value: number | null = null;
 
     // If the vector has a symbol or is active, the vector always displays a symbol.
     if ( this.symbol || this.graph.activeVectorProperty.value === this ) {
@@ -167,7 +188,6 @@ export default class Vector extends RootVector {
 
   /**
    * Sets the tip of the vector but ensures the vector satisfies invariants for polar/Cartesian mode.
-   * @protected
    *
    * ## Common Invariants (for both Cartesian and polar mode):
    *  - Vector must not be set to the tail (0 magnitude)
@@ -178,16 +198,13 @@ export default class Vector extends RootVector {
    * ## Invariants for polar mode:
    *  - Vector tip must be rounded to ensure the magnitude of the vector is a integer
    *  - Vector tip must be rounded to ensure the vector angle is a multiple of POLAR_ANGLE_INTERVAL
-   *
-   * @param {Vector2} tipPosition
    */
-  setTipWithInvariants( tipPosition ) {
+  protected setTipWithInvariants( tipPosition: Vector2 ): void {
 
-    assert && assert( tipPosition instanceof Vector2, `invalid tipPosition: ${tipPosition}` );
     assert && assert( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
     // Flag to get the tip point that satisfies invariants (to be calculated below)
-    let tipPositionWithInvariants;
+    let tipPositionWithInvariants: Vector2;
 
     if ( this.graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
 
@@ -197,7 +214,8 @@ export default class Vector extends RootVector {
       // Round the tip to integer grid values
       tipPositionWithInvariants = tipPositionOnGraph.roundedSymmetric();
     }
-    else if ( this.graph.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+    else {
+      // this.graph.coordinateSnapMode === CoordinateSnapModes.POLAR
 
       const vectorComponents = tipPosition.minus( this.tail );
 
@@ -234,7 +252,6 @@ export default class Vector extends RootVector {
 
   /**
    * Sets the tail of the vector but ensures the vector satisfies invariants for polar/Cartesian mode.
-   * @private
    *
    * ## Invariants for Cartesian mode:
    *  - Vector tail must be on an exact model coordinate
@@ -243,12 +260,9 @@ export default class Vector extends RootVector {
    *  - Vector's must snap to other vectors to allow tip to tail sum comparisons.
    *    See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
    *  - Vector tail doesn't have to be on an exact model coordinate, but should when not snapping to other vectors
-   *
-   * @param {Vector2} tailPosition
    */
-  setTailWithInvariants( tailPosition ) {
+  private setTailWithInvariants( tailPosition: Vector2 ): void {
 
-    assert && assert( tailPosition instanceof Vector2, `invalid tailPosition: ${tailPosition}` );
     assert && assert( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
     const constrainedTailBounds = this.getConstrainedTailBounds();
@@ -298,19 +312,15 @@ export default class Vector extends RootVector {
 
   /**
    * Moves the tip to this position but ensures it satisfies invariants for polar and Cartesian mode.
-   * @public
-   * @param {Vector2} tipPosition
    */
-  moveTipToPosition( tipPosition ) {
+  public moveTipToPosition( tipPosition: Vector2 ): void {
     this.setTipWithInvariants( tipPosition );
   }
 
   /**
    * Moves the tail to this position but ensures it satisfies invariants for polar and Cartesian mode.
-   * @public
-   * @param {Vector2} tailPosition
    */
-  moveTailToPosition( tailPosition ) {
+  public moveTailToPosition( tailPosition: Vector2 ): void {
 
     // Ensure that the tail satisfies invariants for polar/Cartesian mode
     this.setTailWithInvariants( tailPosition );
@@ -332,27 +342,21 @@ export default class Vector extends RootVector {
   /**
    * Gets the constrained bounds of the tail. The tail must be within VECTOR_TAIL_DRAG_MARGIN units of the edges
    * of the graph. See https://github.com/phetsims/vector-addition/issues/152
-   * @private
    */
-  getConstrainedTailBounds() {
+  private getConstrainedTailBounds(): Bounds2 {
     return this.graph.graphModelBounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
   }
 
   /**
    * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
-   * @public
-   *
-   * @param {Vector2} point - animates the center of the vector to this point
-   * @param {Vector2} finalComponents - animates the components to the final components
-   * @param {function} finishCallback - callback when the animation finishes naturally, not when stopped
+   * @param point - animates the center of the vector to this point
+   * @param finalComponents - animates the components to the final components
+   * @param finishCallback - callback when the animation finishes naturally, not when stopped
    */
-  animateToPoint( point, finalComponents, finishCallback ) {
+  public animateToPoint( point: Vector2, finalComponents: Vector2, finishCallback: () => void ): void {
 
     assert && assert( !this.inProgressAnimation, 'Can\'t animate to position when we are in animation currently' );
     assert && assert( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the graph' );
-    assert && assert( point instanceof Vector2, `invalid point: ${point}` );
-    assert && assert( finalComponents instanceof Vector2, `invalid finalComponents: ${finalComponents}` );
-    assert && assert( typeof finishCallback === 'function', `invalid finishCallback: ${finishCallback}` );
 
     // Calculate the tail position to animate to
     const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
@@ -372,7 +376,7 @@ export default class Vector extends RootVector {
 
     // Called when the animation finishes naturally
     const finishListener = () => {
-      this.inProgressAnimation.finishEmitter.removeListener( finishListener );
+      this.inProgressAnimation!.finishEmitter.removeListener( finishListener );
       this.inProgressAnimation = null;
       finishCallback();
     };
@@ -381,10 +385,9 @@ export default class Vector extends RootVector {
 
   /**
    * Drops the vector onto the graph.
-   * @public
-   * @param {Vector2} tailPosition - the tail position to drop the vector onto
+   * @param tailPosition - the tail position to drop the vector onto
    */
-  dropOntoGraph( tailPosition ) {
+  public dropOntoGraph( tailPosition: Vector2 ): void {
 
     assert && assert( !this.isOnGraphProperty.value, 'vector is already on the graph' );
     assert && assert( !this.inProgressAnimation, 'cannot drop vector when it\'s animating' );
@@ -400,11 +403,10 @@ export default class Vector extends RootVector {
 
   /**
    * Pops the vector off of the graph.
-   * @public
    */
-  popOffOfGraph() {
+  public popOffOfGraph(): void {
 
-    assert && assert( this.isOnGraphProperty.value === true, 'attempted pop off graph when vector was already off' );
+    assert && assert( this.isOnGraphProperty.value, 'attempted pop off graph when vector was already off' );
     assert && assert( !this.inProgressAnimation, 'cannot pop vector off when it\'s animating' );
 
     this.isOnGraphProperty.value = false;
@@ -412,12 +414,11 @@ export default class Vector extends RootVector {
   }
 
   /**
-   * Sets the offset from the x and y axis that is used for PROJECTION style for component vectors.
+   * Sets the offset from the x-axis and y-axis that is used for PROJECTION style for component vectors.
    * @param projectionXOffset - x offset, in model coordinates
    * @param projectionYOffset - y offset, in model coordinates
-   * @public
    */
-  setProjectionOffsets( projectionXOffset, projectionYOffset ) {
+  public setProjectionOffsets( projectionXOffset: number, projectionYOffset: number ): void {
     this.xComponentVector.setProjectionOffsets( projectionXOffset, projectionYOffset );
     this.yComponentVector.setProjectionOffsets( projectionXOffset, projectionYOffset );
   }
