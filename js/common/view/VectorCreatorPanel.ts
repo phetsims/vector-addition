@@ -9,43 +9,47 @@
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { AlignBox, Color, VBox } from '../../../../scenery/js/imports.js';
-import Panel from '../../../../sun/js/Panel.js';
+import { AlignBox, Color, NodeTranslationOptions, VBox } from '../../../../scenery/js/imports.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorCreatorPanelSlot from './VectorCreatorPanelSlot.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
+
+type HorizontalAlign = 'left' | 'center' | 'right';
+type VerticalAlign = 'top' | 'center' | 'bottom';
+
+type SelfOptions = {
+  xAlign?: HorizontalAlign;  // horizontal alignment of the panel slots
+  yAlign?: VerticalAlign; // vertical alignment of the panel slots
+  slotSpacing?: number; // the spacing between slots
+  contentWidth?: number; // fixed width of the panel content
+  contentHeight?: number; // fixed height of the panel content
+};
+
+export type VectorCreatorPanelOptions = SelfOptions & NodeTranslationOptions;
 
 export default class VectorCreatorPanel extends Panel {
 
-  /**
-   * @param {VectorCreatorPanelSlot[]} panelSlots - array of the panel slots to go into the panel
-   * @param {Object} [options]
-   */
-  constructor( panelSlots, options ) {
+  protected constructor( panelSlots: VectorCreatorPanelSlot[], providedOptions?: VectorCreatorPanelOptions ) {
 
-    assert && assert( _.every( panelSlots, slot => slot instanceof VectorCreatorPanelSlot ),
-      `invalid panelSlots: ${panelSlots}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-      `Extra prototype on options: ${options}` );
+    const options = optionize4<VectorCreatorPanelOptions, SelfOptions, PanelOptions>()(
+      {}, VectorAdditionConstants.PANEL_OPTIONS, {
 
-    options = merge( {}, VectorAdditionConstants.PANEL_OPTIONS, {
+        // SelfOptions
+        xAlign: 'center',
+        yAlign: 'center',
+        slotSpacing: 30,
+        contentWidth: 80,
+        contentHeight: 145,
 
-      // super class options
-      lineWidth: 0.8,
-      xMargin: 2, // {number} - the margins on the left and right side of the panel
-      yMargin: 10, // {number} - the margins on the top and bottom of the panel
-
-      // options specific to this class
-      xAlign: 'center',  // 'left' || 'center' || 'right' - horizontal alignment of the panel slots
-      yAlign: 'center', // 'top' || 'center' || 'bottom' - vertical alignment of the panel slots
-      slotSpacing: 30, // {number} - the spacing between slots
-      contentWidth: 80, // {number} fixed width of the panel content
-      contentHeight: 145, // {number} fixed height of the panel content
-
-      fill: Color.WHITE,
-      stroke: Color.BLACK
-    }, options );
+        // PanelOptions
+        lineWidth: 0.8,
+        xMargin: 2,
+        yMargin: 10,
+        fill: Color.WHITE,
+        stroke: Color.BLACK
+      }, providedOptions );
 
     // Create the container for the slots in a vertical alignment
     const slotsContainer = new VBox( {
@@ -65,12 +69,9 @@ export default class VectorCreatorPanel extends Panel {
     super( fixedSizeSlotsContainer, options );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'VectorCreatorPanel is not intended to be disposed' );
+    super.dispose();
   }
 }
 

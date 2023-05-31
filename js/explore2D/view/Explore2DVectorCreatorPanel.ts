@@ -10,10 +10,11 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import SceneNode from '../../common/view/SceneNode.js';
-import VectorCreatorPanel from '../../common/view/VectorCreatorPanel.js';
+import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DGraph from '../model/Explore2DGraph.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 
@@ -31,20 +32,21 @@ const POLAR_INITIAL_VECTOR_COMPONENTS = [
   Vector2.createPolar( 8, Utils.toRadians( -90 ) ) // f
 ];
 
+type SelfOptions = EmptySelfOptions;
+
+type Explore2DVectorCreatorPanelOptions = SelfOptions & VectorCreatorPanelOptions;
+
 export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
 
   /**
-   * @param {Explore2DGraph} graph
-   * @param {SceneNode} sceneNode
-   * @param {string[]} symbols - the symbols corresponding to each slot
-   * @param {Object} [options]
+   * @param graph
+   * @param sceneNode
+   * @param symbols - the symbols corresponding to each slot
+   * @param [providedOptions]
    */
-  constructor( graph, sceneNode, symbols, options ) {
+  public constructor( graph: Explore2DGraph, sceneNode: SceneNode, symbols: string[], providedOptions?: Explore2DVectorCreatorPanelOptions ) {
 
-    assert && assert( graph instanceof Explore2DGraph, `invalid graph: ${graph}` );
-    assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
-    assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+    const options = providedOptions;
 
     // Get the initial vector components, they are different for each symbol.
     // See https://github.com/phetsims/vector-addition/issues/227
@@ -54,12 +56,12 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
     assert && assert( initialVectorComponents.length === symbols.length, 'components are required for each symbol' );
 
     // Create a slot for each symbol
-    const panelSlots = [];
+    const panelSlots: VectorCreatorPanelSlot[] = [];
     for ( let i = 0; i < symbols.length; i++ ) {
       panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents[ i ], {
         symbol: symbols[ i ],
         iconArrowMagnitude: 35,
-        iconVectorComponents: new Vector2( 1, 1 ) // all of the icons in the slots look the same, see #227
+        iconVectorComponents: new Vector2( 1, 1 ) // all icons in the slots look the same, see #227
       } ) );
     }
 

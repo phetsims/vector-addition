@@ -8,30 +8,27 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import SceneNode from '../../common/view/SceneNode.js';
-import VectorCreatorPanel from '../../common/view/VectorCreatorPanel.js';
+import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type LabVectorCreatorPanelOptions = SelfOptions & VectorCreatorPanelOptions;
 
 export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
-  /**
-   * @param {LabGraph} graph
-   * @param {SceneNode} sceneNode
-   * @param {Object} [options]
-   */
-  constructor( graph, sceneNode, options ) {
+  public constructor( graph: LabGraph, sceneNode: SceneNode, providedOptions?: LabVectorCreatorPanelOptions ) {
 
-    assert && assert( graph instanceof LabGraph, `invalid graph: ${graph}` );
-    assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+    const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 
-    options = merge( {
+      // VectorCreatorPanelOptions
       slotSpacing: 40
-    }, options );
+    }, providedOptions );
 
     // Create the initial vector components, the same for all vectors in a set.
     // See https://github.com/phetsims/vector-addition/issues/227
@@ -40,7 +37,7 @@ export default class LabVectorCreatorPanel extends VectorCreatorPanel {
                                     Vector2.createPolar( 8, Utils.toRadians( 45 ) );
 
     // Create a slot for each VectorSet
-    const slots = [];
+    const slots: VectorCreatorPanelSlot[] = [];
     graph.vectorSets.forEach( vectorSet => {
       slots.push( new VectorCreatorPanelSlot( graph, vectorSet, sceneNode, initialVectorComponents, {
         iconArrowMagnitude: 57,

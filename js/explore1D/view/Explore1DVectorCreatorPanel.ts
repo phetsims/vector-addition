@@ -7,32 +7,33 @@
  */
 
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import SceneNode from '../../common/view/SceneNode.js';
-import VectorCreatorPanel from '../../common/view/VectorCreatorPanel.js';
+import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DGraph from '../model/Explore1DGraph.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type Explore1DVectorCreatorPanelOptions = SelfOptions & VectorCreatorPanelOptions;
 
 export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
   /**
-   * @param {Explore1DGraph} graph
-   * @param {SceneNode} sceneNode
-   * @param {string[]} symbols - the symbols corresponding to each slot
-   * @param {Object} [options]
+   * @param graph
+   * @param sceneNode
+   * @param symbols - the symbols corresponding to each slot
+   * @param [providedOptions]
    */
-  constructor( graph, sceneNode, symbols, options ) {
+  public constructor( graph: Explore1DGraph, sceneNode: SceneNode, symbols: string[], providedOptions?: Explore1DVectorCreatorPanelOptions ) {
 
-    assert && assert( graph instanceof Explore1DGraph, `invalid graph: ${graph}` );
-    assert && assert( sceneNode instanceof SceneNode, `invalid sceneNode: ${sceneNode}` );
-    assert && assert( _.every( symbols, symbol => typeof symbol === 'string' ), `invalid symbols: ${symbols}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+    const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 
-    options = merge( {
+      // VectorCreatorPanelOptions
       slotSpacing: ( graph.orientation === GraphOrientations.VERTICAL ) ? 18 : 32
-    }, options );
+    }, providedOptions );
 
     // Create the initial vector components, they are the same for every symbol.
     // See https://github.com/phetsims/vector-addition/issues/227
@@ -40,7 +41,7 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
     const initialVectorComponents = isHorizontal ? new Vector2( 5, 0 ) : new Vector2( 0, 5 );
 
     // Create a slot for each symbol
-    const panelSlots = [];
+    const panelSlots: VectorCreatorPanelSlot[] = [];
     symbols.forEach( symbol => {
       panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents, {
         symbol: symbol,
