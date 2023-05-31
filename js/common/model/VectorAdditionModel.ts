@@ -13,29 +13,18 @@ import ComponentVectorStyles from './ComponentVectorStyles.js';
 
 export default class VectorAdditionModel {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  // the representation (style) used to display component vectors
+  public readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyles>;
 
-    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
-
-    // @public the representation (style) used to display component vectors
+  protected constructor( tandem: Tandem ) {
     this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyles.INVISIBLE );
   }
 
-  /**
-   * Resets the model.
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.componentStyleProperty.reset();
   }
 
-  /**
-   * @public
-   */
-  dispose() {
+  public dispose(): void {
     assert && assert( false, 'VectorAdditionModel is not intended to be disposed' );
   }
 }
