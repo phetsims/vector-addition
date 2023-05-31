@@ -19,18 +19,13 @@ import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
-  /**
-   * @param {LabModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
+  // view-specific Properties
+  private readonly viewProperties: VectorAdditionViewProperties;
 
-    assert && assert( model instanceof LabModel, `invalid model: ${model}` );
-    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+  public constructor( model: LabModel, tandem: Tandem ) {
 
     super( model, tandem );
 
-    // @private view-specific Properties
     this.viewProperties = new VectorAdditionViewProperties();
 
     // Controls for the graph, at upper right
@@ -79,11 +74,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.viewProperties.reset();
   }

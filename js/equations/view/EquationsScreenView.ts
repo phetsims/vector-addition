@@ -20,18 +20,13 @@ import EquationsViewProperties from './EquationsViewProperties.js';
 
 export default class EquationsScreenView extends VectorAdditionScreenView {
 
-  /**
-   * @param {EquationsModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
+  // view-specific Properties
+  private readonly viewProperties: EquationsViewProperties;
 
-    assert && assert( model instanceof EquationsModel, `invalid model: ${model}` );
-    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+  public constructor( model: EquationsModel, tandem: Tandem ) {
 
     super( model, tandem );
 
-    // @private view-specific Properties
     this.viewProperties = new EquationsViewProperties();
 
     // Controls for the graph, at upper right
@@ -97,11 +92,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     this.addChild( cartesianScene );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.viewProperties.reset();
   }

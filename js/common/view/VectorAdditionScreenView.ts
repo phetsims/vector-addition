@@ -8,6 +8,7 @@
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionModel from '../model/VectorAdditionModel.js';
@@ -15,22 +16,16 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 export default class VectorAdditionScreenView extends ScreenView {
 
-  /**
-   * @abstract
-   * @param {VectorAdditionModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
+  // for layout in subclasses
+  protected readonly resetAllButton: Node;
 
-    assert && assert( model instanceof VectorAdditionModel, `invalid model: ${model}` );
-    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+  protected constructor( model: VectorAdditionModel, tandem: Tandem ) {
 
     super( {
       layoutBounds: VectorAdditionConstants.SCREEN_VIEW_BOUNDS,
       tandem: tandem
     } );
 
-    // @protected for layout
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
@@ -43,18 +38,12 @@ export default class VectorAdditionScreenView extends ScreenView {
     this.addChild( this.resetAllButton );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'VectorAdditionScreenView is not intended to be disposed' );
+    super.dispose();
   }
 
-  /**
-   * @public
-   */
-  reset() {
+  public reset(): void {
 
     // cancel any interactions that are in progress
     this.interruptSubtreeInput();

@@ -20,18 +20,13 @@ import Explore2DVectorCreatorPanel from './Explore2DVectorCreatorPanel.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
-  /**
-   * @param {Explore2DModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
+  // view-specific Properties
+  private readonly viewProperties: VectorAdditionViewProperties;
 
-    assert && assert( model instanceof Explore2DModel, `invalid model: ${model}` );
-    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+  public constructor( model: Explore2DModel, tandem: Tandem ) {
 
     super( model, tandem );
 
-    // @private view-specific Properties
     this.viewProperties = new VectorAdditionViewProperties();
 
     // Control for the graph, at upper right
@@ -88,11 +83,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.viewProperties.reset();
   }
