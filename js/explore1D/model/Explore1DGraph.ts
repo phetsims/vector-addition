@@ -13,7 +13,6 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
@@ -24,6 +23,7 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
+import Property from '../../../../axon/js/Property.js';
 
 // constants
 const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
@@ -43,25 +43,26 @@ const EXPLORE_1D_COORDINATE_SNAP_MODE = CoordinateSnapModes.CARTESIAN;
 
 export default class Explore1DGraph extends Graph {
 
+  // Graphs on 'Explore 1D' have exactly one vector set
+  public readonly vectorSet: VectorSet;
+
   /**
-   * @param {GraphOrientations} graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {BooleanProperty} sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
-   * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on this graph
+   * @param graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
+   * @param componentStyleProperty
+   * @param sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
+   * @param vectorColorPalette - color palette for vectors on this graph
    */
-  constructor( graphOrientation, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
+  public constructor( graphOrientation: GraphOrientations,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      sumVisibleProperty: Property<boolean>,
+                      vectorColorPalette: VectorColorPalette ) {
 
     assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ) );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
-      `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
 
     super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, {
       orientation: graphOrientation
     } );
 
-    // @public (read-only) {VectorSet} vectorSet - Graphs on 'Explore 1D' have exactly one vector set
     this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
 
     // Add the one and only vector set
