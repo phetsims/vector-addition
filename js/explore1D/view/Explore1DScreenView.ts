@@ -20,18 +20,13 @@ import GraphOrientationRadioButtonGroup from './GraphOrientationRadioButtonGroup
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
-  /**
-   * @param {Explore1DModel} model
-   * @param {Tandem} tandem
-   */
-  constructor( model, tandem ) {
+  // view-specific Properties
+  private readonly viewProperties: Explore1DViewProperties;
 
-    assert && assert( model instanceof Explore1DModel, `invalid model: ${model}` );
-    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+  public constructor( model: Explore1DModel, tandem: Tandem ) {
 
     super( model, tandem );
 
-    // @private view-specific Properties
     this.viewProperties = new Explore1DViewProperties();
 
     const graphViewBounds = model.verticalGraph.graphViewBounds;
@@ -87,11 +82,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.viewProperties.reset();
   }
