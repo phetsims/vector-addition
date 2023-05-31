@@ -15,48 +15,44 @@ import merge from '../../../../phet-core/js/merge.js';
 import SumVector from '../../common/model/SumVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationTypes from './EquationTypes.js';
+import VectorSet from '../../common/model/VectorSet.js';
+import Graph from '../../common/model/Graph.js';
+import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
+import Vector from '../../common/model/Vector.js';
+import { LabelDisplayData } from '../../common/model/RootVector.js';
 
 // constants
 const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
 
 export default class EquationsSumVector extends SumVector {
 
-  /**
-   * @param {Graph} graph - graph the sum vector belongs to
-   * @param {VectorSet} vectorSet - the vector set that the sum vector represents
-   * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
-   * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
-   */
-  constructor( graph, vectorSet, equationTypeProperty, symbol ) {
+  private readonly equationTypeProperty: EnumerationProperty<EquationTypes>;
 
-    assert && assert( equationTypeProperty instanceof EnumerationProperty && EquationTypes.enumeration.includes( equationTypeProperty.value ),
-      `invalid equationTypeProperty: ${equationTypeProperty}` );
+  /**
+   * @param graph - graph the sum vector belongs to
+   * @param vectorSet - the vector set that the sum vector represents
+   * @param equationTypeProperty
+   * @param symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   */
+  public constructor( graph: Graph, vectorSet: VectorSet, equationTypeProperty: EnumerationProperty<EquationTypes>,
+                      symbol: string | null ) {
 
     super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbol );
 
-    // @private
-    this.vectorSet = vectorSet;
     this.equationTypeProperty = equationTypeProperty;
 
     // Observe when each vector changes and/or when the equationType changes to calculate the sum.
     // unmultilink is unnecessary, exists for the lifetime of the sim.
-    const dependencies = [];
-    vectorSet.vectors.forEach( vector => {
-      dependencies.push( vector.vectorComponentsProperty );
-    } );
-    Multilink.multilink( _.concat( [ equationTypeProperty ], dependencies ),
-      () => {
-        this.updateSum( vectorSet.vectors );
-      } );
+    const vectorComponentsProperties = vectorSet.vectors.map( vector => vector.vectorComponentsProperty );
+    Multilink.multilinkAny( [ equationTypeProperty, ...vectorComponentsProperties ],
+      () => this.updateSum( vectorSet.vectors )
+    );
   }
 
   /**
    * Calculate the sum vector for the Equations screen.
-   * @param {ObservableArrayDef.<Vector>} vectors
-   * @public
-   * @override
    */
-  updateSum( vectors ) {
+  public override updateSum( vectors: ObservableArray<Vector> ): void {
 
     const equationType = this.equationTypeProperty.value;
 
@@ -95,22 +91,14 @@ export default class EquationsSumVector extends SumVector {
 
   /**
    * See RootVector.getLabelDisplayData for details.
-   * @override
-   * @public
-   * @param {boolean} valuesVisible - whether the values are visible
-   * @returns {Object} see RootVector.getLabelDisplayData
    */
-  getLabelDisplayData( valuesVisible ) {
+  public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
     return merge( super.getLabelDisplayData( valuesVisible ), {
       symbol: this.symbol
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
 
     // In the Equations screen, vectors are never removed, so we need to explicitly call updateSum.

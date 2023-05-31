@@ -11,13 +11,17 @@
 
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsSumVector from './EquationsSumVector.js';
 import EquationsVector from './EquationsVector.js';
+import EquationsGraph from './EquationsGraph.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 
 // Describes the initial vectors for Cartesian snap mode. See https://github.com/phetsims/vector-addition/issues/227
 const CARTESIAN_VECTOR_DESCRIPTIONS = [
@@ -57,17 +61,25 @@ const POLAR_VECTOR_DESCRIPTIONS = [
 
 export default class EquationsVectorSet extends VectorSet {
 
-  /**
-   * @param {EquationsGraph} graph
-   * @param {BooleanProperty} sumVisibleProperty
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {VectorColorPalette} vectorColorPalette - color palette for vectors in this set
-   * @param {CoordinateSnapModes} coordinateSnapMode - each vector set can only represent one snap mode
-   * @param {Object} [options]
-   */
-  constructor( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode, options ) {
+  public readonly symbols: string[];
 
-    options = merge( {
+  // @ts-expect-error sumVector shadows field in superclass
+  public readonly sumVector: EquationsSumVector;
+
+  /**
+   * @param graph
+   * @param componentStyleProperty
+   * @param sumVisibleProperty
+   * @param vectorColorPalette - color palette for vectors in this set
+   * @param coordinateSnapMode - each vector set can only represent one snap mode
+   */
+  public constructor( graph: EquationsGraph,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      sumVisibleProperty: Property<boolean>,
+                      vectorColorPalette: VectorColorPalette,
+                      coordinateSnapMode: CoordinateSnapModes ) {
+
+    const options = {
 
       // EquationsVectorSet will initialize its own sum vector, because the sum vector in this screen is different.
       // It's not truly a sum, and its computation depends on which equation type is selected (see EquationTypes).
@@ -76,11 +88,10 @@ export default class EquationsVectorSet extends VectorSet {
       // offsets for sum component vectors in PROJECTION style
       sumProjectionXOffset: 0.5,
       sumProjectionYOffset: 0.5
-    }, options );
+    };
 
     super( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
-    // @public (read-only) {string[]} symbols
     this.symbols = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
                    VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
                    VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
@@ -114,21 +125,13 @@ export default class EquationsVectorSet extends VectorSet {
       this.vectors.push( vector );
     }
 
-    //----------------------------------------------------------------------------------------
     // Create the sum vector
-
-    // @public (read-only) {EquationsSumVector}
-    this.sumVector = new EquationsSumVector( graph, this, graph.equationTypeProperty,
-      _.last( this.symbols ) );
+    assert && assert( this.symbols.length > 0 );
+    this.sumVector = new EquationsSumVector( graph, this, graph.equationTypeProperty, _.last( this.symbols )! );
     this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 
-  /**
-   * Resets the vector set.
-   * @override
-   * @public
-   */
-  reset() {
+  public override reset(): void {
 
     // We are not calling super.reset because the default behavior is to dispose of all vectors in this.vectors.
     // In the Equations screen, vectors are created automatically at startup, and there is no way to created them

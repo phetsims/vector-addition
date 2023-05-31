@@ -13,33 +13,37 @@ import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsGraph from './EquationsGraph.js';
+import Property from '../../../../axon/js/Property.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 
 export default class EquationsModel extends VectorAdditionModel {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  public readonly sumVisibleProperty: Property<boolean>;
 
-    assert && assert( tandem instanceof Tandem, `invalid tandem: ${tandem}` );
+  public readonly cartesianVectorColorPalette: VectorColorPalette;
+  public readonly polarVectorColorPalette: VectorColorPalette;
+
+  // graph for Cartesian snap mode
+  public readonly cartesianGraph: EquationsGraph;
+
+  // graph for Polar snap mode
+  public readonly polarGraph: EquationsGraph;
+
+  public constructor( tandem: Tandem ) {
 
     super( tandem );
 
-    // @public
     this.sumVisibleProperty = new BooleanProperty( true );
 
-    // @public (read-only) {VectorColorPalette}
     this.cartesianVectorColorPalette = VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE;
     this.polarVectorColorPalette = VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE;
 
-    // @public (read-only) graph for Cartesian snap mode
     this.cartesianGraph = new EquationsGraph( CoordinateSnapModes.CARTESIAN,
       this.componentStyleProperty,
       this.sumVisibleProperty,
       this.cartesianVectorColorPalette
     );
 
-    // @public (read-only) graph for Polar snap mode
     this.polarGraph = new EquationsGraph( CoordinateSnapModes.POLAR,
       this.componentStyleProperty,
       this.sumVisibleProperty,
@@ -47,12 +51,7 @@ export default class EquationsModel extends VectorAdditionModel {
     );
   }
 
-  /**
-   * Resets the EquationsModel.
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.sumVisibleProperty.reset();
     this.cartesianGraph.reset();

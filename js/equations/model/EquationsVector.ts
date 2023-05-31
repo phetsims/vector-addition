@@ -17,6 +17,12 @@ import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import Vector from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
+import { LabelDisplayData } from '../../common/model/RootVector.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import EquationsGraph from './EquationsGraph.js';
+import EquationsVectorSet from './EquationsVectorSet.js';
+import Property from '../../../../axon/js/Property.js';
+import BaseVector from '../../common/model/BaseVector.js';
 
 // constants
 
@@ -33,26 +39,27 @@ const OPTIONS = {
 
 export default class EquationsVector extends Vector {
 
+  public readonly coefficientProperty: Property<number>;
+  public readonly baseVector: BaseVector;
+
   /**
-   * @param {Vector2} initialTailPosition - starting tail position of the vector
-   * @param {Vector2} initialComponents - starting components of the vector
-   * @param {Vector2} baseVectorTailPosition - starting tail position of the base vector
-   * @param {EquationsGraph} graph - the graph the vector belongs to
-   * @param {EquationsVectorSet} vectorSet - the VectorSet that the vector belongs to
-   * @param {string|null} symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param initialTailPosition - starting tail position of the vector
+   * @param initialComponents - starting components of the vector
+   * @param baseVectorTailPosition - starting tail position of the base vector
+   * @param graph - the graph the vector belongs to
+   * @param vectorSet - the VectorSet that the vector belongs to
+   * @param symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
-  constructor( initialTailPosition,
-               initialComponents,
-               baseVectorTailPosition,
-               graph,
-               vectorSet,
-               symbol
-  ) {
+  public constructor( initialTailPosition: Vector2,
+                      initialComponents: Vector2,
+                      baseVectorTailPosition: Vector2,
+                      graph: EquationsGraph,
+                      vectorSet: EquationsVectorSet,
+                      symbol: string | null ) {
 
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );
 
-    // @public (read-only)
     this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
       range: COEFFICIENT_RANGE
     } );
@@ -60,8 +67,7 @@ export default class EquationsVector extends Vector {
     // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.
     this.setTipWithInvariants( this.tip );
 
-    // @public (read-only) {BaseVector} instantiate a base vector based on snap mode
-    this.baseVector = null;
+    // Instantiate a base vector based on snap mode.
     if ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition,
         this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbol );
@@ -79,20 +85,12 @@ export default class EquationsVector extends Vector {
       } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'EquationsVector is not intended to be disposed' );
+    super.dispose();
   }
 
-  /**
-   * Resets the vector.
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.coefficientProperty.reset();
     this.baseVector.reset();
@@ -100,12 +98,8 @@ export default class EquationsVector extends Vector {
 
   /**
    * See RootVector.getLabelDisplayData for details.
-   * @override
-   * @public
-   * @param {boolean} valuesVisible - whether the values are visible
-   * @returns {Object} see RootVector.getLabelDisplayData
    */
-  getLabelDisplayData( valuesVisible ) {
+  public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
     return merge( super.getLabelDisplayData( valuesVisible ), {
       coefficient: this.coefficientProperty.value
     } );

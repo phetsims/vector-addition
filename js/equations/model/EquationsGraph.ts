@@ -10,7 +10,6 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
@@ -20,6 +19,8 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
 import EquationTypes from './EquationTypes.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+import Property from '../../../../axon/js/Property.js';
 
 // constants
 
@@ -34,38 +35,26 @@ const STARTING_EQUATION_TYPE = EquationTypes.ADDITION;
 
 export default class EquationsGraph extends Graph {
 
-  /**
-   * @param {CoordinateSnapModes} coordinateSnapMode - coordinateSnapMode for the graph
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {BooleanProperty} sumVisibleProperty
-   * @param {VectorColorPalette} vectorColorPalette - color palette for vectors on the graph
-   */
-  constructor( coordinateSnapMode, componentStyleProperty, sumVisibleProperty, vectorColorPalette ) {
+  public readonly equationTypeProperty: EnumerationProperty<EquationTypes>;
+  public readonly vectorSet: EquationsVectorSet;
 
-    assert && assert( CoordinateSnapModes.enumeration.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
+  public constructor( coordinateSnapMode: CoordinateSnapModes,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      sumVisibleProperty: Property<boolean>,
+                      vectorColorPalette: VectorColorPalette ) {
 
     super( EQUATIONS_GRAPH_BOUNDS, coordinateSnapMode, {
       bottomLeft: BOTTOM_LEFT
     } );
 
-    // @public (read-only) {EnumerationProperty.<EquationTypes>} equationTypeProperty
     this.equationTypeProperty = new EnumerationProperty( STARTING_EQUATION_TYPE );
 
-    // @public (read-only) {EquationsVectorSet} vectorSet
     this.vectorSet = new EquationsVectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );
 
     this.vectorSets.push( this.vectorSet );
   }
 
-  /**
-   * Resets the graph.
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.equationTypeProperty.reset();
   }
