@@ -62,7 +62,7 @@ export default class VectorValuesToggleBox extends ToggleBox {
       // superclass options
       contentFixedWidth: 500, // {number|null} fixed size of the panel (see superclass)
       contentFixedHeight: 45, // {number|null} fixed size of the panel (see superclass)
-      isExpandedInitially: true
+      isOpen: true
 
     }, options );
 

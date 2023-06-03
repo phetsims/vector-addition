@@ -19,47 +19,54 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, Node } from '../../../../scenery/js/imports.js';
-import AccordionBox from '../../../../sun/js/AccordionBox.js';
+import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+
+  // true means the box is initially open, false means the box is initially closed.
+  isOpen?: boolean;
+
+  // If provided, the content will scale to fix this width. Otherwise, the fixed size is calculated by the largest
+  // of the content nodes and its respective margin.
+  contentFixedWidth?: number | null;
+
+  // If provided, the content will scale to fix this height. Otherwise, the fixed size is calculated by the largest
+  // of the content nodes and its respective margin.
+  contentFixedHeight?: number | null;
+};
+
+export type ToggleBoxOptions = SelfOptions;
 
 export default class ToggleBox extends AccordionBox {
 
   /**
-   * @param {Node} closedContent - content when the box is closed
-   * @param {Node} openContent - content when the box is open
-   * @param {Object} [options]
+   * @param closedContent - content when the box is closed
+   * @param openContent - content when the box is open
+   * @param [providedOptions]
    */
-  constructor( closedContent, openContent, options ) {
+  public constructor( closedContent: Node, openContent: Node, providedOptions?: ToggleBoxOptions ) {
 
-    options = merge( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
+    const options = optionize4<ToggleBoxOptions, SelfOptions, AccordionBoxOptions>()(
+      {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
-      isExpandedInitially: true, // {boolean} - false means the box will start off as closed
+        // SelfOptions
+        isOpen: true,
+        contentFixedWidth: null,
+        contentFixedHeight: null,
 
-
-      contentYMargin: 0,
-      titleYMargin: 0,
-      buttonYMargin: 0,
-
-      // content align
-      contentAlign: 'left',    // {string} - 'left', 'center', or 'right'
-      contentFixedWidth: null, // {number|null} if provided, the content will scale to fix this width. Otherwise,
-                               // the fixed size is calculated by the largest of the content nodes and its respective
-                               // margin
-
-      contentFixedHeight: null  // {number|null} if provided, the content will scale to fix this height. Otherwise,
-                                // the fixed size is calculated by the largest of the content nodes and its respective
-                                // margin
-
-      // See VectorAdditionConstants.ACCORDION_BOX_OPTIONS for the rest of the defaults
-    }, options );
-
-    assert && assert( closedContent instanceof Node, `invalid closedContent: ${closedContent}` );
-    assert && assert( openContent instanceof Node, `invalid openContent: ${openContent}` );
+        // AccordionBoxOptions
+        contentYMargin: 0,
+        titleYMargin: 0,
+        buttonYMargin: 0,
+        contentAlign: 'left'
+      }, providedOptions );
 
     // Determine the content width
-    const contentWidth = options.contentFixedWidth || _.max( [ closedContent.width, openContent.width ] );
-    const contentHeight = options.contentFixedHeight || _.max( [ closedContent.height, openContent.height ] );
+    const contentWidth = options.contentFixedWidth || _.max( [ closedContent.width, openContent.width ] )!;
+    const contentHeight = options.contentFixedHeight || _.max( [ closedContent.height, openContent.height ] )!;
 
     // Constrain the content width and height
     openContent.maxWidth = contentWidth;
@@ -76,7 +83,7 @@ export default class ToggleBox extends AccordionBox {
     const closedContentAlignBox = new AlignBox( closedContent, alignBoxOptions );
 
     super( openContentAlignBox, merge( {
-      expandedProperty: new BooleanProperty( options.isExpandedInitially ),
+      expandedProperty: new BooleanProperty( options.isOpen ),
       showTitleWhenExpanded: false,
       titleNode: closedContentAlignBox, // unorthodox use of AccordionBox, but it works
       titleBarExpandCollapse: false

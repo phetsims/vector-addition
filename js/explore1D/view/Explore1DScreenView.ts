@@ -55,7 +55,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       // Create the scene node
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty, {
         vectorValuesAccordionBoxOptions: {
-          isExpandedInitially: false
+          isOpen: false
         }
       } );
 

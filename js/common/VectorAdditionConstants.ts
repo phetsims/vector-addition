@@ -19,12 +19,33 @@ import vectorAddition from '../vectorAddition.js';
 import VectorAdditionColors from './VectorAdditionColors.js';
 import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';
 import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import { combineOptions } from '../../../phet-core/js/optionize.js';
+import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
 
 // shared constants within this file
 const PANEL_CORNER_RADIUS = 5;
 const PANEL_X_MARGIN = 9;
 const PANEL_Y_MARGIN = 10;
 const RIGHT_PANEL_WIDTH = 175; // fixed width of panels and accordion boxes on right side of the screen
+
+const ACCORDION_BOX_OPTIONS = combineOptions<AccordionBoxOptions>( {
+  cornerRadius: PANEL_CORNER_RADIUS,
+  contentXMargin: PANEL_X_MARGIN,
+  contentYMargin: PANEL_Y_MARGIN,
+  contentXSpacing: PANEL_X_MARGIN,
+  contentYSpacing: 1,
+  buttonXMargin: PANEL_X_MARGIN,
+  buttonYMargin: PANEL_Y_MARGIN,
+  titleYMargin: PANEL_Y_MARGIN,
+  titleXMargin: PANEL_X_MARGIN,
+  titleXSpacing: PANEL_X_MARGIN,
+  titleAlignX: 'left',
+  expandCollapseButtonOptions: {
+    sideLength: 22,
+    touchAreaXDilation: 6,
+    touchAreaYDilation: 6
+  }
+}, VectorAdditionColors.PANEL_COLORS );
 
 // options for vector arrows (ArrowNode)
 const VECTOR_ARROW_OPTIONS = {
@@ -135,24 +156,7 @@ const VectorAdditionConstants = {
   //----------------------------------------------------------------------------------------
   // AccordionBoxes and ToggleBoxes
 
-  ACCORDION_BOX_OPTIONS: merge( {
-    cornerRadius: PANEL_CORNER_RADIUS,
-    contentXMargin: PANEL_X_MARGIN,
-    contentYMargin: PANEL_Y_MARGIN,
-    contentXSpacing: PANEL_X_MARGIN,
-    contentYSpacing: 1,
-    buttonXMargin: PANEL_X_MARGIN,
-    buttonYMargin: PANEL_Y_MARGIN,
-    titleYMargin: PANEL_Y_MARGIN,
-    titleXMargin: PANEL_X_MARGIN,
-    titleXSpacing: PANEL_X_MARGIN,
-    titleAlignX: 'left',
-    expandCollapseButtonOptions: {
-      sideLength: 22,
-      touchAreaXDilation: 6,
-      touchAreaYDilation: 6
-    }
-  }, VectorAdditionColors.PANEL_COLORS ),
+  ACCORDION_BOX_OPTIONS: ACCORDION_BOX_OPTIONS,
 
   //----------------------------------------------------------------------------------------
   // NumberPickers
