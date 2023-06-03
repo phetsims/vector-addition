@@ -9,54 +9,51 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, AlignGroup, HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import ToggleBox from '../../common/view/ToggleBox.js';
+import ToggleBox, { ToggleBoxOptions } from '../../common/view/ToggleBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import EquationTypes from '../model/EquationTypes.js';
 import EquationTypeNode from './EquationTypeNode.js';
 import EquationTypesRadioButtonGroup from './EquationTypesRadioButtonGroup.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
+type SelfOptions = EmptySelfOptions;
+
+type EquationToggleBoxOptions = SelfOptions & ToggleBoxOptions;
+
 export default class EquationToggleBox extends ToggleBox {
 
   /**
-   * @param {EquationsVectorSet} vectorSet
-   * @param {EnumerationProperty.<EquationTypes>} equationTypeProperty
-   * @param {AlignGroup} equationButtonsAlignGroup - used to make all equation radio buttons the same size
-   * @param {AlignGroup} equationsAlignGroup - used to make all interactive equations the same size
-   * @param {Object} [options]
+   * @param vectorSet
+   * @param equationTypeProperty
+   * @param equationButtonsAlignGroup - used to make all equation radio buttons the same size
+   * @param equationsAlignGroup - used to make all interactive equations the same size
+   * @param [providedOptions]
    */
-  constructor( vectorSet, equationTypeProperty, equationButtonsAlignGroup, equationsAlignGroup, options ) {
+  public constructor( vectorSet: EquationsVectorSet, equationTypeProperty: EnumerationProperty<EquationTypes>,
+                      equationButtonsAlignGroup: AlignGroup, equationsAlignGroup: AlignGroup,
+                      providedOptions?: EquationToggleBoxOptions ) {
 
-    assert && assert( vectorSet instanceof EquationsVectorSet, `invalid vectorSet: ${vectorSet}` );
-    assert && assert( equationTypeProperty instanceof EnumerationProperty, `invalid equationTypeProperty: ${equationTypeProperty}` );
-    assert && assert( equationButtonsAlignGroup instanceof AlignGroup, `invalid equationButtonsAlignGroup: ${equationButtonsAlignGroup}` );
-    assert && assert( equationsAlignGroup instanceof AlignGroup, `invalid equationsAlignGroup: ${equationsAlignGroup}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+    const options = optionize<EquationToggleBoxOptions, SelfOptions, ToggleBoxOptions>()( {
 
-    options = merge( {
-
-      // superclass options
+      // ToggleBoxOptions
       contentFixedWidth: 670,
       contentFixedHeight: 50,
       contentXSpacing: 17
-
-    }, options );
+    }, providedOptions );
 
     // When the toggle box is collapsed, show 'Equation'
     const closedContent = new Text( VectorAdditionStrings.equation, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type
     const radioButtonGroup = new EquationTypesRadioButtonGroup(
-      equationTypeProperty, vectorSet.symbols, equationButtonsAlignGroup, {
-        scale: 0.75
-      } );
+      equationTypeProperty, vectorSet.symbols, equationButtonsAlignGroup );
 
     // Create an equation of each type, only one of which will be visible at a time.
     const equationsParent = new Node();
@@ -91,12 +88,9 @@ export default class EquationToggleBox extends ToggleBox {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'EquationToggleBox is not intended to be disposed' );
+    super.dispose();
   }
 }
 

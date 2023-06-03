@@ -40,7 +40,8 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
 
     const options = optionize4<EquationTypesRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
-        xMargin: 12
+        xMargin: 12,
+        scale: 0.75
       }, providedOptions );
 
     // Create the description of the buttons

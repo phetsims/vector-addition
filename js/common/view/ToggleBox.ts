@@ -18,11 +18,12 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { AlignBox, Node } from '../../../../scenery/js/imports.js';
+import { AlignBox, Node, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
 
@@ -38,7 +39,8 @@ type SelfOptions = {
   contentFixedHeight?: number | null;
 };
 
-export type ToggleBoxOptions = SelfOptions;
+export type ToggleBoxOptions = SelfOptions & NodeTranslationOptions &
+  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing'>;
 
 export default class ToggleBox extends AccordionBox {
 
@@ -47,7 +49,7 @@ export default class ToggleBox extends AccordionBox {
    * @param openContent - content when the box is open
    * @param [providedOptions]
    */
-  public constructor( closedContent: Node, openContent: Node, providedOptions?: ToggleBoxOptions ) {
+  protected constructor( closedContent: Node, openContent: Node, providedOptions?: ToggleBoxOptions ) {
 
     const options = optionize4<ToggleBoxOptions, SelfOptions, AccordionBoxOptions>()(
       {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
