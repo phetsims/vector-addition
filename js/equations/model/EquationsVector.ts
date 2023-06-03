@@ -21,7 +21,6 @@ import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import EquationsGraph from './EquationsGraph.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
-import Property from '../../../../axon/js/Property.js';
 import BaseVector from '../../common/model/BaseVector.js';
 
 // constants
@@ -39,7 +38,7 @@ const OPTIONS = {
 
 export default class EquationsVector extends Vector {
 
-  public readonly coefficientProperty: Property<number>;
+  public readonly coefficientProperty: NumberProperty;
   public readonly baseVector: BaseVector;
 
   /**

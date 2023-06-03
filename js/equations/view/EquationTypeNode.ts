@@ -21,35 +21,14 @@ import EquationTypes from '../model/EquationTypes.js';
 const TEXT_OPTIONS = {
   font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT
 };
+const labelNumberPickerSpacing = 7; // spacing between the NumberPicker and the VectorSymbolNode
+const textSpacing = 13.5; // spacing between text of the equation
 
 export default class EquationTypeNode extends Node {
 
-  /**
-   * @param {EquationsVectorSet} vectorSet
-   * @param {EquationTypes} equationType
-   * @param {Object} [options]
-   */
-  constructor( vectorSet, equationType, options ) {
+  public constructor( vectorSet: EquationsVectorSet, equationType: EquationTypes ) {
 
-    assert && assert( vectorSet instanceof EquationsVectorSet, `invalid vectorSet: ${vectorSet}` );
-    assert && assert( EquationTypes.enumeration.includes( equationType ), `invalid equationType: ${equationType}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
-
-    options = merge( {
-
-      // {number} spacing between the NumberPicker and the VectorSymbolNode
-      labelNumberPickerSpacing: 7,
-
-      // {number} spacing between text of the equation
-      textSpacing: 13.5,
-
-      // {number} align width of the sign texts (ie. '+', '-'). The 'sign' text is
-      // aligned in an AlignBox to ensure that they are the same width.
-      signTextWidth: 4
-
-    }, options );
-
-    // Create all of the pieces of the equation
+    // Create all pieces of the equation
     const equationChildren = [];
     let maxVectorSymbolHeight = 0;
 
@@ -68,7 +47,7 @@ export default class EquationTypeNode extends Node {
         equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
       }
 
-      const vector = vectorSet.vectors.get( i );
+      const vector = vectorSet.equationsVectors[ i ];
 
       assert && assert( vector.coefficientProperty.range,
         'coefficientProperty must have an associated range' );
@@ -123,18 +102,17 @@ export default class EquationTypeNode extends Node {
       if ( i > 0 ) {
         const previousChild = equationChildren[ i - 1 ];
         if ( previousChild instanceof NumberPicker ) {
-          child.left = previousChild.right + options.labelNumberPickerSpacing;
+          child.left = previousChild.right + labelNumberPickerSpacing;
         }
         else {
-          child.left = previousChild.right + options.textSpacing;
+          child.left = previousChild.right + textSpacing;
         }
       }
     }
 
-    assert && assert( !options.children, 'EquationTypeNode sets children' );
-    options.children = equationChildren;
-
-    super( options );
+    super( {
+      children: equationChildren
+    } );
   }
 }
 

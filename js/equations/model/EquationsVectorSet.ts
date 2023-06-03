@@ -66,6 +66,10 @@ export default class EquationsVectorSet extends VectorSet {
   // @ts-expect-error sumVector shadows field in superclass
   public readonly sumVector: EquationsSumVector;
 
+  // We need to know about EquationsVector instances, a specialization of Vector.
+  // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
+  public readonly equationsVectors: EquationsVector[];
+
   /**
    * @param graph
    * @param componentStyleProperty
@@ -105,6 +109,7 @@ export default class EquationsVectorSet extends VectorSet {
                                POLAR_VECTOR_DESCRIPTIONS;
     assert && assert( vectorDescriptions.length === this.symbols.length - 1 );
 
+    this.equationsVectors = [];
     for ( let i = 0; i < vectorDescriptions.length; i++ ) {
 
       const vectorDescription = vectorDescriptions[ i ];
@@ -123,6 +128,7 @@ export default class EquationsVectorSet extends VectorSet {
         this.symbols[ i ] );
 
       this.vectors.push( vector );
+      this.equationsVectors.push( vector );
     }
 
     // Create the sum vector
