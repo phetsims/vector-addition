@@ -37,12 +37,7 @@ const ORIGIN_OPTIONS = {
 
 export default class OriginManipulator extends ShadedSphereNode {
 
-  /**
-   * @param {Graph} graph - the model for the graph
-   */
-  constructor( graph ) {
-
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
+  public constructor( graph: Graph ) {
 
     // convenience variable
     const modelViewTransform = graph.modelViewTransformProperty.value;
@@ -87,12 +82,9 @@ export default class OriginManipulator extends ShadedSphereNode {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'OriginManipulator is not intended to be disposed' );
+    super.dispose();
   }
 }
 
