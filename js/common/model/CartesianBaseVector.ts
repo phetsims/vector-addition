@@ -16,13 +16,12 @@ import CoordinateSnapModes from './CoordinateSnapModes.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
-import Property from '../../../../axon/js/Property.js';
 
 export default class CartesianBaseVector extends BaseVector {
 
   // The x and y components of the vector
-  public readonly xComponentProperty: Property<number>;
-  public readonly yComponentProperty: Property<number>;
+  public readonly xComponentProperty: NumberProperty;
+  public readonly yComponentProperty: NumberProperty;
 
   /**
    * @param initialTailPosition - starting tail position of the Base Vector

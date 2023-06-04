@@ -18,12 +18,11 @@ import BaseVector from './BaseVector.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
-import Property from '../../../../axon/js/Property.js';
 
 export default class PolarBaseVector extends BaseVector {
 
-  public readonly magnitudeProperty: Property<number>;
-  public readonly angleDegreesProperty: Property<number>;
+  public readonly magnitudeProperty: NumberProperty;
+  public readonly angleDegreesProperty: NumberProperty;
 
   /**
    * @param initialTailPosition - starting tail position of the Base Vector

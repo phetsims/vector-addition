@@ -14,13 +14,12 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
+import Range from '../../../../dot/js/Range.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import { HBox, HStrut, Node, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
-import AccordionBox from '../../../../sun/js/AccordionBox.js';
-import NumberPicker from '../../../../sun/js/NumberPicker.js';
+import { HBox, HStrut, Node, NodeTranslationOptions, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
+import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
+import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
@@ -28,42 +27,39 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
+import { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
+import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 
 // constants
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
+const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
+const Y_SPACING = 17; // vertical spacing between UI components
+const CONTENT_WIDTH = VectorAdditionConstants.BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH; // fixed content width
+
+type SelfOptions = EmptySelfOptions;
+
+type BaseVectorsAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
+  PickRequired<AccordionBoxOptions, 'expandedProperty'>;
 
 export default class BaseVectorsAccordionBox extends AccordionBox {
 
-  /**
-   * @param {BooleanProperty} baseVectorsVisibleProperty
-   * @param {CoordinateSnapModes} coordinateSnapMode
-   * @param {EquationsVectorSet} vectorSet
-   * @param {Object} [options]
-   */
-  constructor( baseVectorsVisibleProperty, coordinateSnapMode, vectorSet, options ) {
+  public constructor( baseVectorsVisibleProperty: Property<boolean>,
+                      coordinateSnapMode: CoordinateSnapModes,
+                      vectorSet: EquationsVectorSet,
+                      providedOptions: BaseVectorsAccordionBoxOptions ) {
 
-    assert && assert( baseVectorsVisibleProperty instanceof BooleanProperty, `invalid baseVectorsVisibleProperty: ${baseVectorsVisibleProperty}` );
-    assert && assert( CoordinateSnapModes.enumeration.includes( coordinateSnapMode ), `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-    assert && assert( vectorSet instanceof EquationsVectorSet, `invalid vectorSet: ${vectorSet}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+    const options = optionize4<BaseVectorsAccordionBoxOptions, SelfOptions, AccordionBoxOptions>()(
+      {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
-    //----------------------------------------------------------------------------------------
-
-    options = merge( {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
-
-      // specific to this class
-      xSpacing: 11, // {number} spacing between the left NumberPicker and the right label
-      ySpacing: 17, // {number} y spacing between UI components
-      contentWidth: VectorAdditionConstants.BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH, // fixed content width
-
-      // super class options
-      titleNode: new Text( VectorAdditionStrings.baseVectors, { font: VectorAdditionConstants.TITLE_FONT } )
-
-    }, options );
-
-
-    // Assign a max width of the title node.
-    options.titleNode.maxWidth = 0.75 * options.contentWidth;
+        // AccordionBoxOptions
+        titleNode: new Text( VectorAdditionStrings.baseVectors, {
+          font: VectorAdditionConstants.TITLE_FONT,
+          maxWidth: 0.75 * CONTENT_WIDTH
+        } )
+      }, providedOptions );
 
     //----------------------------------------------------------------------------------------
     // Create the Number Pickers / labels
@@ -75,10 +71,10 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     // On Polar, the two NumberPickers toggle the magnitude and the angle respectively.
     //----------------------------------------------------------------------------------------
 
-    const pickers = []; // {HBox[]} pairs of pickers and their labels
+    const pickers: Node[] = []; // pairs of pickers and their labels
 
     // Each Vector in the vectorSet gets 2 NumberPickers, so loop through the vectorSet
-    vectorSet.vectors.forEach( vector => {
+    vectorSet.equationsVectors.forEach( vector => {
 
       const baseVector = vector.baseVector; // convenience reference
 
@@ -88,9 +84,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
       if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
 
+        const cartesianBaseVector = baseVector as CartesianBaseVector;
+        assert && assert( cartesianBaseVector instanceof CartesianBaseVector ); // eslint-disable-line no-simple-type-checking-assertions
+
         // X Component
         leftNumberPickerAndLabel = createNumberPickerWithLabel(
-          baseVector.xComponentProperty,
+          cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
             symbol: `${baseVector.symbol}<sub>${VectorAdditionStrings.symbol.x}</sub>`,
@@ -100,7 +99,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
         // Y Component
         rightNumberPickerAndLabel = createNumberPickerWithLabel(
-          baseVector.yComponentProperty,
+          cartesianBaseVector.yComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
             symbol: `${baseVector.symbol}<sub>${VectorAdditionStrings.symbol.y}</sub>`,
@@ -109,10 +108,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           } ) );
       }
       else {
+        const polarBaseVector = baseVector as PolarBaseVector;
+        assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line no-simple-type-checking-assertions
 
         // Magnitude
         leftNumberPickerAndLabel = createNumberPickerWithLabel(
-          baseVector.magnitudeProperty,
+          polarBaseVector.magnitudeProperty,
           VectorAdditionConstants.MAGNITUDE_RANGE,
           new VectorSymbolNode( {
             symbol: baseVector.symbol,
@@ -122,35 +123,34 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
         // Angle
         rightNumberPickerAndLabel = createNumberPickerWithLabel(
-          baseVector.angleDegreesProperty,
+          polarBaseVector.angleDegreesProperty,
           VectorAdditionConstants.ANGLE_RANGE,
           new RichText( `${MathSymbols.THETA}<sub>${baseVector.symbol}</sub>`, {
             font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            numberPickerOptions: { // increment by the polar angle interval
-              incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
-              decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL
-            }
+            // increment by the polar angle interval
+            incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
+            decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL
           } );
       }
 
       // Displayed Horizontally, push a HBox to the content children array
       pickers.push( new HBox( {
         align: 'origin',
-        spacing: options.xSpacing,
+        spacing: X_SPACING,
         children: [ leftNumberPickerAndLabel, rightNumberPickerAndLabel ]
       } ) );
     } );
 
     const pickersVBox = new VBox( {
       children: pickers,
-      spacing: options.ySpacing,
+      spacing: Y_SPACING,
       align: 'center'
     } );
 
     // Ensure that the accordion box is a fixed width.
-    const strut = new HStrut( options.contentWidth, {
+    const strut = new HStrut( CONTENT_WIDTH, {
       pickable: false,
       center: pickersVBox.center
     } );
@@ -161,9 +161,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
     const accordionBoxContent = new VBox( {
       children: [ fixedWidthPickers, baseVectorsCheckbox ],
-      spacing: options.ySpacing,
+      spacing: Y_SPACING,
       align: 'left',
-      maxWidth: options.contentWidth
+      maxWidth: CONTENT_WIDTH
     } );
 
     super( accordionBoxContent, options );
@@ -177,12 +177,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'BaseVectorsAccordionBox is not intended to be disposed' );
+    super.dispose();
   }
 }
 
@@ -192,38 +189,32 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
  * The VectorSymbolNode is then aligned in a AlignBox to ensure the correct alignment and sizing, which ensures that
  * all HBoxes have equal widths (since the NumberPicker and the equals sign Text don't change size).
  *
- * @param {NumberProperty} numberProperty - number Property that goes in the NumberPicker
- * @param {Range} numberRange - static numberRange of the number Property
- * @param {Node} vectorSymbolNode
- * @param {Object} [options]
- * @returns {HBox}
+ * @param numberProperty - number Property that goes in the NumberPicker
+ * @param numberRange - static numberRange of the number Property
+ * @param vectorSymbolNode
+ * @param [numberPickerOptions]
  */
-function createNumberPickerWithLabel( numberProperty, numberRange, vectorSymbolNode, options ) {
+function createNumberPickerWithLabel( numberProperty: NumberProperty, numberRange: Range, vectorSymbolNode: Node,
+                                      numberPickerOptions?: NumberPickerOptions ): Node {
 
-  options = merge( {
-
-    // options passed to NumberPicker
-    numberPickerOptions: merge( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
-      touchAreaXDilation: 20,
-      touchAreaYDilation: 10
-    } ),
-
-    equalsSignFont: VectorAdditionConstants.EQUATION_FONT,  // {Font} font for the equals sign text
-    spacing: 3 // {number} space around the equals sign
-
-  }, options );
-
-  const equalsSign = new Text( MathSymbols.EQUAL_TO, { font: options.equalsSignFont } );
+  const equalsSign = new Text( MathSymbols.EQUAL_TO, {
+    font: VectorAdditionConstants.EQUATION_FONT
+  } );
 
   // Empirically set the vertical position of the NumberPicker, and wrap it in a Node to work with HBox.
   // See https://github.com/phetsims/vector-addition/issues/209
-  const numberPicker = new NumberPicker( numberProperty, new Property( numberRange ), options.numberPickerOptions );
+  const numberPicker = new NumberPicker( numberProperty, new Property( numberRange ),
+    combineOptions<NumberPickerOptions>( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
+      touchAreaXDilation: 20,
+      touchAreaYDilation: 10
+    }, numberPickerOptions )
+  );
   numberPicker.centerY = -equalsSign.height / 3;
   const numberPickerParent = new Node( { children: [ numberPicker ] } );
 
   return new HBox( {
     align: 'origin',
-    spacing: options.spacing,
+    spacing: 3, // space around the equals sign
     children: [ vectorSymbolNode, equalsSign, numberPickerParent ]
   } );
 }
