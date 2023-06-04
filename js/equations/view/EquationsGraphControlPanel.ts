@@ -101,9 +101,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
       new HSeparator( { stroke: Color.BLACK } ),
 
       // Components radio buttons
-      new ComponentStyleControl( componentStyleProperty, {
-        maxWidth: VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH
-      } )
+      new ComponentStyleControl( componentStyleProperty )
 
     ], options );
   }
