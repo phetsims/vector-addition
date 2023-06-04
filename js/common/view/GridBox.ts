@@ -12,48 +12,56 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import { AlignBox, AlignGroup, HBox, Node, VBox } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignBoxXAlign, AlignBoxYAlign, AlignGroup, HBox, Node, NodeOptions, VBox } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
-// constants
-const X_ALIGN_VALUES = [ 'left', 'center', 'right' ];
-const Y_ALIGN_VALUES = [ 'top', 'center', 'bottom' ];
+type SelfOptions = {
+  columns?: number; // number of columns
+  xSpacing?: number; // horizontal spacing between cells
+  ySpacing?: number; // vertical spacing between cells
+  xAlign?: AlignBoxXAlign; // horizontal alignment of each Node in its cell, see X_ALIGN_VALUES
+  yAlign?: AlignBoxYAlign; // vertical alignment of each Node in its cell, see Y_ALIGN_VALUES
+};
+
+type GridBoxOptions = SelfOptions;
 
 export default class GridBox extends Node {
 
+  private contents: Node[];
+  private readonly vBox: VBox;
+  private readonly columns: number;
+  private readonly xSpacing: number;
+  private readonly xAlign: AlignBoxXAlign;
+  private readonly yAlign: AlignBoxYAlign;
+
   /**
-   * @param {Node[]} contents - the contents of the grid, in row-major order
-   * @param {Object} [options]
+   * @param contents - the contents of the grid, in row-major order
+   * @param [providedOptions]
    */
-  constructor( contents, options ) {
+  public constructor( contents: Node[], providedOptions?: GridBoxOptions ) {
 
-    options = merge( {
-      columns: 2, // {number} number of columns
-      xSpacing: 8, // {number} horizontal spacing between cells
-      ySpacing: 8, // {number} vertical spacing between cells
-      xAlign: 'center', // {string} horizontal alignment of each Node in its cell, see X_ALIGN_VALUES
-      yAlign: 'center' // {string} vertical alignment of each Node in its cell, see Y_ALIGN_VALUES
-    }, options );
+    const options = optionize<GridBoxOptions, SelfOptions, NodeOptions>()( {
 
-    // Validate option values
-    assert && assert( typeof options.columns === 'number' && options.columns > 0, `invalid columns: ${options.columns}` );
-    assert && assert( typeof options.xSpacing === 'number', `invalid xSpacing: ${options.xSpacing}` );
-    assert && assert( typeof options.ySpacing === 'number', `invalid ySpacing: ${options.ySpacing}` );
-    assert && assert( _.includes( X_ALIGN_VALUES, options.xAlign ), `invalid xAlign: ${options.xAlign}` );
-    assert && assert( _.includes( Y_ALIGN_VALUES, options.yAlign ), `invalid xAlign: ${options.yAlign}` );
+      // SelfOptions
+      columns: 2,
+      xSpacing: 8,
+      ySpacing: 8,
+      xAlign: 'center',
+      yAlign: 'center'
+    }, providedOptions );
+
+    assert && assert( options.columns > 0, `invalid columns: ${options.columns}` );
 
     const vBox = new VBox( {
       spacing: options.ySpacing,
       align: 'left'
     } );
 
-    assert && assert( !options.children, 'GridBox sets children' );
     options.children = [ vBox ];
 
     super( options );
 
-    // @private
     this.contents = contents;
     this.vBox = vBox;
     this.columns = options.columns;
@@ -66,21 +74,16 @@ export default class GridBox extends Node {
 
   /**
    * Gets the contents of the grid, in row-major order.
-   * @returns {Node[]}
-   * @public
    */
-  getContents() {
+  public getContents(): Node[] {
     return this.contents;
   }
 
   /**
    * Sets the contents of the grid, in row-major order.
-   * @param {Node[]} contents - the contents of the grid, in row-major order
-   * @public
+   * @param contents - the contents of the grid, in row-major order
    */
-  setContents( contents ) {
-    assert && assert( Array.isArray( contents ), 'contents must be an Array' );
-    assert && assert( _.every( contents, element => element instanceof Node ), 'every element in contents must be a Node' );
+  public setContents( contents: Node[] ): void {
 
     this.contents = contents;
 
