@@ -21,16 +21,10 @@ import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
 export default class ComponentStyleRadioButtonGroup extends Node {
 
-  /**
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   */
-  constructor( componentStyleProperty ) {
-
-    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
-      `invalid componentStyleProperty: ${componentStyleProperty}` );
+  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyles> ) {
 
     // Create the radio buttons. Note that order of enum values determines order of buttons.
-    const buttons = [];
+    const buttons: RectangularRadioButton<ComponentVectorStyles>[] = [];
     ComponentVectorStyles.enumeration.values.forEach( componentStyle => {
       buttons.push( new RectangularRadioButton( componentStyleProperty, componentStyle,
         merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
@@ -48,12 +42,9 @@ export default class ComponentStyleRadioButtonGroup extends Node {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'ComponentStyleRadioButtonGroup is not intended to be disposed' );
+    super.dispose();
   }
 }
 
