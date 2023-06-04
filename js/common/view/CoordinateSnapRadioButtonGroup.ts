@@ -10,34 +10,31 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
-import RectangularRadioButtonGroup from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import vectorAddition from '../../vectorAddition.js';
 import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 
-export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup {
+type SelfOptions = EmptySelfOptions;
 
-  /**
-   * @param {EnumerationProperty.<CoordinateSnapModes>} coordinateSnapModeProperty
-   * @param {VectorColorPalette} cartesianVectorColorPalette
-   * @param {VectorColorPalette} polarVectorColorPalette
-   * @param {Object} [options]
-   */
-  constructor( coordinateSnapModeProperty, cartesianVectorColorPalette, polarVectorColorPalette, options ) {
+type CoordinateSnapRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions;
 
-    assert && assert( coordinateSnapModeProperty instanceof EnumerationProperty && CoordinateSnapModes.enumeration.includes( coordinateSnapModeProperty.value ),
-      `invalid coordinateSnapModeProperty: ${coordinateSnapModeProperty}` );
-    assert && assert( cartesianVectorColorPalette instanceof VectorColorPalette, `invalid cartesianVectorColorPalette: ${cartesianVectorColorPalette}` );
-    assert && assert( polarVectorColorPalette instanceof VectorColorPalette, `invalid polarVectorColorPalette: ${polarVectorColorPalette}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup<CoordinateSnapModes> {
 
-    options = merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, options );
+  public constructor( coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapModes>,
+                      cartesianVectorColorPalette: VectorColorPalette,
+                      polarVectorColorPalette: VectorColorPalette,
+                      providedOptions?: CoordinateSnapRadioButtonGroupOptions ) {
+
+    const options = optionize3<CoordinateSnapRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
+      {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, providedOptions );
 
     // Create the description of the buttons
-    const content = [
+    const items: RectangularRadioButtonGroupItem<CoordinateSnapModes>[] = [
       {
         value: CoordinateSnapModes.CARTESIAN,
         createNode: () => VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette )
@@ -48,15 +45,12 @@ export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButt
       }
     ];
 
-    super( coordinateSnapModeProperty, content, options );
+    super( coordinateSnapModeProperty, items, options );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'CoordinateSnapRadioButtonGroup is not intended to be disposed' );
+    super.dispose();
   }
 }
 
