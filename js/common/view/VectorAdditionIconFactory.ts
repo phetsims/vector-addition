@@ -23,7 +23,7 @@ import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import interleave from '../../../../phet-core/js/interleave.js';
 import merge from '../../../../phet-core/js/merge.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { Color, HBox, Line, Node, Path, Spacer, Text, VBox } from '../../../../scenery/js/imports.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
@@ -37,6 +37,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import CurvedArrowNode from './CurvedArrowNode.js';
 import DashedArrowNode from './DashedArrowNode.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const SCREEN_ICON_WIDTH = 70;
@@ -51,23 +52,21 @@ const VectorAdditionIconFactory = {
 
   /**
    * Creates the icon for the 'Explore 1D' Screen.
-   * @public
-   * @returns {ScreenIcon}
    */
-  createExplore1DScreenIcon() {
+  createExplore1DScreenIcon(): ScreenIcon {
 
     const colorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
 
-    const vectorOptions = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+    const arrowNodeOptions = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
       fill: colorPalette.mainFill,
       stroke: colorPalette.mainStroke
     } );
 
     // Vector pointing to the right, the full width of the icon
-    const rightVectorNode = new ArrowNode( 0, 0, SCREEN_ICON_WIDTH, 0, vectorOptions );
+    const rightVectorNode = new ArrowNode( 0, 0, SCREEN_ICON_WIDTH, 0, arrowNodeOptions );
 
     // Vector pointing to the left, partial width of the icon
-    const leftVectorNode = new ArrowNode( 0.5 * SCREEN_ICON_WIDTH, 0, 0, 0, vectorOptions );
+    const leftVectorNode = new ArrowNode( 0.5 * SCREEN_ICON_WIDTH, 0, 0, 0, arrowNodeOptions );
 
     const vBox = new VBox( {
       align: 'right',
@@ -80,37 +79,33 @@ const VectorAdditionIconFactory = {
 
   /**
    * Creates the icon for the 'Explore 2D' Screen.
-   * @public
-   * @returns {ScreenIcon}
    */
-  createExplore2DScreenIcon() {
+  createExplore2DScreenIcon(): ScreenIcon {
 
     const vector = new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT * 0.8 );
     const colorPalette = VectorAdditionColors.PINK_COLOR_PALETTE;
 
     // vector
     const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
-      merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: colorPalette.mainFill,
         stroke: colorPalette.mainStroke
       } ) );
 
     // component vectors
-    const componentArrowOptions = merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+    const dashedArrowNodeOptions = merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
       fill: colorPalette.componentFill
     } );
-    const xComponentNode = new DashedArrowNode( 0, 0, vector.x, 0, componentArrowOptions );
-    const yComponentNode = new DashedArrowNode( vector.x, 0, vector.x, vector.y, componentArrowOptions );
+    const xComponentNode = new DashedArrowNode( 0, 0, vector.x, 0, dashedArrowNodeOptions );
+    const yComponentNode = new DashedArrowNode( vector.x, 0, vector.x, vector.y, dashedArrowNodeOptions );
 
     return createScreenIcon( [ xComponentNode, yComponentNode, vectorNode ] );
   },
 
   /**
    * Creates the icon for the 'Lab' Screen.
-   * @public
-   * @returns {ScreenIcon}
    */
-  createLabScreenIcon() {
+  createLabScreenIcon(): ScreenIcon {
 
     // {Vector2[]} the tip positions of the group 1 (blue) arrows (aligned tip to tail)
     const group1TipPositions = [
@@ -128,13 +123,13 @@ const VectorAdditionIconFactory = {
     const startingTailPosition = new Vector2( SCREEN_ICON_WIDTH / 4, 0 );
 
     const group1ArrowNodes = createTipToTailArrowNodes( group1TipPositions, startingTailPosition,
-      merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
         stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
       } ) );
 
     const group2ArrowNodes = createTipToTailArrowNodes( group2TipPositions, startingTailPosition,
-      merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: VectorAdditionColors.ORANGE_COLOR_PALETTE.mainFill,
         stroke: VectorAdditionColors.ORANGE_COLOR_PALETTE.mainStroke
       } ) );
@@ -144,10 +139,8 @@ const VectorAdditionIconFactory = {
 
   /**
    * Creates the icon for the 'Equations' Screen.
-   * @public
-   * @returns {ScreenIcon}
    */
-  createEquationsScreenIcon() {
+  createEquationsScreenIcon(): ScreenIcon {
 
     // {Vector2[]} the tip positions of the vectors on the icon (vectors are aligned tip to tail)
     const tipPositions = [
@@ -155,20 +148,21 @@ const VectorAdditionIconFactory = {
       new Vector2( SCREEN_ICON_WIDTH * 0.85, -SCREEN_ICON_HEIGHT )
     ];
     const startTail = Vector2.ZERO;
-    const lastTip = _.last( tipPositions );
+    const lastTip = _.last( tipPositions )!;
+    assert && assert( lastTip );
 
     const colorPalette = VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE;
 
     // vectors, tip to tail
     const arrowNodes = createTipToTailArrowNodes( tipPositions, startTail,
-      merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: colorPalette.mainFill,
         stroke: colorPalette.mainStroke
       } ) );
 
     // sum
     arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
-      merge( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
         fill: colorPalette.sumFill,
         stroke: colorPalette.sumStroke
       } ) ) );
@@ -181,23 +175,16 @@ const VectorAdditionIconFactory = {
   //========================================================================================
 
   /**
-   * @public
-   * @param {Vector2} initialVectorComponents - vector components (in view coordinates)
-   * @param {VectorColorPalette} vectorColorPalette - color palette for this icon's vector
-   * @param {number} arrowLength
-   * @returns {Node}
+   * @param initialVectorComponents - vector components (in view coordinates)
+   * @param vectorColorPalette - color palette for this icon's vector
+   * @param arrowLength
    */
-  createVectorCreatorPanelIcon( initialVectorComponents, vectorColorPalette, arrowLength ) {
-
-    assert && assert( initialVectorComponents instanceof Vector2, `invalid initialVectorComponents: ${initialVectorComponents}` );
-    assert && assert( vectorColorPalette instanceof VectorColorPalette, `invalid vectorColorPalette: ${vectorColorPalette}` );
-    assert && assert( typeof arrowLength === 'number' && arrowLength > 0, `invalid arrowLength: ${arrowLength}` );
+  createVectorCreatorPanelIcon( initialVectorComponents: Vector2, vectorColorPalette: VectorColorPalette, arrowLength: number ): Node {
 
     const arrowComponents = initialVectorComponents.normalized().timesScalar( arrowLength );
 
     return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y,
-      merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        arrowLength: arrowLength,
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         cursor: 'move',
         fill: vectorColorPalette.mainFill,
         stroke: vectorColorPalette.mainStroke
@@ -210,28 +197,22 @@ const VectorAdditionIconFactory = {
 
   /**
    * Creates a vector icon that points to the right, used with various checkboxes.
-   * @public
-   * @param {Object} [options]
-   * @returns {Node}
    */
-  createVectorIcon( options ) {
+  createVectorIcon( vectorLength: number, providedOptions?: ArrowNodeOptions ): Node {
 
-    options = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+    const options = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
       fill: Color.BLACK,
       stroke: null,
-      lineWidth: 1,
-      length: 50
-    }, options );
+      lineWidth: 1
+    }, providedOptions );
 
-    return new ArrowNode( 0, 0, options.length, 0, options );
+    return new ArrowNode( 0, 0, vectorLength, 0, options );
   },
 
   /**
    * Creates the icon that appears next to the checkbox that toggles the 'Angle' visibility
-   * @public
-   * @returns {Node}
    */
-  createAngleIcon() {
+  createAngleIcon(): Node {
 
     // values determined empirically
     const wedgeLength = 20;
@@ -266,13 +247,8 @@ const VectorAdditionIconFactory = {
 
   /**
    * Creates the icons that go on the Component Style Radio Button based on a component style
-   * @public
-   * @param {ComponentVectorStyles} componentStyle
-   * @returns {Node}
    */
-  createComponentStyleRadioButtonIcon( componentStyle ) {
-
-    assert && assert( ComponentVectorStyles.enumeration.includes( componentStyle ), `invalid componentStyle: ${componentStyle}` );
+  createComponentStyleRadioButtonIcon( componentStyle: ComponentVectorStyles ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
 
@@ -283,21 +259,21 @@ const VectorAdditionIconFactory = {
     const subBoxSize = RADIO_BUTTON_ICON_SIZE / 3; // size of the sub-box the leader lines create
     assert && assert( subBoxSize < iconSize, `subBoxSize ${subBoxSize} must be < iconSize ${iconSize}` );
 
-    // Options for main and component arrows
-    const mainOptions = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+    // Options for main (solid) and component (dashed) arrows
+    const arrowNodeOptions = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
       fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
       stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
     } );
-    const componentOptions = merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+    const dashedArrowNodeOptions = merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
       fill: VectorAdditionColors.BLUE_COLOR_PALETTE.componentFill
     } );
 
     // Initialize arrows for the PARALLELOGRAM component style (will be adjusted for different component styles)
-    const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, mainOptions );
-    const xComponentArrow = new DashedArrowNode( 0, 0, iconSize, 0, componentOptions );
-    const yComponentArrow = new DashedArrowNode( 0, 0, 0, -iconSize, componentOptions );
+    const vectorArrow = new ArrowNode( 0, 0, iconSize, -iconSize, arrowNodeOptions );
+    const xComponentArrow = new DashedArrowNode( 0, 0, iconSize, 0, dashedArrowNodeOptions );
+    const yComponentArrow = new DashedArrowNode( 0, 0, 0, -iconSize, dashedArrowNodeOptions );
 
-    let iconChildren = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
+    let iconChildren: Node[] = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
 
     if ( componentStyle === ComponentVectorStyles.TRIANGLE ) {
       yComponentArrow.setTailAndTip( iconSize, 0, iconSize, -iconSize );
@@ -337,16 +313,14 @@ const VectorAdditionIconFactory = {
 
   /**
    * Creates the icon for the Cartesian snap mode radio button.
-   * @param {VectorColorPalette} vectorColorPalette
-   * @returns {Node}
    */
-  createCartesianSnapModeIcon( vectorColorPalette ) {
+  createCartesianSnapModeIcon( vectorColorPalette: VectorColorPalette ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
 
     // Arrow that is 45 degrees to the right and up
     const vectorNode = new ArrowNode( 0, 0, iconSize, -iconSize,
-      merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: vectorColorPalette.mainFill,
         stroke: vectorColorPalette.mainStroke
       } ) );
@@ -370,17 +344,15 @@ const VectorAdditionIconFactory = {
 
   /**
    * Creates the icon for the Polar snap mode radio button.
-   * @param {VectorColorPalette} vectorColorPalette
-   * @returns {Node}
    */
-  createPolarSnapModeIcon( vectorColorPalette ) {
+  createPolarSnapModeIcon( vectorColorPalette: VectorColorPalette ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
     const arcRadius = 30; // arc radius of the curved arrow
 
     // Arrow that is 45 degrees to the right and up
     const arrow = new ArrowNode( 0, 0, iconSize, -iconSize,
-      merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: vectorColorPalette.mainFill,
         stroke: vectorColorPalette.mainStroke
       } ) );
@@ -406,11 +378,8 @@ const VectorAdditionIconFactory = {
 
   /**
    * Creates the icon used on the radio buttons on 'Explore 1D' screen that toggles the graph orientation.
-   * @public
-   * @param {GraphOrientations} graphOrientation - orientation of the graph (has to be horizontal or vertical)
-   * @returns {Node}
    */
-  createGraphOrientationIcon( graphOrientation ) {
+  createGraphOrientationIcon( graphOrientation: GraphOrientations ): Node {
 
     assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ),
       `invalid graphOrientation: ${graphOrientation}` );
@@ -419,10 +388,11 @@ const VectorAdditionIconFactory = {
     const tipX = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? iconSize : 0;
     const tipY = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? 0 : iconSize;
 
-    return new ArrowNode( 0, 0, tipX, tipY, merge( {}, VectorAdditionConstants.AXES_ARROW_OPTIONS, {
-      maxWidth: iconSize,
-      maxHeight: iconSize
-    } ) );
+    return new ArrowNode( 0, 0, tipX, tipY,
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.AXES_ARROW_OPTIONS, {
+        maxWidth: iconSize,
+        maxHeight: iconSize
+      } ) );
   },
 
   //========================================================================================
@@ -431,18 +401,16 @@ const VectorAdditionIconFactory = {
 
   /**
    * Creates the Icon that appears on the EquationTypes radio button icons on the 'Equations' screen.
-   * @public
-   * @param {EquationTypes} equationType
-   * @param {string[]} vectorSymbols - symbols on the buttons (the last symbol is the sum's symbol)
-   * @returns {Node}
+   * @param equationType
+   * @param vectorSymbols - symbols on the buttons (the last symbol is the sum's symbol)
    */
-  createEquationTypeIcon( equationType, vectorSymbols ) {
+  createEquationTypeIcon( equationType: EquationTypes, vectorSymbols: string[] ): Node {
 
     assert && assert( EquationTypes.enumeration.includes( equationType ), `invalid equationType: ${equationType}` );
     assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1,
       `invalid vectorSymbols: ${vectorSymbols}` );
 
-    let children = [];
+    let children: Node[] = [];
 
     const textOptions = {
       font: VectorAdditionConstants.EQUATION_FONT
@@ -469,7 +437,7 @@ const VectorAdditionIconFactory = {
     // Right side of the equation, which is either '0' or the last of the symbols (which is the sum).
     children.push( equationType === EquationTypes.NEGATION ?
                    new Text( '0', textOptions ) :
-                   new ArrowOverSymbolNode( _.last( vectorSymbols ) ) );
+                   new ArrowOverSymbolNode( _.last( vectorSymbols )! ) );
 
     return new HBox( {
       children: children,
@@ -487,21 +455,17 @@ const VectorAdditionIconFactory = {
  * Creates Vector Icons (ArrowNode) tip to tail based on an array of tip positions along with the tail position of the
  * first Vector. ArrowNodes are created and pushed to a given array.
  *
- * @param {Vector2[]} tipPositions - tip positions of all vectors (vectors are aligned tip to tail)
- * @param {Vector2} startingTailPosition - tail position of the first vector
- * @param {Object} [arrowOptions] - passed to arrow nodes
- * @returns {ArrowNode[]}
+ * @param tipPositions - tip positions of all vectors (vectors are aligned tip to tail)
+ * @param startingTailPosition - tail position of the first vector
+ * @param [arrowNodeOptions] - passed to ArrowNode constructor
  */
-function createTipToTailArrowNodes( tipPositions, startingTailPosition, arrowOptions ) {
-
-  assert && assert( _.every( tipPositions, tip => tip instanceof Vector2 ), `invalid tipPositions: ${tipPositions}` );
-  assert && assert( startingTailPosition instanceof Vector2, `invalid startingTailPosition: ${startingTailPosition}` );
+function createTipToTailArrowNodes( tipPositions: Vector2[], startingTailPosition: Vector2, arrowNodeOptions?: ArrowNodeOptions ): ArrowNode[] {
 
   const arrowNodes = [];
   for ( let i = 0; i < tipPositions.length; i++ ) {
     const tailPosition = ( i === 0 ) ? startingTailPosition : tipPositions[ i - 1 ];
     const tipPosition = tipPositions[ i ];
-    arrowNodes.push( new ArrowNode( tailPosition.x, tailPosition.y, tipPosition.x, tipPosition.y, arrowOptions ) );
+    arrowNodes.push( new ArrowNode( tailPosition.x, tailPosition.y, tipPosition.x, tipPosition.y, arrowNodeOptions ) );
   }
   return arrowNodes;
 }
@@ -511,13 +475,8 @@ function createTipToTailArrowNodes( tipPositions, startingTailPosition, arrowOpt
  * Helper function that creates a ScreenIcon but adds a Spacer to fill extra space. This ensures all screen icons are
  * the same width and height which ensures that they are all scaled the same. Thus, this keeps all Arrow Nodes inside
  * of screen icons the same 'dimensions' (i.e. tailWidth, headWidth, headHeight, etc. ).
- *
- * @param {Node[]} children - the children of the icon
- * @returns {ScreenIcon}
  */
-function createScreenIcon( children ) {
-
-  assert && assert( _.every( children, child => child instanceof Node ), `invalid children: ${children}` );
+function createScreenIcon( children: Node[] ): ScreenIcon {
 
   // Create the icon, adding a Spacer to fill extra space if needed (Equivalent to setting a minimum width/height)
   const iconNode = new Node().addChild( new Spacer( SCREEN_ICON_WIDTH, SCREEN_ICON_HEIGHT, { pickable: false } ) );
@@ -534,10 +493,8 @@ function createScreenIcon( children ) {
 
 /**
  * Create the close eye icon, for ComponentVectorStyles.INVISIBLE.
- * @param {number} iconSize
- * @returns {Node}
  */
-function createEyeCloseIcon( iconSize ) {
+function createEyeCloseIcon( iconSize: number ): Node {
 
   const spacer = new Spacer( iconSize, iconSize );
 

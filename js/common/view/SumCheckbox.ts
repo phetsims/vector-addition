@@ -24,10 +24,9 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
       maxWidth: 75 // determined empirically
     } );
 
-    const icon = VectorAdditionIconFactory.createVectorIcon( {
+    const icon = VectorAdditionIconFactory.createVectorIcon( 35, {
       fill: vectorColorPalette.sumFill,
-      stroke: vectorColorPalette.sumStroke,
-      length: 35
+      stroke: vectorColorPalette.sumStroke
     } );
 
     const content = new HBox( {

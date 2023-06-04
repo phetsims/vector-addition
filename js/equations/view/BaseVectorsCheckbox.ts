@@ -17,11 +17,10 @@ export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
 
   public constructor( baseVectorsVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette ) {
 
-    const icon = VectorAdditionIconFactory.createVectorIcon( {
+    const icon = VectorAdditionIconFactory.createVectorIcon( 50, {
       fill: vectorColorPalette.baseVectorFill,
       stroke: vectorColorPalette.baseVectorStroke,
-      lineWidth: VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS.lineWidth,
-      length: 50
+      lineWidth: VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS.lineWidth
     } );
 
     super( baseVectorsVisibleProperty, icon );

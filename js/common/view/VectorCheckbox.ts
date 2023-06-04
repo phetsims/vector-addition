@@ -38,10 +38,9 @@ export default class VectorCheckbox extends VectorAdditionCheckbox {
       maxWidth: 95 // determined empirically
     } );
 
-    const icon = VectorAdditionIconFactory.createVectorIcon( {
+    const icon = VectorAdditionIconFactory.createVectorIcon( 35, {
       fill: options.vectorFill,
-      stroke: options.vectorStroke,
-      length: 35
+      stroke: options.vectorStroke
     } );
 
     const content = new HBox( {
