@@ -17,7 +17,7 @@ import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 
 type SelfOptions = EmptySelfOptions;
 

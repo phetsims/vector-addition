@@ -21,6 +21,7 @@ import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';
 import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import { combineOptions } from '../../../phet-core/js/optionize.js';
 import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
+import { RectangularRadioButtonOptions } from '../../../sun/js/buttons/RectangularRadioButton.js';
 
 // shared constants within this file
 const PANEL_CORNER_RADIUS = 5;
@@ -65,7 +66,7 @@ const COMPONENT_VECTOR_ARROW_OPTIONS = merge( {}, VECTOR_ARROW_OPTIONS, {
 
 const RADIO_BUTTON_GROUP_OPTIONS: RectangularRadioButtonGroupOptions = {
   orientation: 'horizontal',
-  radioButtonOptions: merge( {
+  radioButtonOptions: combineOptions<RectangularRadioButtonOptions>( {
     cornerRadius: 8,
     xMargin: 8,
     yMargin: 8,

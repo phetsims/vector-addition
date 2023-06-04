@@ -27,7 +27,7 @@ export default class ComponentStyleRadioButtonGroup extends Node {
     const buttons: RectangularRadioButton<ComponentVectorStyles>[] = [];
     ComponentVectorStyles.enumeration.values.forEach( componentStyle => {
       buttons.push( new RectangularRadioButton( componentStyleProperty, componentStyle,
-        merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
+        merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS.radioButtonOptions, {
           content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
         } ) ) );
     } );
