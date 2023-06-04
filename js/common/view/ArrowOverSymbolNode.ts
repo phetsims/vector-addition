@@ -9,27 +9,39 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import MathSymbolFont from '../../../../scenery-phet/js/MathSymbolFont.js';
-import { Node, Text } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 // const
 const DEFAULT_FONT = new MathSymbolFont( 18 );
 
+type SelfOptions = {
+  font?: PhetFont;
+  spacing?: number; // vertical spacing between arrow and symbol
+  arrowScale?: number;
+};
+
+type ArrowOverSymbolNodeOptions = SelfOptions & PickOptional<NodeOptions, 'maxWidth'>;
+
 export default class ArrowOverSymbolNode extends Node {
 
-  /**
-   * @param {string} symbol
-   * @param {Object} [options]
-   */
-  constructor( symbol, options ) {
+  private readonly symbolNode: Text;
+  private readonly rightArrowNode: Node;
+  private readonly spacing: number;
 
-    options = merge( {
+  public constructor( symbol: string, providedOptions?: ArrowOverSymbolNodeOptions ) {
+
+    const options = optionize<ArrowOverSymbolNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
       font: DEFAULT_FONT,
       spacing: 3, // vertical spacing between arrow and symbol
       arrowScale: 0.65
-    }, options );
+    }, providedOptions );
 
     const symbolNode = new Text( symbol, {
       font: options.font,
@@ -42,12 +54,10 @@ export default class ArrowOverSymbolNode extends Node {
       scale: options.arrowScale
     } );
 
-    assert && assert( !options.children, 'ArrowOverSymbolNode sets children' );
     options.children = [ symbolNode, rightArrowNode ];
 
     super( options );
 
-    // @private
     this.symbolNode = symbolNode;
     this.rightArrowNode = rightArrowNode;
     this.spacing = options.spacing;
@@ -57,18 +67,13 @@ export default class ArrowOverSymbolNode extends Node {
 
   /**
    * Changes the symbol.
-   * @param {string} symbol
-   * @public
    */
-  setSymbol( symbol ) {
+  public setSymbol( symbol: string ): void {
     this.symbolNode.string = symbol;
     this.updateLayout();
   }
 
-  /**
-   * @private
-   */
-  updateLayout() {
+  private updateLayout(): void {
 
     // Reposition the arrow
     this.rightArrowNode.centerX = this.symbolNode.centerX;
