@@ -14,34 +14,45 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
-import { Node, Path } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+
+type SelfOptions = {
+  tailDash?: number[]; // describes the dash, similar to SCENERY/LineStyle lineDash
+} & PickOptional<ArrowNodeOptions, 'headHeight' | 'headWidth' | 'tailWidth' | 'fill' | 'isHeadDynamic' | 'fractionalHeadHeight'>;
+
+type DashedArrowNodeOptions = SelfOptions;
 
 export default class DashedArrowNode extends Node {
 
-  /**
-   * @param {number} tailX
-   * @param {number} tailY
-   * @param {number} tipX
-   * @param {number} tipY
-   * @param {Object} [options]
-   */
-  constructor( tailX, tailY, tipX, tipY, options ) {
+  private _tailX: number;
+  private _tailY: number;
+  private _tipX: number;
+  private _tipY: number;
 
-    options = merge( {
+  private readonly headHeight: number;
+  private readonly headWidth: number;
+  private readonly isHeadDynamic: boolean;
+  private readonly fractionalHeadHeight: number;
+  private readonly tailNode: Path;
+  private readonly headNode: Path;
 
-      tailDash: [ 3, 3 ], // {number[]} describes the dash, similar to SCENERY/LineStyle lineDash
+  public constructor( tailX: number, tailY: number, tipX: number, tipY: number, providedOptions?: DashedArrowNodeOptions ) {
 
-      // These options are identical to the ArrowNode API, and must behave the same
+    const options = optionize<DashedArrowNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      tailDash: [ 3, 3 ],
       headHeight: 10,
       headWidth: 10,
       tailWidth: 5,
-      fill: 'black', // color used for the entire arrow (fills the head and strokes the tail)
-      isHeadDynamic: false, // determines whether to scale down the arrow head height for fractionalHeadHeight constraint
-      fractionalHeadHeight: 0.5 // head will be scaled when headHeight is greater than fractionalHeadHeight * arrow length
-
-    }, options );
+      fill: 'black',
+      isHeadDynamic: false,
+      fractionalHeadHeight: 0.5
+    }, providedOptions );
 
     const headNode = new Path( null, {
       fill: options.fill
@@ -53,12 +64,15 @@ export default class DashedArrowNode extends Node {
       lineDash: options.tailDash
     } );
 
-    assert && assert( !options.children, 'DashedArrowNode sets children' );
     options.children = [ tailNode, headNode ];
 
     super( options );
 
-    // @private
+    this._tailX = tailX;
+    this._tailY = tailY;
+    this._tipX = tipX;
+    this._tipY = tipY;
+
     this.headHeight = options.headHeight;
     this.headWidth = options.headWidth;
     this.isHeadDynamic = options.isHeadDynamic;
@@ -66,33 +80,42 @@ export default class DashedArrowNode extends Node {
     this.tailNode = tailNode;
     this.headNode = headNode;
 
-    // @public (read-only)
-    this.tailX = tailX;
-    this.tailY = tailY;
-    this.tipX = tipX;
-    this.tipY = tipY;
-
     // initialize
     this.setTailAndTip( tailX, tailY, tipX, tipY );
   }
 
+  public get tailX(): number { return this._tailX; }
+
+  public get tailY(): number { return this._tailY; }
+
+  public get tipX(): number { return this._tipX; }
+
+  public get tipY(): number { return this._tipY; }
+
   /**
    * Sets the tail and tip positions.
-   * @param {number} tailX
-   * @param {number} tailY
-   * @param {number} tipX
-   * @param {number} tipY
-   * @public
    */
-  setTailAndTip( tailX, tailY, tipX, tipY ) {
+  public setTailAndTip( tailX: number, tailY: number, tipX: number, tipY: number ): void {
 
-    this.tailX = tailX;
-    this.tailY = tailY;
-    this.tipX = tipX;
-    this.tipY = tipY;
+    this._tailX = tailX;
+    this._tailY = tailY;
+    this._tipX = tipX;
+    this._tipY = tipY;
+
+    this.update();
+  }
+
+  /**
+   * Sets the tip position.
+   */
+  public setTip( tipX: number, tipY: number ): void {
+    this.setTailAndTip( this.tailX, this.tailY, tipX, tipY );
+  }
+
+  private update(): void {
 
     // Represent the arrow as a vector
-    const vector = new Vector2( tipX - tailX, tipY - tailY );
+    const vector = new Vector2( this._tipX - this._tailX, this._tipY - this._tailY );
 
     if ( vector.magnitude === 0 ) {
 
@@ -108,9 +131,9 @@ export default class DashedArrowNode extends Node {
       const xHatUnit = vector.normalized();
       const yHatUnit = xHatUnit.rotated( Math.PI / 2 );
 
-      const getPoint = function( xHat, yHat ) {
-        const x = xHatUnit.x * xHat + yHatUnit.x * yHat + tailX;
-        const y = xHatUnit.y * xHat + yHatUnit.y * yHat + tailY;
+      const getPoint = ( xHat: number, yHat: number ) => {
+        const x = xHatUnit.x * xHat + yHatUnit.x * yHat + this._tailX;
+        const y = xHatUnit.y * xHat + yHatUnit.y * yHat + this._tailY;
         return new Vector2( x, y );
       };
 
@@ -124,11 +147,11 @@ export default class DashedArrowNode extends Node {
 
       // Adjust the end of the tail towards the tip, so that it doesn't overlap the head.
       const scaledUnit = xHatUnit.times( length - headHeight );
-      const tailX2 = tailX + scaledUnit.x;
-      const tailY2 = tailY + scaledUnit.y;
+      const tailX2 = this.tailX + scaledUnit.x;
+      const tailY2 = this.tailY + scaledUnit.y;
 
       // Describe the tail as a line segment.
-      this.tailNode.shape = Shape.lineSegment( tailX, tailY, tailX2, tailY2 );
+      this.tailNode.shape = Shape.lineSegment( this.tailX, this.tailY, tailX2, tailY2 );
 
       // Describe the head as a triangle
       this.headNode.shape = new Shape()
@@ -137,16 +160,6 @@ export default class DashedArrowNode extends Node {
         .lineToPoint( getPoint( length - headHeight, -this.headWidth / 2 ) )
         .close();
     }
-  }
-
-  /**
-   * Sets the tip position.
-   * @param {number} tipX
-   * @param {number} tipY
-   * @public
-   */
-  setTip( tipX, tipY ) {
-    this.setTailAndTip( this.tailX, this.tailY, tipX, tipY );
   }
 }
 
