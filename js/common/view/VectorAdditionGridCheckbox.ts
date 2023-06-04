@@ -6,25 +6,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import GridCheckbox from '../../../../scenery-phet/js/GridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import Property from '../../../../axon/js/Property.js';
 
 export default class VectorAdditionGridCheckbox extends GridCheckbox {
 
-  /**
-   * @param {Property.<boolean>} gridVisibleProperty
-   * @param {Object} [options]
-   */
-  constructor( gridVisibleProperty, options ) {
+  public constructor( gridVisibleProperty: Property<boolean> ) {
 
-    options = merge( {
+    super( gridVisibleProperty, {
       boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
       iconOptions: { size: 24 }
-    }, options );
-
-    super( gridVisibleProperty, options );
+    } );
 
     this.touchArea = this.localBounds.dilatedXY( 5, 1 );
   }
