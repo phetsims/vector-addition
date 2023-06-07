@@ -7,12 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Color, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { Color, Node, Path, PathOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
@@ -20,6 +18,10 @@ import GraphOrientations from '../model/GraphOrientations.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import OriginManipulator from './OriginManipulator.js';
+import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -52,18 +54,9 @@ const TICK_LABEL_SPACING = 10; // model units
 const TICK_LABEL_X_OFFSET = 15; // from x = 0, view units
 const TICK_LABEL_Y_OFFSET = 15; // from y = 0, view units
 
-//----------------------------------------------------------------------------------------
-
 export default class GraphNode extends Node {
 
-  /**
-   * @param {Graph} graph - the model graph for the node
-   * @param {Property.<boolean>} gridVisibilityProperty
-   */
-  constructor( graph, gridVisibilityProperty ) {
-
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( gridVisibilityProperty instanceof BooleanProperty, `invalid gridVisibilityProperty: ${gridVisibilityProperty}` );
+  public constructor( graph: Graph, gridVisibilityProperty: Property<boolean> ) {
 
     const graphViewBounds = graph.graphViewBounds;
 
@@ -102,12 +95,9 @@ export default class GraphNode extends Node {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'GraphNode is not intended to be disposed' );
+    super.dispose();
   }
 }
 
@@ -116,16 +106,7 @@ export default class GraphNode extends Node {
  */
 class MajorAndMinorGridLines extends Node {
 
-  /**
-   * @param {Graph} graph - the model graph for the node
-   * @param {Bounds2} graphViewBounds
-   * @param {BooleanProperty} gridVisibilityProperty
-   */
-  constructor( graph, graphViewBounds, gridVisibilityProperty ) {
-
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( gridVisibilityProperty instanceof BooleanProperty,
-      `invalid gridVisibilityProperty: ${gridVisibilityProperty}` );
+  public constructor( graph: Graph, graphViewBounds: Bounds2, gridVisibilityProperty: Property<boolean> ) {
 
     const majorGridLines = new GridLines( graph, graphViewBounds, {
       spacing: MAJOR_TICK_SPACING,
@@ -154,24 +135,31 @@ class MajorAndMinorGridLines extends Node {
  * Draws grid lines at some spacing. Used to draw one type of grid line (major or minor).
  * Updates when the origin changes. Optimized to take advantage of constant view bounds.
  */
+
+type GridLinesSelfOptions = {
+  spacing?: number;
+};
+
+type GridLinesOptions = GridLinesSelfOptions & PickOptional<PathOptions, 'lineWidth' | 'stroke'>;
+
 class GridLines extends Path {
 
-  /**
-   * @param {Graph} graph - the model graph for the node
-   * @param {Bounds2} graphViewBounds
-   * @param {Object} [options]
-   */
-  constructor( graph, graphViewBounds, options ) {
+  private readonly graphViewBounds: Bounds2;
 
-    options = merge( {
+  public constructor( graph: Graph, graphViewBounds: Bounds2, providedOptions?: GridLinesOptions ) {
+
+    const options = optionize<GridLinesOptions, GridLinesSelfOptions, PathOptions>()( {
+
+      // GridLinesSelfOptions
       spacing: 1,
+
+      // PathOptions
       lineWidth: 1,
       stroke: 'black'
-    }, options );
+    }, providedOptions );
 
     super( new Shape(), options );
 
-    // @private
     this.graphViewBounds = graphViewBounds;
 
     // Update when the modelViewTransform changes, triggered when the origin is moved.
@@ -204,25 +192,18 @@ class GridLines extends Path {
 
   /**
    * Performance optimization, since the grid's view bounds are constant.
-   * @public
-   * @override
-   * @returns {Bounds2}
    */
-  computeShapeBounds() {
+  public override computeShapeBounds(): Bounds2 {
     return this.graphViewBounds;
   }
 }
 
 /**
- * Draws the x axis.
+ * Draws the x-axis.
  */
 class XAxisNode extends Node {
 
-  /**
-   * @param {Graph} graph
-   * @param {Bounds2} graphViewBounds
-   */
-  constructor( graph, graphViewBounds ) {
+  public constructor( graph: Graph, graphViewBounds: Bounds2 ) {
 
     const arrowNode = new ArrowNode(
       graphViewBounds.minX - AXES_ARROW_X_EXTENSION, 0,
@@ -255,11 +236,7 @@ class XAxisNode extends Node {
  */
 class YAxisNode extends Node {
 
-  /**
-   * @param {Graph} graph
-   * @param {Bounds2} graphViewBounds
-   */
-  constructor( graph, graphViewBounds ) {
+  public constructor( graph: Graph, graphViewBounds: Bounds2 ) {
 
     const arrowNode = new ArrowNode(
       0, graphViewBounds.minY - AXES_ARROW_Y_EXTENSION,
@@ -292,10 +269,7 @@ class YAxisNode extends Node {
  */
 class TicksNode extends Node {
 
-  /**
-   * @param {Graph} graph
-   */
-  constructor( graph ) {
+  public constructor( graph: Graph ) {
 
     const tickMarksPath = new Path( new Shape(), TICK_MARK_OPTIONS );
     const tickLabelsParent = new Node();
