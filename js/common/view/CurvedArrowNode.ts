@@ -131,6 +131,10 @@ export default class CurvedArrowNode extends Node {
     this.radius = radius;
     this.updateCurvedArrowNode();
   }
+
+  public getRadius(): number {
+    return this.radius;
+  }
 }
 
 vectorAddition.register( 'CurvedArrowNode', CurvedArrowNode );
