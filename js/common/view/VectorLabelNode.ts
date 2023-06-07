@@ -7,10 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { HBox, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -18,33 +15,31 @@ import RootVector from '../model/RootVector.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+
+const X_MARGIN = 5;
+const Y_MARGIN = 1;
 
 export default class VectorLabelNode extends Node {
 
-  /**
-   * @param {RootVector} rootVector
-   * @param {BooleanProperty} valuesVisibleProperty
-   * @param {Property.<RootVector|null>} activeVectorProperty
-   * @param {Object} [options]
-   */
-  constructor( rootVector, valuesVisibleProperty, activeVectorProperty, options ) {
+  private readonly rootVector: RootVector;
+  private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
+  private readonly activeVectorProperty: TReadOnlyProperty<RootVector | null>;
+  private readonly backgroundRectangle: Rectangle;
+  private readonly vectorSymbolNode: VectorSymbolNode;
+  private readonly vectorValueText: Text;
+  private readonly vectorLabelContent: HBox;
 
-    assert && assert( rootVector instanceof RootVector, `invalid rootVector: ${rootVector}` );
-    assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-    assert && assert( activeVectorProperty instanceof Property && activeVectorProperty.value instanceof RootVector || activeVectorProperty.value === null,
-      `invalid activeVectorProperty: ${activeVectorProperty}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+  private readonly disposeVectorLabelNode: () => void;
 
-    options = merge( {
-      xMargin: 5, // {number} horizontal margin
-      yMargin: 1,  // {number} vertical margin
-      symbolValueSpacing: 7 // {number} spacing between the vector symbol node and the value
-    }, options );
+  public constructor( rootVector: RootVector,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                      activeVectorProperty: TReadOnlyProperty<RootVector | null> ) {
 
     // Create the background rectangle, set as an arbitrary rectangle for now
     const backgroundRectangle = new Rectangle( 0, 0, 1, 1, {
-      fill: VectorAdditionConstants.INACTIVE_VECTOR_LABEL_BACKGROUND_FILL,
-      stroke: VectorAdditionConstants.INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE,
+      fill: VectorAdditionColors.INACTIVE_VECTOR_LABEL_BACKGROUND_FILL,
+      stroke: VectorAdditionColors.INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE,
       cornerRadius: 4
     } );
 
@@ -60,21 +55,18 @@ export default class VectorLabelNode extends Node {
 
     // Create a horizontal layout box for the symbol and the value
     const vectorLabelContent = new HBox( {
-      spacing: options.symbolValueSpacing,
+      spacing: 7,
       align: 'origin' // so that text baselines will be aligned
     } );
 
-    assert && assert( !options.children, 'VectorLabelNode sets children' );
-    options.children = [ backgroundRectangle, vectorLabelContent ];
+    super( {
+      cursor: 'move',
+      children: [ backgroundRectangle, vectorLabelContent ]
+    } );
 
-    super( options );
-
-    // @private
     this.rootVector = rootVector;
     this.valuesVisibleProperty = valuesVisibleProperty;
     this.activeVectorProperty = activeVectorProperty;
-    this.xMargin = options.xMargin;
-    this.yMargin = options.yMargin;
     this.backgroundRectangle = backgroundRectangle;
     this.vectorSymbolNode = vectorSymbolNode;
     this.vectorValueText = vectorValueText;
@@ -86,26 +78,20 @@ export default class VectorLabelNode extends Node {
       () => this.update()
     );
 
-    // @private {function} function to dispose listeners
     this.disposeVectorLabelNode = () => {
       labelMultilink.dispose();
     };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeVectorLabelNode();
     super.dispose();
   }
 
   /**
    * Updates the label and background rectangle.
-   * @public
    */
-  update() {
+  public update(): void {
 
     // Get the label display information
     const labelDisplayData = this.rootVector.getLabelDisplayData( this.valuesVisibleProperty.value );
@@ -134,8 +120,8 @@ export default class VectorLabelNode extends Node {
     if ( this.backgroundRectangle.visible ) {
 
       // Set the background size
-      this.backgroundRectangle.setRectWidth( this.vectorLabelContent.width + 2 * this.xMargin );
-      this.backgroundRectangle.setRectHeight( this.vectorLabelContent.height + 2 * this.yMargin );
+      this.backgroundRectangle.setRectWidth( this.vectorLabelContent.width + 2 * X_MARGIN );
+      this.backgroundRectangle.setRectHeight( this.vectorLabelContent.height + 2 * Y_MARGIN );
 
       // Update positioning
       this.vectorLabelContent.center = this.backgroundRectangle.center;
@@ -144,10 +130,8 @@ export default class VectorLabelNode extends Node {
 
   /**
    * Determines whether the label is highlighted.
-   * @param {boolean} highlighted
-   * @public
    */
-  setHighlighted( highlighted ) {
+  public setHighlighted( highlighted: boolean ): void {
     if ( highlighted ) {
       this.backgroundRectangle.fill = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND_FILL;
       this.backgroundRectangle.stroke = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE;
