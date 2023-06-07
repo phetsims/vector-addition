@@ -79,7 +79,7 @@ export default class VectorSymbolNode extends HBox {
     this.coefficient = options.coefficient;
     this.includeAbsoluteValueBars = options.includeAbsoluteValueBars;
 
-    // Create all of the pieces of the VectorSymbolNode. Values will be set later, and these
+    // Create the pieces of the VectorSymbolNode. Values will be set later, and these
     // will be added as children as needed based on how the VectorSymbolNode is configured.
     const leftBar = new Text( '|', { font: options.font } );
     const rightBar = new Text( '|', { font: options.font } );
