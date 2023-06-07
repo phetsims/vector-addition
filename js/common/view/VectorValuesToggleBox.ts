@@ -16,17 +16,19 @@
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { AlignBox, HBox, Node, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import ToggleBox from './ToggleBox.js';
+import ToggleBox, { ToggleBoxOptions } from './ToggleBox.js';
 import VectorQuantities from './VectorQuantities.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
+import EquationsVector from '../../equations/model/EquationsVector.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -46,25 +48,24 @@ const ANGLE_LABEL_WIDTH = 15;
 // width of the component labels
 const COMPONENT_LABEL_WIDTH = 35;
 
+type SelfOptions = EmptySelfOptions;
+
+type VectorValuesToggleBoxOptions = SelfOptions & ToggleBoxOptions;
+
 export default class VectorValuesToggleBox extends ToggleBox {
 
-  /**
-   * @param {Graph} graph - the graph that contains the vectors to display
-   * @param {Object} [options]
-   */
-  constructor( graph, options ) {
+  public constructor( graph: Graph, providedOptions?: VectorValuesToggleBoxOptions ) {
 
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+    const options = optionize<VectorValuesToggleBoxOptions, SelfOptions, ToggleBoxOptions>()( {
 
-    options = merge( {
-
-      // superclass options
-      contentFixedWidth: 500, // {number|null} fixed size of the panel (see superclass)
-      contentFixedHeight: 45, // {number|null} fixed size of the panel (see superclass)
+      // ToggleBoxOptions
+      contentFixedWidth: 500,
+      contentFixedHeight: 45,
       isOpen: true
+    }, providedOptions );
 
-    }, options );
+    const contentFixedHeight = options.contentFixedHeight!;
+    assert && assert( contentFixedHeight !== null );
 
     //----------------------------------------------------------------------------------------
     // Create the scenery node for when the panel is closed, which is the inspectVectorText
@@ -110,13 +111,13 @@ export default class VectorValuesToggleBox extends ToggleBox {
     //----------------------------------------------------------------------------------------
 
     // Function that adds a label and display container combo, putting the label in a fixed sized AlignBox
-    const addNumberDisplayAndLabel = ( label, numberDisplay, labelWidth ) => {
+    const addNumberDisplayAndLabel = ( label: Node, numberDisplay: NumberDisplay, labelWidth: number ) => {
 
       // Align the label in a AlignBox to set a fixed width
       const fixedWidthLabel = new AlignBox( label, {
         xAlign: 'right',
         yAlign: 'center',
-        alignBounds: new Bounds2( 0, 0, labelWidth, options.contentFixedHeight ),
+        alignBounds: new Bounds2( 0, 0, labelWidth, contentFixedHeight ),
         maxWidth: labelWidth
       } );
       label.maxWidth = labelWidth;
@@ -133,7 +134,7 @@ export default class VectorValuesToggleBox extends ToggleBox {
 
     //----------------------------------------------------------------------------------------
 
-    const updateCoefficient = coefficient => {
+    const updateCoefficient = ( coefficient: number ) => {
       magnitudeDisplayNode.setCoefficient( coefficient );
       xComponentText.setCoefficient( coefficient );
       yComponentText.setCoefficient( coefficient );
@@ -152,8 +153,14 @@ export default class VectorValuesToggleBox extends ToggleBox {
 
         // Update labels (angle label is the same)
         magnitudeDisplayNode.setSymbol( vectorSymbol );
-        xComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionStrings.symbol.x}</sub>` );
-        yComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionStrings.symbol.y}</sub>` );
+        xComponentText.setSymbol( `${vectorSymbol} < sub >${VectorAdditionStrings.symbol.x}</sub>` );
+        yComponentText.setSymbol( `
+  $
+    {vectorSymbol}
+  <sub>$
+    {VectorAdditionStrings.symbol.y}
+  </sub>
+    ` );
       }
       else {
         vectorAttributesContainer.visible = false;
@@ -163,14 +170,14 @@ export default class VectorValuesToggleBox extends ToggleBox {
       selectVectorText.centerY = panelOpenContent.centerY;
       vectorAttributesContainer.centerY = panelOpenContent.centerY;
 
-      if ( activeVector && activeVector.coefficientProperty ) {
+      if ( activeVector && activeVector instanceof EquationsVector ) {
         activeVector.coefficientProperty.link( updateCoefficient ); // unlink required when active vector changes
       }
 
-      if ( oldActiveVector && oldActiveVector.coefficientProperty ) {
+      if ( oldActiveVector && oldActiveVector instanceof EquationsVector ) {
         oldActiveVector.coefficientProperty.unlink( updateCoefficient );
         // reset
-        updateCoefficient( ( activeVector && activeVector.coefficientProperty ) ? activeVector.coefficientProperty.value : 1 );
+        updateCoefficient( ( activeVector && activeVector instanceof EquationsVector ) ? activeVector.coefficientProperty.value : 1 );
       }
     } );
 
@@ -184,12 +191,9 @@ export default class VectorValuesToggleBox extends ToggleBox {
     super( inspectVectorText, panelOpenContent, options );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'VectorValuesToggleBox is not intended to be disposed' );
+    super.dispose();
   }
 }
 

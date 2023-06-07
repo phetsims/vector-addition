@@ -26,9 +26,8 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
-import { Node, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, SceneryEvent } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
@@ -38,36 +37,40 @@ import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import VectorCreatorPanel from './VectorCreatorPanel.js';
 import VectorSetNode from './VectorSetNode.js';
 import VectorValuesToggleBox from './VectorValuesToggleBox.js';
+import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import BaseVector from '../model/BaseVector.js';
+
+type SelfOptions = {
+  includeEraser?: boolean; // Indicates if an EraserButton should be included
+};
+
+export type SceneNodeOptions = SelfOptions;
 
 export default class SceneNode extends Node {
 
-  /**
-   * @param {Graph} graph
-   * @param {VectorAdditionViewProperties} viewProperties
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {Object} [options] - all options are specific to this class, not passed to superclass
-   */
-  constructor( graph, viewProperties, componentStyleProperty, options ) {
+  // parent for all VectorSetNodes
+  private readonly vectorSetNodesParent: Node;
 
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( viewProperties instanceof VectorAdditionViewProperties, `invalid viewProperties: ${viewProperties}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+  // a layer for each VectorSet
+  private readonly vectorSetNodes: VectorSetNode[];
 
-    //========================================================================================
+  // for layout in subclasses
+  protected readonly vectorValuesToggleBox: Node;
 
-    options = merge( {
+  private readonly vectorSets: VectorSet[];
 
-      // all options are specific to this class
-      includeEraser: true, // {boolean} Indicates if an EraserButton should be included
+  public constructor( graph: Graph,
+                      viewProperties: VectorAdditionViewProperties,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      providedOptions?: SceneNodeOptions ) {
 
-      // {Object} Options passed to the VectorValuesToggleBox
-      vectorValuesToggleBoxOptions: {
-        expandedProperty: viewProperties.vectorValuesExpandedProperty,
-        centerX: graph.graphViewBounds.centerX,
-        top: 35 // determined empirically
-      }
-    }, options );
+    const options = optionize<SceneNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // SelfOptions
+      includeEraser: true
+    }, providedOptions );
 
     super();
 
@@ -77,12 +80,15 @@ export default class SceneNode extends Node {
     const graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty );
 
     // Create the one and only 'Vector Values' toggle box
-    const vectorValuesToggleBox = new VectorValuesToggleBox( graph, options.vectorValuesToggleBoxOptions );
+    const vectorValuesToggleBox = new VectorValuesToggleBox( graph, {
+      expandedProperty: viewProperties.vectorValuesExpandedProperty,
+      centerX: graph.graphViewBounds.centerX,
+      top: 35 // determined empirically
+    } );
 
     //----------------------------------------------------------------------------------------
     // Create containers for each and every type of Vector to handle z-layering of all vector types.
 
-    // @private {Node} parent for all VectorSetNodes
     this.vectorSetNodesParent = new Node();
 
     // Add the children in the correct z-order
@@ -113,13 +119,13 @@ export default class SceneNode extends Node {
       // development process.
       // unmultilink is unnecessary, exists for the lifetime of the sim.
       const lengthProperties = _.map( graph.vectorSets, vectorSet => vectorSet.vectors.lengthProperty );
-      Multilink.multilink( lengthProperties, () => {
+      Multilink.multilinkAny( lengthProperties, () => {
         const numberOfVectors = _.sumBy( lengthProperties, lengthProperty => lengthProperty.value );
         eraserButton.enabled = ( numberOfVectors !== 0 );
       } );
     }
 
-    // private {VectorSetNode[]} a layer for each VectorSet
+    // a layer for each VectorSet
     this.vectorSetNodes = [];
     graph.vectorSets.forEach( vectorSet => {
       const vectorSetNode = new VectorSetNode( graph, vectorSet,
@@ -128,69 +134,46 @@ export default class SceneNode extends Node {
       this.vectorSetNodes.push( vectorSetNode );
     } );
 
-    // @protected for layout in subclasses
     this.vectorValuesToggleBox = vectorValuesToggleBox;
 
-    // @private
     this.vectorSets = graph.vectorSets;
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'SceneNode is not intended to be disposed' );
+    super.dispose();
   }
 
   /**
    * Gets the VectorSetNode associated with a VectorSet.
-   * @private
-   * @param {VectorSet} vectorSet
-   * @returns {VectorSetNode}
    */
-  getVectorSetNode( vectorSet ) {
+  private getVectorSetNode( vectorSet: VectorSet ): VectorSetNode {
     const index = this.vectorSets.indexOf( vectorSet );
-    assert && assert( index !== -1, `vectorSet not found: ${vectorSet}` );
+    assert && assert( index !== -1, 'vectorSet not found' );
     return this.vectorSetNodes[ index ];
   }
 
   /**
    * Registers a Vector, delegates to VectorSetNode.
-   * @public
-   * @param {Vector} vector - the vector model
-   * @param {VectorSet} vectorSet - the VectorSet the vector belongs to
-   * @param {SceneryEvent} [forwardingEvent] - see VectorSetNode
+   * @param vector - the vector model
+   * @param vectorSet - the VectorSet the vector belongs to
+   * @param [forwardingEvent] - see VectorSetNode
    */
-  registerVector( vector, vectorSet, forwardingEvent ) {
-
-    assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
-    assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
-    assert && assert( !forwardingEvent || forwardingEvent instanceof SceneryEvent, `invalid forwardingEvent: ${forwardingEvent}` );
-
-    // Delegate registration to the VectorSetNode
+  public registerVector( vector: Vector, vectorSet: VectorSet, forwardingEvent?: SceneryEvent ): void {
     this.getVectorSetNode( vectorSet ).registerVector( vector, forwardingEvent );
   }
 
   /**
    * Adds a base vector to the scene.  Delegates to VectorSetNode.
-   * @protected
-   * @param {VectorSet} vectorSet
-   * @param {BaseVector} baseVector
-   * @param {Property.<boolean>} baseVectorsVisibleProperty
    */
-  addBaseVector( vectorSet, baseVector, baseVectorsVisibleProperty ) {
+  protected addBaseVector( vectorSet: VectorSet, baseVector: BaseVector, baseVectorsVisibleProperty: Property<boolean> ): void {
     this.getVectorSetNode( vectorSet ).addBaseVector( baseVector, baseVectorsVisibleProperty );
   }
 
   /**
    * Adds a VectorCreatorPanel to the scene.
-   * @public
-   * @param {VectorCreatorPanel} vectorCreatorPanel
    */
-  addVectorCreatorPanel( vectorCreatorPanel ) {
-    assert && assert( vectorCreatorPanel instanceof VectorCreatorPanel, `invalid vectorCreatorPanel: ${vectorCreatorPanel}` );
-
+  public addVectorCreatorPanel( vectorCreatorPanel: VectorCreatorPanel ): void {
     this.addChild( vectorCreatorPanel );
     vectorCreatorPanel.moveToBack();
   }

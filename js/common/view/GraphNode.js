@@ -58,7 +58,7 @@ export default class GraphNode extends Node {
 
   /**
    * @param {Graph} graph - the model graph for the node
-   * @param {BooleanProperty} gridVisibilityProperty
+   * @param {Property.<boolean>} gridVisibilityProperty
    */
   constructor( graph, gridVisibilityProperty ) {
 
