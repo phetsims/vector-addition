@@ -28,14 +28,13 @@ import VectorQuantities from './VectorQuantities.js';
 
 export default class VectorValuesNumberDisplay extends NumberDisplay {
 
-  /**
-   * @param {Graph} graph - the graph that contains the vectors to display
-   * @param {VectorQuantities} vectorQuantity - the vector quantity to display
-   */
-  constructor( graph, vectorQuantity ) {
+  private readonly vectorQuantity: VectorQuantities;
 
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( VectorQuantities.enumeration.includes( vectorQuantity ), `invalid vectorQuantity: ${vectorQuantity}` );
+  /**
+   * @param graph - the graph that contains the vectors to display
+   * @param vectorQuantity - the vector quantity to display
+   */
+  public constructor( graph: Graph, vectorQuantity: VectorQuantities ) {
 
     //----------------------------------------------------------------------------------------
     // Calculate the range
@@ -46,7 +45,7 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
     const graphWidth = graph.graphModelBounds.width;
     const graphHeight = graph.graphModelBounds.height;
 
-    let numberDisplayRange;
+    let numberDisplayRange: Range;
 
     if ( vectorQuantity === VectorQuantities.ANGLE ) {
       numberDisplayRange = VectorAdditionConstants.ANGLE_RANGE;
@@ -57,7 +56,7 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
     else if ( vectorQuantity === VectorQuantities.X_COMPONENT ) {
       numberDisplayRange = new Range( -graphWidth, graphWidth );
     }
-    else if ( vectorQuantity === VectorQuantities.Y_COMPONENT ) {
+    else { // vectorQuantity === VectorQuantities.Y_COMPONENT
       numberDisplayRange = new Range( -graphHeight, graphHeight );
     }
 
@@ -65,8 +64,8 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
     // Create the number display
     //----------------------------------------------------------------------------------------
 
-    // {Property.<number|null>} the value displayed by NumberDisplay, null if there is no active vector
-    const numberDisplayProperty = new Property( null, {
+    // the value displayed by NumberDisplay, null if there is no active vector
+    const numberDisplayProperty = new Property<number | null>( null, {
       isValidValue: value => ( typeof value === 'number' || value === null )
     } );
 
@@ -74,7 +73,6 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
       decimalPlaces: VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES
     } );
 
-    // @private {VectorQuantities} (final)
     this.vectorQuantity = vectorQuantity;
 
     //----------------------------------------------------------------------------------------
@@ -99,23 +97,15 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'VectorValuesNumberDisplay is not intended to be disposed' );
+    super.dispose();
   }
 
   /**
    * Gets the value to display based on the attribute display type and a vector
-   * @private
-   * @param {Vector|null} activeVector - vector to derive the NumberDisplay value from
-   * @returns {number|null} value to display
    */
-  getNumberDisplayValue( activeVector ) {
-
-    assert && assert( activeVector instanceof Vector || activeVector === null, `invalid activeVector: ${activeVector}` );
+  private getNumberDisplayValue( activeVector: Vector | null ): number | null {
 
     if ( !activeVector ) {
       return null;
