@@ -60,8 +60,7 @@ export default class VectorValuesToggleBox extends ToggleBox {
 
       // ToggleBoxOptions
       contentFixedWidth: 500,
-      contentFixedHeight: 45,
-      isOpen: true
+      contentFixedHeight: 45
     }, providedOptions );
 
     const contentFixedHeight = options.contentFixedHeight!;

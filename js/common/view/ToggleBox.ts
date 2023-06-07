@@ -15,9 +15,7 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { AlignBox, Node, NodeTranslationOptions } from '../../../../scenery/js/imports.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -26,9 +24,6 @@ import { optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
-
-  // true means the box is initially open, false means the box is initially closed.
-  isOpen?: boolean;
 
   // If provided, the content will scale to fix this width. Otherwise, the fixed size is calculated by the largest
   // of the content nodes and its respective margin.
@@ -55,7 +50,6 @@ export default class ToggleBox extends AccordionBox {
       {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
         // SelfOptions
-        isOpen: true,
         contentFixedWidth: null,
         contentFixedHeight: null,
 
@@ -63,7 +57,9 @@ export default class ToggleBox extends AccordionBox {
         contentYMargin: 0,
         titleYMargin: 0,
         buttonYMargin: 0,
-        contentAlign: 'left'
+        contentAlign: 'left',
+        showTitleWhenExpanded: false,
+        titleBarExpandCollapse: false
       }, providedOptions );
 
     // Determine the content width
@@ -82,14 +78,9 @@ export default class ToggleBox extends AccordionBox {
       alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
     };
     const openContentAlignBox = new AlignBox( openContent, alignBoxOptions );
-    const closedContentAlignBox = new AlignBox( closedContent, alignBoxOptions );
+    options.titleNode = new AlignBox( closedContent, alignBoxOptions ); // unorthodox use of AccordionBox, but it works
 
-    super( openContentAlignBox, merge( {
-      expandedProperty: new BooleanProperty( options.isOpen ),
-      showTitleWhenExpanded: false,
-      titleNode: closedContentAlignBox, // unorthodox use of AccordionBox, but it works
-      titleBarExpandCollapse: false
-    }, options ) );
+    super( openContentAlignBox, options );
   }
 }
 
