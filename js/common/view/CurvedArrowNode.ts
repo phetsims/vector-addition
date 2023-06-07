@@ -17,79 +17,56 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Color, Node, Path } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 
+const COLOR = Color.BLACK;
+const ARROWHEAD_WIDTH = 8;  // the arrowhead width (before rotation)
+const ARROWHEAD_HEIGHT = 6; // the arrowhead height (before rotation)
+
 export default class CurvedArrowNode extends Node {
 
+  private radius: number;
+  private angle: number;
+
+  // function that updates this node when the angle / radius changes
+  private readonly updateCurvedArrowNode: () => void;
+
   /**
-   * @param {number} radius - the radius of curved arrow.
-   * @param {number} angle - the end angle (in radians) of the curved arrow. The arrow is assumed to start at 0
-   *                         radians.
-   * @param {Object} [options]
+   * @param radius - the radius of curved arrow.
+   * @param angle - the end angle (in radians) of the curved arrow. The arrow is assumed to start at 0 radians.
    */
-  constructor( radius, angle, options ) {
+  public constructor( radius: number, angle: number ) {
 
-    assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
-    assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-      `Extra prototype on options: ${options}` );
-
-    options = merge( {
-
-      arrowheadWidth: 8,  // {number} the arrowhead width (before rotation)
-      arrowheadHeight: 6, // {number} the arrowhead height (before rotation)
-
-      // options passed to the Path that creates the arrow's curved tail (arc)
-      arcOptions: {
-        stroke: Color.BLACK,
-        lineWidth: 1.2
-      },
-
-      // options passed to the Path that creates the arrow's head
-      arrowOptions: {
-        fill: Color.BLACK
-      }
-
-    }, options );
-
-    //----------------------------------------------------------------------------------------
+    assert && assert( radius > 0, `invalid radius: ${radius}` );
 
     // Create the path for the arc. Set to an arbitrary shape for now. To be updated later.
-    const arcPath = new Path( new Shape(), options.arcOptions );
+    const arcPath = new Path( new Shape(), {
+      stroke: COLOR,
+      lineWidth: 1.2
+    } );
 
-    //----------------------------------------------------------------------------------------
-    // Arrowhead triangle Path
-
-    // Create the arrowhead shape of the arc
+    // Create the arrowhead - a triangle. The Shape is upright and the midpoint of its base as (0, 0).
+    // The Path will be translated/rotated later.
     const arrowheadShape = new Shape();
-
-    // Create the triangle. Define the triangle as a triangle that is upright and the midpoint of its base as (0, 0)
     arrowheadShape.moveTo( 0, 0 )
-      .lineTo( -options.arrowheadWidth / 2, 0 )
-      .lineTo( options.arrowheadWidth / 2, 0 )
-      .lineTo( 0, -options.arrowheadHeight )
-      .lineTo( -options.arrowheadWidth / 2, 0 )
+      .lineTo( -ARROWHEAD_WIDTH / 2, 0 )
+      .lineTo( ARROWHEAD_WIDTH / 2, 0 )
+      .lineTo( 0, -ARROWHEAD_HEIGHT )
+      .lineTo( -ARROWHEAD_WIDTH / 2, 0 )
       .close();
+    const arrowheadPath = new Path( arrowheadShape, {
+      fill: COLOR
+    } );
 
-    // Create the path for the arrow head. To be translated/rotated later
-    const arrowheadPath = new Path( arrowheadShape, options.arrowOptions );
+    super( {
+      children: [ arcPath, arrowheadPath ]
+    } );
 
-    //----------------------------------------------------------------------------------------
-
-    super( { children: [ arcPath, arrowheadPath ] } );
-
-    // @private {number} radius
     this.radius = radius;
-
-    // @public (read-only) angle
     this.angle = angle;
 
-    //----------------------------------------------------------------------------------------
-
-    // @private {function} updateArrowNode - function that updates the arrow node when the angle / radius changes
-    this.updateArrowNode = () => {
+    this.updateCurvedArrowNode = () => {
 
       //----------------------------------------------------------------------------------------
       // See https://github.com/phetsims/vector-addition/blob/master/doc/images/angle-calculations.png
@@ -98,7 +75,7 @@ export default class CurvedArrowNode extends Node {
 
       // The arrowhead subtended angle is defined as the angle between the vector from the center to the tip of the
       // arrow and the vector of the center to first point the arc and the triangle intersect
-      const arrowheadSubtendedAngle = Math.asin( options.arrowheadHeight / this.radius );
+      const arrowheadSubtendedAngle = Math.asin( ARROWHEAD_HEIGHT / this.radius );
 
       // Flag that indicates if the arc is anticlockwise (measured from positive x-axis) or clockwise.
       const isAnticlockwise = this.angle >= 0;
@@ -134,31 +111,25 @@ export default class CurvedArrowNode extends Node {
         );
       }
     };
-    this.updateArrowNode();
+    this.updateCurvedArrowNode();
   }
 
   /**
    * Sets the angle of the arc.
-   * @public
-   * @param {number} angle - the end angle (in radians) of the curved arrow. The arrow is assumed to start at 0 radians.
+   * @param angle - the end angle (in radians) of the curved arrow. The arrow is assumed to start at 0 radians.
    */
-  setAngle( angle ) {
-    assert && assert( typeof angle === 'number', `invalid angle: ${angle}` );
-
+  public setAngle( angle: number ): void {
     this.angle = angle;
-    this.updateArrowNode();
+    this.updateCurvedArrowNode();
   }
 
   /**
    * Sets the radius of the arc.
-   * @public
-   * @param {number} radius - the radius of curved arrow.
+   * @param radius - the radius of curved arrow.
    */
-  setRadius( radius ) {
-    assert && assert( typeof radius === 'number' && radius > 0, `invalid radius: ${radius}` );
-
+  public setRadius( radius: number ): void {
     this.radius = radius;
-    this.updateArrowNode();
+    this.updateCurvedArrowNode();
   }
 }
 
