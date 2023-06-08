@@ -152,14 +152,8 @@ export default class VectorValuesToggleBox extends ToggleBox {
 
         // Update labels (angle label is the same)
         magnitudeDisplayNode.setSymbol( vectorSymbol );
-        xComponentText.setSymbol( `${vectorSymbol} < sub >${VectorAdditionStrings.symbol.x}</sub>` );
-        yComponentText.setSymbol( `
-  $
-    {vectorSymbol}
-  <sub>$
-    {VectorAdditionStrings.symbol.y}
-  </sub>
-    ` );
+        xComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionStrings.symbol.x}</sub>` );
+        yComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionStrings.symbol.y}</sub>` );
       }
       else {
         vectorAttributesContainer.visible = false;
