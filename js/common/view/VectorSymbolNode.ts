@@ -25,56 +25,52 @@
  * @author Brandon Li
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import { HBox, RichText, Text } from '../../../../scenery/js/imports.js';
+import { Font, HBox, HBoxOptions, RichText, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  symbol?: string | null; // optional symbol to display
+  coefficient?: number | null; // optional coefficient to display
+  showVectorArrow?: boolean; // flag to whether to show an arrow above the vector symbol
+  includeAbsoluteValueBars?: boolean; // whether to surround with absolute value bars, to indicate 'magnitude'
+  symbolFont?: Font; // font used for the vector symbol
+  font?: Font; // font used for everything that is not a symbol
+};
+
+type VectorSymbolNodeOptions = SelfOptions & PickOptional<HBoxOptions, 'spacing' | 'maxWidth'>;
 
 export default class VectorSymbolNode extends HBox {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  private symbol: string | null;
+  private coefficient: number | null;
+  private includeAbsoluteValueBars: boolean;
+  private readonly updateVectorSymbolNode: () => void;
 
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+  public constructor( providedOptions?: VectorSymbolNodeOptions ) {
 
-    //----------------------------------------------------------------------------------------
+    const options = optionize<VectorSymbolNodeOptions, SelfOptions, HBoxOptions>()( {
 
-    options = merge( {
-
-      // {string|null} optional symbol to display
+      // SelfOptions
       symbol: null,
-
-      // {number|null} optional coefficient to display
       coefficient: null,
-
-      // {boolean} flag to whether to show an arrow above the vector symbol
       showVectorArrow: true,
-
-      // {boolean} whether to surround with absolute value bars, to indicate 'magnitude'
       includeAbsoluteValueBars: false,
-
-      // {Font} font used for the vector symbol
       symbolFont: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
-
-      // {Font} font used for everything that is not a symbol
       font: VectorAdditionConstants.EQUATION_FONT,
 
-      // HBox options
+      // HBoxOptions
       align: 'origin', // so that text baselines are aligned
       spacing: 2 // {number} spacing of the text nodes / formula nodes
 
-    }, options );
-
-    assert && assert( typeof options.symbol === 'string' || options.symbol === null, `invalid symbol: ${options.symbol}` );
-    assert && assert( typeof options.coefficient === 'number' || options.coefficient === null, `invalid coefficient: ${options.coefficient}` );
+    }, providedOptions );
 
     super( options );
 
-    // @private
     this.symbol = options.symbol;
     this.coefficient = options.coefficient;
     this.includeAbsoluteValueBars = options.includeAbsoluteValueBars;
@@ -88,7 +84,6 @@ export default class VectorSymbolNode extends HBox {
                        new ArrowOverSymbolNode( '', { font: options.symbolFont } ) :
                        new RichText( '', { font: options.symbolFont } );
 
-    // @private function that updates the vector symbol node
     this.updateVectorSymbolNode = () => {
 
       // Auto format the coefficient
@@ -103,7 +98,7 @@ export default class VectorSymbolNode extends HBox {
       // Set the coefficient and symbol text to match our properties
       coefficient && coefficientText.setString( coefficient );
       if ( this.symbol ) {
-        if ( options.showVectorArrow ) {
+        if ( symbolNode instanceof ArrowOverSymbolNode ) {
           symbolNode.setSymbol( this.symbol );
         }
         else {
@@ -129,56 +124,39 @@ export default class VectorSymbolNode extends HBox {
 
   /**
    * Determines whether absolute value bars are displayed to indicate 'magnitude'.
-   * @public
-   * @param {boolean} includeAbsoluteValueBars
    */
-  setIncludeAbsoluteValueBars( includeAbsoluteValueBars ) {
-    assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
-
+  public setIncludeAbsoluteValueBars( includeAbsoluteValueBars: boolean ): void {
     this.includeAbsoluteValueBars = includeAbsoluteValueBars;
     this.updateVectorSymbolNode();
   }
 
   /**
    * Sets the symbol.
-   * @public
-   * @param {string|null} symbol - the symbol to display. Null means no symbol is displayed.
+   * @param symbol - the symbol to display. Null means no symbol is displayed.
    */
-  setSymbol( symbol ) {
-    assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
-
+  public setSymbol( symbol: string | null ): void {
     this.symbol = symbol;
     this.updateVectorSymbolNode();
   }
 
   /**
    * Sets the coefficient.
-   * @public
-   * @param {number|null} coefficient
    */
-  setCoefficient( coefficient ) {
-    assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
-
+  public setCoefficient( coefficient: number | null ): void {
     this.coefficient = coefficient;
     this.updateVectorSymbolNode();
   }
 
   /**
    * Performance method that sets all the attributes of the VectorSymbolNode and does 1 update.
-   * @public
-   * @param {string|null} symbol - the symbol to display (See comment at the top of the file)
-   * @param {number|null} coefficient - the coefficient to display
-   * @param {boolean} includeAbsoluteValueBars - indicates if absolute value bars are there
+   * @param symbol - the symbol to display (See comment at the top of the file)
+   * @param coefficient - the coefficient to display
+   * @param includeAbsoluteValueBars - indicates if absolute value bars are there
    */
-  setVectorSymbolNode( symbol, coefficient, includeAbsoluteValueBars ) {
-    assert && assert( typeof symbol === 'string' || symbol === null, `invalid symbol: ${symbol}` );
-    assert && assert( typeof coefficient === 'number' || coefficient === null, `invalid coefficient: ${coefficient}` );
-    assert && assert( typeof includeAbsoluteValueBars === 'boolean', `invalid includeAbsoluteValueBars: ${includeAbsoluteValueBars}` );
-
+  public setVectorSymbolNode( symbol: string | null, coefficient: number | null, includeAbsoluteValueBars: boolean ): void {
     this.symbol = symbol;
     this.coefficient = coefficient;
     this.includeAbsoluteValueBars = includeAbsoluteValueBars;
-
     this.updateVectorSymbolNode();
   }
 }
