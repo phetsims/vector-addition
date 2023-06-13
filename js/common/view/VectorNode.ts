@@ -38,7 +38,7 @@ const SHADOW_OFFSET_X = 3.2;
 const SHADOW_OFFSET_Y = 2.1;
 
 type SelfOptions = EmptySelfOptions;
-type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
+export type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 
 export default class VectorNode extends RootVectorNode {
 

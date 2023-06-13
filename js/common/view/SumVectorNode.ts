@@ -11,43 +11,33 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import merge from '../../../../phet-core/js/merge.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorNode from './VectorNode.js';
+import VectorNode, { VectorNodeOptions } from './VectorNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
+
+type SelfOptions = EmptySelfOptions;
+type SumVectorNodeOptions = SelfOptions & VectorNodeOptions;
 
 export default class SumVectorNode extends VectorNode {
-  /**
-   * @param {SumVector} sumVector - the model for the sum vector
-   * @param {Graph} graph - the graph the sum belongs to
-   * @param {BooleanProperty} valuesVisibleProperty
-   * @param {BooleanProperty} anglesVisibleProperty
-   * @param {BooleanProperty} sumVisibleProperty
-   * @param {Object} [options]
-   */
-  constructor( sumVector, graph, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, options ) {
 
-    assert && assert( sumVector instanceof SumVector, `invalid sumVector: ${sumVector}` );
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-    assert && assert( anglesVisibleProperty instanceof BooleanProperty, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
-    assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+  public constructor( sumVector: SumVector, graph: Graph, valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                      anglesVisibleProperty: TReadOnlyProperty<boolean>, sumVisibleProperty: TReadOnlyProperty<boolean>,
+                      providedOptions?: SumVectorNodeOptions ) {
 
-    //----------------------------------------------------------------------------------------
+    const options = optionize<SumVectorNodeOptions, SelfOptions, VectorNodeOptions>()( {
 
-    options = merge( {
-      arrowOptions: merge( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
+      // VectorNodeOptions
+      arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
         fill: sumVector.vectorColorPalette.sumFill,
         stroke: sumVector.vectorColorPalette.sumStroke
       } )
-    }, options );
-
-    //----------------------------------------------------------------------------------------
+    }, providedOptions );
 
     super( sumVector, graph, valuesVisibleProperty, anglesVisibleProperty, options );
 
@@ -80,17 +70,14 @@ export default class SumVectorNode extends VectorNode {
     // unlink is unnecessary, exists for the lifetime of the sim.
     assert && sumVector.animateBackProperty.link( animateBack => {
       if ( animateBack ) {
-        assert( false, 'SumVectorNode instances never animated back' );
+        assert && assert( false, 'SumVectorNode instances never animated back' );
       }
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'SumVectorNode is not intended to be disposed' );
+    super.dispose();
   }
 }
 
