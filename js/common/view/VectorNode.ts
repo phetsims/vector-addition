@@ -8,19 +8,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Color, DragListener, Path, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { Color, DragListener, Path, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import RootVectorNode from './RootVectorNode.js';
+import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
 import VectorAngleNode from './VectorAngleNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 // constants
 
@@ -34,32 +37,39 @@ const SHADOW_OPTIONS = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, 
 const SHADOW_OFFSET_X = 3.2;
 const SHADOW_OFFSET_Y = 2.1;
 
+type SelfOptions = EmptySelfOptions;
+type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
+
 export default class VectorNode extends RootVectorNode {
 
-  /**
-   * @param {Vector} vector- the vector model
-   * @param {Graph} graph - the graph the vector belongs to
-   * @param {BooleanProperty} valuesVisibleProperty
-   * @param {BooleanProperty} angleVisibleProperty
-   * @param {Object} [options]
-   */
-  constructor( vector, graph, valuesVisibleProperty, angleVisibleProperty, options ) {
+  private readonly vector: Vector;
+  private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
+  private readonly translationDragListener: DragListener; // for translating the vector
+  private readonly disposeVectorNode: () => void;
 
-    assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-    assert && assert( angleVisibleProperty instanceof BooleanProperty, `invalid angleVisibleProperty: ${angleVisibleProperty}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+  public constructor( vector: Vector, graph: Graph, valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                      angleVisibleProperty: TReadOnlyProperty<boolean>, providedOptions?: VectorNodeOptions ) {
 
-    //----------------------------------------------------------------------------------------
+    const options = optionize<VectorNodeOptions, SelfOptions, RootVectorNodeOptions>()( {
 
-    options = merge( {
-      arrowOptions: merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        cursor: 'move',
-        fill: vector.vectorColorPalette.mainFill,
-        stroke: vector.vectorColorPalette.mainStroke
-      } )
-    }, options );
+      // RootVectorNodeOptions
+      arrowOptions: combineOptions<RootVectorArrowNodeOptions>(
+        {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+          cursor: 'move',
+          fill: vector.vectorColorPalette.mainFill,
+          stroke: vector.vectorColorPalette.mainStroke
+        } )
+    }, providedOptions );
+
+    // To improve readability
+    const headWidth = options.arrowOptions.headWidth!;
+    assert && assert( headWidth !== undefined );
+    const headHeight = options.arrowOptions.headHeight!;
+    assert && assert( headHeight !== undefined );
+    const fractionalHeadHeight = options.arrowOptions.fractionalHeadHeight!;
+    assert && assert( fractionalHeadHeight !== undefined );
+    const cursor = options.arrowOptions.cursor!;
+    assert && assert( cursor );
 
     super( vector,
       graph.modelViewTransformProperty,
@@ -67,7 +77,6 @@ export default class VectorNode extends RootVectorNode {
       graph.activeVectorProperty,
       options );
 
-    // @private
     this.modelViewTransformProperty = graph.modelViewTransformProperty;
     this.vector = vector;
 
@@ -96,9 +105,8 @@ export default class VectorNode extends RootVectorNode {
     const tailPositionProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
       vector.tail ) );
 
-    // @private drag listener for translating the vector
     this.translationDragListener = new DragListener( {
-      pressCursor: options.arrowOptions.cursor,
+      pressCursor: cursor,
       targetNode: this,
       positionProperty: tailPositionProperty,
 
@@ -146,7 +154,7 @@ export default class VectorNode extends RootVectorNode {
     this.labelNode.addInputListener( this.translationDragListener );
 
     // Translate when the vector's tail position changes. unlink is required on dispose.
-    const tailListener = tailPositionView => {
+    const tailListener = ( tailPositionView: Vector2 ) => {
       this.updateTailPosition( tailPositionView );
       if ( vector.isRemovable ) {
         const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
@@ -173,14 +181,8 @@ export default class VectorNode extends RootVectorNode {
     // Handle vector scaling & rotation
     //----------------------------------------------------------------------------------------
 
-    let disposeScaleRotate = null;
+    let disposeScaleRotate: () => void;
     if ( vector.isTipDraggable ) {
-
-      // To improve readability
-      const headWidth = options.arrowOptions.headWidth;
-      const headHeight = options.arrowOptions.headHeight;
-      const headTouchAreaDilation = VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION;
-      const headMouseAreaDilation = VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION;
 
       // Create an invisible triangle at the head of the vector.
       const headShape = new Shape()
@@ -210,24 +212,22 @@ export default class VectorNode extends RootVectorNode {
       headNode.addInputListener( scaleRotateDragListener );
 
       // Move the tip to match the vector model. unlink is required on dispose.
-      const tipListener = tipPosition => {
-        this.updateTipPosition( tipPosition );
-      };
+      const tipListener = ( tipPosition: Vector2 ) => this.updateTipPosition( tipPosition );
       tipPositionProperty.lazyLink( tipListener );
 
       // Pointer area shapes for the head, in 3 different sizes.
       // A pair of these is used, based on the magnitude of the vector and whether its head is scale.
       // See below and https://github.com/phetsims/vector-addition/issues/240#issuecomment-544682818
-      const largeMouseAreaShape = headShape.getOffsetShape( headMouseAreaDilation );
-      const largeTouchAreaShape = headShape.getOffsetShape( headTouchAreaDilation );
-      const mediumMouseAreaShape = createDilatedHead( headWidth, headHeight, headMouseAreaDilation );
-      const mediumTouchAreaShape = createDilatedHead( headWidth, headHeight, headTouchAreaDilation );
+      const largeMouseAreaShape = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
+      const largeTouchAreaShape = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
+      const mediumMouseAreaShape = createDilatedHead( headWidth, headHeight, VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
+      const mediumTouchAreaShape = createDilatedHead( headWidth, headHeight, VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
       const SMALL_HEAD_SCALE = 0.65; // determined empirically
-      const smallMouseAreaShape = createDilatedHead( headWidth, SMALL_HEAD_SCALE * headHeight, headMouseAreaDilation );
-      const smallTouchAreaShape = createDilatedHead( headWidth, SMALL_HEAD_SCALE * headHeight, headTouchAreaDilation );
+      const smallMouseAreaShape = createDilatedHead( headWidth, SMALL_HEAD_SCALE * headHeight, VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
+      const smallTouchAreaShape = createDilatedHead( headWidth, SMALL_HEAD_SCALE * headHeight, VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
 
       // When the vector changes, transform the head and adjust its pointer areas. unlinked is required when disposed.
-      const vectorComponentsListener = vectorComponents => {
+      const vectorComponentsListener = ( vectorComponents: Vector2 ) => {
 
         // Adjust pointer areas. See https://github.com/phetsims/vector-addition/issues/240#issuecomment-544682818
         const SHORT_MAGNITUDE = 3;
@@ -236,7 +236,7 @@ export default class VectorNode extends RootVectorNode {
           // We have a 'short' vector, so adjust the head's pointer areas so that the tail can still be grabbed.
           const viewComponents = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
           const viewMagnitude = viewComponents.magnitude;
-          const maxHeadHeight = options.arrowOptions.fractionalHeadHeight * viewMagnitude;
+          const maxHeadHeight = fractionalHeadHeight * viewMagnitude;
 
           if ( headHeight > maxHeadHeight ) {
 
@@ -291,18 +291,18 @@ export default class VectorNode extends RootVectorNode {
       } );
 
     // Show the vector's label when it's on the graph. Must be unlinked.
-    const isOnGraphListener = isOnGraph => ( this.labelNode.visible = isOnGraph );
+    const isOnGraphListener = ( isOnGraph: boolean ) => ( this.labelNode.visible = isOnGraph );
     vector.isOnGraphProperty.link( isOnGraphListener );
 
     // Highlight the vector's label when it is selected. Must be unlinked.
-    const activeVectorListener = activeVector => {
+    const activeVectorListener = ( activeVector: Vector | null ) => {
       this.labelNode.setHighlighted( activeVector === vector );
     };
     graph.activeVectorProperty.link( activeVectorListener );
 
     // Disable interaction when the vector is animating back to the toolbox, where it will be disposed.
     // unlink is required on dispose.
-    const animateBackListener = animateBack => {
+    const animateBackListener = ( animateBack: boolean ) => {
       if ( animateBack ) {
         this.interruptSubtreeInput();
         this.pickable = false;
@@ -311,7 +311,6 @@ export default class VectorNode extends RootVectorNode {
     };
     this.vector.animateBackProperty.lazyLink( animateBackListener );
 
-    // @private
     this.disposeVectorNode = () => {
 
       // Dispose of nodes
@@ -329,21 +328,16 @@ export default class VectorNode extends RootVectorNode {
     };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeVectorNode();
     super.dispose();
   }
 
   /**
    * Updates the vector model, which will then round the new position depending on the coordinate snap mode
-   * @param {Vector2} tipPositionView - the drag listener position
-   * @private
+   * @param tipPositionView - the drag listener position
    */
-  updateTipPosition( tipPositionView ) {
+  private updateTipPosition( tipPositionView: Vector2 ): void {
     assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
       'Cannot drag tip when animating back' );
 
@@ -355,17 +349,15 @@ export default class VectorNode extends RootVectorNode {
 
   /**
    * Updates the model vector's tail position. Called when the vector is being translated.
-   * @param {Vector2} tailPositionView
-   * @private
    */
-  updateTailPosition( tailPositionView ) {
+  private updateTailPosition( tailPositionView: Vector2 ): void {
     assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
       'Cannot drag tail when animating back' );
 
     const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
 
-    // Allow translation to anywhere if it isn't on the graph
-    if ( this.vector.isOnGraphProperty.value === false ) {
+    if ( !this.vector.isOnGraphProperty.value ) {
+      // Allow translation to anywhere if it isn't on the graph
       this.vector.moveToTailPosition( tailPositionModel );
     }
     else {
@@ -376,23 +368,16 @@ export default class VectorNode extends RootVectorNode {
 
   /**
    * Forwards an event to translationDragListener. Used for dragging vectors out of the toolbox.
-   * @param {SceneryEvent} event
-   * @public
    */
-  forwardEvent( event ) {
-    assert && assert( event instanceof SceneryEvent, 'invalid event' );
+  public forwardEvent( event: PressListenerEvent ): void {
     this.translationDragListener.press( event, this );
   }
 }
 
 /**
  * Creates a (rough) dilated shape for a vector head.  The head is pointing to the right.
- * @param {number} headWidth
- * @param {number} headHeight
- * @param {number} dilation
- * @returns {Shape}
  */
-function createDilatedHead( headWidth, headHeight, dilation ) {
+function createDilatedHead( headWidth: number, headHeight: number, dilation: number ): Shape {
 
   // Starting from the upper left and moving clockwise
   return new Shape()

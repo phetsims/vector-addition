@@ -37,11 +37,12 @@ const MAX_LABEL_VECTOR_MAGNITUDE = new Vector2(
 
 type ArrowType = 'solid' | 'dashed';
 
+// options passed to ArrowNode or DashedArrowNode
+export type RootVectorArrowNodeOptions = ArrowNodeOptions | DashedArrowNodeOptions;
+
 type SelfOptions = {
   arrowType?: ArrowType;
-
-  // options passed to ArrowNode or DashedArrowNode
-  arrowOptions?: ArrowNodeOptions | DashedArrowNodeOptions;
+  arrowOptions?: RootVectorArrowNodeOptions;
 };
 
 export type RootVectorNodeOptions = SelfOptions;
