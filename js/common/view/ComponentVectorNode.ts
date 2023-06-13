@@ -12,7 +12,6 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -26,7 +25,11 @@ import ComponentVectorTypes from '../model/ComponentVectorTypes.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import RootVectorNode from './RootVectorNode.js';
+import RootVectorNode, { RootVectorNodeOptions } from './RootVectorNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Vector from '../model/Vector.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 
 // constants
 
@@ -34,52 +37,48 @@ import RootVectorNode from './RootVectorNode.js';
 const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
 // Line dash for leader lines, displayed when component vectors are projected onto axes
-const NON_ACTIVE_LEADER_LINES_DASH = [ 3, 10 ];
-const ACTIVE_LEADER_LINES_DASH = [];
+const NON_ACTIVE_LEADER_LINES_DASH: number[] = [ 3, 10 ];
+const ACTIVE_LEADER_LINES_DASH: number[] = [];
+
+type SelfOptions = EmptySelfOptions;
+type ComponentVectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 
 export default class ComponentVectorNode extends RootVectorNode {
 
+  // leader lines, displayed when component vectors are projected onto axes
+  private readonly leaderLinesPath: Path;
+
+  private readonly disposeComponentVectorNode: () => void;
+
   /**
-   * @param {ComponentVector} componentVector - the component vector model the node represents
-   * @param {Graph} graph - the graph the component vector belongs to
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {BooleanProperty} valuesVisibleProperty
-   * @param {Object} [options]
+   * @param componentVector - the component vector model the node represents
+   * @param graph - the graph the component vector belongs to
+   * @param componentStyleProperty
+   * @param valuesVisibleProperty
+   * @param [providedOptions]
    */
-  constructor( componentVector, graph, componentStyleProperty, valuesVisibleProperty, options ) {
+  public constructor( componentVector: ComponentVector,
+                      graph: Graph,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                      providedOptions?: ComponentVectorNodeOptions ) {
 
-    assert && assert( componentVector instanceof ComponentVector, `invalid componentVector: ${componentVector}` );
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty && ComponentVectorStyles.enumeration.includes( componentStyleProperty.value ),
-      `invalid componentStyleProperty: ${componentStyleProperty}` );
-    assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype, `Extra prototype on options: ${options}` );
+    const options = optionize<ComponentVectorNodeOptions, SelfOptions, RootVectorNodeOptions>()( {
 
-    //----------------------------------------------------------------------------------------
-
-    options = merge( {
-
+      // RootVectorNodeOptions
       arrowType: 'dashed',
-
-      // {Object} - options passed to the super class to stylize the arrowOptions.
       arrowOptions: merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: componentVector.vectorColorPalette.componentFill
       } )
+    }, providedOptions );
 
-    }, options );
-
-    super( componentVector,
-      graph.modelViewTransformProperty,
-      valuesVisibleProperty,
-      graph.activeVectorProperty,
-      options );
+    super( componentVector, graph.modelViewTransformProperty, valuesVisibleProperty, graph.activeVectorProperty, options );
 
     //----------------------------------------------------------------------------------------
 
     // Create a path that represents the dashed lines corresponding to the PROJECTION style.
     // The shape of the path will be updated later.
 
-    // @private {Path} leader lines, displayed when component vectors are projected onto axes
     this.leaderLinesPath = new Path( new Shape(), {
       lineWidth: 0.5,
       lineDash: NON_ACTIVE_LEADER_LINES_DASH
@@ -93,10 +92,8 @@ export default class ComponentVectorNode extends RootVectorNode {
     //  - isOnGraphProperty - components shouldn't be visible if the vector isn't on the graph
     //  - vectorComponentsProperty - to update the leader lines drawings positions
     //
-    // unmultilink is required on dispose.
-    //
-    // @private {Multilink} componentVectorMultilink
-    this.componentVectorMultilink = Multilink.multilink(
+    // dispose is required.
+    const componentVectorMultilink = Multilink.multilink(
       [ componentStyleProperty, componentVector.isParentVectorActiveProperty,
         componentVector.isOnGraphProperty, componentVector.vectorComponentsProperty ],
       ( componentStyle, isParentActive ) => {
@@ -109,23 +106,20 @@ export default class ComponentVectorNode extends RootVectorNode {
 
     // Highlight the component vector's label when its parent vector is selected.
     // unlink is required on dispose.
-    const activeVectorListener = activeVector => {
+    const activeVectorListener = ( activeVector: Vector | null ) => {
       this.labelNode.setHighlighted( activeVector === componentVector.parentVector );
     };
     graph.activeVectorProperty.link( activeVectorListener );
 
-    // @private
     this.disposeComponentVectorNode = () => {
-      Multilink.unmultilink( this.componentVectorMultilink );
-      graph.activeVectorProperty.unlink( activeVectorListener );
+      componentVectorMultilink.dispose();
+      if ( graph.activeVectorProperty.hasListener( activeVectorListener ) ) {
+        graph.activeVectorProperty.unlink( activeVectorListener );
+      }
     };
   }
 
-  /**
-   * @override
-   * @public
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeComponentVectorNode();
     super.dispose();
   }
@@ -134,16 +128,11 @@ export default class ComponentVectorNode extends RootVectorNode {
    * Updates the component vector node:
    *  - Draws leader lines when componentStyle is ON_AXIS
    *  - Determines visibility (i.e. components shouldn't be visible on INVISIBLE)
-   * @protected
-   *
-   * @param {ComponentVector} componentVector
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {ComponentVectorStyles} componentStyle
-   * @param {boolean} isParentActive
    */
-  updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
+  protected updateComponentVector( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
+                                   componentStyle: ComponentVectorStyles, isParentActive: boolean ): void {
 
-    // Component vectors are visible when it isn't INVISIBLE and it is on the graph.
+    // Component vectors are visible when it isn't INVISIBLE, and it is on the graph.
     this.visible = componentVector.isOnGraphProperty.value &&
                    componentStyle !== ComponentVectorStyles.INVISIBLE;
 
@@ -195,14 +184,9 @@ export default class ComponentVectorNode extends RootVectorNode {
 
   /**
    * Updates the label positioning of the vector component. Vector components have a unique label positioning.
-   * @override
-   * @protected
-   *
-   * @param {ComponentVector} componentVector
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {boolean} valuesVisible
    */
-  updateLabelPositioning( componentVector, modelViewTransform, valuesVisible ) {
+  protected override updateLabelPositioning( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
+                                             valuesVisible: boolean ): void {
 
     // If the magnitude of the componentVector is 0, then position the label node on the 'tail'
     if ( componentVector.magnitude === 0 ) {
