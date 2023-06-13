@@ -41,7 +41,7 @@ const NON_ACTIVE_LEADER_LINES_DASH: number[] = [ 3, 10 ];
 const ACTIVE_LEADER_LINES_DASH: number[] = [];
 
 type SelfOptions = EmptySelfOptions;
-type ComponentVectorNodeOptions = SelfOptions & RootVectorNodeOptions;
+export type ComponentVectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 
 export default class ComponentVectorNode extends RootVectorNode {
 

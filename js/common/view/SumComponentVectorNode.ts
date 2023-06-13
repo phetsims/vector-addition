@@ -11,48 +11,53 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import merge from '../../../../phet-core/js/merge.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import ComponentVectorNode from './ComponentVectorNode.js';
+import ComponentVectorNode, { ComponentVectorNodeOptions } from './ComponentVectorNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Graph from '../model/Graph.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ComponentVector from '../model/ComponentVector.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import SumVector from '../model/SumVector.js';
+
+type SelfOptions = EmptySelfOptions;
+type SumComponentVectorNodeOptions = SelfOptions & ComponentVectorNodeOptions;
 
 export default class SumComponentVectorNode extends ComponentVectorNode {
 
-  /**
-   * @param {ComponentVector} componentVector - the vector model for the component
-   * @param {Graph} graph - the graph the component belongs to
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {BooleanProperty} valuesVisibleProperty
-   * @param {BooleanProperty} sumVisibleProperty
-   * @param {Object} [options]
-   */
-  constructor( componentVector,
-               graph,
-               componentStyleProperty,
-               valuesVisibleProperty,
-               sumVisibleProperty,
-               options ) {
+  private readonly sumVisibleProperty: TReadOnlyProperty<boolean>;
 
-    assert && assert( sumVisibleProperty instanceof BooleanProperty, `invalid sumVisibleProperty: ${sumVisibleProperty}` );
+  public constructor( componentVector: ComponentVector,
+                      graph: Graph,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                      sumVisibleProperty: TReadOnlyProperty<boolean>,
+                      providedOptions?: SumComponentVectorNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<SumComponentVectorNodeOptions, SelfOptions, ComponentVectorNodeOptions>()( {
+
+      // ComponentVectorNodeOptions
       arrowOptions: merge( {}, VectorAdditionConstants.SUM_COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: componentVector.vectorColorPalette.sumComponentFill
       } )
-    }, options );
+    }, providedOptions );
 
     super( componentVector, graph, componentStyleProperty, valuesVisibleProperty, options );
 
-    // @private {BooleanProperty} sumVisibleProperty
     this.sumVisibleProperty = sumVisibleProperty;
+
+    const sumVector = componentVector.parentVector as SumVector;
+    assert && assert( sumVector instanceof SumVector ); // eslint-disable-line no-simple-type-checking-assertions
 
     // Update when the sum becomes visible or defined.
     // unlink is unnecessary, exists for the lifetime of the sim.
     Multilink.multilink(
-      [ sumVisibleProperty, componentVector.parentVector.isDefinedProperty ],
+      [ sumVisibleProperty, sumVector.isDefinedProperty ],
       () => this.updateComponentVector( componentVector,
         graph.modelViewTransformProperty.value,
         componentStyleProperty.value,
@@ -60,24 +65,20 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
     );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'SumComponentVectorNode is not intended to be disposed.' );
+    super.dispose();
   }
 
   /**
    * Handles visibility of sum component vectors.
-   * @private
-   * @param {ComponentVector} componentVector
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {ComponentVectorStyles} componentStyle
-   * @param {boolean} isParentActive
    */
-  updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive ) {
+  protected override updateComponentVector( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
+                                            componentStyle: ComponentVectorStyles, isParentActive: boolean ): void {
     super.updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive );
+
+    const sumVector = componentVector.parentVector as SumVector;
+    assert && assert( sumVector instanceof SumVector ); // eslint-disable-line no-simple-type-checking-assertions
 
     this.visible = (
       // components are visible
@@ -85,7 +86,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
       // sum is visible
       ( !!this.sumVisibleProperty && this.sumVisibleProperty.value ) &&
       // sum is defined
-      componentVector.parentVector.isDefinedProperty.value
+      sumVector.isDefinedProperty.value
     );
   }
 }
