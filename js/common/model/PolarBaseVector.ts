@@ -39,8 +39,10 @@ export default class PolarBaseVector extends BaseVector {
     super( initialTailPosition, initialComponents, graph, vectorSet, symbol );
 
     this.magnitudeProperty = new NumberProperty( this.magnitude );
-    // @ts-expect-error this.angle may be null
-    this.angleDegreesProperty = new NumberProperty( Utils.toDegrees( this.angle ) );
+
+    const initialAngle = this.angle!;
+    assert && assert( initialAngle !== null, 'expected this.angle to be non-null' );
+    this.angleDegreesProperty = new NumberProperty( Utils.toDegrees( initialAngle ) );
 
     // Observe when the angle or magnitude changes, and update the components to match.
     // unmultilink is unnecessary, exists for the lifetime of the sim.
