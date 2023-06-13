@@ -24,7 +24,7 @@ type SelfOptions = {
   tailDash?: number[]; // describes the dash, similar to SCENERY/LineStyle lineDash
 } & PickOptional<ArrowNodeOptions, 'headHeight' | 'headWidth' | 'tailWidth' | 'fill' | 'isHeadDynamic' | 'fractionalHeadHeight'>;
 
-type DashedArrowNodeOptions = SelfOptions;
+export type DashedArrowNodeOptions = SelfOptions;
 
 export default class DashedArrowNode extends Node {
 

@@ -12,20 +12,18 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import Property from '../../../../axon/js/Property.js';
-import ReadOnlyProperty from '../../../../axon/js/ReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import RootVector from '../model/RootVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import DashedArrowNode from './DashedArrowNode.js';
+import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import VectorLabelNode from './VectorLabelNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // constants
 
@@ -37,45 +35,45 @@ const MAX_LABEL_VECTOR_MAGNITUDE = new Vector2(
   VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height - VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN
 ).magnitude;
 
+type ArrowType = 'solid' | 'dashed';
+
+type SelfOptions = {
+  arrowType?: ArrowType;
+
+  // options passed to ArrowNode or DashedArrowNode
+  arrowOptions?: ArrowNodeOptions | DashedArrowNodeOptions;
+};
+
+export type RootVectorNodeOptions = SelfOptions;
+
 export default class RootVectorNode extends Node {
 
-  /**
-   * @param {RootVector} rootVector - the vector model
-   * @param {ReadOnlyProperty.<ModelViewTransform2>} modelViewTransformProperty
-   * @param {BooleanProperty} valuesVisibleProperty
-   * @param {Property.<RootVector>|null} activeVectorProperty
-   * @param {Object} [options]
-   */
-  constructor( rootVector, modelViewTransformProperty, valuesVisibleProperty, activeVectorProperty, options ) {
+  protected readonly arrowNode: ArrowNode | DashedArrowNode;
+  protected readonly labelNode: VectorLabelNode;
+  private readonly disposeRootVectorNode: () => void;
 
-    assert && assert( rootVector instanceof RootVector, `invalid rootVector: ${rootVector}` );
-    assert && assert( modelViewTransformProperty instanceof ReadOnlyProperty && modelViewTransformProperty.value instanceof ModelViewTransform2,
-      `invalid modelViewTransformProperty: ${modelViewTransformProperty}` );
-    assert && assert( valuesVisibleProperty instanceof BooleanProperty, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-    assert && assert( activeVectorProperty instanceof Property && activeVectorProperty.value instanceof RootVector || activeVectorProperty.value === null,
-      `invalid activeVectorProperty: ${activeVectorProperty}` );
-    assert && assert( !options || Object.getPrototypeOf( options ) === Object.prototype,
-      `Extra prototype on options: ${options}` );
+  protected constructor( rootVector: RootVector,
+                         modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                         valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                         activeVectorProperty: TReadOnlyProperty<RootVector | null>,
+                         providedOptions?: RootVectorNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<RootVectorNodeOptions, SelfOptions, NodeOptions>()( {
 
+      // SelfOptions
       arrowType: 'solid',
-
-      // options passed to ArrowNode or DashedArrowNode
       arrowOptions: {
         cursor: 'move'
       }
-    }, options );
+    }, providedOptions );
 
     //----------------------------------------------------------------------------------------
 
     super( options );
 
-    // Define a vector node in which the tail position (view coordinates) is (0, 0). Get the tip position in view
-    // coordinates
+    // Define a vector node in which the tail position (view coordinates) is (0, 0). Get the tip position in view coordinates.
     const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( rootVector.vectorComponents );
 
-    // @protected {ArrowNode} arrowNode - Create an arrow node that represents an actual vector.
     if ( options.arrowType === 'solid' ) {
       this.arrowNode = new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions );
     }
@@ -83,7 +81,7 @@ export default class RootVectorNode extends Node {
       this.arrowNode = new DashedArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions );
     }
 
-    // @protected {VectorLabelNode} labelNode - Create a label for the vector that is displayed 'next' to the arrow.
+    // Create a label for the vector that is displayed 'next' to the arrow.
     // The position of this depends on the angle of the vector. Since the positioning of 'next' is different for every
     // vector, use an overridable method to position it. ( updateLabelPositioning() )
     // dispose is required because this observes the Properties that are passed to it.
@@ -108,29 +106,21 @@ export default class RootVectorNode extends Node {
         this.updateLabelPositioning( rootVector, modelViewTransformProperty.value, valuesVisible );
       } );
 
-    // @private
     this.disposeRootVectorNode = () => {
       this.labelNode.dispose();
       Multilink.unmultilink( updateMultilink );
     };
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeRootVectorNode();
     super.dispose();
   }
 
   /**
    * Updates the tail and tip position of the view. Called when the model changes tail/tip.
-   * @param {RootVector} rootVector
-   * @param {ModelViewTransform2} modelViewTransform
-   * @protected
    */
-  updateVector( rootVector, modelViewTransform ) {
+  protected updateVector( rootVector: RootVector, modelViewTransform: ModelViewTransform2 ): void {
 
     // Since the tail is defined at (0, 0) for the vector, the vector must be translated.
     this.translation = modelViewTransform.modelToViewPosition( rootVector.tail );
@@ -140,9 +130,11 @@ export default class RootVectorNode extends Node {
     this.arrowNode.setTip( tipDeltaPosition.x, tipDeltaPosition.y );
 
     // Make the arrow easier to grab by setting pointer areas
-    if ( rootVector.magnitude > VectorAdditionConstants.ZERO_THRESHOLD && this.arrowNode.shape ) {
-      this.arrowNode.mouseArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_MOUSE_AREA_DILATION );
-      this.arrowNode.touchArea = this.arrowNode.shape.getOffsetShape( VectorAdditionConstants.VECTOR_TOUCH_AREA_DILATION );
+    if ( rootVector.magnitude > VectorAdditionConstants.ZERO_THRESHOLD && this.arrowNode instanceof ArrowNode ) {
+      const arrowShape = this.arrowNode.shape!;
+      assert && assert( arrowShape !== null );
+      this.arrowNode.mouseArea = arrowShape.getOffsetShape( VectorAdditionConstants.VECTOR_MOUSE_AREA_DILATION );
+      this.arrowNode.touchArea = arrowShape.getOffsetShape( VectorAdditionConstants.VECTOR_TOUCH_AREA_DILATION );
     }
 
     // See https://github.com/phetsims/vector-addition/issues/252
@@ -152,12 +144,8 @@ export default class RootVectorNode extends Node {
   /**
    * Updates the label positioning, called when the vector is changing or the value checkbox is clicked.
    * This can be overridden if the positioning isn't appropriate (e.g. component nodes have different positioning)
-   * @param {RootVector} rootVector
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {boolean} valuesVisible
-   * @protected
    */
-  updateLabelPositioning( rootVector, modelViewTransform, valuesVisible ) {
+  protected updateLabelPositioning( rootVector: RootVector, modelViewTransform: ModelViewTransform2, valuesVisible: boolean ): void {
 
     // Reset the rotation
     this.labelNode.setRotation( 0 );
@@ -170,7 +158,8 @@ export default class RootVectorNode extends Node {
     }
 
     // Angle of the vector in radians (ranging from -Pi to Pi)
-    const modelAngle = rootVector.angle;
+    const modelAngle = rootVector.angle!;
+    assert && assert( modelAngle !== null );
 
     //----------------------------------------------------------------------------------------
     // Determine how the labels should be positioned.
@@ -209,16 +198,11 @@ export default class RootVectorNode extends Node {
    * Computes the center position for the label.
    * See https://github.com/phetsims/vector-addition/issues/212
    *
-   * @param {RootVector} vector
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {Vector2} offset - perpendicular offset
-   * @returns {Vector2}
-   * @public
+   * @param vector
+   * @param modelViewTransform
+   * @param offset - perpendicular offset
    */
-  static computeLabelCenter( vector, modelViewTransform, offset ) {
-    assert && assert( vector instanceof RootVector, 'invalid vector' );
-    assert && assert( modelViewTransform instanceof ModelViewTransform2, 'invalid modelViewTransform' );
-    assert && assert( offset instanceof Vector2, 'invalid offset' );
+  public static computeLabelCenter( vector: RootVector, modelViewTransform: ModelViewTransform2, offset: Vector2 ): Vector2 {
 
     // Create a vector parallel to rootVector that determines where the label will be placed.
     let labelVector = null;
