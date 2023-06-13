@@ -63,7 +63,7 @@ export default class EquationsVectorSet extends VectorSet {
 
   public readonly symbols: string[];
 
-  // @ts-expect-error sumVector shadows field in superclass
+  // @ts-expect-error sumVector shadows field in superclass, but adding override here feels sketchy
   public readonly sumVector: EquationsSumVector;
 
   // We need to know about EquationsVector instances, a specialization of Vector.
