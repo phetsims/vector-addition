@@ -27,7 +27,7 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
-import { Node, NodeOptions, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
@@ -159,7 +159,7 @@ export default class SceneNode extends Node {
    * @param vectorSet - the VectorSet the vector belongs to
    * @param [forwardingEvent] - see VectorSetNode
    */
-  public registerVector( vector: Vector, vectorSet: VectorSet, forwardingEvent?: SceneryEvent ): void {
+  public registerVector( vector: Vector, vectorSet: VectorSet, forwardingEvent?: PressListenerEvent ): void {
     this.getVectorSetNode( vectorSet ).registerVector( vector, forwardingEvent );
   }
 
@@ -167,7 +167,7 @@ export default class SceneNode extends Node {
    * Adds a base vector to the scene.  Delegates to VectorSetNode.
    */
   protected addBaseVector( vectorSet: VectorSet, baseVector: BaseVector, baseVectorsVisibleProperty: Property<boolean> ): void {
-    this.getVectorSetNode( vectorSet ).addBaseVector( baseVector, baseVectorsVisibleProperty );
+    this.getVectorSetNode( vectorSet ).addBaseVector( baseVector, baseVectorsVisibleProperty, vectorSet.vectorColorPalette );
   }
 
   /**

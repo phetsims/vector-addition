@@ -13,9 +13,8 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { Node, SceneryEvent } from '../../../../scenery/js/imports.js';
+import { Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
 import Graph from '../model/Graph.js';
@@ -26,44 +25,43 @@ import ComponentVectorNode from './ComponentVectorNode.js';
 import SumComponentVectorNode from './SumComponentVectorNode.js';
 import SumVectorNode from './SumVectorNode.js';
 import VectorNode from './VectorNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import VectorColorPalette from '../model/VectorColorPalette.js';
 
 export default class VectorSetNode extends Node {
 
-  /**
-   * @param {Graph} graph
-   * @param {VectorSet} vectorSet
-   * @param {Property.<boolean>} valuesVisibleProperty
-   * @param {Property.<boolean>} anglesVisibleProperty
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {Object} [options]
-   */
-  constructor( graph, vectorSet, valuesVisibleProperty, anglesVisibleProperty, componentStyleProperty, options ) {
+  public readonly vectorSet: VectorSet;
 
-    assert && assert( graph instanceof Graph, `invalid graph: ${graph}` );
-    assert && assert( vectorSet instanceof VectorSet, `invalid vectorSet: ${vectorSet}` );
-    assert && assert( valuesVisibleProperty instanceof Property, `invalid valuesVisibleProperty: ${valuesVisibleProperty}` );
-    assert && assert( anglesVisibleProperty instanceof Property, `invalid anglesVisibleProperty: ${anglesVisibleProperty}` );
-    assert && assert( componentStyleProperty instanceof EnumerationProperty, `invalid componentStyleProperty: ${componentStyleProperty}` );
+  private readonly graph: Graph;
+  private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
+  private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
+  private readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyles>;
 
-    options = merge( {}, options );
+  public constructor( graph: Graph,
+                      vectorSet: VectorSet,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                      anglesVisibleProperty: TReadOnlyProperty<boolean>,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles> ) {
+
+    const sumVector = vectorSet.sumVector!;
+    assert && assert( sumVector !== null );
 
     // Every VectorSet has a sum vector and sum component vectors, so create them
-    const sumVectorNode = new SumVectorNode( vectorSet.sumVector, graph,
+    const sumVectorNode = new SumVectorNode( sumVector, graph,
       valuesVisibleProperty, anglesVisibleProperty, vectorSet.sumVisibleProperty
     );
-    const xSumComponentVectorNode = new SumComponentVectorNode( vectorSet.sumVector.xComponentVector, graph,
+    const xSumComponentVectorNode = new SumComponentVectorNode( sumVector.xComponentVector, graph,
       componentStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
-    const ySumComponentVectorNode = new SumComponentVectorNode( vectorSet.sumVector.yComponentVector, graph,
+    const ySumComponentVectorNode = new SumComponentVectorNode( sumVector.yComponentVector, graph,
       componentStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
-    assert && assert( !options.children, 'VectorSetNode sets children' );
-    options.children = [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ];
 
-    super( options );
+    super( {
+      children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ]
+    } );
 
-    // @public (read-only)
     this.vectorSet = vectorSet;
 
-    // @private
     this.graph = graph;
     this.valuesVisibleProperty = valuesVisibleProperty;
     this.anglesVisibleProperty = anglesVisibleProperty;
@@ -85,28 +83,19 @@ export default class VectorSetNode extends Node {
     } );
   }
 
-  /**
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     assert && assert( false, 'VectorSetNode is not intended to be disposed' );
+    super.dispose();
   }
 
   /**
    * Registers a Vector by creating its associated VectorNode and the ComponentVectorNodes.
    * The Nodes are deleted if Vector is ever removed from its VectorSet.
-   * @public
-   * @param {Vector} vector - the vector model
-   * @param {SceneryEvent} [forwardingEvent] - if provided, it will forward this event to the Vector body drag
-   *                                           listener. This is used to forward the click event from the
-   *                                           VectorCreatorPanel to the VectorNode. If not provided, no event is
-   *                                           forwarded.
+   * @param vector - the vector model
+   * @param [forwardingEvent] - if provided, it will forward this event to the Vector body drag listener. This is used
+   *   to forward the click event from the VectorCreatorPanel to the VectorNode. If not provided, no event is forwarded.
    */
-  registerVector( vector, forwardingEvent ) {
-
-    assert && assert( vector instanceof Vector, `invalid vector: ${vector}` );
-    assert && assert( !forwardingEvent || forwardingEvent instanceof SceneryEvent, `invalid forwardingEvent: ${forwardingEvent}` );
+  public registerVector( vector: Vector, forwardingEvent?: PressListenerEvent ): void {
 
     // Create the view for the vector and its component vectors
     const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.anglesVisibleProperty );
@@ -132,7 +121,7 @@ export default class VectorSetNode extends Node {
 
     // When the vector becomes active (selected), move it and its components to the front.
     // unlink is required when the vector is removed.
-    const activeVectorListener = activeVector => {
+    const activeVectorListener = ( activeVector: Vector | null ) => {
       if ( activeVector === vectorNode.vector ) {
 
         // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
@@ -149,7 +138,7 @@ export default class VectorSetNode extends Node {
     // If the Vector is removed from the VectorSet, clean up.
     if ( vector.isRemovable ) {
 
-      const removalListener = removedVector => {
+      const removalListener = ( removedVector: Vector ) => {
         assert && assert( removedVector.isRemovable, 'vector is not removable' );
 
         if ( removedVector === vector ) {
@@ -172,22 +161,18 @@ export default class VectorSetNode extends Node {
   /**
    * Adds a base vector to the VectorSetNode.  Base vectors are never removed.
    * Base vectors do not have component vectors, see https://github.com/phetsims/vector-addition/issues/158
-   * @param {BaseVector} baseVector
-   * @param {Property.<boolean>} baseVectorsVisibleProperty
-   * @public
    */
-  addBaseVector( baseVector, baseVectorsVisibleProperty ) {
-
-    assert && assert( baseVector instanceof BaseVector, 'invalid baseVector' );
-    assert && assert( baseVectorsVisibleProperty instanceof Property, 'invalid baseVectorsVisibleProperty' );
+  public addBaseVector( baseVector: BaseVector,
+                        baseVectorsVisibleProperty: TReadOnlyProperty<boolean>,
+                        vectorColorPalette: VectorColorPalette ): void {
 
     // Node for the base vector
     const baseVectorNode = new VectorNode( baseVector, this.graph,
       this.valuesVisibleProperty,
       this.anglesVisibleProperty, {
         arrowOptions: merge( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
-          fill: this.graph.vectorSet.vectorColorPalette.baseVectorFill,
-          stroke: this.graph.vectorSet.vectorColorPalette.baseVectorStroke
+          fill: vectorColorPalette.baseVectorFill,
+          stroke: vectorColorPalette.baseVectorStroke
         } )
       } );
     this.addChild( baseVectorNode );

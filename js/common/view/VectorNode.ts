@@ -42,7 +42,7 @@ export type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 
 export default class VectorNode extends RootVectorNode {
 
-  private readonly vector: Vector;
+  public readonly vector: Vector;
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
   private readonly translationDragListener: DragListener; // for translating the vector
   private readonly disposeVectorNode: () => void;
