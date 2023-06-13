@@ -14,41 +14,36 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import { AlignGroup } from '../../../../scenery/js/imports.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import SceneNode from '../../common/view/SceneNode.js';
+import SceneNode, { SceneNodeOptions } from '../../common/view/SceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsGraph from '../model/EquationsGraph.js';
 import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationToggleBox from './EquationToggleBox.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type EquationsSceneNodeOptions = SelfOptions & SceneNodeOptions;
 
 export default class EquationsSceneNode extends SceneNode {
 
-  /**
-   * @param {EquationsGraph} graph
-   * @param {EquationsViewProperties} viewProperties
-   * @param {EnumerationProperty.<ComponentVectorStyles>} componentStyleProperty
-   * @param {number} graphControlPanelBottom
-   * @param {AlignGroup} equationButtonsAlignGroup - used to make all equation radio buttons the same size
-   * @param {AlignGroup} equationsAlignGroup - used to make all interactive equations the same size
-   * @param {Object} [options]
-   */
-  constructor( graph, viewProperties, componentStyleProperty, graphControlPanelBottom,
-               equationButtonsAlignGroup, equationsAlignGroup, options ) {
+  public constructor( graph: EquationsGraph,
+                      viewProperties: EquationsViewProperties,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      graphControlPanelBottom: number,
+                      equationButtonsAlignGroup: AlignGroup, // used to make all equation radio buttons the same size
+                      equationsAlignGroup: AlignGroup, // used to make all interactive equations the same size
+                      providedOptions?: EquationsSceneNodeOptions ) {
 
-    assert && assert( graph instanceof EquationsGraph, `invalid graph: ${graph}` );
-    assert && assert( viewProperties instanceof EquationsViewProperties, `invalid viewProperties: ${viewProperties}` );
-    assert && assert( equationButtonsAlignGroup instanceof AlignGroup, `invalid equationButtonsAlignGroup: ${equationButtonsAlignGroup}` );
-    assert && assert( equationsAlignGroup instanceof AlignGroup, `invalid equationsAlignGroup: ${equationsAlignGroup}` );
+    const options = optionize<EquationsSceneNodeOptions, SelfOptions, SceneNodeOptions>()( {
 
-    options = merge( {
-
-      // super-class options
+      // SceneNodeOptions
       includeEraser: false
-
-    }, options );
+    }, providedOptions );
 
     super( graph, viewProperties, componentStyleProperty, options );
 
@@ -77,7 +72,7 @@ export default class EquationsSceneNode extends SceneNode {
     baseVectorsAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
 
     // Add vectors and their base vectors.
-    graph.vectorSet.vectors.forEach( vector => {
+    graph.vectorSet.equationsVectors.forEach( vector => {
       this.registerVector( vector, graph.vectorSet );
       this.addBaseVector( graph.vectorSet, vector.baseVector, viewProperties.baseVectorsVisibleProperty );
     } );
