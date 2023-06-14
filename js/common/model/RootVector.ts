@@ -28,8 +28,8 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 export type LabelDisplayData = {
 
-  // The coefficient (e.g. if the label displayed '|3v|=15', the coefficient would be 3).
-  // null means to not display a coefficient
+  // The coefficient to be displayed. null means to not display a coefficient.
+  // For example, if the label displayed '|3v|=15', the coefficient would be 3.
   coefficient: number | null;
 
   // The symbol to be displayed. null means to not display a symbol.
