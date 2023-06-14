@@ -32,12 +32,12 @@ export type LabelDisplayData = {
   // null means to not display a coefficient
   coefficient: number | null;
 
-  // The symbol (e.g. if the label displayed '|3v|=15', the symbol would be 'v').
-  // null means to not display a symbol
+  // The symbol to be displayed. null means to not display a symbol.
+  // For example, if the label displayed '|3v|=15', the symbol would be 'v'.
   symbol: string | null;
 
-  // The value (e.g. if the label displayed '|3v|=15', the value would be 15).
-  // null means to not display a value
+  // The value to be displayed. null means to not display a value.
+  // For example, if the label displayed '|3v|=15', the value would be 15.
   value: number | null;
 
   // Include absolute value bars (e.g. if the label displayed '|3v|=15 the includeAbsoluteValueBars
