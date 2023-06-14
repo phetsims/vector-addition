@@ -20,10 +20,8 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorStyles from './ComponentVectorStyles.js';
 import ComponentVectorTypes from './ComponentVectorTypes.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
@@ -181,25 +179,21 @@ export default class ComponentVector extends RootVector {
    */
   public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
-    // Get the component vector's value (a scalar, possibly negative)
-    let value: number | null = ( this.componentType === ComponentVectorTypes.X_COMPONENT ) ?
-                this.vectorComponents.x :
-                this.vectorComponents.y;
-
-    // Round the value. Use Utils.toFixed so that we get a consistent number of decimal places.
-    // @ts-expect-error Utils.toFixed returns a string
-    value = Utils.toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+    // Get the component vector's magnitude (a scalar, possibly negative)
+    let magnitude: number | null = ( this.componentType === ComponentVectorTypes.X_COMPONENT ) ?
+                                   this.vectorComponents.x :
+                                   this.vectorComponents.y;
 
     // Component vectors only show their values if and only if the values are visible and if the component isn't 0
-    if ( !valuesVisible || value === 0 ) {
-      value = null;
+    if ( !valuesVisible || magnitude === 0 ) {
+      magnitude = null;
     }
 
     return {
       coefficient: null, // component vectors never have a coefficient
       symbol: null, // component vectors never have a symbol
       includeAbsoluteValueBars: false,
-      value: value
+      magnitude: magnitude
     };
   }
 

@@ -1,7 +1,7 @@
 // Copyright 2019-2023, University of Colorado Boulder
 
 /**
- * VectorLabelNode is the label that appears on a vector.  It may show only the vector's symbol, or the vector's value.
+ * VectorLabelNode is the label that appears on a vector.  It may show only the vector's symbol, or the vector's magnitude.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -16,6 +16,7 @@ import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Utils from '../../../../dot/js/Utils.js';
 
 const X_MARGIN = 5;
 const Y_MARGIN = 1;
@@ -27,7 +28,7 @@ export default class VectorLabelNode extends Node {
   private readonly activeVectorProperty: TReadOnlyProperty<RootVector | null>;
   private readonly backgroundRectangle: Rectangle;
   private readonly vectorSymbolNode: VectorSymbolNode;
-  private readonly vectorValueText: Text;
+  private readonly vectorMagnitudeText: Text;
   private readonly vectorLabelContent: HBox;
 
   private readonly disposeVectorLabelNode: () => void;
@@ -50,10 +51,10 @@ export default class VectorLabelNode extends Node {
       spacing: 1
     } );
 
-    // Create the text for the value
-    const vectorValueText = new Text( '', { font: VectorAdditionConstants.VECTOR_LABEL_FONT } );
+    // Create the text for the vector's magnitude
+    const vectorMagnitudeText = new Text( '', { font: VectorAdditionConstants.VECTOR_LABEL_FONT } );
 
-    // Create a horizontal layout box for the symbol and the value
+    // Create a horizontal layout box for the symbol and magnitude
     const vectorLabelContent = new HBox( {
       spacing: 7,
       align: 'origin' // so that text baselines will be aligned
@@ -69,7 +70,7 @@ export default class VectorLabelNode extends Node {
     this.activeVectorProperty = activeVectorProperty;
     this.backgroundRectangle = backgroundRectangle;
     this.vectorSymbolNode = vectorSymbolNode;
-    this.vectorValueText = vectorValueText;
+    this.vectorMagnitudeText = vectorMagnitudeText;
     this.vectorLabelContent = vectorLabelContent;
 
     // Observe changes to the model vector, and update the label node. Dispose is required.
@@ -101,19 +102,20 @@ export default class VectorLabelNode extends Node {
       labelDisplayData.coefficient,
       labelDisplayData.includeAbsoluteValueBars );
 
-    // Update the displayed value
-    if ( labelDisplayData.value !== null ) {
-      const valueText = this.vectorSymbolNode.visible ? `${MathSymbols.EQUAL_TO} ${labelDisplayData.value}` : labelDisplayData.value;
-      this.vectorValueText.setString( valueText );
+    // Update the displayed magnitude. Use Utils.toFixed so that we get a consistent number of decimal places.
+    if ( labelDisplayData.magnitude !== null ) {
+      const roundedMagnitude = Utils.toFixed( labelDisplayData.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+      const string = this.vectorSymbolNode.visible ? `${MathSymbols.EQUAL_TO} ${roundedMagnitude}` : roundedMagnitude;
+      this.vectorMagnitudeText.setString( string );
     }
 
     // Toggle the visibility
-    this.vectorValueText.visible = ( labelDisplayData.value !== null );
-    this.backgroundRectangle.visible = ( this.vectorSymbolNode.visible || this.vectorValueText.visible );
+    this.vectorMagnitudeText.visible = ( labelDisplayData.magnitude !== null );
+    this.backgroundRectangle.visible = ( this.vectorSymbolNode.visible || this.vectorMagnitudeText.visible );
 
     // Update the children of the label content container
     this.vectorLabelContent.setChildren(
-      [ this.vectorSymbolNode, this.vectorValueText ].filter( node => ( node.visible ) )
+      [ this.vectorSymbolNode, this.vectorMagnitudeText ].filter( node => ( node.visible ) )
     );
 
     // Update the background

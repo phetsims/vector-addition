@@ -29,16 +29,16 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 export type LabelDisplayData = {
 
   // The coefficient to be displayed. null means to not display a coefficient.
-  // For example, if the label displayed '|3v|=15', the coefficient would be 3.
+  // For example, if the label displayed '|3v|=15', the coefficient is 3.
   coefficient: number | null;
 
   // The symbol to be displayed. null means to not display a symbol.
-  // For example, if the label displayed '|3v|=15', the symbol would be 'v'.
+  // For example, if the label displayed '|3v|=15', the symbol is 'v'.
   symbol: string | null;
 
-  // The value to be displayed. null means to not display a value.
-  // For example, if the label displayed '|3v|=15', the value would be 15.
-  value: number | null;
+  // The vector magnitude, displayed on the right side of the label equation. null means to not display a value.
+  // For example, if the label displayed '|3v|=15', the magnitude is 15.
+  magnitude: number | null;
 
   // Include absolute value bars around the coefficient and symbol.
   // For example, true => '|3v|=15', false => '3v=15'

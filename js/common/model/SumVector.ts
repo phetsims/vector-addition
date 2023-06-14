@@ -15,11 +15,9 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import Vector from './Vector.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
@@ -130,11 +128,10 @@ export default class SumVector extends Vector {
     else {
 
       // Omit the symbol, display only the value, if values are visible.
-      const roundedMagnitude = Utils.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
       return merge( super.getLabelDisplayData( valuesVisible ), {
         symbol: null,
         includeAbsoluteValueBars: false,
-        value: valuesVisible ? roundedMagnitude : null
+        magnitude: valuesVisible ? this.magnitude : null
       } );
     }
   }

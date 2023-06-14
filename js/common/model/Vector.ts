@@ -160,29 +160,23 @@ export default class Vector extends RootVector {
    */
   public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
-    // Get the rounded magnitude. Use Utils.toFixed so that we get a consistent number of decimal places.
-    const roundedMagnitude = Utils.toFixed( this.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
-
-    // Create flags to indicate the symbol and the value
-    let symbol = null;
-    let value: number | null = null;
-
     // If the vector has a symbol or is active, the vector always displays a symbol.
+    let symbol: string | null = null;
     if ( this.symbol || this.graph.activeVectorProperty.value === this ) {
       symbol = ( this.symbol || this.fallBackSymbol );
     }
 
     // If the values are on, the vector always displays a value.
+    let magnitude: number | null = null;
     if ( valuesVisible ) {
-      // @ts-expect-error roundMagnitude is a string
-      value = roundedMagnitude;
+      magnitude = this.magnitude;
     }
 
     return {
       coefficient: null, // vector models don't have coefficients
       symbol: symbol,
-      value: value,
-      includeAbsoluteValueBars: ( value !== null && symbol !== null ) // absolute value bars if there is a value
+      magnitude: magnitude,
+      includeAbsoluteValueBars: ( magnitude !== null && symbol !== null ) // absolute value bars if there is a magnitude
     };
   }
 
