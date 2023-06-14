@@ -40,8 +40,8 @@ export type LabelDisplayData = {
   // For example, if the label displayed '|3v|=15', the value would be 15.
   value: number | null;
 
-  // Include absolute value bars (e.g. if the label displayed '|3v|=15 the includeAbsoluteValueBars
-  // would be true)
+  // Include absolute value bars.
+  // For example, true => '|3v|=15', false => '3v=15'
   includeAbsoluteValueBars: boolean;
 };
 
