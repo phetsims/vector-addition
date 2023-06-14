@@ -39,7 +39,9 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const options = providedOptions;
 
     // 'c' checkbox
-    const cartesianSumSymbol = cartesianVectorSet.sumVector.symbol!;
+    const cartesianSumVector = cartesianVectorSet.sumVector!;
+    assert && assert( cartesianSumVector );
+    const cartesianSumSymbol = cartesianSumVector.symbol!;
     assert && assert( cartesianSumSymbol );
     const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianSumSymbol, {
       vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
@@ -47,7 +49,9 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     } );
 
     // 'f' checkbox
-    const polarSumSymbol = polarVectorSet.sumVector.symbol!;
+    const polarSumVector = polarVectorSet.sumVector!;
+    assert && assert( polarSumVector );
+    const polarSumSymbol = polarSumVector.symbol!;
     assert && assert( polarSumSymbol );
     const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty, polarSumSymbol, {
       vectorFill: polarVectorSet.vectorColorPalette.sumFill,

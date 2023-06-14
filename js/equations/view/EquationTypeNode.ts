@@ -68,8 +68,10 @@ export default class EquationTypeNode extends Node {
       const signText = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
       equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
 
+      const sumVector = vectorSet.sumVector!;
+      assert && assert( sumVector );
       const vectorSymbolNode = new VectorSymbolNode( {
-        symbol: vectorSet.sumVector.symbol,
+        symbol: sumVector.symbol,
         symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
       } );
       equationChildren.push( vectorSymbolNode );
@@ -84,8 +86,10 @@ export default class EquationTypeNode extends Node {
       equationChildren.push( new Text( '0', TEXT_OPTIONS ) );
     }
     else {
+      const sumVector = vectorSet.sumVector!;
+      assert && assert( sumVector );
       const vectorSymbolNode = new VectorSymbolNode( {
-        symbol: vectorSet.sumVector.symbol,
+        symbol: sumVector.symbol,
         symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
       } );
       equationChildren.push( vectorSymbolNode );

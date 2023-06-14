@@ -65,7 +65,7 @@ export default class VectorSet {
   public readonly sumProjectionXOffset: number;
   public readonly sumProjectionYOffset: number;
 
-  public readonly sumVector: SumVector | null;
+  protected _sumVector: SumVector | null; // settable by subclasses, specifically EquationsVectorSet
 
   /**
    * @param graph - the graph the VectorSet belongs to
@@ -111,11 +111,11 @@ export default class VectorSet {
     this.sumProjectionYOffset = options.sumProjectionYOffset;
 
     if ( options.initializeSum ) {
-      this.sumVector = new SumVector( options.initialSumTailPosition, graph, this, SUM_SYMBOL );
-      this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
+      this._sumVector = new SumVector( options.initialSumTailPosition, graph, this, SUM_SYMBOL );
+      this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
     else {
-      this.sumVector = null;
+      this._sumVector = null;
     }
 
     // Whenever a vector is added or removed, adjust the offsets of all component vectors for PROJECTION style.
@@ -134,9 +134,13 @@ export default class VectorSet {
     assert && assert( false, 'VectorSet is not intended to be disposed' );
   }
 
+  public get sumVector(): SumVector | null {
+    return this._sumVector;
+  }
+
   public reset(): void {
     this.erase();
-    this.sumVector && this.sumVector.reset();
+    this._sumVector && this._sumVector.reset();
   }
 
   /**

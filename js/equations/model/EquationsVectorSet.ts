@@ -63,9 +63,6 @@ export default class EquationsVectorSet extends VectorSet {
 
   public readonly symbols: string[];
 
-  // @ts-expect-error sumVector shadows field in superclass, but adding override here feels sketchy
-  public readonly sumVector: EquationsSumVector;
-
   // We need to know about EquationsVector instances, a specialization of Vector.
   // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
   public readonly equationsVectors: EquationsVector[];
@@ -133,8 +130,8 @@ export default class EquationsVectorSet extends VectorSet {
 
     // Create the sum vector
     assert && assert( this.symbols.length > 0 );
-    this.sumVector = new EquationsSumVector( graph, this, graph.equationTypeProperty, _.last( this.symbols )! );
-    this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
+    this._sumVector = new EquationsSumVector( graph, this, graph.equationTypeProperty, _.last( this.symbols )! );
+    this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 
   public override reset(): void {
@@ -145,7 +142,8 @@ export default class EquationsVectorSet extends VectorSet {
     // See https://github.com/phetsims/vector-addition/issues/143
     this.vectors.forEach( vector => { vector.reset(); } );
 
-    this.sumVector.reset();
+    // ... but we still need to reset the sum vector.
+    this._sumVector && this._sumVector.reset();
   }
 }
 
