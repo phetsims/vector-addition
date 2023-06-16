@@ -41,7 +41,7 @@
           "@typescript-eslint/ban-ts-comment": [
             "error",
             {
-              "ts-expect-error": false,
+              "ts-expect-error": true,
               "ts-ignore": true,
               "ts-check": true,
               "ts-nocheck": true
