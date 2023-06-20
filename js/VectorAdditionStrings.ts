@@ -5,44 +5,44 @@
  */
 /* eslint-disable */
 import getStringModule from '../../chipper/js/getStringModule.js';
-import LinkableProperty from '../../axon/js/LinkableProperty.js';
+import type LocalizedStringProperty from '../../chipper/js/LocalizedStringProperty.js';
 import vectorAddition from './vectorAddition.js';
 
 type StringsType = {
   'vector-addition': {
     'title': string;
-    'titleStringProperty': LinkableProperty<string>;
+    'titleStringProperty': LocalizedStringProperty;
   };
   'screen': {
     'equations': string;
-    'equationsStringProperty': LinkableProperty<string>;
+    'equationsStringProperty': LocalizedStringProperty;
     'explore1D': string;
-    'explore1DStringProperty': LinkableProperty<string>;
+    'explore1DStringProperty': LocalizedStringProperty;
     'explore2D': string;
-    'explore2DStringProperty': LinkableProperty<string>;
+    'explore2DStringProperty': LocalizedStringProperty;
     'lab': string;
-    'labStringProperty': LinkableProperty<string>;
+    'labStringProperty': LocalizedStringProperty;
   };
   'sum': string;
-  'sumStringProperty': LinkableProperty<string>;
+  'sumStringProperty': LocalizedStringProperty;
   'values': string;
-  'valuesStringProperty': LinkableProperty<string>;
+  'valuesStringProperty': LocalizedStringProperty;
   'components': string;
-  'componentsStringProperty': LinkableProperty<string>;
+  'componentsStringProperty': LocalizedStringProperty;
   'noVectorSelected': string;
-  'noVectorSelectedStringProperty': LinkableProperty<string>;
+  'noVectorSelectedStringProperty': LocalizedStringProperty;
   'vectorValues': string;
-  'vectorValuesStringProperty': LinkableProperty<string>;
+  'vectorValuesStringProperty': LocalizedStringProperty;
   'symbol': {
     'x': string;
-    'xStringProperty': LinkableProperty<string>;
+    'xStringProperty': LocalizedStringProperty;
     'y': string;
-    'yStringProperty': LinkableProperty<string>;
+    'yStringProperty': LocalizedStringProperty;
   };
   'baseVectors': string;
-  'baseVectorsStringProperty': LinkableProperty<string>;
+  'baseVectorsStringProperty': LocalizedStringProperty;
   'equation': string;
-  'equationStringProperty': LinkableProperty<string>;
+  'equationStringProperty': LocalizedStringProperty;
 };
 
 const VectorAdditionStrings = getStringModule( 'VECTOR_ADDITION' ) as StringsType;
