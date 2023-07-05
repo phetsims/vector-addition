@@ -34,12 +34,11 @@ The transform between model and view coordinate frames can be found in [Graph](h
 ### Memory Management
 The dynamic objects in the sim are the vectors, and their model and view classes implement `dispose`. On the model side, that includes [RootVector](https://github.com/phetsims/vector-addition/blob/master/js/common/model/RootVector.js) and its subclasses; on the view side, [RootVectorNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/RootVectorNode.js) and its subclasses.  
 
-All other objects are instantiated at startup, and exist for the lifetime of the sim. Classes that are not intended (and in fact, not designed) to be disposed have a `dispose` method that fails an assertion if called. For example:
+All other objects are instantiated at startup, and exist for the lifetime of the sim. They are created with `isDisposable: false`, or have a `dispose` method that looks like this:
 
 ```ts
-public override dispose(): void {
+public dispose(): void {
   Disposable.assertNotDisposable();
-  super.dispose();
 }
 ```
 
