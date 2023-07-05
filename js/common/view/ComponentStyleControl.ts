@@ -16,7 +16,6 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentStyleRadioButtonGroup from './ComponentStyleRadioButtonGroup.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
 
@@ -44,13 +43,9 @@ export default class ComponentStyleControl extends VBox {
       // VBoxOptions
       children: children,
       align: 'left',
-      spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING
+      spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
+      isDisposable: false
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

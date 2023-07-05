@@ -15,7 +15,6 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorCreatorPanelSlot from './VectorCreatorPanelSlot.js';
 import { optionize4 } from '../../../../phet-core/js/optionize.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'center' | 'bottom';
@@ -49,7 +48,8 @@ export default class VectorCreatorPanel extends Panel {
         xMargin: 2,
         yMargin: 10,
         fill: Color.WHITE,
-        stroke: Color.BLACK
+        stroke: Color.BLACK,
+        isDisposable: false
       }, providedOptions );
 
     // Create the container for the slots in a vertical alignment
@@ -68,11 +68,6 @@ export default class VectorCreatorPanel extends Panel {
     } );
 
     super( fixedSizeSlotsContainer, options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

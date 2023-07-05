@@ -28,7 +28,6 @@ import VectorNode from './VectorNode.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class VectorSetNode extends Node {
 
@@ -58,7 +57,8 @@ export default class VectorSetNode extends Node {
       componentStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
 
     super( {
-      children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ]
+      children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ],
+      isDisposable: false
     } );
 
     this.vectorSet = vectorSet;
@@ -82,11 +82,6 @@ export default class VectorSetNode extends Node {
         sumVectorNode.moveToFront();
       }
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

@@ -32,7 +32,6 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
@@ -59,7 +58,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         titleNode: new Text( VectorAdditionStrings.baseVectors, {
           font: VectorAdditionConstants.TITLE_FONT,
           maxWidth: 0.75 * CONTENT_WIDTH
-        } )
+        } ),
+        isDisposable: false
       }, providedOptions );
 
     //----------------------------------------------------------------------------------------
@@ -176,11 +176,6 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         this.interruptSubtreeInput();
       }
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

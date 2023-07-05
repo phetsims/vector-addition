@@ -16,7 +16,6 @@ import { Color, DragListener } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 
@@ -33,7 +32,8 @@ const ORIGIN_OPTIONS = {
   highlightColor: Color.WHITE,
   shadowColor: ORIGIN_COLOR.darkerColor(),
   lineWidth: 1,
-  stroke: ORIGIN_COLOR.darkerColor()
+  stroke: ORIGIN_COLOR.darkerColor(),
+  isDisposable: false
 };
 
 export default class OriginManipulator extends ShadedSphereNode {
@@ -81,11 +81,6 @@ export default class OriginManipulator extends ShadedSphereNode {
     graph.modelViewTransformProperty.link( modelViewTransform => {
       this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

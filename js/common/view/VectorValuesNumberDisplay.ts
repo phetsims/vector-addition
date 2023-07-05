@@ -25,7 +25,6 @@ import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorQuantities from './VectorQuantities.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class VectorValuesNumberDisplay extends NumberDisplay {
 
@@ -71,7 +70,8 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
     } );
 
     super( numberDisplayProperty, numberDisplayRange, {
-      decimalPlaces: VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES
+      decimalPlaces: VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES,
+      isDisposable: false
     } );
 
     this.vectorQuantity = vectorQuantity;
@@ -96,11 +96,6 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
       // exists. unlink is required when active vector changes.
       activeVector && activeVector.vectorComponentsProperty.link( activeVectorComponentsListener );
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

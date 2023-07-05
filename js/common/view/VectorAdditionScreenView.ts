@@ -13,7 +13,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionModel from '../model/VectorAdditionModel.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class VectorAdditionScreenView extends ScreenView {
 
@@ -24,6 +23,7 @@ export default class VectorAdditionScreenView extends ScreenView {
 
     super( {
       layoutBounds: VectorAdditionConstants.SCREEN_VIEW_BOUNDS,
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -37,11 +37,6 @@ export default class VectorAdditionScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( this.resetAllButton );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public reset(): void {

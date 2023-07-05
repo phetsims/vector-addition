@@ -33,7 +33,6 @@ import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import SceneNode from './SceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 // The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
 // contains the same local width regardless of the initial vector components. This ensures that
@@ -74,7 +73,10 @@ export default class VectorCreatorPanelSlot extends HBox {
       iconArrowMagnitude: 30,
       iconVectorComponents: null,
       iconPointerAreaXDilation: 10,
-      iconPointerAreaYDilation: 10
+      iconPointerAreaYDilation: 10,
+
+      // HBoxOptions
+      isDisposable: false
     }, providedOptions );
 
     super( { spacing: 5 } );
@@ -180,11 +182,6 @@ export default class VectorCreatorPanelSlot extends HBox {
       };
       vectorSet.vectors.addItemRemovedListener( removeVectorListener );
     } ) );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

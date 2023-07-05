@@ -22,7 +22,6 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -84,7 +83,8 @@ export default class GraphNode extends Node {
     children.push( new OriginManipulator( graph ) );
 
     super( {
-      children: children
+      children: children,
+      isDisposable: false
     } );
 
     // Clicking in the graph clears the active (selected) vector.
@@ -94,11 +94,6 @@ export default class GraphNode extends Node {
     background.addInputListener( {
       down: () => { graph.activeVectorProperty.value = null; }
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

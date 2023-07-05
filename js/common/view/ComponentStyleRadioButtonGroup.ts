@@ -18,7 +18,6 @@ import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import GridBox from './GridBox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class ComponentStyleRadioButtonGroup extends Node {
 
@@ -39,13 +38,9 @@ export default class ComponentStyleRadioButtonGroup extends Node {
     } );
 
     super( {
-      children: [ gridBox ]
+      children: [ gridBox ],
+      isDisposable: false
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

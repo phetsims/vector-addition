@@ -26,7 +26,6 @@ import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFacto
 import vectorAddition from '../../vectorAddition.js';
 import EquationTypes from '../model/EquationTypes.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -42,7 +41,8 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
     const options = optionize4<EquationTypesRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
         xMargin: 12,
-        scale: 0.75
+        scale: 0.75,
+        isDisposable: false
       }, providedOptions );
 
     // Create the description of the buttons
@@ -57,11 +57,6 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
     } );
 
     super( equationTypeProperty, items, options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

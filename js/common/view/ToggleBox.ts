@@ -35,7 +35,7 @@ type SelfOptions = {
 };
 
 export type ToggleBoxOptions = SelfOptions & NodeTranslationOptions &
-  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing'>;
+  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing' | 'isDisposable'>;
 
 export default class ToggleBox extends AccordionBox {
 

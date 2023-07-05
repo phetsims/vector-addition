@@ -16,9 +16,8 @@ import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -31,8 +30,10 @@ export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButt
                       polarVectorColorPalette: VectorColorPalette,
                       providedOptions?: CoordinateSnapRadioButtonGroupOptions ) {
 
-    const options = optionize3<CoordinateSnapRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
-      {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, providedOptions );
+    const options = optionize4<CoordinateSnapRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
+      {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
+        isDisposable: false
+      }, providedOptions );
 
     // Create the description of the buttons
     const items: RectangularRadioButtonGroupItem<CoordinateSnapModes>[] = [
@@ -47,11 +48,6 @@ export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButt
     ];
 
     super( coordinateSnapModeProperty, items, options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

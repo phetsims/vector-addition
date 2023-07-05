@@ -20,7 +20,6 @@ import VectorNode, { VectorNodeOptions } from './VectorNode.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 type SelfOptions = EmptySelfOptions;
 type SumVectorNodeOptions = SelfOptions & VectorNodeOptions;
@@ -74,11 +73,6 @@ export default class SumVectorNode extends VectorNode {
         assert && assert( false, 'SumVectorNode instances never animated back' );
       }
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

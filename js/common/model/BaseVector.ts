@@ -14,13 +14,13 @@ import Vector from './Vector.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 const OPTIONS = {
   isRemovable: false,       // BaseVectors are not removable
   isTipDraggable: false,    // BaseVectors are not draggable by the tip
-  isOnGraphInitially: true  // BaseVectors are always on the graph
+  isOnGraphInitially: true, // BaseVectors are always on the graph
+  isDisposable: false
 };
 
 export default abstract class BaseVector extends Vector {
@@ -36,11 +36,6 @@ export default abstract class BaseVector extends Vector {
                          vectorSet: VectorSet, symbol: string | null ) {
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

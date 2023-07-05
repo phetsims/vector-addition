@@ -22,7 +22,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import EquationsGraph from './EquationsGraph.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
 import BaseVector from '../../common/model/BaseVector.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 
@@ -83,11 +82,6 @@ export default class EquationsVector extends Vector {
       ( baseVector, coefficient ) => {
         this.vectorComponents = baseVector.timesScalar( coefficient );
       } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   public override reset(): void {

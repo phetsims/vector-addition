@@ -24,13 +24,13 @@ import VectorSet from './VectorSet.js';
 import Property from '../../../../axon/js/Property.js';
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import { LabelDisplayData } from './RootVector.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 const SUM_VECTOR_OPTIONS = {
   isTipDraggable: false, // Sum vectors are not draggable by the tip.
   isRemovable: false, // Sum vectors are not removable which means they are also not disposable
-  isOnGraphInitially: true // Sum vectors are always on the graph
+  isOnGraphInitially: true, // Sum vectors are always on the graph
+  isDisposable: false
 };
 
 export default class SumVector extends Vector {
@@ -76,11 +76,6 @@ export default class SumVector extends Vector {
 
       vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
     } );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

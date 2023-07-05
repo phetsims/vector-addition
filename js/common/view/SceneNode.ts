@@ -41,7 +41,6 @@ import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import Property from '../../../../axon/js/Property.js';
 import BaseVector from '../model/BaseVector.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
@@ -70,7 +69,10 @@ export default class SceneNode extends Node {
     const options = optionize<SceneNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      includeEraser: true
+      includeEraser: true,
+
+      // NodeOptions
+      isDisposable: false
     }, providedOptions );
 
     super();
@@ -138,11 +140,6 @@ export default class SceneNode extends Node {
     this.vectorValuesToggleBox = vectorValuesToggleBox;
 
     this.vectorSets = graph.vectorSets;
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 
   /**

@@ -11,8 +11,7 @@ import { Node, NodeTranslationOptions, VBox } from '../../../../scenery/js/impor
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
-import Disposable from '../../../../axon/js/Disposable.js';
+import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -22,8 +21,10 @@ export default class GraphControlPanel extends Panel {
 
   protected constructor( children: Node[], providedOptions?: GraphControlPanelOptions ) {
 
-    const options = optionize3<GraphControlPanelOptions, SelfOptions, PanelOptions>()(
-      {}, VectorAdditionConstants.PANEL_OPTIONS, providedOptions );
+    const options = optionize4<GraphControlPanelOptions, SelfOptions, PanelOptions>()(
+      {}, VectorAdditionConstants.PANEL_OPTIONS, {
+        isDisposable: false
+      }, providedOptions );
 
     const content = new VBox( {
       children: children,
@@ -37,11 +38,6 @@ export default class GraphControlPanel extends Panel {
     options.maxWidth = panelWidth;
 
     super( content, options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 

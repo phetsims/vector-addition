@@ -12,9 +12,8 @@ import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
-import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -25,8 +24,10 @@ export default class GraphOrientationRadioButtonGroup extends RectangularRadioBu
   public constructor( graphOrientationProperty: EnumerationProperty<GraphOrientations>,
                       providedOptions?: GraphOrientationRadioButtonGroupOptions ) {
 
-    const options = optionize3<GraphOrientationRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
-      {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, providedOptions );
+    const options = optionize4<GraphOrientationRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
+      {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
+        isDisposable: false
+      }, providedOptions );
 
     // Create the description of the buttons
     const items: RectangularRadioButtonGroupItem<GraphOrientations>[] = [];
@@ -38,11 +39,6 @@ export default class GraphOrientationRadioButtonGroup extends RectangularRadioBu
     } );
 
     super( graphOrientationProperty, items, options );
-  }
-
-  public override dispose(): void {
-    Disposable.assertNotDisposable();
-    super.dispose();
   }
 }
 
