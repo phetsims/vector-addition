@@ -36,9 +36,10 @@ The dynamic objects in the sim are the vectors, and their model and view classes
 
 All other objects are instantiated at startup, and exist for the lifetime of the sim. Classes that are not intended (and in fact, not designed) to be disposed have a `dispose` method that fails an assertion if called. For example:
 
-```js
-dispose() {
-  assert && assert( false, 'SceneNode is not intended to be disposed' );
+```ts
+public override dispose(): void {
+  Disposable.assertNotDisposable();
+  super.dispose();
 }
 ```
 
