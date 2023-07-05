@@ -65,11 +65,7 @@ export default class RootVectorNode extends Node {
       arrowType: 'solid',
       arrowOptions: {
         cursor: 'move'
-      },
-
-      // NodeOptions
-      isDisposable: false
-
+      }
     }, providedOptions );
 
     //----------------------------------------------------------------------------------------
@@ -115,6 +111,11 @@ export default class RootVectorNode extends Node {
       this.labelNode.dispose();
       Multilink.unmultilink( updateMultilink );
     };
+  }
+
+  public override dispose(): void {
+    this.disposeRootVectorNode();
+    super.dispose();
   }
 
   /**
