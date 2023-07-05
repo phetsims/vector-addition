@@ -25,6 +25,7 @@ import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorQuantities from './VectorQuantities.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class VectorValuesNumberDisplay extends NumberDisplay {
 
@@ -98,7 +99,7 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'VectorValuesNumberDisplay is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 

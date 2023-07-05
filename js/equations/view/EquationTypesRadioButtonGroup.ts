@@ -26,6 +26,7 @@ import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFacto
 import vectorAddition from '../../vectorAddition.js';
 import EquationTypes from '../model/EquationTypes.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -59,7 +60,7 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
   }
 
   public override dispose(): void {
-    assert && assert( false, 'EquationTypesRadioButtonGroup is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

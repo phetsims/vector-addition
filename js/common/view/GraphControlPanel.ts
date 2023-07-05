@@ -12,6 +12,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -39,7 +40,7 @@ export default class GraphControlPanel extends Panel {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'GraphControlPanel is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

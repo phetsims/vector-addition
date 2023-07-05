@@ -29,6 +29,7 @@ import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -185,7 +186,7 @@ export default class VectorValuesToggleBox extends ToggleBox {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'VectorValuesToggleBox is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

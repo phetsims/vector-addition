@@ -22,6 +22,7 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -96,7 +97,7 @@ export default class GraphNode extends Node {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'GraphNode is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

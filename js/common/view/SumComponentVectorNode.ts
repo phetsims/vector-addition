@@ -24,6 +24,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import ComponentVector from '../model/ComponentVector.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import SumVector from '../model/SumVector.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 type SelfOptions = EmptySelfOptions;
 type SumComponentVectorNodeOptions = SelfOptions & ComponentVectorNodeOptions;
@@ -66,7 +67,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'SumComponentVectorNode is not intended to be disposed.' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 

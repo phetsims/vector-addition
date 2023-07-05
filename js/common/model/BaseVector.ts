@@ -14,6 +14,7 @@ import Vector from './Vector.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 const OPTIONS = {
@@ -38,7 +39,7 @@ export default abstract class BaseVector extends Vector {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'BaseVector is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

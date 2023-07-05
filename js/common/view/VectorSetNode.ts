@@ -28,6 +28,7 @@ import VectorNode from './VectorNode.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class VectorSetNode extends Node {
 
@@ -84,7 +85,7 @@ export default class VectorSetNode extends Node {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'VectorSetNode is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 

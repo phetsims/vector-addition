@@ -24,6 +24,7 @@ import Vector from './Vector.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import VectorSet from './VectorSet.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 // scale of the coordinate transformation of model coordinates to view coordinates
 const MODEL_TO_VIEW_SCALE = 14.5;
@@ -103,7 +104,7 @@ export default class Graph {
   }
 
   public dispose(): void {
-    assert && assert( false, 'Graph is not intended to be disposed' );
+    Disposable.assertNotDisposable();
   }
 
   public reset(): void {

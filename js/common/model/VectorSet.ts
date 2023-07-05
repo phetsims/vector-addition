@@ -24,6 +24,7 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import Vector from './Vector.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 // The symbol for the sum vector.
 // The reason this isn't translatable is https://github.com/phetsims/vector-addition/issues/10.
@@ -131,7 +132,7 @@ export default class VectorSet {
   }
 
   public dispose(): void {
-    assert && assert( false, 'VectorSet is not intended to be disposed' );
+    Disposable.assertNotDisposable();
   }
 
   public get sumVector(): SumVector | null {

@@ -18,6 +18,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import { EmptySelfOptions, optionize3 } from '../../../../phet-core/js/optionize.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -49,7 +50,7 @@ export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButt
   }
 
   public override dispose(): void {
-    assert && assert( false, 'CoordinateSnapRadioButtonGroup is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

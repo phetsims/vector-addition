@@ -16,6 +16,7 @@ import { Color, DragListener } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 
@@ -83,7 +84,7 @@ export default class OriginManipulator extends ShadedSphereNode {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'OriginManipulator is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

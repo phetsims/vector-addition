@@ -13,6 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionModel from '../model/VectorAdditionModel.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class VectorAdditionScreenView extends ScreenView {
 
@@ -39,7 +40,7 @@ export default class VectorAdditionScreenView extends ScreenView {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'VectorAdditionScreenView is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 

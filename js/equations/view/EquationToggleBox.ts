@@ -19,6 +19,7 @@ import EquationTypes from '../model/EquationTypes.js';
 import EquationTypeNode from './EquationTypeNode.js';
 import EquationTypesRadioButtonGroup from './EquationTypesRadioButtonGroup.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
@@ -89,7 +90,7 @@ export default class EquationToggleBox extends ToggleBox {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'EquationToggleBox is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

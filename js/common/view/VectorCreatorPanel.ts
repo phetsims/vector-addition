@@ -15,6 +15,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorCreatorPanelSlot from './VectorCreatorPanelSlot.js';
 import { optionize4 } from '../../../../phet-core/js/optionize.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'center' | 'bottom';
@@ -70,7 +71,7 @@ export default class VectorCreatorPanel extends Panel {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'VectorCreatorPanel is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 }

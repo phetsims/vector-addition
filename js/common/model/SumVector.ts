@@ -24,6 +24,7 @@ import VectorSet from './VectorSet.js';
 import Property from '../../../../axon/js/Property.js';
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import { LabelDisplayData } from './RootVector.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 const SUM_VECTOR_OPTIONS = {
@@ -78,7 +79,7 @@ export default class SumVector extends Vector {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'SumVector is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 

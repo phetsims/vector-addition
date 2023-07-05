@@ -22,6 +22,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import EquationsGraph from './EquationsGraph.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
 import BaseVector from '../../common/model/BaseVector.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 // constants
 
@@ -85,7 +86,7 @@ export default class EquationsVector extends Vector {
   }
 
   public override dispose(): void {
-    assert && assert( false, 'EquationsVector is not intended to be disposed' );
+    Disposable.assertNotDisposable();
     super.dispose();
   }
 

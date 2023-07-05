@@ -11,6 +11,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import vectorAddition from '../../vectorAddition.js';
 import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
 import Property from '../../../../axon/js/Property.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class VectorAdditionViewProperties {
 
@@ -46,7 +47,7 @@ export default class VectorAdditionViewProperties {
   }
 
   public dispose(): void {
-    assert && assert( false, 'VectorAdditionViewProperties are not intended to be disposed' );
+    Disposable.assertNotDisposable();
   }
 }
 
