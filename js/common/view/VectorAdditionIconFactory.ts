@@ -406,7 +406,6 @@ const VectorAdditionIconFactory = {
    */
   createEquationTypeIcon( equationType: EquationTypes, vectorSymbols: string[] ): Node {
 
-    assert && assert( EquationTypes.enumeration.includes( equationType ), `invalid equationType: ${equationType}` );
     assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1,
       `invalid vectorSymbols: ${vectorSymbols}` );
 
