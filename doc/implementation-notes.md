@@ -6,11 +6,11 @@ to provide a high-level overview, and to supplement the internal documentation
 (source code comments) and external documentation (design documents).  
 
 Before reading this document, please read:
-* [model.md](https://github.com/phetsims/vector-addition/blob/master/doc/model.md), a high-level description of the simulation model
+* [model.md](https://github.com/phetsims/vector-addition/blob/main/doc/model.md), a high-level description of the simulation model
 
 In addition to this document, you are encouraged to read: 
-* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)  
-* [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md)
+* [PhET Development Overview](https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)  
+* [PhET Software Design Patterns](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md)
 * [Vector Addition HTML5](https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit), the design document
 
 ## Terminology
@@ -19,20 +19,20 @@ In addition to this document, you are encouraged to read:
 
 * _active_ vector and _selected_ vector are synonyms.  There is (at most) one active vector.
 * _component_ is a scalar, while _component vector_ is a vector
-* _coordinate snap mode_ refers to which vector quantities will snap to integer values, see [CoordinateSnapModes](https://github.com/phetsims/vector-addition/blob/master/js/common/model/CoordinateSnapModes.js)
-* _component vector styles_ refers to the representation used to display component vectors, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js)
+* _coordinate snap mode_ refers to which vector quantities will snap to integer values, see [CoordinateSnapModes](https://github.com/phetsims/vector-addition/blob/main/js/common/model/CoordinateSnapModes.js)
+* _component vector styles_ refers to the representation used to display component vectors, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.js)
 * _creator panel_ and _toolbox_ are synonyms for the UI component that creates vectors 
-* _graph orientation_ is horizontal, vertical, or two-dimensional, see [GraphOrientations](https://github.com/phetsims/vector-addition/blob/master/js/common/model/GraphOrientations.js)
+* _graph orientation_ is horizontal, vertical, or two-dimensional, see [GraphOrientations](https://github.com/phetsims/vector-addition/blob/main/js/common/model/GraphOrientations.js)
 
 ## General Considerations
 
 This section describes how this simulation addresses implementation considerations that are typically encountered in PhET simulations.
 
 ### Coordinate Transforms
-The transform between model and view coordinate frames can be found in [Graph](https://github.com/phetsims/vector-addition/blob/master/js/common/model/Graph.js), where `modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.  This transform inverts the mapping of y-axis values; +y is down in view (scenery) coordinates, up in model coordinates.
+The transform between model and view coordinate frames can be found in [Graph](https://github.com/phetsims/vector-addition/blob/main/js/common/model/Graph.js), where `modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.  This transform inverts the mapping of y-axis values; +y is down in view (scenery) coordinates, up in model coordinates.
 
 ### Memory Management
-The dynamic objects in the sim are the vectors, and their model and view classes implement `dispose`. On the model side, that includes [RootVector](https://github.com/phetsims/vector-addition/blob/master/js/common/model/RootVector.js) and its subclasses; on the view side, [RootVectorNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/RootVectorNode.js) and its subclasses.  
+The dynamic objects in the sim are the vectors, and their model and view classes implement `dispose`. On the model side, that includes [RootVector](https://github.com/phetsims/vector-addition/blob/main/js/common/model/RootVector.js) and its subclasses; on the view side, [RootVectorNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/RootVectorNode.js) and its subclasses.  
 
 All other objects are instantiated at startup, and exist for the lifetime of the sim. They are created with `isDisposable: false`, or have a `dispose` method that looks like this:
 
@@ -58,18 +58,18 @@ graph.activeVectorProperty.link( ... );
 ### Query Parameters
 Query parameters are used to enable sim-specific features, mainly for debugging and
 testing. Sim-specific query parameters are documented in
-[VectorAdditionQueryParameters](https://github.com/phetsims/vector-addition/blob/master/js/common/VectorAdditionQueryParameters.js).
+[VectorAdditionQueryParameters](https://github.com/phetsims/vector-addition/blob/main/js/common/VectorAdditionQueryParameters.js).
 
 ### Assertions
 The implementation makes heavy use of `assert` to verify pre/post assumptions and perform type checking. 
 This sim performs type-checking for almost all function arguments via `assert`. If you are making modifications to this sim, do so with assertions enabled via the `ea` query parameter.
 
 ### Creator Pattern
-This sim uses the Creator pattern to dynamically create and dispose of vectors. For an overview of this pattern, see [Creator](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md#creator-with-drag-forwarding) in the [_PhET Software Design Patterns_](https://github.com/phetsims/phet-info/blob/master/doc/phet-software-design-patterns.md). Here's how that pattern is implemented in this sim:
+This sim uses the Creator pattern to dynamically create and dispose of vectors. For an overview of this pattern, see [Creator](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md#creator-with-drag-forwarding) in the [_PhET Software Design Patterns_](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md). Here's how that pattern is implemented in this sim:
 
-A [VectorSet](https://github.com/phetsims/vector-addition/blob/master/js/common/model/VectorSet.js) is a set of related vectors. The vectors in the set contribute to a sum vector, and share the same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/master/js/common/model/VectorColorPalette.js).
+A [VectorSet](https://github.com/phetsims/vector-addition/blob/main/js/common/model/VectorSet.js) is a set of related vectors. The vectors in the set contribute to a sum vector, and share the same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/main/js/common/model/VectorColorPalette.js).
 
-[VectorCreatorPanel](https://github.com/phetsims/vector-addition/blob/master/js/common/view/VectorCreatorPanel.js) is the vector "toolbox". It contains one [VectorCreatorPanelSlot](https://github.com/phetsims/vector-addition/blob/master/js/common/view/VectorCreatorPanelSlot.js) for each `VectorSet`, with each slot being represented by an icon in the toolbox.  Each `VectorSet` also has an associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/VectorSetNode.js), which manages creation and layering of Nodes related to vectors in the set. 
+[VectorCreatorPanel](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanel.js) is the vector "toolbox". It contains one [VectorCreatorPanelSlot](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanelSlot.js) for each `VectorSet`, with each slot being represented by an icon in the toolbox.  Each `VectorSet` also has an associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorSetNode.js), which manages creation and layering of Nodes related to vectors in the set. 
 
 _Adding a vector_: When a vector icon in the toolbox is clicked,
 `VectorCreatorPanelSlot` creates a new vector and adds it to the
@@ -87,7 +87,7 @@ associated with a vector that is removed.
 ### Scenes
 A scene consists of a graph and its vector set(s). In this sim, there is
 no "scene" model element, and scenes are managed solely by the view.
-[SceneNode](https://github.com/phetsims/vector-addition/blob/master/js/common/view/SceneNode.js)
+[SceneNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/SceneNode.js)
 is the base class. In the _Explore 1D_ screen, there are 2 scenes,
 corresponding to the horizontal and vertical graph orientations. In the
 other screens, there are 2 scenes, corresponding to the Cartesian and
@@ -162,7 +162,7 @@ The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has t
   definition, their magnitude and angle depend on the other vectors in
   the vector set.
 * Selecting a vector moves it to the front, highlights it, and displays its associated values in the "Vector Values" accordion box.
-* Three visual representations of component vectors are supported, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/master/js/common/model/ComponentVectorStyles.js).
+* Three visual representations of component vectors are supported, see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.js).
 * Vector sum and angles can be displayed.
 * The graph's grid can be hidden.
 
@@ -184,7 +184,7 @@ _Equations_ screen:
 * Base vectors are provided, and you can change their values using spinners.
 * Each vector set has one vector (c&#8407; or f&#8407;) whose
   computation depends on which equation is selected, see
-  [EquationTypes](https://github.com/phetsims/vector-addition/blob/master/js/equations/model/EquationTypes.js).
+  [EquationTypes](https://github.com/phetsims/vector-addition/blob/main/js/equations/model/EquationTypes.js).
 * Equation coefficients can be changed using spinners. 
 * Vectors cannot be added to or removed from the graph.
 * Vectors cannot be rotated or scaled via direct manipulation. They must

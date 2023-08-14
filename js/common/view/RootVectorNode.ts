@@ -7,7 +7,7 @@
  *  - Create other Nodes that ALL vectors in the sim have (i.e. labels etc.)
  *
  * For an overview of the class hierarchy,
- * see https://github.com/phetsims/vector-addition/blob/master/doc/implementation-notes.md
+ * see https://github.com/phetsims/vector-addition/blob/main/doc/implementation-notes.md
  *
  * @author Brandon Li
  */

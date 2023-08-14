@@ -5,7 +5,7 @@
  * It is abstract and intended to be subclassed.
  *
  * For an overview of the class hierarchy, see
- * https://github.com/phetsims/vector-addition/blob/master/doc/implementation-notes.md
+ * https://github.com/phetsims/vector-addition/blob/main/doc/implementation-notes.md
  *
  * Responsibilities are:
  *  - tip and tail position Properties

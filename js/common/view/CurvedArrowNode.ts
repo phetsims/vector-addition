@@ -4,7 +4,7 @@
  * View for an arrow that is curved. Used in various other views throughout the sim.
  *
  * A solution using `SCENERY-PHET/CurvedArrowShape` was investigated, but it was inappropriate for use in this sim.
- * See https://github.com/phetsims/vector-addition/blob/master/doc/images/CurvedArrowNode-notes.png for an explanation.
+ * See https://github.com/phetsims/vector-addition/blob/main/doc/images/CurvedArrowNode-notes.png for an explanation.
  *
  * ## Other functionality:
  *  - The Arrowhead turns invisible when the angle becomes too small (i.e. the triangle is larger than the arc)
@@ -69,7 +69,7 @@ export default class CurvedArrowNode extends Node {
     this.updateCurvedArrowNode = () => {
 
       //----------------------------------------------------------------------------------------
-      // See https://github.com/phetsims/vector-addition/blob/master/doc/images/angle-calculations.png
+      // See https://github.com/phetsims/vector-addition/blob/main/doc/images/angle-calculations.png
       // for an annotated drawing of how the subtended angle and the corrected angle are calculated
       //----------------------------------------------------------------------------------------
 
