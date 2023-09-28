@@ -7,7 +7,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { Color } from '../../../scenery/js/imports.js';
+import { Color, ProfileColorProperty } from '../../../scenery/js/imports.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorColorPalette from './model/VectorColorPalette.js';
 
@@ -21,7 +21,9 @@ const VectorAdditionColors = {
   //----------------------------------------------------------------------------------------
   // Screen
 
-  SCREEN_BACKGROUND: '#e5f7fe', // light blue
+  screenBackgroundColorProperty: new ProfileColorProperty( vectorAddition, 'screenBackgroundColor', {
+    default: '#e5f7fe' // light blue
+  } ),
 
   //----------------------------------------------------------------------------------------
   // Graph

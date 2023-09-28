@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
@@ -22,7 +21,7 @@ export default class Explore1DScreen extends Screen<Explore1DModel, Explore1DScr
 
     const options = {
       name: VectorAdditionStrings.screen.explore1DStringProperty,
-      backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
+      backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createExplore1DScreenIcon(),
       tandem: tandem
     };

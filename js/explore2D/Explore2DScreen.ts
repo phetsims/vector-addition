@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
@@ -22,7 +21,7 @@ export default class Explore2DScreen extends Screen<Explore2DModel, Explore2DScr
 
     const options: ScreenOptions = {
       name: VectorAdditionStrings.screen.explore2DStringProperty,
-      backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
+      backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createExplore2DScreenIcon(),
       tandem: tandem
     };

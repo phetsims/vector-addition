@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
@@ -22,7 +21,7 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
 
     const options = {
       name: VectorAdditionStrings.screen.equationsStringProperty,
-      backgroundColorProperty: new Property( VectorAdditionColors.SCREEN_BACKGROUND ),
+      backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createEquationsScreenIcon(),
       tandem: tandem
     };
