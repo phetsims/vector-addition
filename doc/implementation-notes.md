@@ -23,12 +23,12 @@ In addition to this document, you are encouraged to read:
 * _active_ vector and _selected_ vector are synonyms. There is (at most) one active vector.
 * _component_ is a scalar, while _component vector_ is a vector
 * _coordinate snap mode_ refers to which vector quantities will snap to integer values,
-  see [CoordinateSnapModes](https://github.com/phetsims/vector-addition/blob/main/js/common/model/CoordinateSnapModes.js)
+  see [CoordinateSnapModes](https://github.com/phetsims/vector-addition/blob/main/js/common/model/CoordinateSnapModes.ts)
 * _component vector styles_ refers to the representation used to display component vectors,
-  see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.js)
+  see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.ts)
 * _creator panel_ and _toolbox_ are synonyms for the UI component that creates vectors
 * _graph orientation_ is horizontal, vertical, or two-dimensional,
-  see [GraphOrientations](https://github.com/phetsims/vector-addition/blob/main/js/common/model/GraphOrientations.js)
+  see [GraphOrientations](https://github.com/phetsims/vector-addition/blob/main/js/common/model/GraphOrientations.ts)
 
 ## General Considerations
 
@@ -38,16 +38,16 @@ PhET simulations.
 ### Coordinate Transforms
 
 The transform between model and view coordinate frames can be found
-in [Graph](https://github.com/phetsims/vector-addition/blob/main/js/common/model/Graph.js),
+in [Graph](https://github.com/phetsims/vector-addition/blob/main/js/common/model/Graph.ts),
 where `modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.
 This transform inverts the mapping of y-axis values; +y is down in view (scenery) coordinates, up in model coordinates.
 
 ### Memory Management
 
 The dynamic objects in the sim are the vectors, and their model and view classes implement `dispose`. On the model side,
-that includes [RootVector](https://github.com/phetsims/vector-addition/blob/main/js/common/model/RootVector.js) and its
+that includes [RootVector](https://github.com/phetsims/vector-addition/blob/main/js/common/model/RootVector.ts) and its
 subclasses; on the view
-side, [RootVectorNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/RootVectorNode.js) and its
+side, [RootVectorNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/RootVectorNode.ts) and its
 subclasses.
 
 All other objects are instantiated at startup, and exist for the lifetime of the sim. They are created
@@ -77,7 +77,7 @@ graph.activeVectorProperty.link( ... );
 
 Query parameters are used to enable sim-specific features, mainly for debugging and testing. Sim-specific query
 parameters are documented in
-[VectorAdditionQueryParameters](https://github.com/phetsims/vector-addition/blob/main/js/common/VectorAdditionQueryParameters.js).
+[VectorAdditionQueryParameters](https://github.com/phetsims/vector-addition/blob/main/js/common/VectorAdditionQueryParameters.ts).
 
 ### Assertions
 
@@ -93,15 +93,15 @@ in the [_PhET Software Design
 Patterns_](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md). Here's how that
 pattern is implemented in this sim:
 
-A [VectorSet](https://github.com/phetsims/vector-addition/blob/main/js/common/model/VectorSet.js) is a set of related
+A [VectorSet](https://github.com/phetsims/vector-addition/blob/main/js/common/model/VectorSet.ts) is a set of related
 vectors. The vectors in the set contribute to a sum vector, and share the
-same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/main/js/common/model/VectorColorPalette.js).
+same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/main/js/common/model/VectorColorPalette.ts).
 
-[VectorCreatorPanel](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanel.js) is the
+[VectorCreatorPanel](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanel.ts) is the
 vector "toolbox". It contains
-one [VectorCreatorPanelSlot](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanelSlot.js)
+one [VectorCreatorPanelSlot](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanelSlot.ts)
 for each `VectorSet`, with each slot being represented by an icon in the toolbox. Each `VectorSet` also has an
-associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorSetNode.js), which
+associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorSetNode.ts), which
 manages creation and layering of Nodes related to vectors in the set.
 
 _Adding a vector_: When a vector icon in the toolbox is clicked,
@@ -120,7 +120,7 @@ Nodes associated with a vector that is removed.
 
 A scene consists of a graph and its vector set(s). In this sim, there is no "scene" model element, and scenes are
 managed solely by the view.
-[SceneNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/SceneNode.js)
+[SceneNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/SceneNode.ts)
 is the base class. In the _Explore 1D_ screen, there are 2 scenes, corresponding to the horizontal and vertical graph
 orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch
 between scenes using the radio buttons that are located at the bottom-right of the ScreenView.
@@ -194,7 +194,7 @@ The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has t
 * Selecting a vector moves it to the front, highlights it, and displays its associated values in the "Vector Values"
   accordion box.
 * Three visual representations of component vectors are supported,
-  see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.js).
+  see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.ts).
 * Vector sum and angles can be displayed.
 * The graph's grid can be hidden.
 
@@ -220,7 +220,7 @@ _Equations_ screen:
 
 * Base vectors are provided, and you can change their values using spinners.
 * Each vector set has one vector (c&#8407; or f&#8407;) whose computation depends on which equation is selected, see
-  [EquationTypes](https://github.com/phetsims/vector-addition/blob/main/js/equations/model/EquationTypes.js).
+  [EquationTypes](https://github.com/phetsims/vector-addition/blob/main/js/equations/model/EquationTypes.ts).
 * Equation coefficients can be changed using spinners.
 * Vectors cannot be added to or removed from the graph.
 * Vectors cannot be rotated or scaled via direct manipulation. They must be indirectly rotated/scaled using the spinners
