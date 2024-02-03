@@ -17,6 +17,7 @@ import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DVectorCreatorPanel from './Explore1DVectorCreatorPanel.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import GraphOrientationRadioButtonGroup from './GraphOrientationRadioButtonGroup.js';
+import { Node } from '../../../../scenery/js/imports.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -39,7 +40,6 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: graphViewBounds.top
       } );
-    this.addChild( graphControlPanel );
 
     // Graph Orientation radio buttons, at lower right
     const graphOrientationRadioButtonGroup = new GraphOrientationRadioButtonGroup(
@@ -47,9 +47,9 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom
       } );
-    this.addChild( graphOrientationRadioButtonGroup );
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
+    const sceneNodes: Node[] = [];
     [ model.verticalGraph, model.horizontalGraph ].forEach( graph => {
 
       // Create the scene node
@@ -74,8 +74,18 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       } );
 
       // Add the scene node
-      this.addChild( sceneNode );
+      sceneNodes.push( sceneNode );
     } );
+
+    const screenViewRootNode = new Node( {
+      children: [
+        graphControlPanel,
+        graphOrientationRadioButtonGroup,
+        ...sceneNodes,
+        this.resetAllButton
+      ]
+    } );
+    this.addChild( screenViewRootNode );
   }
 
   public override reset(): void {

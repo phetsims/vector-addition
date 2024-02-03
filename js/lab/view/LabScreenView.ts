@@ -16,6 +16,8 @@ import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
+import { Node } from '../../../../scenery/js/imports.js';
+
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
@@ -39,7 +41,6 @@ export default class LabScreenView extends VectorAdditionScreenView {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
       } );
-    this.addChild( graphControlPanel );
 
     // Coordinate Snap radio buttons, at lower right
     const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
@@ -49,9 +50,9 @@ export default class LabScreenView extends VectorAdditionScreenView {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom
       } );
-    this.addChild( coordinateSnapRadioButtonGroup );
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
+    const sceneNodes: Node[] = [];
     [ model.polarGraph, model.cartesianGraph ].forEach( graph => {
 
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty );
@@ -70,8 +71,18 @@ export default class LabScreenView extends VectorAdditionScreenView {
       } );
 
       // Add the scene node
-      this.addChild( sceneNode );
+      sceneNodes.push( sceneNode );
     } );
+
+    const screenViewRootNode = new Node( {
+      children: [
+        graphControlPanel,
+        coordinateSnapRadioButtonGroup,
+        ...sceneNodes,
+        this.resetAllButton
+      ]
+    } );
+    this.addChild( screenViewRootNode );
   }
 
   public override reset(): void {

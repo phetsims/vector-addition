@@ -17,6 +17,7 @@ import vectorAddition from '../../vectorAddition.js';
 import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DVectorCreatorPanel from './Explore2DVectorCreatorPanel.js';
+import { Node } from '../../../../scenery/js/imports.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
@@ -38,7 +39,6 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
       } );
-    this.addChild( graphControlPanel );
 
     // Coordinate Snap radio buttons, at lower right
     const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
@@ -48,9 +48,9 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom
       } );
-    this.addChild( coordinateSnapRadioButtonGroup );
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
+    const sceneNodes: Node[] = [];
     [ model.polarGraph, model.cartesianGraph ].forEach( graph => {
 
       // Create the scene node
@@ -79,8 +79,18 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       } );
 
       // Add the scene node
-      this.addChild( sceneNode );
+      sceneNodes.push( sceneNode );
     } );
+
+    const screenViewRootNode = new Node( {
+      children: [
+        graphControlPanel,
+        coordinateSnapRadioButtonGroup,
+        ...sceneNodes,
+        this.resetAllButton
+      ]
+    } );
+    this.addChild( screenViewRootNode );
   }
 
   public override reset(): void {

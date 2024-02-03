@@ -6,7 +6,7 @@
  * @author Martin Veillette
  */
 
-import { AlignGroup } from '../../../../scenery/js/imports.js';
+import { AlignGroup, Node } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -86,10 +86,16 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       cartesianScene.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
     } );
 
-    this.addChild( graphControlPanel );
-    this.addChild( coordinateSnapRadioButtonGroup );
-    this.addChild( polarScene );
-    this.addChild( cartesianScene );
+    const screenViewRootNode = new Node( {
+      children: [
+        graphControlPanel,
+        coordinateSnapRadioButtonGroup,
+        polarScene,
+        cartesianScene,
+        this.resetAllButton
+      ]
+    } );
+    this.addChild( screenViewRootNode );
   }
 
   public override reset(): void {
