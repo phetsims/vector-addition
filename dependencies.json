@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "72b5bf751dc8d26d05b1ff9c6691f88bbab4a8e8",
+    "sha": "a05a4c4ce02d8687914c8d9cda3c8b47a6f0a0fe",
     "branch": "HEAD"
   },
   "dot": {
@@ -85,7 +85,7 @@
     "branch": "HEAD"
   },
   "vector-addition": {
-    "sha": "1c9d1e360fa01776fbc5ce27bd00f052071e1fc4",
+    "sha": "31b6e9538372f660cc502b5a2582fc7a5faccb31",
     "branch": "1.0"
   }
 }
