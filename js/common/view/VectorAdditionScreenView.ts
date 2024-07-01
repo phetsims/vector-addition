@@ -29,6 +29,7 @@ export default class VectorAdditionScreenView extends ScreenView {
 
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
+        this.interruptSubtreeInput();
         model.reset();
         this.reset();
       },
