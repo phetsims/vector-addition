@@ -62,7 +62,8 @@ export default class VectorLabelNode extends Node {
 
     super( {
       cursor: 'move',
-      children: [ backgroundRectangle, vectorLabelContent ]
+      children: [ backgroundRectangle, vectorLabelContent ],
+      interruptSubtreeOnInvisible: false
     } );
 
     this.rootVector = rootVector;
