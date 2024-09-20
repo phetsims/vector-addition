@@ -51,6 +51,11 @@
               "ts-nocheck": true
             }
           ]
+        },
+        "parserOptions": {
+          "project": [
+            "../vector-addition/tsconfig.json"
+          ]
         }
       }
     ]
