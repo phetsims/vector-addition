@@ -54,7 +54,7 @@
         },
         "parserOptions": {
           "project": [
-            "../vector-addition/tsconfig.json"
+            "../chipper/tsconfig/eslint-all/tsconfig.json"
           ]
         }
       }
