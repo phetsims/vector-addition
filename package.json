@@ -33,26 +33,5 @@
       "VECTOR_ADDITION/screen.lab",
       "VECTOR_ADDITION/screen.equations"
     ]
-  },
-  "eslintConfig": {
-    "extends": "../chipper/eslint/sim_eslintrc.js",
-    "overrides": [
-      {
-        "files": [
-          "**/*.ts"
-        ],
-        "rules": {
-          "@typescript-eslint/ban-ts-comment": [
-            "error",
-            {
-              "ts-expect-error": true,
-              "ts-ignore": true,
-              "ts-check": true,
-              "ts-nocheck": true
-            }
-          ]
-        }
-      }
-    ]
   }
 }
