@@ -52,7 +52,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
     this.sumVisibleProperty = sumVisibleProperty;
 
     const sumVector = componentVector.parentVector as SumVector;
-    assert && assert( sumVector instanceof SumVector ); // eslint-disable-line no-simple-type-checking-assertions
+    assert && assert( sumVector instanceof SumVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
     // Update when the sum becomes visible or defined.
     // unlink is unnecessary, exists for the lifetime of the sim.
@@ -73,7 +73,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
     super.updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive );
 
     const sumVector = componentVector.parentVector as SumVector;
-    assert && assert( sumVector instanceof SumVector ); // eslint-disable-line no-simple-type-checking-assertions
+    assert && assert( sumVector instanceof SumVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
     this.visible = (
       // components are visible

@@ -86,7 +86,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
 
         const cartesianBaseVector = baseVector as CartesianBaseVector;
-        assert && assert( cartesianBaseVector instanceof CartesianBaseVector ); // eslint-disable-line no-simple-type-checking-assertions
+        assert && assert( cartesianBaseVector instanceof CartesianBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // X Component
         leftNumberPickerAndLabel = createNumberPickerWithLabel(
@@ -110,7 +110,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       }
       else {
         const polarBaseVector = baseVector as PolarBaseVector;
-        assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line no-simple-type-checking-assertions
+        assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // Magnitude
         leftNumberPickerAndLabel = createNumberPickerWithLabel(
