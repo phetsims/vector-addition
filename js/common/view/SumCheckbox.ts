@@ -19,7 +19,7 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
 
   public constructor( sumVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette ) {
 
-    const textNode = new Text( VectorAdditionStrings.sum, {
+    const textNode = new Text( VectorAdditionStrings.sumStringProperty, {
       font: VectorAdditionConstants.CHECKBOX_FONT,
       maxWidth: 75 // determined empirically
     } );

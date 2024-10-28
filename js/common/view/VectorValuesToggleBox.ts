@@ -69,7 +69,7 @@ export default class VectorValuesToggleBox extends ToggleBox {
 
     //----------------------------------------------------------------------------------------
     // Create the scenery node for when the panel is closed, which is the inspectVectorText
-    const inspectVectorText = new Text( VectorAdditionStrings.vectorValues, {
+    const inspectVectorText = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT
     } );
 
@@ -77,7 +77,7 @@ export default class VectorValuesToggleBox extends ToggleBox {
     // Create the scenery nodes for when the panel is open
 
     // Text for when there isn't a vector that is active
-    const selectVectorText = new Text( VectorAdditionStrings.noVectorSelected, {
+    const selectVectorText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT
     } );
 

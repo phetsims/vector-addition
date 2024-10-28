@@ -17,7 +17,7 @@ export default class ValuesCheckbox extends VectorAdditionCheckbox {
 
   public constructor( valuesVisibleProperty: Property<boolean> ) {
 
-    const content = new Text( VectorAdditionStrings.values, {
+    const content = new Text( VectorAdditionStrings.valuesStringProperty, {
       font: VectorAdditionConstants.CHECKBOX_FONT,
       maxWidth: 116 // determined empirically
     } );

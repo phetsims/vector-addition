@@ -50,7 +50,7 @@ export default class EquationToggleBox extends ToggleBox {
     }, providedOptions );
 
     // When the toggle box is collapsed, show 'Equation'
-    const closedContent = new Text( VectorAdditionStrings.equation, TEXT_OPTIONS );
+    const closedContent = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type
     const radioButtonGroup = new EquationTypesRadioButtonGroup(

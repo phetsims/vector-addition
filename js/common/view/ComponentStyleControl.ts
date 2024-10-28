@@ -26,7 +26,7 @@ export default class ComponentStyleControl extends VBox {
     const children: Node[] = [];
 
     // 'Components' label, left justified
-    const componentsText = new Text( VectorAdditionStrings.components, {
+    const componentsText = new Text( VectorAdditionStrings.componentsStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: MAX_WIDTH
     } );

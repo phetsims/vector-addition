@@ -55,7 +55,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
         // AccordionBoxOptions
-        titleNode: new Text( VectorAdditionStrings.baseVectors, {
+        titleNode: new Text( VectorAdditionStrings.baseVectorsStringProperty, {
           font: VectorAdditionConstants.TITLE_FONT,
           maxWidth: 0.75 * CONTENT_WIDTH
         } ),
