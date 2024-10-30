@@ -207,11 +207,17 @@ class XAxisNode extends Node {
       VectorAdditionConstants.AXES_ARROW_OPTIONS
     );
 
-    const axisLabel = new Text( VectorAdditionStrings.symbol.x, {
+    const axisLabel = new Text( VectorAdditionStrings.symbol.xStringProperty, {
       font: VectorAdditionConstants.AXIS_LABEL_FONT,
       maxWidth: 22,
       left: arrowNode.right + 6,
       centerY: arrowNode.centerY
+    } );
+
+    // Center the label on the axis.
+    axisLabel.localBoundsProperty.link( () => {
+      axisLabel.left = arrowNode.right + 6;
+      axisLabel.centerY = arrowNode.centerY;
     } );
 
     super( {
@@ -240,11 +246,15 @@ class YAxisNode extends Node {
       VectorAdditionConstants.AXES_ARROW_OPTIONS
     );
 
-    const axisLabel = new Text( VectorAdditionStrings.symbol.y, {
+    const axisLabel = new Text( VectorAdditionStrings.symbol.yStringProperty, {
       font: VectorAdditionConstants.AXIS_LABEL_FONT,
-      maxWidth: 30,
-      centerX: arrowNode.centerX,
-      bottom: arrowNode.top - 3
+      maxWidth: 30
+    } );
+
+    // Center the label on the axis.
+    axisLabel.localBoundsProperty.link( () => {
+      axisLabel.centerX = arrowNode.centerX;
+      axisLabel.bottom = arrowNode.top - 3;
     } );
 
     super( {
