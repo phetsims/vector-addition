@@ -32,6 +32,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 
 // constants
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
@@ -93,7 +94,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
-            symbol: `${baseVector.symbol}<sub>${VectorAdditionStrings.symbol.x}</sub>`,
+            symbol: `${baseVector.symbol}<sub>${VectorAdditionSymbols.xStringProperty.value}</sub>`,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ) );
@@ -103,7 +104,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           cartesianBaseVector.yComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
-            symbol: `${baseVector.symbol}<sub>${VectorAdditionStrings.symbol.y}</sub>`,
+            symbol: `${baseVector.symbol}<sub>${VectorAdditionSymbols.yStringProperty.value}</sub>`,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ) );

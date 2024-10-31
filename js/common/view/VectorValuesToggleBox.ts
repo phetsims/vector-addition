@@ -29,6 +29,7 @@ import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -149,12 +150,12 @@ export default class VectorValuesToggleBox extends ToggleBox {
         selectVectorText.visible = false;
 
         // Get the vector symbol
-        const vectorSymbol = activeVector.symbol ? activeVector.symbol : activeVector.fallBackSymbol;
+        const vectorSymbol = activeVector.symbol ? activeVector.symbol : activeVector.fallbackSymbol;
 
         // Update labels (angle label is the same)
         magnitudeDisplayNode.setSymbol( vectorSymbol );
-        xComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionStrings.symbol.x}</sub>` );
-        yComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionStrings.symbol.y}</sub>` );
+        xComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionSymbols.xStringProperty.value}</sub>` );
+        yComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionSymbols.yStringProperty.value}</sub>` );
       }
       else {
         vectorAttributesContainer.visible = false;

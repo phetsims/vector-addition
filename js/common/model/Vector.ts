@@ -34,6 +34,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -42,10 +43,6 @@ const MIN_ANIMATION_TIME = 0.9; // in seconds
 
 // interval spacing of vector angle (in degrees) when vector is in polar mode
 const POLAR_ANGLE_INTERVAL = VectorAdditionConstants.POLAR_ANGLE_INTERVAL;
-
-// fall back symbol for the vector model if a symbol isn't provided. The reason this isn't translatable is:
-// https://github.com/phetsims/vector-addition/issues/10.
-const VECTOR_FALL_BACK_SYMBOL = 'v';
 
 // maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector.
 // See https://github.com/phetsims/vector-addition/issues/46 for more context.
@@ -70,8 +67,8 @@ export default class Vector extends RootVector {
   // indicates if the vector can be removed
   public readonly isRemovable: boolean;
 
-  // fallBackSymbol - see declaration of VECTOR_FALL_BACK_SYMBOL for documentation
-  public readonly fallBackSymbol: string;
+  // Fallback symbol for the vector if a symbol isn't provided.
+  public readonly fallbackSymbol: string;
 
   // the graph that the vector model belongs to
   public readonly graph: Graph;
@@ -117,7 +114,7 @@ export default class Vector extends RootVector {
 
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovable = options.isRemovable;
-    this.fallBackSymbol = VECTOR_FALL_BACK_SYMBOL;
+    this.fallbackSymbol = VectorAdditionSymbols.vStringProperty.value;
     this.graph = graph;
     this.vectorSet = vectorSet;
     this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially );
@@ -163,7 +160,7 @@ export default class Vector extends RootVector {
     // If the vector has a symbol or is active, the vector always displays a symbol.
     let symbol: string | null = null;
     if ( this.symbol || this.graph.activeVectorProperty.value === this ) {
-      symbol = ( this.symbol || this.fallBackSymbol );
+      symbol = ( this.symbol || this.fallbackSymbol );
     }
 
     // If the values are on, the vector always displays a value.

@@ -22,6 +22,7 @@ import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/Rect
 import { combineOptions } from '../../../phet-core/js/optionize.js';
 import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
 import { RectangularRadioButtonOptions } from '../../../sun/js/buttons/RectangularRadioButton.js';
+import VectorAdditionSymbols from './VectorAdditionSymbols.js';
 
 // shared constants within this file
 const PANEL_CORNER_RADIUS = 5;
@@ -174,10 +175,16 @@ const VectorAdditionConstants = {
 
   //----------------------------------------------------------------------------------------
   // Vectors
-
-  // Vector symbols, not translatable. See https://github.com/phetsims/vector-addition/issues/10.
-  VECTOR_SYMBOLS_GROUP_1: [ 'a', 'b', 'c' ],
-  VECTOR_SYMBOLS_GROUP_2: [ 'd', 'e', 'f' ],
+  VECTOR_SYMBOLS_GROUP_1: [
+    VectorAdditionSymbols.aStringProperty.value,
+    VectorAdditionSymbols.bStringProperty.value,
+    VectorAdditionSymbols.cStringProperty.value
+  ],
+  VECTOR_SYMBOLS_GROUP_2: [
+    VectorAdditionSymbols.dStringProperty.value,
+    VectorAdditionSymbols.eStringProperty.value,
+    VectorAdditionSymbols.fStringProperty.value
+  ],
 
   // Defaults for all vectors
   VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,

@@ -25,10 +25,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import Vector from './Vector.js';
 import Disposable from '../../../../axon/js/Disposable.js';
-
-// The symbol for the sum vector.
-// The reason this isn't translatable is https://github.com/phetsims/vector-addition/issues/10.
-const SUM_SYMBOL = 's';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 
 type SelfOptions = {
 
@@ -112,7 +109,7 @@ export default class VectorSet {
     this.sumProjectionYOffset = options.sumProjectionYOffset;
 
     if ( options.initializeSum ) {
-      this._sumVector = new SumVector( options.initialSumTailPosition, graph, this, SUM_SYMBOL );
+      this._sumVector = new SumVector( options.initialSumTailPosition, graph, this, VectorAdditionSymbols.sStringProperty.value );
       this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
     else {

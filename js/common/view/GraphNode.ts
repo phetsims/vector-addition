@@ -22,6 +22,7 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -207,7 +208,7 @@ class XAxisNode extends Node {
       VectorAdditionConstants.AXES_ARROW_OPTIONS
     );
 
-    const axisLabel = new Text( VectorAdditionStrings.symbol.xStringProperty, {
+    const axisLabel = new Text( VectorAdditionSymbols.xStringProperty, {
       font: VectorAdditionConstants.AXIS_LABEL_FONT,
       maxWidth: 22,
       left: arrowNode.right + 6,
