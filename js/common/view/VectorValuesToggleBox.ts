@@ -93,7 +93,7 @@ export default class VectorValuesToggleBox extends ToggleBox {
     // Create the scenery nodes to display the vector. Each attribute has a label and a VectorValuesNumberDisplay
     //----------------------------------------------------------------------------------------
 
-    const magnitudeDisplayNode = new VectorSymbolNode( {
+    const magnitudeVectorSymbolNode = new VectorSymbolNode( {
       includeAbsoluteValueBars: true
     } );
     const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, VectorQuantities.MAGNITUDE );
@@ -101,10 +101,10 @@ export default class VectorValuesToggleBox extends ToggleBox {
     const angleText = new Text( MathSymbols.THETA, { font: VectorAdditionConstants.EQUATION_SYMBOL_FONT } );
     const angleNumberDisplay = new VectorValuesNumberDisplay( graph, VectorQuantities.ANGLE );
 
-    const xComponentText = new VectorSymbolNode( { showVectorArrow: false } );
+    const xVectorSymbolNode = new VectorSymbolNode( { showVectorArrow: false } );
     const xComponentNumberDisplay = new VectorValuesNumberDisplay( graph, VectorQuantities.X_COMPONENT );
 
-    const yComponentText = new VectorSymbolNode( { showVectorArrow: false } );
+    const yVectorSymbolNode = new VectorSymbolNode( { showVectorArrow: false } );
     const yComponentNumberDisplay = new VectorValuesNumberDisplay( graph, VectorQuantities.Y_COMPONENT );
 
     //----------------------------------------------------------------------------------------
@@ -128,17 +128,17 @@ export default class VectorValuesToggleBox extends ToggleBox {
       } ) );
     };
 
-    addNumberDisplayAndLabel( magnitudeDisplayNode, magnitudeNumberDisplay, MAGNITUDE_LABEL_WIDTH );
+    addNumberDisplayAndLabel( magnitudeVectorSymbolNode, magnitudeNumberDisplay, MAGNITUDE_LABEL_WIDTH );
     addNumberDisplayAndLabel( angleText, angleNumberDisplay, ANGLE_LABEL_WIDTH );
-    addNumberDisplayAndLabel( xComponentText, xComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
-    addNumberDisplayAndLabel( yComponentText, yComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
+    addNumberDisplayAndLabel( xVectorSymbolNode, xComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
+    addNumberDisplayAndLabel( yVectorSymbolNode, yComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
 
     //----------------------------------------------------------------------------------------
 
     const updateCoefficient = ( coefficient: number ) => {
-      magnitudeDisplayNode.setCoefficient( coefficient );
-      xComponentText.setCoefficient( coefficient );
-      yComponentText.setCoefficient( coefficient );
+      magnitudeVectorSymbolNode.setCoefficient( coefficient );
+      xVectorSymbolNode.setCoefficient( coefficient );
+      yVectorSymbolNode.setCoefficient( coefficient );
     };
 
     // Observe changes to when the graphs active vector Property changes to update the panel.
@@ -153,9 +153,9 @@ export default class VectorValuesToggleBox extends ToggleBox {
         const vectorSymbol = activeVector.symbol ? activeVector.symbol : activeVector.fallbackSymbol;
 
         // Update labels (angle label is the same)
-        magnitudeDisplayNode.setSymbol( vectorSymbol );
-        xComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionSymbols.xStringProperty.value}</sub>` );
-        yComponentText.setSymbol( `${vectorSymbol}<sub>${VectorAdditionSymbols.yStringProperty.value}</sub>` );
+        magnitudeVectorSymbolNode.setSymbol( vectorSymbol );
+        xVectorSymbolNode.setSymbol( `${vectorSymbol}<sub>${VectorAdditionSymbols.xStringProperty.value}</sub>` );
+        yVectorSymbolNode.setSymbol( `${vectorSymbol}<sub>${VectorAdditionSymbols.yStringProperty.value}</sub>` );
       }
       else {
         vectorAttributesContainer.visible = false;
