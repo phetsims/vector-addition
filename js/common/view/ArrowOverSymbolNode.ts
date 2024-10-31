@@ -29,7 +29,7 @@ type ArrowOverSymbolNodeOptions = SelfOptions & PickOptional<NodeOptions, 'maxWi
 
 export default class ArrowOverSymbolNode extends Node {
 
-  private readonly symbolNode: Text;
+  private readonly symbolText: Text;
   private readonly rightArrowNode: Node;
   private readonly spacing: number;
 
@@ -43,7 +43,7 @@ export default class ArrowOverSymbolNode extends Node {
       arrowScale: 0.65
     }, providedOptions );
 
-    const symbolNode = new Text( symbol, {
+    const symbolText = new Text( symbol, {
       font: options.font,
       boundsMethod: 'accurate' // so that options.spacing is effective
     } );
@@ -54,11 +54,11 @@ export default class ArrowOverSymbolNode extends Node {
       scale: options.arrowScale
     } );
 
-    options.children = [ symbolNode, rightArrowNode ];
+    options.children = [ symbolText, rightArrowNode ];
 
     super( options );
 
-    this.symbolNode = symbolNode;
+    this.symbolText = symbolText;
     this.rightArrowNode = rightArrowNode;
     this.spacing = options.spacing;
 
@@ -69,15 +69,15 @@ export default class ArrowOverSymbolNode extends Node {
    * Changes the symbol.
    */
   public setSymbol( symbol: string ): void {
-    this.symbolNode.string = symbol;
+    this.symbolText.string = symbol;
     this.updateLayout();
   }
 
   private updateLayout(): void {
 
     // Reposition the arrow
-    this.rightArrowNode.centerX = this.symbolNode.centerX;
-    this.rightArrowNode.bottom = this.symbolNode.top - this.spacing;
+    this.rightArrowNode.centerX = this.symbolText.centerX;
+    this.rightArrowNode.bottom = this.symbolText.top - this.spacing;
   }
 }
 

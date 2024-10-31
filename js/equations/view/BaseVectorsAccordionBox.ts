@@ -181,17 +181,14 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 }
 
 /**
- * Layouts a VectorSymbolNode, a equals sign (Text), and a NumberPicker horizontally in a HBox.
- *
- * The VectorSymbolNode is then aligned in a AlignBox to ensure the correct alignment and sizing, which ensures that
- * all HBoxes have equal widths (since the NumberPicker and the equals sign Text don't change size).
+ * Handles the layout of a label (Node), an equals sign (Text), and a NumberPicker, horizontally in an HBox.
  *
  * @param numberProperty - number Property that goes in the NumberPicker
  * @param numberRange - static numberRange of the number Property
- * @param vectorSymbolNode
+ * @param labelNode
  * @param [numberPickerOptions]
  */
-function createNumberPickerWithLabel( numberProperty: NumberProperty, numberRange: Range, vectorSymbolNode: Node,
+function createNumberPickerWithLabel( numberProperty: NumberProperty, numberRange: Range, labelNode: Node,
                                       numberPickerOptions?: NumberPickerOptions ): Node {
 
   const equalsSign = new Text( MathSymbols.EQUAL_TO, {
@@ -212,7 +209,7 @@ function createNumberPickerWithLabel( numberProperty: NumberProperty, numberRang
   return new HBox( {
     align: 'origin',
     spacing: 3, // space around the equals sign
-    children: [ vectorSymbolNode, equalsSign, numberPickerParent ]
+    children: [ labelNode, equalsSign, numberPickerParent ]
   } );
 }
 
