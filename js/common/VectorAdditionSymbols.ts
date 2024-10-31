@@ -1,14 +1,14 @@
 // Copyright 2024, University of Colorado Boulder
 
-import vectorAddition from '../vectorAddition.js';
-import VectorAdditionStrings from '../VectorAdditionStrings.js';
-import StringProperty from '../../../axon/js/StringProperty.js';
-
 /**
  * Strings for mathematical symbols.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
+
+import vectorAddition from '../vectorAddition.js';
+import VectorAdditionStrings from '../VectorAdditionStrings.js';
+import StringProperty from '../../../axon/js/StringProperty.js';
 
 const VectorAdditionSymbols = {
 
