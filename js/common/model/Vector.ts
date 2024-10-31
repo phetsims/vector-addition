@@ -67,9 +67,6 @@ export default class Vector extends RootVector {
   // indicates if the vector can be removed
   public readonly isRemovable: boolean;
 
-  // Fallback symbol for the vector if a symbol isn't provided.
-  public readonly fallbackSymbol: string;
-
   // the graph that the vector model belongs to
   public readonly graph: Graph;
 
@@ -90,6 +87,9 @@ export default class Vector extends RootVector {
   public readonly yComponentVector: ComponentVector;
 
   private readonly disposeVector: () => void;
+
+  // Fallback symbol to use if a symbol isn't provided.
+  public static readonly FALLBACK_SYMBOL = VectorAdditionSymbols.vStringProperty.value;
 
   /**
    * @param initialTailPosition - starting tail position of the vector
@@ -114,7 +114,6 @@ export default class Vector extends RootVector {
 
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovable = options.isRemovable;
-    this.fallbackSymbol = VectorAdditionSymbols.vStringProperty.value;
     this.graph = graph;
     this.vectorSet = vectorSet;
     this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially );
@@ -160,7 +159,7 @@ export default class Vector extends RootVector {
     // If the vector has a symbol or is active, the vector always displays a symbol.
     let symbol: string | null = null;
     if ( this.symbol || this.graph.activeVectorProperty.value === this ) {
-      symbol = ( this.symbol || this.fallbackSymbol );
+      symbol = ( this.symbol || Vector.FALLBACK_SYMBOL );
     }
 
     // If the values are on, the vector always displays a value.

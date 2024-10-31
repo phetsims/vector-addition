@@ -30,6 +30,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
+import Vector from '../model/Vector.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -150,7 +151,7 @@ export default class VectorValuesToggleBox extends ToggleBox {
         selectVectorText.visible = false;
 
         // Get the vector symbol
-        const vectorSymbol = activeVector.symbol ? activeVector.symbol : activeVector.fallbackSymbol;
+        const vectorSymbol = activeVector.symbol ? activeVector.symbol : Vector.FALLBACK_SYMBOL;
 
         // Update labels (angle label is the same)
         magnitudeVectorSymbolNode.setSymbol( vectorSymbol );
