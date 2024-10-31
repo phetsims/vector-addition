@@ -16,7 +16,6 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
@@ -25,9 +24,9 @@ import ComponentVectorTypes from '../model/ComponentVectorTypes.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import RootVectorNode, { RootVectorNodeOptions } from './RootVectorNode.js';
+import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Vector from '../model/Vector.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 
@@ -67,7 +66,7 @@ export default class ComponentVectorNode extends RootVectorNode {
 
       // RootVectorNodeOptions
       arrowType: 'dashed',
-      arrowOptions: merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+      arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: componentVector.vectorColorPalette.componentFill
       } )
     }, providedOptions );

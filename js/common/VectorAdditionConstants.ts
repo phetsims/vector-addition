@@ -11,7 +11,6 @@
 import Bounds2 from '../../../dot/js/Bounds2.js';
 import Range from '../../../dot/js/Range.js';
 import ScreenView from '../../../joist/js/ScreenView.js';
-import merge from '../../../phet-core/js/merge.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { Color } from '../../../scenery/js/imports.js';
@@ -23,6 +22,8 @@ import { combineOptions } from '../../../phet-core/js/optionize.js';
 import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
 import { RectangularRadioButtonOptions } from '../../../sun/js/buttons/RectangularRadioButton.js';
 import VectorAdditionSymbols from './VectorAdditionSymbols.js';
+import { PanelOptions } from '../../../sun/js/Panel.js';
+import { RootVectorArrowNodeOptions } from './view/RootVectorNode.js';
 
 // shared constants within this file
 const PANEL_CORNER_RADIUS = 5;
@@ -50,7 +51,7 @@ const ACCORDION_BOX_OPTIONS = combineOptions<AccordionBoxOptions>( {
 }, VectorAdditionColors.PANEL_COLORS );
 
 // options for vector arrows (ArrowNode)
-const VECTOR_ARROW_OPTIONS = {
+const VECTOR_ARROW_OPTIONS: RootVectorArrowNodeOptions = {
   headWidth: VectorAdditionQueryParameters.headWidth,
   headHeight: VectorAdditionQueryParameters.headHeight,
   tailWidth: VectorAdditionQueryParameters.tailWidth,
@@ -60,7 +61,7 @@ const VECTOR_ARROW_OPTIONS = {
 };
 
 // options for component vector arrows (DashedArrowNode)
-const COMPONENT_VECTOR_ARROW_OPTIONS = merge( {}, VECTOR_ARROW_OPTIONS, {
+const COMPONENT_VECTOR_ARROW_OPTIONS = combineOptions<RootVectorArrowNodeOptions>( {}, VECTOR_ARROW_OPTIONS, {
   tailWidth: 3,
   tailDash: [ 6, 3 ]
 } );
@@ -131,7 +132,7 @@ const VectorAdditionConstants = {
   //----------------------------------------------------------------------------------------
   // Panel-like containers
 
-  PANEL_OPTIONS: merge( {
+  PANEL_OPTIONS: combineOptions<PanelOptions>( {
     cornerRadius: PANEL_CORNER_RADIUS,
     xMargin: PANEL_X_MARGIN,
     yMargin: PANEL_Y_MARGIN
@@ -199,7 +200,7 @@ const VectorAdditionConstants = {
   SUM_COMPONENT_VECTOR_ARROW_OPTIONS: COMPONENT_VECTOR_ARROW_OPTIONS,
 
   // Defaults for base vectors
-  BASE_VECTOR_ARROW_OPTIONS: merge( {}, VECTOR_ARROW_OPTIONS, {
+  BASE_VECTOR_ARROW_OPTIONS: combineOptions<RootVectorArrowNodeOptions>( {}, VECTOR_ARROW_OPTIONS, {
     lineWidth: 1.5
   } ),
 

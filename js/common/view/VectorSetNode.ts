@@ -13,7 +13,6 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
@@ -28,6 +27,8 @@ import VectorNode from './VectorNode.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 
 export default class VectorSetNode extends Node {
 
@@ -166,7 +167,7 @@ export default class VectorSetNode extends Node {
     const baseVectorNode = new VectorNode( baseVector, this.graph,
       this.valuesVisibleProperty,
       this.anglesVisibleProperty, {
-        arrowOptions: merge( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
+        arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
           fill: vectorColorPalette.baseVectorFill,
           stroke: vectorColorPalette.baseVectorStroke
         } )

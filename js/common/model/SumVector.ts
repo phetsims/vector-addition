@@ -16,7 +16,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import vectorAddition from '../../vectorAddition.js';
 import Vector from './Vector.js';
 import Graph from './Graph.js';
@@ -24,6 +23,7 @@ import VectorSet from './VectorSet.js';
 import Property from '../../../../axon/js/Property.js';
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import { LabelDisplayData } from './RootVector.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const SUM_VECTOR_OPTIONS = {
@@ -124,7 +124,7 @@ export default class SumVector extends Vector {
     else {
 
       // Omit the symbol, display only the value, if values are visible.
-      return merge( super.getLabelDisplayData( valuesVisible ), {
+      return combineOptions<LabelDisplayData>( super.getLabelDisplayData( valuesVisible ), {
         symbol: null,
         includeAbsoluteValueBars: false,
         magnitude: valuesVisible ? this.magnitude : null

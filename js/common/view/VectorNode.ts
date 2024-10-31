@@ -11,8 +11,7 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
-import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import { Color, DragListener, Path, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
@@ -28,7 +27,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 // constants
 
 // options for the vector shadow
-const SHADOW_OPTIONS = merge( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
   fill: Color.BLACK,
   opacity: 0.28
 } );

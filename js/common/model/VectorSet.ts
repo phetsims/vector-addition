@@ -80,7 +80,7 @@ export default class VectorSet {
     // See https://github.com/phetsims/vector-addition/issues/225
     const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth;
     assert && assert( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
-    const modelHeadWidth = graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth );
+    const modelHeadWidth = graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
     const axisSpacing = graph.modelViewTransformProperty.value.viewToModelDeltaX( 1.5 );
     const offsetStart = ( modelHeadWidth / 2 ) + axisSpacing;
     const offsetDelta = modelHeadWidth;

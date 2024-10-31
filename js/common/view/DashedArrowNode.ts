@@ -22,7 +22,7 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   tailDash?: number[]; // describes the dash, similar to SCENERY/LineStyle lineDash
-} & PickOptional<ArrowNodeOptions, 'headHeight' | 'headWidth' | 'tailWidth' | 'fill' | 'isHeadDynamic' | 'fractionalHeadHeight'>;
+} & PickOptional<ArrowNodeOptions, 'headHeight' | 'headWidth' | 'tailWidth' | 'fill' | 'isHeadDynamic' | 'fractionalHeadHeight' | 'lineWidth'>;
 
 export type DashedArrowNodeOptions = SelfOptions & PickOptional<NodeOptions, 'cursor'>;
 
@@ -51,7 +51,8 @@ export default class DashedArrowNode extends Node {
       tailWidth: 5,
       fill: 'black',
       isHeadDynamic: false,
-      fractionalHeadHeight: 0.5
+      fractionalHeadHeight: 0.5,
+      lineWidth: 1
     }, providedOptions );
 
     const headNode = new Path( null, {

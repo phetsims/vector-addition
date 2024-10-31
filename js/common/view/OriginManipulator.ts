@@ -10,12 +10,12 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
-import ShadedSphereNode from '../../../../scenery-phet/js/ShadedSphereNode.js';
+import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import { Color, DragListener } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 
@@ -49,7 +49,9 @@ export default class OriginManipulator extends ShadedSphereNode {
     // Diameter, view coordinates
     const diameter = modelViewTransform.modelToViewDeltaX( ORIGIN_DIAMETER );
 
-    super( diameter, merge( { center: origin }, ORIGIN_OPTIONS ) );
+    super( diameter, combineOptions<ShadedSphereNodeOptions>( {
+      center: origin
+    }, ORIGIN_OPTIONS ) );
 
     this.touchArea = Shape.circle( 0, 0, diameter );
 

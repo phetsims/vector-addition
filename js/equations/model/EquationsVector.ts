@@ -11,7 +11,6 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import merge from '../../../../phet-core/js/merge.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
@@ -22,6 +21,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import EquationsGraph from './EquationsGraph.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
 import BaseVector from '../../common/model/BaseVector.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 
@@ -94,7 +94,7 @@ export default class EquationsVector extends Vector {
    * See RootVector.getLabelDisplayData for details.
    */
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
-    return merge( super.getLabelDisplayData( valuesVisible ), {
+    return combineOptions<LabelDisplayData>( super.getLabelDisplayData( valuesVisible ), {
       coefficient: this.coefficientProperty.value
     } );
   }

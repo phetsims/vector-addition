@@ -7,15 +7,15 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import merge from '../../../../phet-core/js/merge.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { Node, Text } from '../../../../scenery/js/imports.js';
-import NumberPicker from '../../../../sun/js/NumberPicker.js';
+import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import EquationTypes from '../model/EquationTypes.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const TEXT_OPTIONS = {
@@ -32,7 +32,7 @@ export default class EquationTypeNode extends Node {
     const equationChildren = [];
     let maxVectorSymbolHeight = 0;
 
-    const numberPickerOptions = merge( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
+    const numberPickerOptions = combineOptions<NumberPickerOptions>( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
       touchAreaXDilation: 20,
       touchAreaYDilation: 14,
       font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT,

@@ -22,7 +22,6 @@ import Screen from '../../../../joist/js/Screen.js';
 import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import interleave from '../../../../phet-core/js/interleave.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { Color, HBox, Line, Node, Path, Spacer, Text, VBox } from '../../../../scenery/js/imports.js';
@@ -36,7 +35,7 @@ import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import CurvedArrowNode from './CurvedArrowNode.js';
-import DashedArrowNode from './DashedArrowNode.js';
+import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
@@ -93,7 +92,7 @@ const VectorAdditionIconFactory = {
       } ) );
 
     // component vectors
-    const dashedArrowNodeOptions = merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+    const dashedArrowNodeOptions = combineOptions<DashedArrowNodeOptions>( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
       fill: colorPalette.componentFill
     } );
     const xComponentNode = new DashedArrowNode( 0, 0, vector.x, 0, dashedArrowNodeOptions );
@@ -264,7 +263,7 @@ const VectorAdditionIconFactory = {
       fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
       stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
     } );
-    const dashedArrowNodeOptions = merge( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+    const dashedArrowNodeOptions = combineOptions<DashedArrowNodeOptions>( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
       fill: VectorAdditionColors.BLUE_COLOR_PALETTE.componentFill
     } );
 

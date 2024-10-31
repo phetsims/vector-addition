@@ -11,7 +11,6 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import SumVector from '../../common/model/SumVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationTypes from './EquationTypes.js';
@@ -20,6 +19,7 @@ import Graph from '../../common/model/Graph.js';
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Vector from '../../common/model/Vector.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
@@ -93,7 +93,7 @@ export default class EquationsSumVector extends SumVector {
    * See RootVector.getLabelDisplayData for details.
    */
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
-    return merge( super.getLabelDisplayData( valuesVisible ), {
+    return combineOptions<LabelDisplayData>( super.getLabelDisplayData( valuesVisible ), {
       symbol: this.symbol
     } );
   }

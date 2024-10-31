@@ -48,7 +48,7 @@ export default class LabGraph extends Graph {
     // See https://github.com/phetsims/vector-addition/issues/225
     const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth;
     assert && assert( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
-    const modelHeadWidth = this.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth );
+    const modelHeadWidth = this.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
     const offsetDelta = -( modelHeadWidth / 2 );
 
     this.vectorSet1 = new VectorSet( this, componentStyleProperty, sum1VisibleProperty, vectorColorPalette1, {

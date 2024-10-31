@@ -10,14 +10,14 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
-import RectangularRadioButton from '../../../../sun/js/buttons/RectangularRadioButton.js';
+import RectangularRadioButton, { RectangularRadioButtonOptions } from '../../../../sun/js/buttons/RectangularRadioButton.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import GridBox from './GridBox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class ComponentStyleRadioButtonGroup extends Node {
 
@@ -27,7 +27,7 @@ export default class ComponentStyleRadioButtonGroup extends Node {
     const buttons: RectangularRadioButton<ComponentVectorStyles>[] = [];
     ComponentVectorStyles.enumeration.values.forEach( componentStyle => {
       buttons.push( new RectangularRadioButton( componentStyleProperty, componentStyle,
-        merge( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS.radioButtonOptions, {
+        combineOptions<RectangularRadioButtonOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS.radioButtonOptions, {
           content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
         } ) ) );
     } );
