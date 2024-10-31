@@ -54,7 +54,7 @@ export default class EquationsVector extends Vector {
                       baseVectorTailPosition: Vector2,
                       graph: EquationsGraph,
                       vectorSet: EquationsVectorSet,
-                      symbol: string | null ) {
+                      symbol: string ) {
 
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );

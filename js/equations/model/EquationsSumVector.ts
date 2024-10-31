@@ -35,7 +35,7 @@ export default class EquationsSumVector extends SumVector {
    * @param symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
   public constructor( graph: Graph, vectorSet: VectorSet, equationTypeProperty: EnumerationProperty<EquationTypes>,
-                      symbol: string | null ) {
+                      symbol: string ) {
 
     super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbol );
 

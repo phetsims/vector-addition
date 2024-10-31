@@ -46,7 +46,7 @@ export default class SumVector extends Vector {
    * @param vectorSet - the VectorSet that the sum represents
    * @param symbol - the symbol for the sum vector (e.g. 's', 'c', 'f')
    */
-  public constructor( initialTailPosition: Vector2, graph: Graph, vectorSet: VectorSet, symbol: string | null ) {
+  public constructor( initialTailPosition: Vector2, graph: Graph, vectorSet: VectorSet, symbol: string ) {
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
     super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbol, SUM_VECTOR_OPTIONS );

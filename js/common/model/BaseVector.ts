@@ -33,7 +33,7 @@ export default abstract class BaseVector extends Vector {
    * @param symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
   protected constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
-                         vectorSet: VectorSet, symbol: string | null ) {
+                         vectorSet: VectorSet, symbol: string ) {
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );
   }

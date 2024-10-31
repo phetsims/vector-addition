@@ -31,7 +31,7 @@ export default class CartesianBaseVector extends BaseVector {
    * @param symbol - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
    */
   public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
-                      vectorSet: VectorSet, symbol: string | null ) {
+                      vectorSet: VectorSet, symbol: string ) {
 
     assert && assert( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
 
