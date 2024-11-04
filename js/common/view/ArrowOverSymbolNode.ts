@@ -46,7 +46,8 @@ export default class ArrowOverSymbolNode extends Node {
 
     const symbolText = new Text( symbolProperty, {
       font: options.font,
-      boundsMethod: 'accurate' // so that options.spacing is effective
+      boundsMethod: 'accurate', // so that options.spacing is effective
+      maxWidth: 12
     } );
 
     const rightArrowNode = new Text( '\u2192', {
@@ -63,7 +64,7 @@ export default class ArrowOverSymbolNode extends Node {
     this.rightArrowNode = rightArrowNode;
     this.spacing = options.spacing;
 
-    this.updateLayout();
+    symbolText.localBoundsProperty.link( () => this.updateLayout() );
 
     this.disposeEmitter.addListener( () => symbolText.dispose() );
   }
