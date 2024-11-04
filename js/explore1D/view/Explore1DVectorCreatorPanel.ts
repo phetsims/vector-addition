@@ -14,6 +14,7 @@ import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js'
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DGraph from '../model/Explore1DGraph.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -24,10 +25,13 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
   /**
    * @param graph
    * @param sceneNode
-   * @param symbols - the symbols corresponding to each slot
+   * @param symbolProperties - the symbols corresponding to each slot
    * @param [providedOptions]
    */
-  public constructor( graph: Explore1DGraph, sceneNode: SceneNode, symbols: string[], providedOptions?: Explore1DVectorCreatorPanelOptions ) {
+  public constructor( graph: Explore1DGraph,
+                      sceneNode: SceneNode,
+                      symbolProperties: TReadOnlyProperty<string>[],
+                      providedOptions?: Explore1DVectorCreatorPanelOptions ) {
 
     const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 
@@ -42,9 +46,9 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
     // Create a slot for each symbol
     const panelSlots: VectorCreatorPanelSlot[] = [];
-    symbols.forEach( symbol => {
+    symbolProperties.forEach( symbolProperty => {
       panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents, {
-        symbol: symbol,
+        symbolProperty: symbolProperty,
         iconArrowMagnitude: 35,
 
         // pointer area dilation for icons, identical for mouseArea and touchArea,

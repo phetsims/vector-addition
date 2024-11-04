@@ -81,6 +81,7 @@ export default class VectorLabelNode extends Node {
     );
 
     this.disposeVectorLabelNode = () => {
+      this.vectorSymbolNode.dispose();
       labelMultilink.dispose();
     };
   }
@@ -99,7 +100,7 @@ export default class VectorLabelNode extends Node {
     const labelDisplayData = this.rootVector.getLabelDisplayData( this.valuesVisibleProperty.value );
 
     // Update the VectorSymbolNode
-    this.vectorSymbolNode.setVectorSymbolNode( labelDisplayData.symbol,
+    this.vectorSymbolNode.setVectorSymbolNode( labelDisplayData.symbolProperty,
       labelDisplayData.coefficient,
       labelDisplayData.includeAbsoluteValueBars );
 

@@ -54,7 +54,7 @@ export default class EquationToggleBox extends ToggleBox {
 
     // Radio buttons for selecting equation type
     const radioButtonGroup = new EquationTypesRadioButtonGroup(
-      equationTypeProperty, vectorSet.symbols, equationButtonsAlignGroup );
+      equationTypeProperty, vectorSet.symbolProperties, equationButtonsAlignGroup );
 
     // Create an equation of each type, only one of which will be visible at a time.
     const equationsParent = new Node();

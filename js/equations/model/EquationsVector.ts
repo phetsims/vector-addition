@@ -22,6 +22,7 @@ import EquationsGraph from './EquationsGraph.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 
@@ -47,17 +48,17 @@ export default class EquationsVector extends Vector {
    * @param baseVectorTailPosition - starting tail position of the base vector
    * @param graph - the graph the vector belongs to
    * @param vectorSet - the VectorSet that the vector belongs to
-   * @param symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       baseVectorTailPosition: Vector2,
                       graph: EquationsGraph,
                       vectorSet: EquationsVectorSet,
-                      symbol: string ) {
+                      symbolProperty: TReadOnlyProperty<string> ) {
 
 
-    super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );
+    super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty, OPTIONS );
 
     this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
       range: COEFFICIENT_RANGE
@@ -69,11 +70,11 @@ export default class EquationsVector extends Vector {
     // Instantiate a base vector based on snap mode.
     if ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition,
-        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbol );
+        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbolProperty );
     }
     else {
       this.baseVector = new PolarBaseVector( baseVectorTailPosition,
-        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbol );
+        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbolProperty );
     }
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.

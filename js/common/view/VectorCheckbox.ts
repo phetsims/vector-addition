@@ -15,6 +15,7 @@ import VectorAdditionCheckbox, { VectorAdditionCheckboxOptions } from './VectorA
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = {
   vectorFill?: TColor;
@@ -25,7 +26,9 @@ type VectorCheckboxOptions = SelfOptions;
 
 export default class VectorCheckbox extends VectorAdditionCheckbox {
 
-  public constructor( vectorVisibleProperty: Property<boolean>, symbol: string, providedOptions?: VectorCheckboxOptions ) {
+  public constructor( vectorVisibleProperty: Property<boolean>,
+                      symbolProperty: TReadOnlyProperty<string>,
+                      providedOptions?: VectorCheckboxOptions ) {
 
     const options = optionize<VectorCheckboxOptions, SelfOptions, VectorAdditionCheckboxOptions>()( {
 
@@ -34,7 +37,7 @@ export default class VectorCheckbox extends VectorAdditionCheckbox {
       vectorStroke: Color.BLACK
     }, providedOptions );
 
-    const symbolNode = new ArrowOverSymbolNode( symbol, {
+    const symbolNode = new ArrowOverSymbolNode( symbolProperty, {
       maxWidth: 95 // determined empirically
     } );
 

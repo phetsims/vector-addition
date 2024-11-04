@@ -109,7 +109,7 @@ export default class VectorSet {
     this.sumProjectionYOffset = options.sumProjectionYOffset;
 
     if ( options.initializeSum ) {
-      this._sumVector = new SumVector( options.initialSumTailPosition, graph, this, VectorAdditionSymbols.sStringProperty.value );
+      this._sumVector = new SumVector( options.initialSumTailPosition, graph, this, VectorAdditionSymbols.sStringProperty );
       this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
     else {

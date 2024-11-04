@@ -16,6 +16,7 @@ import CoordinateSnapModes from './CoordinateSnapModes.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 export default class CartesianBaseVector extends BaseVector {
 
@@ -28,14 +29,14 @@ export default class CartesianBaseVector extends BaseVector {
    * @param initialComponents - starting components of the Base Vector
    * @param graph - the graph the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
-   * @param symbol - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
+   * @param symbolProperty - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
    */
   public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
-                      vectorSet: VectorSet, symbol: string ) {
+                      vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
     assert && assert( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, graph, vectorSet, symbol );
+    super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty );
 
     this.xComponentProperty = new NumberProperty( this.xComponent );
     this.yComponentProperty = new NumberProperty( this.yComponent );

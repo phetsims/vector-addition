@@ -35,6 +35,7 @@ import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -89,18 +90,22 @@ export default class Vector extends RootVector {
   private readonly disposeVector: () => void;
 
   // Fallback symbol to use if a symbol isn't provided.
-  public static readonly FALLBACK_SYMBOL = VectorAdditionSymbols.vStringProperty.value;
+  public static readonly FALLBACK_SYMBOL_PROPERTY = VectorAdditionSymbols.vStringProperty;
 
   /**
    * @param initialTailPosition - starting tail position of the vector
    * @param initialComponents - starting components of the vector
    * @param graph - the graph the vector belongs to
    * @param vectorSet - the vector set the vector belongs to
-   * @param symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    * @param [providedOptions] - not propagated to super!
    */
-  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph, vectorSet: VectorSet,
-                      symbol: string | null, providedOptions?: VectorOptions ) {
+  public constructor( initialTailPosition: Vector2,
+                      initialComponents: Vector2,
+                      graph: Graph,
+                      vectorSet: VectorSet,
+                      symbolProperty: TReadOnlyProperty<string> | null,
+                      providedOptions?: VectorOptions ) {
 
     const options = optionize<VectorOptions, SelfOptions>()( {
 
@@ -110,7 +115,7 @@ export default class Vector extends RootVector {
       isOnGraphInitially: false
     }, providedOptions );
 
-    super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbol );
+    super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbolProperty );
 
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovable = options.isRemovable;
@@ -157,9 +162,9 @@ export default class Vector extends RootVector {
   public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // If the vector has a symbol or is active, the vector always displays a symbol.
-    let symbol: string | null = null;
-    if ( this.symbol || this.graph.activeVectorProperty.value === this ) {
-      symbol = ( this.symbol || Vector.FALLBACK_SYMBOL );
+    let symbolProperty: TReadOnlyProperty<string> | null = null;
+    if ( this.symbolProperty || this.graph.activeVectorProperty.value === this ) {
+      symbolProperty = ( this.symbolProperty || Vector.FALLBACK_SYMBOL_PROPERTY );
     }
 
     // If the values are on, the vector always displays a value.
@@ -170,9 +175,9 @@ export default class Vector extends RootVector {
 
     return {
       coefficient: null, // vector models don't have coefficients
-      symbol: symbol,
+      symbolProperty: symbolProperty,
       magnitude: magnitude,
-      includeAbsoluteValueBars: ( magnitude !== null && symbol !== null ) // absolute value bars if there is a magnitude
+      includeAbsoluteValueBars: ( magnitude !== null && symbolProperty !== null ) // absolute value bars if there is a magnitude
     };
   }
 

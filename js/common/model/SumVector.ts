@@ -24,6 +24,7 @@ import Property from '../../../../axon/js/Property.js';
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import { LabelDisplayData } from './RootVector.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const SUM_VECTOR_OPTIONS = {
@@ -44,12 +45,12 @@ export default class SumVector extends Vector {
    * @param initialTailPosition - starting tail position of the vector
    * @param graph - graph the sum vector belongs to
    * @param vectorSet - the VectorSet that the sum represents
-   * @param symbol - the symbol for the sum vector (e.g. 's', 'c', 'f')
+   * @param symbolProperty - the symbol for the sum vector (e.g. 's', 'c', 'f')
    */
-  public constructor( initialTailPosition: Vector2, graph: Graph, vectorSet: VectorSet, symbol: string ) {
+  public constructor( initialTailPosition: Vector2, graph: Graph, vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-    super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbol, SUM_VECTOR_OPTIONS );
+    super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbolProperty, SUM_VECTOR_OPTIONS );
 
     this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.lengthProperty.value > 0 );
 
@@ -125,7 +126,7 @@ export default class SumVector extends Vector {
 
       // Omit the symbol, display only the value, if values are visible.
       return combineOptions<LabelDisplayData>( super.getLabelDisplayData( valuesVisible ), {
-        symbol: null,
+        symbolProperty: null,
         includeAbsoluteValueBars: false,
         magnitude: valuesVisible ? this.magnitude : null
       } );

@@ -57,7 +57,7 @@ export default class EquationTypeNode extends Node {
         numberPickerOptions ) );
 
       const vectorSymbolNode = new VectorSymbolNode( {
-        symbol: vector.symbol,
+        symbolProperty: vector.symbolProperty,
         symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
       } );
       equationChildren.push( vectorSymbolNode );
@@ -71,7 +71,7 @@ export default class EquationTypeNode extends Node {
       const sumVector = vectorSet.sumVector!;
       assert && assert( sumVector );
       const vectorSymbolNode = new VectorSymbolNode( {
-        symbol: sumVector.symbol,
+        symbolProperty: sumVector.symbolProperty,
         symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
       } );
       equationChildren.push( vectorSymbolNode );
@@ -89,7 +89,7 @@ export default class EquationTypeNode extends Node {
       const sumVector = vectorSet.sumVector!;
       assert && assert( sumVector );
       const vectorSymbolNode = new VectorSymbolNode( {
-        symbol: sumVector.symbol,
+        symbolProperty: sumVector.symbolProperty,
         symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
       } );
       equationChildren.push( vectorSymbolNode );
@@ -115,7 +115,8 @@ export default class EquationTypeNode extends Node {
     }
 
     super( {
-      children: equationChildren
+      children: equationChildren,
+      isDisposable: false
     } );
   }
 }

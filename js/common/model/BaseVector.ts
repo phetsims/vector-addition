@@ -14,6 +14,7 @@ import Vector from './Vector.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const OPTIONS = {
@@ -30,12 +31,12 @@ export default abstract class BaseVector extends Vector {
    * @param initialComponents - starting components of the BaseVector
    * @param graph - the graph the BaseVector belongs to
    * @param vectorSet - the set that the BaseVector belongs to
-   * @param symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
   protected constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
-                         vectorSet: VectorSet, symbol: string ) {
+                         vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
-    super( initialTailPosition, initialComponents, graph, vectorSet, symbol, OPTIONS );
+    super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty, OPTIONS );
   }
 }
 

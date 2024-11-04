@@ -13,7 +13,7 @@
  * options:
  *
  * {
- *   symbol: 'a',
+ *   symbolProperty: VectorAdditionSymbols.aStringProperty,
  *   coefficient: -3,
  *   showVectorArrow: false,
  *   includeAbsoluteValueBars: true
@@ -32,9 +32,12 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
+import TProperty from '../../../../axon/js/TProperty.js';
 
 type SelfOptions = {
-  symbol?: string | null; // optional symbol to display
+  symbolProperty?: TReadOnlyProperty<string> | null; // optional symbol to display
   coefficient?: number | null; // optional coefficient to display
   showVectorArrow?: boolean; // flag to whether to show an arrow above the vector symbol
   includeAbsoluteValueBars?: boolean; // whether to surround with absolute value bars, to indicate 'magnitude'
@@ -46,7 +49,7 @@ type VectorSymbolNodeOptions = SelfOptions & PickOptional<HBoxOptions, 'spacing'
 
 export default class VectorSymbolNode extends HBox {
 
-  private symbol: string | null;
+  private symbolProperty: TReadOnlyProperty<string> | null;
   private coefficient: number | null;
   private includeAbsoluteValueBars: boolean;
   private readonly updateVectorSymbolNode: () => void;
@@ -56,7 +59,7 @@ export default class VectorSymbolNode extends HBox {
     const options = optionize<VectorSymbolNodeOptions, SelfOptions, HBoxOptions>()( {
 
       // SelfOptions
-      symbol: null,
+      symbolProperty: null,
       coefficient: null,
       showVectorArrow: true,
       includeAbsoluteValueBars: false,
@@ -71,7 +74,7 @@ export default class VectorSymbolNode extends HBox {
 
     super( options );
 
-    this.symbol = options.symbol;
+    this.symbolProperty = options.symbolProperty;
     this.coefficient = options.coefficient;
     this.includeAbsoluteValueBars = options.includeAbsoluteValueBars;
 
@@ -81,7 +84,7 @@ export default class VectorSymbolNode extends HBox {
     const rightBar = new Text( '|', { font: options.font } );
     const coefficientText = new Text( '', { font: options.font } );
     const symbolNode = options.showVectorArrow ?
-                       new ArrowOverSymbolNode( '', { font: options.symbolFont } ) :
+                       new ArrowOverSymbolNode( new StringProperty( '' ), { font: options.symbolFont } ) :
                        new RichText( '', { font: options.symbolFont } );
 
     this.updateVectorSymbolNode = () => {
@@ -97,12 +100,13 @@ export default class VectorSymbolNode extends HBox {
 
       // Set the coefficient and symbol text to match our properties
       coefficient && coefficientText.setString( coefficient );
-      if ( this.symbol ) {
+      if ( this.symbolProperty ) {
         if ( symbolNode instanceof ArrowOverSymbolNode ) {
-          symbolNode.setSymbol( this.symbol );
+          symbolNode.setSymbolProperty( this.symbolProperty );
         }
         else {
-          symbolNode.setString( this.symbol );
+          //TODO https://github.com/phetsims/scenery/issues/1671 Cast required because RichText and Text have different APIs for setStringProperty.
+          symbolNode.stringProperty = this.symbolProperty as TProperty<string>;
         }
       }
 
@@ -110,7 +114,7 @@ export default class VectorSymbolNode extends HBox {
       const children = [];
       this.includeAbsoluteValueBars && children.push( leftBar );
       coefficient && children.push( coefficientText );
-      this.symbol && children.push( symbolNode );
+      this.symbolProperty && children.push( symbolNode );
       this.includeAbsoluteValueBars && children.push( rightBar );
       this.setChildren( children );
 
@@ -120,6 +124,8 @@ export default class VectorSymbolNode extends HBox {
 
     // Update the vector symbol node
     this.updateVectorSymbolNode();
+
+    this.disposeEmitter.addListener( () => symbolNode.dispose() );
   }
 
   /**
@@ -132,10 +138,10 @@ export default class VectorSymbolNode extends HBox {
 
   /**
    * Sets the symbol.
-   * @param symbol - the symbol to display. Null means no symbol is displayed.
+   * @param symbolProperty - the symbol to display. Null means no symbol is displayed.
    */
-  public setSymbol( symbol: string | null ): void {
-    this.symbol = symbol;
+  public setSymbolProperty( symbolProperty: TReadOnlyProperty<string> | null ): void {
+    this.symbolProperty = symbolProperty;
     this.updateVectorSymbolNode();
   }
 
@@ -149,12 +155,12 @@ export default class VectorSymbolNode extends HBox {
 
   /**
    * Performance method that sets all the attributes of the VectorSymbolNode and does 1 update.
-   * @param symbol - the symbol to display (See comment at the top of the file)
+   * @param symbolProperty - the symbol to display (See comment at the top of the file)
    * @param coefficient - the coefficient to display
    * @param includeAbsoluteValueBars - indicates if absolute value bars are there
    */
-  public setVectorSymbolNode( symbol: string | null, coefficient: number | null, includeAbsoluteValueBars: boolean ): void {
-    this.symbol = symbol;
+  public setVectorSymbolNode( symbolProperty: TReadOnlyProperty<string> | null, coefficient: number | null, includeAbsoluteValueBars: boolean ): void {
+    this.symbolProperty = symbolProperty;
     this.coefficient = coefficient;
     this.includeAbsoluteValueBars = includeAbsoluteValueBars;
     this.updateVectorSymbolNode();

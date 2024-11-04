@@ -22,6 +22,7 @@ import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // Describes the initial vectors for Cartesian snap mode. See https://github.com/phetsims/vector-addition/issues/227
 const CARTESIAN_VECTOR_DESCRIPTIONS = [
@@ -61,7 +62,7 @@ const POLAR_VECTOR_DESCRIPTIONS = [
 
 export default class EquationsVectorSet extends VectorSet {
 
-  public readonly symbols: string[];
+  public readonly symbolProperties: TReadOnlyProperty<string>[];
 
   // We need to know about EquationsVector instances, a specialization of Vector.
   // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
@@ -93,9 +94,9 @@ export default class EquationsVectorSet extends VectorSet {
 
     super( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
-    this.symbols = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
-                   VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
-                   VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
+    this.symbolProperties = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
+                            VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
+                            VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 
     //----------------------------------------------------------------------------------------------------
     // Create the vectors, one less than symbols. For example, if symbols were [ 'a', 'b', 'c' ],
@@ -104,7 +105,7 @@ export default class EquationsVectorSet extends VectorSet {
     const vectorDescriptions = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
                                CARTESIAN_VECTOR_DESCRIPTIONS :
                                POLAR_VECTOR_DESCRIPTIONS;
-    assert && assert( vectorDescriptions.length === this.symbols.length - 1 );
+    assert && assert( vectorDescriptions.length === this.symbolProperties.length - 1 );
 
     this.equationsVectors = [];
     for ( let i = 0; i < vectorDescriptions.length; i++ ) {
@@ -122,15 +123,15 @@ export default class EquationsVectorSet extends VectorSet {
         vectorDescription.baseVectorTail,
         graph,
         this,
-        this.symbols[ i ] );
+        this.symbolProperties[ i ] );
 
       this.vectors.push( vector );
       this.equationsVectors.push( vector );
     }
 
     // Create the sum vector
-    assert && assert( this.symbols.length > 0 );
-    this._sumVector = new EquationsSumVector( graph, this, graph.equationTypeProperty, _.last( this.symbols )! );
+    assert && assert( this.symbolProperties.length > 0 );
+    this._sumVector = new EquationsSumVector( graph, this, graph.equationTypeProperty, _.last( this.symbolProperties )! );
     this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 

@@ -176,15 +176,15 @@ const VectorAdditionConstants = {
 
   //----------------------------------------------------------------------------------------
   // Vectors
-  VECTOR_SYMBOLS_GROUP_1: [
-    VectorAdditionSymbols.aStringProperty.value,
-    VectorAdditionSymbols.bStringProperty.value,
-    VectorAdditionSymbols.cStringProperty.value
+  VECTOR_SYMBOL_PROPERTIES_GROUP_1: [
+    VectorAdditionSymbols.aStringProperty,
+    VectorAdditionSymbols.bStringProperty,
+    VectorAdditionSymbols.cStringProperty
   ],
-  VECTOR_SYMBOLS_GROUP_2: [
-    VectorAdditionSymbols.dStringProperty.value,
-    VectorAdditionSymbols.eStringProperty.value,
-    VectorAdditionSymbols.fStringProperty.value
+  VECTOR_SYMBOL_PROPERTIES_GROUP_2: [
+    VectorAdditionSymbols.dStringProperty,
+    VectorAdditionSymbols.eStringProperty,
+    VectorAdditionSymbols.fStringProperty
   ],
 
   // Defaults for all vectors

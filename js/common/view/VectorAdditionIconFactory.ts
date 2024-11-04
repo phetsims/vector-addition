@@ -37,6 +37,7 @@ import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import CurvedArrowNode from './CurvedArrowNode.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const SCREEN_ICON_WIDTH = 70;
@@ -401,12 +402,9 @@ const VectorAdditionIconFactory = {
   /**
    * Creates the Icon that appears on the EquationTypes radio button icons on the 'Equations' screen.
    * @param equationType
-   * @param vectorSymbols - symbols on the buttons (the last symbol is the sum's symbol)
+   * @param vectorSymbolProperties - symbols on the buttons (the last symbol is the sum's symbol)
    */
-  createEquationTypeIcon( equationType: EquationTypes, vectorSymbols: string[] ): Node {
-
-    assert && assert( _.every( vectorSymbols, symbol => typeof symbol === 'string' ) && vectorSymbols.length > 1,
-      `invalid vectorSymbols: ${vectorSymbols}` );
+  createEquationTypeIcon( equationType: EquationTypes, vectorSymbolProperties: TReadOnlyProperty<string>[] ): Node {
 
     let children: Node[] = [];
 
@@ -416,11 +414,11 @@ const VectorAdditionIconFactory = {
 
     // Gather all the symbols for the left side of the equation into an array.
     // For NEGATION, all symbols are on the left side of the equation
-    const equationLeftSideSymbols = _.dropRight( vectorSymbols, equationType === EquationTypes.NEGATION ? 0 : 1 );
+    const equationLeftSideSymbolProperties = _.dropRight( vectorSymbolProperties, equationType === EquationTypes.NEGATION ? 0 : 1 );
 
     // Create a vector symbol for each symbol on the left side of the equation.
-    equationLeftSideSymbols.forEach( symbol => {
-      children.push( new ArrowOverSymbolNode( symbol ) );
+    equationLeftSideSymbolProperties.forEach( symbolProperty => {
+      children.push( new ArrowOverSymbolNode( symbolProperty ) );
     } );
 
     // Interleave operators (i.e. '+'|'-') in between each symbol on the left side of the equation
@@ -435,7 +433,7 @@ const VectorAdditionIconFactory = {
     // Right side of the equation, which is either '0' or the last of the symbols (which is the sum).
     children.push( equationType === EquationTypes.NEGATION ?
                    new Text( '0', textOptions ) :
-                   new ArrowOverSymbolNode( _.last( vectorSymbols )! ) );
+                   new ArrowOverSymbolNode( _.last( vectorSymbolProperties )! ) );
 
     return new HBox( {
       children: children,

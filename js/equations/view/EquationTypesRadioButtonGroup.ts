@@ -26,6 +26,7 @@ import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFacto
 import vectorAddition from '../../vectorAddition.js';
 import EquationTypes from '../model/EquationTypes.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -34,7 +35,7 @@ type EquationTypesRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions
 export default class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup<EquationTypes> {
 
   public constructor( equationTypeProperty: EnumerationProperty<EquationTypes>,
-                      vectorSymbols: string[], // symbols on the buttons
+                      vectorSymbolProperties: TReadOnlyProperty<string>[], // symbols on the buttons
                       alignGroup: AlignGroup,
                       providedOptions?: EquationTypesRadioButtonGroupOptions ) {
 
@@ -50,7 +51,7 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
     EquationTypes.enumeration.values.forEach( equationType => {
       items.push( {
         value: equationType,
-        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbols ), {
+        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbolProperties ), {
           group: alignGroup
         } )
       } );

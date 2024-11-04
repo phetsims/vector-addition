@@ -191,7 +191,7 @@ export default class ComponentVector extends RootVector {
 
     return {
       coefficient: null, // component vectors never have a coefficient
-      symbol: null, // component vectors never have a symbol
+      symbolProperty: null, // component vectors never have a symbol
       includeAbsoluteValueBars: false,
       magnitude: magnitude
     };

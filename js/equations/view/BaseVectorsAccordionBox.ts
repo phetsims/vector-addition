@@ -33,6 +33,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // constants
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
@@ -90,21 +91,29 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         assert && assert( cartesianBaseVector instanceof CartesianBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // X Component
+        const leftLabel = baseVector.symbolProperty ?
+                          new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
+                            ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` ) :
+                          null;
         leftNumberPickerAndLabel = createNumberPickerWithLabel(
           cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
-            symbol: `${baseVector.symbol}<sub>${VectorAdditionSymbols.xStringProperty.value}</sub>`,
+            symbolProperty: leftLabel,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ) );
 
         // Y Component
+        const rightLabel = baseVector.symbolProperty ?
+                           new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
+                             ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` ) :
+                           null;
         rightNumberPickerAndLabel = createNumberPickerWithLabel(
           cartesianBaseVector.yComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
-            symbol: `${baseVector.symbol}<sub>${VectorAdditionSymbols.yStringProperty.value}</sub>`,
+            symbolProperty: rightLabel,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ) );
@@ -118,16 +127,19 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           polarBaseVector.magnitudeProperty,
           VectorAdditionConstants.MAGNITUDE_RANGE,
           new VectorSymbolNode( {
-            symbol: baseVector.symbol,
+            symbolProperty: baseVector.symbolProperty,
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ) );
 
         // Angle
+        assert && assert( baseVector.symbolProperty );
+        const rightLabelProperty = new DerivedStringProperty( [ baseVector.symbolProperty! ],
+          baseVectorSymbol => `${MathSymbols.THETA}<sub>${baseVectorSymbol}</sub>` );
         rightNumberPickerAndLabel = createNumberPickerWithLabel(
           polarBaseVector.angleDegreesProperty,
           VectorAdditionConstants.ANGLE_RANGE,
-          new RichText( `${MathSymbols.THETA}<sub>${baseVector.symbol}</sub>`, {
+          new RichText( rightLabelProperty, {
             font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
             maxWidth: LABEL_MAX_WIDTH
           } ), {

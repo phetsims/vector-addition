@@ -57,15 +57,15 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty );
 
       // Vector symbols depend on whether snap mode is Cartesian or Polar
-      const vectorSymbols = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
-                            VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_1 :
-                            VectorAdditionConstants.VECTOR_SYMBOLS_GROUP_2;
+      const vectorSymbolProperties = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
+                                     VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
+                                     VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 
       // Add the vector creator panel
       sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel(
         graph,
         sceneNode,
-        vectorSymbols, {
+        vectorSymbolProperties, {
           left: coordinateSnapRadioButtonGroup.left,
           bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
         } )

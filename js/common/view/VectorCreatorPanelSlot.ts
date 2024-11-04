@@ -33,6 +33,7 @@ import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import SceneNode from './SceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
 // contains the same local width regardless of the initial vector components. This ensures that
@@ -40,7 +41,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 const ARROW_ICON_CONTAINER_WIDTH = 35;
 
 type SelfOptions = {
-  symbol?: string | null; // the symbol to pass to created vectors
+  symbolProperty?: TReadOnlyProperty<string> | null; // the symbol to pass to created vectors
   numberOfVectors?: number;  // the number of vectors that can exist that were created by this slot
   iconArrowMagnitude?: number; // the magnitude of the icon in view coordinates
   iconVectorComponents?: Vector2 | null; // used for vector icon, defaults to initialVectorComponents
@@ -68,7 +69,7 @@ export default class VectorCreatorPanelSlot extends HBox {
     const options = optionize<VectorCreatorPanelSlotOptions, SelfOptions, HBoxOptions>()( {
 
       // SelfOptions
-      symbol: null,
+      symbolProperty: null,
       numberOfVectors: 1,
       iconArrowMagnitude: 30,
       iconVectorComponents: null,
@@ -114,8 +115,8 @@ export default class VectorCreatorPanelSlot extends HBox {
     // Create the label of the slot
     //----------------------------------------------------------------------------------------
 
-    if ( options.symbol ) {
-      this.addChild( new ArrowOverSymbolNode( options.symbol ) );
+    if ( options.symbolProperty ) {
+      this.addChild( new ArrowOverSymbolNode( options.symbolProperty ) );
     }
 
     //----------------------------------------------------------------------------------------
@@ -139,7 +140,7 @@ export default class VectorCreatorPanelSlot extends HBox {
       const vectorTailPosition = vectorCenterModel.minus( initialVectorComponents.timesScalar( 0.5 ) );
 
       // Create the new Vector Model
-      const vector = new Vector( vectorTailPosition, initialVectorComponents, graph, vectorSet, options.symbol );
+      const vector = new Vector( vectorTailPosition, initialVectorComponents, graph, vectorSet, options.symbolProperty );
 
       vectorSet.vectors.push( vector );
 

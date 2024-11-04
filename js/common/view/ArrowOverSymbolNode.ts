@@ -15,6 +15,7 @@ import vectorAddition from '../../vectorAddition.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // const
 const DEFAULT_FONT = new MathSymbolFont( 18 );
@@ -33,7 +34,7 @@ export default class ArrowOverSymbolNode extends Node {
   private readonly rightArrowNode: Node;
   private readonly spacing: number;
 
-  public constructor( symbol: string, providedOptions?: ArrowOverSymbolNodeOptions ) {
+  public constructor( symbolProperty: TReadOnlyProperty<string>, providedOptions?: ArrowOverSymbolNodeOptions ) {
 
     const options = optionize<ArrowOverSymbolNodeOptions, SelfOptions, NodeOptions>()( {
 
@@ -43,7 +44,7 @@ export default class ArrowOverSymbolNode extends Node {
       arrowScale: 0.65
     }, providedOptions );
 
-    const symbolText = new Text( symbol, {
+    const symbolText = new Text( symbolProperty, {
       font: options.font,
       boundsMethod: 'accurate' // so that options.spacing is effective
     } );
@@ -63,13 +64,15 @@ export default class ArrowOverSymbolNode extends Node {
     this.spacing = options.spacing;
 
     this.updateLayout();
+
+    this.disposeEmitter.addListener( () => symbolText.dispose() );
   }
 
   /**
    * Changes the symbol.
    */
-  public setSymbol( symbol: string ): void {
-    this.symbolText.string = symbol;
+  public setSymbolProperty( symbolProperty: TReadOnlyProperty<string> ): void {
+    this.symbolText.stringProperty = symbolProperty;
     this.updateLayout();
   }
 

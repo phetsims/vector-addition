@@ -18,6 +18,7 @@ import BaseVector from './BaseVector.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 export default class PolarBaseVector extends BaseVector {
 
@@ -29,14 +30,14 @@ export default class PolarBaseVector extends BaseVector {
    * @param initialComponents - starting components of the Base Vector
    * @param graph - the graph the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
-   * @param symbol - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
   public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
-                      vectorSet: VectorSet, symbol: string ) {
+                      vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
     assert && assert( graph.coordinateSnapMode === CoordinateSnapModes.POLAR, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, graph, vectorSet, symbol );
+    super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty );
 
     this.magnitudeProperty = new NumberProperty( this.magnitude );
 

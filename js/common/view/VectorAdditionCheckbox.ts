@@ -26,7 +26,8 @@ export default class VectorAdditionCheckbox extends Checkbox {
       // CheckboxOptions
       boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
       touchAreaXDilation: 5,
-      touchAreaYDilation: 3.5
+      touchAreaYDilation: 3.5,
+      isDisposable: false
     }, providedOptions );
 
     super( property, content, options );

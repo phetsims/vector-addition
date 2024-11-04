@@ -34,7 +34,7 @@ export type LabelDisplayData = {
 
   // The symbol to be displayed. null means to not display a symbol.
   // For example, if the label displayed '|3v|=15', the symbol is 'v'.
-  symbol: string | null;
+  symbolProperty: TReadOnlyProperty<string> | null;
 
   // The vector magnitude, displayed on the right side of the label equation. null means to not display a value.
   // For example, if the label displayed '|3v|=15', the magnitude is 15.
@@ -60,16 +60,18 @@ export default abstract class RootVector {
   public readonly vectorColorPalette: VectorColorPalette;
 
   // the symbol used to represent the vector
-  public readonly symbol: string | null;
+  public readonly symbolProperty: TReadOnlyProperty<string> | null;
 
   /**
    * @param initialTailPosition - starting tail position of the vector
    * @param initialComponents - starting components of the vector
    * @param vectorColorPalette - color palette for this vector
-   * @param symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
-  protected constructor( initialTailPosition: Vector2, initialComponents: Vector2,
-                         vectorColorPalette: VectorColorPalette, symbol: string | null ) {
+  protected constructor( initialTailPosition: Vector2,
+                         initialComponents: Vector2,
+                         vectorColorPalette: VectorColorPalette,
+                         symbolProperty: TReadOnlyProperty<string> | null ) {
 
     this.vectorComponentsProperty = new Vector2Property( initialComponents );
     this.tailPositionProperty = new Vector2Property( initialTailPosition );
@@ -82,7 +84,7 @@ export default abstract class RootVector {
 
     this.vectorColorPalette = vectorColorPalette;
 
-    this.symbol = symbol;
+    this.symbolProperty = symbolProperty;
   }
 
   public reset(): void {

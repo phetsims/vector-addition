@@ -15,6 +15,7 @@ import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js'
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DGraph from '../model/Explore2DGraph.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 
@@ -41,10 +42,13 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
   /**
    * @param graph
    * @param sceneNode
-   * @param symbols - the symbols corresponding to each slot
+   * @param symbolProperties - the symbols corresponding to each slot
    * @param [providedOptions]
    */
-  public constructor( graph: Explore2DGraph, sceneNode: SceneNode, symbols: string[], providedOptions?: Explore2DVectorCreatorPanelOptions ) {
+  public constructor( graph: Explore2DGraph,
+                      sceneNode: SceneNode,
+                      symbolProperties: TReadOnlyProperty<string>[],
+                      providedOptions?: Explore2DVectorCreatorPanelOptions ) {
 
     const options = providedOptions;
 
@@ -53,13 +57,13 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
     const initialVectorComponents = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
                                     CARTESIAN_INITIAL_VECTOR_COMPONENTS :
                                     POLAR_INITIAL_VECTOR_COMPONENTS;
-    assert && assert( initialVectorComponents.length === symbols.length, 'components are required for each symbol' );
+    assert && assert( initialVectorComponents.length === symbolProperties.length, 'components are required for each symbol' );
 
     // Create a slot for each symbol
     const panelSlots: VectorCreatorPanelSlot[] = [];
-    for ( let i = 0; i < symbols.length; i++ ) {
+    for ( let i = 0; i < symbolProperties.length; i++ ) {
       panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents[ i ], {
-        symbol: symbols[ i ],
+        symbolProperty: symbolProperties[ i ],
         iconArrowMagnitude: 35,
         iconVectorComponents: new Vector2( 1, 1 ) // all icons in the slots look the same, see #227
       } ) );

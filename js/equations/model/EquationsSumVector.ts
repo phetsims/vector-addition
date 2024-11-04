@@ -20,6 +20,7 @@ import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Vector from '../../common/model/Vector.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
@@ -32,12 +33,12 @@ export default class EquationsSumVector extends SumVector {
    * @param graph - graph the sum vector belongs to
    * @param vectorSet - the vector set that the sum vector represents
    * @param equationTypeProperty
-   * @param symbol - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
   public constructor( graph: Graph, vectorSet: VectorSet, equationTypeProperty: EnumerationProperty<EquationTypes>,
-                      symbol: string ) {
+                      symbolProperty: TReadOnlyProperty<string> ) {
 
-    super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbol );
+    super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbolProperty );
 
     this.equationTypeProperty = equationTypeProperty;
 
@@ -94,7 +95,7 @@ export default class EquationsSumVector extends SumVector {
    */
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
     return combineOptions<LabelDisplayData>( super.getLabelDisplayData( valuesVisible ), {
-      symbol: this.symbol
+      symbolProperty: this.symbolProperty
     } );
   }
 

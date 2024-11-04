@@ -31,6 +31,7 @@ import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import Vector from '../model/Vector.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -151,12 +152,18 @@ export default class VectorValuesToggleBox extends ToggleBox {
         selectVectorText.visible = false;
 
         // Get the vector symbol
-        const vectorSymbol = activeVector.symbol ? activeVector.symbol : Vector.FALLBACK_SYMBOL;
+        const vectorSymbolProperty = activeVector.symbolProperty ? activeVector.symbolProperty : Vector.FALLBACK_SYMBOL_PROPERTY;
 
         // Update labels (angle label is the same)
-        magnitudeVectorSymbolNode.setSymbol( vectorSymbol );
-        xVectorSymbolNode.setSymbol( `${vectorSymbol}<sub>${VectorAdditionSymbols.xStringProperty.value}</sub>` );
-        yVectorSymbolNode.setSymbol( `${vectorSymbol}<sub>${VectorAdditionSymbols.yStringProperty.value}</sub>` );
+        magnitudeVectorSymbolNode.setSymbolProperty( vectorSymbolProperty );
+        xVectorSymbolNode.setSymbolProperty( new DerivedStringProperty(
+          [ vectorSymbolProperty, VectorAdditionSymbols.xStringProperty ],
+          ( vectorSymbol, xString ) => `${vectorSymbol}<sub>${xString}</sub>`
+        ) );
+        yVectorSymbolNode.setSymbolProperty( new DerivedStringProperty(
+          [ vectorSymbolProperty, VectorAdditionSymbols.yStringProperty ],
+          ( vectorSymbol, yString ) => `${vectorSymbol}<sub>${yString}</sub>`
+        ) );
       }
       else {
         vectorAttributesContainer.visible = false;

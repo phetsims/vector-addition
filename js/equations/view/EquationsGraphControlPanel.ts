@@ -41,9 +41,9 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     // 'c' checkbox
     const cartesianSumVector = cartesianVectorSet.sumVector!;
     assert && assert( cartesianSumVector );
-    const cartesianSumSymbol = cartesianSumVector.symbol!;
-    assert && assert( cartesianSumSymbol );
-    const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianSumSymbol, {
+    const cartesianSumSymbolProperty = cartesianSumVector.symbolProperty!;
+    assert && assert( cartesianSumSymbolProperty );
+    const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianSumSymbolProperty, {
       vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
       vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke
     } );
@@ -51,9 +51,9 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     // 'f' checkbox
     const polarSumVector = polarVectorSet.sumVector!;
     assert && assert( polarSumVector );
-    const polarSumSymbol = polarSumVector.symbol!;
-    assert && assert( polarSumSymbol );
-    const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty, polarSumSymbol, {
+    const polarSumSymbolProperty = polarSumVector.symbolProperty!;
+    assert && assert( polarSumSymbolProperty );
+    const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty, polarSumSymbolProperty, {
       vectorFill: polarVectorSet.vectorColorPalette.sumFill,
       vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
     } );
