@@ -34,7 +34,6 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import StringProperty from '../../../../axon/js/StringProperty.js';
-import TProperty from '../../../../axon/js/TProperty.js';
 
 type SelfOptions = {
   symbolProperty?: TReadOnlyProperty<string> | null; // optional symbol to display
@@ -105,8 +104,7 @@ export default class VectorSymbolNode extends HBox {
           symbolNode.setSymbolProperty( this.symbolProperty );
         }
         else {
-          //TODO https://github.com/phetsims/scenery/issues/1671 Cast required because RichText and Text have different APIs for setStringProperty.
-          symbolNode.stringProperty = this.symbolProperty as TProperty<string>;
+          symbolNode.stringProperty = this.symbolProperty;
         }
       }
 
