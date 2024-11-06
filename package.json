@@ -16,8 +16,7 @@
     "requirejsNamespace": "VECTOR_ADDITION",
     "runnable": true,
     "supportedBrands": [
-      "phet",
-      "adapted-from-phet"
+      "phet"
     ],
     "simFeatures": {
       "colorProfiles": [
