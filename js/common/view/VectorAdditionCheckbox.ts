@@ -31,8 +31,6 @@ export default class VectorAdditionCheckbox extends Checkbox {
     }, providedOptions );
 
     super( property, content, options );
-
-    this.touchArea = this.localBounds.dilatedXY( options.touchAreaXDilation, options.touchAreaYDilation );
   }
 }
 
