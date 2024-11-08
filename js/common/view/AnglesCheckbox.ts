@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import Property from '../../../../axon/js/Property.js';
 
 export default class AnglesCheckbox extends VectorAdditionCheckbox {
 

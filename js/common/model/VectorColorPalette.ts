@@ -6,9 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import optionize from '../../../../phet-core/js/optionize.js';
 import { Color } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 // All colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'.
 type PaletteColor = Color | string | null;

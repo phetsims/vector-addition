@@ -11,18 +11,18 @@
 import Bounds2 from '../../../dot/js/Bounds2.js';
 import Range from '../../../dot/js/Range.js';
 import ScreenView from '../../../joist/js/ScreenView.js';
+import { combineOptions } from '../../../phet-core/js/optionize.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { Color } from '../../../scenery/js/imports.js';
+import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
+import { RectangularRadioButtonOptions } from '../../../sun/js/buttons/RectangularRadioButton.js';
+import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import { PanelOptions } from '../../../sun/js/Panel.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionColors from './VectorAdditionColors.js';
 import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';
-import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';
-import { combineOptions } from '../../../phet-core/js/optionize.js';
-import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
-import { RectangularRadioButtonOptions } from '../../../sun/js/buttons/RectangularRadioButton.js';
 import VectorAdditionSymbols from './VectorAdditionSymbols.js';
-import { PanelOptions } from '../../../sun/js/Panel.js';
 import { RootVectorArrowNodeOptions } from './view/RootVectorNode.js';
 
 // shared constants within this file

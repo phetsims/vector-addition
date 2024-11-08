@@ -7,8 +7,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Color, Node, Path, PathOptions, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -17,12 +21,8 @@ import Graph from '../model/Graph.js';
 import GraphOrientations from '../model/GraphOrientations.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import OriginManipulator from './OriginManipulator.js';
-import Property from '../../../../axon/js/Property.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
+import OriginManipulator from './OriginManipulator.js';
 
 //----------------------------------------------------------------------------------------
 // constants

@@ -6,6 +6,7 @@
  * @author Brandon Li
  */
 
+import Property from '../../../../axon/js/Property.js';
 import { HBox, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
@@ -13,7 +14,6 @@ import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import Property from '../../../../axon/js/Property.js';
 
 export default class SumCheckbox extends VectorAdditionCheckbox {
 

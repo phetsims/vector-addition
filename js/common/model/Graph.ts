@@ -12,19 +12,19 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 import GraphOrientations from './GraphOrientations.js';
 import Vector from './Vector.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 import VectorSet from './VectorSet.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 // scale of the coordinate transformation of model coordinates to view coordinates
 const MODEL_TO_VIEW_SCALE = 14.5;

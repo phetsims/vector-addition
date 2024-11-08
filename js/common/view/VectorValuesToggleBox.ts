@@ -15,23 +15,23 @@
  * @author Brandon Li
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import { AlignBox, HBox, Node, Text } from '../../../../scenery/js/imports.js';
+import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
+import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ToggleBox, { ToggleBoxOptions } from './ToggleBox.js';
 import VectorQuantities from './VectorQuantities.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
-import EquationsVector from '../../equations/model/EquationsVector.js';
-import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import Vector from '../model/Vector.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 //----------------------------------------------------------------------------------------
 // constants

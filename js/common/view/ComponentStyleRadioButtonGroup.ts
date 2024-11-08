@@ -10,6 +10,7 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import RectangularRadioButton, { RectangularRadioButtonOptions } from '../../../../sun/js/buttons/RectangularRadioButton.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -17,7 +18,6 @@ import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import GridBox from './GridBox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class ComponentStyleRadioButtonGroup extends Node {
 

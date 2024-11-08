@@ -6,10 +6,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import GridCheckbox from '../../../../scenery-phet/js/GridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import Property from '../../../../axon/js/Property.js';
 
 export default class VectorAdditionGridCheckbox extends GridCheckbox {
 

@@ -7,11 +7,11 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import vectorAddition from '../../vectorAddition.js';
 import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
-import Property from '../../../../axon/js/Property.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class VectorAdditionViewProperties {
 
