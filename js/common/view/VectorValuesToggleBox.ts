@@ -15,22 +15,23 @@
  * @author Brandon Li
  */
 
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import { HBox, HStrut, Node, Text } from '../../../../scenery/js/imports.js';
+import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
+import { AlignBox, HBox, Node, Text } from '../../../../scenery/js/imports.js';
+import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
+import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ToggleBox, { ToggleBoxOptions } from './ToggleBox.js';
 import VectorQuantities from './VectorQuantities.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
-import EquationsVector from '../../equations/model/EquationsVector.js';
-import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import Vector from '../model/Vector.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -39,7 +40,7 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 const LABEL_RIGHT_MARGIN = 7;
 
 // margin from the number display to the label (ltr)
-const LABEL_LEFT_MARGIN = 20;
+const LABEL_LEFT_MARGIN = 17;
 
 // width of the magnitude label
 const MAGNITUDE_LABEL_WIDTH = 50;
@@ -70,29 +71,25 @@ export default class VectorValuesToggleBox extends ToggleBox {
     assert && assert( contentFixedHeight !== null );
 
     //----------------------------------------------------------------------------------------
-    // Create the scenery nodes for when the accordion box is collapsed.
-
-    // 'Vector Values', displayed when accordion box is collapsed.
-    const vectorValuesText = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
+    // Create the scenery node for when the panel is closed, which is the inspectVectorText
+    const inspectVectorText = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT
     } );
 
     //----------------------------------------------------------------------------------------
-    // Create the scenery nodes for when the accordion box is expanded.
+    // Create the scenery nodes for when the panel is open
 
-    // 'No vector selected', displayed when accordion box is expanded and no vector is selected.
-    const noVectorSelectedText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
-      font: VectorAdditionConstants.TITLE_FONT,
-      maxWidth: 450
+    // Text for when there isn't a vector that is active
+    const selectVectorText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
+      font: VectorAdditionConstants.TITLE_FONT
     } );
 
     // Container for the labels and number displays that display the vector's attributes
     const vectorAttributesContainer = new HBox( { spacing: LABEL_LEFT_MARGIN } );
-    vectorAttributesContainer.addChild( new HStrut( 8 ) );
 
     // Create the content container for the open content
     const panelOpenContent = new Node();
-    panelOpenContent.setChildren( [ noVectorSelectedText, vectorAttributesContainer ] );
+    panelOpenContent.setChildren( [ selectVectorText, vectorAttributesContainer ] );
 
     //----------------------------------------------------------------------------------------
     // Create the scenery nodes to display the vector. Each attribute has a label and a VectorValuesNumberDisplay
@@ -116,18 +113,25 @@ export default class VectorValuesToggleBox extends ToggleBox {
     // Add the new scenery nodes
     //----------------------------------------------------------------------------------------
 
-    // Function that adds a label and display container combo.
+    // Function that adds a label and display container combo, putting the label in a fixed sized AlignBox
     const addNumberDisplayAndLabel = ( label: Node, numberDisplay: NumberDisplay, labelWidth: number ) => {
+
+      // Align the label in a AlignBox to set a fixed width
+      const fixedWidthLabel = new AlignBox( label, {
+        xAlign: 'right',
+        yAlign: 'center',
+        alignBounds: new Bounds2( 0, 0, labelWidth, contentFixedHeight ),
+        maxWidth: labelWidth
+      } );
       label.maxWidth = labelWidth;
       vectorAttributesContainer.addChild( new HBox( {
         spacing: LABEL_RIGHT_MARGIN,
-        children: [ label, numberDisplay ]
+        children: [ fixedWidthLabel, numberDisplay ]
       } ) );
     };
 
     addNumberDisplayAndLabel( magnitudeVectorSymbolNode, magnitudeNumberDisplay, MAGNITUDE_LABEL_WIDTH );
     addNumberDisplayAndLabel( angleText, angleNumberDisplay, ANGLE_LABEL_WIDTH );
-    vectorAttributesContainer.addChild( new HStrut( 5 ) );
     addNumberDisplayAndLabel( xVectorSymbolNode, xComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
     addNumberDisplayAndLabel( yVectorSymbolNode, yComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
 
@@ -145,7 +149,7 @@ export default class VectorValuesToggleBox extends ToggleBox {
 
       if ( activeVector !== null ) {
         vectorAttributesContainer.visible = true;
-        noVectorSelectedText.visible = false;
+        selectVectorText.visible = false;
 
         // Get the vector symbol
         const vectorSymbolProperty = activeVector.symbolProperty ? activeVector.symbolProperty : Vector.FALLBACK_SYMBOL_PROPERTY;
@@ -163,10 +167,10 @@ export default class VectorValuesToggleBox extends ToggleBox {
       }
       else {
         vectorAttributesContainer.visible = false;
-        noVectorSelectedText.visible = true;
+        selectVectorText.visible = true;
       }
 
-      noVectorSelectedText.centerY = panelOpenContent.centerY;
+      selectVectorText.centerY = panelOpenContent.centerY;
       vectorAttributesContainer.centerY = panelOpenContent.centerY;
 
       if ( activeVector && activeVector instanceof EquationsVector ) {
@@ -180,14 +184,14 @@ export default class VectorValuesToggleBox extends ToggleBox {
       }
     } );
 
-    noVectorSelectedText.centerY = panelOpenContent.centerY;
+    selectVectorText.centerY = panelOpenContent.centerY;
     vectorAttributesContainer.centerY = panelOpenContent.centerY;
 
     //----------------------------------------------------------------------------------------
     // Create the inspect a vector panel
     //----------------------------------------------------------------------------------------
 
-    super( vectorValuesText, panelOpenContent, options );
+    super( inspectVectorText, panelOpenContent, options );
   }
 }
 
