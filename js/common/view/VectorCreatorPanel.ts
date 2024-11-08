@@ -9,12 +9,12 @@
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import { optionize4 } from '../../../../phet-core/js/optionize.js';
 import { AlignBox, Color, NodeTranslationOptions, VBox } from '../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorCreatorPanelSlot from './VectorCreatorPanelSlot.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'center' | 'bottom';

@@ -16,26 +16,26 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
-import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ComponentVector from './ComponentVector.js';
 import ComponentVectorTypes from './ComponentVectorTypes.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
-import Graph from './Graph.js';
 import GraphOrientations from './GraphOrientations.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
+import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 //----------------------------------------------------------------------------------------
 // constants

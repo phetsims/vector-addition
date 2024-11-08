@@ -10,19 +10,19 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import BaseVector from '../../common/model/BaseVector.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
-import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
+import { LabelDisplayData } from '../../common/model/RootVector.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import EquationsGraph from './EquationsGraph.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
+import BaseVector from '../../common/model/BaseVector.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 

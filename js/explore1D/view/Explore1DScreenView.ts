@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import { Node } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -18,6 +17,7 @@ import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DVectorCreatorPanel from './Explore1DVectorCreatorPanel.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import GraphOrientationRadioButtonGroup from './GraphOrientationRadioButtonGroup.js';
+import { Node } from '../../../../scenery/js/imports.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 

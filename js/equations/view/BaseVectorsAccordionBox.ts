@@ -14,26 +14,26 @@
  * @author Brandon Li
  */
 
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { HBox, HStrut, Node, NodeTranslationOptions, RichText, Text, VBox } from '../../../../scenery/js/imports.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
 import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
-import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
-import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
+import { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
+import PolarBaseVector from '../../common/model/PolarBaseVector.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 // constants
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically

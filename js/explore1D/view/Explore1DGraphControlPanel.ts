@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { AlignBox, AlignGroup, Node, VBox } from '../../../../scenery/js/imports.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorSet from '../../common/model/VectorSet.js';
@@ -19,6 +18,7 @@ import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 

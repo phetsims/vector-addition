@@ -26,13 +26,9 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import Property from '../../../../axon/js/Property.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import { Node, NodeOptions, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
-import BaseVector from '../model/BaseVector.js';
-import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
@@ -41,6 +37,10 @@ import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import VectorCreatorPanel from './VectorCreatorPanel.js';
 import VectorSetNode from './VectorSetNode.js';
 import VectorValuesToggleBox from './VectorValuesToggleBox.js';
+import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import BaseVector from '../model/BaseVector.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included

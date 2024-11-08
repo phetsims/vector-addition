@@ -8,8 +8,6 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { HBox, Node, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -17,6 +15,8 @@ import RootVector from '../model/RootVector.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Utils from '../../../../dot/js/Utils.js';
 
 const X_MARGIN = 5;
 const Y_MARGIN = 1;

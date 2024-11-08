@@ -14,10 +14,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { AlignGroup } from '../../../../scenery/js/imports.js';
-import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import SceneNode, { SceneNodeOptions } from '../../common/view/SceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -25,6 +22,9 @@ import EquationsGraph from '../model/EquationsGraph.js';
 import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationToggleBox from './EquationToggleBox.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = EmptySelfOptions;
 type EquationsSceneNodeOptions = SelfOptions & SceneNodeOptions;

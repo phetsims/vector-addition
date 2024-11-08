@@ -6,7 +6,6 @@
  * @author Martin Veillette
  */
 
-import { Node } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CoordinateSnapRadioButtonGroup from '../../common/view/CoordinateSnapRadioButtonGroup.js';
@@ -17,6 +16,7 @@ import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
+import { Node } from '../../../../scenery/js/imports.js';
 
 
 export default class LabScreenView extends VectorAdditionScreenView {

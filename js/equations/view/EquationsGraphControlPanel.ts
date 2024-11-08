@@ -9,9 +9,7 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { AlignBox, AlignGroup, Color, HSeparator, Node, VBox } from '../../../../scenery/js/imports.js';
-import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
@@ -22,6 +20,8 @@ import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridChec
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import VectorCheckbox from '../../common/view/VectorCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 
 type SelfOptions = EmptySelfOptions;

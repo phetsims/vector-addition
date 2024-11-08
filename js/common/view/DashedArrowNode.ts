@@ -14,11 +14,11 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import { Node, NodeOptions, Path } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = {
   tailDash?: number[]; // describes the dash, similar to SCENERY/LineStyle lineDash

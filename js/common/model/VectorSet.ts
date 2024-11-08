@@ -13,19 +13,19 @@
  */
 
 import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import ComponentVectorStyles from './ComponentVectorStyles.js';
+import SumVector from './SumVector.js';
+import VectorColorPalette from './VectorColorPalette.js';
+import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import ComponentVectorStyles from './ComponentVectorStyles.js';
-import Graph from './Graph.js';
-import SumVector from './SumVector.js';
 import Vector from './Vector.js';
-import VectorColorPalette from './VectorColorPalette.js';
+import Disposable from '../../../../axon/js/Disposable.js';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 
 type SelfOptions = {
 

@@ -12,9 +12,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import optionize from '../../../../phet-core/js/optionize.js';
 import { AlignBox, AlignBoxXAlign, AlignBoxYAlign, AlignGroup, HBox, Node, NodeOptions, VBox } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   columns?: number; // number of columns

@@ -13,22 +13,22 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
-import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
-import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorSet from '../model/VectorSet.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorNode from './ComponentVectorNode.js';
-import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import SumComponentVectorNode from './SumComponentVectorNode.js';
 import SumVectorNode from './SumVectorNode.js';
 import VectorNode from './VectorNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import VectorColorPalette from '../model/VectorColorPalette.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 
 export default class VectorSetNode extends Node {
 
