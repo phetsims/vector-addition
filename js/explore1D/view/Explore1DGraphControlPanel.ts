@@ -1,4 +1,4 @@
-// Copyright 2019-2023, University of Colorado Boulder
+// Copyright 2019-2024, University of Colorado Boulder
 
 /**
  * Explore1DGraphControlPanel is the graph control panel for the 'Explore 1D' screen.

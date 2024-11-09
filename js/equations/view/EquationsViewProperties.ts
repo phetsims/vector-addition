@@ -1,4 +1,4 @@
-// Copyright 2019-2023, University of Colorado Boulder
+// Copyright 2019-2024, University of Colorado Boulder
 
 /**
  * View-specific Properties for the 'Equations' screen. Expands on the base view Properties, and adds Properties

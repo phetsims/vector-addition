@@ -1,4 +1,4 @@
-// Copyright 2019-2023, University of Colorado Boulder
+// Copyright 2019-2024, University of Colorado Boulder
 
 /**
  * VectorCreatorPanel (aka vector 'toolbox') is a Panel that contains 'slots' that can be clicked on to create

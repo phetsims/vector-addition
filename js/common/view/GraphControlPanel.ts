@@ -1,4 +1,4 @@
-// Copyright 2019-2023, University of Colorado Boulder
+// Copyright 2019-2024, University of Colorado Boulder
 
 /**
  * GraphControlPanel is the base class for graph control panels. These panels contain controls that affect the graph.
