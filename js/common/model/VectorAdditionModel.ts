@@ -6,12 +6,12 @@
  * @author Martin Veillette
  */
 
+import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import TModel from '../../../../joist/js/TModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVectorStyles from './ComponentVectorStyles.js';
-import TModel from '../../../../joist/js/TModel.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 
 export default class VectorAdditionModel implements TModel {
 

@@ -6,6 +6,7 @@
  * @author Martin Veillette
  */
 
+import { Node } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -17,7 +18,6 @@ import vectorAddition from '../../vectorAddition.js';
 import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DVectorCreatorPanel from './Explore2DVectorCreatorPanel.js';
-import { Node } from '../../../../scenery/js/imports.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 

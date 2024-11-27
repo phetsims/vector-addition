@@ -6,9 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import StringProperty from '../../../axon/js/StringProperty.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
-import StringProperty from '../../../axon/js/StringProperty.js';
 
 const VectorAdditionSymbols = {
 

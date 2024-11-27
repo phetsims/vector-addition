@@ -14,17 +14,17 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Multilink from '../../../../axon/js/Multilink.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import vectorAddition from '../../vectorAddition.js';
-import Vector from './Vector.js';
-import Graph from './Graph.js';
-import VectorSet from './VectorSet.js';
-import Property from '../../../../axon/js/Property.js';
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
-import { LabelDisplayData } from './RootVector.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import Multilink from '../../../../axon/js/Multilink.js';
+import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import vectorAddition from '../../vectorAddition.js';
+import Graph from './Graph.js';
+import { LabelDisplayData } from './RootVector.js';
+import Vector from './Vector.js';
+import VectorSet from './VectorSet.js';
 
 // constants
 const SUM_VECTOR_OPTIONS = {

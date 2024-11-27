@@ -9,20 +9,20 @@
  * @author Brandon Li
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
+import EquationsGraph from './EquationsGraph.js';
 import EquationsSumVector from './EquationsSumVector.js';
 import EquationsVector from './EquationsVector.js';
-import EquationsGraph from './EquationsGraph.js';
-import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Property from '../../../../axon/js/Property.js';
-import VectorColorPalette from '../../common/model/VectorColorPalette.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // Describes the initial vectors for Cartesian snap mode. See https://github.com/phetsims/vector-addition/issues/227
 const CARTESIAN_VECTOR_DESCRIPTIONS = [

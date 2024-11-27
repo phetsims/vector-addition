@@ -11,6 +11,7 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -18,7 +19,6 @@ import BaseVector from './BaseVector.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 export default class PolarBaseVector extends BaseVector {
 

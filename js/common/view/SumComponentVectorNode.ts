@@ -11,18 +11,18 @@
  * @author Brandon Li
  */
 
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import vectorAddition from '../../vectorAddition.js';
+import ComponentVector from '../model/ComponentVector.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import Graph from '../model/Graph.js';
+import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorNode, { ComponentVectorNodeOptions } from './ComponentVectorNode.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import Graph from '../model/Graph.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import ComponentVector from '../model/ComponentVector.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import SumVector from '../model/SumVector.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 
 type SelfOptions = EmptySelfOptions;

@@ -9,13 +9,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import MathSymbolFont from '../../../../scenery-phet/js/MathSymbolFont.js';
-import { Node, NodeOptions, Text } from '../../../../scenery/js/imports.js';
-import vectorAddition from '../../vectorAddition.js';
-import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import MathSymbolFont from '../../../../scenery-phet/js/MathSymbolFont.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
+import { Node, NodeOptions, Text } from '../../../../scenery/js/imports.js';
+import vectorAddition from '../../vectorAddition.js';
 
 // const
 const DEFAULT_FONT = new MathSymbolFont( 18 );
