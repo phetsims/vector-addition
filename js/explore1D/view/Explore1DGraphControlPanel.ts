@@ -9,7 +9,10 @@
  */
 
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import { AlignBox, AlignGroup, Node, VBox } from '../../../../scenery/js/imports.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';

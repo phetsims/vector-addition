@@ -7,7 +7,7 @@
  */
 
 import optionize from '../../../../phet-core/js/optionize.js';
-import { Color } from '../../../../scenery/js/imports.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 
 // All colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'.

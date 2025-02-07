@@ -15,7 +15,8 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import { Node, PressListenerEvent } from '../../../../scenery/js/imports.js';
+import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
 import ComponentVectorStyles from '../model/ComponentVectorStyles.js';

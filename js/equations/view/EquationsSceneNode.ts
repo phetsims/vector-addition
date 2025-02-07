@@ -16,7 +16,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import { AlignGroup } from '../../../../scenery/js/imports.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import SceneNode, { SceneNodeOptions } from '../../common/view/SceneNode.js';

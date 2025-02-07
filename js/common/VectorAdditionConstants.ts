@@ -14,7 +14,7 @@ import ScreenView from '../../../joist/js/ScreenView.js';
 import { combineOptions } from '../../../phet-core/js/optionize.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { Color } from '../../../scenery/js/imports.js';
+import Color from '../../../scenery/js/util/Color.js';
 import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
 import { RectangularRadioButtonOptions } from '../../../sun/js/buttons/RectangularRadioButton.js';
 import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';

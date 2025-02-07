@@ -13,7 +13,11 @@
  */
 
 import optionize from '../../../../phet-core/js/optionize.js';
-import { AlignBox, AlignBoxXAlign, AlignBoxYAlign, AlignGroup, HBox, Node, NodeOptions, VBox } from '../../../../scenery/js/imports.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import AlignBox, { AlignBoxXAlign, AlignBoxYAlign } from '../../../../scenery/js/layout/nodes/AlignBox.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = {

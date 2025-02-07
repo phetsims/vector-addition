@@ -7,7 +7,8 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import { HBox, Text } from '../../../../scenery/js/imports.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';

@@ -6,7 +6,7 @@
  * @author Martin Veillette
  */
 
-import { Node } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';

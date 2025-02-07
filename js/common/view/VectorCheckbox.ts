@@ -10,7 +10,9 @@
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import { Color, HBox, TColor } from '../../../../scenery/js/imports.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';

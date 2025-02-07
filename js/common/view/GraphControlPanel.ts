@@ -8,7 +8,8 @@
  */
 
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import { Node, NodeTranslationOptions, VBox } from '../../../../scenery/js/imports.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';

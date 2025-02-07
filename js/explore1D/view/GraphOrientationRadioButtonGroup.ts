@@ -8,7 +8,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/imports.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';

@@ -10,7 +10,10 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { optionize4 } from '../../../../phet-core/js/optionize.js';
-import { AlignBox, Color, NodeTranslationOptions, VBox } from '../../../../scenery/js/imports.js';
+import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
