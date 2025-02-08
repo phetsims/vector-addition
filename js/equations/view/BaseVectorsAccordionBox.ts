@@ -1,4 +1,4 @@
-// Copyright 2019-2024, University of Colorado Boulder
+// Copyright 2019-2025, University of Colorado Boulder
 
 /**
  * BaseVectorsAccordionBox appears on the right side of the 'Equations' screen. It contains pickers for modifying the

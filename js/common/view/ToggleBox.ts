@@ -1,4 +1,4 @@
-// Copyright 2019-2024, University of Colorado Boulder
+// Copyright 2019-2025, University of Colorado Boulder
 
 /**
  * ToggleBox is a specialized version of AccordionBox that doesn't expand/collapse.  Instead, it toggles between
