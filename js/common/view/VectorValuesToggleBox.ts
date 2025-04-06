@@ -5,8 +5,8 @@
  * angle, x component, and y component.
  *
  * 'Is a' relationship with ToggleBox
- *    - when closed, displays 'Vector Values'
- *    - when open either displays 'select a vector' or the active vector's attributes
+ *    - when collapsed, displays 'Vector Values'
+ *    - when expanded either displays 'select a vector' or the active vector's attributes
  *      (a series of labels and VectorValuesNumberDisplays)
  *
  * This panel exists for the entire sim and is never disposed.
@@ -93,9 +93,9 @@ export default class VectorValuesToggleBox extends ToggleBox {
     const vectorAttributesContainer = new HBox( { spacing: LABEL_LEFT_MARGIN } );
     vectorAttributesContainer.addChild( new HStrut( 8 ) );
 
-    // Create the content container for the open content
-    const panelOpenContent = new Node();
-    panelOpenContent.setChildren( [ noVectorSelectedText, vectorAttributesContainer ] );
+    // Create the content container for the expanded content
+    const expandedContent = new Node();
+    expandedContent.setChildren( [ noVectorSelectedText, vectorAttributesContainer ] );
 
     //----------------------------------------------------------------------------------------
     // Create the scenery nodes to display the vector. Each attribute has a label and a VectorValuesNumberDisplay
@@ -169,8 +169,8 @@ export default class VectorValuesToggleBox extends ToggleBox {
         noVectorSelectedText.visible = true;
       }
 
-      noVectorSelectedText.centerY = panelOpenContent.centerY;
-      vectorAttributesContainer.centerY = panelOpenContent.centerY;
+      noVectorSelectedText.centerY = expandedContent.centerY;
+      vectorAttributesContainer.centerY = expandedContent.centerY;
 
       if ( activeVector && activeVector instanceof EquationsVector ) {
         activeVector.coefficientProperty.link( updateCoefficient ); // unlink required when active vector changes
@@ -183,14 +183,14 @@ export default class VectorValuesToggleBox extends ToggleBox {
       }
     } );
 
-    noVectorSelectedText.centerY = panelOpenContent.centerY;
-    vectorAttributesContainer.centerY = panelOpenContent.centerY;
+    noVectorSelectedText.centerY = expandedContent.centerY;
+    vectorAttributesContainer.centerY = expandedContent.centerY;
 
     //----------------------------------------------------------------------------------------
     // Create the inspect a vector panel
     //----------------------------------------------------------------------------------------
 
-    super( vectorValuesText, panelOpenContent, options );
+    super( expandedContent, vectorValuesText, options );
   }
 }
 

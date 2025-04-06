@@ -1,11 +1,11 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * ToggleBox is a specialized version of AccordionBox that doesn't expand/collapse.  Instead, it toggles between
- * 'closed' content and 'open' content, while maintaining a fixed height.
+ * ToggleBox is the base class for a specialized version of AccordionBox that doesn't expand/collapse. Instead, it
+ * toggles between 'expanded' content and 'collapsed' content, while maintaining a fixed height.
  *
  * The box itself is a fixed width and height; both its fixed width and height are calculated by the largest
- * between the closed and open content added to its margins.
+ * between the expanded and collapsed content added to its margins.
  *
  * However, there is an option to pass a defined fixed width and/or fixed height. The box will scale the nodes to fit
  * defined dimensions.
@@ -41,11 +41,11 @@ export type ToggleBoxOptions = SelfOptions & NodeTranslationOptions &
 export default class ToggleBox extends AccordionBox {
 
   /**
-   * @param closedContent - content when the box is closed
-   * @param openContent - content when the box is open
+   * @param expandedContent - content when the accordion box is expanded
+   * @param collapsedContent - content when the accordion box is collapsed
    * @param [providedOptions]
    */
-  protected constructor( closedContent: Node, openContent: Node, providedOptions?: ToggleBoxOptions ) {
+  protected constructor( expandedContent: Node, collapsedContent: Node, providedOptions?: ToggleBoxOptions ) {
 
     const options = optionize4<ToggleBoxOptions, SelfOptions, AccordionBoxOptions>()(
       {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
@@ -64,24 +64,24 @@ export default class ToggleBox extends AccordionBox {
       }, providedOptions );
 
     // Determine the content width
-    const contentWidth = options.contentFixedWidth || _.max( [ closedContent.width, openContent.width ] )!;
-    const contentHeight = options.contentFixedHeight || _.max( [ closedContent.height, openContent.height ] )!;
+    const contentWidth = options.contentFixedWidth || _.max( [ collapsedContent.width, expandedContent.width ] )!;
+    const contentHeight = options.contentFixedHeight || _.max( [ collapsedContent.height, expandedContent.height ] )!;
 
     // Constrain the content width and height
-    openContent.maxWidth = contentWidth;
-    openContent.maxHeight = contentHeight;
-    closedContent.maxWidth = contentWidth;
-    closedContent.maxHeight = contentHeight;
+    expandedContent.maxWidth = contentWidth;
+    expandedContent.maxHeight = contentHeight;
+    collapsedContent.maxWidth = contentWidth;
+    collapsedContent.maxHeight = contentHeight;
 
     // Put the content in AlignBoxes, to handle alignment
     const alignBoxOptions = {
       xAlign: options.contentAlign,
       alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
     };
-    const openContentAlignBox = new AlignBox( openContent, alignBoxOptions );
-    options.titleNode = new AlignBox( closedContent, alignBoxOptions ); // unorthodox use of AccordionBox, but it works
+    const expandedContentAlignBox = new AlignBox( expandedContent, alignBoxOptions );
+    options.titleNode = new AlignBox( collapsedContent, alignBoxOptions ); // unorthodox use of AccordionBox, but it works
 
-    super( openContentAlignBox, options );
+    super( expandedContentAlignBox, options );
   }
 }
 

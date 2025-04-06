@@ -54,7 +54,7 @@ export default class EquationToggleBox extends ToggleBox {
     }, providedOptions );
 
     // When the toggle box is collapsed, show 'Equation'
-    const closedContent = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
+    const equationText = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type
     const radioButtonGroup = new EquationTypesRadioButtonGroup(
@@ -77,12 +77,12 @@ export default class EquationToggleBox extends ToggleBox {
     } );
 
     // Radio buttons on the left, equation on the right. See https://github.com/phetsims/vector-addition/issues/128
-    const openContent = new HBox( {
+    const expandedContent = new HBox( {
       children: [ radioButtonGroup, equationsParent ],
       spacing: 55
     } );
 
-    super( closedContent, openContent, options );
+    super( expandedContent, equationText, options );
 
     // When the box is collapsed, cancel interactions.
     // unlink is not necessary, exists for the lifetime of the sim.
