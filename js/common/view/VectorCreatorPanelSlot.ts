@@ -28,7 +28,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
-import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
@@ -36,6 +35,7 @@ import VectorSet from '../model/VectorSet.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import SceneNode from './SceneNode.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 
 // The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
 // contains the same local width regardless of the initial vector components. This ensures that
@@ -126,7 +126,7 @@ export default class VectorCreatorPanelSlot extends HBox {
     //----------------------------------------------------------------------------------------
 
     // removeInputListener is unnecessary, exists for the lifetime of the sim.
-    iconNode.addInputListener( DragListener.createForwardingListener( event => {
+    iconNode.addInputListener( SoundDragListener.createForwardingListener( event => {
 
       //----------------------------------------------------------------------------------------
       // Step 1: When the icon is clicked, create a new Vector

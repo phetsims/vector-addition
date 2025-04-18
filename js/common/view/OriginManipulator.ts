@@ -12,11 +12,11 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
-import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 
 // constants
 
@@ -65,7 +65,7 @@ export default class OriginManipulator extends ShadedSphereNode {
     const originPositionProperty = new Vector2Property( origin );
 
     // Add a drag listener. removeInputListener is unnecessary, since this class owns the listener.
-    this.addInputListener( new DragListener( {
+    this.addInputListener( new SoundDragListener( {
       positionProperty: originPositionProperty,
       translateNode: false,
       dragBoundsProperty: new Property( restrictedGraphViewBounds ),

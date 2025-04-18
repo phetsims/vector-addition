@@ -26,6 +26,7 @@ import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
 import VectorAngleNode from './VectorAngleNode.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 
 // constants
 
@@ -107,7 +108,7 @@ export default class VectorNode extends RootVectorNode {
     const tailPositionProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
       vector.tail ) );
 
-    this.translationDragListener = new DragListener( {
+    this.translationDragListener = new SoundDragListener( {
       pressCursor: cursor,
       targetNode: this,
       positionProperty: tailPositionProperty,
