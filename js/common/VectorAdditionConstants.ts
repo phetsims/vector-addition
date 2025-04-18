@@ -24,6 +24,7 @@ import VectorAdditionColors from './VectorAdditionColors.js';
 import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';
 import VectorAdditionSymbols from './VectorAdditionSymbols.js';
 import { RootVectorArrowNodeOptions } from './view/RootVectorNode.js';
+import { PreferencesControlOptions } from '../../../joist/js/preferences/PreferencesControl.js';
 
 // shared constants within this file
 const PANEL_CORNER_RADIUS = 5;
@@ -78,6 +79,14 @@ const RADIO_BUTTON_GROUP_OPTIONS: RectangularRadioButtonGroupOptions = {
       deselectedButtonOpacity: 0.35
     }
   }, VectorAdditionColors.RADIO_BUTTON_GROUP_COLORS )
+};
+
+const PREFERENCES_CONTROL_OPTIONS: PreferencesControlOptions = {
+  isDisposable: false,
+  labelSpacing: 20,
+  visiblePropertyOptions: {
+    phetioFeatured: true
+  }
 };
 
 const VectorAdditionConstants = {
@@ -243,7 +252,10 @@ const VectorAdditionConstants = {
   TICK_LABEL_FONT: new PhetFont( 14 ),
   AXIS_LABEL_FONT: new MathSymbolFont( 18 ),
   CHECKBOX_FONT: new PhetFont( 16 ),
-  TITLE_FONT: new PhetFont( 16 )
+  TITLE_FONT: new PhetFont( 16 ),
+
+  // Preferences
+  PREFERENCES_CONTROL_OPTIONS: PREFERENCES_CONTROL_OPTIONS
 };
 
 vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

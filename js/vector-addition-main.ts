@@ -15,6 +15,9 @@ import Explore1DScreen from './explore1D/Explore1DScreen.js';
 import Explore2DScreen from './explore2D/Explore2DScreen.js';
 import LabScreen from './lab/LabScreen.js';
 import VectorAdditionStrings from './VectorAdditionStrings.js';
+import PreferencesModel from '../../joist/js/preferences/PreferencesModel.js';
+import VectorAdditionPreferencesNode from './common/view/VectorAdditionPreferencesNode.js';
+import VectorAdditionPreferences from './common/model/VectorAdditionPreferences.js';
 
 simLauncher.launch( () => {
 
@@ -26,7 +29,17 @@ simLauncher.launch( () => {
   ];
 
   const sim = new Sim( VectorAdditionStrings[ 'vector-addition' ].titleStringProperty, screens, {
-    credits: VectorAdditionConstants.CREDITS
+
+    credits: VectorAdditionConstants.CREDITS,
+
+    // Preferences
+    preferencesModel: new PreferencesModel( {
+      simulationOptions: {
+        customPreferences: [ {
+          createContent: tandem => new VectorAdditionPreferencesNode( VectorAdditionPreferences.instance, tandem )
+        } ]
+      }
+    } )
   } );
 
   sim.start();

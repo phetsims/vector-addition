@@ -40,5 +40,11 @@
   },
   "equation": {
     "value": "Equation"
+  },
+  "angleConvention": {
+    "value": "Angle Convention"
+  },
+  "angleConventionDescription": {
+    "value": "The convention used to display angle values."
   }
 }

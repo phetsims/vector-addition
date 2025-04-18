@@ -32,6 +32,8 @@ type StringsType = {
   };
   'baseVectorsStringProperty': LocalizedStringProperty;
   'equationStringProperty': LocalizedStringProperty;
+  'angleConventionStringProperty': LocalizedStringProperty;
+  'angleConventionDescriptionStringProperty': LocalizedStringProperty;
 };
 
 const VectorAdditionStrings = getStringModule( 'VECTOR_ADDITION' ) as StringsType;
