@@ -10,8 +10,17 @@
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 import vectorAddition from '../vectorAddition.js';
+import { AngleConventionValues } from './model/AngleConvention.js';
 
 const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
+
+  // Convention used for displaying angles. See https://github.com/phetsims/vector-addition/issues/276
+  angleConvention: {
+    public: true,
+    type: 'string',
+    validValues: AngleConventionValues,
+    defaultValue: 'fullRotation'
+  },
 
   /**
    * The maximum amount of dragging before the vector will be removed from the graph when attempting to drag a vector
