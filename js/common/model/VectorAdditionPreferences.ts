@@ -11,6 +11,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { AngleConvention, AngleConventionValues } from './AngleConvention.js';
+import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 
 export default class VectorAdditionPreferences {
 
@@ -23,7 +24,7 @@ export default class VectorAdditionPreferences {
   // Private because this is a singleton, accessed via VectorAdditionPreferences.instance.
   private constructor() {
 
-    this.angleConventionProperty = new StringUnionProperty( 'fullRotation', {
+    this.angleConventionProperty = new StringUnionProperty<AngleConvention>( VectorAdditionQueryParameters.angleConvention as AngleConvention, {
       validValues: AngleConventionValues,
       tandem: Tandem.PREFERENCES.createTandem( 'angleConventionProperty' ),
       phetioDocumentation: 'The convention used for displaying angles.',
