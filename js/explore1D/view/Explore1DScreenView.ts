@@ -86,6 +86,18 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       ]
     } );
     this.addChild( screenViewRootNode );
+
+    // Play Area focus order
+    this.pdomPlayAreaNode.pdomOrder = [
+      ...sceneNodes
+    ];
+
+    // Control Area focus order
+    this.pdomControlAreaNode.pdomOrder = [
+      graphControlPanel,
+      graphOrientationRadioButtonGroup,
+      this.resetAllButton
+    ];
   }
 
   public override reset(): void {

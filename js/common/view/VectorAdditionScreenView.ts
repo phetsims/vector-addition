@@ -16,7 +16,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 export default class VectorAdditionScreenView extends ScreenView {
 
-  // Must be added to scene graph by subclass
+  // Must be added to scene graph and pdomOrder by subclass.
   protected readonly resetAllButton: Node;
 
   protected constructor( model: VectorAdditionModel, tandem: Tandem ) {

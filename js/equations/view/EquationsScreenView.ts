@@ -97,6 +97,19 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       ]
     } );
     this.addChild( screenViewRootNode );
+
+    // Play Area focus order
+    this.pdomPlayAreaNode.pdomOrder = [
+      polarScene,
+      cartesianScene
+    ];
+
+    // Control Area focus order
+    this.pdomControlAreaNode.pdomOrder = [
+      graphControlPanel,
+      coordinateSnapRadioButtonGroup,
+      this.resetAllButton
+    ];
   }
 
   public override reset(): void {
