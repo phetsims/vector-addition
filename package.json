@@ -28,6 +28,9 @@
         "default"
       ]
     },
+    "phet-io": {
+      "validation": false
+    },
     "simulation": true,
     "supportsOutputJS": true,
     "published": true,
