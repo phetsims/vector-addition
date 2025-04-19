@@ -28,7 +28,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     super( model, tandem );
 
-    this.viewProperties = new EquationsViewProperties();
+    this.viewProperties = new EquationsViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Controls for the graph, at upper right
     const graphControlPanel = new EquationsGraphControlPanel(

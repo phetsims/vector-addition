@@ -28,7 +28,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
     super( model, tandem );
 
-    this.viewProperties = new VectorAdditionViewProperties();
+    this.viewProperties = new VectorAdditionViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Control for the graph, at upper right
     const graphControlPanel = new Explore2DGraphControlPanel(

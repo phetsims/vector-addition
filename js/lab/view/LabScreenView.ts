@@ -28,7 +28,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     super( model, tandem );
 
-    this.viewProperties = new VectorAdditionViewProperties();
+    this.viewProperties = new VectorAdditionViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Controls for the graph, at upper right
     const graphControlPanel = new LabGraphControlPanel(

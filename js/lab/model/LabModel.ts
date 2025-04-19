@@ -40,8 +40,12 @@ export default class LabModel extends VectorAdditionModel {
 
     super( tandem );
 
-    this.sum1VisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
-    this.sum2VisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
+    this.sum1VisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
+      tandem: tandem.createTandem( 'sum1VisibleProperty' )
+    } );
+    this.sum2VisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
+      tandem: tandem.createTandem( 'sum2VisibleProperty' )
+    } );
 
     this.cartesianVectorColorPalette1 = VectorAdditionColors.BLUE_COLOR_PALETTE;
     this.cartesianVectorColorPalette2 = VectorAdditionColors.ORANGE_COLOR_PALETTE;

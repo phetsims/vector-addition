@@ -35,7 +35,9 @@ export default class Explore2DModel extends VectorAdditionModel {
 
     super( tandem );
 
-    this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
+    this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
+      tandem: tandem.createTandem( 'sumVisibleProperty' )
+    } );
 
     this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
     this.polarVectorColorPalette = VectorAdditionColors.PINK_COLOR_PALETTE;

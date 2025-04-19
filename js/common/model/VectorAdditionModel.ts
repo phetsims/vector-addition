@@ -19,7 +19,9 @@ export default class VectorAdditionModel implements TModel {
   public readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyles>;
 
   protected constructor( tandem: Tandem ) {
-    this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyles.INVISIBLE );
+    this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyles.INVISIBLE, {
+      tandem: tandem.createTandem( 'componentStyleProperty' )
+    } );
   }
 
   public reset(): void {

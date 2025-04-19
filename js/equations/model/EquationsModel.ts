@@ -33,7 +33,9 @@ export default class EquationsModel extends VectorAdditionModel {
 
     super( tandem );
 
-    this.sumVisibleProperty = new BooleanProperty( true );
+    this.sumVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'sumVisibleProperty' )
+    } );
 
     this.cartesianVectorColorPalette = VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE;
     this.polarVectorColorPalette = VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE;

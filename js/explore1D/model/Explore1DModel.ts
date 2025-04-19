@@ -35,7 +35,9 @@ export default class Explore1DModel extends VectorAdditionModel {
 
     super( tandem );
 
-    this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE );
+    this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
+      tandem: tandem.createTandem( 'sumVisibleProperty' )
+    } );
 
     this.horizontalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
     this.verticalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;

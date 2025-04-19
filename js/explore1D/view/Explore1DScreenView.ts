@@ -28,7 +28,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
     super( model, tandem );
 
-    this.viewProperties = new Explore1DViewProperties();
+    this.viewProperties = new Explore1DViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     const graphViewBounds = model.verticalGraph.graphViewBounds;
 

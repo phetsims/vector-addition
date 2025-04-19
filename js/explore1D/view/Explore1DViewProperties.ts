@@ -15,16 +15,19 @@ import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
 import GraphOrientations from '../../common/model/GraphOrientations.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class Explore1DViewProperties extends VectorAdditionViewProperties {
 
   public readonly graphOrientationProperty: EnumerationProperty<GraphOrientations>;
 
-  public constructor() {
+  public constructor( tandem: Tandem ) {
 
-    super();
+    super( tandem );
 
-    this.graphOrientationProperty = new EnumerationProperty( GraphOrientations.HORIZONTAL );
+    this.graphOrientationProperty = new EnumerationProperty( GraphOrientations.HORIZONTAL, {
+      tandem: tandem.createTandem( 'graphOrientationProperty' )
+    } );
 
     // Vector angle visualization is not supported by this screen.
     // unlink is unnecessary, exists for the lifetime of the sim.

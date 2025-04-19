@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Disposable from '../../../../axon/js/Disposable.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
 
@@ -30,12 +31,27 @@ export default class VectorAdditionViewProperties {
   // whether the VectorValuesToggleBox is expanded
   public readonly vectorValuesExpandedProperty: Property<boolean>;
 
-  public constructor() {
-    this.valuesVisibleProperty = new BooleanProperty( false );
-    this.anglesVisibleProperty = new BooleanProperty( false );
-    this.gridVisibleProperty = new BooleanProperty( true );
-    this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes.CARTESIAN );
-    this.vectorValuesExpandedProperty = new BooleanProperty( true );
+  public constructor( tandem: Tandem ) {
+
+    this.valuesVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'valuesVisibleProperty' )
+    } );
+
+    this.anglesVisibleProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'anglesVisibleProperty' )
+    } );
+
+    this.gridVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'gridVisibleProperty' )
+    } );
+
+    this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes.CARTESIAN, {
+      tandem: tandem.createTandem( 'coordinateSnapModeProperty' )
+    } );
+
+    this.vectorValuesExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'vectorValuesExpandedProperty' )
+    } );
   }
 
   public reset(): void {
