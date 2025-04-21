@@ -203,7 +203,7 @@ export default class VectorNode extends RootVectorNode {
       const tipPositionProperty = new Vector2Property( tipDeltaPosition );
 
       // Drag listener to scale/rotate the vector, attached to the invisible head.
-      const scaleRotateDragListener = new DragListener( {
+      const scaleRotateDragListener = new SoundDragListener( {
         targetNode: headNode,
         positionProperty: tipPositionProperty,
         start: () => {
