@@ -66,8 +66,7 @@ export default class EquationTypeNode extends Node {
     }
 
     if ( equationType === EquationType.NEGATION ) {
-      const signText = ( equationType === EquationType.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
-      equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
+      equationChildren.push( new Text( MathSymbols.PLUS, TEXT_OPTIONS ) );
 
       const sumVector = vectorSet.sumVector!;
       assert && assert( sumVector );
