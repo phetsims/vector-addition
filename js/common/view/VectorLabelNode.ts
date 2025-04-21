@@ -9,7 +9,7 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -107,9 +107,9 @@ export default class VectorLabelNode extends Node {
       labelDisplayData.coefficient,
       labelDisplayData.includeAbsoluteValueBars );
 
-    // Update the displayed magnitude. Use Utils.toFixed so that we get a consistent number of decimal places.
+    // Update the displayed magnitude. Use dot/js/util/toFixed so that we get a consistent number of decimal places.
     if ( labelDisplayData.magnitude !== null ) {
-      const roundedMagnitude = Utils.toFixed( labelDisplayData.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+      const roundedMagnitude = toFixed( labelDisplayData.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
       const string = this.vectorSymbolNode.visible ? `${MathSymbols.EQUAL_TO} ${roundedMagnitude}` : roundedMagnitude;
       this.vectorMagnitudeText.setString( string );
     }

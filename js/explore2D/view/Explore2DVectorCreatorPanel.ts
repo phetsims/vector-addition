@@ -7,7 +7,6 @@
  */
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
@@ -16,6 +15,7 @@ import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DGraph from '../model/Explore2DGraph.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
 // constants
 
@@ -28,9 +28,9 @@ const CARTESIAN_INITIAL_VECTOR_COMPONENTS = [
 
 // initial values for vectors in Polar scene, see https://github.com/phetsims/vector-addition/issues/227
 const POLAR_INITIAL_VECTOR_COMPONENTS = [
-  Vector2.createPolar( 8, Utils.toRadians( 30 ) ), // d
-  Vector2.createPolar( 8, Utils.toRadians( 60 ) ), // e
-  Vector2.createPolar( 8, Utils.toRadians( -90 ) ) // f
+  Vector2.createPolar( 8, toRadians( 30 ) ), // d
+  Vector2.createPolar( 8, toRadians( 60 ) ), // e
+  Vector2.createPolar( 8, toRadians( -90 ) ) // f
 ];
 
 type SelfOptions = EmptySelfOptions;

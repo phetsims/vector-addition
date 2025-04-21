@@ -8,7 +8,7 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
@@ -54,8 +54,8 @@ export default class LabGraph extends Graph {
     this.vectorSet1 = new VectorSet( this, componentStyleProperty, sum1VisibleProperty, vectorColorPalette1, {
 
       initialSumTailPosition: new Vector2(
-        Utils.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
-        Utils.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
+        roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
+        roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
       ),
 
       // non-sum component vectors are interleaved with vectorSet2, overlap is OK
@@ -66,8 +66,8 @@ export default class LabGraph extends Graph {
     this.vectorSet2 = new VectorSet( this, componentStyleProperty, sum2VisibleProperty, vectorColorPalette2, {
 
       initialSumTailPosition: new Vector2(
-        Utils.roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
-        Utils.roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
+        roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
+        roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
       ),
 
       // non-sum component vectors are interleaved with vectorSet1, overlap is OK

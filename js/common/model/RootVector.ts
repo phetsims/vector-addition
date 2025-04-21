@@ -19,7 +19,7 @@
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
+import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -293,7 +293,7 @@ export default abstract class RootVector {
    */
   public get angleDegrees(): number | null {
     const angleRadians = this.angle;
-    return ( angleRadians === null ) ? null : Utils.toDegrees( angleRadians );
+    return ( angleRadians === null ) ? null : toDegrees( angleRadians );
   }
 }
 

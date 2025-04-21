@@ -6,7 +6,6 @@
  * @author Brandon Li
  */
 
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
@@ -15,6 +14,7 @@ import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -34,7 +34,7 @@ export default class LabVectorCreatorPanel extends VectorCreatorPanel {
     // See https://github.com/phetsims/vector-addition/issues/227
     const initialVectorComponents = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
                                     new Vector2( 8, 6 ) :
-                                    Vector2.createPolar( 8, Utils.toRadians( 45 ) );
+                                    Vector2.createPolar( 8, toRadians( 45 ) );
 
     // Create a slot for each VectorSet
     const slots: VectorCreatorPanelSlot[] = [];

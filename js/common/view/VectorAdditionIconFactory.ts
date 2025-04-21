@@ -17,7 +17,6 @@
  */
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Screen from '../../../../joist/js/Screen.js';
 import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
@@ -45,6 +44,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import CurvedArrowNode from './CurvedArrowNode.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
 // constants
 const SCREEN_ICON_WIDTH = 70;
@@ -223,7 +223,7 @@ const VectorAdditionIconFactory = {
 
     // values determined empirically
     const wedgeLength = 20;
-    const angle = Utils.toRadians( 50 );
+    const angle = toRadians( 50 );
     const curvedArrowRadius = 16;
 
     const wedgeShape = new Shape()
@@ -365,7 +365,7 @@ const VectorAdditionIconFactory = {
       } ) );
 
     // Curved arrow that indicates the angle
-    const curvedArrow = new CurvedArrowNode( arcRadius, Utils.toRadians( 45 ) );
+    const curvedArrow = new CurvedArrowNode( arcRadius, toRadians( 45 ) );
 
     // horizontal line
     const line = new Line( 0, 0, iconSize, 0, {

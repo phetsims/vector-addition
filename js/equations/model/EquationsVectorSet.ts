@@ -12,7 +12,6 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
 import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
@@ -23,6 +22,7 @@ import vectorAddition from '../../vectorAddition.js';
 import EquationsGraph from './EquationsGraph.js';
 import EquationsSumVector from './EquationsSumVector.js';
 import EquationsVector from './EquationsVector.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
 // Describes the initial vectors for Cartesian snap mode. See https://github.com/phetsims/vector-addition/issues/227
 const CARTESIAN_VECTOR_DESCRIPTIONS = [
@@ -54,7 +54,7 @@ const POLAR_VECTOR_DESCRIPTIONS = [
 
   // e
   {
-    vectorComponents: Vector2.createPolar( 8, Utils.toRadians( 45 ) ),
+    vectorComponents: Vector2.createPolar( 8, toRadians( 45 ) ),
     vectorTail: new Vector2( 15, 5 ),
     baseVectorTail: new Vector2( 35, 5 )
   }

@@ -19,7 +19,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -36,6 +35,8 @@ import Graph from './Graph.js';
 import GraphOrientations from './GraphOrientations.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import VectorSet from './VectorSet.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -214,10 +215,10 @@ export default class Vector extends RootVector {
 
       const vectorComponents = tipPosition.minus( this.tail );
 
-      const roundedMagnitude = Utils.roundSymmetric( vectorComponents.magnitude );
+      const roundedMagnitude = roundSymmetric( vectorComponents.magnitude );
 
-      const angleInRadians = Utils.toRadians( POLAR_ANGLE_INTERVAL );
-      const roundedAngle = angleInRadians * Utils.roundSymmetric( vectorComponents.angle / angleInRadians );
+      const angleInRadians = toRadians( POLAR_ANGLE_INTERVAL );
+      const roundedAngle = angleInRadians * roundSymmetric( vectorComponents.angle / angleInRadians );
 
       // Calculate the rounded polar vector
       const polarVector = vectorComponents.setPolar( roundedMagnitude, roundedAngle );

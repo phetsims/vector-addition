@@ -12,13 +12,14 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
 import CoordinateSnapModes from './CoordinateSnapModes.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
+import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
 export default class PolarBaseVector extends BaseVector {
 
@@ -43,14 +44,14 @@ export default class PolarBaseVector extends BaseVector {
 
     const initialAngle = this.angle!;
     assert && assert( initialAngle !== null, 'expected this.angle to be non-null' );
-    this.angleDegreesProperty = new NumberProperty( Utils.toDegrees( initialAngle ) );
+    this.angleDegreesProperty = new NumberProperty( toDegrees( initialAngle ) );
 
     // Observe when the angle or magnitude changes, and update the components to match.
     // unmultilink is unnecessary, exists for the lifetime of the sim.
     Multilink.multilink(
       [ this.magnitudeProperty, this.angleDegreesProperty ],
       ( magnitude, angleDegrees ) => {
-        this.vectorComponents = Vector2.createPolar( magnitude, Utils.toRadians( angleDegrees ) );
+        this.vectorComponents = Vector2.createPolar( magnitude, toRadians( angleDegrees ) );
       } );
   }
 
