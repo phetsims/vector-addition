@@ -9,7 +9,7 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import SceneNode from '../../common/view/SceneNode.js';
 import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
@@ -54,7 +54,7 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
 
     // Get the initial vector components, they are different for each symbol.
     // See https://github.com/phetsims/vector-addition/issues/227
-    const initialVectorComponents = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
+    const initialVectorComponents = ( graph.coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) ?
                                     CARTESIAN_INITIAL_VECTOR_COMPONENTS :
                                     POLAR_INITIAL_VECTOR_COMPONENTS;
     assert && assert( initialVectorComponents.length === symbolProperties.length, 'components are required for each symbol' );

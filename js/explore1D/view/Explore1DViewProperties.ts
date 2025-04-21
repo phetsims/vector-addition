@@ -11,21 +11,21 @@
  */
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
-import GraphOrientations from '../../common/model/GraphOrientations.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
+import GraphOrientation from '../../common/model/GraphOrientation.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class Explore1DViewProperties extends VectorAdditionViewProperties {
 
-  public readonly graphOrientationProperty: EnumerationProperty<GraphOrientations>;
+  public readonly graphOrientationProperty: EnumerationProperty<GraphOrientation>;
 
   public constructor( tandem: Tandem ) {
 
     super( tandem );
 
-    this.graphOrientationProperty = new EnumerationProperty( GraphOrientations.HORIZONTAL, {
+    this.graphOrientationProperty = new EnumerationProperty( GraphOrientation.HORIZONTAL, {
       tandem: tandem.createTandem( 'graphOrientationProperty' )
     } );
 
@@ -40,7 +40,7 @@ export default class Explore1DViewProperties extends VectorAdditionViewPropertie
     // Polar snap mode is not supported by this screen.
     // unlink is unnecessary, exists for the lifetime of the sim.
     assert && this.coordinateSnapModeProperty.link( coordinateSnapMode => {
-      if ( coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+      if ( coordinateSnapMode === CoordinateSnapMode.POLAR ) {
         assert && assert( false, 'Explore 1D does not support polar snap mode' );
       }
     } );

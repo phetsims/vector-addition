@@ -29,10 +29,10 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ComponentVector from './ComponentVector.js';
-import ComponentVectorTypes from './ComponentVectorTypes.js';
-import CoordinateSnapModes from './CoordinateSnapModes.js';
+import ComponentVectorType from './ComponentVectorType.js';
+import CoordinateSnapMode from './CoordinateSnapMode.js';
 import Graph from './Graph.js';
-import GraphOrientations from './GraphOrientations.js';
+import GraphOrientation from './GraphOrientation.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import VectorSet from './VectorSet.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
@@ -129,13 +129,13 @@ export default class Vector extends RootVector {
     this.xComponentVector = new ComponentVector( this,
       vectorSet.componentStyleProperty,
       graph.activeVectorProperty,
-      ComponentVectorTypes.X_COMPONENT
+      ComponentVectorType.X_COMPONENT
     );
 
     this.yComponentVector = new ComponentVector( this,
       vectorSet.componentStyleProperty,
       graph.activeVectorProperty,
-      ComponentVectorTypes.Y_COMPONENT
+      ComponentVectorType.Y_COMPONENT
     );
 
     // When the graph's origin changes, update the tail position. unlink is required on dispose.
@@ -202,7 +202,7 @@ export default class Vector extends RootVector {
     // Flag to get the tip point that satisfies invariants (to be calculated below)
     let tipPositionWithInvariants: Vector2;
 
-    if ( this.graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+    if ( this.graph.coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) {
 
       // Ensure that the tipPosition is on the graph
       const tipPositionOnGraph = this.graph.graphModelBounds.closestPointTo( tipPosition );
@@ -211,7 +211,7 @@ export default class Vector extends RootVector {
       tipPositionWithInvariants = tipPositionOnGraph.roundedSymmetric();
     }
     else {
-      // this.graph.coordinateSnapMode === CoordinateSnapModes.POLAR
+      // this.graph.coordinateSnapMode === CoordinateSnapMode.POLAR
 
       const vectorComponents = tipPosition.minus( this.tail );
 
@@ -232,10 +232,10 @@ export default class Vector extends RootVector {
     }
 
     // Based on the vector orientation, constrain the dragging components
-    if ( this.graph.orientation === GraphOrientations.HORIZONTAL ) {
+    if ( this.graph.orientation === GraphOrientation.HORIZONTAL ) {
       tipPositionWithInvariants.setY( this.tailY );
     }
-    else if ( this.graph.orientation === GraphOrientations.VERTICAL ) {
+    else if ( this.graph.orientation === GraphOrientation.VERTICAL ) {
       tipPositionWithInvariants.setX( this.tailX );
     }
 
@@ -266,7 +266,7 @@ export default class Vector extends RootVector {
     // Ensure the tail is set in a position so the tail and the tip are on the graph
     const tailPositionOnGraph = constrainedTailBounds.closestPointTo( tailPosition );
 
-    if ( this.graph.coordinateSnapMode === CoordinateSnapModes.POLAR ) {
+    if ( this.graph.coordinateSnapMode === CoordinateSnapMode.POLAR ) {
 
       // Get the tip of this vector
       const tipPositionOnGraph = tailPositionOnGraph.plus( this.vectorComponents );

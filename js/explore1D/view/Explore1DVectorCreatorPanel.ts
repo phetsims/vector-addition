@@ -9,7 +9,7 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import GraphOrientations from '../../common/model/GraphOrientations.js';
+import GraphOrientation from '../../common/model/GraphOrientation.js';
 import SceneNode from '../../common/view/SceneNode.js';
 import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
@@ -36,12 +36,12 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
     const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 
       // VectorCreatorPanelOptions
-      slotSpacing: ( graph.orientation === GraphOrientations.VERTICAL ) ? 18 : 32
+      slotSpacing: ( graph.orientation === GraphOrientation.VERTICAL ) ? 18 : 32
     }, providedOptions );
 
     // Create the initial vector components, they are the same for every symbol.
     // See https://github.com/phetsims/vector-addition/issues/227
-    const isHorizontal = ( graph.orientation === GraphOrientations.HORIZONTAL );
+    const isHorizontal = ( graph.orientation === GraphOrientation.HORIZONTAL );
     const initialVectorComponents = isHorizontal ? new Vector2( 5, 0 ) : new Vector2( 0, 5 );
 
     // Create a slot for each symbol

@@ -4,8 +4,8 @@
  * EquationsSceneNode is a SceneNode that is specific to the 'Equations' screen.
  *
  * 'Is A' relationship with SceneNode but adds:
- *  - a RectangularRadioButtonGroup for EquationTypes
- *  - a Coefficient Selector Panel for each member of EquationTypes
+ *  - a RectangularRadioButtonGroup for EquationType
+ *  - a Coefficient Selector Panel for each member of EquationType
  *  - a BaseVectorAccordionBox
  *  - 'register' Vectors and add their BaseVectors and components
  *  - Disables the Eraser button
@@ -17,7 +17,7 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
-import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
+import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import SceneNode, { SceneNodeOptions } from '../../common/view/SceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -33,7 +33,7 @@ export default class EquationsSceneNode extends SceneNode {
 
   public constructor( graph: EquationsGraph,
                       viewProperties: EquationsViewProperties,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       graphControlPanelBottom: number,
                       equationButtonsAlignGroup: AlignGroup, // used to make all equation radio buttons the same size
                       equationsAlignGroup: AlignGroup, // used to make all interactive equations the same size

@@ -34,10 +34,10 @@ import Spacer from '../../../../scenery/js/nodes/Spacer.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
-import EquationTypes from '../../equations/model/EquationTypes.js';
+import EquationType from '../../equations/model/EquationType.js';
 import vectorAddition from '../../vectorAddition.js';
-import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
-import GraphOrientations from '../model/GraphOrientations.js';
+import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
+import GraphOrientation from '../model/GraphOrientation.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -249,17 +249,17 @@ const VectorAdditionIconFactory = {
   },
 
   //========================================================================================
-  // ComponentVectorStyles icons, used on Component radio buttons
+  // ComponentVectorStyle icons, used on Component radio buttons
   //========================================================================================
 
   /**
    * Creates the icons that go on the Component Style Radio Button based on a component style
    */
-  createComponentStyleRadioButtonIcon( componentStyle: ComponentVectorStyles ): Node {
+  createComponentStyleRadioButtonIcon( componentStyle: ComponentVectorStyle ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
 
-    if ( componentStyle === ComponentVectorStyles.INVISIBLE ) {
+    if ( componentStyle === ComponentVectorStyle.INVISIBLE ) {
       return createEyeCloseIcon( iconSize );
     }
 
@@ -282,10 +282,10 @@ const VectorAdditionIconFactory = {
 
     let iconChildren: Node[] = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
 
-    if ( componentStyle === ComponentVectorStyles.TRIANGLE ) {
+    if ( componentStyle === ComponentVectorStyle.TRIANGLE ) {
       yComponentArrow.setTailAndTip( iconSize, 0, iconSize, -iconSize );
     }
-    else if ( componentStyle === ComponentVectorStyles.PROJECTION ) {
+    else if ( componentStyle === ComponentVectorStyle.PROJECTION ) {
       vectorArrow.setTailAndTip( subBoxSize, -subBoxSize, iconSize, -iconSize );
       xComponentArrow.setTailAndTip( subBoxSize, 0, iconSize, 0 );
       yComponentArrow.setTailAndTip( 0, -subBoxSize, 0, -iconSize );
@@ -314,7 +314,7 @@ const VectorAdditionIconFactory = {
   },
 
   //=========================================================================================================
-  // CoordinateSnapModes icons, used on scene radio buttons,
+  // CoordinateSnapMode icons, used on scene radio buttons,
   // see https://github.com/phetsims/vector-addition/issues/21)
   //=========================================================================================================
 
@@ -380,20 +380,20 @@ const VectorAdditionIconFactory = {
   },
 
   //================================================================================================
-  // GraphOrientations icons (horizontal/vertical), used on scene radio buttons in Explore 1D screen
+  // GraphOrientation icons (horizontal/vertical), used on scene radio buttons in Explore 1D screen
   //================================================================================================
 
   /**
    * Creates the icon used on the radio buttons on 'Explore 1D' screen that toggles the graph orientation.
    */
-  createGraphOrientationIcon( graphOrientation: GraphOrientations ): Node {
+  createGraphOrientationIcon( graphOrientation: GraphOrientation ): Node {
 
-    assert && assert( _.includes( [ GraphOrientations.HORIZONTAL, GraphOrientations.VERTICAL ], graphOrientation ),
+    assert && assert( _.includes( [ GraphOrientation.HORIZONTAL, GraphOrientation.VERTICAL ], graphOrientation ),
       `invalid graphOrientation: ${graphOrientation}` );
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
-    const tipX = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? iconSize : 0;
-    const tipY = ( graphOrientation === GraphOrientations.HORIZONTAL ) ? 0 : iconSize;
+    const tipX = ( graphOrientation === GraphOrientation.HORIZONTAL ) ? iconSize : 0;
+    const tipY = ( graphOrientation === GraphOrientation.HORIZONTAL ) ? 0 : iconSize;
 
     return new ArrowNode( 0, 0, tipX, tipY,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.AXES_ARROW_OPTIONS, {
@@ -403,15 +403,15 @@ const VectorAdditionIconFactory = {
   },
 
   //========================================================================================
-  // EquationTypes icons, used on radio buttons in Equations screen
+  // EquationType icons, used on radio buttons in Equations screen
   //========================================================================================
 
   /**
-   * Creates the Icon that appears on the EquationTypes radio button icons on the 'Equations' screen.
+   * Creates the Icon that appears on the EquationType radio button icons on the 'Equations' screen.
    * @param equationType
    * @param vectorSymbolProperties - symbols on the buttons (the last symbol is the sum's symbol)
    */
-  createEquationTypeIcon( equationType: EquationTypes, vectorSymbolProperties: TReadOnlyProperty<string>[] ): Node {
+  createEquationTypeIcon( equationType: EquationType, vectorSymbolProperties: TReadOnlyProperty<string>[] ): Node {
 
     let children: Node[] = [];
 
@@ -421,7 +421,7 @@ const VectorAdditionIconFactory = {
 
     // Gather all the symbols for the left side of the equation into an array.
     // For NEGATION, all symbols are on the left side of the equation
-    const equationLeftSideSymbolProperties = _.dropRight( vectorSymbolProperties, equationType === EquationTypes.NEGATION ? 0 : 1 );
+    const equationLeftSideSymbolProperties = _.dropRight( vectorSymbolProperties, equationType === EquationType.NEGATION ? 0 : 1 );
 
     // Create a vector symbol for each symbol on the left side of the equation.
     equationLeftSideSymbolProperties.forEach( symbolProperty => {
@@ -430,7 +430,7 @@ const VectorAdditionIconFactory = {
 
     // Interleave operators (i.e. '+'|'-') in between each symbol on the left side of the equation
     children = interleave( children, () => {
-      const operator = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
+      const operator = ( equationType === EquationType.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
       return new Text( operator, textOptions );
     } );
 
@@ -438,7 +438,7 @@ const VectorAdditionIconFactory = {
     children.push( new Text( MathSymbols.EQUAL_TO, textOptions ) );
 
     // Right side of the equation, which is either '0' or the last of the symbols (which is the sum).
-    children.push( equationType === EquationTypes.NEGATION ?
+    children.push( equationType === EquationType.NEGATION ?
                    new Text( '0', textOptions ) :
                    new ArrowOverSymbolNode( _.last( vectorSymbolProperties )! ) );
 
@@ -495,7 +495,7 @@ function createScreenIcon( children: Node[] ): ScreenIcon {
 }
 
 /**
- * Create the close eye icon, for ComponentVectorStyles.INVISIBLE.
+ * Create the close eye icon, for ComponentVectorStyle.INVISIBLE.
  */
 function createEyeCloseIcon( iconSize: number ): Node {
 

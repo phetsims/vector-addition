@@ -18,7 +18,7 @@ import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-co
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
-import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
 import Graph from '../model/Graph.js';
 import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -34,7 +34,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
 
   public constructor( componentVector: ComponentVector,
                       graph: Graph,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       sumVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: SumComponentVectorNodeOptions ) {
@@ -69,7 +69,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
    * Handles visibility of sum component vectors.
    */
   protected override updateComponentVector( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
-                                            componentStyle: ComponentVectorStyles, isParentActive: boolean ): void {
+                                            componentStyle: ComponentVectorStyle, isParentActive: boolean ): void {
     super.updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive );
 
     const sumVector = componentVector.parentVector as SumVector;
@@ -77,7 +77,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
 
     this.visible = (
       // components are visible
-      ( componentStyle !== ComponentVectorStyles.INVISIBLE ) &&
+      ( componentStyle !== ComponentVectorStyle.INVISIBLE ) &&
       // sum is visible
       ( !!this.sumVisibleProperty && this.sumVisibleProperty.value ) &&
       // sum is defined

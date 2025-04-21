@@ -23,12 +23,12 @@ In addition to this document, you are encouraged to read:
 * _active_ vector and _selected_ vector are synonyms. There is (at most) one active vector.
 * _component_ is a scalar, while _component vector_ is a vector
 * _coordinate snap mode_ refers to which vector quantities will snap to integer values,
-  see [CoordinateSnapModes](https://github.com/phetsims/vector-addition/blob/main/js/common/model/CoordinateSnapModes.ts)
-* _component vector styles_ refers to the representation used to display component vectors,
-  see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.ts)
+  see [CoordinateSnapMode](https://github.com/phetsims/vector-addition/blob/main/js/common/model/CoordinateSnapMode.ts)
+* _component vector style_ refers to the representation used to display component vectors,
+  see [ComponentVectorStyle](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyle.ts)
 * _creator panel_ and _toolbox_ are synonyms for the UI component that creates vectors
 * _graph orientation_ is horizontal, vertical, or two-dimensional,
-  see [GraphOrientations](https://github.com/phetsims/vector-addition/blob/main/js/common/model/GraphOrientations.ts)
+  see [GraphOrientation](https://github.com/phetsims/vector-addition/blob/main/js/common/model/GraphOrientation.ts)
 
 ## General Considerations
 
@@ -194,7 +194,7 @@ The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has t
 * Selecting a vector moves it to the front, highlights it, and displays its associated values in the "Vector Values"
   accordion box.
 * Three visual representations of component vectors are supported,
-  see [ComponentVectorStyles](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.ts).
+  see [ComponentVectorStyle](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.ts).
 * Vector sum and angles can be displayed.
 * The graph's grid can be hidden.
 
@@ -220,7 +220,7 @@ _Equations_ screen:
 
 * Base vectors are provided, and you can change their values using spinners.
 * Each vector set has one vector (c&#8407; or f&#8407;) whose computation depends on which equation is selected, see
-  [EquationTypes](https://github.com/phetsims/vector-addition/blob/main/js/equations/model/EquationTypes.ts).
+  [EquationType](https://github.com/phetsims/vector-addition/blob/main/js/equations/model/EquationTypes.ts).
 * Equation coefficients can be changed using spinners.
 * Vectors cannot be added to or removed from the graph.
 * Vectors cannot be rotated or scaled via direct manipulation. They must be indirectly rotated/scaled using the spinners

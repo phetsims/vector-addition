@@ -4,7 +4,7 @@
  * View for a ComponentVector
  *
  * Extends RootVectorNode but add the following functionality:
- *  - determines visibility by the component style (i.e. should be invisible on ComponentVectorStyles.INVISIBLE)
+ *  - determines visibility by the component style (i.e. should be invisible on ComponentVectorStyle.INVISIBLE)
  *  - draws lines for the PROJECTION component vector style
  *  - custom label positioning
  *  - distinct appearance
@@ -22,8 +22,8 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Path from '../../../../scenery/js/nodes/Path.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
-import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
-import ComponentVectorTypes from '../model/ComponentVectorTypes.js';
+import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
+import ComponentVectorType from '../model/ComponentVectorType.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
@@ -58,7 +58,7 @@ export default class ComponentVectorNode extends RootVectorNode {
    */
   public constructor( componentVector: ComponentVector,
                       graph: Graph,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: ComponentVectorNodeOptions ) {
 
@@ -129,13 +129,13 @@ export default class ComponentVectorNode extends RootVectorNode {
    *  - Determines visibility (i.e. components shouldn't be visible on INVISIBLE)
    */
   protected updateComponentVector( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
-                                   componentStyle: ComponentVectorStyles, isParentActive: boolean ): void {
+                                   componentStyle: ComponentVectorStyle, isParentActive: boolean ): void {
 
     // Component vectors are visible when it isn't INVISIBLE, and it is on the graph.
     this.visible = componentVector.isOnGraphProperty.value &&
-                   componentStyle !== ComponentVectorStyles.INVISIBLE;
+                   componentStyle !== ComponentVectorStyle.INVISIBLE;
 
-    if ( componentStyle === ComponentVectorStyles.PROJECTION ) {
+    if ( componentStyle === ComponentVectorStyle.PROJECTION ) {
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
     }
     else {
@@ -146,7 +146,7 @@ export default class ComponentVectorNode extends RootVectorNode {
     }
 
     // Leader lines are only visible when component vectors are projected onto axes
-    this.leaderLinesPath.visible = ( componentStyle === ComponentVectorStyles.PROJECTION );
+    this.leaderLinesPath.visible = ( componentStyle === ComponentVectorStyle.PROJECTION );
 
     // Update leader lines only if they are visible (with PROJECTION style)
     if ( this.leaderLinesPath.visible ) {
@@ -200,7 +200,7 @@ export default class ComponentVectorNode extends RootVectorNode {
     const componentMidPoint = componentVector.midPoint;
     const parentMidPoint = componentVector.parentMidPoint;
 
-    if ( componentVector.componentType === ComponentVectorTypes.X_COMPONENT ) {
+    if ( componentVector.componentType === ComponentVectorType.X_COMPONENT ) {
 
       // Get the label height. Negative since the y axis is inverted in the view
       const labelHeight = modelViewTransform.viewToModelDeltaY( -this.labelNode.height );
@@ -213,7 +213,7 @@ export default class ComponentVectorNode extends RootVectorNode {
         labelOffset.setXY( 0, COMPONENT_LABEL_OFFSET + labelHeight / 2 );
       }
     }
-    else if ( componentVector.componentType === ComponentVectorTypes.Y_COMPONENT ) {
+    else if ( componentVector.componentType === ComponentVectorType.Y_COMPONENT ) {
 
       const labelWidth = modelViewTransform.viewToModelDeltaX( this.labelNode.width );
 

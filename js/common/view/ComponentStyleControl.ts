@@ -16,7 +16,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentStyleRadioButtonGroup from './ComponentStyleRadioButtonGroup.js';
 
@@ -24,7 +24,7 @@ const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
 
 export default class ComponentStyleControl extends VBox {
 
-  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyles> ) {
+  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle> ) {
 
     const children: Node[] = [];
 

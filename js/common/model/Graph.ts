@@ -21,8 +21,8 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import CoordinateSnapModes from './CoordinateSnapModes.js';
-import GraphOrientations from './GraphOrientations.js';
+import CoordinateSnapMode from './CoordinateSnapMode.js';
+import GraphOrientation from './GraphOrientation.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
 
@@ -30,7 +30,7 @@ import VectorSet from './VectorSet.js';
 const MODEL_TO_VIEW_SCALE = 14.5;
 
 type SelfOptions = {
-  orientation?: GraphOrientations;
+  orientation?: GraphOrientation;
   bottomLeft?: Vector2; // bottom left corner of the graph, in view coordinates
 };
 
@@ -42,10 +42,10 @@ export default class Graph {
   public vectorSets: VectorSet[];
 
   // orientation of the graph
-  public readonly orientation: GraphOrientations;
+  public readonly orientation: GraphOrientation;
 
   // coordinate snap mode for the graph, Cartesian or polar
-  public readonly coordinateSnapMode: CoordinateSnapModes;
+  public readonly coordinateSnapMode: CoordinateSnapMode;
 
   // Bounds of the graph, in model coordinates. Use graphModelBounds() to read this.
   private readonly graphModelBoundsProperty: Property<Bounds2>;
@@ -72,12 +72,12 @@ export default class Graph {
    * @param coordinateSnapMode - the coordinate snap mode of the graph. A graph is either strictly polar or Cartesian.
    * @param [providedOptions]
    */
-  protected constructor( initialGraphBounds: Bounds2, coordinateSnapMode: CoordinateSnapModes, providedOptions?: GraphOptions ) {
+  protected constructor( initialGraphBounds: Bounds2, coordinateSnapMode: CoordinateSnapMode, providedOptions?: GraphOptions ) {
 
     const options = optionize<GraphOptions, SelfOptions>()( {
 
       // SelfOptions
-      orientation: GraphOrientations.TWO_DIMENSIONAL,
+      orientation: GraphOrientation.TWO_DIMENSIONAL,
       bottomLeft: Graph.DEFAULT_BOTTOM_LEFT
     }, providedOptions );
 

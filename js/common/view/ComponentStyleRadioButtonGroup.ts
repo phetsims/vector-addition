@@ -14,18 +14,18 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButton, { RectangularRadioButtonOptions } from '../../../../sun/js/buttons/RectangularRadioButton.js';
 import vectorAddition from '../../vectorAddition.js';
-import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import GridBox from './GridBox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
 export default class ComponentStyleRadioButtonGroup extends Node {
 
-  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyles> ) {
+  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle> ) {
 
     // Create the radio buttons. Note that order of enum values determines order of buttons.
-    const buttons: RectangularRadioButton<ComponentVectorStyles>[] = [];
-    ComponentVectorStyles.enumeration.values.forEach( componentStyle => {
+    const buttons: RectangularRadioButton<ComponentVectorStyle>[] = [];
+    ComponentVectorStyle.enumeration.values.forEach( componentStyle => {
       buttons.push( new RectangularRadioButton( componentStyleProperty, componentStyle,
         combineOptions<RectangularRadioButtonOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS.radioButtonOptions, {
           content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )

@@ -8,7 +8,7 @@
 
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GraphOrientations from '../../common/model/GraphOrientations.js';
+import GraphOrientation from '../../common/model/GraphOrientation.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import SceneNode from '../../common/view/SceneNode.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
@@ -56,7 +56,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty );
 
       // Vector symbols depend on graph orientation
-      const vectorSymbolProperties = ( graph.orientation === GraphOrientations.HORIZONTAL ) ?
+      const vectorSymbolProperties = ( graph.orientation === GraphOrientation.HORIZONTAL ) ?
                             VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
                             VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 

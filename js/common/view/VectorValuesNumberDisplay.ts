@@ -24,19 +24,19 @@ import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorQuantities from './VectorQuantities.js';
+import VectorQuantity from './VectorQuantity.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 
 export default class VectorValuesNumberDisplay extends NumberDisplay {
 
-  private readonly vectorQuantity: VectorQuantities;
+  private readonly vectorQuantity: VectorQuantity;
 
   /**
    * @param graph - the graph that contains the vectors to display
    * @param vectorQuantity - the vector quantity to display
    */
-  public constructor( graph: Graph, vectorQuantity: VectorQuantities ) {
+  public constructor( graph: Graph, vectorQuantity: VectorQuantity ) {
 
     const options: NumberDisplayOptions = {
       isDisposable: false
@@ -53,16 +53,16 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
 
     let numberDisplayRange: Range;
 
-    if ( vectorQuantity === VectorQuantities.ANGLE ) {
+    if ( vectorQuantity === VectorQuantity.ANGLE ) {
       numberDisplayRange = VectorAdditionConstants.ANGLE_RANGE;
     }
-    else if ( vectorQuantity === VectorQuantities.MAGNITUDE ) {
+    else if ( vectorQuantity === VectorQuantity.MAGNITUDE ) {
       numberDisplayRange = new Range( 0, maxMagnitude );
     }
-    else if ( vectorQuantity === VectorQuantities.X_COMPONENT ) {
+    else if ( vectorQuantity === VectorQuantity.X_COMPONENT ) {
       numberDisplayRange = new Range( -graphWidth, graphWidth );
     }
-    else { // vectorQuantity === VectorQuantities.Y_COMPONENT
+    else { // vectorQuantity === VectorQuantity.Y_COMPONENT
       numberDisplayRange = new Range( -graphHeight, graphHeight );
     }
 
@@ -78,7 +78,7 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
     // Round to the specified number of decimal places, and add a degree symbol for angle.
     options.numberFormatter = ( value: number ) => {
       const valueString = toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
-      return ( vectorQuantity === VectorQuantities.ANGLE ) ? `${valueString}${MathSymbols.DEGREES}` : valueString;
+      return ( vectorQuantity === VectorQuantity.ANGLE ) ? `${valueString}${MathSymbols.DEGREES}` : valueString;
     };
 
     super( numberDisplayProperty, numberDisplayRange, options );
@@ -116,16 +116,16 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
       return null;
     }
 
-    if ( this.vectorQuantity === VectorQuantities.MAGNITUDE ) {
+    if ( this.vectorQuantity === VectorQuantity.MAGNITUDE ) {
       return activeVector.magnitude;
     }
-    else if ( this.vectorQuantity === VectorQuantities.ANGLE ) {
+    else if ( this.vectorQuantity === VectorQuantity.ANGLE ) {
       return activeVector.angleDegrees;
     }
-    else if ( this.vectorQuantity === VectorQuantities.X_COMPONENT ) {
+    else if ( this.vectorQuantity === VectorQuantity.X_COMPONENT ) {
       return activeVector.xComponent;
     }
-    else if ( this.vectorQuantity === VectorQuantities.Y_COMPONENT ) {
+    else if ( this.vectorQuantity === VectorQuantity.Y_COMPONENT ) {
       return activeVector.yComponent;
     }
     throw new Error( 'invalid case for getNumberDisplayValue' );

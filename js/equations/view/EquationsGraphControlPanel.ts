@@ -16,8 +16,8 @@ import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentStyleControl from '../../common/view/ComponentStyleControl.js';
@@ -37,7 +37,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
 
   public constructor( cartesianVectorSet: EquationsVectorSet,
                       polarVectorSet: EquationsVectorSet,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       viewProperties: VectorAdditionViewProperties,
                       providedOptions?: EquationsGraphControlPanelOptions ) {
 
@@ -66,8 +66,8 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     // Show the vector checkbox ('c' or 'f') that matches the selected scene.
     // unlink is unnecessary, exists for the lifetime of the sim.
     viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-      cartesianVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
-      polarVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
+      cartesianVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN );
+      polarVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapMode.POLAR );
     } );
 
     // To make all checkboxes the same height

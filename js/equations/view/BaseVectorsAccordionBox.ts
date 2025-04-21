@@ -30,7 +30,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
 import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
@@ -54,7 +54,7 @@ type BaseVectorsAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
 export default class BaseVectorsAccordionBox extends AccordionBox {
 
   public constructor( baseVectorsVisibleProperty: Property<boolean>,
-                      coordinateSnapMode: CoordinateSnapModes,
+                      coordinateSnapMode: CoordinateSnapMode,
                       vectorSet: EquationsVectorSet,
                       providedOptions: BaseVectorsAccordionBoxOptions ) {
 
@@ -90,7 +90,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       let leftNumberPickerAndLabel;
       let rightNumberPickerAndLabel;
 
-      if ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+      if ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) {
 
         const cartesianBaseVector = baseVector as CartesianBaseVector;
         assert && assert( cartesianBaseVector instanceof CartesianBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions

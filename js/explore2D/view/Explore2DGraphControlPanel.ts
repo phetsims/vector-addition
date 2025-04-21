@@ -16,8 +16,8 @@ import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
@@ -37,7 +37,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
 
   public constructor( cartesianVectorSet: VectorSet,
                       polarVectorSet: VectorSet,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       viewProperties: VectorAdditionViewProperties,
                       providedOptions?: Explore2DGraphControlPanelOptions ) {
 
@@ -52,8 +52,8 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
     // Show the Sum checkbox that matches the selected scene.
     // unlink is unnecessary, exists for the lifetime of the sim.
     viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-      polarSumCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.POLAR );
-      cartesianSumCheckbox.visible = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN );
+      polarSumCheckbox.visible = ( coordinateSnapMode === CoordinateSnapMode.POLAR );
+      cartesianSumCheckbox.visible = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN );
     } );
 
     // Values

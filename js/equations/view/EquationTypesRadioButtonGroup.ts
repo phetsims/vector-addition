@@ -3,7 +3,7 @@
 /**
  * View for the radio button group near the top of the scene that allows the user to select a equation type.
  *
- * See EquationTypes.js
+ * See EquationType.js
  *
  * 'Is a' relationship with RectangularRadioButtonGroup but adds:
  *    - Radio button for 'ADDITION' => 'a' + 'b' = 'c'
@@ -28,15 +28,15 @@ import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, Rectangul
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationTypes from '../model/EquationTypes.js';
+import EquationType from '../model/EquationType.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type EquationTypesRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions;
 
-export default class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup<EquationTypes> {
+export default class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup<EquationType> {
 
-  public constructor( equationTypeProperty: EnumerationProperty<EquationTypes>,
+  public constructor( equationTypeProperty: EnumerationProperty<EquationType>,
                       vectorSymbolProperties: TReadOnlyProperty<string>[], // symbols on the buttons
                       alignGroup: AlignGroup,
                       providedOptions?: EquationTypesRadioButtonGroupOptions ) {
@@ -49,8 +49,8 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
       }, providedOptions );
 
     // Create the description of the buttons
-    const items: RectangularRadioButtonGroupItem<EquationTypes>[] = [];
-    EquationTypes.enumeration.values.forEach( equationType => {
+    const items: RectangularRadioButtonGroupItem<EquationType>[] = [];
+    EquationType.enumeration.values.forEach( equationType => {
       items.push( {
         value: equationType,
         createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbolProperties ), {

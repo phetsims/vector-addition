@@ -16,7 +16,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector from '../../common/model/Vector.js';
@@ -68,7 +68,7 @@ export default class EquationsVector extends Vector {
     this.setTipWithInvariants( this.tip );
 
     // Instantiate a base vector based on snap mode.
-    if ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) {
+    if ( graph.coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition,
         this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbolProperty );
     }

@@ -33,7 +33,7 @@ import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListen
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
-import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
@@ -64,7 +64,7 @@ export default class SceneNode extends Node {
 
   public constructor( graph: Graph,
                       viewProperties: VectorAdditionViewProperties,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       providedOptions?: SceneNodeOptions ) {
 
     const options = optionize<SceneNodeOptions, SelfOptions, NodeOptions>()( {

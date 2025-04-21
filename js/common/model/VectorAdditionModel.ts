@@ -11,15 +11,15 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TModel from '../../../../joist/js/TModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
-import ComponentVectorStyles from './ComponentVectorStyles.js';
+import ComponentVectorStyle from './ComponentVectorStyle.js';
 
 export default class VectorAdditionModel implements TModel {
 
   // the representation (style) used to display component vectors
-  public readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyles>;
+  public readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyle>;
 
   protected constructor( tandem: Tandem ) {
-    this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyles.INVISIBLE, {
+    this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyle.INVISIBLE, {
       tandem: tandem.createTandem( 'componentStyleProperty' )
     } );
   }

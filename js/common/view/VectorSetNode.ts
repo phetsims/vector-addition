@@ -19,7 +19,7 @@ import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListen
 import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
-import ComponentVectorStyles from '../model/ComponentVectorStyles.js';
+import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
@@ -38,13 +38,13 @@ export default class VectorSetNode extends Node {
   private readonly graph: Graph;
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
   private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
-  private readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyles>;
+  private readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyle>;
 
   public constructor( graph: Graph,
                       vectorSet: VectorSet,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles> ) {
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle> ) {
 
     const sumVector = vectorSet.sumVector!;
     assert && assert( sumVector !== null );

@@ -20,7 +20,7 @@ import ToggleBox, { ToggleBoxOptions } from '../../common/view/ToggleBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
-import EquationTypes from '../model/EquationTypes.js';
+import EquationType from '../model/EquationType.js';
 import EquationTypeNode from './EquationTypeNode.js';
 import EquationTypesRadioButtonGroup from './EquationTypesRadioButtonGroup.js';
 
@@ -40,7 +40,7 @@ export default class EquationToggleBox extends ToggleBox {
    * @param equationsAlignGroup - used to make all interactive equations the same size
    * @param [providedOptions]
    */
-  public constructor( vectorSet: EquationsVectorSet, equationTypeProperty: EnumerationProperty<EquationTypes>,
+  public constructor( vectorSet: EquationsVectorSet, equationTypeProperty: EnumerationProperty<EquationType>,
                       equationButtonsAlignGroup: AlignGroup, equationsAlignGroup: AlignGroup,
                       providedOptions?: EquationToggleBoxOptions ) {
 
@@ -62,7 +62,7 @@ export default class EquationToggleBox extends ToggleBox {
 
     // Create an equation of each type, only one of which will be visible at a time.
     const equationsParent = new Node();
-    EquationTypes.enumeration.values.forEach( equationType => {
+    EquationType.enumeration.values.forEach( equationType => {
 
       const equationTypeNode = new EquationTypeNode( vectorSet, equationType );
       equationsParent.addChild( new AlignBox( equationTypeNode, {

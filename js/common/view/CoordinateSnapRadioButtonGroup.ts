@@ -14,7 +14,7 @@ import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import vectorAddition from '../../vectorAddition.js';
-import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
+import CoordinateSnapMode from '../model/CoordinateSnapMode.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
@@ -23,9 +23,9 @@ type SelfOptions = EmptySelfOptions;
 
 type CoordinateSnapRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions;
 
-export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup<CoordinateSnapModes> {
+export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup<CoordinateSnapMode> {
 
-  public constructor( coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapModes>,
+  public constructor( coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapMode>,
                       cartesianVectorColorPalette: VectorColorPalette,
                       polarVectorColorPalette: VectorColorPalette,
                       providedOptions?: CoordinateSnapRadioButtonGroupOptions ) {
@@ -36,13 +36,13 @@ export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButt
       }, providedOptions );
 
     // Create the description of the buttons
-    const items: RectangularRadioButtonGroupItem<CoordinateSnapModes>[] = [
+    const items: RectangularRadioButtonGroupItem<CoordinateSnapMode>[] = [
       {
-        value: CoordinateSnapModes.CARTESIAN,
+        value: CoordinateSnapMode.CARTESIAN,
         createNode: () => VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette )
       },
       {
-        value: CoordinateSnapModes.POLAR,
+        value: CoordinateSnapMode.POLAR,
         createNode: () => VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette )
       }
     ];

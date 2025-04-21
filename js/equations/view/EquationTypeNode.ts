@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * EquationTypeNode displays an interactive equation for one of the EquationTypes enumeration values.
+ * EquationTypeNode displays an interactive equation for one of the EquationType enumeration values.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,7 +16,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
-import EquationTypes from '../model/EquationTypes.js';
+import EquationType from '../model/EquationType.js';
 
 // constants
 const TEXT_OPTIONS = {
@@ -27,7 +27,7 @@ const textSpacing = 13.5; // spacing between text of the equation
 
 export default class EquationTypeNode extends Node {
 
-  public constructor( vectorSet: EquationsVectorSet, equationType: EquationTypes ) {
+  public constructor( vectorSet: EquationsVectorSet, equationType: EquationType ) {
 
     // Create all pieces of the equation
     const equationChildren = [];
@@ -44,7 +44,7 @@ export default class EquationTypeNode extends Node {
     for ( let i = 0; i < vectorSet.vectors.length; i++ ) {
 
       if ( i > 0 ) {
-        const signText = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
+        const signText = ( equationType === EquationType.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
         equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
       }
 
@@ -65,8 +65,8 @@ export default class EquationTypeNode extends Node {
       maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
     }
 
-    if ( equationType === EquationTypes.NEGATION ) {
-      const signText = ( equationType === EquationTypes.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
+    if ( equationType === EquationType.NEGATION ) {
+      const signText = ( equationType === EquationType.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
       equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
 
       const sumVector = vectorSet.sumVector!;
@@ -83,7 +83,7 @@ export default class EquationTypeNode extends Node {
     equationChildren.push( new Text( MathSymbols.EQUAL_TO, TEXT_OPTIONS ) );
 
     // Right size
-    if ( equationType === EquationTypes.NEGATION ) {
+    if ( equationType === EquationType.NEGATION ) {
       equationChildren.push( new Text( '0', TEXT_OPTIONS ) );
     }
     else {

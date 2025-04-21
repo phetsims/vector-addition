@@ -8,7 +8,7 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import SceneNode from '../../common/view/SceneNode.js';
 import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
@@ -32,7 +32,7 @@ export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
     // Create the initial vector components, the same for all vectors in a set.
     // See https://github.com/phetsims/vector-addition/issues/227
-    const initialVectorComponents = ( graph.coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
+    const initialVectorComponents = ( graph.coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) ?
                                     new Vector2( 8, 6 ) :
                                     Vector2.createPolar( 8, toRadians( 45 ) );
 

@@ -10,22 +10,22 @@ import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import vectorAddition from '../../vectorAddition.js';
 
-export default class ComponentVectorStyles extends EnumerationValue {
+export default class ComponentVectorStyle extends EnumerationValue {
 
   // Component vectors are not displayed at all
-  public static readonly INVISIBLE = new ComponentVectorStyles();
+  public static readonly INVISIBLE = new ComponentVectorStyle();
 
   // Component vectors are displayed tip to tail, such that the component vectors
   // align to create a right triangle with the original vector
-  public static readonly TRIANGLE = new ComponentVectorStyles();
+  public static readonly TRIANGLE = new ComponentVectorStyle();
 
   // Component vectors' initial points and the original vector's initial points coincide
-  public static readonly PARALLELOGRAM = new ComponentVectorStyles();
+  public static readonly PARALLELOGRAM = new ComponentVectorStyle();
 
   // Component vectors are displayed as projections on the x and y axes
-  public static readonly PROJECTION = new ComponentVectorStyles();
+  public static readonly PROJECTION = new ComponentVectorStyle();
 
-  public static readonly enumeration = new Enumeration( ComponentVectorStyles );
+  public static readonly enumeration = new Enumeration( ComponentVectorStyle );
 }
 
-vectorAddition.register( 'ComponentVectorStyles', ComponentVectorStyles );
+vectorAddition.register( 'ComponentVectorStyle', ComponentVectorStyle );

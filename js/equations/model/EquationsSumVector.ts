@@ -20,14 +20,14 @@ import SumVector from '../../common/model/SumVector.js';
 import Vector from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationTypes from './EquationTypes.js';
+import EquationType from './EquationType.js';
 
 // constants
 const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
 
 export default class EquationsSumVector extends SumVector {
 
-  private readonly equationTypeProperty: EnumerationProperty<EquationTypes>;
+  private readonly equationTypeProperty: EnumerationProperty<EquationType>;
 
   /**
    * @param graph - graph the sum vector belongs to
@@ -35,7 +35,7 @@ export default class EquationsSumVector extends SumVector {
    * @param equationTypeProperty
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
-  public constructor( graph: Graph, vectorSet: VectorSet, equationTypeProperty: EnumerationProperty<EquationTypes>,
+  public constructor( graph: Graph, vectorSet: VectorSet, equationTypeProperty: EnumerationProperty<EquationType>,
                       symbolProperty: TReadOnlyProperty<string> ) {
 
     super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbolProperty );
@@ -58,7 +58,7 @@ export default class EquationsSumVector extends SumVector {
     const equationType = this.equationTypeProperty.value;
 
     // Denoted by 'a' + 'b' = 'c'
-    if ( equationType === EquationTypes.ADDITION ) {
+    if ( equationType === EquationType.ADDITION ) {
       const sum = new Vector2( 0, 0 );
 
       vectors.forEach( vector => {
@@ -67,7 +67,7 @@ export default class EquationsSumVector extends SumVector {
 
       this.vectorComponents = sum;
     }
-    else if ( equationType === EquationTypes.SUBTRACTION ) {
+    else if ( equationType === EquationType.SUBTRACTION ) {
       const calculatedComponents = vectors.get( 0 ).vectorComponents.copy();
 
       // Subtract from the first vector
@@ -77,7 +77,7 @@ export default class EquationsSumVector extends SumVector {
 
       this.vectorComponents = calculatedComponents;
     }
-    else if ( equationType === EquationTypes.NEGATION ) {
+    else if ( equationType === EquationType.NEGATION ) {
 
       // Same as addition but negated  : a + b = -c or a + b + c = 0
       const sum = new Vector2( 0, 0 );

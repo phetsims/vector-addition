@@ -9,7 +9,7 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
@@ -40,13 +40,13 @@ export default class EquationsModel extends VectorAdditionModel {
     this.cartesianVectorColorPalette = VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE;
     this.polarVectorColorPalette = VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE;
 
-    this.cartesianGraph = new EquationsGraph( CoordinateSnapModes.CARTESIAN,
+    this.cartesianGraph = new EquationsGraph( CoordinateSnapMode.CARTESIAN,
       this.componentStyleProperty,
       this.sumVisibleProperty,
       this.cartesianVectorColorPalette
     );
 
-    this.polarGraph = new EquationsGraph( CoordinateSnapModes.POLAR,
+    this.polarGraph = new EquationsGraph( CoordinateSnapMode.POLAR,
       this.componentStyleProperty,
       this.sumVisibleProperty,
       this.polarVectorColorPalette

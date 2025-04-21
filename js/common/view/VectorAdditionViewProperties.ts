@@ -12,7 +12,7 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
-import CoordinateSnapModes from '../model/CoordinateSnapModes.js';
+import CoordinateSnapMode from '../model/CoordinateSnapMode.js';
 
 export default class VectorAdditionViewProperties {
 
@@ -26,7 +26,7 @@ export default class VectorAdditionViewProperties {
   public readonly gridVisibleProperty: Property<boolean>;
 
   // controls the snapping mode for the vectors
-  public readonly coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapModes>;
+  public readonly coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapMode>;
 
   // whether the VectorValuesToggleBox is expanded
   public readonly vectorValuesExpandedProperty: Property<boolean>;
@@ -45,7 +45,7 @@ export default class VectorAdditionViewProperties {
       tandem: tandem.createTandem( 'gridVisibleProperty' )
     } );
 
-    this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapModes.CARTESIAN, {
+    this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapMode.CARTESIAN, {
       tandem: tandem.createTandem( 'coordinateSnapModeProperty' )
     } );
 

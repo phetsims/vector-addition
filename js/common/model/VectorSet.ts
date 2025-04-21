@@ -21,7 +21,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import ComponentVectorStyles from './ComponentVectorStyles.js';
+import ComponentVectorStyle from './ComponentVectorStyle.js';
 import Graph from './Graph.js';
 import SumVector from './SumVector.js';
 import Vector from './Vector.js';
@@ -56,7 +56,7 @@ export default class VectorSet {
 
   public readonly vectorColorPalette: VectorColorPalette;
   public readonly sumVisibleProperty: Property<boolean>;
-  public readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyles>;
+  public readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyle>;
 
   public readonly projectionXOffsetStart: number;
   public readonly projectionYOffsetStart: number;
@@ -72,7 +72,7 @@ export default class VectorSet {
    * @param vectorColorPalette - color palette for vectors in this set
    * @param [providedOptions]
    */
-  public constructor( graph: Graph, componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+  public constructor( graph: Graph, componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette,
                       providedOptions?: VectorSetOptions ) {
 

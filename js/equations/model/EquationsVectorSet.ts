@@ -13,8 +13,8 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -76,15 +76,15 @@ export default class EquationsVectorSet extends VectorSet {
    * @param coordinateSnapMode - each vector set can only represent one snap mode
    */
   public constructor( graph: EquationsGraph,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
-                      coordinateSnapMode: CoordinateSnapModes ) {
+                      coordinateSnapMode: CoordinateSnapMode ) {
 
     const options = {
 
       // EquationsVectorSet will initialize its own sum vector, because the sum vector in this screen is different.
-      // It's not truly a sum, and its computation depends on which equation type is selected (see EquationTypes).
+      // It's not truly a sum, and its computation depends on which equation type is selected (see EquationType).
       initializeSum: false,
 
       // offsets for sum component vectors in PROJECTION style
@@ -94,7 +94,7 @@ export default class EquationsVectorSet extends VectorSet {
 
     super( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
-    this.symbolProperties = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
+    this.symbolProperties = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) ?
                             VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
                             VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 
@@ -102,7 +102,7 @@ export default class EquationsVectorSet extends VectorSet {
     // Create the vectors, one less than symbols. For example, if symbols were [ 'a', 'b', 'c' ],
     // 'a' and 'c' would be vector symbols and 'c' would be the sum vector.
 
-    const vectorDescriptions = ( coordinateSnapMode === CoordinateSnapModes.CARTESIAN ) ?
+    const vectorDescriptions = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) ?
                                CARTESIAN_VECTOR_DESCRIPTIONS :
                                POLAR_VECTOR_DESCRIPTIONS;
     assert && assert( vectorDescriptions.length === this.symbolProperties.length - 1 );

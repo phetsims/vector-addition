@@ -10,8 +10,8 @@ import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import Graph from '../../common/model/Graph.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
@@ -34,8 +34,8 @@ export default class LabGraph extends Graph {
    * @param vectorColorPalette1 - color palette for the first VectorSet
    * @param vectorColorPalette2 - color palette for the second VectorSet
    */
-  public constructor( coordinateSnapMode: CoordinateSnapModes,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+  public constructor( coordinateSnapMode: CoordinateSnapMode,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
                       vectorColorPalette1: VectorColorPalette,

@@ -23,8 +23,8 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import ComponentVectorStyles from './ComponentVectorStyles.js';
-import ComponentVectorTypes from './ComponentVectorTypes.js';
+import ComponentVectorStyle from './ComponentVectorStyle.js';
+import ComponentVectorType from './ComponentVectorType.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import Vector from './Vector.js';
 
@@ -37,7 +37,7 @@ export default class ComponentVector extends RootVector {
   public readonly parentVector: Vector;
 
   // type of component vector (x or y)
-  public readonly componentType: ComponentVectorTypes;
+  public readonly componentType: ComponentVectorType;
 
   // Matches the parent. When the parent is on the graph, the component is also on the graph (and vise versa).
   public readonly isOnGraphProperty: Property<boolean>;
@@ -45,7 +45,7 @@ export default class ComponentVector extends RootVector {
   // Determines if the parent vector is active.
   public readonly isParentVectorActiveProperty: TReadOnlyProperty<boolean>;
 
-  private readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyles>;
+  private readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyle>;
 
   // Offsets from axes in PROJECTION style. These are managed by the VectorSet and set via setProjectionOffsets.
   // See https://github.com/phetsims/vector-addition/issues/225
@@ -58,10 +58,10 @@ export default class ComponentVector extends RootVector {
    * @param parentVector - the vector that this component vector is associated with
    * @param componentStyleProperty
    * @param activeVectorProperty - which vector is active (selected)
-   * @param componentType - type of component vector (x or y), see ComponentVectorTypes
+   * @param componentType - type of component vector (x or y), see ComponentVectorType
    */
-  public constructor( parentVector: Vector, componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
-                      activeVectorProperty: Property<Vector | null>, componentType: ComponentVectorTypes ) {
+  public constructor( parentVector: Vector, componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      activeVectorProperty: Property<Vector | null>, componentType: ComponentVectorType ) {
 
     super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
 
@@ -120,14 +120,14 @@ export default class ComponentVector extends RootVector {
     const parentTail = this.parentVector.tailPositionProperty.value;
     const parentTip = this.parentVector.tipPositionProperty.value;
 
-    if ( this.componentType === ComponentVectorTypes.X_COMPONENT ) {
+    if ( this.componentType === ComponentVectorType.X_COMPONENT ) {
 
       //----------------------------------------------------------------------------------------
       // Update the x component vector
       //----------------------------------------------------------------------------------------
 
       // Triangle and Parallelogram results in the same x component vector
-      if ( componentStyle === ComponentVectorStyles.TRIANGLE || componentStyle === ComponentVectorStyles.PARALLELOGRAM ) {
+      if ( componentStyle === ComponentVectorStyle.TRIANGLE || componentStyle === ComponentVectorStyle.PARALLELOGRAM ) {
 
         // Shared tail position as parent
         this.tail = parentTail;
@@ -135,7 +135,7 @@ export default class ComponentVector extends RootVector {
         // Tip is at the parent's tip x and at the parent's tail y.
         this.setTipXY( parentTip.x, parentTail.y );
       }
-      else if ( componentStyle === ComponentVectorStyles.PROJECTION ) {
+      else if ( componentStyle === ComponentVectorStyle.PROJECTION ) {
 
         // From parent tailX to parent tipX. However, its y value is 0 since it is on the x-axis
         this.setTailXY( parentTail.x, this.projectionYOffset );
@@ -143,13 +143,13 @@ export default class ComponentVector extends RootVector {
       }
 
     }
-    else if ( this.componentType === ComponentVectorTypes.Y_COMPONENT ) {
+    else if ( this.componentType === ComponentVectorType.Y_COMPONENT ) {
 
       //----------------------------------------------------------------------------------------
       // Update the y component vector
       //----------------------------------------------------------------------------------------
 
-      if ( componentStyle === ComponentVectorStyles.TRIANGLE ) {
+      if ( componentStyle === ComponentVectorStyle.TRIANGLE ) {
 
         // Shared tip position as the parent
         this.tip = parentTip;
@@ -157,7 +157,7 @@ export default class ComponentVector extends RootVector {
         // Tail is at the parent's tip x and at the parent's tail y.
         this.setTailXY( parentTip.x, parentTail.y );
       }
-      else if ( componentStyle === ComponentVectorStyles.PARALLELOGRAM ) {
+      else if ( componentStyle === ComponentVectorStyle.PARALLELOGRAM ) {
 
         // Shared tail position as parent
         this.tail = parentTail;
@@ -165,7 +165,7 @@ export default class ComponentVector extends RootVector {
         // Tip is at the parents tailX and at the parents tipY
         this.setTipXY( parentTail.x, parentTip.y );
       }
-      else if ( componentStyle === ComponentVectorStyles.PROJECTION ) {
+      else if ( componentStyle === ComponentVectorStyle.PROJECTION ) {
 
         // Same tailY, however its x value is 0 since it is on the y-axis
         this.setTailXY( this.projectionXOffset, parentTail.y );
@@ -180,7 +180,7 @@ export default class ComponentVector extends RootVector {
   public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // Get the component vector's magnitude (a scalar, possibly negative)
-    let magnitude: number | null = ( this.componentType === ComponentVectorTypes.X_COMPONENT ) ?
+    let magnitude: number | null = ( this.componentType === ComponentVectorType.X_COMPONENT ) ?
                                    this.vectorComponents.x :
                                    this.vectorComponents.y;
 

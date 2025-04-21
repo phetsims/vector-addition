@@ -1,7 +1,7 @@
 // Copyright 2019-2024, University of Colorado Boulder
 
 /**
- * PolarBaseVector is the subclass of BaseVector used with CoordinateSnapModes.POLAR.
+ * PolarBaseVector is the subclass of BaseVector used with CoordinateSnapMode.POLAR.
  * It creates NumberProperties for the angle and magnitude that are controlled by NumberPickers, and
  * adjusts its x and y components based on the values of those Properties.
  *
@@ -15,7 +15,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
-import CoordinateSnapModes from './CoordinateSnapModes.js';
+import CoordinateSnapMode from './CoordinateSnapMode.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
@@ -36,7 +36,7 @@ export default class PolarBaseVector extends BaseVector {
   public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
                       vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
-    assert && assert( graph.coordinateSnapMode === CoordinateSnapModes.POLAR, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
+    assert && assert( graph.coordinateSnapMode === CoordinateSnapMode.POLAR, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty );
 

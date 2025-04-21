@@ -14,8 +14,8 @@
 
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import ComponentVectorStyles from '../../common/model/ComponentVectorStyles.js';
-import CoordinateSnapModes from '../../common/model/CoordinateSnapModes.js';
+import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
+import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import Graph from '../../common/model/Graph.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
@@ -27,8 +27,8 @@ export default class Explore2DGraph extends Graph {
   // Graphs on 'Explore 2D' have exactly one vector set
   public readonly vectorSet: VectorSet;
 
-  public constructor( coordinateSnapMode: CoordinateSnapModes,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyles>,
+  public constructor( coordinateSnapMode: CoordinateSnapMode,
+                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette ) {
 
