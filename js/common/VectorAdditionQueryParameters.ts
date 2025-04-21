@@ -19,7 +19,7 @@ const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
     public: true,
     type: 'string',
     validValues: AngleConventionValues,
-    defaultValue: 'unsigned'
+    defaultValue: 'signed'
   },
 
   /**

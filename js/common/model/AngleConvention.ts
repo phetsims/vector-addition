@@ -7,7 +7,7 @@
  */
 
 export const AngleConventionValues = [
-  'unsigned',  // (0,360]
-  'signed' // [-180,180)
+  'signed', // [-180,180)
+  'unsigned'  // (0,360]
 ] as const;
 export type AngleConvention = ( typeof AngleConventionValues )[number];

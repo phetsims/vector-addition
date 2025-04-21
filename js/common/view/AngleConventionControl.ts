@@ -21,7 +21,7 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { AngleConvention } from '../model/AngleConvention.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
 
-const RADIO_BUTTON_FONT = new PhetFont( 20 );
+const RADIO_BUTTON_FONT = new PhetFont( 16 );
 
 export default class AngleConventionControl extends PreferencesControl {
 
@@ -54,24 +54,24 @@ class AngleConventionRadioButtonGroup extends AquaRadioButtonGroup<AngleConventi
 
     const items: AquaRadioButtonGroupItem<AngleConvention>[] = [
       {
-        value: 'unsigned',
-        createNode: () => new Text( '(0,360]', {
-          font: RADIO_BUTTON_FONT
-        } ),
-        tandemName: 'unsignedRadioButton'
-      },
-      {
         value: 'signed',
-        createNode: () => new Text( '[-180,180)', {
+        createNode: () => new Text( 'signed: [-180,180)', {
           font: RADIO_BUTTON_FONT
         } ),
         tandemName: 'signedRadioButton'
+      },
+      {
+        value: 'unsigned',
+        createNode: () => new Text( 'unsigned: (0,360]', {
+          font: RADIO_BUTTON_FONT
+        } ),
+        tandemName: 'unsignedRadioButton'
       }
     ];
 
     super( angleConventionProperty, items, {
-      orientation: 'vertical',
-      spacing: 20,
+      orientation: 'horizontal',
+      spacing: 25,
       radioButtonOptions: {
         phetioVisiblePropertyInstrumented: false
       },
