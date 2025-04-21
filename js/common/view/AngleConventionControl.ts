@@ -54,18 +54,18 @@ class AngleConventionRadioButtonGroup extends AquaRadioButtonGroup<AngleConventi
 
     const items: AquaRadioButtonGroupItem<AngleConvention>[] = [
       {
-        value: 'fullRotation',
+        value: 'unsigned',
         createNode: () => new Text( '(0,360]', {
           font: RADIO_BUTTON_FONT
         } ),
-        tandemName: 'fullRotationRadioButton'
+        tandemName: 'unsignedRadioButton'
       },
       {
-        value: 'principalAngle',
+        value: 'signed',
         createNode: () => new Text( '[-180,180)', {
           font: RADIO_BUTTON_FONT
         } ),
-        tandemName: 'principalAngleRadioButton'
+        tandemName: 'signedRadioButton'
       }
     ];
 

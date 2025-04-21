@@ -7,7 +7,7 @@
  */
 
 export const AngleConventionValues = [
-  'fullRotation',  // (0,360]
-  'principalAngle' // [-180,180)
+  'unsigned',  // (0,360]
+  'signed' // [-180,180)
 ] as const;
 export type AngleConvention = ( typeof AngleConventionValues )[number];
