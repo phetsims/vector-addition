@@ -19,12 +19,14 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
+import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorQuantities from './VectorQuantities.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 
 export default class VectorValuesNumberDisplay extends NumberDisplay {
 
@@ -35,6 +37,10 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
    * @param vectorQuantity - the vector quantity to display
    */
   public constructor( graph: Graph, vectorQuantity: VectorQuantities ) {
+
+    const options: NumberDisplayOptions = {
+      isDisposable: false
+    };
 
     //----------------------------------------------------------------------------------------
     // Calculate the range
@@ -69,10 +75,13 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
       isValidValue: value => ( typeof value === 'number' || value === null )
     } );
 
-    super( numberDisplayProperty, numberDisplayRange, {
-      decimalPlaces: VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES,
-      isDisposable: false
-    } );
+    // Round to the specified number of decimal places, and add a degree symbol for angle.
+    options.numberFormatter = ( value: number ) => {
+      const valueString = toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+      return ( vectorQuantity === VectorQuantities.ANGLE ) ? `${valueString}${MathSymbols.DEGREES}` : valueString;
+    };
+
+    super( numberDisplayProperty, numberDisplayRange, options );
 
     this.vectorQuantity = vectorQuantity;
 
