@@ -82,7 +82,7 @@ export default class EquationTypeNode extends Node {
     // =
     equationChildren.push( new Text( MathSymbols.EQUAL_TO, TEXT_OPTIONS ) );
 
-    // Right size
+    // Right side
     if ( equationType === EquationType.NEGATION ) {
       equationChildren.push( new Text( '0', TEXT_OPTIONS ) );
     }
