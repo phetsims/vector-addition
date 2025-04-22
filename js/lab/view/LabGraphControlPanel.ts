@@ -60,10 +60,17 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     } );
     const addSumCheckboxes = ( graph: LabGraph, parentTandem: Tandem ) => {
 
-      const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, graph.vectorSet1.vectorColorPalette,
-        parentTandem.createTandem( 'sum1Checkbox' ) );
-      const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, graph.vectorSet2.vectorColorPalette,
-        parentTandem.createTandem( 'sum2Checkbox' ) );
+      const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, {
+        vectorIconFill: graph.vectorSet1.vectorColorPalette.sumFill,
+        vectorIconStroke: graph.vectorSet1.vectorColorPalette.sumStroke,
+        tandem: parentTandem.createTandem( 'sum1Checkbox' )
+      } );
+
+      const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, {
+        vectorIconFill: graph.vectorSet2.vectorColorPalette.sumFill,
+        vectorIconStroke: graph.vectorSet2.vectorColorPalette.sumStroke,
+        tandem: parentTandem.createTandem( 'sum2Checkbox' )
+      } );
 
       const vBox = new VBox( {
         children: [

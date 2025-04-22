@@ -11,15 +11,24 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
+import VectorAdditionCheckbox, { VectorAdditionCheckboxOptions } from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+
+type SelfOptions = {
+  vectorIconFill: TColor;
+  vectorIconStroke: TColor;
+};
+
+type SumCheckboxOptions = SelfOptions & PickRequired<VectorAdditionCheckboxOptions, 'tandem'>;
 
 export default class SumCheckbox extends VectorAdditionCheckbox {
 
-  public constructor( sumVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette, tandem: Tandem ) {
+  public constructor( sumVisibleProperty: Property<boolean>, providedOptions: SumCheckboxOptions ) {
+
+    const options = providedOptions;
 
     const textNode = new Text( VectorAdditionStrings.sumStringProperty, {
       font: VectorAdditionConstants.CHECKBOX_FONT,
@@ -27,8 +36,8 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
     } );
 
     const icon = VectorAdditionIconFactory.createVectorIcon( 35, {
-      fill: vectorColorPalette.sumFill,
-      stroke: vectorColorPalette.sumStroke
+      fill: options.vectorIconFill,
+      stroke: options.vectorIconStroke
     } );
 
     const content = new HBox( {
@@ -36,9 +45,7 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
       children: [ textNode, icon ]
     } );
 
-    super( sumVisibleProperty, content, {
-      tandem: tandem
-    } );
+    super( sumVisibleProperty, content, options );
   }
 }
 

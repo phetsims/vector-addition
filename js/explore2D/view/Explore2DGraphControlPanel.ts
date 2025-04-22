@@ -13,7 +13,6 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorSet from '../../common/model/VectorSet.js';
@@ -27,6 +26,7 @@ import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridChec
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -42,35 +42,12 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
 
     const options = providedOptions;
 
-    // To make all checkboxes the same height
-    const alignBoxOptions = {
-      group: new AlignGroup( {
-        matchHorizontal: false,
-        matchVertical: true
-      } )
-    };
-
-    const sumCheckboxesTandem = options.tandem.createTandem( 'sumCheckboxes' );
-
-    const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
-      cartesianVectorSet.vectorColorPalette, options.tandem.createTandem( 'cartesianSumCheckbox' ) );
-
-    const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty,
-      polarVectorSet.vectorColorPalette, options.tandem.createTandem( 'polarSumCheckbox' ) );
-
-    const sumCheckboxes = new Node( {
-      children: [
-        new AlignBox( cartesianSumCheckbox, alignBoxOptions ),
-        new AlignBox( polarSumCheckbox, alignBoxOptions )
-      ],
-      tandem: sumCheckboxesTandem
-    } );
-
-    // Show the Sum checkbox that matches the selected scene.
-    // unlink is unnecessary, exists for the lifetime of the sim.
-    viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-      polarSumCheckbox.visible = ( coordinateSnapMode === 'polar' );
-      cartesianSumCheckbox.visible = ( coordinateSnapMode === 'cartesian' );
+    const sumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty, {
+      vectorIconFill: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
+        coordinateSnapMode === 'polar' ? polarVectorSet.vectorColorPalette.sumFill : cartesianVectorSet.vectorColorPalette.sumFill ),
+      vectorIconStroke: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
+        coordinateSnapMode === 'polar' ? polarVectorSet.vectorColorPalette.sumStroke : cartesianVectorSet.vectorColorPalette.sumStroke ),
+      tandem: options.tandem.createTandem( 'sumCheckbox' )
     } );
 
     // Values
@@ -85,14 +62,22 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
     const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
       options.tandem.createTandem( 'gridCheckbox' ) );
 
+    // To make all checkboxes have the same height effective height
+    const alignBoxOptions = {
+      group: new AlignGroup( {
+        matchHorizontal: false,
+        matchVertical: true
+      } )
+    };
+
     super( [
 
-      // checkboxes, wrapped with AlignBox so that they are all the same height
+      // Checkboxes
       new VBox( {
         spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
         align: 'left',
         children: [
-          sumCheckboxes,
+          new AlignBox( sumCheckbox, alignBoxOptions ),
           new AlignBox( valuesCheckbox, alignBoxOptions ),
           new AlignBox( anglesCheckbox, alignBoxOptions ),
           new AlignBox( gridCheckbox, alignBoxOptions )
