@@ -14,7 +14,6 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -27,8 +26,8 @@ import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridChec
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -46,50 +45,25 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
     const options = providedOptions;
 
-    // To make all checkboxes the same height
-    const alignBoxOptions = {
-      group: new AlignGroup( {
-        matchHorizontal: false,
-        matchVertical: true
-      } )
-    };
-
-    // Create two 'Sum' checkboxes for each graph
-    const sumCheckboxes = new Node( {
-      tandem: options.tandem.createTandem( 'sumCheckboxes' )
+    const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, {
+      vectorIconFill: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
+        ( coordinateSnapMode === cartesianGraph.coordinateSnapMode ) ?
+        cartesianGraph.vectorSet1.vectorColorPalette.sumFill : polarGraph.vectorSet1.vectorColorPalette.sumFill ),
+      vectorIconStroke: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
+        ( coordinateSnapMode === cartesianGraph.coordinateSnapMode ) ?
+        cartesianGraph.vectorSet1.vectorColorPalette.sumStroke : polarGraph.vectorSet1.vectorColorPalette.sumStroke ),
+      tandem: options.tandem.createTandem( 'sum1Checkbox' )
     } );
-    const addSumCheckboxes = ( graph: LabGraph, parentTandem: Tandem ) => {
 
-      const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, {
-        vectorIconFill: graph.vectorSet1.vectorColorPalette.sumFill,
-        vectorIconStroke: graph.vectorSet1.vectorColorPalette.sumStroke,
-        tandem: parentTandem.createTandem( 'sum1Checkbox' )
-      } );
-
-      const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, {
-        vectorIconFill: graph.vectorSet2.vectorColorPalette.sumFill,
-        vectorIconStroke: graph.vectorSet2.vectorColorPalette.sumStroke,
-        tandem: parentTandem.createTandem( 'sum2Checkbox' )
-      } );
-
-      const vBox = new VBox( {
-        children: [
-          new AlignBox( sum1Checkbox, alignBoxOptions ),
-          new AlignBox( sum2Checkbox, alignBoxOptions )
-        ],
-        spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
-        align: 'left'
-      } );
-      sumCheckboxes.addChild( vBox );
-
-      // Show the Sum checkboxes that match the selected scene.
-      // unlink is unnecessary, exists for the lifetime of the sim.
-      viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-        vBox.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
-      } );
-    };
-    addSumCheckboxes( cartesianGraph, sumCheckboxes.tandem.createTandem( 'cartesianSumCheckboxes' ) );
-    addSumCheckboxes( polarGraph, sumCheckboxes.tandem.createTandem( 'polarSumCheckboxes' ) );
+    const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, {
+      vectorIconFill: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
+        ( coordinateSnapMode === cartesianGraph.coordinateSnapMode ) ?
+        cartesianGraph.vectorSet2.vectorColorPalette.sumFill : polarGraph.vectorSet2.vectorColorPalette.sumFill ),
+      vectorIconStroke: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
+        ( coordinateSnapMode === cartesianGraph.coordinateSnapMode ) ?
+        cartesianGraph.vectorSet2.vectorColorPalette.sumStroke : polarGraph.vectorSet2.vectorColorPalette.sumStroke ),
+      tandem: options.tandem.createTandem( 'sum2Checkbox' )
+    } );
 
     // Values
     const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty,
@@ -103,6 +77,14 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
       options.tandem.createTandem( 'gridCheckbox' ) );
 
+    // To make all checkboxes have the same effective height
+    const alignBoxOptions = {
+      group: new AlignGroup( {
+        matchHorizontal: false,
+        matchVertical: true
+      } )
+    };
+
     super( [
 
       // checkboxes, wrapped with AlignBox so that they are all the same height
@@ -110,7 +92,8 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
         align: 'left',
         children: [
-          sumCheckboxes,
+          new AlignBox( sum1Checkbox, alignBoxOptions ),
+          new AlignBox( sum2Checkbox, alignBoxOptions ),
           new AlignBox( valuesCheckbox, alignBoxOptions ),
           new AlignBox( anglesCheckbox, alignBoxOptions ),
           new AlignBox( gridCheckbox, alignBoxOptions )
