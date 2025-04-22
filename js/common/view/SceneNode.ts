@@ -116,7 +116,8 @@ export default class SceneNode extends Node {
         top: graph.graphViewBounds.maxY + 15,
         touchAreaXDilation: 7,
         touchAreaYDilation: 7,
-        tandem: options.tandem.createTandem( 'eraserButton' )
+        tandem: options.tandem.createTandem( 'eraserButton' ),
+        phetioEnabledPropertyInstrumented: false // sim controls this.
       } );
       this.addChild( eraserButton );
       eraserButton.moveToBack();
