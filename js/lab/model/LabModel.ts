@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
@@ -53,7 +52,7 @@ export default class LabModel extends VectorAdditionModel {
     this.polarVectorColorPalette2 = VectorAdditionColors.GREEN_COLOR_PALETTE;
 
     this.cartesianGraph = new LabGraph(
-      CoordinateSnapMode.CARTESIAN,
+      'cartesian',
       this.componentVectorStyleProperty,
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,
@@ -62,7 +61,7 @@ export default class LabModel extends VectorAdditionModel {
     );
 
     this.polarGraph = new LabGraph(
-      CoordinateSnapMode.POLAR,
+      'polar',
       this.componentVectorStyleProperty,
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,

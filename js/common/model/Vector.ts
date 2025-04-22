@@ -30,7 +30,6 @@ import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ComponentVector from './ComponentVector.js';
 import ComponentVectorType from './ComponentVectorType.js';
-import CoordinateSnapMode from './CoordinateSnapMode.js';
 import Graph from './Graph.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import VectorSet from './VectorSet.js';
@@ -201,7 +200,7 @@ export default class Vector extends RootVector {
     // Flag to get the tip point that satisfies invariants (to be calculated below)
     let tipPositionWithInvariants: Vector2;
 
-    if ( this.graph.coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) {
+    if ( this.graph.coordinateSnapMode === 'cartesian' ) {
 
       // Ensure that the tipPosition is on the graph
       const tipPositionOnGraph = this.graph.graphModelBounds.closestPointTo( tipPosition );
@@ -265,7 +264,7 @@ export default class Vector extends RootVector {
     // Ensure the tail is set in a position so the tail and the tip are on the graph
     const tailPositionOnGraph = constrainedTailBounds.closestPointTo( tailPosition );
 
-    if ( this.graph.coordinateSnapMode === CoordinateSnapMode.POLAR ) {
+    if ( this.graph.coordinateSnapMode === 'polar' ) {
 
       // Get the tip of this vector
       const tipPositionOnGraph = tailPositionOnGraph.plus( this.vectorComponents );

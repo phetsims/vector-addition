@@ -14,7 +14,6 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
-import CoordinateSnapMode from './CoordinateSnapMode.js';
 import Graph from './Graph.js';
 import VectorSet from './VectorSet.js';
 
@@ -34,7 +33,7 @@ export default class CartesianBaseVector extends BaseVector {
   public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
                       vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
-    assert && assert( graph.coordinateSnapMode === CoordinateSnapMode.CARTESIAN, `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
+    assert && assert( graph.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty );
 

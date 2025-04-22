@@ -16,7 +16,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentVectorStyleControl from '../../common/view/ComponentVectorStyleControl.js';
@@ -68,8 +67,8 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     // Show the vector checkbox ('c' or 'f') that matches the selected scene.
     // unlink is unnecessary, exists for the lifetime of the sim.
     viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-      cartesianVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN );
-      polarVectorCheckbox.visible = ( coordinateSnapMode === CoordinateSnapMode.POLAR );
+      cartesianVectorCheckbox.visible = ( coordinateSnapMode === 'cartesian' );
+      polarVectorCheckbox.visible = ( coordinateSnapMode === 'polar' );
     } );
 
     // To make all checkboxes the same height

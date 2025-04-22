@@ -13,7 +13,7 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
+import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -93,7 +93,7 @@ export default class EquationsVectorSet extends VectorSet {
 
     super( graph, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
-    this.symbolProperties = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) ?
+    this.symbolProperties = ( coordinateSnapMode === 'cartesian' ) ?
                             VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
                             VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 
@@ -101,7 +101,7 @@ export default class EquationsVectorSet extends VectorSet {
     // Create the vectors, one less than symbols. For example, if symbols were [ 'a', 'b', 'c' ],
     // 'a' and 'c' would be vector symbols and 'c' would be the sum vector.
 
-    const vectorDescriptions = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) ?
+    const vectorDescriptions = ( coordinateSnapMode === 'cartesian' ) ?
                                CARTESIAN_VECTOR_DESCRIPTIONS :
                                POLAR_VECTOR_DESCRIPTIONS;
     assert && assert( vectorDescriptions.length === this.symbolProperties.length - 1 );

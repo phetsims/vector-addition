@@ -10,7 +10,7 @@ import Property from '../../../../axon/js/Property.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
+import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import Graph from '../../common/model/Graph.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';

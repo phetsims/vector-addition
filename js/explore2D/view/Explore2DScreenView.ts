@@ -8,7 +8,6 @@
 
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
 import SceneNode from '../../common/view/SceneNode.js';
@@ -28,7 +27,9 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
     super( model, tandem );
 
-    this.viewProperties = new VectorAdditionViewProperties( tandem.createTandem( 'viewProperties' ) );
+    this.viewProperties = new VectorAdditionViewProperties( {
+      tandem: tandem.createTandem( 'viewProperties' )
+    } );
 
     // Control for the graph, at upper right
     const graphControlPanel = new Explore2DGraphControlPanel(
@@ -59,7 +60,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty );
 
       // Vector symbols depend on whether snap mode is Cartesian or Polar
-      const vectorSymbolProperties = ( graph.coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) ?
+      const vectorSymbolProperties = ( graph.coordinateSnapMode === 'cartesian' ) ?
                                      VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
                                      VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 

@@ -16,7 +16,6 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
@@ -70,8 +69,8 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
     // Show the Sum checkbox that matches the selected scene.
     // unlink is unnecessary, exists for the lifetime of the sim.
     viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-      polarSumCheckbox.visible = ( coordinateSnapMode === CoordinateSnapMode.POLAR );
-      cartesianSumCheckbox.visible = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN );
+      polarSumCheckbox.visible = ( coordinateSnapMode === 'polar' );
+      cartesianSumCheckbox.visible = ( coordinateSnapMode === 'cartesian' );
     } );
 
     // Values

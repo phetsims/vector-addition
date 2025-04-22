@@ -8,11 +8,19 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Disposable from '../../../../axon/js/Disposable.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
-import CoordinateSnapMode from '../model/CoordinateSnapMode.js';
+import { CoordinateSnapMode, CoordinateSnapModeValues } from '../model/CoordinateSnapMode.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  coordinateSnapModes?: CoordinateSnapMode[];
+};
+
+export type VectorAdditionViewPropertiesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class VectorAdditionViewProperties {
 
@@ -26,31 +34,38 @@ export default class VectorAdditionViewProperties {
   public readonly gridVisibleProperty: Property<boolean>;
 
   // controls the snapping mode for the vectors
-  public readonly coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapMode>;
+  public readonly coordinateSnapModeProperty: StringUnionProperty<CoordinateSnapMode>;
 
   // whether the VectorValuesToggleBox is expanded
   public readonly vectorValuesExpandedProperty: Property<boolean>;
 
-  public constructor( tandem: Tandem ) {
+  public constructor( providedOptions: VectorAdditionViewPropertiesOptions ) {
+
+    const options = optionize<VectorAdditionViewPropertiesOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // SelfOptions
+      coordinateSnapModes: [ ...CoordinateSnapModeValues ]
+    }, providedOptions );
 
     this.valuesVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'valuesVisibleProperty' )
+      tandem: options.tandem.createTandem( 'valuesVisibleProperty' )
     } );
 
     this.anglesVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'anglesVisibleProperty' )
+      tandem: options.tandem.createTandem( 'anglesVisibleProperty' )
     } );
 
     this.gridVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'gridVisibleProperty' )
+      tandem: options.tandem.createTandem( 'gridVisibleProperty' )
     } );
 
-    this.coordinateSnapModeProperty = new EnumerationProperty( CoordinateSnapMode.CARTESIAN, {
-      tandem: tandem.createTandem( 'coordinateSnapModeProperty' )
+    this.coordinateSnapModeProperty = new StringUnionProperty( 'cartesian', {
+      validValues: options.coordinateSnapModes,
+      tandem: options.tandem.createTandem( 'coordinateSnapModeProperty' )
     } );
 
     this.vectorValuesExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'vectorValuesExpandedProperty' )
+      tandem: options.tandem.createTandem( 'vectorValuesExpandedProperty' )
     } );
   }
 

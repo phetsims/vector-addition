@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
@@ -42,12 +41,12 @@ export default class Explore2DModel extends VectorAdditionModel {
     this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
     this.polarVectorColorPalette = VectorAdditionColors.PINK_COLOR_PALETTE;
 
-    this.cartesianGraph = new Explore2DGraph( CoordinateSnapMode.CARTESIAN,
+    this.cartesianGraph = new Explore2DGraph( 'cartesian',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       this.cartesianVectorColorPalette );
 
-    this.polarGraph = new Explore2DGraph( CoordinateSnapMode.POLAR,
+    this.polarGraph = new Explore2DGraph( 'polar',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       this.polarVectorColorPalette );

@@ -9,16 +9,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import vectorAddition from '../../vectorAddition.js';
-import CoordinateSnapMode from '../model/CoordinateSnapMode.js';
+import { CoordinateSnapMode } from '../model/CoordinateSnapMode.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -26,7 +26,7 @@ type CoordinateSnapModeRadioButtonGroupOptions = SelfOptions & NodeTranslationOp
 
 export default class CoordinateSnapModeRadioButtonGroup extends RectangularRadioButtonGroup<CoordinateSnapMode> {
 
-  public constructor( coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapMode>,
+  public constructor( coordinateSnapModeProperty: StringUnionProperty<CoordinateSnapMode>,
                       cartesianVectorColorPalette: VectorColorPalette,
                       polarVectorColorPalette: VectorColorPalette,
                       providedOptions: CoordinateSnapModeRadioButtonGroupOptions ) {
@@ -39,12 +39,12 @@ export default class CoordinateSnapModeRadioButtonGroup extends RectangularRadio
     // Create the description of the buttons
     const items: RectangularRadioButtonGroupItem<CoordinateSnapMode>[] = [
       {
-        value: CoordinateSnapMode.CARTESIAN,
+        value: 'cartesian',
         createNode: () => VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette ),
         tandemName: 'cartesianRadioButton'
       },
       {
-        value: CoordinateSnapMode.POLAR,
+        value: 'polar',
         createNode: () => VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette ),
         tandemName: 'polarRadioButton'
       }

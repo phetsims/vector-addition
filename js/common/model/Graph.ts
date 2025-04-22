@@ -21,7 +21,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import CoordinateSnapMode from './CoordinateSnapMode.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 import { GraphOrientation } from './GraphOrientation.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';

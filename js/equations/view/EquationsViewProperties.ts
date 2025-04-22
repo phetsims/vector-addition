@@ -25,7 +25,9 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
   public readonly baseVectorsVisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
-    super( tandem );
+    super( {
+      tandem: tandem
+    } );
 
     this.equationExpandedProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'equationExpandedProperty' )

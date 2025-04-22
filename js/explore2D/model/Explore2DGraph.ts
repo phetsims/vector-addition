@@ -14,7 +14,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
+import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import Graph from '../../common/model/Graph.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';

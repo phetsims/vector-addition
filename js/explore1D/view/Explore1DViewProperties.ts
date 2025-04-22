@@ -10,7 +10,6 @@
  * @author Brandon Li
  */
 
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import { GraphOrientation } from '../../common/model/GraphOrientation.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -23,7 +22,12 @@ export default class Explore1DViewProperties extends VectorAdditionViewPropertie
 
   public constructor( tandem: Tandem ) {
 
-    super( tandem );
+    super( {
+
+      //TODO https://github.com/phetsims/vector-addition/issues/258 coordinateSnapModeProperty should not be instrumented for this screen.
+      coordinateSnapModes: [ 'cartesian' ], // 'polar' is not supported in this screen
+      tandem: tandem
+    } );
 
     this.graphOrientationProperty = new StringUnionProperty<GraphOrientation>( 'horizontal', {
       validValues: [ 'horizontal', 'vertical' ],
@@ -32,17 +36,10 @@ export default class Explore1DViewProperties extends VectorAdditionViewPropertie
 
     // Vector angle visualization is not supported by this screen.
     // unlink is unnecessary, exists for the lifetime of the sim.
+    //TODO https://github.com/phetsims/vector-addition/issues/258 anglesVisibleProperty should not be instrumented for this screen.
     assert && this.anglesVisibleProperty.link( angleVisible => {
       if ( angleVisible ) {
         assert && assert( false, 'Explore 1D does not support angles' );
-      }
-    } );
-
-    // Polar snap mode is not supported by this screen.
-    // unlink is unnecessary, exists for the lifetime of the sim.
-    assert && this.coordinateSnapModeProperty.link( coordinateSnapMode => {
-      if ( coordinateSnapMode === CoordinateSnapMode.POLAR ) {
-        assert && assert( false, 'Explore 1D does not support polar snap mode' );
       }
     } );
   }

@@ -9,7 +9,6 @@
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
@@ -85,8 +84,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     // unlink is unnecessary, exists for the lifetime of the sim.
     this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
       this.interruptSubtreeInput(); // cancel interactions when switching scenes
-      polarScene.visible = ( coordinateSnapMode === CoordinateSnapMode.POLAR );
-      cartesianScene.visible = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN );
+      polarScene.visible = ( coordinateSnapMode === 'polar' );
+      cartesianScene.visible = ( coordinateSnapMode === 'cartesian' );
     } );
 
     const screenViewRootNode = new Node( {
