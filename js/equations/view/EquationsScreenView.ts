@@ -34,7 +34,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     const graphControlPanel = new EquationsGraphControlPanel(
       model.cartesianGraph.vectorSet,
       model.polarGraph.vectorSet,
-      model.componentStyleProperty,
+      model.componentVectorStyleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
@@ -65,7 +65,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     const polarScene = new EquationsSceneNode(
       model.polarGraph,
       this.viewProperties,
-      model.componentStyleProperty,
+      model.componentVectorStyleProperty,
       graphControlPanel.bottom,
       equationButtonsAlignGroup,
       equationsAlignGroup
@@ -74,7 +74,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     const cartesianScene = new EquationsSceneNode(
       model.cartesianGraph,
       this.viewProperties,
-      model.componentStyleProperty,
+      model.componentVectorStyleProperty,
       graphControlPanel.bottom,
       equationButtonsAlignGroup,
       equationsAlignGroup

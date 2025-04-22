@@ -54,7 +54,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     [ model.verticalGraph, model.horizontalGraph ].forEach( graph => {
 
       // Create the scene node
-      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty );
+      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty );
 
       // Vector symbols depend on graph orientation
       const vectorSymbolProperties = ( graph.orientation === GraphOrientation.HORIZONTAL ) ?

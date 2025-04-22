@@ -45,7 +45,7 @@ export default class ComponentVector extends RootVector {
   // Determines if the parent vector is active.
   public readonly isParentVectorActiveProperty: TReadOnlyProperty<boolean>;
 
-  private readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyle>;
+  private readonly componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>;
 
   // Offsets from axes in PROJECTION style. These are managed by the VectorSet and set via setProjectionOffsets.
   // See https://github.com/phetsims/vector-addition/issues/225
@@ -56,12 +56,14 @@ export default class ComponentVector extends RootVector {
 
   /**
    * @param parentVector - the vector that this component vector is associated with
-   * @param componentStyleProperty
+   * @param componentVectorStyleProperty
    * @param activeVectorProperty - which vector is active (selected)
    * @param componentType - type of component vector (x or y), see ComponentVectorType
    */
-  public constructor( parentVector: Vector, componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
-                      activeVectorProperty: Property<Vector | null>, componentType: ComponentVectorType ) {
+  public constructor( parentVector: Vector,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      activeVectorProperty: Property<Vector | null>,
+                      componentType: ComponentVectorType ) {
 
     super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
 
@@ -75,7 +77,7 @@ export default class ComponentVector extends RootVector {
       { valueType: 'boolean' }
     );
 
-    this.componentStyleProperty = componentStyleProperty;
+    this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     this.projectionXOffset = 0;
     this.projectionYOffset = 0;
@@ -84,7 +86,7 @@ export default class ComponentVector extends RootVector {
     // the parent changes or when the component style changes, the component vector also changes.
     // unmultilink is required on dispose.
     const updateComponentMultilink = Multilink.multilink(
-      [ componentStyleProperty, parentVector.tailPositionProperty, parentVector.tipPositionProperty ],
+      [ componentVectorStyleProperty, parentVector.tailPositionProperty, parentVector.tipPositionProperty ],
       () => this.updateComponent()
     );
 
@@ -116,7 +118,7 @@ export default class ComponentVector extends RootVector {
    */
   private updateComponent(): void {
 
-    const componentStyle = this.componentStyleProperty.value;
+    const componentVectorStyle = this.componentVectorStyleProperty.value;
     const parentTail = this.parentVector.tailPositionProperty.value;
     const parentTip = this.parentVector.tipPositionProperty.value;
 
@@ -127,7 +129,7 @@ export default class ComponentVector extends RootVector {
       //----------------------------------------------------------------------------------------
 
       // Triangle and Parallelogram results in the same x component vector
-      if ( componentStyle === ComponentVectorStyle.TRIANGLE || componentStyle === ComponentVectorStyle.PARALLELOGRAM ) {
+      if ( componentVectorStyle === ComponentVectorStyle.TRIANGLE || componentVectorStyle === ComponentVectorStyle.PARALLELOGRAM ) {
 
         // Shared tail position as parent
         this.tail = parentTail;
@@ -135,7 +137,7 @@ export default class ComponentVector extends RootVector {
         // Tip is at the parent's tip x and at the parent's tail y.
         this.setTipXY( parentTip.x, parentTail.y );
       }
-      else if ( componentStyle === ComponentVectorStyle.PROJECTION ) {
+      else if ( componentVectorStyle === ComponentVectorStyle.PROJECTION ) {
 
         // From parent tailX to parent tipX. However, its y value is 0 since it is on the x-axis
         this.setTailXY( parentTail.x, this.projectionYOffset );
@@ -149,7 +151,7 @@ export default class ComponentVector extends RootVector {
       // Update the y component vector
       //----------------------------------------------------------------------------------------
 
-      if ( componentStyle === ComponentVectorStyle.TRIANGLE ) {
+      if ( componentVectorStyle === ComponentVectorStyle.TRIANGLE ) {
 
         // Shared tip position as the parent
         this.tip = parentTip;
@@ -157,7 +159,7 @@ export default class ComponentVector extends RootVector {
         // Tail is at the parent's tip x and at the parent's tail y.
         this.setTailXY( parentTip.x, parentTail.y );
       }
-      else if ( componentStyle === ComponentVectorStyle.PARALLELOGRAM ) {
+      else if ( componentVectorStyle === ComponentVectorStyle.PARALLELOGRAM ) {
 
         // Shared tail position as parent
         this.tail = parentTail;
@@ -165,7 +167,7 @@ export default class ComponentVector extends RootVector {
         // Tip is at the parents tailX and at the parents tipY
         this.setTipXY( parentTail.x, parentTip.y );
       }
-      else if ( componentStyle === ComponentVectorStyle.PROJECTION ) {
+      else if ( componentVectorStyle === ComponentVectorStyle.PROJECTION ) {
 
         // Same tailY, however its x value is 0 since it is on the y-axis
         this.setTailXY( this.projectionXOffset, parentTail.y );

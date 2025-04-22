@@ -70,13 +70,13 @@ export default class EquationsVectorSet extends VectorSet {
 
   /**
    * @param graph
-   * @param componentStyleProperty
+   * @param componentVectorStyleProperty
    * @param sumVisibleProperty
    * @param vectorColorPalette - color palette for vectors in this set
    * @param coordinateSnapMode - each vector set can only represent one snap mode
    */
   public constructor( graph: EquationsGraph,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
                       coordinateSnapMode: CoordinateSnapMode ) {
@@ -92,7 +92,7 @@ export default class EquationsVectorSet extends VectorSet {
       sumProjectionYOffset: 0.5
     };
 
-    super( graph, componentStyleProperty, sumVisibleProperty, vectorColorPalette, options );
+    super( graph, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
     this.symbolProperties = ( coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) ?
                             VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :

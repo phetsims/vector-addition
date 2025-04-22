@@ -43,12 +43,12 @@ export default class Explore1DModel extends VectorAdditionModel {
     this.verticalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
 
     this.horizontalGraph = new Explore1DGraph( GraphOrientation.HORIZONTAL,
-      this.componentStyleProperty,
+      this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       this.horizontalVectorColorPalette );
 
     this.verticalGraph = new Explore1DGraph( GraphOrientation.VERTICAL,
-      this.componentStyleProperty,
+      this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       this.verticalVectorColorPalette );
   }

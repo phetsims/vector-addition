@@ -25,7 +25,7 @@ const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
 
 export default class ComponentVectorStyleControl extends VBox {
 
-  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
+  public constructor( componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     const children: Node[] = [];
 
@@ -37,7 +37,7 @@ export default class ComponentVectorStyleControl extends VBox {
     children.push( componentsText );
 
     // Radio buttons, centered in maxWidth by using an AlignBox
-    const radioButtonGroup = new ComponentVectorStyleRadioButtonGroup( componentStyleProperty,
+    const radioButtonGroup = new ComponentVectorStyleRadioButtonGroup( componentVectorStyleProperty,
       tandem.createTandem( 'radioButtonGroup' ) );
     children.push( new AlignBox( radioButtonGroup, {
       alignBounds: new Bounds2( 0, 0, MAX_WIDTH, radioButtonGroup.height )

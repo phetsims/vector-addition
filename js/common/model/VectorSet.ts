@@ -56,7 +56,7 @@ export default class VectorSet {
 
   public readonly vectorColorPalette: VectorColorPalette;
   public readonly sumVisibleProperty: Property<boolean>;
-  public readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyle>;
+  public readonly componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>;
 
   public readonly projectionXOffsetStart: number;
   public readonly projectionYOffsetStart: number;
@@ -67,13 +67,15 @@ export default class VectorSet {
 
   /**
    * @param graph - the graph the VectorSet belongs to
-   * @param componentStyleProperty - component style for all vectors
+   * @param componentVectorStyleProperty - component style for all vectors
    * @param sumVisibleProperty - controls whether the sum vector is visible
    * @param vectorColorPalette - color palette for vectors in this set
    * @param [providedOptions]
    */
-  public constructor( graph: Graph, componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
-                      sumVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette,
+  public constructor( graph: Graph,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      sumVisibleProperty: Property<boolean>,
+                      vectorColorPalette: VectorColorPalette,
                       providedOptions?: VectorSetOptions ) {
 
     // Compute values for the options that are related to the PROJECTION style component vectors.
@@ -101,7 +103,7 @@ export default class VectorSet {
     this.vectors = createObservableArray();
     this.vectorColorPalette = vectorColorPalette;
     this.sumVisibleProperty = sumVisibleProperty;
-    this.componentStyleProperty = componentStyleProperty;
+    this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     this.projectionXOffsetStart = options.projectionXOffsetStart;
     this.projectionYOffsetStart = options.projectionYOffsetStart;

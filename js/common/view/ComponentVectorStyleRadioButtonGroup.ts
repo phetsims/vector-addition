@@ -22,15 +22,15 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class ComponentVectorStyleRadioButtonGroup extends Node {
 
-  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
+  public constructor( componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     // Create the radio buttons. Note that order of enum values determines order of buttons.
     const buttons: RectangularRadioButton<ComponentVectorStyle>[] = [];
-    ComponentVectorStyle.enumeration.values.forEach( componentStyle => {
-      buttons.push( new RectangularRadioButton( componentStyleProperty, componentStyle,
+    ComponentVectorStyle.enumeration.values.forEach( componentVectorStyle => {
+      buttons.push( new RectangularRadioButton( componentVectorStyleProperty, componentVectorStyle,
         combineOptions<RectangularRadioButtonOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS.radioButtonOptions, {
-          content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle ),
-          tandem: tandem.createTandem( `${componentStyle}RadioButton` )
+          content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentVectorStyle ),
+          tandem: tandem.createTandem( `${componentVectorStyle}RadioButton` )
         } ) ) );
     } );
 

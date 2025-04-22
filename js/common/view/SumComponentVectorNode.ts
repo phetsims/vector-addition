@@ -34,7 +34,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
 
   public constructor( componentVector: ComponentVector,
                       graph: Graph,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       sumVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: SumComponentVectorNodeOptions ) {
@@ -47,7 +47,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
       } )
     }, providedOptions );
 
-    super( componentVector, graph, componentStyleProperty, valuesVisibleProperty, options );
+    super( componentVector, graph, componentVectorStyleProperty, valuesVisibleProperty, options );
 
     this.sumVisibleProperty = sumVisibleProperty;
 
@@ -60,7 +60,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
       [ sumVisibleProperty, sumVector.isDefinedProperty ],
       () => this.updateComponentVector( componentVector,
         graph.modelViewTransformProperty.value,
-        componentStyleProperty.value,
+        componentVectorStyleProperty.value,
         componentVector.isParentVectorActiveProperty.value )
     );
   }
@@ -69,15 +69,15 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
    * Handles visibility of sum component vectors.
    */
   protected override updateComponentVector( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
-                                            componentStyle: ComponentVectorStyle, isParentActive: boolean ): void {
-    super.updateComponentVector( componentVector, modelViewTransform, componentStyle, isParentActive );
+                                            componentVectorStyle: ComponentVectorStyle, isParentActive: boolean ): void {
+    super.updateComponentVector( componentVector, modelViewTransform, componentVectorStyle, isParentActive );
 
     const sumVector = componentVector.parentVector as SumVector;
     assert && assert( sumVector instanceof SumVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
     this.visible = (
       // components are visible
-      ( componentStyle !== ComponentVectorStyle.INVISIBLE ) &&
+      ( componentVectorStyle !== ComponentVectorStyle.INVISIBLE ) &&
       // sum is visible
       ( !!this.sumVisibleProperty && this.sumVisibleProperty.value ) &&
       // sum is defined

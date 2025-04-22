@@ -64,7 +64,7 @@ export default class SceneNode extends Node {
 
   public constructor( graph: Graph,
                       viewProperties: VectorAdditionViewProperties,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       providedOptions?: SceneNodeOptions ) {
 
     const options = optionize<SceneNodeOptions, SelfOptions, NodeOptions>()( {
@@ -133,7 +133,7 @@ export default class SceneNode extends Node {
     this.vectorSetNodes = [];
     graph.vectorSets.forEach( vectorSet => {
       const vectorSetNode = new VectorSetNode( graph, vectorSet,
-        viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentStyleProperty );
+        viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentVectorStyleProperty );
       this.vectorSetNodesParent.addChild( vectorSetNode );
       this.vectorSetNodes.push( vectorSetNode );
     } );

@@ -52,13 +52,13 @@ export default class ComponentVectorNode extends RootVectorNode {
   /**
    * @param componentVector - the component vector model the node represents
    * @param graph - the graph the component vector belongs to
-   * @param componentStyleProperty
+   * @param componentVectorStyleProperty
    * @param valuesVisibleProperty
    * @param [providedOptions]
    */
   public constructor( componentVector: ComponentVector,
                       graph: Graph,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: ComponentVectorNodeOptions ) {
 
@@ -86,20 +86,20 @@ export default class ComponentVectorNode extends RootVectorNode {
 
     //----------------------------------------------------------------------------------------
     // Create a multilink to observe:
-    //  - componentStyleProperty - to determine visibility (i.e. components shouldn't be visible on INVISIBLE)
-    //                             and to draw lines on the PROJECTION componentStyle
+    //  - componentVectorStyleProperty - to determine visibility (i.e. components shouldn't be visible on INVISIBLE)
+    //      and to draw lines on the PROJECTION componentVectorStyle
     //  - isOnGraphProperty - components shouldn't be visible if the vector isn't on the graph
     //  - vectorComponentsProperty - to update the leader lines drawings positions
     //
     // dispose is required.
     const componentVectorMultilink = Multilink.multilink(
-      [ componentStyleProperty, componentVector.isParentVectorActiveProperty,
+      [ componentVectorStyleProperty, componentVector.isParentVectorActiveProperty,
         componentVector.isOnGraphProperty, componentVector.vectorComponentsProperty ],
-      ( componentStyle, isParentActive ) => {
+      ( componentVectorStyle, isParentActive ) => {
 
         this.updateComponentVector( componentVector,
           graph.modelViewTransformProperty.value,
-          componentStyle,
+          componentVectorStyle,
           isParentActive );
       } );
 
@@ -125,17 +125,17 @@ export default class ComponentVectorNode extends RootVectorNode {
 
   /**
    * Updates the component vector node:
-   *  - Draws leader lines when componentStyle is ON_AXIS
+   *  - Draws leader lines when componentVectorStyle is ON_AXIS
    *  - Determines visibility (i.e. components shouldn't be visible on INVISIBLE)
    */
   protected updateComponentVector( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
-                                   componentStyle: ComponentVectorStyle, isParentActive: boolean ): void {
+                                   componentVectorStyle: ComponentVectorStyle, isParentActive: boolean ): void {
 
     // Component vectors are visible when it isn't INVISIBLE, and it is on the graph.
     this.visible = componentVector.isOnGraphProperty.value &&
-                   componentStyle !== ComponentVectorStyle.INVISIBLE;
+                   componentVectorStyle !== ComponentVectorStyle.INVISIBLE;
 
-    if ( componentStyle === ComponentVectorStyle.PROJECTION ) {
+    if ( componentVectorStyle === ComponentVectorStyle.PROJECTION ) {
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
     }
     else {
@@ -146,7 +146,7 @@ export default class ComponentVectorNode extends RootVectorNode {
     }
 
     // Leader lines are only visible when component vectors are projected onto axes
-    this.leaderLinesPath.visible = ( componentStyle === ComponentVectorStyle.PROJECTION );
+    this.leaderLinesPath.visible = ( componentVectorStyle === ComponentVectorStyle.PROJECTION );
 
     // Update leader lines only if they are visible (with PROJECTION style)
     if ( this.leaderLinesPath.visible ) {

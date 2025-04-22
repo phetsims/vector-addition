@@ -255,11 +255,11 @@ const VectorAdditionIconFactory = {
   /**
    * Creates the icons that go on the Component Style Radio Button based on a component style
    */
-  createComponentStyleRadioButtonIcon( componentStyle: ComponentVectorStyle ): Node {
+  createComponentStyleRadioButtonIcon( componentVectorStyle: ComponentVectorStyle ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
 
-    if ( componentStyle === ComponentVectorStyle.INVISIBLE ) {
+    if ( componentVectorStyle === ComponentVectorStyle.INVISIBLE ) {
       return createEyeCloseIcon( iconSize );
     }
 
@@ -282,10 +282,10 @@ const VectorAdditionIconFactory = {
 
     let iconChildren: Node[] = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
 
-    if ( componentStyle === ComponentVectorStyle.TRIANGLE ) {
+    if ( componentVectorStyle === ComponentVectorStyle.TRIANGLE ) {
       yComponentArrow.setTailAndTip( iconSize, 0, iconSize, -iconSize );
     }
-    else if ( componentStyle === ComponentVectorStyle.PROJECTION ) {
+    else if ( componentVectorStyle === ComponentVectorStyle.PROJECTION ) {
       vectorArrow.setTailAndTip( subBoxSize, -subBoxSize, iconSize, -iconSize );
       xComponentArrow.setTailAndTip( subBoxSize, 0, iconSize, 0 );
       yComponentArrow.setTailAndTip( 0, -subBoxSize, 0, -iconSize );

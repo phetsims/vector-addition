@@ -41,13 +41,13 @@ export default class EquationsModel extends VectorAdditionModel {
     this.polarVectorColorPalette = VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE;
 
     this.cartesianGraph = new EquationsGraph( CoordinateSnapMode.CARTESIAN,
-      this.componentStyleProperty,
+      this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       this.cartesianVectorColorPalette
     );
 
     this.polarGraph = new EquationsGraph( CoordinateSnapMode.POLAR,
-      this.componentStyleProperty,
+      this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       this.polarVectorColorPalette
     );

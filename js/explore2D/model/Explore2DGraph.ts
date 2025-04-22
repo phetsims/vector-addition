@@ -28,13 +28,13 @@ export default class Explore2DGraph extends Graph {
   public readonly vectorSet: VectorSet;
 
   public constructor( coordinateSnapMode: CoordinateSnapMode,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette ) {
 
     super( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS, coordinateSnapMode );
 
-    this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
+    this.vectorSet = new VectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette );
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );

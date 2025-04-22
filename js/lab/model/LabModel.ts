@@ -54,7 +54,7 @@ export default class LabModel extends VectorAdditionModel {
 
     this.cartesianGraph = new LabGraph(
       CoordinateSnapMode.CARTESIAN,
-      this.componentStyleProperty,
+      this.componentVectorStyleProperty,
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,
       this.cartesianVectorColorPalette1,
@@ -63,7 +63,7 @@ export default class LabModel extends VectorAdditionModel {
 
     this.polarGraph = new LabGraph(
       CoordinateSnapMode.POLAR,
-      this.componentStyleProperty,
+      this.componentVectorStyleProperty,
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,
       this.polarVectorColorPalette1,

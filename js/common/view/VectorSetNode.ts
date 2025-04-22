@@ -38,13 +38,13 @@ export default class VectorSetNode extends Node {
   private readonly graph: Graph;
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
   private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
-  private readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyle>;
+  private readonly componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>;
 
   public constructor( graph: Graph,
                       vectorSet: VectorSet,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle> ) {
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle> ) {
 
     const sumVector = vectorSet.sumVector!;
     assert && assert( sumVector !== null );
@@ -54,9 +54,9 @@ export default class VectorSetNode extends Node {
       valuesVisibleProperty, anglesVisibleProperty, vectorSet.sumVisibleProperty
     );
     const xSumComponentVectorNode = new SumComponentVectorNode( sumVector.xComponentVector, graph,
-      componentStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
+      componentVectorStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
     const ySumComponentVectorNode = new SumComponentVectorNode( sumVector.yComponentVector, graph,
-      componentStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
+      componentVectorStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
 
     super( {
       children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ],
@@ -68,7 +68,7 @@ export default class VectorSetNode extends Node {
     this.graph = graph;
     this.valuesVisibleProperty = valuesVisibleProperty;
     this.anglesVisibleProperty = anglesVisibleProperty;
-    this.componentStyleProperty = componentStyleProperty;
+    this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     // When the sum vector becomes selected, move it and its component vectors to the front.
     // unlink is unnecessary, exists for the lifetime of the sim.
@@ -100,12 +100,12 @@ export default class VectorSetNode extends Node {
 
     const xComponentVectorNode = new ComponentVectorNode( vector.xComponentVector,
       this.graph,
-      this.componentStyleProperty,
+      this.componentVectorStyleProperty,
       this.valuesVisibleProperty );
 
     const yComponentVectorNode = new ComponentVectorNode( vector.yComponentVector,
       this.graph,
-      this.componentStyleProperty,
+      this.componentVectorStyleProperty,
       this.valuesVisibleProperty );
 
     this.addChild( xComponentVectorNode );

@@ -48,12 +48,12 @@ export default class Explore1DGraph extends Graph {
 
   /**
    * @param graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
-   * @param componentStyleProperty
+   * @param componentVectorStyleProperty
    * @param sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
    * @param vectorColorPalette - color palette for vectors on this graph
    */
   public constructor( graphOrientation: GraphOrientation,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette ) {
 
@@ -63,7 +63,7 @@ export default class Explore1DGraph extends Graph {
       orientation: graphOrientation
     } );
 
-    this.vectorSet = new VectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette );
+    this.vectorSet = new VectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette );
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );

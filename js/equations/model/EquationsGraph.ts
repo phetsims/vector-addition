@@ -39,7 +39,7 @@ export default class EquationsGraph extends Graph {
   public readonly vectorSet: EquationsVectorSet;
 
   public constructor( coordinateSnapMode: CoordinateSnapMode,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette ) {
 
@@ -49,7 +49,7 @@ export default class EquationsGraph extends Graph {
 
     this.equationTypeProperty = new EnumerationProperty( STARTING_EQUATION_TYPE );
 
-    this.vectorSet = new EquationsVectorSet( this, componentStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );
+    this.vectorSet = new EquationsVectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );
 
     this.vectorSets.push( this.vectorSet );
   }

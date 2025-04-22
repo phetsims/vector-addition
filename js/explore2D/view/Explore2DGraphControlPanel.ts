@@ -37,7 +37,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
 
   public constructor( cartesianVectorSet: VectorSet,
                       polarVectorSet: VectorSet,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       viewProperties: VectorAdditionViewProperties,
                       providedOptions: Explore2DGraphControlPanelOptions ) {
 
@@ -99,7 +99,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
       new HSeparator( { stroke: Color.BLACK } ),
 
       // Radio buttons for selection component vector style
-      new ComponentVectorStyleControl( componentStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
+      new ComponentVectorStyleControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
 
     ], options );
   }

@@ -28,14 +28,14 @@ export default class LabGraph extends Graph {
 
   /**
    * @param coordinateSnapMode - coordinateSnapMode for the graph
-   * @param componentStyleProperty
+   * @param componentVectorStyleProperty
    * @param sum1VisibleProperty - whether the sum for the first VectorSet is visible
    * @param sum2VisibleProperty - whether the sum for the second VectorSet is visible
    * @param vectorColorPalette1 - color palette for the first VectorSet
    * @param vectorColorPalette2 - color palette for the second VectorSet
    */
   public constructor( coordinateSnapMode: CoordinateSnapMode,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
                       vectorColorPalette1: VectorColorPalette,
@@ -51,7 +51,7 @@ export default class LabGraph extends Graph {
     const modelHeadWidth = this.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
     const offsetDelta = -( modelHeadWidth / 2 );
 
-    this.vectorSet1 = new VectorSet( this, componentStyleProperty, sum1VisibleProperty, vectorColorPalette1, {
+    this.vectorSet1 = new VectorSet( this, componentVectorStyleProperty, sum1VisibleProperty, vectorColorPalette1, {
 
       initialSumTailPosition: new Vector2(
         roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
@@ -63,7 +63,7 @@ export default class LabGraph extends Graph {
       projectionYOffsetDelta: offsetDelta
     } );
 
-    this.vectorSet2 = new VectorSet( this, componentStyleProperty, sum2VisibleProperty, vectorColorPalette2, {
+    this.vectorSet2 = new VectorSet( this, componentVectorStyleProperty, sum2VisibleProperty, vectorColorPalette2, {
 
       initialSumTailPosition: new Vector2(
         roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),

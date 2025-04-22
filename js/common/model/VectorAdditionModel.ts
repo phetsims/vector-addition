@@ -16,16 +16,16 @@ import ComponentVectorStyle from './ComponentVectorStyle.js';
 export default class VectorAdditionModel implements TModel {
 
   // the representation (style) used to display component vectors
-  public readonly componentStyleProperty: EnumerationProperty<ComponentVectorStyle>;
+  public readonly componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>;
 
   protected constructor( tandem: Tandem ) {
-    this.componentStyleProperty = new EnumerationProperty( ComponentVectorStyle.INVISIBLE, {
-      tandem: tandem.createTandem( 'componentStyleProperty' )
+    this.componentVectorStyleProperty = new EnumerationProperty( ComponentVectorStyle.INVISIBLE, {
+      tandem: tandem.createTandem( 'componentVectorStyleProperty' )
     } );
   }
 
   public reset(): void {
-    this.componentStyleProperty.reset();
+    this.componentVectorStyleProperty.reset();
   }
 
   public dispose(): void {

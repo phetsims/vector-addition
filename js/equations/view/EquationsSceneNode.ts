@@ -33,7 +33,7 @@ export default class EquationsSceneNode extends SceneNode {
 
   public constructor( graph: EquationsGraph,
                       viewProperties: EquationsViewProperties,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       graphControlPanelBottom: number,
                       equationButtonsAlignGroup: AlignGroup, // used to make all equation radio buttons the same size
                       equationsAlignGroup: AlignGroup, // used to make all interactive equations the same size
@@ -45,7 +45,7 @@ export default class EquationsSceneNode extends SceneNode {
       includeEraser: false
     }, providedOptions );
 
-    super( graph, viewProperties, componentStyleProperty, options );
+    super( graph, viewProperties, componentVectorStyleProperty, options );
 
     // Relocate the 'Vector Values' toggle box so that we have room for the 'Equation' toggle box
     this.vectorValuesToggleBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;

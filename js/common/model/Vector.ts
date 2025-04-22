@@ -127,13 +127,13 @@ export default class Vector extends RootVector {
     this.animateBackProperty = new BooleanProperty( false );
 
     this.xComponentVector = new ComponentVector( this,
-      vectorSet.componentStyleProperty,
+      vectorSet.componentVectorStyleProperty,
       graph.activeVectorProperty,
       ComponentVectorType.X_COMPONENT
     );
 
     this.yComponentVector = new ComponentVector( this,
-      vectorSet.componentStyleProperty,
+      vectorSet.componentVectorStyleProperty,
       graph.activeVectorProperty,
       ComponentVectorType.Y_COMPONENT
     );

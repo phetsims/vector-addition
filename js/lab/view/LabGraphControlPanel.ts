@@ -38,7 +38,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
   public constructor( cartesianGraph: LabGraph,
                       polarGraph: LabGraph,
-                      componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
                       viewProperties: VectorAdditionViewProperties,
@@ -112,7 +112,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       new HSeparator( { stroke: Color.BLACK } ),
 
       // Radio buttons for selection component vector style
-      new ComponentVectorStyleControl( componentStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
+      new ComponentVectorStyleControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
 
     ], options );
   }

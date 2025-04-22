@@ -34,7 +34,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
     const graphControlPanel = new LabGraphControlPanel(
       model.cartesianGraph,
       model.polarGraph,
-      model.componentStyleProperty,
+      model.componentVectorStyleProperty,
       model.sum1VisibleProperty,
       model.sum2VisibleProperty,
       this.viewProperties, {
@@ -56,7 +56,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
     const sceneNodes: Node[] = [];
     [ model.polarGraph, model.cartesianGraph ].forEach( graph => {
 
-      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty );
+      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty );
 
       // Add the vector creator panel
       sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( graph, sceneNode, {

@@ -34,7 +34,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     const graphControlPanel = new Explore2DGraphControlPanel(
       model.cartesianGraph.vectorSet,
       model.polarGraph.vectorSet,
-      model.componentStyleProperty,
+      model.componentVectorStyleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
@@ -55,7 +55,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     [ model.polarGraph, model.cartesianGraph ].forEach( graph => {
 
       // Create the scene node
-      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentStyleProperty );
+      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty );
 
       // Vector symbols depend on whether snap mode is Cartesian or Polar
       const vectorSymbolProperties = ( graph.coordinateSnapMode === CoordinateSnapMode.CARTESIAN ) ?
