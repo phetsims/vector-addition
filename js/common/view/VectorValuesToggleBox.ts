@@ -4,7 +4,7 @@
  * VectorValuesToggleBox is the toggle box at the top of the screen. It displays the active vector's magnitude,
  * angle, x component, and y component.
  *
- * 'Is a' relationship with ToggleBox
+ * 'Is a' relationship with FixedSizeAccordionBox
  *    - when collapsed, displays 'Vector Values'
  *    - when expanded either displays 'select a vector' or the active vector's attributes
  *      (a series of labels and VectorValuesNumberDisplays)
@@ -30,7 +30,7 @@ import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import ToggleBox, { ToggleBoxOptions } from './ToggleBox.js';
+import FixedSizeAccordionBox, { ToggleBoxOptions } from './FixedSizeAccordionBox.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
 
@@ -56,7 +56,7 @@ type SelfOptions = EmptySelfOptions;
 
 type VectorValuesToggleBoxOptions = SelfOptions & ToggleBoxOptions;
 
-export default class VectorValuesToggleBox extends ToggleBox {
+export default class VectorValuesToggleBox extends FixedSizeAccordionBox {
 
   public constructor( graph: Graph, providedOptions?: VectorValuesToggleBoxOptions ) {
 

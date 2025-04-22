@@ -15,7 +15,7 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import ToggleBox, { ToggleBoxOptions } from '../../common/view/ToggleBox.js';
+import FixedSizeAccordionBox, { ToggleBoxOptions } from '../../common/view/FixedSizeAccordionBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
@@ -31,7 +31,7 @@ type SelfOptions = EmptySelfOptions;
 
 type EquationToggleBoxOptions = SelfOptions & ToggleBoxOptions;
 
-export default class EquationToggleBox extends ToggleBox {
+export default class EquationToggleBox extends FixedSizeAccordionBox {
 
   /**
    * @param vectorSet

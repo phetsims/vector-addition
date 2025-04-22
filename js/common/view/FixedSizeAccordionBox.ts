@@ -1,16 +1,12 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * ToggleBox is the base class for a specialized version of AccordionBox that doesn't expand/collapse. Instead, it
- * toggles between 'expanded' content and 'collapsed' content, while maintaining a fixed height.
+ * FixedSizeAccordionBox is the base class for a specialized version of AccordionBox that doesn't expand/collapse.
+ * Instead, it toggles between 'expanded' content and 'collapsed' content, while maintaining a fixed size.
  *
- * The box itself is a fixed width and height; both its fixed width and height are calculated by the largest
- * between the expanded and collapsed content added to its margins.
- *
- * However, there is an option to pass a defined fixed width and/or fixed height. The box will scale the nodes to fit
- * defined dimensions.
- *
- * Instances of this class are not meant to be disposed.
+ * The fixed width and height are calculated by the largest between the expanded and collapsed content added to its
+ * margins. However, there is an option to pass a defined fixed width and/or fixed height. The box will scale the
+ * nodes to fit defined dimensions.
  *
  * @author Brandon Li
  */
@@ -38,7 +34,7 @@ type SelfOptions = {
 export type ToggleBoxOptions = SelfOptions & NodeTranslationOptions &
   PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing' | 'isDisposable'>;
 
-export default class ToggleBox extends AccordionBox {
+export default class FixedSizeAccordionBox extends AccordionBox {
 
   /**
    * @param expandedContent - content when the accordion box is expanded
@@ -55,6 +51,7 @@ export default class ToggleBox extends AccordionBox {
         contentFixedHeight: null,
 
         // AccordionBoxOptions
+        isDisposable: false,
         contentYMargin: 0,
         titleYMargin: 0,
         buttonYMargin: 0,
@@ -85,4 +82,4 @@ export default class ToggleBox extends AccordionBox {
   }
 }
 
-vectorAddition.register( 'ToggleBox', ToggleBox );
+vectorAddition.register( 'FixedSizeAccordionBox', FixedSizeAccordionBox );
