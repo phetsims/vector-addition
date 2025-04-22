@@ -112,6 +112,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
+            //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
             tandem: pickersTandem.createTandem( `${baseVectorSymbol}xPicker` )
           } );
 
@@ -128,6 +129,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
+            //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
             tandem: pickersTandem.createTandem( `${baseVectorSymbol}yPicker` )
           } );
       }
@@ -144,6 +146,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
+            //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
             tandem: pickersTandem.createTandem( `${baseVectorSymbol}MagnitudePicker` )
           } );
 
@@ -161,6 +164,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             // increment by the polar angle interval
             incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
+            //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
             tandem: pickersTandem.createTandem( `${baseVectorSymbol}AnglePicker` )
           } );
       }
