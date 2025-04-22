@@ -21,7 +21,7 @@ type LabVectorCreatorPanelOptions = SelfOptions & VectorCreatorPanelOptions;
 
 export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
-  public constructor( graph: LabGraph, sceneNode: SceneNode, providedOptions?: LabVectorCreatorPanelOptions ) {
+  public constructor( graph: LabGraph, sceneNode: SceneNode, providedOptions: LabVectorCreatorPanelOptions ) {
 
     const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 

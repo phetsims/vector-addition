@@ -68,8 +68,8 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       // Add the vector creator panel
       sceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( graph, sceneNode, vectorSymbolProperties, {
         left: graphOrientationRadioButtonGroup.left,
-        bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
-        //TODO https://github.com/phetsims/vector-addition/issues/258 tandem
+        bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
+        tandem: tandem.createTandem( 'vectorCreatorPanel' )
       } ) );
 
       // Switch between scenes to match graph orientation.

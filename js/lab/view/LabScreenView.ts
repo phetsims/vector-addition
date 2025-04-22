@@ -68,7 +68,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
       // Add the vector creator panel
       sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( graph, sceneNode, {
         left: coordinateSnapModeRadioButtonGroup.left,
-        bottom: coordinateSnapModeRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
+        bottom: coordinateSnapModeRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
+        tandem: tandem.createTandem( 'vectorCreatorPanel' )
       } ) );
 
       // Switch between scenes to match coordinate snap mode.

@@ -115,7 +115,8 @@ export default class SceneNode extends Node {
         right: graph.graphViewBounds.maxX,
         top: graph.graphViewBounds.maxY + 15,
         touchAreaXDilation: 7,
-        touchAreaYDilation: 7
+        touchAreaYDilation: 7,
+        tandem: options.tandem.createTandem( 'eraserButton' )
       } );
       this.addChild( eraserButton );
       eraserButton.moveToBack();

@@ -42,12 +42,12 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
    * @param graph
    * @param sceneNode
    * @param symbolProperties - the symbols corresponding to each slot
-   * @param [providedOptions]
+   * @param providedOptions
    */
   public constructor( graph: Explore2DGraph,
                       sceneNode: SceneNode,
                       symbolProperties: TReadOnlyProperty<string>[],
-                      providedOptions?: Explore2DVectorCreatorPanelOptions ) {
+                      providedOptions: Explore2DVectorCreatorPanelOptions ) {
 
     const options = providedOptions;
 

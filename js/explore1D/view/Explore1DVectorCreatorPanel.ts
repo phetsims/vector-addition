@@ -25,12 +25,12 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
    * @param graph
    * @param sceneNode
    * @param symbolProperties - the symbols corresponding to each slot
-   * @param [providedOptions]
+   * @param providedOptions
    */
   public constructor( graph: Explore1DGraph,
                       sceneNode: SceneNode,
                       symbolProperties: TReadOnlyProperty<string>[],
-                      providedOptions?: Explore1DVectorCreatorPanelOptions ) {
+                      providedOptions: Explore1DVectorCreatorPanelOptions ) {
 
     const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 

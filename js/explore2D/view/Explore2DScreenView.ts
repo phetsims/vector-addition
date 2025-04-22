@@ -74,8 +74,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
         sceneNode,
         vectorSymbolProperties, {
           left: coordinateSnapModeRadioButtonGroup.left,
-          bottom: coordinateSnapModeRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
-          //TODO https://github.com/phetsims/vector-addition/issues/258 tandem
+          bottom: coordinateSnapModeRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
+          tandem: tandem.createTandem( 'vectorCreatorPanel' )
         } )
       );
 

@@ -18,6 +18,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorCreatorPanelSlot from './VectorCreatorPanelSlot.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'center' | 'bottom';
@@ -30,11 +31,11 @@ type SelfOptions = {
   contentHeight?: number; // fixed height of the panel content
 };
 
-export type VectorCreatorPanelOptions = SelfOptions & NodeTranslationOptions;
+export type VectorCreatorPanelOptions = SelfOptions & NodeTranslationOptions & PickRequired<PanelOptions, 'tandem'>;
 
 export default class VectorCreatorPanel extends Panel {
 
-  protected constructor( panelSlots: VectorCreatorPanelSlot[], providedOptions?: VectorCreatorPanelOptions ) {
+  protected constructor( panelSlots: VectorCreatorPanelSlot[], providedOptions: VectorCreatorPanelOptions ) {
 
     const options = optionize4<VectorCreatorPanelOptions, SelfOptions, PanelOptions>()(
       {}, VectorAdditionConstants.PANEL_OPTIONS, {
