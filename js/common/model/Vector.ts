@@ -1,4 +1,4 @@
-// Copyright 2019-2024, University of Colorado Boulder
+// Copyright 2019-2025, University of Colorado Boulder
 
 /**
  * Vector is the model for a vector that can be directly manipulated.  It can be translated and (optionally)
