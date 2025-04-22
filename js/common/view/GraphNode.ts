@@ -26,6 +26,7 @@ import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import OriginManipulator from './OriginManipulator.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -60,7 +61,7 @@ const TICK_LABEL_Y_OFFSET = 15; // from y = 0, view units
 
 export default class GraphNode extends Node {
 
-  public constructor( graph: Graph, gridVisibilityProperty: Property<boolean> ) {
+  public constructor( graph: Graph, gridVisibilityProperty: Property<boolean>, tandem: Tandem ) {
 
     const graphViewBounds = graph.graphViewBounds;
 
@@ -87,8 +88,9 @@ export default class GraphNode extends Node {
     children.push( new OriginManipulator( graph ) );
 
     super( {
+      isDisposable: false,
       children: children,
-      isDisposable: false
+      tandem: tandem
     } );
 
     // Clicking in the graph clears the active (selected) vector.

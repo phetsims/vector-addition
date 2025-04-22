@@ -82,7 +82,7 @@ export default class SceneNode extends Node {
     //========================================================================================
 
     // Create one and only GraphNode
-    const graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty );
+    const graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty, options.tandem.createTandem( 'graphNode' ) );
 
     // Create the one and only 'Vector Values' accordion box
     const vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, {
