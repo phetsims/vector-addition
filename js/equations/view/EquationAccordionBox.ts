@@ -65,11 +65,13 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
       } );
 
     // Create an equation of each type, only one of which will be visible at a time.
-    const equationsParent = new Node();
+    const equationNodes = new Node( {
+      tandem: options.tandem.createTandem( 'equationNodes' )
+    } );
     EquationTypeValues.forEach( equationType => {
 
-      const equationTypeNode = new EquationTypeNode( vectorSet, equationType );
-      equationsParent.addChild( new AlignBox( equationTypeNode, {
+      const equationTypeNode = new EquationTypeNode( vectorSet, equationType, equationNodes.tandem.createTandem( `${equationType}EquationNode` ) );
+      equationNodes.addChild( new AlignBox( equationTypeNode, {
         group: equationsAlignGroup,
         xAlign: 'left'
       } ) );
@@ -82,7 +84,7 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
 
     // Radio buttons on the left, equation on the right. See https://github.com/phetsims/vector-addition/issues/128
     const expandedContent = new HBox( {
-      children: [ equationTypeRadioButtonGroup, equationsParent ],
+      children: [ equationTypeRadioButtonGroup, equationNodes ],
       spacing: 55
     } );
 

@@ -17,6 +17,7 @@ import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType } from '../model/EquationType.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const TEXT_OPTIONS = {
@@ -27,7 +28,7 @@ const textSpacing = 13.5; // spacing between text of the equation
 
 export default class EquationTypeNode extends Node {
 
-  public constructor( vectorSet: EquationsVectorSet, equationType: EquationType ) {
+  public constructor( vectorSet: EquationsVectorSet, equationType: EquationType, tandem: Tandem ) {
 
     // Create all pieces of the equation
     const equationChildren = [];
@@ -37,7 +38,12 @@ export default class EquationTypeNode extends Node {
       touchAreaXDilation: 20,
       touchAreaYDilation: 14,
       font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT,
-      color: vectorSet.vectorColorPalette.mainFill
+      color: vectorSet.vectorColorPalette.mainFill,
+
+      // Hide arrows when picker is disabled.
+      disabledOpacity: 1,
+      backgroundStrokeDisabledOpacity: 1,
+      arrowDisabledOpacity: 0
     } );
 
     // Left side
@@ -49,13 +55,16 @@ export default class EquationTypeNode extends Node {
       }
 
       const vector = vectorSet.equationsVectors[ i ];
+      const vectorSymbol = vector.symbolProperty!.value;
 
       assert && assert( vector.coefficientProperty.range,
         'coefficientProperty must have an associated range' );
 
-      equationChildren.push( new NumberPicker( vector.coefficientProperty,
-        new Property( vector.coefficientProperty.range ),
-        numberPickerOptions ) );
+      equationChildren.push( new NumberPicker( vector.coefficientProperty, new Property( vector.coefficientProperty.range ),
+        combineOptions<NumberPickerOptions>( {}, numberPickerOptions, {
+          tandem: tandem.createTandem( `${vectorSymbol}Picker` ),
+          phetioVisiblePropertyInstrumented: false
+        } ) ) );
 
       const vectorSymbolNode = new VectorSymbolNode( {
         symbolProperty: vector.symbolProperty,
