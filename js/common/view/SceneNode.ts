@@ -24,7 +24,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -33,7 +32,7 @@ import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListen
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
-import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
@@ -42,6 +41,7 @@ import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import VectorCreatorPanel from './VectorCreatorPanel.js';
 import VectorSetNode from './VectorSetNode.js';
 import VectorValuesToggleBox from './VectorValuesToggleBox.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
@@ -64,7 +64,7 @@ export default class SceneNode extends Node {
 
   public constructor( graph: Graph,
                       viewProperties: VectorAdditionViewProperties,
-                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions?: SceneNodeOptions ) {
 
     const options = optionize<SceneNodeOptions, SelfOptions, NodeOptions>()( {

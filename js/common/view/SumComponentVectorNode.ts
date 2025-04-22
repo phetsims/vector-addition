@@ -11,14 +11,13 @@
  * @author Brandon Li
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
-import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Graph from '../model/Graph.js';
 import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -34,7 +33,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
 
   public constructor( componentVector: ComponentVector,
                       graph: Graph,
-                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       sumVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: SumComponentVectorNodeOptions ) {
@@ -77,7 +76,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
 
     this.visible = (
       // components are visible
-      ( componentVectorStyle !== ComponentVectorStyle.INVISIBLE ) &&
+      ( componentVectorStyle !== 'invisible' ) &&
       // sum is visible
       ( !!this.sumVisibleProperty && this.sumVisibleProperty.value ) &&
       // sum is defined

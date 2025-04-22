@@ -12,14 +12,13 @@
  * @author Brandon Li
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
-import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
@@ -38,13 +37,13 @@ export default class VectorSetNode extends Node {
   private readonly graph: Graph;
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
   private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
-  private readonly componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>;
+  private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
   public constructor( graph: Graph,
                       vectorSet: VectorSet,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
-                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle> ) {
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle> ) {
 
     const sumVector = vectorSet.sumVector!;
     assert && assert( sumVector !== null );

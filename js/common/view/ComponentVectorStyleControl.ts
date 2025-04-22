@@ -8,7 +8,6 @@
  * @author Brandon Li
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
@@ -16,16 +15,17 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorStyleRadioButtonGroup from './ComponentVectorStyleRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
 
 export default class ComponentVectorStyleControl extends VBox {
 
-  public constructor( componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
+  public constructor( componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     const children: Node[] = [];
 

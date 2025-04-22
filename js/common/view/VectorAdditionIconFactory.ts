@@ -36,7 +36,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
 import EquationType from '../../equations/model/EquationType.js';
 import vectorAddition from '../../vectorAddition.js';
-import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import GraphOrientation from '../model/GraphOrientation.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
@@ -259,7 +259,7 @@ const VectorAdditionIconFactory = {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
 
-    if ( componentVectorStyle === ComponentVectorStyle.INVISIBLE ) {
+    if ( componentVectorStyle === 'invisible' ) {
       return createEyeCloseIcon( iconSize );
     }
 
@@ -282,10 +282,10 @@ const VectorAdditionIconFactory = {
 
     let iconChildren: Node[] = [ xComponentArrow, yComponentArrow, vectorArrow ]; // children of the icon children
 
-    if ( componentVectorStyle === ComponentVectorStyle.TRIANGLE ) {
+    if ( componentVectorStyle === 'triangle' ) {
       yComponentArrow.setTailAndTip( iconSize, 0, iconSize, -iconSize );
     }
-    else if ( componentVectorStyle === ComponentVectorStyle.PROJECTION ) {
+    else if ( componentVectorStyle === 'projection' ) {
       vectorArrow.setTailAndTip( subBoxSize, -subBoxSize, iconSize, -iconSize );
       xComponentArrow.setTailAndTip( subBoxSize, 0, iconSize, 0 );
       yComponentArrow.setTailAndTip( 0, -subBoxSize, 0, -iconSize );

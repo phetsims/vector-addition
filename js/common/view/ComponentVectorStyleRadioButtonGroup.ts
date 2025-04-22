@@ -9,24 +9,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButton, { RectangularRadioButtonOptions } from '../../../../sun/js/buttons/RectangularRadioButton.js';
 import vectorAddition from '../../vectorAddition.js';
-import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
+import { ComponentVectorStyle, ComponentVectorStyleValues } from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import GridBox from './GridBox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 export default class ComponentVectorStyleRadioButtonGroup extends Node {
 
-  public constructor( componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
+  public constructor( componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     // Create the radio buttons. Note that order of enum values determines order of buttons.
     const buttons: RectangularRadioButton<ComponentVectorStyle>[] = [];
-    ComponentVectorStyle.enumeration.values.forEach( componentVectorStyle => {
+    ComponentVectorStyleValues.forEach( componentVectorStyle => {
       buttons.push( new RectangularRadioButton( componentVectorStyleProperty, componentVectorStyle,
         combineOptions<RectangularRadioButtonOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS.radioButtonOptions, {
           content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentVectorStyle ),

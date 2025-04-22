@@ -14,10 +14,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
-import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import SceneNode, { SceneNodeOptions } from '../../common/view/SceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -25,6 +24,7 @@ import EquationsGraph from '../model/EquationsGraph.js';
 import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationToggleBox from './EquationToggleBox.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 type EquationsSceneNodeOptions = SelfOptions & SceneNodeOptions;
@@ -33,7 +33,7 @@ export default class EquationsSceneNode extends SceneNode {
 
   public constructor( graph: EquationsGraph,
                       viewProperties: EquationsViewProperties,
-                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       graphControlPanelBottom: number,
                       equationButtonsAlignGroup: AlignGroup, // used to make all equation radio buttons the same size
                       equationsAlignGroup: AlignGroup, // used to make all interactive equations the same size

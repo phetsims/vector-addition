@@ -8,7 +8,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
@@ -16,7 +15,7 @@ import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -28,6 +27,7 @@ import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -37,7 +37,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
 
   public constructor( cartesianVectorSet: VectorSet,
                       polarVectorSet: VectorSet,
-                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       viewProperties: VectorAdditionViewProperties,
                       providedOptions: Explore2DGraphControlPanelOptions ) {
 

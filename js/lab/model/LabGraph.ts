@@ -6,17 +6,17 @@
  * @author Brandon Li
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import Graph from '../../common/model/Graph.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
@@ -35,7 +35,7 @@ export default class LabGraph extends Graph {
    * @param vectorColorPalette2 - color palette for the second VectorSet
    */
   public constructor( coordinateSnapMode: CoordinateSnapMode,
-                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
                       vectorColorPalette1: VectorColorPalette,

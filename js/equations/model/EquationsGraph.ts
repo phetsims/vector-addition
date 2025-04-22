@@ -13,7 +13,7 @@
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import Graph from '../../common/model/Graph.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
@@ -21,6 +21,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
 import EquationType from './EquationType.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 
@@ -39,7 +40,7 @@ export default class EquationsGraph extends Graph {
   public readonly vectorSet: EquationsVectorSet;
 
   public constructor( coordinateSnapMode: CoordinateSnapMode,
-                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette ) {
 

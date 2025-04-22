@@ -12,7 +12,6 @@
  * @author Brandon Li
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -22,7 +21,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Path from '../../../../scenery/js/nodes/Path.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
-import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import ComponentVectorType from '../model/ComponentVectorType.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
@@ -58,7 +57,7 @@ export default class ComponentVectorNode extends RootVectorNode {
    */
   public constructor( componentVector: ComponentVector,
                       graph: Graph,
-                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: ComponentVectorNodeOptions ) {
 
@@ -132,10 +131,9 @@ export default class ComponentVectorNode extends RootVectorNode {
                                    componentVectorStyle: ComponentVectorStyle, isParentActive: boolean ): void {
 
     // Component vectors are visible when it isn't INVISIBLE, and it is on the graph.
-    this.visible = componentVector.isOnGraphProperty.value &&
-                   componentVectorStyle !== ComponentVectorStyle.INVISIBLE;
+    this.visible = componentVector.isOnGraphProperty.value && ( componentVectorStyle !== 'invisible' );
 
-    if ( componentVectorStyle === ComponentVectorStyle.PROJECTION ) {
+    if ( componentVectorStyle === 'projection' ) {
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
     }
     else {
@@ -146,7 +144,7 @@ export default class ComponentVectorNode extends RootVectorNode {
     }
 
     // Leader lines are only visible when component vectors are projected onto axes
-    this.leaderLinesPath.visible = ( componentVectorStyle === ComponentVectorStyle.PROJECTION );
+    this.leaderLinesPath.visible = ( componentVectorStyle === 'projection' );
 
     // Update leader lines only if they are visible (with PROJECTION style)
     if ( this.leaderLinesPath.visible ) {

@@ -7,19 +7,21 @@
  */
 
 import Disposable from '../../../../axon/js/Disposable.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TModel from '../../../../joist/js/TModel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
-import ComponentVectorStyle from './ComponentVectorStyle.js';
+import { ComponentVectorStyle, ComponentVectorStyleValues } from './ComponentVectorStyle.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 export default class VectorAdditionModel implements TModel {
 
   // the representation (style) used to display component vectors
-  public readonly componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>;
+  public readonly componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>;
 
   protected constructor( tandem: Tandem ) {
-    this.componentVectorStyleProperty = new EnumerationProperty( ComponentVectorStyle.INVISIBLE, {
+
+    this.componentVectorStyleProperty = new StringUnionProperty( 'invisible', {
+      validValues: ComponentVectorStyleValues,
       tandem: tandem.createTandem( 'componentVectorStyleProperty' )
     } );
   }

@@ -14,18 +14,18 @@
 
 import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Disposable from '../../../../axon/js/Disposable.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import ComponentVectorStyle from './ComponentVectorStyle.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import Graph from './Graph.js';
 import SumVector from './SumVector.js';
 import Vector from './Vector.js';
 import VectorColorPalette from './VectorColorPalette.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = {
 
@@ -56,7 +56,7 @@ export default class VectorSet {
 
   public readonly vectorColorPalette: VectorColorPalette;
   public readonly sumVisibleProperty: Property<boolean>;
-  public readonly componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>;
+  public readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
   public readonly projectionXOffsetStart: number;
   public readonly projectionYOffsetStart: number;
@@ -73,7 +73,7 @@ export default class VectorSet {
    * @param [providedOptions]
    */
   public constructor( graph: Graph,
-                      componentVectorStyleProperty: EnumerationProperty<ComponentVectorStyle>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
                       providedOptions?: VectorSetOptions ) {
