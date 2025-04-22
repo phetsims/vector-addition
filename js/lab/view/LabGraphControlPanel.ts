@@ -14,7 +14,6 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
@@ -28,6 +27,7 @@ import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -101,7 +101,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       } ),
 
       // separator
-      new HSeparator( { stroke: Color.BLACK } ),
+      new HSeparator( { stroke: VectorAdditionColors.SEPARATOR_STROKE } ),
 
       // Radio buttons for selection component vector style
       new ComponentVectorStyleControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )

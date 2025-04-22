@@ -43,6 +43,8 @@ const VectorAdditionColors = {
     fill: 'rgb( 240, 240, 240 )'
   },
 
+  SEPARATOR_STROKE: Color.grayColor( 180 ),
+
   //----------------------------------------------------------------------------------------
   // RadioButtonGroups
 

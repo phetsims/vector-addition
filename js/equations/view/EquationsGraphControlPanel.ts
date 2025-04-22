@@ -14,7 +14,6 @@ import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
@@ -27,6 +26,7 @@ import VectorCheckbox from '../../common/view/VectorCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -111,7 +111,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
       } ),
 
       // separator
-      new HSeparator( { stroke: Color.BLACK } ),
+      new HSeparator( { stroke: VectorAdditionColors.SEPARATOR_STROKE } ),
 
       // Radio buttons for selection component vector style
       new ComponentVectorStyleControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
