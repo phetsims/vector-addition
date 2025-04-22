@@ -62,7 +62,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
     const options = optionize<VectorValuesToggleBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
-      // ToggleBoxOptions
+      // FixedSizeAccordionBoxOptions
       contentFixedWidth: 500,
       contentFixedHeight: 45,
       isDisposable: false

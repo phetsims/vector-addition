@@ -48,7 +48,7 @@ export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
 
     const options = optionize<EquationToggleBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
-      // ToggleBoxOptions
+      // FixedSizeAccordionBoxOptions
       contentFixedWidth: 670,
       contentFixedHeight: 50,
       contentXSpacing: 17,
