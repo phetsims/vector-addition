@@ -29,17 +29,19 @@ import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFacto
 import vectorAddition from '../../vectorAddition.js';
 import { EquationType, EquationTypeValues } from '../model/EquationType.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationTypesRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions;
+type EquationTypesRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions &
+  PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
 export default class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup<EquationType> {
 
   public constructor( equationTypeProperty: StringUnionProperty<EquationType>,
                       vectorSymbolProperties: TReadOnlyProperty<string>[], // symbols on the buttons
                       alignGroup: AlignGroup,
-                      providedOptions?: EquationTypesRadioButtonGroupOptions ) {
+                      providedOptions: EquationTypesRadioButtonGroupOptions ) {
 
     const options = optionize4<EquationTypesRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
@@ -55,7 +57,8 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
         value: equationType,
         createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbolProperties ), {
           group: alignGroup
-        } )
+        } ),
+        tandemName: `${equationType}RadioButton`
       } );
     } );
 

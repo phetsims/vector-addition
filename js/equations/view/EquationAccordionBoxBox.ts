@@ -59,8 +59,10 @@ export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
     const equationText = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type
-    const radioButtonGroup = new EquationTypesRadioButtonGroup(
-      equationTypeProperty, vectorSet.symbolProperties, equationButtonsAlignGroup );
+    const equationTypeRadioButtonGroup = new EquationTypesRadioButtonGroup(
+      equationTypeProperty, vectorSet.symbolProperties, equationButtonsAlignGroup, {
+        tandem: options.tandem.createTandem( 'equationTypeRadioButtonGroup' )
+      } );
 
     // Create an equation of each type, only one of which will be visible at a time.
     const equationsParent = new Node();
@@ -80,7 +82,7 @@ export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
 
     // Radio buttons on the left, equation on the right. See https://github.com/phetsims/vector-addition/issues/128
     const expandedContent = new HBox( {
-      children: [ radioButtonGroup, equationsParent ],
+      children: [ equationTypeRadioButtonGroup, equationsParent ],
       spacing: 55
     } );
 
