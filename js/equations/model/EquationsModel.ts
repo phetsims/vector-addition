@@ -42,13 +42,15 @@ export default class EquationsModel extends VectorAdditionModel {
     this.cartesianGraph = new EquationsGraph( 'cartesian',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.cartesianVectorColorPalette
+      this.cartesianVectorColorPalette,
+      tandem.createTandem( 'cartesianGraph' )
     );
 
     this.polarGraph = new EquationsGraph( 'polar',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.polarVectorColorPalette
+      this.polarVectorColorPalette,
+      tandem.createTandem( 'polarGraph' )
     );
   }
 

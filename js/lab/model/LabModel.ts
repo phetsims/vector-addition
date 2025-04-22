@@ -57,7 +57,8 @@ export default class LabModel extends VectorAdditionModel {
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,
       this.cartesianVectorColorPalette1,
-      this.cartesianVectorColorPalette2
+      this.cartesianVectorColorPalette2,
+      tandem.createTandem( 'cartesianGraph' )
     );
 
     this.polarGraph = new LabGraph(
@@ -66,7 +67,8 @@ export default class LabModel extends VectorAdditionModel {
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,
       this.polarVectorColorPalette1,
-      this.polarVectorColorPalette2
+      this.polarVectorColorPalette2,
+      tandem.createTandem( 'polarGraph' )
     );
   }
 

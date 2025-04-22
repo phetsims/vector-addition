@@ -41,15 +41,21 @@ export default class Explore1DModel extends VectorAdditionModel {
     this.horizontalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
     this.verticalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
 
-    this.horizontalGraph = new Explore1DGraph( 'horizontal',
+    this.horizontalGraph = new Explore1DGraph(
+      'horizontal',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.horizontalVectorColorPalette );
+      this.horizontalVectorColorPalette,
+      tandem.createTandem( 'horizontalGraph' )
+    );
 
-    this.verticalGraph = new Explore1DGraph( 'vertical',
+    this.verticalGraph = new Explore1DGraph(
+      'vertical',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.verticalVectorColorPalette );
+      this.verticalVectorColorPalette,
+      tandem.createTandem( 'verticalGraph' )
+    );
   }
 
   public override reset(): void {

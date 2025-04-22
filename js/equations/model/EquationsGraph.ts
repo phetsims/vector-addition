@@ -22,6 +22,7 @@ import EquationsVectorSet from './EquationsVectorSet.js';
 import { EquationType, EquationTypeValues } from './EquationType.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 
@@ -42,14 +43,17 @@ export default class EquationsGraph extends Graph {
   public constructor( coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
-                      vectorColorPalette: VectorColorPalette ) {
+                      vectorColorPalette: VectorColorPalette,
+                      tandem: Tandem ) {
 
     super( EQUATIONS_GRAPH_BOUNDS, coordinateSnapMode, {
-      bottomLeft: BOTTOM_LEFT
+      bottomLeft: BOTTOM_LEFT,
+      tandem: tandem
     } );
 
     this.equationTypeProperty = new StringUnionProperty( STARTING_EQUATION_TYPE, {
-      validValues: EquationTypeValues
+      validValues: EquationTypeValues,
+      tandem: tandem.createTandem( 'equationTypeProperty' )
     } );
 
     this.vectorSet = new EquationsVectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );

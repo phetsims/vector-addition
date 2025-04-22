@@ -25,6 +25,8 @@ import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 import { GraphOrientation } from './GraphOrientation.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 
 // scale of the coordinate transformation of model coordinates to view coordinates
 const MODEL_TO_VIEW_SCALE = 14.5;
@@ -34,7 +36,7 @@ type SelfOptions = {
   bottomLeft?: Vector2; // bottom left corner of the graph, in view coordinates
 };
 
-type GraphOptions = SelfOptions;
+type GraphOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class Graph {
 
@@ -72,7 +74,7 @@ export default class Graph {
    * @param coordinateSnapMode - the coordinate snap mode of the graph. A graph is either strictly polar or Cartesian.
    * @param [providedOptions]
    */
-  protected constructor( initialGraphBounds: Bounds2, coordinateSnapMode: CoordinateSnapMode, providedOptions?: GraphOptions ) {
+  protected constructor( initialGraphBounds: Bounds2, coordinateSnapMode: CoordinateSnapMode, providedOptions: GraphOptions ) {
 
     const options = optionize<GraphOptions, SelfOptions>()( {
 
@@ -86,7 +88,10 @@ export default class Graph {
     this.coordinateSnapMode = coordinateSnapMode;
 
     this.graphModelBoundsProperty = new Property( initialGraphBounds, {
-      valueType: Bounds2
+      phetioValueType: Bounds2.Bounds2IO,
+      tandem: options.tandem.createTandem( 'graphModelBoundsProperty' ),
+      phetioDocumentation: 'For internal use only.',
+      phetioReadOnly: true
     } );
 
     this.graphViewBounds = new Bounds2( options.bottomLeft.x,

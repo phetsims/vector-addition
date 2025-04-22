@@ -24,6 +24,7 @@ import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
@@ -51,16 +52,19 @@ export default class Explore1DGraph extends Graph {
    * @param componentVectorStyleProperty
    * @param sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
    * @param vectorColorPalette - color palette for vectors on this graph
+   * @param tandem
    */
   public constructor( graphOrientation: GraphOrientation,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
-                      vectorColorPalette: VectorColorPalette ) {
+                      vectorColorPalette: VectorColorPalette,
+                      tandem: Tandem ) {
 
     assert && assert( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ) );
 
     super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, {
-      orientation: graphOrientation
+      orientation: graphOrientation,
+      tandem: tandem
     } );
 
     this.vectorSet = new VectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette );

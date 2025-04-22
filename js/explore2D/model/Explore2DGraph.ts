@@ -21,6 +21,7 @@ import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class Explore2DGraph extends Graph {
 
@@ -30,9 +31,12 @@ export default class Explore2DGraph extends Graph {
   public constructor( coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
-                      vectorColorPalette: VectorColorPalette ) {
+                      vectorColorPalette: VectorColorPalette,
+                      tandem: Tandem ) {
 
-    super( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS, coordinateSnapMode );
+    super( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, {
+      tandem: tandem
+    } );
 
     this.vectorSet = new VectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette );
 

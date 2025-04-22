@@ -17,6 +17,7 @@ import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
@@ -33,15 +34,19 @@ export default class LabGraph extends Graph {
    * @param sum2VisibleProperty - whether the sum for the second VectorSet is visible
    * @param vectorColorPalette1 - color palette for the first VectorSet
    * @param vectorColorPalette2 - color palette for the second VectorSet
+   * @param tandem
    */
   public constructor( coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
                       vectorColorPalette1: VectorColorPalette,
-                      vectorColorPalette2: VectorColorPalette ) {
+                      vectorColorPalette2: VectorColorPalette,
+                      tandem: Tandem ) {
 
-    super( LAB_GRAPH_BOUNDS, coordinateSnapMode );
+    super( LAB_GRAPH_BOUNDS, coordinateSnapMode, {
+      tandem: tandem
+    } );
 
     // Compute values for the options that are related to the PROJECTION style component vectors.
     // PROJECTION component vectors are more closely spaced in this screen, and we have 2 sum vectors.

@@ -41,15 +41,21 @@ export default class Explore2DModel extends VectorAdditionModel {
     this.cartesianVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
     this.polarVectorColorPalette = VectorAdditionColors.PINK_COLOR_PALETTE;
 
-    this.cartesianGraph = new Explore2DGraph( 'cartesian',
+    this.cartesianGraph = new Explore2DGraph(
+      'cartesian',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.cartesianVectorColorPalette );
+      this.cartesianVectorColorPalette,
+      tandem.createTandem( 'cartesianGraph' )
+    );
 
-    this.polarGraph = new Explore2DGraph( 'polar',
+    this.polarGraph = new Explore2DGraph(
+      'polar',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.polarVectorColorPalette );
+      this.polarVectorColorPalette,
+      tandem.createTandem( 'polarGraph' )
+    );
   }
 
   public override reset(): void {
