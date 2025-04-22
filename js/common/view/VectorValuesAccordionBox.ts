@@ -54,13 +54,13 @@ const COMPONENT_LABEL_WIDTH = 35;
 
 type SelfOptions = EmptySelfOptions;
 
-type VectorValuesToggleBoxOptions = SelfOptions & FixedSizeAccordionBoxOptions;
+type VectorValuesAccordionBoxOptions = SelfOptions & FixedSizeAccordionBoxOptions;
 
 export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
-  public constructor( graph: Graph, providedOptions: VectorValuesToggleBoxOptions ) {
+  public constructor( graph: Graph, providedOptions: VectorValuesAccordionBoxOptions ) {
 
-    const options = optionize<VectorValuesToggleBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
+    const options = optionize<VectorValuesAccordionBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
       // FixedSizeAccordionBoxOptions
       contentFixedWidth: 500,

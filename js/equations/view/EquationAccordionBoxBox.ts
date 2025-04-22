@@ -29,7 +29,7 @@ const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationToggleBoxOptions = SelfOptions & FixedSizeAccordionBoxOptions;
+type EquationAccordionBoxOptions = SelfOptions & FixedSizeAccordionBoxOptions;
 
 export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
 
@@ -44,9 +44,9 @@ export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
                       equationTypeProperty: StringUnionProperty<EquationType>,
                       equationButtonsAlignGroup: AlignGroup,
                       equationsAlignGroup: AlignGroup,
-                      providedOptions: EquationToggleBoxOptions ) {
+                      providedOptions: EquationAccordionBoxOptions ) {
 
-    const options = optionize<EquationToggleBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
+    const options = optionize<EquationAccordionBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
       // FixedSizeAccordionBoxOptions
       contentFixedWidth: 670,
