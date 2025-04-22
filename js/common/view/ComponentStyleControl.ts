@@ -18,7 +18,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import ComponentStyleRadioButtonGroup from './ComponentStyleRadioButtonGroup.js';
+import ComponentVectorStyleRadioButtonGroup from './ComponentVectorStyleRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
@@ -37,7 +37,7 @@ export default class ComponentStyleControl extends VBox {
     children.push( componentsText );
 
     // Radio buttons, centered in maxWidth by using an AlignBox
-    const radioButtonGroup = new ComponentStyleRadioButtonGroup( componentStyleProperty,
+    const radioButtonGroup = new ComponentVectorStyleRadioButtonGroup( componentStyleProperty,
       tandem.createTandem( 'radioButtonGroup' ) );
     children.push( new AlignBox( radioButtonGroup, {
       alignBounds: new Bounds2( 0, 0, MAX_WIDTH, radioButtonGroup.height )

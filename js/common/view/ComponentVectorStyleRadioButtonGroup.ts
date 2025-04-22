@@ -1,8 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * ComponentStyleRadioButtonGroup is a group of radio buttons, arranged in a grid, for selecting component style.
- * It does not use RectangularRadioButtonGroup, because that class does not support a grid layout.
+ * ComponentVectorStyleRadioButtonGroup is a group of radio buttons, arranged in a grid, for selecting component vector
+ * style. It does not use RectangularRadioButtonGroup, because that class does not support a grid layout.
  * See https://github.com/phetsims/sun/issues/513 for context.
  *
  * @author Brandon Li
@@ -20,7 +20,7 @@ import GridBox from './GridBox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-export default class ComponentStyleRadioButtonGroup extends Node {
+export default class ComponentVectorStyleRadioButtonGroup extends Node {
 
   public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
@@ -47,4 +47,4 @@ export default class ComponentStyleRadioButtonGroup extends Node {
   }
 }
 
-vectorAddition.register( 'ComponentStyleRadioButtonGroup', ComponentStyleRadioButtonGroup );
+vectorAddition.register( 'ComponentVectorStyleRadioButtonGroup', ComponentVectorStyleRadioButtonGroup );
