@@ -24,7 +24,7 @@ import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorQuantity from './VectorQuantity.js';
+import { VectorQuantity } from './VectorQuantity.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 
@@ -53,16 +53,16 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
 
     let numberDisplayRange: Range;
 
-    if ( vectorQuantity === VectorQuantity.ANGLE ) {
+    if ( vectorQuantity === 'angle' ) {
       numberDisplayRange = VectorAdditionConstants.ANGLE_RANGE;
     }
-    else if ( vectorQuantity === VectorQuantity.MAGNITUDE ) {
+    else if ( vectorQuantity === 'magnitude' ) {
       numberDisplayRange = new Range( 0, maxMagnitude );
     }
-    else if ( vectorQuantity === VectorQuantity.X_COMPONENT ) {
+    else if ( vectorQuantity === 'xComponent' ) {
       numberDisplayRange = new Range( -graphWidth, graphWidth );
     }
-    else { // vectorQuantity === VectorQuantity.Y_COMPONENT
+    else { // vectorQuantity === 'yComponent'
       numberDisplayRange = new Range( -graphHeight, graphHeight );
     }
 
@@ -78,7 +78,7 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
     // Round to the specified number of decimal places, and add a degree symbol for angle.
     options.numberFormatter = ( value: number ) => {
       const valueString = toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
-      return ( vectorQuantity === VectorQuantity.ANGLE ) ? `${valueString}${MathSymbols.DEGREES}` : valueString;
+      return ( vectorQuantity === 'angle' ) ? `${valueString}${MathSymbols.DEGREES}` : valueString;
     };
 
     super( numberDisplayProperty, numberDisplayRange, options );
@@ -116,16 +116,16 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
       return null;
     }
 
-    if ( this.vectorQuantity === VectorQuantity.MAGNITUDE ) {
+    if ( this.vectorQuantity === 'magnitude' ) {
       return activeVector.magnitude;
     }
-    else if ( this.vectorQuantity === VectorQuantity.ANGLE ) {
+    else if ( this.vectorQuantity === 'angle' ) {
       return activeVector.angleDegrees;
     }
-    else if ( this.vectorQuantity === VectorQuantity.X_COMPONENT ) {
+    else if ( this.vectorQuantity === 'xComponent' ) {
       return activeVector.xComponent;
     }
-    else if ( this.vectorQuantity === VectorQuantity.Y_COMPONENT ) {
+    else if ( this.vectorQuantity === 'yComponent' ) {
       return activeVector.yComponent;
     }
     throw new Error( 'invalid case for getNumberDisplayValue' );

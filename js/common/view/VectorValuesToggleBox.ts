@@ -31,7 +31,6 @@ import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ToggleBox, { ToggleBoxOptions } from './ToggleBox.js';
-import VectorQuantity from './VectorQuantity.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
 
@@ -104,16 +103,16 @@ export default class VectorValuesToggleBox extends ToggleBox {
     const magnitudeVectorSymbolNode = new VectorSymbolNode( {
       includeAbsoluteValueBars: true
     } );
-    const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, VectorQuantity.MAGNITUDE );
+    const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, 'magnitude' );
 
     const angleText = new Text( MathSymbols.THETA, { font: VectorAdditionConstants.EQUATION_SYMBOL_FONT } );
-    const angleNumberDisplay = new VectorValuesNumberDisplay( graph, VectorQuantity.ANGLE );
+    const angleNumberDisplay = new VectorValuesNumberDisplay( graph, 'angle' );
 
     const xVectorSymbolNode = new VectorSymbolNode( { showVectorArrow: false } );
-    const xComponentNumberDisplay = new VectorValuesNumberDisplay( graph, VectorQuantity.X_COMPONENT );
+    const xComponentNumberDisplay = new VectorValuesNumberDisplay( graph, 'xComponent' );
 
     const yVectorSymbolNode = new VectorSymbolNode( { showVectorArrow: false } );
-    const yComponentNumberDisplay = new VectorValuesNumberDisplay( graph, VectorQuantity.Y_COMPONENT );
+    const yComponentNumberDisplay = new VectorValuesNumberDisplay( graph, 'yComponent' );
 
     //----------------------------------------------------------------------------------------
     // Add the new scenery nodes
