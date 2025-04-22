@@ -34,7 +34,7 @@ import Spacer from '../../../../scenery/js/nodes/Spacer.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSolidShape.js';
-import EquationType from '../../equations/model/EquationType.js';
+import { EquationType } from '../../equations/model/EquationType.js';
 import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import { GraphOrientation } from '../model/GraphOrientation.js';
@@ -420,7 +420,7 @@ const VectorAdditionIconFactory = {
 
     // Gather all the symbols for the left side of the equation into an array.
     // For NEGATION, all symbols are on the left side of the equation
-    const equationLeftSideSymbolProperties = _.dropRight( vectorSymbolProperties, equationType === EquationType.NEGATION ? 0 : 1 );
+    const equationLeftSideSymbolProperties = _.dropRight( vectorSymbolProperties, equationType === 'negation' ? 0 : 1 );
 
     // Create a vector symbol for each symbol on the left side of the equation.
     equationLeftSideSymbolProperties.forEach( symbolProperty => {
@@ -429,7 +429,7 @@ const VectorAdditionIconFactory = {
 
     // Interleave operators (i.e. '+'|'-') in between each symbol on the left side of the equation
     children = interleave( children, () => {
-      const operator = ( equationType === EquationType.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
+      const operator = ( equationType === 'subtraction' ) ? MathSymbols.MINUS : MathSymbols.PLUS;
       return new Text( operator, textOptions );
     } );
 
@@ -437,7 +437,7 @@ const VectorAdditionIconFactory = {
     children.push( new Text( MathSymbols.EQUAL_TO, textOptions ) );
 
     // Right side of the equation, which is either '0' or the last of the symbols (which is the sum).
-    children.push( equationType === EquationType.NEGATION ?
+    children.push( equationType === 'negation' ?
                    new Text( '0', textOptions ) :
                    new ArrowOverSymbolNode( _.last( vectorSymbolProperties )! ) );
 

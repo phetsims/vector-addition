@@ -9,7 +9,6 @@
  */
 
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -20,14 +19,14 @@ import SumVector from '../../common/model/SumVector.js';
 import Vector from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationType from './EquationType.js';
+import { EquationType } from './EquationType.js';
 
 // constants
 const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
 
 export default class EquationsSumVector extends SumVector {
 
-  private readonly equationTypeProperty: EnumerationProperty<EquationType>;
+  private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
 
   /**
    * @param graph - graph the sum vector belongs to
@@ -35,7 +34,9 @@ export default class EquationsSumVector extends SumVector {
    * @param equationTypeProperty
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
-  public constructor( graph: Graph, vectorSet: VectorSet, equationTypeProperty: EnumerationProperty<EquationType>,
+  public constructor( graph: Graph,
+                      vectorSet: VectorSet,
+                      equationTypeProperty: TReadOnlyProperty<EquationType>,
                       symbolProperty: TReadOnlyProperty<string> ) {
 
     super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbolProperty );
@@ -58,7 +59,7 @@ export default class EquationsSumVector extends SumVector {
     const equationType = this.equationTypeProperty.value;
 
     // Denoted by 'a' + 'b' = 'c'
-    if ( equationType === EquationType.ADDITION ) {
+    if ( equationType === 'addition' ) {
       const sum = new Vector2( 0, 0 );
 
       vectors.forEach( vector => {
@@ -67,7 +68,7 @@ export default class EquationsSumVector extends SumVector {
 
       this.vectorComponents = sum;
     }
-    else if ( equationType === EquationType.SUBTRACTION ) {
+    else if ( equationType === 'subtraction' ) {
       const calculatedComponents = vectors.get( 0 ).vectorComponents.copy();
 
       // Subtract from the first vector
@@ -77,9 +78,9 @@ export default class EquationsSumVector extends SumVector {
 
       this.vectorComponents = calculatedComponents;
     }
-    else if ( equationType === EquationType.NEGATION ) {
+    else if ( equationType === 'negation' ) {
 
-      // Same as addition but negated  : a + b = -c or a + b + c = 0
+      // Same as addition but negated: a + b = -c or a + b + c = 0
       const sum = new Vector2( 0, 0 );
 
       vectors.forEach( vector => {

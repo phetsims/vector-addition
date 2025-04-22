@@ -16,7 +16,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
-import EquationType from '../model/EquationType.js';
+import { EquationType } from '../model/EquationType.js';
 
 // constants
 const TEXT_OPTIONS = {
@@ -44,7 +44,7 @@ export default class EquationTypeNode extends Node {
     for ( let i = 0; i < vectorSet.vectors.length; i++ ) {
 
       if ( i > 0 ) {
-        const signText = ( equationType === EquationType.SUBTRACTION ) ? MathSymbols.MINUS : MathSymbols.PLUS;
+        const signText = ( equationType === 'subtraction' ) ? MathSymbols.MINUS : MathSymbols.PLUS;
         equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
       }
 
@@ -65,7 +65,7 @@ export default class EquationTypeNode extends Node {
       maxVectorSymbolHeight = Math.max( maxVectorSymbolHeight, vectorSymbolNode.height );
     }
 
-    if ( equationType === EquationType.NEGATION ) {
+    if ( equationType === 'negation' ) {
       equationChildren.push( new Text( MathSymbols.PLUS, TEXT_OPTIONS ) );
 
       const sumVector = vectorSet.sumVector!;
@@ -82,7 +82,7 @@ export default class EquationTypeNode extends Node {
     equationChildren.push( new Text( MathSymbols.EQUAL_TO, TEXT_OPTIONS ) );
 
     // Right side
-    if ( equationType === EquationType.NEGATION ) {
+    if ( equationType === 'negation' ) {
       equationChildren.push( new Text( '0', TEXT_OPTIONS ) );
     }
     else {

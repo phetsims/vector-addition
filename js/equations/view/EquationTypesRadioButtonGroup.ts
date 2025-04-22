@@ -18,7 +18,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
@@ -28,7 +27,8 @@ import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, Rectangul
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationType from '../model/EquationType.js';
+import { EquationType, EquationTypeValues } from '../model/EquationType.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,7 +36,7 @@ type EquationTypesRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions
 
 export default class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup<EquationType> {
 
-  public constructor( equationTypeProperty: EnumerationProperty<EquationType>,
+  public constructor( equationTypeProperty: StringUnionProperty<EquationType>,
                       vectorSymbolProperties: TReadOnlyProperty<string>[], // symbols on the buttons
                       alignGroup: AlignGroup,
                       providedOptions?: EquationTypesRadioButtonGroupOptions ) {
@@ -50,7 +50,7 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
 
     // Create the description of the buttons
     const items: RectangularRadioButtonGroupItem<EquationType>[] = [];
-    EquationType.enumeration.values.forEach( equationType => {
+    EquationTypeValues.forEach( equationType => {
       items.push( {
         value: equationType,
         createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbolProperties ), {

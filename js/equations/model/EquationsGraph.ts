@@ -10,7 +10,6 @@
  * @author Brandon Li
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
@@ -20,8 +19,9 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
-import EquationType from './EquationType.js';
+import { EquationType, EquationTypeValues } from './EquationType.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 // constants
 
@@ -32,11 +32,11 @@ const EQUATIONS_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 const BOTTOM_LEFT = new Vector2( Graph.DEFAULT_BOTTOM_LEFT.x, Graph.DEFAULT_BOTTOM_LEFT.y + 40 );
 
 // Starting equation type
-const STARTING_EQUATION_TYPE = EquationType.ADDITION;
+const STARTING_EQUATION_TYPE: EquationType = 'addition';
 
 export default class EquationsGraph extends Graph {
 
-  public readonly equationTypeProperty: EnumerationProperty<EquationType>;
+  public readonly equationTypeProperty: StringUnionProperty<EquationType>;
   public readonly vectorSet: EquationsVectorSet;
 
   public constructor( coordinateSnapMode: CoordinateSnapMode,
@@ -48,7 +48,9 @@ export default class EquationsGraph extends Graph {
       bottomLeft: BOTTOM_LEFT
     } );
 
-    this.equationTypeProperty = new EnumerationProperty( STARTING_EQUATION_TYPE );
+    this.equationTypeProperty = new StringUnionProperty( STARTING_EQUATION_TYPE, {
+      validValues: EquationTypeValues
+    } );
 
     this.vectorSet = new EquationsVectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );
 

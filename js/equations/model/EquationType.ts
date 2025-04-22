@@ -6,24 +6,19 @@
  * @author Brandon Li
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
-import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
-import vectorAddition from '../../vectorAddition.js';
-
-export default class EquationType extends EnumerationValue {
+export const EquationTypeValues = [
 
   // Adding two vectors to get a third. Shown as 'a + b = c' or 'd + e = f'
-  public static readonly ADDITION = new EquationType();
+  'addition',
 
   // Subtracting a vector from another to get a third. Shown as 'a - b = c' or 'd - e = f'
-  public static readonly SUBTRACTION = new EquationType();
+  'subtraction',
 
   // Negating the sum of two vectors to get a third.
   // Derived from '-( a + b ) = c', simplified to 'a + b + c = 0'
   // Shown as 'a + b + c = 0' or 'd + e + f = 0'
-  public static readonly NEGATION = new EquationType();
+  'negation'
 
-  public static readonly enumeration = new Enumeration( EquationType );
-}
+] as const;
 
-vectorAddition.register( 'EquationType', EquationType );
+export type EquationType = ( typeof EquationTypeValues )[number];
