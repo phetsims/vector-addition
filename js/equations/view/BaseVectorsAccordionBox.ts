@@ -39,6 +39,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 
 // constants
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
@@ -85,6 +86,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     vectorSet.equationsVectors.forEach( vector => {
 
       const baseVector = vector.baseVector; // convenience reference
+      const baseVectorSymbol = baseVector.symbolProperty!.value;
 
       // Empty references to the 2 NumberPickers/labels per Vector. To be set later.
       let leftNumberPickerAndLabel;
@@ -107,7 +109,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             symbolProperty: leftLabel,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
-          } ) );
+          } ), {
+            tandem: options.tandem.createTandem( `${baseVectorSymbol}XPicker` )
+          } );
 
         // Y Component
         const rightLabel = baseVector.symbolProperty ?
@@ -121,7 +125,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             symbolProperty: rightLabel,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
-          } ) );
+          } ), {
+            tandem: options.tandem.createTandem( `${baseVectorSymbol}YPicker` )
+          } );
       }
       else {
         const polarBaseVector = baseVector as PolarBaseVector;
@@ -135,7 +141,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             symbolProperty: baseVector.symbolProperty,
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
-          } ) );
+          } ), {
+            tandem: options.tandem.createTandem( `${baseVectorSymbol}MagnitudePicker` )
+          } );
 
         // Angle
         assert && assert( baseVector.symbolProperty );
@@ -150,7 +158,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           } ), {
             // increment by the polar angle interval
             incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
-            decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL
+            decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
+            tandem: options.tandem.createTandem( `${baseVectorSymbol}AnglePicker` )
           } );
       }
 
@@ -203,10 +212,10 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
  * @param numberProperty - number Property that goes in the NumberPicker
  * @param numberRange - static numberRange of the number Property
  * @param labelNode
- * @param [numberPickerOptions]
+ * @param numberPickerOptions
  */
 function createNumberPickerWithLabel( numberProperty: NumberProperty, numberRange: Range, labelNode: Node,
-                                      numberPickerOptions?: NumberPickerOptions ): Node {
+                                      numberPickerOptions: WithRequired<NumberPickerOptions, 'tandem'> ): Node {
 
   const equalsSign = new Text( MathSymbols.EQUAL_TO, {
     font: VectorAdditionConstants.EQUATION_FONT

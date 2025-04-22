@@ -27,6 +27,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
 import VectorAngleNode from './VectorAngleNode.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 
@@ -149,7 +150,9 @@ export default class VectorNode extends RootVectorNode {
             this.vector.animateBackProperty.value = true;
           }
         }
-      }
+      },
+
+      tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/vector-addition/issues/258
     } );
 
     // The body can be translated by the arrow or the label. removeInputListener is required on dispose.
@@ -210,7 +213,8 @@ export default class VectorNode extends RootVectorNode {
           assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
             'tip drag listener should be removed when the vector is animating back.' );
           graph.activeVectorProperty.value = vector;
-        }
+        },
+        tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/vector-addition/issues/258
       } );
       headNode.addInputListener( scaleRotateDragListener );
 
