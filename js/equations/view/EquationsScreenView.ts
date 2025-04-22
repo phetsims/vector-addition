@@ -62,38 +62,42 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       matchVertical: true
     } );
 
-    const polarScene = new EquationsSceneNode(
+    const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
+
+    const polarSceneNode = new EquationsSceneNode(
       model.polarGraph,
       this.viewProperties,
       model.componentVectorStyleProperty,
       graphControlPanel.bottom,
       equationButtonsAlignGroup,
-      equationsAlignGroup
-    );
+      equationsAlignGroup, {
+        tandem: sceneNodesTandem.createTandem( 'polarSceneNode' )
+      } );
 
-    const cartesianScene = new EquationsSceneNode(
+    const cartesianSceneNode = new EquationsSceneNode(
       model.cartesianGraph,
       this.viewProperties,
       model.componentVectorStyleProperty,
       graphControlPanel.bottom,
       equationButtonsAlignGroup,
-      equationsAlignGroup
-    );
+      equationsAlignGroup, {
+        tandem: sceneNodesTandem.createTandem( 'cartesianSceneNode' )
+      } );
 
     // Switch between scenes to match coordinate snap mode.
     // unlink is unnecessary, exists for the lifetime of the sim.
     this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
       this.interruptSubtreeInput(); // cancel interactions when switching scenes
-      polarScene.visible = ( coordinateSnapMode === 'polar' );
-      cartesianScene.visible = ( coordinateSnapMode === 'cartesian' );
+      polarSceneNode.visible = ( coordinateSnapMode === 'polar' );
+      cartesianSceneNode.visible = ( coordinateSnapMode === 'cartesian' );
     } );
 
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
         coordinateSnapModeRadioButtonGroup,
-        polarScene,
-        cartesianScene,
+        polarSceneNode,
+        cartesianSceneNode,
         this.resetAllButton
       ]
     } );
@@ -101,8 +105,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      polarScene,
-      cartesianScene
+      polarSceneNode,
+      cartesianSceneNode
     ];
 
     // Control Area focus order

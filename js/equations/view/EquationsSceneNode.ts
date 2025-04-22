@@ -37,7 +37,7 @@ export default class EquationsSceneNode extends SceneNode {
                       graphControlPanelBottom: number,
                       equationButtonsAlignGroup: AlignGroup, // used to make all equation radio buttons the same size
                       equationsAlignGroup: AlignGroup, // used to make all interactive equations the same size
-                      providedOptions?: EquationsSceneNodeOptions ) {
+                      providedOptions: EquationsSceneNodeOptions ) {
 
     const options = optionize<EquationsSceneNodeOptions, SelfOptions, SceneNodeOptions>()( {
 
@@ -55,7 +55,8 @@ export default class EquationsSceneNode extends SceneNode {
       equationButtonsAlignGroup, equationsAlignGroup, {
         expandedProperty: viewProperties.equationExpandedProperty,
         centerX: graph.graphViewBounds.centerX,
-        top: this.vectorValuesToggleBox.bottom + 10
+        top: this.vectorValuesToggleBox.bottom + 10,
+        tandem: options.tandem.createTandem( 'equationAccordionBox' )
       } );
     this.addChild( equationAccordionBox );
     equationAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
@@ -66,7 +67,8 @@ export default class EquationsSceneNode extends SceneNode {
       graph.vectorSet, {
         expandedProperty: viewProperties.baseVectorsExpandedProperty,
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-        top: graphControlPanelBottom + 8
+        top: graphControlPanelBottom + 8,
+        tandem: options.tandem.createTandem( 'baseVectorsAccordionBox' )
       } );
     this.addChild( baseVectorsAccordionBox );
     baseVectorsAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front

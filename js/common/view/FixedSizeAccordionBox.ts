@@ -19,6 +19,7 @@ import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
 
@@ -31,8 +32,9 @@ type SelfOptions = {
   contentFixedHeight?: number | null;
 };
 
-export type ToggleBoxOptions = SelfOptions & NodeTranslationOptions &
-  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing' | 'isDisposable'>;
+export type FixedSizeAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
+  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing' | 'isDisposable'> &
+  PickRequired<AccordionBoxOptions, 'tandem'>;
 
 export default class FixedSizeAccordionBox extends AccordionBox {
 
@@ -41,9 +43,9 @@ export default class FixedSizeAccordionBox extends AccordionBox {
    * @param collapsedContent - content when the accordion box is collapsed
    * @param [providedOptions]
    */
-  protected constructor( expandedContent: Node, collapsedContent: Node, providedOptions?: ToggleBoxOptions ) {
+  protected constructor( expandedContent: Node, collapsedContent: Node, providedOptions: FixedSizeAccordionBoxOptions ) {
 
-    const options = optionize4<ToggleBoxOptions, SelfOptions, AccordionBoxOptions>()(
+    const options = optionize4<FixedSizeAccordionBoxOptions, SelfOptions, AccordionBoxOptions>()(
       {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
 
         // SelfOptions

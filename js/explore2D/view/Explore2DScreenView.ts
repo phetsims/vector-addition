@@ -17,6 +17,7 @@ import vectorAddition from '../../vectorAddition.js';
 import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DVectorCreatorPanel from './Explore2DVectorCreatorPanel.js';
+import Explore2DGraph from '../model/Explore2DGraph.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
@@ -53,11 +54,14 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       } );
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
+    const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
     const sceneNodes: Node[] = [];
-    [ model.polarGraph, model.cartesianGraph ].forEach( graph => {
+    const addSceneNode = ( graph: Explore2DGraph, tandem: Tandem ) => {
 
       // Create the scene node
-      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty );
+      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
+        tandem: tandem
+      } );
 
       // Vector symbols depend on whether snap mode is Cartesian or Polar
       const vectorSymbolProperties = ( graph.coordinateSnapMode === 'cartesian' ) ?
@@ -71,6 +75,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
         vectorSymbolProperties, {
           left: coordinateSnapModeRadioButtonGroup.left,
           bottom: coordinateSnapModeRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
+          //TODO https://github.com/phetsims/vector-addition/issues/258 tandem
         } )
       );
 
@@ -83,7 +88,9 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
       // Add the scene node
       sceneNodes.push( sceneNode );
-    } );
+    };
+    addSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
+    addSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
 
     const screenViewRootNode = new Node( {
       children: [

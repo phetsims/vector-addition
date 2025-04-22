@@ -49,7 +49,7 @@ const CONTENT_WIDTH = VectorAdditionConstants.BASE_VECTORS_ACCORDION_BOX_CONTENT
 type SelfOptions = EmptySelfOptions;
 
 type BaseVectorsAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
-  PickRequired<AccordionBoxOptions, 'expandedProperty'>;
+  PickRequired<AccordionBoxOptions, 'expandedProperty' | 'tandem'>;
 
 export default class BaseVectorsAccordionBox extends AccordionBox {
 

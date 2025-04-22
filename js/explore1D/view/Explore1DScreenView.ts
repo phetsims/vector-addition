@@ -17,6 +17,7 @@ import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DVectorCreatorPanel from './Explore1DVectorCreatorPanel.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import GraphOrientationRadioButtonGroup from './GraphOrientationRadioButtonGroup.js';
+import Explore1DGraph from '../model/Explore1DGraph.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -50,21 +51,25 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       } );
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
+    const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
     const sceneNodes: Node[] = [];
-    [ model.verticalGraph, model.horizontalGraph ].forEach( graph => {
+    const addSceneNode = ( graph: Explore1DGraph, tandem: Tandem ) => {
 
       // Create the scene node
-      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty );
+      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
+        tandem: tandem
+      } );
 
       // Vector symbols depend on graph orientation
       const vectorSymbolProperties = ( graph.orientation === 'horizontal' ) ?
-                            VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
-                            VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
+                                     VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
+                                     VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 
       // Add the vector creator panel
       sceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( graph, sceneNode, vectorSymbolProperties, {
         left: graphOrientationRadioButtonGroup.left,
         bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
+        //TODO https://github.com/phetsims/vector-addition/issues/258 tandem
       } ) );
 
       // Switch between scenes to match graph orientation.
@@ -76,7 +81,9 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
       // Add the scene node
       sceneNodes.push( sceneNode );
-    } );
+    };
+    addSceneNode( model.verticalGraph, sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
+    addSceneNode( model.horizontalGraph, sceneNodesTandem.createTandem( 'horizonalSceneNode' ) );
 
     const screenViewRootNode = new Node( {
       children: [

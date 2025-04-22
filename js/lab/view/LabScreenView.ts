@@ -17,6 +17,7 @@ import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
+import LabGraph from '../model/LabGraph.js';
 
 
 export default class LabScreenView extends VectorAdditionScreenView {
@@ -56,10 +57,13 @@ export default class LabScreenView extends VectorAdditionScreenView {
       } );
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
+    const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
     const sceneNodes: Node[] = [];
-    [ model.polarGraph, model.cartesianGraph ].forEach( graph => {
+    const addSceneNode = ( graph: LabGraph, tandem: Tandem ) => {
 
-      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty );
+      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
+        tandem: tandem
+      } );
 
       // Add the vector creator panel
       sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( graph, sceneNode, {
@@ -76,7 +80,9 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
       // Add the scene node
       sceneNodes.push( sceneNode );
-    } );
+    };
+    addSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
+    addSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
 
     const screenViewRootNode = new Node( {
       children: [

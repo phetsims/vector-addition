@@ -30,7 +30,7 @@ import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import FixedSizeAccordionBox, { ToggleBoxOptions } from './FixedSizeAccordionBox.js';
+import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from './FixedSizeAccordionBox.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
 
@@ -54,13 +54,13 @@ const COMPONENT_LABEL_WIDTH = 35;
 
 type SelfOptions = EmptySelfOptions;
 
-type VectorValuesToggleBoxOptions = SelfOptions & ToggleBoxOptions;
+type VectorValuesToggleBoxOptions = SelfOptions & FixedSizeAccordionBoxOptions;
 
 export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
-  public constructor( graph: Graph, providedOptions?: VectorValuesToggleBoxOptions ) {
+  public constructor( graph: Graph, providedOptions: VectorValuesToggleBoxOptions ) {
 
-    const options = optionize<VectorValuesToggleBoxOptions, SelfOptions, ToggleBoxOptions>()( {
+    const options = optionize<VectorValuesToggleBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
       // ToggleBoxOptions
       contentFixedWidth: 500,

@@ -15,7 +15,7 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import FixedSizeAccordionBox, { ToggleBoxOptions } from '../../common/view/FixedSizeAccordionBox.js';
+import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from '../../common/view/FixedSizeAccordionBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
@@ -29,7 +29,7 @@ const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationToggleBoxOptions = SelfOptions & ToggleBoxOptions;
+type EquationToggleBoxOptions = SelfOptions & FixedSizeAccordionBoxOptions;
 
 export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
 
@@ -38,15 +38,15 @@ export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
    * @param equationTypeProperty
    * @param equationButtonsAlignGroup - used to make all equation radio buttons the same size
    * @param equationsAlignGroup - used to make all interactive equations the same size
-   * @param [providedOptions]
+   * @param providedOptions
    */
   public constructor( vectorSet: EquationsVectorSet,
                       equationTypeProperty: StringUnionProperty<EquationType>,
                       equationButtonsAlignGroup: AlignGroup,
                       equationsAlignGroup: AlignGroup,
-                      providedOptions?: EquationToggleBoxOptions ) {
+                      providedOptions: EquationToggleBoxOptions ) {
 
-    const options = optionize<EquationToggleBoxOptions, SelfOptions, ToggleBoxOptions>()( {
+    const options = optionize<EquationToggleBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
       // ToggleBoxOptions
       contentFixedWidth: 670,

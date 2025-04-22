@@ -42,12 +42,13 @@ import VectorCreatorPanel from './VectorCreatorPanel.js';
 import VectorSetNode from './VectorSetNode.js';
 import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
 };
 
-export type SceneNodeOptions = SelfOptions;
+export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class SceneNode extends Node {
 
@@ -65,7 +66,7 @@ export default class SceneNode extends Node {
   public constructor( graph: Graph,
                       viewProperties: VectorAdditionViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      providedOptions?: SceneNodeOptions ) {
+                      providedOptions: SceneNodeOptions ) {
 
     const options = optionize<SceneNodeOptions, SelfOptions, NodeOptions>()( {
 
@@ -87,7 +88,8 @@ export default class SceneNode extends Node {
     const vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, {
       expandedProperty: viewProperties.vectorValuesExpandedProperty,
       centerX: graph.graphViewBounds.centerX,
-      top: 35 // determined empirically
+      top: 35, // determined empirically
+      tandem: options.tandem.createTandem( 'vectorValuesAccordionBox' )
     } );
 
     //----------------------------------------------------------------------------------------
