@@ -6,16 +6,6 @@
  * @author Brandon Li
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
-import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
-import vectorAddition from '../../vectorAddition.js';
+export const ComponentVectorTypeValues = [ 'xComponent', 'yComponent' ] as const;
 
-export default class ComponentVectorType extends EnumerationValue {
-
-  public static readonly X_COMPONENT = new ComponentVectorType();
-  public static readonly Y_COMPONENT = new ComponentVectorType();
-
-  public static readonly enumeration = new Enumeration( ComponentVectorType );
-}
-
-vectorAddition.register( 'ComponentVectorType', ComponentVectorType );
+export type ComponentVectorType = ( typeof ComponentVectorTypeValues )[number];

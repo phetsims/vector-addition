@@ -23,7 +23,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
-import ComponentVectorType from './ComponentVectorType.js';
+import { ComponentVectorType } from './ComponentVectorType.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import Vector from './Vector.js';
 
@@ -121,7 +121,7 @@ export default class ComponentVector extends RootVector {
     const parentTail = this.parentVector.tailPositionProperty.value;
     const parentTip = this.parentVector.tipPositionProperty.value;
 
-    if ( this.componentType === ComponentVectorType.X_COMPONENT ) {
+    if ( this.componentType === 'xComponent' ) {
 
       //----------------------------------------------------------------------------------------
       // Update the x component vector
@@ -144,7 +144,7 @@ export default class ComponentVector extends RootVector {
       }
 
     }
-    else if ( this.componentType === ComponentVectorType.Y_COMPONENT ) {
+    else if ( this.componentType === 'yComponent' ) {
 
       //----------------------------------------------------------------------------------------
       // Update the y component vector
@@ -181,7 +181,7 @@ export default class ComponentVector extends RootVector {
   public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // Get the component vector's magnitude (a scalar, possibly negative)
-    let magnitude: number | null = ( this.componentType === ComponentVectorType.X_COMPONENT ) ?
+    let magnitude: number | null = ( this.componentType === 'xComponent' ) ?
                                    this.vectorComponents.x :
                                    this.vectorComponents.y;
 

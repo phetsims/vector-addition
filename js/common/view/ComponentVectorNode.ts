@@ -22,7 +22,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import ComponentVectorType from '../model/ComponentVectorType.js';
 import Graph from '../model/Graph.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
@@ -198,9 +197,9 @@ export default class ComponentVectorNode extends RootVectorNode {
     const componentMidPoint = componentVector.midPoint;
     const parentMidPoint = componentVector.parentMidPoint;
 
-    if ( componentVector.componentType === ComponentVectorType.X_COMPONENT ) {
+    if ( componentVector.componentType === 'xComponent' ) {
 
-      // Get the label height. Negative since the y axis is inverted in the view
+      // Get the label height. Negative since the y-axis is inverted in the view
       const labelHeight = modelViewTransform.viewToModelDeltaY( -this.labelNode.height );
 
       // If the component is below the parent, position the label below, otherwise position it above
@@ -211,7 +210,7 @@ export default class ComponentVectorNode extends RootVectorNode {
         labelOffset.setXY( 0, COMPONENT_LABEL_OFFSET + labelHeight / 2 );
       }
     }
-    else if ( componentVector.componentType === ComponentVectorType.Y_COMPONENT ) {
+    else if ( componentVector.componentType === 'yComponent' ) {
 
       const labelWidth = modelViewTransform.viewToModelDeltaX( this.labelNode.width );
 

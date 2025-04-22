@@ -29,7 +29,6 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ComponentVector from './ComponentVector.js';
-import ComponentVectorType from './ComponentVectorType.js';
 import Graph from './Graph.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import VectorSet from './VectorSet.js';
@@ -127,13 +126,13 @@ export default class Vector extends RootVector {
     this.xComponentVector = new ComponentVector( this,
       vectorSet.componentVectorStyleProperty,
       graph.activeVectorProperty,
-      ComponentVectorType.X_COMPONENT
+      'xComponent'
     );
 
     this.yComponentVector = new ComponentVector( this,
       vectorSet.componentVectorStyleProperty,
       graph.activeVectorProperty,
-      ComponentVectorType.Y_COMPONENT
+      'yComponent'
     );
 
     // When the graph's origin changes, update the tail position. unlink is required on dispose.
