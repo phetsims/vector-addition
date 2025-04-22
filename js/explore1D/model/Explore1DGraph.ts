@@ -18,7 +18,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import Graph from '../../common/model/Graph.js';
-import GraphOrientation from '../../common/model/GraphOrientation.js';
+import { GraphOrientation } from '../../common/model/GraphOrientation.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -57,7 +57,7 @@ export default class Explore1DGraph extends Graph {
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette ) {
 
-    assert && assert( _.includes( [ GraphOrientation.HORIZONTAL, GraphOrientation.VERTICAL ], graphOrientation ) );
+    assert && assert( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ) );
 
     super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, {
       orientation: graphOrientation

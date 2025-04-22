@@ -32,7 +32,6 @@ import ComponentVector from './ComponentVector.js';
 import ComponentVectorType from './ComponentVectorType.js';
 import CoordinateSnapMode from './CoordinateSnapMode.js';
 import Graph from './Graph.js';
-import GraphOrientation from './GraphOrientation.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import VectorSet from './VectorSet.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
@@ -232,10 +231,10 @@ export default class Vector extends RootVector {
     }
 
     // Based on the vector orientation, constrain the dragging components
-    if ( this.graph.orientation === GraphOrientation.HORIZONTAL ) {
+    if ( this.graph.orientation === 'horizontal' ) {
       tipPositionWithInvariants.setY( this.tailY );
     }
-    else if ( this.graph.orientation === GraphOrientation.VERTICAL ) {
+    else if ( this.graph.orientation === 'vertical' ) {
       tipPositionWithInvariants.setX( this.tailX );
     }
 

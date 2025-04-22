@@ -22,7 +22,6 @@ import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
-import GraphOrientation from '../model/GraphOrientation.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
@@ -78,10 +77,10 @@ export default class GraphNode extends Node {
     ];
 
     // Create axes as needed, based on graph orientation
-    if ( graph.orientation !== GraphOrientation.VERTICAL ) {
+    if ( graph.orientation !== 'vertical' ) {
       children.push( new XAxisNode( graph, graphViewBounds ) );
     }
-    if ( graph.orientation !== GraphOrientation.HORIZONTAL ) {
+    if ( graph.orientation !== 'horizontal' ) {
       children.push( new YAxisNode( graph, graphViewBounds ) );
     }
 
@@ -299,7 +298,7 @@ class TicksNode extends Node {
       const tickMarksShape = new Shape();
       const tickLabels = [];
 
-      if ( graph.orientation !== GraphOrientation.VERTICAL ) {
+      if ( graph.orientation !== 'vertical' ) {
 
         // x tick marks
         const firstXTick = graph.graphModelBounds.minX - ( graph.graphModelBounds.minX % MAJOR_TICK_SPACING );
@@ -320,7 +319,7 @@ class TicksNode extends Node {
         }
       }
 
-      if ( graph.orientation !== GraphOrientation.HORIZONTAL ) {
+      if ( graph.orientation !== 'horizontal' ) {
 
         // y tick marks
         const firstYTick = graph.graphModelBounds.minY - ( graph.graphModelBounds.minY % MAJOR_TICK_SPACING );
@@ -342,11 +341,11 @@ class TicksNode extends Node {
       }
 
       // Origin tick label
-      if ( graph.orientation !== GraphOrientation.TWO_DIMENSIONAL ) {
+      if ( graph.orientation !== 'twoDimensional' ) {
 
         tickLabels.push( originLabel );
 
-        if ( graph.orientation === GraphOrientation.HORIZONTAL ) {
+        if ( graph.orientation === 'horizontal' ) {
           originLabel.centerX = viewOrigin.x;
           originLabel.top = viewOrigin.y + TICK_LABEL_Y_OFFSET;
         }

@@ -37,7 +37,7 @@ import eyeSlashSolidShape from '../../../../sherpa/js/fontawesome-5/eyeSlashSoli
 import EquationType from '../../equations/model/EquationType.js';
 import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import GraphOrientation from '../model/GraphOrientation.js';
+import { GraphOrientation } from '../model/GraphOrientation.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -388,12 +388,11 @@ const VectorAdditionIconFactory = {
    */
   createGraphOrientationIcon( graphOrientation: GraphOrientation ): Node {
 
-    assert && assert( _.includes( [ GraphOrientation.HORIZONTAL, GraphOrientation.VERTICAL ], graphOrientation ),
-      `invalid graphOrientation: ${graphOrientation}` );
+    assert && assert( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ), `invalid graphOrientation: ${graphOrientation}` );
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
-    const tipX = ( graphOrientation === GraphOrientation.HORIZONTAL ) ? iconSize : 0;
-    const tipY = ( graphOrientation === GraphOrientation.HORIZONTAL ) ? 0 : iconSize;
+    const tipX = ( graphOrientation === 'horizontal' ) ? iconSize : 0;
+    const tipY = ( graphOrientation === 'horizontal' ) ? 0 : iconSize;
 
     return new ArrowNode( 0, 0, tipX, tipY,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.AXES_ARROW_OPTIONS, {

@@ -6,22 +6,16 @@
  * @author Martin Veillette
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
-import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
-import vectorAddition from '../../vectorAddition.js';
-
-export default class GraphOrientation extends EnumerationValue {
+export const GraphOrientationValues = [
 
   // 1D, the graph only has an x-axis, and its vectors are strictly horizontal
-  public static readonly HORIZONTAL = new GraphOrientation();
+  'horizontal',
 
   // 1D, the graph only has a y-axis, and its vectors are strictly vertical
-  public static readonly VERTICAL = new GraphOrientation();
+  'vertical',
 
   // 2D, the graph has both x & y axes, and its vectors are unconstrained
-  public static readonly TWO_DIMENSIONAL = new GraphOrientation();
+  'twoDimensional'
+] as const;
 
-  public static readonly enumeration = new Enumeration( GraphOrientation );
-}
-
-vectorAddition.register( 'GraphOrientation', GraphOrientation );
+export type GraphOrientation = ( typeof GraphOrientationValues )[number];

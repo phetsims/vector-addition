@@ -13,7 +13,6 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import GraphOrientation from '../../common/model/GraphOrientation.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
@@ -63,8 +62,8 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
     // Show the Sum checkbox that matches the selected scene.
     // unlink is unnecessary, exists for the lifetime of the sim.
     viewProperties.graphOrientationProperty.link( gridOrientation => {
-      horizontalSumCheckbox.visible = ( gridOrientation === GraphOrientation.HORIZONTAL );
-      verticalSumCheckbox.visible = ( gridOrientation === GraphOrientation.VERTICAL );
+      horizontalSumCheckbox.visible = ( gridOrientation === 'horizontal' );
+      verticalSumCheckbox.visible = ( gridOrientation === 'vertical' );
     } );
 
     // Values

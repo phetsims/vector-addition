@@ -22,7 +22,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import CoordinateSnapMode from './CoordinateSnapMode.js';
-import GraphOrientation from './GraphOrientation.js';
+import { GraphOrientation } from './GraphOrientation.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
 
@@ -77,7 +77,7 @@ export default class Graph {
     const options = optionize<GraphOptions, SelfOptions>()( {
 
       // SelfOptions
-      orientation: GraphOrientation.TWO_DIMENSIONAL,
+      orientation: 'twoDimensional',
       bottomLeft: Graph.DEFAULT_BOTTOM_LEFT
     }, providedOptions );
 

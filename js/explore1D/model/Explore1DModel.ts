@@ -9,7 +9,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import GraphOrientation from '../../common/model/GraphOrientation.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
@@ -42,12 +41,12 @@ export default class Explore1DModel extends VectorAdditionModel {
     this.horizontalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
     this.verticalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
 
-    this.horizontalGraph = new Explore1DGraph( GraphOrientation.HORIZONTAL,
+    this.horizontalGraph = new Explore1DGraph( 'horizontal',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       this.horizontalVectorColorPalette );
 
-    this.verticalGraph = new Explore1DGraph( GraphOrientation.VERTICAL,
+    this.verticalGraph = new Explore1DGraph( 'vertical',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       this.verticalVectorColorPalette );

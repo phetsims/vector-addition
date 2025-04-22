@@ -10,22 +10,23 @@
  * @author Brandon Li
  */
 
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
-import GraphOrientation from '../../common/model/GraphOrientation.js';
+import { GraphOrientation } from '../../common/model/GraphOrientation.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 export default class Explore1DViewProperties extends VectorAdditionViewProperties {
 
-  public readonly graphOrientationProperty: EnumerationProperty<GraphOrientation>;
+  public readonly graphOrientationProperty: StringUnionProperty<GraphOrientation>;
 
   public constructor( tandem: Tandem ) {
 
     super( tandem );
 
-    this.graphOrientationProperty = new EnumerationProperty( GraphOrientation.HORIZONTAL, {
+    this.graphOrientationProperty = new StringUnionProperty<GraphOrientation>( 'horizontal', {
+      validValues: [ 'horizontal', 'vertical' ],
       tandem: tandem.createTandem( 'graphOrientationProperty' )
     } );
 
