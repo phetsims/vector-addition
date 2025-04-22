@@ -12,7 +12,7 @@
  *
  * Icons created from the VectorAdditionIconFactory.
  *
- * EquationTypesRadioButtonGroup is never disposed and exists for the entire simulation.
+ * EquationTypeRadioButtonGroup is never disposed and exists for the entire simulation.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -33,17 +33,17 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationTypesRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions &
+type EquationTypeRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions &
   PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
-export default class EquationTypesRadioButtonGroup extends RectangularRadioButtonGroup<EquationType> {
+export default class EquationTypeRadioButtonGroup extends RectangularRadioButtonGroup<EquationType> {
 
   public constructor( equationTypeProperty: StringUnionProperty<EquationType>,
                       vectorSymbolProperties: TReadOnlyProperty<string>[], // symbols on the buttons
                       alignGroup: AlignGroup,
-                      providedOptions: EquationTypesRadioButtonGroupOptions ) {
+                      providedOptions: EquationTypeRadioButtonGroupOptions ) {
 
-    const options = optionize4<EquationTypesRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
+    const options = optionize4<EquationTypeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
         xMargin: 12,
         scale: 0.75,
@@ -66,4 +66,4 @@ export default class EquationTypesRadioButtonGroup extends RectangularRadioButto
   }
 }
 
-vectorAddition.register( 'EquationTypesRadioButtonGroup', EquationTypesRadioButtonGroup );
+vectorAddition.register( 'EquationTypeRadioButtonGroup', EquationTypeRadioButtonGroup );

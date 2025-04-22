@@ -21,7 +21,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType, EquationTypeValues } from '../model/EquationType.js';
 import EquationTypeNode from './EquationTypeNode.js';
-import EquationTypesRadioButtonGroup from './EquationTypesRadioButtonGroup.js';
+import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 
 // constants
@@ -59,7 +59,7 @@ export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
     const equationText = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type
-    const equationTypeRadioButtonGroup = new EquationTypesRadioButtonGroup(
+    const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup(
       equationTypeProperty, vectorSet.symbolProperties, equationButtonsAlignGroup, {
         tandem: options.tandem.createTandem( 'equationTypeRadioButtonGroup' )
       } );
