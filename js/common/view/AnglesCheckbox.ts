@@ -10,11 +10,14 @@ import Property from '../../../../axon/js/Property.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class AnglesCheckbox extends VectorAdditionCheckbox {
 
-  public constructor( anglesVisibleProperty: Property<boolean> ) {
-    super( anglesVisibleProperty, VectorAdditionIconFactory.createAngleIcon() );
+  public constructor( anglesVisibleProperty: Property<boolean>, tandem: Tandem ) {
+    super( anglesVisibleProperty, VectorAdditionIconFactory.createAngleIcon(), {
+      tandem: tandem
+    } );
   }
 }
 

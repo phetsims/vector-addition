@@ -38,7 +38,8 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       model.verticalGraph.vectorSet,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-        top: graphViewBounds.top
+        top: graphViewBounds.top,
+        tandem: tandem.createTandem( 'graphControlPanel' )
       } );
 
     // Graph Orientation radio buttons, at lower right

@@ -32,15 +32,15 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
   public constructor( horizontalVectorSet: VectorSet,
                       verticalVectorSet: VectorSet,
                       viewProperties: Explore1DViewProperties,
-                      providedOptions?: Explore1DGraphControlPanelOptions ) {
+                      providedOptions: Explore1DGraphControlPanelOptions ) {
 
     const options = providedOptions;
 
     const horizontalSumCheckbox = new SumCheckbox( horizontalVectorSet.sumVisibleProperty,
-      horizontalVectorSet.vectorColorPalette );
+      horizontalVectorSet.vectorColorPalette, options.tandem.createTandem( 'horizontalSumCheckbox' ) );
 
     const verticalSumCheckbox = new SumCheckbox( verticalVectorSet.sumVisibleProperty,
-      verticalVectorSet.vectorColorPalette );
+      verticalVectorSet.vectorColorPalette, options.tandem.createTandem( 'verticalSumCheckbox' ) );
 
     // Show the Sum checkbox that matches the selected scene.
     // unlink is unnecessary, exists for the lifetime of the sim.
@@ -50,10 +50,12 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
     } );
 
     // Values
-    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
+    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty,
+      options.tandem.createTandem( 'valuesCheckbox' ) );
 
     // Grid
-    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
+    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
+      options.tandem.createTandem( 'gridCheckbox' ) );
 
     // To make all checkboxes the same height
     const alignBoxOptions = {

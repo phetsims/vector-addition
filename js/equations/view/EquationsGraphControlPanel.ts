@@ -39,7 +39,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
                       polarVectorSet: EquationsVectorSet,
                       componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       viewProperties: VectorAdditionViewProperties,
-                      providedOptions?: EquationsGraphControlPanelOptions ) {
+                      providedOptions: EquationsGraphControlPanelOptions ) {
 
     const options = providedOptions;
 
@@ -50,7 +50,8 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     assert && assert( cartesianSumSymbolProperty );
     const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianSumSymbolProperty, {
       vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
-      vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke
+      vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke,
+      tandem: options.tandem.createTandem( 'cartesianVectorCheckbox' )
     } );
 
     // 'f' checkbox
@@ -60,7 +61,8 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     assert && assert( polarSumSymbolProperty );
     const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty, polarSumSymbolProperty, {
       vectorFill: polarVectorSet.vectorColorPalette.sumFill,
-      vectorStroke: polarVectorSet.vectorColorPalette.sumStroke
+      vectorStroke: polarVectorSet.vectorColorPalette.sumStroke,
+      tandem: options.tandem.createTandem( 'polarVectorCheckbox' )
     } );
 
     // Show the vector checkbox ('c' or 'f') that matches the selected scene.
@@ -79,13 +81,16 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     };
 
     // Values
-    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
+    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty,
+      options.tandem.createTandem( 'valuesCheckbox' ) );
 
     // Angles
-    const anglesCheckbox = new AnglesCheckbox( viewProperties.anglesVisibleProperty );
+    const anglesCheckbox = new AnglesCheckbox( viewProperties.anglesVisibleProperty,
+      options.tandem.createTandem( 'anglesCheckbox' ) );
 
     // Grid
-    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
+    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
+      options.tandem.createTandem( 'gridCheckbox' ) );
 
     super( [
 
@@ -110,7 +115,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
       new HSeparator( { stroke: Color.BLACK } ),
 
       // Components radio buttons
-      new ComponentStyleControl( componentStyleProperty )
+      new ComponentStyleControl( componentStyleProperty, options.tandem.createTandem( 'componentStyleControl' ) )
 
     ], options );
   }

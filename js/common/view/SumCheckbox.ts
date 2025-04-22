@@ -15,10 +15,11 @@ import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class SumCheckbox extends VectorAdditionCheckbox {
 
-  public constructor( sumVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette ) {
+  public constructor( sumVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette, tandem: Tandem ) {
 
     const textNode = new Text( VectorAdditionStrings.sumStringProperty, {
       font: VectorAdditionConstants.CHECKBOX_FONT,
@@ -35,7 +36,9 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
       children: [ textNode, icon ]
     } );
 
-    super( sumVisibleProperty, content );
+    super( sumVisibleProperty, content, {
+      tandem: tandem
+    } );
   }
 }
 

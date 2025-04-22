@@ -12,17 +12,20 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class ValuesCheckbox extends VectorAdditionCheckbox {
 
-  public constructor( valuesVisibleProperty: Property<boolean> ) {
+  public constructor( valuesVisibleProperty: Property<boolean>, tandem: Tandem ) {
 
     const content = new Text( VectorAdditionStrings.valuesStringProperty, {
       font: VectorAdditionConstants.CHECKBOX_FONT,
       maxWidth: 116 // determined empirically
     } );
 
-    super( valuesVisibleProperty, content );
+    super( valuesVisibleProperty, content, {
+      tandem: tandem
+    } );
   }
 }
 

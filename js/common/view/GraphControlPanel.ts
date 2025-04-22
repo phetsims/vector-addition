@@ -13,10 +13,11 @@ import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type GraphControlPanelOptions = SelfOptions & NodeTranslationOptions;
+export type GraphControlPanelOptions = SelfOptions & NodeTranslationOptions & PickRequired<PanelOptions, 'tandem'>;
 
 export default class GraphControlPanel extends Panel {
 

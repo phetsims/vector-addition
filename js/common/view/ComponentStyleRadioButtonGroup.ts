@@ -18,17 +18,19 @@ import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import GridBox from './GridBox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class ComponentStyleRadioButtonGroup extends Node {
 
-  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle> ) {
+  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     // Create the radio buttons. Note that order of enum values determines order of buttons.
     const buttons: RectangularRadioButton<ComponentVectorStyle>[] = [];
     ComponentVectorStyle.enumeration.values.forEach( componentStyle => {
       buttons.push( new RectangularRadioButton( componentStyleProperty, componentStyle,
         combineOptions<RectangularRadioButtonOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS.radioButtonOptions, {
-          content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle )
+          content: VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentStyle ),
+          tandem: tandem.createTandem( `${componentStyle}RadioButton` )
         } ) ) );
     } );
 
@@ -39,7 +41,8 @@ export default class ComponentStyleRadioButtonGroup extends Node {
 
     super( {
       children: [ gridBox ],
-      isDisposable: false
+      isDisposable: false,
+      tandem: tandem
     } );
   }
 }

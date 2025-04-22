@@ -12,10 +12,11 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type VectorAdditionCheckboxOptions = SelfOptions & CheckboxOptions;
+export type VectorAdditionCheckboxOptions = SelfOptions & WithRequired<CheckboxOptions, 'tandem'>;
 
 export default class VectorAdditionCheckbox extends Checkbox {
 

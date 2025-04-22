@@ -28,6 +28,7 @@ import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridChec
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -41,7 +42,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
                       viewProperties: VectorAdditionViewProperties,
-                      providedOptions?: LabGraphControlPanelOptions ) {
+                      providedOptions: LabGraphControlPanelOptions ) {
 
     const options = providedOptions;
 
@@ -55,12 +56,17 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
     // Create two 'Sum' checkboxes for each graph
     const sumCheckboxContainer = new Node();
-    [ cartesianGraph, polarGraph ].forEach( graph => {
+    const addSumCheckboxes = ( graph: LabGraph, parentTandem: Tandem ) => {
+
+      const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, graph.vectorSet1.vectorColorPalette,
+        parentTandem.createTandem( 'sum1Checkbox' ) );
+      const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, graph.vectorSet2.vectorColorPalette,
+        parentTandem.createTandem( 'sum2Checkbox' ) );
 
       const sumCheckboxes = new VBox( {
         children: [
-          new AlignBox( new SumCheckbox( sum1VisibleProperty, graph.vectorSet1.vectorColorPalette ), alignBoxOptions ),
-          new AlignBox( new SumCheckbox( sum2VisibleProperty, graph.vectorSet2.vectorColorPalette ), alignBoxOptions )
+          new AlignBox( sum1Checkbox, alignBoxOptions ),
+          new AlignBox( sum2Checkbox, alignBoxOptions )
         ],
         spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
         align: 'left'
@@ -72,16 +78,21 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
         sumCheckboxes.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
       } );
-    } );
+    };
+    addSumCheckboxes( cartesianGraph, options.tandem.createTandem( 'cartesian' ) );
+    addSumCheckboxes( polarGraph, options.tandem.createTandem( 'polar' ) );
 
     // Values
-    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
+    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty,
+      options.tandem.createTandem( 'valuesCheckbox' ) );
 
     // Angles
-    const anglesCheckbox = new AnglesCheckbox( viewProperties.anglesVisibleProperty );
+    const anglesCheckbox = new AnglesCheckbox( viewProperties.anglesVisibleProperty,
+      options.tandem.createTandem( 'anglesCheckbox' ) );
 
     // Grid
-    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
+    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
+      options.tandem.createTandem( 'gridCheckbox' ) );
 
     super( [
 
@@ -101,7 +112,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       new HSeparator( { stroke: Color.BLACK } ),
 
       // Components radio buttons
-      new ComponentStyleControl( componentStyleProperty )
+      new ComponentStyleControl( componentStyleProperty, options.tandem.createTandem( 'componentStyleControl' ) )
 
     ], options );
   }

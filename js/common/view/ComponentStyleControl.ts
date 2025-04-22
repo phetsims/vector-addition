@@ -19,12 +19,13 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import ComponentVectorStyle from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentStyleRadioButtonGroup from './ComponentStyleRadioButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
 
 export default class ComponentStyleControl extends VBox {
 
-  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle> ) {
+  public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     const children: Node[] = [];
 
@@ -36,9 +37,10 @@ export default class ComponentStyleControl extends VBox {
     children.push( componentsText );
 
     // Radio buttons, centered in maxWidth by using an AlignBox
-    const componentStyleRadioButtonGroup = new ComponentStyleRadioButtonGroup( componentStyleProperty );
-    children.push( new AlignBox( componentStyleRadioButtonGroup, {
-      alignBounds: new Bounds2( 0, 0, MAX_WIDTH, componentStyleRadioButtonGroup.height )
+    const radioButtonGroup = new ComponentStyleRadioButtonGroup( componentStyleProperty,
+      tandem.createTandem( 'radioButtonGroup' ) );
+    children.push( new AlignBox( radioButtonGroup, {
+      alignBounds: new Bounds2( 0, 0, MAX_WIDTH, radioButtonGroup.height )
     } ) );
 
     super( {
@@ -47,7 +49,8 @@ export default class ComponentStyleControl extends VBox {
       children: children,
       align: 'left',
       spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
-      isDisposable: false
+      isDisposable: false,
+      tandem: tandem
     } );
   }
 }

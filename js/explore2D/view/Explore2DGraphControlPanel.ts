@@ -39,15 +39,15 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
                       polarVectorSet: VectorSet,
                       componentStyleProperty: EnumerationProperty<ComponentVectorStyle>,
                       viewProperties: VectorAdditionViewProperties,
-                      providedOptions?: Explore2DGraphControlPanelOptions ) {
+                      providedOptions: Explore2DGraphControlPanelOptions ) {
 
     const options = providedOptions;
 
     const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
-      cartesianVectorSet.vectorColorPalette );
+      cartesianVectorSet.vectorColorPalette, options.tandem.createTandem( 'cartesianSumCheckbox' ) );
 
     const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty,
-      polarVectorSet.vectorColorPalette );
+      polarVectorSet.vectorColorPalette, options.tandem.createTandem( 'polarSumCheckbox' ) );
 
     // Show the Sum checkbox that matches the selected scene.
     // unlink is unnecessary, exists for the lifetime of the sim.
@@ -57,13 +57,16 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
     } );
 
     // Values
-    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty );
+    const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty,
+      options.tandem.createTandem( 'valuesCheckbox' ) );
 
     // Angles
-    const anglesCheckbox = new AnglesCheckbox( viewProperties.anglesVisibleProperty );
+    const anglesCheckbox = new AnglesCheckbox( viewProperties.anglesVisibleProperty,
+      options.tandem.createTandem( 'anglesCheckbox' ) );
 
     // Grid
-    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty );
+    const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
+      options.tandem.createTandem( 'gridCheckbox' ) );
 
     // To make all checkboxes the same height
     const alignBoxOptions = {
@@ -96,7 +99,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
       new HSeparator( { stroke: Color.BLACK } ),
 
       // Components radio buttons
-      new ComponentStyleControl( componentStyleProperty )
+      new ComponentStyleControl( componentStyleProperty, options.tandem.createTandem( 'componentStyleControl' ) )
 
     ], options );
   }

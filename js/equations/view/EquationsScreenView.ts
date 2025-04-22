@@ -37,7 +37,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       model.componentStyleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
-        top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN
+        top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
+        tandem: tandem.createTandem( 'graphControlPanel' )
       } );
 
     // Coordinate Snap radio buttons, at lower right

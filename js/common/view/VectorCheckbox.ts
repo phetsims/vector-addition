@@ -24,13 +24,13 @@ type SelfOptions = {
   vectorStroke?: TColor;
 };
 
-type VectorCheckboxOptions = SelfOptions;
+type VectorCheckboxOptions = SelfOptions & Pick<VectorAdditionCheckboxOptions, 'tandem'>;
 
 export default class VectorCheckbox extends VectorAdditionCheckbox {
 
   public constructor( vectorVisibleProperty: Property<boolean>,
                       symbolProperty: TReadOnlyProperty<string>,
-                      providedOptions?: VectorCheckboxOptions ) {
+                      providedOptions: VectorCheckboxOptions ) {
 
     const options = optionize<VectorCheckboxOptions, SelfOptions, VectorAdditionCheckboxOptions>()( {
 
