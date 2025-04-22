@@ -50,13 +50,13 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
       } );
 
-    // Used to make all of the radio button in the Equation toggle box the same effective size.
+    // Used to make all of the radio button in the Equation accordion box the same effective size.
     const equationButtonsAlignGroup = new AlignGroup( {
       matchHorizontal: true,
       matchVertical: true
     } );
 
-    // Used to make all of the interactive equations in the Equation toggle box the same effective size.
+    // Used to make all of the interactive equations in the Equation accordion box the same effective size.
     const equationsAlignGroup = new AlignGroup( {
       matchHorizontal: true,
       matchVertical: true

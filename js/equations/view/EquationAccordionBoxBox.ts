@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * EquationAccordionBoxBox is the toggle box labeled 'Equation' in the 'Equations' screen.
+ * EquationAccordionBoxBox is the accordion box labeled 'Equation' in the 'Equations' screen.
  * It allows the user to select the form of the equation, and change the coefficients of the vectors.
  *
  * @author Brandon Li
@@ -55,7 +55,7 @@ export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
       isDisposable: false
     }, providedOptions );
 
-    // When the toggle box is collapsed, show 'Equation'
+    // When the accordion box is collapsed, show 'Equation'
     const equationText = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type

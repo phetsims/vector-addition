@@ -2,7 +2,7 @@
 
 /**
  * VectorValuesNumberDisplay is a subclass of NumberDisplay for displaying a value that is associated with a Vector.
- * Instances appear in the 'Vector Values' toggle box.
+ * Instances appear in the 'Vector Values' accordion box.
  *
  * Displays a single vector attribute (i.e. magnitude etc.) of a single active vector that is on the specified graph.
  *

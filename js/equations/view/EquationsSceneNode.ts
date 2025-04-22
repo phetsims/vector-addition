@@ -47,10 +47,10 @@ export default class EquationsSceneNode extends SceneNode {
 
     super( graph, viewProperties, componentVectorStyleProperty, options );
 
-    // Relocate the 'Vector Values' toggle box so that we have room for the 'Equation' toggle box
+    // Relocate the 'Vector Values' accordion box so that we have room for the 'Equation' accordion box
     this.vectorValuesToggleBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
-    // Add the 'Equation' toggle box
+    // Add the 'Equation' accordion box
     const equationAccordionBox = new EquationAccordionBoxBox( graph.vectorSet, graph.equationTypeProperty,
       equationButtonsAlignGroup, equationsAlignGroup, {
         expandedProperty: viewProperties.equationAccordionBoxExpandedProperty,

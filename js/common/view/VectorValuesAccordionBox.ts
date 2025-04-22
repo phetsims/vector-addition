@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorValuesAccordionBox is the toggle box at the top of the screen. It displays the active vector's magnitude,
+ * VectorValuesAccordionBox is the accordion box at the top of the screen. It displays the active vector's magnitude,
  * angle, x component, and y component.
  *
  * 'Is a' relationship with FixedSizeAccordionBox
