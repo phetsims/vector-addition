@@ -185,7 +185,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     const fixedWidthPickers = new Node( { children: [ strut, pickersVBox ] } );
 
     // Create the checkbox that toggles the visibility of Base Vectors
-    const baseVectorsCheckbox = new BaseVectorsCheckbox( baseVectorsVisibleProperty, vectorSet.vectorColorPalette );
+    const baseVectorsCheckbox = new BaseVectorsCheckbox( baseVectorsVisibleProperty, vectorSet.vectorColorPalette,
+      options.tandem.createTandem( 'baseVectorsCheckbox' ) );
 
     const accordionBoxContent = new VBox( {
       children: [ fixedWidthPickers, baseVectorsCheckbox ],

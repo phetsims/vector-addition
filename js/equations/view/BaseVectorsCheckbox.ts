@@ -12,10 +12,11 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionCheckbox from '../../common/view/VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
 
-  public constructor( baseVectorsVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette ) {
+  public constructor( baseVectorsVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette, tandem: Tandem ) {
 
     const icon = VectorAdditionIconFactory.createVectorIcon( 50, {
       fill: vectorColorPalette.baseVectorFill,
@@ -23,7 +24,9 @@ export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
       lineWidth: VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS.lineWidth
     } );
 
-    super( baseVectorsVisibleProperty, icon );
+    super( baseVectorsVisibleProperty, icon, {
+      tandem: tandem
+    } );
   }
 }
 
