@@ -55,7 +55,9 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     };
 
     // Create two 'Sum' checkboxes for each graph
-    const sumCheckboxContainer = new Node();
+    const sumCheckboxes = new Node( {
+      tandem: options.tandem.createTandem( 'sumCheckboxes' )
+    } );
     const addSumCheckboxes = ( graph: LabGraph, parentTandem: Tandem ) => {
 
       const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, graph.vectorSet1.vectorColorPalette,
@@ -63,7 +65,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, graph.vectorSet2.vectorColorPalette,
         parentTandem.createTandem( 'sum2Checkbox' ) );
 
-      const sumCheckboxes = new VBox( {
+      const vBox = new VBox( {
         children: [
           new AlignBox( sum1Checkbox, alignBoxOptions ),
           new AlignBox( sum2Checkbox, alignBoxOptions )
@@ -71,16 +73,16 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
         align: 'left'
       } );
-      sumCheckboxContainer.addChild( sumCheckboxes );
+      sumCheckboxes.addChild( vBox );
 
       // Show the Sum checkboxes that match the selected scene.
       // unlink is unnecessary, exists for the lifetime of the sim.
       viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-        sumCheckboxes.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
+        vBox.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
       } );
     };
-    addSumCheckboxes( cartesianGraph, options.tandem.createTandem( 'cartesian' ) );
-    addSumCheckboxes( polarGraph, options.tandem.createTandem( 'polar' ) );
+    addSumCheckboxes( cartesianGraph, sumCheckboxes.tandem.createTandem( 'cartesianSumCheckboxes' ) );
+    addSumCheckboxes( polarGraph, sumCheckboxes.tandem.createTandem( 'polarSumCheckboxes' ) );
 
     // Values
     const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty,
@@ -101,7 +103,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
         align: 'left',
         children: [
-          sumCheckboxContainer,
+          sumCheckboxes,
           new AlignBox( valuesCheckbox, alignBoxOptions ),
           new AlignBox( anglesCheckbox, alignBoxOptions ),
           new AlignBox( gridCheckbox, alignBoxOptions )

@@ -43,11 +43,29 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
 
     const options = providedOptions;
 
+    // To make all checkboxes the same height
+    const alignBoxOptions = {
+      group: new AlignGroup( {
+        matchHorizontal: false,
+        matchVertical: true
+      } )
+    };
+
+    const sumCheckboxesTandem = options.tandem.createTandem( 'sumCheckboxes' );
+
     const cartesianSumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty,
       cartesianVectorSet.vectorColorPalette, options.tandem.createTandem( 'cartesianSumCheckbox' ) );
 
     const polarSumCheckbox = new SumCheckbox( polarVectorSet.sumVisibleProperty,
       polarVectorSet.vectorColorPalette, options.tandem.createTandem( 'polarSumCheckbox' ) );
+
+    const sumCheckboxes = new Node( {
+      children: [
+        new AlignBox( cartesianSumCheckbox, alignBoxOptions ),
+        new AlignBox( polarSumCheckbox, alignBoxOptions )
+      ],
+      tandem: sumCheckboxesTandem
+    } );
 
     // Show the Sum checkbox that matches the selected scene.
     // unlink is unnecessary, exists for the lifetime of the sim.
@@ -68,14 +86,6 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
     const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
       options.tandem.createTandem( 'gridCheckbox' ) );
 
-    // To make all checkboxes the same height
-    const alignBoxOptions = {
-      group: new AlignGroup( {
-        matchHorizontal: false,
-        matchVertical: true
-      } )
-    };
-
     super( [
 
       // checkboxes, wrapped with AlignBox so that they are all the same height
@@ -83,12 +93,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
         spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
         align: 'left',
         children: [
-          new Node( {
-            children: [
-              new AlignBox( cartesianSumCheckbox, alignBoxOptions ),
-              new AlignBox( polarSumCheckbox, alignBoxOptions )
-            ]
-          } ),
+          sumCheckboxes,
           new AlignBox( valuesCheckbox, alignBoxOptions ),
           new AlignBox( anglesCheckbox, alignBoxOptions ),
           new AlignBox( gridCheckbox, alignBoxOptions )
