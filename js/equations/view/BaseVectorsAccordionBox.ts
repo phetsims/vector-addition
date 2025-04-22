@@ -227,7 +227,12 @@ function createNumberPickerWithLabel( numberProperty: NumberProperty, numberRang
   const numberPicker = new NumberPicker( numberProperty, new Property( numberRange ),
     combineOptions<NumberPickerOptions>( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
       touchAreaXDilation: 20,
-      touchAreaYDilation: 10
+      touchAreaYDilation: 10,
+
+      // Hide arrows when picker is disabled.
+      disabledOpacity: 1,
+      backgroundStrokeDisabledOpacity: 1,
+      arrowDisabledOpacity: 0
     }, numberPickerOptions )
   );
   numberPicker.centerY = -equalsSign.height / 3;
@@ -236,7 +241,8 @@ function createNumberPickerWithLabel( numberProperty: NumberProperty, numberRang
   return new HBox( {
     align: 'origin',
     spacing: 3, // space around the equals sign
-    children: [ labelNode, equalsSign, numberPickerParent ]
+    children: [ labelNode, equalsSign, numberPickerParent ],
+    visibleProperty: numberPicker.visibleProperty
   } );
 }
 
