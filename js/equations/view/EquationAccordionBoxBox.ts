@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * EquationToggleBox is the toggle box labeled 'Equation' in the 'Equations' screen.
+ * EquationAccordionBoxBox is the toggle box labeled 'Equation' in the 'Equations' screen.
  * It allows the user to select the form of the equation, and change the coefficients of the vectors.
  *
  * @author Brandon Li
@@ -31,7 +31,7 @@ type SelfOptions = EmptySelfOptions;
 
 type EquationToggleBoxOptions = SelfOptions & ToggleBoxOptions;
 
-export default class EquationToggleBox extends FixedSizeAccordionBox {
+export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
 
   /**
    * @param vectorSet
@@ -96,4 +96,4 @@ export default class EquationToggleBox extends FixedSizeAccordionBox {
   }
 }
 
-vectorAddition.register( 'EquationToggleBox', EquationToggleBox );
+vectorAddition.register( 'EquationAccordionBoxBox', EquationAccordionBoxBox );

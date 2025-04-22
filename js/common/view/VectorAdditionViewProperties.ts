@@ -36,7 +36,7 @@ export default class VectorAdditionViewProperties {
   // controls the snapping mode for the vectors
   public readonly coordinateSnapModeProperty: StringUnionProperty<CoordinateSnapMode>;
 
-  // whether the VectorValuesToggleBox is expanded
+  // whether the VectorValuesAccordionBox is expanded
   public readonly vectorValuesExpandedProperty: Property<boolean>;
 
   public constructor( providedOptions: VectorAdditionViewPropertiesOptions ) {

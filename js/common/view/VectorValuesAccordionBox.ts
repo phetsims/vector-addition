@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorValuesToggleBox is the toggle box at the top of the screen. It displays the active vector's magnitude,
+ * VectorValuesAccordionBox is the toggle box at the top of the screen. It displays the active vector's magnitude,
  * angle, x component, and y component.
  *
  * 'Is a' relationship with FixedSizeAccordionBox
@@ -56,7 +56,7 @@ type SelfOptions = EmptySelfOptions;
 
 type VectorValuesToggleBoxOptions = SelfOptions & ToggleBoxOptions;
 
-export default class VectorValuesToggleBox extends FixedSizeAccordionBox {
+export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
   public constructor( graph: Graph, providedOptions?: VectorValuesToggleBoxOptions ) {
 
@@ -193,4 +193,4 @@ export default class VectorValuesToggleBox extends FixedSizeAccordionBox {
   }
 }
 
-vectorAddition.register( 'VectorValuesToggleBox', VectorValuesToggleBox );
+vectorAddition.register( 'VectorValuesAccordionBox', VectorValuesAccordionBox );

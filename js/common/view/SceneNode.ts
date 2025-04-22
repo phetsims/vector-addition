@@ -6,7 +6,7 @@
  *
  * ## A 'Scene Node' contains:
  *  - a single GraphNode
- *  - a single VectorValuesToggleBox
+ *  - a single VectorValuesAccordionBox
  *  - Handle z-layering of all vector types (see https://github.com/phetsims/vector-addition/issues/19)
  *  - An option to include an EraserButton
  *  - A method to add a VectorCreatorPanel
@@ -40,7 +40,7 @@ import GraphNode from './GraphNode.js';
 import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import VectorCreatorPanel from './VectorCreatorPanel.js';
 import VectorSetNode from './VectorSetNode.js';
-import VectorValuesToggleBox from './VectorValuesToggleBox.js';
+import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = {
@@ -83,8 +83,8 @@ export default class SceneNode extends Node {
     // Create one and only GraphNode
     const graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty );
 
-    // Create the one and only 'Vector Values' toggle box
-    const vectorValuesToggleBox = new VectorValuesToggleBox( graph, {
+    // Create the one and only 'Vector Values' accordion box
+    const vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, {
       expandedProperty: viewProperties.vectorValuesExpandedProperty,
       centerX: graph.graphViewBounds.centerX,
       top: 35 // determined empirically
@@ -98,7 +98,7 @@ export default class SceneNode extends Node {
     // Add the children in the correct z-order
     this.setChildren( [
       graphNode,
-      vectorValuesToggleBox,
+      vectorValuesAccordionBox,
       this.vectorSetNodesParent
     ] );
 
@@ -138,7 +138,7 @@ export default class SceneNode extends Node {
       this.vectorSetNodes.push( vectorSetNode );
     } );
 
-    this.vectorValuesToggleBox = vectorValuesToggleBox;
+    this.vectorValuesToggleBox = vectorValuesAccordionBox;
 
     this.vectorSets = graph.vectorSets;
   }

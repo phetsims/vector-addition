@@ -23,7 +23,7 @@ import vectorAddition from '../../vectorAddition.js';
 import EquationsGraph from '../model/EquationsGraph.js';
 import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
-import EquationToggleBox from './EquationToggleBox.js';
+import EquationAccordionBoxBox from './EquationAccordionBoxBox.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -51,14 +51,14 @@ export default class EquationsSceneNode extends SceneNode {
     this.vectorValuesToggleBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Add the 'Equation' toggle box
-    const equationToggleBox = new EquationToggleBox( graph.vectorSet, graph.equationTypeProperty,
+    const equationAccordionBox = new EquationAccordionBoxBox( graph.vectorSet, graph.equationTypeProperty,
       equationButtonsAlignGroup, equationsAlignGroup, {
         expandedProperty: viewProperties.equationExpandedProperty,
         centerX: graph.graphViewBounds.centerX,
         top: this.vectorValuesToggleBox.bottom + 10
       } );
-    this.addChild( equationToggleBox );
-    equationToggleBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
+    this.addChild( equationAccordionBox );
+    equationAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
 
     // Add the 'Base Vector' accordion box
     const baseVectorsAccordionBox = new BaseVectorsAccordionBox( viewProperties.baseVectorsVisibleProperty,
