@@ -15,7 +15,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class EquationsViewProperties extends VectorAdditionViewProperties {
 
-  // whether the EquationAccordionBoxBox is expanded
+  // whether the EquationAccordionBox is expanded
   public readonly equationAccordionBoxExpandedProperty: Property<boolean>;
 
   // whether the BaseVectorsAccordionBox is expanded

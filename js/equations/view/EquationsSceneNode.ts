@@ -23,7 +23,7 @@ import vectorAddition from '../../vectorAddition.js';
 import EquationsGraph from '../model/EquationsGraph.js';
 import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
-import EquationAccordionBoxBox from './EquationAccordionBoxBox.js';
+import EquationAccordionBox from './EquationAccordionBox.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -51,7 +51,7 @@ export default class EquationsSceneNode extends SceneNode {
     this.vectorValuesToggleBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Add the 'Equation' accordion box
-    const equationAccordionBox = new EquationAccordionBoxBox( graph.vectorSet, graph.equationTypeProperty,
+    const equationAccordionBox = new EquationAccordionBox( graph.vectorSet, graph.equationTypeProperty,
       equationButtonsAlignGroup, equationsAlignGroup, {
         expandedProperty: viewProperties.equationAccordionBoxExpandedProperty,
         centerX: graph.graphViewBounds.centerX,

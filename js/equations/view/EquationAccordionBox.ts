@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * EquationAccordionBoxBox is the accordion box labeled 'Equation' in the 'Equations' screen.
+ * EquationAccordionBox is the accordion box labeled 'Equation' in the 'Equations' screen.
  * It allows the user to select the form of the equation, and change the coefficients of the vectors.
  *
  * @author Brandon Li
@@ -31,7 +31,7 @@ type SelfOptions = EmptySelfOptions;
 
 type EquationAccordionBoxOptions = SelfOptions & FixedSizeAccordionBoxOptions;
 
-export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
+export default class EquationAccordionBox extends FixedSizeAccordionBox {
 
   /**
    * @param vectorSet
@@ -98,4 +98,4 @@ export default class EquationAccordionBoxBox extends FixedSizeAccordionBox {
   }
 }
 
-vectorAddition.register( 'EquationAccordionBoxBox', EquationAccordionBoxBox );
+vectorAddition.register( 'EquationAccordionBox', EquationAccordionBox );
