@@ -37,7 +37,7 @@ export default class VectorAdditionViewProperties {
   public readonly coordinateSnapModeProperty: StringUnionProperty<CoordinateSnapMode>;
 
   // whether the VectorValuesAccordionBox is expanded
-  public readonly vectorValuesExpandedProperty: Property<boolean>;
+  public readonly vectorValuesAccordionBoxExpandedProperty: Property<boolean>;
 
   public constructor( providedOptions: VectorAdditionViewPropertiesOptions ) {
 
@@ -64,8 +64,8 @@ export default class VectorAdditionViewProperties {
       tandem: options.tandem.createTandem( 'coordinateSnapModeProperty' )
     } );
 
-    this.vectorValuesExpandedProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'vectorValuesExpandedProperty' )
+    this.vectorValuesAccordionBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'vectorValuesAccordionBoxExpandedProperty' )
     } );
   }
 
@@ -74,7 +74,7 @@ export default class VectorAdditionViewProperties {
     this.anglesVisibleProperty.reset();
     this.gridVisibleProperty.reset();
     this.coordinateSnapModeProperty.reset();
-    this.vectorValuesExpandedProperty.reset();
+    this.vectorValuesAccordionBoxExpandedProperty.reset();
   }
 
   public dispose(): void {

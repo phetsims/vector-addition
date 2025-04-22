@@ -86,7 +86,7 @@ export default class SceneNode extends Node {
 
     // Create the one and only 'Vector Values' accordion box
     const vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, {
-      expandedProperty: viewProperties.vectorValuesExpandedProperty,
+      expandedProperty: viewProperties.vectorValuesAccordionBoxExpandedProperty,
       centerX: graph.graphViewBounds.centerX,
       top: 35, // determined empirically
       tandem: options.tandem.createTandem( 'vectorValuesAccordionBox' )

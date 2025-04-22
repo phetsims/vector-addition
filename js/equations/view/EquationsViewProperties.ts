@@ -16,10 +16,10 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 export default class EquationsViewProperties extends VectorAdditionViewProperties {
 
   // whether the EquationAccordionBoxBox is expanded
-  public readonly equationExpandedProperty: Property<boolean>;
+  public readonly equationAccordionBoxExpandedProperty: Property<boolean>;
 
   // whether the BaseVectorsAccordionBox is expanded
-  public readonly baseVectorsExpandedProperty: Property<boolean>;
+  public readonly baseVectorsAccordionBoxExpandedProperty: Property<boolean>;
 
   // whether base vectors are visible on the graph
   public readonly baseVectorsVisibleProperty: Property<boolean>;
@@ -29,12 +29,12 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
       tandem: tandem
     } );
 
-    this.equationExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'equationExpandedProperty' )
+    this.equationAccordionBoxExpandedProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'equationAccordionBoxExpandedProperty' )
     } );
 
-    this.baseVectorsExpandedProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'baseVectorsExpandedProperty' )
+    this.baseVectorsAccordionBoxExpandedProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'baseVectorsAccordionBoxExpandedProperty' )
     } );
 
     this.baseVectorsVisibleProperty = new BooleanProperty( false, {
@@ -44,8 +44,8 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
 
   public override reset(): void {
     super.reset();
-    this.equationExpandedProperty.reset();
-    this.baseVectorsExpandedProperty.reset();
+    this.equationAccordionBoxExpandedProperty.reset();
+    this.baseVectorsAccordionBoxExpandedProperty.reset();
     this.baseVectorsVisibleProperty.reset();
   }
 }

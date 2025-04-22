@@ -53,7 +53,7 @@ export default class EquationsSceneNode extends SceneNode {
     // Add the 'Equation' toggle box
     const equationAccordionBox = new EquationAccordionBoxBox( graph.vectorSet, graph.equationTypeProperty,
       equationButtonsAlignGroup, equationsAlignGroup, {
-        expandedProperty: viewProperties.equationExpandedProperty,
+        expandedProperty: viewProperties.equationAccordionBoxExpandedProperty,
         centerX: graph.graphViewBounds.centerX,
         top: this.vectorValuesToggleBox.bottom + 10,
         tandem: options.tandem.createTandem( 'equationAccordionBox' )
@@ -65,7 +65,7 @@ export default class EquationsSceneNode extends SceneNode {
     const baseVectorsAccordionBox = new BaseVectorsAccordionBox( viewProperties.baseVectorsVisibleProperty,
       graph.coordinateSnapMode,
       graph.vectorSet, {
-        expandedProperty: viewProperties.baseVectorsExpandedProperty,
+        expandedProperty: viewProperties.baseVectorsAccordionBoxExpandedProperty,
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: graphControlPanelBottom + 8,
         tandem: options.tandem.createTandem( 'baseVectorsAccordionBox' )
