@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * EquationTypeNode displays an interactive equation for one of the EquationType enumeration values.
+ * CoefficientPicker is a NumberPicker for changing the coefficient of an equation term.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
