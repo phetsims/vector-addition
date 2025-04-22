@@ -82,6 +82,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
     const pickers: Node[] = []; // pairs of pickers and their labels
 
+    const pickersTandem = options.tandem.createTandem( 'pickers' );
+
     // Each Vector in the vectorSet gets 2 NumberPickers, so loop through the vectorSet
     vectorSet.equationsVectors.forEach( vector => {
 
@@ -110,7 +112,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: options.tandem.createTandem( `${baseVectorSymbol}XPicker` )
+            tandem: pickersTandem.createTandem( `${baseVectorSymbol}xPicker` )
           } );
 
         // Y Component
@@ -126,7 +128,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: options.tandem.createTandem( `${baseVectorSymbol}YPicker` )
+            tandem: pickersTandem.createTandem( `${baseVectorSymbol}yPicker` )
           } );
       }
       else {
@@ -142,7 +144,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: options.tandem.createTandem( `${baseVectorSymbol}MagnitudePicker` )
+            tandem: pickersTandem.createTandem( `${baseVectorSymbol}MagnitudePicker` )
           } );
 
         // Angle
@@ -159,7 +161,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             // increment by the polar angle interval
             incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
-            tandem: options.tandem.createTandem( `${baseVectorSymbol}AnglePicker` )
+            tandem: pickersTandem.createTandem( `${baseVectorSymbol}AnglePicker` )
           } );
       }
 
