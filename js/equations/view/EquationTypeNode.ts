@@ -6,18 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Property from '../../../../axon/js/Property.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
+import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType } from '../model/EquationType.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import CoefficientPicker from './CoefficientPicker.js';
 
 // constants
 const TEXT_OPTIONS = {
@@ -34,18 +33,6 @@ export default class EquationTypeNode extends Node {
     const equationChildren = [];
     let maxVectorSymbolHeight = 0;
 
-    const numberPickerOptions = combineOptions<NumberPickerOptions>( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
-      touchAreaXDilation: 20,
-      touchAreaYDilation: 14,
-      font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT,
-      color: vectorSet.vectorColorPalette.mainFill,
-
-      // Hide arrows when picker is disabled.
-      disabledOpacity: 1,
-      backgroundStrokeDisabledOpacity: 1,
-      arrowDisabledOpacity: 0
-    } );
-
     // Left side
     for ( let i = 0; i < vectorSet.vectors.length; i++ ) {
 
@@ -57,14 +44,12 @@ export default class EquationTypeNode extends Node {
       const vector = vectorSet.equationsVectors[ i ];
       const vectorSymbol = vector.symbolProperty!.value;
 
-      assert && assert( vector.coefficientProperty.range,
-        'coefficientProperty must have an associated range' );
-
-      equationChildren.push( new NumberPicker( vector.coefficientProperty, new Property( vector.coefficientProperty.range ),
-        combineOptions<NumberPickerOptions>( {}, numberPickerOptions, {
-          tandem: tandem.createTandem( `${vectorSymbol}Picker` ),
-          phetioVisiblePropertyInstrumented: false
-        } ) ) );
+      const coefficientPicker = new CoefficientPicker( vector.coefficientProperty, {
+        color: vectorSet.vectorColorPalette.mainFill,
+        tandem: tandem.createTandem( `${vectorSymbol}Picker` ),
+        phetioVisiblePropertyInstrumented: false
+      } );
+      equationChildren.push( coefficientPicker );
 
       const vectorSymbolNode = new VectorSymbolNode( {
         symbolProperty: vector.symbolProperty,
