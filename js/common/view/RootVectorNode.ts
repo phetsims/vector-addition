@@ -24,6 +24,7 @@ import RootVector from '../model/RootVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import VectorLabelNode from './VectorLabelNode.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 
 // constants
 
@@ -47,7 +48,7 @@ type SelfOptions = {
 
 export type RootVectorNodeOptions = SelfOptions;
 
-export default class RootVectorNode extends Node {
+export default class RootVectorNode extends InteractiveHighlighting( Node ) {
 
   protected readonly arrowNode: ArrowNode | DashedArrowNode;
   protected readonly labelNode: VectorLabelNode;
