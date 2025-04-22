@@ -20,7 +20,7 @@ import ComponentVectorStyle from '../../common/model/ComponentVectorStyle.js';
 import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
-import ComponentStyleControl from '../../common/view/ComponentStyleControl.js';
+import ComponentVectorStyleControl from '../../common/view/ComponentVectorStyleControl.js';
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
@@ -114,8 +114,8 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
       // separator
       new HSeparator( { stroke: Color.BLACK } ),
 
-      // Components radio buttons
-      new ComponentStyleControl( componentStyleProperty, options.tandem.createTandem( 'componentStyleControl' ) )
+      // Radio buttons for selection component vector style
+      new ComponentVectorStyleControl( componentStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
 
     ], options );
   }

@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * ComponentStyleControl is the control for selecting how to visually represent component vectors.
+ * ComponentVectorStyleControl is the control for selecting how to visually represent component vectors.
  * It consists of a labeled group of radio buttons.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -23,7 +23,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
 
-export default class ComponentStyleControl extends VBox {
+export default class ComponentVectorStyleControl extends VBox {
 
   public constructor( componentStyleProperty: EnumerationProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
@@ -55,4 +55,4 @@ export default class ComponentStyleControl extends VBox {
   }
 }
 
-vectorAddition.register( 'ComponentStyleControl', ComponentStyleControl );
+vectorAddition.register( 'ComponentVectorStyleControl', ComponentVectorStyleControl );
