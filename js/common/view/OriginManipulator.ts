@@ -17,6 +17,7 @@ import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 
@@ -39,7 +40,7 @@ const ORIGIN_OPTIONS = {
 
 export default class OriginManipulator extends ShadedSphereNode {
 
-  public constructor( graph: Graph ) {
+  public constructor( graph: Graph, tandem: Tandem ) {
 
     // convenience variable
     const modelViewTransform = graph.modelViewTransformProperty.value;
@@ -50,9 +51,10 @@ export default class OriginManipulator extends ShadedSphereNode {
     // Diameter, view coordinates
     const diameter = modelViewTransform.modelToViewDeltaX( ORIGIN_DIAMETER );
 
-    super( diameter, combineOptions<ShadedSphereNodeOptions>( {
-      center: origin
-    }, ORIGIN_OPTIONS ) );
+    super( diameter, combineOptions<ShadedSphereNodeOptions>( {}, ORIGIN_OPTIONS, {
+      center: origin,
+      tandem: tandem
+    } ) );
 
     this.touchArea = Shape.circle( 0, 0, diameter );
 
@@ -62,14 +64,18 @@ export default class OriginManipulator extends ShadedSphereNode {
     );
 
     // Create a Property of to track the view's origin in view coordinates
-    const originPositionProperty = new Vector2Property( origin );
+    const originPositionProperty = new Vector2Property( origin, {
+      tandem: tandem.createTandem( 'originPositionProperty' ),
+      phetioReadOnly: true
+    } );
 
     // Add a drag listener. removeInputListener is unnecessary, since this class owns the listener.
     this.addInputListener( new SoundDragListener( {
       positionProperty: originPositionProperty,
       translateNode: false,
       dragBoundsProperty: new Property( restrictedGraphViewBounds ),
-      pressCursor: ORIGIN_OPTIONS.cursor
+      pressCursor: ORIGIN_OPTIONS.cursor,
+      tandem: tandem.createTandem( 'dragListener' )
     } ) );
 
     // Update the origin position.

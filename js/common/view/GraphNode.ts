@@ -85,7 +85,7 @@ export default class GraphNode extends Node {
       children.push( new YAxisNode( graph, graphViewBounds ) );
     }
 
-    children.push( new OriginManipulator( graph ) );
+    children.push( new OriginManipulator( graph, tandem.createTandem( 'originManipulator' ) ) );
 
     super( {
       isDisposable: false,
