@@ -14,15 +14,17 @@ import GraphOrientation from '../../common/model/GraphOrientation.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type GraphOrientationRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions;
+type GraphOrientationRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions &
+  PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
 export default class GraphOrientationRadioButtonGroup extends RectangularRadioButtonGroup<GraphOrientation> {
 
   public constructor( graphOrientationProperty: EnumerationProperty<GraphOrientation>,
-                      providedOptions?: GraphOrientationRadioButtonGroupOptions ) {
+                      providedOptions: GraphOrientationRadioButtonGroupOptions ) {
 
     const options = optionize4<GraphOrientationRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
@@ -34,7 +36,8 @@ export default class GraphOrientationRadioButtonGroup extends RectangularRadioBu
     [ GraphOrientation.HORIZONTAL, GraphOrientation.VERTICAL ].forEach( graphOrientation => {
       items.push( {
         value: graphOrientation,
-        createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( graphOrientation )
+        createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( graphOrientation ),
+        tandemName: `${graphOrientation}RadioButton`
       } );
     } );
 

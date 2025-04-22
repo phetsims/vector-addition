@@ -46,7 +46,8 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     const graphOrientationRadioButtonGroup = new GraphOrientationRadioButtonGroup(
       this.viewProperties.graphOrientationProperty, {
         left: graphControlPanel.left,
-        bottom: this.resetAllButton.bottom
+        bottom: this.resetAllButton.bottom,
+        tandem: tandem.createTandem( 'graphOrientationRadioButtonGroup' )
       } );
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
