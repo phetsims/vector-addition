@@ -22,16 +22,16 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type CoordinateSnapRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions & PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
+type CoordinateSnapModeRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions & PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
-export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup<CoordinateSnapMode> {
+export default class CoordinateSnapModeRadioButtonGroup extends RectangularRadioButtonGroup<CoordinateSnapMode> {
 
   public constructor( coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapMode>,
                       cartesianVectorColorPalette: VectorColorPalette,
                       polarVectorColorPalette: VectorColorPalette,
-                      providedOptions: CoordinateSnapRadioButtonGroupOptions ) {
+                      providedOptions: CoordinateSnapModeRadioButtonGroupOptions ) {
 
-    const options = optionize4<CoordinateSnapRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
+    const options = optionize4<CoordinateSnapModeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
         isDisposable: false
       }, providedOptions );
@@ -54,4 +54,4 @@ export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButt
   }
 }
 
-vectorAddition.register( 'CoordinateSnapRadioButtonGroup', CoordinateSnapRadioButtonGroup );
+vectorAddition.register( 'CoordinateSnapModeRadioButtonGroup', CoordinateSnapModeRadioButtonGroup );

@@ -10,7 +10,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import CoordinateSnapMode from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import CoordinateSnapRadioButtonGroup from '../../common/view/CoordinateSnapRadioButtonGroup.js';
+import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
 import SceneNode from '../../common/view/SceneNode.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
@@ -42,7 +42,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       } );
 
     // CoordinateSnapMode radio buttons, at lower right
-    const coordinateSnapModeRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
+    const coordinateSnapModeRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
       this.viewProperties.coordinateSnapModeProperty,
       model.cartesianVectorColorPalette,
       model.polarVectorColorPalette, {
