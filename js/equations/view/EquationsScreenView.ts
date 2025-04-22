@@ -42,12 +42,13 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       } );
 
     // Coordinate Snap radio buttons, at lower right
-    const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
+    const coordinateSnapModeRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
       this.viewProperties.coordinateSnapModeProperty,
       model.cartesianVectorColorPalette,
       model.polarVectorColorPalette, {
         left: graphControlPanel.left,
-        bottom: this.resetAllButton.bottom
+        bottom: this.resetAllButton.bottom,
+        tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
       } );
 
     // Used to make all of the radio button in the Equation toggle box the same effective size.
@@ -91,7 +92,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
-        coordinateSnapRadioButtonGroup,
+        coordinateSnapModeRadioButtonGroup,
         polarScene,
         cartesianScene,
         this.resetAllButton
@@ -108,7 +109,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       graphControlPanel,
-      coordinateSnapRadioButtonGroup,
+      coordinateSnapModeRadioButtonGroup,
       this.resetAllButton
     ];
   }

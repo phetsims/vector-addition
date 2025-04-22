@@ -18,17 +18,18 @@ import CoordinateSnapMode from '../model/CoordinateSnapMode.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type CoordinateSnapRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions;
+type CoordinateSnapRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions & PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
 export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButtonGroup<CoordinateSnapMode> {
 
   public constructor( coordinateSnapModeProperty: EnumerationProperty<CoordinateSnapMode>,
                       cartesianVectorColorPalette: VectorColorPalette,
                       polarVectorColorPalette: VectorColorPalette,
-                      providedOptions?: CoordinateSnapRadioButtonGroupOptions ) {
+                      providedOptions: CoordinateSnapRadioButtonGroupOptions ) {
 
     const options = optionize4<CoordinateSnapRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
@@ -39,11 +40,13 @@ export default class CoordinateSnapRadioButtonGroup extends RectangularRadioButt
     const items: RectangularRadioButtonGroupItem<CoordinateSnapMode>[] = [
       {
         value: CoordinateSnapMode.CARTESIAN,
-        createNode: () => VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette )
+        createNode: () => VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette ),
+        tandemName: 'cartesianRadioButton'
       },
       {
         value: CoordinateSnapMode.POLAR,
-        createNode: () => VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette )
+        createNode: () => VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette ),
+        tandemName: 'polarRadioButton'
       }
     ];
 

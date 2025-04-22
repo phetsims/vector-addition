@@ -43,13 +43,14 @@ export default class LabScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'graphControlPanel' )
       } );
 
-    // Coordinate Snap radio buttons, at lower right
-    const coordinateSnapRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
+    // CoordinateSnapMode radio buttons, at lower right
+    const coordinateSnapModeRadioButtonGroup = new CoordinateSnapRadioButtonGroup(
       this.viewProperties.coordinateSnapModeProperty,
       model.cartesianVectorColorPalette1,
       model.polarVectorColorPalette1, {
         left: graphControlPanel.left,
-        bottom: this.resetAllButton.bottom
+        bottom: this.resetAllButton.bottom,
+        tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
       } );
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
@@ -60,8 +61,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
       // Add the vector creator panel
       sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( graph, sceneNode, {
-        left: coordinateSnapRadioButtonGroup.left,
-        bottom: coordinateSnapRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
+        left: coordinateSnapModeRadioButtonGroup.left,
+        bottom: coordinateSnapModeRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING
       } ) );
 
       // Switch between scenes to match coordinate snap mode.
@@ -78,7 +79,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
-        coordinateSnapRadioButtonGroup,
+        coordinateSnapModeRadioButtonGroup,
         ...sceneNodes,
         this.resetAllButton
       ]
@@ -93,7 +94,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       graphControlPanel,
-      coordinateSnapRadioButtonGroup,
+      coordinateSnapModeRadioButtonGroup,
       this.resetAllButton
     ];
   }
