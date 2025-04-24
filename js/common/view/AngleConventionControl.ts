@@ -57,11 +57,11 @@ class AngleConventionRadioButtonGroup extends AquaRadioButtonGroup<AngleConventi
   public constructor( angleConventionProperty: StringUnionProperty<AngleConvention>, tandem: Tandem ) {
 
     const signedStringProperty = new PatternStringProperty( VectorAdditionStrings.signedPatternStringProperty, {
-      range: '[-180,180)'
+      range: '(-180,180]'
     } );
 
     const unsignedStringProperty = new PatternStringProperty( VectorAdditionStrings.unsignedPatternStringProperty, {
-      range: '(0,360]'
+      range: '[0,360)'
     } );
 
     const items: AquaRadioButtonGroupItem<AngleConvention>[] = [
