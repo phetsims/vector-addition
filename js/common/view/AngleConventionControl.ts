@@ -20,7 +20,6 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { AngleConvention } from '../model/AngleConvention.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 
 const RADIO_BUTTON_LABEL_OPTIONS = {
   font: new PhetFont( 16 ),
@@ -56,23 +55,15 @@ class AngleConventionRadioButtonGroup extends AquaRadioButtonGroup<AngleConventi
 
   public constructor( angleConventionProperty: StringUnionProperty<AngleConvention>, tandem: Tandem ) {
 
-    const signedStringProperty = new PatternStringProperty( VectorAdditionStrings.signedPatternStringProperty, {
-      range: '(-180,180]'
-    } );
-
-    const unsignedStringProperty = new PatternStringProperty( VectorAdditionStrings.unsignedPatternStringProperty, {
-      range: '[0,360)'
-    } );
-
     const items: AquaRadioButtonGroupItem<AngleConvention>[] = [
       {
         value: 'signed',
-        createNode: () => new Text( signedStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
+        createNode: () => new Text( VectorAdditionStrings.signedRangeStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
         tandemName: 'signedRadioButton'
       },
       {
         value: 'unsigned',
-        createNode: () => new Text( unsignedStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
+        createNode: () => new Text( VectorAdditionStrings.unsignedRangeStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
         tandemName: 'unsignedRadioButton'
       }
     ];
