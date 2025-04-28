@@ -31,6 +31,8 @@ import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from './FixedSizeAccordionBox.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorQuantityDisplay from './VectorQuantityDisplay.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -42,7 +44,7 @@ const COMPONENT_LABEL_MAX_WIDTH = 35;
 
 type SelfOptions = EmptySelfOptions;
 
-type VectorValuesAccordionBoxOptions = SelfOptions & FixedSizeAccordionBoxOptions;
+type VectorValuesAccordionBoxOptions = SelfOptions & StrictOmit<FixedSizeAccordionBoxOptions, 'contentFixedSize'>;
 
 export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
@@ -51,13 +53,11 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     const options = optionize<VectorValuesAccordionBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
       // FixedSizeAccordionBoxOptions
-      contentFixedWidth: 500,
-      contentFixedHeight: 45,
-      contentAlign: 'center'
+      contentFixedSize: new Dimension2( 500, 45 ),
+      contentAlign: 'left',
+      contentXSpacing: 20,
+      titleXSpacing: 20
     }, providedOptions );
-
-    const contentFixedHeight = options.contentFixedHeight!;
-    assert && assert( contentFixedHeight !== null );
 
     // 'Vector Values' title
     const titleText = new Text( VectorAdditionStrings.vectorValuesStringProperty, {

@@ -16,17 +16,15 @@ import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionB
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 
 type SelfOptions = {
-
-  // If provided, the content will scale to fix these dimensions. Otherwise, the fixed size is calculated by
-  // the largest of the titleNode and contentNodes, including margin.
-  contentFixedWidth?: number | null;
-  contentFixedHeight?: number | null;
+  // Fixed dimensions of the content. If actual content is larger, it will be scaled to fit.
+  contentFixedSize: Dimension2;
 };
 
 export type FixedSizeAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
-  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing' | 'contentAlign'> &
+  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing' | 'contentAlign' | 'titleXSpacing'> &
   PickRequired<AccordionBoxOptions, 'tandem'>;
 
 export default class FixedSizeAccordionBox extends AccordionBox {
@@ -35,10 +33,6 @@ export default class FixedSizeAccordionBox extends AccordionBox {
 
     const options = optionize4<FixedSizeAccordionBoxOptions, SelfOptions, AccordionBoxOptions>()(
       {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
-
-        // SelfOptions
-        contentFixedWidth: null,
-        contentFixedHeight: null,
 
         // AccordionBoxOptions
         isDisposable: false,
@@ -52,8 +46,8 @@ export default class FixedSizeAccordionBox extends AccordionBox {
       }, providedOptions );
 
     // Determine the maximum dimensions.
-    const maxWidth = options.contentFixedWidth || _.max( [ titleNode.width, contentNode.width ] )!;
-    const maxHeight = options.contentFixedHeight || _.max( [ titleNode.height, contentNode.height ] )!;
+    const maxWidth = options.contentFixedSize.width;
+    const maxHeight = options.contentFixedSize.height;
 
     options.titleNode = new AlignBox( titleNode, {
       xAlign: 'left',

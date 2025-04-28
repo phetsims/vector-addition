@@ -23,13 +23,15 @@ import { EquationType, EquationTypeValues } from '../model/EquationType.js';
 import EquationTypeNode from './EquationTypeNode.js';
 import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // constants
 const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationAccordionBoxOptions = SelfOptions & FixedSizeAccordionBoxOptions;
+type EquationAccordionBoxOptions = SelfOptions & StrictOmit<FixedSizeAccordionBoxOptions, 'contentFixedSize'>;
 
 export default class EquationAccordionBox extends FixedSizeAccordionBox {
 
@@ -49,9 +51,9 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
     const options = optionize<EquationAccordionBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
       // FixedSizeAccordionBoxOptions
-      contentFixedWidth: 670,
-      contentFixedHeight: 50,
-      contentXSpacing: 17
+      contentFixedSize: new Dimension2( 670, 50 ),
+      contentXSpacing: 20,
+      titleXSpacing: 20
     }, providedOptions );
 
     // 'Equation' title
