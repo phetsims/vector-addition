@@ -48,7 +48,7 @@ export default class FixedSizeAccordionBox extends AccordionBox {
         buttonYMargin: 0,
         contentAlign: 'left',
         showTitleWhenExpanded: false,
-        titleBarExpandCollapse: false
+        titleBarExpandCollapse: true
       }, providedOptions );
 
     // Determine the maximum dimensions.
