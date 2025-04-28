@@ -54,6 +54,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
 
     super( diameter, combineOptions<ShadedSphereNodeOptions>( {}, ORIGIN_OPTIONS, {
       center: origin,
+      touchArea: Shape.circle( 2 * diameter ),
       tagName: 'div', // for KeyboardDragListener
       focusable: true, // for KeyboardDragListener
       tandem: tandem
