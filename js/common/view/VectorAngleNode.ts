@@ -9,9 +9,7 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -20,8 +18,8 @@ import vectorAddition from '../../vectorAddition.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import CurvedArrowNode from './CurvedArrowNode.js';
-
-// constants
+import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
+import { AngleConvention } from '../model/AngleConvention.js';
 
 // maximum radius of the curved arrow - the radius is changed to keep the curved arrow smaller than the vector.
 const MAX_CURVED_ARROW_RADIUS = 25;
@@ -30,17 +28,17 @@ const MAX_CURVED_ARROW_RADIUS = 25;
 // the max curved arrow radius
 const MAX_RADIUS_SCALE = 0.79;
 
-// maximum length of the baseline that is parallel to the x axis
+// maximum length of the baseline that is parallel to the x-axis
 const MAX_BASELINE_WIDTH = 55;
 
 // the maximum percentage of the baseline when compared to the radius of the curved arrow.
 const MAX_BASELINE_SCALE = 0.60;
 
-// the offset of the angle label from the curved arrow
-const LABEL_OFFSET = 3.5;
+// the offset of the angle text from the curved arrow
+const TEXT_OFFSET = 3.5;
 
-// Angles greater than 35 deg position the label between the vector and the baseline, and angles under 35
-// place the label on the other side of the baseline. See
+// Angles greater than 35 deg position the text between the vector and the baseline, and angles under 35
+// place the text on the other side of the baseline. See
 // https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.on5p73bbry7g.
 const ANGLE_UNDER_BASELINE_THRESHOLD = 35;
 
@@ -52,7 +50,8 @@ export default class VectorAngleNode extends Node {
   // arrow in a circle shape from the baseline to the vector
   private readonly curvedArrow: CurvedArrowNode;
 
-  private readonly labelText: Text;
+  // displays the angle value in degrees
+  private readonly angleText: Text;
 
   private readonly disposeVectorAngleNode: () => void;
 
@@ -65,17 +64,17 @@ export default class VectorAngleNode extends Node {
     this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS, vector.angle ? vector.angle : 0 );
 
     // set to an arbitrary string for now.
-    this.labelText = new Text( '', { font: VectorAdditionConstants.ANGLE_LABEL_FONT } );
+    this.angleText = new Text( '', { font: VectorAdditionConstants.ANGLE_LABEL_FONT } );
 
-    this.setChildren( [ this.baseLine, this.curvedArrow, this.labelText ] );
+    this.setChildren( [ this.baseLine, this.curvedArrow, this.angleText ] );
 
     // Update the angle and its visibility. Must be disposed on dispose.
     const angleVisibleMultilink = Multilink.multilink(
-      [ anglesVisibleProperty, vector.isOnGraphProperty, vector.vectorComponentsProperty ],
-      ( angleVisible, isOnGraph, vectorComponents ) => {
+      [ anglesVisibleProperty, vector.isOnGraphProperty, vector.vectorComponentsProperty, VectorAdditionPreferences.instance.angleConventionProperty ],
+      ( angleVisible, isOnGraph, vectorComponents, angleConvention ) => {
         this.visible = ( angleVisible && isOnGraph && vector.magnitude !== 0 );
         if ( this.visible ) {
-          this.updateAngleNode( vector, modelViewTransformProperty.value );
+          this.updateAngleNode( vector, modelViewTransformProperty.value, angleConvention );
         }
       } );
 
@@ -96,7 +95,7 @@ export default class VectorAngleNode extends Node {
    *  - Label Text
    *  - baseline length
    */
-  private updateAngleNode( vector: Vector, modelViewTransform: ModelViewTransform2 ): void {
+  private updateAngleNode( vector: Vector, modelViewTransform: ModelViewTransform2, angleConvention: AngleConvention ): void {
 
     // convenience reference.
     const angleDegrees = vector.angleDegrees;
@@ -104,11 +103,8 @@ export default class VectorAngleNode extends Node {
     // Update the curved arrow node angle
     this.curvedArrow.setAngle( vector.angle ? vector.angle : 0 );
 
-    // Update the label text.
-    this.labelText.setString(
-      ( angleDegrees === null ) ? '' :
-      `${toFixed( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES )}${MathSymbols.DEGREES}`
-    );
+    // Update the angle text.
+    this.angleText.setString( vector.getAngleDegreesString( angleConvention ) );
 
     // Update the curved arrow radius
     const viewMagnitude = modelViewTransform.modelToViewDeltaX( vector.magnitude );
@@ -123,31 +119,31 @@ export default class VectorAngleNode extends Node {
     // Update the baseline
     this.baseLine.setX2( _.min( [ curvedArrowRadius / MAX_BASELINE_SCALE, MAX_BASELINE_WIDTH ] )! );
 
-    // Position the label text
+    // Position the text
     if ( angleDegrees !== null ) {
 
       if ( angleDegrees > ANGLE_UNDER_BASELINE_THRESHOLD ) {
 
-        // Position the label next to the arc, halfway across the arc
-        this.labelText.setTranslation( ( curvedArrowRadius + LABEL_OFFSET ) * Math.cos( vectorAngle / 2 ),
-          -( curvedArrowRadius + LABEL_OFFSET ) * Math.sin( vectorAngle / 2 ) );
+        // Position the text next to the arc, halfway across the arc
+        this.angleText.setTranslation( ( curvedArrowRadius + TEXT_OFFSET ) * Math.cos( vectorAngle / 2 ),
+          -( curvedArrowRadius + TEXT_OFFSET ) * Math.sin( vectorAngle / 2 ) );
       }
       else if ( angleDegrees >= 0 ) {
 
-        // Position the label halfway across, but on the other side of the baseline
-        this.labelText.setTranslation( curvedArrowRadius / 2, curvedArrowRadius / 2 );
+        // Position the text halfway across, but on the other side of the baseline
+        this.angleText.setTranslation( curvedArrowRadius / 2, curvedArrowRadius / 2 );
       }
       else if ( angleDegrees > -ANGLE_UNDER_BASELINE_THRESHOLD ) {
 
-        // Position the label halfway across, but on the other side of the baseline
-        this.labelText.setTranslation( curvedArrowRadius / 2,
-          -curvedArrowRadius / 2 + this.labelText.height / 2 );
+        // Position the text halfway across, but on the other side of the baseline
+        this.angleText.setTranslation( curvedArrowRadius / 2,
+          -curvedArrowRadius / 2 + this.angleText.height / 2 );
       }
       else {
 
-        // Position the label next to the arc, halfway across the arc
-        this.labelText.setTranslation( ( curvedArrowRadius + LABEL_OFFSET ) * Math.cos( vectorAngle / 2 ),
-          -( curvedArrowRadius + LABEL_OFFSET ) * Math.sin( vectorAngle / 2 ) + this.labelText.height / 2
+        // Position the text next to the arc, halfway across the arc
+        this.angleText.setTranslation( ( curvedArrowRadius + TEXT_OFFSET ) * Math.cos( vectorAngle / 2 ),
+          -( curvedArrowRadius + TEXT_OFFSET ) * Math.sin( vectorAngle / 2 ) + this.angleText.height / 2
         );
       }
     }

@@ -25,6 +25,9 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorColorPalette from './VectorColorPalette.js';
+import { AngleConvention } from './AngleConvention.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 
 export type LabelDisplayData = {
 
@@ -281,7 +284,7 @@ export default abstract class RootVector {
 
   /**
    * Gets the angle of the vector in radians, measured clockwise from the horizontal.
-   * null when the vector has 0 magnitude.
+   * The value is in the range (-pi,pi], and null when the vector has 0 magnitude.
    */
   public get angle(): number | null {
     return this.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : this.vectorComponents.angle;
@@ -294,6 +297,24 @@ export default abstract class RootVector {
   public get angleDegrees(): number | null {
     const angleRadians = this.angle;
     return ( angleRadians === null ) ? null : toDegrees( angleRadians );
+  }
+
+  /**
+   * Gets the angle of the vector in degrees as a string, using the specified angle convention (signed or unsigned).
+   * If the vector has zero magnitude, the empty string is returned.
+   */
+  public getAngleDegreesString( angleConvention: AngleConvention ): string {
+    let string = '';
+    let angleDegrees = this.angleDegrees;
+    if ( angleDegrees !== null ) {
+      assert && assert( angleDegrees >= -180 && angleDegrees <= 180, `invalid angleDegrees ${angleDegrees}` );
+      angleDegrees = toFixedNumber( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+      if ( angleDegrees < 0 && angleConvention === 'unsigned' ) {
+        angleDegrees = 360 + angleDegrees;
+      }
+      string = toFixed( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+    }
+    return string;
   }
 }
 
