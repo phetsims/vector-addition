@@ -59,9 +59,10 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     const contentFixedHeight = options.contentFixedHeight!;
     assert && assert( contentFixedHeight !== null );
 
-    // 'Vector Values'
-    const titleNode = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
-      font: VectorAdditionConstants.TITLE_FONT
+    // 'Vector Values' title
+    const titleText = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
+      font: VectorAdditionConstants.TITLE_FONT,
+      maxWidth: 450
     } );
 
     // 'No vector selected', displayed when accordion box is expanded and no vector is selected.
@@ -187,7 +188,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     noVectorSelectedText.centerY = expandedContent.centerY;
     vectorQuantitiesHBox.centerY = expandedContent.centerY;
 
-    super( titleNode, expandedContent, options );
+    super( titleText, expandedContent, options );
   }
 }
 

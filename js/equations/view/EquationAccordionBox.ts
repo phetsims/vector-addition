@@ -54,8 +54,8 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
       contentXSpacing: 17
     }, providedOptions );
 
-    // When the accordion box is collapsed, show 'Equation'
-    const titleNode = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
+    // 'Equation' title
+    const titleText = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type
     const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup(
@@ -87,7 +87,7 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
       spacing: 55
     } );
 
-    super( titleNode, contentNode, options );
+    super( titleText, contentNode, options );
 
     // When the box is collapsed, cancel interactions.
     // unlink is not necessary, exists for the lifetime of the sim.
