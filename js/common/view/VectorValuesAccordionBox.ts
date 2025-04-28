@@ -7,7 +7,7 @@
  * 'Is a' relationship with FixedSizeAccordionBox
  *    - when collapsed, displays 'Vector Values'
  *    - when expanded either displays 'select a vector' or the active vector's attributes
- *      (a series of labels and VectorValuesNumberDisplays)
+ *      (a series of labels and VectorQuantityDisplays)
  *
  * This panel exists for the entire sim and is never disposed.
  *
@@ -32,7 +32,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from './FixedSizeAccordionBox.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
-import VectorValuesNumberDisplay from './VectorValuesNumberDisplay.js';
+import VectorQuantityDisplay from './VectorQuantityDisplay.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -97,22 +97,22 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     expandedContent.setChildren( [ noVectorSelectedText, vectorAttributesContainer ] );
 
     //----------------------------------------------------------------------------------------
-    // Create the scenery nodes to display the vector. Each attribute has a label and a VectorValuesNumberDisplay
+    // Create the scenery nodes to display the vector. Each attribute has a label and a VectorQuantityDisplay
     //----------------------------------------------------------------------------------------
 
     const magnitudeVectorSymbolNode = new VectorSymbolNode( {
       includeAbsoluteValueBars: true
     } );
-    const magnitudeNumberDisplay = new VectorValuesNumberDisplay( graph, 'magnitude' );
+    const magnitudeDisplay = new VectorQuantityDisplay( graph, 'magnitude' );
 
     const angleText = new Text( MathSymbols.THETA, { font: VectorAdditionConstants.EQUATION_SYMBOL_FONT } );
-    const angleNumberDisplay = new VectorValuesNumberDisplay( graph, 'angle' );
+    const angleDisplay = new VectorQuantityDisplay( graph, 'angle' );
 
     const xVectorSymbolNode = new VectorSymbolNode( { showVectorArrow: false } );
-    const xComponentNumberDisplay = new VectorValuesNumberDisplay( graph, 'xComponent' );
+    const xComponentDisplay = new VectorQuantityDisplay( graph, 'xComponent' );
 
     const yVectorSymbolNode = new VectorSymbolNode( { showVectorArrow: false } );
-    const yComponentNumberDisplay = new VectorValuesNumberDisplay( graph, 'yComponent' );
+    const yComponentDisplay = new VectorQuantityDisplay( graph, 'yComponent' );
 
     //----------------------------------------------------------------------------------------
     // Add the new scenery nodes
@@ -127,11 +127,11 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       } ) );
     };
 
-    addNumberDisplayAndLabel( magnitudeVectorSymbolNode, magnitudeNumberDisplay, MAGNITUDE_LABEL_WIDTH );
-    addNumberDisplayAndLabel( angleText, angleNumberDisplay, ANGLE_LABEL_WIDTH );
+    addNumberDisplayAndLabel( magnitudeVectorSymbolNode, magnitudeDisplay, MAGNITUDE_LABEL_WIDTH );
+    addNumberDisplayAndLabel( angleText, angleDisplay, ANGLE_LABEL_WIDTH );
     vectorAttributesContainer.addChild( new HStrut( 5 ) );
-    addNumberDisplayAndLabel( xVectorSymbolNode, xComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
-    addNumberDisplayAndLabel( yVectorSymbolNode, yComponentNumberDisplay, COMPONENT_LABEL_WIDTH );
+    addNumberDisplayAndLabel( xVectorSymbolNode, xComponentDisplay, COMPONENT_LABEL_WIDTH );
+    addNumberDisplayAndLabel( yVectorSymbolNode, yComponentDisplay, COMPONENT_LABEL_WIDTH );
 
     //----------------------------------------------------------------------------------------
 

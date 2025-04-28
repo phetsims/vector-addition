@@ -1,10 +1,10 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorValuesNumberDisplay is a subclass of NumberDisplay for displaying a value that is associated with a Vector.
+ * VectorQuantityDisplay is a subclass of NumberDisplay for displaying a quantity that is associated with a Vector.
  * Instances appear in the 'Vector Values' accordion box.
  *
- * Displays a single vector attribute (i.e. magnitude etc.) of a single active vector that is on the specified graph.
+ * Displays a single vector quantity (i.e. magnitude etc.) of a single active vector that is on the specified graph.
  *
  * 'Is a' relationship with NumberDisplay but adds:
  *  - Functionality to change the active vector without having to recreate the number display;
@@ -28,7 +28,7 @@ import { VectorQuantity } from './VectorQuantity.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 
-export default class VectorValuesNumberDisplay extends NumberDisplay {
+export default class VectorQuantityDisplay extends NumberDisplay {
 
   private readonly vectorQuantity: VectorQuantity;
 
@@ -132,4 +132,4 @@ export default class VectorValuesNumberDisplay extends NumberDisplay {
   }
 }
 
-vectorAddition.register( 'VectorValuesNumberDisplay', VectorValuesNumberDisplay );
+vectorAddition.register( 'VectorQuantityDisplay', VectorQuantityDisplay );
