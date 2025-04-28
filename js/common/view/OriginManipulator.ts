@@ -18,6 +18,7 @@ import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 
 // constants
 
@@ -38,7 +39,7 @@ const ORIGIN_OPTIONS = {
   isDisposable: false
 };
 
-export default class OriginManipulator extends ShadedSphereNode {
+export default class OriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
 
   public constructor( graph: Graph, tandem: Tandem ) {
 
@@ -53,6 +54,8 @@ export default class OriginManipulator extends ShadedSphereNode {
 
     super( diameter, combineOptions<ShadedSphereNodeOptions>( {}, ORIGIN_OPTIONS, {
       center: origin,
+      tagName: 'div', // for KeyboardDragListener
+      focusable: true, // for KeyboardDragListener
       tandem: tandem
     } ) );
 
