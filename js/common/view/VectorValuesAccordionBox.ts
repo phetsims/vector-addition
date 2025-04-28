@@ -35,14 +35,10 @@ import VectorQuantityDisplay from './VectorQuantityDisplay.js';
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
 
-// width of the magnitude label
-const MAGNITUDE_LABEL_WIDTH = 50;
-
-// width of the angle label
-const ANGLE_LABEL_WIDTH = 15;
-
-// width of the component labels
-const COMPONENT_LABEL_WIDTH = 35;
+// maxWidth for display labels
+const MAGNITUDE_LABEL_MAX_WIDTH = 50;
+const ANGLE_LABEL_MAX_WIDTH = 15;
+const COMPONENT_LABEL_MAX_WIDTH = 35;
 
 type SelfOptions = EmptySelfOptions;
 
@@ -77,25 +73,25 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     // Labels and displays for the vector quantities.
     const magnitudeSymbolNode = new VectorSymbolNode( {
       includeAbsoluteValueBars: true,
-      maxWidth: MAGNITUDE_LABEL_WIDTH
+      maxWidth: MAGNITUDE_LABEL_MAX_WIDTH
     } );
     const magnitudeDisplay = new VectorQuantityDisplay( graph, 'magnitude' );
 
     const angleSymbolNode = new Text( MathSymbols.THETA, {
       font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
-      maxWidth: ANGLE_LABEL_WIDTH
+      maxWidth: ANGLE_LABEL_MAX_WIDTH
     } );
     const angleDisplay = new VectorQuantityDisplay( graph, 'angle' );
 
     const xComponentSymbolNode = new VectorSymbolNode( {
       showVectorArrow: false,
-      maxWidth: COMPONENT_LABEL_WIDTH
+      maxWidth: COMPONENT_LABEL_MAX_WIDTH
     } );
     const xComponentDisplay = new VectorQuantityDisplay( graph, 'xComponent' );
 
     const yComponentSymbolNode = new VectorSymbolNode( {
       showVectorArrow: false,
-      maxWidth: COMPONENT_LABEL_WIDTH
+      maxWidth: COMPONENT_LABEL_MAX_WIDTH
     } );
     const yComponentDisplay = new VectorQuantityDisplay( graph, 'yComponent' );
 
