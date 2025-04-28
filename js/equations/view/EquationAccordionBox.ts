@@ -55,7 +55,7 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
     }, providedOptions );
 
     // When the accordion box is collapsed, show 'Equation'
-    const equationText = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
+    const titleNode = new Text( VectorAdditionStrings.equationStringProperty, TEXT_OPTIONS );
 
     // Radio buttons for selecting equation type
     const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup(
@@ -82,12 +82,12 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
     } );
 
     // Radio buttons on the left, equation on the right. See https://github.com/phetsims/vector-addition/issues/128
-    const expandedContent = new HBox( {
+    const contentNode = new HBox( {
       children: [ equationTypeRadioButtonGroup, equationNodes ],
       spacing: 55
     } );
 
-    super( expandedContent, equationText, options );
+    super( titleNode, contentNode, options );
 
     // When the box is collapsed, cancel interactions.
     // unlink is not necessary, exists for the lifetime of the sim.

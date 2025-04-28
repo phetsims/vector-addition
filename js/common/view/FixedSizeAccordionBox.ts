@@ -1,12 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * FixedSizeAccordionBox is the base class for a specialized version of AccordionBox that doesn't expand/collapse.
- * Instead, it toggles between 'expanded' content and 'collapsed' content, while maintaining a fixed size.
- *
- * The fixed width and height are calculated by the largest between the expanded and collapsed content added to its
- * margins. However, there is an option to pass a defined fixed width and/or fixed height. The box will scale the
- * nodes to fit defined dimensions.
+ * FixedSizeAccordionBox is the base class for a specialized version of AccordionBox that doesn't change size
+ * when expanded versus collapsed.
  *
  * @author Brandon Li
  */
@@ -23,12 +19,9 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
 
-  // If provided, the content will scale to fix this width. Otherwise, the fixed size is calculated by the largest
-  // of the content nodes and its respective margin.
+  // If provided, the content will scale to fix these dimensions. Otherwise, the fixed size is calculated by
+  // the largest of the titleNode and contentNodes, including margin.
   contentFixedWidth?: number | null;
-
-  // If provided, the content will scale to fix this height. Otherwise, the fixed size is calculated by the largest
-  // of the content nodes and its respective margin.
   contentFixedHeight?: number | null;
 };
 
@@ -38,12 +31,7 @@ export type FixedSizeAccordionBoxOptions = SelfOptions & NodeTranslationOptions 
 
 export default class FixedSizeAccordionBox extends AccordionBox {
 
-  /**
-   * @param expandedContent - content when the accordion box is expanded
-   * @param collapsedContent - content when the accordion box is collapsed
-   * @param [providedOptions]
-   */
-  protected constructor( expandedContent: Node, collapsedContent: Node, providedOptions: FixedSizeAccordionBoxOptions ) {
+  protected constructor( titleNode: Node, contentNode: Node, providedOptions: FixedSizeAccordionBoxOptions ) {
 
     const options = optionize4<FixedSizeAccordionBoxOptions, SelfOptions, AccordionBoxOptions>()(
       {}, VectorAdditionConstants.ACCORDION_BOX_OPTIONS, {
@@ -63,24 +51,22 @@ export default class FixedSizeAccordionBox extends AccordionBox {
         titleBarExpandCollapse: false
       }, providedOptions );
 
-    // Determine the content width
-    const contentWidth = options.contentFixedWidth || _.max( [ collapsedContent.width, expandedContent.width ] )!;
-    const contentHeight = options.contentFixedHeight || _.max( [ collapsedContent.height, expandedContent.height ] )!;
+    // Determine the maximum dimensions.
+    const maxWidth = options.contentFixedWidth || _.max( [ titleNode.width, contentNode.width ] )!;
+    const maxHeight = options.contentFixedHeight || _.max( [ titleNode.height, contentNode.height ] )!;
 
-    // Constrain the content width and height
-    expandedContent.maxWidth = contentWidth;
-    expandedContent.maxHeight = contentHeight;
-    collapsedContent.maxWidth = contentWidth;
-    collapsedContent.maxHeight = contentHeight;
-
-    const expandedContentAlignBox = new AlignBox( expandedContent, {
-      xAlign: options.contentAlign,
-      alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
+    options.titleNode = new AlignBox( titleNode, {
+      xAlign: 'left',
+      alignBounds: new Bounds2( 0, 0, maxWidth, maxHeight ),
+      maxWidth: maxWidth,
+      maxHeight: maxHeight
     } );
 
-    options.titleNode = new AlignBox( collapsedContent, {
-      xAlign: 'left',
-      alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
+    const expandedContentAlignBox = new AlignBox( contentNode, {
+      xAlign: options.contentAlign,
+      alignBounds: new Bounds2( 0, 0, maxWidth, maxHeight ),
+      maxWidth: maxWidth,
+      maxHeight: maxHeight
     } );
 
     super( expandedContentAlignBox, options );

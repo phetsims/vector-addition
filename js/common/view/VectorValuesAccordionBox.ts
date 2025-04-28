@@ -59,8 +59,8 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     const contentFixedHeight = options.contentFixedHeight!;
     assert && assert( contentFixedHeight !== null );
 
-    // 'Vector Values', displayed when accordion box is collapsed.
-    const collapsedContent = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
+    // 'Vector Values'
+    const titleNode = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT
     } );
 
@@ -187,7 +187,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     noVectorSelectedText.centerY = expandedContent.centerY;
     vectorQuantitiesHBox.centerY = expandedContent.centerY;
 
-    super( expandedContent, collapsedContent, options );
+    super( titleNode, expandedContent, options );
   }
 }
 
