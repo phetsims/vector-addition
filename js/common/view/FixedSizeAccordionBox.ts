@@ -54,6 +54,7 @@ export default class FixedSizeAccordionBox extends AccordionBox {
 
         // AccordionBoxOptions
         isDisposable: false,
+        titleAlignX: 'left',
         contentYMargin: 0,
         titleYMargin: 0,
         buttonYMargin: 0,
@@ -72,13 +73,15 @@ export default class FixedSizeAccordionBox extends AccordionBox {
     collapsedContent.maxWidth = contentWidth;
     collapsedContent.maxHeight = contentHeight;
 
-    // Put the content in AlignBoxes, to handle alignment
-    const alignBoxOptions = {
+    const expandedContentAlignBox = new AlignBox( expandedContent, {
       xAlign: options.contentAlign,
       alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
-    };
-    const expandedContentAlignBox = new AlignBox( expandedContent, alignBoxOptions );
-    options.titleNode = new AlignBox( collapsedContent, alignBoxOptions ); // unorthodox use of AccordionBox, but it works
+    } );
+
+    options.titleNode = new AlignBox( collapsedContent, {
+      xAlign: 'left',
+      alignBounds: new Bounds2( 0, 0, contentWidth, contentHeight )
+    } );
 
     super( expandedContentAlignBox, options );
   }
