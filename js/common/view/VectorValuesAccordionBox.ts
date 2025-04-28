@@ -19,7 +19,6 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
@@ -102,28 +101,37 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
     // Layout for the labels and displays.
     const vectorQuantitiesHBox = new HBox( {
-      spacing: 20,
+      spacing: 40,
       children: [
         new HBox( {
-          spacing: LABEL_DISPLAY_SPACING,
-          children: [ magnitudeSymbolNode, magnitudeDisplay ],
-          tandem: options.tandem.createTandem( 'magnitudeDisplay' )
+          spacing: 20,
+          children: [
+            new HBox( {
+              spacing: LABEL_DISPLAY_SPACING,
+              children: [ magnitudeSymbolNode, magnitudeDisplay ],
+              tandem: options.tandem.createTandem( 'magnitudeDisplay' )
+            } ),
+            new HBox( {
+              spacing: LABEL_DISPLAY_SPACING,
+              children: [ angleSymbolNode, angleDisplay ],
+              tandem: options.tandem.createTandem( 'angleDisplay' )
+            } )
+          ]
         } ),
         new HBox( {
-          spacing: LABEL_DISPLAY_SPACING,
-          children: [ angleSymbolNode, angleDisplay ],
-          tandem: options.tandem.createTandem( 'angleDisplay' )
-        } ),
-        new HStrut( 5 ),
-        new HBox( {
-          spacing: LABEL_DISPLAY_SPACING,
-          children: [ xComponentSymbolNode, xComponentDisplay ],
-          tandem: options.tandem.createTandem( 'xComponentDisplay' )
-        } ),
-        new HBox( {
-          spacing: LABEL_DISPLAY_SPACING,
-          children: [ yComponentSymbolNode, yComponentDisplay ],
-          tandem: options.tandem.createTandem( 'yComponentDisplay' )
+          spacing: 20,
+          children: [
+            new HBox( {
+              spacing: LABEL_DISPLAY_SPACING,
+              children: [ xComponentSymbolNode, xComponentDisplay ],
+              tandem: options.tandem.createTandem( 'xComponentDisplay' )
+            } ),
+            new HBox( {
+              spacing: LABEL_DISPLAY_SPACING,
+              children: [ yComponentSymbolNode, yComponentDisplay ],
+              tandem: options.tandem.createTandem( 'yComponentDisplay' )
+            } )
+          ]
         } )
       ]
     } );
