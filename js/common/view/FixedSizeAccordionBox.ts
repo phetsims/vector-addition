@@ -33,7 +33,7 @@ type SelfOptions = {
 };
 
 export type FixedSizeAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
-  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing' | 'isDisposable'> &
+  PickOptional<AccordionBoxOptions, 'expandedProperty' | 'contentXSpacing' | 'contentAlign'> &
   PickRequired<AccordionBoxOptions, 'tandem'>;
 
 export default class FixedSizeAccordionBox extends AccordionBox {

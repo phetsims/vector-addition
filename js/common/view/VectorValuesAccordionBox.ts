@@ -18,7 +18,6 @@
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -34,14 +33,8 @@ import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from './FixedSize
 import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorQuantityDisplay from './VectorQuantityDisplay.js';
 
-//----------------------------------------------------------------------------------------
-// constants
-
-// margin from the label to the number label (ltr)
-const LABEL_RIGHT_MARGIN = 7;
-
-// margin from the number display to the label (ltr)
-const LABEL_LEFT_MARGIN = 20;
+// Spacing between the label and number display.
+const LABEL_DISPLAY_SPACING = 7;
 
 // width of the magnitude label
 const MAGNITUDE_LABEL_WIDTH = 50;
@@ -65,22 +58,16 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       // FixedSizeAccordionBoxOptions
       contentFixedWidth: 500,
       contentFixedHeight: 45,
-      isDisposable: false
+      contentAlign: 'center'
     }, providedOptions );
 
     const contentFixedHeight = options.contentFixedHeight!;
     assert && assert( contentFixedHeight !== null );
 
-    //----------------------------------------------------------------------------------------
-    // Create the scenery nodes for when the accordion box is collapsed.
-
     // 'Vector Values', displayed when accordion box is collapsed.
-    const vectorValuesText = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
+    const collapsedContent = new Text( VectorAdditionStrings.vectorValuesStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT
     } );
-
-    //----------------------------------------------------------------------------------------
-    // Create the scenery nodes for when the accordion box is expanded.
 
     // 'No vector selected', displayed when accordion box is expanded and no vector is selected.
     const noVectorSelectedText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
@@ -88,57 +75,68 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       maxWidth: 450
     } );
 
-    // Container for the labels and number displays that display the vector's attributes
-    const vectorAttributesContainer = new HBox( { spacing: LABEL_LEFT_MARGIN } );
-    vectorAttributesContainer.addChild( new HStrut( 8 ) );
-
-    // Create the content container for the expanded content
-    const expandedContent = new Node();
-    expandedContent.setChildren( [ noVectorSelectedText, vectorAttributesContainer ] );
-
-    //----------------------------------------------------------------------------------------
-    // Create the scenery nodes to display the vector. Each attribute has a label and a VectorQuantityDisplay
-    //----------------------------------------------------------------------------------------
-
-    const magnitudeVectorSymbolNode = new VectorSymbolNode( {
-      includeAbsoluteValueBars: true
+    // Labels and displays for the vector quantities.
+    const magnitudeSymbolNode = new VectorSymbolNode( {
+      includeAbsoluteValueBars: true,
+      maxWidth: MAGNITUDE_LABEL_WIDTH
     } );
     const magnitudeDisplay = new VectorQuantityDisplay( graph, 'magnitude' );
 
-    const angleText = new Text( MathSymbols.THETA, { font: VectorAdditionConstants.EQUATION_SYMBOL_FONT } );
+    const angleSymbolNode = new Text( MathSymbols.THETA, {
+      font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
+      maxWidth: ANGLE_LABEL_WIDTH
+    } );
     const angleDisplay = new VectorQuantityDisplay( graph, 'angle' );
 
-    const xVectorSymbolNode = new VectorSymbolNode( { showVectorArrow: false } );
+    const xComponentSymbolNode = new VectorSymbolNode( {
+      showVectorArrow: false,
+      maxWidth: COMPONENT_LABEL_WIDTH
+    } );
     const xComponentDisplay = new VectorQuantityDisplay( graph, 'xComponent' );
 
-    const yVectorSymbolNode = new VectorSymbolNode( { showVectorArrow: false } );
+    const yComponentSymbolNode = new VectorSymbolNode( {
+      showVectorArrow: false,
+      maxWidth: COMPONENT_LABEL_WIDTH
+    } );
     const yComponentDisplay = new VectorQuantityDisplay( graph, 'yComponent' );
 
-    //----------------------------------------------------------------------------------------
-    // Add the new scenery nodes
-    //----------------------------------------------------------------------------------------
+    // Layout for the labels and displays.
+    const vectorQuantitiesHBox = new HBox( {
+      spacing: 20,
+      children: [
+        new HBox( {
+          spacing: LABEL_DISPLAY_SPACING,
+          children: [ magnitudeSymbolNode, magnitudeDisplay ],
+          tandem: options.tandem.createTandem( 'magnitudeDisplay' )
+        } ),
+        new HBox( {
+          spacing: LABEL_DISPLAY_SPACING,
+          children: [ angleSymbolNode, angleDisplay ],
+          tandem: options.tandem.createTandem( 'angleDisplay' )
+        } ),
+        new HStrut( 5 ),
+        new HBox( {
+          spacing: LABEL_DISPLAY_SPACING,
+          children: [ xComponentSymbolNode, xComponentDisplay ],
+          tandem: options.tandem.createTandem( 'xComponentDisplay' )
+        } ),
+        new HBox( {
+          spacing: LABEL_DISPLAY_SPACING,
+          children: [ yComponentSymbolNode, yComponentDisplay ],
+          tandem: options.tandem.createTandem( 'yComponentDisplay' )
+        } )
+      ]
+    } );
 
-    // Function that adds a label and display container combo.
-    const addNumberDisplayAndLabel = ( label: Node, numberDisplay: NumberDisplay, labelWidth: number ) => {
-      label.maxWidth = labelWidth;
-      vectorAttributesContainer.addChild( new HBox( {
-        spacing: LABEL_RIGHT_MARGIN,
-        children: [ label, numberDisplay ]
-      } ) );
-    };
-
-    addNumberDisplayAndLabel( magnitudeVectorSymbolNode, magnitudeDisplay, MAGNITUDE_LABEL_WIDTH );
-    addNumberDisplayAndLabel( angleText, angleDisplay, ANGLE_LABEL_WIDTH );
-    vectorAttributesContainer.addChild( new HStrut( 5 ) );
-    addNumberDisplayAndLabel( xVectorSymbolNode, xComponentDisplay, COMPONENT_LABEL_WIDTH );
-    addNumberDisplayAndLabel( yVectorSymbolNode, yComponentDisplay, COMPONENT_LABEL_WIDTH );
-
-    //----------------------------------------------------------------------------------------
+    // Content displayed when the accordion box is expanded.
+    const expandedContent = new Node( {
+      children: [ noVectorSelectedText, vectorQuantitiesHBox ]
+    } );
 
     const updateCoefficient = ( coefficient: number ) => {
-      magnitudeVectorSymbolNode.setCoefficient( coefficient );
-      xVectorSymbolNode.setCoefficient( coefficient );
-      yVectorSymbolNode.setCoefficient( coefficient );
+      magnitudeSymbolNode.setCoefficient( coefficient );
+      xComponentSymbolNode.setCoefficient( coefficient );
+      yComponentSymbolNode.setCoefficient( coefficient );
     };
 
     // Observe changes to when the graphs active vector Property changes to update the panel.
@@ -146,30 +144,30 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
 
       if ( activeVector !== null ) {
-        vectorAttributesContainer.visible = true;
+        vectorQuantitiesHBox.visible = true;
         noVectorSelectedText.visible = false;
 
         // Get the vector symbol
         const vectorSymbolProperty = activeVector.symbolProperty ? activeVector.symbolProperty : Vector.FALLBACK_SYMBOL_PROPERTY;
 
         // Update labels (angle label is the same)
-        magnitudeVectorSymbolNode.setSymbolProperty( vectorSymbolProperty );
-        xVectorSymbolNode.setSymbolProperty( new DerivedStringProperty(
+        magnitudeSymbolNode.setSymbolProperty( vectorSymbolProperty );
+        xComponentSymbolNode.setSymbolProperty( new DerivedStringProperty(
           [ vectorSymbolProperty, VectorAdditionSymbols.xStringProperty ],
           ( vectorSymbol, xString ) => `${vectorSymbol}<sub>${xString}</sub>`
         ) );
-        yVectorSymbolNode.setSymbolProperty( new DerivedStringProperty(
+        yComponentSymbolNode.setSymbolProperty( new DerivedStringProperty(
           [ vectorSymbolProperty, VectorAdditionSymbols.yStringProperty ],
           ( vectorSymbol, yString ) => `${vectorSymbol}<sub>${yString}</sub>`
         ) );
       }
       else {
-        vectorAttributesContainer.visible = false;
+        vectorQuantitiesHBox.visible = false;
         noVectorSelectedText.visible = true;
       }
 
       noVectorSelectedText.centerY = expandedContent.centerY;
-      vectorAttributesContainer.centerY = expandedContent.centerY;
+      vectorQuantitiesHBox.centerY = expandedContent.centerY;
 
       if ( activeVector && activeVector instanceof EquationsVector ) {
         activeVector.coefficientProperty.link( updateCoefficient ); // unlink required when active vector changes
@@ -183,13 +181,9 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     } );
 
     noVectorSelectedText.centerY = expandedContent.centerY;
-    vectorAttributesContainer.centerY = expandedContent.centerY;
+    vectorQuantitiesHBox.centerY = expandedContent.centerY;
 
-    //----------------------------------------------------------------------------------------
-    // Create the inspect a vector panel
-    //----------------------------------------------------------------------------------------
-
-    super( expandedContent, vectorValuesText, options );
+    super( expandedContent, collapsedContent, options );
   }
 }
 

@@ -51,8 +51,7 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
       // FixedSizeAccordionBoxOptions
       contentFixedWidth: 670,
       contentFixedHeight: 50,
-      contentXSpacing: 17,
-      isDisposable: false
+      contentXSpacing: 17
     }, providedOptions );
 
     // When the accordion box is collapsed, show 'Equation'
