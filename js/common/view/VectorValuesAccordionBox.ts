@@ -19,7 +19,6 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -33,6 +32,7 @@ import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorQuantityDisplay from './VectorQuantityDisplay.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -54,9 +54,9 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
       // FixedSizeAccordionBoxOptions
       contentFixedSize: new Dimension2( 500, 45 ),
-      contentAlign: 'left',
-      contentXSpacing: 20,
-      titleXSpacing: 20
+      contentAlign: 'center',
+      contentXSpacing: 5,
+      titleXSpacing: 15
     }, providedOptions );
 
     // 'Vector Values' title
@@ -134,7 +134,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     } );
 
     // Content displayed when the accordion box is expanded.
-    const expandedContent = new Node( {
+    const expandedContent = new VBox( {
       children: [ noVectorSelectedText, vectorQuantitiesHBox ]
     } );
 

@@ -37,6 +37,7 @@ export default class FixedSizeAccordionBox extends AccordionBox {
         // AccordionBoxOptions
         isDisposable: false,
         titleAlignX: 'left',
+        contentXMargin: 0,
         contentYMargin: 0,
         titleYMargin: 0,
         buttonYMargin: 0,

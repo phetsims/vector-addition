@@ -52,8 +52,9 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
 
       // FixedSizeAccordionBoxOptions
       contentFixedSize: new Dimension2( 670, 50 ),
-      contentXSpacing: 20,
-      titleXSpacing: 20
+      contentAlign: 'center',
+      contentXSpacing: 5,
+      titleXSpacing: 15
     }, providedOptions );
 
     // 'Equation' title
