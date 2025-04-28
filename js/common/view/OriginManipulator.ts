@@ -16,9 +16,9 @@ import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 
 // constants
 
@@ -72,13 +72,20 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       phetioReadOnly: true
     } );
 
-    // Add a drag listener. removeInputListener is unnecessary, since this class owns the listener.
-    this.addInputListener( new SoundDragListener( {
+    // Drag support for pointer and keyboard input, with sound.
+    this.addInputListener( new SoundRichDragListener( {
       positionProperty: originPositionProperty,
       translateNode: false,
       dragBoundsProperty: new Property( restrictedGraphViewBounds ),
-      pressCursor: ORIGIN_OPTIONS.cursor,
-      tandem: tandem.createTandem( 'dragListener' )
+      dragListenerOptions: {
+        pressCursor: ORIGIN_OPTIONS.cursor,
+        tandem: tandem.createTandem( 'dragListener' )
+      },
+      keyboardDragListenerOptions: {
+        dragDelta: modelViewTransform.modelToViewDeltaX( 1 ),
+        moveOnHoldInterval: 100,
+        tandem: tandem.createTandem( 'keyboardDragListener' )
+      }
     } ) );
 
     // Update the origin position.
