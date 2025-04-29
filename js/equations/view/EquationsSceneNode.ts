@@ -54,7 +54,7 @@ export default class EquationsSceneNode extends SceneNode {
     const equationAccordionBox = new EquationAccordionBox( graph.vectorSet, graph.equationTypeProperty,
       equationButtonsAlignGroup, equationsAlignGroup, {
         expandedProperty: viewProperties.equationAccordionBoxExpandedProperty,
-        centerX: graph.graphViewBounds.centerX,
+        centerX: graph.viewBounds.centerX,
         top: this.vectorValuesToggleBox.bottom + 10,
         tandem: options.tandem.createTandem( 'equationAccordionBox' )
       } );

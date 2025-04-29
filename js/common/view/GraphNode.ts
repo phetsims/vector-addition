@@ -63,7 +63,7 @@ export default class GraphNode extends Node {
 
   public constructor( graph: Graph, gridVisibilityProperty: Property<boolean>, tandem: Tandem ) {
 
-    const graphViewBounds = graph.graphViewBounds;
+    const graphViewBounds = graph.viewBounds;
 
     const background = new Rectangle( graphViewBounds, {
       fill: VectorAdditionColors.GRAPH_BACKGROUND_COLOR,
@@ -146,9 +146,9 @@ type GridLinesOptions = GridLinesSelfOptions & PickOptional<PathOptions, 'lineWi
 
 class GridLines extends Path {
 
-  private readonly graphViewBounds: Bounds2;
+  private readonly viewBounds: Bounds2;
 
-  public constructor( graph: Graph, graphViewBounds: Bounds2, providedOptions?: GridLinesOptions ) {
+  public constructor( graph: Graph, viewBounds: Bounds2, providedOptions?: GridLinesOptions ) {
 
     const options = optionize<GridLinesOptions, GridLinesSelfOptions, PathOptions>()( {
 
@@ -162,7 +162,7 @@ class GridLines extends Path {
 
     super( new Shape(), options );
 
-    this.graphViewBounds = graphViewBounds;
+    this.viewBounds = viewBounds;
 
     // Update when the modelViewTransform changes, triggered when the origin is moved.
     // unlink is unnecessary, exists for the lifetime of the sim.
@@ -196,7 +196,7 @@ class GridLines extends Path {
    * Performance optimization, since the grid's view bounds are constant.
    */
   public override computeShapeBounds(): Bounds2 {
-    return this.graphViewBounds;
+    return this.viewBounds;
   }
 }
 

@@ -52,7 +52,7 @@ export default class Graph {
   private readonly boundsProperty: Property<Bounds2>;
 
   // bounds of the graph in view coordinates, constant for the lifetime of the sim.
-  public readonly graphViewBounds: Bounds2;
+  public readonly viewBounds: Bounds2;
 
   // maps graph coordinates between model and view
   public readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
@@ -69,11 +69,11 @@ export default class Graph {
   );
 
   /**
-   * @param initialGraphBounds - the model bounds of the graph at the start of the sim
+   * @param initialBounds - the model bounds of the graph at the start of the sim
    * @param coordinateSnapMode - the coordinate snap mode of the graph. A graph is either strictly polar or Cartesian.
    * @param [providedOptions]
    */
-  protected constructor( initialGraphBounds: Bounds2, coordinateSnapMode: CoordinateSnapMode, providedOptions: GraphOptions ) {
+  protected constructor( initialBounds: Bounds2, coordinateSnapMode: CoordinateSnapMode, providedOptions: GraphOptions ) {
 
     const options = optionize<GraphOptions, SelfOptions>()( {
 
@@ -86,21 +86,20 @@ export default class Graph {
     this.orientation = options.orientation;
     this.coordinateSnapMode = coordinateSnapMode;
 
-    this.boundsProperty = new Property( initialGraphBounds, {
+    this.boundsProperty = new Property( initialBounds, {
       phetioValueType: Bounds2.Bounds2IO,
       tandem: options.tandem.createTandem( 'boundsProperty' ),
       phetioDocumentation: 'Bounds of the graph, in model coordinates.',
       phetioReadOnly: true
     } );
 
-    this.graphViewBounds = new Bounds2( options.bottomLeft.x,
-      options.bottomLeft.y - MODEL_TO_VIEW_SCALE * initialGraphBounds.height,
-      options.bottomLeft.x + MODEL_TO_VIEW_SCALE * initialGraphBounds.width,
+    this.viewBounds = new Bounds2( options.bottomLeft.x,
+      options.bottomLeft.y - MODEL_TO_VIEW_SCALE * initialBounds.height,
+      options.bottomLeft.x + MODEL_TO_VIEW_SCALE * initialBounds.width,
       options.bottomLeft.y );
 
-    this.modelViewTransformProperty = new DerivedProperty(
-      [ this.boundsProperty ],
-      graphModelBounds => ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, this.graphViewBounds ),
+    this.modelViewTransformProperty = new DerivedProperty( [ this.boundsProperty ],
+      bounds => ModelViewTransform2.createRectangleInvertedYMapping( bounds, this.viewBounds ),
       { valueType: ModelViewTransform2 }
     );
 
@@ -137,7 +136,7 @@ export default class Graph {
   }
 
   /**
-   * Gets the bounds of the graph.
+   * Gets the bounds of the graph, in model coordinates.
    */
   public get bounds(): Bounds2 {
     return this.boundsProperty.value;

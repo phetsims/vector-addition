@@ -87,7 +87,7 @@ export default class SceneNode extends Node {
     // Create the one and only 'Vector Values' accordion box
     const vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, {
       expandedProperty: viewProperties.vectorValuesAccordionBoxExpandedProperty,
-      centerX: graph.graphViewBounds.centerX,
+      centerX: graph.viewBounds.centerX,
       top: 35, // determined empirically
       tandem: options.tandem.createTandem( 'vectorValuesAccordionBox' )
     } );
@@ -112,8 +112,8 @@ export default class SceneNode extends Node {
           this.interruptSubtreeInput(); // cancel all interactions for the scene
           graph.erase();
         },
-        right: graph.graphViewBounds.maxX,
-        top: graph.graphViewBounds.maxY + 15,
+        right: graph.viewBounds.maxX,
+        top: graph.viewBounds.maxY + 15,
         touchAreaXDilation: 7,
         touchAreaYDilation: 7,
         tandem: options.tandem.createTandem( 'eraserButton' ),
