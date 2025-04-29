@@ -136,7 +136,7 @@ export default class VectorNode extends RootVectorNode {
             .viewToModelDelta( this.translationDragListener.localPoint ).plus( this.vector.tail );
 
           // If the cursor is on the graph, drop the vector on the graph
-          if ( graph.graphModelBounds.containsPoint( cursorPosition ) ) {
+          if ( graph.bounds.containsPoint( cursorPosition ) ) {
 
             // Drop the vector where the shadow was positioned
             const shadowOffset = this.modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
@@ -168,7 +168,7 @@ export default class VectorNode extends RootVectorNode {
         const cursorPositionModel = this.modelViewTransformProperty.value
           .viewToModelDelta( this.translationDragListener.localPoint ).plus( tailPositionModel );
 
-        if ( vector.isOnGraphProperty.value && !graph.graphModelBounds.containsPoint( cursorPositionModel ) ) {
+        if ( vector.isOnGraphProperty.value && !graph.bounds.containsPoint( cursorPositionModel ) ) {
           vector.popOffOfGraph();
         }
       }

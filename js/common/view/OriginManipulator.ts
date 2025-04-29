@@ -63,9 +63,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     this.touchArea = Shape.circle( 0, 0, diameter );
 
     // Create a dragBounds to constrain the drag
-    const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds(
-      graph.graphModelBounds.eroded( ORIGIN_DRAG_MARGIN )
-    );
+    const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( graph.bounds.eroded( ORIGIN_DRAG_MARGIN ) );
 
     // Create a Property of to track the view's origin in view coordinates
     const originPositionProperty = new Vector2Property( origin, {

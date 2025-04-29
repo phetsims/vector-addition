@@ -169,10 +169,10 @@ class GridLines extends Path {
     graph.modelViewTransformProperty.link( modelViewTransform => {
 
       // Convenience variables
-      const graphMinX = graph.graphModelBounds.minX;
-      const graphMaxX = graph.graphModelBounds.maxX;
-      const graphMinY = graph.graphModelBounds.minY;
-      const graphMaxY = graph.graphModelBounds.maxY;
+      const graphMinX = graph.bounds.minX;
+      const graphMaxX = graph.bounds.maxX;
+      const graphMinY = graph.bounds.minY;
+      const graphMaxY = graph.bounds.maxY;
 
       const shape = new Shape();
 
@@ -303,15 +303,15 @@ class TicksNode extends Node {
       if ( graph.orientation !== 'vertical' ) {
 
         // x tick marks
-        const firstXTick = graph.graphModelBounds.minX - ( graph.graphModelBounds.minX % MAJOR_TICK_SPACING );
-        for ( let xValue = firstXTick; xValue <= graph.graphModelBounds.maxX; xValue = xValue + MAJOR_TICK_SPACING ) {
+        const firstXTick = graph.bounds.minX - ( graph.bounds.minX % MAJOR_TICK_SPACING );
+        for ( let xValue = firstXTick; xValue <= graph.bounds.maxX; xValue = xValue + MAJOR_TICK_SPACING ) {
           const tickLength = ( xValue === 0 ) ? ORIGIN_TICK_LENGTH : TICK_LENGTH; // origin tick is different
           tickMarksShape.moveTo( xValue, -tickLength / 2 ).verticalLineTo( tickLength / 2 );
         }
 
         // x tick labels
-        const firstXLabel = graph.graphModelBounds.minX - ( graph.graphModelBounds.minX % TICK_LABEL_SPACING );
-        for ( let xValue = firstXLabel; xValue <= graph.graphModelBounds.maxX; xValue = xValue + TICK_LABEL_SPACING ) {
+        const firstXLabel = graph.bounds.minX - ( graph.bounds.minX % TICK_LABEL_SPACING );
+        for ( let xValue = firstXLabel; xValue <= graph.bounds.maxX; xValue = xValue + TICK_LABEL_SPACING ) {
           if ( xValue !== 0 ) {
             const tickLabel = new Text( xValue, TICK_LABEL_OPTIONS );
             tickLabel.centerX = modelViewTransform.modelToViewX( xValue );
@@ -324,15 +324,15 @@ class TicksNode extends Node {
       if ( graph.orientation !== 'horizontal' ) {
 
         // y tick marks
-        const firstYTick = graph.graphModelBounds.minY - ( graph.graphModelBounds.minY % MAJOR_TICK_SPACING );
-        for ( let yValue = firstYTick; yValue <= graph.graphModelBounds.maxY; yValue = yValue + MAJOR_TICK_SPACING ) {
+        const firstYTick = graph.bounds.minY - ( graph.bounds.minY % MAJOR_TICK_SPACING );
+        for ( let yValue = firstYTick; yValue <= graph.bounds.maxY; yValue = yValue + MAJOR_TICK_SPACING ) {
           const tickLength = ( yValue === 0 ) ? ORIGIN_TICK_LENGTH : TICK_LENGTH; // origin tick is different
           tickMarksShape.moveTo( -tickLength / 2, yValue ).horizontalLineTo( tickLength / 2 );
         }
 
         // y tick labels
-        const firstYLabel = graph.graphModelBounds.minY - ( graph.graphModelBounds.minY % TICK_LABEL_SPACING );
-        for ( let yValue = firstYLabel; yValue <= graph.graphModelBounds.maxY; yValue = yValue + TICK_LABEL_SPACING ) {
+        const firstYLabel = graph.bounds.minY - ( graph.bounds.minY % TICK_LABEL_SPACING );
+        for ( let yValue = firstYLabel; yValue <= graph.bounds.maxY; yValue = yValue + TICK_LABEL_SPACING ) {
           if ( yValue !== 0 ) {
             const tickLabel = new Text( yValue, TICK_LABEL_OPTIONS );
             tickLabel.right = viewOrigin.x - TICK_LABEL_X_OFFSET;

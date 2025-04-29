@@ -202,7 +202,7 @@ export default class Vector extends RootVector {
     if ( this.graph.coordinateSnapMode === 'cartesian' ) {
 
       // Ensure that the tipPosition is on the graph
-      const tipPositionOnGraph = this.graph.graphModelBounds.closestPointTo( tipPosition );
+      const tipPositionOnGraph = this.graph.bounds.closestPointTo( tipPosition );
 
       // Round the tip to integer grid values
       tipPositionWithInvariants = tipPositionOnGraph.roundedSymmetric();
@@ -221,7 +221,7 @@ export default class Vector extends RootVector {
       const polarVector = vectorComponents.setPolar( roundedMagnitude, roundedAngle );
 
       // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside
-      while ( !this.graph.graphModelBounds.containsPoint( this.tail.plus( polarVector ) ) ) {
+      while ( !this.graph.bounds.containsPoint( this.tail.plus( polarVector ) ) ) {
         polarVector.setMagnitude( polarVector.magnitude - 1 );
       }
 
@@ -339,7 +339,7 @@ export default class Vector extends RootVector {
    * of the graph. See https://github.com/phetsims/vector-addition/issues/152
    */
   private getConstrainedTailBounds(): Bounds2 {
-    return this.graph.graphModelBounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
+    return this.graph.bounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
   }
 
   /**

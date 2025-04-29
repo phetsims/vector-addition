@@ -91,7 +91,7 @@ export default class VectorSet {
 
       // SelfOptions
       initializeSum: true,
-      initialSumTailPosition: graph.graphModelBounds.center,
+      initialSumTailPosition: graph.bounds.center,
       projectionXOffsetStart: -offsetStart,
       projectionYOffsetStart: -offsetStart,
       projectionXOffsetDelta: -offsetDelta,

@@ -28,7 +28,6 @@ import VectorSet from './VectorSet.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 
-// scale of the coordinate transformation of model coordinates to view coordinates
 const MODEL_TO_VIEW_SCALE = 14.5;
 
 type SelfOptions = {
@@ -49,8 +48,8 @@ export default class Graph {
   // coordinate snap mode for the graph, Cartesian or polar
   public readonly coordinateSnapMode: CoordinateSnapMode;
 
-  // Bounds of the graph, in model coordinates. Use graphModelBounds() to read this.
-  private readonly graphModelBoundsProperty: Property<Bounds2>;
+  // Bounds of the graph, in model coordinates.
+  private readonly boundsProperty: Property<Bounds2>;
 
   // bounds of the graph in view coordinates, constant for the lifetime of the sim.
   public readonly graphViewBounds: Bounds2;
@@ -87,10 +86,10 @@ export default class Graph {
     this.orientation = options.orientation;
     this.coordinateSnapMode = coordinateSnapMode;
 
-    this.graphModelBoundsProperty = new Property( initialGraphBounds, {
+    this.boundsProperty = new Property( initialGraphBounds, {
       phetioValueType: Bounds2.Bounds2IO,
-      tandem: options.tandem.createTandem( 'graphModelBoundsProperty' ),
-      phetioDocumentation: 'For internal use only.',
+      tandem: options.tandem.createTandem( 'boundsProperty' ),
+      phetioDocumentation: 'Bounds of the graph, in model coordinates.',
       phetioReadOnly: true
     } );
 
@@ -100,7 +99,7 @@ export default class Graph {
       options.bottomLeft.y );
 
     this.modelViewTransformProperty = new DerivedProperty(
-      [ this.graphModelBoundsProperty ],
+      [ this.boundsProperty ],
       graphModelBounds => ModelViewTransform2.createRectangleInvertedYMapping( graphModelBounds, this.graphViewBounds ),
       { valueType: ModelViewTransform2 }
     );
@@ -113,7 +112,7 @@ export default class Graph {
   }
 
   public reset(): void {
-    this.graphModelBoundsProperty.reset();
+    this.boundsProperty.reset();
     this.vectorSets.forEach( vectorSet => vectorSet.reset() );
     this.activeVectorProperty.reset();
   }
@@ -130,18 +129,18 @@ export default class Graph {
    * Moves the origin to a specified point on the graph.
    */
   public moveOriginToPoint( point: Vector2 ): void {
-    assert && assert( this.graphModelBoundsProperty.value.containsPoint( point ), `point is out of bounds: ${point}` );
+    assert && assert( this.boundsProperty.value.containsPoint( point ), `point is out of bounds: ${point}` );
 
     // Round to integer
     const roundedPoint = point.roundSymmetric();
-    this.graphModelBoundsProperty.value = this.graphModelBounds.shiftedXY( -roundedPoint.x, -roundedPoint.y );
+    this.boundsProperty.value = this.bounds.shiftedXY( -roundedPoint.x, -roundedPoint.y );
   }
 
   /**
-   * Gets the bounds of the graph
+   * Gets the bounds of the graph.
    */
-  public get graphModelBounds(): Bounds2 {
-    return this.graphModelBoundsProperty.value;
+  public get bounds(): Bounds2 {
+    return this.boundsProperty.value;
   }
 }
 
