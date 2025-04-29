@@ -58,8 +58,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const sceneNodes: Node[] = [];
-    const addSceneNode = ( graph: LabGraph, tandem: Tandem ) => {
+    const createSceneNode = ( graph: LabGraph, tandem: Tandem ): Node => {
 
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
         tandem: tandem
@@ -79,17 +78,17 @@ export default class LabScreenView extends VectorAdditionScreenView {
         sceneNode.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
       } );
 
-      // Add the scene node
-      sceneNodes.push( sceneNode );
+      return sceneNode;
     };
-    addSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
-    addSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
+    const cartesianSceneNode = createSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
+    const polarSceneNode = createSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
         coordinateSnapModeRadioButtonGroup,
-        ...sceneNodes,
+        cartesianSceneNode,
+        polarSceneNode,
         this.resetAllButton
       ]
     } );
@@ -97,7 +96,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      ...sceneNodes
+      cartesianSceneNode,
+      polarSceneNode
     ];
 
     // Control Area focus order

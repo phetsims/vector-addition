@@ -64,16 +64,6 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
 
-    const polarSceneNode = new EquationsSceneNode(
-      model.polarGraph,
-      this.viewProperties,
-      model.componentVectorStyleProperty,
-      graphControlPanel.bottom,
-      equationButtonsAlignGroup,
-      equationsAlignGroup, {
-        tandem: sceneNodesTandem.createTandem( 'polarSceneNode' )
-      } );
-
     const cartesianSceneNode = new EquationsSceneNode(
       model.cartesianGraph,
       this.viewProperties,
@@ -84,20 +74,30 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
         tandem: sceneNodesTandem.createTandem( 'cartesianSceneNode' )
       } );
 
+    const polarSceneNode = new EquationsSceneNode(
+      model.polarGraph,
+      this.viewProperties,
+      model.componentVectorStyleProperty,
+      graphControlPanel.bottom,
+      equationButtonsAlignGroup,
+      equationsAlignGroup, {
+        tandem: sceneNodesTandem.createTandem( 'polarSceneNode' )
+      } );
+
     // Switch between scenes to match coordinate snap mode.
     // unlink is unnecessary, exists for the lifetime of the sim.
     this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
       this.interruptSubtreeInput(); // cancel interactions when switching scenes
-      polarSceneNode.visible = ( coordinateSnapMode === 'polar' );
       cartesianSceneNode.visible = ( coordinateSnapMode === 'cartesian' );
+      polarSceneNode.visible = ( coordinateSnapMode === 'polar' );
     } );
 
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
         coordinateSnapModeRadioButtonGroup,
-        polarSceneNode,
         cartesianSceneNode,
+        polarSceneNode,
         this.resetAllButton
       ]
     } );
@@ -105,8 +105,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      polarSceneNode,
-      cartesianSceneNode
+      cartesianSceneNode,
+      polarSceneNode
     ];
 
     // Control Area focus order

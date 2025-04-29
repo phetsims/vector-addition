@@ -55,8 +55,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const sceneNodes: Node[] = [];
-    const addSceneNode = ( graph: Explore2DGraph, tandem: Tandem ) => {
+    const createSceneNode = ( graph: Explore2DGraph, tandem: Tandem ): Node => {
 
       // Create the scene node
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
@@ -86,17 +85,17 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
         sceneNode.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
       } );
 
-      // Add the scene node
-      sceneNodes.push( sceneNode );
+      return sceneNode;
     };
-    addSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
-    addSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
+    const cartesianSceneNode = createSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
+    const polarSceneNode = createSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
         coordinateSnapModeRadioButtonGroup,
-        ...sceneNodes,
+        cartesianSceneNode,
+        polarSceneNode,
         this.resetAllButton
       ]
     } );
@@ -104,7 +103,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      ...sceneNodes
+      cartesianSceneNode,
+      polarSceneNode
     ];
 
     // Control Area focus order

@@ -52,8 +52,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const sceneNodes: Node[] = [];
-    const addSceneNode = ( graph: Explore1DGraph, tandem: Tandem ) => {
+    const createSceneNode = ( graph: Explore1DGraph, tandem: Tandem ): Node => {
 
       // Create the scene node
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
@@ -79,17 +78,17 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
         sceneNode.visible = ( graphOrientation === graph.orientation );
       } );
 
-      // Add the scene node
-      sceneNodes.push( sceneNode );
+      return sceneNode;
     };
-    addSceneNode( model.verticalGraph, sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
-    addSceneNode( model.horizontalGraph, sceneNodesTandem.createTandem( 'horizonalSceneNode' ) );
+    const horizonalSceneNode = createSceneNode( model.horizontalGraph, sceneNodesTandem.createTandem( 'horizonalSceneNode' ) );
+    const verticalSceneNode = createSceneNode( model.verticalGraph, sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
 
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
         graphOrientationRadioButtonGroup,
-        ...sceneNodes,
+        horizonalSceneNode,
+        verticalSceneNode,
         this.resetAllButton
       ]
     } );
@@ -97,7 +96,8 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      ...sceneNodes
+      horizonalSceneNode,
+      verticalSceneNode
     ];
 
     // Control Area focus order
