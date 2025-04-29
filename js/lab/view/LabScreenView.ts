@@ -12,26 +12,24 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
 import SceneNode from '../../common/view/SceneNode.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
 import LabGraph from '../model/LabGraph.js';
+import LabViewProperties from './LabViewProperties.js';
 
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
   // view-specific Properties
-  private readonly viewProperties: VectorAdditionViewProperties;
+  private readonly viewProperties: LabViewProperties;
 
   public constructor( model: LabModel, tandem: Tandem ) {
 
     super( model, tandem );
 
-    this.viewProperties = new VectorAdditionViewProperties( {
-      tandem: tandem.createTandem( 'viewProperties' )
-    } );
+    this.viewProperties = new LabViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Controls for the graph, at upper right
     const graphControlPanel = new LabGraphControlPanel(
@@ -109,8 +107,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
   }
 
   public override reset(): void {
-    super.reset();
     this.viewProperties.reset();
+    super.reset();
   }
 }
 

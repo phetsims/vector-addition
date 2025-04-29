@@ -109,8 +109,8 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
   }
 
   public override reset(): void {
-    super.reset();
     this.viewProperties.reset();
+    super.reset();
   }
 }
 

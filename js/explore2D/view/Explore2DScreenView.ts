@@ -12,25 +12,23 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
 import SceneNode from '../../common/view/SceneNode.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DVectorCreatorPanel from './Explore2DVectorCreatorPanel.js';
 import Explore2DGraph from '../model/Explore2DGraph.js';
+import Explore2DViewProperties from './Explore2DViewProperties.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
   // view-specific Properties
-  private readonly viewProperties: VectorAdditionViewProperties;
+  private readonly viewProperties: Explore2DViewProperties;
 
   public constructor( model: Explore2DModel, tandem: Tandem ) {
 
     super( model, tandem );
 
-    this.viewProperties = new VectorAdditionViewProperties( {
-      tandem: tandem.createTandem( 'viewProperties' )
-    } );
+    this.viewProperties = new Explore2DViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Control for the graph, at upper right
     const graphControlPanel = new Explore2DGraphControlPanel(
@@ -116,8 +114,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
   }
 
   public override reset(): void {
-    super.reset();
     this.viewProperties.reset();
+    super.reset();
   }
 }
 

@@ -22,12 +22,12 @@ import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/G
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import LabViewProperties from './LabViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -40,7 +40,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
-                      viewProperties: VectorAdditionViewProperties,
+                      viewProperties: LabViewProperties,
                       providedOptions: LabGraphControlPanelOptions ) {
 
     const options = providedOptions;

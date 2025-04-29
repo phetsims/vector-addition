@@ -22,11 +22,11 @@ import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/G
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import Explore2DViewProperties from './Explore2DViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -37,7 +37,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
   public constructor( cartesianVectorSet: VectorSet,
                       polarVectorSet: VectorSet,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
-                      viewProperties: VectorAdditionViewProperties,
+                      viewProperties: Explore2DViewProperties,
                       providedOptions: Explore2DGraphControlPanelOptions ) {
 
     const options = providedOptions;

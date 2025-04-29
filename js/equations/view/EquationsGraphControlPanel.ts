@@ -21,12 +21,12 @@ import ComponentVectorStyleControl from '../../common/view/ComponentVectorStyleC
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import VectorCheckbox from '../../common/view/VectorCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import EquationsViewProperties from './EquationsViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -37,7 +37,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
   public constructor( cartesianVectorSet: EquationsVectorSet,
                       polarVectorSet: EquationsVectorSet,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
-                      viewProperties: VectorAdditionViewProperties,
+                      viewProperties: EquationsViewProperties,
                       providedOptions: EquationsGraphControlPanelOptions ) {
 
     const options = providedOptions;

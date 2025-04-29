@@ -1,8 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View-specific Properties for the 'Equations' screen. Expands on the base view Properties, and adds Properties
- * that are unique to this screen.
+ * View-specific Properties for the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,8 +11,13 @@ import Property from '../../../../axon/js/Property.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import { CoordinateSnapMode, CoordinateSnapModeValues } from '../../common/model/CoordinateSnapMode.js';
 
 export default class EquationsViewProperties extends VectorAdditionViewProperties {
+
+  // controls the snapping mode for the vectors
+  public readonly coordinateSnapModeProperty: StringUnionProperty<CoordinateSnapMode>;
 
   // whether the EquationAccordionBox is expanded
   public readonly equationAccordionBoxExpandedProperty: Property<boolean>;
@@ -27,6 +31,11 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
   public constructor( tandem: Tandem ) {
     super( {
       tandem: tandem
+    } );
+
+    this.coordinateSnapModeProperty = new StringUnionProperty( 'cartesian', {
+      validValues: CoordinateSnapModeValues,
+      tandem: tandem.createTandem( 'coordinateSnapModeProperty' )
     } );
 
     this.equationAccordionBoxExpandedProperty = new BooleanProperty( true, {
@@ -43,10 +52,11 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
   }
 
   public override reset(): void {
-    super.reset();
+    this.coordinateSnapModeProperty.reset();
     this.equationAccordionBoxExpandedProperty.reset();
     this.baseVectorsAccordionBoxExpandedProperty.reset();
     this.baseVectorsVisibleProperty.reset();
+    super.reset();
   }
 }
 

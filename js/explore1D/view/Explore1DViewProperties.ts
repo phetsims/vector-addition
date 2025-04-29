@@ -3,10 +3,6 @@
 /**
  * View-specific Properties for the 'Explore 1D' screen.
  *
- * Extends VectorAdditionViewProperty but adds:
- *  - Graph Orientation Property
- *  - Disables coordinateSnapModeProperty and angle visible Property
- *
  * @author Brandon Li
  */
 
@@ -23,9 +19,7 @@ export default class Explore1DViewProperties extends VectorAdditionViewPropertie
   public constructor( tandem: Tandem ) {
 
     super( {
-
-      //TODO https://github.com/phetsims/vector-addition/issues/258 coordinateSnapModeProperty should not be instrumented for this screen.
-      coordinateSnapModes: [ 'cartesian' ], // 'polar' is not supported in this screen
+      anglesVisiblePropertyInstrumented: false,
       tandem: tandem
     } );
 
@@ -33,20 +27,11 @@ export default class Explore1DViewProperties extends VectorAdditionViewPropertie
       validValues: [ 'horizontal', 'vertical' ],
       tandem: tandem.createTandem( 'graphOrientationProperty' )
     } );
-
-    // Vector angle visualization is not supported by this screen.
-    // unlink is unnecessary, exists for the lifetime of the sim.
-    //TODO https://github.com/phetsims/vector-addition/issues/258 anglesVisibleProperty should not be instrumented for this screen.
-    assert && this.anglesVisibleProperty.link( angleVisible => {
-      if ( angleVisible ) {
-        assert && assert( false, 'Explore 1D does not support angles' );
-      }
-    } );
   }
 
   public override reset(): void {
-    super.reset();
     this.graphOrientationProperty.reset();
+    super.reset();
   }
 }
 

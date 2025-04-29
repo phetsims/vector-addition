@@ -10,14 +10,13 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
 import vectorAddition from '../../vectorAddition.js';
-import { CoordinateSnapMode, CoordinateSnapModeValues } from '../model/CoordinateSnapMode.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = {
-  coordinateSnapModes?: CoordinateSnapMode[];
+  anglesVisiblePropertyInstrumented?: boolean;
 };
 
 export type VectorAdditionViewPropertiesOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -33,9 +32,6 @@ export default class VectorAdditionViewProperties {
   // indicates if the graph background grid is visible
   public readonly gridVisibleProperty: Property<boolean>;
 
-  // controls the snapping mode for the vectors
-  public readonly coordinateSnapModeProperty: StringUnionProperty<CoordinateSnapMode>;
-
   // whether the VectorValuesAccordionBox is expanded
   public readonly vectorValuesAccordionBoxExpandedProperty: Property<boolean>;
 
@@ -44,7 +40,7 @@ export default class VectorAdditionViewProperties {
     const options = optionize<VectorAdditionViewPropertiesOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      coordinateSnapModes: [ ...CoordinateSnapModeValues ]
+      anglesVisiblePropertyInstrumented: true
     }, providedOptions );
 
     this.valuesVisibleProperty = new BooleanProperty( false, {
@@ -52,16 +48,13 @@ export default class VectorAdditionViewProperties {
     } );
 
     this.anglesVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'anglesVisibleProperty' )
+      tandem: options.anglesVisiblePropertyInstrumented ?
+              options.tandem.createTandem( 'anglesVisibleProperty' ) :
+              Tandem.OPT_OUT
     } );
 
     this.gridVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'gridVisibleProperty' )
-    } );
-
-    this.coordinateSnapModeProperty = new StringUnionProperty( 'cartesian', {
-      validValues: options.coordinateSnapModes,
-      tandem: options.tandem.createTandem( 'coordinateSnapModeProperty' )
     } );
 
     this.vectorValuesAccordionBoxExpandedProperty = new BooleanProperty( true, {
@@ -73,7 +66,6 @@ export default class VectorAdditionViewProperties {
     this.valuesVisibleProperty.reset();
     this.anglesVisibleProperty.reset();
     this.gridVisibleProperty.reset();
-    this.coordinateSnapModeProperty.reset();
     this.vectorValuesAccordionBoxExpandedProperty.reset();
   }
 
