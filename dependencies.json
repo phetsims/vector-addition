@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.2.0-dev.1 Wed Apr 30 2025 14:20:16 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# vector-addition 1.2.0-dev.2 Wed Apr 30 2025 14:58:11 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "f6d41b399ad32df2a00ab4b329981be0c574d77a",
     "branch": "main"
@@ -61,7 +61,7 @@
     "branch": "main"
   },
   "scenery": {
-    "sha": "026cd34145566f4d934b151210c1b8e83201819a",
+    "sha": "e415263f98a13a3d06f3cebe850769020f2c3898",
     "branch": "main"
   },
   "scenery-phet": {
@@ -97,7 +97,7 @@
     "branch": "main"
   },
   "vector-addition": {
-    "sha": "4ba9264167f3468ea9d5870def43a46f03a063b3",
+    "sha": "f2dfe2db058a8b9043df7c1cc42ac9f7bbd5f073",
     "branch": "main"
   }
 }
