@@ -54,12 +54,10 @@ export default class SceneNode extends Node {
 
   // Public for pdomOrder at ScreenView level.
   public readonly graphNode: GraphNode;
+  public readonly vectorSetNodesParent: Node;
   public readonly vectorValuesAccordionBox: Node;
   public vectorCreatorPanel: Node | null;
   public eraserButton: Node | null;
-
-  // parent for all VectorSetNodes
-  private readonly vectorSetNodesParent: Node;
 
   // a layer for each VectorSet
   private readonly vectorSetNodes: VectorSetNode[];

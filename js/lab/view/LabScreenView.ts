@@ -95,18 +95,22 @@ export default class LabScreenView extends VectorAdditionScreenView {
     // Play Area focus order
     const pdomOrderPlayArea = [
       cartesianSceneNode.vectorCreatorPanel,
-      cartesianSceneNode.graphNode,
+      cartesianSceneNode.vectorSetNodesParent,
+      cartesianSceneNode.graphNode.originManipulator,
       cartesianSceneNode.vectorValuesAccordionBox,
       polarSceneNode.vectorCreatorPanel,
-      polarSceneNode.graphNode,
+      polarSceneNode.vectorSetNodesParent,
+      polarSceneNode.graphNode.originManipulator,
       polarSceneNode.vectorValuesAccordionBox
     ];
     if ( cartesianSceneNode.eraserButton ) {
-      const index = pdomOrderPlayArea.indexOf( cartesianSceneNode.graphNode );
+      const index = pdomOrderPlayArea.indexOf( cartesianSceneNode.graphNode.originManipulator );
+      assert && assert( index !== -1 );
       pdomOrderPlayArea.splice( index + 1, 0, cartesianSceneNode.eraserButton );
     }
     if ( polarSceneNode.eraserButton ) {
-      const index = pdomOrderPlayArea.indexOf( polarSceneNode.graphNode );
+      const index = pdomOrderPlayArea.indexOf( polarSceneNode.graphNode.originManipulator );
+      assert && assert( index !== -1 );
       pdomOrderPlayArea.splice( index + 1, 0, polarSceneNode.eraserButton );
     }
     this.pdomPlayAreaNode.pdomOrder = pdomOrderPlayArea;

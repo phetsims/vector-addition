@@ -61,6 +61,9 @@ const TICK_LABEL_Y_OFFSET = 15; // from y = 0, view units
 
 export default class GraphNode extends Node {
 
+  // Public for pdomOrder at ScreenView level.
+  public readonly originManipulator: Node;
+
   public constructor( graph: Graph, gridVisibilityProperty: Property<boolean>, tandem: Tandem ) {
 
     const graphViewBounds = graph.viewBounds;
@@ -85,13 +88,16 @@ export default class GraphNode extends Node {
       children.push( new YAxisNode( graph, graphViewBounds ) );
     }
 
-    children.push( new OriginManipulator( graph, tandem.createTandem( 'originManipulator' ) ) );
+    const originManipulator = new OriginManipulator( graph, tandem.createTandem( 'originManipulator' ) );
+    children.push( originManipulator );
 
     super( {
       isDisposable: false,
       children: children,
       tandem: tandem
     } );
+
+    this.originManipulator = originManipulator;
 
     // Clicking in the graph clears the active (selected) vector.
     // Use a raw 'down' listener so that this doesn't impact the ability to touch snag vectors and origin manipulator.
