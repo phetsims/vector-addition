@@ -148,7 +148,17 @@ export default class SceneNode extends Node {
     this.vectorSets = graph.vectorSets;
     this.vectorCreatorPanel = null;
 
-    this.updatePDOMOrder();
+    //TODO https://github.com/phetsims/vector-addition/issues/290 This is gross.
+    const pdomOrder = [
+      this.vectorSetNodesParent,
+      this.graphNode,
+      this.vectorValuesAccordionBox
+    ];
+    if ( this.eraserButton ) {
+      const index = pdomOrder.indexOf( this.graphNode );
+      pdomOrder.splice( index + 1, 0, this.eraserButton );
+    }
+    this.pdomOrder = pdomOrder;
   }
 
   /**
@@ -181,31 +191,15 @@ export default class SceneNode extends Node {
    * Adds a VectorCreatorPanel to the scene.
    */
   public addVectorCreatorPanel( vectorCreatorPanel: VectorCreatorPanel ): void {
+    assert && assert( !this.vectorCreatorPanel, 'addVectorCreatorPanel can only be called once.' );
     this.vectorCreatorPanel = vectorCreatorPanel;
     this.addChild( this.vectorCreatorPanel );
     this.vectorCreatorPanel.moveToBack();
-    this.updatePDOMOrder();
-  }
 
-  //TODO https://github.com/phetsims/vector-addition/issues/290 Duplication here. Can vectorValuesAccordionBox be provided via constructor?
-  private updatePDOMOrder(): void {
-    if ( this.vectorCreatorPanel ) {
-      this.pdomOrder = [
-        this.vectorCreatorPanel,
-        this.vectorSetNodesParent,
-        this.graphNode,
-        this.eraserButton,
-        this.vectorValuesAccordionBox
-      ];
-    }
-    else {
-      this.pdomOrder = [
-        this.vectorSetNodesParent,
-        this.graphNode,
-        this.eraserButton,
-        this.vectorValuesAccordionBox
-      ];
-    }
+    // Add to the beginning of pdomOrder.
+    const pdomOrder = this.getPDOMOrder();
+    pdomOrder!.unshift( this.vectorCreatorPanel );
+    this.pdomOrder = pdomOrder;
   }
 }
 
