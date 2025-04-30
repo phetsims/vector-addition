@@ -93,30 +93,25 @@ export default class LabScreenView extends VectorAdditionScreenView {
     this.addChild( screenViewRootNode );
 
     // Play Area focus order
-    const pdomOrderPlayArea = [
+    this.pdomPlayAreaNode.pdomOrder = [
+
+      // Cartesian scene
       cartesianSceneNode.vectorCreatorPanel,
       cartesianSceneNode.vectorSetNodesParent,
       cartesianSceneNode.graphNode.originManipulator,
-      cartesianSceneNode.vectorValuesAccordionBox,
+      cartesianSceneNode.eraserButton,
+
+      // polar scene
       polarSceneNode.vectorCreatorPanel,
       polarSceneNode.vectorSetNodesParent,
       polarSceneNode.graphNode.originManipulator,
-      polarSceneNode.vectorValuesAccordionBox
+      polarSceneNode.eraserButton
     ];
-    if ( cartesianSceneNode.eraserButton ) {
-      const index = pdomOrderPlayArea.indexOf( cartesianSceneNode.graphNode.originManipulator );
-      assert && assert( index !== -1 );
-      pdomOrderPlayArea.splice( index + 1, 0, cartesianSceneNode.eraserButton );
-    }
-    if ( polarSceneNode.eraserButton ) {
-      const index = pdomOrderPlayArea.indexOf( polarSceneNode.graphNode.originManipulator );
-      assert && assert( index !== -1 );
-      pdomOrderPlayArea.splice( index + 1, 0, polarSceneNode.eraserButton );
-    }
-    this.pdomPlayAreaNode.pdomOrder = pdomOrderPlayArea;
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
+      cartesianSceneNode.vectorValuesAccordionBox,
+      polarSceneNode.vectorValuesAccordionBox,
       graphControlPanel,
       coordinateSnapModeRadioButtonGroup,
       this.resetAllButton

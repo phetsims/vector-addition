@@ -95,30 +95,27 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     this.addChild( screenViewRootNode );
 
     // Play Area focus order
-    const pdomOrderPlayArea = [
+    assert && assert( horizonalSceneNode.eraserButton );
+    assert && assert( verticalSceneNode.eraserButton );
+    this.pdomPlayAreaNode.pdomOrder = [
+
+      // horizontal scene
       horizonalSceneNode.vectorCreatorPanel,
       horizonalSceneNode.vectorSetNodesParent,
       horizonalSceneNode.graphNode.originManipulator,
-      horizonalSceneNode.vectorValuesAccordionBox,
+      horizonalSceneNode.eraserButton,
+
+      // vertical scene
       verticalSceneNode.vectorCreatorPanel,
       verticalSceneNode.vectorSetNodesParent,
       verticalSceneNode.graphNode.originManipulator,
-      verticalSceneNode.vectorValuesAccordionBox
+      verticalSceneNode.eraserButton
     ];
-    if ( horizonalSceneNode.eraserButton ) {
-      const index = pdomOrderPlayArea.indexOf( horizonalSceneNode.graphNode.originManipulator );
-      assert && assert( index !== -1 );
-      pdomOrderPlayArea.splice( index + 1, 0, horizonalSceneNode.eraserButton );
-    }
-    if ( verticalSceneNode.eraserButton ) {
-      const index = pdomOrderPlayArea.indexOf( verticalSceneNode.graphNode.originManipulator );
-      assert && assert( index !== -1 );
-      pdomOrderPlayArea.splice( index + 1, 0, verticalSceneNode.eraserButton );
-    }
-    this.pdomPlayAreaNode.pdomOrder = pdomOrderPlayArea;
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
+      horizonalSceneNode.vectorValuesAccordionBox,
+      verticalSceneNode.vectorValuesAccordionBox,
       graphControlPanel,
       graphOrientationRadioButtonGroup,
       this.resetAllButton

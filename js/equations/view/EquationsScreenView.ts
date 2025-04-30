@@ -105,16 +105,20 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
+
+      // Cartesian scene
       cartesianSceneNode.vectorSetNodesParent,
       cartesianSceneNode.graphNode.originManipulator,
-      cartesianSceneNode.vectorValuesAccordionBox,
+
+      // polar scene
       polarSceneNode.vectorSetNodesParent,
-      polarSceneNode.graphNode.originManipulator,
-      polarSceneNode.vectorValuesAccordionBox
+      polarSceneNode.graphNode.originManipulator
     ];
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
+      cartesianSceneNode.vectorValuesAccordionBox,
+      polarSceneNode.vectorValuesAccordionBox,
       cartesianSceneNode.equationAccordionBox,
       polarSceneNode.equationAccordionBox,
       graphControlPanel,
