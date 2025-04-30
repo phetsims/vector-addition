@@ -66,7 +66,9 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
       arrowType: 'solid',
       arrowOptions: {
         cursor: 'move'
-      }
+      },
+      tagName: 'div', // for KeyboardDragListener
+      focusable: true // for KeyboardDragListener
     }, providedOptions );
 
     //----------------------------------------------------------------------------------------

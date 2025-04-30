@@ -52,14 +52,16 @@ export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>
 
 export default class SceneNode extends Node {
 
+  private readonly graphNode: GraphNode;
+  protected readonly vectorValuesAccordionBox: Node;
+  private vectorCreatorPanel: Node | null;
+  private eraserButton: Node | null;
+
   // parent for all VectorSetNodes
   private readonly vectorSetNodesParent: Node;
 
   // a layer for each VectorSet
   private readonly vectorSetNodes: VectorSetNode[];
-
-  // for layout in subclasses
-  protected readonly vectorValuesToggleBox: Node;
 
   private readonly vectorSets: VectorSet[];
 
@@ -82,10 +84,10 @@ export default class SceneNode extends Node {
     //========================================================================================
 
     // Create one and only GraphNode
-    const graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty, options.tandem.createTandem( 'graphNode' ) );
+    this.graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty, options.tandem.createTandem( 'graphNode' ) );
 
     // Create the one and only 'Vector Values' accordion box
-    const vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, {
+    this.vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, {
       expandedProperty: viewProperties.vectorValuesAccordionBoxExpandedProperty,
       centerX: graph.viewBounds.centerX,
       top: 35, // determined empirically
@@ -99,15 +101,16 @@ export default class SceneNode extends Node {
 
     // Add the children in the correct z-order
     this.setChildren( [
-      graphNode,
-      vectorValuesAccordionBox,
+      this.graphNode,
+      this.vectorValuesAccordionBox,
       this.vectorSetNodesParent
     ] );
 
     // Add an eraser button if necessary
+    this.eraserButton = null;
     if ( options.includeEraser ) {
 
-      const eraserButton = new EraserButton( {
+      this.eraserButton = new EraserButton( {
         listener: () => {
           this.interruptSubtreeInput(); // cancel all interactions for the scene
           graph.erase();
@@ -119,8 +122,8 @@ export default class SceneNode extends Node {
         tandem: options.tandem.createTandem( 'eraserButton' ),
         phetioEnabledPropertyInstrumented: false // sim controls this.
       } );
-      this.addChild( eraserButton );
-      eraserButton.moveToBack();
+      this.addChild( this.eraserButton );
+      this.eraserButton.moveToBack();
 
       // Disable the eraser button when the number of vectors on the graph is zero, that is, when all vector sets
       // contain no vectors. This is a bit more complicated than it should be, but it was added late in the
@@ -129,7 +132,7 @@ export default class SceneNode extends Node {
       const lengthProperties = _.map( graph.vectorSets, vectorSet => vectorSet.vectors.lengthProperty );
       Multilink.multilinkAny( lengthProperties, () => {
         const numberOfVectors = _.sumBy( lengthProperties, lengthProperty => lengthProperty.value );
-        eraserButton.enabled = ( numberOfVectors !== 0 );
+        this.eraserButton!.enabled = ( numberOfVectors !== 0 );
       } );
     }
 
@@ -142,9 +145,10 @@ export default class SceneNode extends Node {
       this.vectorSetNodes.push( vectorSetNode );
     } );
 
-    this.vectorValuesToggleBox = vectorValuesAccordionBox;
-
     this.vectorSets = graph.vectorSets;
+    this.vectorCreatorPanel = null;
+
+    this.updatePDOMOrder();
   }
 
   /**
@@ -177,8 +181,31 @@ export default class SceneNode extends Node {
    * Adds a VectorCreatorPanel to the scene.
    */
   public addVectorCreatorPanel( vectorCreatorPanel: VectorCreatorPanel ): void {
-    this.addChild( vectorCreatorPanel );
-    vectorCreatorPanel.moveToBack();
+    this.vectorCreatorPanel = vectorCreatorPanel;
+    this.addChild( this.vectorCreatorPanel );
+    this.vectorCreatorPanel.moveToBack();
+    this.updatePDOMOrder();
+  }
+
+  //TODO https://github.com/phetsims/vector-addition/issues/290 Duplication here. Can vectorValuesAccordionBox be provided via constructor?
+  private updatePDOMOrder(): void {
+    if ( this.vectorCreatorPanel ) {
+      this.pdomOrder = [
+        this.vectorCreatorPanel,
+        this.vectorSetNodesParent,
+        this.graphNode,
+        this.eraserButton,
+        this.vectorValuesAccordionBox
+      ];
+    }
+    else {
+      this.pdomOrder = [
+        this.vectorSetNodesParent,
+        this.graphNode,
+        this.eraserButton,
+        this.vectorValuesAccordionBox
+      ];
+    }
   }
 }
 
