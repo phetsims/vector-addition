@@ -81,7 +81,7 @@ export default class EquationsSceneNode extends SceneNode {
     // Add vectors and their base vectors.
     graph.vectorSet.equationsVectors.forEach( vector => {
       this.registerVector( vector, graph.vectorSet );
-      this.addBaseVector( graph.vectorSet, vector.baseVector, viewProperties.baseVectorsVisibleProperty );
+      this.addBaseVectorNode( graph.vectorSet, vector.baseVector, viewProperties.baseVectorsVisibleProperty );
     } );
 
     this.equationAccordionBox = equationAccordionBox;

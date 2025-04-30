@@ -159,9 +159,9 @@ export default class VectorSetNode extends Node {
    * Adds a base vector to the VectorSetNode.  Base vectors are never removed.
    * Base vectors do not have component vectors, see https://github.com/phetsims/vector-addition/issues/158
    */
-  public addBaseVector( baseVector: BaseVector,
-                        baseVectorsVisibleProperty: TReadOnlyProperty<boolean>,
-                        vectorColorPalette: VectorColorPalette ): void {
+  public addBaseVectorNode( baseVector: BaseVector,
+                            baseVectorsVisibleProperty: TReadOnlyProperty<boolean>,
+                            vectorColorPalette: VectorColorPalette ): void {
 
     // Node for the base vector
     const baseVectorNode = new VectorNode( baseVector, this.graph,

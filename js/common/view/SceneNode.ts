@@ -170,8 +170,8 @@ export default class SceneNode extends Node {
   /**
    * Adds a base vector to the scene.  Delegates to VectorSetNode.
    */
-  protected addBaseVector( vectorSet: VectorSet, baseVector: BaseVector, baseVectorsVisibleProperty: Property<boolean> ): void {
-    this.getVectorSetNode( vectorSet ).addBaseVector( baseVector, baseVectorsVisibleProperty, vectorSet.vectorColorPalette );
+  protected addBaseVectorNode( vectorSet: VectorSet, baseVector: BaseVector, baseVectorsVisibleProperty: Property<boolean> ): void {
+    this.getVectorSetNode( vectorSet ).addBaseVectorNode( baseVector, baseVectorsVisibleProperty, vectorSet.vectorColorPalette );
   }
 
   /**
