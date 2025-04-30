@@ -56,7 +56,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       matchVertical: true
     } );
 
-    // Used to make all of the interactive equations in the Equation accordion box the same effective size.
+    // Used to make all interactive equations in the Equation accordion box the same effective size.
     const equationsAlignGroup = new AlignGroup( {
       matchHorizontal: true,
       matchVertical: true
@@ -105,13 +105,19 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     // Play Area focus order
     this.pdomPlayAreaNode.pdomOrder = [
-      cartesianSceneNode,
-      polarSceneNode
+      cartesianSceneNode.graphNode,
+      cartesianSceneNode.vectorValuesAccordionBox,
+      polarSceneNode.graphNode,
+      polarSceneNode.vectorValuesAccordionBox
     ];
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
+      cartesianSceneNode.equationAccordionBox,
+      polarSceneNode.equationAccordionBox,
       graphControlPanel,
+      cartesianSceneNode.baseVectorsAccordionBox,
+      polarSceneNode.baseVectorsAccordionBox,
       coordinateSnapModeRadioButtonGroup,
       this.resetAllButton
     ];

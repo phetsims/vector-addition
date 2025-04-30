@@ -25,11 +25,16 @@ import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationAccordionBox from './EquationAccordionBox.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 
 type SelfOptions = EmptySelfOptions;
 type EquationsSceneNodeOptions = SelfOptions & SceneNodeOptions;
 
 export default class EquationsSceneNode extends SceneNode {
+
+  // Public for pdomOrder at ScreenView level.
+  public readonly equationAccordionBox: Node;
+  public readonly baseVectorsAccordionBox: Node;
 
   public constructor( graph: EquationsGraph,
                       viewProperties: EquationsViewProperties,
@@ -78,6 +83,9 @@ export default class EquationsSceneNode extends SceneNode {
       this.registerVector( vector, graph.vectorSet );
       this.addBaseVector( graph.vectorSet, vector.baseVector, viewProperties.baseVectorsVisibleProperty );
     } );
+
+    this.equationAccordionBox = equationAccordionBox;
+    this.baseVectorsAccordionBox = baseVectorsAccordionBox;
   }
 }
 

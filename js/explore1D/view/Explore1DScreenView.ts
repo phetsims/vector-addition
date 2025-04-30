@@ -52,7 +52,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
     // Create and add the Scene Nodes and Vector Creator Panels for each graph
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const createSceneNode = ( graph: Explore1DGraph, tandem: Tandem ): Node => {
+    const createSceneNode = ( graph: Explore1DGraph, tandem: Tandem ): SceneNode => {
 
       // Create the scene node
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
@@ -95,10 +95,23 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     this.addChild( screenViewRootNode );
 
     // Play Area focus order
-    this.pdomPlayAreaNode.pdomOrder = [
-      horizonalSceneNode,
-      verticalSceneNode
+    const pdomOrderPlayArea = [
+      horizonalSceneNode.vectorCreatorPanel,
+      horizonalSceneNode.graphNode,
+      horizonalSceneNode.vectorValuesAccordionBox,
+      verticalSceneNode.vectorCreatorPanel,
+      verticalSceneNode.graphNode,
+      verticalSceneNode.vectorValuesAccordionBox
     ];
+    if ( horizonalSceneNode.eraserButton ) {
+      const index = pdomOrderPlayArea.indexOf( horizonalSceneNode.graphNode );
+      pdomOrderPlayArea.splice( index + 1, 0, horizonalSceneNode.eraserButton );
+    }
+    if ( verticalSceneNode.eraserButton ) {
+      const index = pdomOrderPlayArea.indexOf( verticalSceneNode.graphNode );
+      pdomOrderPlayArea.splice( index + 1, 0, verticalSceneNode.eraserButton );
+    }
+    this.pdomPlayAreaNode.pdomOrder = pdomOrderPlayArea;
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [

@@ -52,10 +52,11 @@ export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>
 
 export default class SceneNode extends Node {
 
-  private readonly graphNode: GraphNode;
-  protected readonly vectorValuesAccordionBox: Node;
-  private vectorCreatorPanel: Node | null;
-  private eraserButton: Node | null;
+  // Public for pdomOrder at ScreenView level.
+  public readonly graphNode: GraphNode;
+  public readonly vectorValuesAccordionBox: Node;
+  public vectorCreatorPanel: Node | null;
+  public eraserButton: Node | null;
 
   // parent for all VectorSetNodes
   private readonly vectorSetNodesParent: Node;
@@ -147,18 +148,6 @@ export default class SceneNode extends Node {
 
     this.vectorSets = graph.vectorSets;
     this.vectorCreatorPanel = null;
-
-    //TODO https://github.com/phetsims/vector-addition/issues/290 This is gross.
-    const pdomOrder = [
-      this.vectorSetNodesParent,
-      this.graphNode,
-      this.vectorValuesAccordionBox
-    ];
-    if ( this.eraserButton ) {
-      const index = pdomOrder.indexOf( this.graphNode );
-      pdomOrder.splice( index + 1, 0, this.eraserButton );
-    }
-    this.pdomOrder = pdomOrder;
   }
 
   /**
@@ -195,11 +184,6 @@ export default class SceneNode extends Node {
     this.vectorCreatorPanel = vectorCreatorPanel;
     this.addChild( this.vectorCreatorPanel );
     this.vectorCreatorPanel.moveToBack();
-
-    // Add to the beginning of pdomOrder.
-    const pdomOrder = this.getPDOMOrder();
-    pdomOrder!.unshift( this.vectorCreatorPanel );
-    this.pdomOrder = pdomOrder;
   }
 }
 
