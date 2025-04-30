@@ -28,6 +28,7 @@ export default class ComponentVectorStyleRadioButtonGroup extends RectangularRad
 
     super( componentVectorStyleProperty, items, {
       isDisposable: false,
+      resize: false, //TODO https://github.com/phetsims/vector-addition/issues/258 How do we want layout to behave when hiding individual buttons?
 
       // These options implement a 2x2 grid.
       orientation: 'horizontal',
