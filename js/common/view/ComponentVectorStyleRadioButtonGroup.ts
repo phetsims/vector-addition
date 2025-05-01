@@ -12,7 +12,9 @@ import { ComponentVectorStyle, ComponentVectorStyleValues } from '../model/Compo
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 export default class ComponentVectorStyleRadioButtonGroup extends RectangularRadioButtonGroup<ComponentVectorStyle> {
 
@@ -26,19 +28,22 @@ export default class ComponentVectorStyleRadioButtonGroup extends RectangularRad
       };
     } );
 
-    super( componentVectorStyleProperty, items, {
+    const options = combineOptions<RectangularRadioButtonGroupOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
       isDisposable: false,
       resize: false, //TODO https://github.com/phetsims/vector-addition/issues/258 How do we want layout to behave when hiding individual buttons?
 
-      // These options implement a 2x2 grid.
+      // These options are a bit of a hack to implement a 2x2 grid.
+      // Values were set empirically to make the vertical and horizontal spacing look the same.
       orientation: 'horizontal',
-      preferredWidth: 120,
+      preferredWidth: 134,
       wrap: true,
-      spacing: 6,
-      lineSpacing: 6,
-      
+      spacing: 4,
+      lineSpacing: 8,
+
       tandem: tandem
     } );
+
+    super( componentVectorStyleProperty, items, options );
   }
 }
 
