@@ -7,7 +7,7 @@
  */
 
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -15,8 +15,9 @@ import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType } from '../model/EquationType.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import CoefficientPicker from './CoefficientPicker.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const TEXT_OPTIONS = {
@@ -25,9 +26,19 @@ const TEXT_OPTIONS = {
 const labelNumberPickerSpacing = 7; // spacing between the NumberPicker and the VectorSymbolNode
 const textSpacing = 13.5; // spacing between text of the equation
 
+type SelfOptions = EmptySelfOptions;
+
+type EquationTypeNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
+
 export default class EquationTypeNode extends Node {
 
-  public constructor( vectorSet: EquationsVectorSet, equationType: EquationType, tandem: Tandem ) {
+  public constructor( vectorSet: EquationsVectorSet, equationType: EquationType, providedOptions: EquationTypeNodeOptions ) {
+
+    const options = optionize<EquationTypeNodeOptions, SelfOptions, NodeOptions>()( {
+
+      // NodeOptions
+      isDisposable: false
+    }, providedOptions );
 
     // Create all pieces of the equation
     const equationChildren = [];
@@ -47,7 +58,7 @@ export default class EquationTypeNode extends Node {
       const coefficientPicker = new CoefficientPicker( vector.coefficientProperty, {
         color: vectorSet.vectorColorPalette.mainFill,
         //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because vectorSymbol is localized.
-        tandem: tandem.createTandem( `${vectorSymbol}Picker` ),
+        tandem: options.tandem.createTandem( `${vectorSymbol}Picker` ),
         phetioVisiblePropertyInstrumented: false
       } );
       equationChildren.push( coefficientPicker );
@@ -109,10 +120,9 @@ export default class EquationTypeNode extends Node {
       }
     }
 
-    super( {
-      children: equationChildren,
-      isDisposable: false
-    } );
+    options.children = equationChildren;
+
+    super( options );
   }
 }
 

@@ -25,6 +25,7 @@ import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 // constants
 const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
@@ -71,17 +72,14 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
       tandem: options.tandem.createTandem( 'equationNodes' )
     } );
     EquationTypeValues.forEach( equationType => {
-
-      const equationTypeNode = new EquationTypeNode( vectorSet, equationType, equationNodes.tandem.createTandem( `${equationType}EquationNode` ) );
+      const equationTypeNode = new EquationTypeNode( vectorSet, equationType, {
+        visibleProperty: new DerivedProperty( [ equationTypeProperty ], equationTypeValue => ( equationTypeValue === equationType ) ),
+        tandem: equationNodes.tandem.createTandem( `${equationType}EquationNode` )
+      } );
       equationNodes.addChild( new AlignBox( equationTypeNode, {
         group: equationsAlignGroup,
         xAlign: 'left'
       } ) );
-
-      // unlink is unnecessary, exists for the lifetime of the sim.
-      equationTypeProperty.link( () => {
-        equationTypeNode.visible = ( equationType === equationTypeProperty.value );
-      } );
     } );
 
     // Radio buttons on the left, equation on the right. See https://github.com/phetsims/vector-addition/issues/128
@@ -92,13 +90,8 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
 
     super( titleText, contentNode, options );
 
-    // When the box is collapsed, cancel interactions.
-    // unlink is not necessary, exists for the lifetime of the sim.
-    this.expandedProperty.lazyLink( expanded => {
-      if ( !expanded ) {
-        this.interruptSubtreeInput();
-      }
-    } );
+    // When the accordion box is expanded or collapsed, cancel interactions.
+    this.expandedProperty.lazyLink( () => this.interruptSubtreeInput() );
   }
 }
 
