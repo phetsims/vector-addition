@@ -18,7 +18,7 @@ import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
 import LabGraph from '../model/LabGraph.js';
 import LabViewProperties from './LabViewProperties.js';
-
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
@@ -59,6 +59,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
     const createSceneNode = ( graph: LabGraph, tandem: Tandem ): SceneNode => {
 
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
+        visibleProperty: new DerivedProperty( [ this.viewProperties.coordinateSnapModeProperty ],
+          coordinateSnapMode => coordinateSnapMode === graph.coordinateSnapMode ),
         tandem: tandem
       } );
 
@@ -69,17 +71,13 @@ export default class LabScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'vectorCreatorPanel' )
       } ) );
 
-      // Switch between scenes to match coordinate snap mode.
-      // unlink is unnecessary, exists for the lifetime of the sim.
-      this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-        this.interruptSubtreeInput(); // cancel interactions when switching scenes
-        sceneNode.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
-      } );
-
       return sceneNode;
     };
     const cartesianSceneNode = createSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
     const polarSceneNode = createSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
+
+    // Cancel interactions when switching scenes.
+    this.viewProperties.coordinateSnapModeProperty.link( () => this.interruptSubtreeInput() );
 
     const screenViewRootNode = new Node( {
       children: [

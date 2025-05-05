@@ -18,6 +18,7 @@ import Explore1DVectorCreatorPanel from './Explore1DVectorCreatorPanel.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import GraphOrientationRadioButtonGroup from './GraphOrientationRadioButtonGroup.js';
 import Explore1DGraph from '../model/Explore1DGraph.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -56,6 +57,8 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
       // Create the scene node
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
+        visibleProperty: new DerivedProperty( [ this.viewProperties.graphOrientationProperty ],
+          graphOrientation => graphOrientation === graph.orientation ),
         tandem: tandem
       } );
 
@@ -71,17 +74,13 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'vectorCreatorPanel' )
       } ) );
 
-      // Switch between scenes to match graph orientation.
-      // unlink is unnecessary, exists for the lifetime of the sim.
-      this.viewProperties.graphOrientationProperty.link( graphOrientation => {
-        this.interruptSubtreeInput(); // cancel interactions when switching scenes
-        sceneNode.visible = ( graphOrientation === graph.orientation );
-      } );
-
       return sceneNode;
     };
     const horizonalSceneNode = createSceneNode( model.horizontalGraph, sceneNodesTandem.createTandem( 'horizonalSceneNode' ) );
     const verticalSceneNode = createSceneNode( model.verticalGraph, sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
+
+    // Cancel interactions when switching scenes.
+    this.viewProperties.graphOrientationProperty.link( () => this.interruptSubtreeInput() );
 
     const screenViewRootNode = new Node( {
       children: [

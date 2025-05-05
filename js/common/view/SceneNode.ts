@@ -48,7 +48,7 @@ type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
 };
 
-export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
+export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
 
 export default class SceneNode extends Node {
 
@@ -78,7 +78,7 @@ export default class SceneNode extends Node {
       isDisposable: false
     }, providedOptions );
 
-    super();
+    super( options );
 
     //========================================================================================
 

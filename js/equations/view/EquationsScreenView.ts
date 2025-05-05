@@ -17,6 +17,7 @@ import EquationsModel from '../model/EquationsModel.js';
 import EquationsGraphControlPanel from './EquationsGraphControlPanel.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 export default class EquationsScreenView extends VectorAdditionScreenView {
 
@@ -71,6 +72,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       graphControlPanel.bottom,
       equationButtonsAlignGroup,
       equationsAlignGroup, {
+        visibleProperty: new DerivedProperty( [ this.viewProperties.coordinateSnapModeProperty ],
+          coordinateSnapMode => coordinateSnapMode === 'cartesian' ),
         tandem: sceneNodesTandem.createTandem( 'cartesianSceneNode' )
       } );
 
@@ -81,16 +84,13 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       graphControlPanel.bottom,
       equationButtonsAlignGroup,
       equationsAlignGroup, {
+        visibleProperty: new DerivedProperty( [ this.viewProperties.coordinateSnapModeProperty ],
+          coordinateSnapMode => coordinateSnapMode === 'polar' ),
         tandem: sceneNodesTandem.createTandem( 'polarSceneNode' )
       } );
 
-    // Switch between scenes to match coordinate snap mode.
-    // unlink is unnecessary, exists for the lifetime of the sim.
-    this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-      this.interruptSubtreeInput(); // cancel interactions when switching scenes
-      cartesianSceneNode.visible = ( coordinateSnapMode === 'cartesian' );
-      polarSceneNode.visible = ( coordinateSnapMode === 'polar' );
-    } );
+    // Cancel interactions when switching scenes.
+    this.viewProperties.coordinateSnapModeProperty.link( () => this.interruptSubtreeInput() );
 
     const screenViewRootNode = new Node( {
       children: [

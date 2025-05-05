@@ -18,6 +18,7 @@ import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DVectorCreatorPanel from './Explore2DVectorCreatorPanel.js';
 import Explore2DGraph from '../model/Explore2DGraph.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
@@ -57,6 +58,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
       // Create the scene node
       const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
+        visibleProperty: new DerivedProperty( [ this.viewProperties.coordinateSnapModeProperty ],
+          coordinateSnapMode => coordinateSnapMode === graph.coordinateSnapMode ),
         tandem: tandem
       } );
 
@@ -76,17 +79,13 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
         } )
       );
 
-      // Switch between scenes to match coordinate snap mode.
-      // unlink is unnecessary, exists for the lifetime of the sim.
-      this.viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-        this.interruptSubtreeInput(); // cancel interactions when switching scenes
-        sceneNode.visible = ( coordinateSnapMode === graph.coordinateSnapMode );
-      } );
-
       return sceneNode;
     };
     const cartesianSceneNode = createSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
     const polarSceneNode = createSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
+
+    // Cancel interactions when switching scenes.
+    this.viewProperties.coordinateSnapModeProperty.link( () => this.interruptSubtreeInput() );
 
     const screenViewRootNode = new Node( {
       children: [

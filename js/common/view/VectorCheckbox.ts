@@ -24,7 +24,7 @@ type SelfOptions = {
   vectorStroke?: TColor;
 };
 
-type VectorCheckboxOptions = SelfOptions & Pick<VectorAdditionCheckboxOptions, 'tandem'>;
+type VectorCheckboxOptions = SelfOptions & VectorAdditionCheckboxOptions;
 
 export default class VectorCheckbox extends VectorAdditionCheckbox {
 

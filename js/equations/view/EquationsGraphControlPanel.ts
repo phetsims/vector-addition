@@ -27,6 +27,7 @@ import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -50,6 +51,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianSumSymbolProperty, {
       vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
       vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke,
+      visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode => coordinateSnapMode === 'cartesian' ),
       tandem: options.tandem.createTandem( 'cartesianVectorCheckbox' )
     } );
 
@@ -61,14 +63,8 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty, polarSumSymbolProperty, {
       vectorFill: polarVectorSet.vectorColorPalette.sumFill,
       vectorStroke: polarVectorSet.vectorColorPalette.sumStroke,
+      visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode => coordinateSnapMode === 'polar' ),
       tandem: options.tandem.createTandem( 'polarVectorCheckbox' )
-    } );
-
-    // Show the vector checkbox ('c' or 'f') that matches the selected scene.
-    // unlink is unnecessary, exists for the lifetime of the sim.
-    viewProperties.coordinateSnapModeProperty.link( coordinateSnapMode => {
-      cartesianVectorCheckbox.visible = ( coordinateSnapMode === 'cartesian' );
-      polarVectorCheckbox.visible = ( coordinateSnapMode === 'polar' );
     } );
 
     // To make all checkboxes the same height
