@@ -10,15 +10,12 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
-import SceneNode from '../../common/view/SceneNode.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
-import Explore2DVectorCreatorPanel from './Explore2DVectorCreatorPanel.js';
-import Explore2DGraph from '../model/Explore2DGraph.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Explore2DSceneNode from './Explore2DSceneNode.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
@@ -52,37 +49,14 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
       } );
 
-    // Create and add the Scene Nodes and Vector Creator Panels for each graph
+    // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const createSceneNode = ( graph: Explore2DGraph, tandem: Tandem ): SceneNode => {
-
-      // Create the scene node
-      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
-        visibleProperty: new DerivedProperty( [ this.viewProperties.coordinateSnapModeProperty ],
-          coordinateSnapMode => coordinateSnapMode === graph.coordinateSnapMode ),
-        tandem: tandem
-      } );
-
-      // Vector symbols depend on whether snap mode is Cartesian or Polar
-      const vectorSymbolProperties = ( graph.coordinateSnapMode === 'cartesian' ) ?
-                                     VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
-                                     VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
-
-      // Add the vector creator panel
-      sceneNode.addVectorCreatorPanel( new Explore2DVectorCreatorPanel(
-        graph,
-        sceneNode,
-        vectorSymbolProperties, {
-          left: coordinateSnapModeRadioButtonGroup.left,
-          bottom: coordinateSnapModeRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
-          tandem: tandem.createTandem( 'vectorCreatorPanel' )
-        } )
-      );
-
-      return sceneNode;
-    };
-    const cartesianSceneNode = createSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
-    const polarSceneNode = createSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
+    const cartesianSceneNode = new Explore2DSceneNode( model.cartesianGraph, this.viewProperties,
+      model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
+      sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
+    const polarSceneNode = new Explore2DSceneNode( model.polarGraph, this.viewProperties,
+      model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
+      sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Cancel interactions when switching scenes.
     this.viewProperties.coordinateSnapModeProperty.link( () => this.interruptSubtreeInput() );

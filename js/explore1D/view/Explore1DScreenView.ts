@@ -9,16 +9,13 @@
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import SceneNode from '../../common/view/SceneNode.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DModel from '../model/Explore1DModel.js';
 import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
-import Explore1DVectorCreatorPanel from './Explore1DVectorCreatorPanel.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import GraphOrientationRadioButtonGroup from './GraphOrientationRadioButtonGroup.js';
-import Explore1DGraph from '../model/Explore1DGraph.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Explore1DSceneNode from './Explore1DSceneNode.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -51,33 +48,14 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'graphOrientationRadioButtonGroup' )
       } );
 
-    // Create and add the Scene Nodes and Vector Creator Panels for each graph
+    // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const createSceneNode = ( graph: Explore1DGraph, tandem: Tandem ): SceneNode => {
-
-      // Create the scene node
-      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
-        visibleProperty: new DerivedProperty( [ this.viewProperties.graphOrientationProperty ],
-          graphOrientation => graphOrientation === graph.orientation ),
-        tandem: tandem
-      } );
-
-      // Vector symbols depend on graph orientation
-      const vectorSymbolProperties = ( graph.orientation === 'horizontal' ) ?
-                                     VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
-                                     VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
-
-      // Add the vector creator panel
-      sceneNode.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( graph, sceneNode, vectorSymbolProperties, {
-        left: graphOrientationRadioButtonGroup.left,
-        bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
-        tandem: tandem.createTandem( 'vectorCreatorPanel' )
-      } ) );
-
-      return sceneNode;
-    };
-    const horizonalSceneNode = createSceneNode( model.horizontalGraph, sceneNodesTandem.createTandem( 'horizonalSceneNode' ) );
-    const verticalSceneNode = createSceneNode( model.verticalGraph, sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
+    const horizonalSceneNode = new Explore1DSceneNode( model.horizontalGraph, this.viewProperties,
+      model.componentVectorStyleProperty, graphOrientationRadioButtonGroup,
+      sceneNodesTandem.createTandem( 'horizonalSceneNode' ) );
+    const verticalSceneNode = new Explore1DSceneNode( model.verticalGraph, this.viewProperties,
+      model.componentVectorStyleProperty, graphOrientationRadioButtonGroup,
+      sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
 
     // Cancel interactions when switching scenes.
     this.viewProperties.graphOrientationProperty.link( () => this.interruptSubtreeInput() );

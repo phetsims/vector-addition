@@ -17,7 +17,6 @@ import EquationsModel from '../model/EquationsModel.js';
 import EquationsGraphControlPanel from './EquationsGraphControlPanel.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 export default class EquationsScreenView extends VectorAdditionScreenView {
 
@@ -51,7 +50,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
       } );
 
-    // Used to make all of the radio button in the Equation accordion box the same effective size.
+    // Used to make all radio buttons in the Equation accordion box the same effective size.
     const equationButtonsAlignGroup = new AlignGroup( {
       matchHorizontal: true,
       matchVertical: true
@@ -63,6 +62,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       matchVertical: true
     } );
 
+    // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
 
     const cartesianSceneNode = new EquationsSceneNode(
@@ -71,11 +71,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       model.componentVectorStyleProperty,
       graphControlPanel.bottom,
       equationButtonsAlignGroup,
-      equationsAlignGroup, {
-        visibleProperty: new DerivedProperty( [ this.viewProperties.coordinateSnapModeProperty ],
-          coordinateSnapMode => coordinateSnapMode === 'cartesian' ),
-        tandem: sceneNodesTandem.createTandem( 'cartesianSceneNode' )
-      } );
+      equationsAlignGroup,
+      sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
 
     const polarSceneNode = new EquationsSceneNode(
       model.polarGraph,
@@ -83,11 +80,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       model.componentVectorStyleProperty,
       graphControlPanel.bottom,
       equationButtonsAlignGroup,
-      equationsAlignGroup, {
-        visibleProperty: new DerivedProperty( [ this.viewProperties.coordinateSnapModeProperty ],
-          coordinateSnapMode => coordinateSnapMode === 'polar' ),
-        tandem: sceneNodesTandem.createTandem( 'polarSceneNode' )
-      } );
+      equationsAlignGroup,
+      sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Cancel interactions when switching scenes.
     this.viewProperties.coordinateSnapModeProperty.link( () => this.interruptSubtreeInput() );

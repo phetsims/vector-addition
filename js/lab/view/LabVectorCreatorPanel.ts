@@ -14,10 +14,11 @@ import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js'
 import vectorAddition from '../../vectorAddition.js';
 import LabGraph from '../model/LabGraph.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type LabVectorCreatorPanelOptions = SelfOptions & VectorCreatorPanelOptions;
+type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelOptions, 'slotSpacing'>;
 
 export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 

@@ -10,15 +10,12 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
-import SceneNode from '../../common/view/SceneNode.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
-import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
-import LabGraph from '../model/LabGraph.js';
 import LabViewProperties from './LabViewProperties.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import LabSceneNode from './LabSceneNode.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
@@ -54,27 +51,14 @@ export default class LabScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
       } );
 
-    // Create and add the Scene Nodes and Vector Creator Panels for each graph
+    // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const createSceneNode = ( graph: LabGraph, tandem: Tandem ): SceneNode => {
-
-      const sceneNode = new SceneNode( graph, this.viewProperties, model.componentVectorStyleProperty, {
-        visibleProperty: new DerivedProperty( [ this.viewProperties.coordinateSnapModeProperty ],
-          coordinateSnapMode => coordinateSnapMode === graph.coordinateSnapMode ),
-        tandem: tandem
-      } );
-
-      // Add the vector creator panel
-      sceneNode.addVectorCreatorPanel( new LabVectorCreatorPanel( graph, sceneNode, {
-        left: coordinateSnapModeRadioButtonGroup.left,
-        bottom: coordinateSnapModeRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
-        tandem: tandem.createTandem( 'vectorCreatorPanel' )
-      } ) );
-
-      return sceneNode;
-    };
-    const cartesianSceneNode = createSceneNode( model.cartesianGraph, sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
-    const polarSceneNode = createSceneNode( model.polarGraph, sceneNodesTandem.createTandem( 'polarSceneNode' ) );
+    const cartesianSceneNode = new LabSceneNode( model.cartesianGraph, this.viewProperties,
+      model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
+      sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
+    const polarSceneNode = new LabSceneNode( model.polarGraph, this.viewProperties,
+      model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
+      sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Cancel interactions when switching scenes.
     this.viewProperties.coordinateSnapModeProperty.link( () => this.interruptSubtreeInput() );

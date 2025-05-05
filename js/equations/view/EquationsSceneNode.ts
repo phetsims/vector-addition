@@ -14,11 +14,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import SceneNode, { SceneNodeOptions } from '../../common/view/SceneNode.js';
+import SceneNode from '../../common/view/SceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsGraph from '../model/EquationsGraph.js';
 import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
@@ -26,9 +25,8 @@ import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationAccordionBox from './EquationAccordionBox.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-
-type SelfOptions = EmptySelfOptions;
-type EquationsSceneNodeOptions = SelfOptions & SceneNodeOptions;
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class EquationsSceneNode extends SceneNode {
 
@@ -42,15 +40,14 @@ export default class EquationsSceneNode extends SceneNode {
                       graphControlPanelBottom: number,
                       equationButtonsAlignGroup: AlignGroup, // used to make all equation radio buttons the same size
                       equationsAlignGroup: AlignGroup, // used to make all interactive equations the same size
-                      providedOptions: EquationsSceneNodeOptions ) {
+                      tandem: Tandem ) {
 
-    const options = optionize<EquationsSceneNodeOptions, SelfOptions, SceneNodeOptions>()( {
-
-      // SceneNodeOptions
-      includeEraser: false
-    }, providedOptions );
-
-    super( graph, viewProperties, componentVectorStyleProperty, options );
+    super( graph, viewProperties, componentVectorStyleProperty, {
+      includeEraser: false,
+      visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ],
+        coordinateSnapMode => coordinateSnapMode === graph.coordinateSnapMode ),
+      tandem: tandem
+    } );
 
     // Relocate the 'Vector Values' accordion box so that we have room for the 'Equation' accordion box
     this.vectorValuesAccordionBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
@@ -61,7 +58,7 @@ export default class EquationsSceneNode extends SceneNode {
         expandedProperty: viewProperties.equationAccordionBoxExpandedProperty,
         centerX: graph.viewBounds.centerX,
         top: this.vectorValuesAccordionBox.bottom + 10,
-        tandem: options.tandem.createTandem( 'equationAccordionBox' )
+        tandem: tandem.createTandem( 'equationAccordionBox' )
       } );
     this.addChild( equationAccordionBox );
     equationAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
@@ -73,7 +70,7 @@ export default class EquationsSceneNode extends SceneNode {
         expandedProperty: viewProperties.baseVectorsAccordionBoxExpandedProperty,
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: graphControlPanelBottom + 8,
-        tandem: options.tandem.createTandem( 'baseVectorsAccordionBox' )
+        tandem: tandem.createTandem( 'baseVectorsAccordionBox' )
       } );
     this.addChild( baseVectorsAccordionBox );
     baseVectorsAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front

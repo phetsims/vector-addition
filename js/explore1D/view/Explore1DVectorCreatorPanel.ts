@@ -14,10 +14,11 @@ import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DGraph from '../model/Explore1DGraph.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type Explore1DVectorCreatorPanelOptions = SelfOptions & VectorCreatorPanelOptions;
+type Explore1DVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelOptions, 'slotSpacing'>;
 
 export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
