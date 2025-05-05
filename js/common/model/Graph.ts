@@ -40,7 +40,7 @@ type GraphOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 export default class Graph {
 
   // the vectorSets for this graph
-  public vectorSets: VectorSet[];
+  public readonly vectorSets: VectorSet[];
 
   // orientation of the graph
   public readonly orientation: GraphOrientation;
