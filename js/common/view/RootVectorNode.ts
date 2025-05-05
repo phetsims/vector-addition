@@ -25,6 +25,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import VectorLabelNode from './VectorLabelNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 // constants
 
@@ -46,7 +47,7 @@ type SelfOptions = {
   arrowOptions?: RootVectorArrowNodeOptions;
 };
 
-export type RootVectorNodeOptions = SelfOptions;
+export type RootVectorNodeOptions = SelfOptions & PickOptional<NodeOptions, 'visibleProperty' | 'isDisposable'>;
 
 export default class RootVectorNode extends InteractiveHighlighting( Node ) {
 

@@ -11,7 +11,6 @@
  * @author Brandon Li
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -20,6 +19,7 @@ import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import VectorNode, { VectorNodeOptions } from './VectorNode.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 type SumVectorNodeOptions = SelfOptions & VectorNodeOptions;
@@ -33,25 +33,21 @@ export default class SumVectorNode extends VectorNode {
     const options = optionize<SumVectorNodeOptions, SelfOptions, VectorNodeOptions>()( {
 
       // VectorNodeOptions
+      isDisposable: false,
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
         fill: sumVector.vectorColorPalette.sumFill,
         stroke: sumVector.vectorColorPalette.sumStroke
-      } )
+      } ),
+
+      // Make the sum vector visible only if it is defined, meaning that there is at least 1 vector on the graph.
+      // See https://github.com/phetsims/vector-addition/issues/187
+      visibleProperty: new DerivedProperty( [ sumVisibleProperty, sumVector.isDefinedProperty ],
+        ( sumVisible, isDefined ) => ( sumVisible && isDefined ) )
     }, providedOptions );
 
     super( sumVector, graph, valuesVisibleProperty, anglesVisibleProperty, options );
 
-    // Make the sum vector visible only if it is defined, meaning that there is at least 1 vector on the graph.
-    // See https://github.com/phetsims/vector-addition/issues/187
-    // unmultilink is unnecessary, exists for the lifetime of the sim.
-    Multilink.multilink(
-      [ sumVisibleProperty, sumVector.isDefinedProperty ],
-      ( sumVisible, isDefined ) => {
-        this.visible = ( sumVisible && isDefined );
-      } );
-
     // Making an active sum vector invisible clears activeVectorProperty. See #112.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     sumVisibleProperty.link( sumVisible => {
       if ( !sumVisible && graph.activeVectorProperty.value === sumVector ) {
         graph.activeVectorProperty.value = null;
