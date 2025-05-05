@@ -109,7 +109,7 @@ export default class SumVector extends Vector {
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // The sum vector displays its symbol when:
-    // - there is only one sum vector on the graph (see #241), or
+    // - there is only one sum vector on the graph (see https://github.com/phetsims/vector-addition/issues/241), or
     // - the sum vector is selected, or
     // - a vector in the sum's vector set is selected
     const activeVector = this.graph.activeVectorProperty.value;

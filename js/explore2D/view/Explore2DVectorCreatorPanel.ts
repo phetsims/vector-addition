@@ -64,7 +64,9 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
       panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents[ i ], {
         symbolProperty: symbolProperties[ i ],
         iconArrowMagnitude: 35,
-        iconVectorComponents: new Vector2( 1, 1 ) // all icons in the slots look the same, see #227
+
+        // all icons in the slots look the same, see https://github.com/phetsims/vector-addition/issues/227
+        iconVectorComponents: new Vector2( 1, 1 )
       } ) );
     }
 
