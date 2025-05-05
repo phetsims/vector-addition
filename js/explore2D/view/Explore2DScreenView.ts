@@ -44,8 +44,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     // CoordinateSnapMode radio buttons, at lower right
     const coordinateSnapModeRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
       this.viewProperties.coordinateSnapModeProperty,
-      model.cartesianVectorColorPalette,
-      model.polarVectorColorPalette, {
+      model.cartesianGraph.vectorSet.vectorColorPalette,
+      model.polarGraph.vectorSet.vectorColorPalette, {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
         tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )

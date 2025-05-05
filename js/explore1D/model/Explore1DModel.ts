@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
-import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -20,9 +19,6 @@ export default class Explore1DModel extends VectorAdditionModel {
 
   // Property controlling the visibility of the sum for both Graph instances
   public readonly sumVisibleProperty: Property<boolean>;
-
-  public readonly horizontalVectorColorPalette: VectorColorPalette;
-  public readonly verticalVectorColorPalette: VectorColorPalette;
 
   // graph for the horizontal (x-axis) orientation
   public readonly horizontalGraph: Explore1DGraph;
@@ -38,14 +34,11 @@ export default class Explore1DModel extends VectorAdditionModel {
       tandem: tandem.createTandem( 'sumVisibleProperty' )
     } );
 
-    this.horizontalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
-    this.verticalVectorColorPalette = VectorAdditionColors.BLUE_COLOR_PALETTE;
-
     this.horizontalGraph = new Explore1DGraph(
       'horizontal',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.horizontalVectorColorPalette,
+      VectorAdditionColors.BLUE_COLOR_PALETTE,
       tandem.createTandem( 'horizontalGraph' )
     );
 
@@ -53,7 +46,7 @@ export default class Explore1DModel extends VectorAdditionModel {
       'vertical',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.verticalVectorColorPalette,
+      VectorAdditionColors.BLUE_COLOR_PALETTE,
       tandem.createTandem( 'verticalGraph' )
     );
   }

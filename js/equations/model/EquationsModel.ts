@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
-import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsGraph from './EquationsGraph.js';
@@ -18,9 +17,6 @@ import EquationsGraph from './EquationsGraph.js';
 export default class EquationsModel extends VectorAdditionModel {
 
   public readonly sumVisibleProperty: Property<boolean>;
-
-  public readonly cartesianVectorColorPalette: VectorColorPalette;
-  public readonly polarVectorColorPalette: VectorColorPalette;
 
   // graph for Cartesian snap mode
   public readonly cartesianGraph: EquationsGraph;
@@ -36,20 +32,17 @@ export default class EquationsModel extends VectorAdditionModel {
       tandem: tandem.createTandem( 'sumVisibleProperty' )
     } );
 
-    this.cartesianVectorColorPalette = VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE;
-    this.polarVectorColorPalette = VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE;
-
     this.cartesianGraph = new EquationsGraph( 'cartesian',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.cartesianVectorColorPalette,
+      VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE,
       tandem.createTandem( 'cartesianGraph' )
     );
 
     this.polarGraph = new EquationsGraph( 'polar',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      this.polarVectorColorPalette,
+      VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE,
       tandem.createTandem( 'polarGraph' )
     );
   }

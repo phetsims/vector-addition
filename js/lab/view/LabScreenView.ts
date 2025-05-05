@@ -47,8 +47,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
     // CoordinateSnapMode radio buttons, at lower right
     const coordinateSnapModeRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
       this.viewProperties.coordinateSnapModeProperty,
-      model.cartesianVectorColorPalette1,
-      model.polarVectorColorPalette1, {
+      model.cartesianGraph.vectorSet1.vectorColorPalette,
+      model.polarGraph.vectorSet1.vectorColorPalette, {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
         tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
