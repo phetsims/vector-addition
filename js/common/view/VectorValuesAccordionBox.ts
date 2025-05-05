@@ -33,6 +33,7 @@ import VectorQuantityDisplay from './VectorQuantityDisplay.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -67,6 +68,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
     // 'No vector selected', displayed when accordion box is expanded and no vector is selected.
     const noVectorSelectedText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
+      visibleProperty: new DerivedProperty( [ graph.activeVectorProperty ], activeVector => activeVector === null ),
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: 450
     } );
@@ -98,6 +100,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
     // Layout for the labels and displays.
     const vectorQuantitiesHBox = new HBox( {
+      visibleProperty: new DerivedProperty( [ graph.activeVectorProperty ], activeVector => activeVector !== null ),
       spacing: 40,
       children: [
         new HBox( {
@@ -144,13 +147,10 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       yComponentSymbolNode.setCoefficient( coefficient );
     };
 
-    // Observe changes to when the graphs active vector Property changes to update the panel.
-    // unlink is unnecessary, exists for the lifetime of the sim.
+    // Update when the graph's activeVectorProperty changes.
     graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
 
       if ( activeVector !== null ) {
-        vectorQuantitiesHBox.visible = true;
-        noVectorSelectedText.visible = false;
 
         // Get the vector symbol
         const vectorSymbolProperty = activeVector.symbolProperty ? activeVector.symbolProperty : Vector.FALLBACK_SYMBOL_PROPERTY;
@@ -165,10 +165,6 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
           [ vectorSymbolProperty, VectorAdditionSymbols.yStringProperty ],
           ( vectorSymbol, yString ) => `${vectorSymbol}<sub>${yString}</sub>`
         ) );
-      }
-      else {
-        vectorQuantitiesHBox.visible = false;
-        noVectorSelectedText.visible = true;
       }
 
       noVectorSelectedText.centerY = expandedContent.centerY;
