@@ -167,9 +167,6 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
         ) );
       }
 
-      noVectorSelectedText.centerY = expandedContent.centerY;
-      vectorQuantitiesHBox.centerY = expandedContent.centerY;
-
       if ( activeVector && activeVector instanceof EquationsVector ) {
         activeVector.coefficientProperty.link( updateCoefficient ); // unlink required when active vector changes
       }
@@ -180,9 +177,6 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
         updateCoefficient( ( activeVector && activeVector instanceof EquationsVector ) ? activeVector.coefficientProperty.value : 1 );
       }
     } );
-
-    noVectorSelectedText.centerY = expandedContent.centerY;
-    vectorQuantitiesHBox.centerY = expandedContent.centerY;
 
     super( titleText, expandedContent, options );
   }
