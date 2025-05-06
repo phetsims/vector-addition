@@ -76,14 +76,13 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       positionProperty: originPositionProperty,
       translateNode: false,
       dragBoundsProperty: new Property( restrictedGraphViewBounds ),
+      tandem: tandem,
       dragListenerOptions: {
-        pressCursor: ORIGIN_OPTIONS.cursor,
-        tandem: tandem.createTandem( 'dragListener' )
+        pressCursor: ORIGIN_OPTIONS.cursor
       },
       keyboardDragListenerOptions: {
         dragDelta: modelViewTransform.modelToViewDeltaX( 1 ),
-        moveOnHoldInterval: 100,
-        tandem: tandem.createTandem( 'keyboardDragListener' )
+        moveOnHoldInterval: 100
       }
     } ) );
 
