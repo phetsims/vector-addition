@@ -40,7 +40,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'graphControlPanel' )
       } );
 
-    // Graph Orientation radio buttons, at lower right
+    // VectorAdditionScene Orientation radio buttons, at lower right
     const graphOrientationRadioButtonGroup = new GraphOrientationRadioButtonGroup(
       this.viewProperties.graphOrientationProperty, {
         left: graphControlPanel.left,

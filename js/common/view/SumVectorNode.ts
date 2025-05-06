@@ -14,7 +14,7 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
@@ -26,7 +26,7 @@ type SumVectorNodeOptions = SelfOptions & VectorNodeOptions;
 
 export default class SumVectorNode extends VectorNode {
 
-  public constructor( sumVector: SumVector, graph: Graph, valuesVisibleProperty: TReadOnlyProperty<boolean>,
+  public constructor( sumVector: SumVector, graph: VectorAdditionScene, valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>, sumVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: SumVectorNodeOptions ) {
 

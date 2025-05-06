@@ -17,7 +17,7 @@ import Explore1DGraph from './Explore1DGraph.js';
 
 export default class Explore1DModel extends VectorAdditionModel {
 
-  // Property controlling the visibility of the sum for both Graph instances
+  // Property controlling the visibility of the sum for both VectorAdditionScene instances
   public readonly sumVisibleProperty: Property<boolean>;
 
   // graph for the horizontal (x-axis) orientation

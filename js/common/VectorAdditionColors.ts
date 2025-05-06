@@ -27,7 +27,7 @@ const VectorAdditionColors = {
   } ),
 
   //----------------------------------------------------------------------------------------
-  // Graph
+  // VectorAdditionScene
 
   GRAPH_BACKGROUND_COLOR: Color.WHITE,
   GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )', // gray

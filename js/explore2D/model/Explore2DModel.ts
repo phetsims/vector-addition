@@ -17,7 +17,7 @@ import Explore2DGraph from './Explore2DGraph.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 
-  // Property controlling the visibility of the sum for both Graph instances
+  // Property controlling the visibility of the sum for both VectorAdditionScene instances
   public readonly sumVisibleProperty: Property<boolean>;
 
   // graph for Cartesian snap mode

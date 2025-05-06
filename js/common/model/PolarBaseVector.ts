@@ -15,7 +15,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
-import Graph from './Graph.js';
+import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
@@ -32,7 +32,7 @@ export default class PolarBaseVector extends BaseVector {
    * @param vectorSet - the set that the Base Vector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
-  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
+  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: VectorAdditionScene,
                       vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
     assert && assert( graph.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );

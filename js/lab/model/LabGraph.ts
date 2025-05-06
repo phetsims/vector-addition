@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * LabGraph is a specialization of Graph for the 'Lab' screen. 'Lab' has 2 Graph instances (polar and Cartesian).
+ * LabGraph is a specialization of VectorAdditionScene for the 'Lab' screen. 'Lab' has 2 VectorAdditionScene instances (polar and Cartesian).
  *
  * @author Brandon Li
  */
@@ -11,7 +11,7 @@ import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
-import Graph from '../../common/model/Graph.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -22,7 +22,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
-export default class LabGraph extends Graph {
+export default class LabGraph extends VectorAdditionScene {
 
   public readonly vectorSet1: VectorSet;
   public readonly vectorSet2: VectorSet;

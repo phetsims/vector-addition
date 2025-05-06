@@ -23,7 +23,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
@@ -49,7 +49,7 @@ type VectorValuesAccordionBoxOptions = SelfOptions & StrictOmit<FixedSizeAccordi
 
 export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
-  public constructor( graph: Graph, providedOptions: VectorValuesAccordionBoxOptions ) {
+  public constructor( graph: VectorAdditionScene, providedOptions: VectorValuesAccordionBoxOptions ) {
 
     const options = optionize<VectorValuesAccordionBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 

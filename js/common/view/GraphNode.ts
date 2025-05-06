@@ -21,7 +21,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
@@ -64,7 +64,7 @@ export default class GraphNode extends Node {
   // Public for pdomOrder at ScreenView level.
   public readonly originManipulator: Node;
 
-  public constructor( graph: Graph, gridVisibilityProperty: Property<boolean>, tandem: Tandem ) {
+  public constructor( graph: VectorAdditionScene, gridVisibilityProperty: Property<boolean>, tandem: Tandem ) {
 
     const graphViewBounds = graph.viewBounds;
 
@@ -114,7 +114,7 @@ export default class GraphNode extends Node {
  */
 class MajorAndMinorGridLines extends Node {
 
-  public constructor( graph: Graph, graphViewBounds: Bounds2, gridVisibilityProperty: Property<boolean> ) {
+  public constructor( graph: VectorAdditionScene, graphViewBounds: Bounds2, gridVisibilityProperty: Property<boolean> ) {
 
     const majorGridLines = new GridLines( graph, graphViewBounds, {
       spacing: MAJOR_TICK_SPACING,
@@ -154,7 +154,7 @@ class GridLines extends Path {
 
   private readonly viewBounds: Bounds2;
 
-  public constructor( graph: Graph, viewBounds: Bounds2, providedOptions?: GridLinesOptions ) {
+  public constructor( graph: VectorAdditionScene, viewBounds: Bounds2, providedOptions?: GridLinesOptions ) {
 
     const options = optionize<GridLinesOptions, GridLinesSelfOptions, PathOptions>()( {
 
@@ -211,7 +211,7 @@ class GridLines extends Path {
  */
 class XAxisNode extends Node {
 
-  public constructor( graph: Graph, graphViewBounds: Bounds2 ) {
+  public constructor( graph: VectorAdditionScene, graphViewBounds: Bounds2 ) {
 
     const arrowNode = new ArrowNode(
       graphViewBounds.minX - AXES_ARROW_X_EXTENSION, 0,
@@ -250,7 +250,7 @@ class XAxisNode extends Node {
  */
 class YAxisNode extends Node {
 
-  public constructor( graph: Graph, graphViewBounds: Bounds2 ) {
+  public constructor( graph: VectorAdditionScene, graphViewBounds: Bounds2 ) {
 
     const arrowNode = new ArrowNode(
       0, graphViewBounds.minY - AXES_ARROW_Y_EXTENSION,
@@ -287,7 +287,7 @@ class YAxisNode extends Node {
  */
 class TicksNode extends Node {
 
-  public constructor( graph: Graph ) {
+  public constructor( graph: VectorAdditionScene ) {
 
     const tickMarksPath = new Path( new Shape(), TICK_MARK_OPTIONS );
     const tickLabelsParent = new Node();

@@ -18,7 +18,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorNode, { ComponentVectorNodeOptions } from './ComponentVectorNode.js';
@@ -32,7 +32,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
   private readonly sumVisibleProperty: TReadOnlyProperty<boolean>;
 
   public constructor( componentVector: ComponentVector,
-                      graph: Graph,
+                      graph: VectorAdditionScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       sumVisibleProperty: TReadOnlyProperty<boolean>,

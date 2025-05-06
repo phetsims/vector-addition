@@ -13,7 +13,7 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import Graph from '../../common/model/Graph.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import SumVector from '../../common/model/SumVector.js';
 import Vector from '../../common/model/Vector.js';
@@ -34,7 +34,7 @@ export default class EquationsSumVector extends SumVector {
    * @param equationTypeProperty
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
-  public constructor( graph: Graph,
+  public constructor( graph: VectorAdditionScene,
                       vectorSet: VectorSet,
                       equationTypeProperty: TReadOnlyProperty<EquationType>,
                       symbolProperty: TReadOnlyProperty<string> ) {

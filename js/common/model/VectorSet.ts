@@ -7,7 +7,7 @@
  *  - a sum vector of those vectors
  *  - a color palette that is common to all vectors
  *
- * A Graph can support multiple VectorSets. (e.g. Lab screen has 2 VectorSets per Graph)
+ * A VectorAdditionScene can support multiple VectorSets. (e.g. Lab screen has 2 VectorSets per VectorAdditionScene)
  *
  * @author Brandon Li
  */
@@ -21,7 +21,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
-import Graph from './Graph.js';
+import VectorAdditionScene from './VectorAdditionScene.js';
 import SumVector from './SumVector.js';
 import Vector from './Vector.js';
 import VectorColorPalette from './VectorColorPalette.js';
@@ -72,7 +72,7 @@ export default class VectorSet {
    * @param vectorColorPalette - color palette for vectors in this set
    * @param [providedOptions]
    */
-  public constructor( graph: Graph,
+  public constructor( graph: VectorAdditionScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,

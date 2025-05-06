@@ -3,7 +3,7 @@
 /**
  * Model for a single graph on the 'Explore 2D' screen. 'Explore 2D' has a total of 2 graphs (polar and Cartesian).
  *
- * Characteristics of a Explore 2D Graph (which extends Graph) are:
+ * Characteristics of a Explore 2D VectorAdditionScene (which extends VectorAdditionScene) are:
  *  - Explore 2D graphs have exactly 1 vector sets each
  *  - Has its own sum visible property respectively
  *  - Two-dimensional
@@ -15,7 +15,7 @@
 import Property from '../../../../axon/js/Property.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
-import Graph from '../../common/model/Graph.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -23,7 +23,7 @@ import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-export default class Explore2DGraph extends Graph {
+export default class Explore2DGraph extends VectorAdditionScene {
 
   // Graphs on 'Explore 2D' have exactly one vector set
   public readonly vectorSet: VectorSet;

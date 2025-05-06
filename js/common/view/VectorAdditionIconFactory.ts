@@ -9,7 +9,7 @@
  *  3. Checkbox icons (i.e. sum icon, angle icon, grid icon)
  *  4. Component Style Icons
  *  5. Coordinate Snap Mode Icons (polar and Cartesian)
- *  6. Graph Orientation icons (horizontal and vertical - on the 'Explore 1D' screen)
+ *  6. VectorAdditionScene Orientation icons (horizontal and vertical - on the 'Explore 1D' screen)
  *  7. Equation Type icons (On the 'Equations' Screen)
  *
  * @author Brandon Li

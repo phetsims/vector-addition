@@ -38,7 +38,7 @@ PhET simulations.
 ### Coordinate Transforms
 
 The transform between model and view coordinate frames can be found
-in [Graph](https://github.com/phetsims/vector-addition/blob/main/js/common/model/Graph.ts),
+in [VectorAdditionScene](https://github.com/phetsims/vector-addition/blob/main/js/common/model/Graph.ts),
 where `modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.
 This transform inverts the mapping of y-axis values; +y is down in view (scenery) coordinates, up in model coordinates.
 
@@ -163,9 +163,9 @@ RootVectorNode (abstract base class)
 These class hierarchies make sense, and feel natural when you work with them. But there are a couple of things to be
 aware of (the "gotchas" mentioned above):
 
-* Classes in both hierarchies have a bit too much knowledge of their associated `VectorSet` and `Graph`. This increases
+* Classes in both hierarchies have a bit too much knowledge of their associated `VectorSet` and `VectorAdditionScene`. This increases
   coupling, and (depending on what you need to change) can make it difficult to change `VectorSet`
-  or `Graph` without affecting vector classes. For further discussion,
+  or `VectorAdditionScene` without affecting vector classes. For further discussion,
   see https://github.com/phetsims/vector-addition/issues/234.
 
 * Model classes handle some responsibilities that arguably belong in view classes, and this contributes to the coupling

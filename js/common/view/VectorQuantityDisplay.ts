@@ -21,7 +21,7 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
 import vectorAddition from '../../vectorAddition.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { VectorQuantity } from './VectorQuantity.js';
@@ -36,7 +36,7 @@ export default class VectorQuantityDisplay extends NumberDisplay {
    * @param graph - the graph that contains the vectors to display
    * @param vectorQuantity - the vector quantity to display
    */
-  public constructor( graph: Graph, vectorQuantity: VectorQuantity ) {
+  public constructor( graph: VectorAdditionScene, vectorQuantity: VectorQuantity ) {
 
     const options: NumberDisplayOptions = {
       isDisposable: false

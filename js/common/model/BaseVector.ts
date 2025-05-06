@@ -12,7 +12,7 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import Graph from './Graph.js';
+import VectorAdditionScene from './VectorAdditionScene.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
 
@@ -33,7 +33,7 @@ export default abstract class BaseVector extends Vector {
    * @param vectorSet - the set that the BaseVector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
-  protected constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: Graph,
+  protected constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: VectorAdditionScene,
                          vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
     super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty, OPTIONS );

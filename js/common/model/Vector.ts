@@ -29,7 +29,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ComponentVector from './ComponentVector.js';
-import Graph from './Graph.js';
+import VectorAdditionScene from './VectorAdditionScene.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import VectorSet from './VectorSet.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
@@ -67,7 +67,7 @@ export default class Vector extends RootVector {
   public readonly isRemovable: boolean;
 
   // the graph that the vector model belongs to
-  public readonly graph: Graph;
+  public readonly graph: VectorAdditionScene;
 
   // the vector set that the vector belongs to
   public readonly vectorSet: VectorSet;
@@ -100,7 +100,7 @@ export default class Vector extends RootVector {
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
-                      graph: Graph,
+                      graph: VectorAdditionScene,
                       vectorSet: VectorSet,
                       symbolProperty: TReadOnlyProperty<string> | null,
                       providedOptions?: VectorOptions ) {

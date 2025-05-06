@@ -21,7 +21,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
-import Graph from './Graph.js';
+import VectorAdditionScene from './VectorAdditionScene.js';
 import { LabelDisplayData } from './RootVector.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
@@ -47,7 +47,7 @@ export default class SumVector extends Vector {
    * @param vectorSet - the VectorSet that the sum represents
    * @param symbolProperty - the symbol for the sum vector (e.g. 's', 'c', 'f')
    */
-  public constructor( initialTailPosition: Vector2, graph: Graph, vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
+  public constructor( initialTailPosition: Vector2, graph: VectorAdditionScene, vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
     super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbolProperty, SUM_VECTOR_OPTIONS );

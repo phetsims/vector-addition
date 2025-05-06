@@ -22,7 +22,7 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -55,7 +55,7 @@ export default class ComponentVectorNode extends RootVectorNode {
    * @param [providedOptions]
    */
   public constructor( componentVector: ComponentVector,
-                      graph: Graph,
+                      graph: VectorAdditionScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: ComponentVectorNodeOptions ) {

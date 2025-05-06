@@ -14,7 +14,7 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
@@ -41,7 +41,7 @@ const ORIGIN_OPTIONS = {
 
 export default class OriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
 
-  public constructor( graph: Graph, tandem: Tandem ) {
+  public constructor( graph: VectorAdditionScene, tandem: Tandem ) {
 
     // convenience variable
     const modelViewTransform = graph.modelViewTransformProperty.value;

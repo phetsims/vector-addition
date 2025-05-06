@@ -13,7 +13,7 @@
  *
  * ## API
  *  - Not required to tell the Scene Node to create the SumVectorNodes and their Components (does this automatically
- *    for each VectorSet in the Graph)
+ *    for each VectorSet in the VectorAdditionScene)
  *  - However, it is required to 'tell' the Scene Node when other Vectors are created (see registerVector()). Once this
  *    is called, the Vector Nodes/Components are made and deleted once the Vector is removed.
  *
@@ -33,7 +33,7 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import GraphNode from './GraphNode.js';
@@ -64,7 +64,7 @@ export default class SceneNode extends Node {
 
   private readonly vectorSets: VectorSet[];
 
-  public constructor( graph: Graph,
+  public constructor( graph: VectorAdditionScene,
                       viewProperties: VectorAdditionViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions: SceneNodeOptions ) {

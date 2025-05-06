@@ -3,7 +3,7 @@
 /**
  * Model for a single graph on the 'Equations' screen, which has 2 graphs (Polar and Cartesian).
  *
- * Characteristics of an EquationsGraph (which extends Graph) are:
+ * Characteristics of an EquationsGraph (which extends VectorAdditionScene) are:
  *  - have exactly 1 VectorSet
  *  - has a Property to select the equation type (addition/subtraction/negation) per graph
  *
@@ -14,7 +14,7 @@ import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
-import Graph from '../../common/model/Graph.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -30,12 +30,12 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 const EQUATIONS_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
 // Bottom left corner, in view coordinates.
-const BOTTOM_LEFT = new Vector2( Graph.DEFAULT_BOTTOM_LEFT.x, Graph.DEFAULT_BOTTOM_LEFT.y + 40 );
+const BOTTOM_LEFT = new Vector2( VectorAdditionScene.DEFAULT_BOTTOM_LEFT.x, VectorAdditionScene.DEFAULT_BOTTOM_LEFT.y + 40 );
 
 // Starting equation type
 const STARTING_EQUATION_TYPE: EquationType = 'addition';
 
-export default class EquationsGraph extends Graph {
+export default class EquationsGraph extends VectorAdditionScene {
 
   public readonly equationTypeProperty: StringUnionProperty<EquationType>;
   public readonly vectorSet: EquationsVectorSet;

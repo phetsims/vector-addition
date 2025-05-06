@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Graph is the base class for graphs, intended to be subclassed. A screen can have multiple graphs.
+ * VectorAdditionScene is the base class for graphs, intended to be subclassed. A screen can have multiple graphs.
  *
  * Graphs are responsible for:
  *   - Keeping track of where the origin is dragged and updating a modelViewTransformProperty.
@@ -37,7 +37,7 @@ type SelfOptions = {
 
 type GraphOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class Graph {
+export default class VectorAdditionScene {
 
   // the vectorSets for this graph
   public readonly vectorSets: VectorSet[];
@@ -79,7 +79,7 @@ export default class Graph {
 
       // SelfOptions
       orientation: 'twoDimensional',
-      bottomLeft: Graph.DEFAULT_BOTTOM_LEFT
+      bottomLeft: VectorAdditionScene.DEFAULT_BOTTOM_LEFT
     }, providedOptions );
 
     this.vectorSets = [];
@@ -143,4 +143,4 @@ export default class Graph {
   }
 }
 
-vectorAddition.register( 'Graph', Graph );
+vectorAddition.register( 'VectorAdditionScene', VectorAdditionScene );

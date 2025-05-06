@@ -16,7 +16,7 @@
  *  1. Once the icon is clicked, a Vector is made.
  *  2. A call to the SceneNode is made, passing the created Vector. The Scene Node then creates the subsequent views
  *     for the Vector (VectorNode and VectorComponentNode), layering the views correctly and forwarding the event.
- *  3. Once the Vector indicates the Vector was dropped outside the Graph, the slot will then animate the Vector and
+ *  3. Once the Vector indicates the Vector was dropped outside the VectorAdditionScene, the slot will then animate the Vector and
  *     dispose the vector, signaling to the SceneNode to dispose of the views.
  *
  * @author Brandon Li
@@ -29,7 +29,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
 import vectorAddition from '../../vectorAddition.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
@@ -65,7 +65,7 @@ export default class VectorCreatorPanelSlot extends HBox {
    * @param initialVectorComponents - the initial vector components to pass to created vectors
    * @param [providedOptions]
    */
-  public constructor( graph: Graph, vectorSet: VectorSet, sceneNode: SceneNode, initialVectorComponents: Vector2,
+  public constructor( graph: VectorAdditionScene, vectorSet: VectorSet, sceneNode: SceneNode, initialVectorComponents: Vector2,
                       providedOptions?: VectorCreatorPanelSlotOptions ) {
 
     const options = optionize<VectorCreatorPanelSlotOptions, SelfOptions, HBoxOptions>()( {
@@ -156,7 +156,7 @@ export default class VectorCreatorPanelSlot extends HBox {
       iconNode.visible = ( vectorSet.vectors.lengthProperty.value < options.numberOfVectors );
 
       //----------------------------------------------------------------------------------------
-      // Step 3: Once the Vector indicates the Vector was dropped outside the Graph, animate and
+      // Step 3: Once the Vector indicates the Vector was dropped outside the VectorAdditionScene, animate and
       // dispose the Vector, signaling to the SceneNode to dispose of the views.
       //----------------------------------------------------------------------------------------
 

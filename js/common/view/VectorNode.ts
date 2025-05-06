@@ -21,7 +21,7 @@ import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListen
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
@@ -51,7 +51,7 @@ export default class VectorNode extends RootVectorNode {
   private readonly translationDragListener: DragListener; // for translating the vector
   private readonly disposeVectorNode: () => void;
 
-  public constructor( vector: Vector, graph: Graph, valuesVisibleProperty: TReadOnlyProperty<boolean>,
+  public constructor( vector: Vector, graph: VectorAdditionScene, valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       angleVisibleProperty: TReadOnlyProperty<boolean>, providedOptions?: VectorNodeOptions ) {
 
     const options = optionize<VectorNodeOptions, SelfOptions, RootVectorNodeOptions>()( {

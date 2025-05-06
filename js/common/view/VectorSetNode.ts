@@ -19,7 +19,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import Graph from '../model/Graph.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorSet from '../model/VectorSet.js';
@@ -34,12 +34,12 @@ export default class VectorSetNode extends Node {
 
   public readonly vectorSet: VectorSet;
 
-  private readonly graph: Graph;
+  private readonly graph: VectorAdditionScene;
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
   private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
-  public constructor( graph: Graph,
+  public constructor( graph: VectorAdditionScene,
                       vectorSet: VectorSet,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,

@@ -3,7 +3,7 @@
 /**
  * Model for a single graph on the 'Explore 1D' screen. 'Explore 1D' has a total of 2 graphs (polar and Cartesian).
  *
- * Characteristics of a Explore 1D Graph (which extends Graph) are:
+ * Characteristics of a Explore 1D VectorAdditionScene (which extends VectorAdditionScene) are:
  *  - Explore 1D graphs have exactly 1 vector sets each
  *  - Have a shared sum visible property across all graphs
  *  - are either Horizontal or Vertical
@@ -17,7 +17,7 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
-import Graph from '../../common/model/Graph.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import { GraphOrientation } from '../../common/model/GraphOrientation.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
@@ -42,7 +42,7 @@ const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
 // All graphs on 'Explore 1D' are strictly Cartesian
 const EXPLORE_1D_COORDINATE_SNAP_MODE: CoordinateSnapMode = 'cartesian';
 
-export default class Explore1DGraph extends Graph {
+export default class Explore1DGraph extends VectorAdditionScene {
 
   // Graphs on 'Explore 1D' have exactly one vector set
   public readonly vectorSet: VectorSet;
