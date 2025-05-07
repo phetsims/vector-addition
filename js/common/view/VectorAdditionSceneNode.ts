@@ -134,8 +134,11 @@ export default class VectorAdditionSceneNode extends Node {
     // a layer for each VectorSet
     this.vectorSetNodes = [];
     scene.vectorSets.forEach( vectorSet => {
-      const vectorSetNode = new VectorSetNode( scene, vectorSet,
-        viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentVectorStyleProperty );
+
+      const vectorSetNode = new VectorSetNode( scene, vectorSet, viewProperties.valuesVisibleProperty,
+        viewProperties.anglesVisibleProperty, componentVectorStyleProperty,
+        options.tandem.createTandem( `${vectorSet.tandem.name}Node` ) );
+
       this.vectorSetNodesParent.addChild( vectorSetNode );
       this.vectorSetNodes.push( vectorSetNode );
     } );

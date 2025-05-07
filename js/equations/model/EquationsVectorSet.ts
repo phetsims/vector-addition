@@ -22,6 +22,7 @@ import EquationsScene from './EquationsScene.js';
 import EquationsSumVector from './EquationsSumVector.js';
 import EquationsVector from './EquationsVector.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // Describes the initial vectors for Cartesian snap mode. See https://github.com/phetsims/vector-addition/issues/227
 const CARTESIAN_VECTOR_DESCRIPTIONS = [
@@ -73,12 +74,14 @@ export default class EquationsVectorSet extends VectorSet {
    * @param sumVisibleProperty
    * @param vectorColorPalette - color palette for vectors in this set
    * @param coordinateSnapMode - each vector set can only represent one snap mode
+   * @param tandem
    */
   public constructor( scene: EquationsScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
-                      coordinateSnapMode: CoordinateSnapMode ) {
+                      coordinateSnapMode: CoordinateSnapMode,
+                      tandem: Tandem ) {
 
     const options = {
 
@@ -88,7 +91,9 @@ export default class EquationsVectorSet extends VectorSet {
 
       // offsets for sum component vectors in PROJECTION style
       sumProjectionXOffset: 0.5,
-      sumProjectionYOffset: 0.5
+      sumProjectionYOffset: 0.5,
+
+      tandem: tandem
     };
 
     super( scene, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, options );

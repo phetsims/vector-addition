@@ -68,7 +68,9 @@ export default class Explore1DScene extends VectorAdditionScene {
       tandem: tandem
     } );
 
-    this.vectorSet = new VectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette );
+    this.vectorSet = new VectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, {
+      tandem: tandem.createTandem( 'vectorSet' )
+    } );
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );

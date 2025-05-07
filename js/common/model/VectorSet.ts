@@ -13,7 +13,6 @@
  */
 
 import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
@@ -26,6 +25,8 @@ import SumVector from './SumVector.js';
 import Vector from './Vector.js';
 import VectorColorPalette from './VectorColorPalette.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
 
@@ -46,9 +47,9 @@ type SelfOptions = {
   sumProjectionYOffset?: number;
 };
 
-type VectorSetOptions = SelfOptions;
+type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class VectorSet {
+export default class VectorSet extends PhetioObject {
 
   // This array contains only what is referred to as main or parent vectors. It does not contain sum vectors,
   // component vectors, or base vectors.
@@ -70,13 +71,13 @@ export default class VectorSet {
    * @param componentVectorStyleProperty - component style for all vectors
    * @param sumVisibleProperty - controls whether the sum vector is visible
    * @param vectorColorPalette - color palette for vectors in this set
-   * @param [providedOptions]
+   * @param providedOptions
    */
   public constructor( scene: VectorAdditionScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
-                      providedOptions?: VectorSetOptions ) {
+                      providedOptions: VectorSetOptions ) {
 
     const graph = scene.graph;
 
@@ -89,7 +90,7 @@ export default class VectorSet {
     const offsetStart = ( modelHeadWidth / 2 ) + axisSpacing;
     const offsetDelta = modelHeadWidth;
 
-    const options = optionize<VectorSetOptions, SelfOptions>()( {
+    const options = optionize<VectorSetOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       initializeSum: true,
@@ -99,8 +100,14 @@ export default class VectorSet {
       projectionXOffsetDelta: -offsetDelta,
       projectionYOffsetDelta: -offsetDelta,
       sumProjectionXOffset: offsetStart,
-      sumProjectionYOffset: offsetStart
+      sumProjectionYOffset: offsetStart,
+
+      // PhetioObjectOptions
+      isDisposable: false,
+      phetioState: false
     }, providedOptions );
+
+    super( options );
 
     this.vectors = createObservableArray();
     this.vectorColorPalette = vectorColorPalette;
@@ -130,10 +137,6 @@ export default class VectorSet {
         this.vectors.get( i ).setProjectionOffsets( xOffset, yOffset );
       }
     } );
-  }
-
-  public dispose(): void {
-    Disposable.assertNotDisposable();
   }
 
   public get sumVector(): SumVector | null {

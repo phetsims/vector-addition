@@ -29,6 +29,7 @@ import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import SumComponentVectorNode from './SumComponentVectorNode.js';
 import SumVectorNode from './SumVectorNode.js';
 import VectorNode from './VectorNode.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class VectorSetNode extends Node {
 
@@ -43,7 +44,8 @@ export default class VectorSetNode extends Node {
                       vectorSet: VectorSet,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
-                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle> ) {
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                      tandem: Tandem ) {
 
     const sumVector = vectorSet.sumVector!;
     assert && assert( sumVector !== null );
@@ -59,7 +61,9 @@ export default class VectorSetNode extends Node {
 
     super( {
       children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ],
-      isDisposable: false
+      isDisposable: false,
+      tandem: tandem,
+      phetioVisiblePropertyInstrumented: false
     } );
 
     this.vectorSet = vectorSet;
@@ -83,6 +87,8 @@ export default class VectorSetNode extends Node {
         sumVectorNode.moveToFront();
       }
     } );
+
+    this.addLinkedElement( vectorSet );
   }
 
   /**

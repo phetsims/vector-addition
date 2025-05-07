@@ -72,7 +72,9 @@ export default class LabScene extends VectorAdditionScene {
 
       // non-sum component vectors are interleaved with vectorSet2, overlap is OK
       projectionXOffsetDelta: offsetDelta,
-      projectionYOffsetDelta: offsetDelta
+      projectionYOffsetDelta: offsetDelta,
+      
+      tandem: tandem.createTandem( 'vectorSet1' )
     } );
 
     this.vectorSet2 = new VectorSet( this, componentVectorStyleProperty, sum2VisibleProperty, vectorColorPalette2, {
@@ -90,7 +92,9 @@ export default class LabScene extends VectorAdditionScene {
 
       // sum component vectors are spaced so that they don't overlap with vectorSet1
       sumProjectionXOffset: this.vectorSet1.sumProjectionXOffset + modelHeadWidth,
-      sumProjectionYOffset: this.vectorSet1.sumProjectionYOffset + modelHeadWidth
+      sumProjectionYOffset: this.vectorSet1.sumProjectionYOffset + modelHeadWidth,
+
+      tandem: tandem.createTandem( 'vectorSet2' )
     } );
 
     // Add the vector sets

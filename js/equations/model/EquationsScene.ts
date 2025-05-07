@@ -61,7 +61,8 @@ export default class EquationsScene extends VectorAdditionScene {
       tandem: tandem.createTandem( 'equationTypeProperty' )
     } );
 
-    this.vectorSet = new EquationsVectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, coordinateSnapMode );
+    this.vectorSet = new EquationsVectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette,
+      coordinateSnapMode, tandem.createTandem( 'vectorSet' ) );
 
     this.vectorSets.push( this.vectorSet );
   }
