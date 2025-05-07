@@ -6,7 +6,7 @@ This document is a high-level description of the model used in PhET's _Vector Ad
 
 The _Explore 1D_ screen facilitates exploration of vectors in 1 dimension. 
 
-There are 2 "scenes", which constrain vectors to 1 dimension.
+There are 2 "scenes", which constrain vectors to 1 dimension. Selection of the scene is controlled by the radio buttons at the lower-right of the screen.
 
 In the horizontal scene:
 
@@ -20,8 +20,6 @@ In the vertical scene:
 * the x component of all vectors is zero
 * the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407;
 
-Selection of the scene is controlled by the radio buttons at the lower-right of the screen.
-
 To manipulate vectors:
 
 * Add/remove vectors by dragging them between the toolbox and the graph.
@@ -33,8 +31,8 @@ To manipulate vectors:
 The _Explore 2D_ screen facilitates exploration of vectors in 2 dimensions, and introduces component vectors (and their
 various representations).
 
-There are 2 "scenes", each with a "snap mode" that determine which vector quantities snap to integer values.
-Selection of the scene is controlled by the radio buttons at the lower-right of the screen.
+There are 2 "scenes", each with a "snap mode" that determines which vector quantities snap to integer values. Selection
+of the scene is controlled by the radio buttons at the lower-right of the screen.
 
 In the Cartesian scene:
 
