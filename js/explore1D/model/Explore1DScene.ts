@@ -1,14 +1,12 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Model for a single graph on the 'Explore 1D' screen. 'Explore 1D' has a total of 2 graphs (polar and Cartesian).
+ * Explore1DScene is a scene in the 'Explore 1D' screen.
  *
- * Characteristics of a Explore 1D VectorAdditionScene (which extends VectorAdditionScene) are:
- *  - Explore 1D graphs have exactly 1 vector sets each
- *  - Have a shared sum visible property across all graphs
- *  - are either Horizontal or Vertical
- *  - Are strictly Cartesian
- *  - Same width/height as default graph bounds, but the origin is in the center
+ * Characteristics of an Explore1DScene are:
+ *  - it has 1 vector set
+ *  - the graph orientation is either horizontal or vertical
+ *  - it snaps to Cartesian coordinates
  *
  * @author Brandon Li
  */

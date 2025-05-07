@@ -1,13 +1,11 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Model for a single graph on the 'Explore 2D' screen. 'Explore 2D' has a total of 2 graphs (polar and Cartesian).
+ * Explore2DScene is a scene in the 'Explore 2D' screen.
  *
- * Characteristics of a Explore 2D VectorAdditionScene (which extends VectorAdditionScene) are:
- *  - Explore 2D graphs have exactly 1 vector sets each
- *  - Has its own sum visible property respectively
- *  - Two-dimensional
- *  - Has a color palette for the vectors on the graph
+ * Characteristics of an Explore2DScene are:
+ *  - it snaps to either Cartesian or polar coordinates
+ *  - it has 1 vector set
  *
  * @author Brandon Li
  */

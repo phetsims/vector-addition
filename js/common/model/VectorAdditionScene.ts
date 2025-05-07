@@ -1,12 +1,13 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorAdditionScene is the base class for graphs, intended to be subclassed. A screen can have multiple graphs.
+ * VectorAdditionScene is the base class for scenes, intended to be subclassed. A screen can have multiple scenes.
  *
- * Graphs are responsible for:
+ * A scene is responsible for:
  *   - Keeping track of where the origin is dragged and updating a modelViewTransformProperty.
  *   - Keeping track of the active (selected) vector on a graph.
- *   - Managing one or more VectorSets
+ *   - Managing one or more VectorSets.
+ *   - Creating the graph.
  *
  * @author Brandon Li
  */

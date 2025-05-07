@@ -1,7 +1,11 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * LabScene is a specialization of VectorAdditionScene for the 'Lab' screen. 'Lab' has 2 VectorAdditionScene instances (polar and Cartesian).
+ * LabScene is a scene in the 'Lab' screen.
+ *
+ * Characteristics of a LabScene are:
+ *  - it snaps to either Cartesian or polar coordinates
+ *  - it has 2 vector set
  *
  * @author Brandon Li
  */

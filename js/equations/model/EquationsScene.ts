@@ -1,11 +1,12 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Model for a single graph on the 'Equations' screen, which has 2 graphs (Polar and Cartesian).
+ * EquationsScene is a scene in the 'Equations' screen.
  *
- * Characteristics of an EquationsScene (which extends VectorAdditionScene) are:
- *  - have exactly 1 VectorSet
- *  - has a Property to select the equation type (addition/subtraction/negation) per graph
+ * Characteristics of an EquationsScene are:
+ *  - it snaps to either Cartesian or polar coordinates
+ *  - it has 1 VectorSet
+ *  - it has a Property to select the equation type (addition/subtraction/negation) per graph
  *
  * @author Brandon Li
  */
