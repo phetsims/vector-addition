@@ -16,13 +16,14 @@ import EquationsScene from './EquationsScene.js';
 
 export default class EquationsModel extends VectorAdditionModel {
 
-  public readonly sumVisibleProperty: Property<boolean>;
-
   // Scene for Cartesian snap mode
   public readonly cartesianScene: EquationsScene;
 
   // Scene for Polar snap mode
   public readonly polarScene: EquationsScene;
+
+  // Visibility of the sum vector, shared by both scenes.
+  public readonly sumVisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
 

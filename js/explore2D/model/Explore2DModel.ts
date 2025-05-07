@@ -17,14 +17,14 @@ import Explore2DScene from './Explore2DScene.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 
-  // Property controlling the visibility of the sum for both VectorAdditionScene instances
-  public readonly sumVisibleProperty: Property<boolean>;
-
   // Scene for Cartesian snap mode
   public readonly cartesianScene: Explore2DScene;
 
   // Scene for Polar snap mode
   public readonly polarScene: Explore2DScene;
+
+  // Visibility of the sum vector, shared by both scenes.
+  public readonly sumVisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
 

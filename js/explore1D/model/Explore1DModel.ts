@@ -17,14 +17,14 @@ import Explore1DScene from './Explore1DScene.js';
 
 export default class Explore1DModel extends VectorAdditionModel {
 
-  // Property controlling the visibility of the sum for both VectorAdditionScene instances
-  public readonly sumVisibleProperty: Property<boolean>;
-
   // Scene for the horizontal (x-axis) orientation
   public readonly horizontalScene: Explore1DScene;
 
   // Scene for the vertical (y-axis) orientation
   public readonly verticalScene: Explore1DScene;
+
+  // Visibility of the sum vector, shared by both scenes.
+  public readonly sumVisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
 

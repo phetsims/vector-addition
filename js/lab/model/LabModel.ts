@@ -17,17 +17,17 @@ import LabScene from './LabScene.js';
 
 export default class LabModel extends VectorAdditionModel {
 
-  // visibility of the sum for the first vector set
-  public readonly sum1VisibleProperty: Property<boolean>;
-
-  // visibility of the sum for the second vector set
-  public readonly sum2VisibleProperty: Property<boolean>;
-
   // Scene for Cartesian snap mode
   public readonly cartesianScene: LabScene;
 
   // Scene for Polar snap mode
   public readonly polarScene: LabScene;
+
+  // Visibility of the sum vector for the first vector set, shared by both scenes.
+  public readonly sum1VisibleProperty: Property<boolean>;
+
+  // Visibility of the sum vector for the second vector set, shared by both scenes.
+  public readonly sum2VisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
 
@@ -36,6 +36,7 @@ export default class LabModel extends VectorAdditionModel {
     this.sum1VisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
       tandem: tandem.createTandem( 'sum1VisibleProperty' )
     } );
+
     this.sum2VisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
       tandem: tandem.createTandem( 'sum2VisibleProperty' )
     } );
