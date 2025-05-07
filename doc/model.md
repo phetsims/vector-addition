@@ -39,16 +39,16 @@ To manipulate vectors:
 * scale or rotate a vector by dragging its tip (constrained to the scene's grid)
 * component vectors cannot be directly manipulated
 
-There are 2 "snap modes" that determine which vector quantities snap to integer values. Selection of the snap mode is
-controlled by the radio buttons at the lower-right of the screen.
+There are 2 "scenes", each with a "snap mode" that determine which vector quantities snap to integer values.
+Selection of the scene is controlled by the radio buttons at the lower-right of the screen.
 
-In Cartesian snap mode:
+In the Cartesian scene:
 
 * 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
 * vector x and y components snap to integer values
 * the sum is a&#8407; + b&#8407; + c&#8407; = s&#8407;
 
-In Polar snap mode:
+In the Polar scene:
 
 * 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
 * vector magnitude snaps to integer values
@@ -59,21 +59,21 @@ In Polar snap mode:
 
 The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 
-* each snap mode has 2 sets of vectors (blue and red for Cartesian, purple and green for Polar)
+* each scene has 2 sets of vectors (blue and red for Cartesian, purple and green for Polar)
 * 10 vectors can be created for each set of vectors
 * the sum for a set of n vectors is v&#8407;<sub>1</sub> + v&#8407;<sub>2</sub> + ... + v&#8407;<sub>n</sub> = s&#8407;
 
 ## Equations screen
 
 The _Equations_ screen introduces the concepts of base vectors, equations, and coefficients. Like the _Explore 2D_ and
-_Lab_ screens, it has Cartesian and Polar "snap modes" that determine which vector quantities snap to integer values.
+_Lab_ screens, it has Cartesian and Polar scenes.
 
 The _Equations_ screen has a couple of differences in how the student manipulates vectors:
 
 * Vectors are pre-populated on the scene; the student does not add and remove vectors.
 * Vectors can be moved directly on the scene, but their other properties must be changed using spinners.
 
-In Cartesian snap mode:
+In the Cartesian scene:
 
 * the scene shows vectors labeled a&#8407;, b&#8407;, and c&#8407;
 * base vectors are provided for a&#8407; and b&#8407;
@@ -84,7 +84,7 @@ In Cartesian snap mode:
   * a&#8407; - b&#8407; = c&#8407;
   * a&#8407; + b&#8407; + c&#8407; = 0
 
-In Polar snap mode:
+In the Polar scene:
 
 * the scene shows vectors labeled d&#8407;, e&#8407;, and f&#8407;
 * base vectors are provided for d&#8407; and e&#8407;
