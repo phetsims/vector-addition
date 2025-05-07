@@ -66,7 +66,7 @@ export default class EquationsVector extends Vector {
     // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.
     this.setTipWithInvariants( this.tip );
 
-    // Instantiate a base vector based on snap mode.
+    // Instantiate a base vector based on scene.
     if ( scene.coordinateSnapMode === 'cartesian' ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition,
         this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), scene, vectorSet, symbolProperty );
