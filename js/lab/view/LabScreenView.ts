@@ -9,7 +9,7 @@
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
+import SceneRadioButtonGroup from '../../common/view/SceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
@@ -43,7 +43,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
       } );
 
     // CoordinateSnapMode radio buttons, at lower right
-    const coordinateSnapModeRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
+    const coordinateSnapModeRadioButtonGroup = new SceneRadioButtonGroup(
       model.sceneProperty,
       [ model.cartesianScene, model.polarScene ],
       [

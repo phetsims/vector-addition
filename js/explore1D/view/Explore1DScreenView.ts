@@ -16,7 +16,7 @@ import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import Explore1DSceneNode from './Explore1DSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
+import SceneRadioButtonGroup from '../../common/view/SceneRadioButtonGroup.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -42,7 +42,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       } );
 
     // Radio buttons for selecting a scene, at lower right
-    const sceneRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
+    const sceneRadioButtonGroup = new SceneRadioButtonGroup(
       model.sceneProperty,
       [ model.horizontalScene, model.verticalScene ],
       [ VectorAdditionIconFactory.createGraphOrientationIcon( 'horizontal' ),

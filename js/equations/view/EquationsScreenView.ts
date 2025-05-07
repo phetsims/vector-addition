@@ -10,7 +10,7 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
+import SceneRadioButtonGroup from '../../common/view/SceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsModel from '../model/EquationsModel.js';
@@ -43,7 +43,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       } );
 
     // Radio buttons for selecting a scene, at lower right
-    const sceneRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup<EquationsScene>(
+    const sceneRadioButtonGroup = new SceneRadioButtonGroup<EquationsScene>(
       model.sceneProperty,
       [ model.cartesianScene, model.polarScene ],
       [

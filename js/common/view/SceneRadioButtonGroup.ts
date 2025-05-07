@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * CoordinateSnapModeRadioButtonGroup is the radio button group for switching between scenes.
+ * SceneRadioButtonGroup is the radio button group for switching between scenes.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -20,7 +20,7 @@ type SelfOptions = EmptySelfOptions;
 
 type CoordinateSnapModeRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions & PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
-export default class CoordinateSnapModeRadioButtonGroup<T extends VectorAdditionScene> extends RectangularRadioButtonGroup<T> {
+export default class SceneRadioButtonGroup<T extends VectorAdditionScene> extends RectangularRadioButtonGroup<T> {
 
   public constructor( sceneProperty: Property<T>,
                       scenes: T[],
@@ -47,4 +47,4 @@ export default class CoordinateSnapModeRadioButtonGroup<T extends VectorAddition
   }
 }
 
-vectorAddition.register( 'CoordinateSnapModeRadioButtonGroup', CoordinateSnapModeRadioButtonGroup );
+vectorAddition.register( 'SceneRadioButtonGroup', SceneRadioButtonGroup );
