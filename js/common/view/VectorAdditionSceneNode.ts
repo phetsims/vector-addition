@@ -1,24 +1,20 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View for a scene node. Scene nodes allow screens to have multiple 'scenes'. For instance, 'Explore 2D' has a polar
- * and a Cartesian 'scene' and 'Explore 1D' has a horizontal and a vertical 'scene'.
+ * VectorAdditionSceneNode is the base class for displaying a scene.
  *
- * ## A 'Scene Node' contains:
+ * Contains:
  *  - a single GraphNode
  *  - a single VectorValuesAccordionBox
  *  - Handle z-layering of all vector types (see https://github.com/phetsims/vector-addition/issues/19)
  *  - An option to include an EraserButton
  *  - A method to add a VectorCreatorPanel
  *
- * ## API
+ * API:
  *  - Not required to tell the Scene Node to create the SumVectorNodes and their Components (does this automatically
  *    for each VectorSet in the VectorAdditionScene)
  *  - However, it is required to 'tell' the Scene Node when other Vectors are created (see registerVector()). Once this
  *    is called, the Vector Nodes/Components are made and deleted once the Vector is removed.
- *
- * NOTE: VectorAdditionSceneNode will not toggle its visibility based on when the GraphOrientation or the CoordinateSnapMode
- *       changes. This must be done externally.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -63,11 +59,11 @@ export default class VectorAdditionSceneNode extends Node {
 
   private readonly vectorSets: VectorSet[];
 
-  public constructor( scene: VectorAdditionScene,
-                      sceneProperty: TReadOnlyProperty<VectorAdditionScene>,
-                      viewProperties: VectorAdditionViewProperties,
-                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      providedOptions: SceneNodeOptions ) {
+  protected constructor( scene: VectorAdditionScene,
+                         sceneProperty: TReadOnlyProperty<VectorAdditionScene>,
+                         viewProperties: VectorAdditionViewProperties,
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                         providedOptions: SceneNodeOptions ) {
 
     const options = optionize<SceneNodeOptions, SelfOptions, NodeOptions>()( {
 
@@ -128,7 +124,6 @@ export default class VectorAdditionSceneNode extends Node {
       // Disable the eraser button when the number of vectors on the graph is zero, that is, when all vector sets
       // contain no vectors. This is a bit more complicated than it should be, but it was added late in the
       // development process.
-      // unmultilink is unnecessary, exists for the lifetime of the sim.
       const lengthProperties = _.map( scene.vectorSets, vectorSet => vectorSet.vectors.lengthProperty );
       Multilink.multilinkAny( lengthProperties, () => {
         const numberOfVectors = _.sumBy( lengthProperties, lengthProperty => lengthProperty.value );
