@@ -25,13 +25,11 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
-import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
-import BaseVector from '../../equations/model/BaseVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
@@ -151,7 +149,7 @@ export default class SceneNode extends Node {
   /**
    * Gets the VectorSetNode associated with a VectorSet.
    */
-  private getVectorSetNode( vectorSet: VectorSet ): VectorSetNode {
+  protected getVectorSetNode( vectorSet: VectorSet ): VectorSetNode {
     const index = this.vectorSets.indexOf( vectorSet );
     assert && assert( index !== -1, 'vectorSet not found' );
     return this.vectorSetNodes[ index ];
@@ -165,13 +163,6 @@ export default class SceneNode extends Node {
    */
   public registerVector( vector: Vector, vectorSet: VectorSet, forwardingEvent?: PressListenerEvent ): void {
     this.getVectorSetNode( vectorSet ).registerVector( vector, forwardingEvent );
-  }
-
-  /**
-   * Adds a base vector Node to the scene.  Delegates to VectorSetNode.
-   */
-  protected addBaseVectorNode( vectorSet: VectorSet, baseVector: BaseVector, baseVectorsVisibleProperty: Property<boolean> ): void {
-    this.getVectorSetNode( vectorSet ).addBaseVectorNode( baseVector, baseVectorsVisibleProperty, vectorSet.vectorColorPalette );
   }
 
   /**
