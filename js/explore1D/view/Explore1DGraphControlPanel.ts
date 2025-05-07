@@ -21,6 +21,8 @@ import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridChec
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Explore1DScene from '../model/Explore1DScene.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -30,6 +32,7 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
 
   public constructor( horizontalVectorSet: VectorSet,
                       verticalVectorSet: VectorSet,
+                      sceneProperty: TReadOnlyProperty<Explore1DScene>,
                       viewProperties: Explore1DViewProperties,
                       providedOptions: Explore1DGraphControlPanelOptions ) {
 
@@ -37,10 +40,10 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
 
     // Sum checkbox, with vector color determined by graph orientation.
     const sumCheckbox = new SumCheckbox( horizontalVectorSet.sumVisibleProperty, {
-      vectorIconFill: new DerivedProperty( [ viewProperties.graphOrientationProperty ], graphOrientation =>
-        graphOrientation === 'horizontal' ? horizontalVectorSet.vectorColorPalette.sumFill : verticalVectorSet.vectorColorPalette.sumFill ),
-      vectorIconStroke: new DerivedProperty( [ viewProperties.graphOrientationProperty ], graphOrientation =>
-        graphOrientation === 'horizontal' ? horizontalVectorSet.vectorColorPalette.sumStroke : verticalVectorSet.vectorColorPalette.sumStroke ),
+      vectorIconFill: new DerivedProperty( [ sceneProperty ], scene =>
+        scene.graph.orientation === 'horizontal' ? horizontalVectorSet.vectorColorPalette.sumFill : verticalVectorSet.vectorColorPalette.sumFill ),
+      vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene =>
+        scene.graph.orientation === 'horizontal' ? horizontalVectorSet.vectorColorPalette.sumStroke : verticalVectorSet.vectorColorPalette.sumStroke ),
       tandem: options.tandem.createTandem( 'sumCheckbox' )
     } );
 

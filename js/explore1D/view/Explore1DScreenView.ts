@@ -35,6 +35,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     const graphControlPanel = new Explore1DGraphControlPanel(
       model.horizontalScene.vectorSet,
       model.verticalScene.vectorSet,
+      model.sceneProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: graphViewBounds.top,
@@ -73,7 +74,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
 
     // Cancel interactions when switching scenes.
-    this.viewProperties.graphOrientationProperty.link( () => this.interruptSubtreeInput() );
+    model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
     const screenViewRootNode = new Node( {
       children: [
