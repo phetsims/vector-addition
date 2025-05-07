@@ -30,7 +30,6 @@ export default class ComponentVectorStyleRadioButtonGroup extends RectangularRad
 
     const options = combineOptions<RectangularRadioButtonGroupOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
       isDisposable: false,
-      resize: false, //TODO https://github.com/phetsims/vector-addition/issues/258 How do we want layout to behave when hiding individual buttons?
 
       // These options are a bit of a hack to implement a 2x2 grid.
       // Values were set empirically to make the vertical and horizontal spacing look the same.
