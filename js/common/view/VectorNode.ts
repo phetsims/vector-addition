@@ -79,12 +79,12 @@ export default class VectorNode extends RootVectorNode {
     assert && assert( cursor );
 
     super( vector,
-      scene.modelViewTransformProperty,
+      scene.graph.modelViewTransformProperty,
       valuesVisibleProperty,
       scene.activeVectorProperty,
       options );
 
-    this.modelViewTransformProperty = scene.modelViewTransformProperty;
+    this.modelViewTransformProperty = scene.graph.modelViewTransformProperty;
     this.vector = vector;
 
     //----------------------------------------------------------------------------------------
@@ -96,7 +96,7 @@ export default class VectorNode extends RootVectorNode {
 
     // Create a Node representing the arc of an angle and the numerical display of the angle.
     // dispose is necessary because it observes angleVisibleProperty.
-    const angleNode = new VectorAngleNode( vector, angleVisibleProperty, scene.modelViewTransformProperty );
+    const angleNode = new VectorAngleNode( vector, angleVisibleProperty, scene.graph.modelViewTransformProperty );
 
     // Create a shadow for the vector, visible when the vector is being dragged around off the graph.
     const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, SHADOW_OPTIONS );
@@ -139,7 +139,7 @@ export default class VectorNode extends RootVectorNode {
             .viewToModelDelta( this.translationDragListener.localPoint ).plus( this.vector.tail );
 
           // If the cursor is on the graph, drop the vector on the graph.
-          if ( scene.bounds.containsPoint( cursorPosition ) ) {
+          if ( scene.graph.bounds.containsPoint( cursorPosition ) ) {
 
             // Drop the vector where the shadow was positioned
             const shadowOffset = this.modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
@@ -171,7 +171,7 @@ export default class VectorNode extends RootVectorNode {
         const cursorPositionModel = this.modelViewTransformProperty.value
           .viewToModelDelta( this.translationDragListener.localPoint ).plus( tailPositionModel );
 
-        if ( vector.isOnGraphProperty.value && !scene.bounds.containsPoint( cursorPositionModel ) ) {
+        if ( vector.isOnGraphProperty.value && !scene.graph.bounds.containsPoint( cursorPositionModel ) ) {
           vector.popOffOfGraph();
         }
       }

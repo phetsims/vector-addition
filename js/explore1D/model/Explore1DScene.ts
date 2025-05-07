@@ -60,8 +60,11 @@ export default class Explore1DScene extends VectorAdditionScene {
 
     assert && assert( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ) );
 
-    super( EXPLORE_1D_GRAPH_BOUNDS, EXPLORE_1D_COORDINATE_SNAP_MODE, {
-      orientation: graphOrientation,
+    super( EXPLORE_1D_COORDINATE_SNAP_MODE, {
+      graphOptions: {
+        initialBounds: EXPLORE_1D_GRAPH_BOUNDS,
+        orientation: graphOrientation
+      },
       tandem: tandem
     } );
 

@@ -23,12 +23,12 @@ type Explore1DVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreator
 export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
   /**
-   * @param graph
+   * @param scene
    * @param sceneNode
    * @param symbolProperties - the symbols corresponding to each slot
    * @param providedOptions
    */
-  public constructor( graph: Explore1DScene,
+  public constructor( scene: Explore1DScene,
                       sceneNode: SceneNode,
                       symbolProperties: TReadOnlyProperty<string>[],
                       providedOptions: Explore1DVectorCreatorPanelOptions ) {
@@ -36,18 +36,18 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
     const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 
       // VectorCreatorPanelOptions
-      slotSpacing: ( graph.orientation === 'vertical' ) ? 18 : 32
+      slotSpacing: ( scene.graph.orientation === 'vertical' ) ? 18 : 32
     }, providedOptions );
 
     // Create the initial vector components, they are the same for every symbol.
     // See https://github.com/phetsims/vector-addition/issues/227
-    const isHorizontal = ( graph.orientation === 'horizontal' );
+    const isHorizontal = ( scene.graph.orientation === 'horizontal' );
     const initialVectorComponents = isHorizontal ? new Vector2( 5, 0 ) : new Vector2( 0, 5 );
 
     // Create a slot for each symbol
     const panelSlots: VectorCreatorPanelSlot[] = [];
     symbolProperties.forEach( symbolProperty => {
-      panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents, {
+      panelSlots.push( new VectorCreatorPanelSlot( scene, scene.vectorSet, sceneNode, initialVectorComponents, {
         symbolProperty: symbolProperty,
         iconArrowMagnitude: 35,
 

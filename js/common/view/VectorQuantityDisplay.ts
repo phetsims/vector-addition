@@ -47,9 +47,10 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     //----------------------------------------------------------------------------------------
 
     // Convenience variables. These are constant for the entire sim.
-    const maxMagnitude = scene.bounds.rightTop.distance( scene.bounds.leftBottom );
-    const graphWidth = scene.bounds.width;
-    const graphHeight = scene.bounds.height;
+    const graphBounds = scene.graph.bounds;
+    const maxMagnitude = graphBounds.rightTop.distance( graphBounds.leftBottom );
+    const graphWidth = graphBounds.width;
+    const graphHeight = graphBounds.height;
 
     let numberDisplayRange: Range;
 

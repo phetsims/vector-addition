@@ -48,7 +48,10 @@ export default class LabScene extends VectorAdditionScene {
                       vectorColorPalette2: VectorColorPalette,
                       tandem: Tandem ) {
 
-    super( LAB_GRAPH_BOUNDS, coordinateSnapMode, {
+    super( coordinateSnapMode, {
+      graphOptions: {
+        initialBounds: LAB_GRAPH_BOUNDS
+      },
       tandem: tandem
     } );
 
@@ -57,7 +60,7 @@ export default class LabScene extends VectorAdditionScene {
     // See https://github.com/phetsims/vector-addition/issues/225
     const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth;
     assert && assert( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
-    const modelHeadWidth = this.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
+    const modelHeadWidth = this.graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
     const offsetDelta = -( modelHeadWidth / 2 );
 
     this.vectorSet1 = new VectorSet( this, componentVectorStyleProperty, sum1VisibleProperty, vectorColorPalette1, {

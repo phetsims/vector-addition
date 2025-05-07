@@ -93,14 +93,14 @@ export default class Vector extends RootVector {
   /**
    * @param initialTailPosition - starting tail position of the vector
    * @param initialComponents - starting components of the vector
-   * @param graph - the scene the vector belongs to
+   * @param scene - the scene the vector belongs to
    * @param vectorSet - the vector set the vector belongs to
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    * @param [providedOptions] - not propagated to super!
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
-                      graph: VectorAdditionScene,
+                      scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       symbolProperty: TReadOnlyProperty<string> | null,
                       providedOptions?: VectorOptions ) {
@@ -117,7 +117,7 @@ export default class Vector extends RootVector {
 
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovable = options.isRemovable;
-    this.scene = graph;
+    this.scene = scene;
     this.vectorSet = vectorSet;
     this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially );
     this.inProgressAnimation = null;
@@ -125,13 +125,13 @@ export default class Vector extends RootVector {
 
     this.xComponentVector = new ComponentVector( this,
       vectorSet.componentVectorStyleProperty,
-      graph.activeVectorProperty,
+      scene.activeVectorProperty,
       'xComponent'
     );
 
     this.yComponentVector = new ComponentVector( this,
       vectorSet.componentVectorStyleProperty,
-      graph.activeVectorProperty,
+      scene.activeVectorProperty,
       'yComponent'
     );
 
@@ -140,10 +140,10 @@ export default class Vector extends RootVector {
       const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
       this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailPositionView ) );
     };
-    this.scene.modelViewTransformProperty.lazyLink( updateTailPosition );
+    this.scene.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
 
     this.disposeVector = () => {
-      this.scene.modelViewTransformProperty.unlink( updateTailPosition );
+      this.scene.graph.modelViewTransformProperty.unlink( updateTailPosition );
       this.xComponentVector.dispose();
       this.yComponentVector.dispose();
       this.inProgressAnimation && this.inProgressAnimation.stop();
@@ -196,13 +196,15 @@ export default class Vector extends RootVector {
 
     assert && assert( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
+    const graph = this.scene.graph;
+
     // Flag to get the tip point that satisfies invariants (to be calculated below)
     let tipPositionWithInvariants: Vector2;
 
     if ( this.scene.coordinateSnapMode === 'cartesian' ) {
 
       // Ensure that the tipPosition is on the scene
-      const tipPositionOnGraph = this.scene.bounds.closestPointTo( tipPosition );
+      const tipPositionOnGraph = graph.bounds.closestPointTo( tipPosition );
 
       // Round the tip to integer grid values
       tipPositionWithInvariants = tipPositionOnGraph.roundedSymmetric();
@@ -221,7 +223,7 @@ export default class Vector extends RootVector {
       const polarVector = vectorComponents.setPolar( roundedMagnitude, roundedAngle );
 
       // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside
-      while ( !this.scene.bounds.containsPoint( this.tail.plus( polarVector ) ) ) {
+      while ( !graph.bounds.containsPoint( this.tail.plus( polarVector ) ) ) {
         polarVector.setMagnitude( polarVector.magnitude - 1 );
       }
 
@@ -229,10 +231,10 @@ export default class Vector extends RootVector {
     }
 
     // Based on the vector orientation, constrain the dragging components
-    if ( this.scene.orientation === 'horizontal' ) {
+    if ( graph.orientation === 'horizontal' ) {
       tipPositionWithInvariants.setY( this.tailY );
     }
-    else if ( this.scene.orientation === 'vertical' ) {
+    else if ( graph.orientation === 'vertical' ) {
       tipPositionWithInvariants.setX( this.tailX );
     }
 
@@ -339,7 +341,7 @@ export default class Vector extends RootVector {
    * of the scene. See https://github.com/phetsims/vector-addition/issues/152
    */
   private getConstrainedTailBounds(): Bounds2 {
-    return this.scene.bounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
+    return this.scene.graph.bounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
   }
 
   /**

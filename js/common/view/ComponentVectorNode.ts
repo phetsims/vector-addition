@@ -69,7 +69,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       } )
     }, providedOptions );
 
-    super( componentVector, scene.modelViewTransformProperty, valuesVisibleProperty, scene.activeVectorProperty, options );
+    super( componentVector, scene.graph.modelViewTransformProperty, valuesVisibleProperty, scene.activeVectorProperty, options );
 
     //----------------------------------------------------------------------------------------
 
@@ -96,7 +96,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       ( componentVectorStyle, isParentActive ) => {
 
         this.updateComponentVector( componentVector,
-          scene.modelViewTransformProperty.value,
+          scene.graph.modelViewTransformProperty.value,
           componentVectorStyle,
           isParentActive );
       } );

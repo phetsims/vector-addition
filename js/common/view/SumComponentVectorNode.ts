@@ -58,7 +58,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
     Multilink.multilink(
       [ sumVisibleProperty, sumVector.isDefinedProperty ],
       () => this.updateComponentVector( componentVector,
-        scene.modelViewTransformProperty.value,
+        scene.graph.modelViewTransformProperty.value,
         componentVectorStyleProperty.value,
         componentVector.isParentVectorActiveProperty.value )
     );

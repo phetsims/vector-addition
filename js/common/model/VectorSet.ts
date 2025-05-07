@@ -78,12 +78,14 @@ export default class VectorSet {
                       vectorColorPalette: VectorColorPalette,
                       providedOptions?: VectorSetOptions ) {
 
+    const graph = scene.graph;
+
     // Compute values for the options that are related to the PROJECTION style component vectors.
     // See https://github.com/phetsims/vector-addition/issues/225
     const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth;
     assert && assert( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
-    const modelHeadWidth = scene.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
-    const axisSpacing = scene.modelViewTransformProperty.value.viewToModelDeltaX( 1.5 );
+    const modelHeadWidth = graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
+    const axisSpacing = graph.modelViewTransformProperty.value.viewToModelDeltaX( 1.5 );
     const offsetStart = ( modelHeadWidth / 2 ) + axisSpacing;
     const offsetDelta = modelHeadWidth;
 
@@ -91,7 +93,7 @@ export default class VectorSet {
 
       // SelfOptions
       initializeSum: true,
-      initialSumTailPosition: scene.bounds.center,
+      initialSumTailPosition: graph.bounds.center,
       projectionXOffsetStart: -offsetStart,
       projectionYOffsetStart: -offsetStart,
       projectionXOffsetDelta: -offsetDelta,

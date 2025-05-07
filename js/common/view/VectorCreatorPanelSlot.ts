@@ -29,13 +29,13 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import SceneNode from './SceneNode.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 
 // The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
 // contains the same local width regardless of the initial vector components. This ensures that
@@ -59,7 +59,7 @@ type VectorCreatorPanelSlotOptions = SelfOptions;
 export default class VectorCreatorPanelSlot extends HBox {
 
   /**
-   * @param scene - the scene to drop the vector onto
+   * @param scene - the scene for the VectorSect
    * @param vectorSet - the VectorSet that the slot adds Vectors to
    * @param sceneNode - the SceneNode that this slot appears in
    * @param initialVectorComponents - the initial vector components to pass to created vectors
@@ -88,7 +88,7 @@ export default class VectorCreatorPanelSlot extends HBox {
     super( { spacing: 5 } );
 
     // convenience reference
-    const modelViewTransform = scene.modelViewTransformProperty.value;
+    const modelViewTransform = scene.graph.modelViewTransformProperty.value;
 
     //----------------------------------------------------------------------------------------
     // Create the icon
@@ -139,7 +139,7 @@ export default class VectorCreatorPanelSlot extends HBox {
       const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
 
       // Convert the view coordinates of where the icon was clicked into model coordinates
-      const vectorCenterModel = scene.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
+      const vectorCenterModel = scene.graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
       // Calculate where the tail position is relative to the scene node
       const vectorTailPosition = vectorCenterModel.minus( initialVectorComponents.timesScalar( 0.5 ) );
@@ -167,7 +167,7 @@ export default class VectorCreatorPanelSlot extends HBox {
         if ( animateBack ) {
 
           // Get the model position of the icon node.
-          const iconPosition = scene.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
+          const iconPosition = scene.graph.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
 
           // Animate the vector to its icon in the panel.
           vector.animateToPoint( iconPosition, iconComponents, () => {

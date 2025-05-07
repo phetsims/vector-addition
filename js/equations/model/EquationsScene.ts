@@ -24,6 +24,7 @@ import { EquationType, EquationTypeValues } from './EquationType.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Graph from '../../common/model/Graph.js';
 
 // constants
 
@@ -31,7 +32,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 const EQUATIONS_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
 // Bottom left corner, in view coordinates.
-const BOTTOM_LEFT = new Vector2( VectorAdditionScene.DEFAULT_BOTTOM_LEFT.x, VectorAdditionScene.DEFAULT_BOTTOM_LEFT.y + 40 );
+const BOTTOM_LEFT = new Vector2( Graph.DEFAULT_BOTTOM_LEFT.x, Graph.DEFAULT_BOTTOM_LEFT.y + 40 );
 
 // Starting equation type
 const STARTING_EQUATION_TYPE: EquationType = 'addition';
@@ -47,8 +48,11 @@ export default class EquationsScene extends VectorAdditionScene {
                       vectorColorPalette: VectorColorPalette,
                       tandem: Tandem ) {
 
-    super( EQUATIONS_GRAPH_BOUNDS, coordinateSnapMode, {
-      bottomLeft: BOTTOM_LEFT,
+    super( coordinateSnapMode, {
+      graphOptions: {
+        initialBounds: EQUATIONS_GRAPH_BOUNDS,
+        bottomLeft: BOTTOM_LEFT
+      },
       tandem: tandem
     } );
 

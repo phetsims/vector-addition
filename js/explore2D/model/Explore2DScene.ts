@@ -32,7 +32,10 @@ export default class Explore2DScene extends VectorAdditionScene {
                       vectorColorPalette: VectorColorPalette,
                       tandem: Tandem ) {
 
-    super( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS, coordinateSnapMode, {
+    super( coordinateSnapMode, {
+      graphOptions: {
+        initialBounds: VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS
+      },
       tandem: tandem
     } );
 

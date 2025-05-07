@@ -28,12 +28,12 @@ export default class Explore1DSceneNode extends SceneNode {
 
     super( scene, viewProperties, componentVectorStyleProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.graphOrientationProperty ],
-        graphOrientation => graphOrientation === scene.orientation ),
+        graphOrientation => graphOrientation === scene.graph.orientation ),
       tandem: tandem
     } );
 
     // Vector symbols depend on graph orientation
-    const vectorSymbolProperties = ( scene.orientation === 'horizontal' ) ?
+    const vectorSymbolProperties = ( scene.graph.orientation === 'horizontal' ) ?
                                    VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
                                    VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 

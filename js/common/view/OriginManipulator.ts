@@ -14,11 +14,11 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
+import Graph from '../model/Graph.js';
 
 // constants
 
@@ -41,10 +41,10 @@ const ORIGIN_OPTIONS = {
 
 export default class OriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
 
-  public constructor( scene: VectorAdditionScene, tandem: Tandem ) {
+  public constructor( graph: Graph, tandem: Tandem ) {
 
     // convenience variable
-    const modelViewTransform = scene.modelViewTransformProperty.value;
+    const modelViewTransform = graph.modelViewTransformProperty.value;
 
     // Origin, in view coordinates
     const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
@@ -63,7 +63,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     this.touchArea = Shape.circle( 0, 0, diameter );
 
     // Create a dragBounds to constrain the drag
-    const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( scene.bounds.eroded( ORIGIN_DRAG_MARGIN ) );
+    const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( graph.bounds.eroded( ORIGIN_DRAG_MARGIN ) );
 
     // Create a Property of to track the view's origin in view coordinates
     const originPositionProperty = new Vector2Property( origin, {
@@ -90,12 +90,12 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     // unlink is unnecessary, exists for the lifetime of the simulation.
     originPositionProperty.lazyLink( originPosition => {
       // Tell the model to update the origin
-      scene.moveOriginToPoint( scene.modelViewTransformProperty.value.viewToModelPosition( originPosition ) );
+      graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originPosition ) );
     } );
 
     // Observe when the model view transform changes to update the position of the circle.
     // unlink is unnecessary, exists for the lifetime of the sim.
-    scene.modelViewTransformProperty.link( modelViewTransform => {
+    graph.modelViewTransformProperty.link( modelViewTransform => {
       this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
     } );
   }
