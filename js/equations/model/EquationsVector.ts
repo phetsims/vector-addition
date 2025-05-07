@@ -69,11 +69,11 @@ export default class EquationsVector extends Vector {
     // Instantiate a base vector based on scene.
     if ( scene.coordinateSnapMode === 'cartesian' ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition, this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        scene, vectorSet, symbolProperty, tandem.createTandem( 'baseVector' ) );
+        scene, vectorSet, symbolProperty, tandem.createTandem( `${this.tandem.name}BaseVector` ) );
     }
     else {
       this.baseVector = new PolarBaseVector( baseVectorTailPosition, this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        scene, vectorSet, symbolProperty, tandem.createTandem( 'baseVector' ) );
+        scene, vectorSet, symbolProperty, tandem.createTandem( `${this.tandem.name}BaseVector` ) );
     }
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.

@@ -177,7 +177,8 @@ export default class VectorSetNode extends Node {
         arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
           fill: vectorColorPalette.baseVectorFill,
           stroke: vectorColorPalette.baseVectorStroke
-        } )
+        } ),
+        tandem: this.tandem.createTandem( `${baseVector.tandem.name}Node` )
       } );
     this.addChild( baseVectorNode );
 
