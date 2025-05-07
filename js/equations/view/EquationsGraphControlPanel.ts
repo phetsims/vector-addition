@@ -12,7 +12,6 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
@@ -20,15 +19,14 @@ import ComponentVectorStyleControl from '../../common/view/ComponentVectorStyleC
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import VectorCheckbox from '../../common/view/VectorCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import EquationsScene from '../model/EquationsScene.js';
+import EquationsSumCheckbox from './EquationsSumCheckbox.js';
+import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,46 +34,19 @@ type EquationsGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class EquationsGraphControlPanel extends GraphControlPanel {
 
-  public constructor( cartesianVectorSet: EquationsVectorSet,
-                      polarVectorSet: EquationsVectorSet,
-                      sceneProperty: TReadOnlyProperty<EquationsScene>,
+  public constructor( sceneProperty: TReadOnlyProperty<EquationsScene>,
+                      cartesianScene: EquationsScene,
+                      polarScene: EquationsScene,
+                      sumVisibleProperty: Property<boolean>,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       viewProperties: EquationsViewProperties,
                       providedOptions: EquationsGraphControlPanelOptions ) {
 
     const options = providedOptions;
 
-    // 'c' checkbox
-    const cartesianSumVector = cartesianVectorSet.sumVector!;
-    assert && assert( cartesianSumVector );
-    const cartesianSumSymbolProperty = cartesianSumVector.symbolProperty!;
-    assert && assert( cartesianSumSymbolProperty );
-    const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianSumSymbolProperty, {
-      vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
-      vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke,
-      visibleProperty: new DerivedProperty( [ sceneProperty ], scene => scene.coordinateSnapMode === 'cartesian' ),
-      tandem: options.tandem.createTandem( 'cartesianVectorCheckbox' )
-    } );
-
-    // 'f' checkbox
-    const polarSumVector = polarVectorSet.sumVector!;
-    assert && assert( polarSumVector );
-    const polarSumSymbolProperty = polarSumVector.symbolProperty!;
-    assert && assert( polarSumSymbolProperty );
-    const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty, polarSumSymbolProperty, {
-      vectorFill: polarVectorSet.vectorColorPalette.sumFill,
-      vectorStroke: polarVectorSet.vectorColorPalette.sumStroke,
-      visibleProperty: new DerivedProperty( [ sceneProperty ], scene => scene.coordinateSnapMode === 'polar' ),
-      tandem: options.tandem.createTandem( 'polarVectorCheckbox' )
-    } );
-
-    // To make all checkboxes the same height
-    const alignBoxOptions = {
-      group: new AlignGroup( {
-        matchHorizontal: false,
-        matchVertical: true
-      } )
-    };
+    // Sum, 'c' or 'f'
+    const sumCheckbox = new EquationsSumCheckbox( sumVisibleProperty, sceneProperty, cartesianScene, polarScene,
+      options.tandem.createTandem( 'sumCheckbox' ) );
 
     // Values
     const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty,
@@ -89,19 +60,22 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
       options.tandem.createTandem( 'gridCheckbox' ) );
 
+    // To make all checkboxes the same height
+    const alignBoxOptions = {
+      group: new AlignGroup( {
+        matchHorizontal: false,
+        matchVertical: true
+      } )
+    };
+
     super( [
 
-      // checkboxes, wrapped with AlignBox so that they are all the same height
+      // checkboxes
       new VBox( {
         spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
         align: 'left',
         children: [
-          new Node( {
-            children: [
-              new AlignBox( cartesianVectorCheckbox, alignBoxOptions ),
-              new AlignBox( polarVectorCheckbox, alignBoxOptions )
-            ]
-          } ),
+          new AlignBox( sumCheckbox, alignBoxOptions ),
           new AlignBox( valuesCheckbox, alignBoxOptions ),
           new AlignBox( anglesCheckbox, alignBoxOptions ),
           new AlignBox( gridCheckbox, alignBoxOptions )

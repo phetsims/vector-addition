@@ -33,9 +33,10 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     // Controls for the graph, at upper right
     const graphControlPanel = new EquationsGraphControlPanel(
-      model.cartesianScene.vectorSet,
-      model.polarScene.vectorSet,
       model.sceneProperty,
+      model.cartesianScene,
+      model.polarScene,
+      model.sumVisibleProperty,
       model.componentVectorStyleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
