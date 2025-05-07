@@ -35,7 +35,9 @@ export default class LabModel extends VectorAdditionModel {
 
   public constructor( tandem: Tandem ) {
 
-    super( tandem );
+    super( {
+      tandem: tandem
+    } );
 
     this.sum1VisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
       tandem: tandem.createTandem( 'sum1VisibleProperty' )
@@ -75,12 +77,12 @@ export default class LabModel extends VectorAdditionModel {
   }
 
   public override reset(): void {
-    super.reset();
-    this.sum1VisibleProperty.reset();
-    this.sum2VisibleProperty.reset();
     this.cartesianScene.reset();
     this.polarScene.reset();
     this.sceneProperty.reset();
+    this.sum1VisibleProperty.reset();
+    this.sum2VisibleProperty.reset();
+    super.reset();
   }
 }
 

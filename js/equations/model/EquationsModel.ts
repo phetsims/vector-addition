@@ -31,7 +31,9 @@ export default class EquationsModel extends VectorAdditionModel {
 
   public constructor( tandem: Tandem ) {
 
-    super( tandem );
+    super( {
+      tandem: tandem
+    } );
 
     this.sumVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'sumVisibleProperty' )
@@ -61,11 +63,11 @@ export default class EquationsModel extends VectorAdditionModel {
   }
 
   public override reset(): void {
-    super.reset();
-    this.sumVisibleProperty.reset();
     this.cartesianScene.reset();
     this.polarScene.reset();
     this.sceneProperty.reset();
+    this.sumVisibleProperty.reset();
+    super.reset();
   }
 }
 

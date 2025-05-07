@@ -32,7 +32,10 @@ export default class Explore1DModel extends VectorAdditionModel {
 
   public constructor( tandem: Tandem ) {
 
-    super( tandem );
+    super( {
+      componentVectorStylePropertyInstrumented: false,
+      tandem: tandem
+    } );
 
     this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
       tandem: tandem.createTandem( 'sumVisibleProperty' )
@@ -64,11 +67,11 @@ export default class Explore1DModel extends VectorAdditionModel {
   }
 
   public override reset(): void {
-    super.reset();
-    this.sumVisibleProperty.reset();
     this.horizontalScene.reset();
     this.verticalScene.reset();
     this.sceneProperty.reset();
+    this.sumVisibleProperty.reset();
+    super.reset();
   }
 }
 

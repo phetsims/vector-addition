@@ -12,17 +12,30 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle, ComponentVectorStyleValues } from './ComponentVectorStyle.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = {
+  componentVectorStylePropertyInstrumented?: boolean;
+};
+
+export type VectorAdditionModelOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class VectorAdditionModel implements TModel {
 
   // the representation (style) used to display component vectors
   public readonly componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>;
 
-  protected constructor( tandem: Tandem ) {
+  protected constructor( providedOptions: VectorAdditionModelOptions ) {
+
+    const options = optionize<VectorAdditionModelOptions, SelfOptions>()( {
+      componentVectorStylePropertyInstrumented: true
+    }, providedOptions );
 
     this.componentVectorStyleProperty = new StringUnionProperty( 'invisible', {
       validValues: ComponentVectorStyleValues,
-      tandem: tandem.createTandem( 'componentVectorStyleProperty' )
+      tandem: options.componentVectorStylePropertyInstrumented ? options.tandem.createTandem( 'componentVectorStyleProperty' ) : Tandem.OPT_OUT
     } );
   }
 
