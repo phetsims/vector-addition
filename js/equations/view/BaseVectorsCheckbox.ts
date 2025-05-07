@@ -16,7 +16,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
 
-  public constructor( baseVectorsVisibleProperty: Property<boolean>, vectorColorPalette: VectorColorPalette, tandem: Tandem ) {
+  public constructor( baseVectorsVisibleProperty: Property<boolean>,
+                      vectorColorPalette: VectorColorPalette,
+                      tandem: Tandem ) {
 
     const icon = VectorAdditionIconFactory.createVectorIcon( 50, {
       fill: vectorColorPalette.baseVectorFill,

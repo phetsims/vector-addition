@@ -30,8 +30,11 @@ export default class CartesianBaseVector extends BaseVector {
    * @param vectorSet - the set that the Base Vector belongs to
    * @param symbolProperty - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
    */
-  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, scene: VectorAdditionScene,
-                      vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
+  public constructor( initialTailPosition: Vector2,
+                      initialComponents: Vector2,
+                      scene: VectorAdditionScene,
+                      vectorSet: VectorSet,
+                      symbolProperty: TReadOnlyProperty<string> ) {
 
     assert && assert( scene.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 

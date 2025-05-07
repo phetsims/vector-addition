@@ -32,7 +32,9 @@ type EquationTypeNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' 
 
 export default class EquationTypeNode extends Node {
 
-  public constructor( vectorSet: EquationsVectorSet, equationType: EquationType, providedOptions: EquationTypeNodeOptions ) {
+  public constructor( vectorSet: EquationsVectorSet,
+                      equationType: EquationType,
+                      providedOptions: EquationTypeNodeOptions ) {
 
     const options = optionize<EquationTypeNodeOptions, SelfOptions, NodeOptions>()( {
 

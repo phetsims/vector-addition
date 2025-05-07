@@ -33,8 +33,11 @@ export default abstract class BaseVector extends Vector {
    * @param vectorSet - the set that the BaseVector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
-  protected constructor( initialTailPosition: Vector2, initialComponents: Vector2, scene: VectorAdditionScene,
-                         vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
+  protected constructor( initialTailPosition: Vector2,
+                         initialComponents: Vector2,
+                         scene: VectorAdditionScene,
+                         vectorSet: VectorSet,
+                         symbolProperty: TReadOnlyProperty<string> ) {
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, OPTIONS );
   }

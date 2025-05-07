@@ -22,7 +22,9 @@ type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelO
 
 export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
-  public constructor( scene: LabScene, sceneNode: VectorAdditionSceneNode, providedOptions: LabVectorCreatorPanelOptions ) {
+  public constructor( scene: LabScene,
+                      sceneNode: VectorAdditionSceneNode,
+                      providedOptions: LabVectorCreatorPanelOptions ) {
 
     const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 

@@ -55,7 +55,9 @@ export default class VectorAngleNode extends Node {
 
   private readonly disposeVectorAngleNode: () => void;
 
-  public constructor( vector: Vector, anglesVisibleProperty: TReadOnlyProperty<boolean>, modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2> ) {
+  public constructor( vector: Vector,
+                      anglesVisibleProperty: TReadOnlyProperty<boolean>,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2> ) {
 
     super();
 
