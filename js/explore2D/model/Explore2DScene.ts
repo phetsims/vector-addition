@@ -23,7 +23,7 @@ import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-export default class Explore2DGraph extends VectorAdditionScene {
+export default class Explore2DScene extends VectorAdditionScene {
 
   // Graphs on 'Explore 2D' have exactly one vector set
   public readonly vectorSet: VectorSet;
@@ -45,4 +45,4 @@ export default class Explore2DGraph extends VectorAdditionScene {
   }
 }
 
-vectorAddition.register( 'Explore2DGraph', Explore2DGraph );
+vectorAddition.register( 'Explore2DScene', Explore2DScene );

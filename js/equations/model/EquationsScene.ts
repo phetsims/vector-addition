@@ -3,7 +3,7 @@
 /**
  * Model for a single graph on the 'Equations' screen, which has 2 graphs (Polar and Cartesian).
  *
- * Characteristics of an EquationsGraph (which extends VectorAdditionScene) are:
+ * Characteristics of an EquationsScene (which extends VectorAdditionScene) are:
  *  - have exactly 1 VectorSet
  *  - has a Property to select the equation type (addition/subtraction/negation) per graph
  *
@@ -35,7 +35,7 @@ const BOTTOM_LEFT = new Vector2( VectorAdditionScene.DEFAULT_BOTTOM_LEFT.x, Vect
 // Starting equation type
 const STARTING_EQUATION_TYPE: EquationType = 'addition';
 
-export default class EquationsGraph extends VectorAdditionScene {
+export default class EquationsScene extends VectorAdditionScene {
 
   public readonly equationTypeProperty: StringUnionProperty<EquationType>;
   public readonly vectorSet: EquationsVectorSet;
@@ -67,4 +67,4 @@ export default class EquationsGraph extends VectorAdditionScene {
   }
 }
 
-vectorAddition.register( 'EquationsGraph', EquationsGraph );
+vectorAddition.register( 'EquationsScene', EquationsScene );

@@ -12,7 +12,7 @@ import SceneNode from '../../common/view/SceneNode.js';
 import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
-import LabGraph from '../model/LabGraph.js';
+import LabScene from '../model/LabScene.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
@@ -22,7 +22,7 @@ type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelO
 
 export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
-  public constructor( graph: LabGraph, sceneNode: SceneNode, providedOptions: LabVectorCreatorPanelOptions ) {
+  public constructor( graph: LabScene, sceneNode: SceneNode, providedOptions: LabVectorCreatorPanelOptions ) {
 
     const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 

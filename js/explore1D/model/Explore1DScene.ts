@@ -42,7 +42,7 @@ const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
 // All graphs on 'Explore 1D' are strictly Cartesian
 const EXPLORE_1D_COORDINATE_SNAP_MODE: CoordinateSnapMode = 'cartesian';
 
-export default class Explore1DGraph extends VectorAdditionScene {
+export default class Explore1DScene extends VectorAdditionScene {
 
   // Graphs on 'Explore 1D' have exactly one vector set
   public readonly vectorSet: VectorSet;
@@ -74,4 +74,4 @@ export default class Explore1DGraph extends VectorAdditionScene {
   }
 }
 
-vectorAddition.register( 'Explore1DGraph', Explore1DGraph );
+vectorAddition.register( 'Explore1DScene', Explore1DScene );

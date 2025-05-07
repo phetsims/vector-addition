@@ -20,7 +20,7 @@ import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationsGraph from './EquationsGraph.js';
+import EquationsScene from './EquationsScene.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
 
 // constants
@@ -52,7 +52,7 @@ export default class EquationsVector extends Vector {
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       baseVectorTailPosition: Vector2,
-                      graph: EquationsGraph,
+                      graph: EquationsScene,
                       vectorSet: EquationsVectorSet,
                       symbolProperty: TReadOnlyProperty<string> ) {
 

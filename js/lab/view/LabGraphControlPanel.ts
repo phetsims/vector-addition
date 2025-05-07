@@ -23,7 +23,7 @@ import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import LabGraph from '../model/LabGraph.js';
+import LabScene from '../model/LabScene.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
@@ -35,8 +35,8 @@ type LabGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class LabGraphControlPanel extends GraphControlPanel {
 
-  public constructor( cartesianGraph: LabGraph,
-                      polarGraph: LabGraph,
+  public constructor( cartesianGraph: LabScene,
+                      polarGraph: LabScene,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,

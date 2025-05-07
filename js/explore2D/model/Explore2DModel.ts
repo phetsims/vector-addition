@@ -13,7 +13,7 @@ import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore2DGraph from './Explore2DGraph.js';
+import Explore2DScene from './Explore2DScene.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 
@@ -21,10 +21,10 @@ export default class Explore2DModel extends VectorAdditionModel {
   public readonly sumVisibleProperty: Property<boolean>;
 
   // graph for Cartesian snap mode
-  public readonly cartesianGraph: Explore2DGraph;
+  public readonly cartesianGraph: Explore2DScene;
 
   // graph for Polar snap mode
-  public readonly polarGraph: Explore2DGraph;
+  public readonly polarGraph: Explore2DScene;
 
   public constructor( tandem: Tandem ) {
 
@@ -34,7 +34,7 @@ export default class Explore2DModel extends VectorAdditionModel {
       tandem: tandem.createTandem( 'sumVisibleProperty' )
     } );
 
-    this.cartesianGraph = new Explore2DGraph(
+    this.cartesianGraph = new Explore2DScene(
       'cartesian',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
@@ -42,7 +42,7 @@ export default class Explore2DModel extends VectorAdditionModel {
       tandem.createTandem( 'cartesianGraph' )
     );
 
-    this.polarGraph = new Explore2DGraph(
+    this.polarGraph = new Explore2DScene(
       'polar',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,

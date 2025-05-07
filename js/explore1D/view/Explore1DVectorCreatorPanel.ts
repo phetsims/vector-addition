@@ -13,7 +13,7 @@ import SceneNode from '../../common/view/SceneNode.js';
 import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore1DGraph from '../model/Explore1DGraph.js';
+import Explore1DScene from '../model/Explore1DScene.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -28,7 +28,7 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
    * @param symbolProperties - the symbols corresponding to each slot
    * @param providedOptions
    */
-  public constructor( graph: Explore1DGraph,
+  public constructor( graph: Explore1DScene,
                       sceneNode: SceneNode,
                       symbolProperties: TReadOnlyProperty<string>[],
                       providedOptions: Explore1DVectorCreatorPanelOptions ) {

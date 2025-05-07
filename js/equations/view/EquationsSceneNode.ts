@@ -19,7 +19,7 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import SceneNode from '../../common/view/SceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationsGraph from '../model/EquationsGraph.js';
+import EquationsScene from '../model/EquationsScene.js';
 import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationAccordionBox from './EquationAccordionBox.js';
@@ -34,7 +34,7 @@ export default class EquationsSceneNode extends SceneNode {
   public readonly equationAccordionBox: Node;
   public readonly baseVectorsAccordionBox: Node;
 
-  public constructor( graph: EquationsGraph,
+  public constructor( graph: EquationsScene,
                       viewProperties: EquationsViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       graphControlPanelBottom: number,

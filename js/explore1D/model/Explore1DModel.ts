@@ -13,7 +13,7 @@ import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore1DGraph from './Explore1DGraph.js';
+import Explore1DScene from './Explore1DScene.js';
 
 export default class Explore1DModel extends VectorAdditionModel {
 
@@ -21,10 +21,10 @@ export default class Explore1DModel extends VectorAdditionModel {
   public readonly sumVisibleProperty: Property<boolean>;
 
   // graph for the horizontal (x-axis) orientation
-  public readonly horizontalGraph: Explore1DGraph;
+  public readonly horizontalGraph: Explore1DScene;
 
   // graph for the vertical (y-axis) orientation
-  public readonly verticalGraph: Explore1DGraph;
+  public readonly verticalGraph: Explore1DScene;
 
   public constructor( tandem: Tandem ) {
 
@@ -34,7 +34,7 @@ export default class Explore1DModel extends VectorAdditionModel {
       tandem: tandem.createTandem( 'sumVisibleProperty' )
     } );
 
-    this.horizontalGraph = new Explore1DGraph(
+    this.horizontalGraph = new Explore1DScene(
       'horizontal',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
@@ -42,7 +42,7 @@ export default class Explore1DModel extends VectorAdditionModel {
       tandem.createTandem( 'horizontalGraph' )
     );
 
-    this.verticalGraph = new Explore1DGraph(
+    this.verticalGraph = new Explore1DScene(
       'vertical',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,

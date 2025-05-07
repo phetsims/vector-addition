@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * LabGraph is a specialization of VectorAdditionScene for the 'Lab' screen. 'Lab' has 2 VectorAdditionScene instances (polar and Cartesian).
+ * LabScene is a specialization of VectorAdditionScene for the 'Lab' screen. 'Lab' has 2 VectorAdditionScene instances (polar and Cartesian).
  *
  * @author Brandon Li
  */
@@ -22,7 +22,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
-export default class LabGraph extends VectorAdditionScene {
+export default class LabScene extends VectorAdditionScene {
 
   public readonly vectorSet1: VectorSet;
   public readonly vectorSet2: VectorSet;
@@ -91,4 +91,4 @@ export default class LabGraph extends VectorAdditionScene {
   }
 }
 
-vectorAddition.register( 'LabGraph', LabGraph );
+vectorAddition.register( 'LabScene', LabScene );

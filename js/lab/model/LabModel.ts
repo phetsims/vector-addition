@@ -13,7 +13,7 @@ import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
-import LabGraph from './LabGraph.js';
+import LabScene from './LabScene.js';
 
 export default class LabModel extends VectorAdditionModel {
 
@@ -24,10 +24,10 @@ export default class LabModel extends VectorAdditionModel {
   public readonly sum2VisibleProperty: Property<boolean>;
 
   // graph for Cartesian snap mode
-  public readonly cartesianGraph: LabGraph;
+  public readonly cartesianGraph: LabScene;
 
   // graph for Polar snap mode
-  public readonly polarGraph: LabGraph;
+  public readonly polarGraph: LabScene;
 
   public constructor( tandem: Tandem ) {
 
@@ -40,7 +40,7 @@ export default class LabModel extends VectorAdditionModel {
       tandem: tandem.createTandem( 'sum2VisibleProperty' )
     } );
 
-    this.cartesianGraph = new LabGraph(
+    this.cartesianGraph = new LabScene(
       'cartesian',
       this.componentVectorStyleProperty,
       this.sum1VisibleProperty,
@@ -50,7 +50,7 @@ export default class LabModel extends VectorAdditionModel {
       tandem.createTandem( 'cartesianGraph' )
     );
 
-    this.polarGraph = new LabGraph(
+    this.polarGraph = new LabScene(
       'polar',
       this.componentVectorStyleProperty,
       this.sum1VisibleProperty,

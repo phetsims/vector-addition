@@ -14,13 +14,13 @@ import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import LabViewProperties from './LabViewProperties.js';
-import LabGraph from '../model/LabGraph.js';
+import LabScene from '../model/LabScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 
 export default class LabSceneNode extends SceneNode {
 
-  public constructor( graph: LabGraph,
+  public constructor( graph: LabScene,
                       viewProperties: LabViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       graphOrientationRadioButtonGroup: Node, // for layout

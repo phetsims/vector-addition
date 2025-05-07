@@ -18,7 +18,7 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationsGraph from './EquationsGraph.js';
+import EquationsScene from './EquationsScene.js';
 import EquationsSumVector from './EquationsSumVector.js';
 import EquationsVector from './EquationsVector.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
@@ -74,7 +74,7 @@ export default class EquationsVectorSet extends VectorSet {
    * @param vectorColorPalette - color palette for vectors in this set
    * @param coordinateSnapMode - each vector set can only represent one snap mode
    */
-  public constructor( graph: EquationsGraph,
+  public constructor( graph: EquationsScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,

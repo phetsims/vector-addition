@@ -15,12 +15,12 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Explore1DGraph from '../model/Explore1DGraph.js';
+import Explore1DScene from '../model/Explore1DScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class Explore1DSceneNode extends SceneNode {
 
-  public constructor( graph: Explore1DGraph,
+  public constructor( graph: Explore1DScene,
                       viewProperties: Explore1DViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       graphOrientationRadioButtonGroup: Node, // for layout

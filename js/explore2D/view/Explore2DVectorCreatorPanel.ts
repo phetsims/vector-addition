@@ -13,7 +13,7 @@ import SceneNode from '../../common/view/SceneNode.js';
 import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore2DGraph from '../model/Explore2DGraph.js';
+import Explore2DScene from '../model/Explore2DScene.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
 // constants
@@ -44,7 +44,7 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
    * @param symbolProperties - the symbols corresponding to each slot
    * @param providedOptions
    */
-  public constructor( graph: Explore2DGraph,
+  public constructor( graph: Explore2DScene,
                       sceneNode: SceneNode,
                       symbolProperties: TReadOnlyProperty<string>[],
                       providedOptions: Explore2DVectorCreatorPanelOptions ) {
