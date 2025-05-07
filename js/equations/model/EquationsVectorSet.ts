@@ -68,13 +68,13 @@ export default class EquationsVectorSet extends VectorSet {
   public readonly equationsVectors: EquationsVector[];
 
   /**
-   * @param graph
+   * @param scene
    * @param componentVectorStyleProperty
    * @param sumVisibleProperty
    * @param vectorColorPalette - color palette for vectors in this set
    * @param coordinateSnapMode - each vector set can only represent one snap mode
    */
-  public constructor( graph: EquationsScene,
+  public constructor( scene: EquationsScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
@@ -91,7 +91,7 @@ export default class EquationsVectorSet extends VectorSet {
       sumProjectionYOffset: 0.5
     };
 
-    super( graph, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, options );
+    super( scene, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
     this.symbolProperties = ( coordinateSnapMode === 'cartesian' ) ?
                             VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
@@ -120,7 +120,7 @@ export default class EquationsVectorSet extends VectorSet {
         vectorDescription.vectorTail,
         vectorDescription.vectorComponents,
         vectorDescription.baseVectorTail,
-        graph,
+        scene,
         this,
         this.symbolProperties[ i ] );
 
@@ -130,7 +130,7 @@ export default class EquationsVectorSet extends VectorSet {
 
     // Create the sum vector
     assert && assert( this.symbolProperties.length > 0 );
-    this._sumVector = new EquationsSumVector( graph, this, graph.equationTypeProperty, _.last( this.symbolProperties )! );
+    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, _.last( this.symbolProperties )! );
     this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 

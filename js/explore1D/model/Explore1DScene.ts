@@ -49,7 +49,7 @@ export default class Explore1DScene extends VectorAdditionScene {
    * @param graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
    * @param componentVectorStyleProperty
    * @param sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
-   * @param vectorColorPalette - color palette for vectors on this graph
+   * @param vectorColorPalette - color palette for vectors in this scene
    * @param tandem
    */
   public constructor( graphOrientation: GraphOrientation,

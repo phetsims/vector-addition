@@ -6,7 +6,7 @@
  * Characteristics of an EquationsScene are:
  *  - it snaps to either Cartesian or polar coordinates
  *  - it has 1 VectorSet
- *  - it has a Property to select the equation type (addition/subtraction/negation) per graph
+ *  - it has a Property to select the equation type (addition/subtraction/negation) per scene
  *
  * @author Brandon Li
  */
@@ -27,7 +27,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 
-// graph bounds for EquationsGraphs
+// scene bounds for EquationsGraphs
 const EQUATIONS_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
 // Bottom left corner, in view coordinates.

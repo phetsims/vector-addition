@@ -49,7 +49,7 @@ type VectorValuesAccordionBoxOptions = SelfOptions & StrictOmit<FixedSizeAccordi
 
 export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
-  public constructor( graph: VectorAdditionScene, providedOptions: VectorValuesAccordionBoxOptions ) {
+  public constructor( scene: VectorAdditionScene, providedOptions: VectorValuesAccordionBoxOptions ) {
 
     const options = optionize<VectorValuesAccordionBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
@@ -68,7 +68,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
     // 'No vector selected', displayed when accordion box is expanded and no vector is selected.
     const noVectorSelectedText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
-      visibleProperty: new DerivedProperty( [ graph.activeVectorProperty ], activeVector => activeVector === null ),
+      visibleProperty: new DerivedProperty( [ scene.activeVectorProperty ], activeVector => activeVector === null ),
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: 450
     } );
@@ -78,29 +78,29 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       includeAbsoluteValueBars: true,
       maxWidth: MAGNITUDE_LABEL_MAX_WIDTH
     } );
-    const magnitudeDisplay = new VectorQuantityDisplay( graph, 'magnitude' );
+    const magnitudeDisplay = new VectorQuantityDisplay( scene, 'magnitude' );
 
     const angleSymbolNode = new Text( MathSymbols.THETA, {
       font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
       maxWidth: ANGLE_LABEL_MAX_WIDTH
     } );
-    const angleDisplay = new VectorQuantityDisplay( graph, 'angle' );
+    const angleDisplay = new VectorQuantityDisplay( scene, 'angle' );
 
     const xComponentSymbolNode = new VectorSymbolNode( {
       showVectorArrow: false,
       maxWidth: COMPONENT_LABEL_MAX_WIDTH
     } );
-    const xComponentDisplay = new VectorQuantityDisplay( graph, 'xComponent' );
+    const xComponentDisplay = new VectorQuantityDisplay( scene, 'xComponent' );
 
     const yComponentSymbolNode = new VectorSymbolNode( {
       showVectorArrow: false,
       maxWidth: COMPONENT_LABEL_MAX_WIDTH
     } );
-    const yComponentDisplay = new VectorQuantityDisplay( graph, 'yComponent' );
+    const yComponentDisplay = new VectorQuantityDisplay( scene, 'yComponent' );
 
     // Layout for the labels and displays.
     const vectorQuantitiesHBox = new HBox( {
-      visibleProperty: new DerivedProperty( [ graph.activeVectorProperty ], activeVector => activeVector !== null ),
+      visibleProperty: new DerivedProperty( [ scene.activeVectorProperty ], activeVector => activeVector !== null ),
       spacing: 40,
       children: [
         new HBox( {
@@ -147,8 +147,8 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       yComponentSymbolNode.setCoefficient( coefficient );
     };
 
-    // Update when the graph's activeVectorProperty changes.
-    graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
+    // Update when the scene's activeVectorProperty changes.
+    scene.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
 
       if ( activeVector !== null ) {
 

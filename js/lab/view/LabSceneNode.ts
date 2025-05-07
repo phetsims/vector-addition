@@ -20,20 +20,20 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 
 export default class LabSceneNode extends SceneNode {
 
-  public constructor( graph: LabScene,
+  public constructor( scene: LabScene,
                       viewProperties: LabViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       graphOrientationRadioButtonGroup: Node, // for layout
                       tandem: Tandem ) {
 
-    super( graph, viewProperties, componentVectorStyleProperty, {
+    super( scene, viewProperties, componentVectorStyleProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ],
-        graphOrientation => graphOrientation === graph.coordinateSnapMode ),
+        graphOrientation => graphOrientation === scene.coordinateSnapMode ),
       tandem: tandem
     } );
 
     // Add the vector creator panel
-    this.addVectorCreatorPanel( new LabVectorCreatorPanel( graph, this, {
+    this.addVectorCreatorPanel( new LabVectorCreatorPanel( scene, this, {
       left: graphOrientationRadioButtonGroup.left,
       bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
       tandem: tandem.createTandem( 'vectorCreatorPanel' )

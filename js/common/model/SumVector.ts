@@ -43,14 +43,14 @@ export default class SumVector extends Vector {
 
   /**
    * @param initialTailPosition - starting tail position of the vector
-   * @param graph - graph the sum vector belongs to
+   * @param scene - scene the sum vector belongs to
    * @param vectorSet - the VectorSet that the sum represents
    * @param symbolProperty - the symbol for the sum vector (e.g. 's', 'c', 'f')
    */
-  public constructor( initialTailPosition: Vector2, graph: VectorAdditionScene, vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
+  public constructor( initialTailPosition: Vector2, scene: VectorAdditionScene, vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-    super( initialTailPosition, Vector2.ZERO, graph, vectorSet, symbolProperty, SUM_VECTOR_OPTIONS );
+    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, symbolProperty, SUM_VECTOR_OPTIONS );
 
     this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.lengthProperty.value > 0 );
 
@@ -80,16 +80,16 @@ export default class SumVector extends Vector {
   }
 
   /**
-   * Update the sum vector components. Calculated from all the vectors that are on the graph.
+   * Update the sum vector components. Calculated from all the vectors that are on the scene.
    */
   protected updateSum( vectors: ObservableArray<Vector> ): void {
 
-    // Filter to get only the vectors that are on the graph
+    // Filter to get only the vectors that are on the scene
     const onGraphVectors = vectors.filter( vector => {
       return vector.isOnGraphProperty.value;
     } );
 
-    // Loop through and calculate the sum of all vectors that are on the graph
+    // Loop through and calculate the sum of all vectors that are on the scene
     const sumVectorComponents = new Vector2( 0, 0 );
 
     onGraphVectors.forEach( vector => {
@@ -99,7 +99,7 @@ export default class SumVector extends Vector {
     // Set the sum to the calculated sum
     this.vectorComponents = sumVectorComponents;
 
-    // The sum is defined if there is at least one vector on the graph.
+    // The sum is defined if there is at least one vector on the scene.
     this.isDefinedProperty.value = ( onGraphVectors.length > 0 );
   }
 
@@ -109,11 +109,11 @@ export default class SumVector extends Vector {
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // The sum vector displays its symbol when:
-    // - there is only one sum vector on the graph (see https://github.com/phetsims/vector-addition/issues/241), or
+    // - there is only one sum vector on the scene (see https://github.com/phetsims/vector-addition/issues/241), or
     // - the sum vector is selected, or
     // - a vector in the sum's vector set is selected
-    const activeVector = this.graph.activeVectorProperty.value;
-    const isSymbolDisplayed = this.graph.vectorSets.length === 1 ||
+    const activeVector = this.scene.activeVectorProperty.value;
+    const isSymbolDisplayed = this.scene.vectorSets.length === 1 ||
                               activeVector === this ||
                               this.vectorSet.vectors.some( vector => vector === activeVector );
 

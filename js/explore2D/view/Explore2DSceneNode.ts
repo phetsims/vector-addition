@@ -20,25 +20,25 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 
 export default class Explore2DSceneNode extends SceneNode {
 
-  public constructor( graph: Explore2DScene,
+  public constructor( scene: Explore2DScene,
                       viewProperties: Explore2DViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       graphOrientationRadioButtonGroup: Node, // for layout
                       tandem: Tandem ) {
 
-    super( graph, viewProperties, componentVectorStyleProperty, {
+    super( scene, viewProperties, componentVectorStyleProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ],
-        graphOrientation => graphOrientation === graph.coordinateSnapMode ),
+        graphOrientation => graphOrientation === scene.coordinateSnapMode ),
       tandem: tandem
     } );
 
     // Vector symbols depend on whether snap mode is Cartesian or polar.
-    const vectorSymbolProperties = ( graph.coordinateSnapMode === 'cartesian' ) ?
+    const vectorSymbolProperties = ( scene.coordinateSnapMode === 'cartesian' ) ?
                                    VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
                                    VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 
     // Add the vector creator panel
-    this.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( graph, this, vectorSymbolProperties, {
+    this.addVectorCreatorPanel( new Explore2DVectorCreatorPanel( scene, this, vectorSymbolProperties, {
       left: graphOrientationRadioButtonGroup.left,
       bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
       tandem: tandem.createTandem( 'vectorCreatorPanel' )

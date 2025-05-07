@@ -29,14 +29,14 @@ export default abstract class BaseVector extends Vector {
   /**
    * @param initialTailPosition - starting tail position of the BaseVector
    * @param initialComponents - starting components of the BaseVector
-   * @param graph - the graph the BaseVector belongs to
+   * @param scene - the scene the BaseVector belongs to
    * @param vectorSet - the set that the BaseVector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
-  protected constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: VectorAdditionScene,
+  protected constructor( initialTailPosition: Vector2, initialComponents: Vector2, scene: VectorAdditionScene,
                          vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
-    super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty, OPTIONS );
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, OPTIONS );
   }
 }
 

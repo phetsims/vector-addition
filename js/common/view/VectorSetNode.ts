@@ -34,12 +34,12 @@ export default class VectorSetNode extends Node {
 
   public readonly vectorSet: VectorSet;
 
-  private readonly graph: VectorAdditionScene;
+  private readonly scene: VectorAdditionScene;
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
   private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
-  public constructor( graph: VectorAdditionScene,
+  public constructor( scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
@@ -49,12 +49,12 @@ export default class VectorSetNode extends Node {
     assert && assert( sumVector !== null );
 
     // Every VectorSet has a sum vector and sum component vectors, so create them
-    const sumVectorNode = new SumVectorNode( sumVector, graph,
+    const sumVectorNode = new SumVectorNode( sumVector, scene,
       valuesVisibleProperty, anglesVisibleProperty, vectorSet.sumVisibleProperty
     );
-    const xSumComponentVectorNode = new SumComponentVectorNode( sumVector.xComponentVector, graph,
+    const xSumComponentVectorNode = new SumComponentVectorNode( sumVector.xComponentVector, scene,
       componentVectorStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
-    const ySumComponentVectorNode = new SumComponentVectorNode( sumVector.yComponentVector, graph,
+    const ySumComponentVectorNode = new SumComponentVectorNode( sumVector.yComponentVector, scene,
       componentVectorStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
 
     super( {
@@ -64,14 +64,14 @@ export default class VectorSetNode extends Node {
 
     this.vectorSet = vectorSet;
 
-    this.graph = graph;
+    this.scene = scene;
     this.valuesVisibleProperty = valuesVisibleProperty;
     this.anglesVisibleProperty = anglesVisibleProperty;
     this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     // When the sum vector becomes selected, move it and its component vectors to the front.
     // unlink is unnecessary, exists for the lifetime of the sim.
-    graph.activeVectorProperty.link( activeVector => {
+    scene.activeVectorProperty.link( activeVector => {
       if ( activeVector === sumVectorNode.vector ) {
 
         // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
@@ -95,15 +95,15 @@ export default class VectorSetNode extends Node {
   public registerVector( vector: Vector, forwardingEvent?: PressListenerEvent ): void {
 
     // Create the view for the vector and its component vectors
-    const vectorNode = new VectorNode( vector, this.graph, this.valuesVisibleProperty, this.anglesVisibleProperty );
+    const vectorNode = new VectorNode( vector, this.scene, this.valuesVisibleProperty, this.anglesVisibleProperty );
 
     const xComponentVectorNode = new ComponentVectorNode( vector.xComponentVector,
-      this.graph,
+      this.scene,
       this.componentVectorStyleProperty,
       this.valuesVisibleProperty );
 
     const yComponentVectorNode = new ComponentVectorNode( vector.yComponentVector,
-      this.graph,
+      this.scene,
       this.componentVectorStyleProperty,
       this.valuesVisibleProperty );
 
@@ -130,7 +130,7 @@ export default class VectorSetNode extends Node {
         vectorNode.moveToFront();
       }
     };
-    this.graph.activeVectorProperty.link( activeVectorListener );
+    this.scene.activeVectorProperty.link( activeVectorListener );
 
     // If the Vector is removed from the VectorSet, clean up.
     if ( vector.isRemovable ) {
@@ -147,7 +147,7 @@ export default class VectorSetNode extends Node {
 
           // remove listeners
           this.vectorSet.vectors.removeItemRemovedListener( removalListener );
-          this.graph.activeVectorProperty.unlink( activeVectorListener );
+          this.scene.activeVectorProperty.unlink( activeVectorListener );
         }
       };
 
@@ -164,7 +164,7 @@ export default class VectorSetNode extends Node {
                             vectorColorPalette: VectorColorPalette ): void {
 
     // Node for the base vector
-    const baseVectorNode = new VectorNode( baseVector, this.graph,
+    const baseVectorNode = new VectorNode( baseVector, this.scene,
       this.valuesVisibleProperty,
       this.anglesVisibleProperty, {
         arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
@@ -179,7 +179,7 @@ export default class VectorSetNode extends Node {
 
     // When the base vector becomes active (selected), move it (and the entire vector set) to the front.
     // unlink is unnecessary because base vectors exist for the lifetime of the sim.
-    this.graph.activeVectorProperty.link( activeVector => {
+    this.scene.activeVectorProperty.link( activeVector => {
       if ( activeVector === baseVectorNode.vector ) {
 
         // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94

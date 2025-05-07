@@ -6,7 +6,7 @@
  * Extends VectorNode but adds the following functionality:
  *  - a distinct appearance
  *  - toggle visibility based on the sumVisibleProperty
- *  - disables ability to take the sum vector node off of the graph
+ *  - disables the ability to take the sum vector off of the graph
  *
  * @author Brandon Li
  */
@@ -26,8 +26,11 @@ type SumVectorNodeOptions = SelfOptions & VectorNodeOptions;
 
 export default class SumVectorNode extends VectorNode {
 
-  public constructor( sumVector: SumVector, graph: VectorAdditionScene, valuesVisibleProperty: TReadOnlyProperty<boolean>,
-                      anglesVisibleProperty: TReadOnlyProperty<boolean>, sumVisibleProperty: TReadOnlyProperty<boolean>,
+  public constructor( sumVector: SumVector,
+                      scene: VectorAdditionScene,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                      anglesVisibleProperty: TReadOnlyProperty<boolean>,
+                      sumVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: SumVectorNodeOptions ) {
 
     const options = optionize<SumVectorNodeOptions, SelfOptions, VectorNodeOptions>()( {
@@ -45,13 +48,13 @@ export default class SumVectorNode extends VectorNode {
         ( sumVisible, isDefined ) => ( sumVisible && isDefined ) )
     }, providedOptions );
 
-    super( sumVector, graph, valuesVisibleProperty, anglesVisibleProperty, options );
+    super( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, options );
 
     // Making an active sum vector invisible clears activeVectorProperty.
     // See https://github.com/phetsims/vector-addition/issues/112.
     sumVisibleProperty.link( sumVisible => {
-      if ( !sumVisible && graph.activeVectorProperty.value === sumVector ) {
-        graph.activeVectorProperty.value = null;
+      if ( !sumVisible && scene.activeVectorProperty.value === sumVector ) {
+        scene.activeVectorProperty.value = null;
       }
     } );
 

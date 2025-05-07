@@ -34,7 +34,7 @@ export default class EquationsSceneNode extends SceneNode {
   public readonly equationAccordionBox: Node;
   public readonly baseVectorsAccordionBox: Node;
 
-  public constructor( graph: EquationsScene,
+  public constructor( scene: EquationsScene,
                       viewProperties: EquationsViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       graphControlPanelBottom: number,
@@ -42,10 +42,10 @@ export default class EquationsSceneNode extends SceneNode {
                       equationsAlignGroup: AlignGroup, // used to make all interactive equations the same size
                       tandem: Tandem ) {
 
-    super( graph, viewProperties, componentVectorStyleProperty, {
+    super( scene, viewProperties, componentVectorStyleProperty, {
       includeEraser: false,
       visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ],
-        coordinateSnapMode => coordinateSnapMode === graph.coordinateSnapMode ),
+        coordinateSnapMode => coordinateSnapMode === scene.coordinateSnapMode ),
       tandem: tandem
     } );
 
@@ -53,10 +53,10 @@ export default class EquationsSceneNode extends SceneNode {
     this.vectorValuesAccordionBox.top = VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minY + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN;
 
     // Add the 'Equation' accordion box
-    const equationAccordionBox = new EquationAccordionBox( graph.vectorSet, graph.equationTypeProperty,
+    const equationAccordionBox = new EquationAccordionBox( scene.vectorSet, scene.equationTypeProperty,
       equationButtonsAlignGroup, equationsAlignGroup, {
         expandedProperty: viewProperties.equationAccordionBoxExpandedProperty,
-        centerX: graph.viewBounds.centerX,
+        centerX: scene.viewBounds.centerX,
         top: this.vectorValuesAccordionBox.bottom + 10,
         tandem: tandem.createTandem( 'equationAccordionBox' )
       } );
@@ -65,8 +65,8 @@ export default class EquationsSceneNode extends SceneNode {
 
     // Add the 'Base Vector' accordion box
     const baseVectorsAccordionBox = new BaseVectorsAccordionBox( viewProperties.baseVectorsVisibleProperty,
-      graph.coordinateSnapMode,
-      graph.vectorSet, {
+      scene.coordinateSnapMode,
+      scene.vectorSet, {
         expandedProperty: viewProperties.baseVectorsAccordionBoxExpandedProperty,
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: graphControlPanelBottom + 8,
@@ -76,9 +76,9 @@ export default class EquationsSceneNode extends SceneNode {
     baseVectorsAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
 
     // Add vectors and their base vectors.
-    graph.vectorSet.equationsVectors.forEach( vector => {
-      this.registerVector( vector, graph.vectorSet );
-      this.addBaseVectorNode( graph.vectorSet, vector.baseVector, viewProperties.baseVectorsVisibleProperty );
+    scene.vectorSet.equationsVectors.forEach( vector => {
+      this.registerVector( vector, scene.vectorSet );
+      this.addBaseVectorNode( scene.vectorSet, vector.baseVector, viewProperties.baseVectorsVisibleProperty );
     } );
 
     this.equationAccordionBox = equationAccordionBox;

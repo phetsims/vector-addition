@@ -26,16 +26,16 @@ export default class CartesianBaseVector extends BaseVector {
   /**
    * @param initialTailPosition - starting tail position of the Base Vector
    * @param initialComponents - starting components of the Base Vector
-   * @param graph - the graph the Base Vector belongs to
+   * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
    * @param symbolProperty - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
    */
-  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: VectorAdditionScene,
+  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, scene: VectorAdditionScene,
                       vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
-    assert && assert( graph.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
+    assert && assert( scene.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty );
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty );
 
     this.xComponentProperty = new NumberProperty( this.xComponent );
     this.yComponentProperty = new NumberProperty( this.yComponent );

@@ -22,7 +22,7 @@ type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelO
 
 export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
-  public constructor( graph: LabScene, sceneNode: SceneNode, providedOptions: LabVectorCreatorPanelOptions ) {
+  public constructor( scene: LabScene, sceneNode: SceneNode, providedOptions: LabVectorCreatorPanelOptions ) {
 
     const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 
@@ -32,14 +32,14 @@ export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
     // Create the initial vector components, the same for all vectors in a set.
     // See https://github.com/phetsims/vector-addition/issues/227
-    const initialVectorComponents = ( graph.coordinateSnapMode === 'cartesian' ) ?
+    const initialVectorComponents = ( scene.coordinateSnapMode === 'cartesian' ) ?
                                     new Vector2( 8, 6 ) :
                                     Vector2.createPolar( 8, toRadians( 45 ) );
 
     // Create a slot for each VectorSet
     const slots: VectorCreatorPanelSlot[] = [];
-    graph.vectorSets.forEach( vectorSet => {
-      slots.push( new VectorCreatorPanelSlot( graph, vectorSet, sceneNode, initialVectorComponents, {
+    scene.vectorSets.forEach( vectorSet => {
+      slots.push( new VectorCreatorPanelSlot( scene, vectorSet, sceneNode, initialVectorComponents, {
         iconArrowMagnitude: 57,
         numberOfVectors: 10 // Each slot can create 10 vectors
       } ) );

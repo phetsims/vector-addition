@@ -39,7 +39,7 @@ PhET simulations.
 
 The transform between model and view coordinate frames can be found
 in [VectorAdditionScene](https://github.com/phetsims/vector-addition/blob/main/js/common/model/Graph.ts),
-where `modelViewTransformProperty` is derived from the graph's bounds, and changes when the graph's origin is moved.
+where `modelViewTransformProperty` is derived from the scene's bounds, and changes when the scene's origin is moved.
 This transform inverts the mapping of y-axis values; +y is down in view (scenery) coordinates, up in model coordinates.
 
 ### Memory Management
@@ -66,11 +66,11 @@ be deregistered, or whether the relationship exists for the lifetime of the sim.
 // When the vector becomes active, move it and its components to the front.
 // unlink is required when the vector is removed.
 const activeVectorListener = activeVector => { ... };
-this.graph.activeVectorProperty.link( activeVectorListener );
+this.scene.activeVectorProperty.link( activeVectorListener );
 
-// Observe when the graph's active vector changes and update the vectorComponents link.
+// Observe when the scene's active vector changes and update the vectorComponents link.
 // unlink is unnecessary, exists for the lifetime of the sim.
-graph.activeVectorProperty.link( ... );
+scene.activeVectorProperty.link( ... );
 ```
 
 ### Query Parameters
@@ -118,10 +118,10 @@ Nodes associated with a vector that is removed.
 
 ### Scenes
 
-A scene consists of a graph and its vector set(s). In this sim, there is no "scene" model element, and scenes are
+A scene consists of a scene and its vector set(s). In this sim, there is no "scene" model element, and scenes are
 managed solely by the view.
 [SceneNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/SceneNode.ts)
-is the base class. In the _Explore 1D_ screen, there are 2 scenes, corresponding to the horizontal and vertical graph
+is the base class. In the _Explore 1D_ screen, there are 2 scenes, corresponding to the horizontal and vertical scene
 orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch
 between scenes using the radio buttons that are located at the bottom-right of the ScreenView.
 
@@ -196,13 +196,13 @@ The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has t
 * Three visual representations of component vectors are supported,
   see [ComponentVectorStyle](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.ts).
 * Vector sum and angles can be displayed.
-* The graph's grid can be hidden.
+* The scene's grid can be hidden.
 
 The other screens can be described in terms of their differences from the _Explore 2D_ screen.
 
 _Explore 1D_ screen:
 
-* Scenes are based on graph orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar).
+* Scenes are based on scene orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar).
 * Vectors can be translated and scaled via direct manipulation, but not rotated.
 * Component vectors are not displayed.
 * Vector angles are not displayed.
@@ -222,7 +222,7 @@ _Equations_ screen:
 * Each vector set has one vector (c&#8407; or f&#8407;) whose computation depends on which equation is selected, see
   [EquationType](https://github.com/phetsims/vector-addition/blob/main/js/equations/model/EquationTypes.ts).
 * Equation coefficients can be changed using spinners.
-* Vectors cannot be added to or removed from the graph.
+* Vectors cannot be added to or removed from the scene.
 * Vectors cannot be rotated or scaled via direct manipulation. They must be indirectly rotated/scaled using the spinners
   for base vectors and equations.
 

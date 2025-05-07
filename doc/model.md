@@ -9,9 +9,9 @@ or vertical orientation.
 
 To manipulate vectors:
 
-* add/remove vectors by dragging them between the toolbox and the graph
-* move a vector by dragging its tail (constrained to the graph's grid)
-* scale a vector by dragging its tip (constrained to the graph's grid)
+* add/remove vectors by dragging them between the toolbox and the scene
+* move a vector by dragging its tail (constrained to the scene's grid)
+* scale a vector by dragging its tip (constrained to the scene's grid)
 
 Selection of the orientation is controlled by the radio buttons at the lower-right of the screen.
 
@@ -34,9 +34,9 @@ various representations).
 
 To manipulate vectors:
 
-* add/remove vectors by dragging them between the toolbox and the graph
-* move a vector by dragging its tail (constrained to the graph's grid)
-* scale or rotate a vector by dragging its tip (constrained to the graph's grid)
+* add/remove vectors by dragging them between the toolbox and the scene
+* move a vector by dragging its tail (constrained to the scene's grid)
+* scale or rotate a vector by dragging its tip (constrained to the scene's grid)
 * component vectors cannot be directly manipulated
 
 There are 2 "snap modes" that determine which vector quantities snap to integer values. Selection of the snap mode is
@@ -70,12 +70,12 @@ _Lab_ screens, it has Cartesian and Polar "snap modes" that determine which vect
 
 The _Equations_ screen has a couple of differences in how the student manipulates vectors:
 
-* Vectors are pre-populated on the graph; the student does not add and remove vectors.
-* Vectors can be moved directly on the graph, but their other properties must be changed using spinners.
+* Vectors are pre-populated on the scene; the student does not add and remove vectors.
+* Vectors can be moved directly on the scene, but their other properties must be changed using spinners.
 
 In Cartesian snap mode:
 
-* the graph shows vectors labeled a&#8407;, b&#8407;, and c&#8407;
+* the scene shows vectors labeled a&#8407;, b&#8407;, and c&#8407;
 * base vectors are provided for a&#8407; and b&#8407;
 * x and y components can be changed for base vectors; range is [-10,10], integers
 * coefficients can be changed for a&#8407; and b&#8407;; range is [-5,5], integers
@@ -86,7 +86,7 @@ In Cartesian snap mode:
 
 In Polar snap mode:
 
-* the graph shows vectors labeled d&#8407;, e&#8407;, and f&#8407;
+* the scene shows vectors labeled d&#8407;, e&#8407;, and f&#8407;
 * base vectors are provided for d&#8407; and e&#8407;
 * magnitude and angle can be changed for base vectors
 * base vector magnitude range is [-10,10], integers

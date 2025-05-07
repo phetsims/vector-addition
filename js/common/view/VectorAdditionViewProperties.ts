@@ -29,7 +29,7 @@ export default class VectorAdditionViewProperties {
   // controls the visibility of the angle
   public readonly anglesVisibleProperty: Property<boolean>;
 
-  // indicates if the graph background grid is visible
+  // indicates if the graph's grid is visible
   public readonly gridVisibleProperty: Property<boolean>;
 
   // whether the VectorValuesAccordionBox is expanded

@@ -59,13 +59,16 @@ type VectorCreatorPanelSlotOptions = SelfOptions;
 export default class VectorCreatorPanelSlot extends HBox {
 
   /**
-   * @param graph - the graph to drop the vector onto
+   * @param scene - the scene to drop the vector onto
    * @param vectorSet - the VectorSet that the slot adds Vectors to
    * @param sceneNode - the SceneNode that this slot appears in
    * @param initialVectorComponents - the initial vector components to pass to created vectors
    * @param [providedOptions]
    */
-  public constructor( graph: VectorAdditionScene, vectorSet: VectorSet, sceneNode: SceneNode, initialVectorComponents: Vector2,
+  public constructor( scene: VectorAdditionScene,
+                      vectorSet: VectorSet,
+                      sceneNode: SceneNode,
+                      initialVectorComponents: Vector2,
                       providedOptions?: VectorCreatorPanelSlotOptions ) {
 
     const options = optionize<VectorCreatorPanelSlotOptions, SelfOptions, HBoxOptions>()( {
@@ -85,7 +88,7 @@ export default class VectorCreatorPanelSlot extends HBox {
     super( { spacing: 5 } );
 
     // convenience reference
-    const modelViewTransform = graph.modelViewTransformProperty.value;
+    const modelViewTransform = scene.modelViewTransformProperty.value;
 
     //----------------------------------------------------------------------------------------
     // Create the icon
@@ -136,13 +139,13 @@ export default class VectorCreatorPanelSlot extends HBox {
       const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
 
       // Convert the view coordinates of where the icon was clicked into model coordinates
-      const vectorCenterModel = graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
+      const vectorCenterModel = scene.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
       // Calculate where the tail position is relative to the scene node
       const vectorTailPosition = vectorCenterModel.minus( initialVectorComponents.timesScalar( 0.5 ) );
 
       // Create the new Vector Model
-      const vector = new Vector( vectorTailPosition, initialVectorComponents, graph, vectorSet, options.symbolProperty );
+      const vector = new Vector( vectorTailPosition, initialVectorComponents, scene, vectorSet, options.symbolProperty );
 
       vectorSet.vectors.push( vector );
 
@@ -164,7 +167,7 @@ export default class VectorCreatorPanelSlot extends HBox {
         if ( animateBack ) {
 
           // Get the model position of the icon node.
-          const iconPosition = graph.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
+          const iconPosition = scene.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
 
           // Animate the vector to its icon in the panel.
           vector.animateToPoint( iconPosition, iconComponents, () => {

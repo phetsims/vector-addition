@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Radio button group for switching between the Vertical and Horizontal graph.
+ * Radio button group for switching between the Vertical and Horizontal scene.
  *
  * @author Brandon Li
  */

@@ -33,10 +33,10 @@ export default class VectorQuantityDisplay extends NumberDisplay {
   private readonly vectorQuantity: VectorQuantity;
 
   /**
-   * @param graph - the graph that contains the vectors to display
+   * @param scene - the scene that contains the vectors to display
    * @param vectorQuantity - the vector quantity to display
    */
-  public constructor( graph: VectorAdditionScene, vectorQuantity: VectorQuantity ) {
+  public constructor( scene: VectorAdditionScene, vectorQuantity: VectorQuantity ) {
 
     const options: NumberDisplayOptions = {
       isDisposable: false
@@ -47,9 +47,9 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     //----------------------------------------------------------------------------------------
 
     // Convenience variables. These are constant for the entire sim.
-    const maxMagnitude = graph.bounds.rightTop.distance( graph.bounds.leftBottom );
-    const graphWidth = graph.bounds.width;
-    const graphHeight = graph.bounds.height;
+    const maxMagnitude = scene.bounds.rightTop.distance( scene.bounds.leftBottom );
+    const graphWidth = scene.bounds.width;
+    const graphHeight = scene.bounds.height;
 
     let numberDisplayRange: Range;
 
@@ -91,12 +91,12 @@ export default class VectorQuantityDisplay extends NumberDisplay {
 
     // Create function to update the number display value
     const activeVectorComponentsListener = () => {
-      numberDisplayProperty.value = this.getNumberDisplayValue( graph.activeVectorProperty.value );
+      numberDisplayProperty.value = this.getNumberDisplayValue( scene.activeVectorProperty.value );
     };
 
-    // Observe when the graph's active vector changes and update the vectorComponents link.
+    // Observe when the scene's active vector changes and update the vectorComponents link.
     // unlink is unnecessary, exists for the lifetime of the sim.
-    graph.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
+    scene.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
 
       // unlink the previous link if the old active vector exists
       oldActiveVector && oldActiveVector.vectorComponentsProperty.unlink( activeVectorComponentsListener );

@@ -20,25 +20,25 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class Explore1DSceneNode extends SceneNode {
 
-  public constructor( graph: Explore1DScene,
+  public constructor( scene: Explore1DScene,
                       viewProperties: Explore1DViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       graphOrientationRadioButtonGroup: Node, // for layout
                       tandem: Tandem ) {
 
-    super( graph, viewProperties, componentVectorStyleProperty, {
+    super( scene, viewProperties, componentVectorStyleProperty, {
       visibleProperty: new DerivedProperty( [ viewProperties.graphOrientationProperty ],
-        graphOrientation => graphOrientation === graph.orientation ),
+        graphOrientation => graphOrientation === scene.orientation ),
       tandem: tandem
     } );
 
     // Vector symbols depend on graph orientation
-    const vectorSymbolProperties = ( graph.orientation === 'horizontal' ) ?
+    const vectorSymbolProperties = ( scene.orientation === 'horizontal' ) ?
                                    VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
                                    VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 
     // Add the vector creator panel
-    this.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( graph, this, vectorSymbolProperties, {
+    this.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( scene, this, vectorSymbolProperties, {
       left: graphOrientationRadioButtonGroup.left,
       bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
       tandem: tandem.createTandem( 'vectorCreatorPanel' )

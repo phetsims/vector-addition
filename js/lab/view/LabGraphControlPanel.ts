@@ -35,8 +35,8 @@ type LabGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class LabGraphControlPanel extends GraphControlPanel {
 
-  public constructor( cartesianGraph: LabScene,
-                      polarGraph: LabScene,
+  public constructor( cartesianScene: LabScene,
+                      polarScene: LabScene,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
@@ -47,21 +47,21 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
     const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, {
       vectorIconFill: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        ( coordinateSnapMode === cartesianGraph.coordinateSnapMode ) ?
-        cartesianGraph.vectorSet1.vectorColorPalette.sumFill : polarGraph.vectorSet1.vectorColorPalette.sumFill ),
+        ( coordinateSnapMode === cartesianScene.coordinateSnapMode ) ?
+        cartesianScene.vectorSet1.vectorColorPalette.sumFill : polarScene.vectorSet1.vectorColorPalette.sumFill ),
       vectorIconStroke: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        ( coordinateSnapMode === cartesianGraph.coordinateSnapMode ) ?
-        cartesianGraph.vectorSet1.vectorColorPalette.sumStroke : polarGraph.vectorSet1.vectorColorPalette.sumStroke ),
+        ( coordinateSnapMode === cartesianScene.coordinateSnapMode ) ?
+        cartesianScene.vectorSet1.vectorColorPalette.sumStroke : polarScene.vectorSet1.vectorColorPalette.sumStroke ),
       tandem: options.tandem.createTandem( 'sum1Checkbox' )
     } );
 
     const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, {
       vectorIconFill: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        ( coordinateSnapMode === cartesianGraph.coordinateSnapMode ) ?
-        cartesianGraph.vectorSet2.vectorColorPalette.sumFill : polarGraph.vectorSet2.vectorColorPalette.sumFill ),
+        ( coordinateSnapMode === cartesianScene.coordinateSnapMode ) ?
+        cartesianScene.vectorSet2.vectorColorPalette.sumFill : polarScene.vectorSet2.vectorColorPalette.sumFill ),
       vectorIconStroke: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        ( coordinateSnapMode === cartesianGraph.coordinateSnapMode ) ?
-        cartesianGraph.vectorSet2.vectorColorPalette.sumStroke : polarGraph.vectorSet2.vectorColorPalette.sumStroke ),
+        ( coordinateSnapMode === cartesianScene.coordinateSnapMode ) ?
+        cartesianScene.vectorSet2.vectorColorPalette.sumStroke : polarScene.vectorSet2.vectorColorPalette.sumStroke ),
       tandem: options.tandem.createTandem( 'sum2Checkbox' )
     } );
 

@@ -32,7 +32,7 @@ export default class LabScene extends VectorAdditionScene {
   public readonly vectorSet2: VectorSet;
 
   /**
-   * @param coordinateSnapMode - coordinateSnapMode for the graph
+   * @param coordinateSnapMode - coordinateSnapMode for the scene
    * @param componentVectorStyleProperty
    * @param sum1VisibleProperty - whether the sum for the first VectorSet is visible
    * @param sum2VisibleProperty - whether the sum for the second VectorSet is visible

@@ -66,8 +66,8 @@ export default class Vector extends RootVector {
   // indicates if the vector can be removed
   public readonly isRemovable: boolean;
 
-  // the graph that the vector model belongs to
-  public readonly graph: VectorAdditionScene;
+  // the scene that the vector model belongs to
+  public readonly scene: VectorAdditionScene;
 
   // the vector set that the vector belongs to
   public readonly vectorSet: VectorSet;
@@ -93,7 +93,7 @@ export default class Vector extends RootVector {
   /**
    * @param initialTailPosition - starting tail position of the vector
    * @param initialComponents - starting components of the vector
-   * @param graph - the graph the vector belongs to
+   * @param graph - the scene the vector belongs to
    * @param vectorSet - the vector set the vector belongs to
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    * @param [providedOptions] - not propagated to super!
@@ -117,7 +117,7 @@ export default class Vector extends RootVector {
 
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovable = options.isRemovable;
-    this.graph = graph;
+    this.scene = graph;
     this.vectorSet = vectorSet;
     this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially );
     this.inProgressAnimation = null;
@@ -135,15 +135,15 @@ export default class Vector extends RootVector {
       'yComponent'
     );
 
-    // When the graph's origin changes, update the tail position. unlink is required on dispose.
+    // When the scene's origin changes, update the tail position. unlink is required on dispose.
     const updateTailPosition = ( newModelViewTransform: ModelViewTransform2, oldModelViewTransform: ModelViewTransform2 ) => {
       const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
       this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailPositionView ) );
     };
-    this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
+    this.scene.modelViewTransformProperty.lazyLink( updateTailPosition );
 
     this.disposeVector = () => {
-      this.graph.modelViewTransformProperty.unlink( updateTailPosition );
+      this.scene.modelViewTransformProperty.unlink( updateTailPosition );
       this.xComponentVector.dispose();
       this.yComponentVector.dispose();
       this.inProgressAnimation && this.inProgressAnimation.stop();
@@ -161,7 +161,7 @@ export default class Vector extends RootVector {
 
     // If the vector has a symbol or is active, the vector always displays a symbol.
     let symbolProperty: TReadOnlyProperty<string> | null = null;
-    if ( this.symbolProperty || this.graph.activeVectorProperty.value === this ) {
+    if ( this.symbolProperty || this.scene.activeVectorProperty.value === this ) {
       symbolProperty = ( this.symbolProperty || Vector.FALLBACK_SYMBOL_PROPERTY );
     }
 
@@ -199,16 +199,16 @@ export default class Vector extends RootVector {
     // Flag to get the tip point that satisfies invariants (to be calculated below)
     let tipPositionWithInvariants: Vector2;
 
-    if ( this.graph.coordinateSnapMode === 'cartesian' ) {
+    if ( this.scene.coordinateSnapMode === 'cartesian' ) {
 
-      // Ensure that the tipPosition is on the graph
-      const tipPositionOnGraph = this.graph.bounds.closestPointTo( tipPosition );
+      // Ensure that the tipPosition is on the scene
+      const tipPositionOnGraph = this.scene.bounds.closestPointTo( tipPosition );
 
       // Round the tip to integer grid values
       tipPositionWithInvariants = tipPositionOnGraph.roundedSymmetric();
     }
     else {
-      // this.graph.coordinateSnapMode === CoordinateSnapMode.POLAR
+      // this.scene.coordinateSnapMode === CoordinateSnapMode.POLAR
 
       const vectorComponents = tipPosition.minus( this.tail );
 
@@ -221,7 +221,7 @@ export default class Vector extends RootVector {
       const polarVector = vectorComponents.setPolar( roundedMagnitude, roundedAngle );
 
       // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside
-      while ( !this.graph.bounds.containsPoint( this.tail.plus( polarVector ) ) ) {
+      while ( !this.scene.bounds.containsPoint( this.tail.plus( polarVector ) ) ) {
         polarVector.setMagnitude( polarVector.magnitude - 1 );
       }
 
@@ -229,10 +229,10 @@ export default class Vector extends RootVector {
     }
 
     // Based on the vector orientation, constrain the dragging components
-    if ( this.graph.orientation === 'horizontal' ) {
+    if ( this.scene.orientation === 'horizontal' ) {
       tipPositionWithInvariants.setY( this.tailY );
     }
-    else if ( this.graph.orientation === 'vertical' ) {
+    else if ( this.scene.orientation === 'vertical' ) {
       tipPositionWithInvariants.setX( this.tailX );
     }
 
@@ -260,10 +260,10 @@ export default class Vector extends RootVector {
 
     const constrainedTailBounds = this.getConstrainedTailBounds();
 
-    // Ensure the tail is set in a position so the tail and the tip are on the graph
+    // Ensure the tail is set in a position so the tail and the tip are on the scene
     const tailPositionOnGraph = constrainedTailBounds.closestPointTo( tailPosition );
 
-    if ( this.graph.coordinateSnapMode === 'polar' ) {
+    if ( this.scene.coordinateSnapMode === 'polar' ) {
 
       // Get the tip of this vector
       const tipPositionOnGraph = tailPositionOnGraph.plus( this.vectorComponents );
@@ -336,14 +336,14 @@ export default class Vector extends RootVector {
 
   /**
    * Gets the constrained bounds of the tail. The tail must be within VECTOR_TAIL_DRAG_MARGIN units of the edges
-   * of the graph. See https://github.com/phetsims/vector-addition/issues/152
+   * of the scene. See https://github.com/phetsims/vector-addition/issues/152
    */
   private getConstrainedTailBounds(): Bounds2 {
-    return this.graph.bounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
+    return this.scene.bounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
   }
 
   /**
-   * Animates the vector to a specific point. Called when the user fails to drop the vector in the graph.
+   * Animates the vector to a specific point. Called when the user fails to drop the vector in the scene.
    * @param point - animates the center of the vector to this point
    * @param finalComponents - animates the components to the final components
    * @param finishCallback - callback when the animation finishes naturally, not when stopped
@@ -351,7 +351,7 @@ export default class Vector extends RootVector {
   public animateToPoint( point: Vector2, finalComponents: Vector2, finishCallback: () => void ): void {
 
     assert && assert( !this.inProgressAnimation, 'Can\'t animate to position when we are in animation currently' );
-    assert && assert( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the graph' );
+    assert && assert( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the scene' );
 
     // Calculate the tail position to animate to
     const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
@@ -379,12 +379,12 @@ export default class Vector extends RootVector {
   }
 
   /**
-   * Drops the vector onto the graph.
+   * Drops the vector onto the scene.
    * @param tailPosition - the tail position to drop the vector onto
    */
   public dropOntoGraph( tailPosition: Vector2 ): void {
 
-    assert && assert( !this.isOnGraphProperty.value, 'vector is already on the graph' );
+    assert && assert( !this.isOnGraphProperty.value, 'vector is already on the scene' );
     assert && assert( !this.inProgressAnimation, 'cannot drop vector when it\'s animating' );
 
     this.isOnGraphProperty.value = true;
@@ -393,19 +393,19 @@ export default class Vector extends RootVector {
     this.setTailWithInvariants( tailPosition );
 
     // When the vector is first dropped, it is active
-    this.graph.activeVectorProperty.value = this;
+    this.scene.activeVectorProperty.value = this;
   }
 
   /**
-   * Pops the vector off of the graph.
+   * Pops the vector off of the scene.
    */
   public popOffOfGraph(): void {
 
-    assert && assert( this.isOnGraphProperty.value, 'attempted pop off graph when vector was already off' );
+    assert && assert( this.isOnGraphProperty.value, 'attempted pop off scene when vector was already off' );
     assert && assert( !this.inProgressAnimation, 'cannot pop vector off when it\'s animating' );
 
     this.isOnGraphProperty.value = false;
-    this.graph.activeVectorProperty.value = null;
+    this.scene.activeVectorProperty.value = null;
   }
 
   /**

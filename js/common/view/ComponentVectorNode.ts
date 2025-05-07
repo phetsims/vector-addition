@@ -49,13 +49,13 @@ export default class ComponentVectorNode extends RootVectorNode {
 
   /**
    * @param componentVector - the component vector model the node represents
-   * @param graph - the graph the component vector belongs to
+   * @param scene - the scene the component vector belongs to
    * @param componentVectorStyleProperty
    * @param valuesVisibleProperty
    * @param [providedOptions]
    */
   public constructor( componentVector: ComponentVector,
-                      graph: VectorAdditionScene,
+                      scene: VectorAdditionScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: ComponentVectorNodeOptions ) {
@@ -69,7 +69,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       } )
     }, providedOptions );
 
-    super( componentVector, graph.modelViewTransformProperty, valuesVisibleProperty, graph.activeVectorProperty, options );
+    super( componentVector, scene.modelViewTransformProperty, valuesVisibleProperty, scene.activeVectorProperty, options );
 
     //----------------------------------------------------------------------------------------
 
@@ -96,7 +96,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       ( componentVectorStyle, isParentActive ) => {
 
         this.updateComponentVector( componentVector,
-          graph.modelViewTransformProperty.value,
+          scene.modelViewTransformProperty.value,
           componentVectorStyle,
           isParentActive );
       } );
@@ -106,12 +106,12 @@ export default class ComponentVectorNode extends RootVectorNode {
     const activeVectorListener = ( activeVector: Vector | null ) => {
       this.labelNode.setHighlighted( activeVector === componentVector.parentVector );
     };
-    graph.activeVectorProperty.link( activeVectorListener );
+    scene.activeVectorProperty.link( activeVectorListener );
 
     this.disposeComponentVectorNode = () => {
       componentVectorMultilink.dispose();
-      if ( graph.activeVectorProperty.hasListener( activeVectorListener ) ) {
-        graph.activeVectorProperty.unlink( activeVectorListener );
+      if ( scene.activeVectorProperty.hasListener( activeVectorListener ) ) {
+        scene.activeVectorProperty.unlink( activeVectorListener );
       }
     };
   }

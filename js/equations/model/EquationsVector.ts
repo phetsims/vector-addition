@@ -45,19 +45,19 @@ export default class EquationsVector extends Vector {
    * @param initialTailPosition - starting tail position of the vector
    * @param initialComponents - starting components of the vector
    * @param baseVectorTailPosition - starting tail position of the base vector
-   * @param graph - the graph the vector belongs to
+   * @param scene - the scene the vector belongs to
    * @param vectorSet - the VectorSet that the vector belongs to
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       baseVectorTailPosition: Vector2,
-                      graph: EquationsScene,
+                      scene: EquationsScene,
                       vectorSet: EquationsVectorSet,
                       symbolProperty: TReadOnlyProperty<string> ) {
 
 
-    super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty, OPTIONS );
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, OPTIONS );
 
     this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
       range: COEFFICIENT_RANGE
@@ -67,13 +67,13 @@ export default class EquationsVector extends Vector {
     this.setTipWithInvariants( this.tip );
 
     // Instantiate a base vector based on snap mode.
-    if ( graph.coordinateSnapMode === 'cartesian' ) {
+    if ( scene.coordinateSnapMode === 'cartesian' ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition,
-        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbolProperty );
+        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), scene, vectorSet, symbolProperty );
     }
     else {
       this.baseVector = new PolarBaseVector( baseVectorTailPosition,
-        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), graph, vectorSet, symbolProperty );
+        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), scene, vectorSet, symbolProperty );
     }
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.

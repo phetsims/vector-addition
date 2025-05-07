@@ -1,7 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * GraphControlPanel is the base class for graph control panels. These panels contain controls that affect the graph.
+ * GraphControlPanel is the base class for graph control panels. These panels contain controls that affect what is
+ * shown on the graph.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)

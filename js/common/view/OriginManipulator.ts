@@ -41,10 +41,10 @@ const ORIGIN_OPTIONS = {
 
 export default class OriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
 
-  public constructor( graph: VectorAdditionScene, tandem: Tandem ) {
+  public constructor( scene: VectorAdditionScene, tandem: Tandem ) {
 
     // convenience variable
-    const modelViewTransform = graph.modelViewTransformProperty.value;
+    const modelViewTransform = scene.modelViewTransformProperty.value;
 
     // Origin, in view coordinates
     const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
@@ -63,7 +63,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     this.touchArea = Shape.circle( 0, 0, diameter );
 
     // Create a dragBounds to constrain the drag
-    const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( graph.bounds.eroded( ORIGIN_DRAG_MARGIN ) );
+    const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( scene.bounds.eroded( ORIGIN_DRAG_MARGIN ) );
 
     // Create a Property of to track the view's origin in view coordinates
     const originPositionProperty = new Vector2Property( origin, {
@@ -90,12 +90,12 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     // unlink is unnecessary, exists for the lifetime of the simulation.
     originPositionProperty.lazyLink( originPosition => {
       // Tell the model to update the origin
-      graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originPosition ) );
+      scene.moveOriginToPoint( scene.modelViewTransformProperty.value.viewToModelPosition( originPosition ) );
     } );
 
     // Observe when the model view transform changes to update the position of the circle.
     // unlink is unnecessary, exists for the lifetime of the sim.
-    graph.modelViewTransformProperty.link( modelViewTransform => {
+    scene.modelViewTransformProperty.link( modelViewTransform => {
       this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
     } );
   }

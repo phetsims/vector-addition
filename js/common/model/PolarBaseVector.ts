@@ -28,16 +28,16 @@ export default class PolarBaseVector extends BaseVector {
   /**
    * @param initialTailPosition - starting tail position of the Base Vector
    * @param initialComponents - starting components of the Base Vector
-   * @param graph - the graph the Base Vector belongs to
+   * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    */
-  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, graph: VectorAdditionScene,
+  public constructor( initialTailPosition: Vector2, initialComponents: Vector2, scene: VectorAdditionScene,
                       vectorSet: VectorSet, symbolProperty: TReadOnlyProperty<string> ) {
 
-    assert && assert( graph.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${graph.coordinateSnapMode}` );
+    assert && assert( scene.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, graph, vectorSet, symbolProperty );
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty );
 
     this.magnitudeProperty = new NumberProperty( this.magnitude );
 

@@ -5,9 +5,9 @@
  *
  * A scene is responsible for:
  *   - Keeping track of where the origin is dragged and updating a modelViewTransformProperty.
- *   - Keeping track of the active (selected) vector on a graph.
+ *   - Keeping track of the active (selected) vector on the graph.
  *   - Managing one or more VectorSets.
- *   - Creating the graph.
+ *   - Creating the scene.
  *
  * @author Brandon Li
  */
@@ -33,36 +33,36 @@ const MODEL_TO_VIEW_SCALE = 14.5;
 
 type SelfOptions = {
   orientation?: GraphOrientation;
-  bottomLeft?: Vector2; // bottom left corner of the graph, in view coordinates
+  bottomLeft?: Vector2; // bottom left corner of the scene, in view coordinates
 };
 
 type GraphOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class VectorAdditionScene {
 
-  // the vectorSets for this graph
+  // the vectorSets for this scene
   public readonly vectorSets: VectorSet[];
 
-  // orientation of the graph
+  // orientation of the scene
   public readonly orientation: GraphOrientation;
 
-  // coordinate snap mode for the graph, Cartesian or polar
+  // coordinate snap mode for the scene, Cartesian or polar
   public readonly coordinateSnapMode: CoordinateSnapMode;
 
-  // Bounds of the graph, in model coordinates.
+  // Bounds of the scene, in model coordinates.
   private readonly boundsProperty: Property<Bounds2>;
 
-  // bounds of the graph in view coordinates, constant for the lifetime of the sim.
+  // bounds of the scene in view coordinates, constant for the lifetime of the sim.
   public readonly viewBounds: Bounds2;
 
-  // maps graph coordinates between model and view
+  // maps scene coordinates between model and view
   public readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
 
-  // The active (selected) vector. A graph has at most one active vector. If null, there is no active vector.
+  // The active (selected) vector. A scene has at most one active vector. If null, there is no active vector.
   public readonly activeVectorProperty: Property<Vector | null>;
 
   // Since the origin is being dragged, modelViewTransform is in the model. That being said, it is necessary to know the
-  // view coordinates of the graph node's bottom-left to calculate the model view transform.
+  // view coordinates of the scene node's bottom-left to calculate the model view transform.
   // Calculate the default for the grid's bottom-left, in view coordinates.
   public static readonly DEFAULT_BOTTOM_LEFT = new Vector2(
     VectorAdditionConstants.SCREEN_VIEW_BOUNDS.minX + VectorAdditionConstants.AXES_ARROW_X_EXTENSION + 10,
@@ -70,8 +70,8 @@ export default class VectorAdditionScene {
   );
 
   /**
-   * @param initialBounds - the model bounds of the graph at the start of the sim
-   * @param coordinateSnapMode - the coordinate snap mode of the graph. A graph is either strictly polar or Cartesian.
+   * @param initialBounds - the model bounds of the scene at the start of the sim
+   * @param coordinateSnapMode - the coordinate snap mode of the scene. A scene is either strictly polar or Cartesian.
    * @param [providedOptions]
    */
   protected constructor( initialBounds: Bounds2, coordinateSnapMode: CoordinateSnapMode, providedOptions: GraphOptions ) {
@@ -90,7 +90,7 @@ export default class VectorAdditionScene {
     this.boundsProperty = new Property( initialBounds, {
       phetioValueType: Bounds2.Bounds2IO,
       tandem: options.tandem.createTandem( 'boundsProperty' ),
-      phetioDocumentation: 'Bounds of the graph, in model coordinates.',
+      phetioDocumentation: 'Bounds of the scene, in model coordinates.',
       phetioReadOnly: true
     } );
 
@@ -118,7 +118,7 @@ export default class VectorAdditionScene {
   }
 
   /**
-   * Erases the graph.
+   * Erases the scene.
    */
   public erase(): void {
     this.vectorSets.forEach( vectorSet => vectorSet.erase() );
@@ -126,7 +126,7 @@ export default class VectorAdditionScene {
   }
 
   /**
-   * Moves the origin to a specified point on the graph.
+   * Moves the origin to a specified point on the scene.
    */
   public moveOriginToPoint( point: Vector2 ): void {
     assert && assert( this.boundsProperty.value.containsPoint( point ), `point is out of bounds: ${point}` );
@@ -137,7 +137,7 @@ export default class VectorAdditionScene {
   }
 
   /**
-   * Gets the bounds of the graph, in model coordinates.
+   * Gets the bounds of the scene, in model coordinates.
    */
   public get bounds(): Bounds2 {
     return this.boundsProperty.value;

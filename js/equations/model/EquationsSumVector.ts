@@ -29,17 +29,17 @@ export default class EquationsSumVector extends SumVector {
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
 
   /**
-   * @param graph - graph the sum vector belongs to
+   * @param scene - scene the sum vector belongs to
    * @param vectorSet - the vector set that the sum vector represents
    * @param equationTypeProperty
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    */
-  public constructor( graph: VectorAdditionScene,
+  public constructor( scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       equationTypeProperty: TReadOnlyProperty<EquationType>,
                       symbolProperty: TReadOnlyProperty<string> ) {
 
-    super( EQUATIONS_SUM_TAIL_POSITION, graph, vectorSet, symbolProperty );
+    super( EQUATIONS_SUM_TAIL_POSITION, scene, vectorSet, symbolProperty );
 
     this.equationTypeProperty = equationTypeProperty;
 

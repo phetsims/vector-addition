@@ -64,7 +64,7 @@ export default class SceneNode extends Node {
 
   private readonly vectorSets: VectorSet[];
 
-  public constructor( graph: VectorAdditionScene,
+  public constructor( scene: VectorAdditionScene,
                       viewProperties: VectorAdditionViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions: SceneNodeOptions ) {
@@ -83,12 +83,12 @@ export default class SceneNode extends Node {
     //========================================================================================
 
     // Create one and only GraphNode
-    this.graphNode = new GraphNode( graph, viewProperties.gridVisibleProperty, options.tandem.createTandem( 'graphNode' ) );
+    this.graphNode = new GraphNode( scene, viewProperties.gridVisibleProperty, options.tandem.createTandem( 'graphNode' ) );
 
     // Create the one and only 'Vector Values' accordion box
-    this.vectorValuesAccordionBox = new VectorValuesAccordionBox( graph, {
+    this.vectorValuesAccordionBox = new VectorValuesAccordionBox( scene, {
       expandedProperty: viewProperties.vectorValuesAccordionBoxExpandedProperty,
-      centerX: graph.viewBounds.centerX,
+      centerX: scene.viewBounds.centerX,
       top: 35, // determined empirically
       tandem: options.tandem.createTandem( 'vectorValuesAccordionBox' )
     } );
@@ -112,10 +112,10 @@ export default class SceneNode extends Node {
       this.eraserButton = new EraserButton( {
         listener: () => {
           this.interruptSubtreeInput(); // cancel all interactions for the scene
-          graph.erase();
+          scene.erase();
         },
-        right: graph.viewBounds.maxX,
-        top: graph.viewBounds.maxY + 15,
+        right: scene.viewBounds.maxX,
+        top: scene.viewBounds.maxY + 15,
         touchAreaXDilation: 7,
         touchAreaYDilation: 7,
         tandem: options.tandem.createTandem( 'eraserButton' ),
@@ -128,7 +128,7 @@ export default class SceneNode extends Node {
       // contain no vectors. This is a bit more complicated than it should be, but it was added late in the
       // development process.
       // unmultilink is unnecessary, exists for the lifetime of the sim.
-      const lengthProperties = _.map( graph.vectorSets, vectorSet => vectorSet.vectors.lengthProperty );
+      const lengthProperties = _.map( scene.vectorSets, vectorSet => vectorSet.vectors.lengthProperty );
       Multilink.multilinkAny( lengthProperties, () => {
         const numberOfVectors = _.sumBy( lengthProperties, lengthProperty => lengthProperty.value );
         this.eraserButton!.enabled = ( numberOfVectors !== 0 );
@@ -137,14 +137,14 @@ export default class SceneNode extends Node {
 
     // a layer for each VectorSet
     this.vectorSetNodes = [];
-    graph.vectorSets.forEach( vectorSet => {
-      const vectorSetNode = new VectorSetNode( graph, vectorSet,
+    scene.vectorSets.forEach( vectorSet => {
+      const vectorSetNode = new VectorSetNode( scene, vectorSet,
         viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentVectorStyleProperty );
       this.vectorSetNodesParent.addChild( vectorSetNode );
       this.vectorSetNodes.push( vectorSetNode );
     } );
 
-    this.vectorSets = graph.vectorSets;
+    this.vectorSets = scene.vectorSets;
     this.vectorCreatorPanel = null;
   }
 

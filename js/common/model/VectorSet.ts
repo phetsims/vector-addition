@@ -66,13 +66,13 @@ export default class VectorSet {
   protected _sumVector: SumVector | null; // settable by subclasses, specifically EquationsVectorSet
 
   /**
-   * @param graph - the graph the VectorSet belongs to
+   * @param scene - the scene the VectorSet belongs to
    * @param componentVectorStyleProperty - component style for all vectors
    * @param sumVisibleProperty - controls whether the sum vector is visible
    * @param vectorColorPalette - color palette for vectors in this set
    * @param [providedOptions]
    */
-  public constructor( graph: VectorAdditionScene,
+  public constructor( scene: VectorAdditionScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
@@ -82,8 +82,8 @@ export default class VectorSet {
     // See https://github.com/phetsims/vector-addition/issues/225
     const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth;
     assert && assert( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
-    const modelHeadWidth = graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
-    const axisSpacing = graph.modelViewTransformProperty.value.viewToModelDeltaX( 1.5 );
+    const modelHeadWidth = scene.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
+    const axisSpacing = scene.modelViewTransformProperty.value.viewToModelDeltaX( 1.5 );
     const offsetStart = ( modelHeadWidth / 2 ) + axisSpacing;
     const offsetDelta = modelHeadWidth;
 
@@ -91,7 +91,7 @@ export default class VectorSet {
 
       // SelfOptions
       initializeSum: true,
-      initialSumTailPosition: graph.bounds.center,
+      initialSumTailPosition: scene.bounds.center,
       projectionXOffsetStart: -offsetStart,
       projectionYOffsetStart: -offsetStart,
       projectionXOffsetDelta: -offsetDelta,
@@ -111,7 +111,7 @@ export default class VectorSet {
     this.sumProjectionYOffset = options.sumProjectionYOffset;
 
     if ( options.initializeSum ) {
-      this._sumVector = new SumVector( options.initialSumTailPosition, graph, this, VectorAdditionSymbols.sStringProperty );
+      this._sumVector = new SumVector( options.initialSumTailPosition, scene, this, VectorAdditionSymbols.sStringProperty );
       this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
     else {

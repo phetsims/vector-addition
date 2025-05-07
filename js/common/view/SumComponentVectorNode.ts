@@ -6,7 +6,7 @@
  * Extends ComponentVectorNode but adds the following functionality:
  *  - a distinct appearance
  *  - toggle visibility based on the sumVisibleProperty
- *  - disables ability to take the sum vector node off of the graph
+ *  - disables the ability to take the sum vector off of the graph
  *
  * @author Brandon Li
  */
@@ -32,7 +32,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
   private readonly sumVisibleProperty: TReadOnlyProperty<boolean>;
 
   public constructor( componentVector: ComponentVector,
-                      graph: VectorAdditionScene,
+                      scene: VectorAdditionScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       sumVisibleProperty: TReadOnlyProperty<boolean>,
@@ -46,7 +46,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
       } )
     }, providedOptions );
 
-    super( componentVector, graph, componentVectorStyleProperty, valuesVisibleProperty, options );
+    super( componentVector, scene, componentVectorStyleProperty, valuesVisibleProperty, options );
 
     this.sumVisibleProperty = sumVisibleProperty;
 
@@ -58,7 +58,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
     Multilink.multilink(
       [ sumVisibleProperty, sumVector.isDefinedProperty ],
       () => this.updateComponentVector( componentVector,
-        graph.modelViewTransformProperty.value,
+        scene.modelViewTransformProperty.value,
         componentVectorStyleProperty.value,
         componentVector.isParentVectorActiveProperty.value )
     );

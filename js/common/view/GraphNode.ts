@@ -64,9 +64,9 @@ export default class GraphNode extends Node {
   // Public for pdomOrder at ScreenView level.
   public readonly originManipulator: Node;
 
-  public constructor( graph: VectorAdditionScene, gridVisibilityProperty: Property<boolean>, tandem: Tandem ) {
+  public constructor( scene: VectorAdditionScene, gridVisibilityProperty: Property<boolean>, tandem: Tandem ) {
 
-    const graphViewBounds = graph.viewBounds;
+    const graphViewBounds = scene.viewBounds;
 
     const background = new Rectangle( graphViewBounds, {
       fill: VectorAdditionColors.GRAPH_BACKGROUND_COLOR,
@@ -76,19 +76,19 @@ export default class GraphNode extends Node {
 
     const children = [
       background,
-      new MajorAndMinorGridLines( graph, graphViewBounds, gridVisibilityProperty ),
-      new TicksNode( graph )
+      new MajorAndMinorGridLines( scene, graphViewBounds, gridVisibilityProperty ),
+      new TicksNode( scene )
     ];
 
-    // Create axes as needed, based on graph orientation
-    if ( graph.orientation !== 'vertical' ) {
-      children.push( new XAxisNode( graph, graphViewBounds ) );
+    // Create axes as needed, based on scene orientation
+    if ( scene.orientation !== 'vertical' ) {
+      children.push( new XAxisNode( scene, graphViewBounds ) );
     }
-    if ( graph.orientation !== 'horizontal' ) {
-      children.push( new YAxisNode( graph, graphViewBounds ) );
+    if ( scene.orientation !== 'horizontal' ) {
+      children.push( new YAxisNode( scene, graphViewBounds ) );
     }
 
-    const originManipulator = new OriginManipulator( graph, tandem.createTandem( 'originManipulator' ) );
+    const originManipulator = new OriginManipulator( scene, tandem.createTandem( 'originManipulator' ) );
     children.push( originManipulator );
 
     super( {
@@ -99,12 +99,12 @@ export default class GraphNode extends Node {
 
     this.originManipulator = originManipulator;
 
-    // Clicking in the graph clears the active (selected) vector.
+    // Clicking on the graph clears the active (selected) vector.
     // Use a raw 'down' listener so that this doesn't impact the ability to touch snag vectors and origin manipulator.
     // See https://github.com/phetsims/vector-addition/issues/243
     // No need to remove, exists for the lifetime of the sim.
     background.addInputListener( {
-      down: () => { graph.activeVectorProperty.value = null; }
+      down: () => { scene.activeVectorProperty.value = null; }
     } );
   }
 }
@@ -114,15 +114,15 @@ export default class GraphNode extends Node {
  */
 class MajorAndMinorGridLines extends Node {
 
-  public constructor( graph: VectorAdditionScene, graphViewBounds: Bounds2, gridVisibilityProperty: Property<boolean> ) {
+  public constructor( scene: VectorAdditionScene, graphViewBounds: Bounds2, gridVisibilityProperty: Property<boolean> ) {
 
-    const majorGridLines = new GridLines( graph, graphViewBounds, {
+    const majorGridLines = new GridLines( scene, graphViewBounds, {
       spacing: MAJOR_TICK_SPACING,
       lineWidth: MAJOR_GRID_LINE_WIDTH,
       stroke: VectorAdditionColors.GRAPH_MAJOR_LINE_COLOR
     } );
 
-    const minorGridLinesPath = new GridLines( graph, graphViewBounds, {
+    const minorGridLinesPath = new GridLines( scene, graphViewBounds, {
       spacing: MINOR_TICK_SPACING,
       lineWidth: MINOR_GRID_LINE_WIDTH,
       stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR
@@ -154,7 +154,7 @@ class GridLines extends Path {
 
   private readonly viewBounds: Bounds2;
 
-  public constructor( graph: VectorAdditionScene, viewBounds: Bounds2, providedOptions?: GridLinesOptions ) {
+  public constructor( scene: VectorAdditionScene, viewBounds: Bounds2, providedOptions?: GridLinesOptions ) {
 
     const options = optionize<GridLinesOptions, GridLinesSelfOptions, PathOptions>()( {
 
@@ -172,13 +172,13 @@ class GridLines extends Path {
 
     // Update when the modelViewTransform changes, triggered when the origin is moved.
     // unlink is unnecessary, exists for the lifetime of the sim.
-    graph.modelViewTransformProperty.link( modelViewTransform => {
+    scene.modelViewTransformProperty.link( modelViewTransform => {
 
       // Convenience variables
-      const graphMinX = graph.bounds.minX;
-      const graphMaxX = graph.bounds.maxX;
-      const graphMinY = graph.bounds.minY;
-      const graphMaxY = graph.bounds.maxY;
+      const graphMinX = scene.bounds.minX;
+      const graphMaxX = scene.bounds.maxX;
+      const graphMinY = scene.bounds.minY;
+      const graphMaxY = scene.bounds.maxY;
 
       const shape = new Shape();
 
@@ -211,7 +211,7 @@ class GridLines extends Path {
  */
 class XAxisNode extends Node {
 
-  public constructor( graph: VectorAdditionScene, graphViewBounds: Bounds2 ) {
+  public constructor( scene: VectorAdditionScene, graphViewBounds: Bounds2 ) {
 
     const arrowNode = new ArrowNode(
       graphViewBounds.minX - AXES_ARROW_X_EXTENSION, 0,
@@ -239,18 +239,18 @@ class XAxisNode extends Node {
 
     // When the origin moves, adjust the position of the axis.
     // unlink is unnecessary, exists for the lifetime of the sim.
-    graph.modelViewTransformProperty.link( modelViewTransform => {
+    scene.modelViewTransformProperty.link( modelViewTransform => {
       this.y = modelViewTransform.modelToViewY( 0 );
     } );
   }
 }
 
 /**
- * Draws the y axis.
+ * Draws the y-axis.
  */
 class YAxisNode extends Node {
 
-  public constructor( graph: VectorAdditionScene, graphViewBounds: Bounds2 ) {
+  public constructor( scene: VectorAdditionScene, graphViewBounds: Bounds2 ) {
 
     const arrowNode = new ArrowNode(
       0, graphViewBounds.minY - AXES_ARROW_Y_EXTENSION,
@@ -276,7 +276,7 @@ class YAxisNode extends Node {
 
     // When the origin moves, adjust the position of the axis.
     // unlink is unnecessary, exists for the lifetime of the sim.
-    graph.modelViewTransformProperty.link( modelViewTransform => {
+    scene.modelViewTransformProperty.link( modelViewTransform => {
       this.x = modelViewTransform.modelToViewX( 0 );
     } );
   }
@@ -287,7 +287,7 @@ class YAxisNode extends Node {
  */
 class TicksNode extends Node {
 
-  public constructor( graph: VectorAdditionScene ) {
+  public constructor( scene: VectorAdditionScene ) {
 
     const tickMarksPath = new Path( new Shape(), TICK_MARK_OPTIONS );
     const tickLabelsParent = new Node();
@@ -298,26 +298,26 @@ class TicksNode extends Node {
       pickable: false
     } );
 
-    // Update ticks when the graph's origin moves.
+    // Update ticks when the scene's origin moves.
     // unlink is unnecessary, exists for the lifetime of the sim.
-    graph.modelViewTransformProperty.link( modelViewTransform => {
+    scene.modelViewTransformProperty.link( modelViewTransform => {
 
       const viewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
       const tickMarksShape = new Shape();
       const tickLabels = [];
 
-      if ( graph.orientation !== 'vertical' ) {
+      if ( scene.orientation !== 'vertical' ) {
 
         // x tick marks
-        const firstXTick = graph.bounds.minX - ( graph.bounds.minX % MAJOR_TICK_SPACING );
-        for ( let xValue = firstXTick; xValue <= graph.bounds.maxX; xValue = xValue + MAJOR_TICK_SPACING ) {
+        const firstXTick = scene.bounds.minX - ( scene.bounds.minX % MAJOR_TICK_SPACING );
+        for ( let xValue = firstXTick; xValue <= scene.bounds.maxX; xValue = xValue + MAJOR_TICK_SPACING ) {
           const tickLength = ( xValue === 0 ) ? ORIGIN_TICK_LENGTH : TICK_LENGTH; // origin tick is different
           tickMarksShape.moveTo( xValue, -tickLength / 2 ).verticalLineTo( tickLength / 2 );
         }
 
         // x tick labels
-        const firstXLabel = graph.bounds.minX - ( graph.bounds.minX % TICK_LABEL_SPACING );
-        for ( let xValue = firstXLabel; xValue <= graph.bounds.maxX; xValue = xValue + TICK_LABEL_SPACING ) {
+        const firstXLabel = scene.bounds.minX - ( scene.bounds.minX % TICK_LABEL_SPACING );
+        for ( let xValue = firstXLabel; xValue <= scene.bounds.maxX; xValue = xValue + TICK_LABEL_SPACING ) {
           if ( xValue !== 0 ) {
             const tickLabel = new Text( xValue, TICK_LABEL_OPTIONS );
             tickLabel.centerX = modelViewTransform.modelToViewX( xValue );
@@ -327,18 +327,18 @@ class TicksNode extends Node {
         }
       }
 
-      if ( graph.orientation !== 'horizontal' ) {
+      if ( scene.orientation !== 'horizontal' ) {
 
         // y tick marks
-        const firstYTick = graph.bounds.minY - ( graph.bounds.minY % MAJOR_TICK_SPACING );
-        for ( let yValue = firstYTick; yValue <= graph.bounds.maxY; yValue = yValue + MAJOR_TICK_SPACING ) {
+        const firstYTick = scene.bounds.minY - ( scene.bounds.minY % MAJOR_TICK_SPACING );
+        for ( let yValue = firstYTick; yValue <= scene.bounds.maxY; yValue = yValue + MAJOR_TICK_SPACING ) {
           const tickLength = ( yValue === 0 ) ? ORIGIN_TICK_LENGTH : TICK_LENGTH; // origin tick is different
           tickMarksShape.moveTo( -tickLength / 2, yValue ).horizontalLineTo( tickLength / 2 );
         }
 
         // y tick labels
-        const firstYLabel = graph.bounds.minY - ( graph.bounds.minY % TICK_LABEL_SPACING );
-        for ( let yValue = firstYLabel; yValue <= graph.bounds.maxY; yValue = yValue + TICK_LABEL_SPACING ) {
+        const firstYLabel = scene.bounds.minY - ( scene.bounds.minY % TICK_LABEL_SPACING );
+        for ( let yValue = firstYLabel; yValue <= scene.bounds.maxY; yValue = yValue + TICK_LABEL_SPACING ) {
           if ( yValue !== 0 ) {
             const tickLabel = new Text( yValue, TICK_LABEL_OPTIONS );
             tickLabel.right = viewOrigin.x - TICK_LABEL_X_OFFSET;
@@ -349,11 +349,11 @@ class TicksNode extends Node {
       }
 
       // Origin tick label
-      if ( graph.orientation !== 'twoDimensional' ) {
+      if ( scene.orientation !== 'twoDimensional' ) {
 
         tickLabels.push( originLabel );
 
-        if ( graph.orientation === 'horizontal' ) {
+        if ( scene.orientation === 'horizontal' ) {
           originLabel.centerX = viewOrigin.x;
           originLabel.top = viewOrigin.y + TICK_LABEL_Y_OFFSET;
         }

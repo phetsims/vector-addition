@@ -39,12 +39,12 @@ type Explore2DVectorCreatorPanelOptions = SelfOptions & VectorCreatorPanelOption
 export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
 
   /**
-   * @param graph
+   * @param scene
    * @param sceneNode
    * @param symbolProperties - the symbols corresponding to each slot
    * @param providedOptions
    */
-  public constructor( graph: Explore2DScene,
+  public constructor( scene: Explore2DScene,
                       sceneNode: SceneNode,
                       symbolProperties: TReadOnlyProperty<string>[],
                       providedOptions: Explore2DVectorCreatorPanelOptions ) {
@@ -53,7 +53,7 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
 
     // Get the initial vector components, they are different for each symbol.
     // See https://github.com/phetsims/vector-addition/issues/227
-    const initialVectorComponents = ( graph.coordinateSnapMode === 'cartesian' ) ?
+    const initialVectorComponents = ( scene.coordinateSnapMode === 'cartesian' ) ?
                                     CARTESIAN_INITIAL_VECTOR_COMPONENTS :
                                     POLAR_INITIAL_VECTOR_COMPONENTS;
     assert && assert( initialVectorComponents.length === symbolProperties.length, 'components are required for each symbol' );
@@ -61,7 +61,7 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
     // Create a slot for each symbol
     const panelSlots: VectorCreatorPanelSlot[] = [];
     for ( let i = 0; i < symbolProperties.length; i++ ) {
-      panelSlots.push( new VectorCreatorPanelSlot( graph, graph.vectorSet, sceneNode, initialVectorComponents[ i ], {
+      panelSlots.push( new VectorCreatorPanelSlot( scene, scene.vectorSet, sceneNode, initialVectorComponents[ i ], {
         symbolProperty: symbolProperties[ i ],
         iconArrowMagnitude: 35,
 

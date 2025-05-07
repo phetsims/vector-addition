@@ -51,8 +51,11 @@ export default class VectorNode extends RootVectorNode {
   private readonly translationDragListener: DragListener; // for translating the vector
   private readonly disposeVectorNode: () => void;
 
-  public constructor( vector: Vector, graph: VectorAdditionScene, valuesVisibleProperty: TReadOnlyProperty<boolean>,
-                      angleVisibleProperty: TReadOnlyProperty<boolean>, providedOptions?: VectorNodeOptions ) {
+  public constructor( vector: Vector,
+                      scene: VectorAdditionScene,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                      angleVisibleProperty: TReadOnlyProperty<boolean>,
+                      providedOptions?: VectorNodeOptions ) {
 
     const options = optionize<VectorNodeOptions, SelfOptions, RootVectorNodeOptions>()( {
 
@@ -76,12 +79,12 @@ export default class VectorNode extends RootVectorNode {
     assert && assert( cursor );
 
     super( vector,
-      graph.modelViewTransformProperty,
+      scene.modelViewTransformProperty,
       valuesVisibleProperty,
-      graph.activeVectorProperty,
+      scene.activeVectorProperty,
       options );
 
-    this.modelViewTransformProperty = graph.modelViewTransformProperty;
+    this.modelViewTransformProperty = scene.modelViewTransformProperty;
     this.vector = vector;
 
     //----------------------------------------------------------------------------------------
@@ -91,14 +94,14 @@ export default class VectorNode extends RootVectorNode {
     // Since the tail is (0, 0) for the view, the tip is the delta position of the tip
     const tipDeltaPosition = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
 
-    // Create a scenery node representing the arc of an angle and the numerical display of the angle.
+    // Create a Node representing the arc of an angle and the numerical display of the angle.
     // dispose is necessary because it observes angleVisibleProperty.
-    const angleNode = new VectorAngleNode( vector, angleVisibleProperty, graph.modelViewTransformProperty );
+    const angleNode = new VectorAngleNode( vector, angleVisibleProperty, scene.modelViewTransformProperty );
 
     // Create a shadow for the vector, visible when the vector is being dragged around off the graph.
     const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, SHADOW_OPTIONS );
 
-    // Reconfigure scene graph z-layering
+    // Reconfigure z-layering
     this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode ] );
 
     //----------------------------------------------------------------------------------------
@@ -118,7 +121,7 @@ export default class VectorNode extends RootVectorNode {
         assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
           'body drag listener should be removed when the vector is animating back.' );
         if ( vector.isOnGraphProperty.value ) {
-          graph.activeVectorProperty.value = vector;
+          scene.activeVectorProperty.value = vector;
         }
       },
 
@@ -135,8 +138,8 @@ export default class VectorNode extends RootVectorNode {
           const cursorPosition = this.modelViewTransformProperty.value
             .viewToModelDelta( this.translationDragListener.localPoint ).plus( this.vector.tail );
 
-          // If the cursor is on the graph, drop the vector on the graph
-          if ( graph.bounds.containsPoint( cursorPosition ) ) {
+          // If the cursor is on the graph, drop the vector on the graph.
+          if ( scene.bounds.containsPoint( cursorPosition ) ) {
 
             // Drop the vector where the shadow was positioned
             const shadowOffset = this.modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
@@ -168,7 +171,7 @@ export default class VectorNode extends RootVectorNode {
         const cursorPositionModel = this.modelViewTransformProperty.value
           .viewToModelDelta( this.translationDragListener.localPoint ).plus( tailPositionModel );
 
-        if ( vector.isOnGraphProperty.value && !graph.bounds.containsPoint( cursorPositionModel ) ) {
+        if ( vector.isOnGraphProperty.value && !scene.bounds.containsPoint( cursorPositionModel ) ) {
           vector.popOffOfGraph();
         }
       }
@@ -212,7 +215,7 @@ export default class VectorNode extends RootVectorNode {
         start: () => {
           assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
             'tip drag listener should be removed when the vector is animating back.' );
-          graph.activeVectorProperty.value = vector;
+          scene.activeVectorProperty.value = vector;
         },
         tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/vector-addition/issues/258
       } );
@@ -305,7 +308,7 @@ export default class VectorNode extends RootVectorNode {
     const activeVectorListener = ( activeVector: Vector | null ) => {
       this.labelNode.setHighlighted( activeVector === vector );
     };
-    graph.activeVectorProperty.link( activeVectorListener );
+    scene.activeVectorProperty.link( activeVectorListener );
 
     // Disable interaction when the vector is animating back to the toolbox, where it will be disposed.
     // unlink is required on dispose.
@@ -330,7 +333,7 @@ export default class VectorNode extends RootVectorNode {
       // Dispose of appearance-related listeners
       Multilink.unmultilink( shadowMultilink );
       vector.isOnGraphProperty.unlink( isOnGraphListener );
-      graph.activeVectorProperty.unlink( activeVectorListener );
+      scene.activeVectorProperty.unlink( activeVectorListener );
       this.vector.animateBackProperty.unlink( animateBackListener );
     };
   }
@@ -364,11 +367,11 @@ export default class VectorNode extends RootVectorNode {
     const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
 
     if ( !this.vector.isOnGraphProperty.value ) {
-      // Allow translation to anywhere if it isn't on the graph
+      // Allow translation to anywhere if it isn't on the graph.
       this.vector.moveToTailPosition( tailPositionModel );
     }
     else {
-      // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds
+      // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds.
       this.vector.moveTailToPosition( tailPositionModel );
     }
   }
