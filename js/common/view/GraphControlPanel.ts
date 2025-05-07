@@ -9,7 +9,6 @@
  */
 
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -22,18 +21,12 @@ export type GraphControlPanelOptions = SelfOptions & NodeTranslationOptions & Pi
 
 export default class GraphControlPanel extends Panel {
 
-  protected constructor( children: Node[], providedOptions?: GraphControlPanelOptions ) {
+  protected constructor( content: Node, providedOptions?: GraphControlPanelOptions ) {
 
     const options = optionize4<GraphControlPanelOptions, SelfOptions, PanelOptions>()(
       {}, VectorAdditionConstants.PANEL_OPTIONS, {
         isDisposable: false
       }, providedOptions );
-
-    const content = new VBox( {
-      children: children,
-      spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
-      align: 'left'
-    } );
 
     // Make the panel a fixed width
     const panelWidth = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH + ( 2 * options.xMargin );

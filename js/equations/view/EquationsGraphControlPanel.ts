@@ -8,8 +8,6 @@
  */
 
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
-import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
@@ -60,35 +58,27 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
       options.tandem.createTandem( 'gridCheckbox' ) );
 
-    // To make all checkboxes the same height
-    const alignBoxOptions = {
-      group: new AlignGroup( {
-        matchHorizontal: false,
-        matchVertical: true
-      } )
-    };
+    const content = new VBox( {
+      spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
+      align: 'left',
+      stretch: true,
+      children: [
 
-    super( [
+        // Checkboxes
+        sumCheckbox,
+        valuesCheckbox,
+        anglesCheckbox,
+        gridCheckbox,
 
-      // checkboxes
-      new VBox( {
-        spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
-        align: 'left',
-        children: [
-          new AlignBox( sumCheckbox, alignBoxOptions ),
-          new AlignBox( valuesCheckbox, alignBoxOptions ),
-          new AlignBox( anglesCheckbox, alignBoxOptions ),
-          new AlignBox( gridCheckbox, alignBoxOptions )
-        ]
-      } ),
+        // separator
+        new HSeparator( { stroke: VectorAdditionColors.SEPARATOR_STROKE } ),
 
-      // separator
-      new HSeparator( { stroke: VectorAdditionColors.SEPARATOR_STROKE } ),
+        // Radio buttons for selection component vector style
+        new ComponentVectorStyleControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
+      ]
+    } );
 
-      // Radio buttons for selection component vector style
-      new ComponentVectorStyleControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
-
-    ], options );
+    super( content, options );
   }
 }
 

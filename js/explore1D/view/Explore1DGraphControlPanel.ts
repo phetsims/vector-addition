@@ -8,8 +8,6 @@
  */
 
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
-import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
@@ -53,27 +51,18 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
     const gridCheckbox = new VectorAdditionGridCheckbox( viewProperties.gridVisibleProperty,
       options.tandem.createTandem( 'gridCheckbox' ) );
 
-    // To make all checkboxes have the same effective height
-    const alignBoxOptions = {
-      group: new AlignGroup( {
-        matchHorizontal: false,
-        matchVertical: true
-      } )
-    };
+    const content = new VBox( {
+      spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
+      align: 'left',
+      stretch: true,
+      children: [
+        sumCheckbox,
+        valuesCheckbox,
+        gridCheckbox
+      ]
+    } );
 
-    super( [
-
-      // Checkboxes
-      new VBox( {
-        spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
-        align: 'left',
-        children: [
-          new AlignBox( sumCheckbox, alignBoxOptions ),
-          new AlignBox( valuesCheckbox, alignBoxOptions ),
-          new AlignBox( gridCheckbox, alignBoxOptions )
-        ]
-      } )
-    ], options );
+    super( content, options );
   }
 }
 

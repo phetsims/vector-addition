@@ -27,7 +27,7 @@ type SelfOptions = {
   arrowScale?: number;
 };
 
-type ArrowOverSymbolNodeOptions = SelfOptions & PickOptional<NodeOptions, 'maxWidth'>;
+type ArrowOverSymbolNodeOptions = SelfOptions & PickOptional<NodeOptions, 'maxWidth' | 'visibleProperty'>;
 
 export default class ArrowOverSymbolNode extends Node {
 

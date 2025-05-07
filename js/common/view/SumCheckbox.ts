@@ -9,6 +9,7 @@
 import Property from '../../../../axon/js/Property.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -40,9 +41,14 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
       stroke: options.vectorIconStroke
     } );
 
-    const content = new HBox( {
+    const hBox = new HBox( {
       spacing: VectorAdditionConstants.CHECKBOX_ICON_SPACING,
       children: [ textNode, icon ]
+    } );
+
+    // Wrap in a Node so that label and icon do not get separated when the checkbox layout is stretched.
+    const content = new Node( {
+      children: [ hBox ]
     } );
 
     super( sumVisibleProperty, content, options );
