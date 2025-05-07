@@ -14,7 +14,7 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import BaseVector from '../../common/model/BaseVector.js';
+import BaseVector from './BaseVector.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';

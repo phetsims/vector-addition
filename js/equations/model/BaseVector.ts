@@ -12,9 +12,9 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from './VectorAdditionScene.js';
-import Vector from './Vector.js';
-import VectorSet from './VectorSet.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
+import Vector from '../../common/model/Vector.js';
+import VectorSet from '../../common/model/VectorSet.js';
 
 // constants
 const OPTIONS = {
