@@ -6,29 +6,27 @@ This document is a high-level description of the model used in PhET's _Vector Ad
 
 The _Explore 1D_ screen facilitates exploration of vectors in 1 dimension. 
 
-There are 2 "scenes", which constrain vectors to 1 dimension:  
-* The horizontal scene constrains vectors to horizontal orientation, where the y-component is always zero.
-* The vertical scene constrains vectors to vertical orientation, where the x-component is always zero.
+There are 2 "scenes", which constrain vectors to 1 dimension.
+
+In the horizontal scene:
+
+* 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
+* the y component of all vectors is zero
+* the sum is a&#8407; + b&#8407; + c&#8407; = s&#8407;
+
+In the vertical scene:
+
+* 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
+* the x component of all vectors is zero
+* the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407;
+
+Selection of the scene is controlled by the radio buttons at the lower-right of the screen.
 
 To manipulate vectors:
 
 * add/remove vectors by dragging them between the toolbox and the scene
 * move a vector by dragging its tail (constrained to the scene's grid)
 * scale a vector by dragging its tip (constrained to the scene's grid)
-
-Selection of the orientation is controlled by the radio buttons at the lower-right of the screen.
-
-In the horizontal orientation:
-
-* 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
-* the y component of all vectors is zero
-* the sum is a&#8407; + b&#8407; + c&#8407; = s&#8407;
-
-In the vertical orientation:
-
-* 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
-* the x component of all vectors is zero
-* the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407;
 
 ## Explore 2D screen
 
