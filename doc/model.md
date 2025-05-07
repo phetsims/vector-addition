@@ -24,9 +24,9 @@ Selection of the scene is controlled by the radio buttons at the lower-right of 
 
 To manipulate vectors:
 
-* add/remove vectors by dragging them between the toolbox and the scene
-* move a vector by dragging its tail (constrained to the scene's grid)
-* scale a vector by dragging its tip (constrained to the scene's grid)
+* Add/remove vectors by dragging them between the toolbox and the graph.
+* Move a vector by dragging its tail.
+* Scale a vector by dragging its head.
 
 ## Explore 2D screen
 
@@ -51,10 +51,10 @@ In the Polar scene:
 
 To manipulate vectors:
 
-* add/remove vectors by dragging them between the toolbox and the scene
-* move a vector by dragging its tail (constrained to the scene's grid)
-* scale or rotate a vector by dragging its tip (constrained to the scene's grid)
-* component vectors cannot be directly manipulated
+* Add/remove vectors by dragging them between the toolbox and the graph.
+* Move a vector by dragging its tail.
+* Scale or rotate a vector by dragging its head.
+* Component vectors cannot be directly manipulated.
 
 ## Lab screen
 
