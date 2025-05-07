@@ -120,7 +120,8 @@ export default class VectorSet extends PhetioObject {
     this.sumProjectionYOffset = options.sumProjectionYOffset;
 
     if ( options.initializeSum ) {
-      this._sumVector = new SumVector( options.initialSumTailPosition, scene, this, VectorAdditionSymbols.sStringProperty );
+      this._sumVector = new SumVector( options.initialSumTailPosition, scene, this, VectorAdditionSymbols.sStringProperty,
+        options.tandem.createTandem( 'sumVector' ) );
       this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
     else {

@@ -25,14 +25,7 @@ import VectorAdditionScene from './VectorAdditionScene.js';
 import { LabelDisplayData } from './RootVector.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
-
-// constants
-const SUM_VECTOR_OPTIONS = {
-  isTipDraggable: false, // Sum vectors are not draggable by the tip.
-  isRemovable: false, // Sum vectors are not removable which means they are also not disposable
-  isOnGraphInitially: true, // Sum vectors are always on the graph
-  isDisposable: false
-};
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class SumVector extends Vector {
 
@@ -46,14 +39,21 @@ export default class SumVector extends Vector {
    * @param scene - scene the sum vector belongs to
    * @param vectorSet - the VectorSet that the sum represents
    * @param symbolProperty - the symbol for the sum vector (e.g. 's', 'c', 'f')
+   * @param tandem
    */
   public constructor( initialTailPosition: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      symbolProperty: TReadOnlyProperty<string> ) {
+                      symbolProperty: TReadOnlyProperty<string>,
+                      tandem: Tandem ) {
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, symbolProperty, SUM_VECTOR_OPTIONS );
+    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, symbolProperty, {
+      isTipDraggable: false, // Sum vectors are not draggable by the tip.
+      isRemovable: false, // Sum vectors are not removable which means they are also not disposable
+      isOnGraphInitially: true, // Sum vectors are always on the graph
+      tandem: tandem
+    } );
 
     this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.lengthProperty.value > 0 );
 

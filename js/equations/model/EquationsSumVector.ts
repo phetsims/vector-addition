@@ -20,6 +20,7 @@ import Vector from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
 import { EquationType } from './EquationType.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
@@ -33,13 +34,15 @@ export default class EquationsSumVector extends SumVector {
    * @param vectorSet - the vector set that the sum vector represents
    * @param equationTypeProperty
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param tandem
    */
   public constructor( scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       equationTypeProperty: TReadOnlyProperty<EquationType>,
-                      symbolProperty: TReadOnlyProperty<string> ) {
+                      symbolProperty: TReadOnlyProperty<string>,
+                      tandem: Tandem ) {
 
-    super( EQUATIONS_SUM_TAIL_POSITION, scene, vectorSet, symbolProperty );
+    super( EQUATIONS_SUM_TAIL_POSITION, scene, vectorSet, symbolProperty, tandem );
 
     this.equationTypeProperty = equationTypeProperty;
 

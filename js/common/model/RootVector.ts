@@ -28,6 +28,10 @@ import VectorColorPalette from './VectorColorPalette.js';
 import { AngleConvention } from './AngleConvention.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export type LabelDisplayData = {
 
@@ -48,7 +52,11 @@ export type LabelDisplayData = {
   includeAbsoluteValueBars: boolean;
 };
 
-export default abstract class RootVector {
+type SelfOptions = EmptySelfOptions;
+
+export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem'>;
+
+export default abstract class RootVector extends PhetioObject {
 
   // the vector's components, its x and y scalar values
   public readonly vectorComponentsProperty: Property<Vector2>;
@@ -70,20 +78,39 @@ export default abstract class RootVector {
    * @param initialComponents - starting components of the vector
    * @param vectorColorPalette - color palette for this vector
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param providedOptions
    */
   protected constructor( initialTailPosition: Vector2,
                          initialComponents: Vector2,
                          vectorColorPalette: VectorColorPalette,
-                         symbolProperty: TReadOnlyProperty<string> | null ) {
+                         symbolProperty: TReadOnlyProperty<string> | null,
+                         providedOptions?: RootVectorOptions ) {
 
-    this.vectorComponentsProperty = new Vector2Property( initialComponents );
-    this.tailPositionProperty = new Vector2Property( initialTailPosition );
+    const options = optionize<RootVectorOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // PhetioObjectOptions
+      phetioState: false,
+      tandem: Tandem.OPTIONAL
+    }, providedOptions );
+
+    super( options );
+
+    this.vectorComponentsProperty = new Vector2Property( initialComponents, {
+      tandem: options.tandem.createTandem( 'vectorComponentsProperty' ),
+      phetioReadOnly: true
+    } );
+
+    this.tailPositionProperty = new Vector2Property( initialTailPosition, {
+      tandem: options.tandem.createTandem( 'tailPositionProperty' ),
+      phetioReadOnly: true
+    } );
 
     this.tipPositionProperty = new DerivedProperty(
       [ this.tailPositionProperty, this.vectorComponentsProperty ],
-      ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ),
-      { valueType: Vector2 }
-    );
+      ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ), {
+        tandem: options.tandem.createTandem( 'tipPositionProperty' ),
+        phetioValueType: Vector2.Vector2IO
+      } );
 
     this.vectorColorPalette = vectorColorPalette;
 

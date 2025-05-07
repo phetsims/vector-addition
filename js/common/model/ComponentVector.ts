@@ -95,8 +95,9 @@ export default class ComponentVector extends RootVector {
     };
   }
 
-  public dispose(): void {
+  public override dispose(): void {
     this.disposeComponentVector();
+    super.dispose();
   }
 
   /**

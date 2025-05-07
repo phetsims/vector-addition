@@ -30,10 +30,11 @@ import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ComponentVector from './ComponentVector.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
-import RootVector, { LabelDisplayData } from './RootVector.js';
+import RootVector, { LabelDisplayData, RootVectorOptions } from './RootVector.js';
 import VectorSet from './VectorSet.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 //----------------------------------------------------------------------------------------
 // constants
@@ -56,7 +57,7 @@ type SelfOptions = {
   isOnGraphInitially?: boolean; // flag indicating if the vector is on the graph upon initialization
 };
 
-export type VectorOptions = SelfOptions;
+export type VectorOptions = SelfOptions & RootVectorOptions;
 
 export default class Vector extends RootVector {
 
@@ -105,21 +106,27 @@ export default class Vector extends RootVector {
                       symbolProperty: TReadOnlyProperty<string> | null,
                       providedOptions?: VectorOptions ) {
 
-    const options = optionize<VectorOptions, SelfOptions>()( {
+    const options = optionize<VectorOptions, SelfOptions, RootVectorOptions>()( {
 
       // SelfOptions
       isTipDraggable: true,
       isRemovable: true,
-      isOnGraphInitially: false
+      isOnGraphInitially: false,
+      tandem: Tandem.OPTIONAL
     }, providedOptions );
 
-    super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbolProperty );
+    super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbolProperty, options );
 
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovable = options.isRemovable;
     this.scene = scene;
     this.vectorSet = vectorSet;
-    this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially );
+
+    this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially, {
+      tandem: options.tandem.createTandem( 'isOnGraphProperty' ),
+      phetioReadOnly: true
+    } );
+
     this.inProgressAnimation = null;
     this.animateBackProperty = new BooleanProperty( false );
 
@@ -150,8 +157,9 @@ export default class Vector extends RootVector {
     };
   }
 
-  public dispose(): void {
+  public override dispose(): void {
     this.disposeVector();
+    super.dispose();
   }
 
   /**

@@ -135,7 +135,8 @@ export default class EquationsVectorSet extends VectorSet {
 
     // Create the sum vector
     assert && assert( this.symbolProperties.length > 0 );
-    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, _.last( this.symbolProperties )! );
+    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, _.last( this.symbolProperties )!,
+      tandem.createTandem( 'sumVector' ) );
     this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 

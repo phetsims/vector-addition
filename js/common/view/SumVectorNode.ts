@@ -20,9 +20,10 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import VectorNode, { VectorNodeOptions } from './VectorNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 
 type SelfOptions = EmptySelfOptions;
-type SumVectorNodeOptions = SelfOptions & VectorNodeOptions;
+type SumVectorNodeOptions = SelfOptions & WithRequired<VectorNodeOptions, 'tandem'>;
 
 export default class SumVectorNode extends VectorNode {
 
@@ -31,7 +32,7 @@ export default class SumVectorNode extends VectorNode {
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
                       sumVisibleProperty: TReadOnlyProperty<boolean>,
-                      providedOptions?: SumVectorNodeOptions ) {
+                      providedOptions: SumVectorNodeOptions ) {
 
     const options = optionize<SumVectorNodeOptions, SelfOptions, VectorNodeOptions>()( {
 
@@ -65,6 +66,8 @@ export default class SumVectorNode extends VectorNode {
         assert && assert( false, 'SumVectorNode instances never animated back' );
       }
     } );
+
+    this.addLinkedElement( sumVector );
   }
 }
 
