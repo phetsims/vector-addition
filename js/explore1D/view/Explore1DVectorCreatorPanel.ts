@@ -9,7 +9,7 @@
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import SceneNode from '../../common/view/SceneNode.js';
+import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -29,7 +29,7 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
    * @param providedOptions
    */
   public constructor( scene: Explore1DScene,
-                      sceneNode: SceneNode,
+                      sceneNode: VectorAdditionSceneNode,
                       symbolProperties: TReadOnlyProperty<string>[],
                       providedOptions: Explore1DVectorCreatorPanelOptions ) {
 

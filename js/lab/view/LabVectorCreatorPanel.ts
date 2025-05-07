@@ -8,7 +8,7 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import SceneNode from '../../common/view/SceneNode.js';
+import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -22,7 +22,7 @@ type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelO
 
 export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
-  public constructor( scene: LabScene, sceneNode: SceneNode, providedOptions: LabVectorCreatorPanelOptions ) {
+  public constructor( scene: LabScene, sceneNode: VectorAdditionSceneNode, providedOptions: LabVectorCreatorPanelOptions ) {
 
     const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 

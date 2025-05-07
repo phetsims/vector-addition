@@ -1,9 +1,9 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * EquationsSceneNode is a SceneNode that is specific to the 'Equations' screen.
+ * EquationsSceneNode is a VectorAdditionSceneNode that is specific to the 'Equations' screen.
  *
- * 'Is A' relationship with SceneNode but adds:
+ * 'Is A' relationship with VectorAdditionSceneNode but adds:
  *  - a RectangularRadioButtonGroup for EquationType
  *  - a Coefficient Selector Panel for each member of EquationType
  *  - a BaseVectorAccordionBox
@@ -17,7 +17,7 @@
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import SceneNode from '../../common/view/SceneNode.js';
+import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from '../model/EquationsScene.js';
 import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
@@ -30,7 +30,7 @@ import VectorSet from '../../common/model/VectorSet.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import Property from '../../../../axon/js/Property.js';
 
-export default class EquationsSceneNode extends SceneNode {
+export default class EquationsSceneNode extends VectorAdditionSceneNode {
 
   // Public for pdomOrder at ScreenView level.
   public readonly equationAccordionBox: Node;

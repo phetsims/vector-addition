@@ -17,7 +17,7 @@
  *  - However, it is required to 'tell' the Scene Node when other Vectors are created (see registerVector()). Once this
  *    is called, the Vector Nodes/Components are made and deleted once the Vector is removed.
  *
- * NOTE: SceneNode will not toggle its visibility based on when the GraphOrientation or the CoordinateSnapMode
+ * NOTE: VectorAdditionSceneNode will not toggle its visibility based on when the GraphOrientation or the CoordinateSnapMode
  *       changes. This must be done externally.
  *
  * @author Brandon Li
@@ -49,7 +49,7 @@ type SelfOptions = {
 
 export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
-export default class SceneNode extends Node {
+export default class VectorAdditionSceneNode extends Node {
 
   // Public for pdomOrder at ScreenView level.
   public readonly graphNode: GraphNode;
@@ -179,4 +179,4 @@ export default class SceneNode extends Node {
   }
 }
 
-vectorAddition.register( 'SceneNode', SceneNode );
+vectorAddition.register( 'VectorAdditionSceneNode', VectorAdditionSceneNode );

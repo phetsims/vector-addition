@@ -120,7 +120,7 @@ Nodes associated with a vector that is removed.
 
 A scene consists of a scene and its vector set(s). In this sim, there is no "scene" model element, and scenes are
 managed solely by the view.
-[SceneNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/SceneNode.ts)
+[VectorAdditionSceneNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/SceneNode.ts)
 is the base class. In the _Explore 1D_ screen, there are 2 scenes, corresponding to the horizontal and vertical scene
 orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch
 between scenes using the radio buttons that are located at the bottom-right of the ScreenView.

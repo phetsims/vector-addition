@@ -6,7 +6,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import SceneNode from '../../common/view/SceneNode.js';
+import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import Explore1DVectorCreatorPanel from './Explore1DVectorCreatorPanel.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -18,7 +18,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Explore2DScene from '../../explore2D/model/Explore2DScene.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 
-export default class Explore1DSceneNode extends SceneNode {
+export default class Explore1DSceneNode extends VectorAdditionSceneNode {
 
   public constructor( scene: Explore1DScene,
                       sceneProperty: TReadOnlyProperty<Explore2DScene>,

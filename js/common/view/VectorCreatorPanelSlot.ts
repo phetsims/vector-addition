@@ -14,10 +14,10 @@
  *
  * ## Implementation of creation of Vectors:
  *  1. Once the icon is clicked, a Vector is made.
- *  2. A call to the SceneNode is made, passing the created Vector. The Scene Node then creates the subsequent views
+ *  2. A call to the VectorAdditionSceneNode is made, passing the created Vector. The Scene Node then creates the subsequent views
  *     for the Vector (VectorNode and VectorComponentNode), layering the views correctly and forwarding the event.
  *  3. Once the Vector indicates the Vector was dropped outside the VectorAdditionScene, the slot will then animate the Vector and
- *     dispose the vector, signaling to the SceneNode to dispose of the views.
+ *     dispose the vector, signaling to the VectorAdditionSceneNode to dispose of the views.
  *
  * @author Brandon Li
  */
@@ -32,7 +32,7 @@ import vectorAddition from '../../vectorAddition.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
-import SceneNode from './SceneNode.js';
+import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
@@ -61,13 +61,13 @@ export default class VectorCreatorPanelSlot extends HBox {
   /**
    * @param scene - the scene for the VectorSect
    * @param vectorSet - the VectorSet that the slot adds Vectors to
-   * @param sceneNode - the SceneNode that this slot appears in
+   * @param sceneNode - the VectorAdditionSceneNode that this slot appears in
    * @param initialVectorComponents - the initial vector components to pass to created vectors
    * @param [providedOptions]
    */
   public constructor( scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      sceneNode: SceneNode,
+                      sceneNode: VectorAdditionSceneNode,
                       initialVectorComponents: Vector2,
                       providedOptions?: VectorCreatorPanelSlotOptions ) {
 
@@ -160,7 +160,7 @@ export default class VectorCreatorPanelSlot extends HBox {
 
       //----------------------------------------------------------------------------------------
       // Step 3: Once the Vector indicates the Vector was dropped outside the VectorAdditionScene, animate and
-      // dispose the Vector, signaling to the SceneNode to dispose of the views.
+      // dispose the Vector, signaling to the VectorAdditionSceneNode to dispose of the views.
       //----------------------------------------------------------------------------------------
 
       const animateVectorBackListener = ( animateBack: boolean ) => {
