@@ -36,7 +36,7 @@ type SelfOptions = {
   bottomLeft?: Vector2; // bottom left corner of the scene, in view coordinates
 };
 
-type GraphOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+type VectorAdditionSceneOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class VectorAdditionScene {
 
@@ -74,9 +74,9 @@ export default class VectorAdditionScene {
    * @param coordinateSnapMode - the coordinate snap mode of the scene. A scene is either strictly polar or Cartesian.
    * @param [providedOptions]
    */
-  protected constructor( initialBounds: Bounds2, coordinateSnapMode: CoordinateSnapMode, providedOptions: GraphOptions ) {
+  protected constructor( initialBounds: Bounds2, coordinateSnapMode: CoordinateSnapMode, providedOptions: VectorAdditionSceneOptions ) {
 
-    const options = optionize<GraphOptions, SelfOptions>()( {
+    const options = optionize<VectorAdditionSceneOptions, SelfOptions>()( {
 
       // SelfOptions
       orientation: 'twoDimensional',
