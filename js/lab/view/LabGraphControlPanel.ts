@@ -26,7 +26,7 @@ import LabScene from '../model/LabScene.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import LabViewProperties from './LabViewProperties.js';
+import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -40,7 +40,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
-                      viewProperties: LabViewProperties,
+                      viewProperties: VectorAdditionViewProperties,
                       providedOptions: LabGraphControlPanelOptions ) {
 
     const options = providedOptions;

@@ -12,17 +12,17 @@ import Explore1DVectorCreatorPanel from './Explore1DVectorCreatorPanel.js';
 import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import Explore1DViewProperties from './Explore1DViewProperties.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Explore1DScene from '../model/Explore1DScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Explore2DScene from '../../explore2D/model/Explore2DScene.js';
+import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 
 export default class Explore1DSceneNode extends SceneNode {
 
   public constructor( scene: Explore1DScene,
                       sceneProperty: TReadOnlyProperty<Explore2DScene>,
-                      viewProperties: Explore1DViewProperties,
+                      viewProperties: VectorAdditionViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sceneRadioButtonGroup: Node, // for layout
                       tandem: Tandem ) {

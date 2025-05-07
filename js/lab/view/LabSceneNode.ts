@@ -12,16 +12,16 @@ import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
 import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import LabViewProperties from './LabViewProperties.js';
 import LabScene from '../model/LabScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 
 export default class LabSceneNode extends SceneNode {
 
   public constructor( scene: LabScene,
                       sceneProperty: TReadOnlyProperty<LabScene>,
-                      viewProperties: LabViewProperties,
+                      viewProperties: VectorAdditionViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sceneRadioButtonGroup: Node, // for layout
                       tandem: Tandem ) {

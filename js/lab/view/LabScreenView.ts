@@ -14,20 +14,22 @@ import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView
 import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
-import LabViewProperties from './LabViewProperties.js';
 import LabSceneNode from './LabSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
+import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
   // view-specific Properties
-  private readonly viewProperties: LabViewProperties;
+  private readonly viewProperties: VectorAdditionViewProperties;
 
   public constructor( model: LabModel, tandem: Tandem ) {
 
     super( model, tandem );
 
-    this.viewProperties = new LabViewProperties( tandem.createTandem( 'viewProperties' ) );
+    this.viewProperties = new VectorAdditionViewProperties( {
+      tandem: tandem.createTandem( 'viewProperties' )
+    } );
 
     // Controls for the graph, at upper right
     const graphControlPanel = new LabGraphControlPanel(

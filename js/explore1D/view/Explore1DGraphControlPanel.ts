@@ -17,10 +17,10 @@ import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore1DViewProperties from './Explore1DViewProperties.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Explore1DScene from '../model/Explore1DScene.js';
+import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -31,7 +31,7 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
   public constructor( sceneProperty: TReadOnlyProperty<Explore1DScene>,
                       horizontalScene: Explore1DScene,
                       verticalScene: Explore1DScene,
-                      viewProperties: Explore1DViewProperties,
+                      viewProperties: VectorAdditionViewProperties,
                       providedOptions: Explore1DGraphControlPanelOptions ) {
 
     const options = providedOptions;

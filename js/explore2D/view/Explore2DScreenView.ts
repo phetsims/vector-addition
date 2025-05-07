@@ -14,20 +14,22 @@ import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
-import Explore2DViewProperties from './Explore2DViewProperties.js';
 import Explore2DSceneNode from './Explore2DSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
+import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
   // view-specific Properties
-  private readonly viewProperties: Explore2DViewProperties;
+  private readonly viewProperties: VectorAdditionViewProperties;
 
   public constructor( model: Explore2DModel, tandem: Tandem ) {
 
     super( model, tandem );
 
-    this.viewProperties = new Explore2DViewProperties( tandem.createTandem( 'viewProperties' ) );
+    this.viewProperties = new VectorAdditionViewProperties( {
+      tandem: tandem.createTandem( 'viewProperties' )
+    } );
 
     // Control for the graph, at upper right
     const graphControlPanel = new Explore2DGraphControlPanel(
