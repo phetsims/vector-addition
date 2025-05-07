@@ -33,13 +33,6 @@ To manipulate vectors:
 The _Explore 2D_ screen facilitates exploration of vectors in 2 dimensions, and introduces component vectors (and their
 various representations).
 
-To manipulate vectors:
-
-* add/remove vectors by dragging them between the toolbox and the scene
-* move a vector by dragging its tail (constrained to the scene's grid)
-* scale or rotate a vector by dragging its tip (constrained to the scene's grid)
-* component vectors cannot be directly manipulated
-
 There are 2 "scenes", each with a "snap mode" that determine which vector quantities snap to integer values.
 Selection of the scene is controlled by the radio buttons at the lower-right of the screen.
 
@@ -56,23 +49,25 @@ In the Polar scene:
 * vector angle snaps to 5-degree intervals
 * the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407;
 
+To manipulate vectors:
+
+* add/remove vectors by dragging them between the toolbox and the scene
+* move a vector by dragging its tail (constrained to the scene's grid)
+* scale or rotate a vector by dragging its tip (constrained to the scene's grid)
+* component vectors cannot be directly manipulated
+
 ## Lab screen
 
 The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 
-* each scene has 2 sets of vectors (blue and red for Cartesian, purple and green for Polar)
-* 10 vectors can be created for each set of vectors
-* the sum for a set of n vectors is v&#8407;<sub>1</sub> + v&#8407;<sub>2</sub> + ... + v&#8407;<sub>n</sub> = s&#8407;
+* Each scene has 2 sets of vectors (blue and red for Cartesian, purple and green for Polar.)
+* 10 vectors can be created for each set of vectors.
+* The sum for a set of n vectors is v&#8407;<sub>1</sub> + v&#8407;<sub>2</sub> + ... + v&#8407;<sub>n</sub> = s&#8407;
 
 ## Equations screen
 
 The _Equations_ screen introduces the concepts of base vectors, equations, and coefficients. Like the _Explore 2D_ and
 _Lab_ screens, it has Cartesian and Polar scenes.
-
-The _Equations_ screen has a couple of differences in how the student manipulates vectors:
-
-* Vectors are pre-populated on the scene; the student does not add and remove vectors.
-* Vectors can be moved directly on the scene, but their other properties must be changed using spinners.
 
 In the Cartesian scene:
 
@@ -97,3 +92,9 @@ In the Polar scene:
   * d&#8407; + e&#8407; = f&#8407;
   * d&#8407; - e&#8407; = f&#8407;
   * d&#8407; + e&#8407; + f&#8407; = 0
+
+The _Equations_ screen has a couple of differences in how the student manipulates vectors:
+
+* Vectors are pre-populated on the scene; the student does not add and remove vectors.
+* Vectors can be moved directly on the scene, but their other properties (scale, rotation) must be changed using spinners.
+
