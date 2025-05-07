@@ -45,8 +45,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'graphControlPanel' )
       } );
 
-    // CoordinateSnapMode radio buttons, at lower right
-    const coordinateSnapModeRadioButtonGroup = new SceneRadioButtonGroup(
+    // Radio buttons for selecting a scene, at lower right
+    const sceneRadioButtonGroup = new SceneRadioButtonGroup(
       model.sceneProperty,
       [ model.cartesianScene, model.polarScene ],
       [
@@ -56,7 +56,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
       {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
-        tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
+        tandem: tandem.createTandem( 'sceneRadioButtonGroup' )
       } );
 
     // Node for each scene.
@@ -66,7 +66,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
       model.sceneProperty,
       this.viewProperties,
       model.componentVectorStyleProperty,
-      coordinateSnapModeRadioButtonGroup,
+      sceneRadioButtonGroup,
       sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
 
     const polarSceneNode = new LabSceneNode(
@@ -74,7 +74,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
       model.sceneProperty,
       this.viewProperties,
       model.componentVectorStyleProperty,
-      coordinateSnapModeRadioButtonGroup,
+      sceneRadioButtonGroup,
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Cancel interactions when switching scenes.
@@ -83,7 +83,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
-        coordinateSnapModeRadioButtonGroup,
+        sceneRadioButtonGroup,
         cartesianSceneNode,
         polarSceneNode,
         this.resetAllButton
@@ -112,7 +112,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       graphControlPanel,
-      coordinateSnapModeRadioButtonGroup,
+      sceneRadioButtonGroup,
       this.resetAllButton
     ];
   }
