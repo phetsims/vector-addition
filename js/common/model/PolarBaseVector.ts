@@ -19,6 +19,8 @@ import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 export default class PolarBaseVector extends BaseVector {
 
@@ -31,22 +33,35 @@ export default class PolarBaseVector extends BaseVector {
    * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   * @param tandem
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      symbolProperty: TReadOnlyProperty<string> ) {
+                      symbolProperty: TReadOnlyProperty<string>,
+                      tandem: Tandem ) {
 
     assert && assert( scene.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty );
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
+      tandem: tandem
+    } );
 
-    this.magnitudeProperty = new NumberProperty( this.magnitude );
+    this.magnitudeProperty = new NumberProperty( this.magnitude, {
+      numberType: 'Integer',
+      range: VectorAdditionConstants.MAGNITUDE_RANGE,
+      tandem: tandem.createTandem( 'magnitudeProperty' )
+    } );
 
     const initialAngle = this.angle!;
     assert && assert( initialAngle !== null, 'expected this.angle to be non-null' );
-    this.angleDegreesProperty = new NumberProperty( toDegrees( initialAngle ) );
+    this.angleDegreesProperty = new NumberProperty( toDegrees( initialAngle ), {
+      numberType: 'Integer',
+      range: VectorAdditionConstants.ANGLE_RANGE,
+      units: '\u00B0', // degrees
+      tandem: tandem.createTandem( 'angleDegreesProperty' )
+    } );
 
     // Observe when the angle or magnitude changes, and update the components to match.
     // unmultilink is unnecessary, exists for the lifetime of the sim.

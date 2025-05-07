@@ -22,19 +22,13 @@ import Vector from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from './EquationsScene.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // constants
 
 // initial coefficient and range
 const DEFAULT_COEFFICIENT = 1;
 const COEFFICIENT_RANGE = new Range( -5, 5 );
-
-// super class options
-const OPTIONS = {
-  isRemovable: false,       // Equations vectors are not removable
-  isTipDraggable: false,    // Equations vectors are not draggable by the tip
-  isOnGraphInitially: true  // Equations vectors are always on the graph
-};
 
 export default class EquationsVector extends Vector {
 
@@ -48,16 +42,22 @@ export default class EquationsVector extends Vector {
    * @param scene - the scene the vector belongs to
    * @param vectorSet - the VectorSet that the vector belongs to
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param tandem
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       baseVectorTailPosition: Vector2,
                       scene: EquationsScene,
                       vectorSet: EquationsVectorSet,
-                      symbolProperty: TReadOnlyProperty<string> ) {
+                      symbolProperty: TReadOnlyProperty<string>,
+                      tandem: Tandem ) {
 
-
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, OPTIONS );
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
+      isRemovable: false,       // Equations vectors are not removable
+      isTipDraggable: false,    // Equations vectors are not draggable by the tip
+      isOnGraphInitially: true,  // Equations vectors are always on the graph
+      tandem: tandem
+    } );
 
     this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
       range: COEFFICIENT_RANGE
@@ -68,12 +68,12 @@ export default class EquationsVector extends Vector {
 
     // Instantiate a base vector based on scene.
     if ( scene.coordinateSnapMode === 'cartesian' ) {
-      this.baseVector = new CartesianBaseVector( baseVectorTailPosition,
-        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), scene, vectorSet, symbolProperty );
+      this.baseVector = new CartesianBaseVector( baseVectorTailPosition, this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+        scene, vectorSet, symbolProperty, tandem.createTandem( 'baseVector' ) );
     }
     else {
-      this.baseVector = new PolarBaseVector( baseVectorTailPosition,
-        this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ), scene, vectorSet, symbolProperty );
+      this.baseVector = new PolarBaseVector( baseVectorTailPosition, this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+        scene, vectorSet, symbolProperty, tandem.createTandem( 'baseVector' ) );
     }
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.

@@ -16,6 +16,8 @@ import vectorAddition from '../../vectorAddition.js';
 import BaseVector from './BaseVector.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 export default class CartesianBaseVector extends BaseVector {
 
@@ -29,22 +31,34 @@ export default class CartesianBaseVector extends BaseVector {
    * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
    * @param symbolProperty - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
+   * @param tandem
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      symbolProperty: TReadOnlyProperty<string> ) {
+                      symbolProperty: TReadOnlyProperty<string>,
+                      tandem: Tandem ) {
 
     assert && assert( scene.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty );
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
+      tandem: tandem
+    } );
 
-    this.xComponentProperty = new NumberProperty( this.xComponent );
-    this.yComponentProperty = new NumberProperty( this.yComponent );
+    this.xComponentProperty = new NumberProperty( this.xComponent, {
+      numberType: 'Integer',
+      range: VectorAdditionConstants.COMPONENT_RANGE,
+      tandem: tandem.createTandem( 'xComponentProperty' )
+    } );
+
+    this.yComponentProperty = new NumberProperty( this.yComponent, {
+      numberType: 'Integer',
+      range: VectorAdditionConstants.COMPONENT_RANGE,
+      tandem: tandem.createTandem( 'yComponentProperty' )
+    } );
 
     // Observe when the component NumberProperties change and update the components to match.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     this.xComponentProperty.link( xComponent => { this.xComponent = xComponent; } );
     this.yComponentProperty.link( yComponent => { this.yComponent = yComponent; } );
   }

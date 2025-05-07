@@ -54,7 +54,7 @@ export type LabelDisplayData = {
 
 type SelfOptions = EmptySelfOptions;
 
-export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem'>;
+export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem' | 'isDisposable'>;
 
 export default abstract class RootVector extends PhetioObject {
 

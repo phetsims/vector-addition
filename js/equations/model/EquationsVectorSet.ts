@@ -127,7 +127,8 @@ export default class EquationsVectorSet extends VectorSet {
         vectorDescription.baseVectorTail,
         scene,
         this,
-        this.symbolProperties[ i ] );
+        this.symbolProperties[ i ],
+        options.tandem.createTandem( `vector${i}` ) );
 
       this.vectors.push( vector );
       this.equationsVectors.push( vector );

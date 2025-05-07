@@ -13,16 +13,14 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
-import Vector from './Vector.js';
+import Vector, { VectorOptions } from './Vector.js';
 import VectorSet from './VectorSet.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-// constants
-const OPTIONS = {
-  isRemovable: false,       // BaseVectors are not removable
-  isTipDraggable: false,    // BaseVectors are not draggable by the tip
-  isOnGraphInitially: true, // BaseVectors are always on the graph
-  isDisposable: false
-};
+type SelfOptions = EmptySelfOptions;
+
+export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'tandem'>;
 
 export default abstract class BaseVector extends Vector {
 
@@ -32,14 +30,25 @@ export default abstract class BaseVector extends Vector {
    * @param scene - the scene the BaseVector belongs to
    * @param vectorSet - the set that the BaseVector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   * @param providedOptions
    */
   protected constructor( initialTailPosition: Vector2,
                          initialComponents: Vector2,
                          scene: VectorAdditionScene,
                          vectorSet: VectorSet,
-                         symbolProperty: TReadOnlyProperty<string> ) {
+                         symbolProperty: TReadOnlyProperty<string>,
+                         providedOptions: BaseVectorOptions ) {
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, OPTIONS );
+    const options = optionize<BaseVectorOptions, SelfOptions, VectorOptions>()( {
+
+      // VectorOptions
+      isRemovable: false,       // BaseVectors are not removable
+      isTipDraggable: false,    // BaseVectors are not draggable by the tip
+      isOnGraphInitially: true, // BaseVectors are always on the graph
+      isDisposable: false
+    }, providedOptions );
+
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, options );
   }
 }
 
