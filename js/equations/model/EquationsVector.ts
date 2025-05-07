@@ -14,7 +14,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import BaseVector from './BaseVector.js';
+import BaseVector from '../../common/model/BaseVector.js';
 import CartesianBaseVector from './CartesianBaseVector.js';
 import PolarBaseVector from './PolarBaseVector.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
