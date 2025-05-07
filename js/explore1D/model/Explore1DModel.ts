@@ -14,6 +14,7 @@ import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from './Explore1DScene.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 
 export default class Explore1DModel extends VectorAdditionModel {
 
@@ -22,6 +23,9 @@ export default class Explore1DModel extends VectorAdditionModel {
 
   // Scene for the vertical (y-axis) orientation
   public readonly verticalScene: Explore1DScene;
+
+  // The selected scene
+  public readonly sceneProperty: Property<Explore1DScene>;
 
   // Visibility of the sum vector, shared by both scenes.
   public readonly sumVisibleProperty: Property<boolean>;
@@ -51,6 +55,12 @@ export default class Explore1DModel extends VectorAdditionModel {
       VectorAdditionColors.BLUE_COLOR_PALETTE,
       scenesTandem.createTandem( 'verticalScene' )
     );
+
+    this.sceneProperty = new Property( this.horizontalScene, {
+      validValues: [ this.horizontalScene, this.verticalScene ],
+      tandem: tandem.createTandem( 'sceneProperty' ),
+      phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
+    } );
   }
 
   public override reset(): void {
@@ -58,6 +68,7 @@ export default class Explore1DModel extends VectorAdditionModel {
     this.sumVisibleProperty.reset();
     this.horizontalScene.reset();
     this.verticalScene.reset();
+    this.sceneProperty.reset();
   }
 }
 

@@ -41,12 +41,13 @@ import VectorSetNode from './VectorSetNode.js';
 import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
 };
 
-export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem' | 'visibleProperty'>;
+export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
 
 export default class SceneNode extends Node {
 
@@ -63,6 +64,7 @@ export default class SceneNode extends Node {
   private readonly vectorSets: VectorSet[];
 
   public constructor( scene: VectorAdditionScene,
+                      sceneProperty: TReadOnlyProperty<VectorAdditionScene>,
                       viewProperties: VectorAdditionViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions: SceneNodeOptions ) {
@@ -73,7 +75,8 @@ export default class SceneNode extends Node {
       includeEraser: true,
 
       // NodeOptions
-      isDisposable: false
+      isDisposable: false,
+      visibleProperty: new DerivedProperty( [ sceneProperty ], value => value === scene )
     }, providedOptions );
 
     super( options );

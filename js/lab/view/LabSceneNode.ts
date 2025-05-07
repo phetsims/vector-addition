@@ -7,7 +7,6 @@
  */
 
 import SceneNode from '../../common/view/SceneNode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import LabVectorCreatorPanel from './LabVectorCreatorPanel.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -21,21 +20,20 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 export default class LabSceneNode extends SceneNode {
 
   public constructor( scene: LabScene,
+                      sceneProperty: TReadOnlyProperty<LabScene>,
                       viewProperties: LabViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      graphOrientationRadioButtonGroup: Node, // for layout
+                      sceneRadioButtonGroup: Node, // for layout
                       tandem: Tandem ) {
 
-    super( scene, viewProperties, componentVectorStyleProperty, {
-      visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ],
-        graphOrientation => graphOrientation === scene.coordinateSnapMode ),
+    super( scene, sceneProperty, viewProperties, componentVectorStyleProperty, {
       tandem: tandem
     } );
 
     // Add the vector creator panel
     this.addVectorCreatorPanel( new LabVectorCreatorPanel( scene, this, {
-      left: graphOrientationRadioButtonGroup.left,
-      bottom: graphOrientationRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
+      left: sceneRadioButtonGroup.left,
+      bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
       tandem: tandem.createTandem( 'vectorCreatorPanel' )
     } ) );
   }

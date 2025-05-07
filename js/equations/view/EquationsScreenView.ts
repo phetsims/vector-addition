@@ -17,6 +17,8 @@ import EquationsModel from '../model/EquationsModel.js';
 import EquationsGraphControlPanel from './EquationsGraphControlPanel.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
+import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
+import EquationsScene from '../model/EquationsScene.js';
 
 export default class EquationsScreenView extends VectorAdditionScreenView {
 
@@ -40,14 +42,18 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'graphControlPanel' )
       } );
 
-    // Coordinate Snap radio buttons, at lower right
-    const coordinateSnapModeRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
-      this.viewProperties.coordinateSnapModeProperty,
-      model.cartesianScene.vectorSet.vectorColorPalette,
-      model.polarScene.vectorSet.vectorColorPalette, {
+    // Radio buttons for selecting a scene, at lower right
+    const sceneRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup<EquationsScene>(
+      model.sceneProperty,
+      [ model.cartesianScene, model.polarScene ],
+      [
+        VectorAdditionIconFactory.createCartesianSceneIcon( model.cartesianScene.vectorSet.vectorColorPalette ),
+        VectorAdditionIconFactory.createPolarSceneIcon( model.polarScene.vectorSet.vectorColorPalette )
+      ],
+      {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
-        tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
+        tandem: tandem.createTandem( 'sceneRadioButtonGroup' )
       } );
 
     // Used to make all radio buttons in the Equation accordion box the same effective size.
@@ -67,6 +73,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     const cartesianSceneNode = new EquationsSceneNode(
       model.cartesianScene,
+      model.sceneProperty,
       this.viewProperties,
       model.componentVectorStyleProperty,
       graphControlPanel.bottom,
@@ -76,6 +83,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     const polarSceneNode = new EquationsSceneNode(
       model.polarScene,
+      model.sceneProperty,
       this.viewProperties,
       model.componentVectorStyleProperty,
       graphControlPanel.bottom,
@@ -89,7 +97,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
-        coordinateSnapModeRadioButtonGroup,
+        sceneRadioButtonGroup,
         cartesianSceneNode,
         polarSceneNode,
         this.resetAllButton
@@ -118,7 +126,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       graphControlPanel,
       cartesianSceneNode.baseVectorsAccordionBox,
       polarSceneNode.baseVectorsAccordionBox,
-      coordinateSnapModeRadioButtonGroup,
+      sceneRadioButtonGroup,
       this.resetAllButton
     ];
   }

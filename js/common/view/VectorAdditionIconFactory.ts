@@ -319,9 +319,9 @@ const VectorAdditionIconFactory = {
   //=========================================================================================================
 
   /**
-   * Creates the icon for the Cartesian snap mode radio button.
+   * Creates the icon for the Cartesian scene radio button.
    */
-  createCartesianSnapModeIcon( vectorColorPalette: VectorColorPalette ): Node {
+  createCartesianSceneIcon( vectorColorPalette: VectorColorPalette ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
 
@@ -350,9 +350,9 @@ const VectorAdditionIconFactory = {
   },
 
   /**
-   * Creates the icon for the Polar snap mode radio button.
+   * Creates the icon for the Polar scene radio button.
    */
-  createPolarSnapModeIcon( vectorColorPalette: VectorColorPalette ): Node {
+  createPolarSceneIcon( vectorColorPalette: VectorColorPalette ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
     const arcRadius = 30; // arc radius of the curved arrow

@@ -12,17 +12,18 @@
  * @author Brandon Li
  */
 
-import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Graph, { GraphOptions } from './Graph.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 
 type SelfOptions = {
   graphOptions: StrictOmit<GraphOptions, 'tandem'>;
@@ -30,7 +31,7 @@ type SelfOptions = {
 
 type VectorAdditionSceneOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class VectorAdditionScene {
+export default class VectorAdditionScene extends PhetioObject {
 
   // coordinate snap mode for the scene, Cartesian or polar
   public readonly coordinateSnapMode: CoordinateSnapMode;
@@ -46,7 +47,14 @@ export default class VectorAdditionScene {
 
   protected constructor( coordinateSnapMode: CoordinateSnapMode, providedOptions: VectorAdditionSceneOptions ) {
 
-    const options = providedOptions;
+    const options = optionize<VectorAdditionSceneOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // PhetioObjectOptions
+      isDisposable: false,
+      phetioType: VectorAdditionScene.VectorAdditionSceneIO
+    }, providedOptions );
+
+    super( options );
 
     this.coordinateSnapMode = coordinateSnapMode;
 
@@ -57,10 +65,6 @@ export default class VectorAdditionScene {
     }, options.graphOptions ) );
 
     this.activeVectorProperty = new Property<Vector | null>( null );
-  }
-
-  public dispose(): void {
-    Disposable.assertNotDisposable();
   }
 
   public reset(): void {
@@ -76,6 +80,15 @@ export default class VectorAdditionScene {
     this.vectorSets.forEach( vectorSet => vectorSet.erase() );
     this.activeVectorProperty.reset();
   }
+
+  /**
+   * VectorAdditionSceneIO handles serialization of a VectorAdditionScene. It implements reference-type serialization, as
+   * described in https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization.
+   */
+  public static readonly VectorAdditionSceneIO = new IOType<VectorAdditionScene, ReferenceIOState>( 'VectorAdditionSceneIO', {
+    valueType: VectorAdditionScene,
+    supertype: ReferenceIO( IOType.ObjectIO )
+  } );
 }
 
 vectorAddition.register( 'VectorAdditionScene', VectorAdditionScene );

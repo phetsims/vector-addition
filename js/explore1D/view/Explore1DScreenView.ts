@@ -14,8 +14,9 @@ import vectorAddition from '../../vectorAddition.js';
 import Explore1DModel from '../model/Explore1DModel.js';
 import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
-import GraphOrientationRadioButtonGroup from './GraphOrientationRadioButtonGroup.js';
 import Explore1DSceneNode from './Explore1DSceneNode.js';
+import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
+import CoordinateSnapModeRadioButtonGroup from '../../common/view/CoordinateSnapModeRadioButtonGroup.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -40,21 +41,35 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'graphControlPanel' )
       } );
 
-    // VectorAdditionScene Orientation radio buttons, at lower right
-    const graphOrientationRadioButtonGroup = new GraphOrientationRadioButtonGroup(
-      this.viewProperties.graphOrientationProperty, {
+    // Radio buttons for selecting a scene, at lower right
+    const sceneRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
+      model.sceneProperty,
+      [ model.horizontalScene, model.verticalScene ],
+      [ VectorAdditionIconFactory.createGraphOrientationIcon( 'horizontal' ),
+        VectorAdditionIconFactory.createGraphOrientationIcon( 'vertical' )
+      ],
+      {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
-        tandem: tandem.createTandem( 'graphOrientationRadioButtonGroup' )
+        tandem: tandem.createTandem( 'sceneRadioButtonGroup' )
       } );
 
     // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const horizonalSceneNode = new Explore1DSceneNode( model.horizontalScene, this.viewProperties,
-      model.componentVectorStyleProperty, graphOrientationRadioButtonGroup,
+    const horizonalSceneNode = new Explore1DSceneNode(
+      model.horizontalScene,
+      model.sceneProperty,
+      this.viewProperties,
+      model.componentVectorStyleProperty,
+      sceneRadioButtonGroup,
       sceneNodesTandem.createTandem( 'horizonalSceneNode' ) );
-    const verticalSceneNode = new Explore1DSceneNode( model.verticalScene, this.viewProperties,
-      model.componentVectorStyleProperty, graphOrientationRadioButtonGroup,
+
+    const verticalSceneNode = new Explore1DSceneNode(
+      model.verticalScene,
+      model.sceneProperty,
+      this.viewProperties,
+      model.componentVectorStyleProperty,
+      sceneRadioButtonGroup,
       sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
 
     // Cancel interactions when switching scenes.
@@ -63,7 +78,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
-        graphOrientationRadioButtonGroup,
+        sceneRadioButtonGroup,
         horizonalSceneNode,
         verticalSceneNode,
         this.resetAllButton
@@ -94,7 +109,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       horizonalSceneNode.vectorValuesAccordionBox,
       verticalSceneNode.vectorValuesAccordionBox,
       graphControlPanel,
-      graphOrientationRadioButtonGroup,
+      sceneRadioButtonGroup,
       this.resetAllButton
     ];
   }

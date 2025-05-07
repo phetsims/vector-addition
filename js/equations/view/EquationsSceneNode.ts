@@ -25,7 +25,6 @@ import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationAccordionBox from './EquationAccordionBox.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import BaseVector from '../../common/model/BaseVector.js';
@@ -38,6 +37,7 @@ export default class EquationsSceneNode extends SceneNode {
   public readonly baseVectorsAccordionBox: Node;
 
   public constructor( scene: EquationsScene,
+                      sceneProperty: TReadOnlyProperty<EquationsScene>,
                       viewProperties: EquationsViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       graphControlPanelBottom: number,
@@ -45,10 +45,8 @@ export default class EquationsSceneNode extends SceneNode {
                       equationsAlignGroup: AlignGroup, // used to make all interactive equations the same size
                       tandem: Tandem ) {
 
-    super( scene, viewProperties, componentVectorStyleProperty, {
+    super( scene, sceneProperty, viewProperties, componentVectorStyleProperty, {
       includeEraser: false,
-      visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ],
-        coordinateSnapMode => coordinateSnapMode === scene.coordinateSnapMode ),
       tandem: tandem
     } );
 

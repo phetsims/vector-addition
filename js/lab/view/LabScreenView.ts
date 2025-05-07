@@ -16,6 +16,7 @@ import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabViewProperties from './LabViewProperties.js';
 import LabSceneNode from './LabSceneNode.js';
+import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
@@ -43,9 +44,13 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     // CoordinateSnapMode radio buttons, at lower right
     const coordinateSnapModeRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
-      this.viewProperties.coordinateSnapModeProperty,
-      model.cartesianScene.vectorSet1.vectorColorPalette,
-      model.polarScene.vectorSet1.vectorColorPalette, {
+      model.sceneProperty,
+      [ model.cartesianScene, model.polarScene ],
+      [
+        VectorAdditionIconFactory.createCartesianSceneIcon( model.cartesianScene.vectorSet1.vectorColorPalette ),
+        VectorAdditionIconFactory.createPolarSceneIcon( model.polarScene.vectorSet1.vectorColorPalette )
+      ],
+      {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
         tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
@@ -53,11 +58,20 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const cartesianSceneNode = new LabSceneNode( model.cartesianScene, this.viewProperties,
-      model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
+    const cartesianSceneNode = new LabSceneNode(
+      model.cartesianScene,
+      model.sceneProperty,
+      this.viewProperties,
+      model.componentVectorStyleProperty,
+      coordinateSnapModeRadioButtonGroup,
       sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
-    const polarSceneNode = new LabSceneNode( model.polarScene, this.viewProperties,
-      model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
+
+    const polarSceneNode = new LabSceneNode(
+      model.polarScene,
+      model.sceneProperty,
+      this.viewProperties,
+      model.componentVectorStyleProperty,
+      coordinateSnapModeRadioButtonGroup,
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Cancel interactions when switching scenes.

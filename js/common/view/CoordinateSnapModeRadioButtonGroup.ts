@@ -1,56 +1,49 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Radio button group for switching between polar and Cartesian snap modes.
- *
- * See https://github.com/phetsims/vector-addition/issues/21 for a visual.
+ * CoordinateSnapModeRadioButtonGroup is the radio button group for switching between scenes.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import vectorAddition from '../../vectorAddition.js';
-import { CoordinateSnapMode } from '../model/CoordinateSnapMode.js';
-import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
+import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = EmptySelfOptions;
 
 type CoordinateSnapModeRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions & PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
-export default class CoordinateSnapModeRadioButtonGroup extends RectangularRadioButtonGroup<CoordinateSnapMode> {
+export default class CoordinateSnapModeRadioButtonGroup<T extends VectorAdditionScene> extends RectangularRadioButtonGroup<T> {
 
-  public constructor( coordinateSnapModeProperty: StringUnionProperty<CoordinateSnapMode>,
-                      cartesianVectorColorPalette: VectorColorPalette,
-                      polarVectorColorPalette: VectorColorPalette,
+  public constructor( sceneProperty: Property<T>,
+                      scenes: T[],
+                      sceneIcons: Node[],
                       providedOptions: CoordinateSnapModeRadioButtonGroupOptions ) {
+
+    assert && assert( scenes.length === sceneIcons.length );
 
     const options = optionize4<CoordinateSnapModeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
         isDisposable: false
       }, providedOptions );
 
-    // Create the description of the buttons
-    const items: RectangularRadioButtonGroupItem<CoordinateSnapMode>[] = [
-      {
-        value: 'cartesian',
-        createNode: () => VectorAdditionIconFactory.createCartesianSnapModeIcon( cartesianVectorColorPalette ),
-        tandemName: 'cartesianRadioButton'
-      },
-      {
-        value: 'polar',
-        createNode: () => VectorAdditionIconFactory.createPolarSnapModeIcon( polarVectorColorPalette ),
-        tandemName: 'polarRadioButton'
-      }
-    ];
+    const items: RectangularRadioButtonGroupItem<T>[] = [];
+    for ( let i = 0; i < scenes.length; i++ ) {
+      items.push( {
+        value: scenes[ i ],
+        createNode: () => sceneIcons[ i ],
+        tandemName: `${scenes[ i ].tandem.name}RadioButton`
+      } );
+    }
 
-    super( coordinateSnapModeProperty, items, options );
+    super( sceneProperty, items, options );
   }
 }
 

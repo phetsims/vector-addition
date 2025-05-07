@@ -16,6 +16,7 @@ import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
 import Explore2DSceneNode from './Explore2DSceneNode.js';
+import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
@@ -39,23 +40,36 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'graphControlPanel' )
       } );
 
-    // CoordinateSnapMode radio buttons, at lower right
-    const coordinateSnapModeRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
-      this.viewProperties.coordinateSnapModeProperty,
-      model.cartesianScene.vectorSet.vectorColorPalette,
-      model.polarScene.vectorSet.vectorColorPalette, {
+    // Radio buttons for selecting a scene, at lower right
+    const sceneRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
+      model.sceneProperty,
+      [ model.cartesianScene, model.polarScene ],
+      [
+        VectorAdditionIconFactory.createCartesianSceneIcon( model.cartesianScene.vectorSet.vectorColorPalette ),
+        VectorAdditionIconFactory.createPolarSceneIcon( model.polarScene.vectorSet.vectorColorPalette )
+      ],
+      {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
-        tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
+        tandem: tandem.createTandem( 'sceneRadioButtonGroup' )
       } );
 
     // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const cartesianSceneNode = new Explore2DSceneNode( model.cartesianScene, this.viewProperties,
-      model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
+    const cartesianSceneNode = new Explore2DSceneNode(
+      model.cartesianScene,
+      model.sceneProperty,
+      this.viewProperties,
+      model.componentVectorStyleProperty,
+      sceneRadioButtonGroup,
       sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
-    const polarSceneNode = new Explore2DSceneNode( model.polarScene, this.viewProperties,
-      model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
+
+    const polarSceneNode = new Explore2DSceneNode(
+      model.polarScene,
+      model.sceneProperty,
+      this.viewProperties,
+      model.componentVectorStyleProperty,
+      sceneRadioButtonGroup,
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Cancel interactions when switching scenes.
@@ -64,7 +78,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     const screenViewRootNode = new Node( {
       children: [
         graphControlPanel,
-        coordinateSnapModeRadioButtonGroup,
+        sceneRadioButtonGroup,
         cartesianSceneNode,
         polarSceneNode,
         this.resetAllButton
@@ -95,7 +109,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       graphControlPanel,
-      coordinateSnapModeRadioButtonGroup,
+      sceneRadioButtonGroup,
       this.resetAllButton
     ];
   }

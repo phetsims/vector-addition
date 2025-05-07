@@ -13,6 +13,7 @@ import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from './EquationsScene.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 
 export default class EquationsModel extends VectorAdditionModel {
 
@@ -21,6 +22,9 @@ export default class EquationsModel extends VectorAdditionModel {
 
   // Scene for Polar snap mode
   public readonly polarScene: EquationsScene;
+
+  // The selected scene
+  public readonly sceneProperty: Property<EquationsScene>;
 
   // Visibility of the sum vector, shared by both scenes.
   public readonly sumVisibleProperty: Property<boolean>;
@@ -48,6 +52,12 @@ export default class EquationsModel extends VectorAdditionModel {
       VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE,
       scenesTandem.createTandem( 'polarScene' )
     );
+
+    this.sceneProperty = new Property( this.cartesianScene, {
+      validValues: [ this.cartesianScene, this.polarScene ],
+      tandem: tandem.createTandem( 'sceneProperty' ),
+      phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
+    } );
   }
 
   public override reset(): void {
@@ -55,6 +65,7 @@ export default class EquationsModel extends VectorAdditionModel {
     this.sumVisibleProperty.reset();
     this.cartesianScene.reset();
     this.polarScene.reset();
+    this.sceneProperty.reset();
   }
 }
 
