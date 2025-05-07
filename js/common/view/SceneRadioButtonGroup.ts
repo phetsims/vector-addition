@@ -18,18 +18,18 @@ import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type CoordinateSnapModeRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions & PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
+type SceneRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions & PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
 export default class SceneRadioButtonGroup<T extends VectorAdditionScene> extends RectangularRadioButtonGroup<T> {
 
   public constructor( sceneProperty: Property<T>,
                       scenes: T[],
                       sceneIcons: Node[],
-                      providedOptions: CoordinateSnapModeRadioButtonGroupOptions ) {
+                      providedOptions: SceneRadioButtonGroupOptions ) {
 
     assert && assert( scenes.length === sceneIcons.length );
 
-    const options = optionize4<CoordinateSnapModeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
+    const options = optionize4<SceneRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
         isDisposable: false
       }, providedOptions );
