@@ -4,8 +4,11 @@ This document is a high-level description of the model used in PhET's _Vector Ad
 
 ## Explore 1D screen
 
-The _Explore 1D_ screen facilitates exploration of vectors in 1 dimension. Vectors are constrained to either horizontal
-or vertical orientation.
+The _Explore 1D_ screen facilitates exploration of vectors in 1 dimension. 
+
+There are 2 "scenes", which constrain vectors to 1 dimension:  
+* The horizontal scene constrains vectors to horizontal orientation, where the y-component is always zero.
+* The vertical scene constrains vectors to vertical orientation, where the x-component is always zero.
 
 To manipulate vectors:
 
