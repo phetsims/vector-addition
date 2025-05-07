@@ -6,9 +6,9 @@
  * See EquationType.js
  *
  * 'Is a' relationship with RectangularRadioButtonGroup but adds:
- *    - Radio button for 'ADDITION' => 'a' + 'b' = 'c'
- *    - Radio button for 'SUBTRACTION' => 'a' - 'b' = 'c'
- *    - Radio button for 'NEGATION' => 'a' + 'b' + 'c' = 0
+ *    - Radio button for 'addition' => 'a' + 'b' = 'c'
+ *    - Radio button for 'subtraction' => 'a' - 'b' = 'c'
+ *    - Radio button for 'negation' => 'a' + 'b' + 'c' = 0
  *
  * Icons created from the VectorAdditionIconFactory.
  *
