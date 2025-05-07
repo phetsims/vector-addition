@@ -118,12 +118,12 @@ Nodes associated with a vector that is removed.
 
 ### Scenes
 
-A scene consists of a scene and its vector set(s). In this sim, there is no "scene" model element, and scenes are
-managed solely by the view.
-[VectorAdditionSceneNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/SceneNode.ts)
-is the base class. In the _Explore 1D_ screen, there are 2 scenes, corresponding to the horizontal and vertical scene
-orientations. In the other screens, there are 2 scenes, corresponding to the Cartesian and Polar snap modes. Switch
-between scenes using the radio buttons that are located at the bottom-right of the ScreenView.
+A scene consists of a graph and its vector set(s). In the model, see VectorAdditionScene and its subclasses, 
+and `sceneProperty`. In the view, see VectorAdditionSceneNode and its subclasses.
+
+The _Explore 1D_ screen has horizontal and vertical scenes, while the other screens have Cartesian and Polar scenes.
+
+In all screens, switch between scenes using the radio buttons that are located at the bottom-right of the ScreenView.
 
 ## Vectors: Model and View
 
@@ -196,13 +196,13 @@ The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has t
 * Three visual representations of component vectors are supported,
   see [ComponentVectorStyle](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyles.ts).
 * Vector sum and angles can be displayed.
-* The scene's grid can be hidden.
+* The graph's grid can be hidden.
 
 The other screens can be described in terms of their differences from the _Explore 2D_ screen.
 
 _Explore 1D_ screen:
 
-* Scenes are based on scene orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar).
+* Scenes are based on graph orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar).
 * Vectors can be translated and scaled via direct manipulation, but not rotated.
 * Component vectors are not displayed.
 * Vector angles are not displayed.
