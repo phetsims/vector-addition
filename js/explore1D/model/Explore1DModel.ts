@@ -20,11 +20,11 @@ export default class Explore1DModel extends VectorAdditionModel {
   // Property controlling the visibility of the sum for both VectorAdditionScene instances
   public readonly sumVisibleProperty: Property<boolean>;
 
-  // graph for the horizontal (x-axis) orientation
-  public readonly horizontalGraph: Explore1DScene;
+  // Scene for the horizontal (x-axis) orientation
+  public readonly horizontalScene: Explore1DScene;
 
-  // graph for the vertical (y-axis) orientation
-  public readonly verticalGraph: Explore1DScene;
+  // Scene for the vertical (y-axis) orientation
+  public readonly verticalScene: Explore1DScene;
 
   public constructor( tandem: Tandem ) {
 
@@ -34,28 +34,30 @@ export default class Explore1DModel extends VectorAdditionModel {
       tandem: tandem.createTandem( 'sumVisibleProperty' )
     } );
 
-    this.horizontalGraph = new Explore1DScene(
+    const scenesTandem = tandem.createTandem( 'scenes' );
+
+    this.horizontalScene = new Explore1DScene(
       'horizontal',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       VectorAdditionColors.BLUE_COLOR_PALETTE,
-      tandem.createTandem( 'horizontalGraph' )
+      scenesTandem.createTandem( 'horizontalScene' )
     );
 
-    this.verticalGraph = new Explore1DScene(
+    this.verticalScene = new Explore1DScene(
       'vertical',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       VectorAdditionColors.BLUE_COLOR_PALETTE,
-      tandem.createTandem( 'verticalGraph' )
+      scenesTandem.createTandem( 'verticalScene' )
     );
   }
 
   public override reset(): void {
     super.reset();
     this.sumVisibleProperty.reset();
-    this.horizontalGraph.reset();
-    this.verticalGraph.reset();
+    this.horizontalScene.reset();
+    this.verticalScene.reset();
   }
 }
 

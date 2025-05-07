@@ -18,11 +18,11 @@ export default class EquationsModel extends VectorAdditionModel {
 
   public readonly sumVisibleProperty: Property<boolean>;
 
-  // graph for Cartesian snap mode
-  public readonly cartesianGraph: EquationsScene;
+  // Scene for Cartesian snap mode
+  public readonly cartesianScene: EquationsScene;
 
-  // graph for Polar snap mode
-  public readonly polarGraph: EquationsScene;
+  // Scene for Polar snap mode
+  public readonly polarScene: EquationsScene;
 
   public constructor( tandem: Tandem ) {
 
@@ -32,26 +32,28 @@ export default class EquationsModel extends VectorAdditionModel {
       tandem: tandem.createTandem( 'sumVisibleProperty' )
     } );
 
-    this.cartesianGraph = new EquationsScene( 'cartesian',
+    const scenesTandem = tandem.createTandem( 'scenes' );
+
+    this.cartesianScene = new EquationsScene( 'cartesian',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE,
-      tandem.createTandem( 'cartesianGraph' )
+      scenesTandem.createTandem( 'cartesianScene' )
     );
 
-    this.polarGraph = new EquationsScene( 'polar',
+    this.polarScene = new EquationsScene( 'polar',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
       VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE,
-      tandem.createTandem( 'polarGraph' )
+      scenesTandem.createTandem( 'polarScene' )
     );
   }
 
   public override reset(): void {
     super.reset();
     this.sumVisibleProperty.reset();
-    this.cartesianGraph.reset();
-    this.polarGraph.reset();
+    this.cartesianScene.reset();
+    this.polarScene.reset();
   }
 }
 

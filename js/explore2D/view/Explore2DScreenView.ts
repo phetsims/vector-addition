@@ -30,8 +30,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
     // Control for the graph, at upper right
     const graphControlPanel = new Explore2DGraphControlPanel(
-      model.cartesianGraph.vectorSet,
-      model.polarGraph.vectorSet,
+      model.cartesianScene.vectorSet,
+      model.polarScene.vectorSet,
       model.componentVectorStyleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
@@ -42,8 +42,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     // CoordinateSnapMode radio buttons, at lower right
     const coordinateSnapModeRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
       this.viewProperties.coordinateSnapModeProperty,
-      model.cartesianGraph.vectorSet.vectorColorPalette,
-      model.polarGraph.vectorSet.vectorColorPalette, {
+      model.cartesianScene.vectorSet.vectorColorPalette,
+      model.polarScene.vectorSet.vectorColorPalette, {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
         tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
@@ -51,10 +51,10 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
     // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const cartesianSceneNode = new Explore2DSceneNode( model.cartesianGraph, this.viewProperties,
+    const cartesianSceneNode = new Explore2DSceneNode( model.cartesianScene, this.viewProperties,
       model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
       sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
-    const polarSceneNode = new Explore2DSceneNode( model.polarGraph, this.viewProperties,
+    const polarSceneNode = new Explore2DSceneNode( model.polarScene, this.viewProperties,
       model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 

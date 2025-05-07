@@ -28,12 +28,12 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
     this.viewProperties = new Explore1DViewProperties( tandem.createTandem( 'viewProperties' ) );
 
-    const graphViewBounds = model.verticalGraph.viewBounds;
+    const graphViewBounds = model.verticalScene.viewBounds;
 
     // Controls for the graph, at upper right
     const graphControlPanel = new Explore1DGraphControlPanel(
-      model.horizontalGraph.vectorSet,
-      model.verticalGraph.vectorSet,
+      model.horizontalScene.vectorSet,
+      model.verticalScene.vectorSet,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: graphViewBounds.top,
@@ -50,10 +50,10 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
     // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const horizonalSceneNode = new Explore1DSceneNode( model.horizontalGraph, this.viewProperties,
+    const horizonalSceneNode = new Explore1DSceneNode( model.horizontalScene, this.viewProperties,
       model.componentVectorStyleProperty, graphOrientationRadioButtonGroup,
       sceneNodesTandem.createTandem( 'horizonalSceneNode' ) );
-    const verticalSceneNode = new Explore1DSceneNode( model.verticalGraph, this.viewProperties,
+    const verticalSceneNode = new Explore1DSceneNode( model.verticalScene, this.viewProperties,
       model.componentVectorStyleProperty, graphOrientationRadioButtonGroup,
       sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
 

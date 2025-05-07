@@ -30,8 +30,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     // Controls for the graph, at upper right
     const graphControlPanel = new LabGraphControlPanel(
-      model.cartesianGraph,
-      model.polarGraph,
+      model.cartesianScene,
+      model.polarScene,
       model.componentVectorStyleProperty,
       model.sum1VisibleProperty,
       model.sum2VisibleProperty,
@@ -44,8 +44,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
     // CoordinateSnapMode radio buttons, at lower right
     const coordinateSnapModeRadioButtonGroup = new CoordinateSnapModeRadioButtonGroup(
       this.viewProperties.coordinateSnapModeProperty,
-      model.cartesianGraph.vectorSet1.vectorColorPalette,
-      model.polarGraph.vectorSet1.vectorColorPalette, {
+      model.cartesianScene.vectorSet1.vectorColorPalette,
+      model.polarScene.vectorSet1.vectorColorPalette, {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
         tandem: tandem.createTandem( 'coordinateSnapModeRadioButtonGroup' )
@@ -53,10 +53,10 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     // Node for each scene.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
-    const cartesianSceneNode = new LabSceneNode( model.cartesianGraph, this.viewProperties,
+    const cartesianSceneNode = new LabSceneNode( model.cartesianScene, this.viewProperties,
       model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
       sceneNodesTandem.createTandem( 'cartesianSceneNode' ) );
-    const polarSceneNode = new LabSceneNode( model.polarGraph, this.viewProperties,
+    const polarSceneNode = new LabSceneNode( model.polarScene, this.viewProperties,
       model.componentVectorStyleProperty, coordinateSnapModeRadioButtonGroup,
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
