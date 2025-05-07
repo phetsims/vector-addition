@@ -35,6 +35,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     const graphControlPanel = new EquationsGraphControlPanel(
       model.cartesianScene.vectorSet,
       model.polarScene.vectorSet,
+      model.sceneProperty,
       model.componentVectorStyleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
@@ -92,7 +93,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Cancel interactions when switching scenes.
-    this.viewProperties.coordinateSnapModeProperty.link( () => this.interruptSubtreeInput() );
+    model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
     const screenViewRootNode = new Node( {
       children: [

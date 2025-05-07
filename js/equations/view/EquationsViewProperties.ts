@@ -11,13 +11,8 @@ import Property from '../../../../axon/js/Property.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import { CoordinateSnapMode, CoordinateSnapModeValues } from '../../common/model/CoordinateSnapMode.js';
 
 export default class EquationsViewProperties extends VectorAdditionViewProperties {
-
-  // controls the snapping mode for the vectors
-  public readonly coordinateSnapModeProperty: StringUnionProperty<CoordinateSnapMode>;
 
   // whether the EquationAccordionBox is expanded
   public readonly equationAccordionBoxExpandedProperty: Property<boolean>;
@@ -31,11 +26,6 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
   public constructor( tandem: Tandem ) {
     super( {
       tandem: tandem
-    } );
-
-    this.coordinateSnapModeProperty = new StringUnionProperty( 'cartesian', {
-      validValues: CoordinateSnapModeValues,
-      tandem: tandem.createTandem( 'coordinateSnapModeProperty' )
     } );
 
     this.equationAccordionBoxExpandedProperty = new BooleanProperty( true, {
@@ -52,7 +42,6 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
   }
 
   public override reset(): void {
-    this.coordinateSnapModeProperty.reset();
     this.equationAccordionBoxExpandedProperty.reset();
     this.baseVectorsAccordionBoxExpandedProperty.reset();
     this.baseVectorsVisibleProperty.reset();

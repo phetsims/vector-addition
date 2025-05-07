@@ -31,8 +31,9 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
     // Control for the graph, at upper right
     const graphControlPanel = new Explore2DGraphControlPanel(
-      model.cartesianScene.vectorSet,
-      model.polarScene.vectorSet,
+      model.sceneProperty,
+      model.cartesianScene,
+      model.polarScene,
       model.componentVectorStyleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
@@ -73,7 +74,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Cancel interactions when switching scenes.
-    this.viewProperties.coordinateSnapModeProperty.link( () => this.interruptSubtreeInput() );
+    model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
     const screenViewRootNode = new Node( {
       children: [

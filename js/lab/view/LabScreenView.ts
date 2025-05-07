@@ -31,6 +31,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     // Controls for the graph, at upper right
     const graphControlPanel = new LabGraphControlPanel(
+      model.sceneProperty,
       model.cartesianScene,
       model.polarScene,
       model.componentVectorStyleProperty,
@@ -75,7 +76,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Cancel interactions when switching scenes.
-    this.viewProperties.coordinateSnapModeProperty.link( () => this.interruptSubtreeInput() );
+    model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
     const screenViewRootNode = new Node( {
       children: [

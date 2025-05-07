@@ -2,7 +2,6 @@
 
 /**
  *  LabGraphControlPanel is the graph control panel for the 'Lab' screen.
- *  It exists for the lifetime of the sim and is not intended to be disposed.
  *
  *  @author Brandon Li
  *  @author Chris Malley (PixelZoom, Inc.)
@@ -35,7 +34,8 @@ type LabGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class LabGraphControlPanel extends GraphControlPanel {
 
-  public constructor( cartesianScene: LabScene,
+  public constructor( sceneProperty: Property<LabScene>,
+                      cartesianScene: LabScene,
                       polarScene: LabScene,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
@@ -45,23 +45,22 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
     const options = providedOptions;
 
+    // Sum checkbox for vector set 1, with vector color determined by the selected scene.
     const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, {
-      vectorIconFill: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        ( coordinateSnapMode === cartesianScene.coordinateSnapMode ) ?
-        cartesianScene.vectorSet1.vectorColorPalette.sumFill : polarScene.vectorSet1.vectorColorPalette.sumFill ),
-      vectorIconStroke: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        ( coordinateSnapMode === cartesianScene.coordinateSnapMode ) ?
+      vectorIconFill: new DerivedProperty( [ sceneProperty ], scene =>
+        ( scene === cartesianScene ) ? cartesianScene.vectorSet1.vectorColorPalette.sumFill : polarScene.vectorSet1.vectorColorPalette.sumFill ),
+      vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene =>
+        ( scene === cartesianScene ) ?
         cartesianScene.vectorSet1.vectorColorPalette.sumStroke : polarScene.vectorSet1.vectorColorPalette.sumStroke ),
       tandem: options.tandem.createTandem( 'sum1Checkbox' )
     } );
 
+    // Sum checkbox for vector set 2, with vector color determined by the selected scene.
     const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, {
-      vectorIconFill: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        ( coordinateSnapMode === cartesianScene.coordinateSnapMode ) ?
-        cartesianScene.vectorSet2.vectorColorPalette.sumFill : polarScene.vectorSet2.vectorColorPalette.sumFill ),
-      vectorIconStroke: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        ( coordinateSnapMode === cartesianScene.coordinateSnapMode ) ?
-        cartesianScene.vectorSet2.vectorColorPalette.sumStroke : polarScene.vectorSet2.vectorColorPalette.sumStroke ),
+      vectorIconFill: new DerivedProperty( [ sceneProperty ], scene =>
+        ( scene === cartesianScene ) ? cartesianScene.vectorSet2.vectorColorPalette.sumFill : polarScene.vectorSet2.vectorColorPalette.sumFill ),
+      vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene =>
+        ( scene === cartesianScene ) ? cartesianScene.vectorSet2.vectorColorPalette.sumStroke : polarScene.vectorSet2.vectorColorPalette.sumStroke ),
       tandem: options.tandem.createTandem( 'sum2Checkbox' )
     } );
 

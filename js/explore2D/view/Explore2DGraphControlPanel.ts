@@ -2,7 +2,6 @@
 
 /**
  * Explore1DGraphControlPanel is the graph control panel for the 'Explore 2D' screen.
- * It exists for the lifetime of the sim and is not intended to be disposed.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -14,7 +13,6 @@ import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentVectorStyleControl from '../../common/view/ComponentVectorStyleControl.js';
@@ -27,6 +25,8 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Explore2DScene from '../model/Explore2DScene.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -34,19 +34,21 @@ type Explore2DGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class Explore2DGraphControlPanel extends GraphControlPanel {
 
-  public constructor( cartesianVectorSet: VectorSet,
-                      polarVectorSet: VectorSet,
+  public constructor( sceneProperty: TReadOnlyProperty<Explore2DScene>,
+                      cartesianScene: Explore2DScene,
+                      polarScene: Explore2DScene,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       viewProperties: Explore2DViewProperties,
                       providedOptions: Explore2DGraphControlPanelOptions ) {
 
     const options = providedOptions;
 
-    const sumCheckbox = new SumCheckbox( cartesianVectorSet.sumVisibleProperty, {
-      vectorIconFill: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        coordinateSnapMode === 'polar' ? polarVectorSet.vectorColorPalette.sumFill : cartesianVectorSet.vectorColorPalette.sumFill ),
-      vectorIconStroke: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode =>
-        coordinateSnapMode === 'polar' ? polarVectorSet.vectorColorPalette.sumStroke : cartesianVectorSet.vectorColorPalette.sumStroke ),
+    // Sum checkbox, with vector color determined by the selected scene.
+    const sumCheckbox = new SumCheckbox( cartesianScene.vectorSet.sumVisibleProperty, {
+      vectorIconFill: new DerivedProperty( [ sceneProperty ], scene =>
+          ( scene === cartesianScene ) ? cartesianScene.vectorSet.vectorColorPalette.sumFill : polarScene.vectorSet.vectorColorPalette.sumFill ),
+      vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene =>
+          ( scene === cartesianScene ) ? cartesianScene.vectorSet.vectorColorPalette.sumStroke : polarScene.vectorSet.vectorColorPalette.sumStroke ),
       tandem: options.tandem.createTandem( 'sumCheckbox' )
     } );
 

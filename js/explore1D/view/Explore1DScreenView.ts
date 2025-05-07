@@ -33,9 +33,9 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
     // Controls for the graph, at upper right
     const graphControlPanel = new Explore1DGraphControlPanel(
-      model.horizontalScene.vectorSet,
-      model.verticalScene.vectorSet,
       model.sceneProperty,
+      model.horizontalScene,
+      model.verticalScene,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: graphViewBounds.top,

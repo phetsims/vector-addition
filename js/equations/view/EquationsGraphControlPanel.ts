@@ -2,7 +2,6 @@
 
 /**
  * EquationsGraphControlPanel is the graph control panel for the 'Equations' screen.
- * It exists for the lifetime of the sim and is not intended to be disposed.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -28,6 +27,8 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import EquationsScene from '../model/EquationsScene.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -37,6 +38,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
 
   public constructor( cartesianVectorSet: EquationsVectorSet,
                       polarVectorSet: EquationsVectorSet,
+                      sceneProperty: TReadOnlyProperty<EquationsScene>,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       viewProperties: EquationsViewProperties,
                       providedOptions: EquationsGraphControlPanelOptions ) {
@@ -51,7 +53,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const cartesianVectorCheckbox = new VectorCheckbox( cartesianVectorSet.sumVisibleProperty, cartesianSumSymbolProperty, {
       vectorFill: cartesianVectorSet.vectorColorPalette.sumFill,
       vectorStroke: cartesianVectorSet.vectorColorPalette.sumStroke,
-      visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode => coordinateSnapMode === 'cartesian' ),
+      visibleProperty: new DerivedProperty( [ sceneProperty ], scene => scene.coordinateSnapMode === 'cartesian' ),
       tandem: options.tandem.createTandem( 'cartesianVectorCheckbox' )
     } );
 
@@ -63,7 +65,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const polarVectorCheckbox = new VectorCheckbox( polarVectorSet.sumVisibleProperty, polarSumSymbolProperty, {
       vectorFill: polarVectorSet.vectorColorPalette.sumFill,
       vectorStroke: polarVectorSet.vectorColorPalette.sumStroke,
-      visibleProperty: new DerivedProperty( [ viewProperties.coordinateSnapModeProperty ], coordinateSnapMode => coordinateSnapMode === 'polar' ),
+      visibleProperty: new DerivedProperty( [ sceneProperty ], scene => scene.coordinateSnapMode === 'polar' ),
       tandem: options.tandem.createTandem( 'polarVectorCheckbox' )
     } );
 
