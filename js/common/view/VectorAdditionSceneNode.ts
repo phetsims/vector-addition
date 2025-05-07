@@ -142,6 +142,8 @@ export default class VectorAdditionSceneNode extends Node {
 
     this.vectorSets = scene.vectorSets;
     this.vectorCreatorPanel = null;
+
+    this.addLinkedElement( scene );
   }
 
   /**

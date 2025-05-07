@@ -109,6 +109,8 @@ export default class GraphNode extends Node {
     background.addInputListener( {
       down: () => { scene.activeVectorProperty.value = null; }
     } );
+
+    this.addLinkedElement( scene.graph );
   }
 }
 

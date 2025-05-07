@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -18,7 +17,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { GraphOrientation } from './GraphOrientation.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 
 const MODEL_TO_VIEW_SCALE = 14.5;
 
@@ -30,7 +29,7 @@ type SelfOptions = {
 
 export type GraphOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class Graph {
+export default class Graph extends PhetioObject {
 
   // orientation of the graph
   public readonly orientation: GraphOrientation;
@@ -54,12 +53,18 @@ export default class Graph {
 
   public constructor( providedOptions: GraphOptions ) {
 
-    const options = optionize<GraphOptions, SelfOptions>()( {
+    const options = optionize<GraphOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
       orientation: 'twoDimensional',
-      bottomLeft: Graph.DEFAULT_BOTTOM_LEFT
+      bottomLeft: Graph.DEFAULT_BOTTOM_LEFT,
+
+      // PhetioObjectOptions
+      isDisposable: false,
+      phetioState: false
     }, providedOptions );
+
+    super( options );
 
     this.orientation = options.orientation;
 
@@ -79,10 +84,6 @@ export default class Graph {
       bounds => ModelViewTransform2.createRectangleInvertedYMapping( bounds, this.viewBounds ),
       { valueType: ModelViewTransform2 }
     );
-  }
-
-  public dispose(): void {
-    Disposable.assertNotDisposable();
   }
 
   public reset(): void {
