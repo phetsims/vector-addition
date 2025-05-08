@@ -92,7 +92,6 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
         // Radio buttons for selection component vector style
         new ComponentVectorStyleControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
-
       ]
     } );
 
