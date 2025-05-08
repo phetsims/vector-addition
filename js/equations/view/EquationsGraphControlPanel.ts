@@ -73,7 +73,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
         // separator
         new HSeparator( { stroke: VectorAdditionColors.SEPARATOR_STROKE } ),
 
-        // Radio buttons for selection component vector style
+        // Radio button group
         new ComponentVectorStyleControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
       ]
     } );
