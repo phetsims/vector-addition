@@ -30,6 +30,7 @@ export default class ComponentVectorStyleRadioButtonGroup extends RectangularRad
 
     const options = combineOptions<RectangularRadioButtonGroupOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
       isDisposable: false,
+      tandem: tandem,
 
       // These options are a bit of a hack to implement a 2x2 grid.
       // Values were set empirically to make the vertical and horizontal spacing look the same.
@@ -37,9 +38,7 @@ export default class ComponentVectorStyleRadioButtonGroup extends RectangularRad
       preferredWidth: 134,
       wrap: true,
       spacing: 4,
-      lineSpacing: 8,
-
-      tandem: tandem
+      lineSpacing: 8
     } );
 
     super( componentVectorStyleProperty, items, options );

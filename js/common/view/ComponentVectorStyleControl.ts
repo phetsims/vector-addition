@@ -8,10 +8,7 @@
  * @author Brandon Li
  */
 
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
@@ -20,6 +17,8 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorStyleRadioButtonGroup from './ComponentVectorStyleRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
 
@@ -27,29 +26,29 @@ export default class ComponentVectorStyleControl extends VBox {
 
   public constructor( componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
-    const children: Node[] = [];
-
-    // 'Components' label, left justified
+    // 'Components' label, left aligned
     const componentsText = new Text( VectorAdditionStrings.componentsStringProperty, {
       font: VectorAdditionConstants.TITLE_FONT,
-      maxWidth: MAX_WIDTH
+      maxWidth: MAX_WIDTH,
+      layoutOptions: {
+        align: 'left'
+      }
     } );
-    children.push( componentsText );
 
-    // Radio buttons, centered in maxWidth by using an AlignBox
+    // Radio buttons
     const radioButtonGroup = new ComponentVectorStyleRadioButtonGroup( componentVectorStyleProperty,
       tandem.createTandem( 'radioButtonGroup' ) );
-    children.push( new AlignBox( radioButtonGroup, {
+    const radioButtonsAlignBox = new AlignBox( radioButtonGroup, {
       alignBounds: new Bounds2( 0, 0, MAX_WIDTH, radioButtonGroup.height )
-    } ) );
+    } );
 
     super( {
 
       // VBoxOptions
-      children: children,
-      align: 'left',
-      spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
       isDisposable: false,
+      children: [ componentsText, radioButtonsAlignBox ],
+      align: 'center',
+      spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
       tandem: tandem
     } );
   }
