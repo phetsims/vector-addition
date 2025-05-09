@@ -34,6 +34,7 @@ export default class ComponentVectorStyleRadioButtonGroup extends RectangularRad
 
       // These options are a bit of a hack to implement a 2x2 grid.
       // Values were set empirically to make the vertical and horizontal spacing look the same.
+      // See https://github.com/phetsims/vector-addition/issues/299.
       orientation: 'horizontal',
       preferredWidth: 134,
       wrap: true,
