@@ -38,8 +38,13 @@ export default class ComponentVectorStyleControl extends VBox {
     // Radio buttons
     const radioButtonGroup = new ComponentVectorStyleRadioButtonGroup( componentVectorStyleProperty,
       tandem.createTandem( 'radioButtonGroup' ) );
-    const radioButtonsAlignBox = new AlignBox( radioButtonGroup, {
-      alignBounds: new Bounds2( 0, 0, MAX_WIDTH, radioButtonGroup.height )
+
+    // Some trickery to get the dynamic layout of radioButtonGroup to behave as desired, and do the right thing
+    // for the corner case where all buttons are hidden. See https://github.com/phetsims/vector-addition/issues/299.
+    const radioButtonsAlignBox = new AlignBox( radioButtonGroup );
+    radioButtonGroup.localBoundsProperty.link( localBounds => {
+      const height = localBounds.isFinite() ? localBounds.height : 0;
+      radioButtonsAlignBox.setAlignBounds( new Bounds2( 0, 0, MAX_WIDTH, height ) );
     } );
 
     super( {
