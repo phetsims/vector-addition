@@ -128,6 +128,10 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
    */
   protected updateVector( rootVector: RootVector, modelViewTransform: ModelViewTransform2 ): void {
 
+    // See https://github.com/phetsims/vector-addition/issues/252 and
+    // https://github.com/phetsims/vector-addition/issues/302
+    this.arrowNode.visible = ( rootVector.magnitude > VectorAdditionConstants.ZERO_THRESHOLD );
+
     // Since the tail is defined at (0, 0) for the vector, the vector must be translated.
     this.translation = modelViewTransform.modelToViewPosition( rootVector.tail );
 
@@ -142,9 +146,6 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
       this.arrowNode.mouseArea = arrowShape.getOffsetShape( VectorAdditionConstants.VECTOR_MOUSE_AREA_DILATION );
       this.arrowNode.touchArea = arrowShape.getOffsetShape( VectorAdditionConstants.VECTOR_TOUCH_AREA_DILATION );
     }
-
-    // See https://github.com/phetsims/vector-addition/issues/252
-    this.arrowNode.visible = ( rootVector.magnitude > VectorAdditionConstants.ZERO_THRESHOLD );
   }
 
   /**
