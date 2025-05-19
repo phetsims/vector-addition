@@ -133,6 +133,38 @@
       "accessibleHelpText": {
         "value": "TODO componentsRadioButtonGroup.accessibleHelpText"
       }
+    },
+    "invisibleRadioButton": {
+      "accessibleName": {
+        "value": "TODO invisibleRadioButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO invisibleRadioButton.accessibleHelpText"
+      }
+    },
+    "triangleRadioButton": {
+      "accessibleName": {
+        "value": "TODO triangleRadioButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO triangleRadioButton.accessibleHelpText"
+      }
+    },
+    "parallelogramRadioButton": {
+      "accessibleName": {
+        "value": "TODO parallelogramRadioButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO parallelogramRadioButton.accessibleHelpText"
+      }
+    },
+    "projectionRadioButton": {
+      "accessibleName": {
+        "value": "TODO projectionRadioButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO projectionRadioButton.accessibleHelpText"
+      }
     }
   }
 }

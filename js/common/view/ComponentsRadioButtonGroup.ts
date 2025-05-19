@@ -8,7 +8,7 @@
  */
 
 import vectorAddition from '../../vectorAddition.js';
-import { ComponentVectorStyle, ComponentVectorStyleValues } from '../model/ComponentVectorStyle.js';
+import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
@@ -21,13 +21,44 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
 
   public constructor( componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
-    const items: RectangularRadioButtonGroupItem<ComponentVectorStyle>[] = ComponentVectorStyleValues.map( componentVectorStyle => {
-      return {
-        value: componentVectorStyle,
-        createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( componentVectorStyle ),
-        tandemName: `${componentVectorStyle}RadioButton`
-      };
-    } );
+    const items: RectangularRadioButtonGroupItem<ComponentVectorStyle>[] = [
+      {
+        value: 'invisible',
+        createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'invisible' ),
+        tandemName: 'invisibleRadioButton',
+        options: {
+          accessibleName: VectorAdditionStrings.a11y.invisibleRadioButton.accessibleNameStringProperty,
+          accessibleHelpText: VectorAdditionStrings.a11y.invisibleRadioButton.accessibleHelpTextStringProperty
+        }
+      },
+      {
+        value: 'triangle',
+        createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'triangle' ),
+        tandemName: 'triangleRadioButton',
+        options: {
+          accessibleName: VectorAdditionStrings.a11y.triangleRadioButton.accessibleNameStringProperty,
+          accessibleHelpText: VectorAdditionStrings.a11y.triangleRadioButton.accessibleHelpTextStringProperty
+        }
+      },
+      {
+        value: 'parallelogram',
+        createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'parallelogram' ),
+        tandemName: 'parallelogramRadioButton',
+        options: {
+          accessibleName: VectorAdditionStrings.a11y.parallelogramRadioButton.accessibleNameStringProperty,
+          accessibleHelpText: VectorAdditionStrings.a11y.parallelogramRadioButton.accessibleHelpTextStringProperty
+        }
+      },
+      {
+        value: 'projection',
+        createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'projection' ),
+        tandemName: 'projectionRadioButton',
+        options: {
+          accessibleName: VectorAdditionStrings.a11y.projectionRadioButton.accessibleNameStringProperty,
+          accessibleHelpText: VectorAdditionStrings.a11y.projectionRadioButton.accessibleHelpTextStringProperty
+        }
+      }
+    ];
 
     const options = combineOptions<RectangularRadioButtonGroupOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
       isDisposable: false,

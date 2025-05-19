@@ -76,6 +76,22 @@ type StringsType = {
     'componentsRadioButtonGroup': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'invisibleRadioButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'triangleRadioButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'parallelogramRadioButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'projectionRadioButton': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     }
   }
 };
