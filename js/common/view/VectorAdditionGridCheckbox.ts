@@ -11,6 +11,7 @@ import GridCheckbox from '../../../../scenery-phet/js/GridCheckbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class VectorAdditionGridCheckbox extends GridCheckbox {
 
@@ -19,6 +20,8 @@ export default class VectorAdditionGridCheckbox extends GridCheckbox {
     super( gridVisibleProperty, {
       boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
       iconOptions: { size: 24 },
+      accessibleName: VectorAdditionStrings.a11y.gridCheckbox.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionStrings.a11y.gridCheckbox.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
 
