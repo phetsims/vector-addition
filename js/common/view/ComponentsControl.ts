@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * ComponentVectorStyleControl is the control for selecting how to visually represent component vectors.
+ * ComponentsControl is the control for selecting how to visually represent component vectors.
  * It consists of a labeled group of radio buttons.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -22,7 +22,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
 
-export default class ComponentVectorStyleControl extends VBox {
+export default class ComponentsControl extends VBox {
 
   public constructor( componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
@@ -59,4 +59,4 @@ export default class ComponentVectorStyleControl extends VBox {
   }
 }
 
-vectorAddition.register( 'ComponentVectorStyleControl', ComponentVectorStyleControl );
+vectorAddition.register( 'ComponentsControl', ComponentsControl );

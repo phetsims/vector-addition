@@ -13,7 +13,7 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
-import ComponentVectorStyleControl from '../../common/view/ComponentVectorStyleControl.js';
+import ComponentsControl from '../../common/view/ComponentsControl.js';
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
@@ -78,7 +78,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
         new HSeparator( { stroke: VectorAdditionColors.SEPARATOR_STROKE } ),
 
         // Radio button group
-        new ComponentVectorStyleControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
+        new ComponentsControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
       ]
     } );
 
