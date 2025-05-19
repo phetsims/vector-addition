@@ -166,28 +166,52 @@
         "value": "TODO projectionRadioButton.accessibleHelpText"
       }
     },
-    "cartesianPolarRadioButtonGroup": {
+    "cartesianPolarSceneRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO cartesianPolarRadioButtonGroup.accessibleName"
+        "value": "TODO cartesianPolarSceneRadioButtonGroup.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO cartesianPolarRadioButtonGroup.accessibleHelpText"
+        "value": "TODO cartesianPolarSceneRadioButtonGroup.accessibleHelpText"
       }
     },
-    "cartesianSceneRadioButton": {
+    "cartesianRadioButton": {
       "accessibleName": {
-        "value": "TODO cartesianSceneRadioButton.accessibleName"
+        "value": "TODO cartesianRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO cartesianSceneRadioButton.accessibleHelpText"
+        "value": "TODO cartesianRadioButton.accessibleHelpText"
       }
     },
-    "polarSceneRadioButton": {
+    "polarRadioButton": {
       "accessibleName": {
-        "value": "TODO polarSceneRadioButton.accessibleName"
+        "value": "TODO polarRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO polarSceneRadioButton.accessibleHelpText"
+        "value": "TODO polarRadioButton.accessibleHelpText"
+      }
+    },
+    "horizontalVerticalSceneRadioButtonGroup": {
+      "accessibleName": {
+        "value": "TODO horizontalVerticalSceneRadioButtonGroup.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO horizontalVerticalSceneRadioButtonGroup.accessibleHelpText"
+      }
+    },
+    "horizontalRadioButton": {
+      "accessibleName": {
+        "value": "TODO horizontalRadioButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO horizontalRadioButton.accessibleHelpText"
+      }
+    },
+    "verticalRadioButton": {
+      "accessibleName": {
+        "value": "TODO verticalRadioButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO verticalRadioButton.accessibleHelpText"
       }
     }
   }

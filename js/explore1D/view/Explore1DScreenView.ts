@@ -14,11 +14,10 @@ import vectorAddition from '../../vectorAddition.js';
 import Explore1DModel from '../model/Explore1DModel.js';
 import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DSceneNode from './Explore1DSceneNode.js';
-import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import SceneRadioButtonGroup from '../../common/view/SceneRadioButtonGroup.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import HorizontalVerticalSceneRadioButtonGroup from '../../common/view/HorizontalVerticalSceneRadioButtonGroup.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -57,13 +56,10 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       } );
 
     // Radio buttons for selecting a scene, at lower right
-    const sceneRadioButtonGroup = new SceneRadioButtonGroup(
+    const sceneRadioButtonGroup = new HorizontalVerticalSceneRadioButtonGroup(
       model.sceneProperty,
-      [ model.horizontalScene, model.verticalScene ],
-      [ VectorAdditionIconFactory.createGraphOrientationIcon( 'horizontal' ),
-        VectorAdditionIconFactory.createGraphOrientationIcon( 'vertical' )
-      ],
-      {
+      model.horizontalScene,
+      model.verticalScene, {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
         tandem: tandem.createTandem( 'sceneRadioButtonGroup' )

@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * CartesianPolarSceneRadioButtonGroup is a radio button group for switching between Cartesian and polar scenes.
+ * HorizontalVerticalSceneRadioButtonGroup is a radio button group for switching between horizontal and vertical 1D scenes.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -11,7 +11,6 @@ import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import vectorAddition from '../../vectorAddition.js';
 import Property from '../../../../axon/js/Property.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -23,13 +22,11 @@ type SelfOptions = EmptySelfOptions;
 type CartesianPolarRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions &
   PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
-export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditionScene> extends RectangularRadioButtonGroup<T> {
+export default class HorizontalVerticalSceneRadioButtonGroup<T extends VectorAdditionScene> extends RectangularRadioButtonGroup<T> {
 
   public constructor( sceneProperty: Property<T>,
-                      cartesianScene: T,
-                      cartesianColorPalette: VectorColorPalette,
-                      polarScene: T,
-                      polarColorPalette: VectorColorPalette,
+                      horizontalScene: T,
+                      verticalScene: T,
                       providedOptions: CartesianPolarRadioButtonGroupOptions ) {
 
     const options = optionize4<CartesianPolarRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
@@ -37,27 +34,27 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
 
         // RectangularRadioButtonGroupOptions
         isDisposable: false,
-        accessibleName: VectorAdditionStrings.a11y.cartesianPolarSceneRadioButtonGroup.accessibleNameStringProperty,
-        accessibleHelpText: VectorAdditionStrings.a11y.cartesianPolarSceneRadioButtonGroup.accessibleHelpTextStringProperty
+        accessibleName: VectorAdditionStrings.a11y.horizontalVerticalSceneRadioButtonGroup.accessibleNameStringProperty,
+        accessibleHelpText: VectorAdditionStrings.a11y.horizontalVerticalSceneRadioButtonGroup.accessibleHelpTextStringProperty
       }, providedOptions );
 
     const items: RectangularRadioButtonGroupItem<T>[] = [
       {
-        value: cartesianScene,
-        createNode: () => VectorAdditionIconFactory.createCartesianSceneIcon( cartesianColorPalette ),
-        tandemName: 'cartesianRadioButton',
+        value: horizontalScene,
+        createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( 'horizontal' ),
+        tandemName: 'horizontalRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.cartesianRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.cartesianRadioButton.accessibleHelpTextStringProperty
+          accessibleName: VectorAdditionStrings.a11y.horizontalRadioButton.accessibleNameStringProperty,
+          accessibleHelpText: VectorAdditionStrings.a11y.horizontalRadioButton.accessibleHelpTextStringProperty
         }
       },
       {
-        value: polarScene,
-        createNode: () => VectorAdditionIconFactory.createPolarSceneIcon( polarColorPalette ),
-        tandemName: 'polarRadioButton',
+        value: verticalScene,
+        createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( 'vertical' ),
+        tandemName: 'verticalRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.polarRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.polarRadioButton.accessibleHelpTextStringProperty
+          accessibleName: VectorAdditionStrings.a11y.verticalRadioButton.accessibleNameStringProperty,
+          accessibleHelpText: VectorAdditionStrings.a11y.verticalRadioButton.accessibleHelpTextStringProperty
         }
       }
     ];
@@ -66,4 +63,4 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
   }
 }
 
-vectorAddition.register( 'CartesianPolarSceneRadioButtonGroup', CartesianPolarSceneRadioButtonGroup );
+vectorAddition.register( 'HorizontalVerticalSceneRadioButtonGroup', HorizontalVerticalSceneRadioButtonGroup );
