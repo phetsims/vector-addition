@@ -13,6 +13,7 @@ import VectorAdditionCheckbox from '../../common/view/VectorAdditionCheckbox.js'
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
 
@@ -27,6 +28,8 @@ export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
     } );
 
     super( baseVectorsVisibleProperty, icon, {
+      accessibleName: VectorAdditionStrings.a11y.baseVectorsCheckbox.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionStrings.a11y.baseVectorsCheckbox.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
   }

@@ -279,6 +279,14 @@
       "accessibleHelpText": {
         "value": "TODO negationRadioButton.accessibleHelpText"
       }
+    },
+    "baseVectorsCheckbox": {
+      "accessibleName": {
+        "value": "TODO baseVectorsCheckbox.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO baseVectorsCheckbox.accessibleHelpText"
+      }
     }
   }
 }
