@@ -6,26 +6,34 @@
  * @author Martin Veillette
  */
 
-import ScreenView from '../../../../joist/js/ScreenView.js';
+import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionModel from '../model/VectorAdditionModel.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+
+type SelfOptions = EmptySelfOptions;
+
+export type VectorAdditionScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
 
 export default class VectorAdditionScreenView extends ScreenView {
 
   // Must be added to the scenegraph and pdomOrder by subclass.
   protected readonly resetAllButton: Node;
 
-  protected constructor( model: VectorAdditionModel, tandem: Tandem ) {
+  protected constructor( model: VectorAdditionModel, providedOptions: VectorAdditionScreenViewOptions ) {
 
-    super( {
+    const options = optionize<VectorAdditionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
+
+      // ScreenViewOptions
       layoutBounds: VectorAdditionConstants.SCREEN_VIEW_BOUNDS,
-      isDisposable: false,
-      tandem: tandem
-    } );
+      isDisposable: false
+    }, providedOptions );
+
+    super( options );
 
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
@@ -34,7 +42,7 @@ export default class VectorAdditionScreenView extends ScreenView {
       },
       right: this.layoutBounds.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
       bottom: this.layoutBounds.maxY - VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
-      tandem: tandem.createTandem( 'resetAllButton' )
+      tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( this.resetAllButton );
   }

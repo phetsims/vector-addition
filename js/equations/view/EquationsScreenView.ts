@@ -19,6 +19,8 @@ import EquationsSceneNode from './EquationsSceneNode.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import EquationsScene from '../model/EquationsScene.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class EquationsScreenView extends VectorAdditionScreenView {
 
@@ -27,7 +29,16 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
   public constructor( model: EquationsModel, tandem: Tandem ) {
 
-    super( model, tandem );
+    super( model, {
+      screenSummaryContent: new ScreenSummaryContent( {
+        additionalContent: [
+          VectorAdditionStrings.a11y.equationsScreen.screenSummary.playAreaStringProperty,
+          VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty,
+          VectorAdditionStrings.a11y.equationsScreen.screenSummary.interactionHintStringProperty
+        ]
+      } ),
+      tandem: tandem
+    } );
 
     this.viewProperties = new EquationsViewProperties( tandem.createTandem( 'viewProperties' ) );
 

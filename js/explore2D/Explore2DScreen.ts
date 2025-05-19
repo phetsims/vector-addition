@@ -23,6 +23,7 @@ export default class Explore2DScreen extends Screen<Explore2DModel, Explore2DScr
       name: VectorAdditionStrings.screen.explore2DStringProperty,
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createExplore2DScreenIcon(),
+      screenButtonsHelpText: VectorAdditionStrings.a11y.explore2DScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 

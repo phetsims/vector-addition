@@ -23,6 +23,7 @@ export default class LabScreen extends Screen<LabModel, LabScreenView> {
       name: VectorAdditionStrings.screen.labStringProperty,
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createLabScreenIcon(),
+      screenButtonsHelpText: VectorAdditionStrings.a11y.labScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 

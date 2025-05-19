@@ -52,5 +52,71 @@
   },
   "unsignedRange": {
     "value": "unsigned: 0° to 360°"
+  },
+  "a11y": {
+    "explore1DScreen": {
+      "screenButtonsHelpText": {
+        "value": "TODO"
+      },
+      "screenSummary": {
+        "playArea": {
+          "value": "TODO"
+        },
+        "controlArea": {
+          "value": "TODO"
+        },
+        "interactionHint": {
+          "value": "TODO"
+        }
+      }
+    },
+    "explore2DScreen": {
+      "screenButtonsHelpText": {
+        "value": "TODO"
+      },
+      "screenSummary": {
+        "playArea": {
+          "value": "TODO"
+        },
+        "controlArea": {
+          "value": "TODO"
+        },
+        "interactionHint": {
+          "value": "TODO"
+        }
+      }
+    },
+    "labScreen": {
+      "screenButtonsHelpText": {
+        "value": "TODO"
+      },
+      "screenSummary": {
+        "playArea": {
+          "value": "TODO"
+        },
+        "controlArea": {
+          "value": "TODO"
+        },
+        "interactionHint": {
+          "value": "TODO"
+        }
+      }
+    },
+    "equationsScreen": {
+      "screenButtonsHelpText": {
+        "value": "TODO"
+      },
+      "screenSummary": {
+        "playArea": {
+          "value": "TODO"
+        },
+        "controlArea": {
+          "value": "TODO"
+        },
+        "interactionHint": {
+          "value": "TODO"
+        }
+      }
+    }
   }
 }

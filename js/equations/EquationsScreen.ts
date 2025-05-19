@@ -23,6 +23,7 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
       name: VectorAdditionStrings.screen.equationsStringProperty,
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createEquationsScreenIcon(),
+      screenButtonsHelpText: VectorAdditionStrings.a11y.equationsScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 

@@ -17,6 +17,8 @@ import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabSceneNode from './LabSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
@@ -25,7 +27,16 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
   public constructor( model: LabModel, tandem: Tandem ) {
 
-    super( model, tandem );
+    super( model, {
+      screenSummaryContent: new ScreenSummaryContent( {
+        additionalContent: [
+          VectorAdditionStrings.a11y.labScreen.screenSummary.playAreaStringProperty,
+          VectorAdditionStrings.a11y.labScreen.screenSummary.controlAreaStringProperty,
+          VectorAdditionStrings.a11y.labScreen.screenSummary.interactionHintStringProperty
+        ]
+      } ),
+      tandem: tandem
+    } );
 
     this.viewProperties = new VectorAdditionViewProperties( {
       tandem: tandem.createTandem( 'viewProperties' )

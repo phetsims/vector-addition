@@ -23,6 +23,7 @@ export default class Explore1DScreen extends Screen<Explore1DModel, Explore1DScr
       name: VectorAdditionStrings.screen.explore1DStringProperty,
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createExplore1DScreenIcon(),
+      screenButtonsHelpText: VectorAdditionStrings.a11y.explore1DScreen.screenButtonsHelpTextStringProperty,
       tandem: tandem
     };
 

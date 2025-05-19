@@ -17,6 +17,8 @@ import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DSceneNode from './Explore2DSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
@@ -25,7 +27,16 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
   public constructor( model: Explore2DModel, tandem: Tandem ) {
 
-    super( model, tandem );
+    super( model, {
+      screenSummaryContent: new ScreenSummaryContent( {
+        additionalContent: [
+          VectorAdditionStrings.a11y.explore2DScreen.screenSummary.playAreaStringProperty,
+          VectorAdditionStrings.a11y.explore2DScreen.screenSummary.controlAreaStringProperty,
+          VectorAdditionStrings.a11y.explore2DScreen.screenSummary.interactionHintStringProperty
+        ]
+      } ),
+      tandem: tandem
+    } );
 
     this.viewProperties = new VectorAdditionViewProperties( {
       tandem: tandem.createTandem( 'viewProperties' )

@@ -36,6 +36,40 @@ type StringsType = {
   'angleConventionDescriptionStringProperty': LocalizedStringProperty;
   'signedRangeStringProperty': LocalizedStringProperty;
   'unsignedRangeStringProperty': LocalizedStringProperty;
+  'a11y': {
+    'explore1DScreen': {
+      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      'screenSummary': {
+        'playAreaStringProperty': LocalizedStringProperty;
+        'controlAreaStringProperty': LocalizedStringProperty;
+        'interactionHintStringProperty': LocalizedStringProperty;
+      }
+    };
+    'explore2DScreen': {
+      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      'screenSummary': {
+        'playAreaStringProperty': LocalizedStringProperty;
+        'controlAreaStringProperty': LocalizedStringProperty;
+        'interactionHintStringProperty': LocalizedStringProperty;
+      }
+    };
+    'labScreen': {
+      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      'screenSummary': {
+        'playAreaStringProperty': LocalizedStringProperty;
+        'controlAreaStringProperty': LocalizedStringProperty;
+        'interactionHintStringProperty': LocalizedStringProperty;
+      }
+    };
+    'equationsScreen': {
+      'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
+      'screenSummary': {
+        'playAreaStringProperty': LocalizedStringProperty;
+        'controlAreaStringProperty': LocalizedStringProperty;
+        'interactionHintStringProperty': LocalizedStringProperty;
+      }
+    }
+  }
 };
 
 const VectorAdditionStrings = getStringModule( 'VECTOR_ADDITION' ) as StringsType;

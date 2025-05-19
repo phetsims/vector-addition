@@ -17,6 +17,8 @@ import Explore1DSceneNode from './Explore1DSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import SceneRadioButtonGroup from '../../common/view/SceneRadioButtonGroup.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -25,7 +27,16 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
   public constructor( model: Explore1DModel, tandem: Tandem ) {
 
-    super( model, tandem );
+    super( model, {
+      screenSummaryContent: new ScreenSummaryContent( {
+        additionalContent: [
+          VectorAdditionStrings.a11y.explore1DScreen.screenSummary.playAreaStringProperty,
+          VectorAdditionStrings.a11y.explore1DScreen.screenSummary.controlAreaStringProperty,
+          VectorAdditionStrings.a11y.explore1DScreen.screenSummary.interactionHintStringProperty
+        ]
+      } ),
+      tandem: tandem
+    } );
 
     this.viewProperties = new VectorAdditionViewProperties( {
       anglesVisiblePropertyInstrumented: false,
