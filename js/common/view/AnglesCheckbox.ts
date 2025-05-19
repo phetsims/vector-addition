@@ -11,11 +11,14 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionCheckbox from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class AnglesCheckbox extends VectorAdditionCheckbox {
 
   public constructor( anglesVisibleProperty: Property<boolean>, tandem: Tandem ) {
     super( anglesVisibleProperty, VectorAdditionIconFactory.createAngleIcon(), {
+      accessibleName: VectorAdditionStrings.a11y.anglesCheckbox.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionStrings.a11y.anglesCheckbox.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
   }

@@ -69,8 +69,15 @@ type StringsType = {
         'interactionHintStringProperty': LocalizedStringProperty;
       }
     };
+    'anglesCheckbox': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
     'gridCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'valuesCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'componentsRadioButtonGroup': {

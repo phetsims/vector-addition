@@ -118,12 +118,25 @@
         }
       }
     },
+    "anglesCheckbox": {
+      "accessibleName": {
+        "value": "TODO anglesCheckbox.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO anglesCheckbox.accessibleHelpText"
+      }
+    },
     "gridCheckbox": {
       "accessibleName": {
         "value": "TODO gridCheckbox.accessibleName"
       },
       "accessibleHelpText": {
         "value": "TODO gridCheckbox.accessibleHelpText"
+      }
+    },
+    "valuesCheckbox": {
+      "accessibleHelpText": {
+        "value": "TODO valuesCheckbox.accessibleHelpText"
       }
     },
     "componentsRadioButtonGroup": {

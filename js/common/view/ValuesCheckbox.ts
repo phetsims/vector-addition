@@ -24,6 +24,7 @@ export default class ValuesCheckbox extends VectorAdditionCheckbox {
     } );
 
     super( valuesVisibleProperty, content, {
+      accessibleHelpText: VectorAdditionStrings.a11y.valuesCheckbox.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
   }
