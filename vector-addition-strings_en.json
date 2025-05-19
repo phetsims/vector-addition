@@ -56,65 +56,65 @@
   "a11y": {
     "explore1DScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO"
+        "value": "TODO explore1DScreen.screenButtonsHelpText"
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO"
+          "value": "TODO explore1DScreen.screenSummary.playArea"
         },
         "controlArea": {
-          "value": "TODO"
+          "value": "TODO explore1DScreen.screenSummary.controlArea"
         },
         "interactionHint": {
-          "value": "TODO"
+          "value": "TODO explore1DScreen.screenSummary.interactionHint"
         }
       }
     },
     "explore2DScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO"
+        "value": "TODO explore2DScreen.screenButtonsHelpText"
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO"
+          "value": "TODO explore2DScreen.screenSummary.playArea"
         },
         "controlArea": {
-          "value": "TODO"
+          "value": "TODO explore2DScreen.screenSummary.controlArea"
         },
         "interactionHint": {
-          "value": "TODO"
+          "value": "TODO explore2DScreen.screenSummary.interactionHint"
         }
       }
     },
     "labScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO"
+        "value": "TODO labScreen.screenButtonsHelpText"
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO"
+          "value": "TODO labScreen.screenSummary.playArea"
         },
         "controlArea": {
-          "value": "TODO"
+          "value": "TODO labScreen.screenSummary.controlArea"
         },
         "interactionHint": {
-          "value": "TODO"
+          "value": "TODO labScreen.screenSummary.interactionHint"
         }
       }
     },
     "equationsScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO"
+        "value": "TODO equationsScreen.screenButtonsHelpText"
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO"
+          "value": "TODO equationsScreen.screenSummary.playArea"
         },
         "controlArea": {
-          "value": "TODO"
+          "value": "TODO equationsScreen.screenSummary.controlArea"
         },
         "interactionHint": {
-          "value": "TODO"
+          "value": "TODO equationsScreen.screenSummary.interactionHint"
         }
       }
     }
