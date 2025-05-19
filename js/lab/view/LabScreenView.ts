@@ -9,16 +9,15 @@
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import SceneRadioButtonGroup from '../../common/view/SceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabSceneNode from './LabSceneNode.js';
-import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
@@ -57,14 +56,12 @@ export default class LabScreenView extends VectorAdditionScreenView {
       } );
 
     // Radio buttons for selecting a scene, at lower right
-    const sceneRadioButtonGroup = new SceneRadioButtonGroup(
+    const sceneRadioButtonGroup = new CartesianPolarSceneRadioButtonGroup(
       model.sceneProperty,
-      [ model.cartesianScene, model.polarScene ],
-      [
-        VectorAdditionIconFactory.createCartesianSceneIcon( model.cartesianScene.vectorSet1.vectorColorPalette ),
-        VectorAdditionIconFactory.createPolarSceneIcon( model.polarScene.vectorSet1.vectorColorPalette )
-      ],
-      {
+      model.cartesianScene,
+      model.cartesianScene.vectorSet1.vectorColorPalette,
+      model.polarScene,
+      model.polarScene.vectorSet1.vectorColorPalette, {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
         tandem: tandem.createTandem( 'sceneRadioButtonGroup' )

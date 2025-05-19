@@ -9,16 +9,15 @@
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import SceneRadioButtonGroup from '../../common/view/SceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DSceneNode from './Explore2DSceneNode.js';
-import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
@@ -55,14 +54,12 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       } );
 
     // Radio buttons for selecting a scene, at lower right
-    const sceneRadioButtonGroup = new SceneRadioButtonGroup(
+    const sceneRadioButtonGroup = new CartesianPolarSceneRadioButtonGroup(
       model.sceneProperty,
-      [ model.cartesianScene, model.polarScene ],
-      [
-        VectorAdditionIconFactory.createCartesianSceneIcon( model.cartesianScene.vectorSet.vectorColorPalette ),
-        VectorAdditionIconFactory.createPolarSceneIcon( model.polarScene.vectorSet.vectorColorPalette )
-      ],
-      {
+      model.cartesianScene,
+      model.cartesianScene.vectorSet.vectorColorPalette,
+      model.polarScene,
+      model.polarScene.vectorSet.vectorColorPalette, {
         left: graphControlPanel.left,
         bottom: this.resetAllButton.bottom,
         tandem: tandem.createTandem( 'sceneRadioButtonGroup' )
