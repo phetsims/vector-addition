@@ -25,6 +25,7 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -50,6 +51,8 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene =>
         ( scene === cartesianScene ) ?
         cartesianScene.vectorSet1.vectorColorPalette.sumStroke : polarScene.vectorSet1.vectorColorPalette.sumStroke ),
+      accessibleName: VectorAdditionStrings.a11y.sum1Checkbox.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionStrings.a11y.sum1Checkbox.accessibleHelpTextStringProperty,
       tandem: options.tandem.createTandem( 'sum1Checkbox' )
     } );
 
@@ -59,6 +62,8 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         ( scene === cartesianScene ) ? cartesianScene.vectorSet2.vectorColorPalette.sumFill : polarScene.vectorSet2.vectorColorPalette.sumFill ),
       vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene =>
         ( scene === cartesianScene ) ? cartesianScene.vectorSet2.vectorColorPalette.sumStroke : polarScene.vectorSet2.vectorColorPalette.sumStroke ),
+      accessibleName: VectorAdditionStrings.a11y.sum2Checkbox.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionStrings.a11y.sum2Checkbox.accessibleHelpTextStringProperty,
       tandem: options.tandem.createTandem( 'sum2Checkbox' )
     } );
 

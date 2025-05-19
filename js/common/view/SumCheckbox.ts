@@ -17,19 +17,27 @@ import VectorAdditionCheckbox, { VectorAdditionCheckboxOptions } from './VectorA
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
   vectorIconFill: TColor;
   vectorIconStroke: TColor;
 };
 
-type SumCheckboxOptions = SelfOptions & PickRequired<VectorAdditionCheckboxOptions, 'tandem'>;
+type SumCheckboxOptions = SelfOptions &
+  PickOptional<VectorAdditionCheckboxOptions, 'accessibleName' | 'accessibleHelpText'> &
+  PickRequired<VectorAdditionCheckboxOptions, 'tandem'>;
 
 export default class SumCheckbox extends VectorAdditionCheckbox {
 
   public constructor( sumVisibleProperty: Property<boolean>, providedOptions: SumCheckboxOptions ) {
 
-    const options = providedOptions;
+    const options = optionize<SumCheckboxOptions, SelfOptions, VectorAdditionCheckboxOptions>()( {
+
+      // VectorAdditionCheckboxOptions
+      accessibleHelpText: VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty
+    }, providedOptions );
 
     const textNode = new Text( VectorAdditionStrings.sumStringProperty, {
       font: VectorAdditionConstants.CHECKBOX_FONT,

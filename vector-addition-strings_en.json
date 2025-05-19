@@ -134,6 +134,27 @@
         "value": "TODO gridCheckbox.accessibleHelpText"
       }
     },
+    "sumCheckbox": {
+      "accessibleHelpText": {
+        "value": "TODO sumCheckbox.accessibleHelpText"
+      }
+    },
+    "sum1Checkbox": {
+      "accessibleName": {
+        "value": "TODO sum1Checkbox.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO sum1Checkbox.accessibleHelpText"
+      }
+    },
+    "sum2Checkbox": {
+      "accessibleName": {
+        "value": "TODO sum2Checkbox.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO sum2Checkbox.accessibleHelpText"
+      }
+    },
     "valuesCheckbox": {
       "accessibleHelpText": {
         "value": "TODO valuesCheckbox.accessibleHelpText"
