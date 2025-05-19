@@ -158,6 +158,9 @@ type StringsType = {
     'originManipulator': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'eraserButton': {
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     }
   }
 };

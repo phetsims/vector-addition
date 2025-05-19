@@ -295,6 +295,11 @@
       "accessibleHelpText": {
         "value": "TODO originManipulator.accessibleHelpText"
       }
+    },
+    "eraserButton": {
+      "accessibleHelpText": {
+        "value": "TODO eraserButton.accessibleHelpText"
+      }
     }
   }
 }

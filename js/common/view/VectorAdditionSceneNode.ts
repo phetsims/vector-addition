@@ -38,6 +38,7 @@ import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
@@ -115,6 +116,7 @@ export default class VectorAdditionSceneNode extends Node {
         top: scene.graph.viewBounds.maxY + 15,
         touchAreaXDilation: 7,
         touchAreaYDilation: 7,
+        accessibleHelpText: VectorAdditionStrings.a11y.eraserButton.accessibleHelpTextStringProperty,
         tandem: options.tandem.createTandem( 'eraserButton' ),
         phetioEnabledPropertyInstrumented: false // sim controls this.
       } );
