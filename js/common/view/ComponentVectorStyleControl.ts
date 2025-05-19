@@ -14,7 +14,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import ComponentVectorStyleRadioButtonGroup from './ComponentVectorStyleRadioButtonGroup.js';
+import ComponentsRadioButtonGroup from './ComponentsRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
@@ -36,7 +36,7 @@ export default class ComponentVectorStyleControl extends VBox {
     } );
 
     // Radio buttons
-    const radioButtonGroup = new ComponentVectorStyleRadioButtonGroup( componentVectorStyleProperty,
+    const radioButtonGroup = new ComponentsRadioButtonGroup( componentVectorStyleProperty,
       tandem.createTandem( 'radioButtonGroup' ) );
 
     // Some trickery to get the dynamic layout of radioButtonGroup to behave as desired, and do the right thing

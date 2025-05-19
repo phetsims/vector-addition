@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * ComponentVectorStyleRadioButtonGroup is a group of radio buttons, arranged in a grid, for selecting component vector style.
+ * ComponentsRadioButtonGroup is a group of radio buttons, arranged in a grid, for selecting component vector style.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -17,7 +17,7 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
-export default class ComponentVectorStyleRadioButtonGroup extends RectangularRadioButtonGroup<ComponentVectorStyle> {
+export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGroup<ComponentVectorStyle> {
 
   public constructor( componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
@@ -49,4 +49,4 @@ export default class ComponentVectorStyleRadioButtonGroup extends RectangularRad
   }
 }
 
-vectorAddition.register( 'ComponentVectorStyleRadioButtonGroup', ComponentVectorStyleRadioButtonGroup );
+vectorAddition.register( 'ComponentsRadioButtonGroup', ComponentsRadioButtonGroup );
