@@ -253,7 +253,7 @@ const VectorAdditionIconFactory = {
   //========================================================================================
 
   /**
-   * Creates the icons that go on the Component Style Radio Button based on a component style
+   * Creates the icons that go on the Components radio buttons, based on a component style
    */
   createComponentStyleRadioButtonIcon( componentVectorStyle: ComponentVectorStyle ): Node {
 
