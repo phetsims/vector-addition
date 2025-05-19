@@ -15,6 +15,7 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class ComponentVectorStyleRadioButtonGroup extends RectangularRadioButtonGroup<ComponentVectorStyle> {
 
@@ -30,6 +31,8 @@ export default class ComponentVectorStyleRadioButtonGroup extends RectangularRad
 
     const options = combineOptions<RectangularRadioButtonGroupOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
       isDisposable: false,
+      accessibleName: VectorAdditionStrings.a11y.componentVectorStyleRadioButtonGroup.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionStrings.a11y.componentVectorStyleRadioButtonGroup.accessibleHelpTextStringProperty,
       tandem: tandem,
 
       // These options are a bit of a hack to implement a 2x2 grid.
