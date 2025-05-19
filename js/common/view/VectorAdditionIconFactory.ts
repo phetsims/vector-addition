@@ -249,7 +249,7 @@ const VectorAdditionIconFactory = {
   },
 
   //========================================================================================
-  // ComponentVectorStyle icons, used on Component radio buttons
+  // ComponentVectorStyle icons, used on Components radio buttons
   //========================================================================================
 
   /**
