@@ -19,6 +19,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 import Graph from '../model/Graph.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 // constants
 
@@ -57,6 +58,8 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       touchArea: Shape.circle( 2 * diameter ),
       tagName: 'div', // for KeyboardDragListener
       focusable: true, // for KeyboardDragListener
+      accessibleName: VectorAdditionStrings.a11y.originManipulator.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionStrings.a11y.originManipulator.accessibleHelpTextStringProperty,
       tandem: tandem
     } ) );
 

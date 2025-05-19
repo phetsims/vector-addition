@@ -287,6 +287,14 @@
       "accessibleHelpText": {
         "value": "TODO baseVectorsCheckbox.accessibleHelpText"
       }
+    },
+    "originManipulator": {
+      "accessibleName": {
+        "value": "TODO originManipulator.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO originManipulator.accessibleHelpText"
+      }
     }
   }
 }

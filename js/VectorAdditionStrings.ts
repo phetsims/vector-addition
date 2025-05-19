@@ -154,6 +154,10 @@ type StringsType = {
     'baseVectorsCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'originManipulator': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     }
   }
 };
