@@ -126,12 +126,12 @@
         "value": "TODO gridCheckbox.accessibleHelpText"
       }
     },
-    "componentVectorStyleRadioButtonGroup": {
+    "componentsRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO componentVectorStyleRadioButtonGroup.accessibleName"
+        "value": "TODO componentsRadioButtonGroup.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO componentVectorStyleRadioButtonGroup.accessibleHelpText"
+        "value": "TODO componentsRadioButtonGroup.accessibleHelpText"
       }
     }
   }

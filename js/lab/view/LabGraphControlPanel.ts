@@ -91,7 +91,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         new HSeparator( { stroke: VectorAdditionColors.SEPARATOR_STROKE } ),
 
         // Radio button group
-        new ComponentsControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentVectorStyleControl' ) )
+        new ComponentsControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentsControl' ) )
       ]
     } );
 

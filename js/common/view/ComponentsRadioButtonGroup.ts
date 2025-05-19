@@ -31,8 +31,8 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
 
     const options = combineOptions<RectangularRadioButtonGroupOptions>( {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
       isDisposable: false,
-      accessibleName: VectorAdditionStrings.a11y.componentVectorStyleRadioButtonGroup.accessibleNameStringProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.componentVectorStyleRadioButtonGroup.accessibleHelpTextStringProperty,
+      accessibleName: VectorAdditionStrings.a11y.componentsRadioButtonGroup.accessibleNameStringProperty,
+      accessibleHelpText: VectorAdditionStrings.a11y.componentsRadioButtonGroup.accessibleHelpTextStringProperty,
       tandem: tandem,
 
       // These options are a bit of a hack to implement a 2x2 grid.
