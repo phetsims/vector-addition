@@ -247,6 +247,38 @@
       "accessibleHelpText": {
         "value": "TODO verticalRadioButton.accessibleHelpText"
       }
+    },
+    "equationTypeRadioButtonGroup": {
+      "accessibleName": {
+        "value": "TODO equationTypeRadioButtonGroup.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO equationTypeRadioButtonGroup.accessibleHelpText"
+      }
+    },
+    "additionRadioButton": {
+      "accessibleName": {
+        "value": "TODO additionRadioButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO additionRadioButton.accessibleHelpText"
+      }
+    },
+    "subtractionRadioButton": {
+      "accessibleName": {
+        "value": "TODO subtractionRadioButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO subtractionRadioButton.accessibleHelpText"
+      }
+    },
+    "negationRadioButton": {
+      "accessibleName": {
+        "value": "TODO negationRadioButton.accessibleName"
+      },
+      "accessibleHelpText": {
+        "value": "TODO negationRadioButton.accessibleHelpText"
+      }
     }
   }
 }

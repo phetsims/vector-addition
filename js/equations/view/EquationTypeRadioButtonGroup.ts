@@ -27,9 +27,10 @@ import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, Rectangul
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
-import { EquationType, EquationTypeValues } from '../model/EquationType.js';
+import { EquationType } from '../model/EquationType.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -45,22 +46,50 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
 
     const options = optionize4<EquationTypeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
+
+        // RectangularRadioButtonGroupOptions
         xMargin: 8,
         scale: 0.75,
-        isDisposable: false
+        isDisposable: false,
+        accessibleName: VectorAdditionStrings.a11y.equationTypeRadioButtonGroup.accessibleNameStringProperty,
+        accessibleHelpText: VectorAdditionStrings.a11y.equationTypeRadioButtonGroup.accessibleHelpTextStringProperty
       }, providedOptions );
 
-    // Create the description of the buttons
-    const items: RectangularRadioButtonGroupItem<EquationType>[] = [];
-    EquationTypeValues.forEach( equationType => {
-      items.push( {
-        value: equationType,
-        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( equationType, vectorSymbolProperties ), {
+    const items: RectangularRadioButtonGroupItem<EquationType>[] = [
+      {
+        value: 'addition',
+        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'addition', vectorSymbolProperties ), {
           group: alignGroup
         } ),
-        tandemName: `${equationType}RadioButton`
-      } );
-    } );
+        tandemName: 'additionRadioButton',
+        options: {
+          accessibleName: VectorAdditionStrings.a11y.additionRadioButton.accessibleNameStringProperty,
+          accessibleHelpText: VectorAdditionStrings.a11y.additionRadioButton.accessibleHelpTextStringProperty
+        }
+      },
+      {
+        value: 'subtraction',
+        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'subtraction', vectorSymbolProperties ), {
+          group: alignGroup
+        } ),
+        tandemName: 'subtractionRadioButton',
+        options: {
+          accessibleName: VectorAdditionStrings.a11y.subtractionRadioButton.accessibleNameStringProperty,
+          accessibleHelpText: VectorAdditionStrings.a11y.subtractionRadioButton.accessibleHelpTextStringProperty
+        }
+      },
+      {
+        value: 'negation',
+        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'negation', vectorSymbolProperties ), {
+          group: alignGroup
+        } ),
+        tandemName: 'negationRadioButton',
+        options: {
+          accessibleName: VectorAdditionStrings.a11y.negationRadioButton.accessibleNameStringProperty,
+          accessibleHelpText: VectorAdditionStrings.a11y.negationRadioButton.accessibleHelpTextStringProperty
+        }
+      }
+    ];
 
     super( equationTypeProperty, items, options );
   }
