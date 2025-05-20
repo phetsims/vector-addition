@@ -22,7 +22,6 @@ import vectorAddition from '../../vectorAddition.js';
 import { EquationType } from './EquationType.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-// constants
 const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
 
 export default class EquationsSumVector extends SumVector {

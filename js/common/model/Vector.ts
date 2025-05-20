@@ -36,8 +36,6 @@ import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-//----------------------------------------------------------------------------------------
-// constants
 const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
 const MIN_ANIMATION_TIME = 0.9; // in seconds
 

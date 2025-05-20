@@ -16,8 +16,6 @@ import vectorAddition from '../../vectorAddition.js';
 import Explore2DScene from '../model/Explore2DScene.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
-// constants
-
 // initial values for vectors in Cartesian scene, see https://github.com/phetsims/vector-addition/issues/227
 const CARTESIAN_INITIAL_VECTOR_COMPONENTS = [
   new Vector2( 6, 8 ), // a

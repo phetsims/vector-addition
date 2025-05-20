@@ -24,8 +24,6 @@ import EquationsScene from './EquationsScene.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-// constants
-
 // initial coefficient and range
 const DEFAULT_COEFFICIENT = 1;
 const COEFFICIENT_RANGE = new Range( -5, 5 );

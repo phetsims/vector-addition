@@ -46,7 +46,6 @@ import CurvedArrowNode from './CurvedArrowNode.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
-// constants
 const SCREEN_ICON_WIDTH = 70;
 const SCREEN_ICON_HEIGHT = SCREEN_ICON_WIDTH / Screen.HOME_SCREEN_ICON_ASPECT_RATIO; // w/h = ratio <=> h = w/ratio
 const RADIO_BUTTON_ICON_SIZE = 45;

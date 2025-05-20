@@ -21,8 +21,6 @@ import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragList
 import Graph from '../model/Graph.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
-// constants
-
 // the closest the user can drag the origin to the edge of the graph, in model units
 const ORIGIN_DRAG_MARGIN = 5;
 

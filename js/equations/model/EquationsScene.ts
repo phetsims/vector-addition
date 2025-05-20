@@ -26,8 +26,6 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Graph from '../../common/model/Graph.js';
 
-// constants
-
 // scene bounds for EquationsGraphs
 const EQUATIONS_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 

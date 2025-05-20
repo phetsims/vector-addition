@@ -40,7 +40,6 @@ import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 
-// constants
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
 const Y_SPACING = 17; // vertical spacing between UI components

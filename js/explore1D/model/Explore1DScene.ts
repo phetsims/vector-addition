@@ -24,7 +24,6 @@ import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-// constants
 const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
 // See https://github.com/phetsims/vector-addition/issues/127

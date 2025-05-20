@@ -27,8 +27,6 @@ import VectorLabelNode from './VectorLabelNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
-// constants
-
 // Used to prevent vector label from going off-screen. This is the magnitude of a vector that fills the
 // graph along a diagonal, minus the margin that constrains dragging of the vector's tail.
 // See https://github.com/phetsims/vector-addition/issues/212#issuecomment-537628386 for a screenshot.

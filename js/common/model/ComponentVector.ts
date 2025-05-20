@@ -27,7 +27,6 @@ import { ComponentVectorType } from './ComponentVectorType.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import Vector from './Vector.js';
 
-// constants
 const COMPONENT_VECTOR_SYMBOL = null; // Component vectors don't have a symbol
 
 export default class ComponentVector extends RootVector {

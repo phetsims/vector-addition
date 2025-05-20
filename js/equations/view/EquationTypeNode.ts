@@ -19,7 +19,6 @@ import CoefficientPicker from './CoefficientPicker.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
-// constants
 const TEXT_OPTIONS = {
   font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT
 };

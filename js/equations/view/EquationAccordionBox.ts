@@ -27,7 +27,6 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
-// constants
 const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
 type SelfOptions = EmptySelfOptions;

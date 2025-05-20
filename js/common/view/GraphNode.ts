@@ -29,9 +29,6 @@ import OriginManipulator from './OriginManipulator.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Graph from '../model/Graph.js';
 
-//----------------------------------------------------------------------------------------
-// constants
-
 // grid
 const MAJOR_GRID_LINE_WIDTH = 1.5; // view units
 const MINOR_GRID_LINE_WIDTH = 1; // view units
