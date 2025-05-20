@@ -29,15 +29,14 @@ const ORIGIN_DRAG_MARGIN = 5;
 // origin
 const ORIGIN_COLOR = Color.toColor( VectorAdditionColors.ORIGIN_COLOR );
 const ORIGIN_DIAMETER = 0.8; // in model coordinates
-const ORIGIN_OPTIONS = {
+const ORIGIN_OPTIONS: ShadedSphereNodeOptions = {
+  isDisposable: false,
   cursor: 'move',
-  fill: ORIGIN_COLOR.withAlpha( 0.15 ),
   mainColor: ORIGIN_COLOR,
   highlightColor: Color.WHITE,
   shadowColor: ORIGIN_COLOR.darkerColor(),
   lineWidth: 1,
-  stroke: ORIGIN_COLOR.darkerColor(),
-  isDisposable: false
+  stroke: ORIGIN_COLOR.darkerColor()
 };
 
 export default class OriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
