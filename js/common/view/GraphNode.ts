@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorAdditionChartNode draws the graph, including its grid, axes, ticks, and origin manipulator.
+ * GraphNode draws the graph, including its grid, axes, ticks, and origin manipulator.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -60,7 +60,7 @@ const TICK_LABEL_SPACING = 10; // model units
 const TICK_LABEL_X_OFFSET = 15; // from x = 0, view units
 const TICK_LABEL_Y_OFFSET = 15; // from y = 0, view units
 
-export default class VectorAdditionChartNode extends Node {
+export default class GraphNode extends Node {
 
   // Public for pdomOrder at ScreenView level.
   public readonly originManipulator: Node;
@@ -375,4 +375,4 @@ class TicksNode extends Node {
   }
 }
 
-vectorAddition.register( 'VectorAdditionChartNode', VectorAdditionChartNode );
+vectorAddition.register( 'GraphNode', GraphNode );

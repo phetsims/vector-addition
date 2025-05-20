@@ -4,7 +4,7 @@
  * VectorAdditionSceneNode is the base class for displaying a scene.
  *
  * Contains:
- *  - a single VectorAdditionChartNode
+ *  - a single GraphNode
  *  - a single VectorValuesAccordionBox
  *  - Handle z-layering of all vector types (see https://github.com/phetsims/vector-addition/issues/19)
  *  - An option to include an EraserButton
@@ -30,7 +30,7 @@ import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
-import VectorAdditionChartNode from './VectorAdditionChartNode.js';
+import GraphNode from './GraphNode.js';
 import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import VectorCreatorPanel from './VectorCreatorPanel.js';
 import VectorSetNode from './VectorSetNode.js';
@@ -49,7 +49,7 @@ export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>
 export default class VectorAdditionSceneNode extends Node {
 
   // Public for pdomOrder at ScreenView level.
-  public readonly graphNode: VectorAdditionChartNode;
+  public readonly graphNode: GraphNode;
   public readonly vectorSetNodesParent: Node;
   public readonly vectorValuesAccordionBox: Node;
   public vectorCreatorPanel: Node | null;
@@ -80,8 +80,8 @@ export default class VectorAdditionSceneNode extends Node {
 
     //========================================================================================
 
-    // Create one and only VectorAdditionChartNode
-    this.graphNode = new VectorAdditionChartNode( scene, viewProperties.gridVisibleProperty, options.tandem.createTandem( 'graphNode' ) );
+    // Create one and only GraphNode
+    this.graphNode = new GraphNode( scene, viewProperties.gridVisibleProperty, options.tandem.createTandem( 'graphNode' ) );
 
     // Create the one and only 'Vector Values' accordion box
     this.vectorValuesAccordionBox = new VectorValuesAccordionBox( scene, {
