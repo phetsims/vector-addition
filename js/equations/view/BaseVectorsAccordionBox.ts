@@ -42,7 +42,7 @@ import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
-const Y_SPACING = 17; // vertical spacing between UI components
+const Y_SPACING = 8; // vertical spacing between UI components
 const CONTENT_WIDTH = VectorAdditionConstants.BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH; // fixed content width
 
 type SelfOptions = EmptySelfOptions;
@@ -75,7 +75,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     // For the Polar scene, the two NumberPickers set the vector's magnitude and angle.
     //----------------------------------------------------------------------------------------
 
-    const pickers: Node[] = []; // pairs of pickers and their labels
+    const rows: HBox[] = []; // each row is two labeled NumberPickers
 
     const pickersTandem = options.tandem.createTandem( 'pickers' );
 
@@ -165,8 +165,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           } );
       }
 
-      // Displayed Horizontally, push a HBox to the content children array
-      pickers.push( new HBox( {
+      rows.push( new HBox( {
         align: 'origin',
         spacing: X_SPACING,
         children: [ leftNumberPickerAndLabel, rightNumberPickerAndLabel ]
@@ -174,33 +173,37 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     } );
 
     const pickersVBox = new VBox( {
-      children: pickers,
+      children: rows,
       spacing: Y_SPACING,
-      align: 'center'
+      align: 'center',
+      layoutOptions: {
+        align: 'center'
+      }
     } );
 
-    // Ensure that the accordion box is a fixed width.
-    const strut = new HStrut( CONTENT_WIDTH, {
-      pickable: false,
-      center: pickersVBox.center
-    } );
-    const fixedWidthPickers = new Node( { children: [ strut, pickersVBox ] } );
-
-    // Create the checkbox that toggles the visibility of Base Vectors
+    // Checkbox that toggles the visibility of base vectors.
     const baseVectorsCheckbox = new BaseVectorsCheckbox( baseVectorsVisibleProperty, vectorSet.vectorColorPalette,
       options.tandem.createTandem( 'baseVectorsCheckbox' ) );
 
-    const accordionBoxContent = new VBox( {
-      children: [ fixedWidthPickers, baseVectorsCheckbox ],
+    // Ensure that the accordion box is a fixed width. This is an old-style pattern, not recommended.
+    const strut = new HStrut( CONTENT_WIDTH, {
+      pickable: false
+    } );
+
+    const content = new VBox( {
+      children: [
+        pickersVBox,
+        strut,
+        baseVectorsCheckbox
+      ],
       spacing: Y_SPACING,
       align: 'left',
       maxWidth: CONTENT_WIDTH
     } );
 
-    super( accordionBoxContent, options );
+    super( content, options );
 
     // When the box is collapsed, cancel interactions.
-    // unlink is not necessary, exists for the lifetime of the sim.
     this.expandedProperty.lazyLink( expanded => {
       if ( !expanded ) {
         this.interruptSubtreeInput();
