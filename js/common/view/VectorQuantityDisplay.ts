@@ -27,6 +27,8 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { VectorQuantity } from './VectorQuantity.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
+import { AngleConvention } from '../model/AngleConvention.js';
 
 export default class VectorQuantityDisplay extends NumberDisplay {
 
@@ -92,7 +94,8 @@ export default class VectorQuantityDisplay extends NumberDisplay {
 
     // Create function to update the number display value
     const activeVectorComponentsListener = () => {
-      numberDisplayProperty.value = this.getNumberDisplayValue( scene.activeVectorProperty.value );
+      numberDisplayProperty.value = this.getNumberDisplayValue( scene.activeVectorProperty.value,
+        VectorAdditionPreferences.instance.angleConventionProperty.value );
     };
 
     // Observe when the scene's active vector changes and update the vectorComponents link.
@@ -106,12 +109,14 @@ export default class VectorQuantityDisplay extends NumberDisplay {
       // exists. unlink is required when active vector changes.
       activeVector && activeVector.vectorComponentsProperty.link( activeVectorComponentsListener );
     } );
+
+    VectorAdditionPreferences.instance.angleConventionProperty.link( () => activeVectorComponentsListener() );
   }
 
   /**
    * Gets the value to display based on the attribute display type and a vector
    */
-  private getNumberDisplayValue( activeVector: Vector | null ): number | null {
+  private getNumberDisplayValue( activeVector: Vector | null, angleConvention: AngleConvention ): number | null {
 
     if ( !activeVector ) {
       return null;
@@ -121,7 +126,7 @@ export default class VectorQuantityDisplay extends NumberDisplay {
       return activeVector.magnitude;
     }
     else if ( this.vectorQuantity === 'angle' ) {
-      return activeVector.getAngleDegrees();
+      return activeVector.getAngleDegrees( angleConvention );
     }
     else if ( this.vectorQuantity === 'xComponent' ) {
       return activeVector.xComponent;
