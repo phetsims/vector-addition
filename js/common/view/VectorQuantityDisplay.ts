@@ -121,7 +121,7 @@ export default class VectorQuantityDisplay extends NumberDisplay {
       return activeVector.magnitude;
     }
     else if ( this.vectorQuantity === 'angle' ) {
-      return activeVector.angleDegrees;
+      return activeVector.getAngleDegrees();
     }
     else if ( this.vectorQuantity === 'xComponent' ) {
       return activeVector.xComponent;

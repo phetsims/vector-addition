@@ -19,6 +19,8 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import CurvedArrowNode from './CurvedArrowNode.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import { AngleConvention } from '../model/AngleConvention.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
 // maximum radius of the curved arrow - the radius is changed to keep the curved arrow smaller than the vector.
 const MAX_CURVED_ARROW_RADIUS = 25;
@@ -98,14 +100,11 @@ export default class VectorAngleNode extends Node {
    */
   private updateAngleNode( vector: Vector, modelViewTransform: ModelViewTransform2, angleConvention: AngleConvention ): void {
 
-    // convenience reference.
-    const angleDegrees = vector.angleDegrees;
+    const angleDegrees = vector.getAngleDegrees( angleConvention ) || 0;
+    const angleRadians = toRadians( angleDegrees );
 
     // Update the curved arrow node angle
-    this.curvedArrow.setAngle( vector.angle ? vector.angle : 0 );
-
-    // Update the angle text.
-    this.angleText.setString( vector.getAngleDegreesString( angleConvention ) );
+    this.curvedArrow.setAngle( angleRadians );
 
     // Update the curved arrow radius
     const viewMagnitude = modelViewTransform.modelToViewDeltaX( vector.magnitude );
@@ -113,21 +112,25 @@ export default class VectorAngleNode extends Node {
       this.curvedArrow.setRadius( _.min( [ MAX_RADIUS_SCALE * viewMagnitude, MAX_CURVED_ARROW_RADIUS ] )! );
     }
 
-    const curvedArrowRadius = this.curvedArrow.getRadius();
-    const vectorAngle = vector.angle!;
-    assert && assert( vectorAngle !== null );
-
     // Update the baseline
+    const curvedArrowRadius = this.curvedArrow.getRadius();
     this.baseLine.setX2( _.min( [ curvedArrowRadius / MAX_BASELINE_SCALE, MAX_BASELINE_WIDTH ] )! );
 
-    // Position the text
-    if ( angleDegrees !== null ) {
+    // Update the angle text.
+    if ( angleDegrees === null ) {
+      this.angleText.setString( '' );
+    }
+    else {
+      this.angleText.setString( StringUtils.toFixedLTR( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+    }
 
+    // Position the text
+    if ( angleConvention === 'signed' ) {
       if ( angleDegrees > ANGLE_UNDER_BASELINE_THRESHOLD ) {
 
         // Position the text next to the arc, halfway across the arc
-        this.angleText.setTranslation( ( curvedArrowRadius + TEXT_OFFSET ) * Math.cos( vectorAngle / 2 ),
-          -( curvedArrowRadius + TEXT_OFFSET ) * Math.sin( vectorAngle / 2 ) );
+        this.angleText.setTranslation( ( curvedArrowRadius + TEXT_OFFSET ) * Math.cos( angleRadians / 2 ),
+          -( curvedArrowRadius + TEXT_OFFSET ) * Math.sin( angleRadians / 2 ) );
       }
       else if ( angleDegrees >= 0 ) {
 
@@ -143,9 +146,25 @@ export default class VectorAngleNode extends Node {
       else {
 
         // Position the text next to the arc, halfway across the arc
-        this.angleText.setTranslation( ( curvedArrowRadius + TEXT_OFFSET ) * Math.cos( vectorAngle / 2 ),
-          -( curvedArrowRadius + TEXT_OFFSET ) * Math.sin( vectorAngle / 2 ) + this.angleText.height / 2
+        this.angleText.setTranslation( ( curvedArrowRadius + TEXT_OFFSET ) * Math.cos( angleRadians / 2 ),
+          -( curvedArrowRadius + TEXT_OFFSET ) * Math.sin( angleRadians / 2 ) + this.angleText.height / 2
         );
+      }
+    }
+    else {
+
+      // angleConvention === 'unsigned', 0 to 360
+      if ( angleDegrees < ANGLE_UNDER_BASELINE_THRESHOLD ) {
+
+        // Position below the baseline.
+        this.angleText.setTranslation( curvedArrowRadius / 2, curvedArrowRadius / 2 );
+      }
+      else {
+
+        // Position on the curved arrow.
+        const angle = Math.min( angleRadians, Math.PI );
+        this.angleText.setTranslation( ( curvedArrowRadius + TEXT_OFFSET ) * Math.cos( angle / 2 ),
+          -( curvedArrowRadius + TEXT_OFFSET ) * Math.sin( angle / 2 ) );
       }
     }
   }

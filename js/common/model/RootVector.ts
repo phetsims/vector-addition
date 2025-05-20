@@ -26,7 +26,6 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorColorPalette from './VectorColorPalette.js';
 import { AngleConvention } from './AngleConvention.js';
-import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
@@ -319,11 +318,19 @@ export default abstract class RootVector extends PhetioObject {
 
   /**
    * Gets the angle of the vector in degrees, measured clockwise from the horizontal.
-   * null when the vector has 0 magnitude.
+   * If the vector has zero magnitude, null is returned.
    */
-  public get angleDegrees(): number | null {
+  public getAngleDegrees( angleConvention: AngleConvention = 'signed' ): number | null {
     const angleRadians = this.angle;
-    return ( angleRadians === null ) ? null : toDegrees( angleRadians );
+    let angleDegrees = null;
+    if ( angleRadians !== null ) {
+      angleDegrees = toDegrees( angleRadians );
+      assert && assert( angleDegrees >= -180 && angleDegrees <= 180, `invalid angleDegrees ${angleDegrees}` );
+      if ( angleDegrees < 0 && angleConvention === 'unsigned' ) {
+        angleDegrees = 360 + angleDegrees;
+      }
+    }
+    return angleDegrees;
   }
 
   /**
@@ -331,17 +338,12 @@ export default abstract class RootVector extends PhetioObject {
    * If the vector has zero magnitude, the empty string is returned.
    */
   public getAngleDegreesString( angleConvention: AngleConvention ): string {
-    let string = '';
-    let angleDegrees = this.angleDegrees;
+    let angleDegreesString = '';
+    const angleDegrees = this.getAngleDegrees( angleConvention );
     if ( angleDegrees !== null ) {
-      assert && assert( angleDegrees >= -180 && angleDegrees <= 180, `invalid angleDegrees ${angleDegrees}` );
-      angleDegrees = toFixedNumber( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
-      if ( angleDegrees < 0 && angleConvention === 'unsigned' ) {
-        angleDegrees = 360 + angleDegrees;
-      }
-      string = toFixed( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+      angleDegreesString = toFixed( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
     }
-    return string;
+    return angleDegreesString;
   }
 }
 
