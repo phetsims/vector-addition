@@ -25,10 +25,10 @@ export default class VectorAdditionCheckbox extends Checkbox {
     const options = optionize<VectorAdditionCheckboxOptions, SelfOptions, CheckboxOptions>()( {
 
       // CheckboxOptions
+      isDisposable: false,
       boxWidth: VectorAdditionConstants.CHECKBOX_BOX_WIDTH,
       touchAreaXDilation: 5,
-      touchAreaYDilation: 3.5,
-      isDisposable: false
+      touchAreaYDilation: 3.5
     }, providedOptions );
 
     super( property, content, options );

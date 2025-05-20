@@ -48,9 +48,9 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
 
         // RectangularRadioButtonGroupOptions
+        isDisposable: false,
         xMargin: 8,
         scale: 0.75,
-        isDisposable: false,
         accessibleName: VectorAdditionStrings.a11y.equationTypeRadioButtonGroup.accessibleNameStringProperty,
         accessibleHelpText: VectorAdditionStrings.a11y.equationTypeRadioButtonGroup.accessibleHelpTextStringProperty
       }, providedOptions );

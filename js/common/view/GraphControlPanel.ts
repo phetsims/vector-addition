@@ -25,6 +25,8 @@ export default class GraphControlPanel extends Panel {
 
     const options = optionize4<GraphControlPanelOptions, SelfOptions, PanelOptions>()(
       {}, VectorAdditionConstants.PANEL_OPTIONS, {
+
+        // PanelOptions
         isDisposable: false
       }, providedOptions );
 

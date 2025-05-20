@@ -21,8 +21,8 @@ export default class VectorAdditionPreferencesNode extends VBox {
       tandem.createTandem( 'initialCoefficientControl' ) );
 
     super( {
-      children: [ angleConventionControl ],
       isDisposable: false,
+      children: [ angleConventionControl ],
       align: 'left',
       spacing: 30,
       phetioVisiblePropertyInstrumented: false

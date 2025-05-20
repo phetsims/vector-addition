@@ -61,8 +61,8 @@ export default class VectorSetNode extends Node {
       componentVectorStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
 
     super( {
-      children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ],
       isDisposable: false,
+      children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ],
       tandem: tandem,
       phetioVisiblePropertyInstrumented: false
     } );

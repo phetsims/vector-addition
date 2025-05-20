@@ -49,12 +49,12 @@ export default class VectorCreatorPanel extends InteractiveHighlighting( Panel )
         contentHeight: 145,
 
         // PanelOptions
+        isDisposable: false,
         lineWidth: 0.8,
         xMargin: 2,
         yMargin: 10,
         fill: Color.WHITE,
         stroke: Color.BLACK,
-        isDisposable: false,
         tagName: 'div', // for KeyboardDragListener
         focusable: true // for KeyboardDragListener
       }, providedOptions );
