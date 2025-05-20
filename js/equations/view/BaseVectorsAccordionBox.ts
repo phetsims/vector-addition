@@ -71,13 +71,10 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       }, providedOptions );
 
     //----------------------------------------------------------------------------------------
-    // Create the Number Pickers / labels
-    //
-    // Each Vector in the vectorSet gets 2 NumberPickers displayed horizontally. Each NumberPicker has
-    // a 'label'.
-    //
-    // On Cartesian, the two NumberPickers toggle the X and the Y component respectively.
-    // On Polar, the two NumberPickers toggle the magnitude and the angle respectively.
+    // Create the labeled NumberPickers.
+    // Each Vector in the vectorSet gets two NumberPickers, labeled, and displayed horizontally.
+    // For the Cartesian scene, the two NumberPickers set the vector's X and the Y components.
+    // For the Polar scene, the two NumberPickers set the vector's magnitude and angle.
     //----------------------------------------------------------------------------------------
 
     const pickers: Node[] = []; // pairs of pickers and their labels
@@ -215,7 +212,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 }
 
 /**
- * Handles the layout of a label (Node), an equals sign (Text), and a NumberPicker, horizontally in an HBox.
+ * Handles the layout of a label (Node), equals sign (Text), and a NumberPicker, horizontally in an HBox.
  *
  * @param numberProperty - number Property that goes in the NumberPicker
  * @param numberRange - static numberRange of the number Property
