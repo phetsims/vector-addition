@@ -15,7 +15,6 @@
  */
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
@@ -101,7 +100,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                           new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
                             ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` ) :
                           null;
-        leftNumberPickerAndLabel = createNumberPickerWithLabel(
+        leftNumberPickerAndLabel = createLabeledNumberPicker(
           cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
@@ -118,7 +117,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                            new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
                              ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` ) :
                            null;
-        rightNumberPickerAndLabel = createNumberPickerWithLabel(
+        rightNumberPickerAndLabel = createLabeledNumberPicker(
           cartesianBaseVector.yComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
@@ -135,7 +134,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // Magnitude
-        leftNumberPickerAndLabel = createNumberPickerWithLabel(
+        leftNumberPickerAndLabel = createLabeledNumberPicker(
           polarBaseVector.magnitudeProperty,
           VectorAdditionConstants.MAGNITUDE_RANGE,
           new VectorSymbolNode( {
@@ -151,7 +150,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         assert && assert( baseVector.symbolProperty );
         const rightLabelProperty = new DerivedStringProperty( [ baseVector.symbolProperty! ],
           baseVectorSymbol => `${MathSymbols.THETA}<sub>${baseVectorSymbol}</sub>` );
-        rightNumberPickerAndLabel = createNumberPickerWithLabel(
+        rightNumberPickerAndLabel = createLabeledNumberPicker(
           polarBaseVector.angleDegreesProperty,
           VectorAdditionConstants.ANGLE_RANGE,
           new RichText( rightLabelProperty, {
@@ -219,8 +218,10 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
  * @param labelNode
  * @param numberPickerOptions
  */
-function createNumberPickerWithLabel( numberProperty: NumberProperty, numberRange: Range, labelNode: Node,
-                                      numberPickerOptions: WithRequired<NumberPickerOptions, 'tandem'> ): Node {
+function createLabeledNumberPicker( numberProperty: Property<number>,
+                                    numberRange: Range,
+                                    labelNode: Node,
+                                    numberPickerOptions: WithRequired<NumberPickerOptions, 'tandem'> ): Node {
 
   const equalsSign = new Text( MathSymbols.EQUAL_TO, {
     font: VectorAdditionConstants.EQUATION_FONT
