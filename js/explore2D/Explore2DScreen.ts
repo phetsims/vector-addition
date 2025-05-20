@@ -14,6 +14,7 @@ import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import Explore2DModel from './model/Explore2DModel.js';
 import Explore2DScreenView from './view/Explore2DScreenView.js';
+import Explore2DKeyboardHelpContent from './view/Explore2DKeyboardHelpContent.js';
 
 export default class Explore2DScreen extends Screen<Explore2DModel, Explore2DScreenView> {
 
@@ -24,6 +25,7 @@ export default class Explore2DScreen extends Screen<Explore2DModel, Explore2DScr
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createExplore2DScreenIcon(),
       screenButtonsHelpText: VectorAdditionStrings.a11y.explore2DScreen.screenButtonsHelpTextStringProperty,
+      createKeyboardHelpNode: () => new Explore2DKeyboardHelpContent(),
       tandem: tandem
     };
 

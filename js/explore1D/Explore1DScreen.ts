@@ -14,6 +14,7 @@ import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import Explore1DModel from './model/Explore1DModel.js';
 import Explore1DScreenView from './view/Explore1DScreenView.js';
+import Explore1DKeyboardHelpContent from './view/Explore1DKeyboardHelpContent.js';
 
 export default class Explore1DScreen extends Screen<Explore1DModel, Explore1DScreenView> {
 
@@ -24,6 +25,7 @@ export default class Explore1DScreen extends Screen<Explore1DModel, Explore1DScr
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createExplore1DScreenIcon(),
       screenButtonsHelpText: VectorAdditionStrings.a11y.explore1DScreen.screenButtonsHelpTextStringProperty,
+      createKeyboardHelpNode: () => new Explore1DKeyboardHelpContent(),
       tandem: tandem
     };
 
