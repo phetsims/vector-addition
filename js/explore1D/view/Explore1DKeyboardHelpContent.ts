@@ -1,5 +1,6 @@
 // Copyright 2025, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/vector-addition/issues/308 Address duplication across screens.
 /**
  * Explore1DKeyboardHelpContent is the content for the keyboard-help dialog in the 'Explore 1D' screen.
  *

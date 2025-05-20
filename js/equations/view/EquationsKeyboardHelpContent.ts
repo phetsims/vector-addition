@@ -1,5 +1,6 @@
 // Copyright 2025, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/vector-addition/issues/308 Address duplication across screens.
 /**
  * EquationsKeyboardHelpContent is the content for the keyboard-help dialog in the 'Equations' screen.
  *
