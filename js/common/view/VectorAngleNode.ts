@@ -2,7 +2,6 @@
 
 /**
  * VectorAngleNode is the angle indicator that appears on vectors on the graph when the angle checkbox is checked.
- * Only shows if the vector model is active.
  *
  * @author Brandon Li
  */
