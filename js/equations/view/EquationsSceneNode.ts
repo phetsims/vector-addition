@@ -62,7 +62,7 @@ export default class EquationsSceneNode extends VectorAdditionSceneNode {
         tandem: tandem.createTandem( 'equationAccordionBox' )
       } );
     this.addChild( equationAccordionBox );
-    equationAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
+    equationAccordionBox.moveToBack(); // move to back to ensure that vectors remains in front
 
     // Add the 'Base Vector' accordion box
     const baseVectorsAccordionBox = new BaseVectorsAccordionBox( viewProperties.baseVectorsVisibleProperty,
@@ -74,7 +74,7 @@ export default class EquationsSceneNode extends VectorAdditionSceneNode {
         tandem: tandem.createTandem( 'baseVectorsAccordionBox' )
       } );
     this.addChild( baseVectorsAccordionBox );
-    baseVectorsAccordionBox.moveToBack(); // move to back to ensure that this.vectorContainer remains in front
+    baseVectorsAccordionBox.moveToBack(); // move to back to ensure that vectors remains in front
 
     // Add vectors and their base vectors.
     scene.vectorSet.equationsVectors.forEach( vector => {
