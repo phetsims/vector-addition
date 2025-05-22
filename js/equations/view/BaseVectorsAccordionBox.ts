@@ -85,25 +85,21 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       const baseVector = vector.baseVector; // convenience reference
       const baseVectorSymbol = baseVector.symbolProperty!.value;
 
-      // Empty references to the 2 NumberPickers/labels per Vector. To be set later.
-      let leftNumberPickerAndLabel;
-      let rightNumberPickerAndLabel;
-
       if ( coordinateSnapMode === 'cartesian' ) {
 
         const cartesianBaseVector = baseVector as CartesianBaseVector;
         assert && assert( cartesianBaseVector instanceof CartesianBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // X Component
-        const leftLabel = baseVector.symbolProperty ?
+        const xSymbolStringProperty = baseVector.symbolProperty ?
                           new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
                             ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` ) :
                           null;
-        leftNumberPickerAndLabel = createLabeledNumberPicker(
+        const xLabeledPicker = createLabeledNumberPicker(
           cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
-            symbolProperty: leftLabel,
+            symbolProperty: xSymbolStringProperty,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
@@ -112,28 +108,34 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           } );
 
         // Y Component
-        const rightLabel = baseVector.symbolProperty ?
+        const ySymbolStringProperty = baseVector.symbolProperty ?
                            new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
                              ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` ) :
                            null;
-        rightNumberPickerAndLabel = createLabeledNumberPicker(
+        const yLabeledPicker = createLabeledNumberPicker(
           cartesianBaseVector.yComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
-            symbolProperty: rightLabel,
+            symbolProperty: ySymbolStringProperty,
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
             //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
             tandem: pickersTandem.createTandem( `${baseVectorSymbol}yPicker` )
           } );
+
+        rows.push( new HBox( {
+          align: 'origin',
+          spacing: X_SPACING,
+          children: [ xLabeledPicker, yLabeledPicker ]
+        } ) );
       }
       else {
         const polarBaseVector = baseVector as PolarBaseVector;
         assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // Magnitude
-        leftNumberPickerAndLabel = createLabeledNumberPicker(
+        const magnitudeLabeledPicker = createLabeledNumberPicker(
           polarBaseVector.magnitudeProperty,
           VectorAdditionConstants.MAGNITUDE_RANGE,
           new VectorSymbolNode( {
@@ -147,12 +149,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
         // Angle
         assert && assert( baseVector.symbolProperty );
-        const rightLabelProperty = new DerivedStringProperty( [ baseVector.symbolProperty! ],
+        const angleSymbolStringProperty = new DerivedStringProperty( [ baseVector.symbolProperty! ],
           baseVectorSymbol => `${MathSymbols.THETA}<sub>${baseVectorSymbol}</sub>` );
-        rightNumberPickerAndLabel = createLabeledNumberPicker(
+        const angleLabeledPicker = createLabeledNumberPicker(
           polarBaseVector.angleDegreesProperty,
           VectorAdditionConstants.ANGLE_RANGE,
-          new RichText( rightLabelProperty, {
+          new RichText( angleSymbolStringProperty, {
             font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
@@ -163,13 +165,13 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
             tandem: pickersTandem.createTandem( `${baseVectorSymbol}AnglePicker` )
           } );
-      }
 
-      rows.push( new HBox( {
-        align: 'origin',
-        spacing: X_SPACING,
-        children: [ leftNumberPickerAndLabel, rightNumberPickerAndLabel ]
-      } ) );
+        rows.push( new HBox( {
+          align: 'origin',
+          spacing: X_SPACING,
+          children: [ magnitudeLabeledPicker, angleLabeledPicker ]
+        } ) );
+      }
     } );
 
     const pickersVBox = new VBox( {
