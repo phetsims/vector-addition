@@ -95,7 +95,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                           new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
                             ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` ) :
                           null;
-        const xLabeledPicker = createLabeledNumberPicker(
+        const xLabeledPicker = new LabeledNumberPicker(
           cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
@@ -112,7 +112,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                            new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
                              ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` ) :
                            null;
-        const yLabeledPicker = createLabeledNumberPicker(
+        const yLabeledPicker = new LabeledNumberPicker(
           cartesianBaseVector.yComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
@@ -135,7 +135,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // Magnitude
-        const magnitudeLabeledPicker = createLabeledNumberPicker(
+        const magnitudeLabeledPicker = new LabeledNumberPicker(
           polarBaseVector.magnitudeProperty,
           VectorAdditionConstants.MAGNITUDE_RANGE,
           new VectorSymbolNode( {
@@ -151,7 +151,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         assert && assert( baseVector.symbolProperty );
         const angleSymbolStringProperty = new DerivedStringProperty( [ baseVector.symbolProperty! ],
           baseVectorSymbol => `${MathSymbols.THETA}<sub>${baseVectorSymbol}</sub>` );
-        const angleLabeledPicker = createLabeledNumberPicker(
+        const angleLabeledPicker = new LabeledNumberPicker(
           polarBaseVector.angleDegreesProperty,
           VectorAdditionConstants.ANGLE_RANGE,
           new RichText( angleSymbolStringProperty, {
@@ -215,44 +215,41 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 }
 
 /**
- * Handles the layout of a label (Node), equals sign (Text), and a NumberPicker, horizontally in an HBox.
- *
- * @param numberProperty - number Property that goes in the NumberPicker
- * @param numberRange - static numberRange of the number Property
- * @param labelNode
- * @param numberPickerOptions
+ * LabeledNumberPicker is a label (Node), equals sign (Text), and a NumberPicker, with horizontal layout.
  */
-function createLabeledNumberPicker( numberProperty: Property<number>,
-                                    numberRange: Range,
-                                    labelNode: Node,
-                                    numberPickerOptions: WithRequired<NumberPickerOptions, 'tandem'> ): Node {
+class LabeledNumberPicker extends HBox {
+  public constructor( numberProperty: Property<number>,
+                      numberRange: Range,
+                      labelNode: Node,
+                      numberPickerOptions: WithRequired<NumberPickerOptions, 'tandem'> ) {
 
-  const equalsSign = new Text( MathSymbols.EQUAL_TO, {
-    font: VectorAdditionConstants.EQUATION_FONT
-  } );
+    const equalsSign = new Text( MathSymbols.EQUAL_TO, {
+      font: VectorAdditionConstants.EQUATION_FONT
+    } );
 
-  // Empirically set the vertical position of the NumberPicker, and wrap it in a Node to work with HBox.
-  // See https://github.com/phetsims/vector-addition/issues/209
-  const numberPicker = new NumberPicker( numberProperty, new Property( numberRange ),
-    combineOptions<NumberPickerOptions>( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
-      touchAreaXDilation: 20,
-      touchAreaYDilation: 10,
+    // Empirically set the vertical position of the NumberPicker, and wrap it in a Node to work with HBox.
+    // See https://github.com/phetsims/vector-addition/issues/209
+    const numberPicker = new NumberPicker( numberProperty, new Property( numberRange ),
+      combineOptions<NumberPickerOptions>( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
+        touchAreaXDilation: 20,
+        touchAreaYDilation: 10,
 
-      // Hide arrows when picker is disabled.
-      disabledOpacity: 1,
-      backgroundStrokeDisabledOpacity: 1,
-      arrowDisabledOpacity: 0
-    }, numberPickerOptions )
-  );
-  numberPicker.centerY = -equalsSign.height / 3;
-  const numberPickerParent = new Node( { children: [ numberPicker ] } );
+        // Hide arrows when picker is disabled.
+        disabledOpacity: 1,
+        backgroundStrokeDisabledOpacity: 1,
+        arrowDisabledOpacity: 0
+      }, numberPickerOptions )
+    );
+    numberPicker.centerY = -equalsSign.height / 3;
+    const numberPickerParent = new Node( { children: [ numberPicker ] } );
 
-  return new HBox( {
-    align: 'origin',
-    spacing: 3, // space around the equals sign
-    children: [ labelNode, equalsSign, numberPickerParent ],
-    visibleProperty: numberPicker.visibleProperty
-  } );
+    super( {
+      align: 'origin',
+      spacing: 3, // space around the equals sign
+      children: [ labelNode, equalsSign, numberPickerParent ],
+      visibleProperty: numberPicker.visibleProperty
+    } );
+  }
 }
 
 vectorAddition.register( 'BaseVectorsAccordionBox', BaseVectorsAccordionBox );
