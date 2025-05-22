@@ -56,249 +56,249 @@
   "a11y": {
     "explore1DScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO explore1DScreen.screenButtonsHelpText"
+        "value": "TODO.explore1DScreen.screenButtonsHelpText"
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO explore1DScreen.screenSummary.playArea"
+          "value": "TODO.explore1DScreen.screenSummary.playArea"
         },
         "controlArea": {
-          "value": "TODO explore1DScreen.screenSummary.controlArea"
+          "value": "TODO.explore1DScreen.screenSummary.controlArea"
         },
         "interactionHint": {
-          "value": "TODO explore1DScreen.screenSummary.interactionHint"
+          "value": "TODO.explore1DScreen.screenSummary.interactionHint"
         }
       }
     },
     "explore2DScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO explore2DScreen.screenButtonsHelpText"
+        "value": "TODO.explore2DScreen.screenButtonsHelpText"
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO explore2DScreen.screenSummary.playArea"
+          "value": "TODO.explore2DScreen.screenSummary.playArea"
         },
         "controlArea": {
-          "value": "TODO explore2DScreen.screenSummary.controlArea"
+          "value": "TODO.explore2DScreen.screenSummary.controlArea"
         },
         "interactionHint": {
-          "value": "TODO explore2DScreen.screenSummary.interactionHint"
+          "value": "TODO.explore2DScreen.screenSummary.interactionHint"
         }
       }
     },
     "labScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO labScreen.screenButtonsHelpText"
+        "value": "TODO.labScreen.screenButtonsHelpText"
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO labScreen.screenSummary.playArea"
+          "value": "TODO.labScreen.screenSummary.playArea"
         },
         "controlArea": {
-          "value": "TODO labScreen.screenSummary.controlArea"
+          "value": "TODO.labScreen.screenSummary.controlArea"
         },
         "interactionHint": {
-          "value": "TODO labScreen.screenSummary.interactionHint"
+          "value": "TODO.labScreen.screenSummary.interactionHint"
         }
       }
     },
     "equationsScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO equationsScreen.screenButtonsHelpText"
+        "value": "TODO.equationsScreen.screenButtonsHelpText"
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO equationsScreen.screenSummary.playArea"
+          "value": "TODO.equationsScreen.screenSummary.playArea"
         },
         "controlArea": {
-          "value": "TODO equationsScreen.screenSummary.controlArea"
+          "value": "TODO.equationsScreen.screenSummary.controlArea"
         },
         "interactionHint": {
-          "value": "TODO equationsScreen.screenSummary.interactionHint"
+          "value": "TODO.equationsScreen.screenSummary.interactionHint"
         }
       }
     },
     "anglesCheckbox": {
       "accessibleName": {
-        "value": "TODO anglesCheckbox.accessibleName"
+        "value": "TODO.anglesCheckbox.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO anglesCheckbox.accessibleHelpText"
+        "value": "TODO.anglesCheckbox.accessibleHelpText"
       }
     },
     "gridCheckbox": {
       "accessibleName": {
-        "value": "TODO gridCheckbox.accessibleName"
+        "value": "TODO.gridCheckbox.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO gridCheckbox.accessibleHelpText"
+        "value": "TODO.gridCheckbox.accessibleHelpText"
       }
     },
     "sumCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO sumCheckbox.accessibleHelpText"
+        "value": "TODO.sumCheckbox.accessibleHelpText"
       }
     },
     "sum1Checkbox": {
       "accessibleName": {
-        "value": "TODO sum1Checkbox.accessibleName"
+        "value": "TODO.sum1Checkbox.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO sum1Checkbox.accessibleHelpText"
+        "value": "TODO.sum1Checkbox.accessibleHelpText"
       }
     },
     "sum2Checkbox": {
       "accessibleName": {
-        "value": "TODO sum2Checkbox.accessibleName"
+        "value": "TODO.sum2Checkbox.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO sum2Checkbox.accessibleHelpText"
+        "value": "TODO.sum2Checkbox.accessibleHelpText"
       }
     },
     "valuesCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO valuesCheckbox.accessibleHelpText"
+        "value": "TODO.valuesCheckbox.accessibleHelpText"
       }
     },
     "componentsRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO componentsRadioButtonGroup.accessibleName"
+        "value": "TODO.componentsRadioButtonGroup.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO componentsRadioButtonGroup.accessibleHelpText"
+        "value": "TODO.componentsRadioButtonGroup.accessibleHelpText"
       }
     },
     "invisibleRadioButton": {
       "accessibleName": {
-        "value": "TODO invisibleRadioButton.accessibleName"
+        "value": "TODO.invisibleRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO invisibleRadioButton.accessibleHelpText"
+        "value": "TODO.invisibleRadioButton.accessibleHelpText"
       }
     },
     "triangleRadioButton": {
       "accessibleName": {
-        "value": "TODO triangleRadioButton.accessibleName"
+        "value": "TODO.triangleRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO triangleRadioButton.accessibleHelpText"
+        "value": "TODO.triangleRadioButton.accessibleHelpText"
       }
     },
     "parallelogramRadioButton": {
       "accessibleName": {
-        "value": "TODO parallelogramRadioButton.accessibleName"
+        "value": "TODO.parallelogramRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO parallelogramRadioButton.accessibleHelpText"
+        "value": "TODO.parallelogramRadioButton.accessibleHelpText"
       }
     },
     "projectionRadioButton": {
       "accessibleName": {
-        "value": "TODO projectionRadioButton.accessibleName"
+        "value": "TODO.projectionRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO projectionRadioButton.accessibleHelpText"
+        "value": "TODO.projectionRadioButton.accessibleHelpText"
       }
     },
     "cartesianPolarSceneRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO cartesianPolarSceneRadioButtonGroup.accessibleName"
+        "value": "TODO.cartesianPolarSceneRadioButtonGroup.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO cartesianPolarSceneRadioButtonGroup.accessibleHelpText"
+        "value": "TODO.cartesianPolarSceneRadioButtonGroup.accessibleHelpText"
       }
     },
     "cartesianRadioButton": {
       "accessibleName": {
-        "value": "TODO cartesianRadioButton.accessibleName"
+        "value": "TODO.cartesianRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO cartesianRadioButton.accessibleHelpText"
+        "value": "TODO.cartesianRadioButton.accessibleHelpText"
       }
     },
     "polarRadioButton": {
       "accessibleName": {
-        "value": "TODO polarRadioButton.accessibleName"
+        "value": "TODO.polarRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO polarRadioButton.accessibleHelpText"
+        "value": "TODO.polarRadioButton.accessibleHelpText"
       }
     },
     "horizontalVerticalSceneRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO horizontalVerticalSceneRadioButtonGroup.accessibleName"
+        "value": "TODO.horizontalVerticalSceneRadioButtonGroup.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO horizontalVerticalSceneRadioButtonGroup.accessibleHelpText"
+        "value": "TODO.horizontalVerticalSceneRadioButtonGroup.accessibleHelpText"
       }
     },
     "horizontalRadioButton": {
       "accessibleName": {
-        "value": "TODO horizontalRadioButton.accessibleName"
+        "value": "TODO.horizontalRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO horizontalRadioButton.accessibleHelpText"
+        "value": "TODO.horizontalRadioButton.accessibleHelpText"
       }
     },
     "verticalRadioButton": {
       "accessibleName": {
-        "value": "TODO verticalRadioButton.accessibleName"
+        "value": "TODO.verticalRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO verticalRadioButton.accessibleHelpText"
+        "value": "TODO.verticalRadioButton.accessibleHelpText"
       }
     },
     "equationTypeRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO equationTypeRadioButtonGroup.accessibleName"
+        "value": "TODO.equationTypeRadioButtonGroup.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO equationTypeRadioButtonGroup.accessibleHelpText"
+        "value": "TODO.equationTypeRadioButtonGroup.accessibleHelpText"
       }
     },
     "additionRadioButton": {
       "accessibleName": {
-        "value": "TODO additionRadioButton.accessibleName"
+        "value": "TODO.additionRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO additionRadioButton.accessibleHelpText"
+        "value": "TODO.additionRadioButton.accessibleHelpText"
       }
     },
     "subtractionRadioButton": {
       "accessibleName": {
-        "value": "TODO subtractionRadioButton.accessibleName"
+        "value": "TODO.subtractionRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO subtractionRadioButton.accessibleHelpText"
+        "value": "TODO.subtractionRadioButton.accessibleHelpText"
       }
     },
     "negationRadioButton": {
       "accessibleName": {
-        "value": "TODO negationRadioButton.accessibleName"
+        "value": "TODO.negationRadioButton.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO negationRadioButton.accessibleHelpText"
+        "value": "TODO.negationRadioButton.accessibleHelpText"
       }
     },
     "baseVectorsCheckbox": {
       "accessibleName": {
-        "value": "TODO baseVectorsCheckbox.accessibleName"
+        "value": "TODO.baseVectorsCheckbox.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO baseVectorsCheckbox.accessibleHelpText"
+        "value": "TODO.baseVectorsCheckbox.accessibleHelpText"
       }
     },
     "originManipulator": {
       "accessibleName": {
-        "value": "TODO originManipulator.accessibleName"
+        "value": "TODO.originManipulator.accessibleName"
       },
       "accessibleHelpText": {
-        "value": "TODO originManipulator.accessibleHelpText"
+        "value": "TODO.originManipulator.accessibleHelpText"
       }
     },
     "eraserButton": {
       "accessibleHelpText": {
-        "value": "TODO eraserButton.accessibleHelpText"
+        "value": "TODO.eraserButton.accessibleHelpText"
       }
     }
   }
