@@ -57,7 +57,7 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     let numberDisplayRange: Range;
 
     if ( vectorQuantity === 'angle' ) {
-      numberDisplayRange = VectorAdditionConstants.ANGLE_RANGE;
+      numberDisplayRange = VectorAdditionConstants.UNSIGNED_ANGLE_RANGE;
     }
     else if ( vectorQuantity === 'magnitude' ) {
       numberDisplayRange = new Range( 0, maxMagnitude );

@@ -31,6 +31,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { signedToUnsignedDegrees } from '../VAUtils.js';
 
 export type LabelDisplayData = {
 
@@ -325,9 +326,8 @@ export default abstract class RootVector extends PhetioObject {
     let angleDegrees = null;
     if ( angleRadians !== null ) {
       angleDegrees = toDegrees( angleRadians );
-      assert && assert( angleDegrees >= -180 && angleDegrees <= 180, `invalid angleDegrees ${angleDegrees}` );
-      if ( angleDegrees < 0 && angleConvention === 'unsigned' ) {
-        angleDegrees = 360 + angleDegrees;
+      if ( angleConvention === 'unsigned' ) {
+        angleDegrees = signedToUnsignedDegrees( angleDegrees );
       }
     }
     return angleDegrees;

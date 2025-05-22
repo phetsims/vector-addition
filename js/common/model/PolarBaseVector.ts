@@ -58,7 +58,7 @@ export default class PolarBaseVector extends BaseVector {
     assert && assert( initialAngle !== null, 'expected this.angle to be non-null' );
     this.angleDegreesProperty = new NumberProperty( toDegrees( initialAngle ), {
       numberType: 'Integer',
-      range: VectorAdditionConstants.ANGLE_RANGE,
+      range: VectorAdditionConstants.SIGNED_ANGLE_RANGE,
       units: '\u00B0', // degrees
       tandem: tandem.createTandem( 'angleDegreesProperty' )
     } );

@@ -163,7 +163,8 @@ const VectorAdditionConstants = {
 
   COMPONENT_RANGE: new Range( -10, 10 ),
   MAGNITUDE_RANGE: new Range( -10, 10 ),
-  ANGLE_RANGE: new Range( -180, 180 ),
+  SIGNED_ANGLE_RANGE: new Range( -180, 180 ),
+  UNSIGNED_ANGLE_RANGE: new Range( 0, 360 ),
 
   //----------------------------------------------------------------------------------------
   // AccordionBoxes and ToggleBoxes
