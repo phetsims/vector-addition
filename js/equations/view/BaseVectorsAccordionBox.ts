@@ -102,7 +102,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                                       new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
                                         ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` ) :
                                       null;
-        const xLabeledPicker = new LabeledNumberPicker(
+        const xLabeledPicker = new LabeledEqualsNumberPicker(
           cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
@@ -118,7 +118,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                                       new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
                                         ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` ) :
                                       null;
-        const yLabeledPicker = new LabeledNumberPicker(
+        const yLabeledPicker = new LabeledEqualsNumberPicker(
           cartesianBaseVector.yComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
@@ -140,7 +140,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // Magnitude
-        const magnitudeLabeledPicker = new LabeledNumberPicker(
+        const magnitudeLabeledPicker = new LabeledEqualsNumberPicker(
           polarBaseVector.magnitudeProperty,
           VectorAdditionConstants.MAGNITUDE_RANGE,
           new VectorSymbolNode( {
@@ -179,7 +179,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         } );
 
         // Signed [-180,180]
-        const signedAngleLabeledPicker = new LabeledNumberPicker(
+        const signedAngleLabeledPicker = new LabeledEqualsNumberPicker(
           polarBaseVector.angleDegreesProperty,
           VectorAdditionConstants.SIGNED_ANGLE_RANGE,
           new RichText( angleSymbolStringProperty, {
@@ -196,7 +196,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           } );
 
         // Unsigned [0,360]
-        const unsignedAngleLabeledPicker = new LabeledNumberPicker(
+        const unsignedAngleLabeledPicker = new LabeledEqualsNumberPicker(
           unsignedAngleDegreesProperty,
           VectorAdditionConstants.UNSIGNED_ANGLE_RANGE,
           new RichText( angleSymbolStringProperty, {
@@ -288,9 +288,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 }
 
 /**
- * LabeledNumberPicker is a label (Node), equals sign (Text), and a NumberPicker, with horizontal layout.
+ * LabeledEqualsNumberPicker is a label (Node), equals sign (Text), and a NumberPicker, with horizontal layout.
  */
-class LabeledNumberPicker extends HBox {
+class LabeledEqualsNumberPicker extends HBox {
 
   public readonly numberPicker: NumberPicker;
 
