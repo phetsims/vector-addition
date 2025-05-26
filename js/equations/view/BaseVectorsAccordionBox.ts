@@ -18,12 +18,10 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import Property from '../../../../axon/js/Property.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
-import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
@@ -36,12 +34,8 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
-import VectorAdditionPreferences from '../../common/model/VectorAdditionPreferences.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VAUtils.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
+import LabelEqualsAnglePicker from './LabelEqualsAnglePicker.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
@@ -85,19 +79,17 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     // Each Vector in the vectorSet gets 2 NumberPickers, so loop through the vectorSet
     vectorSet.equationsVectors.forEach( vector => {
 
-      const baseVector = vector.baseVector; // convenience reference
-
       //TODO https://github.com/phetsims/vector-addition/issues/258 Using baseVectorSymbol in tandem names will break the PhET-iO API, because baseVectorSymbol is localized.
-      const baseVectorSymbol = baseVector.symbolProperty!.value;
+      const vectorTandemPrefix = vector.baseVector.symbolProperty!.value;
 
       if ( coordinateSnapMode === 'cartesian' ) {
 
-        const cartesianBaseVector = baseVector as CartesianBaseVector;
+        const cartesianBaseVector = vector.baseVector as CartesianBaseVector;
         assert && assert( cartesianBaseVector instanceof CartesianBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // X Component
-        const xSymbolStringProperty = baseVector.symbolProperty ?
-                                      new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
+        const xSymbolStringProperty = cartesianBaseVector.symbolProperty ?
+                                      new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
                                         ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` ) :
                                       null;
         const xLabeledPicker = new LabelEqualsNumberPicker(
@@ -108,12 +100,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: pickersTandem.createTandem( `${baseVectorSymbol}xPicker` )
+            tandem: pickersTandem.createTandem( `${vectorTandemPrefix}xPicker` )
           } );
 
         // Y Component
-        const ySymbolStringProperty = baseVector.symbolProperty ?
-                                      new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
+        const ySymbolStringProperty = cartesianBaseVector.symbolProperty ?
+                                      new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
                                         ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` ) :
                                       null;
         const yLabeledPicker = new LabelEqualsNumberPicker(
@@ -124,7 +116,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: pickersTandem.createTandem( `${baseVectorSymbol}yPicker` )
+            tandem: pickersTandem.createTandem( `${vectorTandemPrefix}yPicker` )
           } );
 
         rows.push( new HBox( {
@@ -134,7 +126,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         } ) );
       }
       else {
-        const polarBaseVector = baseVector as PolarBaseVector;
+        const polarBaseVector = vector.baseVector as PolarBaseVector;
         assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // Magnitude
@@ -142,100 +134,17 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           polarBaseVector.magnitudeProperty,
           VectorAdditionConstants.MAGNITUDE_RANGE,
           new VectorSymbolNode( {
-            symbolProperty: baseVector.symbolProperty,
+            symbolProperty: polarBaseVector.symbolProperty,
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: pickersTandem.createTandem( `${baseVectorSymbol}MagnitudePicker` )
+            tandem: pickersTandem.createTandem( `${vectorTandemPrefix}MagnitudePicker` )
           } );
 
-        // Angle - we need 2 NumberPickers, one for each angle convention (signed vs unsigned).
-        assert && assert( baseVector.symbolProperty );
-        const angleSymbolStringProperty = new DerivedStringProperty( [ baseVector.symbolProperty! ],
-          baseVectorSymbol => `${MathSymbols.THETA}<sub>${baseVectorSymbol}</sub>` );
-
-        const signedAngleDegreesProperty = polarBaseVector.angleDegreesProperty;
-        const unsignedAngleDegreesProperty = new NumberProperty( signedToUnsignedDegrees( polarBaseVector.angleDegreesProperty.value ), {
-          range: VectorAdditionConstants.UNSIGNED_ANGLE_RANGE
-        } );
-
-        // Keep the signed and unsigned angle Properties synchronized.
-        let isSetting = false;
-        signedAngleDegreesProperty.lazyLink( signedAngle => {
-          if ( !isSetting ) {
-            isSetting = true;
-            unsignedAngleDegreesProperty.value = signedToUnsignedDegrees( signedAngle );
-            isSetting = false;
-          }
-        } );
-        unsignedAngleDegreesProperty.link( unsignedAngle => {
-          if ( !isSetting ) {
-            isSetting = true;
-            signedAngleDegreesProperty.value = unsignedToSignedDegrees( unsignedAngle );
-            isSetting = false;
-          }
-        } );
-
-        // Signed [-180,180]
-        const signedAngleLabeledPicker = new LabelEqualsNumberPicker(
-          polarBaseVector.angleDegreesProperty,
-          VectorAdditionConstants.SIGNED_ANGLE_RANGE,
-          new RichText( angleSymbolStringProperty, {
-            font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
-            maxWidth: LABEL_MAX_WIDTH
-          } ), {
-            // increment by the polar angle interval
-            incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
-            decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
-            formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
-            phetioVisiblePropertyInstrumented: false,
-            phetioEnabledPropertyInstrumented: false,
-            tandem: Tandem.OPT_OUT
-          } );
-
-        // Unsigned [0,360]
-        const unsignedAngleLabeledPicker = new LabelEqualsNumberPicker(
-          unsignedAngleDegreesProperty,
-          VectorAdditionConstants.UNSIGNED_ANGLE_RANGE,
-          new RichText( angleSymbolStringProperty, {
-            font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
-            maxWidth: LABEL_MAX_WIDTH
-          } ), {
-            // increment by the polar angle interval
-            incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
-            decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
-            formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
-            phetioVisiblePropertyInstrumented: false,
-            phetioEnabledPropertyInstrumented: false,
-            tandem: Tandem.OPT_OUT
-          } );
-
-        const anglePickerTandem = pickersTandem.createTandem( `${baseVectorSymbol}AnglePicker` );
-        const anglePicker = new Node( {
-          children: [ signedAngleLabeledPicker, unsignedAngleLabeledPicker ],
-          enabledProperty: new BooleanProperty( true, {
-            tandem: anglePickerTandem.createTandem( 'enabledProperty' ),
-            phetioFeatured: true
-          } ),
-          tandem: anglePickerTandem,
-          visiblePropertyOptions: {
-            phetioFeatured: true
-          }
-        } );
-
-        anglePicker.addLinkedElement( signedAngleDegreesProperty, {
-          tandemName: 'valueProperty'
-        } );
-
-        anglePicker.enabledProperty.link( enabled => {
-          signedAngleLabeledPicker.numberPicker.enabled = enabled;
-          unsignedAngleLabeledPicker.numberPicker.enabled = enabled;
-        } );
-
-        VectorAdditionPreferences.instance.angleConventionProperty.link( angleConvention => {
-          signedAngleLabeledPicker.visible = ( angleConvention === 'signed' );
-          unsignedAngleLabeledPicker.visible = ( angleConvention === 'unsigned' );
-        } );
+        // Angle
+        assert && assert( polarBaseVector.symbolProperty );
+        const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleDegreesProperty, polarBaseVector.symbolProperty!,
+          LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vectorTandemPrefix}AnglePicker` ) );
 
         rows.push( new HBox( {
           align: 'origin',
