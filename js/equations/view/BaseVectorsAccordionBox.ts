@@ -16,8 +16,7 @@
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
-import { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
+import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -27,7 +26,6 @@ import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
-import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
@@ -38,12 +36,12 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
-import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import VectorAdditionPreferences from '../../common/model/VectorAdditionPreferences.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VAUtils.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
@@ -102,7 +100,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                                       new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
                                         ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` ) :
                                       null;
-        const xLabeledPicker = new LabeledEqualsNumberPicker(
+        const xLabeledPicker = new LabelEqualsNumberPicker(
           cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
@@ -118,7 +116,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                                       new DerivedStringProperty( [ baseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
                                         ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` ) :
                                       null;
-        const yLabeledPicker = new LabeledEqualsNumberPicker(
+        const yLabeledPicker = new LabelEqualsNumberPicker(
           cartesianBaseVector.yComponentProperty,
           VectorAdditionConstants.COMPONENT_RANGE,
           new VectorSymbolNode( {
@@ -140,7 +138,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
         // Magnitude
-        const magnitudeLabeledPicker = new LabeledEqualsNumberPicker(
+        const magnitudeLabeledPicker = new LabelEqualsNumberPicker(
           polarBaseVector.magnitudeProperty,
           VectorAdditionConstants.MAGNITUDE_RANGE,
           new VectorSymbolNode( {
@@ -179,7 +177,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         } );
 
         // Signed [-180,180]
-        const signedAngleLabeledPicker = new LabeledEqualsNumberPicker(
+        const signedAngleLabeledPicker = new LabelEqualsNumberPicker(
           polarBaseVector.angleDegreesProperty,
           VectorAdditionConstants.SIGNED_ANGLE_RANGE,
           new RichText( angleSymbolStringProperty, {
@@ -196,7 +194,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           } );
 
         // Unsigned [0,360]
-        const unsignedAngleLabeledPicker = new LabeledEqualsNumberPicker(
+        const unsignedAngleLabeledPicker = new LabelEqualsNumberPicker(
           unsignedAngleDegreesProperty,
           VectorAdditionConstants.UNSIGNED_ANGLE_RANGE,
           new RichText( angleSymbolStringProperty, {
@@ -284,49 +282,6 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         this.interruptSubtreeInput();
       }
     } );
-  }
-}
-
-/**
- * LabeledEqualsNumberPicker is a label (Node), equals sign (Text), and a NumberPicker, with horizontal layout.
- */
-class LabeledEqualsNumberPicker extends HBox {
-
-  public readonly numberPicker: NumberPicker;
-
-  public constructor( numberProperty: Property<number>,
-                      numberRange: Range,
-                      labelNode: Node,
-                      numberPickerOptions: WithRequired<NumberPickerOptions, 'tandem'> ) {
-
-    const equalsSign = new Text( MathSymbols.EQUAL_TO, {
-      font: VectorAdditionConstants.EQUATION_FONT
-    } );
-
-    // Empirically set the vertical position of the NumberPicker, and wrap it in a Node to work with HBox.
-    // See https://github.com/phetsims/vector-addition/issues/209
-    const numberPicker = new NumberPicker( numberProperty, new Property( numberRange ),
-      combineOptions<NumberPickerOptions>( {}, VectorAdditionConstants.NUMBER_PICKER_OPTIONS, {
-        touchAreaXDilation: 20,
-        touchAreaYDilation: 10,
-
-        // Hide arrows when picker is disabled.
-        disabledOpacity: 1,
-        backgroundStrokeDisabledOpacity: 1,
-        arrowDisabledOpacity: 0
-      }, numberPickerOptions )
-    );
-    numberPicker.centerY = -equalsSign.height / 3;
-    const numberPickerParent = new Node( { children: [ numberPicker ] } );
-
-    super( {
-      align: 'origin',
-      spacing: 3, // space around the equals sign
-      children: [ labelNode, equalsSign, numberPickerParent ],
-      visibleProperty: numberPicker.visibleProperty
-    } );
-
-    this.numberPicker = numberPicker;
   }
 }
 
