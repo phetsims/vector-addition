@@ -209,6 +209,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             tandem: Tandem.OPT_OUT // This picker is not instrumented.
           } );
 
+        //TODO https://github.com/phetsims/vector-addition/issues/276
+        // PhET-iO: unsignedAngleLabeledPicker has no decrementInputListener.firedEmitter or incrementInputListener.firedEmitter
+
         const anglePicker = new Node( {
           children: [ signedAngleLabeledPicker, unsignedAngleLabeledPicker ]
         } );
