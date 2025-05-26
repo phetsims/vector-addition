@@ -40,9 +40,9 @@ import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import VectorAdditionPreferences from '../../common/model/VectorAdditionPreferences.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VAUtils.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
@@ -87,6 +87,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     vectorSet.equationsVectors.forEach( vector => {
 
       const baseVector = vector.baseVector; // convenience reference
+
+      //TODO https://github.com/phetsims/vector-addition/issues/258 Using baseVectorSymbol in tandem names will break the PhET-iO API, because baseVectorSymbol is localized.
       const baseVectorSymbol = baseVector.symbolProperty!.value;
 
       if ( coordinateSnapMode === 'cartesian' ) {
@@ -107,7 +109,6 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
             tandem: pickersTandem.createTandem( `${baseVectorSymbol}xPicker` )
           } );
 
@@ -124,7 +125,6 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
             tandem: pickersTandem.createTandem( `${baseVectorSymbol}yPicker` )
           } );
 
@@ -147,7 +147,6 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
             tandem: pickersTandem.createTandem( `${baseVectorSymbol}MagnitudePicker` )
           } );
 
@@ -178,6 +177,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           }
         } );
 
+        const anglePickersTandem = pickersTandem.createTandem( `${baseVectorSymbol}AnglePickers` );
+
         // Signed [-180,180]
         const signedAngleLabeledPicker = new LabeledNumberPicker(
           polarBaseVector.angleDegreesProperty,
@@ -190,7 +191,10 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
-            tandem: pickersTandem.createTandem( `${baseVectorSymbol}AnglePicker` )
+            phetioVisiblePropertyInstrumented: false,
+            phetioEnabledPropertyInstrumented: false,
+            tandem: anglePickersTandem.createTandem( `${baseVectorSymbol}SignedAnglePicker` ),
+            phetioDocumentation: 'Angle picker for the signed angle convention (-180° to 180°)'
           } );
 
         // Unsigned [0,360]
@@ -205,15 +209,27 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
-            enabledProperty: signedAngleLabeledPicker.numberPicker.enabledProperty,
-            tandem: Tandem.OPT_OUT // This picker is not instrumented.
+            phetioVisiblePropertyInstrumented: false,
+            phetioEnabledPropertyInstrumented: false,
+            tandem: anglePickersTandem.createTandem( `${baseVectorSymbol}UnsignedAnglePicker` ),
+            phetioDocumentation: 'Angle picker for the unsigned angle convention (0° to 360°)'
           } );
 
-        //TODO https://github.com/phetsims/vector-addition/issues/276
-        // PhET-iO: unsignedAngleLabeledPicker has no decrementInputListener.firedEmitter or incrementInputListener.firedEmitter
+        const anglePickers = new Node( {
+          children: [ signedAngleLabeledPicker, unsignedAngleLabeledPicker ],
+          enabledProperty: new BooleanProperty( true, {
+            tandem: anglePickersTandem.createTandem( 'enabledProperty' ),
+            phetioFeatured: true
+          } ),
+          tandem: anglePickersTandem,
+          visiblePropertyOptions: {
+            phetioFeatured: true
+          }
+        } );
 
-        const anglePicker = new Node( {
-          children: [ signedAngleLabeledPicker, unsignedAngleLabeledPicker ]
+        anglePickers.enabledProperty.link( enabled => {
+          signedAngleLabeledPicker.numberPicker.enabled = enabled;
+          unsignedAngleLabeledPicker.numberPicker.enabled = enabled;
         } );
 
         VectorAdditionPreferences.instance.angleConventionProperty.link( angleConvention => {
@@ -224,7 +240,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         rows.push( new HBox( {
           align: 'origin',
           spacing: X_SPACING,
-          children: [ magnitudeLabeledPicker, anglePicker ]
+          children: [ magnitudeLabeledPicker, anglePickers ]
         } ) );
       }
     } );
