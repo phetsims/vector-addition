@@ -190,7 +190,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
-            tandem: Tandem.OPT_OUT
+            tandem: pickersTandem.createTandem( `${baseVectorSymbol}AnglePicker` )
           } );
 
         // Unsigned [0,360]
@@ -205,13 +205,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
             formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
-            tandem: Tandem.OPT_OUT
+            enabledProperty: signedAngleLabeledPicker.numberPicker.enabledProperty,
+            tandem: Tandem.OPT_OUT // This picker is not instrumented.
           } );
 
         const anglePicker = new Node( {
-          children: [ signedAngleLabeledPicker, unsignedAngleLabeledPicker ],
-          //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API because baseVectorSymbol is localized.
-          tandem: pickersTandem.createTandem( `${baseVectorSymbol}AnglePicker` )
+          children: [ signedAngleLabeledPicker, unsignedAngleLabeledPicker ]
         } );
 
         VectorAdditionPreferences.instance.angleConventionProperty.link( angleConvention => {
@@ -271,6 +270,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
  * LabeledNumberPicker is a label (Node), equals sign (Text), and a NumberPicker, with horizontal layout.
  */
 class LabeledNumberPicker extends HBox {
+
+  public readonly numberPicker: NumberPicker;
+
   public constructor( numberProperty: Property<number>,
                       numberRange: Range,
                       labelNode: Node,
@@ -302,6 +304,8 @@ class LabeledNumberPicker extends HBox {
       children: [ labelNode, equalsSign, numberPickerParent ],
       visibleProperty: numberPicker.visibleProperty
     } );
+
+    this.numberPicker = numberPicker;
   }
 }
 
