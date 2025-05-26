@@ -1,5 +1,6 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/vector-addition/issues/258 Address layout when pickers are made invisible via PhET-iO.
 /**
  * BaseVectorsAccordionBox appears on the right side of the 'Equations' screen. It contains pickers for modifying the
  * base vectors, and a checkbox to show/hide the base vectors.
