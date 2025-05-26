@@ -43,6 +43,7 @@ import VectorAdditionPreferences from '../../common/model/VectorAdditionPreferen
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VAUtils.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
@@ -177,8 +178,6 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           }
         } );
 
-        const anglePickersTandem = pickersTandem.createTandem( `${baseVectorSymbol}AnglePickers` );
-
         // Signed [-180,180]
         const signedAngleLabeledPicker = new LabeledNumberPicker(
           polarBaseVector.angleDegreesProperty,
@@ -193,8 +192,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
             phetioVisiblePropertyInstrumented: false,
             phetioEnabledPropertyInstrumented: false,
-            tandem: anglePickersTandem.createTandem( `${baseVectorSymbol}SignedAnglePicker` ),
-            phetioDocumentation: 'Angle picker for the signed angle convention (-180° to 180°)'
+            tandem: Tandem.OPT_OUT
           } );
 
         // Unsigned [0,360]
@@ -211,23 +209,27 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
             phetioVisiblePropertyInstrumented: false,
             phetioEnabledPropertyInstrumented: false,
-            tandem: anglePickersTandem.createTandem( `${baseVectorSymbol}UnsignedAnglePicker` ),
-            phetioDocumentation: 'Angle picker for the unsigned angle convention (0° to 360°)'
+            tandem: Tandem.OPT_OUT
           } );
 
-        const anglePickers = new Node( {
+        const anglePickerTandem = pickersTandem.createTandem( `${baseVectorSymbol}AnglePicker` );
+        const anglePicker = new Node( {
           children: [ signedAngleLabeledPicker, unsignedAngleLabeledPicker ],
           enabledProperty: new BooleanProperty( true, {
-            tandem: anglePickersTandem.createTandem( 'enabledProperty' ),
+            tandem: anglePickerTandem.createTandem( 'enabledProperty' ),
             phetioFeatured: true
           } ),
-          tandem: anglePickersTandem,
+          tandem: anglePickerTandem,
           visiblePropertyOptions: {
             phetioFeatured: true
           }
         } );
 
-        anglePickers.enabledProperty.link( enabled => {
+        anglePicker.addLinkedElement( signedAngleDegreesProperty, {
+          tandemName: 'valueProperty'
+        } );
+
+        anglePicker.enabledProperty.link( enabled => {
           signedAngleLabeledPicker.numberPicker.enabled = enabled;
           unsignedAngleLabeledPicker.numberPicker.enabled = enabled;
         } );
@@ -240,7 +242,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         rows.push( new HBox( {
           align: 'origin',
           spacing: X_SPACING,
-          children: [ magnitudeLabeledPicker, anglePickers ]
+          children: [ magnitudeLabeledPicker, anglePicker ]
         } ) );
       }
     } );
