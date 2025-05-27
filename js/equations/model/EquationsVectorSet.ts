@@ -16,15 +16,16 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from './EquationsScene.js';
 import EquationsSumVector from './EquationsSumVector.js';
 import EquationsVector from './EquationsVector.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 
 type VectorDescription = {
+  symbolProperty: TReadOnlyProperty<string>;
   vectorComponents: Vector2;
   vectorTail: Vector2;
   baseVectorTail: Vector2;
@@ -35,6 +36,7 @@ const CARTESIAN_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // a
   {
+    symbolProperty: VectorAdditionSymbols.aStringProperty,
     vectorComponents: new Vector2( 0, 5 ),
     vectorTail: new Vector2( 5, 5 ),
     baseVectorTail: new Vector2( 35, 15 )
@@ -42,6 +44,7 @@ const CARTESIAN_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // b
   {
+    symbolProperty: VectorAdditionSymbols.bStringProperty,
     vectorComponents: new Vector2( 5, 5 ),
     vectorTail: new Vector2( 15, 5 ),
     baseVectorTail: new Vector2( 35, 5 )
@@ -53,6 +56,7 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // d
   {
+    symbolProperty: VectorAdditionSymbols.dStringProperty,
     vectorComponents: Vector2.createPolar( 5, 0 ),
     vectorTail: new Vector2( 5, 5 ),
     baseVectorTail: new Vector2( 35, 15 )
@@ -60,6 +64,7 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // e
   {
+    symbolProperty: VectorAdditionSymbols.eStringProperty,
     vectorComponents: Vector2.createPolar( 8, toRadians( 45 ) ),
     vectorTail: new Vector2( 15, 5 ),
     baseVectorTail: new Vector2( 35, 5 )
@@ -104,20 +109,11 @@ export default class EquationsVectorSet extends VectorSet {
 
     super( scene, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
-    this.symbolProperties = ( coordinateSnapMode === 'cartesian' ) ?
-                            VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
-                            VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
-
-    //----------------------------------------------------------------------------------------------------
-    // Create the vectors, one less than symbols. For example, if symbols were [ 'a', 'b', 'c' ],
-    // 'a' and 'b' would be vector symbols and 'c' would be the sum vector.
-
-    const vectorDescriptions = ( coordinateSnapMode === 'cartesian' ) ?
-                               CARTESIAN_VECTOR_DESCRIPTIONS :
-                               POLAR_VECTOR_DESCRIPTIONS;
-    assert && assert( vectorDescriptions.length === this.symbolProperties.length - 1 );
-
+    this.symbolProperties = [];
     this.equationsVectors = [];
+
+    // Create the individual vectors.
+    const vectorDescriptions = ( coordinateSnapMode === 'cartesian' ) ? CARTESIAN_VECTOR_DESCRIPTIONS : POLAR_VECTOR_DESCRIPTIONS;
     for ( let i = 0; i < vectorDescriptions.length; i++ ) {
 
       const vectorDescription = vectorDescriptions[ i ];
@@ -128,29 +124,28 @@ export default class EquationsVectorSet extends VectorSet {
         vectorDescription.baseVectorTail,
         scene,
         this,
-        this.symbolProperties[ i ],
+        vectorDescription.symbolProperty,
         options.tandem.createTandem( `vector${i}` ) );
 
       this.vectors.push( vector );
+      this.symbolProperties.push( vectorDescription.symbolProperty );
       this.equationsVectors.push( vector );
     }
 
     // Create the sum vector
-    assert && assert( this.symbolProperties.length > 0 );
-    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, _.last( this.symbolProperties )!,
-      tandem.createTandem( 'sumVector' ) );
+    const sumSymbolProperty = ( coordinateSnapMode === 'cartesian' ) ? VectorAdditionSymbols.cStringProperty : VectorAdditionSymbols.fStringProperty;
+    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, sumSymbolProperty, tandem.createTandem( 'sumVector' ) );
+    this.symbolProperties.push( sumSymbolProperty );
     this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 
+  /**
+   * We are not calling super.reset() because the default behavior is to dispose of all vectors in this.vectors.
+   * In the Equations screen, vectors are created at startup, and there is no way to create them via the UI.
+   * So we want to keep them around, but reset them. See https://github.com/phetsims/vector-addition/issues/143
+   */
   public override reset(): void {
-
-    // We are not calling super.reset because the default behavior is to dispose of all vectors in this.vectors.
-    // In the Equations screen, vectors are created automatically at startup, and there is no way to created them
-    // via the UI.  So we want to keep them around, but reset them.
-    // See https://github.com/phetsims/vector-addition/issues/143
-    this.vectors.forEach( vector => { vector.reset(); } );
-
-    // ... but we still need to reset the sum vector.
+    this.vectors.forEach( vector => vector.reset() );
     this._sumVector && this._sumVector.reset();
   }
 }
