@@ -99,7 +99,6 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     };
 
     // Observe when the scene's active vector changes and update the vectorComponents link.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     scene.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
 
       // unlink the previous link if the old active vector exists

@@ -51,6 +51,7 @@ export default class EquationsVector extends Vector {
                       tandem: Tandem ) {
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
+      isDisposable: false,
       isRemovable: false,       // Equations vectors are not removable
       isTipDraggable: false,    // Equations vectors are not draggable by the tip
       isOnGraphInitially: true,  // Equations vectors are always on the graph
@@ -75,7 +76,6 @@ export default class EquationsVector extends Vector {
     }
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
-    // unmultilink is unnecessary, exists for the lifetime of the sim.
     Multilink.multilink( [ this.baseVector.vectorComponentsProperty, this.coefficientProperty ],
       ( baseVector, coefficient ) => {
         this.vectorComponents = baseVector.timesScalar( coefficient );

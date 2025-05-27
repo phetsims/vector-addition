@@ -46,7 +46,6 @@ export default class EquationsSumVector extends SumVector {
     this.equationTypeProperty = equationTypeProperty;
 
     // Observe when each vector changes and/or when the equationType changes to calculate the sum.
-    // unmultilink is unnecessary, exists for the lifetime of the sim.
     const vectorComponentsProperties = vectorSet.vectors.map( vector => vector.vectorComponentsProperty );
     Multilink.multilinkAny( [ equationTypeProperty, ...vectorComponentsProperties ],
       () => this.updateSum( vectorSet.vectors )

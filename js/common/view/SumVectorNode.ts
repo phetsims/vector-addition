@@ -60,7 +60,6 @@ export default class SumVectorNode extends VectorNode {
     } );
 
     // Double check that the vector node never is animated back
-    // unlink is unnecessary, exists for the lifetime of the sim.
     assert && sumVector.animateBackProperty.link( animateBack => {
       if ( animateBack ) {
         assert && assert( false, 'SumVectorNode instances never animated back' );

@@ -75,7 +75,6 @@ export default class VectorSetNode extends Node {
     this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     // When the sum vector becomes selected, move it and its component vectors to the front.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     scene.activeVectorProperty.link( activeVector => {
       if ( activeVector === sumVectorNode.vector ) {
 

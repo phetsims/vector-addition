@@ -128,7 +128,6 @@ export default class VectorCreatorPanelSlot extends HBox {
     // Creation of Vectors (See ## Implementation of creation of Vectors above)
     //----------------------------------------------------------------------------------------
 
-    // removeInputListener is unnecessary, exists for the lifetime of the sim.
     iconNode.addInputListener( SoundDragListener.createForwardingListener( event => {
 
       //----------------------------------------------------------------------------------------

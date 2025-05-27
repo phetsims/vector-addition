@@ -41,6 +41,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
     const options = optionize<SumComponentVectorNodeOptions, SelfOptions, ComponentVectorNodeOptions>()( {
 
       // ComponentVectorNodeOptions
+      isDisposable: false,
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.SUM_COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: componentVector.vectorColorPalette.sumComponentFill
       } )
@@ -54,7 +55,6 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
     assert && assert( sumVector instanceof SumVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
 
     // Update when the sum becomes visible or defined.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     Multilink.multilink(
       [ sumVisibleProperty, sumVector.isDefinedProperty ],
       () => this.updateComponentVector( componentVector,

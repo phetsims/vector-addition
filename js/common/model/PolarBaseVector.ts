@@ -45,6 +45,7 @@ export default class PolarBaseVector extends BaseVector {
     assert && assert( scene.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
+      isDisposable: false,
       tandem: tandem
     } );
 
@@ -64,7 +65,6 @@ export default class PolarBaseVector extends BaseVector {
     } );
 
     // Observe when the angle or magnitude changes, and update the components to match.
-    // unmultilink is unnecessary, exists for the lifetime of the sim.
     Multilink.multilink(
       [ this.magnitudeProperty, this.angleDegreesProperty ],
       ( magnitude, angleDegrees ) => {

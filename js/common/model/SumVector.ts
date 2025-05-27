@@ -49,6 +49,7 @@ export default class SumVector extends Vector {
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
     super( initialTailPosition, Vector2.ZERO, scene, vectorSet, symbolProperty, {
+      isDisposable: false,
       isTipDraggable: false, // Sum vectors are not draggable by the tip.
       isRemovable: false, // Sum vectors are not removable which means they are also not disposable
       isOnGraphInitially: true, // Sum vectors are always on the graph
@@ -57,10 +58,11 @@ export default class SumVector extends Vector {
 
     this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.lengthProperty.value > 0 );
 
-    // Observe changes to the vector array. Never removed because SumVectors exists for the lifetime of the sim.
+    // Observe changes to the vector array.
     vectorSet.vectors.addItemAddedListener( addedVector => {
 
-      // When the vector changes, update the sum calculation. unmultilink is required when the vector is removed.
+      // When the vector changes, update the sum calculation.
+      // unmultilink is required when the vector is removed.
       const addedVectorMultilink = Multilink.multilink(
         [ addedVector.vectorComponentsProperty, addedVector.isOnGraphProperty ], () => {
           this.updateSum( vectorSet.vectors );

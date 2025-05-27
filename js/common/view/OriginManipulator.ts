@@ -87,14 +87,12 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     } ) );
 
     // Update the origin position.
-    // unlink is unnecessary, exists for the lifetime of the simulation.
     originPositionProperty.lazyLink( originPosition => {
       // Tell the model to update the origin
       graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originPosition ) );
     } );
 
     // Observe when the model view transform changes to update the position of the circle.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     graph.modelViewTransformProperty.link( modelViewTransform => {
       this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
     } );

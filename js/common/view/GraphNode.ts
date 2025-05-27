@@ -102,7 +102,6 @@ export default class GraphNode extends Node {
     // Clicking on the graph clears the active (selected) vector.
     // Use a raw 'down' listener so that this doesn't impact the ability to touch snag vectors and origin manipulator.
     // See https://github.com/phetsims/vector-addition/issues/243
-    // No need to remove, exists for the lifetime of the sim.
     background.addInputListener( {
       down: () => { scene.activeVectorProperty.value = null; }
     } );
@@ -131,6 +130,7 @@ class MajorAndMinorGridLines extends Node {
     } );
 
     super( {
+      isDisposable: false,
       children: [ minorGridLinesPath, majorGridLines ],
       pickable: false
     } );
@@ -164,6 +164,7 @@ class GridLines extends Path {
       spacing: 1,
 
       // PathOptions
+      isDisposable: false,
       lineWidth: 1,
       stroke: 'black'
     }, providedOptions );
@@ -173,7 +174,6 @@ class GridLines extends Path {
     this.viewBounds = viewBounds;
 
     // Update when the modelViewTransform changes, triggered when the origin is moved.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     graph.modelViewTransformProperty.link( modelViewTransform => {
 
       // Convenience variables
@@ -236,12 +236,12 @@ class XAxisNode extends Node {
     } );
 
     super( {
+      isDisposable: false,
       children: [ arrowNode, axisLabel ],
       pickable: false
     } );
 
     // When the origin moves, adjust the position of the axis.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     graph.modelViewTransformProperty.link( modelViewTransform => {
       this.y = modelViewTransform.modelToViewY( 0 );
     } );
@@ -273,12 +273,12 @@ class YAxisNode extends Node {
     } );
 
     super( {
+      isDisposable: false,
       children: [ arrowNode, axisLabel ],
       pickable: false
     } );
 
     // When the origin moves, adjust the position of the axis.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     graph.modelViewTransformProperty.link( modelViewTransform => {
       this.x = modelViewTransform.modelToViewX( 0 );
     } );
@@ -297,6 +297,7 @@ class TicksNode extends Node {
     const originLabel = new Text( '0', TICK_LABEL_OPTIONS );
 
     super( {
+      isDisposable: false,
       children: [ tickMarksPath, tickLabelsParent ],
       pickable: false
     } );

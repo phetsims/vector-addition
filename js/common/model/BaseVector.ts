@@ -17,10 +17,13 @@ import Vector, { VectorOptions } from './Vector.js';
 import VectorSet from './VectorSet.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'tandem'>;
+export type BaseVectorOptions = SelfOptions &
+  PickOptional<VectorOptions, 'isDisposable'> &
+  PickRequired<VectorOptions, 'tandem'>;
 
 export default abstract class BaseVector extends Vector {
 
