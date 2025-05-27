@@ -13,11 +13,12 @@ import VectorAdditionConstants from './VectorAdditionConstants.js';
  */
 export function signedToUnsignedDegrees( signedDegrees: number ): number {
   assert && assert( VectorAdditionConstants.SIGNED_ANGLE_RANGE.contains( signedDegrees ), `invalid signedDegrees: ${signedDegrees}` );
-  return ( signedDegrees > 0 ) ? signedDegrees : signedDegrees + 360;
+  return ( signedDegrees >= 0 ) ? signedDegrees : signedDegrees + 360;
 }
 
 /**
  * Converts an unsigned angle to a signed angle, in degrees.
+ * Note that 0 and 360 are both mapped to 0, so the sim will never display 360.
  */
 export function unsignedToSignedDegrees( unsignedDegrees: number ): number {
   assert && assert( VectorAdditionConstants.UNSIGNED_ANGLE_RANGE.contains( unsignedDegrees ), `invalid unsignedDegrees: ${unsignedDegrees}` );
