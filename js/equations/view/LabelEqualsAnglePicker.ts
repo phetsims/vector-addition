@@ -3,6 +3,11 @@
 /**
  * LabelEqualsAnglePicker implements the UI for setting an angle in the Base Vectors accordion box.
  *
+ * This is more complicated than NumberPickers for other vector quantities because we must support the 'Angle Convention'
+ * preference. Attempting to support that with a single NumberPicker was complicated and buggy, because the NumberPicker's
+ * Property and range would have to map between signed and unsigned values, and because the mapping between signed
+ * and unsigned ranges is not straightforward.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
@@ -10,6 +15,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VAUtils.js';
 import Property from '../../../../axon/js/Property.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
@@ -72,7 +78,11 @@ export default class LabelEqualsAnglePicker extends Node {
     // Unsigned [0,360]
     const unsignedAngleLabeledPicker = new LabelEqualsNumberPicker(
       unsignedAngleDegreesProperty,
-      VectorAdditionConstants.UNSIGNED_ANGLE_RANGE,
+
+      // 0 and 360 are the same value, and signedToUnsignedDegrees maps both to 0. Since that is done throughout the
+      // UI, we must limit the range.max here to 355.  It would be nicer if NumberPicker could wrap around between
+      // 0 and 355, but that is not directly supported, and attempts to make it work were buggy, brittle, and too clever.
+      new Range( 0, 360 - VectorAdditionConstants.POLAR_ANGLE_INTERVAL ),
       new RichText( angleSymbolStringProperty, {
         font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
         maxWidth: labelMaxWidth
