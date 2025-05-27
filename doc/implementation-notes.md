@@ -137,9 +137,9 @@ vectors.
 ``` 
 RootVector (abstract root class)
   Vector (interactive)
-    BaseVector
-      CartesianBaseVector
-      PolarBaseVector
+    BaseVector (abstract bass class)
+      CartesianBaseVector (has mutable x and y components)
+      PolarBaseVector (has mutable magnitude and angle)
     EquationsVector (adds functionality for Equations screen)
     SumVector
       EquationsSumVector (adds functionality for Equations screen)
