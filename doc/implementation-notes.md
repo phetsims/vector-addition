@@ -105,9 +105,8 @@ associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/main
 manages creation and layering of Nodes related to vectors in the set.
 
 _Adding a vector_: When a vector icon in the toolbox is clicked,
-`VectorCreatorPanelSlot` creates a new vector and adds it to the associated `VectorSet`. It then delegates the of the
-vector's view to
-`VectorSetNode` (see `registerVector`).
+`VectorCreatorPanelSlot` creates a new vector and adds it to the associated `VectorSet`. It then delegates creation of the
+vector's view to `VectorSetNode` (see `registerVector`).
 
 _Removing a vector_: When a vector is added, `VectorCreatorPanelSlot`
 creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or
