@@ -10,6 +10,7 @@ import VectorAdditionConstants from './VectorAdditionConstants.js';
 
 /**
  * Converts a signed angle to an unsigned angle, in degrees.
+ * Note that 0 is mapped to 0, *not* 360.
  */
 export function signedToUnsignedDegrees( signedDegrees: number ): number {
   assert && assert( VectorAdditionConstants.SIGNED_ANGLE_RANGE.contains( signedDegrees ), `invalid signedDegrees: ${signedDegrees}` );
