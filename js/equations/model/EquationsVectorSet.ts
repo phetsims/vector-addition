@@ -24,8 +24,14 @@ import EquationsVector from './EquationsVector.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
-// Describes the initial vectors for Cartesian snap mode. See https://github.com/phetsims/vector-addition/issues/227
-const CARTESIAN_VECTOR_DESCRIPTIONS = [
+type VectorDescription = {
+  vectorComponents: Vector2;
+  vectorTail: Vector2;
+  baseVectorTail: Vector2;
+};
+
+// Describes the vectors for the Cartesian scene. See https://github.com/phetsims/vector-addition/issues/227
+const CARTESIAN_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // a
   {
@@ -42,8 +48,8 @@ const CARTESIAN_VECTOR_DESCRIPTIONS = [
   }
 ];
 
-// Describes the initial vectors for polar snap mode. See https://github.com/phetsims/vector-addition/issues/227
-const POLAR_VECTOR_DESCRIPTIONS = [
+// Describes the vectors for the polar scene. See https://github.com/phetsims/vector-addition/issues/227
+const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // d
   {
@@ -115,11 +121,6 @@ export default class EquationsVectorSet extends VectorSet {
     for ( let i = 0; i < vectorDescriptions.length; i++ ) {
 
       const vectorDescription = vectorDescriptions[ i ];
-
-      // verify that all fields in the description are present
-      assert && assert( vectorDescription.vectorTail, 'missing vectorTail' );
-      assert && assert( vectorDescription.vectorComponents, 'missing vectorComponents' );
-      assert && assert( vectorDescription.baseVectorTail, 'missing baseVectorTail' );
 
       const vector = new EquationsVector(
         vectorDescription.vectorTail,
