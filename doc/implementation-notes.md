@@ -59,18 +59,16 @@ public dispose(): void {
 }
 ```
 
-Calls to methods that add observers (`link`, `addListener`,...) have a comment indicating whether the observer needs to
-be deregistered, or whether the relationship exists for the lifetime of the sim. Examples:
+Calls to methods that add observers (`link`, `multilink`, `addListener`,...) typically have a comment when when they 
+need to be deregistered on dispose. For example:
 
-```js
-// When the vector becomes active, move it and its components to the front.
-// unlink is required when the vector is removed.
-const activeVectorListener = activeVector => { ... };
-this.scene.activeVectorProperty.link( activeVectorListener );
-
-// Observe when the scene's active vector changes and update the vectorComponents link.
-// unlink is unnecessary, exists for the lifetime of the sim.
-scene.activeVectorProperty.link( ... );
+```ts
+// Highlight the component vector's label when its parent vector is selected.
+// unlink is required on dispose.
+const activeVectorListener = ( activeVector: Vector | null ) => {
+  this.labelNode.setHighlighted( activeVector === componentVector.parentVector );
+};
+scene.activeVectorProperty.link( activeVectorListener );
 ```
 
 ### Query Parameters
@@ -105,9 +103,8 @@ associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/main
 manages creation and layering of Nodes related to vectors in the set.
 
 _Adding a vector_: When a vector icon in the toolbox is clicked,
-`VectorCreatorPanelSlot` creates a new vector and adds it to the associated `VectorSet`. It then delegates the of the
-vector's view to
-`VectorSetNode` (see `registerVector`).
+`VectorCreatorPanelSlot` creates a new vector and adds it to the associated `VectorSet`. It then delegates creation of the
+vector's view to `VectorSetNode` (see `registerVector`).
 
 _Removing a vector_: When a vector is added, `VectorCreatorPanelSlot`
 creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or
