@@ -21,6 +21,7 @@ import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import { AngleConvention } from '../model/AngleConvention.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 
 // maximum radius of the curved arrow - the radius is changed to keep the curved arrow smaller than the vector.
 const MAX_CURVED_ARROW_RADIUS = 25;
@@ -121,7 +122,8 @@ export default class VectorAngleNode extends Node {
       this.angleText.setString( '' );
     }
     else {
-      this.angleText.setString( StringUtils.toFixedLTR( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+      const angleString = StringUtils.toFixedLTR( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+      this.angleText.setString( `${angleString}${MathSymbols.DEGREES}` );
     }
 
     // Position the text
