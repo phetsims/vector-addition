@@ -123,6 +123,7 @@ export default class VectorAngleNode extends Node {
     }
     else {
       const angleString = StringUtils.toFixedLTR( angleDegrees, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
+      // No need to localize this string. The degree symbol is universally recognized, especially in STEM contexts.
       this.angleText.setString( `${angleString}${MathSymbols.DEGREES}` );
     }
 

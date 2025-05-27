@@ -69,6 +69,8 @@ export default class LabelEqualsAnglePicker extends Node {
         // increment by the polar angle interval
         incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
         decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
+
+        // No need to localize this string. The degree symbol is universally recognized, especially in STEM contexts.
         formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
         phetioVisiblePropertyInstrumented: false,
         phetioEnabledPropertyInstrumented: false,
@@ -90,6 +92,8 @@ export default class LabelEqualsAnglePicker extends Node {
         // increment by the polar angle interval
         incrementFunction: value => value + VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
         decrementFunction: value => value - VectorAdditionConstants.POLAR_ANGLE_INTERVAL,
+
+        // No need to localize this string. The degree symbol is universally recognized, especially in STEM contexts.
         formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
         phetioVisiblePropertyInstrumented: false,
         phetioEnabledPropertyInstrumented: false,

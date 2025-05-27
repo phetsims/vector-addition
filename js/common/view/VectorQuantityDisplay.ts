@@ -79,6 +79,7 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     } );
 
     // Round to the specified number of decimal places, and add a degree symbol for angle.
+    // No need to localize this string. The degree symbol is universally recognized, especially in STEM contexts.
     options.numberFormatter = ( value: number ) => {
       const valueString = toFixed( value, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES );
       return ( vectorQuantity === 'angle' ) ? `${valueString}${MathSymbols.DEGREES}` : valueString;
