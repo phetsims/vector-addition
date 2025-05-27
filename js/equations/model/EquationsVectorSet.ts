@@ -104,7 +104,7 @@ export default class EquationsVectorSet extends VectorSet {
 
     //----------------------------------------------------------------------------------------------------
     // Create the vectors, one less than symbols. For example, if symbols were [ 'a', 'b', 'c' ],
-    // 'a' and 'c' would be vector symbols and 'c' would be the sum vector.
+    // 'a' and 'b' would be vector symbols and 'c' would be the sum vector.
 
     const vectorDescriptions = ( coordinateSnapMode === 'cartesian' ) ?
                                CARTESIAN_VECTOR_DESCRIPTIONS :
