@@ -18,7 +18,7 @@ const VectorAdditionSymbols = {
 
   // Vector symbols are currently not localized. See https://github.com/phetsims/vector-addition/issues/10.
   // If they need to be localized in the future, dynamic layout was already handled as part of
-  // https://github.com/phetsims/vector-addition/issues/280.  So localization should be a simple matter of
+  // https://github.com/phetsims/vector-addition/issues/280. So localization should be a simple matter of
   // adding these under "symbol" in vector-addition-strings_en.json.
   aStringProperty: new StringProperty( 'a' ),
   bStringProperty: new StringProperty( 'b' ),
