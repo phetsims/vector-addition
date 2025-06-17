@@ -117,7 +117,6 @@ export default class VectorAdditionSceneNode extends Node {
         touchAreaXDilation: 7,
         touchAreaYDilation: 7,
         accessibleName: VectorAdditionStrings.a11y.eraserButton.accessibleNameStringProperty,
-        accessibleHelpText: VectorAdditionStrings.a11y.eraserButton.accessibleHelpTextStringProperty,
         tandem: options.tandem.createTandem( 'eraserButton' ),
         phetioEnabledPropertyInstrumented: false // sim controls this.
       } );

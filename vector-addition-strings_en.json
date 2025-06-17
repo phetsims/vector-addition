@@ -128,10 +128,10 @@
     },
     "gridCheckbox": {
       "accessibleName": {
-        "value": "TODO.gridCheckbox.accessibleName"
+        "value": "Grid"
       },
       "accessibleHelpText": {
-        "value": "TODO.gridCheckbox.accessibleHelpText"
+        "value": "Explore with or without use of visual grid."
       }
     },
     "sumCheckbox": {
@@ -299,9 +299,6 @@
     "eraserButton": {
       "accessibleName": {
         "value": "Erase all vectors"
-      },
-      "accessibleHelpText": {
-        "value": "Graph area cleared"
       }
     }
   }
