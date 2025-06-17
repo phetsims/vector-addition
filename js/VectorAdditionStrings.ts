@@ -161,6 +161,7 @@ type StringsType = {
     };
     'eraserButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseStringProperty': LocalizedStringProperty;
     }
   }
 };

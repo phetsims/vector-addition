@@ -299,6 +299,9 @@
     "eraserButton": {
       "accessibleName": {
         "value": "Erase all vectors"
+      },
+      "accessibleContextResponse": {
+        "value": "Graph area cleared"
       }
     }
   }
