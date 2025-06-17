@@ -297,8 +297,11 @@
       }
     },
     "eraserButton": {
+      "accessibleName": {
+        "value": "Erase all vectors"
+      },
       "accessibleHelpText": {
-        "value": "TODO.eraserButton.accessibleHelpText"
+        "value": "Graph area cleared"
       }
     }
   }
