@@ -18,6 +18,7 @@ import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewPr
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import HorizontalVerticalSceneRadioButtonGroup from '../../common/view/HorizontalVerticalSceneRadioButtonGroup.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -26,11 +27,16 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
   public constructor( model: Explore1DModel, tandem: Tandem ) {
 
+    const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.explore1DScreen.screenSummary.currentDetailsStringProperty, {
+      numberOfVectors: 'TODO', //TODO https://github.com/phetsims/vector-addition/issues/306
+      sceneName: 'TODO' //TODO https://github.com/phetsims/vector-addition/issues/306
+    } );
+
     super( model, {
       screenSummaryContent: new ScreenSummaryContent( {
         playAreaContent: VectorAdditionStrings.a11y.explore1DScreen.screenSummary.playAreaStringProperty,
         controlAreaContent: VectorAdditionStrings.a11y.explore1DScreen.screenSummary.controlAreaStringProperty,
-        currentDetailsContent: VectorAdditionStrings.a11y.explore1DScreen.screenSummary.currentDetailsStringProperty,
+        currentDetailsContent: currentDetailsStringProperty,
         interactionHintContent: VectorAdditionStrings.a11y.explore1DScreen.screenSummary.interactionHintStringProperty
       } ),
       tandem: tandem

@@ -18,6 +18,7 @@ import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewPr
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
@@ -26,11 +27,18 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
   public constructor( model: LabModel, tandem: Tandem ) {
 
+    const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty, {
+      numberOfBlueVectors: 'TODO', //TODO https://github.com/phetsims/vector-addition/issues/306
+      numberOfOrangeVectors: 'TODO', //TODO https://github.com/phetsims/vector-addition/issues/306
+      sceneName: 'sceneName' //TODO https://github.com/phetsims/vector-addition/issues/306
+    } );
+
+
     super( model, {
       screenSummaryContent: new ScreenSummaryContent( {
         playAreaContent: VectorAdditionStrings.a11y.labScreen.screenSummary.playAreaStringProperty,
         controlAreaContent: VectorAdditionStrings.a11y.labScreen.screenSummary.controlAreaStringProperty,
-        currentDetailsContent: VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty,
+        currentDetailsContent: currentDetailsStringProperty,
         interactionHintContent: VectorAdditionStrings.a11y.labScreen.screenSummary.interactionHintStringProperty
       } ),
       tandem: tandem

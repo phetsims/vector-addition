@@ -60,16 +60,16 @@
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO.explore1DScreen.screenSummary.playArea"
+          "value": "There is an open graph area where you can add vectors and modify their position, magnitude, and direction, as well as explore the vectors’ sum."
         },
         "controlArea": {
-          "value": "TODO.explore1DScreen.screenSummary.controlArea"
+          "value": "Turn on vector sum, values, and grid. Modify position of graph area origin. Switch between horizontal and vertical scenes, or reset the screen."
         },
         "currentDetails": {
-          "value": "TODO.explore1DScreen.screenSummary.currentDetails"
+          "value": "Currently, {{numberOfVectors}} vectors in graph area. {{sceneName}} scene selected."
         },
         "interactionHint": {
-          "value": "TODO.explore1DScreen.screenSummary.interactionHint"
+          "value": "Add vectors to graph area to begin exploring."
         }
       }
     },
@@ -79,16 +79,16 @@
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO.explore2DScreen.screenSummary.playArea"
+          "value": "There is an open graph area where you can add vectors and modify their position, magnitude, and direction, as well as explore the vectors’ sum."
         },
         "controlArea": {
-          "value": "TODO.explore2DScreen.screenSummary.controlArea"
+          "value": "Turn on vector sum, values, angles, and grid. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset the screen."
         },
         "currentDetails": {
-          "value": "TODO.explore2DScreen.screenSummary.currentDetails"
+          "value": "Currently, {{numberOfVectors}} vectors in graph area. {{sceneName}} scene selected."
         },
         "interactionHint": {
-          "value": "TODO.explore2DScreen.screenSummary.interactionHint"
+          "value": "Add vectors to graph area to begin exploring."
         }
       }
     },
@@ -98,16 +98,16 @@
       },
       "screenSummary": {
         "playArea": {
-          "value": "TODO.labScreen.screenSummary.playArea"
+          "value": "Add or remove vectors in graph area. Inspect and modify vectors’ position, magnitude and direction. Erase all vectors to clear graph area."
         },
         "controlArea": {
-          "value": "TODO.labScreen.screenSummary.controlArea"
+          "value": "Turn on vector sum, values, angles, and grid. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset the screen."
         },
         "currentDetails": {
-          "value": "TODO.labScreen.screenSummary.currentDetails"
+          "value": "Currently, {{numberOfBlueVectors}} blue vectors and {{numberOfOrangeVectors}} orange in graph area. {{sceneName}} scene selected."
         },
         "interactionHint": {
-          "value": "TODO.labScreen.screenSummary.interactionHint"
+          "value": "Add vectors to graph area to begin exploring."
         }
       }
     },
