@@ -34,6 +34,8 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -70,7 +72,8 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     const noVectorSelectedText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
       visibleProperty: new DerivedProperty( [ scene.activeVectorProperty ], activeVector => activeVector === null ),
       font: VectorAdditionConstants.TITLE_FONT,
-      maxWidth: 450
+      maxWidth: 450,
+      accessibleParagraph: VectorAdditionStrings.noVectorSelectedStringProperty
     } );
 
     // Labels and displays for the vector quantities.
@@ -133,7 +136,8 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
             } )
           ]
         } )
-      ]
+      ],
+      accessibleParagraph: new ActiveVectorAccessibleParagraphStringProperty( scene.activeVectorProperty )
     } );
 
     // Content displayed when the accordion box is expanded.
@@ -179,6 +183,40 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     } );
 
     super( titleText, expandedContent, options );
+  }
+}
+
+/**
+ * ActiveVectorAccessibleParagraphStringProperty is the accessible paragraph that describes the vector that is
+ * currently selected.
+ */
+class ActiveVectorAccessibleParagraphStringProperty extends PatternStringProperty<{
+  symbol: TReadOnlyProperty<string>;
+  magnitude: TReadOnlyProperty<string>;
+  direction: TReadOnlyProperty<string>;
+  xComponent: TReadOnlyProperty<string>;
+  yComponent: TReadOnlyProperty<string>;
+}> {
+  public constructor( activeVectorProperty: TReadOnlyProperty<Vector | null> ) {
+
+    const symbolProperty = new DerivedStringProperty( [ activeVectorProperty ],
+      activeVector => ( activeVector && activeVector.symbolProperty ) ? activeVector.symbolProperty.value : '' );
+
+    //TODO https://github.com/phetsims/vector-addition/issues/292
+    // How to know when these values change, because they are not Properties of Vector.
+    // How to get these values with same number of decimal places as in the visual UI?
+    const magnitudeProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector ? '?' : '' );
+    const directionProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector && activeVector.getAngleDegrees() !== null ? '?' : '' );
+    const xComponentProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector ? '?' : '' );
+    const yComponentProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector ? '?' : '' );
+
+    super( VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphStringProperty, {
+      symbol: symbolProperty,
+      magnitude: magnitudeProperty,
+      direction: directionProperty,
+      xComponent: xComponentProperty,
+      yComponent: yComponentProperty
+    } );
   }
 }
 
