@@ -317,7 +317,7 @@
         "value": "Move to change x,y span of graph area. Value is x,y bounds of graph area, from bottom left to top right."
       },
       "accessibleObjectResponse": {
-        "value": "From ({{minX}}, {{minY}}) to ({{maxX}}, {{maxY}})"
+        "value": "Graph area bounds are from ({{minX}}, {{minY}}) to ({{maxX}}, {{maxY}}).  "
       }
     },
     "eraserButton": {

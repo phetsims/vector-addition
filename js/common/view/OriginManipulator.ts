@@ -21,6 +21,7 @@ import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragList
 import Graph from '../model/Graph.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 // the closest the user can drag the origin to the edge of the graph, in model units
 const ORIGIN_DRAG_MARGIN = 5;
@@ -98,10 +99,10 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
     } );
 
-    // When the graph's bounds change, add an accessible object response. This happens repeatedly while dragging the
+    // Add an accessible object response that describes the graph's bounds. This happens repeatedly while dragging the
     // origin manipulator, so use 'interrupt' for the alert behavior, so that we don't hear a response for every
     // intermediate value during a drag.
-    graph.boundsProperty.lazyLink( bounds => {
+    const addBoundsResponse = ( bounds: Bounds2 ) => {
       const response = StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
         minX: bounds.minX,
         minY: bounds.minY,
@@ -109,6 +110,16 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
         maxY: bounds.maxY
       } );
       this.addAccessibleObjectResponse( response, 'interrupt' );
+    };
+
+    // When the graph's bounds change, add an accessible object response.
+    graph.boundsProperty.lazyLink( addBoundsResponse );
+
+    // When the origin manipulator gets focus, add an accessible object response.
+    this.focusedProperty.link( focused => {
+      if ( focused ) {
+        addBoundsResponse( graph.boundsProperty.value );
+      }
     } );
   }
 }
