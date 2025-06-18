@@ -27,8 +27,7 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
         createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'invisible' ),
         tandemName: 'invisibleRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.invisibleRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.invisibleRadioButton.accessibleHelpTextStringProperty
+          accessibleName: VectorAdditionStrings.a11y.invisibleRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -36,8 +35,7 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
         createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'triangle' ),
         tandemName: 'triangleRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.triangleRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.triangleRadioButton.accessibleHelpTextStringProperty
+          accessibleName: VectorAdditionStrings.a11y.triangleRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -45,8 +43,7 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
         createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'parallelogram' ),
         tandemName: 'parallelogramRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.parallelogramRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.parallelogramRadioButton.accessibleHelpTextStringProperty
+          accessibleName: VectorAdditionStrings.a11y.parallelogramRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -54,8 +51,7 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
         createNode: () => VectorAdditionIconFactory.createComponentStyleRadioButtonIcon( 'projection' ),
         tandemName: 'projectionRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.projectionRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.projectionRadioButton.accessibleHelpTextStringProperty
+          accessibleName: VectorAdditionStrings.a11y.projectionRadioButton.accessibleNameStringProperty
         }
       }
     ];

@@ -44,8 +44,7 @@ export default class HorizontalVerticalSceneRadioButtonGroup<T extends VectorAdd
         createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( 'horizontal' ),
         tandemName: 'horizontalRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.horizontalRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.horizontalRadioButton.accessibleHelpTextStringProperty
+          accessibleName: VectorAdditionStrings.a11y.horizontalRadioButton.accessibleNameStringProperty
         }
       },
       {
@@ -53,8 +52,7 @@ export default class HorizontalVerticalSceneRadioButtonGroup<T extends VectorAdd
         createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( 'vertical' ),
         tandemName: 'verticalRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.verticalRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.verticalRadioButton.accessibleHelpTextStringProperty
+          accessibleName: VectorAdditionStrings.a11y.verticalRadioButton.accessibleNameStringProperty
         }
       }
     ];

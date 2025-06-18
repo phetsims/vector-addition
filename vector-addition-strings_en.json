@@ -171,42 +171,30 @@
     },
     "componentsRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO.componentsRadioButtonGroup.accessibleName"
+        "value": "Components Display Style"
       },
       "accessibleHelpText": {
-        "value": "TODO.componentsRadioButtonGroup.accessibleHelpText"
+        "value": "Choose whether and where to display vector x,y components."
       }
     },
     "invisibleRadioButton": {
       "accessibleName": {
-        "value": "TODO.invisibleRadioButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.invisibleRadioButton.accessibleHelpText"
+        "value": "Hidden"
       }
     },
     "triangleRadioButton": {
       "accessibleName": {
-        "value": "TODO.triangleRadioButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.triangleRadioButton.accessibleHelpText"
+        "value": "Right triangle"
       }
     },
     "parallelogramRadioButton": {
       "accessibleName": {
-        "value": "TODO.parallelogramRadioButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.parallelogramRadioButton.accessibleHelpText"
+        "value": "From vector tail"
       }
     },
     "projectionRadioButton": {
       "accessibleName": {
-        "value": "TODO.projectionRadioButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.projectionRadioButton.accessibleHelpText"
+        "value": "Projected onto x,y axes"
       }
     },
     "cartesianPolarSceneRadioButtonGroup": {

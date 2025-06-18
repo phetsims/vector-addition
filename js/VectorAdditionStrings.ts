@@ -100,19 +100,15 @@ type StringsType = {
     };
     'invisibleRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'triangleRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'parallelogramRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'projectionRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'cartesianPolarSceneRadioButtonGroup': {
       'accessibleNameStringProperty': LocalizedStringProperty;
@@ -132,11 +128,9 @@ type StringsType = {
     };
     'horizontalRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'verticalRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'equationTypeRadioButtonGroup': {
       'accessibleNameStringProperty': LocalizedStringProperty;
@@ -161,7 +155,6 @@ type StringsType = {
     'originManipulator': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'eraserButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
