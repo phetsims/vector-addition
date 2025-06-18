@@ -72,9 +72,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       phetioReadOnly: true
     } );
 
-    // Add an accessible object response that describes the graph's bounds. This happens repeatedly while dragging the
-    // origin manipulator, so use 'interrupt' for the alert behavior, so that we don't hear a response for every
-    // intermediate value during a drag.
+    // Adds an accessible object response that describes the graph's bounds.
     const addGraphBoundsResponse = () => {
       const graphBounds = graph.boundsProperty.value;
       const response = StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
