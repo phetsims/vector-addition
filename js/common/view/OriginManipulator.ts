@@ -98,7 +98,9 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
     } );
 
-    // When the graph's bounds change, add an accessible object response.
+    // When the graph's bounds change, add an accessible object response. This happens repeatedly while dragging the
+    // origin manipulator, so use 'interrupt' for the alert behavior, so that we don't hear a response for every
+    // intermediate value during a drag.
     graph.boundsProperty.lazyLink( bounds => {
       const response = StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
         minX: bounds.minX,
