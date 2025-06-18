@@ -132,10 +132,10 @@
     },
     "anglesCheckbox": {
       "accessibleName": {
-        "value": "TODO.anglesCheckbox.accessibleName"
+        "value": "Angles"
       },
       "accessibleHelpText": {
-        "value": "TODO.anglesCheckbox.accessibleHelpText"
+        "value": "Display vector angles in graph area."
       }
     },
     "gridCheckbox": {
