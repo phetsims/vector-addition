@@ -66,7 +66,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     // Create a dragBounds to constrain the drag
     const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( graph.boundsProperty.value.eroded( ORIGIN_DRAG_MARGIN ) );
 
-    // Create a Property of to track the view's origin in view coordinates
+    // Create a Property to track the view's origin in view coordinates
     const originPositionProperty = new Vector2Property( origin, {
       tandem: tandem.createTandem( 'originPositionProperty' ),
       phetioReadOnly: true
