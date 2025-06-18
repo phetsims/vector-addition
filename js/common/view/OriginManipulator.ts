@@ -28,15 +28,6 @@ const ORIGIN_DRAG_MARGIN = 5;
 // origin
 const ORIGIN_COLOR = Color.toColor( VectorAdditionColors.ORIGIN_COLOR );
 const ORIGIN_DIAMETER = 0.8; // in model coordinates
-const ORIGIN_OPTIONS: ShadedSphereNodeOptions = {
-  isDisposable: false,
-  cursor: 'move',
-  mainColor: ORIGIN_COLOR,
-  highlightColor: Color.WHITE,
-  shadowColor: ORIGIN_COLOR.darkerColor(),
-  lineWidth: 1,
-  stroke: ORIGIN_COLOR.darkerColor()
-};
 
 export default class OriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
 
@@ -51,15 +42,24 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     // Diameter, view coordinates
     const diameter = modelViewTransform.modelToViewDeltaX( ORIGIN_DIAMETER );
 
-    super( diameter, combineOptions<ShadedSphereNodeOptions>( {}, ORIGIN_OPTIONS, {
+    const options = combineOptions<ShadedSphereNodeOptions>( {
+      isDisposable: false,
+      cursor: 'move',
+      mainColor: ORIGIN_COLOR,
+      highlightColor: Color.WHITE,
+      shadowColor: ORIGIN_COLOR.darkerColor(),
+      stroke: ORIGIN_COLOR.darkerColor(),
+      lineWidth: 1,
       center: origin,
       touchArea: Shape.circle( 2 * diameter ),
-      tagName: 'div', // for KeyboardDragListener
-      focusable: true, // for KeyboardDragListener
+      tagName: 'div',
+      focusable: true,
       accessibleName: VectorAdditionStrings.a11y.originManipulator.accessibleNameStringProperty,
       accessibleHelpText: VectorAdditionStrings.a11y.originManipulator.accessibleHelpTextStringProperty,
       tandem: tandem
-    } ) );
+    } );
+
+    super( diameter, options );
 
     this.touchArea = Shape.circle( 0, 0, diameter );
 
@@ -94,7 +94,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       end: () => addGraphBoundsResponse(),
       tandem: tandem,
       dragListenerOptions: {
-        pressCursor: ORIGIN_OPTIONS.cursor
+        pressCursor: options.cursor
       },
       keyboardDragListenerOptions: {
         dragDelta: modelViewTransform.modelToViewDeltaX( 1 ),
