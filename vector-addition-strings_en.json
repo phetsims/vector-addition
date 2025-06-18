@@ -299,10 +299,10 @@
     },
     "originManipulator": {
       "accessibleName": {
-        "value": "TODO.originManipulator.accessibleName"
+        "value": "Move origin of graph area"
       },
       "accessibleHelpText": {
-        "value": "TODO.originManipulator.accessibleHelpText"
+        "value": "Move to change x,y span of graph area. Value is x,y bounds of graph area, from bottom left to top right."
       }
     },
     "eraserButton": {
