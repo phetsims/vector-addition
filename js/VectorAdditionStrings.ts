@@ -77,10 +77,10 @@ type StringsType = {
     'verticalSceneNameStringProperty': LocalizedStringProperty;
     'cartesianSceneNameStringProperty': LocalizedStringProperty;
     'polarSceneNameStringProperty': LocalizedStringProperty;
-    'cartesianVectorSet1ColorStringProperty': LocalizedStringProperty;
-    'cartesianVectorSet2ColorStringProperty': LocalizedStringProperty;
-    'polarVectorSet1ColorStringProperty': LocalizedStringProperty;
-    'polarVectorSet2ColorStringProperty': LocalizedStringProperty;
+    'blueColorPaletteNameStringProperty': LocalizedStringProperty;
+    'orangeColorPaletteNameStringProperty': LocalizedStringProperty;
+    'pinkColorPaletteNameStringProperty': LocalizedStringProperty;
+    'greenColorPaletteNameStringProperty': LocalizedStringProperty;
     'anglesCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

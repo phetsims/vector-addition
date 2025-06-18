@@ -11,6 +11,7 @@ import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorColorPalette from './model/VectorColorPalette.js';
+import VectorAdditionStrings from '../VectorAdditionStrings.js';
 
 // Colors that are used in more than one VectorColorPalette
 const BLUE = 'rgb( 10, 170, 250 )';
@@ -74,32 +75,38 @@ const VectorAdditionColors = {
   // Vector color palettes
 
   BLUE_COLOR_PALETTE: new VectorColorPalette( {
+    descriptionNameStringProperty: VectorAdditionStrings.a11y.blueColorPaletteNameStringProperty,
     mainFill: BLUE,
     sumFill: '#0a46fa' // darker blue
   } ),
 
-  PINK_COLOR_PALETTE: new VectorColorPalette( {
-    mainFill: PINK,
-    sumFill: '#a200de' // darker purple
-  } ),
-
   ORANGE_COLOR_PALETTE: new VectorColorPalette( {
+    descriptionNameStringProperty: VectorAdditionStrings.a11y.orangeColorPaletteNameStringProperty,
     mainFill: '#ff9023', // orange
     sumFill: '#d20000' // red
   } ),
 
+  PINK_COLOR_PALETTE: new VectorColorPalette( {
+    descriptionNameStringProperty: VectorAdditionStrings.a11y.pinkColorPaletteNameStringProperty,
+    mainFill: PINK,
+    sumFill: '#a200de' // darker purple
+  } ),
+
   GREEN_COLOR_PALETTE: new VectorColorPalette( {
+    descriptionNameStringProperty: VectorAdditionStrings.a11y.greenColorPaletteNameStringProperty,
     mainFill: 'rgb( 5, 200, 0 )', // green
     sumFill: '#058200' // darker green
   } ),
 
   // Equations screen
   EQUATIONS_BLUE_COLOR_PALETTE: new VectorColorPalette( {
+    descriptionNameStringProperty: VectorAdditionStrings.a11y.blueColorPaletteNameStringProperty,
     mainFill: BLUE,
     sumFill: EQUATIONS_SUM_FILL
   } ),
 
   EQUATIONS_PINK_COLOR_PALETTE: new VectorColorPalette( {
+    descriptionNameStringProperty: VectorAdditionStrings.a11y.pinkColorPaletteNameStringProperty,
     mainFill: PINK,
     sumFill: EQUATIONS_SUM_FILL
   } )

@@ -20,27 +20,25 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
 
     const vectorSet1SizeProperty = new DerivedProperty(
       [ model.sceneProperty, model.cartesianScene.vectorSet1.vectors.lengthProperty, model.polarScene.vectorSet1.vectors.lengthProperty ],
-      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet1.vectors.lengthProperty.value, {
-        valueType: 'number'
-      } );
+      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet1.vectors.lengthProperty.value );
 
     const vectorSet2SizeProperty = new DerivedProperty(
       [ model.sceneProperty, model.cartesianScene.vectorSet2.vectors.lengthProperty, model.polarScene.vectorSet2.vectors.lengthProperty ],
-      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet2.vectors.lengthProperty.value, {
-        valueType: 'number'
-      } );
+      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet2.vectors.lengthProperty.value );
 
-    const vectorSet1ColorStringProperty = new DerivedProperty(
-      [ model.sceneProperty, VectorAdditionStrings.a11y.cartesianVectorSet1ColorStringProperty, VectorAdditionStrings.a11y.polarVectorSet1ColorStringProperty ],
-      scene => ( scene === model.cartesianScene ) ?
-               VectorAdditionStrings.a11y.cartesianVectorSet1ColorStringProperty.value :
-               VectorAdditionStrings.a11y.polarVectorSet1ColorStringProperty.value );
+    const vectorSet1ColorStringProperty = new DerivedProperty( [
+        model.sceneProperty,
+        model.cartesianScene.vectorSet1.vectorColorPalette.descriptionNameStringProperty,
+        model.polarScene.vectorSet1.vectorColorPalette.descriptionNameStringProperty
+      ],
+      scene => scene.vectorSet1.vectorColorPalette.descriptionNameStringProperty.value );
 
-    const vectorSet2ColorStringProperty = new DerivedProperty(
-      [ model.sceneProperty, VectorAdditionStrings.a11y.cartesianVectorSet2ColorStringProperty, VectorAdditionStrings.a11y.polarVectorSet2ColorStringProperty ],
-      scene => ( scene === model.cartesianScene ) ?
-               VectorAdditionStrings.a11y.cartesianVectorSet2ColorStringProperty.value :
-               VectorAdditionStrings.a11y.polarVectorSet2ColorStringProperty.value );
+    const vectorSet2ColorStringProperty = new DerivedProperty( [
+        model.sceneProperty,
+        model.cartesianScene.vectorSet2.vectorColorPalette.descriptionNameStringProperty,
+        model.polarScene.vectorSet2.vectorColorPalette.descriptionNameStringProperty
+      ],
+      scene => scene.vectorSet2.vectorColorPalette.descriptionNameStringProperty.value );
 
     const sceneNameStringProperty = new DerivedStringProperty(
       [ model.sceneProperty, model.cartesianScene.sceneNameStringProperty, model.polarScene.sceneNameStringProperty ],

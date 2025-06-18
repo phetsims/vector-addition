@@ -20,9 +20,7 @@ export default class Explore1DScreenSummaryContent extends ScreenSummaryContent 
 
     const numberOfVectorsProperty = new DerivedProperty(
       [ model.sceneProperty, model.horizontalScene.vectorSet.vectors.lengthProperty, model.verticalScene.vectorSet.vectors.lengthProperty ],
-      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet.vectors.lengthProperty.value, {
-        valueType: 'number'
-      } );
+      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet.vectors.lengthProperty.value );
 
     const sceneNameStringProperty = new DerivedStringProperty(
       [ model.sceneProperty, model.horizontalScene.sceneNameStringProperty, model.verticalScene.sceneNameStringProperty ],

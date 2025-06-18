@@ -131,10 +131,10 @@
       }
     },
     "horizontalSceneName": {
-        "value": "Horizontal 1-D"
+        "value": "Horizontal"
     },
     "verticalSceneName": {
-      "value": "Vertical 1-D"
+      "value": "Vertical"
     },
     "cartesianSceneName": {
       "value": "Cartesian"
@@ -142,16 +142,16 @@
     "polarSceneName": {
       "value": "Polar"
     },
-    "cartesianVectorSet1Color": {
+    "blueColorPaletteName": {
       "value": "blue"
     },
-    "cartesianVectorSet2Color": {
+    "orangeColorPaletteName": {
       "value": "orange"
     },
-    "polarVectorSet1Color": {
+    "pinkColorPaletteName": {
       "value": "pink"
     },
-    "polarVectorSet2Color": {
+    "greenColorPaletteName": {
       "value": "green"
     },
     "anglesCheckbox": {
@@ -175,7 +175,7 @@
         "value": "Vector Sum"
       },
       "accessibleHelpText": {
-        "value": "Show or hide the sum total of the vectors in the graph area."
+        "value": "Show or hide the sum of the vectors in the graph area."
       }
     },
     "sum1Checkbox": {
