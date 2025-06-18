@@ -181,11 +181,17 @@
     "sum1Checkbox": {
       "accessibleName": {
         "value": "Vector Sum of blue vectors s<sub>v</sub>"
+      },
+      "accessibleHelpText": {
+        "value": "Show or hide the sum of the blue vectors in the graph area."
       }
     },
     "sum2Checkbox": {
       "accessibleName": {
         "value": "Vector Sum of orange vectors s<sub>u</sub>"
+      },
+      "accessibleHelpText": {
+        "value": "Show or hide the sum of the orange vectors in the graph area."
       }
     },
       "valuesCheckbox": {

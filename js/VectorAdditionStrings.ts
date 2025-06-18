@@ -95,9 +95,11 @@ type StringsType = {
     };
     'sum1Checkbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'sum2Checkbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'valuesCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
