@@ -147,24 +147,21 @@
       }
     },
     "sumCheckbox": {
+      "accessibleName": {
+        "value": "Vector Sum"
+      },
       "accessibleHelpText": {
-        "value": "TODO.sumCheckbox.accessibleHelpText"
+        "value": "Show or hide the sum total of the vectors in the graph area."
       }
     },
     "sum1Checkbox": {
       "accessibleName": {
-        "value": "TODO.sum1Checkbox.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.sum1Checkbox.accessibleHelpText"
+        "value": "Vector Sum of blue vectors s<sub>v</sub>"
       }
     },
     "sum2Checkbox": {
       "accessibleName": {
-        "value": "TODO.sum2Checkbox.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.sum2Checkbox.accessibleHelpText"
+        "value": "Vector Sum of orange vectors s<sub>u</sub>"
       }
     },
     "valuesCheckbox": {

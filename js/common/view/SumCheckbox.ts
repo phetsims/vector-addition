@@ -36,6 +36,7 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
     const options = optionize<SumCheckboxOptions, SelfOptions, VectorAdditionCheckboxOptions>()( {
 
       // VectorAdditionCheckboxOptions
+      accessibleName: VectorAdditionStrings.a11y.sumCheckbox.accessibleNameStringProperty,
       accessibleHelpText: VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty
     }, providedOptions );
 

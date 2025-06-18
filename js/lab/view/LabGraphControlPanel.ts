@@ -52,7 +52,6 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         ( scene === cartesianScene ) ?
         cartesianScene.vectorSet1.vectorColorPalette.sumStroke : polarScene.vectorSet1.vectorColorPalette.sumStroke ),
       accessibleName: VectorAdditionStrings.a11y.sum1Checkbox.accessibleNameStringProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.sum1Checkbox.accessibleHelpTextStringProperty,
       tandem: options.tandem.createTandem( 'sum1Checkbox' )
     } );
 
@@ -63,7 +62,6 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene =>
         ( scene === cartesianScene ) ? cartesianScene.vectorSet2.vectorColorPalette.sumStroke : polarScene.vectorSet2.vectorColorPalette.sumStroke ),
       accessibleName: VectorAdditionStrings.a11y.sum2Checkbox.accessibleNameStringProperty,
-      accessibleHelpText: VectorAdditionStrings.a11y.sum2Checkbox.accessibleHelpTextStringProperty,
       tandem: options.tandem.createTandem( 'sum2Checkbox' )
     } );
 
