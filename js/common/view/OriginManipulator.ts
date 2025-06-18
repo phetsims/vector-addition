@@ -39,7 +39,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     // Origin, in view coordinates
     const origin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
-    // Diameter, view coordinates
+    // Diameter, in view coordinates
     const diameter = modelViewTransform.modelToViewDeltaX( ORIGIN_DIAMETER );
 
     const options = combineOptions<ShadedSphereNodeOptions>( {
