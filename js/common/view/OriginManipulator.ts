@@ -21,6 +21,7 @@ import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragList
 import Graph from '../model/Graph.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 
 // the closest the user can drag the origin to the edge of the graph, in model units
 const ORIGIN_DRAG_MARGIN = 5;
@@ -52,12 +53,10 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       lineWidth: 1,
       center: origin,
       touchArea: Shape.circle( 2 * diameter ),
-      tagName: 'div',
-      focusable: true,
       accessibleName: VectorAdditionStrings.a11y.originManipulator.accessibleNameStringProperty,
       accessibleHelpText: VectorAdditionStrings.a11y.originManipulator.accessibleHelpTextStringProperty,
       tandem: tandem
-    } );
+    }, AccessibleDraggableOptions );
 
     super( diameter, options );
 
