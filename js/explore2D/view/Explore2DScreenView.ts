@@ -28,11 +28,10 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
     super( model, {
       screenSummaryContent: new ScreenSummaryContent( {
-        additionalContent: [
-          VectorAdditionStrings.a11y.explore2DScreen.screenSummary.playAreaStringProperty,
-          VectorAdditionStrings.a11y.explore2DScreen.screenSummary.controlAreaStringProperty,
-          VectorAdditionStrings.a11y.explore2DScreen.screenSummary.interactionHintStringProperty
-        ]
+        playAreaContent: VectorAdditionStrings.a11y.explore2DScreen.screenSummary.playAreaStringProperty,
+        controlAreaContent: VectorAdditionStrings.a11y.explore2DScreen.screenSummary.controlAreaStringProperty,
+        currentDetailsContent: VectorAdditionStrings.a11y.explore2DScreen.screenSummary.currentDetailsStringProperty,
+        interactionHintContent: VectorAdditionStrings.a11y.explore2DScreen.screenSummary.interactionHintStringProperty
       } ),
       tandem: tandem
     } );

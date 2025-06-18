@@ -65,6 +65,9 @@
         "controlArea": {
           "value": "TODO.explore1DScreen.screenSummary.controlArea"
         },
+        "currentDetails": {
+          "value": "TODO.explore1DScreen.screenSummary.currentDetails"
+        },
         "interactionHint": {
           "value": "TODO.explore1DScreen.screenSummary.interactionHint"
         }
@@ -80,6 +83,9 @@
         },
         "controlArea": {
           "value": "TODO.explore2DScreen.screenSummary.controlArea"
+        },
+        "currentDetails": {
+          "value": "TODO.explore2DScreen.screenSummary.currentDetails"
         },
         "interactionHint": {
           "value": "TODO.explore2DScreen.screenSummary.interactionHint"
@@ -97,6 +103,9 @@
         "controlArea": {
           "value": "TODO.labScreen.screenSummary.controlArea"
         },
+        "currentDetails": {
+          "value": "TODO.labScreen.screenSummary.currentDetails"
+        },
         "interactionHint": {
           "value": "TODO.labScreen.screenSummary.interactionHint"
         }
@@ -112,6 +121,9 @@
         },
         "controlArea": {
           "value": "TODO.equationsScreen.screenSummary.controlArea"
+        },
+        "currentDetails": {
+          "value": "TODO.equationsScreen.screenSummary.currentDetails"
         },
         "interactionHint": {
           "value": "TODO.equationsScreen.screenSummary.interactionHint"

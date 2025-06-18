@@ -29,11 +29,10 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
     super( model, {
       screenSummaryContent: new ScreenSummaryContent( {
-        additionalContent: [
-          VectorAdditionStrings.a11y.equationsScreen.screenSummary.playAreaStringProperty,
-          VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty,
-          VectorAdditionStrings.a11y.equationsScreen.screenSummary.interactionHintStringProperty
-        ]
+        playAreaContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.playAreaStringProperty,
+        controlAreaContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty,
+        currentDetailsContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsStringProperty,
+        interactionHintContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.interactionHintStringProperty
       } ),
       tandem: tandem
     } );

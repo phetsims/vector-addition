@@ -28,11 +28,10 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
     super( model, {
       screenSummaryContent: new ScreenSummaryContent( {
-        additionalContent: [
-          VectorAdditionStrings.a11y.labScreen.screenSummary.playAreaStringProperty,
-          VectorAdditionStrings.a11y.labScreen.screenSummary.controlAreaStringProperty,
-          VectorAdditionStrings.a11y.labScreen.screenSummary.interactionHintStringProperty
-        ]
+        playAreaContent: VectorAdditionStrings.a11y.labScreen.screenSummary.playAreaStringProperty,
+        controlAreaContent: VectorAdditionStrings.a11y.labScreen.screenSummary.controlAreaStringProperty,
+        currentDetailsContent: VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty,
+        interactionHintContent: VectorAdditionStrings.a11y.labScreen.screenSummary.interactionHintStringProperty
       } ),
       tandem: tandem
     } );
