@@ -35,7 +35,8 @@ export default class Graph extends PhetioObject {
   public readonly orientation: GraphOrientation;
 
   // Bounds of the graph in model coordinates.
-  private readonly boundsProperty: Property<Bounds2>;
+  private readonly _boundsProperty: Property<Bounds2>;
+  public readonly boundsProperty: TReadOnlyProperty<Bounds2>;
 
   // Bounds of the graph in view coordinates.
   public readonly viewBounds: Bounds2;
@@ -68,12 +69,13 @@ export default class Graph extends PhetioObject {
 
     this.orientation = options.orientation;
 
-    this.boundsProperty = new Property( options.initialBounds, {
+    this._boundsProperty = new Property( options.initialBounds, {
       phetioValueType: Bounds2.Bounds2IO,
       tandem: options.tandem.createTandem( 'boundsProperty' ),
       phetioDocumentation: 'Bounds of the scene, in model coordinates.',
       phetioReadOnly: true
     } );
+    this.boundsProperty = this._boundsProperty;
 
     this.viewBounds = new Bounds2( options.bottomLeft.x,
       options.bottomLeft.y - MODEL_TO_VIEW_SCALE * options.initialBounds.height,
@@ -87,7 +89,7 @@ export default class Graph extends PhetioObject {
   }
 
   public reset(): void {
-    this.boundsProperty.reset();
+    this._boundsProperty.reset();
   }
 
   /**
@@ -98,7 +100,7 @@ export default class Graph extends PhetioObject {
 
     // Round to integer
     const roundedPoint = point.roundSymmetric();
-    this.boundsProperty.value = this.bounds.shiftedXY( -roundedPoint.x, -roundedPoint.y );
+    this._boundsProperty.value = this.bounds.shiftedXY( -roundedPoint.x, -roundedPoint.y );
   }
 
   /**

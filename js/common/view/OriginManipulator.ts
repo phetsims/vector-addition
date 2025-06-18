@@ -20,6 +20,7 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 
 // the closest the user can drag the origin to the edge of the graph, in model units
 const ORIGIN_DRAG_MARGIN = 5;
@@ -63,7 +64,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     this.touchArea = Shape.circle( 0, 0, diameter );
 
     // Create a dragBounds to constrain the drag
-    const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( graph.bounds.eroded( ORIGIN_DRAG_MARGIN ) );
+    const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( graph.boundsProperty.value.eroded( ORIGIN_DRAG_MARGIN ) );
 
     // Create a Property of to track the view's origin in view coordinates
     const originPositionProperty = new Vector2Property( origin, {
@@ -95,6 +96,17 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     // Observe when the model view transform changes to update the position of the circle.
     graph.modelViewTransformProperty.link( modelViewTransform => {
       this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
+    } );
+
+    // When the graph's bounds change, add an accessible object response.
+    graph.boundsProperty.lazyLink( bounds => {
+      const response = StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
+        minX: bounds.minX,
+        minY: bounds.minY,
+        maxX: bounds.maxX,
+        maxY: bounds.maxY
+      } );
+      this.addAccessibleObjectResponse( response, 'interrupt' );
     } );
   }
 }
