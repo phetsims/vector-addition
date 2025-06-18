@@ -164,9 +164,9 @@
         "value": "Vector Sum of orange vectors s<sub>u</sub>"
       }
     },
-    "valuesCheckbox": {
+      "valuesCheckbox": {
       "accessibleHelpText": {
-        "value": "TODO.valuesCheckbox.accessibleHelpText"
+        "value": "Display vector and component magnitudes in graph area."
       }
     },
     "componentsRadioButtonGroup": {
