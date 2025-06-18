@@ -204,7 +204,7 @@ class ActiveVectorAccessibleParagraphStringProperty extends PatternStringPropert
 
     //TODO https://github.com/phetsims/vector-addition/issues/292
     // How to know when these values change, because they are not Properties of Vector.
-    // How to get these values with same number of decimal places as in the visual UI?
+    // Use VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES to get same number of decimal places as in the visual UI.
     const magnitudeProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector ? '?' : '' );
     const directionProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector && activeVector.getAngleDegrees() !== null ? '?' : '' );
     const xComponentProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector ? '?' : '' );
