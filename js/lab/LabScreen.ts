@@ -6,7 +6,7 @@
  * @author Martin Veillette
  */
 
-import Screen from '../../../joist/js/Screen.js';
+import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
@@ -20,7 +20,7 @@ export default class LabScreen extends Screen<LabModel, LabScreenView> {
 
   public constructor( tandem: Tandem ) {
 
-    const options = {
+    const options: ScreenOptions = {
       name: VectorAdditionStrings.screen.labStringProperty,
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createLabScreenIcon(),
