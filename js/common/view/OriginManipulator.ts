@@ -91,15 +91,14 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       positionProperty: originPositionProperty,
       translateNode: false,
       dragBoundsProperty: new Property( restrictedGraphViewBounds ),
+      end: () => addGraphBoundsResponse(),
       tandem: tandem,
       dragListenerOptions: {
-        pressCursor: ORIGIN_OPTIONS.cursor,
-        end: () => addGraphBoundsResponse()
+        pressCursor: ORIGIN_OPTIONS.cursor
       },
       keyboardDragListenerOptions: {
         dragDelta: modelViewTransform.modelToViewDeltaX( 1 ),
-        moveOnHoldInterval: 100,
-        end: () => addGraphBoundsResponse()
+        moveOnHoldInterval: 100
       }
     } ) );
 
