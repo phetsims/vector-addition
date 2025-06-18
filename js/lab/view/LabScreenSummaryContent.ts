@@ -18,25 +18,25 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
 
   public constructor( model: LabModel ) {
 
-    const numberOfBlueVectorsProperty = new DerivedProperty(
+    const vectorSet1SizeProperty = new DerivedProperty(
       [ model.sceneProperty, model.cartesianScene.vectorSet1.vectors.lengthProperty, model.polarScene.vectorSet1.vectors.lengthProperty ],
       ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet1.vectors.lengthProperty.value, {
         valueType: 'number'
       } );
 
-    const numberOfOrangeVectorsProperty = new DerivedProperty(
+    const vectorSet2SizeProperty = new DerivedProperty(
       [ model.sceneProperty, model.cartesianScene.vectorSet2.vectors.lengthProperty, model.polarScene.vectorSet2.vectors.lengthProperty ],
       ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet2.vectors.lengthProperty.value, {
         valueType: 'number'
       } );
 
-    const color1StringProperty = new DerivedProperty(
+    const vectorSet1ColorStringProperty = new DerivedProperty(
       [ model.sceneProperty, VectorAdditionStrings.a11y.cartesianVectorSet1ColorStringProperty, VectorAdditionStrings.a11y.polarVectorSet1ColorStringProperty ],
       scene => ( scene === model.cartesianScene ) ?
                VectorAdditionStrings.a11y.cartesianVectorSet1ColorStringProperty.value :
                VectorAdditionStrings.a11y.polarVectorSet1ColorStringProperty.value );
 
-    const color2StringProperty = new DerivedProperty(
+    const vectorSet2ColorStringProperty = new DerivedProperty(
       [ model.sceneProperty, VectorAdditionStrings.a11y.cartesianVectorSet2ColorStringProperty, VectorAdditionStrings.a11y.polarVectorSet2ColorStringProperty ],
       scene => ( scene === model.cartesianScene ) ?
                VectorAdditionStrings.a11y.cartesianVectorSet2ColorStringProperty.value :
@@ -47,10 +47,10 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
       scene => scene.sceneNameStringProperty.value );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty, {
-      numberOfVectors1: numberOfBlueVectorsProperty,
-      color1: color1StringProperty,
-      numberOfVectors2: numberOfOrangeVectorsProperty,
-      color2: color2StringProperty,
+      vectorSet1Size: vectorSet1SizeProperty,
+      vectorSet1Color: vectorSet1ColorStringProperty,
+      vectorSet2Size: vectorSet2SizeProperty,
+      vectorSet2Color: vectorSet2ColorStringProperty,
       sceneName: sceneNameStringProperty
     } );
 
