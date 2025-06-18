@@ -40,13 +40,14 @@ export default class EquationsScene extends VectorAdditionScene {
   public readonly equationTypeProperty: StringUnionProperty<EquationType>;
   public readonly vectorSet: EquationsVectorSet;
 
-  public constructor( coordinateSnapMode: CoordinateSnapMode,
+  public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
                       tandem: Tandem ) {
 
-    super( coordinateSnapMode, {
+    super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
         initialBounds: EQUATIONS_GRAPH_BOUNDS,
         bottomLeft: BOTTOM_LEFT

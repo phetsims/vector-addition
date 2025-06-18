@@ -32,6 +32,7 @@ export default class LabScene extends VectorAdditionScene {
   public readonly vectorSet2: VectorSet;
 
   /**
+   * @param sceneNameStringProperty
    * @param coordinateSnapMode - coordinateSnapMode for the scene
    * @param componentVectorStyleProperty
    * @param sum1VisibleProperty - whether the sum for the first VectorSet is visible
@@ -40,7 +41,8 @@ export default class LabScene extends VectorAdditionScene {
    * @param vectorColorPalette2 - color palette for the second VectorSet
    * @param tandem
    */
-  public constructor( coordinateSnapMode: CoordinateSnapMode,
+  public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
@@ -48,7 +50,7 @@ export default class LabScene extends VectorAdditionScene {
                       vectorColorPalette2: VectorColorPalette,
                       tandem: Tandem ) {
 
-    super( coordinateSnapMode, {
+    super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
         initialBounds: LAB_GRAPH_BOUNDS
       },

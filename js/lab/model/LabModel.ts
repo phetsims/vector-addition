@@ -15,6 +15,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabScene from './LabScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class LabModel extends VectorAdditionModel {
 
@@ -50,6 +51,7 @@ export default class LabModel extends VectorAdditionModel {
     const scenesTandem = tandem.createTandem( 'scenes' );
 
     this.cartesianScene = new LabScene(
+      VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
       'cartesian',
       this.componentVectorStyleProperty,
       this.sum1VisibleProperty,
@@ -60,6 +62,7 @@ export default class LabModel extends VectorAdditionModel {
     );
 
     this.polarScene = new LabScene(
+      VectorAdditionStrings.a11y.polarSceneNameStringProperty,
       'polar',
       this.componentVectorStyleProperty,
       this.sum1VisibleProperty,

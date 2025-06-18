@@ -45,13 +45,15 @@ export default class Explore1DScene extends VectorAdditionScene {
   public readonly vectorSet: VectorSet;
 
   /**
+   * @param sceneNameStringProperty
    * @param graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
    * @param componentVectorStyleProperty
    * @param sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
    * @param vectorColorPalette - color palette for vectors in this scene
    * @param tandem
    */
-  public constructor( graphOrientation: GraphOrientation,
+  public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                      graphOrientation: GraphOrientation,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
@@ -59,7 +61,7 @@ export default class Explore1DScene extends VectorAdditionScene {
 
     assert && assert( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ) );
 
-    super( EXPLORE_1D_COORDINATE_SNAP_MODE, {
+    super( sceneNameStringProperty, EXPLORE_1D_COORDINATE_SNAP_MODE, {
       graphOptions: {
         initialBounds: EXPLORE_1D_GRAPH_BOUNDS,
         orientation: graphOrientation

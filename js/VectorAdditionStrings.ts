@@ -73,6 +73,14 @@ type StringsType = {
         'interactionHintStringProperty': LocalizedStringProperty;
       }
     };
+    'horizontalSceneNameStringProperty': LocalizedStringProperty;
+    'verticalSceneNameStringProperty': LocalizedStringProperty;
+    'cartesianSceneNameStringProperty': LocalizedStringProperty;
+    'polarSceneNameStringProperty': LocalizedStringProperty;
+    'cartesianVectorSet1ColorStringProperty': LocalizedStringProperty;
+    'cartesianVectorSet2ColorStringProperty': LocalizedStringProperty;
+    'polarVectorSet1ColorStringProperty': LocalizedStringProperty;
+    'polarVectorSet2ColorStringProperty': LocalizedStringProperty;
     'anglesCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

@@ -15,6 +15,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DScene from './Explore2DScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 
@@ -43,6 +44,7 @@ export default class Explore2DModel extends VectorAdditionModel {
     const scenesTandem = tandem.createTandem( 'scenes' );
 
     this.cartesianScene = new Explore2DScene(
+      VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
       'cartesian',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
@@ -51,6 +53,7 @@ export default class Explore2DModel extends VectorAdditionModel {
     );
 
     this.polarScene = new Explore2DScene(
+      VectorAdditionStrings.a11y.polarSceneNameStringProperty,
       'polar',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,

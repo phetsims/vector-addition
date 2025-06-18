@@ -26,13 +26,14 @@ export default class Explore2DScene extends VectorAdditionScene {
   // Graphs on 'Explore 2D' have exactly one vector set
   public readonly vectorSet: VectorSet;
 
-  public constructor( coordinateSnapMode: CoordinateSnapMode,
+  public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
                       tandem: Tandem ) {
 
-    super( coordinateSnapMode, {
+    super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
         initialBounds: VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS
       },

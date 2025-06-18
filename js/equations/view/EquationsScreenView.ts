@@ -16,9 +16,8 @@ import EquationsModel from '../model/EquationsModel.js';
 import EquationsGraphControlPanel from './EquationsGraphControlPanel.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
-import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
+import EquationsScreenSummaryContent from './EquationsScreenSummaryContent.js';
 
 export default class EquationsScreenView extends VectorAdditionScreenView {
 
@@ -28,12 +27,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
   public constructor( model: EquationsModel, tandem: Tandem ) {
 
     super( model, {
-      screenSummaryContent: new ScreenSummaryContent( {
-        playAreaContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.playAreaStringProperty,
-        controlAreaContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty,
-        currentDetailsContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsStringProperty,
-        interactionHintContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.interactionHintStringProperty
-      } ),
+      screenSummaryContent: new EquationsScreenSummaryContent( model ),
       tandem: tandem
     } );
 

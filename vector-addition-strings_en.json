@@ -104,7 +104,7 @@
           "value": "Turn on vector sum, values, angles, and grid. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset the screen."
         },
         "currentDetails": {
-          "value": "Currently, {{numberOfBlueVectors}} blue vectors and {{numberOfOrangeVectors}} orange in graph area. {{sceneName}} scene selected."
+          "value": "Currently, {{numberOfVectors1}} {{color1}} vectors and {{numberOfVectors2}} {{color2}} vectors in graph area. {{sceneName}} scene selected."
         },
         "interactionHint": {
           "value": "Add vectors to graph area to begin exploring."
@@ -129,6 +129,30 @@
           "value": "TODO.equationsScreen.screenSummary.interactionHint"
         }
       }
+    },
+    "horizontalSceneName": {
+        "value": "Horizontal 1-D"
+    },
+    "verticalSceneName": {
+      "value": "Vertical 1-D"
+    },
+    "cartesianSceneName": {
+      "value": "Cartesian"
+    },
+    "polarSceneName": {
+      "value": "Polar"
+    },
+    "cartesianVectorSet1Color": {
+      "value": "blue"
+    },
+    "cartesianVectorSet2Color": {
+      "value": "orange"
+    },
+    "polarVectorSet1Color": {
+      "value": "pink"
+    },
+    "polarVectorSet2Color": {
+      "value": "green"
     },
     "anglesCheckbox": {
       "accessibleName": {

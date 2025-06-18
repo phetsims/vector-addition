@@ -24,6 +24,7 @@ import Graph, { GraphOptions } from './Graph.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = {
   graphOptions: StrictOmit<GraphOptions, 'tandem'>;
@@ -32,6 +33,9 @@ type SelfOptions = {
 type VectorAdditionSceneOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class VectorAdditionScene extends PhetioObject {
+
+  // The scene's name, as used in interactive descriptions.
+  public readonly sceneNameStringProperty: TReadOnlyProperty<string>;
 
   // coordinate snap mode for the scene, Cartesian or polar
   public readonly coordinateSnapMode: CoordinateSnapMode;
@@ -45,7 +49,9 @@ export default class VectorAdditionScene extends PhetioObject {
   // The active (selected) vector. A scene has at most one active vector. If null, there is no active vector.
   public readonly activeVectorProperty: Property<Vector | null>;
 
-  protected constructor( coordinateSnapMode: CoordinateSnapMode, providedOptions: VectorAdditionSceneOptions ) {
+  protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                         coordinateSnapMode: CoordinateSnapMode,
+                         providedOptions: VectorAdditionSceneOptions ) {
 
     const options = optionize<VectorAdditionSceneOptions, SelfOptions, PhetioObjectOptions>()( {
 
@@ -56,6 +62,7 @@ export default class VectorAdditionScene extends PhetioObject {
 
     super( options );
 
+    this.sceneNameStringProperty = sceneNameStringProperty;
     this.coordinateSnapMode = coordinateSnapMode;
 
     this.vectorSets = [];

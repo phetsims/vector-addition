@@ -15,6 +15,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from './Explore1DScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore1DModel extends VectorAdditionModel {
 
@@ -44,6 +45,7 @@ export default class Explore1DModel extends VectorAdditionModel {
     const scenesTandem = tandem.createTandem( 'scenes' );
 
     this.horizontalScene = new Explore1DScene(
+      VectorAdditionStrings.a11y.horizontalSceneNameStringProperty,
       'horizontal',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
@@ -52,6 +54,7 @@ export default class Explore1DModel extends VectorAdditionModel {
     );
 
     this.verticalScene = new Explore1DScene(
+      VectorAdditionStrings.a11y.verticalSceneNameStringProperty,
       'vertical',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
