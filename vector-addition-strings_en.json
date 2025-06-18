@@ -235,26 +235,20 @@
     },
     "horizontalVerticalSceneRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO.horizontalVerticalSceneRadioButtonGroup.accessibleName"
+        "value": "Scene"
       },
       "accessibleHelpText": {
-        "value": "TODO.horizontalVerticalSceneRadioButtonGroup.accessibleHelpText"
+        "value": "Switch between independent scenes with their own vectors and graph areas."
       }
     },
     "horizontalRadioButton": {
       "accessibleName": {
-        "value": "TODO.horizontalRadioButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.horizontalRadioButton.accessibleHelpText"
+        "value": "Horizontal 1-D scene"
       }
     },
     "verticalRadioButton": {
       "accessibleName": {
-        "value": "TODO.verticalRadioButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.verticalRadioButton.accessibleHelpText"
+        "value": "Vertical 1-D scene"
       }
     },
     "equationTypeRadioButtonGroup": {
