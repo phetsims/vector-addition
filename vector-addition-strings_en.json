@@ -199,26 +199,26 @@
     },
     "cartesianPolarSceneRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO.cartesianPolarSceneRadioButtonGroup.accessibleName"
+        "value": "Scene"
       },
       "accessibleHelpText": {
-        "value": "TODO.cartesianPolarSceneRadioButtonGroup.accessibleHelpText"
+        "value": "Switch between independent scenes with their own vectors and graph areas."
       }
     },
     "cartesianRadioButton": {
       "accessibleName": {
-        "value": "TODO.cartesianRadioButton.accessibleName"
+        "value": "Cartesian scene"
       },
       "accessibleHelpText": {
-        "value": "TODO.cartesianRadioButton.accessibleHelpText"
+        "value": "Vectors snap to (x,y)."
       }
     },
     "polarRadioButton": {
       "accessibleName": {
-        "value": "TODO.polarRadioButton.accessibleName"
+        "value": "Polar scene"
       },
       "accessibleHelpText": {
-        "value": "TODO.polarRadioButton.accessibleHelpText"
+        "value": "Vectors snap to (r,θ)."
       }
     },
     "horizontalVerticalSceneRadioButtonGroup": {
