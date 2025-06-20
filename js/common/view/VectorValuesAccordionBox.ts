@@ -36,6 +36,7 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -50,6 +51,8 @@ type SelfOptions = EmptySelfOptions;
 type VectorValuesAccordionBoxOptions = SelfOptions & StrictOmit<FixedSizeAccordionBoxOptions, 'contentFixedSize'>;
 
 export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
+
+  private accessibleParagraphStringProperty: TReadOnlyProperty<string> | null;
 
   public constructor( scene: VectorAdditionScene, providedOptions: VectorValuesAccordionBoxOptions ) {
 
@@ -136,8 +139,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
             } )
           ]
         } )
-      ],
-      accessibleParagraph: new ActiveVectorAccessibleParagraphStringProperty( scene.activeVectorProperty )
+      ]
     } );
 
     // Content displayed when the accordion box is expanded.
@@ -183,6 +185,17 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     } );
 
     super( titleText, expandedContent, options );
+
+    this.accessibleParagraphStringProperty = null;
+
+    // Set the accessible paragraph that describes the selected vector.
+    scene.activeVectorProperty.link( activeVector => {
+      this.accessibleParagraphStringProperty && this.accessibleParagraphStringProperty.dispose();
+      if ( activeVector ) {
+        this.accessibleParagraphStringProperty = new ActiveVectorAccessibleParagraphStringProperty( activeVector );
+        this.setAccessibleParagraph( this.accessibleParagraphStringProperty );
+      }
+    } );
   }
 }
 
@@ -197,18 +210,18 @@ class ActiveVectorAccessibleParagraphStringProperty extends PatternStringPropert
   xComponent: TReadOnlyProperty<string>;
   yComponent: TReadOnlyProperty<string>;
 }> {
-  public constructor( activeVectorProperty: TReadOnlyProperty<Vector | null> ) {
+  public constructor( activeVector: Vector ) {
 
-    const symbolProperty = new DerivedStringProperty( [ activeVectorProperty ],
-      activeVector => ( activeVector && activeVector.symbolProperty ) ? activeVector.symbolProperty.value : '' );
+    const symbolProperty = activeVector.symbolProperty ? activeVector.symbolProperty : Vector.FALLBACK_SYMBOL_PROPERTY;
 
-    //TODO https://github.com/phetsims/vector-addition/issues/292
-    // How to know when these values change, because they are not Properties of Vector.
-    // Use VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES to get same number of decimal places as in the visual UI.
-    const magnitudeProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector ? '?' : '' );
-    const directionProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector && activeVector.getAngleDegrees() !== null ? '?' : '' );
-    const xComponentProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector ? '?' : '' );
-    const yComponentProperty = new DerivedProperty( [ activeVectorProperty ], activeVector => activeVector ? '?' : '' );
+    const magnitudeProperty = new DerivedProperty( [ activeVector.vectorComponentsProperty ],
+      () => toFixed( activeVector.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+    const directionProperty = new DerivedProperty( [ activeVector.vectorComponentsProperty ],
+      () => toFixed( activeVector.getAngleDegrees() || 0, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+    const xComponentProperty = new DerivedProperty( [ activeVector.vectorComponentsProperty ],
+      vectorComponents => toFixed( vectorComponents.x, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+    const yComponentProperty = new DerivedProperty( [ activeVector.vectorComponentsProperty ],
+      vectorComponents => toFixed( vectorComponents.y, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
 
     super( VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphStringProperty, {
       symbol: symbolProperty,
@@ -216,6 +229,13 @@ class ActiveVectorAccessibleParagraphStringProperty extends PatternStringPropert
       direction: directionProperty,
       xComponent: xComponentProperty,
       yComponent: yComponentProperty
+    } );
+
+    this.disposeEmitter.addListener( () => {
+      magnitudeProperty.dispose();
+      directionProperty.dispose();
+      xComponentProperty.dispose();
+      yComponentProperty.dispose();
     } );
   }
 }
