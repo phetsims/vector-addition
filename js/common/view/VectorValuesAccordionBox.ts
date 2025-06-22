@@ -191,6 +191,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     // Set the accessible paragraph that describes the selected vector.
     scene.activeVectorProperty.link( activeVector => {
       this.accessibleParagraphStringProperty && this.accessibleParagraphStringProperty.dispose();
+      this.accessibleParagraphStringProperty = null;
       if ( activeVector ) {
         this.accessibleParagraphStringProperty = new ActiveVectorAccessibleParagraphStringProperty( activeVector );
         this.setAccessibleParagraph( this.accessibleParagraphStringProperty );
