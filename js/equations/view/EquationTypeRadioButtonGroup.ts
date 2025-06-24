@@ -31,6 +31,7 @@ import { EquationType } from '../model/EquationType.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -52,7 +53,11 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
         xMargin: 8,
         scale: 0.75,
         accessibleName: VectorAdditionStrings.a11y.equationTypeRadioButtonGroup.accessibleNameStringProperty,
-        accessibleHelpText: VectorAdditionStrings.a11y.equationTypeRadioButtonGroup.accessibleHelpTextStringProperty
+        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.equationTypeRadioButtonGroup.accessibleHelpTextStringProperty, {
+          symbol1: vectorSymbolProperties[ 0 ],
+          symbol2: vectorSymbolProperties[ 1 ],
+          symbol3: vectorSymbolProperties[ 2 ]
+        } )
       }, providedOptions );
 
     const items: RectangularRadioButtonGroupItem<EquationType>[] = [
@@ -63,8 +68,11 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
         } ),
         tandemName: 'additionRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.additionRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.additionRadioButton.accessibleHelpTextStringProperty
+          accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.additionRadioButton.accessibleNameStringProperty, {
+            symbol1: vectorSymbolProperties[ 0 ],
+            symbol2: vectorSymbolProperties[ 1 ],
+            symbol3: vectorSymbolProperties[ 2 ]
+          } )
         }
       },
       {
@@ -74,8 +82,11 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
         } ),
         tandemName: 'subtractionRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.subtractionRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.subtractionRadioButton.accessibleHelpTextStringProperty
+          accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.subtractionRadioButton.accessibleNameStringProperty, {
+            symbol1: vectorSymbolProperties[ 0 ],
+            symbol2: vectorSymbolProperties[ 1 ],
+            symbol3: vectorSymbolProperties[ 2 ]
+          } )
         }
       },
       {
@@ -85,8 +96,11 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
         } ),
         tandemName: 'negationRadioButton',
         options: {
-          accessibleName: VectorAdditionStrings.a11y.negationRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.negationRadioButton.accessibleHelpTextStringProperty
+          accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.negationRadioButton.accessibleNameStringProperty, {
+            symbol1: vectorSymbolProperties[ 0 ],
+            symbol2: vectorSymbolProperties[ 1 ],
+            symbol3: vectorSymbolProperties[ 2 ]
+          } )
         }
       }
     ];

@@ -139,15 +139,12 @@ type StringsType = {
     };
     'additionRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'subtractionRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'negationRadioButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'baseVectorsCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;

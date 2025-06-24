@@ -248,34 +248,25 @@
     },
     "equationTypeRadioButtonGroup": {
       "accessibleName": {
-        "value": "TODO.equationTypeRadioButtonGroup.accessibleName"
+        "value": "Equation Type"
       },
       "accessibleHelpText": {
-        "value": "TODO.equationTypeRadioButtonGroup.accessibleHelpText"
+        "value": "Choose the equation that determines how vectors {{symbol1}}, {{symbol2}}, and {{symbol3}} interrelate."
       }
     },
     "additionRadioButton": {
       "accessibleName": {
-        "value": "TODO.additionRadioButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.additionRadioButton.accessibleHelpText"
+        "value": "{{symbol1}} plus {{symbol2}} equals {{symbol3}}"
       }
     },
     "subtractionRadioButton": {
       "accessibleName": {
-        "value": "TODO.subtractionRadioButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.subtractionRadioButton.accessibleHelpText"
+        "value": "{{symbol1}} minus {{symbol2}} equals {{symbol3}}"
       }
     },
     "negationRadioButton": {
       "accessibleName": {
-        "value": "TODO.negationRadioButton.accessibleName"
-      },
-      "accessibleHelpText": {
-        "value": "TODO.negationRadioButton.accessibleHelpText"
+        "value": "{{symbol1}} plus {{symbol2}} plus {{symbol3}} equals zero"
       }
     },
     "baseVectorsCheckbox": {
