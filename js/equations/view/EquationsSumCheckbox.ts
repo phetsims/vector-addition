@@ -21,6 +21,9 @@ import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFacto
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class EquationsSumCheckbox extends Checkbox {
 
@@ -39,6 +42,8 @@ export default class EquationsSumCheckbox extends Checkbox {
       visibleProperty: new DerivedProperty( [ sceneProperty ], scene => scene === polarScene ),
       maxWidth: 95 // determined empirically
     } );
+
+    const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet.symbolProperties[ 2 ].value );
 
     // To make both symbols have the same effective size, so that control panel layout doesn't shift around.
     const alignGroup = new AlignGroup();
@@ -72,6 +77,12 @@ export default class EquationsSumCheckbox extends Checkbox {
     } );
 
     super( sumVisibleProperty, content, {
+      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
+        symbol: symbolProperty
+      } ),
+      accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.equationsSumCheckbox.accessibleHelpTextStringProperty, {
+        symbol: symbolProperty
+      } ),
       tandem: tandem
     } );
   }

@@ -171,6 +171,14 @@
         "value": "Vector sum for set {{symbol}}, {{symbol}} sub v"
       }
     },
+    "equationsSumCheckbox": {
+      "accessibleName": {
+        "value": "Vector {{symbol}}"
+      },
+      "accessibleHelpText": {
+        "value": "Show or hide vector {{symbol}} in graph area."
+      }
+    },
     "valuesCheckbox": {
       "accessibleHelpText": {
         "value": "Display vector and component magnitudes in graph area."

@@ -92,6 +92,10 @@ type StringsType = {
     'labSumCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
     };
+    'equationsSumCheckbox': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
     'valuesCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
