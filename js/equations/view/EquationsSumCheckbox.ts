@@ -55,15 +55,9 @@ export default class EquationsSumCheckbox extends Checkbox {
       ]
     } );
 
-    const fillProperty = new DerivedProperty( [ sceneProperty ], scene =>
-      ( scene === cartesianScene ) ? cartesianScene.vectorSet.vectorColorPalette.sumFill : polarScene.vectorSet.vectorColorPalette.sumFill );
-
-    const strokeProperty = new DerivedProperty( [ sceneProperty ], scene =>
-      ( scene === cartesianScene ) ? cartesianScene.vectorSet.vectorColorPalette.sumStroke : polarScene.vectorSet.vectorColorPalette.sumStroke );
-
     const vectorIcon = VectorAdditionIconFactory.createVectorIcon( 35, {
-      fill: fillProperty,
-      stroke: strokeProperty
+      fill: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet.vectorColorPalette.sumFill ),
+      stroke: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet.vectorColorPalette.sumStroke )
     } );
 
     const hBox = new HBox( {
