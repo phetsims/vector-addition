@@ -56,7 +56,7 @@
   "a11y": {
     "explore1DScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO.explore1DScreen.screenButtonsHelpText"
+        "value": "Explore vector addition in one dimension."
       },
       "screenSummary": {
         "playArea": {
@@ -75,7 +75,7 @@
     },
     "explore2DScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO.explore2DScreen.screenButtonsHelpText"
+        "value": "Explore vector addition in two dimensions."
       },
       "screenSummary": {
         "playArea": {
@@ -94,7 +94,7 @@
     },
     "labScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO.labScreen.screenButtonsHelpText"
+        "value": "Experiment with two independent sets of vectors."
       },
       "screenSummary": {
         "playArea": {
@@ -113,7 +113,7 @@
     },
     "equationsScreen": {
       "screenButtonsHelpText": {
-        "value": "TODO.equationsScreen.screenButtonsHelpText"
+        "value": "Explore and manipulate vector equations."
       },
       "screenSummary": {
         "playArea": {
