@@ -47,7 +47,7 @@ type SelfOptions = {
   sumProjectionYOffset?: number;
 };
 
-type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 export default class VectorSet extends PhetioObject {
 

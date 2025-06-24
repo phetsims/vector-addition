@@ -16,6 +16,7 @@ import vectorAddition from '../../vectorAddition.js';
 import LabScene from './LabScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 
 export default class LabModel extends VectorAdditionModel {
 
@@ -54,6 +55,8 @@ export default class LabModel extends VectorAdditionModel {
       VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
       'cartesian',
       this.componentVectorStyleProperty,
+      VectorAdditionSymbols.vStringProperty,
+      VectorAdditionSymbols.uStringProperty,
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,
       VectorAdditionColors.BLUE_COLOR_PALETTE,
@@ -65,6 +68,8 @@ export default class LabModel extends VectorAdditionModel {
       VectorAdditionStrings.a11y.polarSceneNameStringProperty,
       'polar',
       this.componentVectorStyleProperty,
+      VectorAdditionSymbols.pStringProperty,
+      VectorAdditionSymbols.qStringProperty,
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,
       VectorAdditionColors.PINK_COLOR_PALETTE,

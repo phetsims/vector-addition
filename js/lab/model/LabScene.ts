@@ -17,24 +17,26 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
-import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import LabVectorSet from './LabVectorSet.js';
 
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
 export default class LabScene extends VectorAdditionScene {
 
-  public readonly vectorSet1: VectorSet;
-  public readonly vectorSet2: VectorSet;
+  public readonly vectorSet1: LabVectorSet;
+  public readonly vectorSet2: LabVectorSet;
 
   /**
    * @param sceneNameStringProperty
    * @param coordinateSnapMode - coordinateSnapMode for the scene
    * @param componentVectorStyleProperty
+   * @param symbol1Property - symbol for vectors in the first VectorSet
+   * @param symbol2Property - symbol for vectors in the second VectorSet
    * @param sum1VisibleProperty - whether the sum for the first VectorSet is visible
    * @param sum2VisibleProperty - whether the sum for the second VectorSet is visible
    * @param vectorColorPalette1 - color palette for the first VectorSet
@@ -44,6 +46,8 @@ export default class LabScene extends VectorAdditionScene {
   public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                       coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                      symbol1Property: TReadOnlyProperty<string>,
+                      symbol2Property: TReadOnlyProperty<string>,
                       sum1VisibleProperty: Property<boolean>,
                       sum2VisibleProperty: Property<boolean>,
                       vectorColorPalette1: VectorColorPalette,
@@ -65,7 +69,7 @@ export default class LabScene extends VectorAdditionScene {
     const modelHeadWidth = this.graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
     const offsetDelta = -( modelHeadWidth / 2 );
 
-    this.vectorSet1 = new VectorSet( this, componentVectorStyleProperty, sum1VisibleProperty, vectorColorPalette1, {
+    this.vectorSet1 = new LabVectorSet( this, symbol1Property, componentVectorStyleProperty, sum1VisibleProperty, vectorColorPalette1, {
 
       initialSumTailPosition: new Vector2(
         roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
@@ -79,7 +83,7 @@ export default class LabScene extends VectorAdditionScene {
       tandem: tandem.createTandem( 'vectorSet1' )
     } );
 
-    this.vectorSet2 = new VectorSet( this, componentVectorStyleProperty, sum2VisibleProperty, vectorColorPalette2, {
+    this.vectorSet2 = new LabVectorSet( this, symbol2Property, componentVectorStyleProperty, sum2VisibleProperty, vectorColorPalette2, {
 
       initialSumTailPosition: new Vector2(
         roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),

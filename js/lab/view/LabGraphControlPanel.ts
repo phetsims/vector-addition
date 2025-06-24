@@ -46,17 +46,12 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
     const options = providedOptions;
 
-    const vectorSet1SymbolStringProperty = new DerivedStringProperty( [ sceneProperty ],
-      scene => 'TODO' );
-    const vectorSet2SymbolStringProperty = new DerivedStringProperty( [ sceneProperty ],
-      scene => 'TODO' );
-
     // Sum checkbox for vector set 1, with vector symbol and color determined by the selected scene.
     const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, {
       vectorIconFill: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet1.vectorColorPalette.sumFill ),
       vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet1.vectorColorPalette.sumStroke ),
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
-        symbol: vectorSet1SymbolStringProperty
+        symbol: new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet1.symbolProperty.value )
       } ),
       tandem: options.tandem.createTandem( 'sum1Checkbox' )
     } );
@@ -66,7 +61,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       vectorIconFill: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet2.vectorColorPalette.sumFill ),
       vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet2.vectorColorPalette.sumStroke ),
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
-        symbol: vectorSet2SymbolStringProperty
+        symbol: new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet2.symbolProperty.value )
       } ),
       tandem: options.tandem.createTandem( 'sum2Checkbox' )
     } );

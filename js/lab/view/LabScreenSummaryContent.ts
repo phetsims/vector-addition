@@ -26,15 +26,21 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
       [ model.sceneProperty, model.cartesianScene.vectorSet2.vectors.lengthProperty, model.polarScene.vectorSet2.vectors.lengthProperty ],
       ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet2.vectors.lengthProperty.value );
 
+    const vectorSet1SymbolProperty = new DerivedProperty( [ model.sceneProperty ],
+      scene => scene.vectorSet1.symbolProperty.value );
+
+    const vectorSet2SymbolProperty = new DerivedProperty( [ model.sceneProperty ],
+      scene => scene.vectorSet2.symbolProperty.value );
+
     const sceneNameStringProperty = new DerivedStringProperty(
       [ model.sceneProperty, model.cartesianScene.sceneNameStringProperty, model.polarScene.sceneNameStringProperty ],
       scene => scene.sceneNameStringProperty.value );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty, {
       vectorSet1Size: vectorSet1SizeProperty,
-      vectorSet1Symbol: 'TODO',
+      vectorSet1Symbol: vectorSet1SymbolProperty,
       vectorSet2Size: vectorSet2SizeProperty,
-      vectorSet2Symbol: 'TODO',
+      vectorSet2Symbol: vectorSet2SymbolProperty,
       sceneName: sceneNameStringProperty
     } );
 

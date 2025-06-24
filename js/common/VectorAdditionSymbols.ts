@@ -27,7 +27,12 @@ const VectorAdditionSymbols = {
   eStringProperty: new StringProperty( 'e' ),
   fStringProperty: new StringProperty( 'f' ),
   sStringProperty: new StringProperty( 's' ), // label for sum vectors
-  vStringProperty: new StringProperty( 'v' ) // default label for vectors
+
+  // Vectors in the Lab screen
+  vStringProperty: new StringProperty( 'v' ),
+  uStringProperty: new StringProperty( 'u' ),
+  pStringProperty: new StringProperty( 'p' ),
+  qStringProperty: new StringProperty( 'q' )
 };
 
 vectorAddition.register( 'VectorAdditionSymbols', VectorAdditionSymbols );

@@ -104,7 +104,7 @@
           "value": "Turn on vector sums, values, angles, and grid. Display vector components. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset screen."
         },
         "currentDetails": {
-          "value": "Currently, {{vectorSet1Size}} vectors from set {{vectorSet1Symbol}} and {{vectorSet2Size}} vectors from set {{vectorSet1Symbol}} in graph area. {{sceneName}} scene selected."
+          "value": "Currently, {{vectorSet1Size}} vectors from set {{vectorSet1Symbol}} and {{vectorSet2Size}} vectors from set {{vectorSet2Symbol}} in graph area. {{sceneName}} scene selected."
         },
         "interactionHint": {
           "value": "Add vectors to graph area to begin exploring."
