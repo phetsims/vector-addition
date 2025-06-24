@@ -98,10 +98,10 @@
       },
       "screenSummary": {
         "playArea": {
-          "value": "Add or remove vectors in graph area. Inspect and modify vectors’ position, magnitude and direction. Erase all vectors to clear graph area."
+          "value": "There is an open graph area where you can add vectors from two sets and modify their position, magnitude, and direction. You can also explore and compare vector sums for each set."
         },
         "controlArea": {
-          "value": "Turn on vector sum, values, angles, and grid. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset the screen."
+          "value": "Turn on vector sums, values, angles, and grid. Display vector components. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset screen."
         },
         "currentDetails": {
           "value": "Currently, {{vectorSet1Size}} {{vectorSet1Color}} vectors and {{vectorSet2Size}} {{vectorSet2Color}} vectors in graph area. {{sceneName}} scene selected."
