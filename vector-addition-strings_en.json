@@ -280,10 +280,10 @@
     },
     "baseVectorsCheckbox": {
       "accessibleName": {
-        "value": "TODO.baseVectorsCheckbox.accessibleName"
+        "value": "Base Vectors"
       },
       "accessibleHelpText": {
-        "value": "TODO.baseVectorsCheckbox.accessibleHelpText"
+        "value": "Show or hide base vectors in graph area."
       }
     },
     "originManipulator": {
