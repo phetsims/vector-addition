@@ -175,7 +175,7 @@
         "value": "Vector Sum"
       },
       "accessibleHelpText": {
-        "value": "Show or hide the sum of the vectors in the graph area."
+        "value": "Show or hide vector sum in graph area."
       }
     },
     "sum1Checkbox": {
