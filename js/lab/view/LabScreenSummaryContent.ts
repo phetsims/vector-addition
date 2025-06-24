@@ -26,29 +26,15 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
       [ model.sceneProperty, model.cartesianScene.vectorSet2.vectors.lengthProperty, model.polarScene.vectorSet2.vectors.lengthProperty ],
       ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet2.vectors.lengthProperty.value );
 
-    const vectorSet1ColorStringProperty = new DerivedProperty( [
-        model.sceneProperty,
-        model.cartesianScene.vectorSet1.vectorColorPalette.descriptionNameStringProperty,
-        model.polarScene.vectorSet1.vectorColorPalette.descriptionNameStringProperty
-      ],
-      scene => scene.vectorSet1.vectorColorPalette.descriptionNameStringProperty.value );
-
-    const vectorSet2ColorStringProperty = new DerivedProperty( [
-        model.sceneProperty,
-        model.cartesianScene.vectorSet2.vectorColorPalette.descriptionNameStringProperty,
-        model.polarScene.vectorSet2.vectorColorPalette.descriptionNameStringProperty
-      ],
-      scene => scene.vectorSet2.vectorColorPalette.descriptionNameStringProperty.value );
-
     const sceneNameStringProperty = new DerivedStringProperty(
       [ model.sceneProperty, model.cartesianScene.sceneNameStringProperty, model.polarScene.sceneNameStringProperty ],
       scene => scene.sceneNameStringProperty.value );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty, {
       vectorSet1Size: vectorSet1SizeProperty,
-      vectorSet1Color: vectorSet1ColorStringProperty,
+      vectorSet1Symbol: 'TODO',
       vectorSet2Size: vectorSet2SizeProperty,
-      vectorSet2Color: vectorSet2ColorStringProperty,
+      vectorSet2Symbol: 'TODO',
       sceneName: sceneNameStringProperty
     } );
 

@@ -9,15 +9,11 @@
 import optionize from '../../../../phet-core/js/optionize.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // All colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'.
 type PaletteColor = Color | string | null;
 
 type SelfOptions = {
-
-  // Name for this color palette that will be used in interactive descriptions.
-  descriptionNameStringProperty: TReadOnlyProperty<string>;
 
   // Colors for main vectors (aka parent vectors)
   mainFill?: PaletteColor;
@@ -43,7 +39,6 @@ type VectorColorPaletteOptions = SelfOptions;
 
 export default class VectorColorPalette {
 
-  public readonly descriptionNameStringProperty: TReadOnlyProperty<string>;
   public readonly mainFill: PaletteColor;
   public readonly mainStroke: PaletteColor;
   public readonly componentFill: PaletteColor;
@@ -68,7 +63,6 @@ export default class VectorColorPalette {
       baseVectorStroke: null
     }, providedOptions );
 
-    this.descriptionNameStringProperty = options.descriptionNameStringProperty;
     this.mainFill = options.mainFill;
     this.mainStroke = options.mainStroke;
     this.componentFill = ( options.componentFill || options.mainFill );

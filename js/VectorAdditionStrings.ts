@@ -77,10 +77,6 @@ type StringsType = {
     'verticalSceneNameStringProperty': LocalizedStringProperty;
     'cartesianSceneNameStringProperty': LocalizedStringProperty;
     'polarSceneNameStringProperty': LocalizedStringProperty;
-    'blueColorPaletteNameStringProperty': LocalizedStringProperty;
-    'orangeColorPaletteNameStringProperty': LocalizedStringProperty;
-    'pinkColorPaletteNameStringProperty': LocalizedStringProperty;
-    'greenColorPaletteNameStringProperty': LocalizedStringProperty;
     'anglesCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
@@ -93,13 +89,8 @@ type StringsType = {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
-    'sum1Checkbox': {
+    'labSumCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-    };
-    'sum2Checkbox': {
-      'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'valuesCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;

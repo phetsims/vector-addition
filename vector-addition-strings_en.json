@@ -104,7 +104,7 @@
           "value": "Turn on vector sums, values, angles, and grid. Display vector components. Modify position of graph area origin. Switch between Cartesian and polar scenes, or reset screen."
         },
         "currentDetails": {
-          "value": "Currently, {{vectorSet1Size}} {{vectorSet1Color}} vectors and {{vectorSet2Size}} {{vectorSet2Color}} vectors in graph area. {{sceneName}} scene selected."
+          "value": "Currently, {{vectorSet1Size}} vectors from set {{vectorSet1Symbol}} and {{vectorSet2Size}} vectors from set {{vectorSet1Symbol}} in graph area. {{sceneName}} scene selected."
         },
         "interactionHint": {
           "value": "Add vectors to graph area to begin exploring."
@@ -142,18 +142,6 @@
     "polarSceneName": {
       "value": "Polar"
     },
-    "blueColorPaletteName": {
-      "value": "blue"
-    },
-    "orangeColorPaletteName": {
-      "value": "orange"
-    },
-    "pinkColorPaletteName": {
-      "value": "pink"
-    },
-    "greenColorPaletteName": {
-      "value": "green"
-    },
     "anglesCheckbox": {
       "accessibleName": {
         "value": "Angles"
@@ -178,23 +166,12 @@
         "value": "Show or hide vector sum in graph area."
       }
     },
-    "sum1Checkbox": {
+    "labSumCheckbox": {
       "accessibleName": {
-        "value": "Vector Sum of {{color}} vectors s<sub>v</sub>"
-      },
-      "accessibleHelpText": {
-        "value": "Show or hide the sum of the {{color}} vectors in the graph area."
+        "value": "Vector sum for set {{symbol}}, {{symbol}} sub v"
       }
     },
-    "sum2Checkbox": {
-      "accessibleName": {
-        "value": "Vector Sum of {{color}} vectors s<sub>u</sub>"
-      },
-      "accessibleHelpText": {
-        "value": "Show or hide the sum of the {{color}} vectors in the graph area."
-      }
-    },
-      "valuesCheckbox": {
+    "valuesCheckbox": {
       "accessibleHelpText": {
         "value": "Display vector and component magnitudes in graph area."
       }
