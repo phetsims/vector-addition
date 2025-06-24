@@ -113,13 +113,11 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       // Cartesian scene
       cartesianSceneNode.equationAccordionBox,
       cartesianSceneNode.vectorSetNodesParent,
-      cartesianSceneNode.graphNode.originManipulator,
       cartesianSceneNode.vectorValuesAccordionBox,
 
       // polar scene
       polarSceneNode.equationAccordionBox,
       polarSceneNode.vectorSetNodesParent,
-      polarSceneNode.graphNode.originManipulator,
       polarSceneNode.vectorValuesAccordionBox
     ];
 
@@ -128,6 +126,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       graphControlPanel,
       cartesianSceneNode.baseVectorsAccordionBox,
       polarSceneNode.baseVectorsAccordionBox,
+      cartesianSceneNode.graphNode.originManipulator,
+      polarSceneNode.graphNode.originManipulator,
       sceneRadioButtonGroup,
       this.resetAllButton
     ];

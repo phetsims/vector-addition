@@ -98,21 +98,21 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       // horizontal scene
       horizonalSceneNode.vectorCreatorPanel,
       horizonalSceneNode.vectorSetNodesParent,
-      horizonalSceneNode.graphNode.originManipulator,
       horizonalSceneNode.eraserButton,
+      horizonalSceneNode.vectorValuesAccordionBox,
 
       // vertical scene
       verticalSceneNode.vectorCreatorPanel,
       verticalSceneNode.vectorSetNodesParent,
-      verticalSceneNode.graphNode.originManipulator,
-      verticalSceneNode.eraserButton
+      verticalSceneNode.eraserButton,
+      verticalSceneNode.vectorValuesAccordionBox
     ];
 
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
-      horizonalSceneNode.vectorValuesAccordionBox,
-      verticalSceneNode.vectorValuesAccordionBox,
       graphControlPanel,
+      horizonalSceneNode.graphNode.originManipulator,
+      verticalSceneNode.graphNode.originManipulator,
       sceneRadioButtonGroup,
       this.resetAllButton
     ];
