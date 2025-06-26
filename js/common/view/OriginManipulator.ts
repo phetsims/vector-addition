@@ -55,7 +55,8 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       touchArea: Shape.circle( 2 * diameter ),
       accessibleName: VectorAdditionStrings.a11y.originManipulator.accessibleNameStringProperty,
       accessibleHelpText: VectorAdditionStrings.a11y.originManipulator.accessibleHelpTextStringProperty,
-      tandem: tandem
+      tandem: tandem,
+      phetioInputEnabledPropertyInstrumented: true
     }, AccessibleDraggableOptions );
 
     super( diameter, options );
@@ -66,8 +67,9 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( graph.boundsProperty.value.eroded( ORIGIN_DRAG_MARGIN ) );
 
     // Create a Property to track the view's origin in view coordinates
-    const originPositionProperty = new Vector2Property( origin, {
-      tandem: tandem.createTandem( 'originPositionProperty' ),
+    const positionProperty = new Vector2Property( Vector2.ZERO, {
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioDocumentation: 'Position of the origin manipulator in view coordinates, relative to the top-left corner of the graph.',
       phetioReadOnly: true
     } );
 
@@ -85,7 +87,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
 
     // Drag support for pointer and keyboard input, with sound.
     this.addInputListener( new SoundRichDragListener( {
-      positionProperty: originPositionProperty,
+      positionProperty: positionProperty,
       translateNode: false,
       dragBoundsProperty: new Property( restrictedGraphViewBounds ),
       end: () => addGraphBoundsResponse(),
@@ -97,10 +99,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     } ) );
 
     // Update the origin position.
-    originPositionProperty.lazyLink( originPosition => {
-      // Tell the model to update the origin
-      graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( originPosition ) );
-    } );
+    positionProperty.lazyLink( position => graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( position ) ) );
 
     // Observe when the model view transform changes to update the position of the circle.
     graph.modelViewTransformProperty.link( modelViewTransform => {
