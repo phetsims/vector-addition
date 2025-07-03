@@ -169,6 +169,9 @@
     "labSumCheckbox": {
       "accessibleName": {
         "value": "Vector sum for set {{symbol}}, {{symbol}} sub v"
+      },
+      "accessibleObjectResponse": {
+        "value": "Vector sum added to graph area."
       }
     },
     "equationsSumCheckbox": {
