@@ -88,6 +88,8 @@ type StringsType = {
     'sumCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseCheckedStringProperty': LocalizedStringProperty;
+      'accessibleContextResponseUncheckedStringProperty': LocalizedStringProperty;
     };
     'labSumCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;

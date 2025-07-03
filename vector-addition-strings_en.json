@@ -164,14 +164,17 @@
       },
       "accessibleHelpText": {
         "value": "Show or hide vector sum in graph area."
+      },
+      "accessibleContextResponseChecked": {
+        "value": "Vector sum added to graph area."
+      },
+      "accessibleContextResponseUnchecked": {
+        "value": "Vector sum removed from graph area."
       }
     },
     "labSumCheckbox": {
       "accessibleName": {
         "value": "Vector sum for set {{symbol}}, {{symbol}} sub v"
-      },
-      "accessibleObjectResponse": {
-        "value": "Vector sum added to graph area."
       }
     },
     "equationsSumCheckbox": {
