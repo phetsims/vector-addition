@@ -38,8 +38,8 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
       // VectorAdditionCheckboxOptions
       accessibleName: VectorAdditionStrings.a11y.sumCheckbox.accessibleNameStringProperty,
       accessibleHelpText: VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty,
-      checkedContextResponse: VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty,
-      uncheckedContextResponse: VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty
+      accessibleContextResponseChecked: VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty,
+      accessibleContextResponseUnchecked: VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty
     }, providedOptions );
 
     const textNode = new Text( VectorAdditionStrings.sumStringProperty, {
