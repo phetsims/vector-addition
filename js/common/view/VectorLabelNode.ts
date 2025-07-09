@@ -42,8 +42,8 @@ export default class VectorLabelNode extends Node {
 
     // Create the background rectangle, set as an arbitrary rectangle for now
     const backgroundRectangle = new Rectangle( 0, 0, 1, 1, {
-      fill: VectorAdditionColors.INACTIVE_VECTOR_LABEL_BACKGROUND_FILL,
-      stroke: VectorAdditionColors.INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE,
+      fill: VectorAdditionColors.inactiveVectorLabelBackgroundFillProperty,
+      stroke: VectorAdditionColors.inactiveVectorLabelBackgroundStrokeProperty,
       cornerRadius: 4
     } );
 
@@ -140,12 +140,12 @@ export default class VectorLabelNode extends Node {
    */
   public setHighlighted( highlighted: boolean ): void {
     if ( highlighted ) {
-      this.backgroundRectangle.fill = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND_FILL;
-      this.backgroundRectangle.stroke = VectorAdditionColors.ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE;
+      this.backgroundRectangle.fill = VectorAdditionColors.activeVectorLabelBackgroundFillProperty;
+      this.backgroundRectangle.stroke = VectorAdditionColors.activeVectorLabelBackgroundStrokeProperty;
     }
     else {
-      this.backgroundRectangle.fill = VectorAdditionColors.INACTIVE_VECTOR_LABEL_BACKGROUND_FILL;
-      this.backgroundRectangle.stroke = VectorAdditionColors.INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE;
+      this.backgroundRectangle.fill = VectorAdditionColors.inactiveVectorLabelBackgroundFillProperty;
+      this.backgroundRectangle.stroke = VectorAdditionColors.inactiveVectorLabelBackgroundStrokeProperty;
     }
   }
 }

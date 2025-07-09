@@ -85,10 +85,21 @@ const VectorAdditionColors = {
   //----------------------------------------------------------------------------------------
   // Label background on vectors
 
-  ACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgba( 240, 240, 100, 0.8 )', // yellow
-  ACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgba( 230, 230, 90, 0.8 )', // slightly darker yellow
-  INACTIVE_VECTOR_LABEL_BACKGROUND_FILL: 'rgba( 235, 235, 235, 0.5 )', // gray
-  INACTIVE_VECTOR_LABEL_BACKGROUND_STROKE: 'rgba( 215, 215, 215, 0.5 )', // slightly darker gray
+  activeVectorLabelBackgroundFillProperty: new ProfileColorProperty( vectorAddition, 'activeVectorLabelBackgroundFill', {
+    default: 'rgba( 240, 240, 100, 0.8 )' // yellow
+  } ),
+
+  activeVectorLabelBackgroundStrokeProperty: new ProfileColorProperty( vectorAddition, 'activeVectorLabelBackgroundStroke', {
+    default: 'rgba( 230, 230, 90, 0.8 )' // slightly darker yellow
+  } ),
+
+  inactiveVectorLabelBackgroundFillProperty: new ProfileColorProperty( vectorAddition, 'inactiveVectorLabelBackgroundFill', {
+    default: 'rgba( 235, 235, 235, 0.5 )' // transparent gray
+  } ),
+
+  inactiveVectorLabelBackgroundStrokeProperty: new ProfileColorProperty( vectorAddition, 'inactiveVectorLabelBackgroundStroke', {
+    default: 'rgba( 215, 215, 215, 0.5 )' // slightly darker transparent gray
+  } ),
 
   //----------------------------------------------------------------------------------------
   // Leader lines, for component vectors projected onto axes
