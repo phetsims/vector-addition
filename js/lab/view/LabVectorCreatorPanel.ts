@@ -40,8 +40,9 @@ export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
     // Create a slot for each VectorSet
     const slots: VectorCreatorPanelSlot[] = [];
-    scene.vectorSets.forEach( vectorSet => {
+    [ scene.vectorSet1, scene.vectorSet2 ].forEach( vectorSet => {
       slots.push( new VectorCreatorPanelSlot( scene, vectorSet, sceneNode, initialVectorComponents, {
+        symbolProperty: vectorSet.symbolProperty,
         iconArrowMagnitude: 57,
         numberOfVectors: 10 // Each slot can create 10 vectors
       } ) );
