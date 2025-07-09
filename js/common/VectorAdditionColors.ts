@@ -41,6 +41,14 @@ const VectorAdditionColors = {
     default: Color.grayColor( 225 )
   } ),
 
+  graphTickLineColorProperty: new ProfileColorProperty( vectorAddition, 'graphTickLineColor', {
+    default: 'black'
+  } ),
+
+  graphTickLabelColorProperty: new ProfileColorProperty( vectorAddition, 'graphTickLabelColor', {
+    default: Color.grayColor( 130 )
+  } ),
+
   //----------------------------------------------------------------------------------------
   // Origin manipulator
 

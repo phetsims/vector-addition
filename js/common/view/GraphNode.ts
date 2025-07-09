@@ -18,7 +18,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
@@ -44,13 +43,13 @@ const TICK_LENGTH = 1; // model units
 const ORIGIN_TICK_LENGTH = 2; // model units
 const TICK_MARK_OPTIONS = {
   lineWidth: 1,
-  stroke: Color.BLACK
+  stroke: VectorAdditionColors.graphTickLineColorProperty
 };
 
 // tick labels
 const TICK_LABEL_OPTIONS = {
   font: VectorAdditionConstants.TICK_LABEL_FONT,
-  fill: 'rgb( 130, 130, 130 )',
+  fill: VectorAdditionColors.graphTickLabelColorProperty,
   maxWidth: 30
 };
 const TICK_LABEL_SPACING = 10; // model units
