@@ -15,7 +15,6 @@ import { combineOptions } from '../../../phet-core/js/optionize.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import Color from '../../../scenery/js/util/Color.js';
-import { RectangularRadioButtonOptions } from '../../../sun/js/buttons/RectangularRadioButton.js';
 import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionColors from './VectorAdditionColors.js';
@@ -70,16 +69,19 @@ const COMPONENT_VECTOR_ARROW_OPTIONS = combineOptions<RootVectorArrowNodeOptions
 
 const RADIO_BUTTON_GROUP_OPTIONS: RectangularRadioButtonGroupOptions = {
   orientation: 'horizontal',
-  radioButtonOptions: combineOptions<RectangularRadioButtonOptions>( {
+  radioButtonOptions: {
+    baseColor: VectorAdditionColors.radioButtonBaseColorProperty,
     cornerRadius: 8,
     xMargin: 8,
     yMargin: 8,
     buttonAppearanceStrategyOptions: {
       selectedLineWidth: 1.5,
       deselectedLineWidth: 1,
-      deselectedButtonOpacity: 0.35
+      deselectedButtonOpacity: 0.35,
+      selectedStroke: VectorAdditionColors.radioButtonSelectedStrokeProperty,
+      deselectedStroke: VectorAdditionColors.radioButtonDeselectedStrokeProperty
     }
-  }, VectorAdditionColors.RADIO_BUTTON_GROUP_COLORS )
+  }
 };
 
 const PREFERENCES_CONTROL_OPTIONS: PreferencesControlOptions = {

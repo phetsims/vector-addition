@@ -70,13 +70,17 @@ const VectorAdditionColors = {
   //----------------------------------------------------------------------------------------
   // RadioButtonGroups
 
-  RADIO_BUTTON_GROUP_COLORS: {
-    baseColor: Color.WHITE,
-    buttonAppearanceStrategyOptions: {
-      selectedStroke: 'rgb( 65, 154, 201 )', // blue
-      deselectedStroke: 'rgb( 50, 50, 50 )'
-    }
-  },
+  radioButtonBaseColorProperty: new ProfileColorProperty( vectorAddition, 'radioButtonBaseColor', {
+    default: 'white'
+  } ),
+
+  radioButtonSelectedStrokeProperty: new ProfileColorProperty( vectorAddition, 'radioButtonSelectedStroke', {
+    default: 'rgb( 65, 154, 201 )' // blue
+  } ),
+
+  radioButtonDeselectedStrokeProperty: new ProfileColorProperty( vectorAddition, 'radioButtonDeselectedStroke', {
+    default: Color.grayColor( 50 )
+  } ),
 
   //----------------------------------------------------------------------------------------
   // Label background on vectors
