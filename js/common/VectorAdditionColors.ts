@@ -104,8 +104,13 @@ const VectorAdditionColors = {
   //----------------------------------------------------------------------------------------
   // Leader lines, for component vectors projected onto axes
 
-  LEADER_LINES_NON_ACTIVE_STROKE: Color.BLACK, // stroke when the vector isn't active
-  LEADER_LINES_ACTIVE_STROKE: Color.BLACK, // stroke when the vector is active
+  leaderLinesActiveStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesActiveStroke', {
+    default: 'black'
+  } ),
+
+  leaderLinesInactiveStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesInactiveStroke', {
+    default: 'black'
+  } ),
 
   //----------------------------------------------------------------------------------------
   // Vector color palettes

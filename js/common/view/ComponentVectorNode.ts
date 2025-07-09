@@ -166,11 +166,11 @@ export default class ComponentVectorNode extends RootVectorNode {
         .lineToPoint( parentTipPosition );
 
       if ( isParentActive ) {
-        this.leaderLinesPath.stroke = VectorAdditionColors.LEADER_LINES_ACTIVE_STROKE;
+        this.leaderLinesPath.stroke = VectorAdditionColors.leaderLinesActiveStrokeProperty;
         this.leaderLinesPath.lineDash = ACTIVE_LEADER_LINES_DASH;
       }
       else {
-        this.leaderLinesPath.stroke = VectorAdditionColors.LEADER_LINES_NON_ACTIVE_STROKE;
+        this.leaderLinesPath.stroke = VectorAdditionColors.leaderLinesInactiveStrokeProperty;
         this.leaderLinesPath.lineDash = NON_ACTIVE_LEADER_LINES_DASH;
       }
     }
