@@ -27,13 +27,30 @@ const VectorAdditionColors = {
   } ),
 
   //----------------------------------------------------------------------------------------
-  // VectorAdditionScene
+  // Graph
 
-  GRAPH_BACKGROUND_COLOR: Color.WHITE,
-  GRAPH_MAJOR_LINE_COLOR: 'rgb( 212, 212, 212 )', // gray
-  GRAPH_MINOR_LINE_COLOR: 'rgb( 225, 225, 225 )', // lighter gray
+  graphBackgroundColorProperty: new ProfileColorProperty( vectorAddition, 'graphBackgroundColor', {
+    default: 'white'
+  } ),
 
-  ORIGIN_COLOR: 'rgb( 150, 150, 150 )',
+  graphMajorLineColorProperty: new ProfileColorProperty( vectorAddition, 'graphMajorLineColor', {
+    default: Color.grayColor( 212 )
+  } ),
+
+  graphMinorLineColorProperty: new ProfileColorProperty( vectorAddition, 'graphMinorLineColor', {
+    default: Color.grayColor( 225 )
+  } ),
+
+  //----------------------------------------------------------------------------------------
+  // Origin manipulator
+
+  originColorProperty: new ProfileColorProperty( vectorAddition, 'originColor', {
+    default: Color.grayColor( 150 )
+  } ),
+
+  originHighlightColorProperty: new ProfileColorProperty( vectorAddition, 'originHighlightColor', {
+    default: 'white'
+  } ),
 
   //----------------------------------------------------------------------------------------
   // Panel-like containers

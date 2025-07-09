@@ -12,7 +12,6 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
-import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -22,12 +21,12 @@ import Graph from '../model/Graph.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 // the closest the user can drag the origin to the edge of the graph, in model units
 const ORIGIN_DRAG_MARGIN = 5;
 
 // origin
-const ORIGIN_COLOR = Color.toColor( VectorAdditionColors.ORIGIN_COLOR );
 const ORIGIN_DIAMETER = 0.8; // in model coordinates
 
 export default class OriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
@@ -46,10 +45,10 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     const options = combineOptions<ShadedSphereNodeOptions>( {
       isDisposable: false,
       cursor: 'move',
-      mainColor: ORIGIN_COLOR,
-      highlightColor: Color.WHITE,
-      shadowColor: ORIGIN_COLOR.darkerColor(),
-      stroke: ORIGIN_COLOR.darkerColor(),
+      mainColor: VectorAdditionColors.originColorProperty,
+      highlightColor: VectorAdditionColors.originHighlightColorProperty,
+      shadowColor: new DerivedProperty( [ VectorAdditionColors.originColorProperty ], originColor => originColor.darkerColor() ),
+      stroke: new DerivedProperty( [ VectorAdditionColors.originColorProperty ], originColor => originColor.darkerColor() ),
       lineWidth: 1,
       center: origin,
       touchArea: Shape.circle( 2 * diameter ),

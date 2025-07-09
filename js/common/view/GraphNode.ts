@@ -69,8 +69,8 @@ export default class GraphNode extends Node {
     const graphViewBounds = graph.viewBounds;
 
     const background = new Rectangle( graphViewBounds, {
-      fill: VectorAdditionColors.GRAPH_BACKGROUND_COLOR,
-      stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR,
+      fill: VectorAdditionColors.graphBackgroundColorProperty,
+      stroke: VectorAdditionColors.graphMinorLineColorProperty,
       lineWidth: MINOR_GRID_LINE_WIDTH
     } );
 
@@ -120,13 +120,13 @@ class MajorAndMinorGridLines extends Node {
     const majorGridLines = new GridLines( graph, graphViewBounds, {
       spacing: MAJOR_TICK_SPACING,
       lineWidth: MAJOR_GRID_LINE_WIDTH,
-      stroke: VectorAdditionColors.GRAPH_MAJOR_LINE_COLOR
+      stroke: VectorAdditionColors.graphMajorLineColorProperty
     } );
 
     const minorGridLinesPath = new GridLines( graph, graphViewBounds, {
       spacing: MINOR_TICK_SPACING,
       lineWidth: MINOR_GRID_LINE_WIDTH,
-      stroke: VectorAdditionColors.GRAPH_MINOR_LINE_COLOR
+      stroke: VectorAdditionColors.graphMinorLineColorProperty
     } );
 
     super( {
