@@ -75,7 +75,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
         gridCheckbox,
 
         // separator
-        new HSeparator( { stroke: VectorAdditionColors.SEPARATOR_STROKE } ),
+        new HSeparator( { stroke: VectorAdditionColors.separatorStrokeProperty } ),
 
         // Radio button group
         new ComponentsControl( componentVectorStyleProperty, options.tandem.createTandem( 'componentsControl' ) )

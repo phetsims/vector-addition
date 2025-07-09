@@ -15,16 +15,15 @@ import { combineOptions } from '../../../phet-core/js/optionize.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import Color from '../../../scenery/js/util/Color.js';
-import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
 import { RectangularRadioButtonOptions } from '../../../sun/js/buttons/RectangularRadioButton.js';
 import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';
-import { PanelOptions } from '../../../sun/js/Panel.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionColors from './VectorAdditionColors.js';
 import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';
 import VectorAdditionSymbols from './VectorAdditionSymbols.js';
 import { RootVectorArrowNodeOptions } from './view/RootVectorNode.js';
 import { PreferencesControlOptions } from '../../../joist/js/preferences/PreferencesControl.js';
+import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
 
 // shared constants within this file
 const PANEL_CORNER_RADIUS = 5;
@@ -32,7 +31,7 @@ const PANEL_X_MARGIN = 9;
 const PANEL_Y_MARGIN = 10;
 const RIGHT_PANEL_WIDTH = 175; // fixed width of panels and accordion boxes on right side of the screen
 
-const ACCORDION_BOX_OPTIONS = combineOptions<AccordionBoxOptions>( {
+const ACCORDION_BOX_OPTIONS: AccordionBoxOptions = {
   cornerRadius: PANEL_CORNER_RADIUS,
   contentXMargin: PANEL_X_MARGIN,
   contentYMargin: PANEL_Y_MARGIN,
@@ -48,8 +47,10 @@ const ACCORDION_BOX_OPTIONS = combineOptions<AccordionBoxOptions>( {
     sideLength: 22,
     touchAreaXDilation: 6,
     touchAreaYDilation: 6
-  }
-}, VectorAdditionColors.PANEL_COLORS );
+  },
+  fill: VectorAdditionColors.panelFillProperty,
+  stroke: VectorAdditionColors.panelStrokeProperty
+};
 
 // options for vector arrows (ArrowNode)
 const VECTOR_ARROW_OPTIONS: RootVectorArrowNodeOptions = {
@@ -141,11 +142,13 @@ const VectorAdditionConstants = {
   //----------------------------------------------------------------------------------------
   // Panel-like containers
 
-  PANEL_OPTIONS: combineOptions<PanelOptions>( {
+  PANEL_OPTIONS: {
     cornerRadius: PANEL_CORNER_RADIUS,
     xMargin: PANEL_X_MARGIN,
-    yMargin: PANEL_Y_MARGIN
-  }, VectorAdditionColors.PANEL_COLORS ),
+    yMargin: PANEL_Y_MARGIN,
+    fill: VectorAdditionColors.panelFillProperty,
+    stroke: VectorAdditionColors.panelStrokeProperty
+  },
 
   PANEL_X_MARGIN: PANEL_X_MARGIN,
   PANEL_Y_MARGIN: PANEL_Y_MARGIN,

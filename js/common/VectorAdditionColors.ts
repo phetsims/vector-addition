@@ -38,12 +38,17 @@ const VectorAdditionColors = {
   //----------------------------------------------------------------------------------------
   // Panel-like containers
 
-  PANEL_COLORS: {
-    stroke: 'rgb( 190, 190, 190 )',
-    fill: 'rgb( 240, 240, 240 )'
-  },
+  panelStrokeProperty: new ProfileColorProperty( vectorAddition, 'panelStroke', {
+    default: Color.grayColor( 190 )
+  } ),
 
-  SEPARATOR_STROKE: Color.grayColor( 180 ),
+  panelFillProperty: new ProfileColorProperty( vectorAddition, 'panelFill', {
+    default: Color.grayColor( 240 )
+  } ),
+
+  separatorStrokeProperty: new ProfileColorProperty( vectorAddition, 'separatorStroke', {
+    default: Color.grayColor( 180 )
+  } ),
 
   //----------------------------------------------------------------------------------------
   // RadioButtonGroups
