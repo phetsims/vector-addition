@@ -17,6 +17,7 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import vectorAddition from '../../vectorAddition.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 // const
 const DEFAULT_FONT = new MathSymbolFont( 18 );
@@ -31,7 +32,7 @@ type ArrowOverSymbolNodeOptions = SelfOptions & PickOptional<NodeOptions, 'maxWi
 
 export default class ArrowOverSymbolNode extends Node {
 
-  private readonly symbolText: Text;
+  private readonly symbolText: RichText;
   private readonly rightArrowNode: Node;
   private readonly spacing: number;
 
@@ -45,10 +46,10 @@ export default class ArrowOverSymbolNode extends Node {
       arrowScale: 0.65
     }, providedOptions );
 
-    const symbolText = new Text( symbolProperty, {
+    const symbolText = new RichText( symbolProperty, {
       font: options.font,
       boundsMethod: 'accurate', // so that options.spacing is effective
-      maxWidth: 12
+      maxWidth: 20
     } );
 
     const rightArrowNode = new Text( '\u2192', {
