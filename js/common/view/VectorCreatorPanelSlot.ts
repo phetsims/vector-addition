@@ -125,7 +125,7 @@ export default class VectorCreatorPanelSlot extends HBox {
     }
 
     //----------------------------------------------------------------------------------------
-    // Creation of Vectors (See ## Implementation of creation of Vectors above)
+    // Creation of Vectors (See 'Implementation' documentation above)
     //----------------------------------------------------------------------------------------
 
     iconNode.addInputListener( SoundDragListener.createForwardingListener( event => {
