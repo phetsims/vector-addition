@@ -138,7 +138,7 @@ export default abstract class RootVector extends PhetioObject {
    *  - Whether the values are visible (determined by the values checkbox)
    *  - Whether the magnitude/component is of length 0. See
    *    https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit#bookmark=id.kmeaaeg3ukx9
-   *  - Whether the vector has a symbol (e.g. the vectors on lab screen don't have symbols)
+   *  - Whether the vector has a symbol.
    *  - Whether the vector is active (https://github.com/phetsims/vector-addition/issues/39#issuecomment-506586411)
    *
    * These factors play different roles for different vector types, making it difficult to generalize. Thus, an
