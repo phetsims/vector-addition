@@ -5,14 +5,14 @@
  *
  * A slot creates a Vector when the icon is clicked.
  *
- * ## Slots can differ in:
+ * Slots can differ in:
  *  - Icon colors and sizes
  *  - Infinite slot versus only one vector per slot
  *  - Having symbols versus not having symbols
  *  - Icon components and initial vector components (e.g. on Explore 1D the initial vectors are horizontal/vertical
  *    while on Explore 2D the vectors are 45 degrees)
  *
- * ## Implementation of creation of Vectors:
+ * Implementation of creation of Vectors:
  *  1. Once the icon is clicked, a Vector is made.
  *  2. A call to the VectorAdditionSceneNode is made, passing the created Vector. The Scene Node then creates the subsequent views
  *     for the Vector (VectorNode and VectorComponentNode), layering the views correctly and forwarding the event.
