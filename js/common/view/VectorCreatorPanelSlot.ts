@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View for a single 'slot' on the VectorCreatorPanel (./VectorCreatorPanel.js).
+ * VectorCreatorPanelSlot is a single 'slot' on the VectorCreatorPanel.
  *
  * A slot creates a Vector when the icon is clicked.
  *
