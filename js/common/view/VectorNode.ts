@@ -298,10 +298,6 @@ export default class VectorNode extends RootVectorNode {
         vectorShadowNode.setTip( tipDeltaPosition.x, tipDeltaPosition.y );
       } );
 
-    // Show the vector's label when it's on the graph. Must be unlinked.
-    const isOnGraphListener = ( isOnGraph: boolean ) => ( this.labelNode.visible = isOnGraph );
-    vector.isOnGraphProperty.link( isOnGraphListener );
-
     // Highlight the vector's label when it is selected. Must be unlinked.
     const activeVectorListener = ( activeVector: Vector | null ) => {
       this.labelNode.setHighlighted( activeVector === vector );
@@ -330,7 +326,6 @@ export default class VectorNode extends RootVectorNode {
 
       // Dispose of appearance-related listeners
       Multilink.unmultilink( shadowMultilink );
-      vector.isOnGraphProperty.unlink( isOnGraphListener );
       scene.activeVectorProperty.unlink( activeVectorListener );
       this.vector.animateBackProperty.unlink( animateBackListener );
     };
