@@ -19,10 +19,8 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
-import { LabelDisplayData } from './RootVector.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -106,36 +104,6 @@ export default class SumVector extends Vector {
 
     // The sum is defined if there is at least one vector on the scene.
     this.isDefinedProperty.value = ( onGraphVectors.length > 0 );
-  }
-
-  /**
-   * See RootVector.getLabelDisplayData for details.
-   */
-  public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
-
-    // The sum vector displays its symbol when:
-    // - there is only one sum vector on the scene (see https://github.com/phetsims/vector-addition/issues/241), or
-    // - the sum vector is selected, or
-    // - a vector in the sum's vector set is selected
-    const activeVector = this.scene.activeVectorProperty.value;
-    const isSymbolDisplayed = this.scene.vectorSets.length === 1 ||
-                              activeVector === this ||
-                              this.vectorSet.vectors.some( vector => vector === activeVector );
-
-    if ( isSymbolDisplayed ) {
-
-      // No change in behavior - do like we do for other vectors.
-      return super.getLabelDisplayData( valuesVisible );
-    }
-    else {
-
-      // Omit the symbol, display only the value, if values are visible.
-      return combineOptions<LabelDisplayData>( super.getLabelDisplayData( valuesVisible ), {
-        symbolProperty: null,
-        includeAbsoluteValueBars: false,
-        magnitude: valuesVisible ? this.magnitude : null
-      } );
-    }
   }
 }
 
