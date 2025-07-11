@@ -13,7 +13,9 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import Property from '../../../../axon/js/Property.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -38,7 +40,16 @@ export default class LabVectorSet extends VectorSet {
                       vectorColorPalette: VectorColorPalette,
                       providedOptions: LabVectorSetOptions ) {
 
-    super( scene, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, providedOptions );
+    const options = optionize<LabVectorSetOptions, SelfOptions, VectorSetOptions>()( {
+
+      // VectorSetOptions
+      // Sum vectors are labeled with 's' and the vector set symbol subscript.
+      sumSymbolProperty: new DerivedProperty(
+        [ VectorAdditionSymbols.sStringProperty, symbolProperty ],
+        ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` )
+    }, providedOptions );
+
+    super( scene, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, options );
 
     this.symbolProperty = symbolProperty;
   }

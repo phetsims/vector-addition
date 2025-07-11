@@ -45,6 +45,8 @@ type SelfOptions = {
   // Offsets for sum component vectors in PROJECTION style
   sumProjectionXOffset?: number;
   sumProjectionYOffset?: number;
+
+  sumSymbolProperty?: TReadOnlyProperty<string>;
 };
 
 export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -101,6 +103,7 @@ export default class VectorSet extends PhetioObject {
       projectionYOffsetDelta: -offsetDelta,
       sumProjectionXOffset: offsetStart,
       sumProjectionYOffset: offsetStart,
+      sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
 
       // PhetioObjectOptions
       isDisposable: false,
@@ -120,7 +123,7 @@ export default class VectorSet extends PhetioObject {
     this.sumProjectionYOffset = options.sumProjectionYOffset;
 
     if ( options.initializeSum ) {
-      this._sumVector = new SumVector( options.initialSumTailPosition, scene, this, VectorAdditionSymbols.sStringProperty,
+      this._sumVector = new SumVector( options.initialSumTailPosition, scene, this, options.sumSymbolProperty,
         options.tandem.createTandem( 'sumVector' ) );
       this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
