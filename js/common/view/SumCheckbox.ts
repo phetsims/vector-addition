@@ -74,9 +74,10 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
     } );
 
     // The label is all of the text elements
+    const parenSpace = 2; // space inside parentheses
     const labelNode = options.alignGroup.createBox( new HBox( {
       align: 'origin', // so that text baselines are aligned
-      children: [ textNode, new HStrut( 6 ), leftParenNode, arrowOverSymbolNode, rightParenNode ]
+      children: [ textNode, new HStrut( 6 ), leftParenNode, new HStrut( parenSpace ), arrowOverSymbolNode, new HStrut( parenSpace ), rightParenNode ]
     } ) );
 
     const vectorIcon = VectorAdditionIconFactory.createVectorIcon( 35, {
