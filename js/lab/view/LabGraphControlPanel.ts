@@ -29,6 +29,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -63,11 +64,15 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       polarScene.vectorSet2.symbolProperty
     ], ( scene, sString, cartestianSymbol, polarSymbol ) => `${sString}<sub>${scene.vectorSet2.symbolProperty.value}</sub>` );
 
+    // To left-align vector icons for the 2 sum checkboxes.
+    const alignGroup = new AlignGroup();
+
     // Sum checkbox for vector set 1, with vector symbol and color determined by the selected scene.
     const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, {
       sumSymbolProperty: sum1SymbolProperty,
       vectorIconFill: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet1.vectorColorPalette.sumFill ),
       vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet1.vectorColorPalette.sumStroke ),
+      alignGroup: alignGroup,
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
         symbol: new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet1.symbolProperty.value )
       } ),
@@ -79,6 +84,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
       sumSymbolProperty: sum2SymbolProperty,
       vectorIconFill: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet2.vectorColorPalette.sumFill ),
       vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet2.vectorColorPalette.sumStroke ),
+      alignGroup: alignGroup,
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
         symbol: new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet2.symbolProperty.value )
       } ),

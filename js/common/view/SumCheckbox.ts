@@ -23,11 +23,16 @@ import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 
 type SelfOptions = {
   vectorIconFill: TColor;
   vectorIconStroke: TColor;
   sumSymbolProperty?: TReadOnlyProperty<string>;
+
+  // Use this if you have multiple Sum checkboxes and want to align their vectorIcons.
+  // It makes labelNode (the text components of the checkbox) have the same effective size.
+  alignGroup?: AlignGroup;
 };
 
 export type SumCheckboxOptions = SelfOptions &
@@ -42,6 +47,7 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
 
       // SelfOptions
       sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
+      alignGroup: new AlignGroup(),
 
       // VectorAdditionCheckboxOptions
       accessibleName: VectorAdditionStrings.a11y.sumCheckbox.accessibleNameStringProperty,
@@ -68,10 +74,10 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
     } );
 
     // The label is all of the text elements
-    const labelNode = new HBox( {
+    const labelNode = options.alignGroup.createBox( new HBox( {
       align: 'origin', // so that text baselines are aligned
       children: [ textNode, new HStrut( 6 ), leftParenNode, arrowOverSymbolNode, rightParenNode ]
-    } );
+    } ) );
 
     const vectorIcon = VectorAdditionIconFactory.createVectorIcon( 35, {
       fill: options.vectorIconFill,
