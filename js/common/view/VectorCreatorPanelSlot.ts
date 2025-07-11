@@ -134,16 +134,16 @@ export default class VectorCreatorPanelSlot extends HBox {
       // Step 1: When the icon is clicked, create a new Vector
       //----------------------------------------------------------------------------------------
 
-      // Find where the icon was clicked relative to the scene node (view coordinates)
+      // Find where the icon was clicked relative to the scene node, in view coordinates.
       const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
 
-      // Convert the view coordinates of where the icon was clicked into model coordinates
+      // Convert the view coordinates of where the icon was clicked into model coordinates.
       const vectorCenterModel = scene.graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
-      // Calculate where the tail position is relative to the scene node
+      // Calculate where the tail position is relative to the scene node.
       const vectorTailPosition = vectorCenterModel.minus( initialVectorComponents.timesScalar( 0.5 ) );
 
-      // Create the new Vector Model
+      // Create the Vector.
       const vector = new Vector( vectorTailPosition, initialVectorComponents, scene, vectorSet, options.symbolProperty );
 
       vectorSet.vectors.push( vector );
