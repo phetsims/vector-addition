@@ -74,6 +74,7 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 export default class EquationsVectorSet extends VectorSet {
 
   public readonly symbolProperties: TReadOnlyProperty<string>[];
+  public readonly sumSymbolProperty: TReadOnlyProperty<string>;
 
   // We need to know about EquationsVector instances, a specialization of Vector.
   // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
@@ -132,10 +133,12 @@ export default class EquationsVectorSet extends VectorSet {
       this.equationsVectors.push( vector );
     }
 
-    // Create the sum vector
     const sumSymbolProperty = ( coordinateSnapMode === 'cartesian' ) ? VectorAdditionSymbols.cStringProperty : VectorAdditionSymbols.fStringProperty;
-    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, sumSymbolProperty, tandem.createTandem( 'sumVector' ) );
+    this.sumSymbolProperty = sumSymbolProperty;
     this.symbolProperties.push( sumSymbolProperty );
+
+    // Create the sum vector
+    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, sumSymbolProperty, tandem.createTandem( 'sumVector' ) );
     this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 

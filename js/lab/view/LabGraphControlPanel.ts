@@ -48,21 +48,25 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
     const options = providedOptions;
 
+    // Symbol for the selected vector set 1.
+    const vectorSet1SymbolProperty = new DerivedStringProperty(
+      [ sceneProperty, cartesianScene.vectorSet1.symbolProperty, polarScene.vectorSet1.symbolProperty ],
+      scene => scene.vectorSet1.symbolProperty.value
+    );
+
+    // Symbol for the selected vector set 2.
+    const vectorSet2SymbolProperty = new DerivedStringProperty(
+      [ sceneProperty, cartesianScene.vectorSet2.symbolProperty, polarScene.vectorSet2.symbolProperty ],
+      scene => scene.vectorSet2.symbolProperty.value
+    );
+
     // Sum symbol for vector set 1 is based on the selected scene and dynamic string dependencies.
-    const sum1SymbolProperty = new DerivedProperty( [
-      sceneProperty,
-      VectorAdditionSymbols.sStringProperty,
-      cartesianScene.vectorSet1.symbolProperty,
-      polarScene.vectorSet1.symbolProperty
-    ], ( scene, sString, cartestianSymbol, polarSymbol ) => `${sString}<sub>${scene.vectorSet1.symbolProperty.value}</sub>` );
+    const sum1SymbolProperty = new DerivedProperty( [ VectorAdditionSymbols.sStringProperty, vectorSet1SymbolProperty ],
+      ( sString, subscriptString ) => `${sString}<sub>${subscriptString}</sub>` );
 
     // Sum symbol for vector set 2 is based on the selected scene and dynamic string dependencies.
-    const sum2SymbolProperty = new DerivedProperty( [
-      sceneProperty,
-      VectorAdditionSymbols.sStringProperty,
-      cartesianScene.vectorSet2.symbolProperty,
-      polarScene.vectorSet2.symbolProperty
-    ], ( scene, sString, cartestianSymbol, polarSymbol ) => `${sString}<sub>${scene.vectorSet2.symbolProperty.value}</sub>` );
+    const sum2SymbolProperty = new DerivedProperty( [ VectorAdditionSymbols.sStringProperty, vectorSet2SymbolProperty ],
+      ( sString, subscriptString ) => `${sString}<sub>${subscriptString}</sub>` );
 
     // To left-align vector icons for the 2 sum checkboxes.
     const alignGroup = new AlignGroup();
@@ -70,11 +74,17 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     // Sum checkbox for vector set 1, with vector symbol and color determined by the selected scene.
     const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, {
       sumSymbolProperty: sum1SymbolProperty,
+      sumSymbolDescriptionProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
+        symbol: VectorAdditionSymbols.sStringProperty,
+        subscript: vectorSet1SymbolProperty
+      } ),
       vectorIconFill: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet1.vectorColorPalette.sumFill ),
       vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet1.vectorColorPalette.sumStroke ),
       alignGroup: alignGroup,
+
+      // "Vector Sum for Set {{vectorSetSymbol}}"
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
-        symbol: new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet1.symbolProperty.value )
+        vectorSetSymbol: vectorSet1SymbolProperty
       } ),
       tandem: options.tandem.createTandem( 'sum1Checkbox' )
     } );
@@ -82,11 +92,17 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     // Sum checkbox for vector set 2, with vector symbol and color determined by the selected scene.
     const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, {
       sumSymbolProperty: sum2SymbolProperty,
+      sumSymbolDescriptionProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
+        symbol: VectorAdditionSymbols.sStringProperty,
+        subscript: vectorSet2SymbolProperty
+      } ),
       vectorIconFill: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet2.vectorColorPalette.sumFill ),
       vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet2.vectorColorPalette.sumStroke ),
       alignGroup: alignGroup,
+
+      // "Vector Sum for Set {{vectorSetSymbol}}"
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
-        symbol: new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet2.symbolProperty.value )
+        vectorSetSymbol: vectorSet2SymbolProperty
       } ),
       tandem: options.tandem.createTandem( 'sum2Checkbox' )
     } );

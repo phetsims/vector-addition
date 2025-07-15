@@ -96,7 +96,6 @@ type StringsType = {
     };
     'equationsSumCheckbox': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'valuesCheckbox': {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
@@ -167,7 +166,8 @@ type StringsType = {
     };
     'vectorValuesAccordionBox': {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
-    }
+    };
+    'symbolWithSubscriptDescriptionStringProperty': LocalizedStringProperty;
   }
 };
 
