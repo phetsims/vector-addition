@@ -58,15 +58,18 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
 
     // Create a slot for each symbol
     const panelSlots: VectorCreatorPanelSlot[] = [];
-    for ( let i = 0; i < symbolProperties.length; i++ ) {
-      panelSlots.push( new VectorCreatorPanelSlot( scene, scene.vectorSet, sceneNode, initialVectorComponents[ i ], {
-        symbolProperty: symbolProperties[ i ],
+    symbolProperties.forEach( ( symbolProperty, index ) => {
+      panelSlots.push( new VectorCreatorPanelSlot( scene, scene.vectorSet, sceneNode, initialVectorComponents[ index ], {
+        symbolProperty: symbolProperty,
         iconArrowMagnitude: 35,
 
         // all icons in the slots look the same, see https://github.com/phetsims/vector-addition/issues/227
-        iconVectorComponents: new Vector2( 1, 1 )
+        iconVectorComponents: new Vector2( 1, 1 ),
+
+        //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API if symbolProperty is localized.
+        tandem: options.tandem.createTandem( `${symbolProperty.value}Slot` )
       } ) );
-    }
+    } );
 
     super( panelSlots, options );
   }

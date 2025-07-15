@@ -37,6 +37,7 @@ import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
 // contains the same local width regardless of the initial vector components. This ensures that
@@ -55,7 +56,7 @@ type SelfOptions = {
   iconPointerAreaYDilation?: number;
 };
 
-type VectorCreatorPanelSlotOptions = SelfOptions;
+type VectorCreatorPanelSlotOptions = SelfOptions & PickRequired<HBox, 'tandem'>;
 
 export default class VectorCreatorPanelSlot extends InteractiveHighlighting( HBox ) {
 

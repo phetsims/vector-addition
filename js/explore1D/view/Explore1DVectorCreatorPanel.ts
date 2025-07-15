@@ -54,7 +54,10 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
         // pointer area dilation for icons, identical for mouseArea and touchArea,
         // see https://github.com/phetsims/vector-addition/issues/250
         iconPointerAreaXDilation: isHorizontal ? 10 : 20,
-        iconPointerAreaYDilation: isHorizontal ? 15 : 5
+        iconPointerAreaYDilation: isHorizontal ? 15 : 5,
+
+        //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API if symbolProperty is localized.
+        tandem: options.tandem.createTandem( `${symbolProperty.value}Slot` )
       } ) );
     } );
 
