@@ -43,7 +43,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
       // ComponentVectorNodeOptions
       isDisposable: false,
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.SUM_COMPONENT_VECTOR_ARROW_OPTIONS, {
-        fill: componentVector.vectorColorPalette.sumComponentFill
+        fill: componentVector.vectorColorPalette.sumComponentFillProperty
       } )
     }, providedOptions );
 

@@ -78,8 +78,16 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         symbol: VectorAdditionSymbols.sStringProperty,
         subscript: vectorSet1SymbolProperty
       } ),
-      vectorIconFill: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet1.vectorColorPalette.sumFill ),
-      vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet1.vectorColorPalette.sumStroke ),
+      vectorIconFill: new DerivedProperty( [
+        sceneProperty,
+        cartesianScene.vectorSet1.vectorColorPalette.sumFillProperty,
+        polarScene.vectorSet1.vectorColorPalette.sumFillProperty
+      ], scene => scene.vectorSet1.vectorColorPalette.sumFillProperty.value ),
+      vectorIconStroke: new DerivedProperty( [
+        sceneProperty,
+        cartesianScene.vectorSet1.vectorColorPalette.sumStrokeProperty,
+        polarScene.vectorSet1.vectorColorPalette.sumStrokeProperty
+      ], scene => scene.vectorSet1.vectorColorPalette.sumStrokeProperty.value ),
       alignGroup: alignGroup,
 
       // "Vector Sum for Set {{vectorSetSymbol}}"
@@ -96,8 +104,16 @@ export default class LabGraphControlPanel extends GraphControlPanel {
         symbol: VectorAdditionSymbols.sStringProperty,
         subscript: vectorSet2SymbolProperty
       } ),
-      vectorIconFill: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet2.vectorColorPalette.sumFill ),
-      vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene => scene.vectorSet2.vectorColorPalette.sumStroke ),
+      vectorIconFill: new DerivedProperty( [
+        sceneProperty,
+        cartesianScene.vectorSet2.vectorColorPalette.sumFillProperty,
+        polarScene.vectorSet2.vectorColorPalette.sumFillProperty
+      ], scene => scene.vectorSet2.vectorColorPalette.sumFillProperty.value ),
+      vectorIconStroke: new DerivedProperty( [
+        sceneProperty,
+        cartesianScene.vectorSet2.vectorColorPalette.sumStrokeProperty,
+        polarScene.vectorSet2.vectorColorPalette.sumStrokeProperty
+      ], scene => scene.vectorSet2.vectorColorPalette.sumStrokeProperty.value ),
       alignGroup: alignGroup,
 
       // "Vector Sum for Set {{vectorSetSymbol}}"

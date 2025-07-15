@@ -12,11 +12,6 @@ import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.
 import vectorAddition from '../vectorAddition.js';
 import VectorColorPalette from './model/VectorColorPalette.js';
 
-// Colors that are used in more than one VectorColorPalette
-const BLUE = 'rgb( 10, 170, 250 )';
-const PINK = '#f149ff';
-const EQUATIONS_SUM_FILL = Color.BLACK;
-
 const VectorAdditionColors = {
 
   //----------------------------------------------------------------------------------------
@@ -91,7 +86,7 @@ const VectorAdditionColors = {
   } ),
 
   componentStyleIconColorProperty: new ProfileColorProperty( vectorAddition, 'componentStyleIconColor', {
-    default: BLUE
+    default: 'rgb( 10, 170, 250 )' // blue
   } ),
 
   eyeIconFillProperty: new ProfileColorProperty( vectorAddition, 'eyeIconFill', {
@@ -131,35 +126,104 @@ const VectorAdditionColors = {
   //----------------------------------------------------------------------------------------
   // Vector color palettes
 
-  BLUE_COLOR_PALETTE: new VectorColorPalette( {
-    mainFill: BLUE,
-    sumFill: '#0a46fa' // darker blue
+  // Explore 1D screen, horizontal scene
+  EXPLORE_1D_HORIZONTAL_COLOR_PALETTE: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.mainFill', {
+      default: 'rgb( 10, 170, 250 )' // blue
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.sumFill', {
+      default: '#0a46fa' // darker blue
+    } )
   } ),
 
-  ORANGE_COLOR_PALETTE: new VectorColorPalette( {
-    mainFill: '#ff9023', // orange
-    sumFill: '#d20000' // red
+  // Explore 1D screen, vertical scene
+  EXPLORE_1D_VERTICAL_COLOR_PALETTE: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.mainFill', {
+      default: 'rgb( 10, 170, 250 )' // blue
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.sumFill', {
+      default: '#0a46fa' // darker blue
+    } )
   } ),
 
-  PINK_COLOR_PALETTE: new VectorColorPalette( {
-    mainFill: PINK,
-    sumFill: '#a200de' // darker purple
+  // Explore 2D screen, Cartesian scene
+  EXPLORE_2D_CARTESIAN_COLOR_PALETTE: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.mainFill', {
+      default: 'rgb( 10, 170, 250 )' // blue
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.sumFill', {
+      default: '#0a46fa' // darker blue
+    } )
   } ),
 
-  GREEN_COLOR_PALETTE: new VectorColorPalette( {
-    mainFill: 'rgb( 5, 200, 0 )', // green
-    sumFill: '#058200' // darker green
+  // Explore 2D screen, polar scene
+  EXPLORE_2D_POLAR_COLOR_PALETTE: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.mainFill', {
+      default: '#f149ff' // pink
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.sumFill', {
+      default: '#a200de' // darker purple
+    } )
   } ),
 
-  // Equations screen
-  EQUATIONS_BLUE_COLOR_PALETTE: new VectorColorPalette( {
-    mainFill: BLUE,
-    sumFill: EQUATIONS_SUM_FILL
+  // Lab scene, Cartesian scene, vector set 1
+  LAB_CARTESIAN_COLOR_PALETTE_1: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.mainFill', {
+      default: 'rgb( 10, 170, 250 )' // blue
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.sumFill', {
+      default: '#0a46fa' // darker blue
+    } )
   } ),
 
-  EQUATIONS_PINK_COLOR_PALETTE: new VectorColorPalette( {
-    mainFill: PINK,
-    sumFill: EQUATIONS_SUM_FILL
+  // Lab scene, Cartesian scene, vector set 2
+  LAB_CARTESIAN_COLOR_PALETTE_2: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.mainFill', {
+      default: '#ff9023' // orange
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.sumFill', {
+      default: '#d20000' // red
+    } )
+  } ),
+
+  // Lab scene, polar scene, vector set 1
+  LAB_POLAR_COLOR_PALETTE_1: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.mainFill', {
+      default: '#f149ff' // pink
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.sumFill', {
+      default: '#a200de' // darker purple
+    } )
+  } ),
+
+  // Lab scene, polar scene, vector set 2
+  LAB_POLAR_COLOR_PALETTE_2: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.mainFill', {
+      default: 'rgb( 5, 200, 0 )' // green
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.sumFill', {
+      default: '#058200' // darker green
+    } )
+  } ),
+
+  // Equations screen, cartesian scene
+  EQUATIONS_CARTESIAN_COLOR_PALETTE: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.mainFill', {
+      default: 'rgb( 10, 170, 250 )'
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.sumFill', {
+      default: Color.BLACK
+    } )
+  } ),
+
+  // Equations screen, polar scene
+  EQUATIONS_POLAR_COLOR_PALETTE: new VectorColorPalette( {
+    mainFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.mainFill', {
+      default: '#f149ff'
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.sumFill', {
+      default: Color.BLACK
+    } )
   } )
 };
 

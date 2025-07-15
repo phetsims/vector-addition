@@ -48,7 +48,7 @@ export default class Explore2DModel extends VectorAdditionModel {
       'cartesian',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      VectorAdditionColors.BLUE_COLOR_PALETTE,
+      VectorAdditionColors.EXPLORE_2D_CARTESIAN_COLOR_PALETTE,
       scenesTandem.createTandem( 'cartesianScene' )
     );
 
@@ -57,7 +57,7 @@ export default class Explore2DModel extends VectorAdditionModel {
       'polar',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      VectorAdditionColors.PINK_COLOR_PALETTE,
+      VectorAdditionColors.EXPLORE_2D_POLAR_COLOR_PALETTE,
       scenesTandem.createTandem( 'polarScene' )
     );
 

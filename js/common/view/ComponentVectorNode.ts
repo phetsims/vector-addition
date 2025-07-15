@@ -63,7 +63,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       // RootVectorNodeOptions
       arrowType: 'dashed',
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-        fill: componentVector.vectorColorPalette.componentFill
+        fill: componentVector.vectorColorPalette.componentFillProperty
       } )
     }, providedOptions );
 

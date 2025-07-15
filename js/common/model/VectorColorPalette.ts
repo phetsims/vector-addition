@@ -6,69 +6,55 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import optionize from '../../../../phet-core/js/optionize.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Property from '../../../../axon/js/Property.js';
 
-// All colors are {Color|string|null}, where {string} is a CSS color string, and null is 'no color'.
-type PaletteColor = Color | string | null;
 
-type SelfOptions = {
+type VectorColorPaletteOptions = {
 
   // Colors for main vectors (aka parent vectors)
-  mainFill: PaletteColor;
-  mainStroke?: PaletteColor;
+  mainFillProperty: TReadOnlyProperty<Color | string | null>;
+  mainStrokeProperty?: TReadOnlyProperty<Color | string | null>;
 
   // Colors for component vectors. They are of type DashedArrowNode, which cannot be stroked.
   // Defaults to options.mainFill
-  componentFill?: PaletteColor; // null defaults to options.mainFill
+  componentFillProperty?: TReadOnlyProperty<Color | string | null>;
 
   // Colors for sum vectors
-  sumFill: PaletteColor;
-  sumStroke?: PaletteColor;
+  sumFillProperty: TReadOnlyProperty<Color | string | null>;
+  sumStrokeProperty?: TReadOnlyProperty<Color | string | null>;
 
   // Color for sum component vectors. They are of type DashedArrowNode, which cannot be stroked.
-  sumComponentFill?: PaletteColor; // null defaults to options.sumFill
+  sumComponentFillProperty?: TReadOnlyProperty<Color | string | null>;
 
   // Colors for base vectors
-  baseVectorFill?: PaletteColor;
-  baseVectorStroke?: PaletteColor; // null defaults to options.mainFill
+  baseVectorFillProperty?: TReadOnlyProperty<Color | string | null>;
+  baseVectorStrokeProperty?: TReadOnlyProperty<Color | string | null>;
 };
-
-type VectorColorPaletteOptions = SelfOptions;
 
 export default class VectorColorPalette {
 
-  public readonly mainFill: PaletteColor;
-  public readonly mainStroke: PaletteColor;
-  public readonly componentFill: PaletteColor;
-  public readonly sumFill: PaletteColor;
-  public readonly sumStroke: PaletteColor;
-  public readonly sumComponentFill: PaletteColor;
-  public readonly baseVectorFill: PaletteColor;
-  public readonly baseVectorStroke: PaletteColor;
+  public readonly mainFillProperty: TReadOnlyProperty<Color | string | null>;
+  public readonly mainStrokeProperty: TReadOnlyProperty<Color | string | null>;
+  public readonly componentFillProperty: TReadOnlyProperty<Color | string | null>;
+  public readonly sumFillProperty: TReadOnlyProperty<Color | string | null>;
+  public readonly sumStrokeProperty: TReadOnlyProperty<Color | string | null>;
+  public readonly sumComponentFillProperty: TReadOnlyProperty<Color | string | null>;
+  public readonly baseVectorFillProperty: TReadOnlyProperty<Color | string | null>;
+  public readonly baseVectorStrokeProperty: TReadOnlyProperty<Color | string | null>;
 
-  public constructor( providedOptions?: VectorColorPaletteOptions ) {
+  public constructor( options: VectorColorPaletteOptions ) {
 
-    const options = optionize<VectorColorPaletteOptions, SelfOptions>()( {
-
-      // SelfOptions
-      mainStroke: null,
-      componentFill: null,
-      sumStroke: null,
-      sumComponentFill: null,
-      baseVectorFill: Color.WHITE,
-      baseVectorStroke: null
-    }, providedOptions );
-
-    this.mainFill = options.mainFill;
-    this.mainStroke = options.mainStroke;
-    this.componentFill = ( options.componentFill || options.mainFill );
-    this.sumFill = options.sumFill;
-    this.sumStroke = options.sumStroke;
-    this.sumComponentFill = ( options.sumComponentFill || options.sumFill );
-    this.baseVectorFill = options.baseVectorFill;
-    this.baseVectorStroke = ( options.baseVectorStroke || options.mainFill );
+    this.mainFillProperty = options.mainFillProperty;
+    this.mainStrokeProperty = ( options.mainStrokeProperty || new Property( null ) );
+    this.componentFillProperty = ( options.componentFillProperty || options.mainFillProperty );
+    this.sumFillProperty = options.sumFillProperty;
+    this.sumStrokeProperty = ( options.sumStrokeProperty || new Property( null ) );
+    this.sumComponentFillProperty = ( options.sumComponentFillProperty || options.sumFillProperty );
+    this.baseVectorFillProperty = ( options.baseVectorFillProperty || new Property<Color>( Color.WHITE ) );
+    this.baseVectorStrokeProperty = ( options.baseVectorStrokeProperty || options.mainFillProperty );
   }
 }
 

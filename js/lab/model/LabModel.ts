@@ -59,8 +59,8 @@ export default class LabModel extends VectorAdditionModel {
       VectorAdditionSymbols.uStringProperty,
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,
-      VectorAdditionColors.BLUE_COLOR_PALETTE,
-      VectorAdditionColors.ORANGE_COLOR_PALETTE,
+      VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_1,
+      VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_2,
       scenesTandem.createTandem( 'cartesianScene' )
     );
 
@@ -72,8 +72,8 @@ export default class LabModel extends VectorAdditionModel {
       VectorAdditionSymbols.qStringProperty,
       this.sum1VisibleProperty,
       this.sum2VisibleProperty,
-      VectorAdditionColors.PINK_COLOR_PALETTE,
-      VectorAdditionColors.GREEN_COLOR_PALETTE,
+      VectorAdditionColors.LAB_POLAR_COLOR_PALETTE_1,
+      VectorAdditionColors.LAB_POLAR_COLOR_PALETTE_2,
       scenesTandem.createTandem( 'polarScene' )
     );
 

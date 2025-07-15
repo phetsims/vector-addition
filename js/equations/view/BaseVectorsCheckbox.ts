@@ -22,8 +22,8 @@ export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
                       tandem: Tandem ) {
 
     const icon = VectorAdditionIconFactory.createVectorIcon( 50, {
-      fill: vectorColorPalette.baseVectorFill,
-      stroke: vectorColorPalette.baseVectorStroke,
+      fill: vectorColorPalette.baseVectorFillProperty,
+      stroke: vectorColorPalette.baseVectorStrokeProperty,
       lineWidth: VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS.lineWidth
     } );
 

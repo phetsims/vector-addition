@@ -47,7 +47,7 @@ export default class EquationsModel extends VectorAdditionModel {
       'cartesian',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      VectorAdditionColors.EQUATIONS_BLUE_COLOR_PALETTE,
+      VectorAdditionColors.EQUATIONS_CARTESIAN_COLOR_PALETTE,
       scenesTandem.createTandem( 'cartesianScene' )
     );
 
@@ -56,7 +56,7 @@ export default class EquationsModel extends VectorAdditionModel {
       'polar',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      VectorAdditionColors.EQUATIONS_PINK_COLOR_PALETTE,
+      VectorAdditionColors.EQUATIONS_POLAR_COLOR_PALETTE,
       scenesTandem.createTandem( 'polarScene' )
     );
 

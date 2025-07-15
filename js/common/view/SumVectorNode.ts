@@ -39,8 +39,8 @@ export default class SumVectorNode extends VectorNode {
       // VectorNodeOptions
       isDisposable: false,
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
-        fill: sumVector.vectorColorPalette.sumFill,
-        stroke: sumVector.vectorColorPalette.sumStroke
+        fill: sumVector.vectorColorPalette.sumFillProperty,
+        stroke: sumVector.vectorColorPalette.sumStrokeProperty
       } ),
 
       // Make the sum vector visible only if it is defined, meaning that there is at least 1 vector on the graph.

@@ -174,8 +174,8 @@ export default class VectorSetNode extends Node {
       this.valuesVisibleProperty,
       this.anglesVisibleProperty, {
         arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
-          fill: vectorColorPalette.baseVectorFill,
-          stroke: vectorColorPalette.baseVectorStroke
+          fill: vectorColorPalette.baseVectorFillProperty,
+          stroke: vectorColorPalette.baseVectorStrokeProperty
         } ),
         tandem: this.tandem.createTandem( `${baseVector.tandem.name}Node` )
       } );

@@ -49,7 +49,7 @@ export default class Explore1DModel extends VectorAdditionModel {
       'horizontal',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      VectorAdditionColors.BLUE_COLOR_PALETTE,
+      VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE,
       scenesTandem.createTandem( 'horizontalScene' )
     );
 
@@ -58,7 +58,7 @@ export default class Explore1DModel extends VectorAdditionModel {
       'vertical',
       this.componentVectorStyleProperty,
       this.sumVisibleProperty,
-      VectorAdditionColors.BLUE_COLOR_PALETTE,
+      VectorAdditionColors.EXPLORE_1D_VERTICAL_COLOR_PALETTE,
       scenesTandem.createTandem( 'verticalScene' )
     );
 

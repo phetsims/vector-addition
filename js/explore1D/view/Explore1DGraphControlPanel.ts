@@ -36,10 +36,16 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
 
     // Sum checkbox, with vector color determined by the selected scene.
     const sumCheckbox = new SumCheckbox( horizontalScene.vectorSet.sumVisibleProperty, {
-      vectorIconFill: new DerivedProperty( [ sceneProperty ], scene =>
-        ( scene === horizontalScene ) ? horizontalScene.vectorSet.vectorColorPalette.sumFill : verticalScene.vectorSet.vectorColorPalette.sumFill ),
-      vectorIconStroke: new DerivedProperty( [ sceneProperty ], scene =>
-        ( scene === horizontalScene ) ? horizontalScene.vectorSet.vectorColorPalette.sumStroke : verticalScene.vectorSet.vectorColorPalette.sumStroke ),
+      vectorIconFill: new DerivedProperty( [
+        sceneProperty,
+        horizontalScene.vectorSet.vectorColorPalette.sumFillProperty,
+        verticalScene.vectorSet.vectorColorPalette.sumFillProperty
+      ], scene => scene.vectorSet.vectorColorPalette.sumFillProperty.value ),
+      vectorIconStroke: new DerivedProperty( [
+        sceneProperty,
+        horizontalScene.vectorSet.vectorColorPalette.sumStrokeProperty,
+        verticalScene.vectorSet.vectorColorPalette.sumStrokeProperty
+      ], scene => scene.vectorSet.vectorColorPalette.sumStrokeProperty.value ),
       tandem: options.tandem.createTandem( 'sumCheckbox' )
     } );
 

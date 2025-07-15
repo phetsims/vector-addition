@@ -61,8 +61,8 @@ export default class VectorNode extends RootVectorNode {
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>(
         {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
           cursor: 'move',
-          fill: vector.vectorColorPalette.mainFill,
-          stroke: vector.vectorColorPalette.mainStroke
+          fill: vector.vectorColorPalette.mainFillProperty,
+          stroke: vector.vectorColorPalette.mainStrokeProperty
         } )
     }, providedOptions );
 
