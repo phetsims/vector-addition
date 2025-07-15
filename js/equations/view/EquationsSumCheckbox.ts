@@ -45,7 +45,7 @@ export default class EquationsSumCheckbox extends Checkbox {
 
     const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet.symbolProperties[ 2 ].value );
 
-    // To make both symbols have the same effective size, so that control panel layout doesn't shift around.
+    // To make both symbols have the same effective size, so that control panel layout doesn't shift.
     const alignGroup = new AlignGroup();
 
     const symbolNode = new Node( {
@@ -74,12 +74,18 @@ export default class EquationsSumCheckbox extends Checkbox {
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
         vectorSymbol: symbolProperty
       } ),
+
+      // "Show or hide vector {{sumVectorSymbol}}."
       accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
         sumVectorSymbol: symbolProperty
       } ),
+
+      // "Vector {{sumVectorSymbol}} shown in graph area."
       accessibleContextResponseChecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
         sumVectorSymbol: symbolProperty
       } ),
+
+      // "Vector {{sumVectorSymbol}} hidden in graph area."
       accessibleContextResponseUnchecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
         sumVectorSymbol: symbolProperty
       } ),
