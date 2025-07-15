@@ -11,6 +11,7 @@ import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorColorPalette from './model/VectorColorPalette.js';
+import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 
 const VectorAdditionColors = {
 
@@ -42,6 +43,10 @@ const VectorAdditionColors = {
 
   graphTickLabelColorProperty: new ProfileColorProperty( vectorAddition, 'graphTickLabelColor', {
     default: Color.grayColor( 130 )
+  } ),
+
+  eraserButtonBaseColorProperty: new ProfileColorProperty( vectorAddition, 'eraserButtonBaseColor', {
+    default: PhetColorScheme.BUTTON_YELLOW
   } ),
 
   //----------------------------------------------------------------------------------------

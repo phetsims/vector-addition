@@ -39,6 +39,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionColors from '../VectorAdditionColors.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
@@ -112,6 +113,7 @@ export default class VectorAdditionSceneNode extends Node {
           this.interruptSubtreeInput(); // cancel all interactions for the scene
           scene.erase();
         },
+        baseColor: VectorAdditionColors.eraserButtonBaseColorProperty,
         right: scene.graph.viewBounds.maxX,
         top: scene.graph.viewBounds.maxY + 15,
         touchAreaXDilation: 7,
