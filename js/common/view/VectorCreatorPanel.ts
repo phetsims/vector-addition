@@ -19,7 +19,6 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorCreatorPanelSlot from './VectorCreatorPanelSlot.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'center' | 'bottom';
@@ -34,7 +33,7 @@ type SelfOptions = {
 
 export type VectorCreatorPanelOptions = SelfOptions & NodeTranslationOptions & PickRequired<PanelOptions, 'tandem'>;
 
-export default class VectorCreatorPanel extends InteractiveHighlighting( Panel ) {
+export default class VectorCreatorPanel extends Panel {
 
   protected constructor( panelSlots: VectorCreatorPanelSlot[], providedOptions: VectorCreatorPanelOptions ) {
 
@@ -54,9 +53,7 @@ export default class VectorCreatorPanel extends InteractiveHighlighting( Panel )
         xMargin: 2,
         yMargin: 10,
         fill: Color.WHITE,
-        stroke: Color.BLACK,
-        tagName: 'div', // for KeyboardDragListener
-        focusable: true // for KeyboardDragListener
+        stroke: Color.BLACK
       }, providedOptions );
 
     // Create the container for the slots in a vertical alignment

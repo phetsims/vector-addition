@@ -36,6 +36,7 @@ import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 
 // The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
 // contains the same local width regardless of the initial vector components. This ensures that
@@ -56,7 +57,7 @@ type SelfOptions = {
 
 type VectorCreatorPanelSlotOptions = SelfOptions;
 
-export default class VectorCreatorPanelSlot extends HBox {
+export default class VectorCreatorPanelSlot extends InteractiveHighlighting( HBox ) {
 
   /**
    * @param scene - the scene for the VectorSect
@@ -82,10 +83,13 @@ export default class VectorCreatorPanelSlot extends HBox {
       iconPointerAreaYDilation: 10,
 
       // HBoxOptions
-      isDisposable: false
+      isDisposable: false,
+      spacing: 5,
+      tagName: 'div',
+      focusable: true
     }, providedOptions );
 
-    super( { spacing: 5 } );
+    super( options );
 
     // convenience reference
     const modelViewTransform = scene.graph.modelViewTransformProperty.value;
@@ -125,7 +129,7 @@ export default class VectorCreatorPanelSlot extends HBox {
     }
 
     //----------------------------------------------------------------------------------------
-    // Creation of Vectors (See 'Implementation' documentation above)
+    // Creation of Vectors via pointer (See 'Implementation' documentation above)
     //----------------------------------------------------------------------------------------
 
     iconNode.addInputListener( SoundDragListener.createForwardingListener( event => {
