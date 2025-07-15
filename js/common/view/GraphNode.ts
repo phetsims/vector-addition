@@ -12,7 +12,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
@@ -27,6 +26,7 @@ import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import OriginManipulator from './OriginManipulator.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Graph from '../model/Graph.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // grid
 const MAJOR_GRID_LINE_WIDTH = 1.5; // view units
@@ -149,7 +149,7 @@ type GridLinesSelfOptions = {
   spacing?: number;
 };
 
-type GridLinesOptions = GridLinesSelfOptions & PickOptional<PathOptions, 'lineWidth' | 'stroke'>;
+type GridLinesOptions = GridLinesSelfOptions & PickRequired<PathOptions, 'lineWidth' | 'stroke'>;
 
 class GridLines extends Path {
 
@@ -163,9 +163,7 @@ class GridLines extends Path {
       spacing: 1,
 
       // PathOptions
-      isDisposable: false,
-      lineWidth: 1,
-      stroke: 'black'
+      isDisposable: false
     }, providedOptions );
 
     super( new Shape(), options );
