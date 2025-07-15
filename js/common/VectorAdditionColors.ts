@@ -90,6 +90,10 @@ const VectorAdditionColors = {
     default: Color.grayColor( 50 )
   } ),
 
+  eyeIconFillProperty: new ProfileColorProperty( vectorAddition, 'eyeIconFill', {
+    default: 'black'
+  } ),
+
   //----------------------------------------------------------------------------------------
   // Label background on vectors
 

@@ -299,7 +299,7 @@ const VectorAdditionIconFactory = {
 
       const leaderLinesPath = new Path( leaderLinesShape, {
         lineDash: [ 2.9, 2 ],
-        stroke: 'black'
+        stroke: VectorAdditionColors.leaderLinesActiveStrokeProperty
       } );
 
       iconChildren = [ leaderLinesPath, xComponentArrow, yComponentArrow, vectorArrow ];
@@ -501,7 +501,7 @@ function createEyeCloseIcon( iconSize: number ): Node {
 
   const eyeIcon = new Path( eyeSlashSolidShape, {
     scale: 0.068, // determined empirically
-    fill: 'black',
+    fill: VectorAdditionColors.eyeIconFillProperty,
     center: spacer.center
   } );
 
