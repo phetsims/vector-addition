@@ -16,7 +16,7 @@ type PaletteColor = Color | string | null;
 type SelfOptions = {
 
   // Colors for main vectors (aka parent vectors)
-  mainFill?: PaletteColor;
+  mainFill: PaletteColor;
   mainStroke?: PaletteColor;
 
   // Colors for component vectors. They are of type DashedArrowNode, which cannot be stroked.
@@ -24,7 +24,7 @@ type SelfOptions = {
   componentFill?: PaletteColor; // null defaults to options.mainFill
 
   // Colors for sum vectors
-  sumFill?: PaletteColor;
+  sumFill: PaletteColor;
   sumStroke?: PaletteColor;
 
   // Color for sum component vectors. They are of type DashedArrowNode, which cannot be stroked.
@@ -53,10 +53,8 @@ export default class VectorColorPalette {
     const options = optionize<VectorColorPaletteOptions, SelfOptions>()( {
 
       // SelfOptions
-      mainFill: Color.BLACK,
       mainStroke: null,
       componentFill: null,
-      sumFill: Color.BLACK,
       sumStroke: null,
       sumComponentFill: null,
       baseVectorFill: Color.WHITE,
