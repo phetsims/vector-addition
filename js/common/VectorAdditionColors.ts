@@ -90,6 +90,10 @@ const VectorAdditionColors = {
     default: Color.grayColor( 50 )
   } ),
 
+  componentStyleIconColorProperty: new ProfileColorProperty( vectorAddition, 'componentStyleIconColor', {
+    default: BLUE
+  } ),
+
   eyeIconFillProperty: new ProfileColorProperty( vectorAddition, 'eyeIconFill', {
     default: 'black'
   } ),

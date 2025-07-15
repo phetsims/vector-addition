@@ -267,11 +267,10 @@ const VectorAdditionIconFactory = {
 
     // Options for main (solid) and component (dashed) arrows
     const arrowNodeOptions = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-      fill: VectorAdditionColors.BLUE_COLOR_PALETTE.mainFill,
-      stroke: VectorAdditionColors.BLUE_COLOR_PALETTE.mainStroke
+      fill: VectorAdditionColors.componentStyleIconColorProperty
     } );
     const dashedArrowNodeOptions = combineOptions<DashedArrowNodeOptions>( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
-      fill: VectorAdditionColors.BLUE_COLOR_PALETTE.componentFill
+      fill: VectorAdditionColors.componentStyleIconColorProperty
     } );
 
     // Initialize arrows for the PARALLELOGRAM component style (will be adjusted for different component styles)
