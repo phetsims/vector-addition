@@ -332,7 +332,7 @@ const VectorAdditionIconFactory = {
 
     // x and y, Cartesian coordinates
     const xyArrowOptions = {
-      fill: 'black',
+      fill: Color.BLACK,
       tailWidth: 1,
       headWidth: 6,
       headHeight: 6

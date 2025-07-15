@@ -63,7 +63,9 @@ export default class VectorAngleNode extends Node {
 
     super();
 
-    this.baseLine = new Line( 0, 0, MAX_BASELINE_WIDTH, 0, { stroke: Color.BLACK } );
+    this.baseLine = new Line( 0, 0, MAX_BASELINE_WIDTH, 0, {
+      stroke: Color.BLACK
+    } );
 
     this.curvedArrow = new CurvedArrowNode( MAX_CURVED_ARROW_RADIUS, vector.angle ? vector.angle : 0 );
 

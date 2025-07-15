@@ -19,6 +19,7 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = {
@@ -50,7 +51,7 @@ export default class DashedArrowNode extends Node {
       headHeight: 10,
       headWidth: 10,
       tailWidth: 5,
-      fill: 'black',
+      fill: Color.BLACK,
       isHeadDynamic: false,
       fractionalHeadHeight: 0.5,
       lineWidth: 1

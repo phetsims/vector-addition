@@ -15,7 +15,7 @@ import VectorColorPalette from './model/VectorColorPalette.js';
 // Colors that are used in more than one VectorColorPalette
 const BLUE = 'rgb( 10, 170, 250 )';
 const PINK = '#f149ff';
-const EQUATIONS_SUM_FILL = 'black';
+const EQUATIONS_SUM_FILL = Color.BLACK;
 
 const VectorAdditionColors = {
 
@@ -30,7 +30,7 @@ const VectorAdditionColors = {
   // Graph
 
   graphBackgroundColorProperty: new ProfileColorProperty( vectorAddition, 'graphBackgroundColor', {
-    default: 'white'
+    default: Color.WHITE
   } ),
 
   graphMajorLineColorProperty: new ProfileColorProperty( vectorAddition, 'graphMajorLineColor', {
@@ -42,7 +42,7 @@ const VectorAdditionColors = {
   } ),
 
   graphTickLineColorProperty: new ProfileColorProperty( vectorAddition, 'graphTickLineColor', {
-    default: 'black'
+    default: Color.BLACK
   } ),
 
   graphTickLabelColorProperty: new ProfileColorProperty( vectorAddition, 'graphTickLabelColor', {
@@ -57,7 +57,7 @@ const VectorAdditionColors = {
   } ),
 
   originHighlightColorProperty: new ProfileColorProperty( vectorAddition, 'originHighlightColor', {
-    default: 'white'
+    default: Color.WHITE
   } ),
 
   //----------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ const VectorAdditionColors = {
   // RadioButtonGroups
 
   radioButtonBaseColorProperty: new ProfileColorProperty( vectorAddition, 'radioButtonBaseColor', {
-    default: 'white'
+    default: Color.WHITE
   } ),
 
   radioButtonSelectedStrokeProperty: new ProfileColorProperty( vectorAddition, 'radioButtonSelectedStroke', {
@@ -95,7 +95,7 @@ const VectorAdditionColors = {
   } ),
 
   eyeIconFillProperty: new ProfileColorProperty( vectorAddition, 'eyeIconFill', {
-    default: 'black'
+    default: Color.BLACK
   } ),
 
   //----------------------------------------------------------------------------------------
@@ -121,11 +121,11 @@ const VectorAdditionColors = {
   // Leader lines, for component vectors projected onto axes
 
   leaderLinesActiveStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesActiveStroke', {
-    default: 'black'
+    default: Color.BLACK
   } ),
 
   leaderLinesInactiveStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesInactiveStroke', {
-    default: 'black'
+    default: Color.BLACK
   } ),
 
   //----------------------------------------------------------------------------------------
