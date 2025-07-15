@@ -86,7 +86,7 @@ const VectorAdditionColors = {
   } ),
 
   componentStyleIconColorProperty: new ProfileColorProperty( vectorAddition, 'componentStyleIconColor', {
-    default: 'rgb( 10, 170, 250 )' // blue
+    default: Color.BLACK // see https://github.com/phetsims/vector-addition/issues/314
   } ),
 
   eyeIconFillProperty: new ProfileColorProperty( vectorAddition, 'eyeIconFill', {
