@@ -62,8 +62,8 @@ const VectorAdditionIconFactory = {
   createExplore1DScreenIcon(): ScreenIcon {
 
     const arrowNodeOptions = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-      fill: VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE.mainFillProperty,
-      stroke: VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE.mainStrokeProperty
+      fill: VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE.vectorFillProperty,
+      stroke: VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE.vectorStrokeProperty
     } );
 
     // Vector pointing to the right, the full width of the icon
@@ -92,8 +92,8 @@ const VectorAdditionIconFactory = {
     // vector
     const vectorNode = new ArrowNode( 0, 0, vector.x, vector.y,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        fill: colorPalette.mainFillProperty,
-        stroke: colorPalette.mainStrokeProperty
+        fill: colorPalette.vectorFillProperty,
+        stroke: colorPalette.vectorStrokeProperty
       } ) );
 
     // component vectors
@@ -128,14 +128,14 @@ const VectorAdditionIconFactory = {
 
     const group1ArrowNodes = createTipToTailArrowNodes( group1TipPositions, startingTailPosition,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        fill: VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_1.mainFillProperty,
-        stroke: VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_1.mainStrokeProperty
+        fill: VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_1.vectorFillProperty,
+        stroke: VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_1.vectorStrokeProperty
       } ) );
 
     const group2ArrowNodes = createTipToTailArrowNodes( group2TipPositions, startingTailPosition,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        fill: VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_2.mainFillProperty,
-        stroke: VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_2.mainStrokeProperty
+        fill: VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_2.vectorFillProperty,
+        stroke: VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_2.vectorStrokeProperty
       } ) );
 
     return createScreenIcon( group2ArrowNodes.concat( group1ArrowNodes ) );
@@ -160,8 +160,8 @@ const VectorAdditionIconFactory = {
     // vectors, tip to tail
     const arrowNodes = createTipToTailArrowNodes( tipPositions, startTail,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        fill: colorPalette.mainFillProperty,
-        stroke: colorPalette.mainStrokeProperty
+        fill: colorPalette.vectorFillProperty,
+        stroke: colorPalette.vectorStrokeProperty
       } ) );
 
     // sum
@@ -190,8 +190,8 @@ const VectorAdditionIconFactory = {
     return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         cursor: 'move',
-        fill: vectorColorPalette.mainFillProperty,
-        stroke: vectorColorPalette.mainStrokeProperty
+        fill: vectorColorPalette.vectorFillProperty,
+        stroke: vectorColorPalette.vectorStrokeProperty
       } ) );
   },
 
@@ -324,8 +324,8 @@ const VectorAdditionIconFactory = {
     // Arrow that is 45 degrees to the right and up
     const vectorNode = new ArrowNode( 0, 0, iconSize, -iconSize,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        fill: vectorColorPalette.mainFillProperty,
-        stroke: vectorColorPalette.mainStrokeProperty
+        fill: vectorColorPalette.vectorFillProperty,
+        stroke: vectorColorPalette.vectorStrokeProperty
       } ) );
 
     // x and y, Cartesian coordinates
@@ -356,8 +356,8 @@ const VectorAdditionIconFactory = {
     // Arrow that is 45 degrees to the right and up
     const arrow = new ArrowNode( 0, 0, iconSize, -iconSize,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        fill: vectorColorPalette.mainFillProperty,
-        stroke: vectorColorPalette.mainStrokeProperty
+        fill: vectorColorPalette.vectorFillProperty,
+        stroke: vectorColorPalette.vectorStrokeProperty
       } ) );
 
     // Curved arrow that indicates the angle

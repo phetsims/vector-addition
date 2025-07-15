@@ -128,7 +128,7 @@ const VectorAdditionColors = {
 
   // Explore 1D screen, horizontal scene
   EXPLORE_1D_HORIZONTAL_COLOR_PALETTE: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.vectorFill', {
       default: 'rgb( 10, 170, 250 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.sumFill', {
@@ -138,7 +138,7 @@ const VectorAdditionColors = {
 
   // Explore 1D screen, vertical scene
   EXPLORE_1D_VERTICAL_COLOR_PALETTE: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.vectorFill', {
       default: 'rgb( 10, 170, 250 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.sumFill', {
@@ -148,7 +148,7 @@ const VectorAdditionColors = {
 
   // Explore 2D screen, Cartesian scene
   EXPLORE_2D_CARTESIAN_COLOR_PALETTE: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.vectorFill', {
       default: 'rgb( 10, 170, 250 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.sumFill', {
@@ -158,7 +158,7 @@ const VectorAdditionColors = {
 
   // Explore 2D screen, polar scene
   EXPLORE_2D_POLAR_COLOR_PALETTE: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.vectorFill', {
       default: '#f149ff' // pink
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.sumFill', {
@@ -168,7 +168,7 @@ const VectorAdditionColors = {
 
   // Lab scene, Cartesian scene, vector set 1
   LAB_CARTESIAN_COLOR_PALETTE_1: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.vectorFill', {
       default: 'rgb( 10, 170, 250 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.sumFill', {
@@ -178,7 +178,7 @@ const VectorAdditionColors = {
 
   // Lab scene, Cartesian scene, vector set 2
   LAB_CARTESIAN_COLOR_PALETTE_2: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.vectorFill', {
       default: '#ff9023' // orange
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.sumFill', {
@@ -188,7 +188,7 @@ const VectorAdditionColors = {
 
   // Lab scene, polar scene, vector set 1
   LAB_POLAR_COLOR_PALETTE_1: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.vectorFill', {
       default: '#f149ff' // pink
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.sumFill', {
@@ -198,7 +198,7 @@ const VectorAdditionColors = {
 
   // Lab scene, polar scene, vector set 2
   LAB_POLAR_COLOR_PALETTE_2: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.vectorFill', {
       default: 'rgb( 5, 200, 0 )' // green
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.sumFill', {
@@ -208,7 +208,7 @@ const VectorAdditionColors = {
 
   // Equations screen, cartesian scene
   EQUATIONS_CARTESIAN_COLOR_PALETTE: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.vectorFill', {
       default: 'rgb( 10, 170, 250 )'
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.sumFill', {
@@ -218,7 +218,7 @@ const VectorAdditionColors = {
 
   // Equations screen, polar scene
   EQUATIONS_POLAR_COLOR_PALETTE: new VectorColorPalette( {
-    mainFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.mainFill', {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.vectorFill', {
       default: '#f149ff'
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.sumFill', {
