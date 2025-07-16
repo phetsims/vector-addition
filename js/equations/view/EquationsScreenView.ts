@@ -38,7 +38,6 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       model.sceneProperty,
       model.cartesianScene,
       model.polarScene,
-      model.sumVisibleProperty,
       model.componentVectorStyleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,

@@ -24,7 +24,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Explore2DScene from '../model/Explore2DScene.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import Explore2DViewProperties from './Explore2DViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,13 +36,13 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
                       cartesianScene: Explore2DScene,
                       polarScene: Explore2DScene,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
-                      viewProperties: VectorAdditionViewProperties,
+                      viewProperties: Explore2DViewProperties,
                       providedOptions: Explore2DGraphControlPanelOptions ) {
 
     const options = providedOptions;
 
     // Sum checkbox, with vector color determined by the selected scene.
-    const sumCheckbox = new SumCheckbox( cartesianScene.vectorSet.sumVisibleProperty, {
+    const sumCheckbox = new SumCheckbox( viewProperties.sumVisibleProperty, {
       vectorIconFill: new DerivedProperty( [
         sceneProperty,
         cartesianScene.vectorSet.vectorColorPalette.sumFillProperty,

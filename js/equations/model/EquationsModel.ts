@@ -6,7 +6,6 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
@@ -27,17 +26,10 @@ export default class EquationsModel extends VectorAdditionModel {
   // The selected scene
   public readonly sceneProperty: Property<EquationsScene>;
 
-  // Visibility of the sum vector, shared by both scenes.
-  public readonly sumVisibleProperty: Property<boolean>;
-
   public constructor( tandem: Tandem ) {
 
     super( {
       tandem: tandem
-    } );
-
-    this.sumVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'sumVisibleProperty' )
     } );
 
     const scenesTandem = tandem.createTandem( 'scenes' );
@@ -46,7 +38,6 @@ export default class EquationsModel extends VectorAdditionModel {
       VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
       'cartesian',
       this.componentVectorStyleProperty,
-      this.sumVisibleProperty,
       VectorAdditionColors.EQUATIONS_CARTESIAN_COLOR_PALETTE,
       scenesTandem.createTandem( 'cartesianScene' )
     );
@@ -55,7 +46,6 @@ export default class EquationsModel extends VectorAdditionModel {
       VectorAdditionStrings.a11y.polarSceneNameStringProperty,
       'polar',
       this.componentVectorStyleProperty,
-      this.sumVisibleProperty,
       VectorAdditionColors.EQUATIONS_POLAR_COLOR_PALETTE,
       scenesTandem.createTandem( 'polarScene' )
     );
@@ -71,7 +61,6 @@ export default class EquationsModel extends VectorAdditionModel {
     this.cartesianScene.reset();
     this.polarScene.reset();
     this.sceneProperty.reset();
-    this.sumVisibleProperty.reset();
     super.reset();
   }
 }

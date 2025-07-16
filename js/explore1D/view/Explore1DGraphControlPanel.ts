@@ -18,7 +18,7 @@ import vectorAddition from '../../vectorAddition.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Explore1DScene from '../model/Explore1DScene.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import Explore2DViewProperties from '../../explore2D/view/Explore2DViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -29,13 +29,13 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
   public constructor( sceneProperty: TReadOnlyProperty<Explore1DScene>,
                       horizontalScene: Explore1DScene,
                       verticalScene: Explore1DScene,
-                      viewProperties: VectorAdditionViewProperties,
+                      viewProperties: Explore2DViewProperties,
                       providedOptions: Explore1DGraphControlPanelOptions ) {
 
     const options = providedOptions;
 
     // Sum checkbox, with vector color determined by the selected scene.
-    const sumCheckbox = new SumCheckbox( horizontalScene.vectorSet.sumVisibleProperty, {
+    const sumCheckbox = new SumCheckbox( viewProperties.sumVisibleProperty, {
       vectorIconFill: new DerivedProperty( [
         sceneProperty,
         horizontalScene.vectorSet.vectorColorPalette.sumFillProperty,

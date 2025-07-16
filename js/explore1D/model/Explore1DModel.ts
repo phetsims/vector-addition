@@ -6,12 +6,10 @@
  * @author Martin Veillette
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from './Explore1DScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
@@ -28,18 +26,11 @@ export default class Explore1DModel extends VectorAdditionModel {
   // The selected scene
   public readonly sceneProperty: Property<Explore1DScene>;
 
-  // Visibility of the sum vector, shared by both scenes.
-  public readonly sumVisibleProperty: Property<boolean>;
-
   public constructor( tandem: Tandem ) {
 
     super( {
       componentVectorStylePropertyInstrumented: false,
       tandem: tandem
-    } );
-
-    this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
-      tandem: tandem.createTandem( 'sumVisibleProperty' )
     } );
 
     const scenesTandem = tandem.createTandem( 'scenes' );
@@ -48,7 +39,6 @@ export default class Explore1DModel extends VectorAdditionModel {
       VectorAdditionStrings.a11y.horizontalSceneNameStringProperty,
       'horizontal',
       this.componentVectorStyleProperty,
-      this.sumVisibleProperty,
       VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE,
       scenesTandem.createTandem( 'horizontalScene' )
     );
@@ -57,7 +47,6 @@ export default class Explore1DModel extends VectorAdditionModel {
       VectorAdditionStrings.a11y.verticalSceneNameStringProperty,
       'vertical',
       this.componentVectorStyleProperty,
-      this.sumVisibleProperty,
       VectorAdditionColors.EXPLORE_1D_VERTICAL_COLOR_PALETTE,
       scenesTandem.createTandem( 'verticalScene' )
     );
@@ -73,7 +62,6 @@ export default class Explore1DModel extends VectorAdditionModel {
     this.horizontalScene.reset();
     this.verticalScene.reset();
     this.sceneProperty.reset();
-    this.sumVisibleProperty.reset();
     super.reset();
   }
 }

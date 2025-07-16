@@ -24,12 +24,12 @@ import LabScene from '../model/LabScene.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import LabViewProperties from './LabViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -41,9 +41,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
                       cartesianScene: LabScene,
                       polarScene: LabScene,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
-                      sum1VisibleProperty: Property<boolean>,
-                      sum2VisibleProperty: Property<boolean>,
-                      viewProperties: VectorAdditionViewProperties,
+                      viewProperties: LabViewProperties,
                       providedOptions: LabGraphControlPanelOptions ) {
 
     const options = providedOptions;
@@ -72,7 +70,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     const alignGroup = new AlignGroup();
 
     // Sum checkbox for vector set 1, with vector symbol and color determined by the selected scene.
-    const sum1Checkbox = new SumCheckbox( sum1VisibleProperty, {
+    const sum1Checkbox = new SumCheckbox( viewProperties.sum1VisibleProperty, {
       sumSymbolProperty: sum1SymbolProperty,
       sumSymbolDescriptionProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
         symbol: VectorAdditionSymbols.sStringProperty,
@@ -98,7 +96,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     } );
 
     // Sum checkbox for vector set 2, with vector symbol and color determined by the selected scene.
-    const sum2Checkbox = new SumCheckbox( sum2VisibleProperty, {
+    const sum2Checkbox = new SumCheckbox( viewProperties.sum2VisibleProperty, {
       sumSymbolProperty: sum2SymbolProperty,
       sumSymbolDescriptionProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
         symbol: VectorAdditionSymbols.sStringProperty,

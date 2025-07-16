@@ -10,7 +10,6 @@
  * @author Brandon Li
  */
 
-import Property from '../../../../axon/js/Property.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
@@ -37,8 +36,6 @@ export default class LabScene extends VectorAdditionScene {
    * @param componentVectorStyleProperty
    * @param symbol1Property - symbol for vectors in the first VectorSet
    * @param symbol2Property - symbol for vectors in the second VectorSet
-   * @param sum1VisibleProperty - whether the sum for the first VectorSet is visible
-   * @param sum2VisibleProperty - whether the sum for the second VectorSet is visible
    * @param vectorColorPalette1 - color palette for the first VectorSet
    * @param vectorColorPalette2 - color palette for the second VectorSet
    * @param tandem
@@ -48,8 +45,6 @@ export default class LabScene extends VectorAdditionScene {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       symbol1Property: TReadOnlyProperty<string>,
                       symbol2Property: TReadOnlyProperty<string>,
-                      sum1VisibleProperty: Property<boolean>,
-                      sum2VisibleProperty: Property<boolean>,
                       vectorColorPalette1: VectorColorPalette,
                       vectorColorPalette2: VectorColorPalette,
                       tandem: Tandem ) {
@@ -69,7 +64,7 @@ export default class LabScene extends VectorAdditionScene {
     const modelHeadWidth = this.graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
     const offsetDelta = -( modelHeadWidth / 2 );
 
-    this.vectorSet1 = new LabVectorSet( this, symbol1Property, componentVectorStyleProperty, sum1VisibleProperty, vectorColorPalette1, {
+    this.vectorSet1 = new LabVectorSet( this, symbol1Property, componentVectorStyleProperty, vectorColorPalette1, {
 
       initialSumTailPosition: new Vector2(
         roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
@@ -83,7 +78,7 @@ export default class LabScene extends VectorAdditionScene {
       tandem: tandem.createTandem( 'vectorSet1' )
     } );
 
-    this.vectorSet2 = new LabVectorSet( this, symbol2Property, componentVectorStyleProperty, sum2VisibleProperty, vectorColorPalette2, {
+    this.vectorSet2 = new LabVectorSet( this, symbol2Property, componentVectorStyleProperty, vectorColorPalette2, {
 
       initialSumTailPosition: new Vector2(
         roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),

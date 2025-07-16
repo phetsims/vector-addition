@@ -14,14 +14,14 @@ import vectorAddition from '../../vectorAddition.js';
 import Explore1DModel from '../model/Explore1DModel.js';
 import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DSceneNode from './Explore1DSceneNode.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import HorizontalVerticalSceneRadioButtonGroup from '../../common/view/HorizontalVerticalSceneRadioButtonGroup.js';
 import Explore1DScreenSummaryContent from './Explore1DScreenSummaryContent.js';
+import Explore1DViewProperties from './Explore1DViewProperties.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
   // view-specific Properties
-  private readonly viewProperties: VectorAdditionViewProperties;
+  private readonly viewProperties: Explore1DViewProperties;
 
   public constructor( model: Explore1DModel, tandem: Tandem ) {
 
@@ -30,10 +30,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       tandem: tandem
     } );
 
-    this.viewProperties = new VectorAdditionViewProperties( {
-      anglesVisiblePropertyInstrumented: false,
-      tandem: tandem.createTandem( 'viewProperties' )
-    } );
+    this.viewProperties = new Explore1DViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     const graphViewBounds = model.verticalScene.graph.viewBounds;
 

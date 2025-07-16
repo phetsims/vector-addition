@@ -15,18 +15,18 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import LabScene from '../model/LabScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import LabViewProperties from './LabViewProperties.js';
 
 export default class LabSceneNode extends VectorAdditionSceneNode {
 
   public constructor( scene: LabScene,
                       sceneProperty: TReadOnlyProperty<LabScene>,
-                      viewProperties: VectorAdditionViewProperties,
+                      viewProperties: LabViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sceneRadioButtonGroup: Node, // for layout
                       tandem: Tandem ) {
 
-    super( scene, sceneProperty, viewProperties, componentVectorStyleProperty, {
+    super( scene, sceneProperty, [ viewProperties.sum1VisibleProperty, viewProperties.sum2VisibleProperty ], viewProperties, componentVectorStyleProperty, {
       tandem: tandem
     } );
 

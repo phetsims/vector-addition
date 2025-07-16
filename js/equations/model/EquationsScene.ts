@@ -11,7 +11,6 @@
  * @author Brandon Li
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
@@ -43,7 +42,6 @@ export default class EquationsScene extends VectorAdditionScene {
   public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                       coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
                       tandem: Tandem ) {
 
@@ -60,7 +58,7 @@ export default class EquationsScene extends VectorAdditionScene {
       tandem: tandem.createTandem( 'equationTypeProperty' )
     } );
 
-    this.vectorSet = new EquationsVectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette,
+    this.vectorSet = new EquationsVectorSet( this, componentVectorStyleProperty, vectorColorPalette,
       coordinateSnapMode, tandem.createTandem( 'vectorSet' ) );
 
     this.vectorSets.push( this.vectorSet );

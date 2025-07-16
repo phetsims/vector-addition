@@ -6,12 +6,10 @@
  * @author Martin Veillette
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DScene from './Explore2DScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
@@ -28,17 +26,10 @@ export default class Explore2DModel extends VectorAdditionModel {
   // The selected scene
   public readonly sceneProperty: Property<Explore2DScene>;
 
-  // Visibility of the sum vector, shared by both scenes.
-  public readonly sumVisibleProperty: Property<boolean>;
-
   public constructor( tandem: Tandem ) {
 
     super( {
       tandem: tandem
-    } );
-
-    this.sumVisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
-      tandem: tandem.createTandem( 'sumVisibleProperty' )
     } );
 
     const scenesTandem = tandem.createTandem( 'scenes' );
@@ -47,7 +38,6 @@ export default class Explore2DModel extends VectorAdditionModel {
       VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
       'cartesian',
       this.componentVectorStyleProperty,
-      this.sumVisibleProperty,
       VectorAdditionColors.EXPLORE_2D_CARTESIAN_COLOR_PALETTE,
       scenesTandem.createTandem( 'cartesianScene' )
     );
@@ -56,7 +46,6 @@ export default class Explore2DModel extends VectorAdditionModel {
       VectorAdditionStrings.a11y.polarSceneNameStringProperty,
       'polar',
       this.componentVectorStyleProperty,
-      this.sumVisibleProperty,
       VectorAdditionColors.EXPLORE_2D_POLAR_COLOR_PALETTE,
       scenesTandem.createTandem( 'polarScene' )
     );
@@ -72,7 +61,6 @@ export default class Explore2DModel extends VectorAdditionModel {
     this.cartesianScene.reset();
     this.polarScene.reset();
     this.sceneProperty.reset();
-    this.sumVisibleProperty.reset();
     super.reset();
   }
 }

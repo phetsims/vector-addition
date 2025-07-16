@@ -15,18 +15,18 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import Explore2DScene from '../model/Explore2DScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import Explore2DViewProperties from './Explore2DViewProperties.js';
 
 export default class Explore2DSceneNode extends VectorAdditionSceneNode {
 
   public constructor( scene: Explore2DScene,
                       sceneProperty: TReadOnlyProperty<Explore2DScene>,
-                      viewProperties: VectorAdditionViewProperties,
+                      viewProperties: Explore2DViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sceneRadioButtonGroup: Node, // for layout
                       tandem: Tandem ) {
 
-    super( scene, sceneProperty, viewProperties, componentVectorStyleProperty, {
+    super( scene, sceneProperty, [ viewProperties.sumVisibleProperty ], viewProperties, componentVectorStyleProperty, {
       tandem: tandem
     } );
 

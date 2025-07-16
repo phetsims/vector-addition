@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View-specific Properties for the 'Equations' screen.
+ * EquationsViewProperties is the set of view-specific Properties for the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -16,6 +16,9 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
 
   // whether the EquationAccordionBox is expanded
   public readonly equationAccordionBoxExpandedProperty: Property<boolean>;
+
+  // whether the sum vector is visible
+  public readonly sumVisibleProperty: Property<boolean>;
 
   // whether the BaseVectorsAccordionBox is expanded
   public readonly baseVectorsAccordionBoxExpandedProperty: Property<boolean>;
@@ -32,6 +35,10 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
       tandem: tandem.createTandem( 'equationAccordionBoxExpandedProperty' )
     } );
 
+    this.sumVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'sumVisibleProperty' )
+    } );
+
     this.baseVectorsAccordionBoxExpandedProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'baseVectorsAccordionBoxExpandedProperty' )
     } );
@@ -43,6 +50,7 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
 
   public override reset(): void {
     this.equationAccordionBoxExpandedProperty.reset();
+    this.sumVisibleProperty.reset();
     this.baseVectorsAccordionBoxExpandedProperty.reset();
     this.baseVectorsVisibleProperty.reset();
     super.reset();

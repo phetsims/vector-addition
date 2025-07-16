@@ -1,7 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View-specific Properties for the sim. Can be subclassed to add more Properties.
+ * VectorAdditionViewProperties is the base class for view-specific Properties for the sim. It contains Properties
+ * that all screens have in common.
  *
  * @author Brandon Li
  */
@@ -35,7 +36,7 @@ export default class VectorAdditionViewProperties {
   // whether the VectorValuesAccordionBox is expanded
   public readonly vectorValuesAccordionBoxExpandedProperty: Property<boolean>;
 
-  public constructor( providedOptions: VectorAdditionViewPropertiesOptions ) {
+  protected constructor( providedOptions: VectorAdditionViewPropertiesOptions ) {
 
     const options = optionize<VectorAdditionViewPropertiesOptions, SelfOptions, PhetioObjectOptions>()( {
 

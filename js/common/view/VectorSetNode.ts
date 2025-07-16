@@ -42,6 +42,7 @@ export default class VectorSetNode extends Node {
 
   public constructor( scene: VectorAdditionScene,
                       vectorSet: VectorSet,
+                      sumVisibleProperty: TReadOnlyProperty<boolean>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
@@ -51,14 +52,13 @@ export default class VectorSetNode extends Node {
     assert && assert( sumVector !== null );
 
     // Every VectorSet has a sum vector and sum component vectors, so create them
-    const sumVectorNode = new SumVectorNode( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty,
-      vectorSet.sumVisibleProperty, {
+    const sumVectorNode = new SumVectorNode( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
       tandem: tandem.createTandem( 'sumVectorNode' )
-      } );
+    } );
     const xSumComponentVectorNode = new SumComponentVectorNode( sumVector.xComponentVector, scene,
-      componentVectorStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
+      componentVectorStyleProperty, valuesVisibleProperty, sumVisibleProperty );
     const ySumComponentVectorNode = new SumComponentVectorNode( sumVector.yComponentVector, scene,
-      componentVectorStyleProperty, valuesVisibleProperty, vectorSet.sumVisibleProperty );
+      componentVectorStyleProperty, valuesVisibleProperty, sumVisibleProperty );
 
     super( {
       isDisposable: false,

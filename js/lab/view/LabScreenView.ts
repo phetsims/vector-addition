@@ -14,14 +14,14 @@ import vectorAddition from '../../vectorAddition.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabSceneNode from './LabSceneNode.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import LabScreenSummaryContent from './LabScreenSummaryContent.js';
+import LabViewProperties from './LabViewProperties.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
   // view-specific Properties
-  private readonly viewProperties: VectorAdditionViewProperties;
+  private readonly viewProperties: LabViewProperties;
 
   public constructor( model: LabModel, tandem: Tandem ) {
 
@@ -30,9 +30,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
       tandem: tandem
     } );
 
-    this.viewProperties = new VectorAdditionViewProperties( {
-      tandem: tandem.createTandem( 'viewProperties' )
-    } );
+    this.viewProperties = new LabViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Controls for the graph, at upper right
     const graphControlPanel = new LabGraphControlPanel(
@@ -40,8 +38,6 @@ export default class LabScreenView extends VectorAdditionScreenView {
       model.cartesianScene,
       model.polarScene,
       model.componentVectorStyleProperty,
-      model.sum1VisibleProperty,
-      model.sum2VisibleProperty,
       this.viewProperties, {
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.right - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.top + VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,

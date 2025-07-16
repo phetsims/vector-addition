@@ -11,7 +11,6 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import Property from '../../../../axon/js/Property.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -29,14 +28,12 @@ export default class LabVectorSet extends VectorSet {
    * @param scene - the scene the VectorSet belongs to
    * @param symbolProperty - the symbol for the vectors in the set
    * @param componentVectorStyleProperty - component style for all vectors
-   * @param sumVisibleProperty - controls whether the sum vector is visible
    * @param vectorColorPalette - color palette for vectors in this set
    * @param providedOptions
    */
   public constructor( scene: VectorAdditionScene,
                       symbolProperty: TReadOnlyProperty<string>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
                       providedOptions: LabVectorSetOptions ) {
 
@@ -49,7 +46,7 @@ export default class LabVectorSet extends VectorSet {
         ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` )
     }, providedOptions );
 
-    super( scene, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, options );
+    super( scene, componentVectorStyleProperty, vectorColorPalette, options );
 
     this.symbolProperty = symbolProperty;
   }

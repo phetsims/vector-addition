@@ -24,7 +24,6 @@ import EquationsViewProperties from './EquationsViewProperties.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import EquationsScene from '../model/EquationsScene.js';
 import EquationsSumCheckbox from './EquationsSumCheckbox.js';
-import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -35,7 +34,6 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
   public constructor( sceneProperty: TReadOnlyProperty<EquationsScene>,
                       cartesianScene: EquationsScene,
                       polarScene: EquationsScene,
-                      sumVisibleProperty: Property<boolean>,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       viewProperties: EquationsViewProperties,
                       providedOptions: EquationsGraphControlPanelOptions ) {
@@ -43,7 +41,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const options = providedOptions;
 
     // Sum, 'c' or 'f'
-    const sumCheckbox = new EquationsSumCheckbox( sumVisibleProperty, sceneProperty, cartesianScene, polarScene,
+    const sumCheckbox = new EquationsSumCheckbox( viewProperties.sumVisibleProperty, sceneProperty, cartesianScene, polarScene,
       options.tandem.createTandem( 'sumCheckbox' ) );
 
     // Values

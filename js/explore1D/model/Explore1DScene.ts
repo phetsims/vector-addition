@@ -11,7 +11,6 @@
  * @author Brandon Li
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
@@ -48,14 +47,12 @@ export default class Explore1DScene extends VectorAdditionScene {
    * @param sceneNameStringProperty
    * @param graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
    * @param componentVectorStyleProperty
-   * @param sumVisibleProperty - shared boolean Property that controls the visibility of sum vectors
    * @param vectorColorPalette - color palette for vectors in this scene
    * @param tandem
    */
   public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                       graphOrientation: GraphOrientation,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
                       tandem: Tandem ) {
 
@@ -69,7 +66,7 @@ export default class Explore1DScene extends VectorAdditionScene {
       tandem: tandem
     } );
 
-    this.vectorSet = new VectorSet( this, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, {
+    this.vectorSet = new VectorSet( this, componentVectorStyleProperty, vectorColorPalette, {
       tandem: tandem.createTandem( 'vectorSet' )
     } );
 

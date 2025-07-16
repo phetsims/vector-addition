@@ -9,7 +9,6 @@
  * @author Brandon Li
  */
 
-import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
@@ -83,14 +82,12 @@ export default class EquationsVectorSet extends VectorSet {
   /**
    * @param scene
    * @param componentVectorStyleProperty
-   * @param sumVisibleProperty
    * @param vectorColorPalette - color palette for vectors in this set
    * @param coordinateSnapMode - each vector set can only represent one snap mode
    * @param tandem
    */
   public constructor( scene: EquationsScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
                       coordinateSnapMode: CoordinateSnapMode,
                       tandem: Tandem ) {
@@ -108,7 +105,7 @@ export default class EquationsVectorSet extends VectorSet {
       tandem: tandem
     };
 
-    super( scene, componentVectorStyleProperty, sumVisibleProperty, vectorColorPalette, options );
+    super( scene, componentVectorStyleProperty, vectorColorPalette, options );
 
     this.symbolProperties = [];
     this.equationsVectors = [];

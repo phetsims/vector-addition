@@ -14,14 +14,14 @@ import vectorAddition from '../../vectorAddition.js';
 import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DSceneNode from './Explore2DSceneNode.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import Explore2DScreenSummaryContent from './Explore2DScreenSummaryContent.js';
+import Explore2DViewProperties from './Explore2DViewProperties.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
   // view-specific Properties
-  private readonly viewProperties: VectorAdditionViewProperties;
+  private readonly viewProperties: Explore2DViewProperties;
 
   public constructor( model: Explore2DModel, tandem: Tandem ) {
 
@@ -30,9 +30,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       tandem: tandem
     } );
 
-    this.viewProperties = new VectorAdditionViewProperties( {
-      tandem: tandem.createTandem( 'viewProperties' )
-    } );
+    this.viewProperties = new Explore2DViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Control for the graph, at upper right
     const graphControlPanel = new Explore2DGraphControlPanel(

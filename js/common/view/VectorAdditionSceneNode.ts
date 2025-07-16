@@ -63,6 +63,7 @@ export default class VectorAdditionSceneNode extends Node {
 
   protected constructor( scene: VectorAdditionScene,
                          sceneProperty: TReadOnlyProperty<VectorAdditionScene>,
+                         sumVisibleProperties: TReadOnlyProperty<boolean>[],
                          viewProperties: VectorAdditionViewProperties,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          providedOptions: SceneNodeOptions ) {
@@ -137,11 +138,12 @@ export default class VectorAdditionSceneNode extends Node {
     }
 
     // a layer for each VectorSet
+    assert && assert( sumVisibleProperties.length === scene.vectorSets.length );
     this.vectorSetNodes = [];
-    scene.vectorSets.forEach( vectorSet => {
+    scene.vectorSets.forEach( ( vectorSet, index ) => {
 
-      const vectorSetNode = new VectorSetNode( scene, vectorSet, viewProperties.valuesVisibleProperty,
-        viewProperties.anglesVisibleProperty, componentVectorStyleProperty,
+      const vectorSetNode = new VectorSetNode( scene, vectorSet, sumVisibleProperties[ index ],
+        viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentVectorStyleProperty,
         options.tandem.createTandem( `${vectorSet.tandem.name}Node` ) );
 
       this.vectorSetNodesParent.addChild( vectorSetNode );

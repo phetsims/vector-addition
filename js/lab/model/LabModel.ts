@@ -6,12 +6,10 @@
  * @author Martin Veillette
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabScene from './LabScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
@@ -29,24 +27,10 @@ export default class LabModel extends VectorAdditionModel {
   // The selected scene
   public readonly sceneProperty: Property<LabScene>;
 
-  // Visibility of the sum vector for the first vector set, shared by both scenes.
-  public readonly sum1VisibleProperty: Property<boolean>;
-
-  // Visibility of the sum vector for the second vector set, shared by both scenes.
-  public readonly sum2VisibleProperty: Property<boolean>;
-
   public constructor( tandem: Tandem ) {
 
     super( {
       tandem: tandem
-    } );
-
-    this.sum1VisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
-      tandem: tandem.createTandem( 'sum1VisibleProperty' )
-    } );
-
-    this.sum2VisibleProperty = new BooleanProperty( VectorAdditionConstants.DEFAULT_SUM_VISIBLE, {
-      tandem: tandem.createTandem( 'sum2VisibleProperty' )
     } );
 
     const scenesTandem = tandem.createTandem( 'scenes' );
@@ -57,8 +41,6 @@ export default class LabModel extends VectorAdditionModel {
       this.componentVectorStyleProperty,
       VectorAdditionSymbols.vStringProperty,
       VectorAdditionSymbols.uStringProperty,
-      this.sum1VisibleProperty,
-      this.sum2VisibleProperty,
       VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_1,
       VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_2,
       scenesTandem.createTandem( 'cartesianScene' )
@@ -70,8 +52,6 @@ export default class LabModel extends VectorAdditionModel {
       this.componentVectorStyleProperty,
       VectorAdditionSymbols.pStringProperty,
       VectorAdditionSymbols.qStringProperty,
-      this.sum1VisibleProperty,
-      this.sum2VisibleProperty,
       VectorAdditionColors.LAB_POLAR_COLOR_PALETTE_1,
       VectorAdditionColors.LAB_POLAR_COLOR_PALETTE_2,
       scenesTandem.createTandem( 'polarScene' )
@@ -88,8 +68,6 @@ export default class LabModel extends VectorAdditionModel {
     this.cartesianScene.reset();
     this.polarScene.reset();
     this.sceneProperty.reset();
-    this.sum1VisibleProperty.reset();
-    this.sum2VisibleProperty.reset();
     super.reset();
   }
 }

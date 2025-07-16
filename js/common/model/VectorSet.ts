@@ -13,7 +13,6 @@
  */
 
 import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
-import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -58,7 +57,6 @@ export default class VectorSet extends PhetioObject {
   public readonly vectors: ObservableArray<Vector>;
 
   public readonly vectorColorPalette: VectorColorPalette;
-  public readonly sumVisibleProperty: Property<boolean>;
   public readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
   public readonly projectionXOffsetStart: number;
@@ -71,13 +69,11 @@ export default class VectorSet extends PhetioObject {
   /**
    * @param scene - the scene the VectorSet belongs to
    * @param componentVectorStyleProperty - component style for all vectors
-   * @param sumVisibleProperty - controls whether the sum vector is visible
    * @param vectorColorPalette - color palette for vectors in this set
    * @param providedOptions
    */
   public constructor( scene: VectorAdditionScene,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      sumVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
                       providedOptions: VectorSetOptions ) {
 
@@ -114,7 +110,6 @@ export default class VectorSet extends PhetioObject {
 
     this.vectors = createObservableArray();
     this.vectorColorPalette = vectorColorPalette;
-    this.sumVisibleProperty = sumVisibleProperty;
     this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     this.projectionXOffsetStart = options.projectionXOffsetStart;
