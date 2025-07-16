@@ -114,7 +114,8 @@ export default class Vector extends RootVector {
       isTipDraggable: true,
       isRemovable: true,
       isOnGraphInitially: false,
-      tandem: Tandem.OPTIONAL
+      tandem: Tandem.OPTIONAL,
+      tandemNameSuffix: 'Vector'
     }, providedOptions );
 
     super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbolProperty, options );

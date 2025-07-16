@@ -45,7 +45,8 @@ type SelfOptions = {
   arrowOptions?: RootVectorArrowNodeOptions;
 };
 
-export type RootVectorNodeOptions = SelfOptions & PickOptional<NodeOptions, 'tandem' | 'visibleProperty' | 'isDisposable'>;
+export type RootVectorNodeOptions = SelfOptions &
+  PickOptional<NodeOptions, 'tandem' | 'tandemNameSuffix' | 'visibleProperty' | 'isDisposable'>;
 
 export default class RootVectorNode extends InteractiveHighlighting( Node ) {
 

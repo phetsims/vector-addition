@@ -63,7 +63,8 @@ export default class VectorNode extends RootVectorNode {
           cursor: 'move',
           fill: vector.vectorColorPalette.vectorFillProperty,
           stroke: vector.vectorColorPalette.vectorStrokeProperty
-        } )
+        } ),
+      tandemNameSuffix: 'VectorNode'
     }, providedOptions );
 
     // To improve readability

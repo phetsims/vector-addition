@@ -13,7 +13,6 @@
  */
 
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -23,13 +22,12 @@ import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorSet from '../model/VectorSet.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorNode from './ComponentVectorNode.js';
-import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import SumComponentVectorNode from './SumComponentVectorNode.js';
 import SumVectorNode from './SumVectorNode.js';
 import VectorNode from './VectorNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import BaseVectorNode from './BaseVectorNode.js';
 
 export default class VectorSetNode extends Node {
 
@@ -170,19 +168,12 @@ export default class VectorSetNode extends Node {
                             vectorColorPalette: VectorColorPalette ): void {
 
     // Node for the base vector
-    const baseVectorNode = new VectorNode( baseVector, this.scene,
-      this.valuesVisibleProperty,
+    const baseVectorNode = new BaseVectorNode( baseVector, vectorColorPalette, this.scene, this.valuesVisibleProperty,
       this.anglesVisibleProperty, {
-        arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
-          fill: vectorColorPalette.baseVectorFillProperty,
-          stroke: vectorColorPalette.baseVectorStrokeProperty
-        } ),
+        visibleProperty: baseVectorsVisibleProperty,
         tandem: this.tandem.createTandem( `${baseVector.tandemSymbol}BaseVectorNode` )
       } );
     this.addChild( baseVectorNode );
-
-    // Handle visibility
-    baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
 
     // When the base vector becomes selected, move it (and the entire vector set) to the front.
     // unlink is unnecessary because base vectors exist for the lifetime of the sim.
