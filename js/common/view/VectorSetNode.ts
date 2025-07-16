@@ -111,9 +111,12 @@ export default class VectorSetNode extends Node {
       this.componentVectorStyleProperty,
       this.valuesVisibleProperty );
 
-    this.addChild( xComponentVectorNode );
-    this.addChild( yComponentVectorNode );
-    this.addChild( vectorNode );
+    // To keep vector in front of its components when we move the selected vector to the front.
+    const vectorAndComponentsNode = new Node( {
+      children: [ xComponentVectorNode, yComponentVectorNode, vectorNode ]
+    } );
+
+    this.addChild( vectorAndComponentsNode );
 
     // Optional event forwarding
     if ( forwardingEvent ) {
@@ -125,13 +128,11 @@ export default class VectorSetNode extends Node {
     const selectedVectorListener = ( selectedVector: Vector | null ) => {
       if ( selectedVector === vectorNode.vector ) {
 
-        // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
+        // Move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
         this.moveToFront();
 
-        // order is important - vector should be in front of components
-        xComponentVectorNode.moveToFront();
-        yComponentVectorNode.moveToFront();
-        vectorNode.moveToFront();
+        // Move the selected vector and its components to the front.
+        vectorAndComponentsNode.moveToFront();
       }
     };
     this.scene.selectedVectorProperty.link( selectedVectorListener );
