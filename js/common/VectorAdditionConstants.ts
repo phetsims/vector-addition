@@ -248,7 +248,9 @@ export default class VectorAdditionConstants {
   public static readonly CHECKBOX_FONT = new PhetFont( 16 );
   public static readonly TITLE_FONT = new PhetFont( 16 );
 
+  //----------------------------------------------------------------------------------------
   // Preferences
+
   public static readonly PREFERENCES_CONTROL_OPTIONS: PreferencesControlOptions = {
     isDisposable: false,
     labelSpacing: 20,
