@@ -68,12 +68,13 @@ export default class VectorAdditionConstants {
     stroke: null
   };
 
+  public static readonly GRAPH_CONTROLS_Y_SPACING = 8;
+
   //----------------------------------------------------------------------------------------
   // Checkboxes
 
   public static readonly CHECKBOX_BOX_WIDTH = 18;
   public static readonly CHECKBOX_ICON_SPACING = 8;
-  public static readonly CHECKBOX_Y_SPACING = 8;
 
   //----------------------------------------------------------------------------------------
   // RadioButtonGroups

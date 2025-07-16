@@ -69,7 +69,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
       options.tandem.createTandem( 'gridCheckbox' ) );
 
     const content = new VBox( {
-      spacing: VectorAdditionConstants.CHECKBOX_Y_SPACING,
+      spacing: VectorAdditionConstants.GRAPH_CONTROLS_Y_SPACING,
       align: 'left',
       stretch: true,
       children: [
