@@ -40,7 +40,7 @@ export default class EquationsVector extends Vector {
    * @param scene - the scene the vector belongs to
    * @param vectorSet - the VectorSet that the vector belongs to
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
-   * @param tandemSymbol - symbol for the vector used in tandem names
+   * @param tandemNameSymbol - symbol for the vector used in tandem names
    * @param tandem
    */
   public constructor( initialTailPosition: Vector2,
@@ -49,7 +49,7 @@ export default class EquationsVector extends Vector {
                       scene: EquationsScene,
                       vectorSet: EquationsVectorSet,
                       symbolProperty: TReadOnlyProperty<string>,
-                      tandemSymbol: string,
+                      tandemNameSymbol: string,
                       tandem: Tandem ) {
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
@@ -57,7 +57,7 @@ export default class EquationsVector extends Vector {
       isRemovable: false,       // Equations vectors are not removable
       isTipDraggable: false,    // Equations vectors are not draggable by the tip
       isOnGraphInitially: true,  // Equations vectors are always on the graph
-      tandemSymbol: tandemSymbol,
+      tandemNameSymbol: tandemNameSymbol,
       tandem: tandem
     } );
 
@@ -71,11 +71,11 @@ export default class EquationsVector extends Vector {
     // Instantiate a base vector based on scene.
     if ( scene.coordinateSnapMode === 'cartesian' ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition, this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        scene, vectorSet, symbolProperty, tandemSymbol, tandem.createTandem( 'baseVector' ) );
+        scene, vectorSet, symbolProperty, tandemNameSymbol, tandem.createTandem( 'baseVector' ) );
     }
     else {
       this.baseVector = new PolarBaseVector( baseVectorTailPosition, this.vectorComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        scene, vectorSet, symbolProperty, tandemSymbol, tandem.createTandem( 'baseVector' ) );
+        scene, vectorSet, symbolProperty, tandemNameSymbol, tandem.createTandem( 'baseVector' ) );
     }
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.

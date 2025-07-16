@@ -98,7 +98,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemSymbol}xPicker` )
+            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}xPicker` )
           } );
 
         // Y Component
@@ -114,7 +114,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemSymbol}yPicker` )
+            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}yPicker` )
           } );
 
         rows.push( new HBox( {
@@ -136,13 +136,13 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemSymbol}MagnitudePicker` )
+            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}MagnitudePicker` )
           } );
 
         // Angle
         assert && assert( polarBaseVector.symbolProperty );
         const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleDegreesProperty, polarBaseVector.symbolProperty!,
-          LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vector.baseVector.tandemSymbol}AnglePicker` ) );
+          LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}AnglePicker` ) );
 
         rows.push( new HBox( {
           align: 'origin',

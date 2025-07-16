@@ -48,7 +48,7 @@ type SelfOptions = {
   sumSymbolProperty?: TReadOnlyProperty<string>;
 
   // Symbol for the sum vector used in tandem names.
-  sumTandemSymbol?: string;
+  sumTandemNameSymbol?: string;
 };
 
 export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -68,7 +68,7 @@ export default class VectorSet extends PhetioObject {
   public readonly sumProjectionYOffset: number;
 
   protected _sumVector: SumVector | null; // settable by subclasses, specifically EquationsVectorSet
-  public readonly sumTandemSymbol: string; // Symbol for the sum vector used in tandem names.
+  public readonly sumTandemNameSymbol: string; // Symbol for the sum vector used in tandem names.
 
   /**
    * @param scene - the scene the VectorSet belongs to
@@ -104,7 +104,7 @@ export default class VectorSet extends PhetioObject {
       sumProjectionXOffset: offsetStart,
       sumProjectionYOffset: offsetStart,
       sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
-      sumTandemSymbol: 's',
+      sumTandemNameSymbol: 's',
 
       // PhetioObjectOptions
       isDisposable: false,
@@ -121,11 +121,11 @@ export default class VectorSet extends PhetioObject {
     this.projectionYOffsetStart = options.projectionYOffsetStart;
     this.sumProjectionXOffset = options.sumProjectionXOffset;
     this.sumProjectionYOffset = options.sumProjectionYOffset;
-    this.sumTandemSymbol = options.sumTandemSymbol;
+    this.sumTandemNameSymbol = options.sumTandemNameSymbol;
 
     if ( options.initializeSum ) {
       this._sumVector = new SumVector( options.initialSumTailPosition, scene, this, options.sumSymbolProperty,
-        this.sumTandemSymbol, options.tandem.createTandem( `${this.sumTandemSymbol}Vector` ) );
+        this.sumTandemNameSymbol, options.tandem.createTandem( `${this.sumTandemNameSymbol}Vector` ) );
       this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
     else {

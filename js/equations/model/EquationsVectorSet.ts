@@ -24,7 +24,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 
 type VectorDescription = {
-  tandemSymbol: string; // symbol for the vector used in tandem names
+  tandemNameSymbol: string; // symbol for the vector used in tandem names
   symbolProperty: TReadOnlyProperty<string>;
   vectorComponents: Vector2;
   vectorTail: Vector2;
@@ -36,7 +36,7 @@ const CARTESIAN_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // a
   {
-    tandemSymbol: 'a',
+    tandemNameSymbol: 'a',
     symbolProperty: VectorAdditionSymbols.aStringProperty,
     vectorComponents: new Vector2( 0, 5 ),
     vectorTail: new Vector2( 5, 5 ),
@@ -45,7 +45,7 @@ const CARTESIAN_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // b
   {
-    tandemSymbol: 'b',
+    tandemNameSymbol: 'b',
     symbolProperty: VectorAdditionSymbols.bStringProperty,
     vectorComponents: new Vector2( 5, 5 ),
     vectorTail: new Vector2( 15, 5 ),
@@ -58,7 +58,7 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // d
   {
-    tandemSymbol: 'd',
+    tandemNameSymbol: 'd',
     symbolProperty: VectorAdditionSymbols.dStringProperty,
     vectorComponents: Vector2.createPolar( 5, 0 ),
     vectorTail: new Vector2( 5, 5 ),
@@ -67,7 +67,7 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
   // e
   {
-    tandemSymbol: 'e',
+    tandemNameSymbol: 'e',
     symbolProperty: VectorAdditionSymbols.eStringProperty,
     vectorComponents: Vector2.createPolar( 8, toRadians( 45 ) ),
     vectorTail: new Vector2( 15, 5 ),
@@ -98,7 +98,7 @@ export default class EquationsVectorSet extends VectorSet {
                       tandem: Tandem ) {
 
     // Symbol for the sum vector used in tandem names.
-    const sumTandemSymbol = ( coordinateSnapMode === 'cartesian' ) ? 'c' : 'f';
+    const sumTandemNameSymbol = ( coordinateSnapMode === 'cartesian' ) ? 'c' : 'f';
 
     const options = {
 
@@ -110,7 +110,7 @@ export default class EquationsVectorSet extends VectorSet {
       sumProjectionXOffset: 0.5,
       sumProjectionYOffset: 0.5,
 
-      sumTandemSymbol: sumTandemSymbol,
+      sumTandemNameSymbol: sumTandemNameSymbol,
       tandem: tandem
     };
 
@@ -132,8 +132,8 @@ export default class EquationsVectorSet extends VectorSet {
         scene,
         this,
         vectorDescription.symbolProperty,
-        vectorDescription.tandemSymbol,
-        options.tandem.createTandem( `${vectorDescription.tandemSymbol}Vector` ) );
+        vectorDescription.tandemNameSymbol,
+        options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ) );
 
       this.vectors.push( vector );
       this.symbolProperties.push( vectorDescription.symbolProperty );
@@ -145,7 +145,7 @@ export default class EquationsVectorSet extends VectorSet {
     this.symbolProperties.push( sumSymbolProperty );
 
     // Create the sum vector
-    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, sumSymbolProperty, sumTandemSymbol, tandem.createTandem( `${sumTandemSymbol}Vector` ) );
+    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, sumSymbolProperty, sumTandemNameSymbol, tandem.createTandem( `${sumTandemNameSymbol}Vector` ) );
     this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 

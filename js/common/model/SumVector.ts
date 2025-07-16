@@ -37,14 +37,14 @@ export default class SumVector extends Vector {
    * @param scene - scene the sum vector belongs to
    * @param vectorSet - the VectorSet that the sum represents
    * @param symbolProperty - the symbol for the sum vector (e.g. 's', 'c', 'f')
-   * @param tandemSymbol - symbol for the sum vector used in tandem names
+   * @param tandemNameSymbol - symbol for the sum vector used in tandem names
    * @param tandem
    */
   public constructor( initialTailPosition: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       symbolProperty: TReadOnlyProperty<string>,
-                      tandemSymbol: string,
+                      tandemNameSymbol: string,
                       tandem: Tandem ) {
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
@@ -53,7 +53,7 @@ export default class SumVector extends Vector {
       isTipDraggable: false, // Sum vectors are not draggable by the tip.
       isRemovable: false, // Sum vectors are not removable which means they are also not disposable
       isOnGraphInitially: true, // Sum vectors are always on the graph
-      tandemSymbol: tandemSymbol,
+      tandemNameSymbol: tandemNameSymbol,
       tandem: tandem
     } );
 

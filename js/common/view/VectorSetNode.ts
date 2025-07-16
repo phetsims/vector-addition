@@ -51,7 +51,7 @@ export default class VectorSetNode extends Node {
 
     // Every VectorSet has a sum vector and sum component vectors, so create them
     const sumVectorNode = new SumVectorNode( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
-      tandem: tandem.createTandem( `${vectorSet.sumTandemSymbol}VectorNode` )
+      tandem: tandem.createTandem( `${vectorSet.sumTandemNameSymbol}VectorNode` )
     } );
     const xSumComponentVectorNode = new SumComponentVectorNode( sumVector.xComponentVector, scene,
       componentVectorStyleProperty, valuesVisibleProperty, sumVisibleProperty );
@@ -172,7 +172,7 @@ export default class VectorSetNode extends Node {
     const baseVectorNode = new BaseVectorNode( baseVector, vectorColorPalette, this.scene, this.valuesVisibleProperty,
       this.anglesVisibleProperty, {
         visibleProperty: baseVectorsVisibleProperty,
-        tandem: this.tandem.createTandem( `${baseVector.tandemSymbol}BaseVectorNode` )
+        tandem: this.tandem.createTandem( `${baseVector.tandemNameSymbol}BaseVectorNode` )
       } );
     this.addChild( baseVectorNode );
 

@@ -19,7 +19,7 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions, 'sumTandemSymbol'>;
+type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions, 'sumTandemNameSymbol'>;
 
 export default class LabVectorSet extends VectorSet {
 
@@ -30,12 +30,12 @@ export default class LabVectorSet extends VectorSet {
    * @param symbolProperty - the symbol for the vectors in the set
    * @param componentVectorStyleProperty - component style for all vectors
    * @param vectorColorPalette - color palette for vectors in this set
-   * @param tandemSymbol - symbol for the vector set used in tandem names
+   * @param tandemNameSymbol - symbol for the vector set used in tandem names
    * @param providedOptions
    */
   public constructor( scene: VectorAdditionScene,
                       symbolProperty: TReadOnlyProperty<string>,
-                      tandemSymbol: string,
+                      tandemNameSymbol: string,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       vectorColorPalette: VectorColorPalette,
                       providedOptions: LabVectorSetOptions ) {
@@ -49,7 +49,7 @@ export default class LabVectorSet extends VectorSet {
         ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` ),
 
       //  Symbol for the sum vector used in tandem names.
-      sumTandemSymbol: `s${tandemSymbol}`
+      sumTandemNameSymbol: `s${tandemNameSymbol}`
     }, providedOptions );
 
     super( scene, componentVectorStyleProperty, vectorColorPalette, options );

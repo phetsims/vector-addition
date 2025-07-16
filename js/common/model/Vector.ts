@@ -53,7 +53,7 @@ type SelfOptions = {
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
   isRemovable?: boolean; // flag indicating if the vector can be removed from the graph
   isOnGraphInitially?: boolean; // flag indicating if the vector is on the graph upon initialization
-  tandemSymbol: string; // symbol for this vector used in tandem names
+  tandemNameSymbol: string; // symbol for this vector used in tandem names
 };
 
 export type VectorOptions = SelfOptions & RootVectorOptions;
@@ -86,7 +86,7 @@ export default class Vector extends RootVector {
   public readonly yComponentVector: ComponentVector;
 
   // symbol for this vector used in tandem names
-  public readonly tandemSymbol: string;
+  public readonly tandemNameSymbol: string;
 
   private readonly disposeVector: () => void;
 
@@ -144,7 +144,7 @@ export default class Vector extends RootVector {
       'yComponent'
     );
 
-    this.tandemSymbol = options.tandemSymbol;
+    this.tandemNameSymbol = options.tandemNameSymbol;
 
     // When the scene's origin changes, update the tail position. unlink is required on dispose.
     const updateTailPosition = ( newModelViewTransform: ModelViewTransform2, oldModelViewTransform: ModelViewTransform2 ) => {
