@@ -46,9 +46,9 @@ export default class VectorAdditionConstants {
   //----------------------------------------------------------------------------------------
   // ScreenViews
 
+  public static readonly SCREEN_VIEW_BOUNDS = ScreenView.DEFAULT_LAYOUT_BOUNDS;
   public static readonly SCREEN_VIEW_X_MARGIN = 20;
   public static readonly SCREEN_VIEW_Y_MARGIN = 16;
-  public static readonly SCREEN_VIEW_BOUNDS = ScreenView.DEFAULT_LAYOUT_BOUNDS;
 
   // Space between the VectorCreatorPanel and the scene radio buttons.
   public static readonly SPACE_BELOW_VECTOR_CREATOR_PANEL = 15;
