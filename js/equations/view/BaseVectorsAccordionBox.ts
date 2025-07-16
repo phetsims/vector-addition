@@ -92,7 +92,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                                       null;
         const xLabeledPicker = new LabelEqualsNumberPicker(
           cartesianBaseVector.xComponentProperty,
-          VectorAdditionConstants.COMPONENT_RANGE,
+          VectorAdditionConstants.XY_COMPONENT_RANGE,
           new VectorSymbolNode( {
             symbolProperty: xSymbolStringProperty,
             showVectorArrow: false,
@@ -108,7 +108,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
                                       null;
         const yLabeledPicker = new LabelEqualsNumberPicker(
           cartesianBaseVector.yComponentProperty,
-          VectorAdditionConstants.COMPONENT_RANGE,
+          VectorAdditionConstants.XY_COMPONENT_RANGE,
           new VectorSymbolNode( {
             symbolProperty: ySymbolStringProperty,
             showVectorArrow: false,

@@ -121,7 +121,7 @@ export default class VectorAdditionConstants {
   //----------------------------------------------------------------------------------------
   // Ranges
 
-  public static readonly COMPONENT_RANGE = new Range( -10, 10 );
+  public static readonly XY_COMPONENT_RANGE = new Range( -10, 10 );
   public static readonly MAGNITUDE_RANGE = new Range( -10, 10 );
   public static readonly SIGNED_ANGLE_RANGE = new Range( -180, 180 );
   public static readonly UNSIGNED_ANGLE_RANGE = new Range( 0, 360 );
