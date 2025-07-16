@@ -13,224 +13,227 @@ import vectorAddition from '../vectorAddition.js';
 import VectorColorPalette from './model/VectorColorPalette.js';
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 
-const VectorAdditionColors = {
+export default class VectorAdditionColors {
+
+  private constructor() {
+    // Not intended for instantiation.
+  }
 
   //----------------------------------------------------------------------------------------
   // Screen
 
-  screenBackgroundColorProperty: new ProfileColorProperty( vectorAddition, 'screenBackgroundColor', {
+  public static readonly screenBackgroundColorProperty = new ProfileColorProperty( vectorAddition, 'screenBackgroundColor', {
     default: '#e5f7fe' // light blue
-  } ),
+  } );
 
   //----------------------------------------------------------------------------------------
   // Graph
 
-  graphBackgroundColorProperty: new ProfileColorProperty( vectorAddition, 'graphBackgroundColor', {
+  public static readonly graphBackgroundColorProperty = new ProfileColorProperty( vectorAddition, 'graphBackgroundColor', {
     default: Color.WHITE
-  } ),
+  } );
 
-  graphMajorLineColorProperty: new ProfileColorProperty( vectorAddition, 'graphMajorLineColor', {
+  public static readonly graphMajorLineColorProperty = new ProfileColorProperty( vectorAddition, 'graphMajorLineColor', {
     default: Color.grayColor( 212 )
-  } ),
+  } );
 
-  graphMinorLineColorProperty: new ProfileColorProperty( vectorAddition, 'graphMinorLineColor', {
+  public static readonly graphMinorLineColorProperty = new ProfileColorProperty( vectorAddition, 'graphMinorLineColor', {
     default: Color.grayColor( 225 )
-  } ),
+  } );
 
-  graphTickLineColorProperty: new ProfileColorProperty( vectorAddition, 'graphTickLineColor', {
+public static readonly graphTickLineColorProperty = new ProfileColorProperty( vectorAddition, 'graphTickLineColor', {
     default: Color.BLACK
-  } ),
+  } );
 
-  graphTickLabelColorProperty: new ProfileColorProperty( vectorAddition, 'graphTickLabelColor', {
+  public static readonly graphTickLabelColorProperty = new ProfileColorProperty( vectorAddition, 'graphTickLabelColor', {
     default: Color.grayColor( 130 )
-  } ),
+  } );
 
-  eraserButtonBaseColorProperty: new ProfileColorProperty( vectorAddition, 'eraserButtonBaseColor', {
+  public static readonly eraserButtonBaseColorProperty = new ProfileColorProperty( vectorAddition, 'eraserButtonBaseColor', {
     default: PhetColorScheme.BUTTON_YELLOW
-  } ),
+  } );
 
   //----------------------------------------------------------------------------------------
   // Origin manipulator
 
-  originColorProperty: new ProfileColorProperty( vectorAddition, 'originColor', {
+  public static readonly originColorProperty = new ProfileColorProperty( vectorAddition, 'originColor', {
     default: Color.grayColor( 150 )
-  } ),
+  } );
 
-  originHighlightColorProperty: new ProfileColorProperty( vectorAddition, 'originHighlightColor', {
+  public static readonly originHighlightColorProperty = new ProfileColorProperty( vectorAddition, 'originHighlightColor', {
     default: Color.WHITE
-  } ),
+  } );
 
   //----------------------------------------------------------------------------------------
   // Panel-like containers
 
-  panelStrokeProperty: new ProfileColorProperty( vectorAddition, 'panelStroke', {
+  public static readonly panelStrokeProperty = new ProfileColorProperty( vectorAddition, 'panelStroke', {
     default: Color.grayColor( 190 )
-  } ),
+  } );
 
-  panelFillProperty: new ProfileColorProperty( vectorAddition, 'panelFill', {
+  public static readonly panelFillProperty = new ProfileColorProperty( vectorAddition, 'panelFill', {
     default: Color.grayColor( 240 )
-  } ),
+  } );
 
-  separatorStrokeProperty: new ProfileColorProperty( vectorAddition, 'separatorStroke', {
+  public static readonly separatorStrokeProperty = new ProfileColorProperty( vectorAddition, 'separatorStroke', {
     default: Color.grayColor( 180 )
-  } ),
+  } );
 
   //----------------------------------------------------------------------------------------
   // RadioButtonGroups
 
-  radioButtonBaseColorProperty: new ProfileColorProperty( vectorAddition, 'radioButtonBaseColor', {
+  public static readonly radioButtonBaseColorProperty = new ProfileColorProperty( vectorAddition, 'radioButtonBaseColor', {
     default: Color.WHITE
-  } ),
+  } );
 
-  radioButtonSelectedStrokeProperty: new ProfileColorProperty( vectorAddition, 'radioButtonSelectedStroke', {
+  public static readonly radioButtonSelectedStrokeProperty = new ProfileColorProperty( vectorAddition, 'radioButtonSelectedStroke', {
     default: 'rgb( 65, 154, 201 )' // blue
-  } ),
+  } );
 
-  radioButtonDeselectedStrokeProperty: new ProfileColorProperty( vectorAddition, 'radioButtonDeselectedStroke', {
+  public static readonly radioButtonDeselectedStrokeProperty = new ProfileColorProperty( vectorAddition, 'radioButtonDeselectedStroke', {
     default: Color.grayColor( 50 )
-  } ),
+  } );
 
-  componentStyleIconColorProperty: new ProfileColorProperty( vectorAddition, 'componentStyleIconColor', {
+  public static readonly componentStyleIconColorProperty = new ProfileColorProperty( vectorAddition, 'componentStyleIconColor', {
     default: Color.BLACK // see https://github.com/phetsims/vector-addition/issues/314
-  } ),
+  } );
 
-  eyeIconFillProperty: new ProfileColorProperty( vectorAddition, 'eyeIconFill', {
+  public static readonly eyeIconFillProperty = new ProfileColorProperty( vectorAddition, 'eyeIconFill', {
     default: Color.BLACK
-  } ),
+  } );
 
   //----------------------------------------------------------------------------------------
   // Label background on vectors
 
-  selectedVectorLabelBackgroundFillProperty: new ProfileColorProperty( vectorAddition, 'selectedVectorLabelBackgroundFill', {
+  public static readonly selectedVectorLabelBackgroundFillProperty = new ProfileColorProperty( vectorAddition, 'selectedVectorLabelBackgroundFill', {
     default: 'rgba( 240, 240, 100, 0.8 )' // yellow
-  } ),
+  } );
 
-  selectedVectorLabelBackgroundStrokeProperty: new ProfileColorProperty( vectorAddition, 'selectedVectorLabelBackgroundStroke', {
+  public static readonly selectedVectorLabelBackgroundStrokeProperty = new ProfileColorProperty( vectorAddition, 'selectedVectorLabelBackgroundStroke', {
     default: 'rgba( 230, 230, 90, 0.8 )' // slightly darker yellow
-  } ),
+  } );
 
-  unselectedVectorLabelBackgroundFillProperty: new ProfileColorProperty( vectorAddition, 'unselectedVectorLabelBackgroundFill', {
+  public static readonly unselectedVectorLabelBackgroundFillProperty = new ProfileColorProperty( vectorAddition, 'unselectedVectorLabelBackgroundFill', {
     default: 'rgba( 235, 235, 235, 0.5 )' // transparent gray
-  } ),
+  } );
 
-  unselectedVectorLabelBackgroundStrokeProperty: new ProfileColorProperty( vectorAddition, 'unselectedVectorLabelBackgroundStroke', {
+  public static readonly unselectedVectorLabelBackgroundStrokeProperty = new ProfileColorProperty( vectorAddition, 'unselectedVectorLabelBackgroundStroke', {
     default: 'rgba( 215, 215, 215, 0.5 )' // slightly darker transparent gray
-  } ),
+  } );
 
   //----------------------------------------------------------------------------------------
   // Leader lines, for component vectors projected onto axes
 
-  leaderLinesSelectedStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesSelectedStroke', {
+  public static readonly leaderLinesSelectedStrokeProperty = new ProfileColorProperty( vectorAddition, 'leaderLinesSelectedStroke', {
     default: Color.BLACK
-  } ),
+  } );
 
-  leaderLinesUnselectedStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesUnselectedStroke', {
+  public static readonly leaderLinesUnselectedStrokeProperty = new ProfileColorProperty( vectorAddition, 'leaderLinesUnselectedStroke', {
     default: Color.BLACK
-  } ),
+  } );
 
   //----------------------------------------------------------------------------------------
   // Vector color palettes
 
   // Explore 1D screen, horizontal scene
-  EXPLORE_1D_HORIZONTAL_COLOR_PALETTE: new VectorColorPalette( {
+  public static readonly EXPLORE_1D_HORIZONTAL_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.vectorFill', {
       default: 'rgb( 10, 170, 250 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.sumFill', {
       default: '#0a46fa' // darker blue
     } )
-  } ),
+  } );
 
   // Explore 1D screen, vertical scene
-  EXPLORE_1D_VERTICAL_COLOR_PALETTE: new VectorColorPalette( {
+  public static readonly EXPLORE_1D_VERTICAL_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.vectorFill', {
       default: 'rgb( 10, 170, 250 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.sumFill', {
       default: '#0a46fa' // darker blue
     } )
-  } ),
+  } );
 
   // Explore 2D screen, Cartesian scene
-  EXPLORE_2D_CARTESIAN_COLOR_PALETTE: new VectorColorPalette( {
+  public static readonly EXPLORE_2D_CARTESIAN_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.vectorFill', {
       default: 'rgb( 10, 170, 250 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.sumFill', {
       default: '#0a46fa' // darker blue
     } )
-  } ),
+  } );
 
   // Explore 2D screen, polar scene
-  EXPLORE_2D_POLAR_COLOR_PALETTE: new VectorColorPalette( {
+  public static readonly EXPLORE_2D_POLAR_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.vectorFill', {
       default: '#f149ff' // pink
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.sumFill', {
       default: '#a200de' // darker purple
     } )
-  } ),
+  } );
 
   // Lab scene, Cartesian scene, vector set 1
-  LAB_CARTESIAN_COLOR_PALETTE_1: new VectorColorPalette( {
+  public static readonly LAB_CARTESIAN_COLOR_PALETTE_1 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.vectorFill', {
       default: 'rgb( 10, 170, 250 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.sumFill', {
       default: '#0a46fa' // darker blue
     } )
-  } ),
+  } );
 
   // Lab scene, Cartesian scene, vector set 2
-  LAB_CARTESIAN_COLOR_PALETTE_2: new VectorColorPalette( {
+  public static readonly LAB_CARTESIAN_COLOR_PALETTE_2 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.vectorFill', {
       default: '#ff9023' // orange
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.sumFill', {
       default: '#d20000' // red
     } )
-  } ),
+  } );
 
   // Lab scene, polar scene, vector set 1
-  LAB_POLAR_COLOR_PALETTE_1: new VectorColorPalette( {
+  public static readonly LAB_POLAR_COLOR_PALETTE_1 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.vectorFill', {
       default: '#f149ff' // pink
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.sumFill', {
       default: '#a200de' // darker purple
     } )
-  } ),
+  } );
 
   // Lab scene, polar scene, vector set 2
-  LAB_POLAR_COLOR_PALETTE_2: new VectorColorPalette( {
+  public static readonly LAB_POLAR_COLOR_PALETTE_2 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.vectorFill', {
       default: 'rgb( 5, 200, 0 )' // green
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.sumFill', {
       default: '#058200' // darker green
     } )
-  } ),
+  } );
 
   // Equations screen, cartesian scene
-  EQUATIONS_CARTESIAN_COLOR_PALETTE: new VectorColorPalette( {
+  public static readonly EQUATIONS_CARTESIAN_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.vectorFill', {
       default: 'rgb( 10, 170, 250 )'
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.sumFill', {
       default: Color.BLACK
     } )
-  } ),
+  } );
 
   // Equations screen, polar scene
-  EQUATIONS_POLAR_COLOR_PALETTE: new VectorColorPalette( {
+  public static readonly EQUATIONS_POLAR_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.vectorFill', {
       default: '#f149ff'
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.sumFill', {
       default: Color.BLACK
     } )
-  } )
-};
+  } );
+}
 
 vectorAddition.register( 'VectorAdditionColors', VectorAdditionColors );
-export default VectorAdditionColors;
