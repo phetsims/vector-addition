@@ -43,7 +43,7 @@ export default class EquationsSumCheckbox extends Checkbox {
       maxWidth: 95 // determined empirically
     } );
 
-    const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet.symbolProperties[ 2 ].value );
+    const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet.sumSymbolProperty.value );
 
     // To make both symbols have the same effective size, so that control panel layout doesn't shift.
     const alignGroup = new AlignGroup();

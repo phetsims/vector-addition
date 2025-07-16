@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View for the radio button group near the top of the scene that allows the user to select a equation type.
+ * View for the radio button group near the top of the scene that allows the user to select an equation type.
  *
  * See EquationType.js
  *
@@ -41,9 +41,11 @@ type EquationTypeRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions 
 export default class EquationTypeRadioButtonGroup extends RectangularRadioButtonGroup<EquationType> {
 
   public constructor( equationTypeProperty: StringUnionProperty<EquationType>,
-                      vectorSymbolProperties: TReadOnlyProperty<string>[], // symbols on the buttons
+                      symbolProperties: TReadOnlyProperty<string>[], // symbols in the equations that appear on the buttons
                       alignGroup: AlignGroup,
                       providedOptions: EquationTypeRadioButtonGroupOptions ) {
+
+    assert && assert( symbolProperties.length === 3 );
 
     const options = optionize4<EquationTypeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {
@@ -54,52 +56,52 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
         scale: 0.75,
         accessibleName: VectorAdditionStrings.a11y.equationTypeRadioButtonGroup.accessibleNameStringProperty,
         accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.equationTypeRadioButtonGroup.accessibleHelpTextStringProperty, {
-          symbol1: vectorSymbolProperties[ 0 ],
-          symbol2: vectorSymbolProperties[ 1 ],
-          symbol3: vectorSymbolProperties[ 2 ]
+          symbol1: symbolProperties[ 0 ],
+          symbol2: symbolProperties[ 1 ],
+          symbol3: symbolProperties[ 2 ]
         } )
       }, providedOptions );
 
     const items: RectangularRadioButtonGroupItem<EquationType>[] = [
       {
         value: 'addition',
-        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'addition', vectorSymbolProperties ), {
+        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'addition', symbolProperties ), {
           group: alignGroup
         } ),
         tandemName: 'additionRadioButton',
         options: {
           accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.additionRadioButton.accessibleNameStringProperty, {
-            symbol1: vectorSymbolProperties[ 0 ],
-            symbol2: vectorSymbolProperties[ 1 ],
-            symbol3: vectorSymbolProperties[ 2 ]
+            symbol1: symbolProperties[ 0 ],
+            symbol2: symbolProperties[ 1 ],
+            symbol3: symbolProperties[ 2 ]
           } )
         }
       },
       {
         value: 'subtraction',
-        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'subtraction', vectorSymbolProperties ), {
+        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'subtraction', symbolProperties ), {
           group: alignGroup
         } ),
         tandemName: 'subtractionRadioButton',
         options: {
           accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.subtractionRadioButton.accessibleNameStringProperty, {
-            symbol1: vectorSymbolProperties[ 0 ],
-            symbol2: vectorSymbolProperties[ 1 ],
-            symbol3: vectorSymbolProperties[ 2 ]
+            symbol1: symbolProperties[ 0 ],
+            symbol2: symbolProperties[ 1 ],
+            symbol3: symbolProperties[ 2 ]
           } )
         }
       },
       {
         value: 'negation',
-        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'negation', vectorSymbolProperties ), {
+        createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'negation', symbolProperties ), {
           group: alignGroup
         } ),
         tandemName: 'negationRadioButton',
         options: {
           accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.negationRadioButton.accessibleNameStringProperty, {
-            symbol1: vectorSymbolProperties[ 0 ],
-            symbol2: vectorSymbolProperties[ 1 ],
-            symbol3: vectorSymbolProperties[ 2 ]
+            symbol1: symbolProperties[ 0 ],
+            symbol2: symbolProperties[ 1 ],
+            symbol3: symbolProperties[ 2 ]
           } )
         }
       }
