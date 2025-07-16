@@ -1,15 +1,9 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorValuesAccordionBox is the accordion box at the top of the screen. It displays the selected vector's magnitude,
- * angle, x component, and y component.
- *
- * 'Is a' relationship with FixedSizeAccordionBox
- *    - when collapsed, displays 'Vector Values'
- *    - when expanded either displays 'select a vector' or the selected vector's attributes
- *      (a series of labels and VectorQuantityDisplays)
- *
- * This panel exists for the entire sim and is never disposed.
+ * VectorValuesAccordionBox displays the selected vector's magnitude, angle, x component, and y component.
+ * When collapsed, it displays 'Vector Values'. When expanded, it either displays 'select a vector' (if no
+ * vector is selected) or it displays the selected vector's attributes (magnitude, angle, xy-components).
  *
  * @author Martin Veillette
  * @author Brandon Li
