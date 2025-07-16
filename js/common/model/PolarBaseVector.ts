@@ -25,7 +25,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 export default class PolarBaseVector extends BaseVector {
 
   public readonly magnitudeProperty: NumberProperty;
-  public readonly angleDegreesProperty: NumberProperty;
+  public readonly angleProperty: NumberProperty;
 
   /**
    * @param initialTailPosition - starting tail position of the Base Vector
@@ -59,25 +59,25 @@ export default class PolarBaseVector extends BaseVector {
 
     const initialAngle = this.angle!;
     assert && assert( initialAngle !== null, 'expected this.angle to be non-null' );
-    this.angleDegreesProperty = new NumberProperty( toDegrees( initialAngle ), {
+    this.angleProperty = new NumberProperty( toDegrees( initialAngle ), {
       numberType: 'Integer',
       range: VectorAdditionConstants.SIGNED_ANGLE_RANGE,
       units: '\u00B0', // degrees
-      tandem: tandem.createTandem( 'angleDegreesProperty' )
+      tandem: tandem.createTandem( 'angleProperty' )
     } );
 
     // Observe when the angle or magnitude changes, and update the components to match.
     Multilink.multilink(
-      [ this.magnitudeProperty, this.angleDegreesProperty ],
-      ( magnitude, angleDegrees ) => {
-        this.vectorComponents = Vector2.createPolar( magnitude, toRadians( angleDegrees ) );
+      [ this.magnitudeProperty, this.angleProperty ],
+      ( magnitude, angle ) => {
+        this.vectorComponents = Vector2.createPolar( magnitude, toRadians( angle ) );
       } );
   }
 
   public override reset(): void {
     super.reset();
     this.magnitudeProperty.reset();
-    this.angleDegreesProperty.reset();
+    this.angleProperty.reset();
   }
 }
 

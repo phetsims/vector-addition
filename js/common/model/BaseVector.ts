@@ -51,6 +51,7 @@ export default abstract class BaseVector extends Vector {
       isRemovable: false,       // BaseVectors are not removable
       isTipDraggable: false,    // BaseVectors are not draggable by the tip
       isOnGraphInitially: true, // BaseVectors are always on the graph
+      isOnGraphPropertyInstrumented: false, // BaseVectors are always on the graph
       tandemNameSymbol: tandemNameSymbol
     }, providedOptions );
 

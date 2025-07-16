@@ -141,7 +141,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
         // Angle
         assert && assert( polarBaseVector.symbolProperty );
-        const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleDegreesProperty, polarBaseVector.symbolProperty!,
+        const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleProperty, polarBaseVector.symbolProperty!,
           LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}AnglePicker` ) );
 
         rows.push( new HBox( {

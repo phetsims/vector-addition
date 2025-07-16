@@ -31,6 +31,8 @@ export default class VectorAdditionModel implements TModel {
   protected constructor( providedOptions: VectorAdditionModelOptions ) {
 
     const options = optionize<VectorAdditionModelOptions, SelfOptions>()( {
+
+      // SelfOptions
       componentVectorStylePropertyInstrumented: true
     }, providedOptions );
 

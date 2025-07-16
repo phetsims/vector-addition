@@ -53,6 +53,7 @@ type SelfOptions = {
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
   isRemovable?: boolean; // flag indicating if the vector can be removed from the graph
   isOnGraphInitially?: boolean; // flag indicating if the vector is on the graph upon initialization
+  isOnGraphPropertyInstrumented?: boolean; // whether isOnGraphProperty is PhET-iO instrumented
   tandemNameSymbol: string; // symbol for this vector used in tandem names
 };
 
@@ -114,6 +115,7 @@ export default class Vector extends RootVector {
       isTipDraggable: true,
       isRemovable: true,
       isOnGraphInitially: false,
+      isOnGraphPropertyInstrumented: true,
       tandem: Tandem.OPTIONAL
     }, providedOptions );
 
@@ -125,7 +127,7 @@ export default class Vector extends RootVector {
     this.vectorSet = vectorSet;
 
     this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially, {
-      tandem: options.tandem.createTandem( 'isOnGraphProperty' ),
+      tandem: options.isOnGraphPropertyInstrumented ? options.tandem.createTandem( 'isOnGraphProperty' ) : Tandem.OPT_OUT,
       phetioReadOnly: true
     } );
 
