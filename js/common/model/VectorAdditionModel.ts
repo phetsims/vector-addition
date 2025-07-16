@@ -24,7 +24,8 @@ export type VectorAdditionModelOptions = SelfOptions & PickRequired<PhetioObject
 
 export default class VectorAdditionModel implements TModel {
 
-  // the representation (style) used to display component vectors
+  // The representation (style) used to display component vectors.
+  // This is in the model because it affects the computation of the component vectors.
   public readonly componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>;
 
   protected constructor( providedOptions: VectorAdditionModelOptions ) {
