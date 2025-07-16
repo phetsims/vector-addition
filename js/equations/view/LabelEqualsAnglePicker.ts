@@ -16,7 +16,7 @@ import vectorAddition from '../../vectorAddition.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
-import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VAUtils.js';
+import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VectorAdditionUtils.js';
 import Property from '../../../../axon/js/Property.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';

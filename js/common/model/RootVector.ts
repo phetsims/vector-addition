@@ -31,7 +31,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { signedToUnsignedDegrees } from '../VAUtils.js';
+import { signedToUnsignedDegrees } from '../VectorAdditionUtils.js';
 
 export type LabelDisplayData = {
 
