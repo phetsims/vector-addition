@@ -50,6 +50,9 @@ export default class VectorAdditionConstants {
   public static readonly SCREEN_VIEW_Y_MARGIN = 16;
   public static readonly SCREEN_VIEW_BOUNDS = ScreenView.DEFAULT_LAYOUT_BOUNDS;
 
+  // Space between the VectorCreatorPanel and the scene radio buttons.
+  public static readonly SPACE_BELOW_VECTOR_CREATOR_PANEL = 15;
+
   //----------------------------------------------------------------------------------------
   // Graphs
 
@@ -93,9 +96,6 @@ export default class VectorAdditionConstants {
     }
   };
 
-  // Space between the VectorCreatorPanel and the scene radio buttons.
-  public static readonly SPACE_BELOW_VECTOR_CREATOR_PANEL = 15;
-
   //----------------------------------------------------------------------------------------
   // Panel-like containers
 
@@ -128,7 +128,7 @@ export default class VectorAdditionConstants {
   public static readonly UNSIGNED_ANGLE_RANGE = new Range( 0, 360 );
 
   //----------------------------------------------------------------------------------------
-  // AccordionBoxes and ToggleBoxes
+  // AccordionBoxes
 
   public static readonly ACCORDION_BOX_OPTIONS: AccordionBoxOptions = {
     cornerRadius: VectorAdditionConstants.PANEL_CORNER_RADIUS,
