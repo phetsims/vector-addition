@@ -61,74 +61,6 @@ export default class VectorAdditionConstants {
   public static readonly SPACE_BELOW_VECTOR_CREATOR_PANEL = 15;
 
   //----------------------------------------------------------------------------------------
-  // Graphs
-
-  public static readonly DEFAULT_GRAPH_BOUNDS = new Bounds2( -5, -5, 45, 25 );
-  public static readonly AXES_ARROW_X_EXTENSION = 20; // how far the x-axis arrow extends past the edge of the graph's grid
-  public static readonly AXES_ARROW_Y_EXTENSION = 15; // how far the y-axis arrow extends past the edge of the graph's grid
-  public static readonly AXES_ARROW_OPTIONS: ArrowNodeOptions = {
-    doubleHead: true,
-    tailWidth: 1.5,
-    headWidth: 10,
-    headHeight: 10,
-    fill: Color.BLACK,
-    stroke: null
-  };
-
-  public static readonly GRAPH_CONTROLS_Y_SPACING = 8;
-
-  //----------------------------------------------------------------------------------------
-  // Checkboxes
-
-  public static readonly CHECKBOX_BOX_WIDTH = 18;
-
-  //----------------------------------------------------------------------------------------
-  // RadioButtonGroups
-
-  public static readonly RADIO_BUTTON_GROUP_OPTIONS: RectangularRadioButtonGroupOptions = {
-    orientation: 'horizontal',
-    radioButtonOptions: {
-      baseColor: VectorAdditionColors.radioButtonBaseColorProperty,
-      cornerRadius: 8,
-      xMargin: 8,
-      yMargin: 8,
-      buttonAppearanceStrategyOptions: {
-        selectedLineWidth: 1.5,
-        deselectedLineWidth: 1,
-        deselectedButtonOpacity: 0.35,
-        selectedStroke: VectorAdditionColors.radioButtonSelectedStrokeProperty,
-        deselectedStroke: VectorAdditionColors.radioButtonDeselectedStrokeProperty
-      }
-    }
-  };
-
-  //----------------------------------------------------------------------------------------
-  // Panel-like containers
-
-  public static readonly PANEL_OPTIONS: PanelOptions = {
-    cornerRadius: PANEL_CORNER_RADIUS,
-    xMargin: PANEL_X_MARGIN,
-    yMargin: PANEL_Y_MARGIN,
-    fill: VectorAdditionColors.panelFillProperty,
-    stroke: VectorAdditionColors.panelStrokeProperty
-  };
-
-  // fixed width of each GraphControlPanel
-  public static readonly GRAPH_CONTROL_PANEL_CONTENT_WIDTH = RIGHT_PANEL_WIDTH;
-  public static readonly BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH = RIGHT_PANEL_WIDTH;
-
-  // vertical spacing between UI components in each GraphControlPanel
-  public static readonly GRAPH_CONTROL_PANEL_Y_SPACING = 10;
-
-  //----------------------------------------------------------------------------------------
-  // Ranges
-
-  public static readonly XY_COMPONENT_RANGE = new Range( -10, 10 );
-  public static readonly MAGNITUDE_RANGE = new Range( -10, 10 );
-  public static readonly SIGNED_ANGLE_RANGE = new Range( -180, 180 );
-  public static readonly UNSIGNED_ANGLE_RANGE = new Range( 0, 360 );
-
-  //----------------------------------------------------------------------------------------
   // AccordionBoxes
 
   public static readonly ACCORDION_BOX_OPTIONS: AccordionBoxOptions = {
@@ -153,6 +85,11 @@ export default class VectorAdditionConstants {
   };
 
   //----------------------------------------------------------------------------------------
+  // Checkboxes
+
+  public static readonly CHECKBOX_BOX_WIDTH = 18;
+
+  //----------------------------------------------------------------------------------------
   // NumberPickers
 
   public static readonly NUMBER_PICKER_OPTIONS: NumberPickerOptions = {
@@ -164,6 +101,72 @@ export default class VectorAdditionConstants {
     xMargin: 4.5,
     yMargin: 3.5
   };
+
+  //----------------------------------------------------------------------------------------
+  // Panel-like containers
+
+  public static readonly PANEL_OPTIONS: PanelOptions = {
+    cornerRadius: PANEL_CORNER_RADIUS,
+    xMargin: PANEL_X_MARGIN,
+    yMargin: PANEL_Y_MARGIN,
+    fill: VectorAdditionColors.panelFillProperty,
+    stroke: VectorAdditionColors.panelStrokeProperty
+  };
+
+  // fixed width of each GraphControlPanel
+  public static readonly GRAPH_CONTROL_PANEL_CONTENT_WIDTH = RIGHT_PANEL_WIDTH;
+  public static readonly BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH = RIGHT_PANEL_WIDTH;
+
+  // vertical spacing between UI components in each GraphControlPanel
+  public static readonly GRAPH_CONTROL_PANEL_Y_SPACING = 10;
+
+  //----------------------------------------------------------------------------------------
+  // Preferences
+
+  public static readonly PREFERENCES_CONTROL_OPTIONS: PreferencesControlOptions = {
+    isDisposable: false,
+    labelSpacing: 20,
+    visiblePropertyOptions: {
+      phetioFeatured: true
+    }
+  };
+
+  //----------------------------------------------------------------------------------------
+  // RadioButtonGroups
+
+  public static readonly RADIO_BUTTON_GROUP_OPTIONS: RectangularRadioButtonGroupOptions = {
+    orientation: 'horizontal',
+    radioButtonOptions: {
+      baseColor: VectorAdditionColors.radioButtonBaseColorProperty,
+      cornerRadius: 8,
+      xMargin: 8,
+      yMargin: 8,
+      buttonAppearanceStrategyOptions: {
+        selectedLineWidth: 1.5,
+        deselectedLineWidth: 1,
+        deselectedButtonOpacity: 0.35,
+        selectedStroke: VectorAdditionColors.radioButtonSelectedStrokeProperty,
+        deselectedStroke: VectorAdditionColors.radioButtonDeselectedStrokeProperty
+      }
+    }
+  };
+
+  //----------------------------------------------------------------------------------------
+  // Graphs
+
+  public static readonly DEFAULT_GRAPH_BOUNDS = new Bounds2( -5, -5, 45, 25 );
+  public static readonly AXES_ARROW_X_EXTENSION = 20; // how far the x-axis arrow extends past the edge of the graph's grid
+  public static readonly AXES_ARROW_Y_EXTENSION = 15; // how far the y-axis arrow extends past the edge of the graph's grid
+  public static readonly AXES_ARROW_OPTIONS: ArrowNodeOptions = {
+    doubleHead: true,
+    tailWidth: 1.5,
+    headWidth: 10,
+    headHeight: 10,
+    fill: Color.BLACK,
+    stroke: null
+  };
+
+  public static readonly GRAPH_CONTROLS_Y_SPACING = 8;
 
   //----------------------------------------------------------------------------------------
   // Vectors
@@ -232,8 +235,16 @@ export default class VectorAdditionConstants {
   //----------------------------------------------------------------------------------------
   // Decimal places
 
-  // for all vector-related values (magnitude, angle, components)
+  // for all vector-related values (xy-components, magnitude, angle)
   public static readonly VECTOR_VALUE_DECIMAL_PLACES = 1;
+
+  //----------------------------------------------------------------------------------------
+  // Ranges
+
+  public static readonly XY_COMPONENT_RANGE = new Range( -10, 10 );
+  public static readonly MAGNITUDE_RANGE = new Range( -10, 10 );
+  public static readonly SIGNED_ANGLE_RANGE = new Range( -180, 180 );
+  public static readonly UNSIGNED_ANGLE_RANGE = new Range( 0, 360 );
 
   //----------------------------------------------------------------------------------------
   // Fonts
@@ -249,17 +260,6 @@ export default class VectorAdditionConstants {
   public static readonly AXIS_LABEL_FONT = new MathSymbolFont( 18 );
   public static readonly CHECKBOX_FONT = new PhetFont( 16 );
   public static readonly TITLE_FONT = new PhetFont( 16 );
-
-  //----------------------------------------------------------------------------------------
-  // Preferences
-
-  public static readonly PREFERENCES_CONTROL_OPTIONS: PreferencesControlOptions = {
-    isDisposable: false,
-    labelSpacing: 20,
-    visiblePropertyOptions: {
-      phetioFeatured: true
-    }
-  };
 }
 
 vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );
