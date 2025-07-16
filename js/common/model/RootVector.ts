@@ -90,7 +90,8 @@ export default abstract class RootVector extends PhetioObject {
 
       // PhetioObjectOptions
       phetioState: false,
-      tandem: Tandem.OPTIONAL
+      tandem: Tandem.OPTIONAL,
+      tandemNameSuffix: 'Vector'
     }, providedOptions );
 
     super( options );

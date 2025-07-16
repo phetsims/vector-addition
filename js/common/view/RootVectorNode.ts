@@ -69,7 +69,8 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
       },
       tagName: 'div', // for KeyboardDragListener
       focusable: true, // for KeyboardDragListener
-      phetioVisiblePropertyInstrumented: false
+      phetioVisiblePropertyInstrumented: false,
+      tandemNameSuffix: 'VectorNode'
     }, providedOptions );
 
     //----------------------------------------------------------------------------------------
