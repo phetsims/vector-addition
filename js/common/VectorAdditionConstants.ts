@@ -28,6 +28,11 @@ import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import { NumberPickerOptions } from '../../../sun/js/NumberPicker.js';
 
+const PANEL_X_MARGIN = 9;
+const PANEL_Y_MARGIN = 10;
+const PANEL_CORNER_RADIUS = 5;
+const RIGHT_PANEL_WIDTH = 175; // fixed width of panels and accordion boxes on right side of the screen
+
 export default class VectorAdditionConstants {
 
   private constructor() {
@@ -98,22 +103,17 @@ export default class VectorAdditionConstants {
   //----------------------------------------------------------------------------------------
   // Panel-like containers
 
-  public static readonly PANEL_X_MARGIN = 9;
-  public static readonly PANEL_Y_MARGIN = 10;
-  public static readonly PANEL_CORNER_RADIUS = 5;
-  public static readonly RIGHT_PANEL_WIDTH = 175; // fixed width of panels and accordion boxes on right side of the screen
-
   public static readonly PANEL_OPTIONS: PanelOptions = {
-    cornerRadius: VectorAdditionConstants.PANEL_CORNER_RADIUS,
-    xMargin: VectorAdditionConstants.PANEL_X_MARGIN,
-    yMargin: VectorAdditionConstants.PANEL_Y_MARGIN,
+    cornerRadius: PANEL_CORNER_RADIUS,
+    xMargin: PANEL_X_MARGIN,
+    yMargin: PANEL_Y_MARGIN,
     fill: VectorAdditionColors.panelFillProperty,
     stroke: VectorAdditionColors.panelStrokeProperty
   };
 
   // fixed width of each GraphControlPanel
-  public static readonly GRAPH_CONTROL_PANEL_CONTENT_WIDTH = VectorAdditionConstants.RIGHT_PANEL_WIDTH;
-  public static readonly BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH = VectorAdditionConstants.RIGHT_PANEL_WIDTH;
+  public static readonly GRAPH_CONTROL_PANEL_CONTENT_WIDTH = RIGHT_PANEL_WIDTH;
+  public static readonly BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH = RIGHT_PANEL_WIDTH;
 
   // vertical spacing between UI components in each GraphControlPanel
   public static readonly GRAPH_CONTROL_PANEL_Y_SPACING = 10;
@@ -130,16 +130,16 @@ export default class VectorAdditionConstants {
   // AccordionBoxes
 
   public static readonly ACCORDION_BOX_OPTIONS: AccordionBoxOptions = {
-    cornerRadius: VectorAdditionConstants.PANEL_CORNER_RADIUS,
-    contentXMargin: VectorAdditionConstants.PANEL_X_MARGIN,
-    contentYMargin: VectorAdditionConstants.PANEL_Y_MARGIN,
-    contentXSpacing: VectorAdditionConstants.PANEL_X_MARGIN,
+    cornerRadius: PANEL_CORNER_RADIUS,
+    contentXMargin: PANEL_X_MARGIN,
+    contentYMargin: PANEL_Y_MARGIN,
+    contentXSpacing: PANEL_X_MARGIN,
     contentYSpacing: 1,
-    buttonXMargin: VectorAdditionConstants.PANEL_X_MARGIN,
-    buttonYMargin: VectorAdditionConstants.PANEL_Y_MARGIN,
-    titleYMargin: VectorAdditionConstants.PANEL_Y_MARGIN,
-    titleXMargin: VectorAdditionConstants.PANEL_X_MARGIN,
-    titleXSpacing: VectorAdditionConstants.PANEL_X_MARGIN,
+    buttonXMargin: PANEL_X_MARGIN,
+    buttonYMargin: PANEL_Y_MARGIN,
+    titleYMargin: PANEL_Y_MARGIN,
+    titleXMargin: PANEL_X_MARGIN,
+    titleXSpacing: PANEL_X_MARGIN,
     titleAlignX: 'left',
     expandCollapseButtonOptions: {
       sideLength: 22,
