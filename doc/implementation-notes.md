@@ -20,7 +20,6 @@ In addition to this document, you are encouraged to read:
 
 ... that you'll see used throughout the code.
 
-* _active_ vector and _selected_ vector are synonyms. There is (at most) one active vector.
 * _component_ is a scalar, while _component vector_ is a vector
 * _coordinate snap mode_ refers to which vector quantities will snap to integer values,
   see [CoordinateSnapMode](https://github.com/phetsims/vector-addition/blob/main/js/common/model/CoordinateSnapMode.ts)
@@ -65,10 +64,10 @@ need to be deregistered on dispose. For example:
 ```ts
 // Highlight the component vector's label when its parent vector is selected.
 // unlink is required on dispose.
-const activeVectorListener = ( activeVector: Vector | null ) => {
-  this.labelNode.setHighlighted( activeVector === componentVector.parentVector );
+const selectedVectorListener = ( selectedVector: Vector | null ) => {
+  this.labelNode.setHighlighted( selectedVector === componentVector.parentVector );
 };
-scene.activeVectorProperty.link( activeVectorListener );
+scene.selectedVectorProperty.link( selectedVectorListener );
 ```
 
 ### Query Parameters

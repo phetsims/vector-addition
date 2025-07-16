@@ -4,13 +4,13 @@
  * VectorQuantityDisplay is a subclass of NumberDisplay for displaying a quantity that is associated with a Vector.
  * Instances appear in the 'Vector Values' accordion box.
  *
- * Displays a single vector quantity (i.e. magnitude etc.) of a single active vector that is on the specified graph.
+ * Displays a single vector quantity (i.e. magnitude etc.) of a single selected vector that is on the specified graph.
  *
  * 'Is a' relationship with NumberDisplay but adds:
- *  - Functionality to change the active vector without having to recreate the number display;
+ *  - Functionality to change the selected vector without having to recreate the number display;
  *    NumberDisplays don't support the ability to change the NumberProperty of the panel.
- *    Recreating new NumberDisplays every time the active vector changes is costly. This creates the number Property
- *    once and derives its value from the attribute of the active vector.
+ *    Recreating new NumberDisplays every time the selected vector changes is costly. This creates the number Property
+ *    once and derives its value from the attribute of the selected vector.
  *
  * This number display exists for the entire sim and is never disposed.
  *
@@ -73,7 +73,7 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     // Create the number display
     //----------------------------------------------------------------------------------------
 
-    // the value displayed by NumberDisplay, null if there is no active vector
+    // the value displayed by NumberDisplay, null if there is no selected vector
     const numberDisplayProperty = new Property<number | null>( null, {
       isValidValue: value => ( typeof value === 'number' || value === null )
     } );
@@ -94,45 +94,45 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     //----------------------------------------------------------------------------------------
 
     // Create function to update the number display value
-    const activeVectorComponentsListener = () => {
-      numberDisplayProperty.value = this.getNumberDisplayValue( scene.activeVectorProperty.value,
+    const selectedVectorComponentsListener = () => {
+      numberDisplayProperty.value = this.getNumberDisplayValue( scene.selectedVectorProperty.value,
         VectorAdditionPreferences.instance.angleConventionProperty.value );
     };
 
-    // Observe when the scene's active vector changes and update the vectorComponents link.
-    scene.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
+    // Observe when the scene's selected vector changes and update the vectorComponents link.
+    scene.selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
 
-      // unlink the previous link if the old active vector exists
-      oldActiveVector && oldActiveVector.vectorComponentsProperty.unlink( activeVectorComponentsListener );
+      // unlink the previous link if the old selected vector exists
+      oldSelectedVector && oldSelectedVector.vectorComponentsProperty.unlink( selectedVectorComponentsListener );
 
-      // Observe when the active vector changes and update the number display value if and only if the active vector
-      // exists. unlink is required when active vector changes.
-      activeVector && activeVector.vectorComponentsProperty.link( activeVectorComponentsListener );
+      // Observe when the selected vector changes and update the number display value if and only if the
+      // selected vector exists. unlink is required when selected vector changes.
+      selectedVector && selectedVector.vectorComponentsProperty.link( selectedVectorComponentsListener );
     } );
 
-    VectorAdditionPreferences.instance.angleConventionProperty.link( () => activeVectorComponentsListener() );
+    VectorAdditionPreferences.instance.angleConventionProperty.link( () => selectedVectorComponentsListener() );
   }
 
   /**
    * Gets the value to display based on the attribute display type and a vector
    */
-  private getNumberDisplayValue( activeVector: Vector | null, angleConvention: AngleConvention ): number | null {
+  private getNumberDisplayValue( selectedVector: Vector | null, angleConvention: AngleConvention ): number | null {
 
-    if ( !activeVector ) {
+    if ( !selectedVector ) {
       return null;
     }
 
     if ( this.vectorQuantity === 'magnitude' ) {
-      return activeVector.magnitude;
+      return selectedVector.magnitude;
     }
     else if ( this.vectorQuantity === 'angle' ) {
-      return activeVector.getAngleDegrees( angleConvention );
+      return selectedVector.getAngleDegrees( angleConvention );
     }
     else if ( this.vectorQuantity === 'xComponent' ) {
-      return activeVector.xComponent;
+      return selectedVector.xComponent;
     }
     else if ( this.vectorQuantity === 'yComponent' ) {
-      return activeVector.yComponent;
+      return selectedVector.yComponent;
     }
     throw new Error( 'invalid case for getNumberDisplayValue' );
   }

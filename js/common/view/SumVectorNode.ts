@@ -51,11 +51,11 @@ export default class SumVectorNode extends VectorNode {
 
     super( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, options );
 
-    // Making an active sum vector invisible clears activeVectorProperty.
+    // Making a selected sum vector invisible clears activeVectorProperty.
     // See https://github.com/phetsims/vector-addition/issues/112.
     sumVisibleProperty.link( sumVisible => {
-      if ( !sumVisible && scene.activeVectorProperty.value === sumVector ) {
-        scene.activeVectorProperty.value = null;
+      if ( !sumVisible && scene.selectedVectorProperty.value === sumVector ) {
+        scene.selectedVectorProperty.value = null;
       }
     } );
 

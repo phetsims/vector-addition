@@ -130,13 +130,13 @@ export default class Vector extends RootVector {
 
     this.xComponentVector = new ComponentVector( this,
       vectorSet.componentVectorStyleProperty,
-      scene.activeVectorProperty,
+      scene.selectedVectorProperty,
       'xComponent'
     );
 
     this.yComponentVector = new ComponentVector( this,
       vectorSet.componentVectorStyleProperty,
-      scene.activeVectorProperty,
+      scene.selectedVectorProperty,
       'yComponent'
     );
 
@@ -165,9 +165,9 @@ export default class Vector extends RootVector {
    */
   public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
-    // If the vector has a symbol or is active, the vector always displays a symbol.
+    // If the vector has a symbol or is selected, the vector always displays a symbol.
     let symbolProperty: TReadOnlyProperty<string> | null = null;
-    if ( this.symbolProperty || this.scene.activeVectorProperty.value === this ) {
+    if ( this.symbolProperty || this.scene.selectedVectorProperty.value === this ) {
       symbolProperty = ( this.symbolProperty || Vector.FALLBACK_SYMBOL_PROPERTY );
     }
 
@@ -400,8 +400,8 @@ export default class Vector extends RootVector {
     // Ensure dropped tail position satisfies invariants
     this.setTailWithInvariants( tailPosition );
 
-    // When the vector is first dropped, it is active
-    this.scene.activeVectorProperty.value = this;
+    // When the vector is first dropped, it is selected.
+    this.scene.selectedVectorProperty.value = this;
   }
 
   /**
@@ -413,7 +413,7 @@ export default class Vector extends RootVector {
     assert && assert( !this.inProgressAnimation, 'cannot pop vector off when it\'s animating' );
 
     this.isOnGraphProperty.value = false;
-    this.scene.activeVectorProperty.value = null;
+    this.scene.selectedVectorProperty.value = null;
   }
 
   /**

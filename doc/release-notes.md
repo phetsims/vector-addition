@@ -34,7 +34,7 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 ### New Features
 * Alternative Input
 * Interactive Highlights
-* UI Sounds
+* Basic Sound
 * Core Description
 * PhET-iO support, including PhET Studio
 

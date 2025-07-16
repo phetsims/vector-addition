@@ -5,7 +5,7 @@
  *
  * A scene is responsible for:
  *   - Keeping track of where the origin is dragged and updating a modelViewTransformProperty.
- *   - Keeping track of the active (selected) vector on the graph.
+ *   - Keeping track of the selected vector on the graph.
  *   - Managing one or more VectorSets.
  *   - Creating the scene.
  *
@@ -46,8 +46,8 @@ export default class VectorAdditionScene extends PhetioObject {
   // the graph for this scene
   public readonly graph: Graph;
 
-  // The active (selected) vector. A scene has at most one active vector. If null, there is no active vector.
-  public readonly activeVectorProperty: Property<Vector | null>;
+  // The selected vector. A scene has at most one selected vector. If null, there is no selected vector.
+  public readonly selectedVectorProperty: Property<Vector | null>;
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
@@ -71,13 +71,14 @@ export default class VectorAdditionScene extends PhetioObject {
       tandem: options.tandem.createTandem( 'graph' )
     }, options.graphOptions ) );
 
-    this.activeVectorProperty = new Property<Vector | null>( null );
+    //TODO https://github.com/phetsims/vector-addition/issues/258 PhET-iO instrumentation
+    this.selectedVectorProperty = new Property<Vector | null>( null );
   }
 
   public reset(): void {
     this.vectorSets.forEach( vectorSet => vectorSet.reset() );
     this.graph.reset();
-    this.activeVectorProperty.reset();
+    this.selectedVectorProperty.reset();
   }
 
   /**
@@ -85,7 +86,7 @@ export default class VectorAdditionScene extends PhetioObject {
    */
   public erase(): void {
     this.vectorSets.forEach( vectorSet => vectorSet.erase() );
-    this.activeVectorProperty.reset();
+    this.selectedVectorProperty.reset();
   }
 
   /**

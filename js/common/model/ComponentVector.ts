@@ -5,7 +5,7 @@
  * component of some parent vector.  For instance, if parent vector 'a' is <5, 6>, then its x component vector
  * is <5, 0>, and its y component vector is <0, 6>.
  *
- * ComponentVectors are not interactive.
+ * ComponentVectors are not selectable.
  *
  * 'Is a' relationship with RootVector but adds the following functionality:
  *    - Updates its tail position/components based on a parent vector's changing tail/tip
@@ -40,8 +40,8 @@ export default class ComponentVector extends RootVector {
   // Matches the parent. When the parent is on the graph, the component is also on the graph (and vise versa).
   public readonly isOnGraphProperty: Property<boolean>;
 
-  // Determines if the parent vector is active.
-  public readonly isParentVectorActiveProperty: TReadOnlyProperty<boolean>;
+  // Whether the parent vector is selected.
+  public readonly isParentVectorSelectedProperty: TReadOnlyProperty<boolean>;
 
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
@@ -55,12 +55,12 @@ export default class ComponentVector extends RootVector {
   /**
    * @param parentVector - the vector that this component vector is associated with
    * @param componentVectorStyleProperty
-   * @param activeVectorProperty - which vector is active (selected)
+   * @param selectedVectorProperty - which vector selected
    * @param componentType - type of component vector (x or y), see ComponentVectorType
    */
   public constructor( parentVector: Vector,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      activeVectorProperty: Property<Vector | null>,
+                      selectedVectorProperty: Property<Vector | null>,
                       componentType: ComponentVectorType ) {
 
     super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
@@ -69,9 +69,9 @@ export default class ComponentVector extends RootVector {
     this.componentType = componentType;
     this.isOnGraphProperty = parentVector.isOnGraphProperty;
 
-    this.isParentVectorActiveProperty = new DerivedProperty(
-      [ activeVectorProperty ],
-      activeVector => ( !!activeVector && ( activeVector === parentVector ) ),
+    this.isParentVectorSelectedProperty = new DerivedProperty(
+      [ selectedVectorProperty ],
+      selectedVector => ( !!selectedVector && ( selectedVector === parentVector ) ),
       { valueType: 'boolean' }
     );
 
@@ -90,7 +90,7 @@ export default class ComponentVector extends RootVector {
 
     this.disposeComponentVector = () => {
       Multilink.unmultilink( updateComponentMultilink );
-      this.isParentVectorActiveProperty.dispose();
+      this.isParentVectorSelectedProperty.dispose();
     };
   }
 

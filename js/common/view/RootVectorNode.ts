@@ -56,7 +56,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
   protected constructor( rootVector: RootVector,
                          modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                          valuesVisibleProperty: TReadOnlyProperty<boolean>,
-                         activeVectorProperty: TReadOnlyProperty<RootVector | null>,
+                         selectedVectorProperty: TReadOnlyProperty<RootVector | null>,
                          providedOptions?: RootVectorNodeOptions ) {
 
     const options = optionize<RootVectorNodeOptions, SelfOptions, NodeOptions>()( {
@@ -89,7 +89,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
     // The position of this depends on the angle of the vector. Since the positioning of 'next' is different for every
     // vector, use an overridable method to position it. ( updateLabelPositioning() )
     // dispose is required because this observes the Properties that are passed to it.
-    this.labelNode = new VectorLabelNode( rootVector, valuesVisibleProperty, activeVectorProperty );
+    this.labelNode = new VectorLabelNode( rootVector, valuesVisibleProperty, selectedVectorProperty );
 
     // Add children to this node
     this.setChildren( [ this.arrowNode, this.labelNode ] );
@@ -100,7 +100,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
     // Observe changes to the tail/tip and mirror the positioning. If the values visibility changes, update the
     // view as well.  unmultilink is required on dispose.
     const updateMultilink = Multilink.multilink(
-      [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, activeVectorProperty ],
+      [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, selectedVectorProperty ],
       valuesVisible => {
 
         // Update the appearance of the vector

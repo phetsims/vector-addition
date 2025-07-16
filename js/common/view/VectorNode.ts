@@ -79,7 +79,7 @@ export default class VectorNode extends RootVectorNode {
     super( vector,
       scene.graph.modelViewTransformProperty,
       valuesVisibleProperty,
-      scene.activeVectorProperty,
+      scene.selectedVectorProperty,
       options );
 
     this.modelViewTransformProperty = scene.graph.modelViewTransformProperty;
@@ -119,7 +119,7 @@ export default class VectorNode extends RootVectorNode {
         assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
           'body drag listener should be removed when the vector is animating back.' );
         if ( vector.isOnGraphProperty.value ) {
-          scene.activeVectorProperty.value = vector;
+          scene.selectedVectorProperty.value = vector;
         }
       },
 
@@ -213,7 +213,7 @@ export default class VectorNode extends RootVectorNode {
         start: () => {
           assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
             'tip drag listener should be removed when the vector is animating back.' );
-          scene.activeVectorProperty.value = vector;
+          scene.selectedVectorProperty.value = vector;
         },
         tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/vector-addition/issues/258
       } );
@@ -299,10 +299,10 @@ export default class VectorNode extends RootVectorNode {
       } );
 
     // Highlight the vector's label when it is selected. Must be unlinked.
-    const activeVectorListener = ( activeVector: Vector | null ) => {
-      this.labelNode.setHighlighted( activeVector === vector );
+    const selectedVectorListener = ( selectedVector: Vector | null ) => {
+      this.labelNode.setHighlighted( selectedVector === vector );
     };
-    scene.activeVectorProperty.link( activeVectorListener );
+    scene.selectedVectorProperty.link( selectedVectorListener );
 
     // Disable interaction when the vector is animating back to the toolbox, where it will be disposed.
     // unlink is required on dispose.
@@ -326,7 +326,7 @@ export default class VectorNode extends RootVectorNode {
 
       // Dispose of appearance-related listeners
       Multilink.unmultilink( shadowMultilink );
-      scene.activeVectorProperty.unlink( activeVectorListener );
+      scene.selectedVectorProperty.unlink( selectedVectorListener );
       this.vector.animateBackProperty.unlink( animateBackListener );
     };
   }

@@ -101,30 +101,30 @@ const VectorAdditionColors = {
   //----------------------------------------------------------------------------------------
   // Label background on vectors
 
-  activeVectorLabelBackgroundFillProperty: new ProfileColorProperty( vectorAddition, 'activeVectorLabelBackgroundFill', {
+  selectedVectorLabelBackgroundFillProperty: new ProfileColorProperty( vectorAddition, 'selectedVectorLabelBackgroundFill', {
     default: 'rgba( 240, 240, 100, 0.8 )' // yellow
   } ),
 
-  activeVectorLabelBackgroundStrokeProperty: new ProfileColorProperty( vectorAddition, 'activeVectorLabelBackgroundStroke', {
+  selectedVectorLabelBackgroundStrokeProperty: new ProfileColorProperty( vectorAddition, 'selectedVectorLabelBackgroundStroke', {
     default: 'rgba( 230, 230, 90, 0.8 )' // slightly darker yellow
   } ),
 
-  inactiveVectorLabelBackgroundFillProperty: new ProfileColorProperty( vectorAddition, 'inactiveVectorLabelBackgroundFill', {
+  unselectedVectorLabelBackgroundFillProperty: new ProfileColorProperty( vectorAddition, 'unselectedVectorLabelBackgroundFill', {
     default: 'rgba( 235, 235, 235, 0.5 )' // transparent gray
   } ),
 
-  inactiveVectorLabelBackgroundStrokeProperty: new ProfileColorProperty( vectorAddition, 'inactiveVectorLabelBackgroundStroke', {
+  unselectedVectorLabelBackgroundStrokeProperty: new ProfileColorProperty( vectorAddition, 'unselectedVectorLabelBackgroundStroke', {
     default: 'rgba( 215, 215, 215, 0.5 )' // slightly darker transparent gray
   } ),
 
   //----------------------------------------------------------------------------------------
   // Leader lines, for component vectors projected onto axes
 
-  leaderLinesActiveStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesActiveStroke', {
+  leaderLinesSelectedStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesSelectedStroke', {
     default: Color.BLACK
   } ),
 
-  leaderLinesInactiveStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesInactiveStroke', {
+  leaderLinesUnselectedStrokeProperty: new ProfileColorProperty( vectorAddition, 'leaderLinesUnselectedStroke', {
     default: Color.BLACK
   } ),
 

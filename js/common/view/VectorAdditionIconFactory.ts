@@ -296,7 +296,7 @@ const VectorAdditionIconFactory = {
 
       const leaderLinesPath = new Path( leaderLinesShape, {
         lineDash: [ 2.9, 2 ],
-        stroke: VectorAdditionColors.leaderLinesActiveStrokeProperty
+        stroke: VectorAdditionColors.leaderLinesSelectedStrokeProperty
       } );
 
       iconChildren = [ leaderLinesPath, xComponentArrow, yComponentArrow, vectorArrow ];

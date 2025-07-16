@@ -60,16 +60,18 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
       () => this.updateComponentVector( componentVector,
         scene.graph.modelViewTransformProperty.value,
         componentVectorStyleProperty.value,
-        componentVector.isParentVectorActiveProperty.value )
+        componentVector.isParentVectorSelectedProperty.value )
     );
   }
 
   /**
    * Handles visibility of sum component vectors.
    */
-  protected override updateComponentVector( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
-                                            componentVectorStyle: ComponentVectorStyle, isParentActive: boolean ): void {
-    super.updateComponentVector( componentVector, modelViewTransform, componentVectorStyle, isParentActive );
+  protected override updateComponentVector(
+    componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
+    componentVectorStyle: ComponentVectorStyle, isParentVectorSelected: boolean ): void {
+
+    super.updateComponentVector( componentVector, modelViewTransform, componentVectorStyle, isParentVectorSelected );
 
     const sumVector = componentVector.parentVector as SumVector;
     assert && assert( sumVector instanceof SumVector ); // eslint-disable-line phet/no-simple-type-checking-assertions

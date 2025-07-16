@@ -32,8 +32,8 @@ import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } fro
 const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
 
 // Line dash for leader lines, displayed when component vectors are projected onto axes
-const NON_ACTIVE_LEADER_LINES_DASH: number[] = [ 3, 10 ];
-const ACTIVE_LEADER_LINES_DASH: number[] = [];
+const SELECTED_LEADER_LINES_DASH: number[] = [];
+const UNSELECTED_LEADER_LINES_DASH: number[] = [ 3, 10 ];
 
 type SelfOptions = EmptySelfOptions;
 export type ComponentVectorNodeOptions = SelfOptions & RootVectorNodeOptions;
@@ -67,7 +67,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       } )
     }, providedOptions );
 
-    super( componentVector, scene.graph.modelViewTransformProperty, valuesVisibleProperty, scene.activeVectorProperty, options );
+    super( componentVector, scene.graph.modelViewTransformProperty, valuesVisibleProperty, scene.selectedVectorProperty, options );
 
     //----------------------------------------------------------------------------------------
 
@@ -76,7 +76,7 @@ export default class ComponentVectorNode extends RootVectorNode {
 
     this.leaderLinesPath = new Path( new Shape(), {
       lineWidth: 0.5,
-      lineDash: NON_ACTIVE_LEADER_LINES_DASH
+      lineDash: UNSELECTED_LEADER_LINES_DASH
     } );
     this.addChild( this.leaderLinesPath );
 
@@ -89,27 +89,27 @@ export default class ComponentVectorNode extends RootVectorNode {
     //
     // dispose is required.
     const componentVectorMultilink = Multilink.multilink(
-      [ componentVectorStyleProperty, componentVector.isParentVectorActiveProperty,
+      [ componentVectorStyleProperty, componentVector.isParentVectorSelectedProperty,
         componentVector.isOnGraphProperty, componentVector.vectorComponentsProperty ],
-      ( componentVectorStyle, isParentActive ) => {
+      ( componentVectorStyle, isParentVectorSelected ) => {
 
         this.updateComponentVector( componentVector,
           scene.graph.modelViewTransformProperty.value,
           componentVectorStyle,
-          isParentActive );
+          isParentVectorSelected );
       } );
 
     // Highlight the component vector's label when its parent vector is selected.
     // unlink is required on dispose.
-    const activeVectorListener = ( activeVector: Vector | null ) => {
-      this.labelNode.setHighlighted( activeVector === componentVector.parentVector );
+    const selectedVectorListener = ( selectedVector: Vector | null ) => {
+      this.labelNode.setHighlighted( selectedVector === componentVector.parentVector );
     };
-    scene.activeVectorProperty.link( activeVectorListener );
+    scene.selectedVectorProperty.link( selectedVectorListener );
 
     this.disposeComponentVectorNode = () => {
       componentVectorMultilink.dispose();
-      if ( scene.activeVectorProperty.hasListener( activeVectorListener ) ) {
-        scene.activeVectorProperty.unlink( activeVectorListener );
+      if ( scene.selectedVectorProperty.hasListener( selectedVectorListener ) ) {
+        scene.selectedVectorProperty.unlink( selectedVectorListener );
       }
     };
   }
@@ -125,7 +125,7 @@ export default class ComponentVectorNode extends RootVectorNode {
    *  - Determines visibility (i.e. components shouldn't be visible on INVISIBLE)
    */
   protected updateComponentVector( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
-                                   componentVectorStyle: ComponentVectorStyle, isParentActive: boolean ): void {
+                                   componentVectorStyle: ComponentVectorStyle, isParentVectorSelected: boolean ): void {
 
     // Component vectors are visible when it isn't INVISIBLE, and it is on the graph.
     this.visible = componentVector.isOnGraphProperty.value && ( componentVectorStyle !== 'invisible' );
@@ -165,13 +165,13 @@ export default class ComponentVectorNode extends RootVectorNode {
         .moveToPoint( tipPosition )
         .lineToPoint( parentTipPosition );
 
-      if ( isParentActive ) {
-        this.leaderLinesPath.stroke = VectorAdditionColors.leaderLinesActiveStrokeProperty;
-        this.leaderLinesPath.lineDash = ACTIVE_LEADER_LINES_DASH;
+      if ( isParentVectorSelected ) {
+        this.leaderLinesPath.stroke = VectorAdditionColors.leaderLinesSelectedStrokeProperty;
+        this.leaderLinesPath.lineDash = SELECTED_LEADER_LINES_DASH;
       }
       else {
-        this.leaderLinesPath.stroke = VectorAdditionColors.leaderLinesInactiveStrokeProperty;
-        this.leaderLinesPath.lineDash = NON_ACTIVE_LEADER_LINES_DASH;
+        this.leaderLinesPath.stroke = VectorAdditionColors.leaderLinesUnselectedStrokeProperty;
+        this.leaderLinesPath.lineDash = UNSELECTED_LEADER_LINES_DASH;
       }
     }
   }

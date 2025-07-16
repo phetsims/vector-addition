@@ -98,11 +98,11 @@ export default class GraphNode extends Node {
 
     this.originManipulator = originManipulator;
 
-    // Clicking on the graph clears the active (selected) vector.
+    // Clicking on the graph clears the selected vector.
     // Use a raw 'down' listener so that this doesn't impact the ability to touch snag vectors and origin manipulator.
     // See https://github.com/phetsims/vector-addition/issues/243
     background.addInputListener( {
-      down: () => { scene.activeVectorProperty.value = null; }
+      down: () => { scene.selectedVectorProperty.value = null; }
     } );
 
     this.addLinkedElement( scene.graph );

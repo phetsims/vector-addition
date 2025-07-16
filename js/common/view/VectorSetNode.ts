@@ -75,8 +75,8 @@ export default class VectorSetNode extends Node {
     this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     // When the sum vector becomes selected, move it and its component vectors to the front.
-    scene.activeVectorProperty.link( activeVector => {
-      if ( activeVector === sumVectorNode.vector ) {
+    scene.selectedVectorProperty.link( selectedVector => {
+      if ( selectedVector === sumVectorNode.vector ) {
 
         // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
         this.moveToFront();
@@ -122,10 +122,10 @@ export default class VectorSetNode extends Node {
       vectorNode.forwardEvent( forwardingEvent );
     }
 
-    // When the vector becomes active (selected), move it and its components to the front.
+    // When the vector becomes selected, move it and its components to the front.
     // unlink is required when the vector is removed.
-    const activeVectorListener = ( activeVector: Vector | null ) => {
-      if ( activeVector === vectorNode.vector ) {
+    const selectedVectorListener = ( selectedVector: Vector | null ) => {
+      if ( selectedVector === vectorNode.vector ) {
 
         // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
         this.moveToFront();
@@ -136,7 +136,7 @@ export default class VectorSetNode extends Node {
         vectorNode.moveToFront();
       }
     };
-    this.scene.activeVectorProperty.link( activeVectorListener );
+    this.scene.selectedVectorProperty.link( selectedVectorListener );
 
     // If the Vector is removed from the VectorSet, clean up.
     if ( vector.isRemovable ) {
@@ -153,7 +153,7 @@ export default class VectorSetNode extends Node {
 
           // remove listeners
           this.vectorSet.vectors.removeItemRemovedListener( removalListener );
-          this.scene.activeVectorProperty.unlink( activeVectorListener );
+          this.scene.selectedVectorProperty.unlink( selectedVectorListener );
         }
       };
 
@@ -184,10 +184,10 @@ export default class VectorSetNode extends Node {
     // Handle visibility
     baseVectorsVisibleProperty.linkAttribute( baseVectorNode, 'visible' );
 
-    // When the base vector becomes active (selected), move it (and the entire vector set) to the front.
+    // When the base vector becomes selected, move it (and the entire vector set) to the front.
     // unlink is unnecessary because base vectors exist for the lifetime of the sim.
-    this.scene.activeVectorProperty.link( activeVector => {
-      if ( activeVector === baseVectorNode.vector ) {
+    this.scene.selectedVectorProperty.link( selectedVector => {
+      if ( selectedVector === baseVectorNode.vector ) {
 
         // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
         this.moveToFront();

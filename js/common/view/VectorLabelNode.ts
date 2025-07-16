@@ -28,7 +28,7 @@ export default class VectorLabelNode extends Node {
 
   private readonly rootVector: RootVector;
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
-  private readonly activeVectorProperty: TReadOnlyProperty<RootVector | null>;
+  private readonly selectedVectorProperty: TReadOnlyProperty<RootVector | null>;
   private readonly backgroundRectangle: Rectangle;
   private readonly vectorSymbolNode: VectorSymbolNode;
   private readonly vectorMagnitudeText: Text;
@@ -38,12 +38,12 @@ export default class VectorLabelNode extends Node {
 
   public constructor( rootVector: RootVector,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
-                      activeVectorProperty: TReadOnlyProperty<RootVector | null> ) {
+                      selectedVectorProperty: TReadOnlyProperty<RootVector | null> ) {
 
     // Create the background rectangle, set as an arbitrary rectangle for now
     const backgroundRectangle = new Rectangle( 0, 0, 1, 1, {
-      fill: VectorAdditionColors.inactiveVectorLabelBackgroundFillProperty,
-      stroke: VectorAdditionColors.inactiveVectorLabelBackgroundStrokeProperty,
+      fill: VectorAdditionColors.selectedVectorLabelBackgroundFillProperty,
+      stroke: VectorAdditionColors.unselectedVectorLabelBackgroundStrokeProperty,
       cornerRadius: 4
     } );
 
@@ -71,7 +71,7 @@ export default class VectorLabelNode extends Node {
 
     this.rootVector = rootVector;
     this.valuesVisibleProperty = valuesVisibleProperty;
-    this.activeVectorProperty = activeVectorProperty;
+    this.selectedVectorProperty = selectedVectorProperty;
     this.backgroundRectangle = backgroundRectangle;
     this.vectorSymbolNode = vectorSymbolNode;
     this.vectorMagnitudeText = vectorMagnitudeText;
@@ -79,7 +79,7 @@ export default class VectorLabelNode extends Node {
 
     // Observe changes to the model vector, and update the label node. Dispose is required.
     const labelMultilink = new Multilink(
-      [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, activeVectorProperty ],
+      [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, selectedVectorProperty ],
       () => this.update()
     );
 
@@ -140,12 +140,12 @@ export default class VectorLabelNode extends Node {
    */
   public setHighlighted( highlighted: boolean ): void {
     if ( highlighted ) {
-      this.backgroundRectangle.fill = VectorAdditionColors.activeVectorLabelBackgroundFillProperty;
-      this.backgroundRectangle.stroke = VectorAdditionColors.activeVectorLabelBackgroundStrokeProperty;
+      this.backgroundRectangle.fill = VectorAdditionColors.selectedVectorLabelBackgroundFillProperty;
+      this.backgroundRectangle.stroke = VectorAdditionColors.selectedVectorLabelBackgroundStrokeProperty;
     }
     else {
-      this.backgroundRectangle.fill = VectorAdditionColors.inactiveVectorLabelBackgroundFillProperty;
-      this.backgroundRectangle.stroke = VectorAdditionColors.inactiveVectorLabelBackgroundStrokeProperty;
+      this.backgroundRectangle.fill = VectorAdditionColors.unselectedVectorLabelBackgroundFillProperty;
+      this.backgroundRectangle.stroke = VectorAdditionColors.unselectedVectorLabelBackgroundStrokeProperty;
     }
   }
 }

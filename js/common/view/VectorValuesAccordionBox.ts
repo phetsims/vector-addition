@@ -1,12 +1,12 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorValuesAccordionBox is the accordion box at the top of the screen. It displays the active vector's magnitude,
+ * VectorValuesAccordionBox is the accordion box at the top of the screen. It displays the selected vector's magnitude,
  * angle, x component, and y component.
  *
  * 'Is a' relationship with FixedSizeAccordionBox
  *    - when collapsed, displays 'Vector Values'
- *    - when expanded either displays 'select a vector' or the active vector's attributes
+ *    - when expanded either displays 'select a vector' or the selected vector's attributes
  *      (a series of labels and VectorQuantityDisplays)
  *
  * This panel exists for the entire sim and is never disposed.
@@ -73,7 +73,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
     // 'No vector selected', displayed when accordion box is expanded and no vector is selected.
     const noVectorSelectedText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
-      visibleProperty: new DerivedProperty( [ scene.activeVectorProperty ], activeVector => activeVector === null ),
+      visibleProperty: new DerivedProperty( [ scene.selectedVectorProperty ], selectedVector => selectedVector === null ),
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: 450,
       accessibleParagraph: VectorAdditionStrings.noVectorSelectedStringProperty
@@ -106,7 +106,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
     // Layout for the labels and displays.
     const vectorQuantitiesHBox = new HBox( {
-      visibleProperty: new DerivedProperty( [ scene.activeVectorProperty ], activeVector => activeVector !== null ),
+      visibleProperty: new DerivedProperty( [ scene.selectedVectorProperty ], selectedVector => selectedVector !== null ),
       spacing: 40,
       children: [
         new HBox( {
@@ -153,13 +153,13 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       yComponentSymbolNode.setCoefficient( coefficient );
     };
 
-    // Update when the scene's activeVectorProperty changes.
-    scene.activeVectorProperty.link( ( activeVector, oldActiveVector ) => {
+    // Update when selected vector changes.
+    scene.selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
 
-      if ( activeVector !== null ) {
+      if ( selectedVector !== null ) {
 
         // Get the vector symbol
-        const vectorSymbolProperty = activeVector.symbolProperty ? activeVector.symbolProperty : Vector.FALLBACK_SYMBOL_PROPERTY;
+        const vectorSymbolProperty = selectedVector.symbolProperty ? selectedVector.symbolProperty : Vector.FALLBACK_SYMBOL_PROPERTY;
 
         // Update labels (angle label is the same)
         magnitudeSymbolNode.setSymbolProperty( vectorSymbolProperty );
@@ -173,14 +173,14 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
         ) );
       }
 
-      if ( activeVector && activeVector instanceof EquationsVector ) {
-        activeVector.coefficientProperty.link( updateCoefficient ); // unlink required when active vector changes
+      if ( selectedVector && selectedVector instanceof EquationsVector ) {
+        selectedVector.coefficientProperty.link( updateCoefficient ); // unlink required when selected vector changes
       }
 
-      if ( oldActiveVector && oldActiveVector instanceof EquationsVector ) {
-        oldActiveVector.coefficientProperty.unlink( updateCoefficient );
+      if ( oldSelectedVector && oldSelectedVector instanceof EquationsVector ) {
+        oldSelectedVector.coefficientProperty.unlink( updateCoefficient );
         // reset
-        updateCoefficient( ( activeVector && activeVector instanceof EquationsVector ) ? activeVector.coefficientProperty.value : 1 );
+        updateCoefficient( ( selectedVector && selectedVector instanceof EquationsVector ) ? selectedVector.coefficientProperty.value : 1 );
       }
     } );
 
@@ -189,11 +189,11 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     this.accessibleParagraphStringProperty = null;
 
     // Set the accessible paragraph that describes the selected vector.
-    scene.activeVectorProperty.link( activeVector => {
+    scene.selectedVectorProperty.link( selectedVector => {
       this.accessibleParagraphStringProperty && this.accessibleParagraphStringProperty.dispose();
       this.accessibleParagraphStringProperty = null;
-      if ( activeVector ) {
-        this.accessibleParagraphStringProperty = new ActiveVectorAccessibleParagraphStringProperty( activeVector );
+      if ( selectedVector ) {
+        this.accessibleParagraphStringProperty = new SelectedVectorAccessibleParagraphStringProperty( selectedVector );
         this.setAccessibleParagraph( this.accessibleParagraphStringProperty );
       }
     } );
@@ -201,27 +201,27 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 }
 
 /**
- * ActiveVectorAccessibleParagraphStringProperty is the accessible paragraph that describes the vector that is
+ * SelectedVectorAccessibleParagraphStringProperty is the accessible paragraph that describes the vector that is
  * currently selected.
  */
-class ActiveVectorAccessibleParagraphStringProperty extends PatternStringProperty<{
+class SelectedVectorAccessibleParagraphStringProperty extends PatternStringProperty<{
   symbol: TReadOnlyProperty<string>;
   magnitude: TReadOnlyProperty<string>;
   direction: TReadOnlyProperty<string>;
   xComponent: TReadOnlyProperty<string>;
   yComponent: TReadOnlyProperty<string>;
 }> {
-  public constructor( activeVector: Vector ) {
+  public constructor( selectedVector: Vector ) {
 
-    const symbolProperty = activeVector.symbolProperty ? activeVector.symbolProperty : Vector.FALLBACK_SYMBOL_PROPERTY;
+    const symbolProperty = selectedVector.symbolProperty ? selectedVector.symbolProperty : Vector.FALLBACK_SYMBOL_PROPERTY;
 
-    const magnitudeProperty = new DerivedProperty( [ activeVector.vectorComponentsProperty ],
-      () => toFixed( activeVector.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const directionProperty = new DerivedProperty( [ activeVector.vectorComponentsProperty ],
-      () => toFixed( activeVector.getAngleDegrees() || 0, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const xComponentProperty = new DerivedProperty( [ activeVector.vectorComponentsProperty ],
+    const magnitudeProperty = new DerivedProperty( [ selectedVector.vectorComponentsProperty ],
+      () => toFixed( selectedVector.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+    const directionProperty = new DerivedProperty( [ selectedVector.vectorComponentsProperty ],
+      () => toFixed( selectedVector.getAngleDegrees() || 0, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+    const xComponentProperty = new DerivedProperty( [ selectedVector.vectorComponentsProperty ],
       vectorComponents => toFixed( vectorComponents.x, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const yComponentProperty = new DerivedProperty( [ activeVector.vectorComponentsProperty ],
+    const yComponentProperty = new DerivedProperty( [ selectedVector.vectorComponentsProperty ],
       vectorComponents => toFixed( vectorComponents.y, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
 
     super( VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphStringProperty, {
