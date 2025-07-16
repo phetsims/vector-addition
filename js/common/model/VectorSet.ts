@@ -48,7 +48,7 @@ type SelfOptions = {
   sumSymbolProperty?: TReadOnlyProperty<string>;
 
   // Symbol for the sum vector used in tandem names.
-  sumTandemSymbol: string;
+  sumTandemSymbol?: string;
 };
 
 export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -104,6 +104,7 @@ export default class VectorSet extends PhetioObject {
       sumProjectionXOffset: offsetStart,
       sumProjectionYOffset: offsetStart,
       sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
+      sumTandemSymbol: 's',
 
       // PhetioObjectOptions
       isDisposable: false,

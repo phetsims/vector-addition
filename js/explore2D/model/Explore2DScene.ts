@@ -39,7 +39,6 @@ export default class Explore2DScene extends VectorAdditionScene {
     } );
 
     this.vectorSet = new VectorSet( this, componentVectorStyleProperty, vectorColorPalette, {
-      sumTandemSymbol: 's', // Symbol for the sum vector used in tandem names.
       tandem: tandem.createTandem( 'vectorSet' )
     } );
 

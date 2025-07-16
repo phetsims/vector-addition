@@ -67,7 +67,6 @@ export default class Explore1DScene extends VectorAdditionScene {
     } );
 
     this.vectorSet = new VectorSet( this, componentVectorStyleProperty, vectorColorPalette, {
-      sumTandemSymbol: 's', // Symbol for the sum vector used in tandem names.
       tandem: tandem.createTandem( 'vectorSet' )
     } );
 
