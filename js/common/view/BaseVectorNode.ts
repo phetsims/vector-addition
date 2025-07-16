@@ -40,6 +40,8 @@ export default class BaseVectorNode extends VectorNode {
     }, providedOptions );
 
     super( baseVector, scene, valuesVisibleProperty, anglesVisibleProperty, options );
+
+    this.addLinkedElement( baseVector );
   }
 }
 
