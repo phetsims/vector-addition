@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Constants used throughout the 'Vector Addition' simulation.
+ * VectorAdditionConstants is the set of constants used throughout the 'Vector Addition' simulation.
  *
  * @author Martin Veillette
  * @author Brandon Li
@@ -23,163 +23,138 @@ import VectorAdditionSymbols from './VectorAdditionSymbols.js';
 import { RootVectorArrowNodeOptions } from './view/RootVectorNode.js';
 import { PreferencesControlOptions } from '../../../joist/js/preferences/PreferencesControl.js';
 import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
+import { CreditsData } from '../../../joist/js/CreditsNode.js';
+import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
+import { PanelOptions } from '../../../sun/js/Panel.js';
+import { NumberPickerOptions } from '../../../sun/js/NumberPicker.js';
 
-// shared constants within this file
-const PANEL_CORNER_RADIUS = 5;
-const PANEL_X_MARGIN = 9;
-const PANEL_Y_MARGIN = 10;
-const RIGHT_PANEL_WIDTH = 175; // fixed width of panels and accordion boxes on right side of the screen
+export default class VectorAdditionConstants {
 
-const ACCORDION_BOX_OPTIONS: AccordionBoxOptions = {
-  cornerRadius: PANEL_CORNER_RADIUS,
-  contentXMargin: PANEL_X_MARGIN,
-  contentYMargin: PANEL_Y_MARGIN,
-  contentXSpacing: PANEL_X_MARGIN,
-  contentYSpacing: 1,
-  buttonXMargin: PANEL_X_MARGIN,
-  buttonYMargin: PANEL_Y_MARGIN,
-  titleYMargin: PANEL_Y_MARGIN,
-  titleXMargin: PANEL_X_MARGIN,
-  titleXSpacing: PANEL_X_MARGIN,
-  titleAlignX: 'left',
-  expandCollapseButtonOptions: {
-    sideLength: 22,
-    touchAreaXDilation: 6,
-    touchAreaYDilation: 6
-  },
-  fill: VectorAdditionColors.panelFillProperty,
-  stroke: VectorAdditionColors.panelStrokeProperty
-};
-
-// options for vector arrows (ArrowNode)
-const VECTOR_ARROW_OPTIONS: RootVectorArrowNodeOptions = {
-  headWidth: VectorAdditionQueryParameters.headWidth,
-  headHeight: VectorAdditionQueryParameters.headHeight,
-  tailWidth: VectorAdditionQueryParameters.tailWidth,
-  stroke: null,
-  isHeadDynamic: true,
-  fractionalHeadHeight: 0.5
-};
-
-// options for component vector arrows (DashedArrowNode)
-const COMPONENT_VECTOR_ARROW_OPTIONS = combineOptions<RootVectorArrowNodeOptions>( {}, VECTOR_ARROW_OPTIONS, {
-  tailWidth: 3,
-  tailDash: [ 6, 3 ]
-} );
-
-const RADIO_BUTTON_GROUP_OPTIONS: RectangularRadioButtonGroupOptions = {
-  orientation: 'horizontal',
-  radioButtonOptions: {
-    baseColor: VectorAdditionColors.radioButtonBaseColorProperty,
-    cornerRadius: 8,
-    xMargin: 8,
-    yMargin: 8,
-    buttonAppearanceStrategyOptions: {
-      selectedLineWidth: 1.5,
-      deselectedLineWidth: 1,
-      deselectedButtonOpacity: 0.35,
-      selectedStroke: VectorAdditionColors.radioButtonSelectedStrokeProperty,
-      deselectedStroke: VectorAdditionColors.radioButtonDeselectedStrokeProperty
-    }
+  private constructor() {
+    // Not intended for instantiation.
   }
-};
-
-const PREFERENCES_CONTROL_OPTIONS: PreferencesControlOptions = {
-  isDisposable: false,
-  labelSpacing: 20,
-  visiblePropertyOptions: {
-    phetioFeatured: true
-  }
-};
-
-const VectorAdditionConstants = {
 
   // Shared by vector-addition-main.js and its derivatives (vector-addition-equations-main.js)
   // See https://github.com/phetsims/vector-addition/issues/98
-  CREDITS: {
+  public static readonly CREDITS: CreditsData = {
     leadDesign: 'Michael Dubson, Amy Rouinfar',
     softwareDevelopment: 'Brandon Li, Martin Veillette, Chris Malley (PixelZoom, Inc.)',
     team: 'Diana L\u00f3pez Tavares, Amanda McGarry, Ariel Paul, Kathy Perkins',
     qualityAssurance: 'Jaspe Arias, Logan Bray, Megan Lai, Matthew Moore, Ashton Morris, Liam Mulhall, Jacob Romero, Nancy Salpepi, Kathryn Woessner'
-  },
+  };
 
   //----------------------------------------------------------------------------------------
   // ScreenViews
 
-  SCREEN_VIEW_X_MARGIN: 20,
-  SCREEN_VIEW_Y_MARGIN: 16,
-  SCREEN_VIEW_BOUNDS: ScreenView.DEFAULT_LAYOUT_BOUNDS,
+  public static readonly SCREEN_VIEW_X_MARGIN = 20;
+  public static readonly SCREEN_VIEW_Y_MARGIN = 16;
+  public static readonly SCREEN_VIEW_BOUNDS = ScreenView.DEFAULT_LAYOUT_BOUNDS;
 
   //----------------------------------------------------------------------------------------
   // Graphs
 
-  DEFAULT_GRAPH_BOUNDS: new Bounds2( -5, -5, 45, 25 ),
-  DEFAULT_SUM_VISIBLE: false,
-  AXES_ARROW_X_EXTENSION: 20, // how far the x-axis arrow extends past the edge of the graph's grid
-  AXES_ARROW_Y_EXTENSION: 15, // how far the y-axis arrow extends past the edge of the graph's grid
-  AXES_ARROW_OPTIONS: {
+  public static readonly DEFAULT_GRAPH_BOUNDS = new Bounds2( -5, -5, 45, 25 );
+  public static readonly DEFAULT_SUM_VISIBLE = false;
+  public static readonly AXES_ARROW_X_EXTENSION = 20; // how far the x-axis arrow extends past the edge of the graph's grid
+  public static readonly AXES_ARROW_Y_EXTENSION = 15; // how far the y-axis arrow extends past the edge of the graph's grid
+  public static readonly AXES_ARROW_OPTIONS: ArrowNodeOptions = {
     doubleHead: true,
     tailWidth: 1.5,
     headWidth: 10,
     headHeight: 10,
     fill: Color.BLACK,
     stroke: null
-  },
+  };
 
   //----------------------------------------------------------------------------------------
   // Checkboxes
 
-  CHECKBOX_BOX_WIDTH: 18,
-  CHECKBOX_ICON_SPACING: 8,
-  CHECKBOX_Y_SPACING: 8,
+  public static readonly CHECKBOX_BOX_WIDTH = 18;
+  public static readonly CHECKBOX_ICON_SPACING = 8;
+  public static readonly CHECKBOX_Y_SPACING = 8;
 
   //----------------------------------------------------------------------------------------
   // RadioButtonGroups
 
-  RADIO_BUTTON_GROUP_OPTIONS: RADIO_BUTTON_GROUP_OPTIONS,
+  public static readonly RADIO_BUTTON_GROUP_OPTIONS: RectangularRadioButtonGroupOptions = {
+    orientation: 'horizontal',
+    radioButtonOptions: {
+      baseColor: VectorAdditionColors.radioButtonBaseColorProperty,
+      cornerRadius: 8,
+      xMargin: 8,
+      yMargin: 8,
+      buttonAppearanceStrategyOptions: {
+        selectedLineWidth: 1.5,
+        deselectedLineWidth: 1,
+        deselectedButtonOpacity: 0.35,
+        selectedStroke: VectorAdditionColors.radioButtonSelectedStrokeProperty,
+        deselectedStroke: VectorAdditionColors.radioButtonDeselectedStrokeProperty
+      }
+    }
+  };
 
-  // Space above and below scene radio buttons
-  RADIO_BUTTONS_Y_SPACING: 15,
+  // Space between the VectorCreatorPanel and the scene radio buttons.
+  public static readonly SPACE_BELOW_VECTOR_CREATOR_PANEL = 15;
 
   //----------------------------------------------------------------------------------------
   // Panel-like containers
 
-  PANEL_OPTIONS: {
-    cornerRadius: PANEL_CORNER_RADIUS,
-    xMargin: PANEL_X_MARGIN,
-    yMargin: PANEL_Y_MARGIN,
+  public static readonly PANEL_X_MARGIN = 9;
+  public static readonly PANEL_Y_MARGIN = 10;
+  public static readonly PANEL_CORNER_RADIUS = 5;
+  public static readonly RIGHT_PANEL_WIDTH = 175; // fixed width of panels and accordion boxes on right side of the screen
+
+  public static readonly PANEL_OPTIONS: PanelOptions = {
+    cornerRadius: VectorAdditionConstants.PANEL_CORNER_RADIUS,
+    xMargin: VectorAdditionConstants.PANEL_X_MARGIN,
+    yMargin: VectorAdditionConstants.PANEL_Y_MARGIN,
     fill: VectorAdditionColors.panelFillProperty,
     stroke: VectorAdditionColors.panelStrokeProperty
-  },
-
-  PANEL_X_MARGIN: PANEL_X_MARGIN,
-  PANEL_Y_MARGIN: PANEL_Y_MARGIN,
-  PANEL_CORNER_RADIUS: PANEL_CORNER_RADIUS,
+  };
 
   // fixed width of each GraphControlPanel
-  GRAPH_CONTROL_PANEL_CONTENT_WIDTH: RIGHT_PANEL_WIDTH,
-  BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH: RIGHT_PANEL_WIDTH,
+  public static readonly GRAPH_CONTROL_PANEL_CONTENT_WIDTH = VectorAdditionConstants.RIGHT_PANEL_WIDTH;
+  public static readonly BASE_VECTORS_ACCORDION_BOX_CONTENT_WIDTH = VectorAdditionConstants.RIGHT_PANEL_WIDTH;
 
   // vertical spacing between UI components in each GraphControlPanel
-  GRAPH_CONTROL_PANEL_Y_SPACING: 10,
+  public static readonly GRAPH_CONTROL_PANEL_Y_SPACING = 10;
 
   //----------------------------------------------------------------------------------------
   // Ranges
 
-  COMPONENT_RANGE: new Range( -10, 10 ),
-  MAGNITUDE_RANGE: new Range( -10, 10 ),
-  SIGNED_ANGLE_RANGE: new Range( -180, 180 ),
-  UNSIGNED_ANGLE_RANGE: new Range( 0, 360 ),
+  public static readonly COMPONENT_RANGE = new Range( -10, 10 );
+  public static readonly MAGNITUDE_RANGE = new Range( -10, 10 );
+  public static readonly SIGNED_ANGLE_RANGE = new Range( -180, 180 );
+  public static readonly UNSIGNED_ANGLE_RANGE = new Range( 0, 360 );
 
   //----------------------------------------------------------------------------------------
   // AccordionBoxes and ToggleBoxes
 
-  ACCORDION_BOX_OPTIONS: ACCORDION_BOX_OPTIONS,
+  public static readonly ACCORDION_BOX_OPTIONS: AccordionBoxOptions = {
+    cornerRadius: VectorAdditionConstants.PANEL_CORNER_RADIUS,
+    contentXMargin: VectorAdditionConstants.PANEL_X_MARGIN,
+    contentYMargin: VectorAdditionConstants.PANEL_Y_MARGIN,
+    contentXSpacing: VectorAdditionConstants.PANEL_X_MARGIN,
+    contentYSpacing: 1,
+    buttonXMargin: VectorAdditionConstants.PANEL_X_MARGIN,
+    buttonYMargin: VectorAdditionConstants.PANEL_Y_MARGIN,
+    titleYMargin: VectorAdditionConstants.PANEL_Y_MARGIN,
+    titleXMargin: VectorAdditionConstants.PANEL_X_MARGIN,
+    titleXSpacing: VectorAdditionConstants.PANEL_X_MARGIN,
+    titleAlignX: 'left',
+    expandCollapseButtonOptions: {
+      sideLength: 22,
+      touchAreaXDilation: 6,
+      touchAreaYDilation: 6
+    },
+    fill: VectorAdditionColors.panelFillProperty,
+    stroke: VectorAdditionColors.panelStrokeProperty
+  };
 
   //----------------------------------------------------------------------------------------
   // NumberPickers
 
-  NUMBER_PICKER_OPTIONS: {
+  public static readonly NUMBER_PICKER_OPTIONS: NumberPickerOptions = {
     color: Color.BLACK,
     cornerRadius: 3.5,
     arrowYSpacing: 1.5,
@@ -187,82 +162,101 @@ const VectorAdditionConstants = {
     font: new PhetFont( 17 ),
     xMargin: 4.5,
     yMargin: 3.5
-  },
+  };
 
   //----------------------------------------------------------------------------------------
   // Vectors
-  VECTOR_SYMBOL_PROPERTIES_GROUP_1: [
+
+  public static readonly VECTOR_SYMBOL_PROPERTIES_GROUP_1 = [
     VectorAdditionSymbols.aStringProperty,
     VectorAdditionSymbols.bStringProperty,
     VectorAdditionSymbols.cStringProperty
-  ],
-  VECTOR_SYMBOL_PROPERTIES_GROUP_2: [
+  ];
+
+  public static readonly VECTOR_SYMBOL_PROPERTIES_GROUP_2 = [
     VectorAdditionSymbols.dStringProperty,
     VectorAdditionSymbols.eStringProperty,
     VectorAdditionSymbols.fStringProperty
-  ],
+  ];
 
   // Defaults for all vectors
-  VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
+  public static readonly VECTOR_ARROW_OPTIONS: RootVectorArrowNodeOptions = {
+    headWidth: VectorAdditionQueryParameters.headWidth,
+    headHeight: VectorAdditionQueryParameters.headHeight,
+    tailWidth: VectorAdditionQueryParameters.tailWidth,
+    stroke: null,
+    isHeadDynamic: true,
+    fractionalHeadHeight: 0.5
+  };
 
   // Defaults for component vectors, DashedArrowNode instances
-  COMPONENT_VECTOR_ARROW_OPTIONS: COMPONENT_VECTOR_ARROW_OPTIONS,
+  public static readonly COMPONENT_VECTOR_ARROW_OPTIONS = combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+    tailWidth: 3,
+    tailDash: [ 6, 3 ]
+  } );
 
   // Defaults for sum vectors
-  SUM_VECTOR_ARROW_OPTIONS: VECTOR_ARROW_OPTIONS,
+  public static readonly SUM_VECTOR_ARROW_OPTIONS = VectorAdditionConstants.VECTOR_ARROW_OPTIONS;
 
   // Defaults for sum component vectors
-  SUM_COMPONENT_VECTOR_ARROW_OPTIONS: COMPONENT_VECTOR_ARROW_OPTIONS,
+  public static readonly SUM_COMPONENT_VECTOR_ARROW_OPTIONS = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS;
 
   // Defaults for base vectors
-  BASE_VECTOR_ARROW_OPTIONS: combineOptions<RootVectorArrowNodeOptions>( {}, VECTOR_ARROW_OPTIONS, {
-    lineWidth: 1.5
-  } ),
+  public static readonly BASE_VECTOR_ARROW_OPTIONS = combineOptions<RootVectorArrowNodeOptions>(
+    {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+      lineWidth: 1.5
+    } );
 
   // offset of a label from its vector, in model coordinates
-  VECTOR_LABEL_OFFSET: 0.45,
+  public static readonly VECTOR_LABEL_OFFSET = 0.45;
 
   // dilation of vector (arrow) pointer areas
-  VECTOR_TOUCH_AREA_DILATION: 3,
-  VECTOR_MOUSE_AREA_DILATION: 3,
+  public static readonly VECTOR_TOUCH_AREA_DILATION = 3;
+  public static readonly VECTOR_MOUSE_AREA_DILATION = 3;
 
   // dilation of vector head pointer areas, for vectors that can be scales/rotated
-  VECTOR_HEAD_TOUCH_AREA_DILATION: 8,
-  VECTOR_HEAD_MOUSE_AREA_DILATION: 6,
+  public static readonly VECTOR_HEAD_TOUCH_AREA_DILATION = 8;
+  public static readonly VECTOR_HEAD_MOUSE_AREA_DILATION = 6;
 
   // Interval spacing of vector angle (in degrees) when vector is in polar mode
-  POLAR_ANGLE_INTERVAL: 5,
+  public static readonly POLAR_ANGLE_INTERVAL = 5;
 
   // When dragging tot translate a vector, the tail of the vector must remain this much inside the
   // bounds of the graph, in model units.
-  VECTOR_TAIL_DRAG_MARGIN: 1,
+  public static readonly VECTOR_TAIL_DRAG_MARGIN = 1;
 
   // vector components or magnitudes smaller than this value are treated as effectively zero
-  ZERO_THRESHOLD: 1E-10,
+  public static readonly ZERO_THRESHOLD = 1E-10;
 
   //----------------------------------------------------------------------------------------
   // Decimal places
 
-  VECTOR_VALUE_DECIMAL_PLACES: 1, // for all vector-related values (magnitude, angle, components)
+  // for all vector-related values (magnitude, angle, components)
+  public static readonly VECTOR_VALUE_DECIMAL_PLACES = 1;
 
   //----------------------------------------------------------------------------------------
   // Fonts
 
-  EQUATION_FONT: new PhetFont( 18 ),
-  EQUATION_SYMBOL_FONT: new MathSymbolFont( 18 ),
-  INTERACTIVE_EQUATION_FONT: new PhetFont( 20 ), // for interactive equation in Equations screen
-  INTERACTIVE_EQUATION_SYMBOL_FONT: new MathSymbolFont( 20 ), // for interactive equation in Equations screen
-  VECTOR_LABEL_FONT: new PhetFont( 18 ),
-  VECTOR_LABEL_SYMBOL_FONT: new MathSymbolFont( 18 ),
-  ANGLE_LABEL_FONT: new PhetFont( 13 ),
-  TICK_LABEL_FONT: new PhetFont( 14 ),
-  AXIS_LABEL_FONT: new MathSymbolFont( 18 ),
-  CHECKBOX_FONT: new PhetFont( 16 ),
-  TITLE_FONT: new PhetFont( 16 ),
+  public static readonly EQUATION_FONT = new PhetFont( 18 );
+  public static readonly EQUATION_SYMBOL_FONT = new MathSymbolFont( 18 );
+  public static readonly INTERACTIVE_EQUATION_FONT = new PhetFont( 20 );// for interactive equation in Equations screen
+  public static readonly INTERACTIVE_EQUATION_SYMBOL_FONT = new MathSymbolFont( 20 ); // for interactive equation in Equations screen
+  public static readonly VECTOR_LABEL_FONT = new PhetFont( 18 );
+  public static readonly VECTOR_LABEL_SYMBOL_FONT = new MathSymbolFont( 18 );
+  public static readonly ANGLE_LABEL_FONT = new PhetFont( 13 );
+  public static readonly TICK_LABEL_FONT = new PhetFont( 14 );
+  public static readonly AXIS_LABEL_FONT = new MathSymbolFont( 18 );
+  public static readonly CHECKBOX_FONT = new PhetFont( 16 );
+  public static readonly TITLE_FONT = new PhetFont( 16 );
 
   // Preferences
-  PREFERENCES_CONTROL_OPTIONS: PREFERENCES_CONTROL_OPTIONS
-};
+  public static readonly PREFERENCES_CONTROL_OPTIONS: PreferencesControlOptions = {
+    isDisposable: false,
+    labelSpacing: 20,
+    visiblePropertyOptions: {
+      phetioFeatured: true
+    }
+  };
+}
 
 vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );
-export default VectorAdditionConstants;

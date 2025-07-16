@@ -39,7 +39,7 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
     // Add the vector creator panel
     this.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( scene, this, vectorSymbolProperties, {
       left: sceneRadioButtonGroup.left,
-      bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.RADIO_BUTTONS_Y_SPACING,
+      bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,
       tandem: tandem.createTandem( 'vectorCreatorPanel' )
     } ) );
   }
