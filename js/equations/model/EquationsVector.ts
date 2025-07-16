@@ -88,9 +88,9 @@ export default class EquationsVector extends Vector {
   }
 
   public override reset(): void {
-    super.reset();
     this.coefficientProperty.reset();
     this.baseVector.reset();
+    super.reset();
   }
 
   /**

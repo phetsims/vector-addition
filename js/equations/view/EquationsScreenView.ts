@@ -133,8 +133,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
   }
 
   public override reset(): void {
-    super.reset();
     this.viewProperties.reset();
+    super.reset();
   }
 }
 

@@ -157,6 +157,7 @@ export default class EquationsVectorSet extends VectorSet {
   public override reset(): void {
     this.vectors.forEach( vector => vector.reset() );
     this._sumVector && this._sumVector.reset();
+    // Do not call super.reset -- see note above!
   }
 }
 

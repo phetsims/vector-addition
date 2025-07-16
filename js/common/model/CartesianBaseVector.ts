@@ -66,9 +66,9 @@ export default class CartesianBaseVector extends BaseVector {
   }
 
   public override reset(): void {
-    super.reset();
     this.xComponentProperty.reset();
     this.yComponentProperty.reset();
+    super.reset();
   }
 }
 

@@ -75,9 +75,9 @@ export default class PolarBaseVector extends BaseVector {
   }
 
   public override reset(): void {
-    super.reset();
     this.magnitudeProperty.reset();
     this.angleProperty.reset();
+    super.reset();
   }
 }
 

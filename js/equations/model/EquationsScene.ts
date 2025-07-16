@@ -65,8 +65,8 @@ export default class EquationsScene extends VectorAdditionScene {
   }
 
   public override reset(): void {
-    super.reset();
     this.equationTypeProperty.reset();
+    super.reset();
   }
 }
 
