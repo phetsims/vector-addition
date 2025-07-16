@@ -160,9 +160,15 @@ export default class VectorAdditionSceneNode extends Node {
    * Gets the VectorSetNode associated with a VectorSet.
    */
   protected getVectorSetNode( vectorSet: VectorSet ): VectorSetNode {
+
+    assert && assert( this.vectorSets.length === this.vectorSetNodes.length );
     const index = this.vectorSets.indexOf( vectorSet );
     assert && assert( index !== -1, 'vectorSet not found' );
-    return this.vectorSetNodes[ index ];
+
+    const vectorSetNode = this.vectorSetNodes[ index ];
+    assert && assert( vectorSetNode.vectorSet === vectorSet );
+
+    return vectorSetNode;
   }
 
   /**
