@@ -74,7 +74,6 @@ export default class VectorAdditionConstants {
   // Checkboxes
 
   public static readonly CHECKBOX_BOX_WIDTH = 18;
-  public static readonly CHECKBOX_ICON_SPACING = 8;
 
   //----------------------------------------------------------------------------------------
   // RadioButtonGroups

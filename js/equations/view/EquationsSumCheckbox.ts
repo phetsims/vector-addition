@@ -19,7 +19,6 @@ import ArrowOverSymbolNode from '../../common/view/ArrowOverSymbolNode.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
@@ -69,7 +68,7 @@ export default class EquationsSumCheckbox extends Checkbox {
     } );
 
     const hBox = new HBox( {
-      spacing: VectorAdditionConstants.CHECKBOX_ICON_SPACING,
+      spacing: 8,
       children: [ symbolNode, vectorIcon ]
     } );
 
