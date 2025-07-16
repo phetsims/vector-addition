@@ -33,6 +33,7 @@ export default class PolarBaseVector extends BaseVector {
    * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   * @param tandemSymbol - symbol for the vector used in tandem names
    * @param tandem
    */
   public constructor( initialTailPosition: Vector2,
@@ -40,11 +41,12 @@ export default class PolarBaseVector extends BaseVector {
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       symbolProperty: TReadOnlyProperty<string>,
+                      tandemSymbol: string,
                       tandem: Tandem ) {
 
     assert && assert( scene.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, tandemSymbol, {
       isDisposable: false,
       tandem: tandem
     } );

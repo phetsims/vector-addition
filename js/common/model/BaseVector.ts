@@ -33,6 +33,7 @@ export default abstract class BaseVector extends Vector {
    * @param scene - the scene the BaseVector belongs to
    * @param vectorSet - the set that the BaseVector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   * @param tandemSymbol - symbol for the vector used in tandem names
    * @param providedOptions
    */
   protected constructor( initialTailPosition: Vector2,
@@ -40,6 +41,7 @@ export default abstract class BaseVector extends Vector {
                          scene: VectorAdditionScene,
                          vectorSet: VectorSet,
                          symbolProperty: TReadOnlyProperty<string>,
+                         tandemSymbol: string,
                          providedOptions: BaseVectorOptions ) {
 
     const options = optionize<BaseVectorOptions, SelfOptions, VectorOptions>()( {
@@ -48,7 +50,8 @@ export default abstract class BaseVector extends Vector {
       isDisposable: false,
       isRemovable: false,       // BaseVectors are not removable
       isTipDraggable: false,    // BaseVectors are not draggable by the tip
-      isOnGraphInitially: true // BaseVectors are always on the graph
+      isOnGraphInitially: true, // BaseVectors are always on the graph
+      tandemSymbol: tandemSymbol
     }, providedOptions );
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, options );

@@ -80,9 +80,6 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     // Each Vector in the vectorSet gets 2 NumberPickers, so loop through the vectorSet
     vectorSet.equationsVectors.forEach( vector => {
 
-      //TODO https://github.com/phetsims/vector-addition/issues/258 Using baseVectorSymbol in tandem names will break the PhET-iO API, because baseVectorSymbol is localized.
-      const vectorTandemPrefix = vector.baseVector.symbolProperty!.value;
-
       if ( coordinateSnapMode === 'cartesian' ) {
 
         const cartesianBaseVector = vector.baseVector as CartesianBaseVector;
@@ -101,7 +98,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: pickersTandem.createTandem( `${vectorTandemPrefix}xPicker` )
+            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemSymbol}xPicker` )
           } );
 
         // Y Component
@@ -117,7 +114,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: pickersTandem.createTandem( `${vectorTandemPrefix}yPicker` )
+            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemSymbol}yPicker` )
           } );
 
         rows.push( new HBox( {
@@ -139,13 +136,13 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            tandem: pickersTandem.createTandem( `${vectorTandemPrefix}MagnitudePicker` )
+            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemSymbol}MagnitudePicker` )
           } );
 
         // Angle
         assert && assert( polarBaseVector.symbolProperty );
         const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleDegreesProperty, polarBaseVector.symbolProperty!,
-          LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vectorTandemPrefix}AnglePicker` ) );
+          LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vector.baseVector.tandemSymbol}AnglePicker` ) );
 
         rows.push( new HBox( {
           align: 'origin',

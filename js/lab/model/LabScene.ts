@@ -34,10 +34,12 @@ export default class LabScene extends VectorAdditionScene {
    * @param sceneNameStringProperty
    * @param coordinateSnapMode - coordinateSnapMode for the scene
    * @param componentVectorStyleProperty
-   * @param symbol1Property - symbol for vectors in the first VectorSet
-   * @param symbol2Property - symbol for vectors in the second VectorSet
-   * @param vectorColorPalette1 - color palette for the first VectorSet
-   * @param vectorColorPalette2 - color palette for the second VectorSet
+   * @param symbol1Property - symbol for vector set 1
+   * @param symbol2Property - symbol for vector set 2
+   * @param tandemSymbol1 - symbol for vector set 1 used in tandem names
+   * @param tandemSymbol2 - symbol for vector set 2 used in tandem names
+   * @param vectorColorPalette1 - color palette for vector set 1
+   * @param vectorColorPalette2 - color palette for vector set 2
    * @param tandem
    */
   public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
@@ -45,6 +47,8 @@ export default class LabScene extends VectorAdditionScene {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       symbol1Property: TReadOnlyProperty<string>,
                       symbol2Property: TReadOnlyProperty<string>,
+                      tandemSymbol1: string,
+                      tandemSymbol2: string,
                       vectorColorPalette1: VectorColorPalette,
                       vectorColorPalette2: VectorColorPalette,
                       tandem: Tandem ) {
@@ -64,7 +68,7 @@ export default class LabScene extends VectorAdditionScene {
     const modelHeadWidth = this.graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
     const offsetDelta = -( modelHeadWidth / 2 );
 
-    this.vectorSet1 = new LabVectorSet( this, symbol1Property, componentVectorStyleProperty, vectorColorPalette1, {
+    this.vectorSet1 = new LabVectorSet( this, symbol1Property, tandemSymbol1, componentVectorStyleProperty, vectorColorPalette1, {
 
       initialSumTailPosition: new Vector2(
         roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
@@ -74,11 +78,11 @@ export default class LabScene extends VectorAdditionScene {
       // non-sum component vectors are interleaved with vectorSet2, overlap is OK
       projectionXOffsetDelta: offsetDelta,
       projectionYOffsetDelta: offsetDelta,
-      
-      tandem: tandem.createTandem( 'vectorSet1' )
+
+      tandem: tandem.createTandem( `${tandemSymbol1}VectorSet` )
     } );
 
-    this.vectorSet2 = new LabVectorSet( this, symbol2Property, componentVectorStyleProperty, vectorColorPalette2, {
+    this.vectorSet2 = new LabVectorSet( this, symbol2Property, tandemSymbol2, componentVectorStyleProperty, vectorColorPalette2, {
 
       initialSumTailPosition: new Vector2(
         roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
@@ -95,7 +99,7 @@ export default class LabScene extends VectorAdditionScene {
       sumProjectionXOffset: this.vectorSet1.sumProjectionXOffset + modelHeadWidth,
       sumProjectionYOffset: this.vectorSet1.sumProjectionYOffset + modelHeadWidth,
 
-      tandem: tandem.createTandem( 'vectorSet2' )
+      tandem: tandem.createTandem( `${tandemSymbol2}VectorSet` )
     } );
 
     // Add the vector sets

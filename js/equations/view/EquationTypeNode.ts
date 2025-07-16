@@ -54,12 +54,11 @@ export default class EquationTypeNode extends Node {
       }
 
       const vector = vectorSet.equationsVectors[ i ];
-      const vectorSymbol = vector.symbolProperty!.value;
 
       const coefficientPicker = new CoefficientPicker( vector.coefficientProperty, {
         color: vectorSet.vectorColorPalette.vectorFillProperty,
         //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API if vectorSymbol is localized.
-        tandem: options.tandem.createTandem( `${vectorSymbol}Picker` ),
+        tandem: options.tandem.createTandem( `${vector.tandemSymbol}CoefficientPicker` ),
         phetioVisiblePropertyInstrumented: false
       } );
       equationChildren.push( coefficientPicker );

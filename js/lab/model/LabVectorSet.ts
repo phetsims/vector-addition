@@ -15,10 +15,11 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type LabVectorSetOptions = SelfOptions & VectorSetOptions;
+type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions, 'sumTandemSymbol'>;
 
 export default class LabVectorSet extends VectorSet {
 
@@ -29,10 +30,12 @@ export default class LabVectorSet extends VectorSet {
    * @param symbolProperty - the symbol for the vectors in the set
    * @param componentVectorStyleProperty - component style for all vectors
    * @param vectorColorPalette - color palette for vectors in this set
+   * @param tandemSymbol - symbol for the vector set used in tandem names
    * @param providedOptions
    */
   public constructor( scene: VectorAdditionScene,
                       symbolProperty: TReadOnlyProperty<string>,
+                      tandemSymbol: string,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       vectorColorPalette: VectorColorPalette,
                       providedOptions: LabVectorSetOptions ) {
@@ -43,7 +46,10 @@ export default class LabVectorSet extends VectorSet {
       // Sum vectors are labeled with 's' and the vector set symbol subscript.
       sumSymbolProperty: new DerivedProperty(
         [ VectorAdditionSymbols.sStringProperty, symbolProperty ],
-        ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` )
+        ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` ),
+
+      //  Symbol for the sum vector used in tandem names.
+      sumTandemSymbol: `s${tandemSymbol}`
     }, providedOptions );
 
     super( scene, componentVectorStyleProperty, vectorColorPalette, options );

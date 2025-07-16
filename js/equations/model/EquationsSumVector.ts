@@ -33,15 +33,17 @@ export default class EquationsSumVector extends SumVector {
    * @param vectorSet - the vector set that the sum vector represents
    * @param equationTypeProperty
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param tandemSymbol - symbol for the vector used in tandem names
    * @param tandem
    */
   public constructor( scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       equationTypeProperty: TReadOnlyProperty<EquationType>,
                       symbolProperty: TReadOnlyProperty<string>,
+                      tandemSymbol: string,
                       tandem: Tandem ) {
 
-    super( EQUATIONS_SUM_TAIL_POSITION, scene, vectorSet, symbolProperty, tandem );
+    super( EQUATIONS_SUM_TAIL_POSITION, scene, vectorSet, symbolProperty, tandemSymbol, tandem );
 
     this.equationTypeProperty = equationTypeProperty;
 

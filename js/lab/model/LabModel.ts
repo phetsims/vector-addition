@@ -41,6 +41,8 @@ export default class LabModel extends VectorAdditionModel {
       this.componentVectorStyleProperty,
       VectorAdditionSymbols.vStringProperty,
       VectorAdditionSymbols.uStringProperty,
+      'u',
+      'v',
       VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_1,
       VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_2,
       scenesTandem.createTandem( 'cartesianScene' )
@@ -52,6 +54,8 @@ export default class LabModel extends VectorAdditionModel {
       this.componentVectorStyleProperty,
       VectorAdditionSymbols.pStringProperty,
       VectorAdditionSymbols.qStringProperty,
+      'p',
+      'q',
       VectorAdditionColors.LAB_POLAR_COLOR_PALETTE_1,
       VectorAdditionColors.LAB_POLAR_COLOR_PALETTE_2,
       scenesTandem.createTandem( 'polarScene' )
