@@ -93,7 +93,8 @@ export default class GraphNode extends Node {
     super( {
       isDisposable: false,
       children: children,
-      tandem: tandem
+      tandem: tandem,
+      phetioVisiblePropertyInstrumented: false // There is no reason to hide the graph.
     } );
 
     this.originManipulator = originManipulator;
