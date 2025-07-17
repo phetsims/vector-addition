@@ -131,12 +131,9 @@ class MajorAndMinorGridLines extends Node {
     super( {
       isDisposable: false,
       children: [ minorGridLinesPath, majorGridLines ],
-      pickable: false
+      pickable: false,
+      visibleProperty: gridVisibilityProperty
     } );
-
-    // Observe changes to the grid visibility Property, and update visibility.
-    // No need to unlink since GraphNodes exist for the lifetime of the sim.
-    gridVisibilityProperty.linkAttribute( this, 'visible' );
   }
 }
 
@@ -300,7 +297,6 @@ class TicksNode extends Node {
     } );
 
     // Update ticks when the scene's origin moves.
-    // unlink is unnecessary, exists for the lifetime of the sim.
     graph.modelViewTransformProperty.link( modelViewTransform => {
 
       const viewOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
