@@ -298,7 +298,7 @@ export default class VectorNode extends RootVectorNode {
         vectorShadowNode.setTip( tipDeltaPosition.x, tipDeltaPosition.y );
       } );
 
-    // Highlight the vector's label when it is selected. Must be unlinked.
+    // Highlight the vector's label when it is selected. unlink is required on dispose.
     const selectedVectorListener = ( selectedVector: Vector | null ) => {
       this.labelNode.setHighlighted( selectedVector === vector );
     };

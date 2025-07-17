@@ -177,7 +177,7 @@ export default class VectorSetNode extends Node {
     this.addChild( baseVectorNode );
 
     // When the base vector becomes selected, move it (and the entire vector set) to the front.
-    // unlink is unnecessary because base vectors exist for the lifetime of the sim.
+    // unlink is unnecessary because VectorSetNode exists for the lifetime of the sim.
     this.scene.selectedVectorProperty.link( selectedVector => {
       if ( selectedVector === baseVectorNode.vector ) {
 

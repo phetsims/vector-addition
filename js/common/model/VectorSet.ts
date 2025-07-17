@@ -134,7 +134,6 @@ export default class VectorSet extends PhetioObject {
 
     // Whenever a vector is added or removed, adjust the offsets of all component vectors for PROJECTION style.
     // See https://github.com/phetsims/vector-addition/issues/225
-    // unlink is unnecessary, since VectorSet own this.vectors.
     this.vectors.lengthProperty.link( length => {
       for ( let i = 0; i < length; i++ ) {
         const xOffset = options.projectionXOffsetStart + i * options.projectionXOffsetDelta;
