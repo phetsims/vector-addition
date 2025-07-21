@@ -24,7 +24,7 @@ export default class VectorAdditionSymbols {
   // If they need to be localized in the future, dynamic layout was already handled as part of
   // https://github.com/phetsims/vector-addition/issues/280. So localization should be a matter of
   // adding these symbols to vector-addition-strings_en.json, then using the LocalizedStringProperty
-  // instances in VectorAdditionStrings.ts.
+  // instances in the VectorAdditionStrings typescript file.
 
   // Vectors in the Explore 1D, Explore 2D, and Equations screens.
   public static readonly aStringProperty = new StringProperty( 'a' );
