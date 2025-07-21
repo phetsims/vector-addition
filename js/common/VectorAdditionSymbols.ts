@@ -22,9 +22,9 @@ export default class VectorAdditionSymbols {
 
   // Vector symbols are currently not localized. See https://github.com/phetsims/vector-addition/issues/10.
   // If they need to be localized in the future, dynamic layout was already handled as part of
-  // https://github.com/phetsims/vector-addition/issues/280. So localization should be a matter of
-  // adding these symbols to vector-addition-strings_en.json, then using the LocalizedStringProperty
-  // instances in the VectorAdditionStrings typescript file.
+  // https://github.com/phetsims/vector-addition/issues/280. So localization should be a matter of:
+  // add these symbols to vector-addition-strings_en.json, run 'grunt modulify', then use the
+  // LocalizedStringProperty instances from VectorAdditionStrings.
 
   // Vectors in the Explore 1D, Explore 2D, and Equations screens.
   public static readonly aStringProperty = new StringProperty( 'a' );
