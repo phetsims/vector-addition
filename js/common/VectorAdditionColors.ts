@@ -68,7 +68,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Panel-like containers
 
   public static readonly panelStrokeProperty = new ProfileColorProperty( vectorAddition, 'panelStroke', {
-    default: Color.grayColor( 190 )
+    default: Color.grayColor( 139 )
   } );
 
   public static readonly panelFillProperty = new ProfileColorProperty( vectorAddition, 'panelFill', {
@@ -87,7 +87,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   } );
 
   public static readonly radioButtonSelectedStrokeProperty = new ProfileColorProperty( vectorAddition, 'radioButtonSelectedStroke', {
-    default: 'rgb( 65, 154, 201 )' // blue
+    default: 'rgb( 56, 149, 199 )' // blue
   } );
 
   public static readonly radioButtonDeselectedStrokeProperty = new ProfileColorProperty( vectorAddition, 'radioButtonDeselectedStroke', {
@@ -110,7 +110,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   } );
 
   public static readonly selectedVectorLabelBackgroundStrokeProperty = new ProfileColorProperty( vectorAddition, 'selectedVectorLabelBackgroundStroke', {
-    default: 'rgba( 230, 230, 90, 0.8 )' // slightly darker yellow
+    default: 'rgba( 151, 151, 23, 0.8 )' // darker yellow
   } );
 
   public static readonly unselectedVectorLabelBackgroundFillProperty = new ProfileColorProperty( vectorAddition, 'unselectedVectorLabelBackgroundFill', {
@@ -138,7 +138,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Explore 1D screen, horizontal scene
   public static readonly EXPLORE_1D_HORIZONTAL_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.vectorFill', {
-      default: 'rgb( 10, 170, 250 )' // blue
+      default: 'rgb( 64, 150, 242 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.sumFill', {
       default: '#0a46fa' // darker blue
@@ -148,7 +148,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Explore 1D screen, vertical scene
   public static readonly EXPLORE_1D_VERTICAL_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.vectorFill', {
-      default: 'rgb( 10, 170, 250 )' // blue
+      default: 'rgb( 64, 150, 242 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.sumFill', {
       default: '#0a46fa' // darker blue
@@ -158,7 +158,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Explore 2D screen, Cartesian scene
   public static readonly EXPLORE_2D_CARTESIAN_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.vectorFill', {
-      default: 'rgb( 10, 170, 250 )' // blue
+      default: 'rgb( 64, 150, 242 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.sumFill', {
       default: '#0a46fa' // darker blue
@@ -178,7 +178,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Lab scene, Cartesian scene, vector set 1
   public static readonly LAB_CARTESIAN_COLOR_PALETTE_1 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.vectorFill', {
-      default: 'rgb( 10, 170, 250 )' // blue
+      default: 'rgb( 64, 150, 242 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.sumFill', {
       default: '#0a46fa' // darker blue
@@ -188,7 +188,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Lab scene, Cartesian scene, vector set 2
   public static readonly LAB_CARTESIAN_COLOR_PALETTE_2 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.vectorFill', {
-      default: '#ff9023' // orange
+      default: '#e17a14' // orange
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.sumFill', {
       default: '#d20000' // red
@@ -208,7 +208,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Lab scene, polar scene, vector set 2
   public static readonly LAB_POLAR_COLOR_PALETTE_2 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.vectorFill', {
-      default: 'rgb( 5, 200, 0 )' // green
+      default: 'rgb( 82, 166, 43 )' // green
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.sumFill', {
       default: '#058200' // darker green
@@ -218,7 +218,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Equations screen, cartesian scene
   public static readonly EQUATIONS_CARTESIAN_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.vectorFill', {
-      default: 'rgb( 10, 170, 250 )'
+      default: 'rgb( 64, 150, 242 )' // blue
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.sumFill', {
       default: Color.BLACK
