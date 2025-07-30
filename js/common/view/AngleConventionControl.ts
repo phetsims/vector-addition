@@ -43,6 +43,8 @@ export default class AngleConventionControl extends PreferencesControl {
       labelNode: labelText,
       controlNode: radioButtonGroup,
       descriptionNode: descriptionText,
+      accessibleName: VectorAdditionStrings.angleConventionStringProperty,
+      accessibleHelpText: VectorAdditionStrings.angleConventionDescriptionStringProperty,
       tandem: tandem
     } ) );
   }
