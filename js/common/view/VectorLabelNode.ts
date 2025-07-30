@@ -28,7 +28,6 @@ export default class VectorLabelNode extends Node {
 
   private readonly rootVector: RootVector;
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
-  private readonly selectedVectorProperty: TReadOnlyProperty<RootVector | null>;
   private readonly backgroundRectangle: Rectangle;
   private readonly vectorSymbolNode: VectorSymbolNode;
   private readonly vectorMagnitudeText: Text;
@@ -71,7 +70,6 @@ export default class VectorLabelNode extends Node {
 
     this.rootVector = rootVector;
     this.valuesVisibleProperty = valuesVisibleProperty;
-    this.selectedVectorProperty = selectedVectorProperty;
     this.backgroundRectangle = backgroundRectangle;
     this.vectorSymbolNode = vectorSymbolNode;
     this.vectorMagnitudeText = vectorMagnitudeText;
