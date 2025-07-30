@@ -22,7 +22,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 
 const X_MARGIN = 5;
-const Y_MARGIN = 1;
+const Y_MARGIN = 3;
 
 export default class VectorLabelNode extends Node {
 
