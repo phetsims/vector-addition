@@ -13,6 +13,12 @@ import vectorAddition from '../vectorAddition.js';
 import VectorColorPalette from './model/VectorColorPalette.js';
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 
+// Colors that are used in more than one VectorColorPalette.
+const VECTOR_FILL_BLUE = 'rgb( 64, 150, 242 )'; // blue
+const SUM_FILL_BLUE = '#0a46fa'; // darker blue
+const VECTOR_FILL_PINK = '#f149ff'; // pink
+const SUM_FILL_PURPLE = '#a200de'; // darker purple
+
 export default class VectorAdditionColors {
 
   private constructor() {
@@ -138,50 +144,50 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Explore 1D screen, horizontal scene
   public static readonly EXPLORE_1D_HORIZONTAL_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.vectorFill', {
-      default: 'rgb( 64, 150, 242 )' // blue
+      default: VECTOR_FILL_BLUE
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.sumFill', {
-      default: '#0a46fa' // darker blue
+      default: SUM_FILL_BLUE
     } )
   } );
 
   // Explore 1D screen, vertical scene
   public static readonly EXPLORE_1D_VERTICAL_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.vectorFill', {
-      default: 'rgb( 64, 150, 242 )' // blue
+      default: VECTOR_FILL_BLUE
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.sumFill', {
-      default: '#0a46fa' // darker blue
+      default: SUM_FILL_BLUE
     } )
   } );
 
   // Explore 2D screen, Cartesian scene
   public static readonly EXPLORE_2D_CARTESIAN_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.vectorFill', {
-      default: 'rgb( 64, 150, 242 )' // blue
+      default: VECTOR_FILL_BLUE
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.sumFill', {
-      default: '#0a46fa' // darker blue
+      default: SUM_FILL_BLUE
     } )
   } );
 
   // Explore 2D screen, polar scene
   public static readonly EXPLORE_2D_POLAR_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.vectorFill', {
-      default: '#f149ff' // pink
+      default: VECTOR_FILL_PINK
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.sumFill', {
-      default: '#a200de' // darker purple
+      default: SUM_FILL_PURPLE
     } )
   } );
 
   // Lab scene, Cartesian scene, vector set 1
   public static readonly LAB_CARTESIAN_COLOR_PALETTE_1 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.vectorFill', {
-      default: 'rgb( 64, 150, 242 )' // blue
+      default: VECTOR_FILL_BLUE
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.sumFill', {
-      default: '#0a46fa' // darker blue
+      default: SUM_FILL_BLUE
     } )
   } );
 
@@ -191,17 +197,17 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
       default: '#e17a14' // orange
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.sumFill', {
-      default: '#d20000' // red
+      default: '#d20000' // dark red
     } )
   } );
 
   // Lab scene, polar scene, vector set 1
   public static readonly LAB_POLAR_COLOR_PALETTE_1 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.vectorFill', {
-      default: '#f149ff' // pink
+      default: VECTOR_FILL_PINK
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.sumFill', {
-      default: '#a200de' // darker purple
+      default: SUM_FILL_PURPLE
     } )
   } );
 
@@ -218,7 +224,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Equations screen, cartesian scene
   public static readonly EQUATIONS_CARTESIAN_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.vectorFill', {
-      default: 'rgb( 64, 150, 242 )' // blue
+      default: VECTOR_FILL_BLUE
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.sumFill', {
       default: Color.BLACK
@@ -228,7 +234,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Equations screen, polar scene
   public static readonly EQUATIONS_POLAR_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.vectorFill', {
-      default: '#f149ff'
+      default: VECTOR_FILL_PINK
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.sumFill', {
       default: Color.BLACK
