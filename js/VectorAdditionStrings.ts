@@ -168,6 +168,8 @@ type StringsType = {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
     };
     'symbolWithSubscriptDescriptionStringProperty': LocalizedStringProperty;
+    'signedRadioButtonStringProperty': LocalizedStringProperty;
+    'unsignedRadioButtonStringProperty': LocalizedStringProperty;
   }
 };
 

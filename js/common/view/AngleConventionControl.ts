@@ -61,11 +61,17 @@ class AngleConventionRadioButtonGroup extends AquaRadioButtonGroup<AngleConventi
       {
         value: 'signed',
         createNode: () => new Text( VectorAdditionStrings.signedRangeStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
+        options: {
+          accessibleName: VectorAdditionStrings.a11y.signedRadioButtonStringProperty
+        },
         tandemName: 'signedRadioButton'
       },
       {
         value: 'unsigned',
         createNode: () => new Text( VectorAdditionStrings.unsignedRangeStringProperty, RADIO_BUTTON_LABEL_OPTIONS ),
+        options: {
+          accessibleName: VectorAdditionStrings.a11y.unsignedRadioButtonStringProperty
+        },
         tandemName: 'unsignedRadioButton'
       }
     ];
