@@ -142,7 +142,7 @@ export default class VectorAdditionConstants {
       xMargin: 8,
       yMargin: 8,
       buttonAppearanceStrategyOptions: {
-        selectedLineWidth: 1.5,
+        selectedLineWidth: 2,
         deselectedLineWidth: 1,
         deselectedButtonOpacity: 0.35,
         selectedStroke: VectorAdditionColors.radioButtonSelectedStrokeProperty,
