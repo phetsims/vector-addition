@@ -80,8 +80,6 @@ class AngleConventionRadioButtonGroup extends AquaRadioButtonGroup<AngleConventi
       radioButtonOptions: {
         phetioVisiblePropertyInstrumented: false
       },
-      accessibleName: VectorAdditionStrings.angleConventionStringProperty,
-      accessibleHelpText: VectorAdditionStrings.angleConventionDescriptionStringProperty,
       phetioVisiblePropertyInstrumented: false,
       tandem: tandem
     } );
