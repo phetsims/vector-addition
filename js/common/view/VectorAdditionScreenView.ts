@@ -29,7 +29,6 @@ export default class VectorAdditionScreenView extends ScreenView {
     const options = optionize<VectorAdditionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
       // ScreenViewOptions
-      isDisposable: false,
       layoutBounds: VectorAdditionConstants.SCREEN_VIEW_BOUNDS
     }, providedOptions );
 
