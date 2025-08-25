@@ -48,10 +48,10 @@
     "value": "The convention used to display angle values."
   },
   "signedRange": {
-    "value": "signed: negative 180 to positive 180 degrees"
+    "value": "signed, negative 180 to positive 180 degrees"
   },
   "unsignedRange": {
-    "value": "unsigned: 0 to 360 degrees"
+    "value": "unsigned, 0 to 360 degrees"
   },
   "a11y": {
     "explore1DScreen": {
