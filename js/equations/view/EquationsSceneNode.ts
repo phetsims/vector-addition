@@ -23,7 +23,7 @@ import EquationsScene from '../model/EquationsScene.js';
 import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import EquationAccordionBox from './EquationAccordionBox.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorSet from '../../common/model/VectorSet.js';

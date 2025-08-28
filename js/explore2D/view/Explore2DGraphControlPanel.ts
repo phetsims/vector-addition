@@ -22,7 +22,7 @@ import vectorAddition from '../../vectorAddition.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Explore2DScene from '../model/Explore2DScene.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
 

@@ -35,7 +35,7 @@ import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import VectorCreatorPanel from './VectorCreatorPanel.js';
 import VectorSetNode from './VectorSetNode.js';
 import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';

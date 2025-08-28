@@ -22,7 +22,7 @@ import optionize from '../../../../phet-core/js/optionize.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 

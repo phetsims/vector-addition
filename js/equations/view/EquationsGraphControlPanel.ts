@@ -21,7 +21,7 @@ import vectorAddition from '../../vectorAddition.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import EquationsScene from '../model/EquationsScene.js';
 import EquationsSumCheckbox from './EquationsSumCheckbox.js';
 

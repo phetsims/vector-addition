@@ -24,7 +24,7 @@ import Graph, { GraphOptions } from './Graph.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions = {
   graphOptions: StrictOmit<GraphOptions, 'tandem'>;

@@ -10,7 +10,7 @@ import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.j
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import Explore2DVectorCreatorPanel from './Explore2DVectorCreatorPanel.js';
 import vectorAddition from '../../vectorAddition.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import Explore2DScene from '../model/Explore2DScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';

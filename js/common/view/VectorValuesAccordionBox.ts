@@ -29,7 +29,7 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 
 // Spacing between the label and number display.

@@ -10,7 +10,7 @@
 import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import EquationsScene from '../model/EquationsScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';

@@ -12,7 +12,7 @@ import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-co
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import BaseVector from '../model/BaseVector.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
 

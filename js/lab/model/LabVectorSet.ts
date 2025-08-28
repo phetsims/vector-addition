@@ -9,7 +9,7 @@
 import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';

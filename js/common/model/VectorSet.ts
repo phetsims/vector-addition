@@ -23,7 +23,7 @@ import VectorAdditionScene from './VectorAdditionScene.js';
 import SumVector from './SumVector.js';
 import Vector from './Vector.js';
 import VectorColorPalette from './VectorColorPalette.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
