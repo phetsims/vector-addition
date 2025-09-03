@@ -21,6 +21,8 @@ import VectorAdditionPreferences from './common/model/VectorAdditionPreferences.
 
 simLauncher.launch( () => {
 
+  const titleStringProperty = VectorAdditionStrings[ 'vector-addition' ].titleStringProperty;
+
   const screens = [
     new Explore1DScreen( Tandem.ROOT.createTandem( 'explore1DScreen' ) ),
     new Explore2DScreen( Tandem.ROOT.createTandem( 'explore2DScreen' ) ),
@@ -28,8 +30,7 @@ simLauncher.launch( () => {
     new EquationsScreen( Tandem.ROOT.createTandem( 'equationsScreen' ) )
   ];
 
-  const sim = new Sim( VectorAdditionStrings[ 'vector-addition' ].titleStringProperty, screens, {
-
+  const options = {
     credits: VectorAdditionConstants.CREDITS,
 
     // Preferences
@@ -40,7 +41,8 @@ simLauncher.launch( () => {
         } ]
       }
     } )
-  } );
+  };
 
+  const sim = new Sim( titleStringProperty, screens, options );
   sim.start();
 } );
