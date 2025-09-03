@@ -21,6 +21,7 @@ import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class PolarBaseVector extends BaseVector {
 
@@ -44,7 +45,7 @@ export default class PolarBaseVector extends BaseVector {
                       tandemNameSymbol: string,
                       tandem: Tandem ) {
 
-    assert && assert( scene.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
+    affirm( scene.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, tandemNameSymbol, {
       isDisposable: false,
@@ -58,7 +59,7 @@ export default class PolarBaseVector extends BaseVector {
     } );
 
     const initialAngle = this.angle!;
-    assert && assert( initialAngle !== null, 'expected this.angle to be non-null' );
+    affirm( initialAngle !== null, 'expected this.angle to be non-null' );
     this.angleProperty = new NumberProperty( toDegrees( initialAngle ), {
       numberType: 'Integer',
       range: VectorAdditionConstants.SIGNED_ANGLE_RANGE,

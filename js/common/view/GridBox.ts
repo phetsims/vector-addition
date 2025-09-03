@@ -19,6 +19,7 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = {
   columns?: number; // number of columns
@@ -55,7 +56,7 @@ export default class GridBox extends Node {
       yAlign: 'center'
     }, providedOptions );
 
-    assert && assert( options.columns > 0, `invalid columns: ${options.columns}` );
+    affirm( options.columns > 0, `invalid columns: ${options.columns}` );
 
     const vBox = new VBox( {
       spacing: options.ySpacing,

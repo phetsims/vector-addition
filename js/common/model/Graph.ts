@@ -18,6 +18,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { GraphOrientation } from './GraphOrientation.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const MODEL_TO_VIEW_SCALE = 14.5;
 
@@ -96,7 +97,7 @@ export default class Graph extends PhetioObject {
    * Moves the origin to a specified point on the graph.
    */
   public moveOriginToPoint( point: Vector2 ): void {
-    assert && assert( this.boundsProperty.value.containsPoint( point ), `point is out of bounds: ${point}` );
+    affirm( this.boundsProperty.value.containsPoint( point ), `point is out of bounds: ${point}` );
 
     // Round to integer
     const roundedPoint = point.roundSymmetric();

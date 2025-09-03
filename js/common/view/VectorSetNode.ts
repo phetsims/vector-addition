@@ -28,6 +28,7 @@ import SumVectorNode from './SumVectorNode.js';
 import VectorNode from './VectorNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVectorNode from './BaseVectorNode.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class VectorSetNode extends Node {
 
@@ -47,7 +48,7 @@ export default class VectorSetNode extends Node {
                       tandem: Tandem ) {
 
     const sumVector = vectorSet.sumVector!;
-    assert && assert( sumVector !== null );
+    affirm( sumVector !== null );
 
     // Every VectorSet has a sum vector and sum component vectors, so create them
     const sumVectorNode = new SumVectorNode( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
@@ -141,7 +142,7 @@ export default class VectorSetNode extends Node {
     if ( vector.isRemovable ) {
 
       const removalListener = ( removedVector: Vector ) => {
-        assert && assert( removedVector.isRemovable, 'vector is not removable' );
+        affirm( removedVector.isRemovable, 'vector is not removable' );
 
         if ( removedVector === vector ) {
 

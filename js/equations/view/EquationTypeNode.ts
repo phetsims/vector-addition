@@ -18,6 +18,7 @@ import { EquationType } from '../model/EquationType.js';
 import CoefficientPicker from './CoefficientPicker.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const TEXT_OPTIONS = {
   font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT
@@ -75,7 +76,7 @@ export default class EquationTypeNode extends Node {
       equationChildren.push( new Text( MathSymbols.PLUS, TEXT_OPTIONS ) );
 
       const sumVector = vectorSet.sumVector!;
-      assert && assert( sumVector );
+      affirm( sumVector );
       const vectorSymbolNode = new VectorSymbolNode( {
         symbolProperty: sumVector.symbolProperty,
         symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
@@ -93,7 +94,7 @@ export default class EquationTypeNode extends Node {
     }
     else {
       const sumVector = vectorSet.sumVector!;
-      assert && assert( sumVector );
+      affirm( sumVector );
       const vectorSymbolNode = new VectorSymbolNode( {
         symbolProperty: sumVector.symbolProperty,
         symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT

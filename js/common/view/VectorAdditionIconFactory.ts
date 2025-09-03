@@ -45,6 +45,7 @@ import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import CurvedArrowNode from './CurvedArrowNode.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const SCREEN_ICON_WIDTH = 70;
 const SCREEN_ICON_HEIGHT = SCREEN_ICON_WIDTH / Screen.HOME_SCREEN_ICON_ASPECT_RATIO; // w/h = ratio <=> h = w/ratio
@@ -153,7 +154,7 @@ const VectorAdditionIconFactory = {
     ];
     const startTail = Vector2.ZERO;
     const lastTip = _.last( tipPositions )!;
-    assert && assert( lastTip );
+    affirm( lastTip );
 
     const colorPalette = VectorAdditionColors.EQUATIONS_CARTESIAN_COLOR_PALETTE;
 
@@ -261,7 +262,7 @@ const VectorAdditionIconFactory = {
     }
 
     const subBoxSize = RADIO_BUTTON_ICON_SIZE / 3; // size of the sub-box the leader lines create
-    assert && assert( subBoxSize < iconSize, `subBoxSize ${subBoxSize} must be < iconSize ${iconSize}` );
+    affirm( subBoxSize < iconSize, `subBoxSize ${subBoxSize} must be < iconSize ${iconSize}` );
 
     // Options for main (solid) and component (dashed) arrows
     const arrowNodeOptions = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -384,7 +385,7 @@ const VectorAdditionIconFactory = {
    */
   createGraphOrientationIcon( graphOrientation: GraphOrientation ): Node {
 
-    assert && assert( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ), `invalid graphOrientation: ${graphOrientation}` );
+    affirm( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ), `invalid graphOrientation: ${graphOrientation}` );
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
     const tipX = ( graphOrientation === 'horizontal' ) ? iconSize : 0;

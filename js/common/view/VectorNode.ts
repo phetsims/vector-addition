@@ -28,6 +28,7 @@ import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } fro
 import VectorAngleNode from './VectorAngleNode.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -68,13 +69,13 @@ export default class VectorNode extends RootVectorNode {
 
     // To improve readability
     const headWidth = options.arrowOptions.headWidth!;
-    assert && assert( headWidth !== undefined );
+    affirm( headWidth !== undefined );
     const headHeight = options.arrowOptions.headHeight!;
-    assert && assert( headHeight !== undefined );
+    affirm( headHeight !== undefined );
     const fractionalHeadHeight = options.arrowOptions.fractionalHeadHeight!;
-    assert && assert( fractionalHeadHeight !== undefined );
+    affirm( fractionalHeadHeight !== undefined );
     const cursor = options.arrowOptions.cursor!;
-    assert && assert( cursor );
+    affirm( cursor );
 
     super( vector,
       scene.graph.modelViewTransformProperty,
@@ -116,7 +117,7 @@ export default class VectorNode extends RootVectorNode {
       positionProperty: tailPositionProperty,
 
       start: () => {
-        assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
+        affirm( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
           'body drag listener should be removed when the vector is animating back.' );
         if ( vector.isOnGraphProperty.value ) {
           scene.selectedVectorProperty.value = vector;
@@ -125,7 +126,7 @@ export default class VectorNode extends RootVectorNode {
 
       end: () => {
 
-        assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
+        affirm( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
           'body drag listener should be removed when the vector is animating back.' );
 
         // Determine whether to drop the vector on the graph, or animate the vector back to the toolbox.
@@ -211,7 +212,7 @@ export default class VectorNode extends RootVectorNode {
         targetNode: headNode,
         positionProperty: tipPositionProperty,
         start: () => {
-          assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
+          affirm( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
             'tip drag listener should be removed when the vector is animating back.' );
           scene.selectedVectorProperty.value = vector;
         },
@@ -341,7 +342,7 @@ export default class VectorNode extends RootVectorNode {
    * @param tipPositionView - the drag listener position
    */
   private updateTipPosition( tipPositionView: Vector2 ): void {
-    assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
+    affirm( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
       'Cannot drag tip when animating back' );
 
     const tipPositionModel = this.vector.tail
@@ -354,7 +355,7 @@ export default class VectorNode extends RootVectorNode {
    * Updates the model vector's tail position. Called when the vector is being translated.
    */
   private updateTailPosition( tailPositionView: Vector2 ): void {
-    assert && assert( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
+    affirm( !this.vector.animateBackProperty.value && !this.vector.inProgressAnimation,
       'Cannot drag tail when animating back' );
 
     const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );

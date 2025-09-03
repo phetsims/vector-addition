@@ -11,6 +11,7 @@ import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
 import vectorAddition from '../vectorAddition.js';
 import { AngleConventionValues } from './model/AngleConvention.js';
+import affirm from '../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
 
@@ -78,7 +79,7 @@ const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
   }
 } );
 
-assert && assert( VectorAdditionQueryParameters.tailWidth < VectorAdditionQueryParameters.headWidth, 'tailWidth must be < headWidth' );
+affirm( VectorAdditionQueryParameters.tailWidth < VectorAdditionQueryParameters.headWidth, 'tailWidth must be < headWidth' );
 
 vectorAddition.register( 'VectorAdditionQueryParameters', VectorAdditionQueryParameters );
 

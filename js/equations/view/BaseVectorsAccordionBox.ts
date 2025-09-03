@@ -37,6 +37,7 @@ import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
 import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 import LabelEqualsAnglePicker from './LabelEqualsAnglePicker.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
@@ -83,7 +84,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       if ( coordinateSnapMode === 'cartesian' ) {
 
         const cartesianBaseVector = vector.baseVector as CartesianBaseVector;
-        assert && assert( cartesianBaseVector instanceof CartesianBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
+        affirm( cartesianBaseVector instanceof CartesianBaseVector );
 
         // X Component
         const xSymbolStringProperty = cartesianBaseVector.symbolProperty ?
@@ -125,7 +126,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       }
       else {
         const polarBaseVector = vector.baseVector as PolarBaseVector;
-        assert && assert( polarBaseVector instanceof PolarBaseVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
+        affirm( polarBaseVector instanceof PolarBaseVector );
 
         // Magnitude
         const magnitudeLabeledPicker = new LabelEqualsNumberPicker(
@@ -140,8 +141,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           } );
 
         // Angle
-        assert && assert( polarBaseVector.symbolProperty );
-        const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleProperty, polarBaseVector.symbolProperty!,
+        affirm( polarBaseVector.symbolProperty );
+        const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleProperty, polarBaseVector.symbolProperty,
           LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}AnglePicker` ) );
 
         rows.push( new HBox( {

@@ -21,6 +21,7 @@ import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import VectorNode, { VectorNodeOptions } from './VectorNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
+import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = EmptySelfOptions;
 type SumVectorNodeOptions = SelfOptions & WithRequired<VectorNodeOptions, 'tandem'>;
@@ -60,9 +61,9 @@ export default class SumVectorNode extends VectorNode {
     } );
 
     // Double check that the vector node never is animated back
-    assert && sumVector.animateBackProperty.link( animateBack => {
+    isAffirmEnabled() && sumVector.animateBackProperty.link( animateBack => {
       if ( animateBack ) {
-        assert && assert( false, 'SumVectorNode instances never animated back' );
+        affirm( false, 'SumVectorNode instances never animated back' );
       }
     } );
 

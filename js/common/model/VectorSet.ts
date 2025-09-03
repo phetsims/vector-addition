@@ -26,6 +26,7 @@ import VectorColorPalette from './VectorColorPalette.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = {
 
@@ -85,9 +86,9 @@ export default class VectorSet extends PhetioObject {
 
     // Compute values for the options that are related to the PROJECTION style component vectors.
     // See https://github.com/phetsims/vector-addition/issues/225
-    const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth;
-    assert && assert( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
-    const modelHeadWidth = graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
+    const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth!;
+    affirm( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
+    const modelHeadWidth = graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth );
     const axisSpacing = graph.modelViewTransformProperty.value.viewToModelDeltaX( 1.5 );
     const offsetStart = ( modelHeadWidth / 2 ) + axisSpacing;
     const offsetDelta = modelHeadWidth;

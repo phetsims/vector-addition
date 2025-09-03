@@ -32,6 +32,7 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -45,7 +46,7 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
                       alignGroup: AlignGroup,
                       providedOptions: EquationTypeRadioButtonGroupOptions ) {
 
-    assert && assert( symbolProperties.length === 3 );
+    affirm( symbolProperties.length === 3 );
 
     const options = optionize4<EquationTypeRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
       {}, VectorAdditionConstants.RADIO_BUTTON_GROUP_OPTIONS, {

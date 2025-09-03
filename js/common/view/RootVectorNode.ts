@@ -26,6 +26,7 @@ import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import VectorLabelNode from './VectorLabelNode.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 // Used to prevent vector label from going off-screen. This is the magnitude of a vector that fills the
 // graph along a diagonal, minus the margin that constrains dragging of the vector's tail.
@@ -142,7 +143,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
     // Make the arrow easier to grab by setting pointer areas
     if ( rootVector.magnitude > VectorAdditionConstants.ZERO_THRESHOLD && this.arrowNode instanceof ArrowNode ) {
       const arrowShape = this.arrowNode.shape!;
-      assert && assert( arrowShape !== null );
+      affirm( arrowShape !== null );
       this.arrowNode.mouseArea = arrowShape.getOffsetShape( VectorAdditionConstants.VECTOR_MOUSE_AREA_DILATION );
       this.arrowNode.touchArea = arrowShape.getOffsetShape( VectorAdditionConstants.VECTOR_TOUCH_AREA_DILATION );
     }
@@ -166,7 +167,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
 
     // Angle of the vector in radians (ranging from -Pi to Pi)
     const modelAngle = rootVector.angle!;
-    assert && assert( modelAngle !== null );
+    affirm( modelAngle !== null );
 
     //----------------------------------------------------------------------------------------
     // Determine how the labels should be positioned.

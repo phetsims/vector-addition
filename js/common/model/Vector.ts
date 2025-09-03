@@ -35,6 +35,7 @@ import VectorSet from './VectorSet.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
 const MIN_ANIMATION_TIME = 0.9; // in seconds
@@ -208,7 +209,7 @@ export default class Vector extends RootVector {
    */
   protected setTipWithInvariants( tipPosition: Vector2 ): void {
 
-    assert && assert( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
+    affirm( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
     const graph = this.scene.graph;
 
@@ -272,7 +273,7 @@ export default class Vector extends RootVector {
    */
   private setTailWithInvariants( tailPosition: Vector2 ): void {
 
-    assert && assert( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
+    affirm( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
     const constrainedTailBounds = this.getConstrainedTailBounds();
 
@@ -366,8 +367,8 @@ export default class Vector extends RootVector {
    */
   public animateToPoint( point: Vector2, finalComponents: Vector2, finishCallback: () => void ): void {
 
-    assert && assert( !this.inProgressAnimation, 'Can\'t animate to position when we are in animation currently' );
-    assert && assert( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the scene' );
+    affirm( !this.inProgressAnimation, 'Can\'t animate to position when we are in animation currently' );
+    affirm( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the scene' );
 
     // Calculate the tail position to animate to
     const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
@@ -400,8 +401,8 @@ export default class Vector extends RootVector {
    */
   public dropOntoGraph( tailPosition: Vector2 ): void {
 
-    assert && assert( !this.isOnGraphProperty.value, 'vector is already on the scene' );
-    assert && assert( !this.inProgressAnimation, 'cannot drop vector when it\'s animating' );
+    affirm( !this.isOnGraphProperty.value, 'vector is already on the scene' );
+    affirm( !this.inProgressAnimation, 'cannot drop vector when it\'s animating' );
 
     this.isOnGraphProperty.value = true;
 
@@ -417,8 +418,8 @@ export default class Vector extends RootVector {
    */
   public popOffOfGraph(): void {
 
-    assert && assert( this.isOnGraphProperty.value, 'attempted pop off scene when vector was already off' );
-    assert && assert( !this.inProgressAnimation, 'cannot pop vector off when it\'s animating' );
+    affirm( this.isOnGraphProperty.value, 'attempted pop off scene when vector was already off' );
+    affirm( !this.inProgressAnimation, 'cannot pop vector off when it\'s animating' );
 
     this.isOnGraphProperty.value = false;
     this.scene.selectedVectorProperty.value = null;

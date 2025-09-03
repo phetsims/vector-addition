@@ -40,6 +40,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
@@ -138,7 +139,7 @@ export default class VectorAdditionSceneNode extends Node {
     }
 
     // a layer for each VectorSet
-    assert && assert( sumVisibleProperties.length === scene.vectorSets.length );
+    affirm( sumVisibleProperties.length === scene.vectorSets.length );
     this.vectorSetNodes = [];
     scene.vectorSets.forEach( ( vectorSet, index ) => {
 
@@ -161,12 +162,12 @@ export default class VectorAdditionSceneNode extends Node {
    */
   protected getVectorSetNode( vectorSet: VectorSet ): VectorSetNode {
 
-    assert && assert( this.vectorSets.length === this.vectorSetNodes.length );
+    affirm( this.vectorSets.length === this.vectorSetNodes.length );
     const index = this.vectorSets.indexOf( vectorSet );
-    assert && assert( index !== -1, 'vectorSet not found' );
+    affirm( index !== -1, 'vectorSet not found' );
 
     const vectorSetNode = this.vectorSetNodes[ index ];
-    assert && assert( vectorSetNode.vectorSet === vectorSet );
+    affirm( vectorSetNode.vectorSet === vectorSet );
 
     return vectorSetNode;
   }
@@ -185,7 +186,7 @@ export default class VectorAdditionSceneNode extends Node {
    * Adds a VectorCreatorPanel to the scene.
    */
   public addVectorCreatorPanel( vectorCreatorPanel: VectorCreatorPanel ): void {
-    assert && assert( !this.vectorCreatorPanel, 'addVectorCreatorPanel can only be called once.' );
+    affirm( !this.vectorCreatorPanel, 'addVectorCreatorPanel can only be called once.' );
     this.vectorCreatorPanel = vectorCreatorPanel;
     this.addChild( this.vectorCreatorPanel );
     this.vectorCreatorPanel.moveToBack();

@@ -23,6 +23,7 @@ import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorNode, { ComponentVectorNodeOptions } from './ComponentVectorNode.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = EmptySelfOptions;
 type SumComponentVectorNodeOptions = SelfOptions & ComponentVectorNodeOptions;
@@ -52,7 +53,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
     this.sumVisibleProperty = sumVisibleProperty;
 
     const sumVector = componentVector.parentVector as SumVector;
-    assert && assert( sumVector instanceof SumVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
+    affirm( sumVector instanceof SumVector );
 
     // Update when the sum becomes visible or defined.
     Multilink.multilink(
@@ -74,7 +75,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
     super.updateComponentVector( componentVector, modelViewTransform, componentVectorStyle, isParentVectorSelected );
 
     const sumVector = componentVector.parentVector as SumVector;
-    assert && assert( sumVector instanceof SumVector ); // eslint-disable-line phet/no-simple-type-checking-assertions
+    affirm( sumVector instanceof SumVector );
 
     this.visible = (
       // components are visible

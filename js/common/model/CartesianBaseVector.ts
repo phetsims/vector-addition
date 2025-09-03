@@ -18,6 +18,7 @@ import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class CartesianBaseVector extends BaseVector {
 
@@ -42,7 +43,7 @@ export default class CartesianBaseVector extends BaseVector {
                       tandemNameSymbol: string,
                       tandem: Tandem ) {
 
-    assert && assert( scene.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
+    affirm( scene.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, tandemNameSymbol, {
       tandem: tandem

@@ -21,6 +21,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const COLOR = Color.BLACK;
 const ARROWHEAD_WIDTH = 8;  // the arrowhead width (before rotation)
@@ -40,7 +41,7 @@ export default class CurvedArrowNode extends Node {
    */
   public constructor( radius: number, angle: number ) {
 
-    assert && assert( radius > 0, `invalid radius: ${radius}` );
+    affirm( radius > 0, `invalid radius: ${radius}` );
 
     // Create the path for the arc. Set to an arbitrary shape for now. To be updated later.
     const arcPath = new Path( new Shape(), {

@@ -21,6 +21,7 @@ import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LabVectorSet from './LabVectorSet.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
@@ -63,9 +64,9 @@ export default class LabScene extends VectorAdditionScene {
     // Compute values for the options that are related to the PROJECTION style component vectors.
     // PROJECTION component vectors are more closely spaced in this screen, and we have 2 sum vectors.
     // See https://github.com/phetsims/vector-addition/issues/225
-    const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth;
-    assert && assert( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
-    const modelHeadWidth = this.graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth! );
+    const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth!;
+    affirm( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
+    const modelHeadWidth = this.graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth );
     const offsetDelta = -( modelHeadWidth / 2 );
 
     this.vectorSet1 = new LabVectorSet( this, symbol1Property, tandemNameSymbol1, componentVectorStyleProperty, vectorColorPalette1, {

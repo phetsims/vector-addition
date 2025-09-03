@@ -17,6 +17,7 @@ import Explore1DSceneNode from './Explore1DSceneNode.js';
 import HorizontalVerticalSceneRadioButtonGroup from '../../common/view/HorizontalVerticalSceneRadioButtonGroup.js';
 import Explore1DScreenSummaryContent from './Explore1DScreenSummaryContent.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -88,8 +89,8 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     this.addChild( screenViewRootNode );
 
     // Play Area focus order
-    assert && assert( horizonalSceneNode.eraserButton );
-    assert && assert( verticalSceneNode.eraserButton );
+    affirm( horizonalSceneNode.eraserButton );
+    affirm( verticalSceneNode.eraserButton );
     this.pdomPlayAreaNode.pdomOrder = [
 
       // horizontal scene

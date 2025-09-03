@@ -15,6 +15,7 @@ import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js'
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DScene from '../model/Explore2DScene.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 // initial values for vectors in Cartesian scene, see https://github.com/phetsims/vector-addition/issues/227
 const CARTESIAN_INITIAL_VECTOR_COMPONENTS = [
@@ -54,7 +55,7 @@ export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
     const initialVectorComponents = ( scene.coordinateSnapMode === 'cartesian' ) ?
                                     CARTESIAN_INITIAL_VECTOR_COMPONENTS :
                                     POLAR_INITIAL_VECTOR_COMPONENTS;
-    assert && assert( initialVectorComponents.length === symbolProperties.length, 'components are required for each symbol' );
+    affirm( initialVectorComponents.length === symbolProperties.length, 'components are required for each symbol' );
 
     // Create a slot for each symbol
     const panelSlots: VectorCreatorPanelSlot[] = [];

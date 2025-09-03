@@ -17,6 +17,7 @@ import Explore2DSceneNode from './Explore2DSceneNode.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import Explore2DScreenSummaryContent from './Explore2DScreenSummaryContent.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
@@ -89,8 +90,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     this.addChild( screenViewRootNode );
 
     // Play Area focus order
-    assert && assert( cartesianSceneNode.eraserButton );
-    assert && assert( polarSceneNode.eraserButton );
+    affirm( cartesianSceneNode.eraserButton );
+    affirm( polarSceneNode.eraserButton );
     this.pdomPlayAreaNode.pdomOrder = [
 
       // Cartesian scene
