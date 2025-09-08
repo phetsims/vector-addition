@@ -41,9 +41,6 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 ### Bug Fixes
 * Negative angles are now displayed correctly for right-to-left (RTL) languages. For example, `-90°` instead of `90°-`.
 
-### Other Changes
-*
-
 ## 1.1 (2024-11-12)
 
 ### New Features
