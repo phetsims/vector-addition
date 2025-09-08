@@ -39,7 +39,7 @@ For an exemplar, see https://github.com/phetsims/balancing-chemical-equations/bl
 * PhET-iO support, including PhET Studio
 
 ### Bug Fixes
-* Right-to-left (RTL) languages displayed the negative sign on the wrong side of negative angles. For example, `90°-` instead of `-90°`.
+* Negative angles are now displayed correctly for right-to-left (RTL) languages. For example, `-90°` instead of `90°-`.
 
 ### Other Changes
 *
