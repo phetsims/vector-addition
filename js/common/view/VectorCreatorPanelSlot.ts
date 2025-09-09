@@ -86,8 +86,7 @@ export default class VectorCreatorPanelSlot extends InteractiveHighlighting( HBo
       // HBoxOptions
       isDisposable: false,
       spacing: 5,
-      tagName: 'div',
-      focusable: true
+      tagName: 'button'
     }, providedOptions );
 
     super( options );

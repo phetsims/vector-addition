@@ -15,18 +15,19 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import RootVector from '../model/RootVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import VectorLabelNode from './VectorLabelNode.js';
-import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 // Used to prevent vector label from going off-screen. This is the magnitude of a vector that fills the
 // graph along a diagonal, minus the margin that constrains dragging of the vector's tail.
@@ -61,15 +62,13 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
                          selectedVectorProperty: TReadOnlyProperty<RootVector | null>,
                          providedOptions?: RootVectorNodeOptions ) {
 
-    const options = optionize<RootVectorNodeOptions, SelfOptions, NodeOptions>()( {
+    const options = optionize4<RootVectorNodeOptions, SelfOptions, NodeOptions>()( {}, AccessibleDraggableOptions, {
 
       // SelfOptions
       arrowType: 'solid',
       arrowOptions: {
         cursor: 'move'
       },
-      tagName: 'div', // for KeyboardDragListener
-      focusable: true, // for KeyboardDragListener
       phetioVisiblePropertyInstrumented: false,
       tandemNameSuffix: 'VectorNode'
     }, providedOptions );
