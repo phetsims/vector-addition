@@ -52,7 +52,6 @@ const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 
 type SelfOptions = {
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
-  isRemovableFromGraph?: boolean; // flag indicating if the vector can be removed from the graph
   isOnGraphInitially?: boolean; // flag indicating if the vector is on the graph upon initialization
   isOnGraphPropertyInstrumented?: boolean; // whether isOnGraphProperty is PhET-iO instrumented
   tandemNameSymbol: string; // symbol for this vector used in tandem names
@@ -64,9 +63,6 @@ export default class Vector extends RootVector {
 
   // indicates if the tip can be dragged
   public readonly isTipDraggable: boolean;
-
-  // indicates if the vector can be removed from the graph
-  public readonly isRemovableFromGraph: boolean;
 
   // the scene that the vector model belongs to
   public readonly scene: VectorAdditionScene;
@@ -115,16 +111,17 @@ export default class Vector extends RootVector {
 
       // SelfOptions
       isTipDraggable: true,
-      isRemovableFromGraph: true,
       isOnGraphInitially: false,
       isOnGraphPropertyInstrumented: true,
+
+      // RootVectorOptions
+      isDisposable: true,
       tandem: Tandem.OPTIONAL
     }, providedOptions );
 
     super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbolProperty, options );
 
     this.isTipDraggable = options.isTipDraggable;
-    this.isRemovableFromGraph = options.isRemovableFromGraph;
     this.scene = scene;
     this.vectorSet = vectorSet;
 
@@ -339,7 +336,7 @@ export default class Vector extends RootVector {
     this.setTailWithInvariants( tailPosition );
 
     // For a vector that can be removed from the graph...
-    if ( this.isRemovableFromGraph ) {
+    if ( this.isDisposable ) {
       const constrainedTailBounds = this.getConstrainedTailBounds();
 
       // Offset of the cursor to the vector. This allows users to remove vectors based on the displacement of the

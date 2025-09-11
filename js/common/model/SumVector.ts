@@ -49,9 +49,8 @@ export default class SumVector extends Vector {
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
     super( initialTailPosition, Vector2.ZERO, scene, vectorSet, symbolProperty, {
-      isDisposable: false,
+      isDisposable: false, // Sum vectors are not removable from the graph.
       isTipDraggable: false, // Sum vectors are not draggable by the tip.
-      isRemovableFromGraph: false, // Sum vectors are not removable from the graph.
       isOnGraphInitially: true, // Sum vectors are always on the graph.
       isOnGraphPropertyInstrumented: false, // Sum vectors are always on the graph.
       tandemNameSymbol: tandemNameSymbol,
