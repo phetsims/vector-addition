@@ -92,9 +92,8 @@ export default class SumVector extends Vector {
     // Filter to get only the vectors that are on the graph.
     const onGraphVectors = vectors.filter( vector => vector.isOnGraphProperty.value );
 
-    // Loop through and calculate the sum of all vectors that are on the graph.
+    // Sum all vectors that are on the graph.
     const sumVectorComponents = new Vector2( 0, 0 );
-
     onGraphVectors.forEach( vector => {
       sumVectorComponents.add( vector.vectorComponents );
     } );
