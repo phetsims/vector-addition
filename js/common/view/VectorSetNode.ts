@@ -138,9 +138,9 @@ export default class VectorSetNode extends Node {
     };
     this.scene.selectedVectorProperty.link( selectedVectorListener );
 
-    // If the Vector can be removed from the VectorSet, add a listener to clean up.
     if ( vector.isDisposable ) {
 
+      // Clean up when the vector is removed.
       const vectorRemovedListener = ( removedVector: Vector ) => {
 
         if ( removedVector === vector ) {
@@ -155,7 +155,6 @@ export default class VectorSetNode extends Node {
           this.scene.selectedVectorProperty.unlink( selectedVectorListener );
         }
       };
-
       this.vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
     }
   }

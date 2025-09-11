@@ -181,7 +181,7 @@ export default class VectorCreatorPanelSlot extends InteractiveHighlighting( HBo
       };
       vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
 
-      // Observe when the vector is removed and clean up.
+      // Clean up when the vector is removed.
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === vector ) {
           iconNode.visible = true;

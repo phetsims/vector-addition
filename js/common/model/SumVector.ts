@@ -69,7 +69,7 @@ export default class SumVector extends Vector {
           this.updateSum( vectorSet.vectors );
         } );
 
-      // If the vector is removed, dispose of the multilink
+      // Clean up when the vector is removed.
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === addedVector ) {
 
@@ -80,7 +80,6 @@ export default class SumVector extends Vector {
           vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };
-
       vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
     } );
   }
