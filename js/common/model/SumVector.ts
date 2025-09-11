@@ -90,9 +90,7 @@ export default class SumVector extends Vector {
   protected updateSum( vectors: ObservableArray<Vector> ): void {
 
     // Filter to get only the vectors that are on the graph.
-    const onGraphVectors = vectors.filter( vector => {
-      return vector.isOnGraphProperty.value;
-    } );
+    const onGraphVectors = vectors.filter( vector => vector.isOnGraphProperty.value );
 
     // Loop through and calculate the sum of all vectors that are on the graph.
     const sumVectorComponents = new Vector2( 0, 0 );
