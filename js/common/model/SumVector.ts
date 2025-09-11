@@ -85,26 +85,26 @@ export default class SumVector extends Vector {
   }
 
   /**
-   * Update the sum vector components. Calculated from all the vectors that are on the scene.
+   * Update the sum vector components. Calculated from all the vectors that are on the graph.
    */
   protected updateSum( vectors: ObservableArray<Vector> ): void {
 
-    // Filter to get only the vectors that are on the scene
+    // Filter to get only the vectors that are on the graph.
     const onGraphVectors = vectors.filter( vector => {
       return vector.isOnGraphProperty.value;
     } );
 
-    // Loop through and calculate the sum of all vectors that are on the scene
+    // Loop through and calculate the sum of all vectors that are on the graph.
     const sumVectorComponents = new Vector2( 0, 0 );
 
     onGraphVectors.forEach( vector => {
       sumVectorComponents.add( vector.vectorComponents );
     } );
 
-    // Set the sum to the calculated sum
+    // Set the sum to the calculated sum.
     this.vectorComponents = sumVectorComponents;
 
-    // The sum is defined if there is at least one vector on the scene.
+    // The sum is defined if there is at least one vector on the graph.
     this.isDefinedProperty.value = ( onGraphVectors.length > 0 );
   }
 }
