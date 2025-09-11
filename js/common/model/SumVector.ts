@@ -57,7 +57,10 @@ export default class SumVector extends Vector {
       tandem: tandem
     } );
 
-    this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.filter( vector => vector.isOnGraphProperty.value ).length > 0 );
+    this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.filter( vector => vector.isOnGraphProperty.value ).length > 0, {
+      tandem: tandem.createTandem( 'isDefinedProperty' ),
+      phetioReadOnly: true
+    } );
 
     // Observe changes to the vector array.
     vectorSet.vectors.addItemAddedListener( addedVector => {
