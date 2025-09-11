@@ -101,13 +101,14 @@ export default class Vector extends RootVector {
    * @param scene - the scene the vector belongs to
    * @param vectorSet - the vector set the vector belongs to
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
-   * @param [providedOptions] - not propagated to super!
+   * @param [providedOptions]
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       symbolProperty: TReadOnlyProperty<string> | null,
+                      //TODO https://github.com/phetsims/vector-addition/issues/258 providedOptions should be required because tandemNameSymbol is required.
                       providedOptions?: VectorOptions ) {
 
     const options = optionize<VectorOptions, SelfOptions, RootVectorOptions>()( {
