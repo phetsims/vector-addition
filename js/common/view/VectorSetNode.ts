@@ -139,10 +139,10 @@ export default class VectorSetNode extends Node {
     this.scene.selectedVectorProperty.link( selectedVectorListener );
 
     // If the Vector is removed from the VectorSet, clean up.
-    if ( vector.isRemovable ) {
+    if ( vector.isRemovableFromGraph ) {
 
       const removalListener = ( removedVector: Vector ) => {
-        affirm( removedVector.isRemovable, 'vector is not removable' );
+        affirm( removedVector.isRemovableFromGraph, 'vector is not removable from graph' );
 
         if ( removedVector === vector ) {
 

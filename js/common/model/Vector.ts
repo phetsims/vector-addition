@@ -52,7 +52,7 @@ const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 
 type SelfOptions = {
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
-  isRemovable?: boolean; // flag indicating if the vector can be removed from the graph
+  isRemovableFromGraph?: boolean; // flag indicating if the vector can be removed from the graph
   isOnGraphInitially?: boolean; // flag indicating if the vector is on the graph upon initialization
   isOnGraphPropertyInstrumented?: boolean; // whether isOnGraphProperty is PhET-iO instrumented
   tandemNameSymbol: string; // symbol for this vector used in tandem names
@@ -65,8 +65,8 @@ export default class Vector extends RootVector {
   // indicates if the tip can be dragged
   public readonly isTipDraggable: boolean;
 
-  // indicates if the vector can be removed
-  public readonly isRemovable: boolean;
+  // indicates if the vector can be removed from the graph
+  public readonly isRemovableFromGraph: boolean;
 
   // the scene that the vector model belongs to
   public readonly scene: VectorAdditionScene;
@@ -115,7 +115,7 @@ export default class Vector extends RootVector {
 
       // SelfOptions
       isTipDraggable: true,
-      isRemovable: true,
+      isRemovableFromGraph: true,
       isOnGraphInitially: false,
       isOnGraphPropertyInstrumented: true,
       tandem: Tandem.OPTIONAL
@@ -124,7 +124,7 @@ export default class Vector extends RootVector {
     super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbolProperty, options );
 
     this.isTipDraggable = options.isTipDraggable;
-    this.isRemovable = options.isRemovable;
+    this.isRemovableFromGraph = options.isRemovableFromGraph;
     this.scene = scene;
     this.vectorSet = vectorSet;
 
@@ -338,8 +338,8 @@ export default class Vector extends RootVector {
     // Ensure that the tail satisfies invariants for polar/Cartesian mode
     this.setTailWithInvariants( tailPosition );
 
-    // Add ability to remove vectors
-    if ( this.isRemovable ) {
+    // For a vector that can be removed from the graph...
+    if ( this.isRemovableFromGraph ) {
       const constrainedTailBounds = this.getConstrainedTailBounds();
 
       // Offset of the cursor to the vector. This allows users to remove vectors based on the displacement of the

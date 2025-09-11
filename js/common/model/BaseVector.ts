@@ -48,7 +48,7 @@ export default abstract class BaseVector extends Vector {
 
       // VectorOptions
       isDisposable: false,
-      isRemovable: false,       // BaseVectors are not removable
+      isRemovableFromGraph: false,       // BaseVectors are not removable from the graph
       isTipDraggable: false,    // BaseVectors are not draggable by the tip
       isOnGraphInitially: true, // BaseVectors are always on the graph
       isOnGraphPropertyInstrumented: false, // BaseVectors are always on the graph

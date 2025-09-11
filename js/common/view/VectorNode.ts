@@ -164,7 +164,7 @@ export default class VectorNode extends RootVectorNode {
     // Translate when the vector's tail position changes. unlink is required on dispose.
     const tailListener = ( tailPositionView: Vector2 ) => {
       this.updateTailPosition( tailPositionView );
-      if ( vector.isRemovable ) {
+      if ( vector.isRemovableFromGraph ) {
         const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
 
         const cursorPositionModel = this.modelViewTransformProperty.value

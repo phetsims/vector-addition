@@ -54,9 +54,9 @@ export default class EquationsVector extends Vector {
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
       isDisposable: false,
-      isRemovable: false,       // Equations vectors are not removable
-      isTipDraggable: false,    // Equations vectors are not draggable by the tip
-      isOnGraphInitially: true,  // Equations vectors are always on the graph
+      isRemovableFromGraph: false, // Equations vectors are not removable from the graph
+      isTipDraggable: false, // Equations vectors are not draggable by the tip
+      isOnGraphInitially: true, // Equations vectors are always on the graph
       isOnGraphPropertyInstrumented: false, // Equations vectors are always on the graph
       tandemNameSymbol: tandemNameSymbol,
       tandem: tandem
