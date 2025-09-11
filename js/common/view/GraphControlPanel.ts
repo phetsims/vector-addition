@@ -21,7 +21,7 @@ export type GraphControlPanelOptions = SelfOptions & NodeTranslationOptions & Pi
 
 export default class GraphControlPanel extends Panel {
 
-  protected constructor( content: Node, providedOptions?: GraphControlPanelOptions ) {
+  protected constructor( content: Node, providedOptions: GraphControlPanelOptions ) {
 
     const options = optionize4<GraphControlPanelOptions, SelfOptions, PanelOptions>()(
       {}, VectorAdditionConstants.PANEL_OPTIONS, {

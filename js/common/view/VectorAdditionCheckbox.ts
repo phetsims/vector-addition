@@ -20,7 +20,7 @@ export type VectorAdditionCheckboxOptions = SelfOptions & WithRequired<CheckboxO
 
 export default class VectorAdditionCheckbox extends Checkbox {
 
-  protected constructor( property: Property<boolean>, content: Node, providedOptions?: VectorAdditionCheckboxOptions ) {
+  protected constructor( property: Property<boolean>, content: Node, providedOptions: VectorAdditionCheckboxOptions ) {
 
     const options = optionize<VectorAdditionCheckboxOptions, SelfOptions, CheckboxOptions>()( {
 

@@ -65,13 +65,13 @@ export default class VectorCreatorPanelSlot extends InteractiveHighlighting( HBo
    * @param vectorSet - the VectorSet that the slot adds Vectors to
    * @param sceneNode - the VectorAdditionSceneNode that this slot appears in
    * @param initialVectorComponents - the initial vector components to pass to created vectors
-   * @param [providedOptions]
+   * @param providedOptions
    */
   public constructor( scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
                       initialVectorComponents: Vector2,
-                      providedOptions?: VectorCreatorPanelSlotOptions ) {
+                      providedOptions: VectorCreatorPanelSlotOptions ) {
 
     const options = optionize<VectorCreatorPanelSlotOptions, SelfOptions, HBoxOptions>()( {
 

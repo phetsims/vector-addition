@@ -153,7 +153,7 @@ class GridLines extends Path {
 
   private readonly viewBounds: Bounds2;
 
-  public constructor( graph: Graph, viewBounds: Bounds2, providedOptions?: GridLinesOptions ) {
+  public constructor( graph: Graph, viewBounds: Bounds2, providedOptions: GridLinesOptions ) {
 
     const options = optionize<GridLinesOptions, GridLinesSelfOptions, PathOptions>()( {
 
