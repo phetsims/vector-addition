@@ -57,7 +57,7 @@ export default class EquationsSumVector extends SumVector {
   /**
    * Calculate the sum vector for the Equations screen.
    */
-  public override updateSum( vectors: ObservableArray<Vector> ): void {
+  protected override updateSum( vectors: ObservableArray<Vector> ): void {
 
     const equationType = this.equationTypeProperty.value;
 
