@@ -182,14 +182,14 @@ export default class VectorCreatorPanelSlot extends InteractiveHighlighting( HBo
       vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
 
       // Observe when the vector is removed and clean up.
-      const removeVectorListener = ( removedVector: Vector ) => {
+      const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === vector ) {
           iconNode.visible = true;
           vector.animateBackProperty.unlink( animateVectorBackListener );
-          vectorSet.vectors.removeItemRemovedListener( removeVectorListener );
+          vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };
-      vectorSet.vectors.addItemRemovedListener( removeVectorListener );
+      vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
     } ) );
   }
 }

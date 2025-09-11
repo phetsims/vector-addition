@@ -141,7 +141,7 @@ export default class VectorSetNode extends Node {
     // If the Vector can be removed from the VectorSet, add a listener to clean up.
     if ( vector.isDisposable ) {
 
-      const removalListener = ( removedVector: Vector ) => {
+      const vectorRemovedListener = ( removedVector: Vector ) => {
 
         if ( removedVector === vector ) {
 
@@ -151,12 +151,12 @@ export default class VectorSetNode extends Node {
           vectorNode.dispose();
 
           // remove listeners
-          this.vectorSet.vectors.removeItemRemovedListener( removalListener );
+          this.vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
           this.scene.selectedVectorProperty.unlink( selectedVectorListener );
         }
       };
 
-      this.vectorSet.vectors.addItemRemovedListener( removalListener );
+      this.vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
     }
   }
 
