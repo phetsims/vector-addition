@@ -85,6 +85,17 @@ export default class SumVector extends Vector {
   }
 
   /**
+   * WORKAROUND: RootVector vectorComponentsProperty was initialized with a bogus value of Vector2.ZERO in the
+   * constructor above. So call updateSum after calling super.reset. Also note that subclass EquationsSumVector
+   * has an entirely different implementation of updateSum that depends on the selected EquationType, so calling
+   * updateSum is also necessary for that class.  See https://github.com/phetsims/vector-addition/issues/328.
+   */
+  public override reset(): void {
+    super.reset();
+    this.updateSum( this.vectorSet.vectors );
+  }
+
+  /**
    * Update the sum vector components. Calculated from all the vectors that are on the graph.
    */
   protected updateSum( vectors: ObservableArray<Vector> ): void {

@@ -102,14 +102,6 @@ export default class EquationsSumVector extends SumVector {
       symbolProperty: this.symbolProperty
     } );
   }
-
-  public override reset(): void {
-
-    // In the Equations screen, vectors are never removed, so we need to explicitly call updateSum.
-    // See https://github.com/phetsims/vector-addition/issues/129
-    this.updateSum( this.vectorSet.vectors );
-    super.reset();
-  }
 }
 
 vectorAddition.register( 'EquationsSumVector', EquationsSumVector );
