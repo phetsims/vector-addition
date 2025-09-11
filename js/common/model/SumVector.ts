@@ -94,9 +94,7 @@ export default class SumVector extends Vector {
 
     // Sum all vectors that are on the graph.
     const sumVectorComponents = new Vector2( 0, 0 );
-    onGraphVectors.forEach( vector => {
-      sumVectorComponents.add( vector.vectorComponents );
-    } );
+    onGraphVectors.forEach( vector => sumVectorComponents.add( vector.vectorComponents ) );
 
     // Set the sum to the calculated sum.
     this.vectorComponents = sumVectorComponents;
