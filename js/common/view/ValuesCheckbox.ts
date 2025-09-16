@@ -2,6 +2,8 @@
 
 /**
  * ValuesCheckbox is the checkbox labeled 'Values', used to control visibility of values on vectors.
+ * The reason why this is named ValuesCheckbox instead of MagnitudesCheckbox is noted in
+ * https://github.com/phetsims/vector-addition/issues/327#issuecomment-3299637646.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

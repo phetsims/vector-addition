@@ -24,7 +24,8 @@ export type VectorAdditionViewPropertiesOptions = SelfOptions & PickRequired<Phe
 
 export default class VectorAdditionViewProperties {
 
-  // indicates if the labels should contain the magnitudes
+  // Indicates if the labels should contain the magnitudes. The reason why this is valuesVisibleProperty instead of
+  // magnitudesVisibleProperty is noted in https://github.com/phetsims/vector-addition/issues/327#issuecomment-3299637646.
   public readonly valuesVisibleProperty: Property<boolean>;
 
   // controls the visibility of the angle
