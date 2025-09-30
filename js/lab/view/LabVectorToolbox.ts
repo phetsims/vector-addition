@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * LabVectorCreatorPanel is a specialization of VectorToolbox (the vector 'toolbox') for the 'Lab' screen.
+ * LabVectorToolbox is a specialization of VectorToolbox (the vector 'toolbox') for the 'Lab' screen.
  *
  * @author Brandon Li
  */
@@ -20,7 +20,7 @@ type SelfOptions = EmptySelfOptions;
 
 type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'ySpacing'>;
 
-export default class LabVectorCreatorPanel extends VectorToolbox {
+export default class LabVectorToolbox extends VectorToolbox {
 
   public constructor( scene: LabScene,
                       sceneNode: VectorAdditionSceneNode,
@@ -55,4 +55,4 @@ export default class LabVectorCreatorPanel extends VectorToolbox {
   }
 }
 
-vectorAddition.register( 'LabVectorCreatorPanel', LabVectorCreatorPanel );
+vectorAddition.register( 'LabVectorToolbox', LabVectorToolbox );
