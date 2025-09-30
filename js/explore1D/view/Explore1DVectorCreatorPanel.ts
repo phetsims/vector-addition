@@ -6,7 +6,6 @@
  * @author Brandon Li
  */
 
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
@@ -26,12 +25,10 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
   /**
    * @param scene
    * @param sceneNode
-   * @param symbolProperties - the symbols corresponding to each slot
    * @param providedOptions
    */
   public constructor( scene: Explore1DScene,
                       sceneNode: VectorAdditionSceneNode,
-                      symbolProperties: TReadOnlyProperty<string>[],
                       providedOptions: Explore1DVectorCreatorPanelOptions ) {
 
     const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
@@ -47,9 +44,7 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
     // Create a slot for each vector.
     const panelSlots: VectorCreatorPanelSlot[] = [];
-    const vectorSet = scene.vectorSet;
-    const vectors = [ vectorSet.aVector, vectorSet.bVector, vectorSet.cVector ];
-    vectors.forEach( vector => {
+    scene.vectors.forEach( vector => {
       panelSlots.push( new Explore1DVectorCreatorPanelSlot( vector, scene, scene.vectorSet, sceneNode, initialVectorComponents, {
         iconArrowMagnitude: 35,
 

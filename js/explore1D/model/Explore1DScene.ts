@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Explore1DScene is a scene in the 'Explore 1D' screen.
+ * Explore1DScene is the base class for scenes in the 'Explore 1D' screen.
  *
  * Characteristics of an Explore1DScene are:
  *  - it has 1 vector set
@@ -22,7 +22,8 @@ import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import Explore1DVectorSet from './Explore1DVectorSet.js';
+import VectorSet from '../../common/model/VectorSet.js';
+import Vector from '../../common/model/Vector.js';
 
 const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
@@ -39,10 +40,13 @@ const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
 // All graphs on 'Explore 1D' are strictly Cartesian
 const EXPLORE_1D_COORDINATE_SNAP_MODE: CoordinateSnapMode = 'cartesian';
 
-export default class Explore1DScene extends VectorAdditionScene {
+export default abstract class Explore1DScene extends VectorAdditionScene {
 
   // Graphs on 'Explore 1D' have exactly one vector set
-  public readonly vectorSet: Explore1DVectorSet;
+  public readonly vectorSet: VectorSet;
+
+  // Vector instances that are specific to this screen, set by subclass, exist for the lifetime of the sim.
+  public readonly abstract vectors: Vector[];
 
   /**
    * @param sceneNameStringProperty
@@ -51,11 +55,11 @@ export default class Explore1DScene extends VectorAdditionScene {
    * @param vectorColorPalette - color palette for vectors in this scene
    * @param tandem
    */
-  public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
-                      graphOrientation: GraphOrientation,
-                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      vectorColorPalette: VectorColorPalette,
-                      tandem: Tandem ) {
+  protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                         graphOrientation: GraphOrientation,
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                         vectorColorPalette: VectorColorPalette,
+                         tandem: Tandem ) {
 
     affirm( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ) );
 
@@ -67,11 +71,20 @@ export default class Explore1DScene extends VectorAdditionScene {
       tandem: tandem
     } );
 
-    this.vectorSet = new Explore1DVectorSet( this, componentVectorStyleProperty, vectorColorPalette,
-      tandem.createTandem( 'vectorSet' ) );
+    this.vectorSet = new VectorSet( this, componentVectorStyleProperty, vectorColorPalette, {
+      tandem: tandem.createTandem( 'vectorSet' )
+    } );
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
+  }
+
+  public override reset(): void {
+
+    // Clear vectorSet before calling super.reset or vectorSet will attempt to dispose of vectors.
+    this.vectorSet.vectors.clear();
+    this.vectors.forEach( vector => vector.reset() );
+    super.reset();
   }
 }
 

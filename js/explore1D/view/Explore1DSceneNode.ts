@@ -31,13 +31,8 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
       tandem: tandem
     } );
 
-    // Vector symbols depend on graph orientation
-    const vectorSymbolProperties = ( scene.graph.orientation === 'horizontal' ) ?
-                                   VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
-                                   VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
-
     // Add the vector creator panel
-    this.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( scene, this, vectorSymbolProperties, {
+    this.addVectorCreatorPanel( new Explore1DVectorCreatorPanel( scene, this, {
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,
       tandem: tandem.createTandem( 'vectorCreatorPanel' )
