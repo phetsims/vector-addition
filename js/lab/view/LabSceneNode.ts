@@ -30,11 +30,11 @@ export default class LabSceneNode extends VectorAdditionSceneNode {
       tandem: tandem
     } );
 
-    // Add the vector creator panel
+    // Add the vector toolbox.
     this.addVectorCreatorPanel( new LabVectorToolbox( scene, this, {
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,
-      tandem: tandem.createTandem( 'vectorCreatorPanel' )
+      tandem: tandem.createTandem( 'vectorToolbox' )
     } ) );
   }
 }
