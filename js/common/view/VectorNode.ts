@@ -1,8 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View for the vectors that are dragged onto the graph. These vectors are created in VectorToolboxSlot.js and
- * support tip dragging and tail translation dragging as well as removing and animating vector back to the creator.
+ * View for the vectors that are dragged onto the graph.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
