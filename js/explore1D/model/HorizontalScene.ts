@@ -27,26 +27,27 @@ export default class HorizontalScene extends Explore1DScene {
     super( VectorAdditionStrings.a11y.horizontalSceneNameStringProperty, 'horizontal', componentVectorStyleProperty,
       VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE, tandem );
 
+    const initialPosition = Vector2.ZERO;
     const initialVectorComponents = new Vector2( 5, 0 ); // horizontal vector
 
     this.vectors = [
 
       // a
-      new Vector( Vector2.ZERO, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.aStringProperty, {
+      new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.aStringProperty, {
         isDisposable: false,
         tandem: tandem.createTandem( 'aVector' ),
         tandemNameSymbol: 'a'
       } ),
 
       // b
-      new Vector( Vector2.ZERO, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.bStringProperty, {
+      new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.bStringProperty, {
         isDisposable: false,
         tandem: tandem.createTandem( 'bVector' ),
         tandemNameSymbol: 'b'
       } ),
 
       // c
-      new Vector( Vector2.ZERO, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.cStringProperty, {
+      new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.cStringProperty, {
         isDisposable: false,
         tandem: tandem.createTandem( 'cVector' ),
         tandemNameSymbol: 'c'

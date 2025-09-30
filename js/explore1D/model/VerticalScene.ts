@@ -27,26 +27,27 @@ export default class VerticalScene extends Explore1DScene {
     super( VectorAdditionStrings.a11y.verticalSceneNameStringProperty, 'vertical', componentVectorStyleProperty,
       VectorAdditionColors.EXPLORE_1D_VERTICAL_COLOR_PALETTE, tandem );
 
+    const initialPosition = Vector2.ZERO;
     const initialVectorComponents = new Vector2( 0, 5 ); // vertical vector
 
     this.vectors = [
 
       // d
-      new Vector( Vector2.ZERO, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.dStringProperty, {
+      new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.dStringProperty, {
         isDisposable: false,
         tandem: tandem.createTandem( 'dVector' ),
         tandemNameSymbol: 'd'
       } ),
 
       // e
-      new Vector( Vector2.ZERO, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.eStringProperty, {
+      new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.eStringProperty, {
         isDisposable: false,
         tandem: tandem.createTandem( 'eVector' ),
         tandemNameSymbol: 'e'
       } ),
 
       // f
-      new Vector( Vector2.ZERO, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.fStringProperty, {
+      new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.fStringProperty, {
         isDisposable: false,
         tandem: tandem.createTandem( 'fVector' ),
         tandemNameSymbol: 'f'
