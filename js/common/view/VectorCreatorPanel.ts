@@ -2,7 +2,7 @@
 
 /**
  * VectorCreatorPanel (aka vector 'toolbox') is a Panel that contains 'slots' that can be clicked on to create
- * new vectors. Instances exist for the lifetime of the sim, and are not meant to be disposed.
+ * new vectors.
  *
  * @author Martin Veillette
  * @author Brandon Li
