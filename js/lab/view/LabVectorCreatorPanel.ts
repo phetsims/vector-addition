@@ -9,7 +9,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import VectorToolbox, { VectorCreatorPanelOptions } from '../../common/view/VectorToolbox.js';
+import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabScene from '../model/LabScene.js';
@@ -18,7 +18,7 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelOptions, 'ySpacing'>;
+type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'ySpacing'>;
 
 export default class LabVectorCreatorPanel extends VectorToolbox {
 
@@ -26,9 +26,9 @@ export default class LabVectorCreatorPanel extends VectorToolbox {
                       sceneNode: VectorAdditionSceneNode,
                       providedOptions: LabVectorCreatorPanelOptions ) {
 
-    const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
+    const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorToolboxOptions>()( {
 
-      // VectorCreatorPanelOptions
+      // VectorToolboxOptions
       ySpacing: 40
     }, providedOptions );
 

@@ -8,7 +8,7 @@
 
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import VectorToolbox, { VectorCreatorPanelOptions } from '../../common/view/VectorToolbox.js';
+import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from '../model/Explore1DScene.js';
@@ -17,7 +17,7 @@ import Explore1DVectorCreatorPanelSlot from './Explore1DVectorCreatorPanelSlot.j
 
 type SelfOptions = EmptySelfOptions;
 
-type Explore1DVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelOptions, 'ySpacing'>;
+type Explore1DVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'ySpacing'>;
 
 export default class Explore1DVectorCreatorPanel extends VectorToolbox {
 
@@ -30,9 +30,9 @@ export default class Explore1DVectorCreatorPanel extends VectorToolbox {
                       sceneNode: VectorAdditionSceneNode,
                       providedOptions: Explore1DVectorCreatorPanelOptions ) {
 
-    const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
+    const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorToolboxOptions>()( {
 
-      // VectorCreatorPanelOptions
+      // VectorToolboxOptions
       ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18
     }, providedOptions );
 

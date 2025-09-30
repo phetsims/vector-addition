@@ -10,7 +10,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import VectorToolbox, { VectorCreatorPanelOptions } from '../../common/view/VectorToolbox.js';
+import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DScene from '../model/Explore2DScene.js';
@@ -33,7 +33,7 @@ const POLAR_INITIAL_VECTOR_COMPONENTS = [
 
 type SelfOptions = EmptySelfOptions;
 
-type Explore2DVectorCreatorPanelOptions = SelfOptions & VectorCreatorPanelOptions;
+type Explore2DVectorCreatorPanelOptions = SelfOptions & VectorToolboxOptions;
 
 export default class Explore2DVectorCreatorPanel extends VectorToolbox {
 

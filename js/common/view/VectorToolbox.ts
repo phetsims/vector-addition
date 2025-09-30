@@ -1,8 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorToolbox (aka vector 'toolbox') is a Panel that contains 'slots' that can be clicked on to create
- * new vectors.
+ * VectorToolbox is a Panel that contains 'slots' that can be clicked on to create new vectors.
  *
  * @author Martin Veillette
  * @author Brandon Li
@@ -31,13 +30,13 @@ type SelfOptions = {
   contentHeight?: number; // fixed height of the panel content
 };
 
-export type VectorCreatorPanelOptions = SelfOptions & NodeTranslationOptions & PickRequired<PanelOptions, 'tandem'>;
+export type VectorToolboxOptions = SelfOptions & NodeTranslationOptions & PickRequired<PanelOptions, 'tandem'>;
 
 export default class VectorToolbox extends Panel {
 
-  protected constructor( panelSlots: VectorCreatorPanelSlot[], providedOptions: VectorCreatorPanelOptions ) {
+  protected constructor( panelSlots: VectorCreatorPanelSlot[], providedOptions: VectorToolboxOptions ) {
 
-    const options = optionize4<VectorCreatorPanelOptions, SelfOptions, PanelOptions>()(
+    const options = optionize4<VectorToolboxOptions, SelfOptions, PanelOptions>()(
       {}, VectorAdditionConstants.PANEL_OPTIONS, {
 
         // SelfOptions
