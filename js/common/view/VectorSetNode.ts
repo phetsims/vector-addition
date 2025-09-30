@@ -138,9 +138,9 @@ export default class VectorSetNode extends Node {
     };
     this.scene.selectedVectorProperty.link( selectedVectorListener );
 
-    if ( vector.isDisposable ) {
+    if ( vector.isRemovableFromGraph ) {
 
-      // Clean up when the vector is removed.
+      // Clean up when the vector is removed from the graph.
       const vectorRemovedListener = ( removedVector: Vector ) => {
 
         if ( removedVector === vector ) {

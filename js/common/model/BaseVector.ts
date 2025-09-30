@@ -47,7 +47,8 @@ export default abstract class BaseVector extends Vector {
     const options = optionize<BaseVectorOptions, SelfOptions, VectorOptions>()( {
 
       // VectorOptions
-      isDisposable: false,      // BaseVectors are not removable from the graph and therefore not disposable.
+      isDisposable: false,      // BaseVectors are not disposable.
+      isRemovableFromGraph: false, // BaseVectors are not removable from the graph.
       isTipDraggable: false,    // BaseVectors are not draggable by the tip
       isOnGraphInitially: true, // BaseVectors are always on the graph
       isOnGraphPropertyInstrumented: false, // BaseVectors are always on the graph

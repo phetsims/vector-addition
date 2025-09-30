@@ -17,12 +17,12 @@ import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import { GraphOrientation } from '../../common/model/GraphOrientation.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
-import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import Explore1DVectorSet from './Explore1DVectorSet.js';
 
 const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
@@ -42,7 +42,7 @@ const EXPLORE_1D_COORDINATE_SNAP_MODE: CoordinateSnapMode = 'cartesian';
 export default class Explore1DScene extends VectorAdditionScene {
 
   // Graphs on 'Explore 1D' have exactly one vector set
-  public readonly vectorSet: VectorSet;
+  public readonly vectorSet: Explore1DVectorSet;
 
   /**
    * @param sceneNameStringProperty
@@ -67,9 +67,8 @@ export default class Explore1DScene extends VectorAdditionScene {
       tandem: tandem
     } );
 
-    this.vectorSet = new VectorSet( this, componentVectorStyleProperty, vectorColorPalette, {
-      tandem: tandem.createTandem( 'vectorSet' )
-    } );
+    this.vectorSet = new Explore1DVectorSet( this, componentVectorStyleProperty, vectorColorPalette,
+      tandem.createTandem( 'vectorSet' ) );
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );

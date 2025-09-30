@@ -41,6 +41,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
@@ -145,7 +146,9 @@ export default class VectorAdditionSceneNode extends Node {
 
       const vectorSetNode = new VectorSetNode( scene, vectorSet, sumVisibleProperties[ index ],
         viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentVectorStyleProperty,
-        options.tandem.createTandem( `${vectorSet.tandem.name}Node` ) );
+        // There is nothing interesting under here for PhET-iO, so we decided to uninstrument. If it needs to be
+        // instrumented in the future, use options.tandem.createTandem( `${vectorSet.tandem.name}Node` ).
+        Tandem.OPT_OUT );
 
       this.vectorSetNodesParent.addChild( vectorSetNode );
       this.vectorSetNodes.push( vectorSetNode );

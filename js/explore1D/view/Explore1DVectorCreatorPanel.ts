@@ -15,6 +15,7 @@ import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js'
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from '../model/Explore1DScene.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import Explore1DVectorCreatorPanelSlot from './Explore1DVectorCreatorPanelSlot.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -39,16 +40,17 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
       slotSpacing: ( scene.graph.orientation === 'vertical' ) ? 18 : 32
     }, providedOptions );
 
-    // Create the initial vector components, they are the same for every symbol.
+    // Initial vector components are the same for every vector.
     // See https://github.com/phetsims/vector-addition/issues/227
     const isHorizontal = ( scene.graph.orientation === 'horizontal' );
     const initialVectorComponents = isHorizontal ? new Vector2( 5, 0 ) : new Vector2( 0, 5 );
 
-    // Create a slot for each symbol
+    // Create a slot for each vector.
     const panelSlots: VectorCreatorPanelSlot[] = [];
-    symbolProperties.forEach( symbolProperty => {
-      panelSlots.push( new VectorCreatorPanelSlot( scene, scene.vectorSet, sceneNode, initialVectorComponents, {
-        symbolProperty: symbolProperty,
+    const vectorSet = scene.vectorSet;
+    const vectors = [ vectorSet.aVector, vectorSet.bVector, vectorSet.cVector ];
+    vectors.forEach( vector => {
+      panelSlots.push( new Explore1DVectorCreatorPanelSlot( vector, scene, scene.vectorSet, sceneNode, initialVectorComponents, {
         iconArrowMagnitude: 35,
 
         // pointer area dilation for icons, identical for mouseArea and touchArea,
@@ -56,8 +58,7 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
         iconPointerAreaXDilation: isHorizontal ? 10 : 20,
         iconPointerAreaYDilation: isHorizontal ? 15 : 5,
 
-        //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API if symbolProperty is localized.
-        tandem: options.tandem.createTandem( `${symbolProperty.value}Slot` )
+        tandem: options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` )
       } ) );
     } );
 
