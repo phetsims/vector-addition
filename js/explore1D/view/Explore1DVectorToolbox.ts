@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Explore1DVectorCreatorPanel is a specialization of VectorToolbox (the vector 'toolbox') for the 'Explore 1D' screen.
+ * Explore1DVectorToolbox is a specialization of VectorToolbox (the vector 'toolbox') for the 'Explore 1D' screen.
  *
  * @author Brandon Li
  */
@@ -19,7 +19,7 @@ type SelfOptions = EmptySelfOptions;
 
 type Explore1DVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'ySpacing'>;
 
-export default class Explore1DVectorCreatorPanel extends VectorToolbox {
+export default class Explore1DVectorToolbox extends VectorToolbox {
 
   /**
    * @param scene
@@ -47,4 +47,4 @@ export default class Explore1DVectorCreatorPanel extends VectorToolbox {
   }
 }
 
-vectorAddition.register( 'Explore1DVectorCreatorPanel', Explore1DVectorCreatorPanel );
+vectorAddition.register( 'Explore1DVectorToolbox', Explore1DVectorToolbox );

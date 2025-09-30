@@ -8,7 +8,7 @@
 
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import Explore1DVectorCreatorPanel from './Explore1DVectorCreatorPanel.js';
+import Explore1DVectorToolbox from './Explore1DVectorToolbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
@@ -32,7 +32,7 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
     } );
 
     // Add the vector creator panel
-    this.addVectorToolbox( new Explore1DVectorCreatorPanel( scene, this, {
+    this.addVectorToolbox( new Explore1DVectorToolbox( scene, this, {
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,
       tandem: tandem.createTandem( 'vectorToolbox' )

@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Explore2DVectorCreatorPanel is a specialization of VectorToolbox (the vector 'toolbox') for the 'Explore 2D' screen.
+ * Explore2DVectorToolbox is a specialization of VectorToolbox (the vector 'toolbox') for the 'Explore 2D' screen.
  *
  * @author Brandon Li
  */
@@ -35,7 +35,7 @@ type SelfOptions = EmptySelfOptions;
 
 type Explore2DVectorCreatorPanelOptions = SelfOptions & VectorToolboxOptions;
 
-export default class Explore2DVectorCreatorPanel extends VectorToolbox {
+export default class Explore2DVectorToolbox extends VectorToolbox {
 
   /**
    * @param scene
@@ -76,4 +76,4 @@ export default class Explore2DVectorCreatorPanel extends VectorToolbox {
   }
 }
 
-vectorAddition.register( 'Explore2DVectorCreatorPanel', Explore2DVectorCreatorPanel );
+vectorAddition.register( 'Explore2DVectorToolbox', Explore2DVectorToolbox );
