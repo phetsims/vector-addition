@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorToolboxSlot is a single 'slot' on the VectorToolbox.
+ * VectorToolboxSlot is a single 'slot' in the vector toolbox.
  *
  * A slot creates a Vector when the icon is clicked.
  *
