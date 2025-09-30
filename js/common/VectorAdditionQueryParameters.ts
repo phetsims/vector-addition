@@ -15,7 +15,8 @@ import affirm from '../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const VectorAdditionQueryParameters = QueryStringMachine.getAll( {
 
-  // Convention used for displaying angles. See https://github.com/phetsims/vector-addition/issues/276
+  // Initial value of the 'Angle Convention' Preference.
+  // See https://github.com/phetsims/vector-addition/issues/276
   angleConvention: {
     public: true,
     type: 'string',
