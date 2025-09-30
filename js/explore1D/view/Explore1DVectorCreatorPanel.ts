@@ -6,7 +6,6 @@
  * @author Brandon Li
  */
 
-import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
@@ -40,12 +39,11 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
     // Initial vector components are the same for every vector.
     // See https://github.com/phetsims/vector-addition/issues/227
     const isHorizontal = ( scene.graph.orientation === 'horizontal' );
-    const initialVectorComponents = isHorizontal ? new Vector2( 5, 0 ) : new Vector2( 0, 5 );
 
     // Create a slot for each vector.
     const panelSlots: VectorCreatorPanelSlot[] = [];
     scene.vectors.forEach( vector => {
-      panelSlots.push( new Explore1DVectorCreatorPanelSlot( vector, scene, scene.vectorSet, sceneNode, initialVectorComponents, {
+      panelSlots.push( new Explore1DVectorCreatorPanelSlot( vector, scene, scene.vectorSet, sceneNode, {
         iconArrowMagnitude: 35,
 
         // pointer area dilation for icons, identical for mouseArea and touchArea,

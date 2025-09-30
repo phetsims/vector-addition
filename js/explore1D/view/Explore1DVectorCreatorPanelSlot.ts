@@ -61,7 +61,6 @@ export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighligh
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
-                      initialVectorComponents: Vector2,
                       providedOptions: Explore1DVectorCreatorPanelSlotOptions ) {
 
     const options = optionize<Explore1DVectorCreatorPanelSlotOptions, SelfOptions, HBoxOptions>()( {
@@ -84,13 +83,14 @@ export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighligh
 
     // convenience reference
     const modelViewTransform = scene.graph.modelViewTransformProperty.value;
+    const vectorComponents = vector.vectorComponentsProperty.value;
 
     //----------------------------------------------------------------------------------------
     // Create the icon
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.viewToModelDelta( options.iconVectorComponents || initialVectorComponents );
+    const iconViewComponents = modelViewTransform.viewToModelDelta( options.iconVectorComponents || vectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
@@ -136,11 +136,7 @@ export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighligh
       const vectorCenterModel = scene.graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
       // Calculate where the tail position is relative to the scene node.
-      const vectorTailPosition = vectorCenterModel.minus( initialVectorComponents.timesScalar( 0.5 ) );
-
-      // Set the vector's initial position
-      vector.vectorComponentsProperty.value = initialVectorComponents;
-      vector.tailPositionProperty.value = vectorTailPosition;
+      vector.tailPositionProperty.value = vectorCenterModel.minus( vectorComponents.timesScalar( 0.5 ) );
 
       // Add the vector to the vector set, so that it is included in the sum calculation.
       vectorSet.vectors.push( vector );
@@ -167,8 +163,9 @@ export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighligh
 
           // Animate the vector to its icon in the panel, then remove it from vectorSet.
           vector.animateToPoint( iconPosition, iconComponents, () => {
-            vector.animateBackProperty.value = false;
             vectorSet.vectors.remove( vector );
+            vector.reset();
+            vector.animateBackProperty.value = false;
             // Do not dispose of vector! Vectors in the Explore 1D screen exist for the lifetime of the sim.
           } );
         }
