@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Explore2DVectorToolbox is a specialization of VectorToolbox (the vector 'toolbox') for the 'Explore 2D' screen.
+ * Explore2DVectorToolbox is a specialization of VectorToolbox for the 'Explore 2D' screen.
  *
  * @author Brandon Li
  */
@@ -33,7 +33,7 @@ const POLAR_INITIAL_VECTOR_COMPONENTS = [
 
 type SelfOptions = EmptySelfOptions;
 
-type Explore2DVectorCreatorPanelOptions = SelfOptions & VectorToolboxOptions;
+type Explore2DVectorToolboxOptions = SelfOptions & VectorToolboxOptions;
 
 export default class Explore2DVectorToolbox extends VectorToolbox {
 
@@ -46,7 +46,7 @@ export default class Explore2DVectorToolbox extends VectorToolbox {
   public constructor( scene: Explore2DScene,
                       sceneNode: VectorAdditionSceneNode,
                       symbolProperties: TReadOnlyProperty<string>[],
-                      providedOptions: Explore2DVectorCreatorPanelOptions ) {
+                      providedOptions: Explore2DVectorToolboxOptions ) {
 
     const options = providedOptions;
 

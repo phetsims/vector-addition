@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Explore1DVectorToolbox is a specialization of VectorToolbox (the vector 'toolbox') for the 'Explore 1D' screen.
+ * Explore1DVectorToolbox is a specialization of VectorToolbox for the 'Explore 1D' screen.
  *
  * @author Brandon Li
  */
@@ -17,7 +17,7 @@ import Explore1DVectorCreatorPanelSlot from './Explore1DVectorCreatorPanelSlot.j
 
 type SelfOptions = EmptySelfOptions;
 
-type Explore1DVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'ySpacing'>;
+type Explore1DVectorToolboxOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'ySpacing'>;
 
 export default class Explore1DVectorToolbox extends VectorToolbox {
 
@@ -28,9 +28,9 @@ export default class Explore1DVectorToolbox extends VectorToolbox {
    */
   public constructor( scene: Explore1DScene,
                       sceneNode: VectorAdditionSceneNode,
-                      providedOptions: Explore1DVectorCreatorPanelOptions ) {
+                      providedOptions: Explore1DVectorToolboxOptions ) {
 
-    const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorToolboxOptions>()( {
+    const options = optionize<Explore1DVectorToolboxOptions, SelfOptions, VectorToolboxOptions>()( {
 
       // VectorToolboxOptions
       ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18
