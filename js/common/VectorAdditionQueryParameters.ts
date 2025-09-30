@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Query parameters supported by this simulation.
+ * VectorAdditionQueryParameters defines query parameters that are specific to this simulation.
  * Running with ?log will print these query parameters and their values to the console at startup.
  *
  * @author Brandon Li
