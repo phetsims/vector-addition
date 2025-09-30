@@ -35,7 +35,7 @@ export default class Explore2DSceneNode extends VectorAdditionSceneNode {
                                    VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
                                    VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
 
-    // Add the vector creator panel
+    // Add the vector toolbox.
     this.addVectorToolbox( new Explore2DVectorToolbox( scene, this, vectorSymbolProperties, {
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,

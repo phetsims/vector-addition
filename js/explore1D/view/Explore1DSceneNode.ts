@@ -31,7 +31,7 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
       tandem: tandem
     } );
 
-    // Add the vector creator panel
+    // Add the vector toolbox.
     this.addVectorToolbox( new Explore1DVectorToolbox( scene, this, {
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,
