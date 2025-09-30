@@ -10,16 +10,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
-import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import ArrowOverSymbolNode from '../../common/view/ArrowOverSymbolNode.js';
 import Vector from '../../common/model/Vector.js';
@@ -27,59 +23,23 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
-// The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
-// contains the same local width regardless of the initial vector components. This ensures that
-// the label of the slot is in the same place regardless of the icon size.
-const ARROW_ICON_CONTAINER_WIDTH = 35;
-
-type SelfOptions = {
-  symbolProperty?: TReadOnlyProperty<string> | null; // the symbol to pass to created vectors
-  numberOfVectors?: number;  // the number of vectors that can exist that were created by this slot
-  iconArrowMagnitude?: number; // the magnitude of the icon in view coordinates
-  iconVectorComponents?: Vector2 | null; // used for vector icon, defaults to initialVectorComponents
-
-  // pointer area dilation for icons, identical for mouseArea and touchArea,
-  // see https://github.com/phetsims/vector-addition/issues/250
-  iconPointerAreaXDilation?: number;
-  iconPointerAreaYDilation?: number;
-};
-
-type Explore1DVectorCreatorPanelSlotOptions = SelfOptions & PickRequired<HBox, 'tandem'>;
+const ICON_ARROW_MAGNITUDE = 35;
 
 export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighlighting( HBox ) {
 
-  /**
-   * @param vector - the vector to be dragged in and out of the slot
-   * @param scene - the scene for the VectorSect
-   * @param vectorSet - the VectorSet that the vector is associated with
-   * @param sceneNode - the VectorAdditionSceneNode that this slot appears in
-   * @param initialVectorComponents - the initial vector components to set when vector is dragged out of the slot
-   * @param providedOptions
-   */
   public constructor( vector: Vector,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
-                      providedOptions: Explore1DVectorCreatorPanelSlotOptions ) {
-
-    const options = optionize<Explore1DVectorCreatorPanelSlotOptions, SelfOptions, HBoxOptions>()( {
-
-      // SelfOptions
-      symbolProperty: null,
-      numberOfVectors: 1,
-      iconArrowMagnitude: 30,
-      iconVectorComponents: null,
-      iconPointerAreaXDilation: 10,
-      iconPointerAreaYDilation: 10,
-
-      // HBoxOptions
+                      tandem: Tandem ) {
+    super( {
       isDisposable: false,
       spacing: 5,
-      tagName: 'button'
-    }, providedOptions );
-
-    super( options );
+      tagName: 'button',
+      tandem: tandem
+    } );
 
     // convenience reference
     const modelViewTransform = scene.graph.modelViewTransformProperty.value;
@@ -90,29 +50,32 @@ export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighligh
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.viewToModelDelta( options.iconVectorComponents || vectorComponents );
+    const iconViewComponents = modelViewTransform.viewToModelDelta( vectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
-      vectorSet.vectorColorPalette, options.iconArrowMagnitude );
+      vectorSet.vectorColorPalette, ICON_ARROW_MAGNITUDE );
 
-    // Make the iconNode easier to grab
-    iconNode.mouseArea = iconNode.localBounds.dilatedXY( options.iconPointerAreaXDilation, options.iconPointerAreaYDilation );
-    iconNode.touchArea = iconNode.localBounds.dilatedXY( options.iconPointerAreaXDilation, options.iconPointerAreaYDilation );
+    // Make the iconNode easier to grab. Use identical dilation for mouseArea and touchArea,
+    // see https://github.com/phetsims/vector-addition/issues/250
+    const isHorizontal = ( scene.graph.orientation === 'horizontal' );
+    const iconPointerAreaXDilation = isHorizontal ? 10 : 20;
+    const iconPointerAreaYDilation = isHorizontal ? 15 : 5;
+    iconNode.mouseArea = iconNode.localBounds.dilatedXY( iconPointerAreaXDilation, iconPointerAreaYDilation );
+    iconNode.touchArea = iconNode.localBounds.dilatedXY( iconPointerAreaXDilation, iconPointerAreaYDilation );
 
     // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
-    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
-      .normalized().timesScalar( options.iconArrowMagnitude ) );
+    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_ARROW_MAGNITUDE ) );
 
     // Create a fixed-size box for the icon. The Icon is placed in an alignBox to ensure the Icon
     // contains the same local width regardless of the initial vector components. This ensures that
     // the label of the slot is in the same place regardless of the icon size.
     this.addChild( new AlignBox( iconNode, {
-      alignBounds: new Bounds2( 0, 0, ARROW_ICON_CONTAINER_WIDTH, iconNode.height )
+      alignBounds: new Bounds2( 0, 0, ICON_ARROW_MAGNITUDE, iconNode.height )
     } ) );
 
     //----------------------------------------------------------------------------------------
-    // Create the label of the slot
+    // Create the label of the slot, which is always visible.
     //----------------------------------------------------------------------------------------
 
     const symbolProperty = vector.symbolProperty!;
@@ -147,8 +110,8 @@ export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighligh
 
       sceneNode.registerVector( vector, vectorSet, event );
 
-      // Hide the icon when we've reached the numberOfVectors limit
-      iconNode.visible = ( vectorSet.vectors.lengthProperty.value < options.numberOfVectors );
+      // Hide the icon.
+      iconNode.visible = false;
 
       //----------------------------------------------------------------------------------------
       // Step 3: When the vector is dropped outside the graph, animate back to the slot, and
@@ -166,6 +129,7 @@ export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighligh
             vectorSet.vectors.remove( vector );
             vector.reset();
             vector.animateBackProperty.value = false;
+            iconNode.visible = true;
             // Do not dispose of vector! Vectors in the Explore 1D screen exist for the lifetime of the sim.
           } );
         }

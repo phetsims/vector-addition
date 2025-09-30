@@ -36,23 +36,11 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
       slotSpacing: ( scene.graph.orientation === 'vertical' ) ? 18 : 32
     }, providedOptions );
 
-    // Initial vector components are the same for every vector.
-    // See https://github.com/phetsims/vector-addition/issues/227
-    const isHorizontal = ( scene.graph.orientation === 'horizontal' );
-
     // Create a slot for each vector.
     const panelSlots: VectorCreatorPanelSlot[] = [];
     scene.vectors.forEach( vector => {
-      panelSlots.push( new Explore1DVectorCreatorPanelSlot( vector, scene, scene.vectorSet, sceneNode, {
-        iconArrowMagnitude: 35,
-
-        // pointer area dilation for icons, identical for mouseArea and touchArea,
-        // see https://github.com/phetsims/vector-addition/issues/250
-        iconPointerAreaXDilation: isHorizontal ? 10 : 20,
-        iconPointerAreaYDilation: isHorizontal ? 15 : 5,
-
-        tandem: options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` )
-      } ) );
+      panelSlots.push( new Explore1DVectorCreatorPanelSlot( vector, scene, scene.vectorSet, sceneNode,
+        options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
     } );
 
     super( panelSlots, options );
