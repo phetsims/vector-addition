@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * LabVectorToolbox is a specialization of VectorToolbox (the vector 'toolbox') for the 'Lab' screen.
+ * LabVectorToolbox is a specialization of VectorToolbox for the 'Lab' screen.
  *
  * @author Brandon Li
  */
@@ -18,15 +18,15 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'ySpacing'>;
+type LabVectorToolboxOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'ySpacing'>;
 
 export default class LabVectorToolbox extends VectorToolbox {
 
   public constructor( scene: LabScene,
                       sceneNode: VectorAdditionSceneNode,
-                      providedOptions: LabVectorCreatorPanelOptions ) {
+                      providedOptions: LabVectorToolboxOptions ) {
 
-    const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorToolboxOptions>()( {
+    const options = optionize<LabVectorToolboxOptions, SelfOptions, VectorToolboxOptions>()( {
 
       // VectorToolboxOptions
       ySpacing: 40
