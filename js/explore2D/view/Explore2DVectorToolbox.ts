@@ -11,7 +11,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
-import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
+import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DScene from '../model/Explore2DScene.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
@@ -58,9 +58,9 @@ export default class Explore2DVectorToolbox extends VectorToolbox {
     affirm( initialVectorComponents.length === symbolProperties.length, 'components are required for each symbol' );
 
     // Create a slot for each symbol
-    const panelSlots: VectorCreatorPanelSlot[] = [];
+    const panelSlots: VectorToolboxSlot[] = [];
     symbolProperties.forEach( ( symbolProperty, index ) => {
-      panelSlots.push( new VectorCreatorPanelSlot( scene, scene.vectorSet, sceneNode, initialVectorComponents[ index ], {
+      panelSlots.push( new VectorToolboxSlot( scene, scene.vectorSet, sceneNode, initialVectorComponents[ index ], {
         symbolProperty: symbolProperty,
         iconArrowMagnitude: 35,
 

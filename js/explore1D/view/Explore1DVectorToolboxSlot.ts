@@ -1,6 +1,6 @@
 // Copyright 2025, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/vector-addition/issues/258 Lots of duplication with VectorCreatorPanelSlot
+//TODO https://github.com/phetsims/vector-addition/issues/258 Lots of duplication with VectorToolboxSlot
 /**
  * Explore1DVectorToolboxSlot is a slot in the vector toolbox for the 'Explore 1D' screen.
  * In this toolbox, there is 1 instance of each vector, and those vectors exist for the lifetime

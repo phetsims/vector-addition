@@ -96,16 +96,16 @@ same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/main/
 
 [VectorToolbox](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanel.ts) is the
 vector "toolbox". It contains
-one [VectorCreatorPanelSlot](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanelSlot.ts)
+one [VectorToolboxSlot](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanelSlot.ts)
 for each `VectorSet`, with each slot being represented by an icon in the toolbox. Each `VectorSet` also has an
 associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorSetNode.ts), which
 manages creation and layering of Nodes related to vectors in the set.
 
 _Adding a vector_: When a vector icon in the toolbox is clicked,
-`VectorCreatorPanelSlot` creates a new vector and adds it to the associated `VectorSet`. It then delegates creation of the
+`VectorToolboxSlot` creates a new vector and adds it to the associated `VectorSet`. It then delegates creation of the
 vector's view to `VectorSetNode` (see `registerVector`).
 
-_Removing a vector_: When a vector is added, `VectorCreatorPanelSlot`
+_Removing a vector_: When a vector is added, `VectorToolboxSlot`
 creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or
 when the `VectorSet`
 associated with the slot is cleared by pressing the eraser button or Reset All button (

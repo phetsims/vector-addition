@@ -9,7 +9,7 @@
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
-import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
+import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from '../model/Explore1DScene.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
@@ -37,7 +37,7 @@ export default class Explore1DVectorToolbox extends VectorToolbox {
     }, providedOptions );
 
     // Create a slot for each vector.
-    const panelSlots: VectorCreatorPanelSlot[] = [];
+    const panelSlots: VectorToolboxSlot[] = [];
     scene.vectors.forEach( vector => {
       panelSlots.push( new Explore1DVectorToolboxSlot( vector, scene, scene.vectorSet, sceneNode,
         options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
