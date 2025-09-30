@@ -55,7 +55,7 @@ export default class VectorAdditionSceneNode extends Node {
   public readonly graphNode: GraphNode;
   public readonly vectorSetNodesParent: Node;
   public readonly vectorValuesAccordionBox: Node;
-  public vectorCreatorPanel: Node | null;
+  public vectorToolbox: Node | null;
   public eraserButton: Node | null;
 
   // a layer for each VectorSet
@@ -155,7 +155,7 @@ export default class VectorAdditionSceneNode extends Node {
     } );
 
     this.vectorSets = scene.vectorSets;
-    this.vectorCreatorPanel = null;
+    this.vectorToolbox = null;
 
     this.addLinkedElement( scene );
   }
@@ -188,11 +188,11 @@ export default class VectorAdditionSceneNode extends Node {
   /**
    * Adds a VectorToolbox to the scene.
    */
-  public addVectorCreatorPanel( vectorCreatorPanel: VectorToolbox ): void {
-    affirm( !this.vectorCreatorPanel, 'addVectorCreatorPanel can only be called once.' );
-    this.vectorCreatorPanel = vectorCreatorPanel;
-    this.addChild( this.vectorCreatorPanel );
-    this.vectorCreatorPanel.moveToBack();
+  public addVectorToolbox( vectorCreatorPanel: VectorToolbox ): void {
+    affirm( !this.vectorToolbox, 'addVectorToolbox can only be called once.' );
+    this.vectorToolbox = vectorCreatorPanel;
+    this.addChild( this.vectorToolbox );
+    this.vectorToolbox.moveToBack();
   }
 }
 

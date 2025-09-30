@@ -94,13 +94,13 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
 
       // horizontal scene
-      horizonalSceneNode.vectorCreatorPanel,
+      horizonalSceneNode.vectorToolbox,
       horizonalSceneNode.vectorSetNodesParent,
       horizonalSceneNode.eraserButton,
       horizonalSceneNode.vectorValuesAccordionBox,
 
       // vertical scene
-      verticalSceneNode.vectorCreatorPanel,
+      verticalSceneNode.vectorToolbox,
       verticalSceneNode.vectorSetNodesParent,
       verticalSceneNode.eraserButton,
       verticalSceneNode.vectorValuesAccordionBox

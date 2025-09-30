@@ -92,13 +92,13 @@ export default class LabScreenView extends VectorAdditionScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
 
       // Cartesian scene
-      cartesianSceneNode.vectorCreatorPanel,
+      cartesianSceneNode.vectorToolbox,
       cartesianSceneNode.vectorSetNodesParent,
       cartesianSceneNode.eraserButton,
       cartesianSceneNode.vectorValuesAccordionBox,
 
       // polar scene
-      polarSceneNode.vectorCreatorPanel,
+      polarSceneNode.vectorToolbox,
       polarSceneNode.vectorSetNodesParent,
       polarSceneNode.eraserButton,
       polarSceneNode.vectorValuesAccordionBox
