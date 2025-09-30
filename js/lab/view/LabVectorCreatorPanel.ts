@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * LabVectorCreatorPanel is a specialization of VectorCreatorPanel (the vector 'toolbox') for the 'Lab' screen.
+ * LabVectorCreatorPanel is a specialization of VectorToolbox (the vector 'toolbox') for the 'Lab' screen.
  *
  * @author Brandon Li
  */
@@ -9,7 +9,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
+import VectorToolbox, { VectorCreatorPanelOptions } from '../../common/view/VectorToolbox.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabScene from '../model/LabScene.js';
@@ -20,7 +20,7 @@ type SelfOptions = EmptySelfOptions;
 
 type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelOptions, 'ySpacing'>;
 
-export default class LabVectorCreatorPanel extends VectorCreatorPanel {
+export default class LabVectorCreatorPanel extends VectorToolbox {
 
   public constructor( scene: LabScene,
                       sceneNode: VectorAdditionSceneNode,

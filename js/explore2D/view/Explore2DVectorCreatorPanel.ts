@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Explore2DVectorCreatorPanel is a specialization of VectorCreatorPanel (the vector 'toolbox') for the 'Explore 2D' screen.
+ * Explore2DVectorCreatorPanel is a specialization of VectorToolbox (the vector 'toolbox') for the 'Explore 2D' screen.
  *
  * @author Brandon Li
  */
@@ -10,7 +10,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import VectorCreatorPanel, { VectorCreatorPanelOptions } from '../../common/view/VectorCreatorPanel.js';
+import VectorToolbox, { VectorCreatorPanelOptions } from '../../common/view/VectorToolbox.js';
 import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DScene from '../model/Explore2DScene.js';
@@ -35,7 +35,7 @@ type SelfOptions = EmptySelfOptions;
 
 type Explore2DVectorCreatorPanelOptions = SelfOptions & VectorCreatorPanelOptions;
 
-export default class Explore2DVectorCreatorPanel extends VectorCreatorPanel {
+export default class Explore2DVectorCreatorPanel extends VectorToolbox {
 
   /**
    * @param scene

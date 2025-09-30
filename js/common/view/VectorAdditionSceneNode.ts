@@ -8,7 +8,7 @@
  *  - a single VectorValuesAccordionBox
  *  - Handle z-layering of all vector types (see https://github.com/phetsims/vector-addition/issues/19)
  *  - An option to include an EraserButton
- *  - A method to add a VectorCreatorPanel
+ *  - A method to add a VectorToolbox
  *
  * API:
  *  - Not required to tell the Scene Node to create the SumVectorNodes and their Components (does this automatically
@@ -32,7 +32,7 @@ import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import GraphNode from './GraphNode.js';
 import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
-import VectorCreatorPanel from './VectorCreatorPanel.js';
+import VectorToolbox from './VectorToolbox.js';
 import VectorSetNode from './VectorSetNode.js';
 import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
@@ -186,9 +186,9 @@ export default class VectorAdditionSceneNode extends Node {
   }
 
   /**
-   * Adds a VectorCreatorPanel to the scene.
+   * Adds a VectorToolbox to the scene.
    */
-  public addVectorCreatorPanel( vectorCreatorPanel: VectorCreatorPanel ): void {
+  public addVectorCreatorPanel( vectorCreatorPanel: VectorToolbox ): void {
     affirm( !this.vectorCreatorPanel, 'addVectorCreatorPanel can only be called once.' );
     this.vectorCreatorPanel = vectorCreatorPanel;
     this.addChild( this.vectorCreatorPanel );

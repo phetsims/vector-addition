@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorCreatorPanelSlot is a single 'slot' on the VectorCreatorPanel.
+ * VectorCreatorPanelSlot is a single 'slot' on the VectorToolbox.
  *
  * A slot creates a Vector when the icon is clicked.
  *

@@ -95,7 +95,7 @@ export default class VectorSetNode extends Node {
    * The Nodes are deleted if Vector is ever removed from its VectorSet.
    * @param vector - the vector model
    * @param [forwardingEvent] - if provided, it will forward this event to the Vector body drag listener. This is used
-   *   to forward the click event from the VectorCreatorPanel to the VectorNode. If not provided, no event is forwarded.
+   *   to forward the click event from the VectorToolbox to the VectorNode. If not provided, no event is forwarded.
    */
   public registerVector( vector: Vector, forwardingEvent?: PressListenerEvent ): void {
 

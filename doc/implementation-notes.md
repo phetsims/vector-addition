@@ -94,7 +94,7 @@ A [VectorSet](https://github.com/phetsims/vector-addition/blob/main/js/common/mo
 vectors. The vectors in the set contribute to a sum vector, and share the
 same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/main/js/common/model/VectorColorPalette.ts).
 
-[VectorCreatorPanel](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanel.ts) is the
+[VectorToolbox](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanel.ts) is the
 vector "toolbox". It contains
 one [VectorCreatorPanelSlot](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanelSlot.ts)
 for each `VectorSet`, with each slot being represented by an icon in the toolbox. Each `VectorSet` also has an

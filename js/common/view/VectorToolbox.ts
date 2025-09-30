@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorCreatorPanel (aka vector 'toolbox') is a Panel that contains 'slots' that can be clicked on to create
+ * VectorToolbox (aka vector 'toolbox') is a Panel that contains 'slots' that can be clicked on to create
  * new vectors.
  *
  * @author Martin Veillette
@@ -33,7 +33,7 @@ type SelfOptions = {
 
 export type VectorCreatorPanelOptions = SelfOptions & NodeTranslationOptions & PickRequired<PanelOptions, 'tandem'>;
 
-export default class VectorCreatorPanel extends Panel {
+export default class VectorToolbox extends Panel {
 
   protected constructor( panelSlots: VectorCreatorPanelSlot[], providedOptions: VectorCreatorPanelOptions ) {
 
@@ -75,4 +75,4 @@ export default class VectorCreatorPanel extends Panel {
   }
 }
 
-vectorAddition.register( 'VectorCreatorPanel', VectorCreatorPanel );
+vectorAddition.register( 'VectorToolbox', VectorToolbox );
