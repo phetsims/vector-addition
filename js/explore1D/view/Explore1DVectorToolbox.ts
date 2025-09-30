@@ -13,7 +13,7 @@ import VectorCreatorPanelSlot from '../../common/view/VectorCreatorPanelSlot.js'
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from '../model/Explore1DScene.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import Explore1DVectorCreatorPanelSlot from './Explore1DVectorCreatorPanelSlot.js';
+import Explore1DVectorToolboxSlot from './Explore1DVectorToolboxSlot.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -39,7 +39,7 @@ export default class Explore1DVectorToolbox extends VectorToolbox {
     // Create a slot for each vector.
     const panelSlots: VectorCreatorPanelSlot[] = [];
     scene.vectors.forEach( vector => {
-      panelSlots.push( new Explore1DVectorCreatorPanelSlot( vector, scene, scene.vectorSet, sceneNode,
+      panelSlots.push( new Explore1DVectorToolboxSlot( vector, scene, scene.vectorSet, sceneNode,
         options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
     } );
 

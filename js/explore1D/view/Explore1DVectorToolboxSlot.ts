@@ -2,7 +2,7 @@
 
 //TODO https://github.com/phetsims/vector-addition/issues/258 Lots of duplication with VectorCreatorPanelSlot
 /**
- * Explore1DVectorCreatorPanelSlot is a slot in the vector toolbox for the 'Explore 1D' screen.
+ * Explore1DVectorToolboxSlot is a slot in the vector toolbox for the 'Explore 1D' screen.
  * In this toolbox, there is 1 instance of each vector, and those vectors exist for the lifetime
  * of the sim. Dragging a vector out of the toolbox added it to the vector set and created the
  * view. Dragging a vector back to the toolbox removes it from the vector set and disposes the view.
@@ -27,7 +27,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 const ICON_ARROW_MAGNITUDE = 35;
 
-export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighlighting( HBox ) {
+export default class Explore1DVectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
   public constructor( vector: Vector,
                       scene: VectorAdditionScene,
@@ -149,4 +149,4 @@ export default class Explore1DVectorCreatorPanelSlot extends InteractiveHighligh
   }
 }
 
-vectorAddition.register( 'Explore1DVectorCreatorPanelSlot', Explore1DVectorCreatorPanelSlot );
+vectorAddition.register( 'Explore1DVectorToolboxSlot', Explore1DVectorToolboxSlot );
