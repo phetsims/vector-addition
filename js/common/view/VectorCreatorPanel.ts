@@ -24,9 +24,9 @@ type HorizontalAlign = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'center' | 'bottom';
 
 type SelfOptions = {
-  xAlign?: HorizontalAlign;  // horizontal alignment of the panel slots
-  yAlign?: VerticalAlign; // vertical alignment of the panel slots
-  slotSpacing?: number; // the spacing between slots
+  xAlign?: HorizontalAlign;  // horizontal alignment of the slots
+  yAlign?: VerticalAlign; // vertical alignment of the slots
+  ySpacing?: number; // the vertical spacing between slots
   contentWidth?: number; // fixed width of the panel content
   contentHeight?: number; // fixed height of the panel content
 };
@@ -43,7 +43,7 @@ export default class VectorCreatorPanel extends Panel {
         // SelfOptions
         xAlign: 'center',
         yAlign: 'center',
-        slotSpacing: 30,
+        ySpacing: 30,
         contentWidth: 80,
         contentHeight: 145,
 
@@ -58,7 +58,7 @@ export default class VectorCreatorPanel extends Panel {
 
     // Create the container for the slots in a vertical alignment
     const slotsContainer = new VBox( {
-      spacing: options.slotSpacing,
+      spacing: options.ySpacing,
       children: panelSlots
     } );
 

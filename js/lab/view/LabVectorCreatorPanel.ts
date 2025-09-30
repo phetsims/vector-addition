@@ -18,7 +18,7 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelOptions, 'slotSpacing'>;
+type LabVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelOptions, 'ySpacing'>;
 
 export default class LabVectorCreatorPanel extends VectorCreatorPanel {
 
@@ -29,7 +29,7 @@ export default class LabVectorCreatorPanel extends VectorCreatorPanel {
     const options = optionize<LabVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 
       // VectorCreatorPanelOptions
-      slotSpacing: 40
+      ySpacing: 40
     }, providedOptions );
 
     // Create the initial vector components, the same for all vectors in a set.

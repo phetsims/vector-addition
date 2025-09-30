@@ -17,7 +17,7 @@ import Explore1DVectorCreatorPanelSlot from './Explore1DVectorCreatorPanelSlot.j
 
 type SelfOptions = EmptySelfOptions;
 
-type Explore1DVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelOptions, 'slotSpacing'>;
+type Explore1DVectorCreatorPanelOptions = SelfOptions & StrictOmit<VectorCreatorPanelOptions, 'ySpacing'>;
 
 export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
 
@@ -33,7 +33,7 @@ export default class Explore1DVectorCreatorPanel extends VectorCreatorPanel {
     const options = optionize<Explore1DVectorCreatorPanelOptions, SelfOptions, VectorCreatorPanelOptions>()( {
 
       // VectorCreatorPanelOptions
-      slotSpacing: ( scene.graph.orientation === 'vertical' ) ? 18 : 32
+      ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18
     }, providedOptions );
 
     // Create a slot for each vector.
