@@ -48,13 +48,6 @@ export default abstract class Explore1DScene extends VectorAdditionScene {
   // Vector instances that are specific to this screen, set by subclass, exist for the lifetime of the sim.
   public readonly abstract vectors: Vector[];
 
-  /**
-   * @param sceneNameStringProperty
-   * @param graphOrientation - orientation of the graph (Must be either Horizontal or Vertical)
-   * @param componentVectorStyleProperty
-   * @param vectorColorPalette - color palette for vectors in this scene
-   * @param tandem
-   */
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          graphOrientation: GraphOrientation,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
