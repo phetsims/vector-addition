@@ -91,7 +91,8 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     iconNode.addInputListener( SoundDragListener.createForwardingListener( event => {
 
       //----------------------------------------------------------------------------------------
-      // Step 1: When the icon is clicked, create a new Vector
+      // Step 1: When the icon is clicked, move the vector to vectorSet, so that it participates
+      // in calculation of the sum.
       //----------------------------------------------------------------------------------------
 
       // Find where the icon was clicked relative to the scene node, in view coordinates.
@@ -131,7 +132,6 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
             vectorSet.vectors.remove( vector );
             vector.reset();
             vector.animateBackProperty.value = false;
-            iconNode.visible = true;
             // Do not dispose of vector! Vectors in the Explore 1D screen exist for the lifetime of the sim.
           } );
         }
