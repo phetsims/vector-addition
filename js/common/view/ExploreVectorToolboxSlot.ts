@@ -116,6 +116,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
 
       // Hide the icon.
       iconNode.visible = false;
+      this.focusable = false;
 
       //----------------------------------------------------------------------------------------
       // Step 3: When the vector is dropped outside the graph, animate back to the slot, and
@@ -143,6 +144,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === vector ) {
           iconNode.visible = true;
+          this.focusable = true;
           vector.animateBackProperty.unlink( animateVectorBackListener );
           vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
         }

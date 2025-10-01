@@ -154,7 +154,9 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       sceneNode.registerVector( vector, vectorSet, event );
 
       // Hide the icon when we've reached the numberOfVectors limit
-      iconNode.visible = ( vectorSet.vectors.lengthProperty.value < options.numberOfVectors );
+      const slotIsEmpty = ( vectorSet.vectors.lengthProperty.value === options.numberOfVectors );
+      iconNode.visible = !slotIsEmpty;
+      this.focusable = !slotIsEmpty;
 
       //----------------------------------------------------------------------------------------
       // Step 3: Once the Vector indicates the Vector was dropped outside the VectorAdditionScene, animate and
@@ -180,6 +182,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === vector ) {
           iconNode.visible = true;
+          this.focusable = true;
           vector.animateBackProperty.unlink( animateVectorBackListener );
           vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
         }
