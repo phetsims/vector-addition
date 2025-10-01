@@ -3,7 +3,7 @@
 /**
  * EquationsVectorSet is a specialization of VectorSet for the 'Equations' screen.  It adds:
  *
- *  - a predefined set of vectors; vectors cannot be added or removed
+ *  - a set of vectors that are permanently on the graph and not disposable
  *  - an EquationsSumVector
  *
  * @author Brandon Li
