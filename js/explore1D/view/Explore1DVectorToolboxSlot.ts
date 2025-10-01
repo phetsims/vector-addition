@@ -24,6 +24,7 @@ import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 const ICON_ARROW_MAGNITUDE = 35;
 
@@ -33,6 +34,7 @@ export default class Explore1DVectorToolboxSlot extends InteractiveHighlighting(
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
+                      iconVectorComponents: Vector2 | null,
                       tandem: Tandem ) {
     super( {
       isDisposable: false,
@@ -50,7 +52,7 @@ export default class Explore1DVectorToolboxSlot extends InteractiveHighlighting(
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.viewToModelDelta( vectorComponents );
+    const iconViewComponents = modelViewTransform.viewToModelDelta( iconVectorComponents || vectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,

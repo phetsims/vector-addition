@@ -8,7 +8,6 @@
 
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import Explore2DVectorToolbox from './Explore2DVectorToolbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
@@ -16,6 +15,8 @@ import Explore2DScene from '../model/Explore2DScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
+import Explore1DVectorToolbox from '../../explore1D/view/Explore1DVectorToolbox.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 export default class Explore2DSceneNode extends VectorAdditionSceneNode {
 
@@ -31,7 +32,8 @@ export default class Explore2DSceneNode extends VectorAdditionSceneNode {
     } );
 
     // Add the vector toolbox.
-    this.addVectorToolbox( new Explore2DVectorToolbox( scene, this, {
+    this.addVectorToolbox( new Explore1DVectorToolbox( scene, this, {
+      iconVectorComponents: new Vector2( 1, 1 ),
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,
       tandem: tandem.createTandem( 'vectorToolbox' )

@@ -1,23 +1,25 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Explore1DVectorToolbox is a specialization of VectorToolbox for the 'Explore 1D' screen.
+ * Explore1DVectorToolbox is a specialization of VectorToolbox for the 'Explore 1D' and 'Explore 2D' screens.
  *
  * @author Brandon Li
  */
 
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
 import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from '../model/Explore1DScene.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Explore1DVectorToolboxSlot from './Explore1DVectorToolboxSlot.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  iconVectorComponents?: Vector2 | null;
+};
 
-type Explore1DVectorToolboxOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'ySpacing'>;
+type Explore1DVectorToolboxOptions = SelfOptions & VectorToolboxOptions;
 
 export default class Explore1DVectorToolbox extends VectorToolbox {
 
@@ -27,15 +29,15 @@ export default class Explore1DVectorToolbox extends VectorToolbox {
 
     const options = optionize<Explore1DVectorToolboxOptions, SelfOptions, VectorToolboxOptions>()( {
 
-      // VectorToolboxOptions
-      ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18
+      // SelfOptions
+      iconVectorComponents: null
     }, providedOptions );
 
     // Create a slot for each vector.
     const panelSlots: VectorToolboxSlot[] = [];
     scene.vectors.forEach( vector => {
       panelSlots.push( new Explore1DVectorToolboxSlot( vector, scene, scene.vectorSet, sceneNode,
-        options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
+        options.iconVectorComponents, options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
     } );
 
     super( panelSlots, options );
