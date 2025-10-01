@@ -24,6 +24,7 @@ type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions, 'sumTandem
 export default class LabVectorSet extends VectorSet {
 
   public readonly symbolProperty: TReadOnlyProperty<string>;
+  public readonly tandemNameSymbol: string;
 
   /**
    * @param scene - the scene the VectorSet belongs to
@@ -55,6 +56,7 @@ export default class LabVectorSet extends VectorSet {
     super( scene, componentVectorStyleProperty, vectorColorPalette, options );
 
     this.symbolProperty = symbolProperty;
+    this.tandemNameSymbol = tandemNameSymbol;
   }
 }
 

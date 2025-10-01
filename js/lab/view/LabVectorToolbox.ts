@@ -45,9 +45,7 @@ export default class LabVectorToolbox extends VectorToolbox {
         symbolProperty: vectorSet.symbolProperty,
         iconArrowMagnitude: 57,
         numberOfVectors: 10, // Each slot can create 10 vectors
-
-        //TODO https://github.com/phetsims/vector-addition/issues/258 This will break the PhET-iO API if symbolProperty is localized.
-        tandem: options.tandem.createTandem( `${vectorSet.symbolProperty.value}Slot` )
+        tandem: options.tandem.createTandem( `${vectorSet.tandemNameSymbol}Slot` )
       } ) );
     } );
 
