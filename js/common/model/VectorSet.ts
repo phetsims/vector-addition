@@ -154,12 +154,16 @@ export default class VectorSet extends PhetioObject {
   }
 
   /**
-   * Erases all vectors (except the sum) from the VectorSet. Called when the eraser button is pressed.
+   * Removes all vectors from the VectorSet, and disposes them if they are disposable.
+   * Called when the eraser button is pressed.
    */
   public erase(): void {
-    while ( this.vectors.length > 0 ) {
-      this.vectors.pop()!.dispose();
-    }
+    this.vectors.forEach( vector => {
+      if ( vector.isDisposable ) {
+        vector.dispose();
+      }
+    } );
+    this.vectors.clear();
   }
 }
 

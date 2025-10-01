@@ -54,11 +54,8 @@ export default class Explore2DScene extends VectorAdditionScene {
   }
 
   public override reset(): void {
-
-    // Clear vectorSet before calling super.reset or vectorSet will attempt to dispose of vectors.
-    this.vectorSet.vectors.clear();
-    this.vectors.forEach( vector => vector.reset() );
     super.reset();
+    this.vectors.forEach( vector => vector.reset() );
   }
 }
 
