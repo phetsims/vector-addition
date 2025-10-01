@@ -28,6 +28,7 @@ import VectorAngleNode from './VectorAngleNode.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -78,7 +79,10 @@ export default class VectorNode extends RootVectorNode {
 
     super( vector,
       scene.graph.modelViewTransformProperty,
-      valuesVisibleProperty,
+
+      // Show vector value (magnitude) only when 'Values' is checked and the vector is on the graph.
+      // See https://github.com/phetsims/vector-addition/issues/330.
+      DerivedProperty.and( [ valuesVisibleProperty, vector.isOnGraphProperty ] ),
       scene.selectedVectorProperty,
       options );
 
