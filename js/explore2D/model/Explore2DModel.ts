@@ -9,19 +9,19 @@
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
-import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DScene from './Explore2DScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import CartesianScene from './CartesianScene.js';
+import { PolarScene } from './PolarScene.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 
   // Scene for Cartesian snap mode
-  public readonly cartesianScene: Explore2DScene;
+  public readonly cartesianScene: CartesianScene;
 
   // Scene for Polar snap mode
-  public readonly polarScene: Explore2DScene;
+  public readonly polarScene: PolarScene;
 
   // The selected scene
   public readonly sceneProperty: Property<Explore2DScene>;
@@ -34,21 +34,9 @@ export default class Explore2DModel extends VectorAdditionModel {
 
     const scenesTandem = tandem.createTandem( 'scenes' );
 
-    this.cartesianScene = new Explore2DScene(
-      VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
-      'cartesian',
-      this.componentVectorStyleProperty,
-      VectorAdditionColors.EXPLORE_2D_CARTESIAN_COLOR_PALETTE,
-      scenesTandem.createTandem( 'cartesianScene' )
-    );
+    this.cartesianScene = new CartesianScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'cartesianScene' ) );
 
-    this.polarScene = new Explore2DScene(
-      VectorAdditionStrings.a11y.polarSceneNameStringProperty,
-      'polar',
-      this.componentVectorStyleProperty,
-      VectorAdditionColors.EXPLORE_2D_POLAR_COLOR_PALETTE,
-      scenesTandem.createTandem( 'polarScene' )
-    );
+    this.polarScene = new PolarScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) );
 
     this.sceneProperty = new Property( this.cartesianScene, {
       validValues: [ this.cartesianScene, this.polarScene ],

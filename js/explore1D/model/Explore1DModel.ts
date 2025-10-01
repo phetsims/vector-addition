@@ -18,10 +18,10 @@ import VerticalScene from './VerticalScene.js';
 export default class Explore1DModel extends VectorAdditionModel {
 
   // Scene for the horizontal (x-axis) orientation
-  public readonly horizontalScene: Explore1DScene;
+  public readonly horizontalScene: HorizontalScene;
 
   // Scene for the vertical (y-axis) orientation
-  public readonly verticalScene: Explore1DScene;
+  public readonly verticalScene: VerticalScene;
 
   // The selected scene
   public readonly sceneProperty: Property<Explore1DScene>;

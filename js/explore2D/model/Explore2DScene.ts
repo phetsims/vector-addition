@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Explore2DScene is a scene in the 'Explore 2D' screen.
+ * Explore2DScene is the base class for scenes in the 'Explore 2D' screen.
  *
  * Characteristics of an Explore2DScene are:
  *  - it snaps to either Cartesian or polar coordinates
@@ -19,17 +19,21 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Vector from '../../common/model/Vector.js';
 
-export default class Explore2DScene extends VectorAdditionScene {
+export default abstract class Explore2DScene extends VectorAdditionScene {
 
   // Graphs on 'Explore 2D' have exactly one vector set
   public readonly vectorSet: VectorSet;
 
-  public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
-                      coordinateSnapMode: CoordinateSnapMode,
-                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      vectorColorPalette: VectorColorPalette,
-                      tandem: Tandem ) {
+  // Vector instances that are specific to this screen, set by subclass, exist for the lifetime of the sim.
+  public readonly abstract vectors: Vector[];
+
+  protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                         coordinateSnapMode: CoordinateSnapMode,
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                         vectorColorPalette: VectorColorPalette,
+                         tandem: Tandem ) {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
@@ -44,6 +48,14 @@ export default class Explore2DScene extends VectorAdditionScene {
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
+  }
+
+  public override reset(): void {
+
+    // Clear vectorSet before calling super.reset or vectorSet will attempt to dispose of vectors.
+    this.vectorSet.vectors.clear();
+    this.vectors.forEach( vector => vector.reset() );
+    super.reset();
   }
 }
 
