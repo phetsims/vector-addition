@@ -29,27 +29,28 @@ export default class HorizontalScene extends Explore1DScene {
 
     const initialPosition = Vector2.ZERO;
     const initialVectorComponents = new Vector2( 5, 0 ); // horizontal vector
+    const parentTandem = this.vectorSet.tandem;
 
     this.vectors = [
 
       // a
       new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.aStringProperty, {
         isDisposable: false,
-        tandem: tandem.createTandem( 'aVector' ),
+        tandem: parentTandem.createTandem( 'aVector' ),
         tandemNameSymbol: 'a'
       } ),
 
       // b
       new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.bStringProperty, {
         isDisposable: false,
-        tandem: tandem.createTandem( 'bVector' ),
+        tandem: parentTandem.createTandem( 'bVector' ),
         tandemNameSymbol: 'b'
       } ),
 
       // c
       new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.cStringProperty, {
         isDisposable: false,
-        tandem: tandem.createTandem( 'cVector' ),
+        tandem: parentTandem.createTandem( 'cVector' ),
         tandemNameSymbol: 'c'
       } )
     ];

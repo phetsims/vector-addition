@@ -29,27 +29,28 @@ export class PolarScene extends Explore2DScene {
       VectorAdditionColors.EXPLORE_2D_POLAR_COLOR_PALETTE, tandem );
 
     const initialPosition = Vector2.ZERO;
+    const parentTandem = this.vectorSet.tandem;
 
     this.vectors = [
 
       // d
       new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 30 ) ), this, this.vectorSet, VectorAdditionSymbols.dStringProperty, {
         isDisposable: false,
-        tandem: tandem.createTandem( 'dVector' ),
+        tandem: parentTandem.createTandem( 'dVector' ),
         tandemNameSymbol: 'd'
       } ),
 
       // e
       new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 60 ) ), this, this.vectorSet, VectorAdditionSymbols.eStringProperty, {
         isDisposable: false,
-        tandem: tandem.createTandem( 'eVector' ),
+        tandem: parentTandem.createTandem( 'eVector' ),
         tandemNameSymbol: 'e'
       } ),
 
       // f
       new Vector( initialPosition, Vector2.createPolar( 8, toRadians( -90 ) ), this, this.vectorSet, VectorAdditionSymbols.fStringProperty, {
         isDisposable: false,
-        tandem: tandem.createTandem( 'fVector' ),
+        tandem: parentTandem.createTandem( 'fVector' ),
         tandemNameSymbol: 'f'
       } )
     ];

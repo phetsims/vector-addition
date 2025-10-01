@@ -28,27 +28,28 @@ export default class CartesianScene extends Explore2DScene {
       VectorAdditionColors.EXPLORE_2D_CARTESIAN_COLOR_PALETTE, tandem );
 
     const initialPosition = Vector2.ZERO;
+    const parentTandem = this.vectorSet.tandem;
 
     this.vectors = [
 
       // a
       new Vector( initialPosition, new Vector2( 6, 8 ), this, this.vectorSet, VectorAdditionSymbols.aStringProperty, {
         isDisposable: false,
-        tandem: tandem.createTandem( 'aVector' ),
+        tandem: parentTandem.createTandem( 'aVector' ),
         tandemNameSymbol: 'a'
       } ),
 
       // b
       new Vector( initialPosition, new Vector2( 8, 6 ), this, this.vectorSet, VectorAdditionSymbols.bStringProperty, {
         isDisposable: false,
-        tandem: tandem.createTandem( 'bVector' ),
+        tandem: parentTandem.createTandem( 'bVector' ),
         tandemNameSymbol: 'b'
       } ),
 
       // c
       new Vector( initialPosition, new Vector2( 0, -10 ), this, this.vectorSet, VectorAdditionSymbols.cStringProperty, {
         isDisposable: false,
-        tandem: tandem.createTandem( 'cVector' ),
+        tandem: parentTandem.createTandem( 'cVector' ),
         tandemNameSymbol: 'c'
       } )
     ];
