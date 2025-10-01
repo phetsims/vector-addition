@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Explore1DVectorToolbox is a specialization of VectorToolbox for the 'Explore 1D' and 'Explore 2D' screens.
+ * ExploreVectorToolbox is a specialization of VectorToolbox for the 'Explore 1D' and 'Explore 2D' screens.
  *
  * @author Brandon Li
  */
@@ -21,7 +21,7 @@ type SelfOptions = {
 
 type Explore1DVectorToolboxOptions = SelfOptions & VectorToolboxOptions;
 
-export default class Explore1DVectorToolbox extends VectorToolbox {
+export default class ExploreVectorToolbox extends VectorToolbox {
 
   public constructor( scene: Explore1DScene,
                       sceneNode: VectorAdditionSceneNode,
@@ -44,4 +44,4 @@ export default class Explore1DVectorToolbox extends VectorToolbox {
   }
 }
 
-vectorAddition.register( 'Explore1DVectorToolbox', Explore1DVectorToolbox );
+vectorAddition.register( 'ExploreVectorToolbox', ExploreVectorToolbox );

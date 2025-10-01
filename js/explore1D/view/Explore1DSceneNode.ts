@@ -8,7 +8,7 @@
 
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import Explore1DVectorToolbox from './Explore1DVectorToolbox.js';
+import ExploreVectorToolbox from './ExploreVectorToolbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
@@ -32,7 +32,7 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
     } );
 
     // Add the vector toolbox.
-    this.addVectorToolbox( new Explore1DVectorToolbox( scene, this, {
+    this.addVectorToolbox( new ExploreVectorToolbox( scene, this, {
       ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18,
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,

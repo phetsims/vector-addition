@@ -15,7 +15,7 @@ import Explore2DScene from '../model/Explore2DScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
-import Explore1DVectorToolbox from '../../explore1D/view/Explore1DVectorToolbox.js';
+import ExploreVectorToolbox from '../../explore1D/view/ExploreVectorToolbox.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
 export default class Explore2DSceneNode extends VectorAdditionSceneNode {
@@ -32,7 +32,7 @@ export default class Explore2DSceneNode extends VectorAdditionSceneNode {
     } );
 
     // Add the vector toolbox.
-    this.addVectorToolbox( new Explore1DVectorToolbox( scene, this, {
+    this.addVectorToolbox( new ExploreVectorToolbox( scene, this, {
       iconVectorComponents: new Vector2( 1, 1 ),
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,
