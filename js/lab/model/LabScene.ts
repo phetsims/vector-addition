@@ -28,15 +28,18 @@ const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
 export default class LabScene extends VectorAdditionScene {
 
+  // For this scene, we need to know about LabVectorSet instances, a specialization of VectorSet.
   public readonly vectorSet1: LabVectorSet;
   public readonly vectorSet2: LabVectorSet;
-
-  // We need to know about LabVectorSet instances, a specialization of VectorSet.
   public readonly labVectorSets: LabVectorSet[];
+
+  // Initial components for all vectors in this scene.
+  public readonly initialVectorComponents: Vector2;
 
   /**
    * @param sceneNameStringProperty
    * @param coordinateSnapMode - coordinateSnapMode for the scene
+   * @param initialVectorComponents
    * @param componentVectorStyleProperty
    * @param symbol1Property - symbol for vector set 1
    * @param symbol2Property - symbol for vector set 2
@@ -48,6 +51,7 @@ export default class LabScene extends VectorAdditionScene {
    */
   public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                       coordinateSnapMode: CoordinateSnapMode,
+                      initialVectorComponents: Vector2,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       symbol1Property: TReadOnlyProperty<string>,
                       symbol2Property: TReadOnlyProperty<string>,
@@ -63,6 +67,8 @@ export default class LabScene extends VectorAdditionScene {
       },
       tandem: tandem
     } );
+
+    this.initialVectorComponents = initialVectorComponents;
 
     // Compute values for the options that are related to the PROJECTION style component vectors.
     // PROJECTION component vectors are more closely spaced in this screen, and we have 2 sum vectors.

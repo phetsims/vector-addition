@@ -15,6 +15,8 @@ import LabScene from './LabScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
 
 export default class LabModel extends VectorAdditionModel {
 
@@ -38,6 +40,7 @@ export default class LabModel extends VectorAdditionModel {
     this.cartesianScene = new LabScene(
       VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
       'cartesian',
+      new Vector2( 8, 6 ),
       this.componentVectorStyleProperty,
       VectorAdditionSymbols.vStringProperty,
       VectorAdditionSymbols.uStringProperty,
@@ -51,6 +54,7 @@ export default class LabModel extends VectorAdditionModel {
     this.polarScene = new LabScene(
       VectorAdditionStrings.a11y.polarSceneNameStringProperty,
       'polar',
+      Vector2.createPolar( 8, toRadians( 45 ) ),
       this.componentVectorStyleProperty,
       VectorAdditionSymbols.pStringProperty,
       VectorAdditionSymbols.qStringProperty,

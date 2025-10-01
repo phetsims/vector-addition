@@ -35,23 +35,17 @@ import ArrowOverSymbolNode from '../../common/view/ArrowOverSymbolNode.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import LabScene from '../model/LabScene.js';
 
-// Effective width of the vector icon.
-const ICON_WIDTH = 35;
+const ICON_WIDTH = 35; // Effective width of the vector icon.
+const ICON_MAGNITUDE = 57; // Magnitude of the vector icon.
+const ICON_POINTER_DILATION = new Vector2( 10, 10 );
 
 type SelfOptions = {
   symbolProperty: TReadOnlyProperty<string>; // the symbol to pass to created vectors
-  numberOfVectors?: number;  // the number of vectors that can exist that were created by this slot
-  iconArrowMagnitude?: number; // the magnitude of the icon in view coordinates
-  iconVectorComponents?: Vector2; // used for vector icon, defaults to initialVectorComponents
-
-  // pointer area dilation for icons, identical for mouseArea and touchArea,
-  // see https://github.com/phetsims/vector-addition/issues/250
-  iconPointerAreaXDilation?: number;
-  iconPointerAreaYDilation?: number;
+  numberOfVectors?: number;  // the number of vectors that can be dragged out of this slot
 };
 
 type LabVectorToolboxSlotOptions = SelfOptions & PickRequired<HBox, 'tandem'>;
@@ -62,23 +56,17 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
    * @param scene - the scene for the VectorSect
    * @param vectorSet - the VectorSet that the slot adds Vectors to
    * @param sceneNode - the VectorAdditionSceneNode that this slot appears in
-   * @param initialVectorComponents - the initial vector components to pass to created vectors
    * @param providedOptions
    */
-  public constructor( scene: VectorAdditionScene,
+  public constructor( scene: LabScene,
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
-                      initialVectorComponents: Vector2,
                       providedOptions: LabVectorToolboxSlotOptions ) {
 
     const options = optionize<LabVectorToolboxSlotOptions, SelfOptions, HBoxOptions>()( {
 
       // SelfOptions
       numberOfVectors: 1,
-      iconArrowMagnitude: 30,
-      iconVectorComponents: initialVectorComponents,
-      iconPointerAreaXDilation: 10,
-      iconPointerAreaYDilation: 10,
 
       // HBoxOptions
       isDisposable: false,
@@ -90,25 +78,26 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
 
     // convenience reference
     const modelViewTransform = scene.graph.modelViewTransformProperty.value;
+    const initialVectorComponents = scene.initialVectorComponents;
 
     //----------------------------------------------------------------------------------------
     // Create the icon
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.viewToModelDelta( options.iconVectorComponents || initialVectorComponents );
+    const iconViewComponents = modelViewTransform.viewToModelDelta( initialVectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
-      vectorSet.vectorColorPalette, options.iconArrowMagnitude );
+      vectorSet.vectorColorPalette, ICON_MAGNITUDE );
 
     // Make the iconNode easier to grab
-    iconNode.mouseArea = iconNode.localBounds.dilatedXY( options.iconPointerAreaXDilation, options.iconPointerAreaYDilation );
-    iconNode.touchArea = iconNode.localBounds.dilatedXY( options.iconPointerAreaXDilation, options.iconPointerAreaYDilation );
+    iconNode.mouseArea = iconNode.localBounds.dilatedXY( ICON_POINTER_DILATION.x, ICON_POINTER_DILATION.y );
+    iconNode.touchArea = iconNode.localBounds.dilatedXY( ICON_POINTER_DILATION.x, ICON_POINTER_DILATION.y );
 
     // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
     const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
-      .normalized().timesScalar( options.iconArrowMagnitude ) );
+      .normalized().timesScalar( ICON_MAGNITUDE ) );
 
     // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
     // has the same effective width regardless of the initial vector components. This ensures that
