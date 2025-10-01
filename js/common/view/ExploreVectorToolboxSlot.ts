@@ -2,7 +2,7 @@
 
 //TODO https://github.com/phetsims/vector-addition/issues/258 Lots of duplication with VectorToolboxSlot
 /**
- * ExploreVectorToolboxSlot is a slot in the vector toolbox for the 'Explore 1D' screen.
+ * ExploreVectorToolboxSlot is a slot in the vector toolbox for the 'Explore 1D' and 'Explore 2D' screens.
  * In this toolbox, there is 1 instance of each vector, and those vectors exist for the lifetime
  * of the sim. Dragging a vector out of the toolbox added it to the vector set and created the
  * view. Dragging a vector back to the toolbox removes it from the vector set and disposes the view.
