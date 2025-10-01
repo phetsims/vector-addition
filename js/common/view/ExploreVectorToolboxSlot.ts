@@ -70,7 +70,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
     const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_MAGNITUDE ) );
 
-    // Create a fixed-size box for the icon. The icon is placed in an alignBox to ensure the icon
+    // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
     // has the same effective width regardless of the initial vector components. This ensures that
     // the label of the slot is in the same place regardless of the icon size.
     this.addChild( new AlignBox( iconNode, {

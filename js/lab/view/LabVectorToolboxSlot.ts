@@ -110,7 +110,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
       .normalized().timesScalar( options.iconArrowMagnitude ) );
 
-    // Create a fixed-size box for the icon. The icon is placed in an alignBox to ensure the icon
+    // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
     // has the same effective width regardless of the initial vector components. This ensures that
     // the label of the slot is in the same place regardless of the icon size.
     this.addChild( new AlignBox( iconNode, {
