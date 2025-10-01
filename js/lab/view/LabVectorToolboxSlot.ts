@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * LabVectorToolboxSlot is a single 'slot' in the vector toolbox.
+ * LabVectorToolboxSlot is a slot in the vector toolbox for the 'Explore 1D' and 'Explore 2D' screens.
  *
  * A slot creates a Vector when the icon is clicked.
  *
@@ -56,7 +56,7 @@ type SelfOptions = {
   iconPointerAreaYDilation?: number;
 };
 
-type VectorCreatorPanelSlotOptions = SelfOptions & PickRequired<HBox, 'tandem'>;
+type LabVectorToolboxSlotOptions = SelfOptions & PickRequired<HBox, 'tandem'>;
 
 export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
@@ -71,9 +71,9 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
                       initialVectorComponents: Vector2,
-                      providedOptions: VectorCreatorPanelSlotOptions ) {
+                      providedOptions: LabVectorToolboxSlotOptions ) {
 
-    const options = optionize<VectorCreatorPanelSlotOptions, SelfOptions, HBoxOptions>()( {
+    const options = optionize<LabVectorToolboxSlotOptions, SelfOptions, HBoxOptions>()( {
 
       // SelfOptions
       symbolProperty: null,
