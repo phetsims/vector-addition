@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * PolarScene is the polar-coordinates scene in the 'Explore 2D' screen, with vectors 'd', 'e', and 'f'.
+ * Explore2DPolarScene is the polar-coordinates scene in the 'Explore 2D' screen, with vectors 'd', 'e', and 'f'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -20,7 +20,7 @@ import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 
-export class PolarScene extends Explore2DScene {
+export class Explore2DPolarScene extends Explore2DScene {
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
     super( VectorAdditionStrings.a11y.polarSceneNameStringProperty, 'polar', componentVectorStyleProperty,
@@ -60,4 +60,4 @@ function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parent
   ];
 }
 
-vectorAddition.register( 'PolarScene', PolarScene );
+vectorAddition.register( 'Explore2DPolarScene', Explore2DPolarScene );

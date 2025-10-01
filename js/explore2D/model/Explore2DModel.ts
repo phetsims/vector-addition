@@ -12,16 +12,16 @@ import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore2DScene from './Explore2DScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
-import CartesianScene from './CartesianScene.js';
-import { PolarScene } from './PolarScene.js';
+import Explore2DCartesianScene from './Explore2DCartesianScene.js';
+import { Explore2DPolarScene } from './Explore2DPolarScene.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 
   // Scene for Cartesian snap mode
-  public readonly cartesianScene: CartesianScene;
+  public readonly cartesianScene: Explore2DCartesianScene;
 
   // Scene for Polar snap mode
-  public readonly polarScene: PolarScene;
+  public readonly polarScene: Explore2DPolarScene;
 
   // The selected scene
   public readonly sceneProperty: Property<Explore2DScene>;
@@ -34,9 +34,9 @@ export default class Explore2DModel extends VectorAdditionModel {
 
     const scenesTandem = tandem.createTandem( 'scenes' );
 
-    this.cartesianScene = new CartesianScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'cartesianScene' ) );
+    this.cartesianScene = new Explore2DCartesianScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'cartesianScene' ) );
 
-    this.polarScene = new PolarScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) );
+    this.polarScene = new Explore2DPolarScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) );
 
     this.sceneProperty = new Property( this.cartesianScene, {
       validValues: [ this.cartesianScene, this.polarScene ],

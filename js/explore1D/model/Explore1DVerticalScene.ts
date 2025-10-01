@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * HorizontalScene is the horizontal scene in the 'Explore 1D' screen, with vectors 'a', 'b', and 'c'.
+ * Explore1DVerticalScene is the vertical scene in the 'Explore 1D' screen, with vectors 'd', 'e', and 'f'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,46 +19,46 @@ import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 
-export default class HorizontalScene extends Explore1DScene {
+export default class Explore1DVerticalScene extends Explore1DScene {
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
-    super( VectorAdditionStrings.a11y.horizontalSceneNameStringProperty, 'horizontal', componentVectorStyleProperty,
-      VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE, createVectors, tandem );
+    super( VectorAdditionStrings.a11y.verticalSceneNameStringProperty, 'vertical', componentVectorStyleProperty,
+      VectorAdditionColors.EXPLORE_1D_VERTICAL_COLOR_PALETTE, createVectors, tandem );
   }
 }
 
 /**
- * Creates vectors a, b, c.
+ * Creates vectors d, e, f.
  */
 function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
 
   const initialPosition = Vector2.ZERO;
-  const initialComponents = new Vector2( 5, 0 ); // horizontal vector
+  const initialComponents = new Vector2( 0, 5 ); // vertical vector
   
   return [
 
-    // a
-    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.aStringProperty, {
+    // d
+    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.dStringProperty, {
       isDisposable: false,
-      tandem: parentTandem.createTandem( 'aVector' ),
-      tandemNameSymbol: 'a'
+      tandem: parentTandem.createTandem( 'dVector' ),
+      tandemNameSymbol: 'd'
     } ),
 
-    // b
-    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.bStringProperty, {
+    // e
+    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.eStringProperty, {
       isDisposable: false,
-      tandem: parentTandem.createTandem( 'bVector' ),
-      tandemNameSymbol: 'b'
+      tandem: parentTandem.createTandem( 'eVector' ),
+      tandemNameSymbol: 'e'
     } ),
 
-    // c
-    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.cStringProperty, {
+    // f
+    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.fStringProperty, {
       isDisposable: false,
-      tandem: parentTandem.createTandem( 'cVector' ),
-      tandemNameSymbol: 'c'
+      tandem: parentTandem.createTandem( 'fVector' ),
+      tandemNameSymbol: 'f'
     } )
   ];
 }
 
-vectorAddition.register( 'HorizontalScene', HorizontalScene );
+vectorAddition.register( 'Explore1DVerticalScene', Explore1DVerticalScene );

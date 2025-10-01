@@ -12,16 +12,16 @@ import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from './Explore1DScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
-import HorizontalScene from './HorizontalScene.js';
-import VerticalScene from './VerticalScene.js';
+import Explore1DHorizontalScene from './Explore1DHorizontalScene.js';
+import Explore1DVerticalScene from './Explore1DVerticalScene.js';
 
 export default class Explore1DModel extends VectorAdditionModel {
 
   // Scene for the horizontal (x-axis) orientation
-  public readonly horizontalScene: HorizontalScene;
+  public readonly horizontalScene: Explore1DHorizontalScene;
 
   // Scene for the vertical (y-axis) orientation
-  public readonly verticalScene: VerticalScene;
+  public readonly verticalScene: Explore1DVerticalScene;
 
   // The selected scene
   public readonly sceneProperty: Property<Explore1DScene>;
@@ -35,9 +35,9 @@ export default class Explore1DModel extends VectorAdditionModel {
 
     const scenesTandem = tandem.createTandem( 'scenes' );
 
-    this.horizontalScene = new HorizontalScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'horizontalScene' ) );
+    this.horizontalScene = new Explore1DHorizontalScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'horizontalScene' ) );
 
-    this.verticalScene = new VerticalScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'verticalScene' ) );
+    this.verticalScene = new Explore1DVerticalScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'verticalScene' ) );
 
     this.sceneProperty = new Property( this.horizontalScene, {
       validValues: [ this.horizontalScene, this.verticalScene ],

@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * CartesianScene is the Cartesian-coordinates scene in the 'Explore 2D' screen, with vectors 'a', 'b', and 'c'.
+ * Explore2DCartesianScene is the Cartesian-coordinates scene in the 'Explore 2D' screen, with vectors 'a', 'b', and 'c'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -19,7 +19,7 @@ import Explore2DScene from './Explore2DScene.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 
-export default class CartesianScene extends Explore2DScene {
+export default class Explore2DCartesianScene extends Explore2DScene {
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
@@ -60,4 +60,4 @@ function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parent
   ];
 }
 
-vectorAddition.register( 'CartesianScene', CartesianScene );
+vectorAddition.register( 'Explore2DCartesianScene', Explore2DCartesianScene );
