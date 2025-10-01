@@ -49,7 +49,7 @@ export default class LabVectorSet extends VectorSet {
         [ VectorAdditionSymbols.sStringProperty, symbolProperty ],
         ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` ),
 
-      //  Symbol for the sum vector used in tandem names.
+      //  Symbol for the sum vector used in tandem names - 'su', 'sv', etc.
       sumTandemNameSymbol: `s${tandemNameSymbol}`
     }, providedOptions );
 
