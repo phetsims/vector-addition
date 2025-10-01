@@ -12,7 +12,7 @@ import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToo
 import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from '../model/Explore1DScene.js';
-import Explore1DVectorToolboxSlot from './Explore1DVectorToolboxSlot.js';
+import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
 type SelfOptions = {
@@ -36,7 +36,7 @@ export default class ExploreVectorToolbox extends VectorToolbox {
     // Create a slot for each vector.
     const panelSlots: VectorToolboxSlot[] = [];
     scene.vectors.forEach( vector => {
-      panelSlots.push( new Explore1DVectorToolboxSlot( vector, scene, scene.vectorSet, sceneNode,
+      panelSlots.push( new ExploreVectorToolboxSlot( vector, scene, scene.vectorSet, sceneNode,
         options.iconVectorComponents, options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
     } );
 
