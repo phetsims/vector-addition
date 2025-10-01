@@ -1,18 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View for the radio button group near the top of the scene that allows the user to select an equation type.
- *
- * See EquationType.js
- *
- * 'Is a' relationship with RectangularRadioButtonGroup but adds:
- *    - Radio button for 'addition' => 'a + b = c'
- *    - Radio button for 'subtraction' => 'a - b = c'
- *    - Radio button for 'negation' => 'a + b + c = 0'
- *
- * Icons created from the VectorAdditionIconFactory.
- *
- * EquationTypeRadioButtonGroup is never disposed and exists for the entire simulation.
+ * EquationTypeRadioButtonGroup is the radio button group that allows the user to select an equation type.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -64,6 +53,9 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
       }, providedOptions );
 
     const items: RectangularRadioButtonGroupItem<EquationType>[] = [
+
+      // Cartesian scene: a + b = c
+      // Polar scene: d + e = f
       {
         value: 'addition',
         createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'addition', symbolProperties ), {
@@ -78,6 +70,9 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
           } )
         }
       },
+
+      // Cartesian scene: a - b = c
+      // Polar scene: d - e = f
       {
         value: 'subtraction',
         createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'subtraction', symbolProperties ), {
@@ -92,6 +87,9 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
           } )
         }
       },
+
+      // Cartesian scene: a + b + c = 0
+      // Polar scene: d + e + f = 0
       {
         value: 'negation',
         createNode: () => new AlignBox( VectorAdditionIconFactory.createEquationTypeIcon( 'negation', symbolProperties ), {
