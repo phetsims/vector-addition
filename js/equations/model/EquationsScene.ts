@@ -25,15 +25,6 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Graph from '../../common/model/Graph.js';
 
-// scene bounds for EquationsGraphs
-const EQUATIONS_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
-
-// Bottom left corner, in view coordinates.
-const BOTTOM_LEFT = new Vector2( Graph.DEFAULT_BOTTOM_LEFT.x, Graph.DEFAULT_BOTTOM_LEFT.y + 40 );
-
-// Starting equation type
-const STARTING_EQUATION_TYPE: EquationType = 'addition';
-
 export default class EquationsScene extends VectorAdditionScene {
 
   public readonly equationTypeProperty: StringUnionProperty<EquationType>;
@@ -47,13 +38,15 @@ export default class EquationsScene extends VectorAdditionScene {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
-        initialBounds: EQUATIONS_GRAPH_BOUNDS,
-        bottomLeft: BOTTOM_LEFT
+        initialBounds: VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS,
+
+        // Bottom left corner, in view coordinates.
+        bottomLeft: new Vector2( Graph.DEFAULT_BOTTOM_LEFT.x, Graph.DEFAULT_BOTTOM_LEFT.y + 40 )
       },
       tandem: tandem
     } );
 
-    this.equationTypeProperty = new StringUnionProperty( STARTING_EQUATION_TYPE, {
+    this.equationTypeProperty = new StringUnionProperty( 'addition', {
       validValues: EquationTypeValues,
       tandem: tandem.createTandem( 'equationTypeProperty' )
     } );
