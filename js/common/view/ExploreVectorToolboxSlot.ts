@@ -26,7 +26,8 @@ import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
-const ICON_ARROW_MAGNITUDE = 35;
+// Magnitude of the vector icon.
+const ICON_MAGNITUDE = 35;
 
 export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
@@ -56,7 +57,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
-      vectorSet.vectorColorPalette, ICON_ARROW_MAGNITUDE );
+      vectorSet.vectorColorPalette, ICON_MAGNITUDE );
 
     // Make the iconNode easier to grab. Use identical dilation for mouseArea and touchArea,
     // see https://github.com/phetsims/vector-addition/issues/250
@@ -67,13 +68,13 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     iconNode.touchArea = iconNode.localBounds.dilatedXY( iconPointerAreaXDilation, iconPointerAreaYDilation );
 
     // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
-    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_ARROW_MAGNITUDE ) );
+    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_MAGNITUDE ) );
 
-    // Create a fixed-size box for the icon. The Icon is placed in an alignBox to ensure the Icon
-    // contains the same local width regardless of the initial vector components. This ensures that
+    // Create a fixed-size box for the icon. The icon is placed in an alignBox to ensure the icon
+    // has the same effective width regardless of the initial vector components. This ensures that
     // the label of the slot is in the same place regardless of the icon size.
     this.addChild( new AlignBox( iconNode, {
-      alignBounds: new Bounds2( 0, 0, ICON_ARROW_MAGNITUDE, iconNode.height )
+      alignBounds: new Bounds2( 0, 0, ICON_MAGNITUDE, iconNode.height )
     } ) );
 
     //----------------------------------------------------------------------------------------

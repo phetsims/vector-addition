@@ -39,13 +39,11 @@ import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
-// The fixed-width of the parent of the icon. The Icon is placed in an alignBox to ensure the Icon
-// contains the same local width regardless of the initial vector components. This ensures that
-// the label of the slot is in the same place regardless of the icon size.
-const ARROW_ICON_CONTAINER_WIDTH = 35;
+// Effective width of the vector icon.
+const ICON_WIDTH = 35;
 
 type SelfOptions = {
-  symbolProperty?: TReadOnlyProperty<string> | null; // the symbol to pass to created vectors
+  symbolProperty: TReadOnlyProperty<string>; // the symbol to pass to created vectors
   numberOfVectors?: number;  // the number of vectors that can exist that were created by this slot
   iconArrowMagnitude?: number; // the magnitude of the icon in view coordinates
   iconVectorComponents?: Vector2 | null; // used for vector icon, defaults to initialVectorComponents
@@ -76,7 +74,6 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     const options = optionize<LabVectorToolboxSlotOptions, SelfOptions, HBoxOptions>()( {
 
       // SelfOptions
-      symbolProperty: null,
       numberOfVectors: 1,
       iconArrowMagnitude: 30,
       iconVectorComponents: null,
@@ -113,20 +110,18 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
       .normalized().timesScalar( options.iconArrowMagnitude ) );
 
-    // Create a fixed-size box for the icon. The Icon is placed in an alignBox to ensure the Icon
-    // contains the same local width regardless of the initial vector components. This ensures that
+    // Create a fixed-size box for the icon. The icon is placed in an alignBox to ensure the icon
+    // has the same effective width regardless of the initial vector components. This ensures that
     // the label of the slot is in the same place regardless of the icon size.
     this.addChild( new AlignBox( iconNode, {
-      alignBounds: new Bounds2( 0, 0, ARROW_ICON_CONTAINER_WIDTH, iconNode.height )
+      alignBounds: new Bounds2( 0, 0, ICON_WIDTH, iconNode.height )
     } ) );
 
     //----------------------------------------------------------------------------------------
     // Create the label of the slot
     //----------------------------------------------------------------------------------------
 
-    if ( options.symbolProperty ) {
-      this.addChild( new ArrowOverSymbolNode( options.symbolProperty ) );
-    }
+    this.addChild( new ArrowOverSymbolNode( options.symbolProperty ) );
 
     //----------------------------------------------------------------------------------------
     // Creation of Vectors via pointer (See 'Implementation' documentation above)
