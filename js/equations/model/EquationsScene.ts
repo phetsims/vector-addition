@@ -61,8 +61,13 @@ export default class EquationsScene extends VectorAdditionScene {
   }
 
   public override reset(): void {
-    this.equationTypeProperty.reset();
     super.reset();
+    this.equationTypeProperty.reset();
+    this.vectorSet.reset();
+  }
+
+  public override erase(): void {
+    throw new Error( 'EquationsScene does not support erase.' );
   }
 }
 

@@ -119,6 +119,16 @@ export default class LabScene extends VectorAdditionScene {
     // Add the vector sets
     this.vectorSets.push( this.vectorSet1, this.vectorSet2 );
   }
+
+  public override reset(): void {
+    super.reset();
+    this.labVectorSets.forEach( vectorSet => vectorSet.reset() );
+  }
+
+  public override erase(): void {
+    super.erase();
+    this.labVectorSets.forEach( vectorSet => vectorSet.erase() );
+  }
 }
 
 vectorAddition.register( 'LabScene', LabScene );
