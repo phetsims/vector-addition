@@ -9,7 +9,7 @@
 import optionize from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from './VectorToolbox.js';
-import VectorToolboxSlot from '../../lab/view/VectorToolboxSlot.js';
+import LabVectorToolboxSlot from '../../lab/view/LabVectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from '../../explore1D/model/Explore1DScene.js';
 import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';
@@ -34,7 +34,7 @@ export default class ExploreVectorToolbox extends VectorToolbox {
     }, providedOptions );
 
     // Create a slot for each vector.
-    const panelSlots: VectorToolboxSlot[] = [];
+    const panelSlots: LabVectorToolboxSlot[] = [];
     scene.vectors.forEach( vector => {
       panelSlots.push( new ExploreVectorToolboxSlot( vector, scene, scene.vectorSet, sceneNode,
         options.iconVectorComponents, options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );

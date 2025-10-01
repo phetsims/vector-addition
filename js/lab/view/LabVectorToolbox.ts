@@ -10,7 +10,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
-import VectorToolboxSlot from './VectorToolboxSlot.js';
+import LabVectorToolboxSlot from './LabVectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabScene from '../model/LabScene.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
@@ -39,9 +39,9 @@ export default class LabVectorToolbox extends VectorToolbox {
                                     Vector2.createPolar( 8, toRadians( 45 ) );
 
     // Create a slot for each VectorSet
-    const slots: VectorToolboxSlot[] = [];
+    const slots: LabVectorToolboxSlot[] = [];
     [ scene.vectorSet1, scene.vectorSet2 ].forEach( vectorSet => {
-      slots.push( new VectorToolboxSlot( scene, vectorSet, sceneNode, initialVectorComponents, {
+      slots.push( new LabVectorToolboxSlot( scene, vectorSet, sceneNode, initialVectorComponents, {
         symbolProperty: vectorSet.symbolProperty,
         iconArrowMagnitude: 57,
         numberOfVectors: 10, // Each slot can create 10 vectors

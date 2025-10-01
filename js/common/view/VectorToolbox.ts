@@ -16,7 +16,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorToolboxSlot from '../../lab/view/VectorToolboxSlot.js';
+import LabVectorToolboxSlot from '../../lab/view/LabVectorToolboxSlot.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';
@@ -34,7 +34,7 @@ export type VectorToolboxOptions = SelfOptions & NodeTranslationOptions & PickRe
 
 export default class VectorToolbox extends Panel {
 
-  protected constructor( panelSlots: VectorToolboxSlot[], providedOptions: VectorToolboxOptions ) {
+  protected constructor( panelSlots: LabVectorToolboxSlot[], providedOptions: VectorToolboxOptions ) {
 
     const options = optionize4<VectorToolboxOptions, SelfOptions, PanelOptions>()(
       {}, VectorAdditionConstants.PANEL_OPTIONS, {

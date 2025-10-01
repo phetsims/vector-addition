@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorToolboxSlot is a single 'slot' in the vector toolbox.
+ * LabVectorToolboxSlot is a single 'slot' in the vector toolbox.
  *
  * A slot creates a Vector when the icon is clicked.
  *
@@ -58,7 +58,7 @@ type SelfOptions = {
 
 type VectorCreatorPanelSlotOptions = SelfOptions & PickRequired<HBox, 'tandem'>;
 
-export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
+export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
   /**
    * @param scene - the scene for the VectorSect
@@ -194,4 +194,4 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
   }
 }
 
-vectorAddition.register( 'VectorToolboxSlot', VectorToolboxSlot );
+vectorAddition.register( 'LabVectorToolboxSlot', LabVectorToolboxSlot );
