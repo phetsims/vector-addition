@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * LabScene is a scene in the 'Lab' screen.
+ * LabScene is the base class for scenes in the 'Lab' screen.
  *
  * Characteristics of a LabScene are:
  *  - it snaps to either Cartesian or polar coordinates
@@ -40,26 +40,26 @@ export default class LabScene extends VectorAdditionScene {
    * @param sceneNameStringProperty
    * @param coordinateSnapMode - coordinateSnapMode for the scene
    * @param initialVectorComponents
-   * @param componentVectorStyleProperty
    * @param symbol1Property - symbol for vector set 1
    * @param symbol2Property - symbol for vector set 2
    * @param tandemNameSymbol1 - symbol for vector set 1 used in tandem names
    * @param tandemNameSymbol2 - symbol for vector set 2 used in tandem names
    * @param vectorColorPalette1 - color palette for vector set 1
    * @param vectorColorPalette2 - color palette for vector set 2
+   * @param componentVectorStyleProperty
    * @param tandem
    */
-  public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
-                      coordinateSnapMode: CoordinateSnapMode,
-                      initialVectorComponents: Vector2,
-                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      symbol1Property: TReadOnlyProperty<string>,
-                      symbol2Property: TReadOnlyProperty<string>,
-                      tandemNameSymbol1: string,
-                      tandemNameSymbol2: string,
-                      vectorColorPalette1: VectorColorPalette,
-                      vectorColorPalette2: VectorColorPalette,
-                      tandem: Tandem ) {
+  protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                         coordinateSnapMode: CoordinateSnapMode,
+                         initialVectorComponents: Vector2,
+                         symbol1Property: TReadOnlyProperty<string>,
+                         symbol2Property: TReadOnlyProperty<string>,
+                         tandemNameSymbol1: string,
+                         tandemNameSymbol2: string,
+                         vectorColorPalette1: VectorColorPalette,
+                         vectorColorPalette2: VectorColorPalette,
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                         tandem: Tandem ) {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
