@@ -7,12 +7,12 @@
  */
 
 import optionize from '../../../../phet-core/js/optionize.js';
-import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
-import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
+import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
+import VectorToolbox, { VectorToolboxOptions } from './VectorToolbox.js';
+import VectorToolboxSlot from './VectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore1DScene from '../model/Explore1DScene.js';
-import ExploreVectorToolboxSlot from '../../common/view/ExploreVectorToolboxSlot.js';
+import Explore1DScene from '../../explore1D/model/Explore1DScene.js';
+import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
 type SelfOptions = {

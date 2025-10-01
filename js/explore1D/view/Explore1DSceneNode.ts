@@ -8,7 +8,7 @@
 
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import ExploreVectorToolbox from './ExploreVectorToolbox.js';
+import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';

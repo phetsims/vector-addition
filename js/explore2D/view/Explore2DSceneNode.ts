@@ -15,7 +15,7 @@ import Explore2DScene from '../model/Explore2DScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
-import ExploreVectorToolbox from '../../explore1D/view/ExploreVectorToolbox.js';
+import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
 export default class Explore2DSceneNode extends VectorAdditionSceneNode {
