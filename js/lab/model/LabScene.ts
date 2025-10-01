@@ -39,7 +39,7 @@ export default class LabScene extends VectorAdditionScene {
   /**
    * @param sceneNameStringProperty
    * @param coordinateSnapMode - coordinateSnapMode for the scene
-   * @param initialVectorComponents
+   * @param initialVectorComponents - initial xy-components for all vectors in the scene
    * @param symbol1Property - symbol for vector set 1
    * @param symbol2Property - symbol for vector set 2
    * @param tandemNameSymbol1 - symbol for vector set 1 used in tandem names
