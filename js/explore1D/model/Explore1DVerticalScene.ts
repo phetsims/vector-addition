@@ -23,8 +23,14 @@ export default class Explore1DVerticalScene extends Explore1DScene {
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
-    super( VectorAdditionStrings.a11y.verticalSceneNameStringProperty, 'vertical', componentVectorStyleProperty,
-      VectorAdditionColors.EXPLORE_1D_VERTICAL_COLOR_PALETTE, createVectors, tandem );
+    super(
+      VectorAdditionStrings.a11y.verticalSceneNameStringProperty,
+      'vertical',
+      VectorAdditionColors.EXPLORE_1D_VERTICAL_COLOR_PALETTE,
+      createVectors,
+      componentVectorStyleProperty,
+      tandem
+    );
   }
 }
 
@@ -35,7 +41,7 @@ function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parent
 
   const initialPosition = Vector2.ZERO;
   const initialComponents = new Vector2( 0, 5 ); // vertical vector
-  
+
   return [
 
     // d

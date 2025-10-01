@@ -31,9 +31,9 @@ export default class Explore2DScene extends VectorAdditionScene {
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
-                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          vectorColorPalette: VectorColorPalette,
                          createVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ) => Vector[],
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          tandem: Tandem ) {
 
     super( sceneNameStringProperty, coordinateSnapMode, {

@@ -50,9 +50,9 @@ export default class Explore1DScene extends VectorAdditionScene {
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          graphOrientation: GraphOrientation,
-                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          vectorColorPalette: VectorColorPalette,
                          createVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ) => Vector[],
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          tandem: Tandem ) {
 
     affirm( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ) );

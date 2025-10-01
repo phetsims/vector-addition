@@ -23,8 +23,14 @@ import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 export class Explore2DPolarScene extends Explore2DScene {
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
-    super( VectorAdditionStrings.a11y.polarSceneNameStringProperty, 'polar', componentVectorStyleProperty,
-      VectorAdditionColors.EXPLORE_2D_POLAR_COLOR_PALETTE, createVectors, tandem );
+    super(
+      VectorAdditionStrings.a11y.polarSceneNameStringProperty,
+      'polar',
+      VectorAdditionColors.EXPLORE_2D_POLAR_COLOR_PALETTE,
+      createVectors,
+      componentVectorStyleProperty,
+      tandem
+    );
   }
 }
 
@@ -34,7 +40,7 @@ export class Explore2DPolarScene extends Explore2DScene {
 function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
 
   const initialPosition = Vector2.ZERO;
-  
+
   return [
 
     // d
