@@ -46,7 +46,7 @@ type SelfOptions = {
   symbolProperty: TReadOnlyProperty<string>; // the symbol to pass to created vectors
   numberOfVectors?: number;  // the number of vectors that can exist that were created by this slot
   iconArrowMagnitude?: number; // the magnitude of the icon in view coordinates
-  iconVectorComponents?: Vector2 | null; // used for vector icon, defaults to initialVectorComponents
+  iconVectorComponents?: Vector2; // used for vector icon, defaults to initialVectorComponents
 
   // pointer area dilation for icons, identical for mouseArea and touchArea,
   // see https://github.com/phetsims/vector-addition/issues/250
@@ -76,7 +76,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       // SelfOptions
       numberOfVectors: 1,
       iconArrowMagnitude: 30,
-      iconVectorComponents: null,
+      iconVectorComponents: initialVectorComponents,
       iconPointerAreaXDilation: 10,
       iconPointerAreaYDilation: 10,
 
