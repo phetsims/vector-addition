@@ -9,7 +9,7 @@
 import optionize from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from './VectorToolbox.js';
-import VectorToolboxSlot from './VectorToolboxSlot.js';
+import VectorToolboxSlot from '../../lab/view/VectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from '../../explore1D/model/Explore1DScene.js';
 import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';

@@ -16,7 +16,7 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorToolboxSlot from './VectorToolboxSlot.js';
+import VectorToolboxSlot from '../../lab/view/VectorToolboxSlot.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';

@@ -10,7 +10,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
-import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
+import VectorToolboxSlot from './VectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabScene from '../model/LabScene.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
