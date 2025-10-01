@@ -16,44 +16,48 @@ import Vector from '../../common/model/Vector.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import Explore2DScene from './Explore2DScene.js';
+import VectorSet from '../../common/model/VectorSet.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 
 export default class CartesianScene extends Explore2DScene {
-
-  // abstract in the base class
-  public override readonly vectors: Vector[];
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     super( VectorAdditionStrings.a11y.cartesianSceneNameStringProperty, 'cartesian', componentVectorStyleProperty,
-      VectorAdditionColors.EXPLORE_2D_CARTESIAN_COLOR_PALETTE, tandem );
-
-    const initialPosition = Vector2.ZERO;
-    const parentTandem = this.vectorSet.tandem;
-
-    this.vectors = [
-
-      // a
-      new Vector( initialPosition, new Vector2( 6, 8 ), this, this.vectorSet, VectorAdditionSymbols.aStringProperty, {
-        isDisposable: false,
-        tandem: parentTandem.createTandem( 'aVector' ),
-        tandemNameSymbol: 'a'
-      } ),
-
-      // b
-      new Vector( initialPosition, new Vector2( 8, 6 ), this, this.vectorSet, VectorAdditionSymbols.bStringProperty, {
-        isDisposable: false,
-        tandem: parentTandem.createTandem( 'bVector' ),
-        tandemNameSymbol: 'b'
-      } ),
-
-      // c
-      new Vector( initialPosition, new Vector2( 0, -10 ), this, this.vectorSet, VectorAdditionSymbols.cStringProperty, {
-        isDisposable: false,
-        tandem: parentTandem.createTandem( 'cVector' ),
-        tandemNameSymbol: 'c'
-      } )
-    ];
+      VectorAdditionColors.EXPLORE_2D_CARTESIAN_COLOR_PALETTE, createVectors, tandem );
   }
+}
+
+/**
+ * Creates vectors a, b, c.
+ */
+function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
+
+  const initialPosition = Vector2.ZERO;
+  
+  return [
+
+    // a
+    new Vector( initialPosition, new Vector2( 6, 8 ), scene, vectorSet, VectorAdditionSymbols.aStringProperty, {
+      isDisposable: false,
+      tandem: parentTandem.createTandem( 'aVector' ),
+      tandemNameSymbol: 'a'
+    } ),
+
+    // b
+    new Vector( initialPosition, new Vector2( 8, 6 ), scene, vectorSet, VectorAdditionSymbols.bStringProperty, {
+      isDisposable: false,
+      tandem: parentTandem.createTandem( 'bVector' ),
+      tandemNameSymbol: 'b'
+    } ),
+
+    // c
+    new Vector( initialPosition, new Vector2( 0, -10 ), scene, vectorSet, VectorAdditionSymbols.cStringProperty, {
+      isDisposable: false,
+      tandem: parentTandem.createTandem( 'cVector' ),
+      tandemNameSymbol: 'c'
+    } )
+  ];
 }
 
 vectorAddition.register( 'CartesianScene', CartesianScene );

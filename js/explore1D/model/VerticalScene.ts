@@ -16,45 +16,49 @@ import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import Vector from '../../common/model/Vector.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import VectorSet from '../../common/model/VectorSet.js';
+import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 
 export default class VerticalScene extends Explore1DScene {
-
-  // abstract in the base class
-  public override readonly vectors: Vector[];
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
 
     super( VectorAdditionStrings.a11y.verticalSceneNameStringProperty, 'vertical', componentVectorStyleProperty,
-      VectorAdditionColors.EXPLORE_1D_VERTICAL_COLOR_PALETTE, tandem );
-
-    const initialPosition = Vector2.ZERO;
-    const initialVectorComponents = new Vector2( 0, 5 ); // vertical vector
-    const parentTandem = this.vectorSet.tandem;
-
-    this.vectors = [
-
-      // d
-      new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.dStringProperty, {
-        isDisposable: false,
-        tandem: parentTandem.createTandem( 'dVector' ),
-        tandemNameSymbol: 'd'
-      } ),
-
-      // e
-      new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.eStringProperty, {
-        isDisposable: false,
-        tandem: parentTandem.createTandem( 'eVector' ),
-        tandemNameSymbol: 'e'
-      } ),
-
-      // f
-      new Vector( initialPosition, initialVectorComponents, this, this.vectorSet, VectorAdditionSymbols.fStringProperty, {
-        isDisposable: false,
-        tandem: parentTandem.createTandem( 'fVector' ),
-        tandemNameSymbol: 'f'
-      } )
-    ];
+      VectorAdditionColors.EXPLORE_1D_VERTICAL_COLOR_PALETTE, createVectors, tandem );
   }
+}
+
+/**
+ * Creates vectors d, e, f.
+ */
+function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
+
+  const initialPosition = Vector2.ZERO;
+  const initialComponents = new Vector2( 0, 5 ); // vertical vector
+  
+  return [
+
+    // d
+    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.dStringProperty, {
+      isDisposable: false,
+      tandem: parentTandem.createTandem( 'dVector' ),
+      tandemNameSymbol: 'd'
+    } ),
+
+    // e
+    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.eStringProperty, {
+      isDisposable: false,
+      tandem: parentTandem.createTandem( 'eVector' ),
+      tandemNameSymbol: 'e'
+    } ),
+
+    // f
+    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.fStringProperty, {
+      isDisposable: false,
+      tandem: parentTandem.createTandem( 'fVector' ),
+      tandemNameSymbol: 'f'
+    } )
+  ];
 }
 
 vectorAddition.register( 'VerticalScene', VerticalScene );

@@ -21,18 +21,19 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Vector from '../../common/model/Vector.js';
 
-export default abstract class Explore2DScene extends VectorAdditionScene {
+export default class Explore2DScene extends VectorAdditionScene {
 
   // Graphs on 'Explore 2D' have exactly one vector set
   public readonly vectorSet: VectorSet;
 
-  // Vector instances that are specific to this screen, set by subclass, exist for the lifetime of the sim.
-  public readonly abstract vectors: Vector[];
+  // Vector instances that are specific to this screen, exist for the lifetime of the sim.
+  public readonly vectors: Vector[];
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          vectorColorPalette: VectorColorPalette,
+                         createVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ) => Vector[],
                          tandem: Tandem ) {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
@@ -48,6 +49,8 @@ export default abstract class Explore2DScene extends VectorAdditionScene {
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
+
+    this.vectors = createVectors( this, this.vectorSet, this.vectorSet.tandem );
   }
 
   public override reset(): void {

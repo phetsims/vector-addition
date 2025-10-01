@@ -40,18 +40,19 @@ const EXPLORE_1D_GRAPH_BOUNDS = new Bounds2( -DEFAULT_GRAPH_BOUNDS.width / 2,
 // All graphs on 'Explore 1D' are strictly Cartesian
 const EXPLORE_1D_COORDINATE_SNAP_MODE: CoordinateSnapMode = 'cartesian';
 
-export default abstract class Explore1DScene extends VectorAdditionScene {
+export default class Explore1DScene extends VectorAdditionScene {
 
   // Graphs on 'Explore 1D' have exactly one vector set
   public readonly vectorSet: VectorSet;
 
-  // Vector instances that are specific to this screen, set by subclass, exist for the lifetime of the sim.
-  public readonly abstract vectors: Vector[];
+  // Vector instances that are specific to this screen, exist for the lifetime of the sim.
+  public readonly vectors: Vector[];
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          graphOrientation: GraphOrientation,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          vectorColorPalette: VectorColorPalette,
+                         createVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ) => Vector[],
                          tandem: Tandem ) {
 
     affirm( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ) );
@@ -70,6 +71,8 @@ export default abstract class Explore1DScene extends VectorAdditionScene {
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
+
+    this.vectors = createVectors( this, this.vectorSet, this.vectorSet.tandem );
   }
 
   public override reset(): void {
