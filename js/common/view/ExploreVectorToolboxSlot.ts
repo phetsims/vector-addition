@@ -59,13 +59,13 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
       vectorSet.vectorColorPalette, ICON_MAGNITUDE );
 
-    // Make the iconNode easier to grab. Use identical dilation for mouseArea and touchArea,
-    // see https://github.com/phetsims/vector-addition/issues/250
-    const isHorizontal = ( scene.graph.orientation === 'horizontal' );
-    const iconPointerAreaXDilation = isHorizontal ? 10 : 20;
-    const iconPointerAreaYDilation = isHorizontal ? 15 : 5;
-    iconNode.mouseArea = iconNode.localBounds.dilatedXY( iconPointerAreaXDilation, iconPointerAreaYDilation );
-    iconNode.touchArea = iconNode.localBounds.dilatedXY( iconPointerAreaXDilation, iconPointerAreaYDilation );
+    // Make the iconNode easier to grab. Use identical dilation for mouseArea and touchArea.
+    // See https://github.com/phetsims/vector-addition/issues/250
+    const iconPointerAreaDilation = ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 10, 15 ) :
+                                    ( scene.graph.orientation === 'vertical' ) ? new Vector2( 20, 5 ) :
+                                    new Vector2( 15, 10 );
+    iconNode.mouseArea = iconNode.localBounds.dilatedXY( iconPointerAreaDilation.x, iconPointerAreaDilation.y );
+    iconNode.touchArea = iconNode.localBounds.dilatedXY( iconPointerAreaDilation.x, iconPointerAreaDilation.y );
 
     // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
     const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_MAGNITUDE ) );
