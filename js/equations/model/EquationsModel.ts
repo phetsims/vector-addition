@@ -9,11 +9,11 @@
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
-import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from './EquationsScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import EquationsCartesianScene from './EquationsCartesianScene.js';
+import EquationsPolarScene from './EquationsPolarScene.js';
 
 export default class EquationsModel extends VectorAdditionModel {
 
@@ -31,21 +31,9 @@ export default class EquationsModel extends VectorAdditionModel {
 
     const scenesTandem = tandem.createTandem( 'scenes' );
 
-    this.cartesianScene = new EquationsScene(
-      VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
-      'cartesian',
-      this.componentVectorStyleProperty,
-      VectorAdditionColors.EQUATIONS_CARTESIAN_COLOR_PALETTE,
-      scenesTandem.createTandem( 'cartesianScene' )
-    );
+    this.cartesianScene = new EquationsCartesianScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'cartesianScene' ) );
 
-    this.polarScene = new EquationsScene(
-      VectorAdditionStrings.a11y.polarSceneNameStringProperty,
-      'polar',
-      this.componentVectorStyleProperty,
-      VectorAdditionColors.EQUATIONS_POLAR_COLOR_PALETTE,
-      scenesTandem.createTandem( 'polarScene' )
-    );
+    this.polarScene = new EquationsPolarScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) );
 
     this.sceneProperty = new Property( this.cartesianScene, {
       validValues: [ this.cartesianScene, this.polarScene ],

@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * EquationsScene is a scene in the 'Equations' screen.
+ * EquationsScene is the base class for scenes in the 'Equations' screen.
  *
  * Characteristics of an EquationsScene are:
  *  - it snaps to either Cartesian or polar coordinates
@@ -39,11 +39,11 @@ export default class EquationsScene extends VectorAdditionScene {
   public readonly equationTypeProperty: StringUnionProperty<EquationType>;
   public readonly vectorSet: EquationsVectorSet;
 
-  public constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
-                      coordinateSnapMode: CoordinateSnapMode,
-                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      vectorColorPalette: VectorColorPalette,
-                      tandem: Tandem ) {
+  protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                         coordinateSnapMode: CoordinateSnapMode,
+                         vectorColorPalette: VectorColorPalette,
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                         tandem: Tandem ) {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
