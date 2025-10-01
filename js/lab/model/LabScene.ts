@@ -28,9 +28,11 @@ const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
 export default class LabScene extends VectorAdditionScene {
 
-  // For this scene, we need to know about LabVectorSet instances, a specialization of VectorSet.
+  // This scene has two vector sets.
   public readonly vectorSet1: LabVectorSet;
   public readonly vectorSet2: LabVectorSet;
+
+  // For iterating over LabVectorSet instances in this screen.
   public readonly labVectorSets: LabVectorSet[];
 
   // Initial components for all vectors in this scene.

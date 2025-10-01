@@ -23,7 +23,7 @@ import Vector from '../../common/model/Vector.js';
 
 export default class Explore2DScene extends VectorAdditionScene {
 
-  // Graphs on 'Explore 2D' have exactly one vector set
+  // This scene has one vector set.
   public readonly vectorSet: VectorSet;
 
   // Vector instances that are specific to this screen, exist for the lifetime of the sim.

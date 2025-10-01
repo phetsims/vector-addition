@@ -42,7 +42,7 @@ const EXPLORE_1D_COORDINATE_SNAP_MODE: CoordinateSnapMode = 'cartesian';
 
 export default class Explore1DScene extends VectorAdditionScene {
 
-  // Graphs on 'Explore 1D' have exactly one vector set
+  // This scene has one vector set.
   public readonly vectorSet: VectorSet;
 
   // Vector instances that are specific to this screen, exist for the lifetime of the sim.

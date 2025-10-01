@@ -27,7 +27,10 @@ import Graph from '../../common/model/Graph.js';
 
 export default class EquationsScene extends VectorAdditionScene {
 
+  // Which of the 3 equation types is currently selected.
   public readonly equationTypeProperty: StringUnionProperty<EquationType>;
+
+  // This scene has one vector set.
   public readonly vectorSet: EquationsVectorSet;
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
