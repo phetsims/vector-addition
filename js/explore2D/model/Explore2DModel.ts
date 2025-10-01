@@ -17,10 +17,7 @@ import { Explore2DPolarScene } from './Explore2DPolarScene.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 
-  // Scene for Cartesian snap mode
   public readonly cartesianScene: Explore2DCartesianScene;
-
-  // Scene for Polar snap mode
   public readonly polarScene: Explore2DPolarScene;
 
   // The selected scene

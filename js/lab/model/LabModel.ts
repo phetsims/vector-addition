@@ -17,11 +17,8 @@ import LabPolarScene from './LabPolarScene.js';
 
 export default class LabModel extends VectorAdditionModel {
 
-  // Scene for Cartesian snap mode
-  public readonly cartesianScene: LabScene;
-
-  // Scene for Polar snap mode
-  public readonly polarScene: LabScene;
+  public readonly cartesianScene: LabCartesianScene;
+  public readonly polarScene: LabPolarScene;
 
   // The selected scene
   public readonly sceneProperty: Property<LabScene>;

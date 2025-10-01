@@ -17,10 +17,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class EquationsModel extends VectorAdditionModel {
 
-  // Scene for Cartesian snap mode
   public readonly cartesianScene: EquationsScene;
-
-  // Scene for Polar snap mode
   public readonly polarScene: EquationsScene;
 
   // The selected scene

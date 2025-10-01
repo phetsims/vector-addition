@@ -17,10 +17,7 @@ import Explore1DVerticalScene from './Explore1DVerticalScene.js';
 
 export default class Explore1DModel extends VectorAdditionModel {
 
-  // Scene for the horizontal (x-axis) orientation
   public readonly horizontalScene: Explore1DHorizontalScene;
-
-  // Scene for the vertical (y-axis) orientation
   public readonly verticalScene: Explore1DVerticalScene;
 
   // The selected scene
