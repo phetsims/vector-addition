@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2019-2025, University of Colorado Boulder
 
 //TODO https://github.com/phetsims/vector-addition/issues/258 Lots of duplication with VectorToolboxSlot
 /**
