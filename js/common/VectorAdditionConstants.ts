@@ -19,7 +19,6 @@ import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/Rect
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionColors from './VectorAdditionColors.js';
 import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';
-import VectorAdditionSymbols from './VectorAdditionSymbols.js';
 import { RootVectorArrowNodeOptions } from './view/RootVectorNode.js';
 import { PreferencesControlOptions } from '../../../joist/js/preferences/PreferencesControl.js';
 import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
@@ -170,18 +169,6 @@ export default class VectorAdditionConstants {
 
   //----------------------------------------------------------------------------------------
   // Vectors
-
-  public static readonly VECTOR_SYMBOL_PROPERTIES_GROUP_1 = [
-    VectorAdditionSymbols.aStringProperty,
-    VectorAdditionSymbols.bStringProperty,
-    VectorAdditionSymbols.cStringProperty
-  ];
-
-  public static readonly VECTOR_SYMBOL_PROPERTIES_GROUP_2 = [
-    VectorAdditionSymbols.dStringProperty,
-    VectorAdditionSymbols.eStringProperty,
-    VectorAdditionSymbols.fStringProperty
-  ];
 
   // Defaults for all vectors
   public static readonly VECTOR_ARROW_OPTIONS: RootVectorArrowNodeOptions = {

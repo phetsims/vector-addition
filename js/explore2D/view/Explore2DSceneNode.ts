@@ -30,13 +30,8 @@ export default class Explore2DSceneNode extends VectorAdditionSceneNode {
       tandem: tandem
     } );
 
-    // Vector symbols depend on whether snap mode is Cartesian or polar.
-    const vectorSymbolProperties = ( scene.coordinateSnapMode === 'cartesian' ) ?
-                                   VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_1 :
-                                   VectorAdditionConstants.VECTOR_SYMBOL_PROPERTIES_GROUP_2;
-
     // Add the vector toolbox.
-    this.addVectorToolbox( new Explore2DVectorToolbox( scene, this, vectorSymbolProperties, {
+    this.addVectorToolbox( new Explore2DVectorToolbox( scene, this, {
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,
       tandem: tandem.createTandem( 'vectorToolbox' )

@@ -21,11 +21,6 @@ type Explore1DVectorToolboxOptions = SelfOptions & StrictOmit<VectorToolboxOptio
 
 export default class Explore1DVectorToolbox extends VectorToolbox {
 
-  /**
-   * @param scene
-   * @param sceneNode
-   * @param providedOptions
-   */
   public constructor( scene: Explore1DScene,
                       sceneNode: VectorAdditionSceneNode,
                       providedOptions: Explore1DVectorToolboxOptions ) {
