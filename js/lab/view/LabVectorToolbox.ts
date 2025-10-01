@@ -40,7 +40,7 @@ export default class LabVectorToolbox extends VectorToolbox {
 
     // Create a slot for each VectorSet
     const slots: LabVectorToolboxSlot[] = [];
-    [ scene.vectorSet1, scene.vectorSet2 ].forEach( vectorSet => {
+    scene.labVectorSets.forEach( vectorSet => {
       slots.push( new LabVectorToolboxSlot( scene, vectorSet, sceneNode, initialVectorComponents, {
         symbolProperty: vectorSet.symbolProperty,
         iconArrowMagnitude: 57,

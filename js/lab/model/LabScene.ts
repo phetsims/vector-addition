@@ -31,6 +31,9 @@ export default class LabScene extends VectorAdditionScene {
   public readonly vectorSet1: LabVectorSet;
   public readonly vectorSet2: LabVectorSet;
 
+  // We need to know about LabVectorSet instances, a specialization of VectorSet.
+  public readonly labVectorSets: LabVectorSet[];
+
   /**
    * @param sceneNameStringProperty
    * @param coordinateSnapMode - coordinateSnapMode for the scene
@@ -102,6 +105,8 @@ export default class LabScene extends VectorAdditionScene {
 
       tandem: tandem.createTandem( `${tandemNameSymbol2}VectorSet` )
     } );
+
+    this.labVectorSets = [ this.vectorSet1, this.vectorSet2 ];
 
     // Add the vector sets
     this.vectorSets.push( this.vectorSet1, this.vectorSet2 );
