@@ -12,7 +12,7 @@ import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToo
 import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DScene from '../model/Explore1DScene.js';
-import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';
+import ExploreVectorToolboxSlot from '../../common/view/ExploreVectorToolboxSlot.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
 type SelfOptions = {
