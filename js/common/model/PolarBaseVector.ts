@@ -71,7 +71,7 @@ export default class PolarBaseVector extends BaseVector {
     Multilink.multilink(
       [ this.magnitudeProperty, this.angleProperty ],
       ( magnitude, angle ) => {
-        this.vectorComponents = Vector2.createPolar( magnitude, toRadians( angle ) );
+        this.xyComponents = Vector2.createPolar( magnitude, toRadians( angle ) );
       } );
   }
 

@@ -78,7 +78,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
     super( options );
 
     // Define a vector node in which the tail position (view coordinates) is (0, 0). Get the tip position in view coordinates.
-    const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( rootVector.vectorComponents );
+    const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( rootVector.xyComponents );
 
     if ( options.arrowType === 'solid' ) {
       this.arrowNode = new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions );
@@ -136,7 +136,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
     this.translation = modelViewTransform.modelToViewPosition( rootVector.tail );
 
     // Get the tip position in view coordinates
-    const tipDeltaPosition = modelViewTransform.modelToViewDelta( rootVector.vectorComponents );
+    const tipDeltaPosition = modelViewTransform.modelToViewDelta( rootVector.xyComponents );
     this.arrowNode.setTip( tipDeltaPosition.x, tipDeltaPosition.y );
 
     // Make the arrow easier to grab by setting pointer areas
@@ -213,11 +213,11 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
 
     // Create a vector parallel to rootVector that determines where the label will be placed.
     let labelVector = null;
-    if ( vector.vectorComponents.magnitude < MAX_LABEL_VECTOR_MAGNITUDE ) {
-      labelVector = vector.vectorComponents;
+    if ( vector.xyComponents.magnitude < MAX_LABEL_VECTOR_MAGNITUDE ) {
+      labelVector = vector.xyComponents;
     }
     else {
-      labelVector = vector.vectorComponents.normalized().timesScalar( MAX_LABEL_VECTOR_MAGNITUDE );
+      labelVector = vector.xyComponents.normalized().timesScalar( MAX_LABEL_VECTOR_MAGNITUDE );
     }
 
     return modelViewTransform.modelToViewDelta( labelVector.timesScalar( 0.5 ).plus( offset ) );

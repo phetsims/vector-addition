@@ -212,14 +212,14 @@ class SelectedVectorAccessibleParagraphStringProperty extends PatternStringPrope
     const symbolProperty = selectedVector.symbolProperty!;
     affirm( symbolProperty );
 
-    const magnitudeProperty = new DerivedProperty( [ selectedVector.vectorComponentsProperty ],
+    const magnitudeProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
       () => toFixed( selectedVector.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const directionProperty = new DerivedProperty( [ selectedVector.vectorComponentsProperty ],
+    const directionProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
       () => toFixed( selectedVector.getAngleDegrees() || 0, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const xComponentProperty = new DerivedProperty( [ selectedVector.vectorComponentsProperty ],
-      vectorComponents => toFixed( vectorComponents.x, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const yComponentProperty = new DerivedProperty( [ selectedVector.vectorComponentsProperty ],
-      vectorComponents => toFixed( vectorComponents.y, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+    const xComponentProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
+      xyComponents => toFixed( xyComponents.x, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
+    const yComponentProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
+      xyComponents => toFixed( xyComponents.y, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
 
     super( VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphStringProperty, {
       symbol: symbolProperty,

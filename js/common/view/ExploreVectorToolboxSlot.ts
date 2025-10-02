@@ -46,14 +46,14 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
 
     // convenience reference
     const modelViewTransform = scene.graph.modelViewTransformProperty.value;
-    const vectorComponents = vector.vectorComponentsProperty.value;
+    const xyComponents = vector.xyComponentsProperty.value;
 
     //----------------------------------------------------------------------------------------
     // Create the icon
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.viewToModelDelta( iconVectorComponents || vectorComponents );
+    const iconViewComponents = modelViewTransform.viewToModelDelta( iconVectorComponents || xyComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
@@ -103,7 +103,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       const vectorCenterModel = scene.graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
       // Calculate where the tail position is relative to the scene node.
-      vector.tailPositionProperty.value = vectorCenterModel.minus( vectorComponents.timesScalar( 0.5 ) );
+      vector.tailPositionProperty.value = vectorCenterModel.minus( xyComponents.timesScalar( 0.5 ) );
 
       // Add the vector to the vector set, so that it is included in the sum calculation.
       vectorSet.vectors.push( vector );

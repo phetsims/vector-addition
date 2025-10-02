@@ -76,8 +76,8 @@ export default class VectorAngleNode extends Node {
 
     // Update the angle and its visibility. Must be disposed on dispose.
     const angleVisibleMultilink = Multilink.multilink(
-      [ anglesVisibleProperty, vector.isOnGraphProperty, vector.vectorComponentsProperty, VectorAdditionPreferences.instance.angleConventionProperty ],
-      ( angleVisible, isOnGraph, vectorComponents, angleConvention ) => {
+      [ anglesVisibleProperty, vector.isOnGraphProperty, vector.xyComponentsProperty, VectorAdditionPreferences.instance.angleConventionProperty ],
+      ( angleVisible, isOnGraph, xyComponents, angleConvention ) => {
         this.visible = ( angleVisible && isOnGraph && vector.magnitude !== 0 );
         if ( this.visible ) {
           this.updateAngleNode( vector, modelViewTransformProperty.value, angleConvention );

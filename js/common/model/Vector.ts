@@ -210,15 +210,15 @@ export default class Vector extends RootVector {
     else {
       // this.scene.coordinateSnapMode === CoordinateSnapMode.POLAR
 
-      const vectorComponents = tipPosition.minus( this.tail );
+      const xyComponents = tipPosition.minus( this.tail );
 
-      const roundedMagnitude = roundSymmetric( vectorComponents.magnitude );
+      const roundedMagnitude = roundSymmetric( xyComponents.magnitude );
 
       const angleInRadians = toRadians( POLAR_ANGLE_INTERVAL );
-      const roundedAngle = angleInRadians * roundSymmetric( vectorComponents.angle / angleInRadians );
+      const roundedAngle = angleInRadians * roundSymmetric( xyComponents.angle / angleInRadians );
 
       // Calculate the rounded polar vector
-      const polarVector = vectorComponents.setPolar( roundedMagnitude, roundedAngle );
+      const polarVector = xyComponents.setPolar( roundedMagnitude, roundedAngle );
 
       // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside
       while ( !graph.bounds.containsPoint( this.tail.plus( polarVector ) ) ) {
@@ -266,7 +266,7 @@ export default class Vector extends RootVector {
     if ( this.scene.coordinateSnapMode === 'polar' ) {
 
       // Get the tip of this vector
-      const tipPositionOnGraph = tailPositionOnGraph.plus( this.vectorComponents );
+      const tipPositionOnGraph = tailPositionOnGraph.plus( this.xyComponents );
 
       // Get all the vectors in the set, including the sum and excluding this vector
       const vectorsInVectorSet = this.vectorSet.vectors.filter( vector => {
@@ -296,7 +296,7 @@ export default class Vector extends RootVector {
 
         // Snap tip to other vector's tail
         if ( vector.tail.distance( tipPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-          this.moveToTailPosition( vector.tail.minus( this.vectorComponents ) );
+          this.moveToTailPosition( vector.tail.minus( this.xyComponents ) );
           return;
         }
       }
@@ -363,7 +363,7 @@ export default class Vector extends RootVector {
         easing: Easing.QUADRATIC_IN_OUT,
         to: tailPosition
       }, {
-        property: this.vectorComponentsProperty,
+        property: this.xyComponentsProperty,
         easing: Easing.QUADRATIC_IN_OUT,
         to: finalComponents
       } ]

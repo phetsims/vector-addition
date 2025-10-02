@@ -85,12 +85,12 @@ export default class ComponentVectorNode extends RootVectorNode {
     //  - componentVectorStyleProperty - to determine visibility (i.e. components shouldn't be visible on INVISIBLE)
     //      and to draw lines on the PROJECTION componentVectorStyle
     //  - isOnGraphProperty - components shouldn't be visible if the vector isn't on the graph
-    //  - vectorComponentsProperty - to update the leader lines drawings positions
+    //  - xyComponentsProperty - to update the leader lines drawings positions
     //
     // dispose is required.
     const componentVectorMultilink = Multilink.multilink(
       [ componentVectorStyleProperty, scene.selectedVectorProperty,
-        componentVector.isOnGraphProperty, componentVector.vectorComponentsProperty ],
+        componentVector.isOnGraphProperty, componentVector.xyComponentsProperty ],
       ( componentVectorStyle, selectedVector ) => {
 
         this.updateComponentVector( componentVector,
@@ -148,7 +148,7 @@ export default class ComponentVectorNode extends RootVectorNode {
 
       // Since the leader lines are a child of this view, the origin of the view is at the tail of the component
       // vector. Get the tip position relative to the tail of the component vector (which is the components)
-      const tipPosition = modelViewTransform.modelToViewDelta( componentVector.vectorComponents );
+      const tipPosition = modelViewTransform.modelToViewDelta( componentVector.xyComponents );
 
       // Get the parent tail position relative to the origin of the view (the tail of the component vector)
       const parentTailPosition = modelViewTransform.modelToViewDelta( componentVector.parentTail

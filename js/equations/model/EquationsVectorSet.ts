@@ -26,7 +26,7 @@ import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 type VectorDescription = {
   tandemNameSymbol: string; // symbol for the vector used in tandem names
   symbolProperty: TReadOnlyProperty<string>;
-  vectorComponents: Vector2;
+  xyComponents: Vector2;
   vectorTail: Vector2;
   baseVectorTail: Vector2;
 };
@@ -38,7 +38,7 @@ const CARTESIAN_VECTOR_DESCRIPTIONS: VectorDescription[] = [
   {
     tandemNameSymbol: 'a',
     symbolProperty: VectorAdditionSymbols.aStringProperty,
-    vectorComponents: new Vector2( 0, 5 ),
+    xyComponents: new Vector2( 0, 5 ),
     vectorTail: new Vector2( 5, 5 ),
     baseVectorTail: new Vector2( 35, 15 )
   },
@@ -47,7 +47,7 @@ const CARTESIAN_VECTOR_DESCRIPTIONS: VectorDescription[] = [
   {
     tandemNameSymbol: 'b',
     symbolProperty: VectorAdditionSymbols.bStringProperty,
-    vectorComponents: new Vector2( 5, 5 ),
+    xyComponents: new Vector2( 5, 5 ),
     vectorTail: new Vector2( 15, 5 ),
     baseVectorTail: new Vector2( 35, 5 )
   }
@@ -60,7 +60,7 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
   {
     tandemNameSymbol: 'd',
     symbolProperty: VectorAdditionSymbols.dStringProperty,
-    vectorComponents: Vector2.createPolar( 5, 0 ),
+    xyComponents: Vector2.createPolar( 5, 0 ),
     vectorTail: new Vector2( 5, 5 ),
     baseVectorTail: new Vector2( 35, 15 )
   },
@@ -69,7 +69,7 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
   {
     tandemNameSymbol: 'e',
     symbolProperty: VectorAdditionSymbols.eStringProperty,
-    vectorComponents: Vector2.createPolar( 8, toRadians( 45 ) ),
+    xyComponents: Vector2.createPolar( 8, toRadians( 45 ) ),
     vectorTail: new Vector2( 15, 5 ),
     baseVectorTail: new Vector2( 35, 5 )
   }
@@ -127,7 +127,7 @@ export default class EquationsVectorSet extends VectorSet {
 
       const vector = new EquationsVector(
         vectorDescription.vectorTail,
-        vectorDescription.vectorComponents,
+        vectorDescription.xyComponents,
         vectorDescription.baseVectorTail,
         scene,
         this,

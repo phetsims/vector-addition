@@ -94,7 +94,7 @@ export default class VectorNode extends RootVectorNode {
     //----------------------------------------------------------------------------------------
 
     // Since the tail is (0, 0) for the view, the tip is the delta position of the tip
-    const tipDeltaPosition = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
+    const tipDeltaPosition = this.modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
 
     // Create a Node representing the arc of an angle and the numerical display of the angle.
     // dispose is necessary because it observes angleVisibleProperty.
@@ -145,7 +145,7 @@ export default class VectorNode extends RootVectorNode {
 
             // Drop the vector where the shadow was positioned
             const shadowOffset = this.modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
-              .minus( vector.vectorComponents.timesScalar( 0.5 ) );
+              .minus( vector.xyComponents.timesScalar( 0.5 ) );
             const shadowTailPosition = vector.tail.plus( shadowOffset );
             this.vector.dropOntoGraph( shadowTailPosition );
           }
@@ -239,14 +239,14 @@ export default class VectorNode extends RootVectorNode {
       const smallTouchAreaShape = createDilatedHead( headWidth, SMALL_HEAD_SCALE * headHeight, VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
 
       // When the vector changes, transform the head and adjust its pointer areas. unlinked is required when disposed.
-      const vectorComponentsListener = ( vectorComponents: Vector2 ) => {
+      const xyComponentsListener = ( xyComponents: Vector2 ) => {
 
         // Adjust pointer areas. See https://github.com/phetsims/vector-addition/issues/240#issuecomment-544682818
         const SHORT_MAGNITUDE = 3;
-        if ( vectorComponents.magnitude <= SHORT_MAGNITUDE ) {
+        if ( xyComponents.magnitude <= SHORT_MAGNITUDE ) {
 
           // We have a 'short' vector, so adjust the head's pointer areas so that the tail can still be grabbed.
-          const viewComponents = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
+          const viewComponents = this.modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
           const viewMagnitude = viewComponents.magnitude;
           const maxHeadHeight = fractionalHeadHeight * viewMagnitude;
 
@@ -271,16 +271,16 @@ export default class VectorNode extends RootVectorNode {
         }
 
         // Transform the invisible head to match the position and angle of the actual vector.
-        headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.vectorComponents );
-        headNode.rotation = -vectorComponents.angle;
+        headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
+        headNode.rotation = -xyComponents.angle;
       };
-      vector.vectorComponentsProperty.link( vectorComponentsListener );
+      vector.xyComponentsProperty.link( xyComponentsListener );
 
       // dispose of things that are related to optional scale/rotate
       disposeScaleRotate = () => {
         headNode.removeInputListener( scaleRotateDragListener );
         tipPositionProperty.unlink( tipListener );
-        vector.vectorComponentsProperty.unlink( vectorComponentsListener );
+        vector.xyComponentsProperty.unlink( xyComponentsListener );
       };
     }
 
@@ -290,15 +290,15 @@ export default class VectorNode extends RootVectorNode {
 
     // Update the appearance of the vector's shadow. Must be unmultilinked.
     const shadowMultilink = Multilink.multilink(
-      [ vector.isOnGraphProperty, vector.vectorComponentsProperty, this.vector.animateBackProperty ],
-      ( isOnGraph, vectorComponents, animateBack ) => {
+      [ vector.isOnGraphProperty, vector.xyComponentsProperty, this.vector.animateBackProperty ],
+      ( isOnGraph, xyComponents, animateBack ) => {
         vectorShadowNode.visible = ( !animateBack && !isOnGraph );
         vectorShadowNode.resetTransform();
         if ( !isOnGraph && vectorShadowNode.getBounds().isValid() ) {
           vectorShadowNode.left = this.arrowNode.left + SHADOW_OFFSET_X;
           vectorShadowNode.top = this.arrowNode.top + SHADOW_OFFSET_Y;
         }
-        const tipDeltaPosition = this.modelViewTransformProperty.value.modelToViewDelta( vectorComponents );
+        const tipDeltaPosition = this.modelViewTransformProperty.value.modelToViewDelta( xyComponents );
         vectorShadowNode.setTip( tipDeltaPosition.x, tipDeltaPosition.y );
       } );
 

@@ -169,8 +169,8 @@ export default class ComponentVector extends RootVector {
 
     // Get the component vector's magnitude (a scalar, possibly negative)
     let magnitude: number | null = ( this.componentType === 'xComponent' ) ?
-                                   this.vectorComponents.x :
-                                   this.vectorComponents.y;
+                                   this.xyComponents.x :
+                                   this.xyComponents.y;
 
     // Component vectors only show their values if and only if the values are visible and if the component isn't 0
     if ( !valuesVisible || magnitude === 0 ) {
@@ -193,7 +193,7 @@ export default class ComponentVector extends RootVector {
    * Gets the mid-point of the component vector
    */
   public get midPoint(): Vector2 {
-    return this.vectorComponents.timesScalar( 0.5 ).plus( this.tail );
+    return this.xyComponents.timesScalar( 0.5 ).plus( this.tail );
   }
 
   /**
@@ -214,7 +214,7 @@ export default class ComponentVector extends RootVector {
    * Gets the parent vector's mid-point position
    */
   public get parentMidPoint(): Vector2 {
-    return this.parentVector.vectorComponents.timesScalar( 0.5 ).plus( this.parentVector.tail );
+    return this.parentVector.xyComponents.timesScalar( 0.5 ).plus( this.parentVector.tail );
   }
 }
 

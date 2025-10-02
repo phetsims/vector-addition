@@ -69,7 +69,7 @@ export default class SumVector extends Vector {
       // When the vector changes, update the sum calculation.
       // unmultilink is required when the vector is removed.
       const addedVectorMultilink = Multilink.multilink(
-        [ addedVector.vectorComponentsProperty, addedVector.isOnGraphProperty ], () => {
+        [ addedVector.xyComponentsProperty, addedVector.isOnGraphProperty ], () => {
           this.updateSum( vectorSet.vectors );
         } );
 
@@ -89,7 +89,7 @@ export default class SumVector extends Vector {
   }
 
   /**
-   * WORKAROUND: RootVector vectorComponentsProperty was initialized with a bogus value of Vector2.ZERO in the
+   * WORKAROUND: RootVector xyComponentsProperty was initialized with a bogus value of Vector2.ZERO in the
    * constructor above. So call updateSum after calling super.reset. Also note that subclass EquationsSumVector
    * has an entirely different implementation of updateSum that depends on the selected EquationType, so calling
    * updateSum is also necessary for that class.  See https://github.com/phetsims/vector-addition/issues/328.
@@ -109,10 +109,10 @@ export default class SumVector extends Vector {
 
     // Sum all vectors that are on the graph.
     const sumVectorComponents = new Vector2( 0, 0 );
-    onGraphVectors.forEach( vector => sumVectorComponents.add( vector.vectorComponents ) );
+    onGraphVectors.forEach( vector => sumVectorComponents.add( vector.xyComponents ) );
 
     // Set the sum to the calculated sum.
-    this.vectorComponents = sumVectorComponents;
+    this.xyComponents = sumVectorComponents;
 
     // The sum is defined if there is at least one vector on the graph.
     this.isDefinedProperty.value = ( onGraphVectors.length > 0 );

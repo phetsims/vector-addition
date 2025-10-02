@@ -48,8 +48,8 @@ export default class EquationsSumVector extends SumVector {
     this.equationTypeProperty = equationTypeProperty;
 
     // Observe when each vector changes and/or when the equationType changes to calculate the sum.
-    const vectorComponentsProperties = vectorSet.vectors.map( vector => vector.vectorComponentsProperty );
-    Multilink.multilinkAny( [ equationTypeProperty, ...vectorComponentsProperties ],
+    const xyComponentsProperties = vectorSet.vectors.map( vector => vector.xyComponentsProperty );
+    Multilink.multilinkAny( [ equationTypeProperty, ...xyComponentsProperties ],
       () => this.updateSum( vectorSet.vectors )
     );
   }
@@ -66,20 +66,20 @@ export default class EquationsSumVector extends SumVector {
       const sum = new Vector2( 0, 0 );
 
       vectors.forEach( vector => {
-        sum.add( vector.vectorComponents );
+        sum.add( vector.xyComponents );
       } );
 
-      this.vectorComponents = sum;
+      this.xyComponents = sum;
     }
     else if ( equationType === 'subtraction' ) {
-      const calculatedComponents = vectors.get( 0 ).vectorComponents.copy();
+      const calculatedComponents = vectors.get( 0 ).xyComponents.copy();
 
       // Subtract from the first vector
       _.drop( vectors ).forEach( vector => {
-        calculatedComponents.subtract( vector.vectorComponents );
+        calculatedComponents.subtract( vector.xyComponents );
       } );
 
-      this.vectorComponents = calculatedComponents;
+      this.xyComponents = calculatedComponents;
     }
     else if ( equationType === 'negation' ) {
 
@@ -87,10 +87,10 @@ export default class EquationsSumVector extends SumVector {
       const sum = new Vector2( 0, 0 );
 
       vectors.forEach( vector => {
-        sum.add( vector.vectorComponents );
+        sum.add( vector.xyComponents );
       } );
 
-      this.vectorComponents = sum.negate();
+      this.xyComponents = sum.negate();
     }
   }
 

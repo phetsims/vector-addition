@@ -94,23 +94,23 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     //----------------------------------------------------------------------------------------
 
     // Create function to update the number display value
-    const selectedVectorComponentsListener = () => {
+    const xyComponentsListener = () => {
       numberDisplayProperty.value = this.getNumberDisplayValue( scene.selectedVectorProperty.value,
         VectorAdditionPreferences.instance.angleConventionProperty.value );
     };
 
-    // Observe when the scene's selected vector changes and update the vectorComponents link.
+    // Observe when the scene's selected vector changes and update the xyComponents link.
     scene.selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
 
       // unlink the previous link if the old selected vector exists
-      oldSelectedVector && oldSelectedVector.vectorComponentsProperty.unlink( selectedVectorComponentsListener );
+      oldSelectedVector && oldSelectedVector.xyComponentsProperty.unlink( xyComponentsListener );
 
       // Observe when the selected vector changes and update the number display value if and only if the
       // selected vector exists. unlink is required when selected vector changes.
-      selectedVector && selectedVector.vectorComponentsProperty.link( selectedVectorComponentsListener );
+      selectedVector && selectedVector.xyComponentsProperty.link( xyComponentsListener );
     } );
 
-    VectorAdditionPreferences.instance.angleConventionProperty.link( () => selectedVectorComponentsListener() );
+    VectorAdditionPreferences.instance.angleConventionProperty.link( () => xyComponentsListener() );
   }
 
   /**

@@ -58,8 +58,8 @@ export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 
 
 export default abstract class RootVector extends PhetioObject {
 
-  // the vector's components, its x and y scalar values
-  public readonly vectorComponentsProperty: Property<Vector2>;
+  // the vector's xy-components
+  public readonly xyComponentsProperty: Property<Vector2>;
 
   // the tail position of the vector on the graph
   public readonly tailPositionProperty: Property<Vector2>;
@@ -96,8 +96,8 @@ export default abstract class RootVector extends PhetioObject {
 
     super( options );
 
-    this.vectorComponentsProperty = new Vector2Property( initialComponents, {
-      tandem: options.tandem.createTandem( 'vectorComponentsProperty' ),
+    this.xyComponentsProperty = new Vector2Property( initialComponents, {
+      tandem: options.tandem.createTandem( 'xyComponentsProperty' ),
       phetioReadOnly: true
     } );
 
@@ -107,8 +107,8 @@ export default abstract class RootVector extends PhetioObject {
     } );
 
     this.tipPositionProperty = new DerivedProperty(
-      [ this.tailPositionProperty, this.vectorComponentsProperty ],
-      ( tailPosition, vectorComponents ) => tailPosition.plus( vectorComponents ), {
+      [ this.tailPositionProperty, this.xyComponentsProperty ],
+      ( tailPosition, xyComponents ) => tailPosition.plus( xyComponents ), {
         tandem: options.tandem.createTandem( 'tipPositionProperty' ),
         phetioValueType: Vector2.Vector2IO
       } );
@@ -119,7 +119,7 @@ export default abstract class RootVector extends PhetioObject {
   }
 
   public reset(): void {
-    this.vectorComponentsProperty.reset();
+    this.xyComponentsProperty.reset();
     this.tailPositionProperty.reset();
   }
 
@@ -150,52 +150,52 @@ export default abstract class RootVector extends PhetioObject {
   public abstract getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData;
 
   /**
-   * Gets the components (scalars) of the vector.
+   * Gets the xy-components of the vector.
    */
-  public get vectorComponents(): Vector2 {
-    return this.vectorComponentsProperty.value;
+  public get xyComponents(): Vector2 {
+    return this.xyComponentsProperty.value;
   }
 
   /**
    * Sets the components (scalars) of the vector
    */
-  public set vectorComponents( vectorComponents: Vector2 ) {
-    this.vectorComponentsProperty.value = vectorComponents;
+  public set xyComponents( xyComponents: Vector2 ) {
+    this.xyComponentsProperty.value = xyComponents;
   }
 
   /**
    * Gets the magnitude of the vector (always positive).
    */
   public get magnitude(): number {
-    return this.vectorComponents.magnitude;
+    return this.xyComponents.magnitude;
   }
 
   /**
    * Gets the x component (scalar).
    */
   public get xComponent(): number {
-    return this.vectorComponents.x;
+    return this.xyComponents.x;
   }
 
   /**
    * Sets the x component (scalar).
    */
   public set xComponent( xComponent: number ) {
-    this.vectorComponents = this.vectorComponents.copy().setX( xComponent );
+    this.xyComponents = this.xyComponents.copy().setX( xComponent );
   }
 
   /**
    * Gets the y component (scalar).
    */
   public get yComponent(): number {
-    return this.vectorComponents.y;
+    return this.xyComponents.y;
   }
 
   /**
    * Sets the y component (scalar).
    */
   public set yComponent( yComponent: number ) {
-    this.vectorComponents = this.vectorComponents.copy().setY( yComponent );
+    this.xyComponents = this.xyComponents.copy().setY( yComponent );
   }
 
   /**
@@ -279,7 +279,7 @@ export default abstract class RootVector extends PhetioObject {
     // Since tipPositionProperty is a DerivedProperty, we cannot directly set it.
     // Instead, we will update the vector components, keeping the tail constant.
     const tip = new Vector2( x, y );
-    this.vectorComponents = this.vectorComponents.plus( tip.minus( this.tip ) );
+    this.xyComponents = this.xyComponents.plus( tip.minus( this.tip ) );
   }
 
   /**
@@ -315,7 +315,7 @@ export default abstract class RootVector extends PhetioObject {
    * The value is in the range (-pi,pi], and null when the vector has 0 magnitude.
    */
   public get angle(): number | null {
-    return this.vectorComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : this.vectorComponents.angle;
+    return this.xyComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : this.xyComponents.angle;
   }
 
   /**
