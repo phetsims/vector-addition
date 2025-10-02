@@ -68,10 +68,10 @@ export default class Vector extends RootVector {
   public readonly isRemovableFromGraph: boolean;
 
   // the scene that the vector model belongs to
-  public readonly scene: VectorAdditionScene;
+  private readonly scene: VectorAdditionScene;
 
   // the vector set that the vector belongs to
-  public readonly vectorSet: VectorSet;
+  protected readonly vectorSet: VectorSet;
 
   // indicates whether the vector is on the graph
   public readonly isOnGraphProperty: Property<boolean>;
