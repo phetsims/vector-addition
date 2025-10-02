@@ -107,7 +107,7 @@ export default class Vector extends RootVector {
                       initialComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      symbolProperty: TReadOnlyProperty<string> | null,
+                      symbolProperty: TReadOnlyProperty<string>,
                       //TODO https://github.com/phetsims/vector-addition/issues/258 providedOptions should be required because tandemNameSymbol is required.
                       providedOptions?: VectorOptions ) {
 
