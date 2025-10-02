@@ -141,7 +141,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   //----------------------------------------------------------------------------------------
   // Vector color palettes
 
-  // Explore 1D screen, horizontal scene
+  // Explore 1D screen, horizontal scene (a, b, c)
   public static readonly EXPLORE_1D_HORIZONTAL_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.horizontal.vectorFill', {
       default: VECTOR_FILL_BLUE
@@ -151,7 +151,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
     } )
   } );
 
-  // Explore 1D screen, vertical scene
+  // Explore 1D screen, vertical scene (d, e, f)
   public static readonly EXPLORE_1D_VERTICAL_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore1D.vertical.vectorFill', {
       default: VECTOR_FILL_BLUE
@@ -161,7 +161,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
     } )
   } );
 
-  // Explore 2D screen, Cartesian scene
+  // Explore 2D screen, Cartesian scene (a, b, c)
   public static readonly EXPLORE_2D_CARTESIAN_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.cartesian.vectorFill', {
       default: VECTOR_FILL_BLUE
@@ -171,7 +171,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
     } )
   } );
 
-  // Explore 2D screen, polar scene
+  // Explore 2D screen, polar scene (d, e, f)
   public static readonly EXPLORE_2D_POLAR_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'explore2D.polar.vectorFill', {
       default: VECTOR_FILL_PINK
@@ -181,18 +181,8 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
     } )
   } );
 
-  // Lab scene, Cartesian scene, vector set 1
+  // Lab scene, Cartesian scene, vector set 1 (u)
   public static readonly LAB_CARTESIAN_COLOR_PALETTE_1 = new VectorColorPalette( {
-    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.vectorFill', {
-      default: VECTOR_FILL_BLUE
-    } ),
-    sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.sumFill', {
-      default: SUM_FILL_BLUE
-    } )
-  } );
-
-  // Lab scene, Cartesian scene, vector set 2
-  public static readonly LAB_CARTESIAN_COLOR_PALETTE_2 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.vectorFill', {
       default: '#e17a14' // orange
     } ),
@@ -201,7 +191,17 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
     } )
   } );
 
-  // Lab scene, polar scene, vector set 1
+  // Lab scene, Cartesian scene, vector set 2 (v)
+  public static readonly LAB_CARTESIAN_COLOR_PALETTE_2 = new VectorColorPalette( {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.vectorFill', {
+      default: VECTOR_FILL_BLUE
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.sumFill', {
+      default: SUM_FILL_BLUE
+    } )
+  } );
+
+  // Lab scene, polar scene, vector set 1 (p)
   public static readonly LAB_POLAR_COLOR_PALETTE_1 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar1.vectorFill', {
       default: VECTOR_FILL_PINK
@@ -211,7 +211,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
     } )
   } );
 
-  // Lab scene, polar scene, vector set 2
+  // Lab scene, polar scene, vector set 2 (q)
   public static readonly LAB_POLAR_COLOR_PALETTE_2 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.polar2.vectorFill', {
       default: 'rgb( 82, 166, 43 )' // green
@@ -221,7 +221,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
     } )
   } );
 
-  // Equations screen, cartesian scene
+  // Equations screen, Cartesian scene (a, b, c)
   public static readonly EQUATIONS_CARTESIAN_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'equations.cartesian.vectorFill', {
       default: VECTOR_FILL_BLUE
@@ -231,7 +231,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
     } )
   } );
 
-  // Equations screen, polar scene
+  // Equations screen, polar scene (d, e, f)
   public static readonly EQUATIONS_POLAR_COLOR_PALETTE = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'equations.polar.vectorFill', {
       default: VECTOR_FILL_PINK

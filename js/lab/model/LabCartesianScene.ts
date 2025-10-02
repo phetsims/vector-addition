@@ -23,10 +23,10 @@ export default class LabCartesianScene extends LabScene {
       VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
       'cartesian',
       new Vector2( 8, 6 ),
-      VectorAdditionSymbols.vStringProperty, // yes, 'v' before 'u'
       VectorAdditionSymbols.uStringProperty,
-      'v', // yes, 'v' before 'u'
+      VectorAdditionSymbols.vStringProperty,
       'u',
+      'v',
       VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_1,
       VectorAdditionColors.LAB_CARTESIAN_COLOR_PALETTE_2,
       componentVectorStyleProperty,
