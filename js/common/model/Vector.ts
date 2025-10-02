@@ -27,7 +27,6 @@ import Easing from '../../../../twixt/js/Easing.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
-import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ComponentVector from './ComponentVector.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
 import RootVector, { LabelDisplayData, RootVectorOptions } from './RootVector.js';
@@ -91,9 +90,6 @@ export default class Vector extends RootVector {
   public readonly tandemNameSymbol: string;
 
   private readonly disposeVector: () => void;
-
-  // Fallback symbol to use if a symbol isn't provided.
-  public static readonly FALLBACK_SYMBOL_PROPERTY = VectorAdditionSymbols.vStringProperty;
 
   /**
    * @param initialTailPosition - starting tail position of the vector
@@ -166,23 +162,18 @@ export default class Vector extends RootVector {
    */
   public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
-    // If the vector has a symbol or is selected, the vector always displays a symbol.
-    let symbolProperty: TReadOnlyProperty<string> | null = null;
-    if ( this.symbolProperty || this.scene.selectedVectorProperty.value === this ) {
-      symbolProperty = ( this.symbolProperty || Vector.FALLBACK_SYMBOL_PROPERTY );
-    }
+    // The label displays the vector's symbol.
+    const symbolProperty = this.symbolProperty!;
+    affirm( symbolProperty );
 
-    // If the values are on, the vector always displays a value.
-    let magnitude: number | null = null;
-    if ( valuesVisible ) {
-      magnitude = this.magnitude;
-    }
+    // If the 'Values' checkbox is checked, the label displays the vector's magnitude.
+    const magnitude = valuesVisible ? this.magnitude : null;
 
     return {
       coefficient: null, // vector models don't have coefficients
       symbolProperty: symbolProperty,
       magnitude: magnitude,
-      includeAbsoluteValueBars: ( magnitude !== null && symbolProperty !== null ) // absolute value bars if there is a magnitude
+      includeAbsoluteValueBars: ( magnitude !== null ) // absolute value bars if there is a magnitude
     };
   }
 
