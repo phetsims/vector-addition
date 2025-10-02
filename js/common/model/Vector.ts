@@ -136,17 +136,8 @@ export default class Vector extends RootVector {
     this.inProgressAnimation = null;
     this.animateBackProperty = new BooleanProperty( false );
 
-    this.xComponentVector = new ComponentVector( this,
-      vectorSet.componentVectorStyleProperty,
-      scene.selectedVectorProperty,
-      'xComponent'
-    );
-
-    this.yComponentVector = new ComponentVector( this,
-      vectorSet.componentVectorStyleProperty,
-      scene.selectedVectorProperty,
-      'yComponent'
-    );
+    this.xComponentVector = new ComponentVector( this, vectorSet.componentVectorStyleProperty, 'xComponent' );
+    this.yComponentVector = new ComponentVector( this, vectorSet.componentVectorStyleProperty, 'yComponent' );
 
     this.tandemNameSymbol = options.tandemNameSymbol;
 

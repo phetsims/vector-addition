@@ -61,7 +61,7 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
       () => this.updateComponentVector( componentVector,
         scene.graph.modelViewTransformProperty.value,
         componentVectorStyleProperty.value,
-        componentVector.isParentVectorSelectedProperty.value )
+        scene.selectedVectorProperty.value === componentVector.parentVector )
     );
   }
 

@@ -89,14 +89,14 @@ export default class ComponentVectorNode extends RootVectorNode {
     //
     // dispose is required.
     const componentVectorMultilink = Multilink.multilink(
-      [ componentVectorStyleProperty, componentVector.isParentVectorSelectedProperty,
+      [ componentVectorStyleProperty, scene.selectedVectorProperty,
         componentVector.isOnGraphProperty, componentVector.vectorComponentsProperty ],
-      ( componentVectorStyle, isParentVectorSelected ) => {
+      ( componentVectorStyle, selectedVector ) => {
 
         this.updateComponentVector( componentVector,
           scene.graph.modelViewTransformProperty.value,
           componentVectorStyle,
-          isParentVectorSelected );
+          selectedVector === componentVector.parentVector );
       } );
 
     // Highlight the component vector's label when its parent vector is selected.

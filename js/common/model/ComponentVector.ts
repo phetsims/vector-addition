@@ -16,7 +16,6 @@
  * @author Brandon Li
  */
 
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
@@ -40,9 +39,6 @@ export default class ComponentVector extends RootVector {
   // Matches the parent. When the parent is on the graph, the component is also on the graph (and vise versa).
   public readonly isOnGraphProperty: Property<boolean>;
 
-  // Whether the parent vector is selected.
-  public readonly isParentVectorSelectedProperty: TReadOnlyProperty<boolean>;
-
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
   // Offsets from axes in PROJECTION style. These are managed by the VectorSet and set via setProjectionOffsets.
@@ -55,12 +51,10 @@ export default class ComponentVector extends RootVector {
   /**
    * @param parentVector - the vector that this component vector is associated with
    * @param componentVectorStyleProperty
-   * @param selectedVectorProperty - which vector selected
    * @param componentType - type of component vector (x or y), see ComponentVectorType
    */
   public constructor( parentVector: Vector,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      selectedVectorProperty: Property<Vector | null>,
                       componentType: ComponentVectorType ) {
 
     super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
@@ -68,12 +62,6 @@ export default class ComponentVector extends RootVector {
     this.parentVector = parentVector;
     this.componentType = componentType;
     this.isOnGraphProperty = parentVector.isOnGraphProperty;
-
-    this.isParentVectorSelectedProperty = new DerivedProperty(
-      [ selectedVectorProperty ],
-      selectedVector => ( !!selectedVector && ( selectedVector === parentVector ) ),
-      { valueType: 'boolean' }
-    );
 
     this.componentVectorStyleProperty = componentVectorStyleProperty;
 
@@ -90,7 +78,6 @@ export default class ComponentVector extends RootVector {
 
     this.disposeComponentVector = () => {
       Multilink.unmultilink( updateComponentMultilink );
-      this.isParentVectorSelectedProperty.dispose();
     };
   }
 
