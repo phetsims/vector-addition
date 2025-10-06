@@ -30,19 +30,19 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = {
 
+  // Offsets for primary component vectors in ComponentVectorStyle 'projection'
+  projectionXOffsetStart?: number;
+  projectionYOffsetStart?: number;
+  projectionXOffsetDelta?: number;
+  projectionYOffsetDelta?: number;
+
   // false means that the default SumVector will not be created, and a subclass is responsible for initializing this.sumVector.
   initializeSum?: boolean;
 
   // initial tail position of the sum. Only used if options.initializeSum = true
   initialSumTailPosition?: Vector2;
 
-  // Offsets for primary component vectors in PROJECTION style
-  projectionXOffsetStart?: number;
-  projectionYOffsetStart?: number;
-  projectionXOffsetDelta?: number;
-  projectionYOffsetDelta?: number;
-
-  // Offsets for sum component vectors in PROJECTION style
+  // Offsets for sum component vectors in ComponentVectorStyle 'projection'
   sumProjectionXOffset?: number;
   sumProjectionYOffset?: number;
 
@@ -97,12 +97,12 @@ export default class VectorSet extends PhetioObject {
     const options = optionize<VectorSetOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
-      initializeSum: true,
-      initialSumTailPosition: graph.bounds.center,
       projectionXOffsetStart: -offsetStart,
       projectionYOffsetStart: -offsetStart,
       projectionXOffsetDelta: -offsetDelta,
       projectionYOffsetDelta: -offsetDelta,
+      initializeSum: true,
+      initialSumTailPosition: graph.bounds.center,
       sumProjectionXOffset: offsetStart,
       sumProjectionYOffset: offsetStart,
       sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
