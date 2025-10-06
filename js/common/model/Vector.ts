@@ -350,8 +350,8 @@ export default class Vector extends RootVector {
    */
   public animateToPoint( point: Vector2, finalComponents: Vector2, finishCallback: () => void ): void {
 
-    affirm( !this.inProgressAnimation, 'Can\'t animate to position when we are in animation currently' );
-    affirm( !this.isOnGraphProperty.value, 'Can\'t animate when the vector is on the scene' );
+    affirm( !this.inProgressAnimation, 'Animation is already in progress.' );
+    affirm( !this.isOnGraphProperty.value, 'Cannot animate when the vector is on the graph.' );
 
     // Calculate the tail position to animate to
     const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
@@ -379,13 +379,13 @@ export default class Vector extends RootVector {
   }
 
   /**
-   * Drops the vector onto the scene.
+   * Drops the vector onto the graph.
    * @param tailPosition - the tail position to drop the vector onto
    */
   public dropOntoGraph( tailPosition: Vector2 ): void {
 
-    affirm( !this.isOnGraphProperty.value, 'vector is already on the scene' );
-    affirm( !this.inProgressAnimation, 'cannot drop vector when it\'s animating' );
+    affirm( !this.isOnGraphProperty.value, 'Vector is already on the graph.' );
+    affirm( !this.inProgressAnimation, 'Cannot drop vector when it is animating.' );
 
     this.isOnGraphProperty.value = true;
 
@@ -401,8 +401,8 @@ export default class Vector extends RootVector {
    */
   public popOffOfGraph(): void {
 
-    affirm( this.isOnGraphProperty.value, 'attempted pop off scene when vector was already off' );
-    affirm( !this.inProgressAnimation, 'cannot pop vector off when it\'s animating' );
+    affirm( this.isOnGraphProperty.value, 'Attempted pop off graph when vector was already off.' );
+    affirm( !this.inProgressAnimation, 'Cannot pop vector off graph when it is animating.' );
 
     this.isOnGraphProperty.value = false;
     this.scene.selectedVectorProperty.value = null;
