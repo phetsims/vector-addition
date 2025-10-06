@@ -272,8 +272,9 @@ export default class Vector extends RootVector {
       const vectorsInVectorSet = this.vectorSet.vectors.filter( vector => {
         return vector !== this;
       } );
-      if ( this.vectorSet.sumVector ) {
-        vectorsInVectorSet.push( this.vectorSet.sumVector );
+      const sumVector = this.vectorSet.getSumVector();
+      if ( sumVector ) {
+        vectorsInVectorSet.push( sumVector );
       }
 
       //----------------------------------------------------------------------------------------

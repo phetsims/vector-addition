@@ -74,7 +74,7 @@ export default class EquationTypeNode extends Node {
     if ( equationType === 'negation' ) {
       equationChildren.push( new Text( MathSymbols.PLUS, TEXT_OPTIONS ) );
 
-      const sumVector = vectorSet.sumVector!;
+      const sumVector = vectorSet.getSumVector()!;
       affirm( sumVector );
       const vectorSymbolNode = new VectorSymbolNode( {
         symbolProperty: sumVector.symbolProperty,
@@ -92,7 +92,7 @@ export default class EquationTypeNode extends Node {
       equationChildren.push( new Text( '0', TEXT_OPTIONS ) );
     }
     else {
-      const sumVector = vectorSet.sumVector!;
+      const sumVector = vectorSet.getSumVector()!;
       affirm( sumVector );
       const vectorSymbolNode = new VectorSymbolNode( {
         symbolProperty: sumVector.symbolProperty,

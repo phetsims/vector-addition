@@ -44,9 +44,9 @@ export default class EquationsSumCheckbox extends Checkbox {
     } );
 
     const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => {
-      const property = scene.vectorSet.sumVector?.symbolProperty;
-      affirm( property );
-      return property.value;
+      const sumVector = scene.vectorSet.getSumVector()!;
+      affirm( sumVector );
+      return sumVector.symbolProperty.value;
     } );
 
     // To make both symbols have the same effective size, so that control panel layout doesn't shift.

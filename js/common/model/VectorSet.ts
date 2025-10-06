@@ -69,7 +69,7 @@ export default class VectorSet extends PhetioObject {
   public readonly sumProjectionXOffset: number;
   public readonly sumProjectionYOffset: number;
 
-  protected _sumVector: SumVector | null; // settable by subclasses, specifically EquationsVectorSet
+  protected sumVector: SumVector | null; // settable by subclasses, specifically EquationsVectorSet
   public readonly sumTandemNameSymbol: string; // Symbol for the sum vector used in tandem names.
 
   /**
@@ -126,12 +126,12 @@ export default class VectorSet extends PhetioObject {
     this.sumTandemNameSymbol = options.sumTandemNameSymbol;
 
     if ( options.initializeSum ) {
-      this._sumVector = new SumVector( options.initialSumTailPosition, scene, this, options.sumSymbolProperty,
+      this.sumVector = new SumVector( options.initialSumTailPosition, scene, this, options.sumSymbolProperty,
         this.sumTandemNameSymbol, options.tandem.createTandem( `${this.sumTandemNameSymbol}Vector` ) );
-      this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
+      this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
     }
     else {
-      this._sumVector = null;
+      this.sumVector = null;
     }
 
     // Whenever a vector is added or removed, adjust the offsets of all component vectors for ComponentVectorStyle 'projection'.
@@ -145,13 +145,13 @@ export default class VectorSet extends PhetioObject {
     } );
   }
 
-  public get sumVector(): SumVector | null {
-    return this._sumVector;
+  public getSumVector(): SumVector | null {
+    return this.sumVector;
   }
 
   public reset(): void {
     this.erase();
-    this._sumVector && this._sumVector.reset();
+    this.sumVector && this.sumVector.reset();
   }
 
   /**
