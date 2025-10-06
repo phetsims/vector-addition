@@ -146,7 +146,7 @@ export default class EquationsVectorSet extends VectorSet {
     this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
 
     // The sum symbol ('c' or 'f') appears in the equations, so add it.
-    this.equationSymbolProperties.push( options.sumSymbolProperty );
+    this.equationSymbolProperties.push( this.sumVector.symbolProperty );
   }
 
   /**
