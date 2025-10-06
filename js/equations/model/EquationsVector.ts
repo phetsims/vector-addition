@@ -94,6 +94,7 @@ export default class EquationsVector extends Vector {
   }
 
   /**
+   * Vectors in the Equations screen have an associated coefficient.
    * See RootVector.getLabelDisplayData for details.
    */
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
