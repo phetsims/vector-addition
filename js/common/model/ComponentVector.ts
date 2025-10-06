@@ -163,7 +163,7 @@ export default class ComponentVector extends RootVector {
   /**
    * See RootVector.getLabelDisplayData for details.
    */
-  public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
+  public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // Get the component vector's magnitude (a scalar, possibly negative)
     let magnitude: number | null = ( this.componentType === 'xComponent' ) ?

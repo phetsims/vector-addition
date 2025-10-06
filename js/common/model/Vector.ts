@@ -164,7 +164,7 @@ export default class Vector extends RootVector {
   /**
    * See RootVector.getLabelDisplayData for details.
    */
-  public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
+  public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
     // If the 'Values' checkbox is checked, the label displays the vector's magnitude.
     const magnitude = valuesVisible ? this.magnitude : null;
