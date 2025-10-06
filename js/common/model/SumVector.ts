@@ -100,7 +100,7 @@ export default class SumVector extends Vector {
   }
 
   /**
-   * Update the sum vector components. Calculated from all the vectors that are on the graph.
+   * Update the sum's xy-components. Calculated from all the vectors that are on the graph.
    */
   protected updateSum( vectors: ObservableArray<Vector> ): void {
 

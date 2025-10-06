@@ -216,7 +216,7 @@ export default class VectorAdditionConstants {
   // bounds of the graph, in model units.
   public static readonly VECTOR_TAIL_DRAG_MARGIN = 1;
 
-  // vector components or magnitudes smaller than this value are treated as effectively zero
+  // xy-components or magnitudes smaller than this value are treated as effectively zero
   public static readonly ZERO_THRESHOLD = 1E-10;
 
   //----------------------------------------------------------------------------------------

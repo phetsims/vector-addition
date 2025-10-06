@@ -270,7 +270,7 @@ export default abstract class RootVector extends PhetioObject {
   public setTipXY( x: number, y: number ): void {
 
     // Since tipPositionProperty is a DerivedProperty, we cannot directly set it.
-    // Instead, we will update the vector components, keeping the tail constant.
+    // Instead, we will update the xy-components, keeping the tail constant.
     const tip = new Vector2( x, y );
     this.xyComponents = this.xyComponents.plus( tip.minus( this.tip ) );
   }
