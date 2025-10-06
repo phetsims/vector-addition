@@ -99,9 +99,6 @@ export default class EquationsVectorSet extends VectorSet {
                       coordinateSnapMode: CoordinateSnapMode,
                       tandem: Tandem ) {
 
-    // Symbol for the sum vector used in tandem names.
-    const sumTandemNameSymbol = ( coordinateSnapMode === 'cartesian' ) ? 'c' : 'f';
-
     const options = {
 
       // EquationsVectorSet will initialize its own sum vector, because the sum vector in this screen is different.
@@ -112,7 +109,8 @@ export default class EquationsVectorSet extends VectorSet {
       sumProjectionXOffset: 0.5,
       sumProjectionYOffset: 0.5,
 
-      sumTandemNameSymbol: sumTandemNameSymbol,
+      sumSymbolProperty: ( coordinateSnapMode === 'cartesian' ) ? VectorAdditionSymbols.cStringProperty : VectorAdditionSymbols.fStringProperty,
+      sumTandemNameSymbol: ( coordinateSnapMode === 'cartesian' ) ? 'c' : 'f',
       tandem: tandem
     };
 
@@ -142,12 +140,11 @@ export default class EquationsVectorSet extends VectorSet {
       this.equationsVectors.push( vector );
     }
 
-    const sumSymbolProperty = ( coordinateSnapMode === 'cartesian' ) ? VectorAdditionSymbols.cStringProperty : VectorAdditionSymbols.fStringProperty;
-    this.equationSymbolProperties.push( sumSymbolProperty );
+    this.equationSymbolProperties.push( options.sumSymbolProperty );
 
     // Create the sum vector
-    this.sumVector = new EquationsSumVector( EQUATIONS_SUM_TAIL_POSITION, scene, this, sumSymbolProperty,
-      sumTandemNameSymbol, tandem.createTandem( `${sumTandemNameSymbol}Vector` ) );
+    this.sumVector = new EquationsSumVector( EQUATIONS_SUM_TAIL_POSITION, scene, this, options.sumSymbolProperty,
+      options.sumTandemNameSymbol, tandem.createTandem( `${options.sumTandemNameSymbol}Vector` ) );
     this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 
