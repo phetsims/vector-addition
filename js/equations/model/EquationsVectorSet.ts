@@ -79,7 +79,8 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
 export default class EquationsVectorSet extends VectorSet {
 
-  public readonly symbolProperties: TReadOnlyProperty<string>[];
+  // Symbols that appear in the equations on the radio buttons in EquationTypeRadioButtonGroup.
+  public readonly equationSymbolProperties: TReadOnlyProperty<string>[];
 
   // We need to know about EquationsVector instances, a specialization of Vector.
   // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
@@ -117,7 +118,7 @@ export default class EquationsVectorSet extends VectorSet {
 
     super( scene, componentVectorStyleProperty, vectorColorPalette, options );
 
-    this.symbolProperties = [];
+    this.equationSymbolProperties = [];
     this.equationsVectors = [];
 
     // Create the individual vectors.
@@ -137,12 +138,12 @@ export default class EquationsVectorSet extends VectorSet {
         options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ) );
 
       this.vectors.push( vector );
-      this.symbolProperties.push( vectorDescription.symbolProperty );
+      this.equationSymbolProperties.push( vectorDescription.symbolProperty );
       this.equationsVectors.push( vector );
     }
 
     const sumSymbolProperty = ( coordinateSnapMode === 'cartesian' ) ? VectorAdditionSymbols.cStringProperty : VectorAdditionSymbols.fStringProperty;
-    this.symbolProperties.push( sumSymbolProperty );
+    this.equationSymbolProperties.push( sumSymbolProperty );
 
     // Create the sum vector
     this._sumVector = new EquationsSumVector( EQUATIONS_SUM_TAIL_POSITION, scene, this, sumSymbolProperty,

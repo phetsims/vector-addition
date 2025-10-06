@@ -62,7 +62,7 @@ export default class EquationAccordionBox extends FixedSizeAccordionBox {
 
     // Radio buttons for selecting equation type
     const equationTypeRadioButtonGroup = new EquationTypeRadioButtonGroup(
-      equationTypeProperty, vectorSet.symbolProperties, equationButtonsAlignGroup, {
+      equationTypeProperty, vectorSet.equationSymbolProperties, equationButtonsAlignGroup, {
         tandem: options.tandem.createTandem( 'equationTypeRadioButtonGroup' )
       } );
 
