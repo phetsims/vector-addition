@@ -183,21 +183,21 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
 
   // Lab scene, Cartesian scene, vector set 1 (u)
   public static readonly LAB_CARTESIAN_COLOR_PALETTE_1 = new VectorColorPalette( {
-    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.vectorFill', {
-      default: '#e17a14' // orange
-    } ),
-    sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.sumFill', {
-      default: '#d20000' // dark red
-    } )
-  } );
-
-  // Lab scene, Cartesian scene, vector set 2 (v)
-  public static readonly LAB_CARTESIAN_COLOR_PALETTE_2 = new VectorColorPalette( {
     vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.vectorFill', {
       default: VECTOR_FILL_BLUE
     } ),
     sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian2.sumFill', {
       default: SUM_FILL_BLUE
+    } )
+  } );
+
+  // Lab scene, Cartesian scene, vector set 2 (v)
+  public static readonly LAB_CARTESIAN_COLOR_PALETTE_2 = new VectorColorPalette( {
+    vectorFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.vectorFill', {
+      default: '#e17a14' // orange
+    } ),
+    sumFillProperty: new ProfileColorProperty( vectorAddition, 'lab.cartesian1.sumFill', {
+      default: '#d20000' // dark red
     } )
   } );
 
