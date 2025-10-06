@@ -108,7 +108,7 @@ export default class EquationsVectorSet extends VectorSet {
       // It's not truly a sum, and its computation depends on which equation type is selected (see EquationType).
       initializeSum: false,
 
-      // offsets for sum component vectors in PROJECTION style
+      // offsets for sum component vectors with ComponentVectorStyle 'projection'
       sumProjectionXOffset: 0.5,
       sumProjectionYOffset: 0.5,
 

@@ -85,7 +85,7 @@ export default class VectorSet extends PhetioObject {
 
     const graph = scene.graph;
 
-    // Compute values for the options that are related to the PROJECTION style component vectors.
+    // Compute values for the options that are related to ComponentVectorStyle 'projection'.
     // See https://github.com/phetsims/vector-addition/issues/225
     const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth!;
     affirm( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );
@@ -134,7 +134,7 @@ export default class VectorSet extends PhetioObject {
       this._sumVector = null;
     }
 
-    // Whenever a vector is added or removed, adjust the offsets of all component vectors for PROJECTION style.
+    // Whenever a vector is added or removed, adjust the offsets of all component vectors for ComponentVectorStyle 'projection'.
     // See https://github.com/phetsims/vector-addition/issues/225
     this.vectors.lengthProperty.link( length => {
       for ( let i = 0; i < length; i++ ) {

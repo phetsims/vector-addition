@@ -72,8 +72,8 @@ export default class LabScene extends VectorAdditionScene {
 
     this.initialVectorComponents = initialVectorComponents;
 
-    // Compute values for the options that are related to the PROJECTION style component vectors.
-    // PROJECTION component vectors are more closely spaced in this screen, and we have 2 sum vectors.
+    // Compute values for the options that are related to ComponentVectorStyle 'projection'.
+    // Projection component vectors are more closely-spaced in this screen, and we have 2 sum vectors.
     // See https://github.com/phetsims/vector-addition/issues/225
     const viewHeadWidth = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS.headWidth!;
     affirm( viewHeadWidth !== undefined, 'viewHeadWidth must be defined' );

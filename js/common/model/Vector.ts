@@ -409,7 +409,7 @@ export default class Vector extends RootVector {
   }
 
   /**
-   * Sets the offset from the x-axis and y-axis that is used for PROJECTION style for component vectors.
+   * Sets the offset from the x-axis and y-axis that is used for ComponentVectorStyle 'projection'.
    * @param projectionXOffset - x offset, in model coordinates
    * @param projectionYOffset - y offset, in model coordinates
    */

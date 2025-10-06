@@ -5,7 +5,7 @@
  *
  * Extends RootVectorNode but add the following functionality:
  *  - determines visibility by the component style (i.e. should be invisible on ComponentVectorStyle.INVISIBLE)
- *  - draws lines for the PROJECTION component vector style
+ *  - draws lines for ComponentVectorStyle 'projection'
  *  - custom label positioning
  *  - distinct appearance
  *
@@ -71,9 +71,8 @@ export default class ComponentVectorNode extends RootVectorNode {
 
     //----------------------------------------------------------------------------------------
 
-    // Create a path that represents the dashed lines corresponding to the PROJECTION style.
+    // Create a path that represents the dashed lines corresponding to ComponentVectorStyle 'projection'.
     // The shape of the path will be updated later.
-
     this.leaderLinesPath = new Path( new Shape(), {
       lineWidth: 0.5,
       lineDash: UNSELECTED_LEADER_LINES_DASH
@@ -83,7 +82,7 @@ export default class ComponentVectorNode extends RootVectorNode {
     //----------------------------------------------------------------------------------------
     // Create a multilink to observe:
     //  - componentVectorStyleProperty - to determine visibility (i.e. components shouldn't be visible on INVISIBLE)
-    //      and to draw lines on the PROJECTION componentVectorStyle
+    //      and to draw lines for ComponentVectorStyle 'projection'
     //  - isOnGraphProperty - components shouldn't be visible if the vector isn't on the graph
     //  - xyComponentsProperty - to update the leader lines drawings positions
     //
@@ -143,7 +142,7 @@ export default class ComponentVectorNode extends RootVectorNode {
     // Leader lines are only visible when component vectors are projected onto axes
     this.leaderLinesPath.visible = ( componentVectorStyle === 'projection' );
 
-    // Update leader lines only if they are visible (with PROJECTION style)
+    // Update leader lines only if they are visible (with ComponentVectorStyle 'projection')
     if ( this.leaderLinesPath.visible ) {
 
       // Since the leader lines are a child of this view, the origin of the view is at the tail of the component

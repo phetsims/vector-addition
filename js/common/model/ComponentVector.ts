@@ -39,8 +39,8 @@ export default class ComponentVector extends RootVector {
 
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
-  // Offsets from axes in PROJECTION style. These are managed by the VectorSet and set via setProjectionOffsets.
-  // See https://github.com/phetsims/vector-addition/issues/225
+  // Offsets from axes in ComponentVectorStyle 'projection'. These are managed by the VectorSet and set via
+  // setProjectionOffsets. See https://github.com/phetsims/vector-addition/issues/225
   private projectionXOffset: number;
   private projectionYOffset: number;
 
@@ -85,7 +85,7 @@ export default class ComponentVector extends RootVector {
   }
 
   /**
-   * Sets the offset from the x-axis and y-axis that is used for PROJECTION style.
+   * Sets the offset from the x-axis and y-axis that is used for ComponentVectorStyle 'projection'.
    * See https://github.com/phetsims/vector-addition/issues/225.
    * @param projectionXOffset - x offset, in model coordinates
    * @param projectionYOffset - y offset, in model coordinates
