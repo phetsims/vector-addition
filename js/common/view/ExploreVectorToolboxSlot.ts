@@ -133,6 +133,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
           vector.animateToPoint( iconPosition, iconComponents, () => {
             vectorSet.vectors.remove( vector );
             vector.reset();
+            //TODO https://github.com/phetsims/vector-addition/issues/258 animateBackProperty is being set in animateBackProperty listener
             vector.animateBackProperty.value = false;
             // Do not dispose of vector! Vectors in the Explore 1D screen exist for the lifetime of the sim.
           } );
