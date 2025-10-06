@@ -13,43 +13,41 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import SumVector from '../../common/model/SumVector.js';
 import Vector from '../../common/model/Vector.js';
-import VectorSet from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
 import { EquationType } from './EquationType.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-
-const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
+import VectorSet from '../../common/model/VectorSet.js';
+import EquationsScene from './EquationsScene.js';
 
 export default class EquationsSumVector extends SumVector {
 
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
 
   /**
+   * @param initialTailPosition - starting tail position of the vector
    * @param scene - scene the sum vector belongs to
    * @param vectorSet - the vector set that the sum vector represents
-   * @param equationTypeProperty
    * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    * @param tandemNameSymbol - symbol for the vector used in tandem names
    * @param tandem
    */
-  public constructor( scene: VectorAdditionScene,
+  public constructor( initialTailPosition: Vector2,
+                      scene: EquationsScene,
                       vectorSet: VectorSet,
-                      equationTypeProperty: TReadOnlyProperty<EquationType>,
                       symbolProperty: TReadOnlyProperty<string>,
                       tandemNameSymbol: string,
                       tandem: Tandem ) {
 
-    super( EQUATIONS_SUM_TAIL_POSITION, scene, vectorSet, symbolProperty, tandemNameSymbol, tandem );
+    super( initialTailPosition, scene, vectorSet, symbolProperty, tandemNameSymbol, tandem );
 
-    this.equationTypeProperty = equationTypeProperty;
+    this.equationTypeProperty = scene.equationTypeProperty;
 
     // Observe when each vector changes and/or when the equationType changes to calculate the sum.
     const xyComponentsProperties = vectorSet.vectors.map( vector => vector.xyComponentsProperty );
-    Multilink.multilinkAny( [ equationTypeProperty, ...xyComponentsProperties ],
+    Multilink.multilinkAny( [ scene.equationTypeProperty, ...xyComponentsProperties ],
       () => this.updateSum( vectorSet.vectors )
     );
   }

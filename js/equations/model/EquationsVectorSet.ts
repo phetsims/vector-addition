@@ -31,6 +31,8 @@ type VectorDescription = {
   baseVectorTail: Vector2;
 };
 
+const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
+
 // Describes the vectors for the Cartesian scene. See https://github.com/phetsims/vector-addition/issues/227
 const CARTESIAN_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
@@ -145,7 +147,8 @@ export default class EquationsVectorSet extends VectorSet {
     this.symbolProperties.push( sumSymbolProperty );
 
     // Create the sum vector
-    this._sumVector = new EquationsSumVector( scene, this, scene.equationTypeProperty, sumSymbolProperty, sumTandemNameSymbol, tandem.createTandem( `${sumTandemNameSymbol}Vector` ) );
+    this._sumVector = new EquationsSumVector( EQUATIONS_SUM_TAIL_POSITION, scene, this, sumSymbolProperty,
+      sumTandemNameSymbol, tandem.createTandem( `${sumTandemNameSymbol}Vector` ) );
     this._sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
   }
 
