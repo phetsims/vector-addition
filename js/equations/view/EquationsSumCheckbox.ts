@@ -23,6 +23,7 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class EquationsSumCheckbox extends Checkbox {
 
@@ -42,8 +43,11 @@ export default class EquationsSumCheckbox extends Checkbox {
       maxWidth: 95 // determined empirically
     } );
 
-    //TODO https://github.com/phetsims/vector-addition/issues/258 Use scene.vectorSet.sumVector.symbolProperty.value
-    const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet.sumSymbolProperty.value );
+    const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => {
+      const property = scene.vectorSet.sumVector?.symbolProperty;
+      affirm( property );
+      return property.value;
+    } );
 
     // To make both symbols have the same effective size, so that control panel layout doesn't shift.
     const alignGroup = new AlignGroup();

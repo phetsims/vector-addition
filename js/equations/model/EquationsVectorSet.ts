@@ -80,7 +80,6 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 export default class EquationsVectorSet extends VectorSet {
 
   public readonly symbolProperties: TReadOnlyProperty<string>[];
-  public readonly sumSymbolProperty: TReadOnlyProperty<string>;
 
   // We need to know about EquationsVector instances, a specialization of Vector.
   // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
@@ -143,7 +142,6 @@ export default class EquationsVectorSet extends VectorSet {
     }
 
     const sumSymbolProperty = ( coordinateSnapMode === 'cartesian' ) ? VectorAdditionSymbols.cStringProperty : VectorAdditionSymbols.fStringProperty;
-    this.sumSymbolProperty = sumSymbolProperty;
     this.symbolProperties.push( sumSymbolProperty );
 
     // Create the sum vector
