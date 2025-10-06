@@ -77,7 +77,7 @@ export default class Vector extends RootVector {
   public readonly isOnGraphProperty: Property<boolean>;
 
   // {Animation|null} reference to any animation that is currently in progress
-  public inProgressAnimation: Animation | null;
+  private inProgressAnimation: Animation | null;
 
   // indicates if the vector should be animated back to the toolbox
   public readonly animateBackProperty: Property<boolean>;
@@ -416,6 +416,13 @@ export default class Vector extends RootVector {
   public setProjectionOffsets( projectionXOffset: number, projectionYOffset: number ): void {
     this.xComponentVector.setProjectionOffsets( projectionXOffset, projectionYOffset );
     this.yComponentVector.setProjectionOffsets( projectionXOffset, projectionYOffset );
+  }
+
+  /**
+   * Returns true when the Vector is animating.
+   */
+  public isAnimating(): boolean {
+    return this.inProgressAnimation !== null;
   }
 }
 
