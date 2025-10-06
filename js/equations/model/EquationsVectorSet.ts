@@ -140,12 +140,13 @@ export default class EquationsVectorSet extends VectorSet {
       this.equationsVectors.push( vector );
     }
 
-    this.equationSymbolProperties.push( options.sumSymbolProperty );
-
     // Create the sum vector
     this.sumVector = new EquationsSumVector( EQUATIONS_SUM_TAIL_POSITION, scene, this, options.sumSymbolProperty,
       options.sumTandemNameSymbol, tandem.createTandem( `${options.sumTandemNameSymbol}Vector` ) );
     this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
+
+    // The sum symbol ('c' or 'f') appears in the equations, so add it.
+    this.equationSymbolProperties.push( options.sumSymbolProperty );
   }
 
   /**
