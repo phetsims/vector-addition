@@ -46,6 +46,7 @@ type SelfOptions = {
   sumProjectionXOffset?: number;
   sumProjectionYOffset?: number;
 
+  // Symbol for the sum vector used in the visual interface.
   sumSymbolProperty?: TReadOnlyProperty<string>;
 
   // Symbol for the sum vector used in tandem names.
