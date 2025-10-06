@@ -25,7 +25,7 @@ export type BaseVectorOptions = SelfOptions &
   PickOptional<VectorOptions, 'isDisposable'> &
   PickRequired<VectorOptions, 'tandem'>;
 
-export default abstract class BaseVector extends Vector {
+export default class BaseVector extends Vector {
 
   /**
    * @param initialTailPosition - starting tail position of the BaseVector
