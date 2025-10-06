@@ -19,7 +19,6 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import Vector from '../model/Vector.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorSet from '../model/VectorSet.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
@@ -81,9 +80,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     // Create the label of the slot, which is always visible.
     //----------------------------------------------------------------------------------------
 
-    const symbolProperty = vector.symbolProperty!;
-    affirm( symbolProperty );
-    this.addChild( new ArrowOverSymbolNode( symbolProperty ) );
+    this.addChild( new ArrowOverSymbolNode( vector.symbolProperty ) );
 
     //----------------------------------------------------------------------------------------
     // Dragging the vector out of the slot.

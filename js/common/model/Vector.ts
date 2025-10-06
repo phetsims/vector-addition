@@ -86,6 +86,9 @@ export default class Vector extends RootVector {
   public readonly xComponentVector: ComponentVector;
   public readonly yComponentVector: ComponentVector;
 
+  // the symbol used to represent the vector
+  public readonly symbolProperty: TReadOnlyProperty<string>;
+
   // symbol for this vector used in tandem names
   public readonly tandemNameSymbol: string;
 
@@ -117,7 +120,7 @@ export default class Vector extends RootVector {
       tandem: Tandem.OPTIONAL
     }, providedOptions );
 
-    super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, symbolProperty, options );
+    super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, options );
 
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovableFromGraph = options.isRemovableFromGraph;
@@ -135,6 +138,7 @@ export default class Vector extends RootVector {
     this.xComponentVector = new ComponentVector( this, vectorSet.componentVectorStyleProperty, 'xComponent' );
     this.yComponentVector = new ComponentVector( this, vectorSet.componentVectorStyleProperty, 'yComponent' );
 
+    this.symbolProperty = symbolProperty;
     this.tandemNameSymbol = options.tandemNameSymbol;
 
     // When the scene's origin changes, update the tail position. unlink is required on dispose.
@@ -162,16 +166,12 @@ export default class Vector extends RootVector {
    */
   public getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
 
-    // The label displays the vector's symbol.
-    const symbolProperty = this.symbolProperty!;
-    affirm( symbolProperty );
-
     // If the 'Values' checkbox is checked, the label displays the vector's magnitude.
     const magnitude = valuesVisible ? this.magnitude : null;
 
     return {
       coefficient: null, // vector models don't have coefficients
-      symbolProperty: symbolProperty,
+      symbolProperty: this.symbolProperty,
       magnitude: magnitude,
       includeAbsoluteValueBars: ( magnitude !== null ) // absolute value bars if there is a magnitude
     };

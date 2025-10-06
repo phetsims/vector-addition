@@ -31,7 +31,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -154,8 +153,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       if ( selectedVector !== null ) {
 
         // Get the vector symbol
-        const vectorSymbolProperty = selectedVector.symbolProperty!;
-        affirm( vectorSymbolProperty );
+        const vectorSymbolProperty = selectedVector.symbolProperty;
 
         // Update labels (angle label is the same)
         magnitudeSymbolNode.setSymbolProperty( vectorSymbolProperty );
@@ -209,9 +207,6 @@ class SelectedVectorAccessibleParagraphStringProperty extends PatternStringPrope
 }> {
   public constructor( selectedVector: Vector ) {
 
-    const symbolProperty = selectedVector.symbolProperty!;
-    affirm( symbolProperty );
-
     const magnitudeProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
       () => toFixed( selectedVector.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
     const directionProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
@@ -222,7 +217,7 @@ class SelectedVectorAccessibleParagraphStringProperty extends PatternStringPrope
       xyComponents => toFixed( xyComponents.y, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
 
     super( VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphStringProperty, {
-      symbol: symbolProperty,
+      symbol: selectedVector.symbolProperty,
       magnitude: magnitudeProperty,
       direction: directionProperty,
       xComponent: xComponentProperty,

@@ -26,8 +26,6 @@ import { ComponentVectorType } from './ComponentVectorType.js';
 import RootVector, { LabelDisplayData } from './RootVector.js';
 import Vector from './Vector.js';
 
-const COMPONENT_VECTOR_SYMBOL = null; // Component vectors don't have a symbol
-
 export default class ComponentVector extends RootVector {
 
   // the parent vector for this component vector
@@ -57,7 +55,7 @@ export default class ComponentVector extends RootVector {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       componentType: ComponentVectorType ) {
 
-    super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette, COMPONENT_VECTOR_SYMBOL );
+    super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette );
 
     this.parentVector = parentVector;
     this.componentType = componentType;

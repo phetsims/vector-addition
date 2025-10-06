@@ -70,20 +70,15 @@ export default abstract class RootVector extends PhetioObject {
   // the color palette used to render the vector
   public readonly vectorColorPalette: VectorColorPalette;
 
-  // the symbol used to represent the vector
-  public readonly symbolProperty: TReadOnlyProperty<string> | null;
-
   /**
    * @param initialTailPosition - starting tail position of the vector
    * @param initialComponents - starting components of the vector
    * @param vectorColorPalette - color palette for this vector
-   * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
    * @param providedOptions
    */
   protected constructor( initialTailPosition: Vector2,
                          initialComponents: Vector2,
                          vectorColorPalette: VectorColorPalette,
-                         symbolProperty: TReadOnlyProperty<string> | null,
                          providedOptions?: RootVectorOptions ) {
 
     const options = optionize<RootVectorOptions, SelfOptions, PhetioObjectOptions>()( {
@@ -114,8 +109,6 @@ export default abstract class RootVector extends PhetioObject {
       } );
 
     this.vectorColorPalette = vectorColorPalette;
-
-    this.symbolProperty = symbolProperty;
   }
 
   public reset(): void {
