@@ -1,7 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Color palette used for rendering vectors.
+ * VectorColorPalette defines a set of color for rendering vectors. All vectors in a vector set typically share
+ * a VectorColorPalette.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
