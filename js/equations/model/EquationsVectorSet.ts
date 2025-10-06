@@ -158,7 +158,7 @@ export default class EquationsVectorSet extends VectorSet {
    * So we want to keep them around, but reset them. See https://github.com/phetsims/vector-addition/issues/143
    */
   public override reset(): void {
-    this.vectors.forEach( vector => vector.reset() );
+    this.equationsVectors.forEach( vector => vector.reset() );
     this._sumVector && this._sumVector.reset();
     // Do not call super.reset -- see note above!
   }
