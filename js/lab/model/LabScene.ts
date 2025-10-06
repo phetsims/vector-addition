@@ -10,7 +10,6 @@
  * @author Brandon Li
  */
 
-import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
@@ -86,11 +85,7 @@ export default class LabScene extends VectorAdditionScene {
       projectionXOffsetDelta: offsetDelta,
       projectionYOffsetDelta: offsetDelta,
 
-      //TODO https://github.com/phetsims/vector-addition/issues/258 simplify to new Vector( 12, 10 )
-      initialSumTailPosition: new Vector2(
-        roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
-        roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
-      ),
+      initialSumTailPosition: new Vector2( 12, 10 ),
 
       tandem: tandem.createTandem( `${tandemNameSymbol1}VectorSet` )
     } );
@@ -103,11 +98,7 @@ export default class LabScene extends VectorAdditionScene {
       projectionXOffsetDelta: offsetDelta,
       projectionYOffsetDelta: offsetDelta,
 
-      //TODO https://github.com/phetsims/vector-addition/issues/258 simplify to new Vector( 28, 10 )
-      initialSumTailPosition: new Vector2(
-        roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
-        roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
-      ),
+      initialSumTailPosition: new Vector2( 28, 10 ),
 
       // sum component vectors are spaced so that they don't overlap with vectorSet1
       sumProjectionXOffset: this.vectorSet1.sumProjectionXOffset + modelHeadWidth,
