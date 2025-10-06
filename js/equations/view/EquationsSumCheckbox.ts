@@ -42,6 +42,7 @@ export default class EquationsSumCheckbox extends Checkbox {
       maxWidth: 95 // determined empirically
     } );
 
+    //TODO https://github.com/phetsims/vector-addition/issues/258 Use scene.vectorSet.sumVector.symbolProperty.value
     const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => scene.vectorSet.sumSymbolProperty.value );
 
     // To make both symbols have the same effective size, so that control panel layout doesn't shift.
