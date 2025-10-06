@@ -12,8 +12,6 @@ import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import { LabelDisplayData } from '../../common/model/RootVector.js';
 import SumVector from '../../common/model/SumVector.js';
 import Vector from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -90,15 +88,6 @@ export default class EquationsSumVector extends SumVector {
 
       this.xyComponents = sum.negate();
     }
-  }
-
-  /**
-   * See RootVector.getLabelDisplayData for details.
-   */
-  public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
-    return combineOptions<LabelDisplayData>( super.getLabelDisplayData( valuesVisible ), {
-      symbolProperty: this.symbolProperty
-    } );
   }
 }
 
