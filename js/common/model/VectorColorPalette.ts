@@ -11,39 +11,40 @@ import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Property from '../../../../axon/js/Property.js';
 
+type VectorColorProperty = TReadOnlyProperty<Color | string | null>;
 
 type VectorColorPaletteOptions = {
 
   // Colors for main vectors (aka parent vectors)
-  vectorFillProperty: TReadOnlyProperty<Color | string | null>;
-  vectorStrokeProperty?: TReadOnlyProperty<Color | string | null>;
+  vectorFillProperty: VectorColorProperty;
+  vectorStrokeProperty?: VectorColorProperty;
 
   // Colors for component vectors. They are of type DashedArrowNode, which cannot be stroked.
   // Defaults to options.mainFill
-  componentFillProperty?: TReadOnlyProperty<Color | string | null>;
+  componentFillProperty?: VectorColorProperty;
 
   // Colors for sum vectors
-  sumFillProperty: TReadOnlyProperty<Color | string | null>;
-  sumStrokeProperty?: TReadOnlyProperty<Color | string | null>;
+  sumFillProperty: VectorColorProperty;
+  sumStrokeProperty?: VectorColorProperty;
 
   // Color for sum component vectors. They are of type DashedArrowNode, which cannot be stroked.
-  sumComponentFillProperty?: TReadOnlyProperty<Color | string | null>;
+  sumComponentFillProperty?: VectorColorProperty;
 
   // Colors for base vectors
-  baseVectorFillProperty?: TReadOnlyProperty<Color | string | null>;
-  baseVectorStrokeProperty?: TReadOnlyProperty<Color | string | null>;
+  baseVectorFillProperty?: VectorColorProperty;
+  baseVectorStrokeProperty?: VectorColorProperty;
 };
 
 export default class VectorColorPalette {
 
-  public readonly vectorFillProperty: TReadOnlyProperty<Color | string | null>;
-  public readonly vectorStrokeProperty: TReadOnlyProperty<Color | string | null>;
-  public readonly componentFillProperty: TReadOnlyProperty<Color | string | null>;
-  public readonly sumFillProperty: TReadOnlyProperty<Color | string | null>;
-  public readonly sumStrokeProperty: TReadOnlyProperty<Color | string | null>;
-  public readonly sumComponentFillProperty: TReadOnlyProperty<Color | string | null>;
-  public readonly baseVectorFillProperty: TReadOnlyProperty<Color | string | null>;
-  public readonly baseVectorStrokeProperty: TReadOnlyProperty<Color | string | null>;
+  public readonly vectorFillProperty: VectorColorProperty;
+  public readonly vectorStrokeProperty: VectorColorProperty;
+  public readonly componentFillProperty: VectorColorProperty;
+  public readonly sumFillProperty: VectorColorProperty;
+  public readonly sumStrokeProperty: VectorColorProperty;
+  public readonly sumComponentFillProperty: VectorColorProperty;
+  public readonly baseVectorFillProperty: VectorColorProperty;
+  public readonly baseVectorStrokeProperty: VectorColorProperty;
 
   public constructor( options: VectorColorPaletteOptions ) {
 
