@@ -82,30 +82,32 @@ export default class LabScene extends VectorAdditionScene {
 
     this.vectorSet1 = new LabVectorSet( this, symbol1Property, tandemNameSymbol1, componentVectorStyleProperty, vectorColorPalette1, {
 
+      // non-sum component vectors are interleaved with vectorSet2, overlap is OK
+      projectionXOffsetDelta: offsetDelta,
+      projectionYOffsetDelta: offsetDelta,
+
+      //TODO https://github.com/phetsims/vector-addition/issues/258 simplify to new Vector( 12, 10 )
       initialSumTailPosition: new Vector2(
         roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 1 / 3 ) * LAB_GRAPH_BOUNDS.width ),
         roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
       ),
-
-      // non-sum component vectors are interleaved with vectorSet2, overlap is OK
-      projectionXOffsetDelta: offsetDelta,
-      projectionYOffsetDelta: offsetDelta,
 
       tandem: tandem.createTandem( `${tandemNameSymbol1}VectorSet` )
     } );
 
     this.vectorSet2 = new LabVectorSet( this, symbol2Property, tandemNameSymbol2, componentVectorStyleProperty, vectorColorPalette2, {
 
-      initialSumTailPosition: new Vector2(
-        roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
-        roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
-      ),
-
       // non-sum component vectors are interleaved with vectorSet1, overlap is OK
       projectionXOffsetStart: this.vectorSet1.projectionXOffsetStart + offsetDelta / 2,
       projectionYOffsetStart: this.vectorSet1.projectionYOffsetStart + offsetDelta / 2,
       projectionXOffsetDelta: offsetDelta,
       projectionYOffsetDelta: offsetDelta,
+
+      //TODO https://github.com/phetsims/vector-addition/issues/258 simplify to new Vector( 28, 10 )
+      initialSumTailPosition: new Vector2(
+        roundSymmetric( LAB_GRAPH_BOUNDS.minX + ( 2 / 3 ) * LAB_GRAPH_BOUNDS.width ),
+        roundSymmetric( LAB_GRAPH_BOUNDS.centerY )
+      ),
 
       // sum component vectors are spaced so that they don't overlap with vectorSet1
       sumProjectionXOffset: this.vectorSet1.sumProjectionXOffset + modelHeadWidth,
