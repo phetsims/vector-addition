@@ -37,21 +37,22 @@ type SelfOptions = {
   projectionXOffsetDelta?: number;
   projectionYOffsetDelta?: number;
 
-  // false means that the default SumVector will not be created, and a subclass is responsible for initializing this.sumVector.
-  initializeSum?: boolean;
+  // false means that the default SumVector will not be created, and a subclass is responsible for initializing this.resultantVector.
+  //TODO https://github.com/phetsims/vector-addition/issues/334 Rename 'sum' to 'resultant' throughout options
+  initializeResultantVector?: boolean;
 
-  // initial tail position of the sum. Only used if options.initializeSum = true
-  initialSumTailPosition?: Vector2;
+  // initial tail position of the resultant vector.
+  initialResultantTailPosition?: Vector2;
 
-  // Offsets for sum component vectors in ComponentVectorStyle 'projection'
-  sumProjectionXOffset?: number;
-  sumProjectionYOffset?: number;
+  // Offsets for resultant component vectors in ComponentVectorStyle 'projection'
+  resultantProjectionXOffset?: number;
+  resultantProjectionYOffset?: number;
 
-  // Symbol for the sum vector used in the visual interface.
-  sumSymbolProperty?: TReadOnlyProperty<string>;
+  // Symbol for the resultant vector used in the visual interface.
+  resultantSymbolProperty?: TReadOnlyProperty<string>;
 
-  // Symbol for the sum vector used in tandem names.
-  sumTandemNameSymbol?: string;
+  // Symbol for the resultant vector used in tandem names.
+  resultantTandemNameSymbol?: string;
 };
 
 export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -70,9 +71,8 @@ export default class VectorSet extends PhetioObject {
   public readonly sumProjectionXOffset: number;
   public readonly sumProjectionYOffset: number;
 
-  //TODO https://github.com/phetsims/vector-addition/issues/334 Rename resultantVector
-  protected sumVector: ResultantVector | null; // settable by subclasses, specifically EquationsVectorSet
-  public readonly sumTandemNameSymbol: string; // Symbol for the sum vector used in tandem names.
+  protected resultantVector: ResultantVector | null; // settable by subclasses, specifically EquationsVectorSet
+  public readonly resultantTandemNameSymbol: string; // Symbol for the resultant vector used in tandem names.
 
   /**
    * @param scene - the scene the VectorSet belongs to
@@ -103,12 +103,12 @@ export default class VectorSet extends PhetioObject {
       projectionYOffsetStart: -offsetStart,
       projectionXOffsetDelta: -offsetDelta,
       projectionYOffsetDelta: -offsetDelta,
-      initializeSum: true,
-      initialSumTailPosition: graph.bounds.center,
-      sumProjectionXOffset: offsetStart,
-      sumProjectionYOffset: offsetStart,
-      sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
-      sumTandemNameSymbol: 's',
+      initializeResultantVector: true,
+      initialResultantTailPosition: graph.bounds.center,
+      resultantProjectionXOffset: offsetStart,
+      resultantProjectionYOffset: offsetStart,
+      resultantSymbolProperty: VectorAdditionSymbols.sStringProperty,
+      resultantTandemNameSymbol: 's',
 
       // PhetioObjectOptions
       isDisposable: false,
@@ -123,17 +123,17 @@ export default class VectorSet extends PhetioObject {
 
     this.projectionXOffsetStart = options.projectionXOffsetStart;
     this.projectionYOffsetStart = options.projectionYOffsetStart;
-    this.sumProjectionXOffset = options.sumProjectionXOffset;
-    this.sumProjectionYOffset = options.sumProjectionYOffset;
-    this.sumTandemNameSymbol = options.sumTandemNameSymbol;
+    this.sumProjectionXOffset = options.resultantProjectionXOffset;
+    this.sumProjectionYOffset = options.resultantProjectionYOffset;
+    this.resultantTandemNameSymbol = options.resultantTandemNameSymbol;
 
-    if ( options.initializeSum ) {
-      this.sumVector = new SumVector( options.initialSumTailPosition, scene, this, options.sumSymbolProperty,
-        this.sumTandemNameSymbol, options.tandem.createTandem( `${this.sumTandemNameSymbol}Vector` ) );
-      this.sumVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
+    if ( options.initializeResultantVector ) {
+      this.resultantVector = new SumVector( options.initialResultantTailPosition, scene, this, options.resultantSymbolProperty,
+        this.resultantTandemNameSymbol, options.tandem.createTandem( `${this.resultantTandemNameSymbol}Vector` ) );
+      this.resultantVector.setProjectionOffsets( options.resultantProjectionXOffset, options.resultantProjectionYOffset );
     }
     else {
-      this.sumVector = null;
+      this.resultantVector = null;
     }
 
     // Whenever a vector is added or removed, adjust the offsets of all component vectors for ComponentVectorStyle 'projection'.
@@ -149,12 +149,12 @@ export default class VectorSet extends PhetioObject {
 
   //TODO https://github.com/phetsims/vector-addition/issues/334 Rename getResultantVector
   public getSumVector(): ResultantVector | null {
-    return this.sumVector;
+    return this.resultantVector;
   }
 
   public reset(): void {
     this.erase();
-    this.sumVector && this.sumVector.reset();
+    this.resultantVector && this.resultantVector.reset();
   }
 
   /**

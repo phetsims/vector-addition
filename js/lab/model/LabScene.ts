@@ -85,7 +85,7 @@ export default class LabScene extends VectorAdditionScene {
       projectionXOffsetDelta: offsetDelta,
       projectionYOffsetDelta: offsetDelta,
 
-      initialSumTailPosition: new Vector2( 12, 10 ),
+      initialResultantTailPosition: new Vector2( 12, 10 ),
 
       tandem: tandem.createTandem( `${tandemNameSymbol1}VectorSet` )
     } );
@@ -98,11 +98,11 @@ export default class LabScene extends VectorAdditionScene {
       projectionXOffsetDelta: offsetDelta,
       projectionYOffsetDelta: offsetDelta,
 
-      initialSumTailPosition: new Vector2( 28, 10 ),
+      initialResultantTailPosition: new Vector2( 28, 10 ),
 
-      // sum component vectors are spaced so that they don't overlap with vectorSet1
-      sumProjectionXOffset: this.vectorSet1.sumProjectionXOffset + modelHeadWidth,
-      sumProjectionYOffset: this.vectorSet1.sumProjectionYOffset + modelHeadWidth,
+      // resultant (sum) component vectors are spaced so that they don't overlap with vectorSet1
+      resultantProjectionXOffset: this.vectorSet1.sumProjectionXOffset + modelHeadWidth,
+      resultantProjectionYOffset: this.vectorSet1.sumProjectionYOffset + modelHeadWidth,
 
       tandem: tandem.createTandem( `${tandemNameSymbol2}VectorSet` )
     } );

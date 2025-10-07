@@ -52,7 +52,7 @@ export default class VectorSetNode extends Node {
 
     // Every VectorSet has a resultant vector and resultant component vectors, so create them.
     const resultantVectorNode = new ResultantVectorNode( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
-      tandem: tandem.createTandem( `${vectorSet.sumTandemNameSymbol}VectorNode` )
+      tandem: tandem.createTandem( `${vectorSet.resultantTandemNameSymbol}VectorNode` )
     } );
     const xResultantComponentVectorNode = new ResultantComponentVectorNode( resultantVector.xComponentVector, scene,
       componentVectorStyleProperty, valuesVisibleProperty, sumVisibleProperty );

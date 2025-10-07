@@ -19,7 +19,7 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions, 'sumTandemNameSymbol'>;
+type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions, 'resultantTandemNameSymbol'>;
 
 export default class LabVectorSet extends VectorSet {
 
@@ -44,13 +44,13 @@ export default class LabVectorSet extends VectorSet {
     const options = optionize<LabVectorSetOptions, SelfOptions, VectorSetOptions>()( {
 
       // VectorSetOptions
-      // Sum vectors are labeled with 's' and the vector set symbol subscript.
-      sumSymbolProperty: new DerivedProperty(
+      // Resultant (sum) vectors are labeled with 's' and the vector set symbol subscript.
+      resultantSymbolProperty: new DerivedProperty(
         [ VectorAdditionSymbols.sStringProperty, symbolProperty ],
         ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` ),
 
-      //  Symbol for the sum vector used in tandem names - 'su', 'sv', etc.
-      sumTandemNameSymbol: `s${tandemNameSymbol}`
+      //  Symbol for the resultant (sum) vector used in tandem names - 'su', 'sv', etc.
+      resultantTandemNameSymbol: `s${tandemNameSymbol}`
     }, providedOptions );
 
     super( scene, componentVectorStyleProperty, vectorColorPalette, options );

@@ -20,6 +20,7 @@ import VectorSet from '../../common/model/VectorSet.js';
 import EquationsScene from './EquationsScene.js';
 import ResultantVector from '../../common/model/ResultantVector.js';
 
+//TODO https://github.com/phetsims/vector-addition/issues/334 rename EquationsResultantVector
 export default class EquationsSumVector extends ResultantVector {
 
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
