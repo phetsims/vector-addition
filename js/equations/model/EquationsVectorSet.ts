@@ -31,8 +31,6 @@ type VectorDescription = {
   baseVectorTail: Vector2;
 };
 
-const EQUATIONS_SUM_TAIL_POSITION = new Vector2( 25, 5 );
-
 // Describes the vectors for the Cartesian scene. See https://github.com/phetsims/vector-addition/issues/227
 const CARTESIAN_VECTOR_DESCRIPTIONS: VectorDescription[] = [
 
@@ -103,14 +101,16 @@ export default class EquationsVectorSet extends VectorSet {
 
       // EquationsVectorSet will initialize its own sum vector, because the sum vector in this screen is different.
       // It's not truly a sum, and its computation depends on which equation type is selected (see EquationType).
-      initializeSum: false,
+      initializeResultantVector: false,
+
+      initialTailPosition: new Vector2( 25, 5 ),
 
       // offsets for sum component vectors with ComponentVectorStyle 'projection'
-      sumProjectionXOffset: 0.5,
-      sumProjectionYOffset: 0.5,
+      resultantProjectionXOffset: 0.5,
+      resultantProjectionYOffset: 0.5,
 
-      sumSymbolProperty: ( coordinateSnapMode === 'cartesian' ) ? VectorAdditionSymbols.cStringProperty : VectorAdditionSymbols.fStringProperty,
-      sumTandemNameSymbol: ( coordinateSnapMode === 'cartesian' ) ? 'c' : 'f',
+      resultantSymbolProperty: ( coordinateSnapMode === 'cartesian' ) ? VectorAdditionSymbols.cStringProperty : VectorAdditionSymbols.fStringProperty,
+      resultantTandemNameSymbol: ( coordinateSnapMode === 'cartesian' ) ? 'c' : 'f',
       tandem: tandem
     };
 
@@ -141,9 +141,9 @@ export default class EquationsVectorSet extends VectorSet {
     }
 
     // Create the sum vector
-    this.resultantVector = new EquationsResultantVector( EQUATIONS_SUM_TAIL_POSITION, scene, this, options.sumSymbolProperty,
-      options.sumTandemNameSymbol, tandem.createTandem( `${options.sumTandemNameSymbol}Vector` ) );
-    this.resultantVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
+    this.resultantVector = new EquationsResultantVector( options.initialTailPosition, scene, this, options.resultantSymbolProperty,
+      options.resultantTandemNameSymbol, tandem.createTandem( `${options.resultantTandemNameSymbol}Vector` ) );
+    this.resultantVector.setProjectionOffsets( options.resultantProjectionXOffset, options.resultantProjectionYOffset );
 
     // The sum symbol ('c' or 'f') appears in the equations, so add it.
     this.equationSymbolProperties.push( this.resultantVector.symbolProperty );
