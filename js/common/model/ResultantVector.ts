@@ -1,9 +1,9 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * ResultantVector is the base class for the resultant vector of a vector set.  In the Explore 1D, Explore 2D, and
- * Lab screens, the resultant vector is a sum.  In the Equations screen, the resultant vector depends on the equation
- * type that is selected. This class was introduced for https://github.com/phetsims/vector-addition/issues/334.
+ * ResultantVector is the base class for the resultant vector of a vector set. In the Explore 1D, Explore 2D, and
+ * Lab screens, the resultant vector is a sum vector.  In the Equations screen, the resultant vector depends on the
+ * equation type that is selected. This class was introduced for https://github.com/phetsims/vector-addition/issues/334.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
