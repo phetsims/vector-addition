@@ -71,7 +71,6 @@ export default class VectorSet extends PhetioObject {
   public readonly resultantProjectionYOffset: number;
 
   protected resultantVector: ResultantVector | null; // settable by subclasses, specifically EquationsVectorSet
-  public readonly resultantTandemNameSymbol: string; // Symbol for the resultant vector used in tandem names.
 
   /**
    * @param scene - the scene the VectorSet belongs to
@@ -124,11 +123,10 @@ export default class VectorSet extends PhetioObject {
     this.projectionYOffsetStart = options.projectionYOffsetStart;
     this.resultantProjectionXOffset = options.resultantProjectionXOffset;
     this.resultantProjectionYOffset = options.resultantProjectionYOffset;
-    this.resultantTandemNameSymbol = options.resultantTandemNameSymbol;
 
     if ( options.initializeResultantVector ) {
       this.resultantVector = new SumVector( options.initialResultantTailPosition, scene, this, options.resultantSymbolProperty,
-        this.resultantTandemNameSymbol, options.tandem.createTandem( `${this.resultantTandemNameSymbol}Vector` ) );
+        options.resultantTandemNameSymbol, options.tandem.createTandem( `${options.resultantTandemNameSymbol}Vector` ) );
       this.resultantVector.setProjectionOffsets( options.resultantProjectionXOffset, options.resultantProjectionYOffset );
     }
     else {
