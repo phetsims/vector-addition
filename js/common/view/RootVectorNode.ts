@@ -126,7 +126,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
   /**
    * Updates the tail and tip position of the view. Called when the model changes tail/tip.
    */
-  protected updateVector( rootVector: RootVector, modelViewTransform: ModelViewTransform2 ): void {
+  private updateVector( rootVector: RootVector, modelViewTransform: ModelViewTransform2 ): void {
 
     // See https://github.com/phetsims/vector-addition/issues/252 and
     // https://github.com/phetsims/vector-addition/issues/302

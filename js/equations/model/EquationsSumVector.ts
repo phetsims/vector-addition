@@ -12,15 +12,15 @@ import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import SumVector from '../../common/model/SumVector.js';
 import Vector from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
 import { EquationType } from './EquationType.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import EquationsScene from './EquationsScene.js';
+import ResultantVector from '../../common/model/ResultantVector.js';
 
-export default class EquationsSumVector extends SumVector {
+export default class EquationsSumVector extends ResultantVector {
 
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
 
@@ -39,14 +39,19 @@ export default class EquationsSumVector extends SumVector {
                       tandemNameSymbol: string,
                       tandem: Tandem ) {
 
-    super( initialTailPosition, scene, vectorSet, symbolProperty, tandemNameSymbol, tandem );
+    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, symbolProperty, {
+      isDisposable: false, // Resultant vectors are not disposable.
+      isRemovableFromGraph: false, // Resultant vectors are not removable from the graph.
+      isTipDraggable: false, // Resultant vectors are not draggable by the tip.
+      isOnGraphInitially: true, // Resultant vectors are always on the graph.
+      isOnGraphPropertyInstrumented: false, // Resultant vectors are always on the graph.
+      tandemNameSymbol: tandemNameSymbol,
+      tandem: tandem
+    } );
 
     this.equationTypeProperty = scene.equationTypeProperty;
 
     // Observe when each vector changes and/or when the equationType changes to calculate the sum.
-    //TODO https://github.com/phetsims/vector-addition/issues/258 This not interfering with the Multilink in SumVector
-    //  only because EquationsVectorSet adds to vectorSet.vectors BEFORE instantiating EquationsSumVector, and
-    //  SumVector only calls addItemAddedListener for vectors added AFTER instantiation.
     const xyComponentsProperties = vectorSet.vectors.map( vector => vector.xyComponentsProperty );
     Multilink.multilinkAny( [ scene.equationTypeProperty, ...xyComponentsProperties ],
       () => this.updateSum( vectorSet.vectors )
@@ -54,9 +59,19 @@ export default class EquationsSumVector extends SumVector {
   }
 
   /**
+   * WORKAROUND: xyComponentsProperty was initialized with a bogus value of Vector2.ZERO in the
+   * call to the superclass constructor above. So call updateSum after calling super.reset.
+   * See https://github.com/phetsims/vector-addition/issues/328.
+   */
+  public override reset(): void {
+    super.reset();
+    this.updateSum( this.vectorSet.vectors );
+  }
+
+  /**
    * Calculate the sum vector for the Equations screen.
    */
-  protected override updateSum( vectors: ObservableArray<Vector> ): void {
+  private updateSum( vectors: ObservableArray<Vector> ): void {
 
     const equationType = this.equationTypeProperty.value;
 

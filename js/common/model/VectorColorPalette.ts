@@ -24,11 +24,12 @@ type VectorColorPaletteOptions = {
   // Defaults to options.mainFill
   componentFillProperty?: VectorColorProperty;
 
-  // Colors for sum vectors
+  // Colors for sum vectors (resultant vectors 'c' and 'f' in the Equations screen)
   sumFillProperty: VectorColorProperty;
   sumStrokeProperty?: VectorColorProperty;
 
-  // Color for sum component vectors. They are of type DashedArrowNode, which cannot be stroked.
+  // Color for sum component vectors (component vectors for resultant vectors 'c' and 'f' in the Equations screen).
+  // They are of type DashedArrowNode, which cannot be stroked.
   sumComponentFillProperty?: VectorColorProperty;
 
   // Colors for base vectors

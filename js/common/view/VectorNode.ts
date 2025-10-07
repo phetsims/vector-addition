@@ -326,7 +326,7 @@ export default class VectorNode extends RootVectorNode {
 
       // Dispose of transform handling
       disposeTranslate();
-      disposeScaleRotate && disposeScaleRotate();
+      disposeScaleRotate();
 
       // Dispose of appearance-related listeners
       Multilink.unmultilink( shadowMultilink );

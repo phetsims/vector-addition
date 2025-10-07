@@ -13,10 +13,8 @@
  * @author Brandon Li
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -24,13 +22,9 @@ import VectorAdditionScene from './VectorAdditionScene.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ResultantVector from './ResultantVector.js';
 
-export default class SumVector extends Vector {
-
-  // Whether the sum is defined.  The sum is defined if there is at least one vector on the graph. It would be
-  // preferable to set its Vector2 value to null, but this was discovered very late in development, when that
-  // was not practical. See https://github.com/phetsims/vector-addition/issues/187
-  public readonly isDefinedProperty: Property<boolean>;
+export default class SumVector extends ResultantVector {
 
   /**
    * @param initialTailPosition - starting tail position of the vector
@@ -58,11 +52,6 @@ export default class SumVector extends Vector {
       tandem: tandem
     } );
 
-    this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.filter( vector => vector.isOnGraphProperty.value ).length > 0, {
-      tandem: tandem.createTandem( 'isDefinedProperty' ),
-      phetioReadOnly: true
-    } );
-
     // Observe changes to the vector array.
     const vectorAddedListener = ( addedVector: Vector ) => {
 
@@ -87,17 +76,13 @@ export default class SumVector extends Vector {
       vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
     };
     vectorSet.vectors.addItemAddedListener( vectorAddedListener );
-    //TODO https://github.com/phetsims/vector-addition/issues/258 Here we should be calling
-    //  vectorSet.vectors.forEach( vector => vectorAddedListener( vector );
-    // But that causes problems for EquationsSumVector, which overrides updateSum and uses
-    // this.equationTypeProperty that only exists later in EquationsSumVector.
+    vectorSet.vectors.forEach( vector => vectorAddedListener( vector ) );
   }
 
   /**
-   * WORKAROUND: RootVector xyComponentsProperty was initialized with a bogus value of Vector2.ZERO in the
-   * constructor above. So call updateSum after calling super.reset. Also note that subclass EquationsSumVector
-   * has an entirely different implementation of updateSum that depends on the selected EquationType, so calling
-   * updateSum is also necessary for that class.  See https://github.com/phetsims/vector-addition/issues/328.
+   * WORKAROUND: xyComponentsProperty was initialized with a bogus value of Vector2.ZERO in the
+   * call to the superclass constructor above. So call updateSum after calling super.reset.
+   * See https://github.com/phetsims/vector-addition/issues/328.
    */
   public override reset(): void {
     super.reset();
@@ -107,7 +92,7 @@ export default class SumVector extends Vector {
   /**
    * Update the sum's xy-components. Calculated from all the vectors that are on the graph.
    */
-  protected updateSum( vectors: ObservableArray<Vector> ): void {
+  private updateSum( vectors: ObservableArray<Vector> ): void {
 
     // Filter to get only the vectors that are on the graph.
     const onGraphVectors = vectors.filter( vector => vector.isOnGraphProperty.value );

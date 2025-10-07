@@ -51,6 +51,7 @@ export default class VectorSetNode extends Node {
     affirm( sumVector !== null );
 
     // Every VectorSet has a sum vector and sum component vectors, so create them
+    //TODO https://github.com/phetsims/vector-addition/issues/334 Rename to resultantVectorNode
     const sumVectorNode = new SumVectorNode( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
       tandem: tandem.createTandem( `${vectorSet.sumTandemNameSymbol}VectorNode` )
     } );

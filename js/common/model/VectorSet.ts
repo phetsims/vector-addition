@@ -27,6 +27,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import ResultantVector from './ResultantVector.js';
 
 type SelfOptions = {
 
@@ -69,7 +70,8 @@ export default class VectorSet extends PhetioObject {
   public readonly sumProjectionXOffset: number;
   public readonly sumProjectionYOffset: number;
 
-  protected sumVector: SumVector | null; // settable by subclasses, specifically EquationsVectorSet
+  //TODO https://github.com/phetsims/vector-addition/issues/334 Rename resultantVector
+  protected sumVector: ResultantVector | null; // settable by subclasses, specifically EquationsVectorSet
   public readonly sumTandemNameSymbol: string; // Symbol for the sum vector used in tandem names.
 
   /**
@@ -145,7 +147,8 @@ export default class VectorSet extends PhetioObject {
     } );
   }
 
-  public getSumVector(): SumVector | null {
+  //TODO https://github.com/phetsims/vector-addition/issues/334 Rename getResultantVector
+  public getSumVector(): ResultantVector | null {
     return this.sumVector;
   }
 

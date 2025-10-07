@@ -4,6 +4,10 @@
  * EquationsSumCheckbox is the checkbox for the sum vector in the graph control panel for the 'Equations' screen.
  * It changes its label and vector color depending on which scene is selected.
  *
+ * Note that "sum" is somewhat incorrect in this screen, because the computation of vectors 'c' and 'f' depends
+ * on which equation type is selected. Only one of those equation types ('addition') is a sum.  But the design team
+ * wanted to stick with the term "sum" for this checkbox, and specifically the PhET-iO Element name 'sumCheckbox'.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 

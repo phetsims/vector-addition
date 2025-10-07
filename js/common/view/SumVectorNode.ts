@@ -15,20 +15,21 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
-import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import VectorNode, { VectorNodeOptions } from './VectorNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import ResultantVector from '../model/ResultantVector.js';
 
 type SelfOptions = EmptySelfOptions;
 type SumVectorNodeOptions = SelfOptions & WithRequired<VectorNodeOptions, 'tandem'>;
 
+//TODO https://github.com/phetsims/vector-addition/issues/334 Rename to ResultantVectorNode
 export default class SumVectorNode extends VectorNode {
 
-  public constructor( sumVector: SumVector,
+  public constructor( sumVector: ResultantVector,
                       scene: VectorAdditionScene,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,

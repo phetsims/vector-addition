@@ -19,15 +19,16 @@ import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
-import SumVector from '../model/SumVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorNode, { ComponentVectorNodeOptions } from './ComponentVectorNode.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import ResultantVector from '../model/ResultantVector.js';
 
 type SelfOptions = EmptySelfOptions;
 type SumComponentVectorNodeOptions = SelfOptions & ComponentVectorNodeOptions;
 
+//TODO rename ResultantComponentVectorNode https://github.com/phetsims/vector-addition/issues/334
 export default class SumComponentVectorNode extends ComponentVectorNode {
 
   private readonly sumVisibleProperty: TReadOnlyProperty<boolean>;
@@ -52,8 +53,9 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
 
     this.sumVisibleProperty = sumVisibleProperty;
 
-    const sumVector = componentVector.parentVector as SumVector;
-    affirm( sumVector instanceof SumVector );
+    //TODO Rename resultantVector https://github.com/phetsims/vector-addition/issues/334
+    const sumVector = componentVector.parentVector as ResultantVector;
+    affirm( sumVector instanceof ResultantVector );
 
     // Update when the sum becomes visible or defined.
     Multilink.multilink(
@@ -74,8 +76,9 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
 
     super.updateComponentVector( componentVector, modelViewTransform, componentVectorStyle, isParentVectorSelected );
 
-    const sumVector = componentVector.parentVector as SumVector;
-    affirm( sumVector instanceof SumVector );
+    //TODO Rename resultantVector https://github.com/phetsims/vector-addition/issues/334
+    const sumVector = componentVector.parentVector as ResultantVector;
+    affirm( sumVector instanceof ResultantVector );
 
     this.visible = (
       // components are visible

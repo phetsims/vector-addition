@@ -187,9 +187,11 @@ export default class VectorAdditionConstants {
   } );
 
   // Defaults for sum vectors
+  //TODO https://github.com/phetsims/vector-addition/issues/334 rename RESULTANT_VECTOR_ARROW_OPTIONS
   public static readonly SUM_VECTOR_ARROW_OPTIONS = VectorAdditionConstants.VECTOR_ARROW_OPTIONS;
 
   // Defaults for sum component vectors
+  //TODO https://github.com/phetsims/vector-addition/issues/334 rename RESULTANT_COMPONENT_VECTOR_ARROW_OPTIONS
   public static readonly SUM_COMPONENT_VECTOR_ARROW_OPTIONS = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS;
 
   // Defaults for base vectors
