@@ -147,6 +147,10 @@ export default class EquationsVectorSet extends VectorSet {
 
     // The sum symbol ('c' or 'f') appears in the equations, so add it.
     this.equationSymbolProperties.push( this.resultantVector.symbolProperty );
+
+    this.vectors.lengthProperty.lazyLink( () => {
+      throw new Error( 'Vectors cannot be added or removed after startup in the Equations screen.' );
+    } );
   }
 
   /**
