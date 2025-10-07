@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * PolarBaseVector is the subclass of BaseVector used with CoordinateSnapMode.POLAR.
+ * PolarBaseVector is the subclass of BaseVector used with CoordinateSnapMode 'polar'.
  * It creates NumberProperties for the angle and magnitude that are controlled by NumberPickers, and
  * adjusts its x and y components based on the values of those Properties.
  *

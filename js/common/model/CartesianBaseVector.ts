@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * CartesianBaseVector is the subclass of BaseVector used with CoordinateSnapMode.CARTESIAN.
+ * CartesianBaseVector is the subclass of BaseVector used with CoordinateSnapMode 'cartesian'.
  * It creates NumberProperties for the x and y components that are controlled by NumberPickers, and
  * adjusts its x and y components based on the values of those Properties.
  *

@@ -208,7 +208,7 @@ export default class Vector extends RootVector {
       tipPositionWithInvariants = tipPositionOnGraph.roundedSymmetric();
     }
     else {
-      // this.scene.coordinateSnapMode === CoordinateSnapMode.POLAR
+      // this.scene.coordinateSnapMode === 'polar''
 
       const xyComponents = tipPosition.minus( this.tail );
 
