@@ -65,7 +65,7 @@ export default class EquationsSumVector extends SumVector {
         sum.add( vector.xyComponents );
       } );
 
-      this.xyComponents = sum;
+      this.xyComponentsProperty.value = sum;
     }
     else if ( equationType === 'subtraction' ) {
       const calculatedComponents = vectors.get( 0 ).xyComponents.copy();
@@ -75,7 +75,7 @@ export default class EquationsSumVector extends SumVector {
         calculatedComponents.subtract( vector.xyComponents );
       } );
 
-      this.xyComponents = calculatedComponents;
+      this.xyComponentsProperty.value = calculatedComponents;
     }
     else if ( equationType === 'negation' ) {
 
@@ -86,7 +86,7 @@ export default class EquationsSumVector extends SumVector {
         sum.add( vector.xyComponents );
       } );
 
-      this.xyComponents = sum.negate();
+      this.xyComponentsProperty.value = sum.negate();
     }
   }
 }

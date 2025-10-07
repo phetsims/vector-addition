@@ -239,7 +239,7 @@ export default class Vector extends RootVector {
     // Ensure vector tip must not be set to the tail (0 magnitude)
     if ( !tipPositionWithInvariants.equals( this.tail ) ) {
       // Update the model tip
-      this.tip = tipPositionWithInvariants;
+      this.setTip( tipPositionWithInvariants );
     }
   }
 

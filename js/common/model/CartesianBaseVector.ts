@@ -3,7 +3,7 @@
 /**
  * CartesianBaseVector is the subclass of BaseVector used with CoordinateSnapMode 'cartesian'.
  * It creates NumberProperties for the x and y components that are controlled by NumberPickers, and
- * adjusts its x and y components based on the values of those Properties.
+ * adjusts its xyComponentsProperty based on the values of those Properties.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -62,8 +62,12 @@ export default class CartesianBaseVector extends BaseVector {
     } );
 
     // Observe when the component NumberProperties change and update the components to match.
-    this.xComponentProperty.link( xComponent => { this.xComponent = xComponent; } );
-    this.yComponentProperty.link( yComponent => { this.yComponent = yComponent; } );
+    this.xComponentProperty.link( xComponent => {
+      this.xyComponentsProperty.value = new Vector2( xComponent, this.yComponent );
+    } );
+    this.yComponentProperty.link( yComponent => {
+      this.xyComponentsProperty.value = new Vector2( this.xComponent, yComponent );
+    } );
   }
 
   public override reset(): void {

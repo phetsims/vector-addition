@@ -83,7 +83,7 @@ export default class EquationsVector extends Vector {
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
     Multilink.multilink( [ this.baseVector.xyComponentsProperty, this.coefficientProperty ],
       ( xyComponents, coefficient ) => {
-        this.xyComponents = xyComponents.timesScalar( coefficient );
+        this.xyComponentsProperty.value = xyComponents.timesScalar( coefficient );
       } );
   }
 

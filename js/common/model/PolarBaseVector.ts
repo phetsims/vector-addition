@@ -3,7 +3,7 @@
 /**
  * PolarBaseVector is the subclass of BaseVector used with CoordinateSnapMode 'polar'.
  * It creates NumberProperties for the angle and magnitude that are controlled by NumberPickers, and
- * adjusts its x and y components based on the values of those Properties.
+ * adjusts its xyComponentsProperty based on the values of those Properties.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -71,7 +71,7 @@ export default class PolarBaseVector extends BaseVector {
     Multilink.multilink(
       [ this.magnitudeProperty, this.angleProperty ],
       ( magnitude, angle ) => {
-        this.xyComponents = Vector2.createPolar( magnitude, toRadians( angle ) );
+        this.xyComponentsProperty.value = Vector2.createPolar( magnitude, toRadians( angle ) );
       } );
   }
 

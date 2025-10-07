@@ -116,7 +116,7 @@ export default class ComponentVector extends RootVector {
       if ( componentVectorStyle === 'triangle' || componentVectorStyle === 'parallelogram' ) {
 
         // Shared tail position as parent
-        this.tail = parentTail;
+        this.setTail( parentTail );
 
         // Tip is at the parent's tip x and at the parent's tail y.
         this.setTipXY( parentTip.x, parentTail.y );
@@ -138,7 +138,7 @@ export default class ComponentVector extends RootVector {
       if ( componentVectorStyle === 'triangle' ) {
 
         // Shared tip position as the parent
-        this.tip = parentTip;
+        this.setTip( parentTip );
 
         // Tail is at the parent's tip x and at the parent's tail y.
         this.setTailXY( parentTip.x, parentTail.y );
@@ -146,7 +146,7 @@ export default class ComponentVector extends RootVector {
       else if ( componentVectorStyle === 'parallelogram' ) {
 
         // Shared tail position as parent
-        this.tail = parentTail;
+        this.setTail( parentTail );
 
         // Tip is at the parents tailX and at the parents tipY
         this.setTipXY( parentTail.x, parentTip.y );

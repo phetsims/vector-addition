@@ -150,45 +150,24 @@ export default abstract class RootVector extends PhetioObject {
   }
 
   /**
-   * Sets the components (scalars) of the vector
-   */
-  public set xyComponents( xyComponents: Vector2 ) {
-    this.xyComponentsProperty.value = xyComponents;
-  }
-
-  /**
    * Gets the magnitude of the vector (always positive).
    */
   public get magnitude(): number {
-    return this.xyComponents.magnitude;
+    return this.xyComponentsProperty.value.magnitude;
   }
 
   /**
    * Gets the x component (scalar).
    */
   public get xComponent(): number {
-    return this.xyComponents.x;
-  }
-
-  /**
-   * Sets the x component (scalar).
-   */
-  public set xComponent( xComponent: number ) {
-    this.xyComponents = this.xyComponents.copy().setX( xComponent );
+    return this.xyComponentsProperty.value.x;
   }
 
   /**
    * Gets the y component (scalar).
    */
   public get yComponent(): number {
-    return this.xyComponents.y;
-  }
-
-  /**
-   * Sets the y component (scalar).
-   */
-  public set yComponent( yComponent: number ) {
-    this.xyComponents = this.xyComponents.copy().setY( yComponent );
+    return this.xyComponentsProperty.value.y;
   }
 
   /**
@@ -219,13 +198,13 @@ export default abstract class RootVector extends PhetioObject {
     this.moveToTailPosition( new Vector2( x, y ) );
 
     // Set the tip back
-    this.tip = tip;
+    this.setTip( tip );
   }
 
   /**
    * Sets the tail position. This keeps the tip position constant, and (as a side effect) changes magnitude.
    */
-  public set tail( tail: Vector2 ) {
+  public setTail( tail: Vector2 ): void {
     this.setTailXY( tail.x, tail.y );
   }
 
@@ -237,24 +216,10 @@ export default abstract class RootVector extends PhetioObject {
   }
 
   /**
-   * Sets the tail's x coordinate. This keeps the tip position constant, and (as a side effect) changes magnitude.
-   */
-  public set tailX( tailX: number ) {
-    this.setTailXY( tailX, this.tailY );
-  }
-
-  /**
    * Gets the tail's x coordinate.
    */
   public get tailX(): number {
     return this.tailPositionProperty.value.x;
-  }
-
-  /**
-   * Sets the tail's y coordinate. This keeps the tip position constant, and (as a side effect) changes magnitude.
-   */
-  public set tailY( tailY: number ) {
-    this.setTailXY( this.tailX, tailY );
   }
 
   /**
@@ -272,13 +237,13 @@ export default abstract class RootVector extends PhetioObject {
     // Since tipPositionProperty is a DerivedProperty, we cannot directly set it.
     // Instead, we will update the xy-components, keeping the tail constant.
     const tip = new Vector2( x, y );
-    this.xyComponents = this.xyComponents.plus( tip.minus( this.tip ) );
+    this.xyComponentsProperty.value = this.xyComponents.plus( tip.minus( this.tip ) );
   }
 
   /**
    * Sets the tip position. This keeps the tail position constant, and (as a side effect) changes magnitude.
    */
-  public set tip( tip: Vector2 ) {
+  public setTip( tip: Vector2 ): void {
     this.setTipXY( tip.x, tip.y );
   }
 

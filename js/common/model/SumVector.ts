@@ -112,7 +112,7 @@ export default class SumVector extends Vector {
     onGraphVectors.forEach( vector => sumVectorComponents.add( vector.xyComponents ) );
 
     // Set the sum to the calculated sum.
-    this.xyComponents = sumVectorComponents;
+    this.xyComponentsProperty.value = sumVectorComponents;
 
     // The sum is defined if there is at least one vector on the graph.
     this.isDefinedProperty.value = ( onGraphVectors.length > 0 );
