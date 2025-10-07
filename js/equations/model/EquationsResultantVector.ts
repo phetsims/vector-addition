@@ -1,8 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * EquationsResultantVector is a specialization of SumVector for the 'Equations' screen.  It computes the 'sum' differently
- * depending on the equation type.  Instances exist for the lifetime of the sim and do not need to be disposed.
+ * EquationsResultantVector is the resultant vector in the 'Equations' screen.  The resultant vector is computed
+ * differently depending on the selected equation type.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -20,7 +20,6 @@ import VectorSet from '../../common/model/VectorSet.js';
 import EquationsScene from './EquationsScene.js';
 import ResultantVector from '../../common/model/ResultantVector.js';
 
-//TODO https://github.com/phetsims/vector-addition/issues/334 rename EquationsResultantVector
 export default class EquationsResultantVector extends ResultantVector {
 
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
@@ -55,7 +54,7 @@ export default class EquationsResultantVector extends ResultantVector {
     // Observe when each vector changes and/or when the equationType changes to calculate the sum.
     const xyComponentsProperties = vectorSet.vectors.map( vector => vector.xyComponentsProperty );
     Multilink.multilinkAny( [ scene.equationTypeProperty, ...xyComponentsProperties ],
-      () => this.updateSum( vectorSet.vectors )
+      () => this.update( vectorSet.vectors )
     );
   }
 
@@ -66,13 +65,13 @@ export default class EquationsResultantVector extends ResultantVector {
    */
   public override reset(): void {
     super.reset();
-    this.updateSum( this.vectorSet.vectors );
+    this.update( this.vectorSet.vectors );
   }
 
   /**
-   * Calculate the sum vector for the Equations screen.
+   * Calculate the resultant vector, depending on which equation type is selected.
    */
-  private updateSum( vectors: ObservableArray<Vector> ): void {
+  private update( vectors: ObservableArray<Vector> ): void {
 
     const equationType = this.equationTypeProperty.value;
 
