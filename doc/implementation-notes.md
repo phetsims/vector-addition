@@ -140,8 +140,9 @@ RootVector (abstract root class)
       CartesianBaseVector (has mutable x and y components)
       PolarBaseVector (has mutable magnitude and angle)
     EquationsVector (adds functionality for Equations screen)
-    SumVector
-      EquationsSumVector (adds functionality for Equations screen)
+    ResultantVector
+      SumVector
+      EquationsResultantVector
   ComponentVector (not interactive)
 ```
 
