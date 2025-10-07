@@ -44,6 +44,9 @@ export default class EquationsSumVector extends SumVector {
     this.equationTypeProperty = scene.equationTypeProperty;
 
     // Observe when each vector changes and/or when the equationType changes to calculate the sum.
+    //TODO https://github.com/phetsims/vector-addition/issues/258 This not interfering with the Multilink in SumVector
+    //  only because EquationsVectorSet adds to vectorSet.vectors BEFORE instantiating EquationsSumVector, and
+    //  SumVector only calls addItemAddedListener for vectors added AFTER instantiation.
     const xyComponentsProperties = vectorSet.vectors.map( vector => vector.xyComponentsProperty );
     Multilink.multilinkAny( [ scene.equationTypeProperty, ...xyComponentsProperties ],
       () => this.updateSum( vectorSet.vectors )

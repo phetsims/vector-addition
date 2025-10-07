@@ -64,7 +64,7 @@ export default class SumVector extends Vector {
     } );
 
     // Observe changes to the vector array.
-    vectorSet.vectors.addItemAddedListener( addedVector => {
+    const vectorAddedListener = ( addedVector: Vector ) => {
 
       // When the vector changes, update the sum calculation.
       // unmultilink is required when the vector is removed.
@@ -85,7 +85,12 @@ export default class SumVector extends Vector {
         }
       };
       vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
-    } );
+    };
+    vectorSet.vectors.addItemAddedListener( vectorAddedListener );
+    //TODO https://github.com/phetsims/vector-addition/issues/258 Here we should be calling
+    //  vectorSet.vectors.forEach( vector => vectorAddedListener( vector );
+    // But that causes problems for EquationsSumVector, which overrides updateSum and uses
+    // this.equationTypeProperty that only exists later in EquationsSumVector.
   }
 
   /**
