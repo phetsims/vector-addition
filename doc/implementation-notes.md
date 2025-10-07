@@ -154,7 +154,7 @@ RootVectorNode (abstract base class)
   VectorNode (interactive) 
     ResultantVectorNode
   ComponentVectorNode (not interactive)
-    SumComponentVectorNode 
+    ResultantComponentVectorNode 
 ```
 
 These class hierarchies make sense, and feel natural when you work with them. But there are a couple of things to be

@@ -29,7 +29,7 @@ type SelfOptions = EmptySelfOptions;
 type SumComponentVectorNodeOptions = SelfOptions & ComponentVectorNodeOptions;
 
 //TODO rename ResultantComponentVectorNode https://github.com/phetsims/vector-addition/issues/334
-export default class SumComponentVectorNode extends ComponentVectorNode {
+export default class ResultantComponentVectorNode extends ComponentVectorNode {
 
   private readonly sumVisibleProperty: TReadOnlyProperty<boolean>;
 
@@ -91,4 +91,4 @@ export default class SumComponentVectorNode extends ComponentVectorNode {
   }
 }
 
-vectorAddition.register( 'SumComponentVectorNode', SumComponentVectorNode );
+vectorAddition.register( 'ResultantComponentVectorNode', ResultantComponentVectorNode );

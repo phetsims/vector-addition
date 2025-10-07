@@ -4,7 +4,7 @@
  * VectorSetNode is responsible for creating the view for all vectors associated with a VectorSet.
  *
  * Responsibilities include:
- * - creating the Nodes for the sum vector and sum component vectors
+ * - creating the Nodes for the resultant vector and its component vectors
  * - creating and managing Nodes for registered vectors
  * - handling layering of all Nodes related to vectors in the VectorSet
  *
@@ -23,7 +23,7 @@ import Vector from '../model/Vector.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorSet from '../model/VectorSet.js';
 import ComponentVectorNode from './ComponentVectorNode.js';
-import SumComponentVectorNode from './SumComponentVectorNode.js';
+import ResultantComponentVectorNode from './ResultantComponentVectorNode.js';
 import ResultantVectorNode from './ResultantVectorNode.js';
 import VectorNode from './VectorNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -47,22 +47,21 @@ export default class VectorSetNode extends Node {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       tandem: Tandem ) {
 
-    const sumVector = vectorSet.getSumVector()!;
-    affirm( sumVector !== null );
+    const resultantVector = vectorSet.getSumVector()!;
+    affirm( resultantVector !== null );
 
-    // Every VectorSet has a sum vector and sum component vectors, so create them
-    //TODO https://github.com/phetsims/vector-addition/issues/334 Rename to resultantVectorNode
-    const sumVectorNode = new ResultantVectorNode( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
+    // Every VectorSet has a resultant vector and resultant component vectors, so create them.
+    const resultantVectorNode = new ResultantVectorNode( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
       tandem: tandem.createTandem( `${vectorSet.sumTandemNameSymbol}VectorNode` )
     } );
-    const xSumComponentVectorNode = new SumComponentVectorNode( sumVector.xComponentVector, scene,
+    const xResultantComponentVectorNode = new ResultantComponentVectorNode( resultantVector.xComponentVector, scene,
       componentVectorStyleProperty, valuesVisibleProperty, sumVisibleProperty );
-    const ySumComponentVectorNode = new SumComponentVectorNode( sumVector.yComponentVector, scene,
+    const yResultantComponentVectorNode = new ResultantComponentVectorNode( resultantVector.yComponentVector, scene,
       componentVectorStyleProperty, valuesVisibleProperty, sumVisibleProperty );
 
     super( {
       isDisposable: false,
-      children: [ xSumComponentVectorNode, ySumComponentVectorNode, sumVectorNode ],
+      children: [ xResultantComponentVectorNode, yResultantComponentVectorNode, resultantVectorNode ],
       tandem: tandem,
       phetioVisiblePropertyInstrumented: false
     } );
@@ -74,17 +73,17 @@ export default class VectorSetNode extends Node {
     this.anglesVisibleProperty = anglesVisibleProperty;
     this.componentVectorStyleProperty = componentVectorStyleProperty;
 
-    // When the sum vector becomes selected, move it and its component vectors to the front.
+    // When the resultant vector becomes selected, move it and its component vectors to the front.
     scene.selectedVectorProperty.link( selectedVector => {
-      if ( selectedVector === sumVectorNode.vector ) {
+      if ( selectedVector === resultantVectorNode.vector ) {
 
         // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
         this.moveToFront();
 
-        // order is important - sum should be in front of components
-        xSumComponentVectorNode.moveToFront();
-        ySumComponentVectorNode.moveToFront();
-        sumVectorNode.moveToFront();
+        // order is important - resultant vector should be in front of its components
+        xResultantComponentVectorNode.moveToFront();
+        yResultantComponentVectorNode.moveToFront();
+        resultantVectorNode.moveToFront();
       }
     } );
 

@@ -26,7 +26,6 @@ import ResultantVector from '../model/ResultantVector.js';
 type SelfOptions = EmptySelfOptions;
 type SumVectorNodeOptions = SelfOptions & WithRequired<VectorNodeOptions, 'tandem'>;
 
-//TODO https://github.com/phetsims/vector-addition/issues/334 Rename to ResultantVectorNode
 export default class ResultantVectorNode extends VectorNode {
 
   public constructor( sumVector: ResultantVector,
