@@ -17,11 +17,11 @@ import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ResultantVectorOptions = SelfOptions & WithRequired<VectorOptions, 'tandem'>;
+type ResultantVectorOptions = SelfOptions & PickRequired<VectorOptions, 'tandem' | 'tandemNameSymbol'>;
 
 export default class ResultantVector extends Vector {
 
@@ -42,7 +42,7 @@ export default class ResultantVector extends Vector {
       isRemovableFromGraph: false, // Resultant vectors are not removable from the graph.
       isTipDraggable: false, // Resultant vectors are not draggable by the tip.
       isOnGraphInitially: true, // Resultant vectors are always on the graph.
-      isOnGraphPropertyInstrumented: false // Resultant vectors are always on the graph.
+      isOnGraphPropertyInstrumented: false // Resultant vectors are always on the graph, so isOnGraphProperty never changes.
     }, providedOptions );
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, options );
