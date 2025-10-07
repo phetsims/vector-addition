@@ -151,7 +151,7 @@ vectors.
 ```
 RootVectorNode (abstract base class)
   VectorNode (interactive) 
-    SumVectorNode
+    ResultantVectorNode
   ComponentVectorNode (not interactive)
     SumComponentVectorNode 
 ```

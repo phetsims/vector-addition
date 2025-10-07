@@ -24,7 +24,7 @@ import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorSet from '../model/VectorSet.js';
 import ComponentVectorNode from './ComponentVectorNode.js';
 import SumComponentVectorNode from './SumComponentVectorNode.js';
-import SumVectorNode from './SumVectorNode.js';
+import ResultantVectorNode from './ResultantVectorNode.js';
 import VectorNode from './VectorNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVectorNode from './BaseVectorNode.js';
@@ -52,7 +52,7 @@ export default class VectorSetNode extends Node {
 
     // Every VectorSet has a sum vector and sum component vectors, so create them
     //TODO https://github.com/phetsims/vector-addition/issues/334 Rename to resultantVectorNode
-    const sumVectorNode = new SumVectorNode( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
+    const sumVectorNode = new ResultantVectorNode( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
       tandem: tandem.createTandem( `${vectorSet.sumTandemNameSymbol}VectorNode` )
     } );
     const xSumComponentVectorNode = new SumComponentVectorNode( sumVector.xComponentVector, scene,

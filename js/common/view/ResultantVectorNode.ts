@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * SumVectorNode is the view for a sum vector.
+ * ResultantVectorNode is the view for a sum vector.
  *
  * Extends VectorNode but adds the following functionality:
  *  - a distinct appearance
@@ -27,7 +27,7 @@ type SelfOptions = EmptySelfOptions;
 type SumVectorNodeOptions = SelfOptions & WithRequired<VectorNodeOptions, 'tandem'>;
 
 //TODO https://github.com/phetsims/vector-addition/issues/334 Rename to ResultantVectorNode
-export default class SumVectorNode extends VectorNode {
+export default class ResultantVectorNode extends VectorNode {
 
   public constructor( sumVector: ResultantVector,
                       scene: VectorAdditionScene,
@@ -64,7 +64,7 @@ export default class SumVectorNode extends VectorNode {
     // Double check that the vector node never is animated back
     isAffirmEnabled() && sumVector.animateBackProperty.link( animateBack => {
       if ( animateBack ) {
-        affirm( false, 'SumVectorNode instances never animated back' );
+        affirm( false, 'ResultantVectorNode instances never animated back' );
       }
     } );
 
@@ -72,4 +72,4 @@ export default class SumVectorNode extends VectorNode {
   }
 }
 
-vectorAddition.register( 'SumVectorNode', SumVectorNode );
+vectorAddition.register( 'ResultantVectorNode', ResultantVectorNode );
