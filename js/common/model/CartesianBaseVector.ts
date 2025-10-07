@@ -31,7 +31,7 @@ export default class CartesianBaseVector extends BaseVector {
    * @param initialComponents - starting components of the Base Vector
    * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
-   * @param symbolProperty - the symbol for the Base Vector (e.g. 'a', 'b', 'c', ...)
+   * @param symbolProperty - the symbol for the Base Vector (a, b, c)
    * @param tandemNameSymbol - symbol for the vector used in tandem names
    * @param tandem
    */

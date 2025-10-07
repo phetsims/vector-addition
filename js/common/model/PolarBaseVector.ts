@@ -33,7 +33,7 @@ export default class PolarBaseVector extends BaseVector {
    * @param initialComponents - starting components of the Base Vector
    * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
-   * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
+   * @param symbolProperty - the symbol for the Base Vector (d, e, f)
    * @param tandemNameSymbol - symbol for the vector used in tandem names
    * @param tandem
    */
