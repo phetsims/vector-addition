@@ -44,7 +44,7 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
 
       // ComponentVectorNodeOptions
       isDisposable: false,
-      arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.SUM_COMPONENT_VECTOR_ARROW_OPTIONS, {
+      arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.RESULTANT_COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: componentVector.vectorColorPalette.sumComponentFillProperty
       } )
     }, providedOptions );

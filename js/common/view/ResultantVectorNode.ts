@@ -39,7 +39,7 @@ export default class ResultantVectorNode extends VectorNode {
 
       // VectorNodeOptions
       isDisposable: false,
-      arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
+      arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.RESULTANT_VECTOR_ARROW_OPTIONS, {
         fill: sumVector.vectorColorPalette.sumFillProperty,
         stroke: sumVector.vectorColorPalette.sumStrokeProperty
       } ),

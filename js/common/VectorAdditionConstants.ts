@@ -186,13 +186,11 @@ export default class VectorAdditionConstants {
     tailDash: [ 6, 3 ]
   } );
 
-  // Defaults for sum vectors
-  //TODO https://github.com/phetsims/vector-addition/issues/334 rename RESULTANT_VECTOR_ARROW_OPTIONS
-  public static readonly SUM_VECTOR_ARROW_OPTIONS = VectorAdditionConstants.VECTOR_ARROW_OPTIONS;
+  // Defaults for resultant vectors
+  public static readonly RESULTANT_VECTOR_ARROW_OPTIONS = VectorAdditionConstants.VECTOR_ARROW_OPTIONS;
 
-  // Defaults for sum component vectors
-  //TODO https://github.com/phetsims/vector-addition/issues/334 rename RESULTANT_COMPONENT_VECTOR_ARROW_OPTIONS
-  public static readonly SUM_COMPONENT_VECTOR_ARROW_OPTIONS = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS;
+  // Defaults for resultant component vectors
+  public static readonly RESULTANT_COMPONENT_VECTOR_ARROW_OPTIONS = VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS;
 
   // Defaults for base vectors
   public static readonly BASE_VECTOR_ARROW_OPTIONS = combineOptions<RootVectorArrowNodeOptions>(

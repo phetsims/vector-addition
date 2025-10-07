@@ -167,7 +167,7 @@ const VectorAdditionIconFactory = {
 
     // sum
     arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
-      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.SUM_VECTOR_ARROW_OPTIONS, {
+      combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.RESULTANT_VECTOR_ARROW_OPTIONS, {
         fill: colorPalette.sumFillProperty,
         stroke: colorPalette.sumStrokeProperty
       } ) ) );
