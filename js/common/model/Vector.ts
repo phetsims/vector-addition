@@ -268,13 +268,13 @@ export default class Vector extends RootVector {
       // Get the tip of this vector
       const tipPositionOnGraph = tailPositionOnGraph.plus( this.xyComponents );
 
-      // Get all the vectors in the set, including the sum and excluding this vector
+      // Get all the vectors in the set, including the resultant vector, and excluding this vector.
       const vectorsInVectorSet = this.vectorSet.vectors.filter( vector => {
         return vector !== this;
       } );
-      const sumVector = this.vectorSet.getSumVector();
-      if ( sumVector ) {
-        vectorsInVectorSet.push( sumVector );
+      const resultantVector = this.vectorSet.getResultantVector();
+      if ( resultantVector ) {
+        vectorsInVectorSet.push( resultantVector );
       }
 
       //----------------------------------------------------------------------------------------

@@ -147,8 +147,7 @@ export default class VectorSet extends PhetioObject {
     } );
   }
 
-  //TODO https://github.com/phetsims/vector-addition/issues/334 Rename getResultantVector
-  public getSumVector(): ResultantVector | null {
+  public getResultantVector(): ResultantVector | null {
     return this.resultantVector;
   }
 

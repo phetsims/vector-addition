@@ -47,7 +47,7 @@ export default class VectorSetNode extends Node {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       tandem: Tandem ) {
 
-    const resultantVector = vectorSet.getSumVector()!;
+    const resultantVector = vectorSet.getResultantVector()!;
     affirm( resultantVector !== null );
 
     // Every VectorSet has a resultant vector and resultant component vectors, so create them.
