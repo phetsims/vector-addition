@@ -38,7 +38,6 @@ type SelfOptions = {
   projectionYOffsetDelta?: number;
 
   // false means that the default SumVector will not be created, and a subclass is responsible for initializing this.resultantVector.
-  //TODO https://github.com/phetsims/vector-addition/issues/334 Rename 'sum' to 'resultant' throughout options
   initializeResultantVector?: boolean;
 
   // initial tail position of the resultant vector.

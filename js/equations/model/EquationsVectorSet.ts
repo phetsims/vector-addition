@@ -4,7 +4,7 @@
  * EquationsVectorSet is a specialization of VectorSet for the 'Equations' screen.  It adds:
  *
  *  - a set of vectors that are permanently on the graph and not disposable
- *  - an EquationsSumVector
+ *  - an EquationsResultantVector
  *
  * @author Brandon Li
  */
@@ -17,7 +17,7 @@ import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from './EquationsScene.js';
-import EquationsSumVector from './EquationsSumVector.js';
+import EquationsResultantVector from './EquationsResultantVector.js';
 import EquationsVector from './EquationsVector.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -141,7 +141,7 @@ export default class EquationsVectorSet extends VectorSet {
     }
 
     // Create the sum vector
-    this.resultantVector = new EquationsSumVector( EQUATIONS_SUM_TAIL_POSITION, scene, this, options.sumSymbolProperty,
+    this.resultantVector = new EquationsResultantVector( EQUATIONS_SUM_TAIL_POSITION, scene, this, options.sumSymbolProperty,
       options.sumTandemNameSymbol, tandem.createTandem( `${options.sumTandemNameSymbol}Vector` ) );
     this.resultantVector.setProjectionOffsets( options.sumProjectionXOffset, options.sumProjectionYOffset );
 

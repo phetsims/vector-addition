@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * EquationsSumVector is a specialization of SumVector for the 'Equations' screen.  It computes the 'sum' differently
+ * EquationsResultantVector is a specialization of SumVector for the 'Equations' screen.  It computes the 'sum' differently
  * depending on the equation type.  Instances exist for the lifetime of the sim and do not need to be disposed.
  *
  * @author Brandon Li
@@ -21,7 +21,7 @@ import EquationsScene from './EquationsScene.js';
 import ResultantVector from '../../common/model/ResultantVector.js';
 
 //TODO https://github.com/phetsims/vector-addition/issues/334 rename EquationsResultantVector
-export default class EquationsSumVector extends ResultantVector {
+export default class EquationsResultantVector extends ResultantVector {
 
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
 
@@ -110,4 +110,4 @@ export default class EquationsSumVector extends ResultantVector {
   }
 }
 
-vectorAddition.register( 'EquationsSumVector', EquationsSumVector );
+vectorAddition.register( 'EquationsResultantVector', EquationsResultantVector );
