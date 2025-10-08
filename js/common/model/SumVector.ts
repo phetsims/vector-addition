@@ -60,11 +60,8 @@ export default class SumVector extends ResultantVector {
       // Clean up when the vector is removed.
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === addedVector ) {
-
-          // Recalculate the sum
           this.updateSum( vectorSet.vectors );
-
-          Multilink.unmultilink( addedVectorMultilink );
+          addedVectorMultilink.dispose();
           vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };
@@ -98,9 +95,6 @@ export default class SumVector extends ResultantVector {
 
     // Set the sum to the calculated sum.
     this.xyComponentsProperty.value = sumVectorComponents;
-
-    // The sum is defined if there is at least one vector on the graph.
-    this.isDefinedProperty.value = ( onGraphVectors.length > 0 );
   }
 }
 

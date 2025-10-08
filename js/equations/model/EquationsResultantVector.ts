@@ -52,9 +52,6 @@ export default class EquationsResultantVector extends ResultantVector {
     const vectorAddedListener = ( vector: Vector ) => vector.xyComponentsProperty.link( () => this.update( vectorSet.vectors ) );
     vectorSet.vectors.forEach( vector => vectorAddedListener( vector ) );
     vectorSet.vectors.addItemAddedListener( vectorAddedListener );
-
-    //TODO https://github.com/phetsims/vector-addition/issues/334 ResultantVector should be responsible for updating isDefinedProperty.
-    this.isDefinedProperty.value = true;
   }
 
   /**

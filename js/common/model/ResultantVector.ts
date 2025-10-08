@@ -47,11 +47,32 @@ export default class ResultantVector extends Vector {
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, options );
 
-    //TODO https://github.com/phetsims/vector-addition/issues/334 ResultantVector should be responsible for updating isDefinedProperty.
-    this.isDefinedProperty = new BooleanProperty( vectorSet.vectors.filter( vector => vector.isOnGraphProperty.value ).length > 0, {
+    // Resultant vector is defined if there is at least one vector on the graph.
+    const isDefined = () => vectorSet.vectors.filter( vector => vector.isOnGraphProperty.value ).length > 0;
+
+    this.isDefinedProperty = new BooleanProperty( isDefined(), {
       tandem: options.tandem.createTandem( 'isDefinedProperty' ),
       phetioReadOnly: true
     } );
+
+    // Update isDefinedProperty as vector are added and removed.
+    const vectorAddedListener = ( addedVector: Vector ) => {
+
+      const isOnGraphListener = () => {
+        this.isDefinedProperty.value = isDefined();
+      };
+      addedVector.isOnGraphProperty.link( isOnGraphListener );
+
+      const vectorRemovedListener = ( removedVector: Vector ) => {
+        if ( removedVector === addedVector ) {
+          addedVector.isOnGraphProperty.unlink( isOnGraphListener );
+          vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
+        }
+      };
+      vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
+    };
+    vectorSet.vectors.forEach( vector => vectorAddedListener( vector ) );
+    vectorSet.vectors.addItemAddedListener( vectorAddedListener );
   }
 
   public override reset(): void {
