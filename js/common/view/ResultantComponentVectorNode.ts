@@ -1,12 +1,12 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View for the component of the sum vector.
+ * View for the x-component or y-component of the resultant vector.
  *
  * Extends ComponentVectorNode but adds the following functionality:
  *  - a distinct appearance
  *  - toggle visibility based on the sumVisibleProperty
- *  - disables the ability to take the sum vector off of the graph
+ *  - disables the ability to take the resultant vector off of the graph
  *
  * @author Brandon Li
  */
@@ -53,13 +53,12 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
 
     this.sumVisibleProperty = sumVisibleProperty;
 
-    //TODO Rename resultantVector https://github.com/phetsims/vector-addition/issues/334
-    const sumVector = componentVector.parentVector as ResultantVector;
-    affirm( sumVector instanceof ResultantVector );
+    const resultantVector = componentVector.parentVector as ResultantVector;
+    affirm( resultantVector instanceof ResultantVector );
 
-    // Update when the sum becomes visible or defined.
+    // Update when the resultant vector becomes visible or defined.
     Multilink.multilink(
-      [ sumVisibleProperty, sumVector.isDefinedProperty ],
+      [ sumVisibleProperty, resultantVector.isDefinedProperty ],
       () => this.updateComponentVector( componentVector,
         scene.graph.modelViewTransformProperty.value,
         componentVectorStyleProperty.value,
@@ -68,7 +67,7 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
   }
 
   /**
-   * Handles visibility of sum component vectors.
+   * Handles visibility of xy-component vectors.
    */
   protected override updateComponentVector(
     componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
@@ -76,17 +75,16 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
 
     super.updateComponentVector( componentVector, modelViewTransform, componentVectorStyle, isParentVectorSelected );
 
-    //TODO Rename resultantVector https://github.com/phetsims/vector-addition/issues/334
-    const sumVector = componentVector.parentVector as ResultantVector;
-    affirm( sumVector instanceof ResultantVector );
+    const resultantVector = componentVector.parentVector as ResultantVector;
+    affirm( resultantVector instanceof ResultantVector );
 
     this.visible = (
       // components are visible
       ( componentVectorStyle !== 'invisible' ) &&
       // sum is visible
       ( !!this.sumVisibleProperty && this.sumVisibleProperty.value ) &&
-      // sum is defined
-      sumVector.isDefinedProperty.value
+      // resultant vector is defined
+      resultantVector.isDefinedProperty.value
     );
   }
 }

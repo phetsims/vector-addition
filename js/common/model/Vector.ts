@@ -250,7 +250,7 @@ export default class Vector extends RootVector {
    *  - Vector tail must be on an exact model coordinate
    *
    * ## Invariants for polar mode:
-   *  - Vector's must snap to other vectors to allow tip to tail sum comparisons.
+   *  - Vector's must snap to other vectors to allow tip-to-tail comparisons.
    *    See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
    *  - Vector tail doesn't have to be on an exact model coordinate, but should when not snapping to other vectors
    */
@@ -275,7 +275,7 @@ export default class Vector extends RootVector {
       vectorsInVectorSet.push( this.vectorSet.getResultantVector() );
 
       //----------------------------------------------------------------------------------------
-      // Vector's must snap to other vectors to allow tip to tail sum comparisons.
+      // Vector's must snap to other vectors to allow tip-to-tail comparisons.
       for ( let i = 0; i < vectorsInVectorSet.length; i++ ) {
 
         const vector = vectorsInVectorSet[ i ];

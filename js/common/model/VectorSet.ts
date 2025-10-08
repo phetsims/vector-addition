@@ -3,11 +3,11 @@
 /**
  * VectorSet is the model for a related set of vectors, and contains:
  *
- *  - an ObservableArrayDef of vectors
- *  - a sum vector of those vectors
- *  - a color palette that is common to all vectors
+ *  - an array of vectors
+ *  - a resultant vector, derived from those vectors
+ *  - a color palette that is common to all vectors in the vector set
  *
- * A VectorAdditionScene can support multiple VectorSets. (e.g. Lab screen has 2 VectorSets per VectorAdditionScene)
+ * A scene can support multiple VectorSets. For example, the Lab screen has 2 VectorSets per scene.
  *
  * @author Brandon Li
  */
@@ -63,7 +63,7 @@ export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, '
 
 export default class VectorSet extends PhetioObject {
 
-  // This array contains only what is referred to as main or parent vectors. It does not contain sum vectors,
+  // This array contains only what is referred to as main or parent vectors. It does not contain resultant vectors,
   // component vectors, or base vectors.
   public readonly vectors: ObservableArray<Vector>;
 

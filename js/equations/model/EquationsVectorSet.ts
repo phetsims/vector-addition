@@ -106,7 +106,7 @@ export default class EquationsVectorSet extends VectorSet {
         new EquationsResultantVector( initialTailPosition, scene, vectorSet, symbolProperty, tandemNameSymbol, tandem ),
       initialResultantTailPosition: new Vector2( 25, 5 ),
 
-      // offsets for sum component vectors with ComponentVectorStyle 'projection'
+      // offsets for resultant component vectors with ComponentVectorStyle 'projection'
       resultantProjectionXOffset: 0.5,
       resultantProjectionYOffset: 0.5,
 
@@ -141,7 +141,7 @@ export default class EquationsVectorSet extends VectorSet {
       this.equationsVectors.push( vector );
     }
 
-    // The sum symbol ('c' or 'f') appears in the equations, so add it.
+    // The resultant vector symbol ('c' or 'f') appears in the equations, so add it.
     this.equationSymbolProperties.push( this.resultantVector.symbolProperty );
 
     this.vectors.lengthProperty.lazyLink( () => {

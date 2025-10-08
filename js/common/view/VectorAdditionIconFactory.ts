@@ -165,7 +165,7 @@ const VectorAdditionIconFactory = {
         stroke: colorPalette.vectorStrokeProperty
       } ) );
 
-    // sum
+    // resultant vector
     arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.RESULTANT_VECTOR_ARROW_OPTIONS, {
         fill: colorPalette.sumFillProperty,
@@ -403,9 +403,9 @@ const VectorAdditionIconFactory = {
   //========================================================================================
 
   /**
-   * Creates the Icon that appears on the EquationType radio button icons on the 'Equations' screen.
+   * Creates the icon that appears on the EquationType radio button icons on the 'Equations' screen.
    * @param equationType
-   * @param vectorSymbolProperties - symbols on the buttons (the last symbol is the sum's symbol)
+   * @param vectorSymbolProperties - symbols on the buttons (the last symbol is the resultant vector's symbol)
    */
   createEquationTypeIcon( equationType: EquationType, vectorSymbolProperties: TReadOnlyProperty<string>[] ): Node {
 
@@ -433,7 +433,7 @@ const VectorAdditionIconFactory = {
     // '='
     children.push( new Text( MathSymbols.EQUAL_TO, textOptions ) );
 
-    // Right side of the equation, which is either '0' or the last of the symbols (which is the sum).
+    // Right side of the equation, which is either '0' or the last of the symbols (which is the resultant vector).
     children.push( equationType === 'negation' ?
                    new Text( '0', textOptions ) :
                    new ArrowOverSymbolNode( _.last( vectorSymbolProperties )! ) );

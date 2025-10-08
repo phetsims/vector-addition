@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * EquationsSumCheckbox is the checkbox for the sum vector in the graph control panel for the 'Equations' screen.
+ * EquationsSumCheckbox is the checkbox for the resultant vector in the graph control panel for the 'Equations' screen.
  * It changes its label and vector color depending on which scene is selected.
  *
  * Note that "sum" is somewhat incorrect in this screen, because the computation of vectors 'c' and 'f' depends
@@ -88,17 +88,17 @@ export default class EquationsSumCheckbox extends Checkbox {
         vectorSymbol: symbolProperty
       } ),
 
-      // "Show or hide vector {{sumVectorSymbol}}."
+      // "Show or hide vector {{resultantVectorSymbol}}."
       accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
         sumVectorSymbol: symbolProperty
       } ),
 
-      // "Vector {{sumVectorSymbol}} shown in graph area."
+      // "Vector {{resultantVectorSymbol}} shown in graph area."
       accessibleContextResponseChecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
         sumVectorSymbol: symbolProperty
       } ),
 
-      // "Vector {{sumVectorSymbol}} hidden in graph area."
+      // "Vector {{resultantVectorSymbol}} hidden in graph area."
       accessibleContextResponseUnchecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
         sumVectorSymbol: symbolProperty
       } ),

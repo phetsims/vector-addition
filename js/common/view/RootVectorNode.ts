@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Base class for vector views for all types of vectors (sum, component, etc.).
+ * RootVectorNode is the base class view for all types of vectors.
  * Primarily responsibilities are:
  *  - Create an ArrowNode or DashedArrowNode that displays a vector's tail/tip position
  *  - Create other Nodes that ALL vectors in the sim have (i.e. labels etc.)

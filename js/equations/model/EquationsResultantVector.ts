@@ -25,9 +25,9 @@ export default class EquationsResultantVector extends ResultantVector {
 
   /**
    * @param initialTailPosition - starting tail position of the vector
-   * @param scene - scene the sum vector belongs to
-   * @param vectorSet - the vector set that the sum vector represents
-   * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
+   * @param scene - scene the vector belongs to
+   * @param vectorSet - the vector set that the vector represents
+   * @param symbolProperty - the symbol for the vector ('c' or 'f')
    * @param tandemNameSymbol - symbol for the vector used in tandem names
    * @param tandem
    */

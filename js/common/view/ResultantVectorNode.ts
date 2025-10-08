@@ -1,12 +1,12 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * ResultantVectorNode is the view for a sum vector.
+ * ResultantVectorNode is the view for a resultant vector.
  *
  * Extends VectorNode but adds the following functionality:
  *  - a distinct appearance
  *  - toggle visibility based on the sumVisibleProperty
- *  - disables the ability to take the sum vector off of the graph
+ *  - disables the ability to take the resultant vector off of the graph
  *
  * @author Brandon Li
  */
@@ -52,7 +52,7 @@ export default class ResultantVectorNode extends VectorNode {
 
     super( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, options );
 
-    // Making a selected sum vector invisible clears activeVectorProperty.
+    // Making a selected resultant vector invisible clears activeVectorProperty.
     // See https://github.com/phetsims/vector-addition/issues/112.
     sumVisibleProperty.link( sumVisible => {
       if ( !sumVisible && scene.selectedVectorProperty.value === resultantVector ) {
