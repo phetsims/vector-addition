@@ -170,7 +170,7 @@ export default class ComponentVector extends RootVector {
                                    this.xyComponents.x :
                                    this.xyComponents.y;
 
-    // Component vectors only show their values if and only if the values are visible and if the component isn't 0
+    // Component vectors show their values if and only if the values are visible and if the component isn't 0.
     if ( !valuesVisible || magnitude === 0 ) {
       magnitude = null;
     }
