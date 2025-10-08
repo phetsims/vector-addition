@@ -329,7 +329,7 @@ export default class VectorNode extends RootVectorNode {
       disposeScaleRotate();
 
       // Dispose of appearance-related listeners
-      Multilink.unmultilink( shadowMultilink );
+      shadowMultilink.dispose();
       scene.selectedVectorProperty.unlink( selectedVectorListener );
       this.vector.animateBackProperty.unlink( animateBackListener );
     };

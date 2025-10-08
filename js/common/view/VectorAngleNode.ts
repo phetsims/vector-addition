@@ -85,7 +85,7 @@ export default class VectorAngleNode extends Node {
       } );
 
     this.disposeVectorAngleNode = () => {
-      Multilink.unmultilink( angleVisibleMultilink );
+      angleVisibleMultilink.dispose();
     };
   }
 

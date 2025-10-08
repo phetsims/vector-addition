@@ -75,7 +75,7 @@ export default class ComponentVector extends RootVector {
     );
 
     this.disposeComponentVector = () => {
-      Multilink.unmultilink( updateComponentMultilink );
+      updateComponentMultilink.dispose();
     };
   }
 

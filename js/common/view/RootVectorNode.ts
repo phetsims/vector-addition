@@ -114,7 +114,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
 
     this.disposeRootVectorNode = () => {
       this.labelNode.dispose();
-      Multilink.unmultilink( updateMultilink );
+      updateMultilink.dispose();
     };
   }
 
