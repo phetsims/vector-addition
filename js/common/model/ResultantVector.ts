@@ -74,11 +74,6 @@ export default class ResultantVector extends Vector {
     vectorSet.vectors.forEach( vector => vectorAddedListener( vector ) );
     vectorSet.vectors.addItemAddedListener( vectorAddedListener );
   }
-
-  public override reset(): void {
-    super.reset();
-    this.isDefinedProperty.reset();
-  }
 }
 
 vectorAddition.register( 'ResultantVector', ResultantVector );
