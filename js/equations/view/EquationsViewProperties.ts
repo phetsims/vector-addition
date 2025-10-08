@@ -17,8 +17,9 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
   // whether the EquationAccordionBox is expanded
   public readonly equationAccordionBoxExpandedProperty: Property<boolean>;
 
-  // Whether the resultant vector is visible. The resultant vector is not always a sum in the Equations screen,
-  // but the design team wanted to keep the name sumVisibleProperty to match other screens.
+  // Whether the resultant vector is visible. The resultant vector is not always a sum in the Equations screen, so
+  // calling this sumVisibleProperty is a bit incorrect. But the design team wanted to keep the name sumVisibleProperty
+  // to match other screens.
   public readonly sumVisibleProperty: Property<boolean>;
 
   // whether the BaseVectorsAccordionBox is expanded

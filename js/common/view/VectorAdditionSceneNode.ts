@@ -65,7 +65,7 @@ export default class VectorAdditionSceneNode extends Node {
 
   protected constructor( scene: VectorAdditionScene,
                          sceneProperty: TReadOnlyProperty<VectorAdditionScene>,
-                         sumVisibleProperties: TReadOnlyProperty<boolean>[],
+                         resultantVectorVisibleProperties: TReadOnlyProperty<boolean>[],
                          viewProperties: VectorAdditionViewProperties,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          providedOptions: SceneNodeOptions ) {
@@ -140,11 +140,11 @@ export default class VectorAdditionSceneNode extends Node {
     }
 
     // a layer for each VectorSet
-    affirm( sumVisibleProperties.length === scene.vectorSets.length );
+    affirm( resultantVectorVisibleProperties.length === scene.vectorSets.length );
     this.vectorSetNodes = [];
     scene.vectorSets.forEach( ( vectorSet, index ) => {
 
-      const vectorSetNode = new VectorSetNode( scene, vectorSet, sumVisibleProperties[ index ],
+      const vectorSetNode = new VectorSetNode( scene, vectorSet, resultantVectorVisibleProperties[ index ],
         viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentVectorStyleProperty,
         // There is nothing interesting under here for PhET-iO, so we decided to uninstrument. If it needs to be
         // instrumented in the future, use options.tandem.createTandem( `${vectorSet.tandem.name}Node` ).

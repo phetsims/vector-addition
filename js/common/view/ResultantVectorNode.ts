@@ -5,7 +5,7 @@
  *
  * Extends VectorNode but adds the following functionality:
  *  - a distinct appearance
- *  - toggle visibility based on the sumVisibleProperty
+ *  - toggle visibility based on resultantVectorVisibleProperty
  *  - disables the ability to take the resultant vector off of the graph
  *
  * @author Brandon Li
@@ -32,7 +32,7 @@ export default class ResultantVectorNode extends VectorNode {
                       scene: VectorAdditionScene,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
-                      sumVisibleProperty: TReadOnlyProperty<boolean>,
+                      resultantVectorVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions: SumVectorNodeOptions ) {
 
     const options = optionize<SumVectorNodeOptions, SelfOptions, VectorNodeOptions>()( {
@@ -46,16 +46,16 @@ export default class ResultantVectorNode extends VectorNode {
 
       // Make the resultant vector visible only if it is defined, meaning that there is at least 1 vector on the graph.
       // See https://github.com/phetsims/vector-addition/issues/187
-      visibleProperty: new DerivedProperty( [ sumVisibleProperty, resultantVector.isDefinedProperty ],
-        ( sumVisible, isDefined ) => ( sumVisible && isDefined ) )
+      visibleProperty: new DerivedProperty( [ resultantVectorVisibleProperty, resultantVector.isDefinedProperty ],
+        ( resultantVectorVisible, isDefined ) => ( resultantVectorVisible && isDefined ) )
     }, providedOptions );
 
     super( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, options );
 
     // Making a selected resultant vector invisible clears activeVectorProperty.
     // See https://github.com/phetsims/vector-addition/issues/112.
-    sumVisibleProperty.link( sumVisible => {
-      if ( !sumVisible && scene.selectedVectorProperty.value === resultantVector ) {
+    resultantVectorVisibleProperty.link( resultantVectorVisible => {
+      if ( !resultantVectorVisible && scene.selectedVectorProperty.value === resultantVector ) {
         scene.selectedVectorProperty.value = null;
       }
     } );

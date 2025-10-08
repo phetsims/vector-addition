@@ -30,7 +30,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class EquationsSumCheckbox extends Checkbox {
 
-  public constructor( sumVisibleProperty: Property<boolean>,
+  public constructor( resultantVectorVisibleProperty: Property<boolean>,
                       sceneProperty: TReadOnlyProperty<EquationsScene>,
                       cartesianScene: EquationsScene,
                       polarScene: EquationsScene,
@@ -83,24 +83,24 @@ export default class EquationsSumCheckbox extends Checkbox {
       children: [ hBox ]
     } );
 
-    super( sumVisibleProperty, content, {
+    super( resultantVectorVisibleProperty, content, {
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
         vectorSymbol: symbolProperty
       } ),
 
-      // "Show or hide vector {{resultantVectorSymbol}}."
+      // "Show or hide vector {{vectorSymbol}}."
       accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
-        sumVectorSymbol: symbolProperty
+        vectorSymbol: symbolProperty
       } ),
 
-      // "Vector {{resultantVectorSymbol}} shown in graph area."
+      // "Vector {{vectorSymbol}} shown in graph area."
       accessibleContextResponseChecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
-        sumVectorSymbol: symbolProperty
+        vectorSymbol: symbolProperty
       } ),
 
-      // "Vector {{resultantVectorSymbol}} hidden in graph area."
+      // "Vector {{vectorSymbol}} hidden in graph area."
       accessibleContextResponseUnchecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
-        sumVectorSymbol: symbolProperty
+        vectorSymbol: symbolProperty
       } ),
       tandem: tandem
     } );

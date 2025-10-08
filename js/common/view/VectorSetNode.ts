@@ -40,7 +40,7 @@ export default class VectorSetNode extends Node {
 
   public constructor( scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      sumVisibleProperty: TReadOnlyProperty<boolean>,
+                      resultantVectorVisibleProperty: TReadOnlyProperty<boolean>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
@@ -49,13 +49,13 @@ export default class VectorSetNode extends Node {
     const resultantVector = vectorSet.getResultantVector();
 
     // Every VectorSet has a resultant vector and resultant component vectors, so create them.
-    const resultantVectorNode = new ResultantVectorNode( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {
+    const resultantVectorNode = new ResultantVectorNode( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, resultantVectorVisibleProperty, {
       tandem: tandem.createTandem( `${resultantVector.tandemNameSymbol}VectorNode` )
     } );
     const xResultantComponentVectorNode = new ResultantComponentVectorNode( resultantVector.xComponentVector, scene,
-      componentVectorStyleProperty, valuesVisibleProperty, sumVisibleProperty );
+      componentVectorStyleProperty, valuesVisibleProperty, resultantVectorVisibleProperty );
     const yResultantComponentVectorNode = new ResultantComponentVectorNode( resultantVector.yComponentVector, scene,
-      componentVectorStyleProperty, valuesVisibleProperty, sumVisibleProperty );
+      componentVectorStyleProperty, valuesVisibleProperty, resultantVectorVisibleProperty );
 
     super( {
       isDisposable: false,
