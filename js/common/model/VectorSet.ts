@@ -28,6 +28,7 @@ import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioO
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import ResultantVector from './ResultantVector.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = {
 
@@ -37,8 +38,12 @@ type SelfOptions = {
   projectionXOffsetDelta?: number;
   projectionYOffsetDelta?: number;
 
-  // false means that the default SumVector will not be created, and a subclass is responsible for initializing this.resultantVector.
-  initializeResultantVector?: boolean;
+  // Creates the resultant vector for this VectorSet.
+  createResultantVector?: ( initialTailPosition: Vector2,
+                            vectorSet: VectorSet,
+                            symbolProperty: TReadOnlyProperty<string>,
+                            tandemNameSymbol: string,
+                            tandem: Tandem ) => ResultantVector;
 
   // initial tail position of the resultant vector.
   initialResultantTailPosition?: Vector2;
@@ -70,7 +75,7 @@ export default class VectorSet extends PhetioObject {
   public readonly resultantProjectionXOffset: number;
   public readonly resultantProjectionYOffset: number;
 
-  protected resultantVector: ResultantVector | null; // settable by subclasses, specifically EquationsVectorSet
+  protected resultantVector: ResultantVector;
 
   /**
    * @param scene - the scene the VectorSet belongs to
@@ -101,7 +106,12 @@ export default class VectorSet extends PhetioObject {
       projectionYOffsetStart: -offsetStart,
       projectionXOffsetDelta: -offsetDelta,
       projectionYOffsetDelta: -offsetDelta,
-      initializeResultantVector: true,
+      createResultantVector: ( initialTailPosition: Vector2,
+                               vectorSet: VectorSet,
+                               symbolProperty: TReadOnlyProperty<string>,
+                               tandemNameSymbol: string,
+                               tandem: Tandem ) =>
+        new SumVector( initialTailPosition, scene, vectorSet, symbolProperty, tandemNameSymbol, tandem ),
       initialResultantTailPosition: graph.bounds.center,
       resultantProjectionXOffset: offsetStart,
       resultantProjectionYOffset: offsetStart,
@@ -124,14 +134,9 @@ export default class VectorSet extends PhetioObject {
     this.resultantProjectionXOffset = options.resultantProjectionXOffset;
     this.resultantProjectionYOffset = options.resultantProjectionYOffset;
 
-    if ( options.initializeResultantVector ) {
-      this.resultantVector = new SumVector( options.initialResultantTailPosition, scene, this, options.resultantSymbolProperty,
-        options.resultantTandemNameSymbol, options.tandem.createTandem( `${options.resultantTandemNameSymbol}Vector` ) );
-      this.resultantVector.setProjectionOffsets( options.resultantProjectionXOffset, options.resultantProjectionYOffset );
-    }
-    else {
-      this.resultantVector = null;
-    }
+    this.resultantVector = options.createResultantVector( options.initialResultantTailPosition, this, options.resultantSymbolProperty,
+      options.resultantTandemNameSymbol, options.tandem.createTandem( `${options.resultantTandemNameSymbol}Vector` ) );
+    this.resultantVector.setProjectionOffsets( options.resultantProjectionXOffset, options.resultantProjectionYOffset );
 
     // Whenever a vector is added or removed, adjust the offsets of all component vectors for ComponentVectorStyle 'projection'.
     // See https://github.com/phetsims/vector-addition/issues/225
@@ -144,13 +149,13 @@ export default class VectorSet extends PhetioObject {
     } );
   }
 
-  public getResultantVector(): ResultantVector | null {
+  public getResultantVector(): ResultantVector {
     return this.resultantVector;
   }
 
   public reset(): void {
     this.erase();
-    this.resultantVector && this.resultantVector.reset();
+    this.resultantVector.reset();
   }
 
   /**

@@ -14,7 +14,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
-import VectorSet from '../../common/model/VectorSet.js';
+import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from './EquationsScene.js';
 import EquationsResultantVector from './EquationsResultantVector.js';
@@ -97,13 +97,14 @@ export default class EquationsVectorSet extends VectorSet {
                       coordinateSnapMode: CoordinateSnapMode,
                       tandem: Tandem ) {
 
-    const options = {
-
-      // EquationsVectorSet will initialize its own sum vector, because the sum vector in this screen is different.
-      // It's not truly a sum, and its computation depends on which equation type is selected (see EquationType).
-      initializeResultantVector: false,
-
-      initialTailPosition: new Vector2( 25, 5 ),
+    const options: VectorSetOptions = {
+      createResultantVector: ( initialTailPosition: Vector2,
+                               vectorSet: VectorSet,
+                               symbolProperty: TReadOnlyProperty<string>,
+                               tandemNameSymbol: string,
+                               tandem: Tandem ) =>
+        new EquationsResultantVector( initialTailPosition, scene, vectorSet, symbolProperty, tandemNameSymbol, tandem ),
+      initialResultantTailPosition: new Vector2( 25, 5 ),
 
       // offsets for sum component vectors with ComponentVectorStyle 'projection'
       resultantProjectionXOffset: 0.5,
@@ -139,11 +140,6 @@ export default class EquationsVectorSet extends VectorSet {
       this.equationSymbolProperties.push( vectorDescription.symbolProperty );
       this.equationsVectors.push( vector );
     }
-
-    // Create the sum vector
-    this.resultantVector = new EquationsResultantVector( options.initialTailPosition, scene, this, options.resultantSymbolProperty,
-      options.resultantTandemNameSymbol, tandem.createTandem( `${options.resultantTandemNameSymbol}Vector` ) );
-    this.resultantVector.setProjectionOffsets( options.resultantProjectionXOffset, options.resultantProjectionYOffset );
 
     // The sum symbol ('c' or 'f') appears in the equations, so add it.
     this.equationSymbolProperties.push( this.resultantVector.symbolProperty );

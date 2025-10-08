@@ -28,7 +28,6 @@ import ResultantVectorNode from './ResultantVectorNode.js';
 import VectorNode from './VectorNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVectorNode from './BaseVectorNode.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class VectorSetNode extends Node {
 
@@ -47,8 +46,7 @@ export default class VectorSetNode extends Node {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       tandem: Tandem ) {
 
-    const resultantVector = vectorSet.getResultantVector()!;
-    affirm( resultantVector !== null );
+    const resultantVector = vectorSet.getResultantVector();
 
     // Every VectorSet has a resultant vector and resultant component vectors, so create them.
     const resultantVectorNode = new ResultantVectorNode( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, sumVisibleProperty, {

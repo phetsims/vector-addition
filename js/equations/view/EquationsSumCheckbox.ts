@@ -27,7 +27,6 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class EquationsSumCheckbox extends Checkbox {
 
@@ -48,9 +47,7 @@ export default class EquationsSumCheckbox extends Checkbox {
     } );
 
     const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => {
-      const resultantVector = scene.vectorSet.getResultantVector()!;
-      affirm( resultantVector );
-      return resultantVector.symbolProperty.value;
+      return scene.vectorSet.getResultantVector().symbolProperty.value;
     } );
 
     // To make both symbols have the same effective size, so that control panel layout doesn't shift.

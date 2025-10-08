@@ -9,7 +9,6 @@
  */
 
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
-import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector from '../../common/model/Vector.js';
@@ -46,11 +45,16 @@ export default class EquationsResultantVector extends ResultantVector {
 
     this.equationTypeProperty = scene.equationTypeProperty;
 
-    // Observe when each vector changes and/or when the equationType changes to calculate the sum.
-    const xyComponentsProperties = vectorSet.vectors.map( vector => vector.xyComponentsProperty );
-    Multilink.multilinkAny( [ scene.equationTypeProperty, ...xyComponentsProperties ],
-      () => this.update( vectorSet.vectors )
-    );
+    // When the equation type changes, update the result.
+    scene.equationTypeProperty.lazyLink( () => this.update( vectorSet.vectors ) );
+
+    // When any vector's xy-components change, update the result.
+    const vectorAddedListener = ( vector: Vector ) => vector.xyComponentsProperty.link( () => this.update( vectorSet.vectors ) );
+    vectorSet.vectors.forEach( vector => vectorAddedListener( vector ) );
+    vectorSet.vectors.addItemAddedListener( vectorAddedListener );
+
+    //TODO https://github.com/phetsims/vector-addition/issues/334 ResultantVector should be responsible for updating isDefinedProperty.
+    this.isDefinedProperty.value = true;
   }
 
   /**
