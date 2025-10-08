@@ -28,7 +28,7 @@ type SumVectorNodeOptions = SelfOptions & WithRequired<VectorNodeOptions, 'tande
 
 export default class ResultantVectorNode extends VectorNode {
 
-  public constructor( sumVector: ResultantVector,
+  public constructor( resultantVector: ResultantVector,
                       scene: VectorAdditionScene,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
@@ -40,34 +40,34 @@ export default class ResultantVectorNode extends VectorNode {
       // VectorNodeOptions
       isDisposable: false,
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.RESULTANT_VECTOR_ARROW_OPTIONS, {
-        fill: sumVector.vectorColorPalette.sumFillProperty,
-        stroke: sumVector.vectorColorPalette.sumStrokeProperty
+        fill: resultantVector.vectorColorPalette.sumFillProperty,
+        stroke: resultantVector.vectorColorPalette.sumStrokeProperty
       } ),
 
-      // Make the sum vector visible only if it is defined, meaning that there is at least 1 vector on the graph.
+      // Make the resultant vector visible only if it is defined, meaning that there is at least 1 vector on the graph.
       // See https://github.com/phetsims/vector-addition/issues/187
-      visibleProperty: new DerivedProperty( [ sumVisibleProperty, sumVector.isDefinedProperty ],
+      visibleProperty: new DerivedProperty( [ sumVisibleProperty, resultantVector.isDefinedProperty ],
         ( sumVisible, isDefined ) => ( sumVisible && isDefined ) )
     }, providedOptions );
 
-    super( sumVector, scene, valuesVisibleProperty, anglesVisibleProperty, options );
+    super( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, options );
 
     // Making a selected sum vector invisible clears activeVectorProperty.
     // See https://github.com/phetsims/vector-addition/issues/112.
     sumVisibleProperty.link( sumVisible => {
-      if ( !sumVisible && scene.selectedVectorProperty.value === sumVector ) {
+      if ( !sumVisible && scene.selectedVectorProperty.value === resultantVector ) {
         scene.selectedVectorProperty.value = null;
       }
     } );
 
     // Double check that the vector node never is animated back
-    isAffirmEnabled() && sumVector.animateBackProperty.link( animateBack => {
+    isAffirmEnabled() && resultantVector.animateBackProperty.link( animateBack => {
       if ( animateBack ) {
         affirm( false, 'ResultantVectorNode instances never animated back' );
       }
     } );
 
-    this.addLinkedElement( sumVector );
+    this.addLinkedElement( resultantVector );
   }
 }
 
