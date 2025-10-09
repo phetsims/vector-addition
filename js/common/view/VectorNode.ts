@@ -121,7 +121,7 @@ export default class VectorNode extends RootVectorNode {
       cursor
     );
 
-    // The body can be translated by dragging the arrow or the label. removeInputListener is required on dispose.
+    // The vector can be translated by dragging the arrow or the label. removeInputListener is required on dispose.
     this.arrowNode.addInputListener( this.translationDragListener );
     this.labelNode.addInputListener( this.translationDragListener );
 
