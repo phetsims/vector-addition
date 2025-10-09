@@ -29,6 +29,7 @@ import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js'
 import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { VectorTranslationDragListener } from './VectorTranslationDragListener.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -110,55 +111,20 @@ export default class VectorNode extends RootVectorNode {
     // Handle vector translation
     //----------------------------------------------------------------------------------------
 
-    // Create a Property for the position of the tail of the vector. Used for the tail drag listener.
+    // Create a Property for the position of the tail of the vector. Used by translationDragListener.
     const tailPositionProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
       vector.tail ) );
 
-    this.translationDragListener = new SoundDragListener( {
-      pressCursor: cursor,
-      targetNode: this,
-      positionProperty: tailPositionProperty,
-
-      start: () => {
-        affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
-          'body drag listener should be removed when the vector is animating back.' );
-        if ( vector.isOnGraphProperty.value ) {
-          scene.selectedVectorProperty.value = vector;
-        }
-      },
-
-      end: () => {
-
-        affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
-          'body drag listener should be removed when the vector is animating back.' );
-
-        // Determine whether to drop the vector on the graph, or animate the vector back to the toolbox.
-        if ( !this.vector.isOnGraphProperty.value ) {
-
-          // Get the cursor position as this determines whether the vector is destined for the graph or toolbox.
-          // See https://github.com/phetsims/vector-addition/issues/50
-          const cursorPosition = this.modelViewTransformProperty.value
-            .viewToModelDelta( this.translationDragListener.localPoint ).plus( this.vector.tail );
-
-          // If the cursor is on the graph, drop the vector on the graph.
-          if ( scene.graph.bounds.containsPoint( cursorPosition ) ) {
-
-            // Drop the vector where the shadow was positioned
-            const shadowOffset = this.modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
-              .minus( vector.xyComponents.timesScalar( 0.5 ) );
-            const shadowTailPosition = vector.tail.plus( shadowOffset );
-            this.vector.dropOntoGraph( shadowTailPosition );
-          }
-          else {
-
-            // otherwise, animate the vector back
-            this.vector.animateBackProperty.value = true;
-          }
-        }
-      },
-
-      tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/vector-addition/issues/258
-    } );
+    this.translationDragListener = new VectorTranslationDragListener(
+      vector,
+      tailPositionProperty,
+      scene.selectedVectorProperty,
+      scene.graph.boundsProperty,
+      this,
+      vectorShadowNode,
+      this.modelViewTransformProperty,
+      cursor
+    );
 
     // The body can be translated by the arrow or the label. removeInputListener is required on dispose.
     this.arrowNode.addInputListener( this.translationDragListener );
