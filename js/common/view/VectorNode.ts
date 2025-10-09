@@ -10,7 +10,6 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -25,11 +24,10 @@ import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
 import VectorAngleNode from './VectorAngleNode.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { VectorTranslationDragListener } from './VectorTranslationDragListener.js';
+import VectorScaleRotateDragListener from './VectorScaleRotateDragListener.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -48,7 +46,7 @@ export default class VectorNode extends RootVectorNode {
 
   public readonly vector: Vector;
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
-  private readonly translationDragListener: DragListener; // for translating the vector
+  private readonly translationDragListener: DragListener;
   private readonly disposeVectorNode: () => void;
 
   public constructor( vector: Vector,
@@ -132,12 +130,12 @@ export default class VectorNode extends RootVectorNode {
       this.translationDragListener.dispose();
     };
 
-    //----------------------------------------------------------------------------------------
-    // Handle vector scaling & rotation
-    //----------------------------------------------------------------------------------------
-
     let disposeScaleRotate: () => void;
     if ( vector.isTipDraggable ) {
+
+      //----------------------------------------------------------------------------------------
+      // Handle vector scaling & rotation
+      //----------------------------------------------------------------------------------------
 
       // Create an invisible triangle at the head of the vector.
       const headShape = new Shape()
@@ -151,25 +149,18 @@ export default class VectorNode extends RootVectorNode {
       } );
       this.addChild( headNode );
 
-      // Position of the tip of the vector, relative to the tail.
-      const tipPositionProperty = new Vector2Property( tipDeltaPosition );
-
-      // Drag listener to scale/rotate the vector, attached to the invisible head.
-      const scaleRotateDragListener = new SoundDragListener( {
-        targetNode: headNode,
-        positionProperty: tipPositionProperty,
-        start: () => {
-          affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
-            'tip drag listener should be removed when the vector is animating back.' );
-          scene.selectedVectorProperty.value = vector;
-        },
-        tandem: Tandem.OPT_OUT //TODO https://github.com/phetsims/vector-addition/issues/258
-      } );
+      // The vector can be scaled and rotated by dragging its head.
+      const scaleRotateDragListener = new VectorScaleRotateDragListener(
+        vector,
+        scene.selectedVectorProperty,
+        headNode,
+        this.modelViewTransformProperty
+      );
       headNode.addInputListener( scaleRotateDragListener );
 
-      // Move the tip to match the vector model. unlink is required on dispose.
-      const tipListener = ( tipPosition: Vector2 ) => this.updateTipPosition( tipPosition );
-      tipPositionProperty.lazyLink( tipListener );
+      //----------------------------------------------------------------------------------------
+      // Transform the head and its pointer areas when the xy-components change.
+      //----------------------------------------------------------------------------------------
 
       // Pointer area shapes for the head, in 3 different sizes.
       // A pair of these is used, based on the magnitude of the vector and whether its head is scale.
@@ -223,8 +214,8 @@ export default class VectorNode extends RootVectorNode {
       // dispose of things that are related to optional scale/rotate
       disposeScaleRotate = () => {
         headNode.removeInputListener( scaleRotateDragListener );
-        tipPositionProperty.unlink( tipListener );
         vector.xyComponentsProperty.unlink( xyComponentsListener );
+        scaleRotateDragListener.dispose();
       };
     }
 
@@ -232,7 +223,7 @@ export default class VectorNode extends RootVectorNode {
     // Appearance
     //----------------------------------------------------------------------------------------
 
-    // Update the appearance of the vector's shadow. Must be unmultilinked.
+    // Update the appearance of the vector's shadow. Must be disposed.
     const shadowMultilink = Multilink.multilink(
       [ vector.isOnGraphProperty, vector.xyComponentsProperty, this.vector.animateBackProperty ],
       ( isOnGraph, xyComponents, animateBack ) => {
@@ -285,20 +276,6 @@ export default class VectorNode extends RootVectorNode {
   }
 
   /**
-   * Updates the vector model, which will then round the new position depending on the coordinate snap mode
-   * @param tipPositionView - the drag listener position
-   */
-  private updateTipPosition( tipPositionView: Vector2 ): void {
-    affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
-      'Cannot drag tip when animating back' );
-
-    const tipPositionModel = this.vector.tail
-      .plus( this.modelViewTransformProperty.value.viewToModelDelta( tipPositionView ) );
-
-    this.vector.moveTipToPosition( tipPositionModel );
-  }
-
-  /**
    * Forwards an event to translationDragListener. Used for dragging vectors out of the toolbox.
    */
   public forwardEvent( event: PressListenerEvent ): void {
@@ -307,7 +284,7 @@ export default class VectorNode extends RootVectorNode {
 }
 
 /**
- * Creates a (rough) dilated shape for a vector head.  The head is pointing to the right.
+ * Creates a dilated shape for the vector's head.  The head is pointing to the right.
  */
 function createDilatedHead( headWidth: number, headHeight: number, dilation: number ): Shape {
 

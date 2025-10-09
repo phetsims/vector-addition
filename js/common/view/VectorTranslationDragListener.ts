@@ -39,14 +39,14 @@ export class VectorTranslationDragListener extends SoundDragListener {
       vector.tail ) );
 
     super( {
-      tandem: Tandem.OPT_OUT, // VectorNode is created dynamically and is not PhET-iO instrumented.
+      tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       pressCursor: cursor,
       targetNode: vectorNode,
       positionProperty: tailPositionProperty,
 
       start: () => {
         affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
-          'body drag listener should be removed when the vector is animating back.' );
+          'VectorTranslationDragListener should be removed when the vector is animating back.' );
         if ( vector.isOnGraphProperty.value ) {
           selectedVectorProperty.value = vector;
         }
@@ -106,8 +106,7 @@ export class VectorTranslationDragListener extends SoundDragListener {
    * Updates the model vector's tail position. Called when the vector is being translated.
    */
   private updateTailPosition( tailPositionView: Vector2 ): void {
-    affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
-      'Cannot drag tail when animating back' );
+    affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(), 'Cannot drag tail when animating back' );
 
     const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
 
