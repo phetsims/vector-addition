@@ -124,7 +124,9 @@ export default class VectorSet extends PhetioObject {
 
     super( options );
 
+    //TODO https://github.com/phetsims/vector-addition/issues/258 PhET-iO instrumentation of this.vectors
     this.vectors = createObservableArray();
+
     this.vectorColorPalette = vectorColorPalette;
     this.componentVectorStyleProperty = componentVectorStyleProperty;
 
