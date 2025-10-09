@@ -63,8 +63,7 @@ export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, '
 
 export default class VectorSet extends PhetioObject {
 
-  // This array contains only what is referred to as main or parent vectors. It does not contain resultant vectors,
-  // component vectors, or base vectors.
+  // Vectors that contribute to computation of resultantVector.
   public readonly vectors: ObservableArray<Vector>;
 
   public readonly vectorColorPalette: VectorColorPalette;
