@@ -272,7 +272,7 @@ export default class Vector extends RootVector {
       const vectorsInVectorSet = this.vectorSet.vectors.filter( vector => {
         return vector !== this;
       } );
-      vectorsInVectorSet.push( this.vectorSet.getResultantVector() );
+      vectorsInVectorSet.push( this.vectorSet.resultantVector );
 
       //----------------------------------------------------------------------------------------
       // Vector's must snap to other vectors to allow tip-to-tail comparisons.

@@ -75,7 +75,7 @@ export default class VectorSet extends PhetioObject {
   public readonly resultantProjectionXOffset: number;
   public readonly resultantProjectionYOffset: number;
 
-  protected resultantVector: ResultantVector;
+  public readonly resultantVector: ResultantVector;
 
   /**
    * @param scene - the scene the VectorSet belongs to
@@ -147,10 +147,6 @@ export default class VectorSet extends PhetioObject {
         this.vectors.get( i ).setProjectionOffsets( xOffset, yOffset );
       }
     } );
-  }
-
-  public getResultantVector(): ResultantVector {
-    return this.resultantVector;
   }
 
   public reset(): void {

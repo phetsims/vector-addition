@@ -73,7 +73,7 @@ export default class EquationTypeNode extends Node {
     if ( equationType === 'negation' ) {
       equationChildren.push( new Text( MathSymbols.PLUS, TEXT_OPTIONS ) );
       const vectorSymbolNode = new VectorSymbolNode( {
-        symbolProperty: vectorSet.getResultantVector().symbolProperty,
+        symbolProperty: vectorSet.resultantVector.symbolProperty,
         symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
       } );
       equationChildren.push( vectorSymbolNode );
@@ -89,7 +89,7 @@ export default class EquationTypeNode extends Node {
     }
     else {
       const vectorSymbolNode = new VectorSymbolNode( {
-        symbolProperty: vectorSet.getResultantVector().symbolProperty,
+        symbolProperty: vectorSet.resultantVector.symbolProperty,
         symbolFont: VectorAdditionConstants.INTERACTIVE_EQUATION_SYMBOL_FONT
       } );
       equationChildren.push( vectorSymbolNode );

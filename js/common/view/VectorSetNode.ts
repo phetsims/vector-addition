@@ -46,7 +46,7 @@ export default class VectorSetNode extends Node {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       tandem: Tandem ) {
 
-    const resultantVector = vectorSet.getResultantVector();
+    const resultantVector = vectorSet.resultantVector;
 
     // Every VectorSet has a resultant vector and resultant component vectors, so create them.
     const resultantVectorNode = new ResultantVectorNode( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, resultantVectorVisibleProperty, {
