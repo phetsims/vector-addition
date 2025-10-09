@@ -111,13 +111,8 @@ export default class VectorNode extends RootVectorNode {
     // Handle vector translation
     //----------------------------------------------------------------------------------------
 
-    // Create a Property for the position of the tail of the vector. Used by translationDragListener.
-    const tailPositionProperty = new Vector2Property( this.modelViewTransformProperty.value.modelToViewPosition(
-      vector.tail ) );
-
     this.translationDragListener = new VectorTranslationDragListener(
       vector,
-      tailPositionProperty,
       scene.selectedVectorProperty,
       scene.graph.boundsProperty,
       this,
@@ -130,28 +125,11 @@ export default class VectorNode extends RootVectorNode {
     this.arrowNode.addInputListener( this.translationDragListener );
     this.labelNode.addInputListener( this.translationDragListener );
 
-    // Translate when the vector's tail position changes. unlink is required on dispose.
-    const tailListener = ( tailPositionView: Vector2 ) => {
-      this.updateTailPosition( tailPositionView );
-      if ( vector.isRemovableFromGraph ) {
-        const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
-
-        const cursorPositionModel = this.modelViewTransformProperty.value
-          .viewToModelDelta( this.translationDragListener.localPoint ).plus( tailPositionModel );
-
-        if ( vector.isOnGraphProperty.value && !scene.graph.bounds.containsPoint( cursorPositionModel ) ) {
-          vector.popOffOfGraph();
-        }
-      }
-    };
-    tailPositionProperty.lazyLink( tailListener );
-
     // dispose of things related to vector translation
     const disposeTranslate = () => {
       this.arrowNode.removeInputListener( this.translationDragListener );
       this.labelNode.removeInputListener( this.translationDragListener );
       this.translationDragListener.dispose();
-      tailPositionProperty.unlink( tailListener );
     };
 
     //----------------------------------------------------------------------------------------
@@ -323,7 +301,7 @@ export default class VectorNode extends RootVectorNode {
   /**
    * Updates the model vector's tail position. Called when the vector is being translated.
    */
-  private updateTailPosition( tailPositionView: Vector2 ): void {
+  public updateTailPosition( tailPositionView: Vector2 ): void {
     affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
       'Cannot drag tail when animating back' );
 

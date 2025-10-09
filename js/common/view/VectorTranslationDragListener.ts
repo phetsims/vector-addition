@@ -17,18 +17,22 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Property from '../../../../axon/js/Property.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
+import VectorNode from './VectorNode.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
 
 export class VectorTranslationDragListener extends SoundDragListener {
 
   public constructor( vector: Vector,
-                      tailPositionProperty: Property<Vector2>,
                       selectedVectorProperty: Property<Vector | null>,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
-                      vectorNode: Node,
+                      vectorNode: VectorNode,
                       vectorShadowNode: Node,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       cursor: string ) {
+
+    // Create a Property for the position of the tail of the vector.
+    const tailPositionProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewPosition(
+      vector.tail ) );
 
     super( {
       tandem: Tandem.OPT_OUT, // VectorNode is created dynamically and is not PhET-iO instrumented.
@@ -71,6 +75,21 @@ export class VectorTranslationDragListener extends SoundDragListener {
             // Animate the vector back to the toolbox.
             vector.animateBackProperty.value = true;
           }
+        }
+      }
+    } );
+
+    // Translate when the vector's tail position changes.
+    tailPositionProperty.lazyLink( tailPositionView => {
+      vectorNode.updateTailPosition( tailPositionView );
+      if ( vector.isRemovableFromGraph ) {
+        const tailPositionModel = modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
+
+        const cursorPositionModel = modelViewTransformProperty.value
+          .viewToModelDelta( this.localPoint ).plus( tailPositionModel );
+
+        if ( vector.isOnGraphProperty.value && !graphBoundsProperty.value.containsPoint( cursorPositionModel ) ) {
+          vector.popOffOfGraph();
         }
       }
     } );
