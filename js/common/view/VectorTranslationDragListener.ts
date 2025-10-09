@@ -19,8 +19,12 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Property from '../../../../axon/js/Property.js';
 import VectorNode from './VectorNode.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 export class VectorTranslationDragListener extends SoundDragListener {
+
+  private readonly vector: Vector;
+  private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
 
   public constructor( vector: Vector,
                       selectedVectorProperty: Property<Vector | null>,
@@ -79,9 +83,12 @@ export class VectorTranslationDragListener extends SoundDragListener {
       }
     } );
 
+    this.vector = vector;
+    this.modelViewTransformProperty = modelViewTransformProperty;
+
     // Translate when the vector's tail position changes.
     tailPositionProperty.lazyLink( tailPositionView => {
-      vectorNode.updateTailPosition( tailPositionView );
+      this.updateTailPosition( tailPositionView );
       if ( vector.isRemovableFromGraph ) {
         const tailPositionModel = modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
 
@@ -93,6 +100,25 @@ export class VectorTranslationDragListener extends SoundDragListener {
         }
       }
     } );
+  }
+
+  /**
+   * Updates the model vector's tail position. Called when the vector is being translated.
+   */
+  private updateTailPosition( tailPositionView: Vector2 ): void {
+    affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
+      'Cannot drag tail when animating back' );
+
+    const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
+
+    if ( !this.vector.isOnGraphProperty.value ) {
+      // Allow translation to anywhere if it isn't on the graph.
+      this.vector.moveToTailPosition( tailPositionModel );
+    }
+    else {
+      // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds.
+      this.vector.moveTailToPosition( tailPositionModel );
+    }
   }
 }
 

@@ -299,25 +299,6 @@ export default class VectorNode extends RootVectorNode {
   }
 
   /**
-   * Updates the model vector's tail position. Called when the vector is being translated.
-   */
-  public updateTailPosition( tailPositionView: Vector2 ): void {
-    affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
-      'Cannot drag tail when animating back' );
-
-    const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
-
-    if ( !this.vector.isOnGraphProperty.value ) {
-      // Allow translation to anywhere if it isn't on the graph.
-      this.vector.moveToTailPosition( tailPositionModel );
-    }
-    else {
-      // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds.
-      this.vector.moveTailToPosition( tailPositionModel );
-    }
-  }
-
-  /**
    * Forwards an event to translationDragListener. Used for dragging vectors out of the toolbox.
    */
   public forwardEvent( event: PressListenerEvent ): void {
