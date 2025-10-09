@@ -100,7 +100,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
     // Update the tail/tip position when the vector's tail/tip position changes
 
     // Observe changes to the tail/tip and mirror the positioning. If the values visibility changes, update the
-    // view as well.  unmultilink is required on dispose.
+    // view as well. Must be disposed.
     const updateMultilink = Multilink.multilink(
       [ valuesVisibleProperty, rootVector.tailPositionProperty, rootVector.tipPositionProperty, selectedVectorProperty ],
       valuesVisible => {

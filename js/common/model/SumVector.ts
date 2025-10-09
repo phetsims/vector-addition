@@ -50,8 +50,7 @@ export default class SumVector extends ResultantVector {
     // Observe changes to the vector array.
     const vectorAddedListener = ( addedVector: Vector ) => {
 
-      // When the vector changes, update the sum calculation.
-      // unmultilink is required when the vector is removed.
+      // When the vector changes, update the sum calculation. Must be disposed.
       const addedVectorMultilink = Multilink.multilink(
         [ addedVector.xyComponentsProperty, addedVector.isOnGraphProperty ], () => {
           this.updateSum( vectorSet.vectors );
