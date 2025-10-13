@@ -65,8 +65,8 @@ export default class VectorSet extends PhetioObject {
 
   public readonly resultantVector: ResultantVector;
 
-  // Vectors that are active - that is, not in the toolbox.
-  // Active vectors with isOnGraphProperty.value === true contribute to the resultant vector.
+  // Vectors that are active - that is, not in the toolbox. This array changes as vectors are dragged to/from the
+  // toolbox. Active vectors with isOnGraphProperty.value === true contribute to the resultant vector.
   public readonly activeVectors: ObservableArray<Vector>;
 
   public readonly vectorColorPalette: VectorColorPalette;
