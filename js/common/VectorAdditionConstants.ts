@@ -220,6 +220,8 @@ export default class VectorAdditionConstants {
   // xy-components or magnitudes smaller than this value are treated as effectively zero
   public static readonly ZERO_THRESHOLD = 1E-10;
 
+  public static readonly LAB_VECTORS_PER_VECTOR_SET = 10;
+
   //----------------------------------------------------------------------------------------
   // Decimal places
 

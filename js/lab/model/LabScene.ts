@@ -5,7 +5,7 @@
  *
  * Characteristics of a LabScene are:
  *  - it snaps to either Cartesian or polar coordinates
- *  - it has 2 vector set
+ *  - it has 2 vector sets
  *
  * @author Brandon Li
  */
@@ -21,6 +21,8 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LabVectorSet from './LabVectorSet.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import Vector from '../../common/model/Vector.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
@@ -31,8 +33,9 @@ export default class LabScene extends VectorAdditionScene {
   public readonly vectorSet1: LabVectorSet;
   public readonly vectorSet2: LabVectorSet;
 
-  // For iterating over LabVectorSet instances in this screen.
-  public readonly labVectorSets: LabVectorSet[];
+  // The complete set of vectors for vectorSet1 and vectorSet2, allocated when the sim starts.
+  public readonly allVectors1: Vector[];
+  public readonly allVectors2: Vector[];
 
   // Initial components for all vectors in this scene.
   public readonly initialVectorComponents: Vector2;
@@ -107,21 +110,49 @@ export default class LabScene extends VectorAdditionScene {
       tandem: tandem.createTandem( `${tandemNameSymbol2}VectorSet` )
     } );
 
-    this.labVectorSets = [ this.vectorSet1, this.vectorSet2 ];
-
-    // Add the vector sets
     this.vectorSets.push( this.vectorSet1, this.vectorSet2 );
+
+    // Create vector instances.
+    this.allVectors1 = createAllVectors( initialVectorComponents, this, this.vectorSet1, this.vectorSet1.tandem );
+    this.allVectors2 = createAllVectors( initialVectorComponents, this, this.vectorSet2, this.vectorSet2.tandem );
   }
 
   public override reset(): void {
     super.reset();
-    this.labVectorSets.forEach( vectorSet => vectorSet.reset() );
+    this.vectorSets.forEach( vectorSet => vectorSet.reset() );
+    this.allVectors1.forEach( vector => vector.reset() );
+    this.allVectors2.forEach( vector => vector.reset() );
   }
 
   public override erase(): void {
     super.erase();
-    this.labVectorSets.forEach( vectorSet => vectorSet.erase() );
+    this.vectorSets.forEach( vectorSet => vectorSet.erase() );
   }
+}
+
+/**
+ * Creates all vectors related to a vector set.
+ */
+function createAllVectors( initialVectorComponents: Vector2,
+                           scene: LabScene,
+                           vectorSet: LabVectorSet,
+                           parentTandem: Tandem ): Vector[] {
+  const vectors: Vector[] = [];
+
+  // Iterate from 1 so that tandem names have 1-based indices.
+  for ( let i = 1; i <= VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET; i++ ) {
+
+    // Symbol for the vector is the vector set symbol with an index subscript.
+    const symbolProperty = new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` );
+
+    const vector = new Vector( new Vector2( 0, 0 ), initialVectorComponents, scene, vectorSet, symbolProperty, {
+      isDisposable: false,
+      tandem: parentTandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),
+      tandemNameSymbol: `a${i}`
+    } );
+    vectors.push( vector );
+  }
+  return vectors;
 }
 
 vectorAddition.register( 'LabScene', LabScene );

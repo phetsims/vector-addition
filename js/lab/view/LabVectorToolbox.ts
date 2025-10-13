@@ -13,6 +13,7 @@ import LabVectorToolboxSlot from './LabVectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabScene from '../model/LabScene.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -31,14 +32,22 @@ export default class LabVectorToolbox extends VectorToolbox {
     }, providedOptions );
 
     // Create a slot for each VectorSet
-    const slots: LabVectorToolboxSlot[] = [];
-    scene.labVectorSets.forEach( vectorSet => {
-      slots.push( new LabVectorToolboxSlot( scene, vectorSet, sceneNode, {
-        symbolProperty: vectorSet.symbolProperty,
-        numberOfVectors: 10, // Each slot can create 10 vectors
-        tandem: options.tandem.createTandem( `${vectorSet.tandemNameSymbol}Slot` )
-      } ) );
-    } );
+    const slots = [
+
+      // vector set 1
+      new LabVectorToolboxSlot( scene, scene.vectorSet1, sceneNode, {
+        symbolProperty: scene.vectorSet1.symbolProperty,
+        numberOfVectors: VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET,
+        tandem: options.tandem.createTandem( `${scene.vectorSet1.tandemNameSymbol}Slot` )
+      } ),
+
+      // vector set 2
+      new LabVectorToolboxSlot( scene, scene.vectorSet2, sceneNode, {
+        symbolProperty: scene.vectorSet2.symbolProperty,
+        numberOfVectors: VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET,
+        tandem: options.tandem.createTandem( `${scene.vectorSet2.tandemNameSymbol}Slot` )
+      } )
+    ];
 
     super( slots, options );
   }
