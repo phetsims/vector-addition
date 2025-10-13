@@ -17,8 +17,8 @@ import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridChec
 import vectorAddition from '../../vectorAddition.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Explore1DScene from '../model/Explore1DScene.js';
 import Explore2DViewProperties from '../../explore2D/view/Explore2DViewProperties.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -26,9 +26,9 @@ type Explore1DGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class Explore1DGraphControlPanel extends GraphControlPanel {
 
-  public constructor( sceneProperty: TReadOnlyProperty<Explore1DScene>,
-                      horizontalScene: Explore1DScene,
-                      verticalScene: Explore1DScene,
+  public constructor( sceneProperty: TReadOnlyProperty<ExploreScene>,
+                      horizontalScene: ExploreScene,
+                      verticalScene: ExploreScene,
                       viewProperties: Explore2DViewProperties,
                       providedOptions: Explore1DGraphControlPanelOptions ) {
 

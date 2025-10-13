@@ -10,10 +10,10 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore2DScene from './Explore2DScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import Explore2DCartesianScene from './Explore2DCartesianScene.js';
 import { Explore2DPolarScene } from './Explore2DPolarScene.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 
@@ -21,7 +21,7 @@ export default class Explore2DModel extends VectorAdditionModel {
   public readonly polarScene: Explore2DPolarScene;
 
   // The selected scene
-  public readonly sceneProperty: Property<Explore2DScene>;
+  public readonly sceneProperty: Property<ExploreScene>;
 
   public constructor( tandem: Tandem ) {
 

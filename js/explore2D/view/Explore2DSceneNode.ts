@@ -11,17 +11,17 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import Explore2DScene from '../model/Explore2DScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
 import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 
 export default class Explore2DSceneNode extends VectorAdditionSceneNode {
 
-  public constructor( scene: Explore2DScene,
-                      sceneProperty: TReadOnlyProperty<Explore2DScene>,
+  public constructor( scene: ExploreScene,
+                      sceneProperty: TReadOnlyProperty<ExploreScene>,
                       viewProperties: Explore2DViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sceneRadioButtonGroup: Node, // for layout

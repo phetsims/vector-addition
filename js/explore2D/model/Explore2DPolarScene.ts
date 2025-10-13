@@ -15,16 +15,19 @@ import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import Vector from '../../common/model/Vector.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import Explore2DScene from './Explore2DScene.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 
-export class Explore2DPolarScene extends Explore2DScene {
+export class Explore2DPolarScene extends ExploreScene {
 
   public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
     super(
       VectorAdditionStrings.a11y.polarSceneNameStringProperty,
+      VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS,
+      'twoDimensional',
       'polar',
       VectorAdditionColors.EXPLORE_2D_POLAR_COLOR_PALETTE,
       createAllVectors,

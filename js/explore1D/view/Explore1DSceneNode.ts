@@ -13,15 +13,14 @@ import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Explore1DScene from '../model/Explore1DScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Explore2DScene from '../../explore2D/model/Explore2DScene.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 
 export default class Explore1DSceneNode extends VectorAdditionSceneNode {
 
-  public constructor( scene: Explore1DScene,
-                      sceneProperty: TReadOnlyProperty<Explore2DScene>,
+  public constructor( scene: ExploreScene,
+                      sceneProperty: TReadOnlyProperty<ExploreScene>,
                       viewProperties: Explore1DViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sceneRadioButtonGroup: Node, // for layout

@@ -10,7 +10,6 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Explore1DScene from './Explore1DScene.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import Vector from '../../common/model/Vector.js';
@@ -18,14 +17,20 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
-export default class Explore1DHorizontalScene extends Explore1DScene {
+export default class Explore1DHorizontalScene extends ExploreScene {
 
-  public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, tandem: Tandem ) {
+  public constructor( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                      graphBounds: Bounds2,
+                      tandem: Tandem ) {
 
     super(
       VectorAdditionStrings.a11y.horizontalSceneNameStringProperty,
+      graphBounds,
       'horizontal',
+      'cartesian',
       VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE,
       createAllVectors,
       componentVectorStyleProperty,

@@ -10,10 +10,12 @@ import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore1DScene from './Explore1DScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import Explore1DHorizontalScene from './Explore1DHorizontalScene.js';
 import Explore1DVerticalScene from './Explore1DVerticalScene.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 
 export default class Explore1DModel extends VectorAdditionModel {
 
@@ -21,7 +23,7 @@ export default class Explore1DModel extends VectorAdditionModel {
   public readonly verticalScene: Explore1DVerticalScene;
 
   // The selected scene
-  public readonly sceneProperty: Property<Explore1DScene>;
+  public readonly sceneProperty: Property<ExploreScene>;
 
   public constructor( tandem: Tandem ) {
 
@@ -32,9 +34,15 @@ export default class Explore1DModel extends VectorAdditionModel {
 
     const scenesTandem = tandem.createTandem( 'scenes' );
 
-    this.horizontalScene = new Explore1DHorizontalScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'horizontalScene' ) );
+    // Origin is at the center.
+    const graphBounds = new Bounds2( -VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width / 2,
+      -VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height / 2,
+      VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width / 2,
+      VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height / 2 );
 
-    this.verticalScene = new Explore1DVerticalScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'verticalScene' ) );
+    this.horizontalScene = new Explore1DHorizontalScene( this.componentVectorStyleProperty, graphBounds, scenesTandem.createTandem( 'horizontalScene' ) );
+
+    this.verticalScene = new Explore1DVerticalScene( this.componentVectorStyleProperty, graphBounds, scenesTandem.createTandem( 'verticalScene' ) );
 
     this.sceneProperty = new Property( this.horizontalScene, {
       validValues: [ this.horizontalScene, this.verticalScene ],

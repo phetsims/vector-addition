@@ -1,28 +1,25 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2025, University of Colorado Boulder
 
 /**
- * Explore2DScene is the base class for scenes in the 'Explore 2D' screen.
+ * ExploreScene is the base class for scenes in the 'Explore 1D' and 'Explore 2D' screens.
  *
- * Characteristics of an Explore2DScene are:
- *  - it snaps to either Cartesian or polar coordinates
- *  - it has 1 vector set
- *
- * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
-import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
-import VectorColorPalette from '../../common/model/VectorColorPalette.js';
-import VectorSet from '../../common/model/VectorSet.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
+import VectorAdditionScene from './VectorAdditionScene.js';
+import { GraphOrientation } from './GraphOrientation.js';
+import VectorColorPalette from './VectorColorPalette.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Vector from '../../common/model/Vector.js';
+import VectorSet from './VectorSet.js';
+import Vector from './Vector.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
-export default class Explore2DScene extends VectorAdditionScene {
+export default class ExploreScene extends VectorAdditionScene {
 
   // This scene has one vector set.
   public readonly vectorSet: VectorSet;
@@ -34,6 +31,8 @@ export default class Explore2DScene extends VectorAdditionScene {
   public numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+                         graphBounds: Bounds2,
+                         graphOrientation: GraphOrientation,
                          coordinateSnapMode: CoordinateSnapMode,
                          vectorColorPalette: VectorColorPalette,
                          createAllVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ) => Vector[],
@@ -42,7 +41,8 @@ export default class Explore2DScene extends VectorAdditionScene {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
-        initialBounds: VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS
+        initialBounds: graphBounds,
+        orientation: graphOrientation
       },
       tandem: tandem
     } );
@@ -72,4 +72,4 @@ export default class Explore2DScene extends VectorAdditionScene {
   }
 }
 
-vectorAddition.register( 'Explore2DScene', Explore2DScene );
+vectorAddition.register( 'ExploreScene', ExploreScene );

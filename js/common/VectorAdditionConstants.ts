@@ -26,6 +26,7 @@ import { CreditsData } from '../../../joist/js/CreditsNode.js';
 import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import { NumberPickerOptions } from '../../../sun/js/NumberPicker.js';
+import affirm from '../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const PANEL_X_MARGIN = 9;
 const PANEL_Y_MARGIN = 10;
@@ -248,5 +249,9 @@ export default class VectorAdditionConstants {
   public static readonly CHECKBOX_FONT = new PhetFont( 16 );
   public static readonly TITLE_FONT = new PhetFont( 16 );
 }
+
+// See https://github.com/phetsims/vector-addition/issues/127
+affirm( VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width % 2 === 0 && VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height % 2 === 0,
+  `DEFAULT_GRAPH_BOUNDS dimensions must be even: ${VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS}` );
 
 vectorAddition.register( 'VectorAdditionConstants', VectorAdditionConstants );

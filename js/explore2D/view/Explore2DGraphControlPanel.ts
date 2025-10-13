@@ -23,8 +23,8 @@ import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Explore2DScene from '../model/Explore2DScene.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -32,9 +32,9 @@ type Explore2DGraphControlPanelOptions = SelfOptions & GraphControlPanelOptions;
 
 export default class Explore2DGraphControlPanel extends GraphControlPanel {
 
-  public constructor( sceneProperty: TReadOnlyProperty<Explore2DScene>,
-                      cartesianScene: Explore2DScene,
-                      polarScene: Explore2DScene,
+  public constructor( sceneProperty: TReadOnlyProperty<ExploreScene>,
+                      cartesianScene: ExploreScene,
+                      polarScene: ExploreScene,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
                       viewProperties: Explore2DViewProperties,
                       providedOptions: Explore2DGraphControlPanelOptions ) {
