@@ -132,6 +132,8 @@ export default class VectorAdditionSceneNode extends Node {
       // Disable the eraser button when the number of vectors on the graph is zero, that is, when all vector sets
       // contain no vectors. This is a bit more complicated than it should be, but it was added late in the
       // development process.
+      //TODO https://github.com/phetsims/vector-addition/issues/258 This is not quite correct. It should be disabled
+      //  when there are no activeVectors with isOnGraphProperty.value === true.
       const lengthProperties = _.map( scene.vectorSets, vectorSet => vectorSet.activeVectors.lengthProperty );
       Multilink.multilinkAny( lengthProperties, () => {
         const numberOfVectors = _.sumBy( lengthProperties, lengthProperty => lengthProperty.value );
