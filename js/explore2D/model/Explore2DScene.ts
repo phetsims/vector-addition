@@ -36,7 +36,7 @@ export default class Explore2DScene extends VectorAdditionScene {
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
                          vectorColorPalette: VectorColorPalette,
-                         createVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ) => Vector[],
+                         createAllVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ) => Vector[],
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          tandem: Tandem ) {
 
@@ -54,7 +54,7 @@ export default class Explore2DScene extends VectorAdditionScene {
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
 
-    this.allVectors = createVectors( this, this.vectorSet, this.vectorSet.tandem );
+    this.allVectors = createAllVectors( this, this.vectorSet, this.vectorSet.tandem );
 
     this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
       () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );

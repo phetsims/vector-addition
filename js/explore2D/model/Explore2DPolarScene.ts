@@ -27,7 +27,7 @@ export class Explore2DPolarScene extends Explore2DScene {
       VectorAdditionStrings.a11y.polarSceneNameStringProperty,
       'polar',
       VectorAdditionColors.EXPLORE_2D_POLAR_COLOR_PALETTE,
-      createVectors,
+      createAllVectors,
       componentVectorStyleProperty,
       tandem
     );
@@ -37,7 +37,7 @@ export class Explore2DPolarScene extends Explore2DScene {
 /**
  * Creates vectors d, e, f.
  */
-function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
+function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
 
   const initialPosition = Vector2.ZERO;
 

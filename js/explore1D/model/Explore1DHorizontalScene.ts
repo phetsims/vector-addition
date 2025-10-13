@@ -27,7 +27,7 @@ export default class Explore1DHorizontalScene extends Explore1DScene {
       VectorAdditionStrings.a11y.horizontalSceneNameStringProperty,
       'horizontal',
       VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE,
-      createVectors,
+      createAllVectors,
       componentVectorStyleProperty,
       tandem
     );
@@ -37,7 +37,7 @@ export default class Explore1DHorizontalScene extends Explore1DScene {
 /**
  * Creates vectors a, b, c.
  */
-function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
+function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
 
   const initialPosition = Vector2.ZERO;
   const initialComponents = new Vector2( 5, 0 ); // horizontal vector

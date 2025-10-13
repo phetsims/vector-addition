@@ -27,7 +27,7 @@ export default class Explore2DCartesianScene extends Explore2DScene {
       VectorAdditionStrings.a11y.cartesianSceneNameStringProperty,
       'cartesian',
       VectorAdditionColors.EXPLORE_2D_CARTESIAN_COLOR_PALETTE,
-      createVectors,
+      createAllVectors,
       componentVectorStyleProperty,
       tandem
     );
@@ -37,7 +37,7 @@ export default class Explore2DCartesianScene extends Explore2DScene {
 /**
  * Creates vectors a, b, c.
  */
-function createVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
+function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
 
   const initialPosition = Vector2.ZERO;
 
