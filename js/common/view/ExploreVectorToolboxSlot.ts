@@ -102,8 +102,8 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       // Calculate where the tail position is relative to the scene node.
       vector.tailPositionProperty.value = vectorCenterModel.minus( xyComponents.timesScalar( 0.5 ) );
 
-      // Add the vector to the vector set, so that it is included in the sum calculation.
-      vectorSet.vectors.push( vector );
+      // Add to activeVectors, so that it is included in the sum calculation.
+      vectorSet.activeVectors.push( vector );
 
       //----------------------------------------------------------------------------------------
       // Step 2: Tell sceneNode to create the view for the vector.
@@ -126,9 +126,9 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
           // Get the model position of the icon node.
           const iconPosition = scene.graph.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
 
-          // Animate the vector to its icon in the panel, then remove it from vectorSet.
+          // Animate the vector to its icon in the panel, then remove it from activeVectors.
           vector.animateToPoint( iconPosition, iconComponents, () => {
-            vectorSet.vectors.remove( vector );
+            vectorSet.activeVectors.remove( vector );
             vector.reset();
             //TODO https://github.com/phetsims/vector-addition/issues/258 animateBackProperty is being set in animateBackProperty listener
             vector.animateBackProperty.value = false;
@@ -138,16 +138,16 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       };
       vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
 
-      // Clean up when the vector is removed from vectorSet.
+      // Clean up when the vector is removed from activeVectors.
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === vector ) {
           iconNode.visible = true;
           this.focusable = true;
           vector.animateBackProperty.unlink( animateVectorBackListener );
-          vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
+          vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };
-      vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
+      vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
     } ) );
   }
 }

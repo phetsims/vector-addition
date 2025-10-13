@@ -187,7 +187,7 @@ export default class Vector extends RootVector {
    *  - Vector tip must be on an exact model coordinate
    *
    * ## Invariants for polar mode:
-   *  - Vector tip must be rounded to ensure the magnitude of the vector is a integer
+   *  - Vector tip must be rounded to ensure the magnitude of the vector is an integer
    *  - Vector tip must be rounded to ensure the vector angle is a multiple of POLAR_ANGLE_INTERVAL
    */
   protected setTipWithInvariants( tipPosition: Vector2 ): void {
@@ -269,7 +269,7 @@ export default class Vector extends RootVector {
       const tipPositionOnGraph = tailPositionOnGraph.plus( this.xyComponents );
 
       // Get all the vectors in the set, including the resultant vector, and excluding this vector.
-      const vectorsInVectorSet = this.vectorSet.vectors.filter( vector => {
+      const vectorsInVectorSet = this.vectorSet.activeVectors.filter( vector => {
         return vector !== this;
       } );
       vectorsInVectorSet.push( this.vectorSet.resultantVector );

@@ -46,7 +46,7 @@ export default class EquationTypeNode extends Node {
     let maxVectorSymbolHeight = 0;
 
     // Left side
-    for ( let i = 0; i < vectorSet.vectors.length; i++ ) {
+    for ( let i = 0; i < vectorSet.activeVectors.length; i++ ) {
 
       if ( i > 0 ) {
         const signText = ( equationType === 'subtraction' ) ? MathSymbols.MINUS : MathSymbols.PLUS;

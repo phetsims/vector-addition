@@ -67,7 +67,7 @@ export default class VectorSet extends PhetioObject {
 
   // Vectors that are active - that is, not in the toolbox.
   // Active vectors with isOnGraphProperty.value === true contribute to the resultant vector.
-  public readonly vectors: ObservableArray<Vector>;
+  public readonly activeVectors: ObservableArray<Vector>;
 
   public readonly vectorColorPalette: VectorColorPalette;
   public readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
@@ -125,8 +125,8 @@ export default class VectorSet extends PhetioObject {
 
     super( options );
 
-    //TODO https://github.com/phetsims/vector-addition/issues/258 PhET-iO instrumentation of this.vectors
-    this.vectors = createObservableArray();
+    //TODO https://github.com/phetsims/vector-addition/issues/258 PhET-iO instrumentation of this.activeVectors
+    this.activeVectors = createObservableArray();
 
     this.vectorColorPalette = vectorColorPalette;
     this.componentVectorStyleProperty = componentVectorStyleProperty;
@@ -142,11 +142,11 @@ export default class VectorSet extends PhetioObject {
 
     // Whenever a vector is added or removed, adjust the offsets of all component vectors for ComponentVectorStyle 'projection'.
     // See https://github.com/phetsims/vector-addition/issues/225
-    this.vectors.lengthProperty.link( length => {
+    this.activeVectors.lengthProperty.link( length => {
       for ( let i = 0; i < length; i++ ) {
         const xOffset = options.projectionXOffsetStart + i * options.projectionXOffsetDelta;
         const yOffset = options.projectionYOffsetStart + i * options.projectionYOffsetDelta;
-        this.vectors.get( i ).setProjectionOffsets( xOffset, yOffset );
+        this.activeVectors.get( i ).setProjectionOffsets( xOffset, yOffset );
       }
     } );
   }
@@ -161,12 +161,12 @@ export default class VectorSet extends PhetioObject {
    * Called when the eraser button is pressed.
    */
   public erase(): void {
-    this.vectors.forEach( vector => {
+    this.activeVectors.forEach( vector => {
       if ( vector.isDisposable ) {
         vector.dispose();
       }
     } );
-    this.vectors.clear();
+    this.activeVectors.clear();
   }
 }
 

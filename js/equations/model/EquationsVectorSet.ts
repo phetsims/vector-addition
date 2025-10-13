@@ -136,7 +136,7 @@ export default class EquationsVectorSet extends VectorSet {
         vectorDescription.tandemNameSymbol,
         options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ) );
 
-      this.vectors.push( vector );
+      this.activeVectors.push( vector );
       this.equationSymbolProperties.push( vectorDescription.symbolProperty );
       this.equationsVectors.push( vector );
     }
@@ -144,14 +144,14 @@ export default class EquationsVectorSet extends VectorSet {
     // The resultant vector symbol ('c' or 'f') appears in the equations, so add it.
     this.equationSymbolProperties.push( this.resultantVector.symbolProperty );
 
-    this.vectors.lengthProperty.lazyLink( () => {
-      throw new Error( 'Vectors cannot be added or removed after startup in the Equations screen.' );
+    this.activeVectors.lengthProperty.lazyLink( () => {
+      throw new Error( 'Active vectors cannot be added or removed after startup in the Equations screen.' );
     } );
   }
 
   //TODO https://github.com/phetsims/vector-addition/issues/258 This override may be unnecessary when all vectors are created statically.
   /**
-   * We are not calling super.reset() because the default behavior is to dispose of all vectors in this.vectors.
+   * We are not calling super.reset() because the default behavior is to dispose of all vectors in this.activeVectors.
    * In the Equations screen, vectors are created at startup, and there is no way to create them via the UI.
    * So we want to keep them around, but reset them. See https://github.com/phetsims/vector-addition/issues/143
    */

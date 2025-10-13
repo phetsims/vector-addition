@@ -53,21 +53,21 @@ export default class SumVector extends ResultantVector {
       // When the vector changes, update the sum calculation. Must be disposed.
       const addedVectorMultilink = Multilink.multilink(
         [ addedVector.xyComponentsProperty, addedVector.isOnGraphProperty ], () => {
-          this.updateSum( vectorSet.vectors );
+          this.updateSum( vectorSet.activeVectors );
         } );
 
       // Clean up when the vector is removed.
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === addedVector ) {
-          this.updateSum( vectorSet.vectors );
+          this.updateSum( vectorSet.activeVectors );
           addedVectorMultilink.dispose();
-          vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
+          vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };
-      vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
+      vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
     };
-    vectorSet.vectors.addItemAddedListener( vectorAddedListener );
-    vectorSet.vectors.forEach( vector => vectorAddedListener( vector ) );
+    vectorSet.activeVectors.addItemAddedListener( vectorAddedListener );
+    vectorSet.activeVectors.forEach( vector => vectorAddedListener( vector ) );
   }
 
   /**
@@ -77,7 +77,7 @@ export default class SumVector extends ResultantVector {
    */
   public override reset(): void {
     super.reset();
-    this.updateSum( this.vectorSet.vectors );
+    this.updateSum( this.vectorSet.activeVectors );
   }
 
   /**

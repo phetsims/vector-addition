@@ -149,11 +149,11 @@ export default class VectorSetNode extends Node {
           vectorNode.dispose();
 
           // remove listeners
-          this.vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
+          this.vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
           this.scene.selectedVectorProperty.unlink( selectedVectorListener );
         }
       };
-      this.vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
+      this.vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
     }
   }
 

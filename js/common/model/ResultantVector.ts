@@ -49,7 +49,7 @@ export default class ResultantVector extends Vector {
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, options );
 
     // Resultant vector is defined if there is at least one vector on the graph.
-    const isDefined = () => vectorSet.vectors.filter( vector => vector.isOnGraphProperty.value ).length > 0;
+    const isDefined = () => vectorSet.activeVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0;
 
     this.isDefinedProperty = new BooleanProperty( isDefined(), {
       tandem: options.tandem.createTandem( 'isDefinedProperty' ),
@@ -67,13 +67,13 @@ export default class ResultantVector extends Vector {
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === addedVector ) {
           addedVector.isOnGraphProperty.unlink( isOnGraphListener );
-          vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
+          vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };
-      vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
+      vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
     };
-    vectorSet.vectors.forEach( vector => vectorAddedListener( vector ) );
-    vectorSet.vectors.addItemAddedListener( vectorAddedListener );
+    vectorSet.activeVectors.forEach( vector => vectorAddedListener( vector ) );
+    vectorSet.activeVectors.addItemAddedListener( vectorAddedListener );
   }
 }
 

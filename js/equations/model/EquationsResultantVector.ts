@@ -46,12 +46,12 @@ export default class EquationsResultantVector extends ResultantVector {
     this.equationTypeProperty = scene.equationTypeProperty;
 
     // When the equation type changes, update the result.
-    scene.equationTypeProperty.lazyLink( () => this.update( vectorSet.vectors ) );
+    scene.equationTypeProperty.lazyLink( () => this.update( vectorSet.activeVectors ) );
 
     // When any vector's xy-components change, update the result.
-    const vectorAddedListener = ( vector: Vector ) => vector.xyComponentsProperty.link( () => this.update( vectorSet.vectors ) );
-    vectorSet.vectors.forEach( vector => vectorAddedListener( vector ) );
-    vectorSet.vectors.addItemAddedListener( vectorAddedListener );
+    const vectorAddedListener = ( vector: Vector ) => vector.xyComponentsProperty.link( () => this.update( vectorSet.activeVectors ) );
+    vectorSet.activeVectors.forEach( vector => vectorAddedListener( vector ) );
+    vectorSet.activeVectors.addItemAddedListener( vectorAddedListener );
   }
 
   /**
@@ -61,7 +61,7 @@ export default class EquationsResultantVector extends ResultantVector {
    */
   public override reset(): void {
     super.reset();
-    this.update( this.vectorSet.vectors );
+    this.update( this.vectorSet.activeVectors );
   }
 
   /**

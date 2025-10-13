@@ -134,7 +134,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       // Create the Vector.
       const vector = new Vector( vectorTailPosition, initialVectorComponents, scene, vectorSet, options.symbolProperty );
 
-      vectorSet.vectors.push( vector );
+      vectorSet.activeVectors.push( vector );
 
       //----------------------------------------------------------------------------------------
       // Step 2: A call to the Scene Node is made, passing the created Vector to create the subsequent views
@@ -143,7 +143,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       sceneNode.registerVector( vector, vectorSet, event );
 
       // Hide the icon when we've reached the numberOfVectors limit
-      const slotIsEmpty = ( vectorSet.vectors.lengthProperty.value === options.numberOfVectors );
+      const slotIsEmpty = ( vectorSet.activeVectors.lengthProperty.value === options.numberOfVectors );
       iconNode.visible = !slotIsEmpty;
       this.focusable = !slotIsEmpty;
 
@@ -160,7 +160,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
 
           // Animate the vector to its icon in the panel.
           vector.animateToPoint( iconPosition, iconComponents, () => {
-            vectorSet.vectors.remove( vector );
+            vectorSet.activeVectors.remove( vector );
             vector.dispose();
           } );
         }
@@ -173,10 +173,10 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
           iconNode.visible = true;
           this.focusable = true;
           vector.animateBackProperty.unlink( animateVectorBackListener );
-          vectorSet.vectors.removeItemRemovedListener( vectorRemovedListener );
+          vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };
-      vectorSet.vectors.addItemRemovedListener( vectorRemovedListener );
+      vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
     } ) );
   }
 }

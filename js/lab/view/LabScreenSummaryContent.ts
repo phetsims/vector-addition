@@ -18,13 +18,15 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
 
   public constructor( model: LabModel ) {
 
+    //TODO https://github.com/phetsims/vector-addition/issues/306 Should include only activeVectors with isOnGraphProperty.value === true
     const vectorSet1SizeProperty = new DerivedProperty(
-      [ model.sceneProperty, model.cartesianScene.vectorSet1.vectors.lengthProperty, model.polarScene.vectorSet1.vectors.lengthProperty ],
-      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet1.vectors.lengthProperty.value );
+      [ model.sceneProperty, model.cartesianScene.vectorSet1.activeVectors.lengthProperty, model.polarScene.vectorSet1.activeVectors.lengthProperty ],
+      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet1.activeVectors.lengthProperty.value );
 
+    //TODO https://github.com/phetsims/vector-addition/issues/306 Should include only activeVectors with isOnGraphProperty.value === true
     const vectorSet2SizeProperty = new DerivedProperty(
-      [ model.sceneProperty, model.cartesianScene.vectorSet2.vectors.lengthProperty, model.polarScene.vectorSet2.vectors.lengthProperty ],
-      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet2.vectors.lengthProperty.value );
+      [ model.sceneProperty, model.cartesianScene.vectorSet2.activeVectors.lengthProperty, model.polarScene.vectorSet2.activeVectors.lengthProperty ],
+      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet2.activeVectors.lengthProperty.value );
 
     const vectorSet1SymbolProperty = new DerivedProperty( [ model.sceneProperty ],
       scene => scene.vectorSet1.symbolProperty.value );
