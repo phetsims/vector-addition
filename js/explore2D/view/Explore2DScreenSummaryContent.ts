@@ -19,8 +19,8 @@ export default class Explore2DScreenSummaryContent extends ScreenSummaryContent 
   public constructor( model: Explore2DModel ) {
 
     const numberOfVectorsProperty = new DerivedProperty(
-      [ model.sceneProperty, model.cartesianScene.vectorSet.vectors.lengthProperty, model.polarScene.vectorSet.vectors.lengthProperty ],
-      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) => scene.vectorSet.vectors.lengthProperty.value );
+      [ model.sceneProperty, model.cartesianScene.numberOfVectorsOnGraphProperty, model.polarScene.numberOfVectorsOnGraphProperty ],
+      scene => scene.numberOfVectorsOnGraphProperty.value );
 
     const sceneNameStringProperty = new DerivedStringProperty(
       [ model.sceneProperty, model.cartesianScene.sceneNameStringProperty, model.polarScene.sceneNameStringProperty ],

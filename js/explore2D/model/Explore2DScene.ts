@@ -20,6 +20,7 @@ import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Vector from '../../common/model/Vector.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 export default class Explore2DScene extends VectorAdditionScene {
 
@@ -28,6 +29,9 @@ export default class Explore2DScene extends VectorAdditionScene {
 
   // Vector instances that are specific to this scene, exist for the lifetime of the sim.
   public readonly vectors: Vector[];
+
+  // Number of vectors that are on the graph, and therefore contributing to the sum.
+  public numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
@@ -51,6 +55,9 @@ export default class Explore2DScene extends VectorAdditionScene {
     this.vectorSets.push( this.vectorSet );
 
     this.vectors = createVectors( this, this.vectorSet, this.vectorSet.tandem );
+
+    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.vectors.map( vector => vector.isOnGraphProperty ),
+      () => this.vectors.filter( vector => vector.isOnGraphProperty.value ).length );
   }
 
   public override reset(): void {

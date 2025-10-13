@@ -24,6 +24,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import Vector from '../../common/model/Vector.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const DEFAULT_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;
 
@@ -47,6 +48,9 @@ export default class Explore1DScene extends VectorAdditionScene {
 
   // Vector instances that are specific to this scene, exist for the lifetime of the sim.
   public readonly vectors: Vector[];
+
+  // Number of vectors that are on the graph, and therefore contributing to the sum.
+  public numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          graphOrientation: GraphOrientation,
@@ -73,6 +77,9 @@ export default class Explore1DScene extends VectorAdditionScene {
     this.vectorSets.push( this.vectorSet );
 
     this.vectors = createVectors( this, this.vectorSet, this.vectorSet.tandem );
+
+    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.vectors.map( vector => vector.isOnGraphProperty ),
+      () => this.vectors.filter( vector => vector.isOnGraphProperty.value ).length );
   }
 
   public override reset(): void {
