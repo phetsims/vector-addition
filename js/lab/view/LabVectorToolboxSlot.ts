@@ -22,59 +22,48 @@
  * @author Brandon Li
  */
 
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
-import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import Vector from '../../common/model/Vector.js';
-import VectorSet from '../../common/model/VectorSet.js';
 import ArrowOverSymbolNode from '../../common/view/ArrowOverSymbolNode.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import LabScene from '../model/LabScene.js';
+import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import LabVectorSet from '../model/LabVectorSet.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const ICON_WIDTH = 35; // Effective width of the vector icon.
 const ICON_MAGNITUDE = 57; // Magnitude of the vector icon.
 const ICON_POINTER_DILATION = new Vector2( 10, 10 );
-
-type SelfOptions = {
-  symbolProperty: TReadOnlyProperty<string>; // the symbol to pass to created vectors
-  numberOfVectors?: number;  // the number of vectors that can be dragged out of this slot
-};
-
-type LabVectorToolboxSlotOptions = SelfOptions & PickRequired<HBox, 'tandem'>;
 
 export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
   /**
    * @param scene - the scene for the VectorSect
    * @param vectorSet - the VectorSet that the slot adds Vectors to
+   * @param allVectors - complete set of vectors related to vectorSet
    * @param sceneNode - the VectorAdditionSceneNode that this slot appears in
-   * @param providedOptions
+   * @param tandem
    */
   public constructor( scene: LabScene,
-                      vectorSet: VectorSet,
+                      vectorSet: LabVectorSet,
+                      allVectors: Vector[],
                       sceneNode: VectorAdditionSceneNode,
-                      providedOptions: LabVectorToolboxSlotOptions ) {
+                      tandem: Tandem ) {
 
-    const options = optionize<LabVectorToolboxSlotOptions, SelfOptions, HBoxOptions>()( {
-
-      // SelfOptions
-      numberOfVectors: 1,
-
-      // HBoxOptions
+    super( {
       isDisposable: false,
       spacing: 5,
-      tagName: 'button'
-    }, providedOptions );
-
-    super( options );
+      tagName: 'button',
+      tandem: tandem
+    } );
 
     // convenience reference
     const modelViewTransform = scene.graph.modelViewTransformProperty.value;
@@ -85,7 +74,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.viewToModelDelta( initialVectorComponents );
+    const iconViewComponents = modelViewTransform.modelToViewDelta( initialVectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
@@ -110,7 +99,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     // Create the label of the slot
     //----------------------------------------------------------------------------------------
 
-    this.addChild( new ArrowOverSymbolNode( options.symbolProperty ) );
+    this.addChild( new ArrowOverSymbolNode( vectorSet.symbolProperty ) );
 
     //----------------------------------------------------------------------------------------
     // Creation of Vectors via pointer (See 'Implementation' documentation above)
@@ -131,9 +120,13 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       // Calculate where the tail position is relative to the scene node.
       const vectorTailPosition = vectorCenterModel.minus( initialVectorComponents.timesScalar( 0.5 ) );
 
-      // Create the Vector.
-      const vector = new Vector( vectorTailPosition, initialVectorComponents, scene, vectorSet, options.symbolProperty );
+      // Get the first available vector in the toolbox slot.
+      const vector = getFirstAvailableVector( allVectors, vectorSet.activeVectors )!;
+      affirm( vector );
+      vector.reset();
+      vector.tailPositionProperty.value = vectorTailPosition;
 
+      // Add to activeVectors, so that it is included in the sum calculation.
       vectorSet.activeVectors.push( vector );
 
       //----------------------------------------------------------------------------------------
@@ -143,7 +136,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       sceneNode.registerVector( vector, vectorSet, event );
 
       // Hide the icon when we've reached the numberOfVectors limit
-      const slotIsEmpty = ( vectorSet.activeVectors.lengthProperty.value === options.numberOfVectors );
+      const slotIsEmpty = ( vectorSet.activeVectors.lengthProperty.value === allVectors.length );
       iconNode.visible = !slotIsEmpty;
       this.focusable = !slotIsEmpty;
 
@@ -161,7 +154,9 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
           // Animate the vector to its icon in the panel.
           vector.animateToPoint( iconPosition, iconComponents, () => {
             vectorSet.activeVectors.remove( vector );
-            vector.dispose();
+            vector.reset();
+            //TODO https://github.com/phetsims/vector-addition/issues/258 Why is this needed? Without it, fails the 2nd time that a vector is activated.
+            vector.animateBackProperty.value = false;
           } );
         }
       };
@@ -179,6 +174,20 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
     } ) );
   }
+}
+
+/**
+ * Gets the first available vector that is not active.
+ */
+function getFirstAvailableVector( allVectors: Vector[], activeVectors: ObservableArray<Vector> ): Vector | null {
+  let availableVector: Vector | null = null;
+  for ( let i = 0; i < allVectors.length && availableVector === null; i++ ) {
+    const vector = allVectors[ i ];
+    if ( !activeVectors.includes( vector ) ) {
+      availableVector = vector;
+    }
+  }
+  return availableVector;
 }
 
 vectorAddition.register( 'LabVectorToolboxSlot', LabVectorToolboxSlot );

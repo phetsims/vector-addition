@@ -34,6 +34,7 @@ export default class LabScene extends VectorAdditionScene {
   public readonly vectorSet2: LabVectorSet;
 
   // The complete set of vectors for vectorSet1 and vectorSet2, allocated when the sim starts.
+  // Ordered by increasing vector index, e.g. v1, v2, v3,...
   public readonly allVectors1: Vector[];
   public readonly allVectors2: Vector[];
 
