@@ -27,8 +27,8 @@ export default class Explore2DScene extends VectorAdditionScene {
   // This scene has one vector set.
   public readonly vectorSet: VectorSet;
 
-  // Vector instances that are specific to this scene, exist for the lifetime of the sim.
-  public readonly vectors: Vector[];
+  // The complete set of vectors for this scene, allocated when the sim starts.
+  public readonly allVectors: Vector[];
 
   // Number of vectors that are on the graph, and therefore contributing to the sum.
   public numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
@@ -54,16 +54,16 @@ export default class Explore2DScene extends VectorAdditionScene {
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
 
-    this.vectors = createVectors( this, this.vectorSet, this.vectorSet.tandem );
+    this.allVectors = createVectors( this, this.vectorSet, this.vectorSet.tandem );
 
-    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.vectors.map( vector => vector.isOnGraphProperty ),
-      () => this.vectors.filter( vector => vector.isOnGraphProperty.value ).length );
+    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
+      () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );
   }
 
   public override reset(): void {
     super.reset();
     this.vectorSet.reset();
-    this.vectors.forEach( vector => vector.reset() );
+    this.allVectors.forEach( vector => vector.reset() );
   }
 
   public override erase(): void {
