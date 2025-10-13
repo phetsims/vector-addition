@@ -65,7 +65,8 @@ export default class VectorSet extends PhetioObject {
 
   public readonly resultantVector: ResultantVector;
 
-  // Vectors that contribute to computation of resultantVector.
+  // Vectors that are active - that is, not in the toolbox.
+  // Active vectors with isOnGraphProperty.value === true contribute to the resultant vector.
   public readonly vectors: ObservableArray<Vector>;
 
   public readonly vectorColorPalette: VectorColorPalette;
