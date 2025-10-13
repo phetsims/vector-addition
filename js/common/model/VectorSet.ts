@@ -63,6 +63,8 @@ export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, '
 
 export default class VectorSet extends PhetioObject {
 
+  public readonly resultantVector: ResultantVector;
+
   // Vectors that contribute to computation of resultantVector.
   public readonly vectors: ObservableArray<Vector>;
 
@@ -73,8 +75,6 @@ export default class VectorSet extends PhetioObject {
   public readonly projectionYOffsetStart: number;
   public readonly resultantProjectionXOffset: number;
   public readonly resultantProjectionYOffset: number;
-
-  public readonly resultantVector: ResultantVector;
 
   /**
    * @param scene - the scene the VectorSet belongs to
