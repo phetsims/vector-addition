@@ -75,6 +75,8 @@ const POLAR_VECTOR_DESCRIPTIONS: VectorDescription[] = [
   }
 ];
 
+//TODO https://github.com/phetsims/vector-addition/issues/258 EquationsScene and EquationsVectorSet do not match
+//  the pattern used in other screens. EquationsScene should own allVectors (equationsVectors here).
 export default class EquationsVectorSet extends VectorSet {
 
   // Symbols that appear in the equations on the radio buttons in EquationTypeRadioButtonGroup.
