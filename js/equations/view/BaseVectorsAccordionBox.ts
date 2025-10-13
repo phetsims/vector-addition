@@ -86,7 +86,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         const cartesianBaseVector = vector.baseVector as CartesianBaseVector;
         affirm( cartesianBaseVector instanceof CartesianBaseVector );
 
-        // X Component
+        // x-component
         const xSymbolStringProperty = cartesianBaseVector.symbolProperty ?
                                       new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
                                         ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` ) :
@@ -102,7 +102,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}xPicker` )
           } );
 
-        // Y Component
+        // y-component
         const ySymbolStringProperty = cartesianBaseVector.symbolProperty ?
                                       new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
                                         ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` ) :
