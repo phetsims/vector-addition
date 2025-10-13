@@ -26,7 +26,7 @@ export default class Explore2DScene extends VectorAdditionScene {
   // This scene has one vector set.
   public readonly vectorSet: VectorSet;
 
-  // Vector instances that are specific to this screen, exist for the lifetime of the sim.
+  // Vector instances that are specific to this scene, exist for the lifetime of the sim.
   public readonly vectors: Vector[];
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
