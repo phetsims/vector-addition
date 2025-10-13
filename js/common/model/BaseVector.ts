@@ -17,13 +17,10 @@ import Vector, { VectorOptions } from './Vector.js';
 import VectorSet from './VectorSet.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type BaseVectorOptions = SelfOptions &
-  PickOptional<VectorOptions, 'isDisposable'> &
-  PickRequired<VectorOptions, 'tandem'>;
+export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'tandem' | 'tandemNameSymbol'>;
 
 export default class BaseVector extends Vector {
 
@@ -33,7 +30,6 @@ export default class BaseVector extends Vector {
    * @param scene - the scene the BaseVector belongs to
    * @param vectorSet - the set that the BaseVector belongs to
    * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
-   * @param tandemNameSymbol - symbol for the vector used in tandem names
    * @param providedOptions
    */
   protected constructor( initialTailPosition: Vector2,
@@ -41,18 +37,15 @@ export default class BaseVector extends Vector {
                          scene: VectorAdditionScene,
                          vectorSet: VectorSet,
                          symbolProperty: TReadOnlyProperty<string>,
-                         tandemNameSymbol: string,
                          providedOptions: BaseVectorOptions ) {
 
     const options = optionize<BaseVectorOptions, SelfOptions, VectorOptions>()( {
 
       // VectorOptions
-      isDisposable: false,      // BaseVectors are not disposable.
       isRemovableFromGraph: false, // BaseVectors are not removable from the graph.
       isTipDraggable: false,    // BaseVectors are not draggable by the tip
       isOnGraphInitially: true, // BaseVectors are always on the graph
-      isOnGraphPropertyInstrumented: false, // BaseVectors are always on the graph
-      tandemNameSymbol: tandemNameSymbol
+      isOnGraphPropertyInstrumented: false // BaseVectors are always on the graph
     }, providedOptions );
 
     super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, options );

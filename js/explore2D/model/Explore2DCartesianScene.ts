@@ -48,21 +48,18 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
 
     // a
     new Vector( initialPosition, new Vector2( 6, 8 ), scene, vectorSet, VectorAdditionSymbols.aStringProperty, {
-      isDisposable: false,
       tandem: parentTandem.createTandem( 'aVector' ),
       tandemNameSymbol: 'a'
     } ),
 
     // b
     new Vector( initialPosition, new Vector2( 8, 6 ), scene, vectorSet, VectorAdditionSymbols.bStringProperty, {
-      isDisposable: false,
       tandem: parentTandem.createTandem( 'bVector' ),
       tandemNameSymbol: 'b'
     } ),
 
     // c
     new Vector( initialPosition, new Vector2( 0, -10 ), scene, vectorSet, VectorAdditionSymbols.cStringProperty, {
-      isDisposable: false,
       tandem: parentTandem.createTandem( 'cVector' ),
       tandemNameSymbol: 'c'
     } )

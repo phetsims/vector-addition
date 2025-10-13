@@ -45,7 +45,8 @@ export default class CartesianBaseVector extends BaseVector {
 
     affirm( scene.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, tandemNameSymbol, {
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
+      tandemNameSymbol: tandemNameSymbol,
       tandem: tandem
     } );
 

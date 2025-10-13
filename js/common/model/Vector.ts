@@ -35,6 +35,7 @@ import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
 const MIN_ANIMATION_TIME = 0.9; // in seconds
@@ -57,7 +58,7 @@ type SelfOptions = {
   tandemNameSymbol: string; // symbol for this vector used in tandem names
 };
 
-export type VectorOptions = SelfOptions & RootVectorOptions;
+export type VectorOptions = SelfOptions & PickRequired<RootVectorOptions, 'tandem'>;
 
 export default class Vector extends RootVector {
 
@@ -86,7 +87,7 @@ export default class Vector extends RootVector {
   public readonly xComponentVector: ComponentVector;
   public readonly yComponentVector: ComponentVector;
 
-  // the symbol used to represent the vector
+  // the symbol used to label the vector
   public readonly symbolProperty: TReadOnlyProperty<string>;
 
   // symbol for this vector used in tandem names
@@ -99,16 +100,15 @@ export default class Vector extends RootVector {
    * @param initialComponents - starting components of the vector
    * @param scene - the scene the vector belongs to
    * @param vectorSet - the vector set the vector belongs to
-   * @param symbolProperty - the symbol for the vector (i.e. 'a', 'b', 'c', ...)
-   * @param [providedOptions]
+   * @param symbolProperty - the symbol used to label the vector (i.e. 'a', 'b', 'c', ...)
+   * @param providedOptions
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       symbolProperty: TReadOnlyProperty<string>,
-                      //TODO https://github.com/phetsims/vector-addition/issues/258 providedOptions should be required because tandemNameSymbol is required.
-                      providedOptions?: VectorOptions ) {
+                      providedOptions: VectorOptions ) {
 
     const options = optionize<VectorOptions, SelfOptions, RootVectorOptions>()( {
 
@@ -117,7 +117,9 @@ export default class Vector extends RootVector {
       isRemovableFromGraph: true,
       isOnGraphInitially: false,
       isOnGraphPropertyInstrumented: true,
-      tandem: Tandem.OPTIONAL
+
+      // RootVectorOptions
+      isDisposable: false // For PhET-iO, all Vectors are instantiated at startup, and exist for the lifetime of the sim.
     }, providedOptions );
 
     super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, options );

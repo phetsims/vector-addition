@@ -147,7 +147,6 @@ function createAllVectors( initialVectorComponents: Vector2,
     const symbolProperty = new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` );
 
     const vector = new Vector( new Vector2( 0, 0 ), initialVectorComponents, scene, vectorSet, symbolProperty, {
-      isDisposable: false,
       tandem: parentTandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),
       tandemNameSymbol: `a${i}`
     } );

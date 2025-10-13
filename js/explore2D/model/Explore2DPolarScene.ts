@@ -48,21 +48,18 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
 
     // d
     new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 30 ) ), scene, vectorSet, VectorAdditionSymbols.dStringProperty, {
-      isDisposable: false,
       tandem: parentTandem.createTandem( 'dVector' ),
       tandemNameSymbol: 'd'
     } ),
 
     // e
     new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 60 ) ), scene, vectorSet, VectorAdditionSymbols.eStringProperty, {
-      isDisposable: false,
       tandem: parentTandem.createTandem( 'eVector' ),
       tandemNameSymbol: 'e'
     } ),
 
     // f
     new Vector( initialPosition, Vector2.createPolar( 8, toRadians( -90 ) ), scene, vectorSet, VectorAdditionSymbols.fStringProperty, {
-      isDisposable: false,
       tandem: parentTandem.createTandem( 'fVector' ),
       tandemNameSymbol: 'f'
     } )

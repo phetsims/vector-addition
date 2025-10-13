@@ -47,8 +47,8 @@ export default class PolarBaseVector extends BaseVector {
 
     affirm( scene.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, tandemNameSymbol, {
-      isDisposable: false,
+    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
+      tandemNameSymbol: tandemNameSymbol,
       tandem: tandem
     } );
 

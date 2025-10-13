@@ -39,7 +39,6 @@ export default class ResultantVector extends Vector {
     const options = optionize<ResultantVectorOptions, SelfOptions, VectorOptions>()( {
 
       // VectorOptions
-      isDisposable: false, // Resultant vectors are not disposable.
       isRemovableFromGraph: false, // Resultant vectors are not removable from the graph.
       isTipDraggable: false, // Resultant vectors are not draggable by the tip.
       isOnGraphInitially: true, // Resultant vectors are always on the graph.
