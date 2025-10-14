@@ -9,7 +9,7 @@
  *  - Icon colors and sizes
  *  - Infinite slot versus only one vector per slot
  *  - Having symbols versus not having symbols
- *  - Icon components and initial vector components (e.g. on Explore 1D the initial vectors are horizontal/vertical
+ *  - Icon components and initial xy-components (e.g. on Explore 1D the initial vectors are horizontal/vertical
  *    while on Explore 2D the vectors are 45 degrees)
  *
  * Implementation of creation of Vectors:
@@ -67,14 +67,14 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
 
     // convenience reference
     const modelViewTransform = scene.graph.modelViewTransformProperty.value;
-    const initialVectorComponents = scene.initialVectorComponents;
+    const initialXYComponents = scene.initialXYComponents;
 
     //----------------------------------------------------------------------------------------
     // Create the icon
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.modelToViewDelta( initialVectorComponents );
+    const iconViewComponents = modelViewTransform.modelToViewDelta( initialXYComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
@@ -89,7 +89,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       .normalized().timesScalar( ICON_MAGNITUDE ) );
 
     // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
-    // has the same effective width regardless of the initial vector components. This ensures that
+    // has the same effective width regardless of the initial xy-components. This ensures that
     // the label of the slot is in the same place regardless of the icon size.
     this.addChild( new AlignBox( iconNode, {
       alignBounds: new Bounds2( 0, 0, ICON_WIDTH, iconNode.height )
@@ -118,7 +118,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       const vectorCenterModel = scene.graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
       // Calculate where the tail position is relative to the scene node.
-      const vectorTailPosition = vectorCenterModel.minus( initialVectorComponents.timesScalar( 0.5 ) );
+      const vectorTailPosition = vectorCenterModel.minus( initialXYComponents.timesScalar( 0.5 ) );
 
       // Get the first available vector in the toolbox slot.
       const vector = getFirstAvailableVector( allVectors, vectorSet.activeVectors )!;

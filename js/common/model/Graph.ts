@@ -23,7 +23,7 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 const MODEL_TO_VIEW_SCALE = 14.5;
 
 type SelfOptions = {
-  initialBounds: Bounds2;
+  bounds: Bounds2; // initial value of boundsProperty
   orientation?: GraphOrientation;
   bottomLeft?: Vector2; // bottom left corner of the graph, in view coordinates
 };
@@ -70,7 +70,7 @@ export default class Graph extends PhetioObject {
 
     this.orientation = options.orientation;
 
-    this._boundsProperty = new Property( options.initialBounds, {
+    this._boundsProperty = new Property( options.bounds, {
       phetioValueType: Bounds2.Bounds2IO,
       tandem: options.tandem.createTandem( 'boundsProperty' ),
       phetioDocumentation: 'Bounds of the scene, in model coordinates.',
@@ -79,8 +79,8 @@ export default class Graph extends PhetioObject {
     this.boundsProperty = this._boundsProperty;
 
     this.viewBounds = new Bounds2( options.bottomLeft.x,
-      options.bottomLeft.y - MODEL_TO_VIEW_SCALE * options.initialBounds.height,
-      options.bottomLeft.x + MODEL_TO_VIEW_SCALE * options.initialBounds.width,
+      options.bottomLeft.y - MODEL_TO_VIEW_SCALE * options.bounds.height,
+      options.bottomLeft.x + MODEL_TO_VIEW_SCALE * options.bounds.width,
       options.bottomLeft.y );
 
     this.modelViewTransformProperty = new DerivedProperty( [ this.boundsProperty ],

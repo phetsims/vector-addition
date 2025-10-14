@@ -39,12 +39,12 @@ export default class LabScene extends VectorAdditionScene {
   public readonly allVectors2: Vector[];
 
   // Initial components for all vectors in this scene.
-  public readonly initialVectorComponents: Vector2;
+  public readonly initialXYComponents: Vector2;
 
   /**
    * @param sceneNameStringProperty
    * @param coordinateSnapMode - coordinateSnapMode for the scene
-   * @param initialVectorComponents - initial xy-components for all vectors in the scene
+   * @param initialXYComponents - initial xy-components for all vectors in the scene
    * @param symbol1Property - symbol for vector set 1
    * @param symbol2Property - symbol for vector set 2
    * @param tandemNameSymbol1 - symbol for vector set 1 used in tandem names
@@ -56,7 +56,7 @@ export default class LabScene extends VectorAdditionScene {
    */
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
-                         initialVectorComponents: Vector2,
+                         initialXYComponents: Vector2,
                          symbol1Property: TReadOnlyProperty<string>,
                          symbol2Property: TReadOnlyProperty<string>,
                          tandemNameSymbol1: string,
@@ -68,12 +68,12 @@ export default class LabScene extends VectorAdditionScene {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
-        initialBounds: LAB_GRAPH_BOUNDS
+        bounds: LAB_GRAPH_BOUNDS
       },
       tandem: tandem
     } );
 
-    this.initialVectorComponents = initialVectorComponents;
+    this.initialXYComponents = initialXYComponents;
 
     // Compute values for the options that are related to ComponentVectorStyle 'projection'.
     // Projection component vectors are more closely-spaced in this screen, and we have 2 sum vectors.
@@ -89,7 +89,7 @@ export default class LabScene extends VectorAdditionScene {
       projectionXOffsetDelta: offsetDelta,
       projectionYOffsetDelta: offsetDelta,
 
-      initialResultantTailPosition: new Vector2( 12, 10 ),
+      resultantTailPosition: new Vector2( 12, 10 ),
 
       tandem: tandem.createTandem( `${tandemNameSymbol1}VectorSet` )
     } );
@@ -102,7 +102,7 @@ export default class LabScene extends VectorAdditionScene {
       projectionXOffsetDelta: offsetDelta,
       projectionYOffsetDelta: offsetDelta,
 
-      initialResultantTailPosition: new Vector2( 28, 10 ),
+      resultantTailPosition: new Vector2( 28, 10 ),
 
       // resultant (sum) component vectors are spaced so that they don't overlap with vectorSet1
       resultantProjectionXOffset: this.vectorSet1.resultantProjectionXOffset + modelHeadWidth,
@@ -114,8 +114,8 @@ export default class LabScene extends VectorAdditionScene {
     this.vectorSets.push( this.vectorSet1, this.vectorSet2 );
 
     // Create vector instances.
-    this.allVectors1 = createAllVectors( initialVectorComponents, this, this.vectorSet1, this.vectorSet1.tandem );
-    this.allVectors2 = createAllVectors( initialVectorComponents, this, this.vectorSet2, this.vectorSet2.tandem );
+    this.allVectors1 = createAllVectors( initialXYComponents, this, this.vectorSet1, this.vectorSet1.tandem );
+    this.allVectors2 = createAllVectors( initialXYComponents, this, this.vectorSet2, this.vectorSet2.tandem );
   }
 
   public override reset(): void {
@@ -134,10 +134,13 @@ export default class LabScene extends VectorAdditionScene {
 /**
  * Creates all vectors related to a vector set.
  */
-function createAllVectors( initialVectorComponents: Vector2,
+function createAllVectors( xyComponents: Vector2,
                            scene: LabScene,
                            vectorSet: LabVectorSet,
                            parentTandem: Tandem ): Vector[] {
+
+  const tailPosition = new Vector2( 0, 0 );
+
   const vectors: Vector[] = [];
 
   // Iterate from 1 so that tandem names have 1-based indices.
@@ -146,7 +149,7 @@ function createAllVectors( initialVectorComponents: Vector2,
     // Symbol for the vector is the vector set symbol with an index subscript.
     const symbolProperty = new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` );
 
-    const vector = new Vector( new Vector2( 0, 0 ), initialVectorComponents, scene, vectorSet, {
+    const vector = new Vector( tailPosition, xyComponents, scene, vectorSet, {
       symbolProperty: symbolProperty,
       tandem: parentTandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),
       tandemNameSymbol: `a${i}`

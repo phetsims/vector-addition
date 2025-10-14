@@ -100,17 +100,17 @@ export default class EquationsVectorSet extends VectorSet {
                       tandem: Tandem ) {
 
     const options: VectorSetOptions = {
-      createResultantVector: ( initialTailPosition: Vector2,
+      createResultantVector: ( tailPosition: Vector2,
                                vectorSet: VectorSet,
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
                                tandem: Tandem ) =>
-        new EquationsResultantVector( initialTailPosition, scene, vectorSet, {
+        new EquationsResultantVector( tailPosition, scene, vectorSet, {
           symbolProperty: symbolProperty,
           tandemNameSymbol: tandemNameSymbol,
           tandem: tandem
         } ),
-      initialResultantTailPosition: new Vector2( 25, 5 ),
+      resultantTailPosition: new Vector2( 25, 5 ),
 
       // offsets for resultant component vectors with ComponentVectorStyle 'projection'
       resultantProjectionXOffset: 0.5,

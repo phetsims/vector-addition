@@ -24,14 +24,14 @@ export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbo
 export default class BaseVector extends Vector {
 
   /**
-   * @param initialTailPosition - starting tail position of the BaseVector
-   * @param initialComponents - starting components of the BaseVector
+   * @param tailPosition - initial tail position of the BaseVector
+   * @param xyComponents - initial xy-components of the BaseVector
    * @param scene - the scene the BaseVector belongs to
    * @param vectorSet - the set that the BaseVector belongs to
    * @param providedOptions
    */
-  protected constructor( initialTailPosition: Vector2,
-                         initialComponents: Vector2,
+  protected constructor( tailPosition: Vector2,
+                         xyComponents: Vector2,
                          scene: VectorAdditionScene,
                          vectorSet: VectorSet,
                          providedOptions: BaseVectorOptions ) {
@@ -41,11 +41,11 @@ export default class BaseVector extends Vector {
       // VectorOptions
       isRemovableFromGraph: false, // BaseVectors are not removable from the graph.
       isTipDraggable: false,    // BaseVectors are not draggable by the tip
-      isOnGraphInitially: true, // BaseVectors are always on the graph
+      isOnGraph: true, // BaseVectors are always on the graph
       isOnGraphPropertyInstrumented: false // BaseVectors are always on the graph
     }, providedOptions );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, options );
+    super( tailPosition, xyComponents, scene, vectorSet, options );
   }
 }
 

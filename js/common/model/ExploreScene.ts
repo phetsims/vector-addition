@@ -41,7 +41,7 @@ export default class ExploreScene extends VectorAdditionScene {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
-        initialBounds: graphBounds,
+        bounds: graphBounds,
         orientation: graphOrientation
       },
       tandem: tandem

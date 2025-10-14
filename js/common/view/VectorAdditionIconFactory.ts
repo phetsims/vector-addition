@@ -180,13 +180,13 @@ const VectorAdditionIconFactory = {
   //========================================================================================
 
   /**
-   * @param initialVectorComponents - vector components (in view coordinates)
+   * @param xyComponents - vector xy-components (in view coordinates)
    * @param vectorColorPalette - color palette for this icon's vector
    * @param arrowLength
    */
-  createVectorCreatorPanelIcon( initialVectorComponents: Vector2, vectorColorPalette: VectorColorPalette, arrowLength: number ): Node {
+  createVectorCreatorPanelIcon( xyComponents: Vector2, vectorColorPalette: VectorColorPalette, arrowLength: number ): Node {
 
-    const arrowComponents = initialVectorComponents.normalized().timesScalar( arrowLength );
+    const arrowComponents = xyComponents.normalized().timesScalar( arrowLength );
 
     return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {

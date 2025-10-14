@@ -28,8 +28,8 @@ export default class ResultantVector extends Vector {
   // Whether the resultant vector is defined.
   public readonly isDefinedProperty: Property<boolean>;
 
-  protected constructor( initialTailPosition: Vector2,
-                         initialComponents: Vector2,
+  protected constructor( tailPosition: Vector2,
+                         xyComponents: Vector2,
                          scene: VectorAdditionScene,
                          vectorSet: VectorSet,
                          providedOptions: ResultantVectorOptions ) {
@@ -39,11 +39,11 @@ export default class ResultantVector extends Vector {
       // VectorOptions
       isRemovableFromGraph: false, // Resultant vectors are not removable from the graph.
       isTipDraggable: false, // Resultant vectors are not draggable by the tip.
-      isOnGraphInitially: true, // Resultant vectors are always on the graph.
+      isOnGraph: true, // Resultant vectors are always on the graph.
       isOnGraphPropertyInstrumented: false // Resultant vectors are always on the graph, so isOnGraphProperty never changes.
     }, providedOptions );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, options );
+    super( tailPosition, xyComponents, scene, vectorSet, options );
 
     // Resultant vector is defined if there is at least one vector on the graph.
     const isDefined = () => vectorSet.activeVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0;

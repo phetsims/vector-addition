@@ -39,14 +39,14 @@ type SelfOptions = {
   projectionYOffsetDelta?: number;
 
   // Creates the resultant vector for this VectorSet.
-  createResultantVector?: ( initialTailPosition: Vector2,
+  createResultantVector?: ( tailPosition: Vector2,
                             vectorSet: VectorSet,
                             symbolProperty: TReadOnlyProperty<string>,
                             tandemNameSymbol: string,
                             tandem: Tandem ) => ResultantVector;
 
-  // initial tail position of the resultant vector.
-  initialResultantTailPosition?: Vector2;
+  // initial value of resultantVector.tailPositionProperty
+  resultantTailPosition?: Vector2;
 
   // Offsets for resultant component vectors in ComponentVectorStyle 'projection'
   resultantProjectionXOffset?: number;
@@ -106,17 +106,17 @@ export default class VectorSet extends PhetioObject {
       projectionYOffsetStart: -offsetStart,
       projectionXOffsetDelta: -offsetDelta,
       projectionYOffsetDelta: -offsetDelta,
-      createResultantVector: ( initialTailPosition: Vector2,
+      createResultantVector: ( tailPosition: Vector2,
                                vectorSet: VectorSet,
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
                                tandem: Tandem ) =>
-        new SumVector( initialTailPosition, scene, vectorSet, {
+        new SumVector( tailPosition, scene, vectorSet, {
           symbolProperty: symbolProperty,
           tandemNameSymbol: tandemNameSymbol,
           tandem: tandem
         } ),
-      initialResultantTailPosition: graph.bounds.center,
+      resultantTailPosition: graph.bounds.center,
       resultantProjectionXOffset: offsetStart,
       resultantProjectionYOffset: offsetStart,
       resultantSymbolProperty: VectorAdditionSymbols.sStringProperty,
@@ -140,7 +140,7 @@ export default class VectorSet extends PhetioObject {
     this.resultantProjectionXOffset = options.resultantProjectionXOffset;
     this.resultantProjectionYOffset = options.resultantProjectionYOffset;
 
-    this.resultantVector = options.createResultantVector( options.initialResultantTailPosition, this, options.resultantSymbolProperty,
+    this.resultantVector = options.createResultantVector( options.resultantTailPosition, this, options.resultantSymbolProperty,
       options.resultantTandemNameSymbol, options.tandem.createTandem( `${options.resultantTandemNameSymbol}Vector` ) );
     this.resultantVector.setProjectionOffsets( options.resultantProjectionXOffset, options.resultantProjectionYOffset );
 

@@ -42,26 +42,26 @@ export class Explore2DPolarScene extends ExploreScene {
  */
 function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
 
-  const initialPosition = Vector2.ZERO;
+  const tailPosition = Vector2.ZERO;
 
   return [
 
     // d
-    new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 30 ) ), scene, vectorSet, {
+    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 30 ) ), scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.dStringProperty,
       tandem: parentTandem.createTandem( 'dVector' ),
       tandemNameSymbol: 'd'
     } ),
 
     // e
-    new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 60 ) ), scene, vectorSet, {
+    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 60 ) ), scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.eStringProperty,
       tandem: parentTandem.createTandem( 'eVector' ),
       tandemNameSymbol: 'e'
     } ),
 
     // f
-    new Vector( initialPosition, Vector2.createPolar( 8, toRadians( -90 ) ), scene, vectorSet, {
+    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( -90 ) ), scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.fStringProperty,
       tandem: parentTandem.createTandem( 'fVector' ),
       tandemNameSymbol: 'f'

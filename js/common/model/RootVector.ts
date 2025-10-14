@@ -71,13 +71,13 @@ export default abstract class RootVector extends PhetioObject {
   public readonly vectorColorPalette: VectorColorPalette;
 
   /**
-   * @param initialTailPosition - starting tail position of the vector
-   * @param initialComponents - starting components of the vector
+   * @param tailPosition - initial tail position of the vector
+   * @param xyComponents - initial xy-components of the vector
    * @param vectorColorPalette - color palette for this vector
    * @param providedOptions
    */
-  protected constructor( initialTailPosition: Vector2,
-                         initialComponents: Vector2,
+  protected constructor( tailPosition: Vector2,
+                         xyComponents: Vector2,
                          vectorColorPalette: VectorColorPalette,
                          providedOptions?: RootVectorOptions ) {
 
@@ -91,12 +91,12 @@ export default abstract class RootVector extends PhetioObject {
 
     super( options );
 
-    this.xyComponentsProperty = new Vector2Property( initialComponents, {
+    this.xyComponentsProperty = new Vector2Property( xyComponents, {
       tandem: options.tandem.createTandem( 'xyComponentsProperty' ),
       phetioReadOnly: true
     } );
 
-    this.tailPositionProperty = new Vector2Property( initialTailPosition, {
+    this.tailPositionProperty = new Vector2Property( tailPosition, {
       tandem: options.tandem.createTandem( 'tailPositionProperty' ),
       phetioReadOnly: true
     } );

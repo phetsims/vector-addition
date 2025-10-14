@@ -44,27 +44,27 @@ export default class Explore1DVerticalScene extends ExploreScene {
  */
 function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
 
-  const initialPosition = Vector2.ZERO;
-  const initialComponents = new Vector2( 0, 5 ); // vertical vector
+  const tailPosition = Vector2.ZERO;
+  const xyComponents = new Vector2( 0, 5 ); // vertical vector
 
   return [
 
     // d
-    new Vector( initialPosition, initialComponents, scene, vectorSet, {
+    new Vector( tailPosition, xyComponents, scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.dStringProperty,
       tandem: parentTandem.createTandem( 'dVector' ),
       tandemNameSymbol: 'd'
     } ),
 
     // e
-    new Vector( initialPosition, initialComponents, scene, vectorSet, {
+    new Vector( tailPosition, xyComponents, scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.eStringProperty,
       tandem: parentTandem.createTandem( 'eVector' ),
       tandemNameSymbol: 'e'
     } ),
 
     // f
-    new Vector( initialPosition, initialComponents, scene, vectorSet, {
+    new Vector( tailPosition, xyComponents, scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.fStringProperty,
       tandem: parentTandem.createTandem( 'fVector' ),
       tandemNameSymbol: 'f'

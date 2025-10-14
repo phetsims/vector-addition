@@ -44,27 +44,27 @@ export default class Explore1DHorizontalScene extends ExploreScene {
  */
 function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
 
-  const initialPosition = Vector2.ZERO;
-  const initialComponents = new Vector2( 5, 0 ); // horizontal vector
+  const tailPosition = Vector2.ZERO;
+  const xyComponents = new Vector2( 5, 0 ); // horizontal vector
 
   return [
 
     // a
-    new Vector( initialPosition, initialComponents, scene, vectorSet, {
+    new Vector( tailPosition, xyComponents, scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.aStringProperty,
       tandem: parentTandem.createTandem( 'aVector' ),
       tandemNameSymbol: 'a'
     } ),
 
     // b
-    new Vector( initialPosition, initialComponents, scene, vectorSet, {
+    new Vector( tailPosition, xyComponents, scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.bStringProperty,
       tandem: parentTandem.createTandem( 'bVector' ),
       tandemNameSymbol: 'b'
     } ),
 
     // c
-    new Vector( initialPosition, initialComponents, scene, vectorSet, {
+    new Vector( tailPosition, xyComponents, scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.cStringProperty,
       tandem: parentTandem.createTandem( 'cVector' ),
       tandemNameSymbol: 'c'

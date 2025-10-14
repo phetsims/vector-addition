@@ -30,14 +30,14 @@ export default class CartesianBaseVector extends BaseVector {
   public readonly yComponentProperty: NumberProperty;
 
   /**
-   * @param initialTailPosition - starting tail position of the Base Vector
-   * @param initialComponents - starting components of the Base Vector
+   * @param tailPosition - initial tail position of the Base Vector
+   * @param xyComponents - initial xy-components of the Base Vector
    * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
    * @param providedOptions
    */
-  public constructor( initialTailPosition: Vector2,
-                      initialComponents: Vector2,
+  public constructor( tailPosition: Vector2,
+                      xyComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       providedOptions: CartesianBaseVectorOptions ) {
@@ -46,7 +46,7 @@ export default class CartesianBaseVector extends BaseVector {
 
     const options = providedOptions;
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, options );
+    super( tailPosition, xyComponents, scene, vectorSet, options );
 
     this.xComponentProperty = new NumberProperty( this.xComponent, {
       numberType: 'Integer',

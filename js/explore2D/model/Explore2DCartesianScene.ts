@@ -42,26 +42,26 @@ export default class Explore2DCartesianScene extends ExploreScene {
  */
 function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
 
-  const initialPosition = Vector2.ZERO;
+  const tailPosition = Vector2.ZERO;
 
   return [
 
     // a
-    new Vector( initialPosition, new Vector2( 6, 8 ), scene, vectorSet, {
+    new Vector( tailPosition, new Vector2( 6, 8 ), scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.aStringProperty,
       tandem: parentTandem.createTandem( 'aVector' ),
       tandemNameSymbol: 'a'
     } ),
 
     // b
-    new Vector( initialPosition, new Vector2( 8, 6 ), scene, vectorSet, {
+    new Vector( tailPosition, new Vector2( 8, 6 ), scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.bStringProperty,
       tandem: parentTandem.createTandem( 'bVector' ),
       tandemNameSymbol: 'b'
     } ),
 
     // c
-    new Vector( initialPosition, new Vector2( 0, -10 ), scene, vectorSet, {
+    new Vector( tailPosition, new Vector2( 0, -10 ), scene, vectorSet, {
       symbolProperty: VectorAdditionSymbols.cStringProperty,
       tandem: parentTandem.createTandem( 'cVector' ),
       tandemNameSymbol: 'c'

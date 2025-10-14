@@ -28,19 +28,19 @@ export default class EquationsResultantVector extends ResultantVector {
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
 
   /**
-   * @param initialTailPosition - starting tail position of the vector
+   * @param tailPosition - initial tail position of the vector
    * @param scene - scene the vector belongs to
    * @param vectorSet - the vector set that the vector represents
    * @param providedOptions
    */
-  public constructor( initialTailPosition: Vector2,
+  public constructor( tailPosition: Vector2,
                       scene: EquationsScene,
                       vectorSet: VectorSet,
                       providedOptions: EquationsResultantVectorOptions ) {
 
     const options = providedOptions;
 
-    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, options );
+    super( tailPosition, Vector2.ZERO, scene, vectorSet, options );
 
     this.equationTypeProperty = scene.equationTypeProperty;
 

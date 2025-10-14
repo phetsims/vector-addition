@@ -30,12 +30,12 @@ type SumVectorOptions = SelfOptions & ResultantVectorOptions;
 export default class SumVector extends ResultantVector {
 
   /**
-   * @param initialTailPosition - starting tail position of the vector
+   * @param tailPosition - initial tail position of the vector
    * @param scene - scene the sum vector belongs to
    * @param vectorSet - the VectorSet that the sum represents
    * @param providedOptions
    */
-  public constructor( initialTailPosition: Vector2,
+  public constructor( tailPosition: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       providedOptions: SumVectorOptions ) {
@@ -43,7 +43,7 @@ export default class SumVector extends ResultantVector {
     const options = providedOptions;
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, options );
+    super( tailPosition, Vector2.ZERO, scene, vectorSet, options );
 
     // Observe changes to the vector array.
     const vectorAddedListener = ( addedVector: Vector ) => {

@@ -54,7 +54,7 @@ type SelfOptions = {
   symbolProperty: TReadOnlyProperty<string>; // the symbol used to label the vector
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
   isRemovableFromGraph?: boolean; // flag indicating if the vector can be removed from the graph
-  isOnGraphInitially?: boolean; // flag indicating if the vector is on the graph upon initialization
+  isOnGraph?: boolean; // initial value of isOnGraphProperty
   isOnGraphPropertyInstrumented?: boolean; // whether isOnGraphProperty is PhET-iO instrumented
   tandemNameSymbol: string; // symbol for this vector used in tandem names
 };
@@ -97,14 +97,14 @@ export default class Vector extends RootVector {
   private readonly disposeVector: () => void;
 
   /**
-   * @param initialTailPosition - starting tail position of the vector
-   * @param initialComponents - starting components of the vector
+   * @param tailPosition - initial tail position of the vector
+   * @param xyComponents - initial xy-components of the vector
    * @param scene - the scene the vector belongs to
    * @param vectorSet - the vector set the vector belongs to
    * @param providedOptions
    */
-  public constructor( initialTailPosition: Vector2,
-                      initialComponents: Vector2,
+  public constructor( tailPosition: Vector2,
+                      xyComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
                       providedOptions: VectorOptions ) {
@@ -114,21 +114,21 @@ export default class Vector extends RootVector {
       // SelfOptions
       isTipDraggable: true,
       isRemovableFromGraph: true,
-      isOnGraphInitially: false,
+      isOnGraph: false,
       isOnGraphPropertyInstrumented: true,
 
       // RootVectorOptions
       isDisposable: false // For PhET-iO, all Vectors are instantiated at startup, and exist for the lifetime of the sim.
     }, providedOptions );
 
-    super( initialTailPosition, initialComponents, vectorSet.vectorColorPalette, options );
+    super( tailPosition, xyComponents, vectorSet.vectorColorPalette, options );
 
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovableFromGraph = options.isRemovableFromGraph;
     this.scene = scene;
     this.vectorSet = vectorSet;
 
-    this.isOnGraphProperty = new BooleanProperty( options.isOnGraphInitially, {
+    this.isOnGraphProperty = new BooleanProperty( options.isOnGraph, {
       tandem: options.isOnGraphPropertyInstrumented ? options.tandem.createTandem( 'isOnGraphProperty' ) : Tandem.OPT_OUT,
       phetioReadOnly: true
     } );

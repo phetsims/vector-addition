@@ -41,7 +41,7 @@ export default class EquationsScene extends VectorAdditionScene {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
-        initialBounds: VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS,
+        bounds: VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS,
 
         // Bottom left corner of the graph is positioned a bit lower than other screens (in view coordinates).
         bottomLeft: new Vector2( Graph.DEFAULT_BOTTOM_LEFT.x, Graph.DEFAULT_BOTTOM_LEFT.y + 40 )

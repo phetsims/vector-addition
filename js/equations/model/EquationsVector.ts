@@ -37,15 +37,15 @@ export default class EquationsVector extends Vector {
   public readonly baseVector: BaseVector;
 
   /**
-   * @param initialTailPosition - starting tail position of the vector
-   * @param initialComponents - starting components of the vector
+   * @param tailPosition - initial tail position of the vector
+   * @param xyComponents - initial xy-components of the vector
    * @param baseVectorTailPosition - starting tail position of the base vector
    * @param scene - the scene the vector belongs to
    * @param vectorSet - the VectorSet that the vector belongs to
    * @param providedOptions
    */
-  public constructor( initialTailPosition: Vector2,
-                      initialComponents: Vector2,
+  public constructor( tailPosition: Vector2,
+                      xyComponents: Vector2,
                       baseVectorTailPosition: Vector2,
                       scene: EquationsScene,
                       vectorSet: EquationsVectorSet,
@@ -54,11 +54,11 @@ export default class EquationsVector extends Vector {
     const options = optionize<EquationsVectorOptions, SelfOptions, VectorOptions>()( {
       isRemovableFromGraph: false, // Equations vectors are not removable from the graph
       isTipDraggable: false, // Equations vectors are not draggable by the tip
-      isOnGraphInitially: true, // Equations vectors are always on the graph
+      isOnGraph: true, // Equations vectors are always on the graph
       isOnGraphPropertyInstrumented: false // Equations vectors are always on the graph
     }, providedOptions );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, options );
+    super( tailPosition, xyComponents, scene, vectorSet, options );
 
     this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
       range: COEFFICIENT_RANGE,
