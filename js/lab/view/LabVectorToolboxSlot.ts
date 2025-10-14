@@ -34,7 +34,6 @@ import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFacto
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import LabScene from '../model/LabScene.js';
-import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LabVectorSet from '../model/LabVectorSet.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
@@ -48,13 +47,11 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
   /**
    * @param scene - the scene for the VectorSect
    * @param vectorSet - the VectorSet that the slot adds Vectors to
-   * @param allVectors - complete set of vectors related to vectorSet
    * @param sceneNode - the VectorAdditionSceneNode that this slot appears in
    * @param tandem
    */
   public constructor( scene: LabScene,
                       vectorSet: LabVectorSet,
-                      allVectors: Vector[],
                       sceneNode: VectorAdditionSceneNode,
                       tandem: Tandem ) {
 
@@ -121,7 +118,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       const vectorTailPosition = vectorCenterModel.minus( initialXYComponents.timesScalar( 0.5 ) );
 
       // Get the first available vector in the toolbox slot.
-      const vector = getFirstAvailableVector( allVectors, vectorSet.activeVectors )!;
+      const vector = vectorSet.getFirstAvailableVector()!;
       affirm( vector );
       vector.reset();
       vector.tailPositionProperty.value = vectorTailPosition;
@@ -136,7 +133,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       sceneNode.registerVector( vector, vectorSet, event );
 
       // Hide the icon when we've reached the numberOfVectors limit
-      const slotIsEmpty = ( vectorSet.activeVectors.lengthProperty.value === allVectors.length );
+      const slotIsEmpty = ( vectorSet.activeVectors.lengthProperty.value === vectorSet.allVectors.length );
       iconNode.visible = !slotIsEmpty;
       this.focusable = !slotIsEmpty;
 
@@ -174,20 +171,6 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
     } ) );
   }
-}
-
-/**
- * Gets the first available vector that is not active.
- */
-function getFirstAvailableVector( allVectors: Vector[], activeVectors: ObservableArray<Vector> ): Vector | null {
-  let availableVector: Vector | null = null;
-  for ( let i = 0; i < allVectors.length && availableVector === null; i++ ) {
-    const vector = allVectors[ i ];
-    if ( !activeVectors.includes( vector ) ) {
-      availableVector = vector;
-    }
-  }
-  return availableVector;
 }
 
 vectorAddition.register( 'LabVectorToolboxSlot', LabVectorToolboxSlot );

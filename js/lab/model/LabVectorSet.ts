@@ -8,7 +8,6 @@
 
 import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
@@ -16,6 +15,10 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import Vector from '../../common/model/Vector.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import LabScene from './LabScene.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -23,19 +26,25 @@ type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions, 'resultant
 
 export default class LabVectorSet extends VectorSet {
 
+  // The complete set of vectors for this vector set, allocated when the sim starts.
+  // Ordered by increasing vector index, e.g. v1, v2, v3,...
+  public readonly allVectors: Vector[];
+
   public readonly symbolProperty: TReadOnlyProperty<string>;
   public readonly tandemNameSymbol: string;
 
   /**
    * @param scene - the scene the VectorSet belongs to
+   * @param initialXYComponents
    * @param symbolProperty - the symbol for the vectors in the set
    * @param componentVectorStyleProperty - component style for all vectors
    * @param vectorColorPalette - color palette for vectors in this set
    * @param tandemNameSymbol - symbol for the vector set used in tandem names
    * @param providedOptions
    */
-  public constructor( scene: VectorAdditionScene,
+  public constructor( scene: LabScene,
                       symbolProperty: TReadOnlyProperty<string>,
+                      initialXYComponents: Vector2,
                       tandemNameSymbol: string,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       vectorColorPalette: VectorColorPalette,
@@ -57,7 +66,50 @@ export default class LabVectorSet extends VectorSet {
 
     this.symbolProperty = symbolProperty;
     this.tandemNameSymbol = tandemNameSymbol;
+
+    // Create vector instances.
+    this.allVectors = createAllVectors( this, scene, initialXYComponents, symbolProperty );
   }
+
+  public override reset(): void {
+    super.reset();
+    this.allVectors.forEach( vector => vector.reset() );
+  }
+
+  /**
+   * Gets the first available vector that is not active.
+   */
+  public getFirstAvailableVector(): Vector | null {
+    let availableVector: Vector | null = null;
+    for ( let i = 0; i < this.allVectors.length && availableVector === null; i++ ) {
+      const vector = this.allVectors[ i ];
+      if ( !this.activeVectors.includes( vector ) ) {
+        availableVector = vector;
+      }
+    }
+    return availableVector;
+  }
+}
+
+/**
+ * Creates all vectors related to a vector set.
+ */
+function createAllVectors( vectorSet: LabVectorSet, scene: LabScene, xyComponents: Vector2, symbolProperty: TReadOnlyProperty<string> ): Vector[] {
+
+  const tailPosition = new Vector2( 0, 0 );
+
+  const vectors: Vector[] = [];
+
+  // Iterate from 1 so that tandem names have 1-based indices.
+  for ( let i = 1; i <= VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET; i++ ) {
+    const vector = new Vector( tailPosition, xyComponents, scene, vectorSet, {
+      symbolProperty: new DerivedProperty( [ symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
+      tandem: vectorSet.tandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),
+      tandemNameSymbol: `a${i}`
+    } );
+    vectors.push( vector );
+  }
+  return vectors;
 }
 
 vectorAddition.register( 'LabVectorSet', LabVectorSet );
