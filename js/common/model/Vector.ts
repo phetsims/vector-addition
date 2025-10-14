@@ -36,6 +36,9 @@ import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 
 const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
 const MIN_ANIMATION_TIME = 0.9; // in seconds
@@ -423,6 +426,16 @@ export default class Vector extends RootVector {
   public isAnimating(): boolean {
     return this.inProgressAnimation !== null;
   }
+
+  /**
+   * VectorIO handles PhET-iO serialization of Vector instances. Since all Vector instances are static instances,
+   * it implements 'Reference type serialization', as described in the Serialization section of
+   * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
+   */
+  public static readonly VectorIO = new IOType<IntentionalAny, IntentionalAny>( 'VectorIO', {
+    valueType: Vector,
+    supertype: ReferenceIO( IOType.ObjectIO )
+  } );
 }
 
 vectorAddition.register( 'Vector', Vector );

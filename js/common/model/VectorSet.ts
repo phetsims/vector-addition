@@ -57,6 +57,9 @@ type SelfOptions = {
 
   // Symbol for the resultant vector used in tandem names.
   resultantTandemNameSymbol?: string;
+
+  // Whether to PhET-iO instrument the activeVectors observable array.
+  activeVectorsInstrumented?: boolean;
 };
 
 export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -121,6 +124,7 @@ export default class VectorSet extends PhetioObject {
       resultantProjectionYOffset: offsetStart,
       resultantSymbolProperty: VectorAdditionSymbols.sStringProperty,
       resultantTandemNameSymbol: 's',
+      activeVectorsInstrumented: true,
 
       // PhetioObjectOptions
       isDisposable: false,
@@ -129,8 +133,12 @@ export default class VectorSet extends PhetioObject {
 
     super( options );
 
-    //TODO https://github.com/phetsims/vector-addition/issues/258 PhET-iO instrumentation of this.activeVectors
-    this.activeVectors = createObservableArray();
+    this.activeVectors = createObservableArray( {
+      tandem: options.activeVectorsInstrumented ? options.tandem.createTandem( 'activeVectors' ) : Tandem.OPT_OUT,
+      phetioFeatured: true,
+      phetioType: createObservableArray.ObservableArrayIO( Vector.VectorIO ),
+      phetioDocumentation: 'Vectors that are not in the toolbox.'
+    } );
 
     this.vectorColorPalette = vectorColorPalette;
     this.componentVectorStyleProperty = componentVectorStyleProperty;

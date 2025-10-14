@@ -118,6 +118,7 @@ export default class EquationsVectorSet extends VectorSet {
 
       resultantSymbolProperty: ( coordinateSnapMode === 'cartesian' ) ? VectorAdditionSymbols.cStringProperty : VectorAdditionSymbols.fStringProperty,
       resultantTandemNameSymbol: ( coordinateSnapMode === 'cartesian' ) ? 'c' : 'f',
+      activeVectorsInstrumented: false,
       tandem: tandem
     };
 
