@@ -55,7 +55,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     const iconViewComponents = modelViewTransform.modelToViewDelta( iconVectorComponents || xyComponents );
 
     // Create the icon.
-    const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
+    const iconNode = VectorAdditionIconFactory.createVectorToolboxIcon( iconViewComponents,
       vectorSet.vectorColorPalette, ICON_MAGNITUDE );
 
     // Make the iconNode easier to grab. Use identical dilation for mouseArea and touchArea.

@@ -74,7 +74,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     const iconViewComponents = modelViewTransform.modelToViewDelta( initialXYComponents );
 
     // Create the icon.
-    const iconNode = VectorAdditionIconFactory.createVectorCreatorPanelIcon( iconViewComponents,
+    const iconNode = VectorAdditionIconFactory.createVectorToolboxIcon( iconViewComponents,
       vectorSet.vectorColorPalette, ICON_MAGNITUDE );
 
     // Make the iconNode easier to grab
