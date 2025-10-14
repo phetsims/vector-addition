@@ -15,14 +15,17 @@
 
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import ResultantVector from './ResultantVector.js';
+import ResultantVector, { ResultantVectorOptions } from './ResultantVector.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type SumVectorOptions = SelfOptions & ResultantVectorOptions;
 
 export default class SumVector extends ResultantVector {
 
@@ -30,22 +33,17 @@ export default class SumVector extends ResultantVector {
    * @param initialTailPosition - starting tail position of the vector
    * @param scene - scene the sum vector belongs to
    * @param vectorSet - the VectorSet that the sum represents
-   * @param symbolProperty - the symbol for the sum vector (e.g. 's', 'c', 'f')
-   * @param tandemNameSymbol - symbol for the sum vector used in tandem names
-   * @param tandem
+   * @param providedOptions
    */
   public constructor( initialTailPosition: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      symbolProperty: TReadOnlyProperty<string>,
-                      tandemNameSymbol: string,
-                      tandem: Tandem ) {
+                      providedOptions: SumVectorOptions ) {
+
+    const options = providedOptions;
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, symbolProperty, {
-      tandemNameSymbol: tandemNameSymbol,
-      tandem: tandem
-    } );
+    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, options );
 
     // Observe changes to the vector array.
     const vectorAddedListener = ( addedVector: Vector ) => {

@@ -47,19 +47,22 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
   return [
 
     // d
-    new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 30 ) ), scene, vectorSet, VectorAdditionSymbols.dStringProperty, {
+    new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 30 ) ), scene, vectorSet, {
+      symbolProperty: VectorAdditionSymbols.dStringProperty,
       tandem: parentTandem.createTandem( 'dVector' ),
       tandemNameSymbol: 'd'
     } ),
 
     // e
-    new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 60 ) ), scene, vectorSet, VectorAdditionSymbols.eStringProperty, {
+    new Vector( initialPosition, Vector2.createPolar( 8, toRadians( 60 ) ), scene, vectorSet, {
+      symbolProperty: VectorAdditionSymbols.eStringProperty,
       tandem: parentTandem.createTandem( 'eVector' ),
       tandemNameSymbol: 'e'
     } ),
 
     // f
-    new Vector( initialPosition, Vector2.createPolar( 8, toRadians( -90 ) ), scene, vectorSet, VectorAdditionSymbols.fStringProperty, {
+    new Vector( initialPosition, Vector2.createPolar( 8, toRadians( -90 ) ), scene, vectorSet, {
+      symbolProperty: VectorAdditionSymbols.fStringProperty,
       tandem: parentTandem.createTandem( 'fVector' ),
       tandemNameSymbol: 'f'
     } )

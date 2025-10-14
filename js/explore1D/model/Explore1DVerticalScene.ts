@@ -50,19 +50,22 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
   return [
 
     // d
-    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.dStringProperty, {
+    new Vector( initialPosition, initialComponents, scene, vectorSet, {
+      symbolProperty: VectorAdditionSymbols.dStringProperty,
       tandem: parentTandem.createTandem( 'dVector' ),
       tandemNameSymbol: 'd'
     } ),
 
     // e
-    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.eStringProperty, {
+    new Vector( initialPosition, initialComponents, scene, vectorSet, {
+      symbolProperty: VectorAdditionSymbols.eStringProperty,
       tandem: parentTandem.createTandem( 'eVector' ),
       tandemNameSymbol: 'e'
     } ),
 
     // f
-    new Vector( initialPosition, initialComponents, scene, vectorSet, VectorAdditionSymbols.fStringProperty, {
+    new Vector( initialPosition, initialComponents, scene, vectorSet, {
+      symbolProperty: VectorAdditionSymbols.fStringProperty,
       tandem: parentTandem.createTandem( 'fVector' ),
       tandemNameSymbol: 'f'
     } )

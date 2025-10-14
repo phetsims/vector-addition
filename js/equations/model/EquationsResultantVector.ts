@@ -14,10 +14,14 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
 import { EquationType } from './EquationType.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import EquationsScene from './EquationsScene.js';
-import ResultantVector from '../../common/model/ResultantVector.js';
+import ResultantVector, { ResultantVectorOptions } from '../../common/model/ResultantVector.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type EquationsResultantVectorOptions = SelfOptions & ResultantVectorOptions;
 
 export default class EquationsResultantVector extends ResultantVector {
 
@@ -27,21 +31,16 @@ export default class EquationsResultantVector extends ResultantVector {
    * @param initialTailPosition - starting tail position of the vector
    * @param scene - scene the vector belongs to
    * @param vectorSet - the vector set that the vector represents
-   * @param symbolProperty - the symbol for the vector ('c' or 'f')
-   * @param tandemNameSymbol - symbol for the vector used in tandem names
-   * @param tandem
+   * @param providedOptions
    */
   public constructor( initialTailPosition: Vector2,
                       scene: EquationsScene,
                       vectorSet: VectorSet,
-                      symbolProperty: TReadOnlyProperty<string>,
-                      tandemNameSymbol: string,
-                      tandem: Tandem ) {
+                      providedOptions: EquationsResultantVectorOptions ) {
 
-    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, symbolProperty, {
-      tandemNameSymbol: tandemNameSymbol,
-      tandem: tandem
-    } );
+    const options = providedOptions;
+
+    super( initialTailPosition, Vector2.ZERO, scene, vectorSet, options );
 
     this.equationTypeProperty = scene.equationTypeProperty;
 

@@ -9,7 +9,6 @@
  * @author Brandon Li
  */
 
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
@@ -20,7 +19,7 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'tandem' | 'tandemNameSymbol'>;
+export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol'>;
 
 export default class BaseVector extends Vector {
 
@@ -29,14 +28,12 @@ export default class BaseVector extends Vector {
    * @param initialComponents - starting components of the BaseVector
    * @param scene - the scene the BaseVector belongs to
    * @param vectorSet - the set that the BaseVector belongs to
-   * @param symbolProperty - the symbol for the Base Vector (i.e. 'a', 'b', 'c', ...)
    * @param providedOptions
    */
   protected constructor( initialTailPosition: Vector2,
                          initialComponents: Vector2,
                          scene: VectorAdditionScene,
                          vectorSet: VectorSet,
-                         symbolProperty: TReadOnlyProperty<string>,
                          providedOptions: BaseVectorOptions ) {
 
     const options = optionize<BaseVectorOptions, SelfOptions, VectorOptions>()( {
@@ -48,7 +45,7 @@ export default class BaseVector extends Vector {
       isOnGraphPropertyInstrumented: false // BaseVectors are always on the graph
     }, providedOptions );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, options );
+    super( initialTailPosition, initialComponents, scene, vectorSet, options );
   }
 }
 

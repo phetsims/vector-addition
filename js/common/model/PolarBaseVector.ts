@@ -11,17 +11,20 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import BaseVector from './BaseVector.js';
+import BaseVector, { BaseVectorOptions } from './BaseVector.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type PolarBaseVectorOptions = SelfOptions & BaseVectorOptions;
 
 export default class PolarBaseVector extends BaseVector {
 
@@ -33,29 +36,24 @@ export default class PolarBaseVector extends BaseVector {
    * @param initialComponents - starting components of the Base Vector
    * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
-   * @param symbolProperty - the symbol for the Base Vector (d, e, f)
-   * @param tandemNameSymbol - symbol for the vector used in tandem names
-   * @param tandem
+   * @param providedOptions
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      symbolProperty: TReadOnlyProperty<string>,
-                      tandemNameSymbol: string,
-                      tandem: Tandem ) {
+                      providedOptions: PolarBaseVectorOptions ) {
 
     affirm( scene.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
-      tandemNameSymbol: tandemNameSymbol,
-      tandem: tandem
-    } );
+    const options = providedOptions;
+
+    super( initialTailPosition, initialComponents, scene, vectorSet, options );
 
     this.magnitudeProperty = new NumberProperty( this.magnitude, {
       numberType: 'Integer',
       range: VectorAdditionConstants.MAGNITUDE_RANGE,
-      tandem: tandem.createTandem( 'magnitudeProperty' )
+      tandem: options.tandem.createTandem( 'magnitudeProperty' )
     } );
 
     const initialAngle = this.angle!;
@@ -64,7 +62,7 @@ export default class PolarBaseVector extends BaseVector {
       numberType: 'Integer',
       range: VectorAdditionConstants.SIGNED_ANGLE_RANGE,
       units: '\u00B0', // degrees
-      tandem: tandem.createTandem( 'angleProperty' )
+      tandem: options.tandem.createTandem( 'angleProperty' )
     } );
 
     // Observe when the angle or magnitude changes, and update the components to match.

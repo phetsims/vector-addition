@@ -35,7 +35,7 @@ import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 
 const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
 const MIN_ANIMATION_TIME = 0.9; // in seconds
@@ -51,6 +51,7 @@ const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 
 type SelfOptions = {
+  symbolProperty: TReadOnlyProperty<string>; // the symbol used to label the vector
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
   isRemovableFromGraph?: boolean; // flag indicating if the vector can be removed from the graph
   isOnGraphInitially?: boolean; // flag indicating if the vector is on the graph upon initialization
@@ -58,7 +59,7 @@ type SelfOptions = {
   tandemNameSymbol: string; // symbol for this vector used in tandem names
 };
 
-export type VectorOptions = SelfOptions & PickRequired<RootVectorOptions, 'tandem'>;
+export type VectorOptions = SelfOptions & WithRequired<RootVectorOptions, 'tandem'>;
 
 export default class Vector extends RootVector {
 
@@ -100,14 +101,12 @@ export default class Vector extends RootVector {
    * @param initialComponents - starting components of the vector
    * @param scene - the scene the vector belongs to
    * @param vectorSet - the vector set the vector belongs to
-   * @param symbolProperty - the symbol used to label the vector (i.e. 'a', 'b', 'c', ...)
    * @param providedOptions
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      symbolProperty: TReadOnlyProperty<string>,
                       providedOptions: VectorOptions ) {
 
     const options = optionize<VectorOptions, SelfOptions, RootVectorOptions>()( {
@@ -140,7 +139,7 @@ export default class Vector extends RootVector {
     this.xComponentVector = new ComponentVector( this, vectorSet.componentVectorStyleProperty, 'xComponent' );
     this.yComponentVector = new ComponentVector( this, vectorSet.componentVectorStyleProperty, 'yComponent' );
 
-    this.symbolProperty = symbolProperty;
+    this.symbolProperty = options.symbolProperty;
     this.tandemNameSymbol = options.tandemNameSymbol;
 
     // When the scene's origin changes, update the tail position. unlink is required on dispose.

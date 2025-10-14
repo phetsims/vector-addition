@@ -10,15 +10,18 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import BaseVector from './BaseVector.js';
+import BaseVector, { BaseVectorOptions } from './BaseVector.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type CartesianBaseVectorOptions = SelfOptions & BaseVectorOptions;
 
 export default class CartesianBaseVector extends BaseVector {
 
@@ -31,35 +34,30 @@ export default class CartesianBaseVector extends BaseVector {
    * @param initialComponents - starting components of the Base Vector
    * @param scene - the scene the Base Vector belongs to
    * @param vectorSet - the set that the Base Vector belongs to
-   * @param symbolProperty - the symbol for the Base Vector (a, b, c)
-   * @param tandemNameSymbol - symbol for the vector used in tandem names
-   * @param tandem
+   * @param providedOptions
    */
   public constructor( initialTailPosition: Vector2,
                       initialComponents: Vector2,
                       scene: VectorAdditionScene,
                       vectorSet: VectorSet,
-                      symbolProperty: TReadOnlyProperty<string>,
-                      tandemNameSymbol: string,
-                      tandem: Tandem ) {
+                      providedOptions: CartesianBaseVectorOptions ) {
 
     affirm( scene.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, {
-      tandemNameSymbol: tandemNameSymbol,
-      tandem: tandem
-    } );
+    const options = providedOptions;
+
+    super( initialTailPosition, initialComponents, scene, vectorSet, options );
 
     this.xComponentProperty = new NumberProperty( this.xComponent, {
       numberType: 'Integer',
       range: VectorAdditionConstants.XY_COMPONENT_RANGE,
-      tandem: tandem.createTandem( 'xComponentProperty' )
+      tandem: options.tandem.createTandem( 'xComponentProperty' )
     } );
 
     this.yComponentProperty = new NumberProperty( this.yComponent, {
       numberType: 'Integer',
       range: VectorAdditionConstants.XY_COMPONENT_RANGE,
-      tandem: tandem.createTandem( 'yComponentProperty' )
+      tandem: options.tandem.createTandem( 'yComponentProperty' )
     } );
 
     // Observe when the component NumberProperties change and update the components to match.

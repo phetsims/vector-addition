@@ -16,13 +16,12 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type ResultantVectorOptions = SelfOptions & PickRequired<VectorOptions, 'tandem' | 'tandemNameSymbol'>;
+export type ResultantVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol'>;
 
 export default class ResultantVector extends Vector {
 
@@ -33,7 +32,6 @@ export default class ResultantVector extends Vector {
                          initialComponents: Vector2,
                          scene: VectorAdditionScene,
                          vectorSet: VectorSet,
-                         symbolProperty: TReadOnlyProperty<string>,
                          providedOptions: ResultantVectorOptions ) {
 
     const options = optionize<ResultantVectorOptions, SelfOptions, VectorOptions>()( {
@@ -45,7 +43,7 @@ export default class ResultantVector extends Vector {
       isOnGraphPropertyInstrumented: false // Resultant vectors are always on the graph, so isOnGraphProperty never changes.
     }, providedOptions );
 
-    super( initialTailPosition, initialComponents, scene, vectorSet, symbolProperty, options );
+    super( initialTailPosition, initialComponents, scene, vectorSet, options );
 
     // Resultant vector is defined if there is at least one vector on the graph.
     const isDefined = () => vectorSet.activeVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0;

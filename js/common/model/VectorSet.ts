@@ -111,7 +111,11 @@ export default class VectorSet extends PhetioObject {
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
                                tandem: Tandem ) =>
-        new SumVector( initialTailPosition, scene, vectorSet, symbolProperty, tandemNameSymbol, tandem ),
+        new SumVector( initialTailPosition, scene, vectorSet, {
+          symbolProperty: symbolProperty,
+          tandemNameSymbol: tandemNameSymbol,
+          tandem: tandem
+        } ),
       initialResultantTailPosition: graph.bounds.center,
       resultantProjectionXOffset: offsetStart,
       resultantProjectionYOffset: offsetStart,

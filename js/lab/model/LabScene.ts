@@ -146,7 +146,8 @@ function createAllVectors( initialVectorComponents: Vector2,
     // Symbol for the vector is the vector set symbol with an index subscript.
     const symbolProperty = new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` );
 
-    const vector = new Vector( new Vector2( 0, 0 ), initialVectorComponents, scene, vectorSet, symbolProperty, {
+    const vector = new Vector( new Vector2( 0, 0 ), initialVectorComponents, scene, vectorSet, {
+      symbolProperty: symbolProperty,
       tandem: parentTandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),
       tandemNameSymbol: `a${i}`
     } );

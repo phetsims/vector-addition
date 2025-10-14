@@ -105,7 +105,11 @@ export default class EquationsVectorSet extends VectorSet {
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
                                tandem: Tandem ) =>
-        new EquationsResultantVector( initialTailPosition, scene, vectorSet, symbolProperty, tandemNameSymbol, tandem ),
+        new EquationsResultantVector( initialTailPosition, scene, vectorSet, {
+          symbolProperty: symbolProperty,
+          tandemNameSymbol: tandemNameSymbol,
+          tandem: tandem
+        } ),
       initialResultantTailPosition: new Vector2( 25, 5 ),
 
       // offsets for resultant component vectors with ComponentVectorStyle 'projection'
@@ -133,10 +137,11 @@ export default class EquationsVectorSet extends VectorSet {
         vectorDescription.xyComponents,
         vectorDescription.baseVectorTail,
         scene,
-        this,
-        vectorDescription.symbolProperty,
-        vectorDescription.tandemNameSymbol,
-        options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ) );
+        this, {
+          symbolProperty: vectorDescription.symbolProperty,
+          tandemNameSymbol: vectorDescription.tandemNameSymbol,
+          tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` )
+        } );
 
       this.activeVectors.push( vector );
       this.equationSymbolProperties.push( vectorDescription.symbolProperty );
