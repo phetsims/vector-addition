@@ -169,15 +169,9 @@ export default class VectorSet extends PhetioObject {
   }
 
   /**
-   * Removes all vectors from the VectorSet, and disposes them if they are disposable.
-   * Called when the eraser button is pressed.
+   * Makes all vectors inactive, returning them to the toolbox. Called when the eraser button is pressed.
    */
   public erase(): void {
-    this.activeVectors.forEach( vector => {
-      if ( vector.isDisposable ) {
-        vector.dispose();
-      }
-    } );
     this.activeVectors.clear();
   }
 }
