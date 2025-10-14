@@ -22,11 +22,7 @@ export default class VectorAdditionSymbols {
   public static readonly xStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionStrings.symbol.xStringProperty );
   public static readonly yStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionStrings.symbol.yStringProperty );
 
-  // Vector symbols are currently not localized. See https://github.com/phetsims/vector-addition/issues/10.
-  // If they need to be localized in the future, dynamic layout was already handled as part of
-  // https://github.com/phetsims/vector-addition/issues/280. So localization should be a matter of:
-  // add these symbols to vector-addition-strings_en.json, run 'grunt modulify', then use the
-  // LocalizedStringProperty instances from VectorAdditionStrings.
+  // Vector symbols are not localized. See https://github.com/phetsims/vector-addition/issues/10.
 
   // Vectors in the Explore 1D, Explore 2D, and Equations screens.
   public static readonly aStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'a' ) );
