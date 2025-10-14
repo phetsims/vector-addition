@@ -1,4 +1,4 @@
-// Copyright 2025, University of Colorado Boulder
+// Copyright 2019-2025, University of Colorado Boulder
 
 /**
  * ExploreScene is the base class for scenes in the 'Explore 1D' and 'Explore 2D' screens.
