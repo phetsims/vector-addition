@@ -26,6 +26,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionPreferences from '../../common/model/VectorAdditionPreferences.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 
 export default class LabelEqualsAnglePicker extends Node {
 
@@ -35,7 +36,7 @@ export default class LabelEqualsAnglePicker extends Node {
                       tandem: Tandem ) {
 
     const angleSymbolStringProperty = new DerivedStringProperty( [ vectorSymbolProperty ],
-      baseVectorSymbol => `${MathSymbols.THETA}<sub>${baseVectorSymbol}</sub>` );
+      baseVectorSymbol => `${VectorAdditionSymbols.THETA}<sub>${baseVectorSymbol}</sub>` );
 
     const unsignedAngleDegreesProperty = new NumberProperty( signedToUnsignedDegrees( signedAngleDegreesProperty.value ), {
       range: VectorAdditionConstants.UNSIGNED_ANGLE_RANGE

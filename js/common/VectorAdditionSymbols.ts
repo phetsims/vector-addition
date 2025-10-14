@@ -9,6 +9,8 @@
 import StringProperty from '../../../axon/js/StringProperty.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
+import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
+import MathSymbols from '../../../scenery-phet/js/MathSymbols.js';
 
 export default class VectorAdditionSymbols {
 
@@ -17,8 +19,8 @@ export default class VectorAdditionSymbols {
   }
 
   // Axis labels
-  public static readonly xStringProperty = VectorAdditionStrings.symbol.xStringProperty;
-  public static readonly yStringProperty = VectorAdditionStrings.symbol.yStringProperty;
+  public static readonly xStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionStrings.symbol.xStringProperty );
+  public static readonly yStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionStrings.symbol.yStringProperty );
 
   // Vector symbols are currently not localized. See https://github.com/phetsims/vector-addition/issues/10.
   // If they need to be localized in the future, dynamic layout was already handled as part of
@@ -27,21 +29,24 @@ export default class VectorAdditionSymbols {
   // LocalizedStringProperty instances from VectorAdditionStrings.
 
   // Vectors in the Explore 1D, Explore 2D, and Equations screens.
-  public static readonly aStringProperty = new StringProperty( 'a' );
-  public static readonly bStringProperty = new StringProperty( 'b' );
-  public static readonly cStringProperty = new StringProperty( 'c' );
-  public static readonly dStringProperty = new StringProperty( 'd' );
-  public static readonly eStringProperty = new StringProperty( 'e' );
-  public static readonly fStringProperty = new StringProperty( 'f' );
+  public static readonly aStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'a' ) );
+  public static readonly bStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'b' ) );
+  public static readonly cStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'c' ) );
+  public static readonly dStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'd' ) );
+  public static readonly eStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'e' ) );
+  public static readonly fStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'f' ) );
 
   // Vector sets in the Lab screen.
-  public static readonly vStringProperty = new StringProperty( 'v' );
-  public static readonly uStringProperty = new StringProperty( 'u' );
-  public static readonly pStringProperty = new StringProperty( 'p' );
-  public static readonly qStringProperty = new StringProperty( 'q' );
+  public static readonly vStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'v' ) );
+  public static readonly uStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'u' ) );
+  public static readonly pStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'p' ) );
+  public static readonly qStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'q' ) );
 
   // Sum vectors in the Explore 1D, Explore 2D, and Lab screens.
-  public static readonly sStringProperty = new StringProperty( 's' );
+  public static readonly sStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 's' ) );
+
+  // Other symbols
+  public static readonly THETA = MathSymbolFont.getRichTextMarkup( MathSymbols.THETA );
 }
 
 vectorAddition.register( 'VectorAdditionSymbols', VectorAdditionSymbols );

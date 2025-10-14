@@ -46,6 +46,8 @@ import CurvedArrowNode from './CurvedArrowNode.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 const SCREEN_ICON_WIDTH = 70;
 const SCREEN_ICON_HEIGHT = SCREEN_ICON_WIDTH / Screen.HOME_SCREEN_ICON_ASPECT_RATIO; // w/h = ratio <=> h = w/ratio
@@ -234,7 +236,7 @@ const VectorAdditionIconFactory = {
 
     const curvedArrowNode = new CurvedArrowNode( curvedArrowRadius, angle );
 
-    const thetaNode = new Text( MathSymbols.THETA, {
+    const thetaNode = new RichText( VectorAdditionSymbols.THETA, {
       font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
       scale: 0.75,
       left: curvedArrowNode.right + 4,

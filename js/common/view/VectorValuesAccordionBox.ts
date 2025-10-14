@@ -11,7 +11,6 @@
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
@@ -31,6 +30,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -80,7 +80,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     } );
     const magnitudeDisplay = new VectorQuantityDisplay( scene, 'magnitude' );
 
-    const angleSymbolNode = new Text( MathSymbols.THETA, {
+    const angleSymbolNode = new RichText( VectorAdditionSymbols.THETA, {
       font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
       maxWidth: ANGLE_LABEL_MAX_WIDTH
     } );

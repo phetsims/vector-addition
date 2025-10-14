@@ -12,15 +12,13 @@
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import MathSymbolFont from '../../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import vectorAddition from '../../vectorAddition.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 
-// const
-const DEFAULT_FONT = new MathSymbolFont( 18 );
+const DEFAULT_FONT = new PhetFont( 18 );
 
 type SelfOptions = {
   font?: PhetFont;
