@@ -12,7 +12,6 @@ import Bounds2 from '../../../dot/js/Bounds2.js';
 import Range from '../../../dot/js/Range.js';
 import ScreenView from '../../../joist/js/ScreenView.js';
 import { combineOptions } from '../../../phet-core/js/optionize.js';
-import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import Color from '../../../scenery/js/util/Color.js';
 import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';
@@ -240,11 +239,11 @@ export default class VectorAdditionConstants {
   // Fonts
 
   public static readonly EQUATION_FONT = new PhetFont( 18 );
-  public static readonly EQUATION_SYMBOL_FONT = new MathSymbolFont( 18 );
+  public static readonly EQUATION_SYMBOL_FONT = new PhetFont( 18 );
   public static readonly INTERACTIVE_EQUATION_FONT = new PhetFont( 20 );// for interactive equation in Equations screen
-  public static readonly INTERACTIVE_EQUATION_SYMBOL_FONT = new MathSymbolFont( 20 ); // for interactive equation in Equations screen
+  public static readonly INTERACTIVE_EQUATION_SYMBOL_FONT = new PhetFont( 20 ); // for interactive equation in Equations screen
   public static readonly VECTOR_LABEL_FONT = new PhetFont( 18 );
-  public static readonly VECTOR_LABEL_SYMBOL_FONT = new MathSymbolFont( 18 );
+  public static readonly VECTOR_LABEL_SYMBOL_FONT = new PhetFont( 18 );
   public static readonly ANGLE_LABEL_FONT = new PhetFont( 13 );
   public static readonly TICK_LABEL_FONT = new PhetFont( 14 );
   public static readonly AXIS_LABEL_FONT = new PhetFont( 18 );
