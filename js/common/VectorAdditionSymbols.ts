@@ -23,23 +23,17 @@ export default class VectorAdditionSymbols {
   public static readonly yStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionStrings.symbol.yStringProperty );
 
   // Vector symbols are not localized. See https://github.com/phetsims/vector-addition/issues/10.
-
-  // Vectors in the Explore 1D, Explore 2D, and Equations screens.
   public static readonly aStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'a' ) );
   public static readonly bStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'b' ) );
   public static readonly cStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'c' ) );
   public static readonly dStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'd' ) );
   public static readonly eStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'e' ) );
   public static readonly fStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'f' ) );
-
-  // Vector sets in the Lab screen.
-  public static readonly vStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'v' ) );
-  public static readonly uStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'u' ) );
   public static readonly pStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'p' ) );
   public static readonly qStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'q' ) );
-
-  // Sum vectors in the Explore 1D, Explore 2D, and Lab screens.
   public static readonly sStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 's' ) );
+  public static readonly uStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'u' ) );
+  public static readonly vStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'v' ) );
 
   // Other symbols
   public static readonly THETA = MathSymbolFont.getRichTextMarkup( MathSymbols.THETA );
