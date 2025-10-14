@@ -34,7 +34,7 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
     this.addVectorToolbox( new ExploreVectorToolbox( scene, this, {
       ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18,
       left: sceneRadioButtonGroup.left,
-      bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_CREATOR_PANEL,
+      bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
       tandem: tandem.createTandem( 'vectorToolbox' )
     } ) );
   }

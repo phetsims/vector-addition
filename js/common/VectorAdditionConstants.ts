@@ -57,7 +57,7 @@ export default class VectorAdditionConstants {
   public static readonly SCREEN_VIEW_Y_MARGIN = 16;
 
   // Space between the VectorToolbox and the scene radio buttons.
-  public static readonly SPACE_BELOW_VECTOR_CREATOR_PANEL = 15;
+  public static readonly SPACE_BELOW_VECTOR_TOOLBOX = 15;
 
   //----------------------------------------------------------------------------------------
   // AccordionBoxes
