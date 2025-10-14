@@ -21,6 +21,7 @@ import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -58,7 +59,7 @@ export default class PolarBaseVector extends BaseVector {
 
     const initialAngle = this.angle!;
     affirm( initialAngle !== null, 'expected this.angle to be non-null' );
-    this.angleProperty = new NumberProperty( toDegrees( initialAngle ), {
+    this.angleProperty = new NumberProperty( toFixedNumber( toDegrees( initialAngle ), 0 ), {
       numberType: 'Integer',
       range: VectorAdditionConstants.SIGNED_ANGLE_RANGE,
       units: '\u00B0', // degrees
