@@ -77,7 +77,7 @@ export default class EquationsSceneNode extends VectorAdditionSceneNode {
     baseVectorsAccordionBox.moveToBack(); // move to back to ensure that vectors remains in front
 
     // Add vectors and their base vectors.
-    scene.vectorSet.equationsVectors.forEach( vector => {
+    scene.vectorSet.allVectors.forEach( vector => {
       this.registerVector( vector, scene.vectorSet );
       this.addBaseVectorNode( scene.vectorSet, vector.baseVector, viewProperties.baseVectorsVisibleProperty );
     } );

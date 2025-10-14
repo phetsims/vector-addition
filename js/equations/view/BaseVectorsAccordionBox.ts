@@ -79,7 +79,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     const pickersTandem = options.tandem.createTandem( 'pickers' );
 
     // Each Vector in the vectorSet gets 2 NumberPickers, so loop through the vectorSet
-    vectorSet.equationsVectors.forEach( vector => {
+    vectorSet.allVectors.forEach( vector => {
 
       if ( coordinateSnapMode === 'cartesian' ) {
 

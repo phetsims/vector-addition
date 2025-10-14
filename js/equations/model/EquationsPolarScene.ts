@@ -13,6 +13,33 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import { EquationsVectorDescription } from './EquationsVectorSet.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
+
+// Describes the non-resultant vectors for the polar scene.
+// See https://github.com/phetsims/vector-addition/issues/227
+const POLAR_VECTOR_DESCRIPTIONS: EquationsVectorDescription[] = [
+
+  // d
+  {
+    symbolProperty: VectorAdditionSymbols.dStringProperty,
+    tandemNameSymbol: 'd',
+    xyComponents: Vector2.createPolar( 5, 0 ),
+    vectorTail: new Vector2( 5, 5 ),
+    baseVectorTail: new Vector2( 35, 15 )
+  },
+
+  // e
+  {
+    symbolProperty: VectorAdditionSymbols.eStringProperty,
+    tandemNameSymbol: 'e',
+    xyComponents: Vector2.createPolar( 8, toRadians( 45 ) ),
+    vectorTail: new Vector2( 15, 5 ),
+    baseVectorTail: new Vector2( 35, 5 )
+  }
+];
 
 export default class EquationsPolarScene extends EquationsScene {
 
@@ -20,8 +47,11 @@ export default class EquationsPolarScene extends EquationsScene {
     super(
       VectorAdditionStrings.a11y.polarSceneNameStringProperty,
       'polar',
-      VectorAdditionColors.EQUATIONS_POLAR_COLOR_PALETTE,
       componentVectorStyleProperty,
+      VectorAdditionColors.EQUATIONS_POLAR_COLOR_PALETTE,
+      POLAR_VECTOR_DESCRIPTIONS,
+      VectorAdditionSymbols.fStringProperty,
+      'f',
       tandem
     );
   }

@@ -18,7 +18,7 @@ import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationsVectorSet from './EquationsVectorSet.js';
+import EquationsVectorSet, { EquationsVectorDescription } from './EquationsVectorSet.js';
 import { EquationType, EquationTypeValues } from './EquationType.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
@@ -35,8 +35,11 @@ export default class EquationsScene extends VectorAdditionScene {
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
-                         vectorColorPalette: VectorColorPalette,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                         vectorColorPalette: VectorColorPalette,
+                         vectorDescriptions: EquationsVectorDescription[],
+                         resultantSymbolProperty: TReadOnlyProperty<string>,
+                         resultantTandemNameSymbol: string,
                          tandem: Tandem ) {
 
     super( sceneNameStringProperty, coordinateSnapMode, {
@@ -55,7 +58,7 @@ export default class EquationsScene extends VectorAdditionScene {
     } );
 
     this.vectorSet = new EquationsVectorSet( this, componentVectorStyleProperty, vectorColorPalette,
-      coordinateSnapMode, tandem.createTandem( 'vectorSet' ) );
+      vectorDescriptions, resultantSymbolProperty, resultantTandemNameSymbol, tandem.createTandem( 'vectorSet' ) );
 
     this.vectorSets.push( this.vectorSet );
   }

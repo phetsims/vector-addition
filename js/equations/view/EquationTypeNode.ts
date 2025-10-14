@@ -46,14 +46,14 @@ export default class EquationTypeNode extends Node {
     let maxVectorSymbolHeight = 0;
 
     // Left side
-    for ( let i = 0; i < vectorSet.activeVectors.length; i++ ) {
+    for ( let i = 0; i < vectorSet.allVectors.length; i++ ) {
 
       if ( i > 0 ) {
         const signText = ( equationType === 'subtraction' ) ? MathSymbols.MINUS : MathSymbols.PLUS;
         equationChildren.push( new Text( signText, TEXT_OPTIONS ) );
       }
 
-      const vector = vectorSet.equationsVectors[ i ];
+      const vector = vectorSet.allVectors[ i ];
 
       const coefficientPicker = new CoefficientPicker( vector.coefficientProperty, {
         color: vectorSet.vectorColorPalette.vectorFillProperty,
