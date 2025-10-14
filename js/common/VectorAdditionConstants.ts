@@ -247,7 +247,7 @@ export default class VectorAdditionConstants {
   public static readonly VECTOR_LABEL_SYMBOL_FONT = new MathSymbolFont( 18 );
   public static readonly ANGLE_LABEL_FONT = new PhetFont( 13 );
   public static readonly TICK_LABEL_FONT = new PhetFont( 14 );
-  public static readonly AXIS_LABEL_FONT = new MathSymbolFont( 18 );
+  public static readonly AXIS_LABEL_FONT = new PhetFont( 18 );
   public static readonly CHECKBOX_FONT = new PhetFont( 16 );
   public static readonly TITLE_FONT = new PhetFont( 16 );
 }

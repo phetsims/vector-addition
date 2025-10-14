@@ -18,7 +18,6 @@ import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -27,6 +26,7 @@ import OriginManipulator from './OriginManipulator.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Graph from '../model/Graph.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 // grid
 const MAJOR_GRID_LINE_WIDTH = 1.5; // view units
@@ -217,7 +217,7 @@ class XAxisNode extends Node {
       VectorAdditionConstants.AXES_ARROW_OPTIONS
     );
 
-    const axisLabel = new Text( VectorAdditionSymbols.xStringProperty, {
+    const axisLabel = new RichText( VectorAdditionSymbols.xStringProperty, {
       font: VectorAdditionConstants.AXIS_LABEL_FONT,
       maxWidth: 22,
       left: arrowNode.right + 6,
@@ -256,7 +256,7 @@ class YAxisNode extends Node {
       VectorAdditionConstants.AXES_ARROW_OPTIONS
     );
 
-    const axisLabel = new Text( VectorAdditionStrings.symbol.yStringProperty, {
+    const axisLabel = new RichText( VectorAdditionSymbols.yStringProperty, {
       font: VectorAdditionConstants.AXIS_LABEL_FONT,
       maxWidth: 30
     } );
