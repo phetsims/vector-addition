@@ -54,12 +54,13 @@ export class VectorTranslationDragListener extends SoundDragListener {
       },
 
       end: () => {
-
         affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
-          'body drag listener should be removed when the vector is animating back.' );
+          'VectorTranslationDragListener should be removed when the vector is animating back.' );
 
-        // Animate back to the toolbox.
-        if ( !vector.isOnGraphProperty.value ) {
+        if ( vector.isOnGraphProperty.value ) {
+          this.vectorNode.doAccessibleObjectResponseTranslate();
+        }
+        else {
 
           // Get the cursor position as this determines whether the vector is destined for the graph or toolbox.
           // See https://github.com/phetsims/vector-addition/issues/50
@@ -74,6 +75,7 @@ export class VectorTranslationDragListener extends SoundDragListener {
               .minus( vector.xyComponents.timesScalar( 0.5 ) );
             const shadowTailPosition = vector.tail.plus( shadowOffset );
             vector.dropOntoGraph( shadowTailPosition );
+            this.vectorNode.doAccessibleObjectResponseTranslate();
           }
           else {
 
@@ -119,7 +121,6 @@ export class VectorTranslationDragListener extends SoundDragListener {
     else {
       // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds.
       this.vector.moveTailToPosition( tailPositionModel );
-      this.vectorNode.doAccessibleObjectResponseTranslate();
     }
   }
 }
