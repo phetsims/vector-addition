@@ -37,8 +37,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
-import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
+import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
@@ -425,7 +424,7 @@ export default class Vector extends RootVector {
    * it implements 'Reference type serialization', as described in the Serialization section of
    * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
    */
-  public static readonly VectorIO = new IOType<IntentionalAny, IntentionalAny>( 'VectorIO', {
+  public static readonly VectorIO = new IOType<Vector, ReferenceIOState>( 'VectorIO', {
     valueType: Vector,
     supertype: ReferenceIO( IOType.ObjectIO )
   } );
