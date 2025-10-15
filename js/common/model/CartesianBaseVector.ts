@@ -13,11 +13,14 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector, { BaseVectorOptions } from './BaseVector.js';
-import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Graph from './Graph.js';
+import Property from '../../../../axon/js/Property.js';
+import Vector from './Vector.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -29,24 +32,19 @@ export default class CartesianBaseVector extends BaseVector {
   public readonly xComponentProperty: NumberProperty;
   public readonly yComponentProperty: NumberProperty;
 
-  /**
-   * @param tailPosition - initial tail position of the Base Vector
-   * @param xyComponents - initial xy-components of the Base Vector
-   * @param scene - the scene the Base Vector belongs to
-   * @param vectorSet - the set that the Base Vector belongs to
-   * @param providedOptions
-   */
   public constructor( tailPosition: Vector2,
                       xyComponents: Vector2,
-                      scene: VectorAdditionScene,
                       vectorSet: VectorSet,
+                      graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       providedOptions: CartesianBaseVectorOptions ) {
 
-    affirm( scene.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
+    affirm( coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${coordinateSnapMode}` );
 
     const options = providedOptions;
 
-    super( tailPosition, xyComponents, scene, vectorSet, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
 
     this.xComponentProperty = new NumberProperty( this.xComponent, {
       numberType: 'Integer',

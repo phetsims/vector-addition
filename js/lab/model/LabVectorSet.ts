@@ -17,11 +17,13 @@ import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Vector from '../../common/model/Vector.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import LabScene from './LabScene.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import Graph from '../../common/model/Graph.js';
+import Property from '../../../../axon/js/Property.js';
+import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -37,16 +39,9 @@ export default class LabVectorSet extends VectorSet {
   public readonly accessibleSymbolProperty: TReadOnlyProperty<string>;
   public readonly tandemNameSymbol: string;
 
-  /**
-   * @param scene - the scene the VectorSet belongs to
-   * @param initialXYComponents
-   * @param symbolProperty - the symbol for the vectors in the set
-   * @param componentVectorStyleProperty - component style for all vectors
-   * @param vectorColorPalette - color palette for vectors in this set
-   * @param tandemNameSymbol - symbol for the vector set used in tandem names
-   * @param providedOptions
-   */
-  public constructor( scene: LabScene,
+  public constructor( graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       symbolProperty: TReadOnlyProperty<string>,
                       initialXYComponents: Vector2,
                       tandemNameSymbol: string,
@@ -66,14 +61,14 @@ export default class LabVectorSet extends VectorSet {
       resultantTandemNameSymbol: `s${tandemNameSymbol}`
     }, providedOptions );
 
-    super( scene, componentVectorStyleProperty, vectorColorPalette, options );
+    super( graph, selectedVectorProperty, coordinateSnapMode, componentVectorStyleProperty, vectorColorPalette, options );
 
     this.symbolProperty = symbolProperty;
     this.accessibleSymbolProperty = RichText.getAccessibleStringProperty( symbolProperty );
     this.tandemNameSymbol = tandemNameSymbol;
 
     // Create vector instances.
-    this.allVectors = createAllVectors( this, scene, initialXYComponents );
+    this.allVectors = createAllVectors( this, graph, selectedVectorProperty, coordinateSnapMode, initialXYComponents );
   }
 
   public override reset(): void {
@@ -100,7 +95,9 @@ export default class LabVectorSet extends VectorSet {
  * Creates all vectors related to a vector set.
  */
 function createAllVectors( vectorSet: LabVectorSet,
-                           scene: LabScene,
+                           graph: Graph,
+                           selectedVectorProperty: Property<Vector | null>,
+                           coordinateSnapMode: CoordinateSnapMode,
                            xyComponents: Vector2 ): Vector[] {
 
   const tailPosition = new Vector2( 0, 0 );
@@ -109,7 +106,7 @@ function createAllVectors( vectorSet: LabVectorSet,
 
   // Iterate from 1 so that tandem names have 1-based indices.
   for ( let i = 1; i <= VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET; i++ ) {
-    const vector = new Vector( tailPosition, xyComponents, scene, vectorSet, {
+    const vector = new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, {
 
       // e.g. 'v<sub>3</sub>'
       symbolProperty: new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),

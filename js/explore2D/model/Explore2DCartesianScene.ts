@@ -47,21 +47,21 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
   return [
 
     // a
-    new Vector( tailPosition, new Vector2( 6, 8 ), scene, vectorSet, {
+    new Vector( tailPosition, new Vector2( 6, 8 ), vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
       symbolProperty: VectorAdditionSymbols.aStringProperty,
       tandem: parentTandem.createTandem( 'aVector' ),
       tandemNameSymbol: 'a'
     } ),
 
     // b
-    new Vector( tailPosition, new Vector2( 8, 6 ), scene, vectorSet, {
+    new Vector( tailPosition, new Vector2( 8, 6 ), vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
       symbolProperty: VectorAdditionSymbols.bStringProperty,
       tandem: parentTandem.createTandem( 'bVector' ),
       tandemNameSymbol: 'b'
     } ),
 
     // c
-    new Vector( tailPosition, new Vector2( 0, -10 ), scene, vectorSet, {
+    new Vector( tailPosition, new Vector2( 0, -10 ), vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
       symbolProperty: VectorAdditionSymbols.cStringProperty,
       tandem: parentTandem.createTandem( 'cVector' ),
       tandemNameSymbol: 'c'

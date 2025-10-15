@@ -28,7 +28,6 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionQueryParameters from '../VectorAdditionQueryParameters.js';
 import ComponentVector from './ComponentVector.js';
-import VectorAdditionScene from './VectorAdditionScene.js';
 import RootVector, { LabelDisplayData, RootVectorOptions } from './RootVector.js';
 import VectorSet from './VectorSet.js';
 import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
@@ -39,6 +38,8 @@ import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
+import Graph from './Graph.js';
 
 // Minimum time to animate a vector to a point, in seconds.
 const MIN_ANIMATION_TIME = 0.9;
@@ -76,8 +77,9 @@ export default class Vector extends RootVector {
   // indicates if the vector can be removed from the graph
   public readonly isRemovableFromGraph: boolean;
 
-  // the scene that the vector model belongs to
-  private readonly scene: VectorAdditionScene;
+  private readonly graph: Graph;
+  private readonly selectedVectorProperty: Property<Vector | null>;
+  private readonly coordinateSnapMode: CoordinateSnapMode;
 
   // the vector set that the vector belongs to
   protected readonly vectorSet: VectorSet;
@@ -104,17 +106,12 @@ export default class Vector extends RootVector {
   // symbol for this vector used in tandem names
   public readonly tandemNameSymbol: string;
 
-  /**
-   * @param tailPosition - initial tail position of the vector
-   * @param xyComponents - initial xy-components of the vector
-   * @param scene - the scene the vector belongs to
-   * @param vectorSet - the vector set the vector belongs to
-   * @param providedOptions
-   */
   public constructor( tailPosition: Vector2,
                       xyComponents: Vector2,
-                      scene: VectorAdditionScene,
                       vectorSet: VectorSet,
+                      graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       providedOptions: VectorOptions ) {
 
     const options = optionize<VectorOptions, SelfOptions, RootVectorOptions>()( {
@@ -132,9 +129,12 @@ export default class Vector extends RootVector {
 
     super( tailPosition, xyComponents, vectorSet.vectorColorPalette, options );
 
+    this.graph = graph;
+    this.selectedVectorProperty = selectedVectorProperty;
+    this.coordinateSnapMode = coordinateSnapMode;
+
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovableFromGraph = options.isRemovableFromGraph;
-    this.scene = scene;
     this.vectorSet = vectorSet;
 
     this.isOnGraphProperty = new BooleanProperty( options.isOnGraph, {
@@ -157,7 +157,7 @@ export default class Vector extends RootVector {
       const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
       this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailPositionView ) );
     };
-    this.scene.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
+    this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
   }
 
   /**
@@ -193,21 +193,19 @@ export default class Vector extends RootVector {
 
     affirm( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
-    const graph = this.scene.graph;
-
     // Flag to get the tip point that satisfies invariants (to be calculated below)
     let tipPositionWithInvariants: Vector2;
 
-    if ( this.scene.coordinateSnapMode === 'cartesian' ) {
+    if ( this.coordinateSnapMode === 'cartesian' ) {
 
       // Ensure that the tipPosition is on the scene
-      const tipPositionOnGraph = graph.bounds.closestPointTo( tipPosition );
+      const tipPositionOnGraph = this.graph.bounds.closestPointTo( tipPosition );
 
       // Round the tip to integer grid values
       tipPositionWithInvariants = tipPositionOnGraph.roundedSymmetric();
     }
     else {
-      // this.scene.coordinateSnapMode === 'polar''
+      // this.coordinateSnapMode === 'polar''
 
       const xyComponents = tipPosition.minus( this.tail );
 
@@ -220,7 +218,7 @@ export default class Vector extends RootVector {
       const polarVector = xyComponents.setPolar( roundedMagnitude, roundedAngle );
 
       // Ensure that the new polar vector is in the bounds. Subtract one from the magnitude until the vector is inside
-      while ( !graph.bounds.containsPoint( this.tail.plus( polarVector ) ) ) {
+      while ( !this.graph.bounds.containsPoint( this.tail.plus( polarVector ) ) ) {
         polarVector.setMagnitude( polarVector.magnitude - 1 );
       }
 
@@ -228,10 +226,10 @@ export default class Vector extends RootVector {
     }
 
     // Based on the vector orientation, constrain the dragging components
-    if ( graph.orientation === 'horizontal' ) {
+    if ( this.graph.orientation === 'horizontal' ) {
       tipPositionWithInvariants.setY( this.tailY );
     }
-    else if ( graph.orientation === 'vertical' ) {
+    else if ( this.graph.orientation === 'vertical' ) {
       tipPositionWithInvariants.setX( this.tailX );
     }
 
@@ -262,7 +260,7 @@ export default class Vector extends RootVector {
     // Ensure the tail is set in a position so the tail and the tip are on the scene
     const tailPositionOnGraph = constrainedTailBounds.closestPointTo( tailPosition );
 
-    if ( this.scene.coordinateSnapMode === 'polar' ) {
+    if ( this.coordinateSnapMode === 'polar' ) {
 
       // Get the tip of this vector
       const tipPositionOnGraph = tailPositionOnGraph.plus( this.xyComponents );
@@ -336,7 +334,7 @@ export default class Vector extends RootVector {
    * of the scene. See https://github.com/phetsims/vector-addition/issues/152
    */
   private getConstrainedTailBounds(): Bounds2 {
-    return this.scene.graph.bounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
+    return this.graph.bounds.eroded( VectorAdditionConstants.VECTOR_TAIL_DRAG_MARGIN );
   }
 
   /**
@@ -390,7 +388,7 @@ export default class Vector extends RootVector {
     this.setTailWithInvariants( tailPosition );
 
     // When the vector is first dropped, it is selected.
-    this.scene.selectedVectorProperty.value = this;
+    this.selectedVectorProperty.value = this;
   }
 
   /**
@@ -402,7 +400,7 @@ export default class Vector extends RootVector {
     affirm( !this.inProgressAnimation, 'Cannot pop vector off graph when it is animating.' );
 
     this.isOnGraphProperty.value = false;
-    this.scene.selectedVectorProperty.value = null;
+    this.selectedVectorProperty.value = null;
   }
 
   /**

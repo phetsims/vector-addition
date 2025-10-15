@@ -11,11 +11,13 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from './VectorAdditionScene.js';
 import Vector, { VectorOptions } from './Vector.js';
 import VectorSet from './VectorSet.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Graph from './Graph.js';
+import Property from '../../../../axon/js/Property.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -23,17 +25,12 @@ export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbo
 
 export default class BaseVector extends Vector {
 
-  /**
-   * @param tailPosition - initial tail position of the BaseVector
-   * @param xyComponents - initial xy-components of the BaseVector
-   * @param scene - the scene the BaseVector belongs to
-   * @param vectorSet - the set that the BaseVector belongs to
-   * @param providedOptions
-   */
   protected constructor( tailPosition: Vector2,
                          xyComponents: Vector2,
-                         scene: VectorAdditionScene,
                          vectorSet: VectorSet,
+                         graph: Graph,
+                         selectedVectorProperty: Property<Vector | null>,
+                         coordinateSnapMode: CoordinateSnapMode,
                          providedOptions: BaseVectorOptions ) {
 
     const options = optionize<BaseVectorOptions, SelfOptions, VectorOptions>()( {
@@ -45,7 +42,7 @@ export default class BaseVector extends Vector {
       isOnGraphPropertyInstrumented: false // BaseVectors are always on the graph
     }, providedOptions );
 
-    super( tailPosition, xyComponents, scene, vectorSet, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
   }
 }
 

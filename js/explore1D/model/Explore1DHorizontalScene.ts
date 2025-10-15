@@ -50,21 +50,21 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
   return [
 
     // a
-    new Vector( tailPosition, xyComponents, scene, vectorSet, {
+    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
       symbolProperty: VectorAdditionSymbols.aStringProperty,
       tandem: parentTandem.createTandem( 'aVector' ),
       tandemNameSymbol: 'a'
     } ),
 
     // b
-    new Vector( tailPosition, xyComponents, scene, vectorSet, {
+    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
       symbolProperty: VectorAdditionSymbols.bStringProperty,
       tandem: parentTandem.createTandem( 'bVector' ),
       tandemNameSymbol: 'b'
     } ),
 
     // c
-    new Vector( tailPosition, xyComponents, scene, vectorSet, {
+    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
       symbolProperty: VectorAdditionSymbols.cStringProperty,
       tandem: parentTandem.createTandem( 'cVector' ),
       tandemNameSymbol: 'c'

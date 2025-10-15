@@ -19,7 +19,6 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
-import VectorAdditionScene from './VectorAdditionScene.js';
 import SumVector from './SumVector.js';
 import Vector from './Vector.js';
 import VectorColorPalette from './VectorColorPalette.js';
@@ -29,6 +28,9 @@ import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import ResultantVector from './ResultantVector.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Graph from './Graph.js';
+import Property from '../../../../axon/js/Property.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = {
 
@@ -80,18 +82,12 @@ export default class VectorSet extends PhetioObject {
   public readonly resultantProjectionXOffset: number;
   public readonly resultantProjectionYOffset: number;
 
-  /**
-   * @param scene - the scene the VectorSet belongs to
-   * @param componentVectorStyleProperty - component style for all vectors
-   * @param vectorColorPalette - color palette for vectors in this set
-   * @param providedOptions
-   */
-  public constructor( scene: VectorAdditionScene,
+  public constructor( graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       vectorColorPalette: VectorColorPalette,
                       providedOptions: VectorSetOptions ) {
-
-    const graph = scene.graph;
 
     // Compute values for the options that are related to ComponentVectorStyle 'projection'.
     // See https://github.com/phetsims/vector-addition/issues/225
@@ -114,7 +110,7 @@ export default class VectorSet extends PhetioObject {
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
                                tandem: Tandem ) =>
-        new SumVector( tailPosition, scene, vectorSet, {
+        new SumVector( tailPosition, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, {
           symbolProperty: symbolProperty,
           tandemNameSymbol: tandemNameSymbol,
           tandem: tandem

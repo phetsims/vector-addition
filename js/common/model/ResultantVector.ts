@@ -14,10 +14,11 @@ import vectorAddition from '../../vectorAddition.js';
 import Property from '../../../../axon/js/Property.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Graph from './Graph.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -30,8 +31,10 @@ export default class ResultantVector extends Vector {
 
   protected constructor( tailPosition: Vector2,
                          xyComponents: Vector2,
-                         scene: VectorAdditionScene,
                          vectorSet: VectorSet,
+                         graph: Graph,
+                         selectedVectorProperty: Property<Vector | null>,
+                         coordinateSnapMode: CoordinateSnapMode,
                          providedOptions: ResultantVectorOptions ) {
 
     const options = optionize<ResultantVectorOptions, SelfOptions, VectorOptions>()( {
@@ -43,7 +46,7 @@ export default class ResultantVector extends Vector {
       isOnGraphPropertyInstrumented: false // Resultant vectors are always on the graph, so isOnGraphProperty never changes.
     }, providedOptions );
 
-    super( tailPosition, xyComponents, scene, vectorSet, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
 
     // Resultant vector is defined if there is at least one vector on the graph.
     const isDefined = () => vectorSet.activeVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0;

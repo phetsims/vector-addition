@@ -15,9 +15,11 @@ import Vector from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
 import { EquationType } from './EquationType.js';
 import VectorSet from '../../common/model/VectorSet.js';
-import EquationsScene from './EquationsScene.js';
 import ResultantVector, { ResultantVectorOptions } from '../../common/model/ResultantVector.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Graph from '../../common/model/Graph.js';
+import Property from '../../../../axon/js/Property.js';
+import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -27,25 +29,22 @@ export default class EquationsResultantVector extends ResultantVector {
 
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
 
-  /**
-   * @param tailPosition - initial tail position of the vector
-   * @param scene - scene the vector belongs to
-   * @param vectorSet - the vector set that the vector represents
-   * @param providedOptions
-   */
   public constructor( tailPosition: Vector2,
-                      scene: EquationsScene,
                       vectorSet: VectorSet,
+                      graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      coordinateSnapMode: CoordinateSnapMode,
+                      equationTypeProperty: TReadOnlyProperty<EquationType>,
                       providedOptions: EquationsResultantVectorOptions ) {
 
     const options = providedOptions;
 
-    super( tailPosition, Vector2.ZERO, scene, vectorSet, options );
+    super( tailPosition, Vector2.ZERO, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
 
-    this.equationTypeProperty = scene.equationTypeProperty;
+    this.equationTypeProperty = equationTypeProperty;
 
     // When the equation type changes, update the result.
-    scene.equationTypeProperty.lazyLink( () => this.update( vectorSet.activeVectors ) );
+    equationTypeProperty.lazyLink( () => this.update( vectorSet.activeVectors ) );
 
     // When any vector's xy-components change, update the result.
     const vectorAddedListener = ( vector: Vector ) => vector.xyComponentsProperty.link( () => this.update( vectorSet.activeVectors ) );

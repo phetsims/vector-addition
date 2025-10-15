@@ -14,7 +14,6 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector, { BaseVectorOptions } from './BaseVector.js';
-import VectorAdditionScene from './VectorAdditionScene.js';
 import VectorSet from './VectorSet.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
@@ -22,6 +21,10 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import Graph from './Graph.js';
+import Property from '../../../../axon/js/Property.js';
+import Vector from './Vector.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -32,24 +35,19 @@ export default class PolarBaseVector extends BaseVector {
   public readonly magnitudeProperty: NumberProperty;
   public readonly angleProperty: NumberProperty;
 
-  /**
-   * @param tailPosition - initial tail position of the Base Vector
-   * @param xyComponents - initial xy-components of the Base Vector
-   * @param scene - the scene the Base Vector belongs to
-   * @param vectorSet - the set that the Base Vector belongs to
-   * @param providedOptions
-   */
   public constructor( tailPosition: Vector2,
                       xyComponents: Vector2,
-                      scene: VectorAdditionScene,
                       vectorSet: VectorSet,
+                      graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       providedOptions: PolarBaseVectorOptions ) {
 
-    affirm( scene.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${scene.coordinateSnapMode}` );
+    affirm( coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${coordinateSnapMode}` );
 
     const options = providedOptions;
 
-    super( tailPosition, xyComponents, scene, vectorSet, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
 
     this.magnitudeProperty = new NumberProperty( this.magnitude, {
       numberType: 'Integer',

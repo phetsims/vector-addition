@@ -15,10 +15,14 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationsScene from './EquationsScene.js';
 import EquationsResultantVector from './EquationsResultantVector.js';
 import EquationsVector from './EquationsVector.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import Property from '../../../../axon/js/Property.js';
+import Vector from '../../common/model/Vector.js';
+import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
+import { EquationType } from './EquationType.js';
+import Graph from '../../common/model/Graph.js';
 
 // Describes a non-resultant vector for the Equations screen.
 export type EquationsVectorDescription = {
@@ -38,16 +42,10 @@ export default class EquationsVectorSet extends VectorSet {
   // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
   public readonly allVectors: EquationsVector[];
 
-  /**
-   * @param scene
-   * @param componentVectorStyleProperty
-   * @param vectorColorPalette - color palette for vectors in this set
-   * @param vectorDescriptions
-   * @param resultantSymbolProperty
-   * @param resultantTandemNameSymbol
-   * @param tandem
-   */
-  public constructor( scene: EquationsScene,
+  public constructor( graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      coordinateSnapMode: CoordinateSnapMode,
+                      equationTypeProperty: TReadOnlyProperty<EquationType>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       vectorColorPalette: VectorColorPalette,
                       vectorDescriptions: EquationsVectorDescription[],
@@ -61,7 +59,7 @@ export default class EquationsVectorSet extends VectorSet {
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
                                tandem: Tandem ) =>
-        new EquationsResultantVector( tailPosition, scene, vectorSet, {
+        new EquationsResultantVector( tailPosition, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, equationTypeProperty, {
           symbolProperty: symbolProperty,
           tandemNameSymbol: tandemNameSymbol,
           tandem: tandem
@@ -78,7 +76,7 @@ export default class EquationsVectorSet extends VectorSet {
       tandem: tandem
     };
 
-    super( scene, componentVectorStyleProperty, vectorColorPalette, options );
+    super( graph, selectedVectorProperty, coordinateSnapMode, componentVectorStyleProperty, vectorColorPalette, options );
 
     this.equationSymbolProperties = [];
     this.allVectors = [];
@@ -92,8 +90,10 @@ export default class EquationsVectorSet extends VectorSet {
         vectorDescription.vectorTail,
         vectorDescription.xyComponents,
         vectorDescription.baseVectorTail,
-        scene,
-        this, {
+        this,
+        graph,
+        selectedVectorProperty,
+        coordinateSnapMode, {
           symbolProperty: vectorDescription.symbolProperty,
           tandemNameSymbol: vectorDescription.tandemNameSymbol,
           tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` )

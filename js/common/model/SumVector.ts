@@ -17,11 +17,13 @@ import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from './VectorAdditionScene.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
 import ResultantVector, { ResultantVectorOptions } from './ResultantVector.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Graph from './Graph.js';
+import Property from '../../../../axon/js/Property.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -29,21 +31,17 @@ type SumVectorOptions = SelfOptions & ResultantVectorOptions;
 
 export default class SumVector extends ResultantVector {
 
-  /**
-   * @param tailPosition - initial tail position of the vector
-   * @param scene - scene the sum vector belongs to
-   * @param vectorSet - the VectorSet that the sum represents
-   * @param providedOptions
-   */
   public constructor( tailPosition: Vector2,
-                      scene: VectorAdditionScene,
                       vectorSet: VectorSet,
+                      graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       providedOptions: SumVectorOptions ) {
 
     const options = providedOptions;
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-    super( tailPosition, Vector2.ZERO, scene, vectorSet, options );
+    super( tailPosition, Vector2.ZERO, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
 
     // Observe changes to the vector array.
     const vectorAddedListener = ( addedVector: Vector ) => {

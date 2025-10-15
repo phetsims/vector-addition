@@ -47,7 +47,7 @@ export default class ExploreScene extends VectorAdditionScene {
       tandem: tandem
     } );
 
-    this.vectorSet = new VectorSet( this, componentVectorStyleProperty, vectorColorPalette, {
+    this.vectorSet = new VectorSet( this.graph, this.selectedVectorProperty, this.coordinateSnapMode, componentVectorStyleProperty, vectorColorPalette, {
       tandem: tandem.createTandem( 'vectorSet' )
     } );
 

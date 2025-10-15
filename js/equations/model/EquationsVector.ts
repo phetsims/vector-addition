@@ -19,9 +19,11 @@ import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector, { VectorOptions } from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationsScene from './EquationsScene.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import Graph from '../../common/model/Graph.js';
+import Property from '../../../../axon/js/Property.js';
+import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 
 // initial coefficient and range
 const DEFAULT_COEFFICIENT = 1;
@@ -36,19 +38,13 @@ export default class EquationsVector extends Vector {
   public readonly coefficientProperty: NumberProperty;
   public readonly baseVector: BaseVector;
 
-  /**
-   * @param tailPosition - initial tail position of the vector
-   * @param xyComponents - initial xy-components of the vector
-   * @param baseVectorTailPosition - starting tail position of the base vector
-   * @param scene - the scene the vector belongs to
-   * @param vectorSet - the VectorSet that the vector belongs to
-   * @param providedOptions
-   */
   public constructor( tailPosition: Vector2,
                       xyComponents: Vector2,
                       baseVectorTailPosition: Vector2,
-                      scene: EquationsScene,
                       vectorSet: EquationsVectorSet,
+                      graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      coordinateSnapMode: CoordinateSnapMode,
                       providedOptions: EquationsVectorOptions ) {
 
     const options = optionize<EquationsVectorOptions, SelfOptions, VectorOptions>()( {
@@ -58,7 +54,7 @@ export default class EquationsVector extends Vector {
       isOnGraphPropertyInstrumented: false // Equations vectors are always on the graph
     }, providedOptions );
 
-    super( tailPosition, xyComponents, scene, vectorSet, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
 
     this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
       range: COEFFICIENT_RANGE,
@@ -69,15 +65,17 @@ export default class EquationsVector extends Vector {
     this.setTipWithInvariants( this.tip );
 
     // Instantiate a base vector.
-    if ( scene.coordinateSnapMode === 'cartesian' ) {
-      this.baseVector = new CartesianBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ), scene, vectorSet, {
+    if ( coordinateSnapMode === 'cartesian' ) {
+      this.baseVector = new CartesianBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+        vectorSet, graph, selectedVectorProperty, coordinateSnapMode, {
         symbolProperty: options.symbolProperty,
         tandemNameSymbol: options.tandemNameSymbol,
         tandem: options.tandem.createTandem( 'baseVector' )
       } );
     }
     else {
-      this.baseVector = new PolarBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ), scene, vectorSet, {
+      this.baseVector = new PolarBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+        vectorSet, graph, selectedVectorProperty, coordinateSnapMode, {
         symbolProperty: options.symbolProperty,
         tandemNameSymbol: options.tandemNameSymbol,
         tandem: options.tandem.createTandem( 'baseVector' )

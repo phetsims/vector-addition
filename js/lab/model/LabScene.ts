@@ -76,33 +76,35 @@ export default class LabScene extends VectorAdditionScene {
     const modelHeadWidth = this.graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth );
     const offsetDelta = -( modelHeadWidth / 2 );
 
-    this.vectorSet1 = new LabVectorSet( this, symbol1Property, initialXYComponents, tandemNameSymbol1, componentVectorStyleProperty, vectorColorPalette1, {
+    this.vectorSet1 = new LabVectorSet( this.graph, this.selectedVectorProperty, this.coordinateSnapMode,
+      symbol1Property, initialXYComponents, tandemNameSymbol1, componentVectorStyleProperty, vectorColorPalette1, {
 
-      // non-sum component vectors are interleaved with vectorSet2, overlap is OK
-      projectionXOffsetDelta: offsetDelta,
-      projectionYOffsetDelta: offsetDelta,
+        // non-sum component vectors are interleaved with vectorSet2, overlap is OK
+        projectionXOffsetDelta: offsetDelta,
+        projectionYOffsetDelta: offsetDelta,
 
-      resultantTailPosition: new Vector2( 12, 10 ),
+        resultantTailPosition: new Vector2( 12, 10 ),
 
-      tandem: tandem.createTandem( `${tandemNameSymbol1}VectorSet` )
-    } );
+        tandem: tandem.createTandem( `${tandemNameSymbol1}VectorSet` )
+      } );
 
-    this.vectorSet2 = new LabVectorSet( this, symbol2Property, initialXYComponents, tandemNameSymbol2, componentVectorStyleProperty, vectorColorPalette2, {
+    this.vectorSet2 = new LabVectorSet( this.graph, this.selectedVectorProperty, this.coordinateSnapMode,
+      symbol2Property, initialXYComponents, tandemNameSymbol2, componentVectorStyleProperty, vectorColorPalette2, {
 
-      // non-sum component vectors are interleaved with vectorSet1, overlap is OK
-      projectionXOffsetStart: this.vectorSet1.projectionXOffsetStart + offsetDelta / 2,
-      projectionYOffsetStart: this.vectorSet1.projectionYOffsetStart + offsetDelta / 2,
-      projectionXOffsetDelta: offsetDelta,
-      projectionYOffsetDelta: offsetDelta,
+        // non-sum component vectors are interleaved with vectorSet1, overlap is OK
+        projectionXOffsetStart: this.vectorSet1.projectionXOffsetStart + offsetDelta / 2,
+        projectionYOffsetStart: this.vectorSet1.projectionYOffsetStart + offsetDelta / 2,
+        projectionXOffsetDelta: offsetDelta,
+        projectionYOffsetDelta: offsetDelta,
 
-      resultantTailPosition: new Vector2( 28, 10 ),
+        resultantTailPosition: new Vector2( 28, 10 ),
 
-      // resultant (sum) component vectors are spaced so that they don't overlap with vectorSet1
-      resultantProjectionXOffset: this.vectorSet1.resultantProjectionXOffset + modelHeadWidth,
-      resultantProjectionYOffset: this.vectorSet1.resultantProjectionYOffset + modelHeadWidth,
+        // resultant (sum) component vectors are spaced so that they don't overlap with vectorSet1
+        resultantProjectionXOffset: this.vectorSet1.resultantProjectionXOffset + modelHeadWidth,
+        resultantProjectionYOffset: this.vectorSet1.resultantProjectionYOffset + modelHeadWidth,
 
-      tandem: tandem.createTandem( `${tandemNameSymbol2}VectorSet` )
-    } );
+        tandem: tandem.createTandem( `${tandemNameSymbol2}VectorSet` )
+      } );
 
     this.vectorSets.push( this.vectorSet1, this.vectorSet2 );
   }
