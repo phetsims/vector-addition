@@ -20,7 +20,8 @@ import Property from '../../../../axon/js/Property.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode'>;
+export type BaseVectorOptions = SelfOptions &
+  PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode' | 'vectorColorPalette'>;
 
 export default class BaseVector extends Vector {
 

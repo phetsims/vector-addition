@@ -46,6 +46,7 @@ export default class EquationsVector extends Vector {
                       providedOptions: EquationsVectorOptions ) {
 
     const options = optionize<EquationsVectorOptions, SelfOptions, VectorOptions>()( {
+      vectorColorPalette: vectorSet.vectorColorPalette,
       isRemovableFromGraph: false, // Equations vectors are not removable from the graph
       isTipDraggable: false, // Equations vectors are not draggable by the tip
       isOnGraph: true, // Equations vectors are always on the graph
@@ -68,6 +69,7 @@ export default class EquationsVector extends Vector {
         vectorSet, graph, selectedVectorProperty, {
           symbolProperty: options.symbolProperty,
           coordinateSnapMode: options.coordinateSnapMode,
+          vectorColorPalette: vectorSet.vectorColorPalette,
           tandemNameSymbol: options.tandemNameSymbol,
           tandem: options.tandem.createTandem( 'baseVector' )
         } );
@@ -77,6 +79,7 @@ export default class EquationsVector extends Vector {
         vectorSet, graph, selectedVectorProperty, {
           symbolProperty: options.symbolProperty,
           coordinateSnapMode: options.coordinateSnapMode,
+          vectorColorPalette: vectorSet.vectorColorPalette,
           tandemNameSymbol: options.tandemNameSymbol,
           tandem: options.tandem.createTandem( 'baseVector' )
         } );

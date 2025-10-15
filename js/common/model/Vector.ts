@@ -131,7 +131,7 @@ export default class Vector extends RootVector {
       isDisposable: false // For PhET-iO, all Vectors are instantiated at startup, and exist for the lifetime of the sim.
     }, providedOptions );
 
-    super( tailPosition, xyComponents, vectorSet.vectorColorPalette, options );
+    super( tailPosition, xyComponents, options );
 
     this.graph = graph;
     this.selectedVectorProperty = selectedVectorProperty;

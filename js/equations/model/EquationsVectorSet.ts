@@ -62,6 +62,7 @@ export default class EquationsVectorSet extends VectorSet {
         new EquationsResultantVector( tailPosition, vectorSet, graph, selectedVectorProperty, equationTypeProperty, {
           symbolProperty: symbolProperty,
           coordinateSnapMode: coordinateSnapMode,
+          vectorColorPalette: vectorSet.vectorColorPalette,
           tandemNameSymbol: tandemNameSymbol,
           tandem: tandem
         } ),

@@ -55,7 +55,9 @@ export default class ComponentVector extends RootVector {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       componentType: ComponentVectorType ) {
 
-    super( parentVector.tail, Vector2.ZERO, parentVector.vectorColorPalette );
+    super( parentVector.tail, Vector2.ZERO, {
+      vectorColorPalette: parentVector.vectorColorPalette
+    } );
 
     this.parentVector = parentVector;
     this.componentType = componentType;

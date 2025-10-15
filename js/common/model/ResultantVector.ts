@@ -22,7 +22,7 @@ import Graph from './Graph.js';
 type SelfOptions = EmptySelfOptions;
 
 export type ResultantVectorOptions = SelfOptions &
-  PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode'>;
+  PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode' | 'vectorColorPalette'>;
 
 export default class ResultantVector extends Vector {
 

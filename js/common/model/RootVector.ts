@@ -27,7 +27,7 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorColorPalette from './VectorColorPalette.js';
 import { AngleConvention } from './AngleConvention.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -52,7 +52,11 @@ export type LabelDisplayData = {
   includeAbsoluteValueBars: boolean;
 };
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+
+  // color palette for this vector
+  vectorColorPalette: VectorColorPalette;
+};
 
 export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem' | 'tandemNameSuffix' | 'isDisposable'>;
 
@@ -73,13 +77,11 @@ export default abstract class RootVector extends PhetioObject {
   /**
    * @param tailPosition - initial tail position of the vector
    * @param xyComponents - initial xy-components of the vector
-   * @param vectorColorPalette - color palette for this vector
    * @param providedOptions
    */
   protected constructor( tailPosition: Vector2,
                          xyComponents: Vector2,
-                         vectorColorPalette: VectorColorPalette,
-                         providedOptions?: RootVectorOptions ) {
+                         providedOptions: RootVectorOptions ) {
 
     const options = optionize<RootVectorOptions, SelfOptions, PhetioObjectOptions>()( {
 
@@ -108,7 +110,7 @@ export default abstract class RootVector extends PhetioObject {
         phetioValueType: Vector2.Vector2IO
       } );
 
-    this.vectorColorPalette = vectorColorPalette;
+    this.vectorColorPalette = options.vectorColorPalette;
   }
 
   public reset(): void {

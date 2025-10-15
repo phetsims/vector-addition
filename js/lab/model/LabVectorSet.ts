@@ -117,6 +117,7 @@ function createAllVectors( vectorSet: LabVectorSet,
         index: i
       } ),
       coordinateSnapMode: coordinateSnapMode,
+      vectorColorPalette: vectorSet.vectorColorPalette,
 
       // e.g. 'v3Vector'
       tandem: vectorSet.tandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),

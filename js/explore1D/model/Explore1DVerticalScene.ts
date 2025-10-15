@@ -53,6 +53,7 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
     new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, {
       symbolProperty: VectorAdditionSymbols.dStringProperty,
       coordinateSnapMode: scene.coordinateSnapMode,
+      vectorColorPalette: vectorSet.vectorColorPalette,
       tandem: parentTandem.createTandem( 'dVector' ),
       tandemNameSymbol: 'd'
     } ),
@@ -61,6 +62,7 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
     new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, {
       symbolProperty: VectorAdditionSymbols.eStringProperty,
       coordinateSnapMode: scene.coordinateSnapMode,
+      vectorColorPalette: vectorSet.vectorColorPalette,
       tandem: parentTandem.createTandem( 'eVector' ),
       tandemNameSymbol: 'e'
     } ),
@@ -69,6 +71,7 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
     new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, {
       symbolProperty: VectorAdditionSymbols.fStringProperty,
       coordinateSnapMode: scene.coordinateSnapMode,
+      vectorColorPalette: vectorSet.vectorColorPalette,
       tandem: parentTandem.createTandem( 'fVector' ),
       tandemNameSymbol: 'f'
     } )
