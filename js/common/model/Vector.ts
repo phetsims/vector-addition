@@ -58,14 +58,18 @@ const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 
 type SelfOptions = {
+
+  // required
   symbolProperty: TReadOnlyProperty<string>; // the symbol used to label the vector in the visual UI
-  accessibleSymbolProperty?: TReadOnlyProperty<string> | null; // the symbol used to describe the vector in interactive description
   coordinateSnapMode: CoordinateSnapMode;
+  tandemNameSymbol: string; // symbol for this vector used in tandem names
+
+  // optional
+  accessibleSymbolProperty?: TReadOnlyProperty<string> | null; // the symbol used to describe the vector in interactive description
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
   isRemovableFromGraph?: boolean; // flag indicating if the vector can be removed from the graph
   isOnGraph?: boolean; // initial value of isOnGraphProperty
   isOnGraphPropertyInstrumented?: boolean; // whether isOnGraphProperty is PhET-iO instrumented
-  tandemNameSymbol: string; // symbol for this vector used in tandem names
 };
 
 export type VectorOptions = SelfOptions & WithRequired<RootVectorOptions, 'tandem'>;
