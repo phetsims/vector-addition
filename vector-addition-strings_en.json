@@ -364,9 +364,14 @@
         "value": "Choose coefficient to multiply base vector in equation."
       }
     },
+    "vectorNode": {
+      "accessibleObjectResponse": {
+        "value": "{{tailX}} {{tailY}} to {{tipX}} {{tipY}}"
+      }
+    },
     "equationsVectorNode": {
       "accessibleName": {
-        "value": "Vector {{symbol}}"
+        "value": "{{coefficient}} times base vector {{symbol}}"
       },
       "accessibleHelpText": {
         "value": "Move to change position of vector. Value is tail to tip coordinates."

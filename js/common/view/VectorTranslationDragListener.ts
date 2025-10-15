@@ -25,6 +25,7 @@ export class VectorTranslationDragListener extends SoundDragListener {
 
   private readonly vector: Vector;
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
+  private readonly vectorNode: VectorNode;
 
   public constructor( vector: Vector,
                       selectedVectorProperty: Property<Vector | null>,
@@ -57,8 +58,15 @@ export class VectorTranslationDragListener extends SoundDragListener {
         affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
           'body drag listener should be removed when the vector is animating back.' );
 
-        // Determine whether to drop the vector on the graph, or animate the vector back to the toolbox.
-        if ( !vector.isOnGraphProperty.value ) {
+        if ( vector.isOnGraphProperty.value ) {
+
+          // Queue an accessible object response.
+          //TODO https://github.com/phetsims/vector-addition/issues/292 and https://github.com/phetsims/vector-addition/issues/292
+          //  Forwarding listener is not causing doAccessibleObjectResponse to be called.
+          this.vectorNode.doAccessibleObjectResponse();
+        }
+        else {
+          // Animate back to the toolbox.
 
           // Get the cursor position as this determines whether the vector is destined for the graph or toolbox.
           // See https://github.com/phetsims/vector-addition/issues/50
@@ -85,6 +93,7 @@ export class VectorTranslationDragListener extends SoundDragListener {
 
     this.vector = vector;
     this.modelViewTransformProperty = modelViewTransformProperty;
+    this.vectorNode = vectorNode;
 
     // Translate when the vector's tail position changes.
     tailPositionProperty.lazyLink( tailPositionView => {

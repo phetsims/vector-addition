@@ -28,6 +28,8 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { VectorTranslationDragListener } from './VectorTranslationDragListener.js';
 import VectorScaleRotateDragListener from './VectorScaleRotateDragListener.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -280,6 +282,18 @@ export default class VectorNode extends RootVectorNode {
    */
   public forwardEvent( event: PressListenerEvent ): void {
     this.translationDragListener.press( event, this );
+  }
+
+  /**
+   * Queues an accessible object response that identifies the new state of the vector.
+   */
+  public doAccessibleObjectResponse(): void {
+    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.accessibleObjectResponseStringProperty, {
+      tailX: this.vector.tailX,
+      tailY: this.vector.tailY,
+      tipX: this.vector.tipX,
+      tipY: this.vector.tipY
+    } ) );
   }
 }
 
