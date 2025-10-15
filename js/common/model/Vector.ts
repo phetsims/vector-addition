@@ -40,8 +40,11 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 
-const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
-const MIN_ANIMATION_TIME = 0.9; // in seconds
+// Minimum time to animate a vector to a point, in seconds.
+const MIN_ANIMATION_TIME = 0.9;
+
+// Speed of animating a vector to a point, in model coordinates per second.
+const ANIMATION_SPEED = 1600;
 
 // interval spacing of vector angle (in degrees) when vector is in polar mode
 const POLAR_ANGLE_INTERVAL = VectorAdditionConstants.POLAR_ANGLE_INTERVAL;
@@ -351,7 +354,7 @@ export default class Vector extends RootVector {
     const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
 
     this.inProgressAnimation = new Animation( {
-      duration: _.max( [ MIN_ANIMATION_TIME, this.tail.distance( tailPosition ) / AVERAGE_ANIMATION_SPEED ] ),
+      duration: _.max( [ MIN_ANIMATION_TIME, this.tail.distance( tailPosition ) / ANIMATION_SPEED ] ),
       targets: [ {
         property: this.tailPositionProperty,
         easing: Easing.QUADRATIC_IN_OUT,
