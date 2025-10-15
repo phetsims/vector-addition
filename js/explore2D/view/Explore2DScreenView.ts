@@ -90,8 +90,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     this.addChild( screenViewRootNode );
 
     // Play Area focus order
-    affirm( cartesianSceneNode.eraserButton );
-    affirm( polarSceneNode.eraserButton );
+    affirm( cartesianSceneNode.eraserButton, 'Expected cartesianSceneNode.eraserButton to be defined.' );
+    affirm( polarSceneNode.eraserButton, 'Expected polarSceneNode.eraserButton to be defined.' );
     this.pdomPlayAreaNode.pdomOrder = [
 
       // Cartesian scene

@@ -147,7 +147,7 @@ const VectorAdditionIconFactory = {
     ];
     const startTail = Vector2.ZERO;
     const lastTip = _.last( tipPositions )!;
-    affirm( lastTip );
+    affirm( lastTip, 'Expected lastTip to be defined.' );
 
     const colorPalette = VectorAdditionColors.EQUATIONS_CARTESIAN_COLOR_PALETTE;
 

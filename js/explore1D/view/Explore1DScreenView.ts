@@ -89,8 +89,8 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     this.addChild( screenViewRootNode );
 
     // Play Area focus order
-    affirm( horizonalSceneNode.eraserButton );
-    affirm( verticalSceneNode.eraserButton );
+    affirm( horizonalSceneNode.eraserButton, 'Expected horizonalSceneNode.eraserButton to be defined.' );
+    affirm( verticalSceneNode.eraserButton, 'Expected verticalSceneNode.eraserButton to be defined.' );
     this.pdomPlayAreaNode.pdomOrder = [
 
       // horizontal scene

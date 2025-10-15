@@ -142,7 +142,7 @@ export default class VectorAdditionSceneNode extends Node {
     }
 
     // a layer for each VectorSet
-    affirm( resultantVectorVisibleProperties.length === scene.vectorSets.length );
+    affirm( resultantVectorVisibleProperties.length === scene.vectorSets.length, 'resultantVectorVisibleProperties length mismatch.' );
     this.vectorSetNodes = [];
     scene.vectorSets.forEach( ( vectorSet, index ) => {
 
@@ -167,12 +167,12 @@ export default class VectorAdditionSceneNode extends Node {
    */
   protected getVectorSetNode( vectorSet: VectorSet ): VectorSetNode {
 
-    affirm( this.vectorSets.length === this.vectorSetNodes.length );
+    affirm( this.vectorSets.length === this.vectorSetNodes.length, 'Expected a node for every vector set.' );
     const index = this.vectorSets.indexOf( vectorSet );
     affirm( index !== -1, 'vectorSet not found' );
 
     const vectorSetNode = this.vectorSetNodes[ index ];
-    affirm( vectorSetNode.vectorSet === vectorSet );
+    affirm( vectorSetNode.vectorSet === vectorSet, 'vectorSetNode mismatch.' );
 
     return vectorSetNode;
   }

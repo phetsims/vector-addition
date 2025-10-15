@@ -70,13 +70,13 @@ export default class VectorNode extends RootVectorNode {
 
     // To improve readability
     const headWidth = options.arrowOptions.headWidth!;
-    affirm( headWidth !== undefined );
+    affirm( headWidth !== undefined, 'Expected headWidth to be defined.' );
     const headHeight = options.arrowOptions.headHeight!;
-    affirm( headHeight !== undefined );
+    affirm( headWidth !== undefined, 'Expected headHeight to be defined.' );
     const fractionalHeadHeight = options.arrowOptions.fractionalHeadHeight!;
-    affirm( fractionalHeadHeight !== undefined );
+    affirm( fractionalHeadHeight !== undefined, 'Expected fractionalHeadHeight to be defined.' );
     const cursor = options.arrowOptions.cursor!;
-    affirm( cursor );
+    affirm( cursor, 'Expected cursor to be defined.' );
 
     super( vector,
       scene.graph.modelViewTransformProperty,

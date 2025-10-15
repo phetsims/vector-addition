@@ -53,7 +53,7 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
     this.resultantVectorVisibleProperty = resultantVectorVisibleProperty;
 
     const resultantVector = componentVector.parentVector as ResultantVector;
-    affirm( resultantVector instanceof ResultantVector );
+    affirm( resultantVector instanceof ResultantVector, 'expected an instance of ResultantVector' );
 
     // Update when the resultant vector becomes visible or defined.
     Multilink.multilink(
@@ -75,7 +75,7 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
     super.updateComponentVector( componentVector, modelViewTransform, componentVectorStyle, isParentVectorSelected );
 
     const resultantVector = componentVector.parentVector as ResultantVector;
-    affirm( resultantVector instanceof ResultantVector );
+    affirm( resultantVector instanceof ResultantVector, 'expected an instance of ResultantVector' );
 
     this.visible = (
       // components are visible

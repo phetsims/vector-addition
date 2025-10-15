@@ -119,7 +119,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
 
       // Get the first available vector in the toolbox slot.
       const vector = vectorSet.getFirstAvailableVector()!;
-      affirm( vector );
+      affirm( vector, 'Expected vector to be defined.' );
       vector.reset();
       vector.tailPositionProperty.value = vectorTailPosition;
 

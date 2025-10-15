@@ -36,7 +36,7 @@ export default class EquationTypeRadioButtonGroup extends RectangularRadioButton
                       alignGroup: AlignGroup,
                       providedOptions: EquationTypeRadioButtonGroupOptions ) {
 
-    affirm( symbolProperties.length === 3 );
+    affirm( symbolProperties.length === 3, 'Requires 3 symbol Properties.' );
 
     // Shared by the PatternStringProperty instances for the group and all radio buttons.
     const patternStringPropertyOptions = {

@@ -142,7 +142,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
     // Make the arrow easier to grab by setting pointer areas
     if ( rootVector.magnitude > VectorAdditionConstants.ZERO_THRESHOLD && this.arrowNode instanceof ArrowNode ) {
       const arrowShape = this.arrowNode.shape!;
-      affirm( arrowShape !== null );
+      affirm( arrowShape !== null, 'Expected arrowShape to be defined.' );
       this.arrowNode.mouseArea = arrowShape.getOffsetShape( VectorAdditionConstants.VECTOR_MOUSE_AREA_DILATION );
       this.arrowNode.touchArea = arrowShape.getOffsetShape( VectorAdditionConstants.VECTOR_TOUCH_AREA_DILATION );
     }
@@ -166,7 +166,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
 
     // Angle of the vector in radians (ranging from -Pi to Pi)
     const modelAngle = rootVector.angle!;
-    affirm( modelAngle !== null );
+    affirm( modelAngle !== null, 'Expected modelAngle to be defined.' );
 
     //----------------------------------------------------------------------------------------
     // Determine how the labels should be positioned.

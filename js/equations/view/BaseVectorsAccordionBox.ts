@@ -85,7 +85,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       if ( coordinateSnapMode === 'cartesian' ) {
 
         const cartesianBaseVector = vector.baseVector as CartesianBaseVector;
-        affirm( cartesianBaseVector instanceof CartesianBaseVector );
+        affirm( cartesianBaseVector instanceof CartesianBaseVector, 'Expected instance of CartesianBaseVector.' );
 
         // x-component
         const xSymbolStringProperty = new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
@@ -137,7 +137,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
       }
       else {
         const polarBaseVector = vector.baseVector as PolarBaseVector;
-        affirm( polarBaseVector instanceof PolarBaseVector );
+        affirm( polarBaseVector instanceof PolarBaseVector, 'Expected instance of PolarBaseVector.' );
 
         // Magnitude
         const magnitudeLabeledPicker = new LabelEqualsNumberPicker(
@@ -158,7 +158,6 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           } );
 
         // Angle
-        affirm( polarBaseVector.symbolProperty );
         const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleProperty, polarBaseVector.symbolProperty,
           polarBaseVector.accessibleSymbolProperty, LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}AnglePicker` ) );
 
