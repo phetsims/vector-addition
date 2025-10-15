@@ -17,6 +17,7 @@ import LabSceneNode from './LabSceneNode.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import LabScreenSummaryContent from './LabScreenSummaryContent.js';
 import LabViewProperties from './LabViewProperties.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
@@ -77,8 +78,32 @@ export default class LabScreenView extends VectorAdditionScreenView {
     // Cancel interactions when switching scenes.
     model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
+    // Graph Area heading for the Cartesian scene.
+    const cartesianGraphAreaHeading = new Node( {
+      pdomOrder: [
+        cartesianSceneNode.graphNode,
+        cartesianSceneNode.vectorSetNodesParent
+      ],
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
+      visibleProperty: cartesianSceneNode.visibleProperty
+    } );
+
+    // Graph Area heading for the polar scene.
+    const polarGraphAreaHeading = new Node( {
+      pdomOrder: [
+        polarSceneNode.graphNode,
+        polarSceneNode.vectorSetNodesParent
+      ],
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
+      visibleProperty: polarSceneNode.visibleProperty
+    } );
+
     const screenViewRootNode = new Node( {
       children: [
+        // Accessible headings can be put anywhere in rendering order because they have no children. Put them all first.
+        cartesianGraphAreaHeading,
+        polarGraphAreaHeading,
+
         graphControlPanel,
         sceneRadioButtonGroup,
         cartesianSceneNode,
@@ -93,13 +118,13 @@ export default class LabScreenView extends VectorAdditionScreenView {
 
       // Cartesian scene
       cartesianSceneNode.vectorToolbox,
-      cartesianSceneNode.vectorSetNodesParent,
+      cartesianGraphAreaHeading,
       cartesianSceneNode.eraserButton,
       cartesianSceneNode.vectorValuesAccordionBox,
 
       // polar scene
       polarSceneNode.vectorToolbox,
-      polarSceneNode.vectorSetNodesParent,
+      polarGraphAreaHeading,
       polarSceneNode.eraserButton,
       polarSceneNode.vectorValuesAccordionBox
     ];

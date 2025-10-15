@@ -18,6 +18,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import LabVectorToolboxSlot from '../../lab/view/LabVectorToolboxSlot.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'center' | 'bottom';
@@ -52,7 +53,8 @@ export default class VectorToolbox extends Panel {
         xMargin: 2,
         yMargin: 10,
         fill: Color.WHITE,
-        stroke: Color.BLACK
+        stroke: Color.BLACK,
+        accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.availableVectorsStringProperty
       }, providedOptions );
 
     // Create the container for the slots in a vertical alignment

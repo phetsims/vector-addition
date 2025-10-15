@@ -18,6 +18,7 @@ import HorizontalVerticalSceneRadioButtonGroup from '../../common/view/Horizonta
 import Explore1DScreenSummaryContent from './Explore1DScreenSummaryContent.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
@@ -77,8 +78,32 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     // Cancel interactions when switching scenes.
     model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
+    // Graph Area heading for the horizontal scene.
+    const horizontalGraphAreaHeading = new Node( {
+      pdomOrder: [
+        horizonalSceneNode.graphNode,
+        horizonalSceneNode.vectorSetNodesParent
+      ],
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
+      visibleProperty: horizonalSceneNode.visibleProperty
+    } );
+
+    // Graph Area heading for the vertical scene.
+    const verticalGraphAreaHeading = new Node( {
+      pdomOrder: [
+        verticalSceneNode.graphNode,
+        verticalSceneNode.vectorSetNodesParent
+      ],
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
+      visibleProperty: verticalSceneNode.visibleProperty
+    } );
+
     const screenViewRootNode = new Node( {
       children: [
+        // Accessible headings can be put anywhere in rendering order because they have no children. Put them all first.
+        horizontalGraphAreaHeading,
+        verticalGraphAreaHeading,
+
         graphControlPanel,
         sceneRadioButtonGroup,
         horizonalSceneNode,
@@ -95,13 +120,13 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
 
       // horizontal scene
       horizonalSceneNode.vectorToolbox,
-      horizonalSceneNode.vectorSetNodesParent,
+      horizontalGraphAreaHeading,
       horizonalSceneNode.eraserButton,
       horizonalSceneNode.vectorValuesAccordionBox,
 
       // vertical scene
       verticalSceneNode.vectorToolbox,
-      verticalSceneNode.vectorSetNodesParent,
+      verticalGraphAreaHeading,
       verticalSceneNode.eraserButton,
       verticalSceneNode.vectorValuesAccordionBox
     ];

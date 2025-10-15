@@ -18,6 +18,7 @@ import EquationsSceneNode from './EquationsSceneNode.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import EquationsScreenSummaryContent from './EquationsScreenSummaryContent.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class EquationsScreenView extends VectorAdditionScreenView {
 
@@ -95,8 +96,32 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
     // Cancel interactions when switching scenes.
     model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
+    // Graph Area heading for the Cartesian scene.
+    const cartesianGraphAreaHeading = new Node( {
+      pdomOrder: [
+        cartesianSceneNode.graphNode,
+        cartesianSceneNode.vectorSetNodesParent
+      ],
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
+      visibleProperty: cartesianSceneNode.visibleProperty
+    } );
+
+    // Graph Area heading for the polar scene.
+    const polarGraphAreaHeading = new Node( {
+      pdomOrder: [
+        polarSceneNode.graphNode,
+        polarSceneNode.vectorSetNodesParent
+      ],
+      accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.graphAreaHeadingStringProperty,
+      visibleProperty: polarSceneNode.visibleProperty
+    } );
+
     const screenViewRootNode = new Node( {
       children: [
+        // Accessible headings can be put anywhere in rendering order because they have no children. Put them all first.
+        cartesianGraphAreaHeading,
+        polarGraphAreaHeading,
+
         graphControlPanel,
         sceneRadioButtonGroup,
         cartesianSceneNode,
@@ -111,12 +136,12 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
       // Cartesian scene
       cartesianSceneNode.equationAccordionBox,
-      cartesianSceneNode.vectorSetNodesParent,
+      cartesianGraphAreaHeading,
       cartesianSceneNode.vectorValuesAccordionBox,
 
       // polar scene
       polarSceneNode.equationAccordionBox,
-      polarSceneNode.vectorSetNodesParent,
+      polarGraphAreaHeading,
       polarSceneNode.vectorValuesAccordionBox
     ];
 

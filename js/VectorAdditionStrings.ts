@@ -75,6 +75,10 @@ type StringsType = {
         'interactionHintStringProperty': LocalizedStringProperty;
       }
     };
+    'accessibleHeadings': {
+      'availableVectorsStringProperty': LocalizedStringProperty;
+      'graphAreaHeadingStringProperty': LocalizedStringProperty;
+    };
     'horizontalSceneNameStringProperty': LocalizedStringProperty;
     'verticalSceneNameStringProperty': LocalizedStringProperty;
     'cartesianSceneNameStringProperty': LocalizedStringProperty;
