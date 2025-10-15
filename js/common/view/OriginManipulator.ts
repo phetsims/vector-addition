@@ -76,10 +76,10 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     const addGraphBoundsResponse = () => {
       const graphBounds = graph.boundsProperty.value;
       const response = StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
-        xBottomLeft: graphBounds.minX,
-        yBottomLeft: graphBounds.minY,
-        xTopRight: graphBounds.maxX,
-        yTopRight: graphBounds.maxY
+        minX: graphBounds.minX,
+        minY: graphBounds.minY,
+        maxX: graphBounds.maxX,
+        maxY: graphBounds.maxY
       } );
       this.addAccessibleObjectResponse( response, { alertBehavior: 'interrupt' } );
     };
