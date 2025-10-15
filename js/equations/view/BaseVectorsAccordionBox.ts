@@ -38,6 +38,8 @@ import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
 import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 import LabelEqualsAnglePicker from './LabelEqualsAnglePicker.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
@@ -86,6 +88,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         const cartesianBaseVector = vector.baseVector as CartesianBaseVector;
         affirm( cartesianBaseVector instanceof CartesianBaseVector );
 
+        const accessibleXStringProperty = RichText.getAccessibleStringProperty( VectorAdditionSymbols.xStringProperty );
+        const accessibleYStringProperty = RichText.getAccessibleStringProperty( VectorAdditionSymbols.yStringProperty );
+
         // x-component
         const xSymbolStringProperty = cartesianBaseVector.symbolProperty ?
                                       new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
@@ -99,6 +104,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
+            accessibleName: new DerivedProperty( [ vector.baseVector.accessibleSymbolProperty, accessibleXStringProperty ],
+              ( accessibleSymbol, accessibleXString ) => `${accessibleSymbol}<sub>${accessibleXString}</sub>` ),
             tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}xPicker` )
           } );
 
@@ -115,6 +122,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
+            accessibleName: new DerivedProperty( [ vector.baseVector.accessibleSymbolProperty, accessibleYStringProperty ],
+              ( accessibleSymbol, accessibleYString ) => `${accessibleSymbol}<sub>${accessibleYString}</sub>` ),
             tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}yPicker` )
           } );
 
