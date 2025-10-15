@@ -200,12 +200,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
     super( content, options );
 
-    // When the box is collapsed, cancel interactions.
-    this.expandedProperty.lazyLink( expanded => {
-      if ( !expanded ) {
-        this.interruptSubtreeInput();
-      }
-    } );
+    // When the accordion box is expanded or collapsed, cancel interactions.
+    this.expandedProperty.lazyLink( () => this.interruptSubtreeInput() );
   }
 }
 

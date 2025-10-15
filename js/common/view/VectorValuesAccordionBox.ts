@@ -193,6 +193,9 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
         this.setAccessibleParagraph( this.accessibleParagraphStringProperty );
       }
     } );
+
+    // When the accordion box is expanded or collapsed, cancel interactions.
+    this.expandedProperty.lazyLink( () => this.interruptSubtreeInput() );
   }
 }
 

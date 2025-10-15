@@ -32,6 +32,9 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       tandem: tandem
     } );
 
+    // Cancel interactions when switching scenes.
+    model.sceneProperty.link( () => this.interruptSubtreeInput() );
+
     this.viewProperties = new EquationsViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Controls for the graph, at upper right
@@ -92,9 +95,6 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       equationButtonsAlignGroup,
       equationsAlignGroup,
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
-
-    // Cancel interactions when switching scenes.
-    model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
     // Graph Area heading for the Cartesian scene.
     const cartesianGraphAreaHeading = new Node( {

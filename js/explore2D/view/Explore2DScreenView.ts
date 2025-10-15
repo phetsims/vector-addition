@@ -32,6 +32,9 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       tandem: tandem
     } );
 
+    // Cancel interactions when switching scenes.
+    model.sceneProperty.link( () => this.interruptSubtreeInput() );
+
     this.viewProperties = new Explore2DViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Control for the graph, at upper right
@@ -75,9 +78,6 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
       model.componentVectorStyleProperty,
       sceneRadioButtonGroup,
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
-
-    // Cancel interactions when switching scenes.
-    model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
     // Graph Area heading for the Cartesian scene.
     const cartesianGraphAreaHeading = new Node( {

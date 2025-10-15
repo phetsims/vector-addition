@@ -32,6 +32,9 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       tandem: tandem
     } );
 
+    // Cancel interactions when switching scenes.
+    model.sceneProperty.link( () => this.interruptSubtreeInput() );
+
     this.viewProperties = new Explore1DViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     const graphViewBounds = model.verticalScene.graph.viewBounds;
@@ -74,9 +77,6 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       model.componentVectorStyleProperty,
       sceneRadioButtonGroup,
       sceneNodesTandem.createTandem( 'verticalSceneNode' ) );
-
-    // Cancel interactions when switching scenes.
-    model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
     // Graph Area heading for the horizontal scene.
     const horizontalGraphAreaHeading = new Node( {
