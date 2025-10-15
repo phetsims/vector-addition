@@ -20,7 +20,6 @@ import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector from './Vector.js';
-import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -37,14 +36,12 @@ export default class CartesianBaseVector extends BaseVector {
                       vectorSet: VectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
-                      coordinateSnapMode: CoordinateSnapMode,
                       providedOptions: CartesianBaseVectorOptions ) {
 
-    affirm( coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-
     const options = providedOptions;
+    affirm( options.coordinateSnapMode === 'cartesian', `invalid coordinateSnapMode: ${options.coordinateSnapMode}` );
 
-    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, options );
 
     this.xComponentProperty = new NumberProperty( this.xComponent, {
       numberType: 'Integer',

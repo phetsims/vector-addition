@@ -17,11 +17,10 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
-import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
-export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol'>;
+export type BaseVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode'>;
 
 export default class BaseVector extends Vector {
 
@@ -30,7 +29,6 @@ export default class BaseVector extends Vector {
                          vectorSet: VectorSet,
                          graph: Graph,
                          selectedVectorProperty: Property<Vector | null>,
-                         coordinateSnapMode: CoordinateSnapMode,
                          providedOptions: BaseVectorOptions ) {
 
     const options = optionize<BaseVectorOptions, SelfOptions, VectorOptions>()( {
@@ -42,7 +40,7 @@ export default class BaseVector extends Vector {
       isOnGraphPropertyInstrumented: false // BaseVectors are always on the graph
     }, providedOptions );
 
-    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, options );
   }
 }
 

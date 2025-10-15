@@ -47,22 +47,25 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
   return [
 
     // d
-    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 30 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
+    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 30 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, {
       symbolProperty: VectorAdditionSymbols.dStringProperty,
+      coordinateSnapMode: scene.coordinateSnapMode,
       tandem: parentTandem.createTandem( 'dVector' ),
       tandemNameSymbol: 'd'
     } ),
 
     // e
-    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 60 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
+    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 60 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, {
       symbolProperty: VectorAdditionSymbols.eStringProperty,
+      coordinateSnapMode: scene.coordinateSnapMode,
       tandem: parentTandem.createTandem( 'eVector' ),
       tandemNameSymbol: 'e'
     } ),
 
     // f
-    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( -90 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
+    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( -90 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, {
       symbolProperty: VectorAdditionSymbols.fStringProperty,
+      coordinateSnapMode: scene.coordinateSnapMode,
       tandem: parentTandem.createTandem( 'fVector' ),
       tandemNameSymbol: 'f'
     } )

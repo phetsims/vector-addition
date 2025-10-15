@@ -60,6 +60,7 @@ const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 type SelfOptions = {
   symbolProperty: TReadOnlyProperty<string>; // the symbol used to label the vector in the visual UI
   accessibleSymbolProperty?: TReadOnlyProperty<string> | null; // the symbol used to describe the vector in interactive description
+  coordinateSnapMode: CoordinateSnapMode;
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
   isRemovableFromGraph?: boolean; // flag indicating if the vector can be removed from the graph
   isOnGraph?: boolean; // initial value of isOnGraphProperty
@@ -111,7 +112,6 @@ export default class Vector extends RootVector {
                       vectorSet: VectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
-                      coordinateSnapMode: CoordinateSnapMode,
                       providedOptions: VectorOptions ) {
 
     const options = optionize<VectorOptions, SelfOptions, RootVectorOptions>()( {
@@ -131,7 +131,7 @@ export default class Vector extends RootVector {
 
     this.graph = graph;
     this.selectedVectorProperty = selectedVectorProperty;
-    this.coordinateSnapMode = coordinateSnapMode;
+    this.coordinateSnapMode = options.coordinateSnapMode;
 
     this.isTipDraggable = options.isTipDraggable;
     this.isRemovableFromGraph = options.isRemovableFromGraph;

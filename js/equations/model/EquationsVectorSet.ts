@@ -59,8 +59,9 @@ export default class EquationsVectorSet extends VectorSet {
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
                                tandem: Tandem ) =>
-        new EquationsResultantVector( tailPosition, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, equationTypeProperty, {
+        new EquationsResultantVector( tailPosition, vectorSet, graph, selectedVectorProperty, equationTypeProperty, {
           symbolProperty: symbolProperty,
+          coordinateSnapMode: coordinateSnapMode,
           tandemNameSymbol: tandemNameSymbol,
           tandem: tandem
         } ),
@@ -92,9 +93,9 @@ export default class EquationsVectorSet extends VectorSet {
         vectorDescription.baseVectorTail,
         this,
         graph,
-        selectedVectorProperty,
-        coordinateSnapMode, {
+        selectedVectorProperty, {
           symbolProperty: vectorDescription.symbolProperty,
+          coordinateSnapMode: coordinateSnapMode,
           tandemNameSymbol: vectorDescription.tandemNameSymbol,
           tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` )
         } );

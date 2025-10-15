@@ -23,7 +23,6 @@ import EquationsVectorSet from './EquationsVectorSet.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
-import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 
 // initial coefficient and range
 const DEFAULT_COEFFICIENT = 1;
@@ -31,7 +30,7 @@ const COEFFICIENT_RANGE = new Range( -5, 5 );
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationsVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol'>;
+type EquationsVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode'>;
 
 export default class EquationsVector extends Vector {
 
@@ -44,7 +43,6 @@ export default class EquationsVector extends Vector {
                       vectorSet: EquationsVectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
-                      coordinateSnapMode: CoordinateSnapMode,
                       providedOptions: EquationsVectorOptions ) {
 
     const options = optionize<EquationsVectorOptions, SelfOptions, VectorOptions>()( {
@@ -54,7 +52,7 @@ export default class EquationsVector extends Vector {
       isOnGraphPropertyInstrumented: false // Equations vectors are always on the graph
     }, providedOptions );
 
-    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, options );
 
     this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
       range: COEFFICIENT_RANGE,
@@ -65,21 +63,23 @@ export default class EquationsVector extends Vector {
     this.setTipWithInvariants( this.tip );
 
     // Instantiate a base vector.
-    if ( coordinateSnapMode === 'cartesian' ) {
+    if ( options.coordinateSnapMode === 'cartesian' ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        vectorSet, graph, selectedVectorProperty, coordinateSnapMode, {
-        symbolProperty: options.symbolProperty,
-        tandemNameSymbol: options.tandemNameSymbol,
-        tandem: options.tandem.createTandem( 'baseVector' )
-      } );
+        vectorSet, graph, selectedVectorProperty, {
+          symbolProperty: options.symbolProperty,
+          coordinateSnapMode: options.coordinateSnapMode,
+          tandemNameSymbol: options.tandemNameSymbol,
+          tandem: options.tandem.createTandem( 'baseVector' )
+        } );
     }
     else {
       this.baseVector = new PolarBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        vectorSet, graph, selectedVectorProperty, coordinateSnapMode, {
-        symbolProperty: options.symbolProperty,
-        tandemNameSymbol: options.tandemNameSymbol,
-        tandem: options.tandem.createTandem( 'baseVector' )
-      } );
+        vectorSet, graph, selectedVectorProperty, {
+          symbolProperty: options.symbolProperty,
+          coordinateSnapMode: options.coordinateSnapMode,
+          tandemNameSymbol: options.tandemNameSymbol,
+          tandem: options.tandem.createTandem( 'baseVector' )
+        } );
     }
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.

@@ -24,7 +24,6 @@ import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector from './Vector.js';
-import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -40,14 +39,12 @@ export default class PolarBaseVector extends BaseVector {
                       vectorSet: VectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
-                      coordinateSnapMode: CoordinateSnapMode,
                       providedOptions: PolarBaseVectorOptions ) {
 
-    affirm( coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${coordinateSnapMode}` );
-
     const options = providedOptions;
+    affirm( options.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${options.coordinateSnapMode}` );
 
-    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, options );
 
     this.magnitudeProperty = new NumberProperty( this.magnitude, {
       numberType: 'Integer',

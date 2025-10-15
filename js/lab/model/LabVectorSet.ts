@@ -106,7 +106,7 @@ function createAllVectors( vectorSet: LabVectorSet,
 
   // Iterate from 1 so that tandem names have 1-based indices.
   for ( let i = 1; i <= VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET; i++ ) {
-    const vector = new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, coordinateSnapMode, {
+    const vector = new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, {
 
       // e.g. 'v<sub>3</sub>'
       symbolProperty: new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
@@ -116,6 +116,7 @@ function createAllVectors( vectorSet: LabVectorSet,
         symbol: vectorSet.accessibleSymbolProperty,
         index: i
       } ),
+      coordinateSnapMode: coordinateSnapMode,
 
       // e.g. 'v3Vector'
       tandem: vectorSet.tandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),

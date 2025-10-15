@@ -50,22 +50,25 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
   return [
 
     // d
-    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
+    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, {
       symbolProperty: VectorAdditionSymbols.dStringProperty,
+      coordinateSnapMode: scene.coordinateSnapMode,
       tandem: parentTandem.createTandem( 'dVector' ),
       tandemNameSymbol: 'd'
     } ),
 
     // e
-    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
+    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, {
       symbolProperty: VectorAdditionSymbols.eStringProperty,
+      coordinateSnapMode: scene.coordinateSnapMode,
       tandem: parentTandem.createTandem( 'eVector' ),
       tandemNameSymbol: 'e'
     } ),
 
     // f
-    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, scene.coordinateSnapMode, {
+    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, {
       symbolProperty: VectorAdditionSymbols.fStringProperty,
+      coordinateSnapMode: scene.coordinateSnapMode,
       tandem: parentTandem.createTandem( 'fVector' ),
       tandemNameSymbol: 'f'
     } )
