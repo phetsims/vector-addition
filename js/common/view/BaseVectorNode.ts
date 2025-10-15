@@ -15,6 +15,8 @@ import BaseVector from '../model/BaseVector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,6 +38,10 @@ export default class BaseVectorNode extends VectorNode {
         fill: vectorColorPalette.baseVectorFillProperty,
         stroke: vectorColorPalette.baseVectorStrokeProperty
       } ),
+      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorNode.accessibleNameStringProperty, {
+        symbol: baseVector.accessibleSymbolProperty
+      } ),
+      accessibleHelpText: VectorAdditionStrings.a11y.baseVectorNode.accessibleHelpTextStringProperty,
       tandemNameSuffix: 'BaseVectorNode'
     }, providedOptions );
 

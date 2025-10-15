@@ -190,6 +190,14 @@ type StringsType = {
     'coefficientPicker': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'equationsVectorNode': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'baseVectorNode': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     }
   }
 };

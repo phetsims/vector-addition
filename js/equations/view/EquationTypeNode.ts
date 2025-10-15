@@ -62,9 +62,7 @@ export default class EquationTypeNode extends Node {
         accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.coefficientPicker.accessibleNameStringProperty, {
           symbol: vector.accessibleSymbolProperty
         } ),
-        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.coefficientPicker.accessibleHelpTextStringProperty, {
-          symbol: vector.accessibleSymbolProperty
-        } ),
+        accessibleHelpText: VectorAdditionStrings.a11y.coefficientPicker.accessibleHelpTextStringProperty,
         tandem: options.tandem.createTandem( `${vector.tandemNameSymbol}CoefficientPicker` ),
         phetioVisiblePropertyInstrumented: false
       } );
