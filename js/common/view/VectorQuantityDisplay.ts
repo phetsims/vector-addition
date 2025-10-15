@@ -21,7 +21,6 @@ import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { VectorQuantity } from './VectorQuantity.js';
@@ -29,16 +28,16 @@ import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import { AngleConvention } from '../model/AngleConvention.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 export default class VectorQuantityDisplay extends NumberDisplay {
 
   private readonly vectorQuantity: VectorQuantity;
 
-  /**
-   * @param scene - the scene that contains the vectors to display
-   * @param vectorQuantity - the vector quantity to display
-   */
-  public constructor( scene: VectorAdditionScene, vectorQuantity: VectorQuantity ) {
+  public constructor( vectorQuantity: VectorQuantity,
+                      selectedVectorProperty: TReadOnlyProperty<Vector | null>,
+                      graphBounds: Bounds2 ) {
 
     const options: NumberDisplayOptions = {
       isDisposable: false
@@ -49,7 +48,6 @@ export default class VectorQuantityDisplay extends NumberDisplay {
     //----------------------------------------------------------------------------------------
 
     // Convenience variables. These are constant for the entire sim.
-    const graphBounds = scene.graph.bounds;
     const maxMagnitude = graphBounds.rightTop.distance( graphBounds.leftBottom );
     const graphWidth = graphBounds.width;
     const graphHeight = graphBounds.height;
@@ -95,12 +93,12 @@ export default class VectorQuantityDisplay extends NumberDisplay {
 
     // Create function to update the number display value
     const xyComponentsListener = () => {
-      numberDisplayProperty.value = this.getNumberDisplayValue( scene.selectedVectorProperty.value,
+      numberDisplayProperty.value = this.getNumberDisplayValue( selectedVectorProperty.value,
         VectorAdditionPreferences.instance.angleConventionProperty.value );
     };
 
     // Observe when the scene's selected vector changes and update the xyComponents link.
-    scene.selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
+    selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
 
       // unlink the previous link if the old selected vector exists
       oldSelectedVector && oldSelectedVector.xyComponentsProperty.unlink( xyComponentsListener );

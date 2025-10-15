@@ -89,7 +89,7 @@ export default class VectorAdditionSceneNode extends Node {
       options.tandem.createTandem( 'graphNode' ) );
 
     // Create the one and only 'Vector Values' accordion box
-    this.vectorValuesAccordionBox = new VectorValuesAccordionBox( scene, {
+    this.vectorValuesAccordionBox = new VectorValuesAccordionBox( scene.selectedVectorProperty, scene.graph.bounds, {
       expandedProperty: viewProperties.vectorValuesAccordionBoxExpandedProperty,
       centerX: scene.graph.viewBounds.centerX,
       top: 35, // determined empirically

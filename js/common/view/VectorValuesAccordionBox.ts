@@ -16,7 +16,6 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
@@ -31,6 +30,7 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -48,7 +48,9 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
   private accessibleParagraphStringProperty: TReadOnlyProperty<string> | null;
 
-  public constructor( scene: VectorAdditionScene, providedOptions: VectorValuesAccordionBoxOptions ) {
+  public constructor( selectedVectorProperty: TReadOnlyProperty<Vector | null>,
+                      graphBounds: Bounds2,
+                      providedOptions: VectorValuesAccordionBoxOptions ) {
 
     const options = optionize<VectorValuesAccordionBoxOptions, SelfOptions, FixedSizeAccordionBoxOptions>()( {
 
@@ -67,7 +69,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
     // 'No vector selected', displayed when accordion box is expanded and no vector is selected.
     const noVectorSelectedText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
-      visibleProperty: new DerivedProperty( [ scene.selectedVectorProperty ], selectedVector => selectedVector === null ),
+      visibleProperty: new DerivedProperty( [ selectedVectorProperty ], selectedVector => selectedVector === null ),
       font: VectorAdditionConstants.TITLE_FONT,
       maxWidth: 450,
       accessibleParagraph: VectorAdditionStrings.noVectorSelectedStringProperty
@@ -78,29 +80,29 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       includeAbsoluteValueBars: true,
       maxWidth: MAGNITUDE_LABEL_MAX_WIDTH
     } );
-    const magnitudeDisplay = new VectorQuantityDisplay( scene, 'magnitude' );
+    const magnitudeDisplay = new VectorQuantityDisplay( 'magnitude', selectedVectorProperty, graphBounds );
 
     const angleSymbolNode = new RichText( VectorAdditionSymbols.THETA, {
       font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
       maxWidth: ANGLE_LABEL_MAX_WIDTH
     } );
-    const angleDisplay = new VectorQuantityDisplay( scene, 'angle' );
+    const angleDisplay = new VectorQuantityDisplay( 'angle', selectedVectorProperty, graphBounds );
 
     const xComponentSymbolNode = new VectorSymbolNode( {
       showVectorArrow: false,
       maxWidth: COMPONENT_LABEL_MAX_WIDTH
     } );
-    const xComponentDisplay = new VectorQuantityDisplay( scene, 'xComponent' );
+    const xComponentDisplay = new VectorQuantityDisplay( 'xComponent', selectedVectorProperty, graphBounds );
 
     const yComponentSymbolNode = new VectorSymbolNode( {
       showVectorArrow: false,
       maxWidth: COMPONENT_LABEL_MAX_WIDTH
     } );
-    const yComponentDisplay = new VectorQuantityDisplay( scene, 'yComponent' );
+    const yComponentDisplay = new VectorQuantityDisplay( 'yComponent', selectedVectorProperty, graphBounds );
 
     // Layout for the labels and displays.
     const vectorQuantitiesHBox = new HBox( {
-      visibleProperty: new DerivedProperty( [ scene.selectedVectorProperty ], selectedVector => selectedVector !== null ),
+      visibleProperty: new DerivedProperty( [ selectedVectorProperty ], selectedVector => selectedVector !== null ),
       spacing: 40,
       children: [
         new HBox( {
@@ -148,7 +150,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     };
 
     // Update when selected vector changes.
-    scene.selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
+    selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
 
       if ( selectedVector !== null ) {
 
@@ -183,7 +185,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
     this.accessibleParagraphStringProperty = null;
 
     // Set the accessible paragraph that describes the selected vector.
-    scene.selectedVectorProperty.link( selectedVector => {
+    selectedVectorProperty.link( selectedVector => {
       this.accessibleParagraphStringProperty && this.accessibleParagraphStringProperty.dispose();
       this.accessibleParagraphStringProperty = null;
       if ( selectedVector ) {
