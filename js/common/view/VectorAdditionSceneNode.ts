@@ -147,8 +147,15 @@ export default class VectorAdditionSceneNode extends Node {
     this.vectorSetNodes = [];
     scene.vectorSets.forEach( ( vectorSet, index ) => {
 
-      const vectorSetNode = new VectorSetNode( scene, vectorSet, resultantVectorVisibleProperties[ index ],
-        viewProperties.valuesVisibleProperty, viewProperties.anglesVisibleProperty, componentVectorStyleProperty,
+      const vectorSetNode = new VectorSetNode(
+        vectorSet,
+        scene.graph.modelViewTransformProperty,
+        scene.selectedVectorProperty,
+        resultantVectorVisibleProperties[ index ],
+        viewProperties.valuesVisibleProperty,
+        viewProperties.anglesVisibleProperty,
+        scene.graph.boundsProperty,
+        componentVectorStyleProperty,
         // There is nothing interesting under here for PhET-iO, so we decided to uninstrument. If it needs to be
         // instrumented in the future, use options.tandem.createTandem( `${vectorSet.tandem.name}Node` ).
         Tandem.OPT_OUT );

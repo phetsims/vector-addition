@@ -18,7 +18,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import BaseVector from '../model/BaseVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorSet from '../model/VectorSet.js';
@@ -28,43 +27,50 @@ import ResultantVectorNode from './ResultantVectorNode.js';
 import VectorNode from './VectorNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVectorNode from './BaseVectorNode.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 export default class VectorSetNode extends Node {
 
   public readonly vectorSet: VectorSet;
 
-  private readonly scene: VectorAdditionScene;
+  private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
+  private readonly selectedVectorProperty: Property<Vector | null>;
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
   private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
+  private readonly graphBoundsProperty: TReadOnlyProperty<Bounds2>;
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
-  public constructor( scene: VectorAdditionScene,
-                      vectorSet: VectorSet,
+  public constructor( vectorSet: VectorSet,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      selectedVectorProperty: Property<Vector | null>,
                       resultantVectorVisibleProperty: TReadOnlyProperty<boolean>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       tandem: Tandem ) {
 
     const resultantVector = vectorSet.resultantVector;
 
     // Every VectorSet has a resultant vector and resultant component vectors, so create them.
-    const resultantVectorNode = new ResultantVectorNode( resultantVector, scene.graph.modelViewTransformProperty,
-      scene.selectedVectorProperty, valuesVisibleProperty, anglesVisibleProperty, scene.graph.boundsProperty,
+    const resultantVectorNode = new ResultantVectorNode( resultantVector, modelViewTransformProperty,
+      selectedVectorProperty, valuesVisibleProperty, anglesVisibleProperty, graphBoundsProperty,
       resultantVectorVisibleProperty );
 
     const xResultantComponentVectorNode = new ResultantComponentVectorNode(
       resultantVector.xComponentVector,
-      scene.graph.modelViewTransformProperty,
-      scene.selectedVectorProperty,
+      modelViewTransformProperty,
+      selectedVectorProperty,
       componentVectorStyleProperty,
       valuesVisibleProperty,
       resultantVectorVisibleProperty );
 
     const yResultantComponentVectorNode = new ResultantComponentVectorNode(
       resultantVector.yComponentVector,
-      scene.graph.modelViewTransformProperty,
-      scene.selectedVectorProperty,
+      modelViewTransformProperty,
+      selectedVectorProperty,
       componentVectorStyleProperty,
       valuesVisibleProperty,
       resultantVectorVisibleProperty );
@@ -78,13 +84,15 @@ export default class VectorSetNode extends Node {
 
     this.vectorSet = vectorSet;
 
-    this.scene = scene;
+    this.modelViewTransformProperty = modelViewTransformProperty;
+    this.selectedVectorProperty = selectedVectorProperty;
     this.valuesVisibleProperty = valuesVisibleProperty;
     this.anglesVisibleProperty = anglesVisibleProperty;
+    this.graphBoundsProperty = graphBoundsProperty;
     this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     // When the resultant vector becomes selected, move it and its component vectors to the front.
-    scene.selectedVectorProperty.link( selectedVector => {
+    selectedVectorProperty.link( selectedVector => {
       if ( selectedVector === resultantVectorNode.vector ) {
 
         // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
@@ -110,18 +118,18 @@ export default class VectorSetNode extends Node {
   public registerVector( vector: Vector, forwardingEvent?: PressListenerEvent ): void {
 
     // Create the view for the vector and its component vectors
-    const vectorNode = new VectorNode( vector, this.scene.graph.modelViewTransformProperty, this.scene.selectedVectorProperty,
-      this.valuesVisibleProperty, this.anglesVisibleProperty, this.scene.graph.boundsProperty );
+    const vectorNode = new VectorNode( vector, this.modelViewTransformProperty, this.selectedVectorProperty,
+      this.valuesVisibleProperty, this.anglesVisibleProperty, this.graphBoundsProperty );
 
     const xComponentVectorNode = new ComponentVectorNode( vector.xComponentVector,
-      this.scene.graph.modelViewTransformProperty,
-      this.scene.selectedVectorProperty,
+      this.modelViewTransformProperty,
+      this.selectedVectorProperty,
       this.componentVectorStyleProperty,
       this.valuesVisibleProperty );
 
     const yComponentVectorNode = new ComponentVectorNode( vector.yComponentVector,
-      this.scene.graph.modelViewTransformProperty,
-      this.scene.selectedVectorProperty,
+      this.modelViewTransformProperty,
+      this.selectedVectorProperty,
       this.componentVectorStyleProperty,
       this.valuesVisibleProperty );
 
@@ -149,7 +157,7 @@ export default class VectorSetNode extends Node {
         vectorAndComponentsNode.moveToFront();
       }
     };
-    this.scene.selectedVectorProperty.link( selectedVectorListener );
+    this.selectedVectorProperty.link( selectedVectorListener );
 
     if ( vector.isRemovableFromGraph ) {
 
@@ -165,7 +173,7 @@ export default class VectorSetNode extends Node {
 
           // remove listeners
           this.vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
-          this.scene.selectedVectorProperty.unlink( selectedVectorListener );
+          this.selectedVectorProperty.unlink( selectedVectorListener );
         }
       };
       this.vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
@@ -181,8 +189,8 @@ export default class VectorSetNode extends Node {
                             vectorColorPalette: VectorColorPalette ): void {
 
     // Node for the base vector
-    const baseVectorNode = new BaseVectorNode( baseVector, vectorColorPalette, this.scene.graph.modelViewTransformProperty,
-      this.scene.selectedVectorProperty, this.valuesVisibleProperty, this.anglesVisibleProperty, this.scene.graph.boundsProperty, {
+    const baseVectorNode = new BaseVectorNode( baseVector, vectorColorPalette, this.modelViewTransformProperty,
+      this.selectedVectorProperty, this.valuesVisibleProperty, this.anglesVisibleProperty, this.graphBoundsProperty, {
         visibleProperty: baseVectorsVisibleProperty,
         tandem: this.tandem.createTandem( `${baseVector.tandemNameSymbol}BaseVectorNode` )
       } );
@@ -190,7 +198,7 @@ export default class VectorSetNode extends Node {
 
     // When the base vector becomes selected, move it (and the entire vector set) to the front.
     // unlink is unnecessary because VectorSetNode exists for the lifetime of the sim.
-    this.scene.selectedVectorProperty.link( selectedVector => {
+    this.selectedVectorProperty.link( selectedVector => {
       if ( selectedVector === baseVectorNode.vector ) {
 
         // move all vectors in the set to the front, see https://github.com/phetsims/vector-addition/issues/94
