@@ -171,6 +171,22 @@ type StringsType = {
     'signedRadioButtonStringProperty': LocalizedStringProperty;
     'unsignedRadioButtonStringProperty': LocalizedStringProperty;
     'indexedVectorPatternStringProperty': LocalizedStringProperty;
+    'baseVectorXComponentPicker': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'baseVectorYComponentPicker': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'baseVectorMagnitudePicker': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    };
+    'baseVectorAnglePicker': {
+      'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
+    }
   }
 };
 

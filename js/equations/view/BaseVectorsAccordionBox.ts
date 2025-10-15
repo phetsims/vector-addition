@@ -38,8 +38,7 @@ import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
 import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 import LabelEqualsAnglePicker from './LabelEqualsAnglePicker.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
@@ -88,14 +87,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         const cartesianBaseVector = vector.baseVector as CartesianBaseVector;
         affirm( cartesianBaseVector instanceof CartesianBaseVector );
 
-        const accessibleXStringProperty = RichText.getAccessibleStringProperty( VectorAdditionSymbols.xStringProperty );
-        const accessibleYStringProperty = RichText.getAccessibleStringProperty( VectorAdditionSymbols.yStringProperty );
-
         // x-component
-        const xSymbolStringProperty = cartesianBaseVector.symbolProperty ?
-                                      new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
-                                        ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` ) :
-                                      null;
+        const xSymbolStringProperty = new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
+                                        ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` );
         const xLabeledPicker = new LabelEqualsNumberPicker(
           cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.XY_COMPONENT_RANGE,
@@ -104,8 +98,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            accessibleName: new DerivedProperty( [ vector.baseVector.accessibleSymbolProperty, accessibleXStringProperty ],
-              ( accessibleSymbol, accessibleXString ) => `${accessibleSymbol}<sub>${accessibleXString}</sub>` ),
+            accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorXComponentPicker.accessibleNameStringProperty, {
+              symbol: cartesianBaseVector.accessibleSymbolProperty
+            } ),
+            accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorXComponentPicker.accessibleHelpTextStringProperty, {
+              symbol: cartesianBaseVector.accessibleSymbolProperty
+            } ),
             tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}xPicker` )
           } );
 
@@ -122,8 +120,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             showVectorArrow: false,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
-            accessibleName: new DerivedProperty( [ vector.baseVector.accessibleSymbolProperty, accessibleYStringProperty ],
-              ( accessibleSymbol, accessibleYString ) => `${accessibleSymbol}<sub>${accessibleYString}</sub>` ),
+            accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorYComponentPicker.accessibleNameStringProperty, {
+              symbol: cartesianBaseVector.accessibleSymbolProperty
+            } ),
+            accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorYComponentPicker.accessibleHelpTextStringProperty, {
+              symbol: cartesianBaseVector.accessibleSymbolProperty
+            } ),
             tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}yPicker` )
           } );
 
@@ -146,6 +148,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
+            accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorMagnitudePicker.accessibleNameStringProperty, {
+              symbol: polarBaseVector.accessibleSymbolProperty
+            } ),
+            accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorMagnitudePicker.accessibleHelpTextStringProperty, {
+              symbol: polarBaseVector.accessibleSymbolProperty
+            } ),
             tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}MagnitudePicker` )
           } );
 
