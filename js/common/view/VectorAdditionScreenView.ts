@@ -47,9 +47,7 @@ export default class VectorAdditionScreenView extends ScreenView {
   }
 
   public reset(): void {
-
-    // cancel any interactions that are in progress
-    this.interruptSubtreeInput();
+    // Nothing to do here, but subclasses will override.
   }
 }
 
