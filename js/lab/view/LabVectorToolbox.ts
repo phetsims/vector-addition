@@ -34,12 +34,12 @@ export default class LabVectorToolbox extends VectorToolbox {
     const slots = [
 
       // vector set 1
-      new LabVectorToolboxSlot( scene, scene.vectorSet1, sceneNode,
-        options.tandem.createTandem( `${scene.vectorSet1.tandemNameSymbol}Slot` ) ),
+      new LabVectorToolboxSlot( scene.vectorSet1, scene.graph.modelViewTransformProperty, scene.initialXYComponents,
+        sceneNode, options.tandem.createTandem( `${scene.vectorSet1.tandemNameSymbol}Slot` ) ),
 
       // vector set 2
-      new LabVectorToolboxSlot( scene, scene.vectorSet2, sceneNode,
-        options.tandem.createTandem( `${scene.vectorSet2.tandemNameSymbol}Slot` ) )
+      new LabVectorToolboxSlot( scene.vectorSet2, scene.graph.modelViewTransformProperty, scene.initialXYComponents,
+        sceneNode, options.tandem.createTandem( `${scene.vectorSet2.tandemNameSymbol}Slot` ) )
     ];
 
     super( slots, options );

@@ -33,12 +33,13 @@ import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.j
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import LabScene from '../model/LabScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LabVectorSet from '../model/LabVectorSet.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 
 const ICON_WIDTH = 35; // Effective width of the vector icon.
 const ICON_MAGNITUDE = 57; // Magnitude of the vector icon.
@@ -46,14 +47,9 @@ const ICON_POINTER_DILATION = new Vector2( 10, 10 );
 
 export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
-  /**
-   * @param scene - the scene for the VectorSect
-   * @param vectorSet - the VectorSet that the slot adds Vectors to
-   * @param sceneNode - the VectorAdditionSceneNode that this slot appears in
-   * @param tandem
-   */
-  public constructor( scene: LabScene,
-                      vectorSet: LabVectorSet,
+  public constructor( vectorSet: LabVectorSet,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      initialXYComponents: Vector2,
                       sceneNode: VectorAdditionSceneNode,
                       tandem: Tandem ) {
 
@@ -71,8 +67,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     } );
 
     // convenience reference
-    const modelViewTransform = scene.graph.modelViewTransformProperty.value;
-    const initialXYComponents = scene.initialXYComponents;
+    const modelViewTransform = modelViewTransformProperty.value;
 
     //----------------------------------------------------------------------------------------
     // Create the icon
@@ -120,7 +115,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
 
       // Convert the view coordinates of where the icon was clicked into model coordinates.
-      const vectorCenterModel = scene.graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
+      const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
       // Calculate where the tail position is relative to the scene node.
       const vectorTailPosition = vectorCenterModel.minus( initialXYComponents.timesScalar( 0.5 ) );
@@ -154,7 +149,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
         if ( animateBack ) {
 
           // Get the model position of the icon node.
-          const iconPosition = scene.graph.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
+          const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
 
           // Animate the vector to its icon in the panel.
           vector.animateToPoint( iconPosition, iconComponents, () => {
