@@ -22,11 +22,11 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
+import Property from '../../../../axon/js/Property.js';
 
 // offset of the label
 const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
@@ -45,15 +45,9 @@ export default class ComponentVectorNode extends RootVectorNode {
 
   private readonly disposeComponentVectorNode: () => void;
 
-  /**
-   * @param componentVector - the component vector model the node represents
-   * @param scene - the scene the component vector belongs to
-   * @param componentVectorStyleProperty
-   * @param valuesVisibleProperty
-   * @param [providedOptions]
-   */
   public constructor( componentVector: ComponentVector,
-                      scene: VectorAdditionScene,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      selectedVectorProperty: Property<Vector | null>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: ComponentVectorNodeOptions ) {
@@ -67,7 +61,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       } )
     }, providedOptions );
 
-    super( componentVector, scene.graph.modelViewTransformProperty, valuesVisibleProperty, scene.selectedVectorProperty, options );
+    super( componentVector, modelViewTransformProperty, valuesVisibleProperty, selectedVectorProperty, options );
 
     //----------------------------------------------------------------------------------------
 
@@ -88,12 +82,12 @@ export default class ComponentVectorNode extends RootVectorNode {
     //
     // dispose is required.
     const componentVectorMultilink = Multilink.multilink(
-      [ componentVectorStyleProperty, scene.selectedVectorProperty,
+      [ componentVectorStyleProperty, selectedVectorProperty,
         componentVector.isOnGraphProperty, componentVector.xyComponentsProperty ],
       ( componentVectorStyle, selectedVector ) => {
 
         this.updateComponentVector( componentVector,
-          scene.graph.modelViewTransformProperty.value,
+          modelViewTransformProperty.value,
           componentVectorStyle,
           selectedVector === componentVector.parentVector );
       } );
@@ -103,12 +97,12 @@ export default class ComponentVectorNode extends RootVectorNode {
     const selectedVectorListener = ( selectedVector: Vector | null ) => {
       this.labelNode.setHighlighted( selectedVector === componentVector.parentVector );
     };
-    scene.selectedVectorProperty.link( selectedVectorListener );
+    selectedVectorProperty.link( selectedVectorListener );
 
     this.disposeComponentVectorNode = () => {
       componentVectorMultilink.dispose();
-      if ( scene.selectedVectorProperty.hasListener( selectedVectorListener ) ) {
-        scene.selectedVectorProperty.unlink( selectedVectorListener );
+      if ( selectedVectorProperty.hasListener( selectedVectorListener ) ) {
+        selectedVectorProperty.unlink( selectedVectorListener );
       }
     };
   }

@@ -49,13 +49,25 @@ export default class VectorSetNode extends Node {
     const resultantVector = vectorSet.resultantVector;
 
     // Every VectorSet has a resultant vector and resultant component vectors, so create them.
-    const resultantVectorNode = new ResultantVectorNode( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, resultantVectorVisibleProperty, {
-      tandem: tandem.createTandem( `${resultantVector.tandemNameSymbol}VectorNode` )
-    } );
-    const xResultantComponentVectorNode = new ResultantComponentVectorNode( resultantVector.xComponentVector, scene,
-      componentVectorStyleProperty, valuesVisibleProperty, resultantVectorVisibleProperty );
-    const yResultantComponentVectorNode = new ResultantComponentVectorNode( resultantVector.yComponentVector, scene,
-      componentVectorStyleProperty, valuesVisibleProperty, resultantVectorVisibleProperty );
+    const resultantVectorNode = new ResultantVectorNode( resultantVector, scene.graph.modelViewTransformProperty,
+      scene.selectedVectorProperty, valuesVisibleProperty, anglesVisibleProperty, scene.graph.boundsProperty,
+      resultantVectorVisibleProperty );
+
+    const xResultantComponentVectorNode = new ResultantComponentVectorNode(
+      resultantVector.xComponentVector,
+      scene.graph.modelViewTransformProperty,
+      scene.selectedVectorProperty,
+      componentVectorStyleProperty,
+      valuesVisibleProperty,
+      resultantVectorVisibleProperty );
+
+    const yResultantComponentVectorNode = new ResultantComponentVectorNode(
+      resultantVector.yComponentVector,
+      scene.graph.modelViewTransformProperty,
+      scene.selectedVectorProperty,
+      componentVectorStyleProperty,
+      valuesVisibleProperty,
+      resultantVectorVisibleProperty );
 
     super( {
       isDisposable: false,
@@ -98,15 +110,18 @@ export default class VectorSetNode extends Node {
   public registerVector( vector: Vector, forwardingEvent?: PressListenerEvent ): void {
 
     // Create the view for the vector and its component vectors
-    const vectorNode = new VectorNode( vector, this.scene, this.valuesVisibleProperty, this.anglesVisibleProperty );
+    const vectorNode = new VectorNode( vector, this.scene.graph.modelViewTransformProperty, this.scene.selectedVectorProperty,
+      this.valuesVisibleProperty, this.anglesVisibleProperty, this.scene.graph.boundsProperty );
 
     const xComponentVectorNode = new ComponentVectorNode( vector.xComponentVector,
-      this.scene,
+      this.scene.graph.modelViewTransformProperty,
+      this.scene.selectedVectorProperty,
       this.componentVectorStyleProperty,
       this.valuesVisibleProperty );
 
     const yComponentVectorNode = new ComponentVectorNode( vector.yComponentVector,
-      this.scene,
+      this.scene.graph.modelViewTransformProperty,
+      this.scene.selectedVectorProperty,
       this.componentVectorStyleProperty,
       this.valuesVisibleProperty );
 
@@ -166,8 +181,8 @@ export default class VectorSetNode extends Node {
                             vectorColorPalette: VectorColorPalette ): void {
 
     // Node for the base vector
-    const baseVectorNode = new BaseVectorNode( baseVector, vectorColorPalette, this.scene, this.valuesVisibleProperty,
-      this.anglesVisibleProperty, {
+    const baseVectorNode = new BaseVectorNode( baseVector, vectorColorPalette, this.scene.graph.modelViewTransformProperty,
+      this.scene.selectedVectorProperty, this.valuesVisibleProperty, this.anglesVisibleProperty, this.scene.graph.boundsProperty, {
         visibleProperty: baseVectorsVisibleProperty,
         tandem: this.tandem.createTandem( `${baseVector.tandemNameSymbol}BaseVectorNode` )
       } );

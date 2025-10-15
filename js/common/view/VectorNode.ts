@@ -18,7 +18,6 @@ import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListen
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
@@ -29,6 +28,9 @@ import { VectorTranslationDragListener } from './VectorTranslationDragListener.j
 import VectorScaleRotateDragListener from './VectorScaleRotateDragListener.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Property from '../../../../axon/js/Property.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -50,9 +52,11 @@ export default class VectorNode extends RootVectorNode {
   private readonly disposeVectorNode: () => void;
 
   public constructor( vector: Vector,
-                      scene: VectorAdditionScene,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      selectedVectorProperty: Property<Vector | null>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
-                      angleVisibleProperty: TReadOnlyProperty<boolean>,
+                      anglesVisibleProperty: TReadOnlyProperty<boolean>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions?: VectorNodeOptions ) {
 
     const options = optionize<VectorNodeOptions, SelfOptions, RootVectorNodeOptions>()( {
@@ -76,15 +80,13 @@ export default class VectorNode extends RootVectorNode {
     const cursor = options.arrowOptions.cursor!;
     affirm( cursor, 'Expected cursor to be defined.' );
 
-    const modelViewTransformProperty = scene.graph.modelViewTransformProperty;
-
     super( vector,
       modelViewTransformProperty,
 
       // Show vector value (magnitude) only when 'Values' is checked and the vector is on the graph.
       // See https://github.com/phetsims/vector-addition/issues/330.
       DerivedProperty.and( [ valuesVisibleProperty, vector.isOnGraphProperty ] ),
-      scene.selectedVectorProperty,
+      selectedVectorProperty,
       options );
 
     this.vector = vector;
@@ -97,8 +99,8 @@ export default class VectorNode extends RootVectorNode {
     const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
 
     // Create a Node representing the arc of an angle and the numerical display of the angle.
-    // dispose is necessary because it observes angleVisibleProperty.
-    const angleNode = new VectorAngleNode( vector, angleVisibleProperty, modelViewTransformProperty );
+    // dispose is necessary because it observes anglesVisibleProperty.
+    const angleNode = new VectorAngleNode( vector, anglesVisibleProperty, modelViewTransformProperty );
 
     // Create a shadow for the vector, visible when the vector is being dragged around off the graph.
     const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, SHADOW_OPTIONS );
@@ -112,8 +114,8 @@ export default class VectorNode extends RootVectorNode {
 
     this.translationDragListener = new VectorTranslationDragListener(
       vector,
-      scene.selectedVectorProperty,
-      scene.graph.boundsProperty,
+      selectedVectorProperty,
+      graphBoundsProperty,
       this,
       vectorShadowNode,
       modelViewTransformProperty,
@@ -153,7 +155,7 @@ export default class VectorNode extends RootVectorNode {
       // The vector can be scaled and rotated by dragging its head.
       const scaleRotateDragListener = new VectorScaleRotateDragListener(
         vector,
-        scene.selectedVectorProperty,
+        selectedVectorProperty,
         this,
         headNode,
         modelViewTransformProperty
@@ -243,7 +245,7 @@ export default class VectorNode extends RootVectorNode {
     const selectedVectorListener = ( selectedVector: Vector | null ) => {
       this.labelNode.setHighlighted( selectedVector === vector );
     };
-    scene.selectedVectorProperty.link( selectedVectorListener );
+    selectedVectorProperty.link( selectedVectorListener );
 
     // Disable interaction when the vector is animating back to the toolbox, where it will be disposed.
     // unlink is required on dispose.
@@ -267,7 +269,7 @@ export default class VectorNode extends RootVectorNode {
 
       // Dispose of appearance-related listeners
       shadowMultilink.dispose();
-      scene.selectedVectorProperty.unlink( selectedVectorListener );
+      selectedVectorProperty.unlink( selectedVectorListener );
       this.vector.animateBackProperty.unlink( animateBackListener );
     };
   }

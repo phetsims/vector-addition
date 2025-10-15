@@ -14,9 +14,12 @@ import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import BaseVector from '../model/BaseVector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Vector from '../model/Vector.js';
+import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -26,9 +29,11 @@ export default class BaseVectorNode extends VectorNode {
 
   public constructor( baseVector: BaseVector,
                       vectorColorPalette: VectorColorPalette,
-                      scene: VectorAdditionScene,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      selectedVectorProperty: Property<Vector | null>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       anglesVisibleProperty: TReadOnlyProperty<boolean>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions: BaseVectorNodeOptions ) {
 
     const options = optionize<BaseVectorNodeOptions, SelfOptions, VectorNodeOptions>()( {
@@ -45,7 +50,8 @@ export default class BaseVectorNode extends VectorNode {
       tandemNameSuffix: 'BaseVectorNode'
     }, providedOptions );
 
-    super( baseVector, scene, valuesVisibleProperty, anglesVisibleProperty, options );
+    super( baseVector, modelViewTransformProperty, selectedVectorProperty, valuesVisibleProperty, anglesVisibleProperty,
+      graphBoundsProperty, options );
 
     this.addLinkedElement( baseVector );
   }

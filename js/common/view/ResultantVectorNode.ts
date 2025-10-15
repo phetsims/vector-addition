@@ -12,30 +12,30 @@
  */
 
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import VectorNode, { VectorNodeOptions } from './VectorNode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import ResultantVector from '../model/ResultantVector.js';
-
-type SelfOptions = EmptySelfOptions;
-type SumVectorNodeOptions = SelfOptions & WithRequired<VectorNodeOptions, 'tandem'>;
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector from '../model/Vector.js';
+import Property from '../../../../axon/js/Property.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 
 export default class ResultantVectorNode extends VectorNode {
 
   public constructor( resultantVector: ResultantVector,
-                      scene: VectorAdditionScene,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      selectedVectorProperty: Property<Vector | null>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
-                      anglesVisibleProperty: TReadOnlyProperty<boolean>,
-                      resultantVectorVisibleProperty: TReadOnlyProperty<boolean>,
-                      providedOptions: SumVectorNodeOptions ) {
+                      angleVisibleProperty: TReadOnlyProperty<boolean>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      resultantVectorVisibleProperty: TReadOnlyProperty<boolean> ) {
 
-    const options = optionize<SumVectorNodeOptions, SelfOptions, VectorNodeOptions>()( {
+    const options: VectorNodeOptions = {
 
       // VectorNodeOptions
       isDisposable: false,
@@ -48,15 +48,16 @@ export default class ResultantVectorNode extends VectorNode {
       // See https://github.com/phetsims/vector-addition/issues/187
       visibleProperty: new DerivedProperty( [ resultantVectorVisibleProperty, resultantVector.isDefinedProperty ],
         ( resultantVectorVisible, isDefined ) => ( resultantVectorVisible && isDefined ) )
-    }, providedOptions );
+    };
 
-    super( resultantVector, scene, valuesVisibleProperty, anglesVisibleProperty, options );
+    super( resultantVector, modelViewTransformProperty, selectedVectorProperty, valuesVisibleProperty, angleVisibleProperty,
+      graphBoundsProperty, options );
 
     // Making a selected resultant vector invisible clears activeVectorProperty.
     // See https://github.com/phetsims/vector-addition/issues/112.
     resultantVectorVisibleProperty.link( resultantVectorVisible => {
-      if ( !resultantVectorVisible && scene.selectedVectorProperty.value === resultantVector ) {
-        scene.selectedVectorProperty.value = null;
+      if ( !resultantVectorVisible && selectedVectorProperty.value === resultantVector ) {
+        selectedVectorProperty.value = null;
       }
     } );
 

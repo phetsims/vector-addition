@@ -18,12 +18,13 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorNode, { ComponentVectorNodeOptions } from './ComponentVectorNode.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import ResultantVector from '../model/ResultantVector.js';
+import Property from '../../../../axon/js/Property.js';
+import Vector from '../model/Vector.js';
 
 type SelfOptions = EmptySelfOptions;
 type SumComponentVectorNodeOptions = SelfOptions & ComponentVectorNodeOptions;
@@ -33,7 +34,8 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
   private readonly resultantVectorVisibleProperty: TReadOnlyProperty<boolean>;
 
   public constructor( componentVector: ComponentVector,
-                      scene: VectorAdditionScene,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      selectedVectorProperty: Property<Vector | null>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       resultantVectorVisibleProperty: TReadOnlyProperty<boolean>,
@@ -48,7 +50,7 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
       } )
     }, providedOptions );
 
-    super( componentVector, scene, componentVectorStyleProperty, valuesVisibleProperty, options );
+    super( componentVector, modelViewTransformProperty, selectedVectorProperty, componentVectorStyleProperty, valuesVisibleProperty, options );
 
     this.resultantVectorVisibleProperty = resultantVectorVisibleProperty;
 
@@ -59,9 +61,9 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
     Multilink.multilink(
       [ resultantVectorVisibleProperty, resultantVector.isDefinedProperty ],
       () => this.updateComponentVector( componentVector,
-        scene.graph.modelViewTransformProperty.value,
+        modelViewTransformProperty.value,
         componentVectorStyleProperty.value,
-        scene.selectedVectorProperty.value === componentVector.parentVector )
+        selectedVectorProperty.value === componentVector.parentVector )
     );
   }
 

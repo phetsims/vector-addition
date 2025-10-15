@@ -85,7 +85,8 @@ export default class VectorAdditionSceneNode extends Node {
     //========================================================================================
 
     // Create one and only GraphNode
-    this.graphNode = new GraphNode( scene, viewProperties.gridVisibleProperty, options.tandem.createTandem( 'graphNode' ) );
+    this.graphNode = new GraphNode( scene.graph, viewProperties.gridVisibleProperty, scene.selectedVectorProperty,
+      options.tandem.createTandem( 'graphNode' ) );
 
     // Create the one and only 'Vector Values' accordion box
     this.vectorValuesAccordionBox = new VectorValuesAccordionBox( scene, {

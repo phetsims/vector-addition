@@ -18,7 +18,6 @@ import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
@@ -27,6 +26,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Graph from '../model/Graph.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Vector from '../model/Vector.js';
 
 // grid
 const MAJOR_GRID_LINE_WIDTH = 1.5; // view units
@@ -61,9 +61,7 @@ export default class GraphNode extends Node {
   // Public for pdomOrder at ScreenView level.
   public readonly originManipulator: Node;
 
-  public constructor( scene: VectorAdditionScene, gridVisibilityProperty: Property<boolean>, tandem: Tandem ) {
-
-    const graph = scene.graph;
+  public constructor( graph: Graph, gridVisibilityProperty: Property<boolean>, selectedVectorProperty: Property<Vector | null>, tandem: Tandem ) {
 
     const graphViewBounds = graph.viewBounds;
 
@@ -76,7 +74,7 @@ export default class GraphNode extends Node {
     const children = [
       background,
       new MajorAndMinorGridLines( graph, graphViewBounds, gridVisibilityProperty ),
-      new TicksNode( scene.graph )
+      new TicksNode( graph )
     ];
 
     // Create axes as needed, based on scene orientation
@@ -103,10 +101,10 @@ export default class GraphNode extends Node {
     // Use a raw 'down' listener so that this doesn't impact the ability to touch snag vectors and origin manipulator.
     // See https://github.com/phetsims/vector-addition/issues/243
     background.addInputListener( {
-      down: () => { scene.selectedVectorProperty.value = null; }
+      down: () => { selectedVectorProperty.value = null; }
     } );
 
-    this.addLinkedElement( scene.graph );
+    this.addLinkedElement( graph );
   }
 }
 

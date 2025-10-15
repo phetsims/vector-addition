@@ -19,13 +19,15 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import Vector from '../model/Vector.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorSet from '../model/VectorSet.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { GraphOrientation } from '../model/GraphOrientation.js';
 
 // Magnitude of the vector icon.
 const ICON_MAGNITUDE = 35;
@@ -33,8 +35,9 @@ const ICON_MAGNITUDE = 35;
 export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
   public constructor( vector: Vector,
-                      scene: VectorAdditionScene,
                       vectorSet: VectorSet,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      graphOrientation: GraphOrientation,
                       sceneNode: VectorAdditionSceneNode,
                       iconVectorComponents: Vector2 | null,
                       tandem: Tandem ) {
@@ -52,7 +55,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     } );
 
     // convenience reference
-    const modelViewTransform = scene.graph.modelViewTransformProperty.value;
+    const modelViewTransform = modelViewTransformProperty.value;
     const xyComponents = vector.xyComponentsProperty.value;
 
     //----------------------------------------------------------------------------------------
@@ -68,8 +71,8 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
 
     // Make the iconNode easier to grab. Use identical dilation for mouseArea and touchArea.
     // See https://github.com/phetsims/vector-addition/issues/250
-    const iconPointerAreaDilation = ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 10, 15 ) :
-                                    ( scene.graph.orientation === 'vertical' ) ? new Vector2( 20, 5 ) :
+    const iconPointerAreaDilation = ( graphOrientation === 'horizontal' ) ? new Vector2( 10, 15 ) :
+                                    ( graphOrientation === 'vertical' ) ? new Vector2( 20, 5 ) :
                                     new Vector2( 15, 10 );
     iconNode.mouseArea = iconNode.localBounds.dilatedXY( iconPointerAreaDilation.x, iconPointerAreaDilation.y );
     iconNode.touchArea = iconNode.localBounds.dilatedXY( iconPointerAreaDilation.x, iconPointerAreaDilation.y );
@@ -105,7 +108,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
 
       // Convert the view coordinates of where the icon was clicked into model coordinates.
-      const vectorCenterModel = scene.graph.modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
+      const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
       // Calculate where the tail position is relative to the scene node.
       vector.tailPositionProperty.value = vectorCenterModel.minus( xyComponents.timesScalar( 0.5 ) );
@@ -132,7 +135,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
         if ( animateBack ) {
 
           // Get the model position of the icon node.
-          const iconPosition = scene.graph.modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
+          const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
 
           // Animate the vector to its icon in the panel, then remove it from activeVectors.
           vector.animateToPoint( iconPosition, iconComponents, () => {
