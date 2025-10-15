@@ -24,6 +24,8 @@ import VectorSet from '../model/VectorSet.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 // Magnitude of the vector icon.
 const ICON_MAGNITUDE = 35;
@@ -40,6 +42,12 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       isDisposable: false,
       spacing: 5,
       tagName: 'button',
+      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleNameStringProperty, {
+        symbol: vector.accessibleSymbolProperty
+      } ),
+      accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleHelpTextStringProperty, {
+        symbol: vector.accessibleSymbolProperty
+      } ),
       tandem: tandem
     } );
 
@@ -86,7 +94,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     // Dragging the vector out of the slot.
     //----------------------------------------------------------------------------------------
 
-    iconNode.addInputListener( SoundDragListener.createForwardingListener( event => {
+    this.addInputListener( SoundDragListener.createForwardingListener( event => {
 
       //----------------------------------------------------------------------------------------
       // Step 1: When the icon is clicked, move the vector to vectorSet, so that it participates

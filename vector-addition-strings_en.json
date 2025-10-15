@@ -378,6 +378,28 @@
         "value": "Choose coefficient to multiply base vector in equation."
       }
     },
+    "vectorButton": {
+      "accessibleName": {
+        "value": "Vector {{symbol}}"
+      },
+      "accessibleHelpText": {
+        "value": "Add vector {{symbol}} to graph area."
+      },
+      "accessibleObjectResponse": {
+        "value": "vector ${{symbol}} added to graph area"
+      }
+    },
+    "vectorSetButton": {
+      "accessibleName": {
+        "value": "Vector Set {{symbol}}"
+      },
+      "accessibleHelpText": {
+        "value": "Add vector from set {{symbol}} to graph area."
+      },
+      "accessibleObjectResponse": {
+        "value": "vector {{symbol}} added to graph area"
+      }
+    },
     "vectorNode": {
       "accessibleObjectResponseTail": {
         "value": "{{tailX}} {{tailY}}"

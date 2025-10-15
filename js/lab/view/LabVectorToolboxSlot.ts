@@ -37,6 +37,8 @@ import LabScene from '../model/LabScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LabVectorSet from '../model/LabVectorSet.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 const ICON_WIDTH = 35; // Effective width of the vector icon.
 const ICON_MAGNITUDE = 57; // Magnitude of the vector icon.
@@ -58,6 +60,12 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     super( {
       isDisposable: false,
       spacing: 5,
+      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
+        symbol: vectorSet.accessibleSymbolProperty
+      } ),
+      accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleHelpTextStringProperty, {
+        symbol: vectorSet.accessibleSymbolProperty
+      } ),
       tagName: 'button',
       tandem: tandem
     } );
@@ -102,7 +110,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     // Creation of Vectors via pointer (See 'Implementation' documentation above)
     //----------------------------------------------------------------------------------------
 
-    iconNode.addInputListener( SoundDragListener.createForwardingListener( event => {
+    this.addInputListener( SoundDragListener.createForwardingListener( event => {
 
       //----------------------------------------------------------------------------------------
       // Step 1: When the icon is clicked, create a new Vector
