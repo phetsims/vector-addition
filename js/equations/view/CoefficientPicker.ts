@@ -18,7 +18,7 @@ type SelfOptions = EmptySelfOptions;
 
 type CoefficientPickerOptions = SelfOptions &
   PickOptional<NumberPickerOptions, 'phetioVisiblePropertyInstrumented'> &
-  PickRequired<NumberPickerOptions, 'tandem' | 'color'>;
+  PickRequired<NumberPickerOptions, 'tandem' | 'color' | 'accessibleName' | 'accessibleHelpText'>;
 
 export default class CoefficientPicker extends NumberPicker {
 

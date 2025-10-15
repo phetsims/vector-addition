@@ -18,6 +18,8 @@ import { EquationType } from '../model/EquationType.js';
 import CoefficientPicker from './CoefficientPicker.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 const TEXT_OPTIONS = {
   font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT
@@ -57,6 +59,12 @@ export default class EquationTypeNode extends Node {
 
       const coefficientPicker = new CoefficientPicker( vector.coefficientProperty, {
         color: vectorSet.vectorColorPalette.vectorFillProperty,
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.coefficientPicker.accessibleNameStringProperty, {
+          symbol: vector.accessibleSymbolProperty
+        } ),
+        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.coefficientPicker.accessibleHelpTextStringProperty, {
+          symbol: vector.accessibleSymbolProperty
+        } ),
         tandem: options.tandem.createTandem( `${vector.tandemNameSymbol}CoefficientPicker` ),
         phetioVisiblePropertyInstrumented: false
       } );
