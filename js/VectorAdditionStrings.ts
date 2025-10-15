@@ -194,11 +194,13 @@ type StringsType = {
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
     };
     'vectorNode': {
-      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      'accessibleObjectResponseTailStringProperty': LocalizedStringProperty;
+      'accessibleObjectResponseTipStringProperty': LocalizedStringProperty;
     };
     'equationsVectorNode': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
+      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'baseVectorNode': {
       'accessibleNameStringProperty': LocalizedStringProperty;

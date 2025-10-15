@@ -18,14 +18,17 @@ import Property from '../../../../axon/js/Property.js';
 import Vector from '../model/Vector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import VectorNode from './VectorNode.js';
 
 export default class VectorScaleRotateDragListener extends SoundDragListener {
 
   private readonly vector: Vector;
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
+  private readonly vectorNode: VectorNode;
 
   public constructor( vector: Vector,
                       selectedVectorProperty: Property<Vector | null>,
+                      vectorNode: VectorNode,
                       headNode: Node,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2> ) {
 
@@ -45,6 +48,7 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
 
     this.vector = vector;
     this.modelViewTransformProperty = modelViewTransformProperty;
+    this.vectorNode = vectorNode;
 
     // Move the tip to match the vector model. unlink is required on dispose.
     tipPositionViewProperty.lazyLink( tipPositionView => this.updateTipPosition( tipPositionView ) );
@@ -57,6 +61,7 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
     affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(), 'Cannot drag tip when animating back' );
     const tipPositionModel = this.vector.tail.plus( this.modelViewTransformProperty.value.viewToModelDelta( tipPositionView ) );
     this.vector.moveTipToPosition( tipPositionModel );
+    this.vectorNode.doAccessibleObjectResponseScaleRotate();
   }
 }
 

@@ -58,15 +58,8 @@ export class VectorTranslationDragListener extends SoundDragListener {
         affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
           'body drag listener should be removed when the vector is animating back.' );
 
-        if ( vector.isOnGraphProperty.value ) {
-
-          // Queue an accessible object response.
-          //TODO https://github.com/phetsims/vector-addition/issues/292 and https://github.com/phetsims/vector-addition/issues/292
-          //  Forwarding listener is not causing doAccessibleObjectResponse to be called.
-          this.vectorNode.doAccessibleObjectResponse();
-        }
-        else {
-          // Animate back to the toolbox.
+        // Animate back to the toolbox.
+        if ( !vector.isOnGraphProperty.value ) {
 
           // Get the cursor position as this determines whether the vector is destined for the graph or toolbox.
           // See https://github.com/phetsims/vector-addition/issues/50
@@ -126,6 +119,7 @@ export class VectorTranslationDragListener extends SoundDragListener {
     else {
       // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds.
       this.vector.moveTailToPosition( tailPositionModel );
+      this.vectorNode.doAccessibleObjectResponseTranslate();
     }
   }
 }

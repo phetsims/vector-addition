@@ -12,7 +12,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
@@ -47,7 +46,6 @@ export type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 export default class VectorNode extends RootVectorNode {
 
   public readonly vector: Vector;
-  private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
   private readonly translationDragListener: DragListener;
   private readonly disposeVectorNode: () => void;
 
@@ -78,8 +76,10 @@ export default class VectorNode extends RootVectorNode {
     const cursor = options.arrowOptions.cursor!;
     affirm( cursor, 'Expected cursor to be defined.' );
 
+    const modelViewTransformProperty = scene.graph.modelViewTransformProperty;
+
     super( vector,
-      scene.graph.modelViewTransformProperty,
+      modelViewTransformProperty,
 
       // Show vector value (magnitude) only when 'Values' is checked and the vector is on the graph.
       // See https://github.com/phetsims/vector-addition/issues/330.
@@ -87,7 +87,6 @@ export default class VectorNode extends RootVectorNode {
       scene.selectedVectorProperty,
       options );
 
-    this.modelViewTransformProperty = scene.graph.modelViewTransformProperty;
     this.vector = vector;
 
     //----------------------------------------------------------------------------------------
@@ -95,11 +94,11 @@ export default class VectorNode extends RootVectorNode {
     //----------------------------------------------------------------------------------------
 
     // Since the tail is (0, 0) for the view, the tip is the delta position of the tip
-    const tipDeltaPosition = this.modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
+    const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
 
     // Create a Node representing the arc of an angle and the numerical display of the angle.
     // dispose is necessary because it observes angleVisibleProperty.
-    const angleNode = new VectorAngleNode( vector, angleVisibleProperty, scene.graph.modelViewTransformProperty );
+    const angleNode = new VectorAngleNode( vector, angleVisibleProperty, modelViewTransformProperty );
 
     // Create a shadow for the vector, visible when the vector is being dragged around off the graph.
     const vectorShadowNode = new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, SHADOW_OPTIONS );
@@ -117,7 +116,7 @@ export default class VectorNode extends RootVectorNode {
       scene.graph.boundsProperty,
       this,
       vectorShadowNode,
-      this.modelViewTransformProperty,
+      modelViewTransformProperty,
       cursor
     );
 
@@ -155,8 +154,9 @@ export default class VectorNode extends RootVectorNode {
       const scaleRotateDragListener = new VectorScaleRotateDragListener(
         vector,
         scene.selectedVectorProperty,
+        this,
         headNode,
-        this.modelViewTransformProperty
+        modelViewTransformProperty
       );
       headNode.addInputListener( scaleRotateDragListener );
 
@@ -183,7 +183,7 @@ export default class VectorNode extends RootVectorNode {
         if ( xyComponents.magnitude <= SHORT_MAGNITUDE ) {
 
           // We have a 'short' vector, so adjust the head's pointer areas so that the tail can still be grabbed.
-          const viewComponents = this.modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
+          const viewComponents = modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
           const viewMagnitude = viewComponents.magnitude;
           const maxHeadHeight = fractionalHeadHeight * viewMagnitude;
 
@@ -208,7 +208,7 @@ export default class VectorNode extends RootVectorNode {
         }
 
         // Transform the invisible head to match the position and angle of the actual vector.
-        headNode.translation = this.modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
+        headNode.translation = modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
         headNode.rotation = -xyComponents.angle;
       };
       vector.xyComponentsProperty.link( xyComponentsListener );
@@ -235,7 +235,7 @@ export default class VectorNode extends RootVectorNode {
           vectorShadowNode.left = this.arrowNode.left + SHADOW_OFFSET_X;
           vectorShadowNode.top = this.arrowNode.top + SHADOW_OFFSET_Y;
         }
-        const tipDeltaPosition = this.modelViewTransformProperty.value.modelToViewDelta( xyComponents );
+        const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( xyComponents );
         vectorShadowNode.setTip( tipDeltaPosition.x, tipDeltaPosition.y );
       } );
 
@@ -285,12 +285,20 @@ export default class VectorNode extends RootVectorNode {
   }
 
   /**
-   * Queues an accessible object response that identifies the new state of the vector.
+   * Queues an accessible object response when the vector has been translated.
    */
-  public doAccessibleObjectResponse(): void {
-    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.accessibleObjectResponseStringProperty, {
+  public doAccessibleObjectResponseTranslate(): void {
+    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.accessibleObjectResponseTailStringProperty, {
       tailX: this.vector.tailX,
-      tailY: this.vector.tailY,
+      tailY: this.vector.tailY
+    } ) );
+  }
+
+  /**
+   * Queues an accessible object response when the vector has been scaled or rotated.
+   */
+  public doAccessibleObjectResponseScaleRotate(): void {
+    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.accessibleObjectResponseTipStringProperty, {
       tipX: this.vector.tipX,
       tipY: this.vector.tipY
     } ) );
