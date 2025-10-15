@@ -12,6 +12,7 @@ import EquationsModel from '../model/EquationsModel.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 
 export default class EquationsScreenSummaryContent extends ScreenSummaryContent {
 
@@ -23,10 +24,12 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
       symbol3: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.resultantVector.accessibleSymbolProperty.value )
     } );
 
+    const currentDetailsStringProperty = new StringProperty( 'Currently, TODO' );
+
     super( {
       playAreaContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.playAreaStringProperty,
       controlAreaContent: controlAreaStringProperty,
-      currentDetailsContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsStringProperty,
+      currentDetailsContent: currentDetailsStringProperty,
       interactionHintContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.interactionHintStringProperty
     } );
   }
