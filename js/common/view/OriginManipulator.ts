@@ -81,7 +81,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
         maxX: graphBounds.maxX,
         maxY: graphBounds.maxY
       } );
-      this.addAccessibleObjectResponse( response, 'interrupt' );
+      this.addAccessibleObjectResponse( response, { alertBehavior: 'interrupt' } );
     };
 
     // Drag support for pointer and keyboard input, with sound.
