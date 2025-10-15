@@ -19,6 +19,9 @@ import Vector from '../../common/model/Vector.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import LabScene from './LabScene.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -31,6 +34,7 @@ export default class LabVectorSet extends VectorSet {
   public readonly allVectors: Vector[];
 
   public readonly symbolProperty: TReadOnlyProperty<string>;
+  public readonly accessibleSymbolProperty: TReadOnlyProperty<string>;
   public readonly tandemNameSymbol: string;
 
   /**
@@ -65,10 +69,11 @@ export default class LabVectorSet extends VectorSet {
     super( scene, componentVectorStyleProperty, vectorColorPalette, options );
 
     this.symbolProperty = symbolProperty;
+    this.accessibleSymbolProperty = RichText.getAccessibleStringProperty( symbolProperty );
     this.tandemNameSymbol = tandemNameSymbol;
 
     // Create vector instances.
-    this.allVectors = createAllVectors( this, scene, initialXYComponents, symbolProperty );
+    this.allVectors = createAllVectors( this, scene, initialXYComponents );
   }
 
   public override reset(): void {
@@ -94,7 +99,9 @@ export default class LabVectorSet extends VectorSet {
 /**
  * Creates all vectors related to a vector set.
  */
-function createAllVectors( vectorSet: LabVectorSet, scene: LabScene, xyComponents: Vector2, symbolProperty: TReadOnlyProperty<string> ): Vector[] {
+function createAllVectors( vectorSet: LabVectorSet,
+                           scene: LabScene,
+                           xyComponents: Vector2 ): Vector[] {
 
   const tailPosition = new Vector2( 0, 0 );
 
@@ -103,9 +110,21 @@ function createAllVectors( vectorSet: LabVectorSet, scene: LabScene, xyComponent
   // Iterate from 1 so that tandem names have 1-based indices.
   for ( let i = 1; i <= VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET; i++ ) {
     const vector = new Vector( tailPosition, xyComponents, scene, vectorSet, {
-      symbolProperty: new DerivedProperty( [ symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
+
+      // e.g. 'v<sub>3</sub>'
+      symbolProperty: new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
+
+      // e.g. 'v sub 3'
+      accessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.indexedVectorPatternStringProperty, {
+        symbol: vectorSet.accessibleSymbolProperty,
+        index: i
+      } ),
+
+      // e.g. 'v3Vector'
       tandem: vectorSet.tandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),
-      tandemNameSymbol: `a${i}`
+
+      // e.g. 'v3'
+      tandemNameSymbol: `${vectorSet.tandemNameSymbol}${i}`
     } );
     vectors.push( vector );
   }

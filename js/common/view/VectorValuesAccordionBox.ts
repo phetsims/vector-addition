@@ -217,7 +217,7 @@ class SelectedVectorAccessibleParagraphStringProperty extends PatternStringPrope
       xyComponents => toFixed( xyComponents.y, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
 
     super( VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphStringProperty, {
-      symbol: selectedVector.symbolProperty,
+      symbol: selectedVector.accessibleSymbolProperty,
       magnitude: magnitudeProperty,
       direction: directionProperty,
       xComponent: xComponentProperty,

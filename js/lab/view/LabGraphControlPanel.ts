@@ -30,6 +30,7 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import LabViewProperties from './LabViewProperties.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -72,9 +73,9 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     // Sum checkbox for vector set 1, with vector symbol and color determined by the selected scene.
     const sum1Checkbox = new SumCheckbox( viewProperties.sum1VisibleProperty, {
       sumSymbolProperty: sum1SymbolProperty,
-      sumSymbolDescriptionProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
-        symbol: VectorAdditionSymbols.sStringProperty,
-        subscript: vectorSet1SymbolProperty
+      accessibleSumSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
+        symbol: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
+        subscript: RichText.getAccessibleStringProperty( vectorSet1SymbolProperty )
       } ),
       vectorIconFill: new DerivedProperty( [
         sceneProperty,
@@ -90,7 +91,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
       // "Vector Sum for Set {{vectorSetSymbol}}"
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
-        vectorSetSymbol: vectorSet1SymbolProperty
+        vectorSetSymbol: RichText.getAccessibleStringProperty( vectorSet1SymbolProperty )
       } ),
       tandem: options.tandem.createTandem( 'sum1Checkbox' )
     } );
@@ -98,9 +99,9 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     // Sum checkbox for vector set 2, with vector symbol and color determined by the selected scene.
     const sum2Checkbox = new SumCheckbox( viewProperties.sum2VisibleProperty, {
       sumSymbolProperty: sum2SymbolProperty,
-      sumSymbolDescriptionProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
-        symbol: VectorAdditionSymbols.sStringProperty,
-        subscript: vectorSet2SymbolProperty
+      accessibleSumSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
+        symbol: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
+        subscript: RichText.getAccessibleStringProperty( vectorSet2SymbolProperty )
       } ),
       vectorIconFill: new DerivedProperty( [
         sceneProperty,
@@ -116,7 +117,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
 
       // "Vector Sum for Set {{vectorSetSymbol}}"
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.labSumCheckbox.accessibleNameStringProperty, {
-        vectorSetSymbol: vectorSet2SymbolProperty
+        vectorSetSymbol: RichText.getAccessibleStringProperty( vectorSet2SymbolProperty )
       } ),
       tandem: options.tandem.createTandem( 'sum2Checkbox' )
     } );

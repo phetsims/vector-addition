@@ -18,9 +18,9 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
   public constructor( model: EquationsModel ) {
 
     const controlAreaStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty, {
-      symbol1: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 0 ].symbolProperty.value ),
-      symbol2: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 1 ].symbolProperty.value ),
-      symbol3: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.resultantVector.symbolProperty.value )
+      symbol1: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 0 ].accessibleSymbolProperty.value ),
+      symbol2: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 1 ].accessibleSymbolProperty.value ),
+      symbol3: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.resultantVector.accessibleSymbolProperty.value )
     } );
 
     super( {

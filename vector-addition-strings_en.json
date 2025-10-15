@@ -320,6 +320,9 @@
     },
     "unsignedRadioButton": {
       "value": "unsigned, 0 to 360 degrees"
+    },
+    "indexedVectorPattern": {
+      "value": "{{symbol}} sub {{index}}"
     }
   }
 }

@@ -39,6 +39,7 @@ import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 const AVERAGE_ANIMATION_SPEED = 1600; // in model coordinates
 const MIN_ANIMATION_TIME = 0.9; // in seconds
@@ -54,7 +55,8 @@ const VECTOR_DRAG_THRESHOLD = VectorAdditionQueryParameters.vectorDragThreshold;
 const POLAR_SNAP_DISTANCE = VectorAdditionQueryParameters.polarSnapDistance;
 
 type SelfOptions = {
-  symbolProperty: TReadOnlyProperty<string>; // the symbol used to label the vector
+  symbolProperty: TReadOnlyProperty<string>; // the symbol used to label the vector in the visual UI
+  accessibleSymbolProperty?: TReadOnlyProperty<string> | null; // the symbol used to describe the vector in interactive description
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
   isRemovableFromGraph?: boolean; // flag indicating if the vector can be removed from the graph
   isOnGraph?: boolean; // initial value of isOnGraphProperty
@@ -91,8 +93,11 @@ export default class Vector extends RootVector {
   public readonly xComponentVector: ComponentVector;
   public readonly yComponentVector: ComponentVector;
 
-  // the symbol used to label the vector
+  // the symbol used to label the vector, contains RichText markdown
   public readonly symbolProperty: TReadOnlyProperty<string>;
+
+  // the symbol used for the vector in interactive descriptions
+  public readonly accessibleSymbolProperty: TReadOnlyProperty<string>;
 
   // symbol for this vector used in tandem names
   public readonly tandemNameSymbol: string;
@@ -115,6 +120,7 @@ export default class Vector extends RootVector {
     const options = optionize<VectorOptions, SelfOptions, RootVectorOptions>()( {
 
       // SelfOptions
+      accessibleSymbolProperty: null,
       isTipDraggable: true,
       isRemovableFromGraph: true,
       isOnGraph: false,
@@ -143,6 +149,7 @@ export default class Vector extends RootVector {
     this.yComponentVector = new ComponentVector( this, vectorSet.componentVectorStyleProperty, 'yComponent' );
 
     this.symbolProperty = options.symbolProperty;
+    this.accessibleSymbolProperty = options.accessibleSymbolProperty || RichText.getAccessibleStringProperty( options.symbolProperty );
     this.tandemNameSymbol = options.tandemNameSymbol;
 
     // When the scene's origin changes, update the tail position. unlink is required on dispose.

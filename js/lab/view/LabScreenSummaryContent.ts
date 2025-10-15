@@ -13,6 +13,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 export default class LabScreenSummaryContent extends ScreenSummaryContent {
 
@@ -40,9 +41,9 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty, {
       vectorSet1Size: vectorSet1SizeProperty,
-      vectorSet1Symbol: vectorSet1SymbolProperty,
+      vectorSet1Symbol: RichText.getAccessibleStringProperty( vectorSet1SymbolProperty ),
       vectorSet2Size: vectorSet2SizeProperty,
-      vectorSet2Symbol: vectorSet2SymbolProperty,
+      vectorSet2Symbol: RichText.getAccessibleStringProperty( vectorSet2SymbolProperty ),
       sceneName: sceneNameStringProperty
     } );
 

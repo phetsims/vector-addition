@@ -170,6 +170,7 @@ type StringsType = {
     'symbolWithSubscriptDescriptionStringProperty': LocalizedStringProperty;
     'signedRadioButtonStringProperty': LocalizedStringProperty;
     'unsignedRadioButtonStringProperty': LocalizedStringProperty;
+    'indexedVectorPatternStringProperty': LocalizedStringProperty;
   }
 };
 

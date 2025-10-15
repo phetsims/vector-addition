@@ -25,6 +25,7 @@ import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 type SelfOptions = {
 
@@ -36,7 +37,7 @@ type SelfOptions = {
   sumSymbolProperty?: TReadOnlyProperty<string>;
 
   // Description of the sum vector in the non-visual UI.
-  sumSymbolDescriptionProperty?: TReadOnlyProperty<string>;
+  accessibleSumSymbolProperty?: TReadOnlyProperty<string>;
 
   // Use this if you have multiple Sum checkboxes and want to align their vectorIcons.
   // It makes labelNode (the text components of the checkbox) have the same effective size.
@@ -55,7 +56,7 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
 
       // SelfOptions
       sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
-      sumSymbolDescriptionProperty: VectorAdditionSymbols.sStringProperty,
+      accessibleSumSymbolProperty: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
       alignGroup: new AlignGroup(),
 
       // VectorAdditionCheckboxOptions
@@ -64,17 +65,17 @@ export default class SumCheckbox extends VectorAdditionCheckbox {
 
     // "Show or hide vector {{vectorSymbol}}."
     options.accessibleHelpText = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
-      vectorSymbol: options.sumSymbolDescriptionProperty
+      vectorSymbol: options.accessibleSumSymbolProperty
     } );
 
     // "Vector {{vectorSymbol}} shown in graph area."
     options.accessibleContextResponseChecked = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
-      vectorSymbol: options.sumSymbolDescriptionProperty
+      vectorSymbol: options.accessibleSumSymbolProperty
     } );
 
     // "Vector {{vectorSymbol}} hidden in graph area."
     options.accessibleContextResponseUnchecked = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
-      vectorSymbol: options.sumSymbolDescriptionProperty
+      vectorSymbol: options.accessibleSumSymbolProperty
     } );
 
     const textNode = new Text( VectorAdditionStrings.sumStringProperty, {

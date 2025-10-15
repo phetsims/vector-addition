@@ -27,6 +27,7 @@ import Checkbox from '../../../../sun/js/Checkbox.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 export default class EquationsSumCheckbox extends Checkbox {
 
@@ -36,18 +37,18 @@ export default class EquationsSumCheckbox extends Checkbox {
                       polarScene: EquationsScene,
                       tandem: Tandem ) {
 
-    const cSymbolNode = new ArrowOverSymbolNode( VectorAdditionSymbols.cStringProperty, {
+    const cSymbolNode = new ArrowOverSymbolNode( RichText.getAccessibleStringProperty( VectorAdditionSymbols.cStringProperty ), {
       visibleProperty: new DerivedProperty( [ sceneProperty ], scene => scene === cartesianScene ),
       maxWidth: 95 // determined empirically
     } );
 
-    const fSymbolNode = new ArrowOverSymbolNode( VectorAdditionSymbols.fStringProperty, {
+    const fSymbolNode = new ArrowOverSymbolNode( RichText.getAccessibleStringProperty( VectorAdditionSymbols.fStringProperty ), {
       visibleProperty: new DerivedProperty( [ sceneProperty ], scene => scene === polarScene ),
       maxWidth: 95 // determined empirically
     } );
 
-    const symbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => {
-      return scene.vectorSet.resultantVector.symbolProperty.value;
+    const accessibleSymbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => {
+      return scene.vectorSet.resultantVector.accessibleSymbolProperty.value;
     } );
 
     // To make both symbols have the same effective size, so that control panel layout doesn't shift.
@@ -85,22 +86,22 @@ export default class EquationsSumCheckbox extends Checkbox {
 
     super( resultantVectorVisibleProperty, content, {
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
-        vectorSymbol: symbolProperty
+        vectorSymbol: accessibleSymbolProperty
       } ),
 
       // "Show or hide vector {{vectorSymbol}}."
       accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
-        vectorSymbol: symbolProperty
+        vectorSymbol: accessibleSymbolProperty
       } ),
 
       // "Vector {{vectorSymbol}} shown in graph area."
       accessibleContextResponseChecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
-        vectorSymbol: symbolProperty
+        vectorSymbol: accessibleSymbolProperty
       } ),
 
       // "Vector {{vectorSymbol}} hidden in graph area."
       accessibleContextResponseUnchecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
-        vectorSymbol: symbolProperty
+        vectorSymbol: accessibleSymbolProperty
       } ),
       tandem: tandem
     } );
