@@ -160,7 +160,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         // Angle
         affirm( polarBaseVector.symbolProperty );
         const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleProperty, polarBaseVector.symbolProperty,
-          LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}AnglePicker` ) );
+          polarBaseVector.accessibleSymbolProperty, LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}AnglePicker` ) );
 
         rows.push( new HBox( {
           align: 'origin',

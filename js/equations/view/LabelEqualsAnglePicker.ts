@@ -27,11 +27,14 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionPreferences from '../../common/model/VectorAdditionPreferences.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class LabelEqualsAnglePicker extends Node {
 
   public constructor( signedAngleDegreesProperty: Property<number>,
                       vectorSymbolProperty: TReadOnlyProperty<string>,
+                      vectorAccessibleSymbolProperty: TReadOnlyProperty<string>,
                       labelMaxWidth: number,
                       tandem: Tandem ) {
 
@@ -73,6 +76,12 @@ export default class LabelEqualsAnglePicker extends Node {
 
         // No need to localize this string. The degree symbol is universally recognized, especially in STEM contexts.
         formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleNameStringProperty, {
+          symbol: vectorAccessibleSymbolProperty
+        } ),
+        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleHelpTextStringProperty, {
+          symbol: vectorAccessibleSymbolProperty
+        } ),
         phetioVisiblePropertyInstrumented: false,
         phetioEnabledPropertyInstrumented: false,
         tandem: Tandem.OPT_OUT
@@ -96,6 +105,12 @@ export default class LabelEqualsAnglePicker extends Node {
 
         // No need to localize this string. The degree symbol is universally recognized, especially in STEM contexts.
         formatValue: angle => `${angle}${MathSymbols.DEGREES}`,
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleNameStringProperty, {
+          symbol: vectorAccessibleSymbolProperty
+        } ),
+        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleHelpTextStringProperty, {
+          symbol: vectorAccessibleSymbolProperty
+        } ),
         phetioVisiblePropertyInstrumented: false,
         phetioEnabledPropertyInstrumented: false,
         tandem: Tandem.OPT_OUT
