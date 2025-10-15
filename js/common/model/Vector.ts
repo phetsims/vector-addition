@@ -102,8 +102,6 @@ export default class Vector extends RootVector {
   // symbol for this vector used in tandem names
   public readonly tandemNameSymbol: string;
 
-  private readonly disposeVector: () => void;
-
   /**
    * @param tailPosition - initial tail position of the vector
    * @param xyComponents - initial xy-components of the vector
@@ -158,18 +156,6 @@ export default class Vector extends RootVector {
       this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailPositionView ) );
     };
     this.scene.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
-
-    this.disposeVector = () => {
-      this.scene.graph.modelViewTransformProperty.unlink( updateTailPosition );
-      this.xComponentVector.dispose();
-      this.yComponentVector.dispose();
-      this.inProgressAnimation && this.inProgressAnimation.stop();
-    };
-  }
-
-  public override dispose(): void {
-    this.disposeVector();
-    super.dispose();
   }
 
   /**
