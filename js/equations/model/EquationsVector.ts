@@ -32,7 +32,8 @@ const COEFFICIENT_RANGE = new Range( -5, 5 );
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationsVectorOptions = SelfOptions & PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode'>;
+type EquationsVectorOptions = SelfOptions &
+  PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode' | 'vectorColorPalette'>;
 
 export default class EquationsVector extends Vector {
 
@@ -49,7 +50,6 @@ export default class EquationsVector extends Vector {
                       providedOptions: EquationsVectorOptions ) {
 
     const options = optionize<EquationsVectorOptions, SelfOptions, VectorOptions>()( {
-      vectorColorPalette: vectorSet.vectorColorPalette,
       isRemovableFromGraph: false, // Equations vectors are not removable from the graph
       isTipDraggable: false, // Equations vectors are not draggable by the tip
       isOnGraph: true, // Equations vectors are always on the graph

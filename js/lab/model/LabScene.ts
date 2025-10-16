@@ -76,8 +76,11 @@ export default class LabScene extends VectorAdditionScene {
     const modelHeadWidth = this.graph.modelViewTransformProperty.value.viewToModelDeltaX( viewHeadWidth );
     const offsetDelta = -( modelHeadWidth / 2 );
 
-    this.vectorSet1 = new LabVectorSet( this.graph, this.selectedVectorProperty, this.coordinateSnapMode,
-      symbol1Property, initialXYComponents, tandemNameSymbol1, componentVectorStyleProperty, vectorColorPalette1, {
+    this.vectorSet1 = new LabVectorSet( this.graph, this.selectedVectorProperty,
+      symbol1Property, initialXYComponents, tandemNameSymbol1, componentVectorStyleProperty, {
+
+        coordinateSnapMode: this.coordinateSnapMode,
+        vectorColorPalette: vectorColorPalette1,
 
         // non-sum component vectors are interleaved with vectorSet2, overlap is OK
         projectionXOffsetDelta: offsetDelta,
@@ -88,8 +91,11 @@ export default class LabScene extends VectorAdditionScene {
         tandem: tandem.createTandem( `${tandemNameSymbol1}VectorSet` )
       } );
 
-    this.vectorSet2 = new LabVectorSet( this.graph, this.selectedVectorProperty, this.coordinateSnapMode,
-      symbol2Property, initialXYComponents, tandemNameSymbol2, componentVectorStyleProperty, vectorColorPalette2, {
+    this.vectorSet2 = new LabVectorSet( this.graph, this.selectedVectorProperty,
+      symbol2Property, initialXYComponents, tandemNameSymbol2, componentVectorStyleProperty, {
+
+        coordinateSnapMode: coordinateSnapMode,
+        vectorColorPalette: vectorColorPalette2,
 
         // non-sum component vectors are interleaved with vectorSet1, overlap is OK
         projectionXOffsetStart: this.vectorSet1.projectionXOffsetStart + offsetDelta / 2,

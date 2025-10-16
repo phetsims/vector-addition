@@ -12,7 +12,6 @@
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsResultantVector from './EquationsResultantVector.js';
@@ -20,9 +19,9 @@ import EquationsVector from './EquationsVector.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector from '../../common/model/Vector.js';
-import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
-import { EquationType } from './EquationType.js';
 import Graph from '../../common/model/Graph.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { EquationType } from './EquationType.js';
 
 // Describes a non-resultant vector for the Equations screen.
 export type EquationsVectorDescription = {
@@ -32,6 +31,10 @@ export type EquationsVectorDescription = {
   vectorTail: Vector2;
   baseVectorTail: Vector2;
 };
+
+type SelfOptions = EmptySelfOptions;
+
+type EquationsVectorSetOptions = SelfOptions & VectorSetOptions;
 
 export default class EquationsVectorSet extends VectorSet {
 
@@ -44,16 +47,14 @@ export default class EquationsVectorSet extends VectorSet {
 
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
-                      coordinateSnapMode: CoordinateSnapMode,
                       equationTypeProperty: TReadOnlyProperty<EquationType>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      vectorColorPalette: VectorColorPalette,
                       vectorDescriptions: EquationsVectorDescription[],
                       resultantSymbolProperty: TReadOnlyProperty<string>,
                       resultantTandemNameSymbol: string,
-                      tandem: Tandem ) {
+                      providedOptions: EquationsVectorSetOptions ) {
 
-    const options: VectorSetOptions = {
+    const options = optionize<EquationsVectorSetOptions, SelfOptions, VectorSetOptions>()( {
       createResultantVector: ( tailPosition: Vector2,
                                vectorSet: VectorSet,
                                symbolProperty: TReadOnlyProperty<string>,
@@ -61,8 +62,8 @@ export default class EquationsVectorSet extends VectorSet {
                                tandem: Tandem ) =>
         new EquationsResultantVector( tailPosition, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, equationTypeProperty, {
           symbolProperty: symbolProperty,
-          coordinateSnapMode: coordinateSnapMode,
-          vectorColorPalette: vectorSet.vectorColorPalette,
+          coordinateSnapMode: providedOptions.coordinateSnapMode,
+          vectorColorPalette: providedOptions.vectorColorPalette,
           tandemNameSymbol: tandemNameSymbol,
           tandem: tandem
         } ),
@@ -74,11 +75,10 @@ export default class EquationsVectorSet extends VectorSet {
 
       resultantSymbolProperty: resultantSymbolProperty,
       resultantTandemNameSymbol: resultantTandemNameSymbol,
-      activeVectorsInstrumented: false,
-      tandem: tandem
-    };
+      activeVectorsInstrumented: false
+    }, providedOptions );
 
-    super( graph, selectedVectorProperty, coordinateSnapMode, componentVectorStyleProperty, vectorColorPalette, options );
+    super( graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
     this.equationSymbolProperties = [];
     this.allVectors = [];
@@ -97,7 +97,8 @@ export default class EquationsVectorSet extends VectorSet {
         selectedVectorProperty,
         componentVectorStyleProperty, {
           symbolProperty: vectorDescription.symbolProperty,
-          coordinateSnapMode: coordinateSnapMode,
+          coordinateSnapMode: providedOptions.coordinateSnapMode,
+          vectorColorPalette: providedOptions.vectorColorPalette,
           tandemNameSymbol: vectorDescription.tandemNameSymbol,
           tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` )
         } );

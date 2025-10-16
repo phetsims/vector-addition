@@ -10,7 +10,6 @@ import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
@@ -41,12 +40,10 @@ export default class LabVectorSet extends VectorSet {
 
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
-                      coordinateSnapMode: CoordinateSnapMode,
                       symbolProperty: TReadOnlyProperty<string>,
                       initialXYComponents: Vector2,
                       tandemNameSymbol: string,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      vectorColorPalette: VectorColorPalette,
                       providedOptions: LabVectorSetOptions ) {
 
     const options = optionize<LabVectorSetOptions, SelfOptions, VectorSetOptions>()( {
@@ -61,14 +58,14 @@ export default class LabVectorSet extends VectorSet {
       resultantTandemNameSymbol: `s${tandemNameSymbol}`
     }, providedOptions );
 
-    super( graph, selectedVectorProperty, coordinateSnapMode, componentVectorStyleProperty, vectorColorPalette, options );
+    super( graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
     this.symbolProperty = symbolProperty;
     this.accessibleSymbolProperty = RichText.getAccessibleStringProperty( symbolProperty );
     this.tandemNameSymbol = tandemNameSymbol;
 
     // Create vector instances.
-    this.allVectors = createAllVectors( this, graph, selectedVectorProperty, coordinateSnapMode, componentVectorStyleProperty, initialXYComponents );
+    this.allVectors = createAllVectors( this, graph, selectedVectorProperty, options.coordinateSnapMode, componentVectorStyleProperty, initialXYComponents );
   }
 
   public override reset(): void {

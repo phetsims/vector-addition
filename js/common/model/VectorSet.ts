@@ -34,6 +34,9 @@ import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 
 type SelfOptions = {
 
+  coordinateSnapMode: CoordinateSnapMode;
+  vectorColorPalette: VectorColorPalette;
+
   // Offsets for primary component vectors in ComponentVectorStyle 'projection'
   projectionXOffsetStart?: number;
   projectionYOffsetStart?: number;
@@ -84,9 +87,7 @@ export default class VectorSet extends PhetioObject {
 
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
-                      coordinateSnapMode: CoordinateSnapMode,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      vectorColorPalette: VectorColorPalette,
                       providedOptions: VectorSetOptions ) {
 
     // Compute values for the options that are related to ComponentVectorStyle 'projection'.
@@ -109,11 +110,11 @@ export default class VectorSet extends PhetioObject {
                                vectorSet: VectorSet,
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
-                               tandem: Tandem ) =>
+                               tandem: Tandem ): SumVector =>
         new SumVector( tailPosition, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
           symbolProperty: symbolProperty,
-          coordinateSnapMode: coordinateSnapMode,
-          vectorColorPalette: vectorSet.vectorColorPalette,
+          coordinateSnapMode: options.coordinateSnapMode,
+          vectorColorPalette: options.vectorColorPalette,
           tandemNameSymbol: tandemNameSymbol,
           tandem: tandem
         } ),
@@ -138,7 +139,7 @@ export default class VectorSet extends PhetioObject {
       phetioDocumentation: 'Vectors that are not in the toolbox.'
     } );
 
-    this.vectorColorPalette = vectorColorPalette;
+    this.vectorColorPalette = options.vectorColorPalette;
     this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     this.projectionXOffsetStart = options.projectionXOffsetStart;
