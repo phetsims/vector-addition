@@ -74,7 +74,7 @@ export default class EquationsVector extends Vector {
           coordinateSnapMode: options.coordinateSnapMode,
           vectorColorPalette: vectorSet.vectorColorPalette,
           tandemNameSymbol: options.tandemNameSymbol,
-          tandem: options.tandem.createTandem( 'baseVector' )
+          tandem: options.tandem.createTandem( `${this.tandemNameSymbol}BaseVector` )
         } );
     }
     else {
@@ -84,7 +84,7 @@ export default class EquationsVector extends Vector {
           coordinateSnapMode: options.coordinateSnapMode,
           vectorColorPalette: vectorSet.vectorColorPalette,
           tandemNameSymbol: options.tandemNameSymbol,
-          tandem: options.tandem.createTandem( 'baseVector' )
+          tandem: options.tandem.createTandem( `${this.tandemNameSymbol}BaseVector` )
         } );
     }
 
