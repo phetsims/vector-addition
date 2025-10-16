@@ -26,18 +26,18 @@ const POLAR_VECTOR_DESCRIPTIONS: EquationsVectorDescription[] = [
   {
     symbolProperty: VectorAdditionSymbols.dStringProperty,
     tandemNameSymbol: 'd',
-    xyComponents: Vector2.createPolar( 5, 0 ),
     vectorTailPosition: new Vector2( 5, 5 ),
-    baseVectorTailPosition: new Vector2( 35, 15 )
+    baseVectorTailPosition: new Vector2( 35, 15 ),
+    baseVectorXYComponents: Vector2.createPolar( 5, 0 )
   },
 
   // e
   {
     symbolProperty: VectorAdditionSymbols.eStringProperty,
     tandemNameSymbol: 'e',
-    xyComponents: Vector2.createPolar( 8, toRadians( 45 ) ),
     vectorTailPosition: new Vector2( 15, 5 ),
-    baseVectorTailPosition: new Vector2( 35, 5 )
+    baseVectorTailPosition: new Vector2( 35, 5 ),
+    baseVectorXYComponents: Vector2.createPolar( 8, toRadians( 45 ) )
   }
 ];
 

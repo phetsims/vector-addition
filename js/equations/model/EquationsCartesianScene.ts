@@ -25,18 +25,18 @@ const CARTESIAN_VECTOR_DESCRIPTIONS: EquationsVectorDescription[] = [
   {
     symbolProperty: VectorAdditionSymbols.aStringProperty,
     tandemNameSymbol: 'a',
-    xyComponents: new Vector2( 0, 5 ),
     vectorTailPosition: new Vector2( 5, 5 ),
-    baseVectorTailPosition: new Vector2( 35, 15 )
+    baseVectorTailPosition: new Vector2( 35, 15 ),
+    baseVectorXYComponents: new Vector2( 0, 5 )
   },
 
   // b
   {
     symbolProperty: VectorAdditionSymbols.bStringProperty,
     tandemNameSymbol: 'b',
-    xyComponents: new Vector2( 5, 5 ),
     vectorTailPosition: new Vector2( 15, 5 ),
-    baseVectorTailPosition: new Vector2( 35, 5 )
+    baseVectorTailPosition: new Vector2( 35, 5 ),
+    baseVectorXYComponents: new Vector2( 5, 5 )
   }
 ];
 

@@ -10,9 +10,9 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
@@ -27,9 +27,11 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // initial coefficient and range
-const COEFFICIENT_RANGE = new RangeWithValue( -5, 5, 1 );
+const COEFFICIENT_RANGE = new Range( -5, 5 );
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  coefficient?: number; // initial value for coefficientProperty
+};
 
 type EquationsVectorOptions = SelfOptions &
   StrictOmit<VectorOptions, 'isRemovableFromGraph' | 'isTipDraggable' | 'isOnGraph' | 'isOnGraphPropertyInstrumented'>;
@@ -40,8 +42,8 @@ export default class EquationsVector extends Vector {
   public readonly baseVector: BaseVector;
 
   public constructor( tailPosition: Vector2,
-                      xyComponents: Vector2,
                       baseVectorTailPosition: Vector2,
+                      baseVectorXYComponents: Vector2,
                       vectorSet: EquationsVectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
@@ -49,15 +51,20 @@ export default class EquationsVector extends Vector {
                       providedOptions: EquationsVectorOptions ) {
 
     const options = optionize<EquationsVectorOptions, SelfOptions, VectorOptions>()( {
+
+      // SelfOptions
+      coefficient: 1,
+
+      // VectorOptions
       isRemovableFromGraph: false, // Equations vectors are not removable from the graph
       isTipDraggable: false, // Equations vectors are not draggable by the tip
       isOnGraph: true, // Equations vectors are always on the graph
       isOnGraphPropertyInstrumented: false // Equations vectors are always on the graph
     }, providedOptions );
 
-    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
+    super( tailPosition, baseVectorXYComponents.timesScalar( options.coefficient ), vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
-    this.coefficientProperty = new NumberProperty( COEFFICIENT_RANGE.defaultValue, {
+    this.coefficientProperty = new NumberProperty( options.coefficient, {
       range: COEFFICIENT_RANGE,
       tandem: options.tandem.createTandem( 'coefficientProperty' )
     } );
@@ -66,7 +73,6 @@ export default class EquationsVector extends Vector {
     this.setTipWithInvariants( this.tip );
 
     // Instantiate a base vector.
-    const baseVectorXYComponents = this.xyComponents.dividedScalar( this.coefficientProperty.value );
     const baseVectorOptions = {
       symbolProperty: options.symbolProperty,
       coordinateSnapMode: options.coordinateSnapMode,

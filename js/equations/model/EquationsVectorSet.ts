@@ -28,9 +28,9 @@ import BaseVector from '../../common/model/BaseVector.js';
 export type EquationsVectorDescription = {
   symbolProperty: TReadOnlyProperty<string>; // symbol for the vector used in the user interface
   tandemNameSymbol: string; // symbol for the vector used in tandem names
-  xyComponents: Vector2;
-  vectorTailPosition: Vector2;
-  baseVectorTailPosition: Vector2;
+  vectorTailPosition: Vector2; // tail position of the main vector
+  baseVectorTailPosition: Vector2; // tail position of the base vector
+  baseVectorXYComponents: Vector2; // xy-components of the base vector
 };
 
 type SelfOptions = EmptySelfOptions;
@@ -93,8 +93,8 @@ export default class EquationsVectorSet extends VectorSet {
 
       const vector = new EquationsVector(
         vectorDescription.vectorTailPosition,
-        vectorDescription.xyComponents,
         vectorDescription.baseVectorTailPosition,
+        vectorDescription.baseVectorXYComponents,
         this,
         graph,
         selectedVectorProperty,
