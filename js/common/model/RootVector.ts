@@ -32,6 +32,8 @@ import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import { signedToUnsignedDegrees } from '../VectorAdditionUtils.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 
 export type LabelDisplayData = {
 
@@ -53,9 +55,9 @@ export type LabelDisplayData = {
 };
 
 type SelfOptions = {
-
-  // color palette for this vector
-  vectorColorPalette: VectorColorPalette;
+  vectorColorPalette: VectorColorPalette; // color palette for this vector
+  magnitudePropertyInstrumented?: boolean; // whether to instrument the magnitudeProperty
+  anglePropertyInstrumented?: boolean; // whether to instrument the angleProperty
 };
 
 export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem' | 'tandemNameSuffix' | 'isDisposable'>;
@@ -74,6 +76,12 @@ export default abstract class RootVector extends PhetioObject {
   // the color palette used to render the vector
   public readonly vectorColorPalette: VectorColorPalette;
 
+  // Subclass PolarBaseVector defines magnitudeProperty, so make this private with an underscore prefix.
+  private readonly _magnitudeProperty: TReadOnlyProperty<number>;
+
+  // Subclass PolarBaseVector defines angleProperty, so make this private with an underscore prefix.
+  private readonly _angleProperty: TReadOnlyProperty<number | null>;
+
   /**
    * @param tailPosition - initial tail position of the vector
    * @param xyComponents - initial xy-components of the vector
@@ -84,6 +92,10 @@ export default abstract class RootVector extends PhetioObject {
                          providedOptions: RootVectorOptions ) {
 
     const options = optionize<RootVectorOptions, SelfOptions, PhetioObjectOptions>()( {
+
+      // SelfOptions
+      magnitudePropertyInstrumented: true,
+      anglePropertyInstrumented: true,
 
       // PhetioObjectOptions
       phetioState: false,
@@ -109,6 +121,18 @@ export default abstract class RootVector extends PhetioObject {
         tandem: options.tandem.createTandem( 'tipPositionProperty' ),
         phetioValueType: Vector2.Vector2IO
       } );
+
+    this._magnitudeProperty = new DerivedProperty( [ this.xyComponentsProperty ], xyComponents => xyComponents.magnitude, {
+      tandem: options.magnitudePropertyInstrumented ? options.tandem.createTandem( 'magnitudeProperty' ) : Tandem.OPT_OUT,
+      phetioValueType: NumberIO
+    } );
+
+    this._angleProperty = new DerivedProperty( [ this.xyComponentsProperty ],
+        xyComponents => xyComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : xyComponents.angle, {
+      tandem: options.anglePropertyInstrumented ? options.tandem.createTandem( 'angleProperty' ) : Tandem.OPT_OUT,
+      phetioValueType: NullableIO( NumberIO ),
+      units: 'radians'
+    } );
 
     this.vectorColorPalette = options.vectorColorPalette;
   }
@@ -149,13 +173,6 @@ export default abstract class RootVector extends PhetioObject {
    */
   public get xyComponents(): Vector2 {
     return this.xyComponentsProperty.value;
-  }
-
-  /**
-   * Gets the magnitude of the vector (always positive).
-   */
-  public get magnitude(): number {
-    return this.xyComponentsProperty.value.magnitude;
   }
 
   /**
@@ -271,11 +288,19 @@ export default abstract class RootVector extends PhetioObject {
   }
 
   /**
+   * Gets the vector magnitude.
+   */
+  public get magnitude(): number {
+    return this._magnitudeProperty.value;
+  }
+
+  /**
    * Gets the angle of the vector in radians, measured clockwise from the horizontal.
    * The value is in the range (-pi,pi], and null when the vector has 0 magnitude.
    */
   public get angle(): number | null {
-    return this.xyComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : this.xyComponents.angle;
+    // return this.xyComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : this.xyComponents.angle;
+    return this._angleProperty.value;
   }
 
   /**

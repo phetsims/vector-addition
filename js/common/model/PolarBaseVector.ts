@@ -19,7 +19,7 @@ import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
@@ -44,7 +44,12 @@ export default class PolarBaseVector extends BaseVector {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions: PolarBaseVectorOptions ) {
 
-    const options = providedOptions;
+    const options = optionize<PolarBaseVectorOptions, SelfOptions, BaseVectorOptions>()( {
+
+      // BaseVectorOptions
+      magnitudePropertyInstrumented: false, // because this class defines its own magnitudeProperty
+      anglePropertyInstrumented: false // because this class defines its own angleProperty
+    }, providedOptions );
     affirm( options.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${options.coordinateSnapMode}` );
 
     super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
