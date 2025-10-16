@@ -10,7 +10,7 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Range from '../../../../dot/js/Range.js';
+import RangeWithValue from '../../../../dot/js/RangeWithValue.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import BaseVector from '../../common/model/BaseVector.js';
@@ -27,8 +27,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 
 // initial coefficient and range
-const DEFAULT_COEFFICIENT = 1;
-const COEFFICIENT_RANGE = new Range( -5, 5 );
+const COEFFICIENT_RANGE = new RangeWithValue( -5, 5, 1 );
 
 type SelfOptions = EmptySelfOptions;
 
@@ -58,7 +57,7 @@ export default class EquationsVector extends Vector {
 
     super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
-    this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
+    this.coefficientProperty = new NumberProperty( COEFFICIENT_RANGE.defaultValue, {
       range: COEFFICIENT_RANGE,
       tandem: options.tandem.createTandem( 'coefficientProperty' )
     } );
@@ -67,8 +66,9 @@ export default class EquationsVector extends Vector {
     this.setTipWithInvariants( this.tip );
 
     // Instantiate a base vector.
+    const baseVectorXYComponents = this.xyComponents.dividedScalar( this.coefficientProperty.value );
     if ( options.coordinateSnapMode === 'cartesian' ) {
-      this.baseVector = new CartesianBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+      this.baseVector = new CartesianBaseVector( baseVectorTailPosition, baseVectorXYComponents,
         vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
           symbolProperty: options.symbolProperty,
           coordinateSnapMode: options.coordinateSnapMode,
@@ -78,7 +78,7 @@ export default class EquationsVector extends Vector {
         } );
     }
     else {
-      this.baseVector = new PolarBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ),
+      this.baseVector = new PolarBaseVector( baseVectorTailPosition, baseVectorXYComponents,
         vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
           symbolProperty: options.symbolProperty,
           coordinateSnapMode: options.coordinateSnapMode,
