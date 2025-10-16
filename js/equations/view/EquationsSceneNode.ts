@@ -64,10 +64,12 @@ export default class EquationsSceneNode extends VectorAdditionSceneNode {
     this.addChild( equationAccordionBox );
     equationAccordionBox.moveToBack(); // move to back to ensure that vectors remains in front
 
-    // Add the 'Base Vector' accordion box
-    const baseVectorsAccordionBox = new BaseVectorsAccordionBox( viewProperties.baseVectorsVisibleProperty,
+    // Add the 'Base Vectors' accordion box
+    const baseVectorsAccordionBox = new BaseVectorsAccordionBox(
+      scene.vectorSet.baseVectors,
       scene.coordinateSnapMode,
-      scene.vectorSet, {
+      scene.vectorSet.vectorColorPalette,
+      viewProperties.baseVectorsVisibleProperty, {
         expandedProperty: viewProperties.baseVectorsAccordionBoxExpandedProperty,
         right: VectorAdditionConstants.SCREEN_VIEW_BOUNDS.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
         top: graphControlPanelBottom + 8,

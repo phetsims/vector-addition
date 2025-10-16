@@ -33,12 +33,13 @@ import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
 import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 import LabelEqualsAnglePicker from './LabelEqualsAnglePicker.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
+import BaseVector from '../../common/model/BaseVector.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
@@ -52,9 +53,10 @@ type BaseVectorsAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
 
 export default class BaseVectorsAccordionBox extends AccordionBox {
 
-  public constructor( baseVectorsVisibleProperty: Property<boolean>,
+  public constructor( baseVectors: BaseVector[],
                       coordinateSnapMode: CoordinateSnapMode,
-                      vectorSet: EquationsVectorSet,
+                      vectorColorPalette: VectorColorPalette,
+                      baseVectorsVisibleProperty: Property<boolean>,
                       providedOptions: BaseVectorsAccordionBoxOptions ) {
 
     const options = optionize4<BaseVectorsAccordionBoxOptions, SelfOptions, AccordionBoxOptions>()(
@@ -79,12 +81,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
     const pickersTandem = options.tandem.createTandem( 'pickers' );
 
-    // Each Vector in the vectorSet gets 2 NumberPickers, so loop through the vectorSet
-    vectorSet.allVectors.forEach( vector => {
+    // Each base vector gets 2 NumberPickers.
+    baseVectors.forEach( baseVector => {
 
       if ( coordinateSnapMode === 'cartesian' ) {
 
-        const cartesianBaseVector = vector.baseVector as CartesianBaseVector;
+        const cartesianBaseVector = baseVector as CartesianBaseVector;
         affirm( cartesianBaseVector instanceof CartesianBaseVector, 'Expected instance of CartesianBaseVector.' );
 
         // x-component
@@ -104,7 +106,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorXComponentPicker.accessibleHelpTextStringProperty, {
               symbol: cartesianBaseVector.accessibleSymbolProperty
             } ),
-            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}xPicker` )
+            tandem: pickersTandem.createTandem( `${baseVector.tandemNameSymbol}xPicker` )
           } );
 
         // y-component
@@ -126,7 +128,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorYComponentPicker.accessibleHelpTextStringProperty, {
               symbol: cartesianBaseVector.accessibleSymbolProperty
             } ),
-            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}yPicker` )
+            tandem: pickersTandem.createTandem( `${baseVector.tandemNameSymbol}yPicker` )
           } );
 
         rows.push( new HBox( {
@@ -136,7 +138,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         } ) );
       }
       else {
-        const polarBaseVector = vector.baseVector as PolarBaseVector;
+        const polarBaseVector = baseVector as PolarBaseVector;
         affirm( polarBaseVector instanceof PolarBaseVector, 'Expected instance of PolarBaseVector.' );
 
         // Magnitude
@@ -154,12 +156,12 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorMagnitudePicker.accessibleHelpTextStringProperty, {
               symbol: polarBaseVector.accessibleSymbolProperty
             } ),
-            tandem: pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}MagnitudePicker` )
+            tandem: pickersTandem.createTandem( `${baseVector.tandemNameSymbol}MagnitudePicker` )
           } );
 
         // Angle
         const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleProperty, polarBaseVector.symbolProperty,
-          polarBaseVector.accessibleSymbolProperty, LABEL_MAX_WIDTH, pickersTandem.createTandem( `${vector.baseVector.tandemNameSymbol}AnglePicker` ) );
+          polarBaseVector.accessibleSymbolProperty, LABEL_MAX_WIDTH, pickersTandem.createTandem( `${baseVector.tandemNameSymbol}AnglePicker` ) );
 
         rows.push( new HBox( {
           align: 'origin',
@@ -179,7 +181,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     } );
 
     // Checkbox that toggles the visibility of base vectors.
-    const baseVectorsCheckbox = new BaseVectorsCheckbox( baseVectorsVisibleProperty, vectorSet.vectorColorPalette,
+    const baseVectorsCheckbox = new BaseVectorsCheckbox( baseVectorsVisibleProperty, vectorColorPalette,
       options.tandem.createTandem( 'baseVectorsCheckbox' ) );
 
     // Ensure that the accordion box is a fixed width. This is an old-style pattern, not recommended.

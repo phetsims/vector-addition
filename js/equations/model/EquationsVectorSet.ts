@@ -22,6 +22,7 @@ import Vector from '../../common/model/Vector.js';
 import Graph from '../../common/model/Graph.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { EquationType } from './EquationType.js';
+import BaseVector from '../../common/model/BaseVector.js';
 
 // Describes a non-resultant vector for the Equations screen.
 export type EquationsVectorDescription = {
@@ -44,6 +45,8 @@ export default class EquationsVectorSet extends VectorSet {
   // We need to know about EquationsVector instances, a specialization of Vector.
   // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
   public readonly allVectors: EquationsVector[];
+
+  public readonly baseVectors: BaseVector[];
 
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
@@ -107,6 +110,8 @@ export default class EquationsVectorSet extends VectorSet {
       this.activeVectors.push( vector );
       this.equationSymbolProperties.push( vectorDescription.symbolProperty );
     }
+
+    this.baseVectors = this.allVectors.map( vector => vector.baseVector );
 
     // The resultant vector symbol ('c' or 'f') appears in the equations, so add it.
     this.equationSymbolProperties.push( this.resultantVector.symbolProperty );
