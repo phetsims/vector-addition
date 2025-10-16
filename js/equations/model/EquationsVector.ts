@@ -23,6 +23,8 @@ import EquationsVectorSet from './EquationsVectorSet.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 
 // initial coefficient and range
 const DEFAULT_COEFFICIENT = 1;
@@ -43,6 +45,7 @@ export default class EquationsVector extends Vector {
                       vectorSet: EquationsVectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions: EquationsVectorOptions ) {
 
     const options = optionize<EquationsVectorOptions, SelfOptions, VectorOptions>()( {
@@ -53,7 +56,7 @@ export default class EquationsVector extends Vector {
       isOnGraphPropertyInstrumented: false // Equations vectors are always on the graph
     }, providedOptions );
 
-    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
     this.coefficientProperty = new NumberProperty( DEFAULT_COEFFICIENT, {
       range: COEFFICIENT_RANGE,
@@ -66,7 +69,7 @@ export default class EquationsVector extends Vector {
     // Instantiate a base vector.
     if ( options.coordinateSnapMode === 'cartesian' ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        vectorSet, graph, selectedVectorProperty, {
+        vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
           symbolProperty: options.symbolProperty,
           coordinateSnapMode: options.coordinateSnapMode,
           vectorColorPalette: vectorSet.vectorColorPalette,
@@ -76,7 +79,7 @@ export default class EquationsVector extends Vector {
     }
     else {
       this.baseVector = new PolarBaseVector( baseVectorTailPosition, this.xyComponents.dividedScalar( DEFAULT_COEFFICIENT ),
-        vectorSet, graph, selectedVectorProperty, {
+        vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
           symbolProperty: options.symbolProperty,
           coordinateSnapMode: options.coordinateSnapMode,
           vectorColorPalette: vectorSet.vectorColorPalette,

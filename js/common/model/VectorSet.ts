@@ -75,7 +75,7 @@ export default class VectorSet extends PhetioObject {
   public readonly activeVectors: ObservableArray<Vector>;
 
   public readonly vectorColorPalette: VectorColorPalette;
-  public readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
+  private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
   public readonly projectionXOffsetStart: number;
   public readonly projectionYOffsetStart: number;
@@ -110,7 +110,7 @@ export default class VectorSet extends PhetioObject {
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
                                tandem: Tandem ) =>
-        new SumVector( tailPosition, vectorSet, graph, selectedVectorProperty, {
+        new SumVector( tailPosition, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
           symbolProperty: symbolProperty,
           coordinateSnapMode: coordinateSnapMode,
           vectorColorPalette: vectorSet.vectorColorPalette,

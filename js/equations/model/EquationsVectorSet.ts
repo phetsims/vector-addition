@@ -59,7 +59,7 @@ export default class EquationsVectorSet extends VectorSet {
                                symbolProperty: TReadOnlyProperty<string>,
                                tandemNameSymbol: string,
                                tandem: Tandem ) =>
-        new EquationsResultantVector( tailPosition, vectorSet, graph, selectedVectorProperty, equationTypeProperty, {
+        new EquationsResultantVector( tailPosition, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, equationTypeProperty, {
           symbolProperty: symbolProperty,
           coordinateSnapMode: coordinateSnapMode,
           vectorColorPalette: vectorSet.vectorColorPalette,
@@ -94,7 +94,8 @@ export default class EquationsVectorSet extends VectorSet {
         vectorDescription.baseVectorTail,
         this,
         graph,
-        selectedVectorProperty, {
+        selectedVectorProperty,
+        componentVectorStyleProperty, {
           symbolProperty: vectorDescription.symbolProperty,
           coordinateSnapMode: coordinateSnapMode,
           tandemNameSymbol: vectorDescription.tandemNameSymbol,

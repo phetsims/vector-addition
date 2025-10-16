@@ -40,14 +40,14 @@ export class Explore2DPolarScene extends ExploreScene {
 /**
  * Creates vectors d, e, f.
  */
-function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
+function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, parentTandem: Tandem ): Vector[] {
 
   const tailPosition = Vector2.ZERO;
 
   return [
 
     // d
-    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 30 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, {
+    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 30 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.dStringProperty,
       coordinateSnapMode: scene.coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
@@ -56,7 +56,7 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
     } ),
 
     // e
-    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 60 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, {
+    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( 60 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.eStringProperty,
       coordinateSnapMode: scene.coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
@@ -65,7 +65,7 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
     } ),
 
     // f
-    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( -90 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, {
+    new Vector( tailPosition, Vector2.createPolar( 8, toRadians( -90 ) ), vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.fStringProperty,
       coordinateSnapMode: scene.coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,

@@ -35,7 +35,7 @@ export default class ExploreScene extends VectorAdditionScene {
                          graphOrientation: GraphOrientation,
                          coordinateSnapMode: CoordinateSnapMode,
                          vectorColorPalette: VectorColorPalette,
-                         createAllVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ) => Vector[],
+                         createAllVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, parentTandem: Tandem ) => Vector[],
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          tandem: Tandem ) {
 
@@ -54,7 +54,7 @@ export default class ExploreScene extends VectorAdditionScene {
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
 
-    this.allVectors = createAllVectors( this, this.vectorSet, this.vectorSet.tandem );
+    this.allVectors = createAllVectors( this, this.vectorSet, componentVectorStyleProperty, this.vectorSet.tandem );
 
     this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
       () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );

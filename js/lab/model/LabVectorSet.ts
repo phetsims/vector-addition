@@ -68,7 +68,7 @@ export default class LabVectorSet extends VectorSet {
     this.tandemNameSymbol = tandemNameSymbol;
 
     // Create vector instances.
-    this.allVectors = createAllVectors( this, graph, selectedVectorProperty, coordinateSnapMode, initialXYComponents );
+    this.allVectors = createAllVectors( this, graph, selectedVectorProperty, coordinateSnapMode, componentVectorStyleProperty, initialXYComponents );
   }
 
   public override reset(): void {
@@ -98,6 +98,7 @@ function createAllVectors( vectorSet: LabVectorSet,
                            graph: Graph,
                            selectedVectorProperty: Property<Vector | null>,
                            coordinateSnapMode: CoordinateSnapMode,
+                           componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                            xyComponents: Vector2 ): Vector[] {
 
   const tailPosition = new Vector2( 0, 0 );
@@ -106,7 +107,7 @@ function createAllVectors( vectorSet: LabVectorSet,
 
   // Iterate from 1 so that tandem names have 1-based indices.
   for ( let i = 1; i <= VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET; i++ ) {
-    const vector = new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, {
+    const vector = new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
 
       // e.g. 'v<sub>3</sub>'
       symbolProperty: new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),

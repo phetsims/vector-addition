@@ -23,6 +23,8 @@ import ResultantVector, { ResultantVectorOptions } from './ResultantVector.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -34,12 +36,13 @@ export default class SumVector extends ResultantVector {
                       vectorSet: VectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions: SumVectorOptions ) {
 
     const options = providedOptions;
 
     // Initialize an arbitrary vector model. Its components and magnitude to be set later.
-    super( tailPosition, Vector2.ZERO, vectorSet, graph, selectedVectorProperty, options );
+    super( tailPosition, Vector2.ZERO, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
     // Observe changes to the vector array.
     const vectorAddedListener = ( addedVector: Vector ) => {

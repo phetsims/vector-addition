@@ -18,6 +18,8 @@ import VectorSet from './VectorSet.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Graph from './Graph.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -34,6 +36,7 @@ export default class ResultantVector extends Vector {
                          vectorSet: VectorSet,
                          graph: Graph,
                          selectedVectorProperty: Property<Vector | null>,
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          providedOptions: ResultantVectorOptions ) {
 
     const options = optionize<ResultantVectorOptions, SelfOptions, VectorOptions>()( {
@@ -45,7 +48,7 @@ export default class ResultantVector extends Vector {
       isOnGraphPropertyInstrumented: false // Resultant vectors are always on the graph, so isOnGraphProperty never changes.
     }, providedOptions );
 
-    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
     // Resultant vector is defined if there is at least one vector on the graph.
     const isDefined = () => vectorSet.activeVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0;

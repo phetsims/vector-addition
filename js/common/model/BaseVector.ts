@@ -17,6 +17,8 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -30,6 +32,7 @@ export default class BaseVector extends Vector {
                          vectorSet: VectorSet,
                          graph: Graph,
                          selectedVectorProperty: Property<Vector | null>,
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          providedOptions: BaseVectorOptions ) {
 
     const options = optionize<BaseVectorOptions, SelfOptions, VectorOptions>()( {
@@ -41,7 +44,7 @@ export default class BaseVector extends Vector {
       isOnGraphPropertyInstrumented: false // BaseVectors are always on the graph
     }, providedOptions );
 
-    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, options );
+    super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
   }
 }
 

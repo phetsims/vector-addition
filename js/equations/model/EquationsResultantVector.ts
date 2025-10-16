@@ -19,6 +19,7 @@ import ResultantVector, { ResultantVectorOptions } from '../../common/model/Resu
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -32,12 +33,13 @@ export default class EquationsResultantVector extends ResultantVector {
                       vectorSet: VectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       equationTypeProperty: TReadOnlyProperty<EquationType>,
                       providedOptions: EquationsResultantVectorOptions ) {
 
     const options = providedOptions;
 
-    super( tailPosition, Vector2.ZERO, vectorSet, graph, selectedVectorProperty, options );
+    super( tailPosition, Vector2.ZERO, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
     this.equationTypeProperty = equationTypeProperty;
 

@@ -40,6 +40,7 @@ import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/Refer
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 import Graph from './Graph.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 
 // Minimum time to animate a vector to a point, in seconds.
 const MIN_ANIMATION_TIME = 0.9;
@@ -116,6 +117,7 @@ export default class Vector extends RootVector {
                       vectorSet: VectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions: VectorOptions ) {
 
     const options = optionize<VectorOptions, SelfOptions, RootVectorOptions>()( {
@@ -149,8 +151,8 @@ export default class Vector extends RootVector {
     this.inProgressAnimation = null;
     this.animateBackProperty = new BooleanProperty( false );
 
-    this.xComponentVector = new ComponentVector( this, vectorSet.componentVectorStyleProperty, 'xComponent' );
-    this.yComponentVector = new ComponentVector( this, vectorSet.componentVectorStyleProperty, 'yComponent' );
+    this.xComponentVector = new ComponentVector( this, componentVectorStyleProperty, 'xComponent' );
+    this.yComponentVector = new ComponentVector( this, componentVectorStyleProperty, 'yComponent' );
 
     this.symbolProperty = options.symbolProperty;
     this.accessibleSymbolProperty = options.accessibleSymbolProperty || RichText.getAccessibleStringProperty( options.symbolProperty );

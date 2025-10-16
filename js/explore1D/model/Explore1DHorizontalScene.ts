@@ -42,7 +42,7 @@ export default class Explore1DHorizontalScene extends ExploreScene {
 /**
  * Creates vectors a, b, c.
  */
-function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, parentTandem: Tandem ): Vector[] {
+function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, parentTandem: Tandem ): Vector[] {
 
   const tailPosition = Vector2.ZERO;
   const xyComponents = new Vector2( 5, 0 ); // horizontal vector
@@ -50,7 +50,7 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
   return [
 
     // a
-    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, {
+    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.aStringProperty,
       coordinateSnapMode: scene.coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
@@ -59,7 +59,7 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
     } ),
 
     // b
-    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, {
+    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.bStringProperty,
       coordinateSnapMode: scene.coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
@@ -68,7 +68,7 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, par
     } ),
 
     // c
-    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, {
+    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.cStringProperty,
       coordinateSnapMode: scene.coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
