@@ -402,10 +402,10 @@
     },
     "vectorNode": {
       "accessibleObjectResponseTail": {
-        "value": "{{tailX}} {{tailY}}"
+        "value": "tail at {{tailX}} {{tailY}}"
       },
       "accessibleObjectResponseTip": {
-        "value": "{{tipX}} {{tipY}}"
+        "value": "tip at {{tipX}} {{tipY}}"
       }
     },
     "equationsVectorNode": {
@@ -416,7 +416,7 @@
         "value": "Move to change position of vector. Value is tail to tip coordinates."
       },
       "accessibleObjectResponse": {
-        "value": "{{tailX}} {{tailY}} to {{tipX}} {{tipY}}"
+        "value": "tail at {{tailX}} {{tailY}}, tip at {{tipX}} {{tipY}}"
       }
     },
     "baseVectorNode": {
