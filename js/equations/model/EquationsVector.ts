@@ -67,25 +67,20 @@ export default class EquationsVector extends Vector {
 
     // Instantiate a base vector.
     const baseVectorXYComponents = this.xyComponents.dividedScalar( this.coefficientProperty.value );
+    const baseVectorOptions = {
+      symbolProperty: options.symbolProperty,
+      coordinateSnapMode: options.coordinateSnapMode,
+      vectorColorPalette: vectorSet.vectorColorPalette,
+      tandemNameSymbol: options.tandemNameSymbol,
+      tandem: options.tandem.createTandem( `${this.tandemNameSymbol}BaseVector` )
+    };
     if ( options.coordinateSnapMode === 'cartesian' ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition, baseVectorXYComponents,
-        vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-          symbolProperty: options.symbolProperty,
-          coordinateSnapMode: options.coordinateSnapMode,
-          vectorColorPalette: vectorSet.vectorColorPalette,
-          tandemNameSymbol: options.tandemNameSymbol,
-          tandem: options.tandem.createTandem( `${this.tandemNameSymbol}BaseVector` )
-        } );
+        vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, baseVectorOptions );
     }
     else {
       this.baseVector = new PolarBaseVector( baseVectorTailPosition, baseVectorXYComponents,
-        vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-          symbolProperty: options.symbolProperty,
-          coordinateSnapMode: options.coordinateSnapMode,
-          vectorColorPalette: vectorSet.vectorColorPalette,
-          tandemNameSymbol: options.tandemNameSymbol,
-          tandem: options.tandem.createTandem( `${this.tandemNameSymbol}BaseVector` )
-        } );
+        vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, baseVectorOptions );
     }
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
