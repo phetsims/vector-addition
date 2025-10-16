@@ -23,6 +23,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -65,7 +66,8 @@ export default class LabVectorSet extends VectorSet {
     this.tandemNameSymbol = tandemNameSymbol;
 
     // Create vector instances.
-    this.allVectors = createAllVectors( this, graph, selectedVectorProperty, options.coordinateSnapMode, componentVectorStyleProperty, initialXYComponents );
+    this.allVectors = createAllVectors( this, graph, selectedVectorProperty, options.coordinateSnapMode,
+      componentVectorStyleProperty, initialXYComponents, options.tandem.createTandem( 'allVectors' ) );
   }
 
   public override reset(): void {
@@ -96,7 +98,8 @@ function createAllVectors( vectorSet: LabVectorSet,
                            selectedVectorProperty: Property<Vector | null>,
                            coordinateSnapMode: CoordinateSnapMode,
                            componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                           xyComponents: Vector2 ): Vector[] {
+                           xyComponents: Vector2,
+                           parentTandem: Tandem ): Vector[] {
 
   const tailPosition = new Vector2( 0, 0 );
 
@@ -118,7 +121,7 @@ function createAllVectors( vectorSet: LabVectorSet,
       vectorColorPalette: vectorSet.vectorColorPalette,
 
       // e.g. 'v3Vector'
-      tandem: vectorSet.tandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),
+      tandem: parentTandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),
 
       // e.g. 'v3'
       tandemNameSymbol: `${vectorSet.tandemNameSymbol}${i}`
