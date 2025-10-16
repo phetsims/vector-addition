@@ -66,7 +66,7 @@ export default class EquationsSceneNode extends VectorAdditionSceneNode {
 
     // Add the 'Base Vectors' accordion box
     const baseVectorsAccordionBox = new BaseVectorsAccordionBox(
-      scene.vectorSet.baseVectors,
+      scene.vectorSet.getBaseVectors(),
       scene.coordinateSnapMode,
       scene.vectorSet.vectorColorPalette,
       viewProperties.baseVectorsVisibleProperty, {

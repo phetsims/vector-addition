@@ -46,8 +46,6 @@ export default class EquationsVectorSet extends VectorSet {
   // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
   public readonly allVectors: EquationsVector[];
 
-  public readonly baseVectors: BaseVector[];
-
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
                       equationTypeProperty: TReadOnlyProperty<EquationType>,
@@ -112,8 +110,6 @@ export default class EquationsVectorSet extends VectorSet {
       this.equationSymbolProperties.push( vectorDescription.symbolProperty );
     }
 
-    this.baseVectors = this.allVectors.map( vector => vector.baseVector );
-
     // The resultant vector symbol ('c' or 'f') appears in the equations, so add it.
     this.equationSymbolProperties.push( this.resultantVector.symbolProperty );
 
@@ -130,6 +126,13 @@ export default class EquationsVectorSet extends VectorSet {
   public override reset(): void {
     this.allVectors.forEach( vector => vector.reset() );
     // Do not call super.reset -- see note above!
+  }
+
+  /**
+   * Gets all base vectors.
+   */
+  public getBaseVectors(): BaseVector[] {
+    return this.allVectors.map( vector => vector.baseVector );
   }
 }
 
