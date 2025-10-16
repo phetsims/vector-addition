@@ -16,15 +16,15 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorSet from './VectorSet.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Graph from './Graph.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
 export type ResultantVectorOptions = SelfOptions &
-  PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode' | 'vectorColorPalette'>;
+  StrictOmit<VectorOptions, 'isRemovableFromGraph' | 'isTipDraggable' | 'isOnGraph' | 'isOnGraphPropertyInstrumented'>;
 
 export default class ResultantVector extends Vector {
 

@@ -20,11 +20,11 @@ import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector, { VectorOptions } from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet from './EquationsVectorSet.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // initial coefficient and range
 const COEFFICIENT_RANGE = new RangeWithValue( -5, 5, 1 );
@@ -32,7 +32,7 @@ const COEFFICIENT_RANGE = new RangeWithValue( -5, 5, 1 );
 type SelfOptions = EmptySelfOptions;
 
 type EquationsVectorOptions = SelfOptions &
-  PickRequired<VectorOptions, 'symbolProperty' | 'tandem' | 'tandemNameSymbol' | 'coordinateSnapMode' | 'vectorColorPalette'>;
+  StrictOmit<VectorOptions, 'isRemovableFromGraph' | 'isTipDraggable' | 'isOnGraph' | 'isOnGraphPropertyInstrumented'>;
 
 export default class EquationsVector extends Vector {
 
