@@ -16,14 +16,15 @@ import vectorAddition from '../../vectorAddition.js';
 import { EquationType } from './EquationType.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import ResultantVector, { ResultantVectorOptions } from '../../common/model/ResultantVector.js';
-import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationsResultantVectorOptions = SelfOptions & ResultantVectorOptions;
+type EquationsResultantVectorOptions = SelfOptions & StrictOmit<ResultantVectorOptions, 'isDefinedPropertyInstrumented'>;
 
 export default class EquationsResultantVector extends ResultantVector {
 
@@ -37,7 +38,11 @@ export default class EquationsResultantVector extends ResultantVector {
                       equationTypeProperty: TReadOnlyProperty<EquationType>,
                       providedOptions: EquationsResultantVectorOptions ) {
 
-    const options = providedOptions;
+    const options = optionize<EquationsResultantVectorOptions, SelfOptions, ResultantVectorOptions>()( {
+
+      // ResultantVectorOptions
+      isDefinedPropertyInstrumented: false // because there are always vectors on the graph in the Equations screen
+    }, providedOptions );
 
     super( tailPosition, Vector2.ZERO, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 

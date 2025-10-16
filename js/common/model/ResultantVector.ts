@@ -12,7 +12,7 @@
 import Vector, { VectorOptions } from './Vector.js';
 import vectorAddition from '../../vectorAddition.js';
 import Property from '../../../../axon/js/Property.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorSet from './VectorSet.js';
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
@@ -20,8 +20,11 @@ import Graph from './Graph.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  isDefinedPropertyInstrumented?: boolean; // whether to instrument isDefinedProperty
+};
 
 export type ResultantVectorOptions = SelfOptions &
   StrictOmit<VectorOptions, 'isRemovableFromGraph' | 'isTipDraggable' | 'isOnGraph' | 'isOnGraphPropertyInstrumented'>;
@@ -41,6 +44,9 @@ export default class ResultantVector extends Vector {
 
     const options = optionize<ResultantVectorOptions, SelfOptions, VectorOptions>()( {
 
+      // SelfOptions
+      isDefinedPropertyInstrumented: true,
+
       // VectorOptions
       isRemovableFromGraph: false, // Resultant vectors are not removable from the graph.
       isTipDraggable: false, // Resultant vectors are not draggable by the tip.
@@ -54,7 +60,7 @@ export default class ResultantVector extends Vector {
     const isDefined = () => vectorSet.activeVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0;
 
     this.isDefinedProperty = new BooleanProperty( isDefined(), {
-      tandem: options.tandem.createTandem( 'isDefinedProperty' ),
+      tandem: options.isDefinedPropertyInstrumented ? options.tandem.createTandem( 'isDefinedProperty' ) : Tandem.OPT_OUT,
       phetioReadOnly: true
     } );
 
