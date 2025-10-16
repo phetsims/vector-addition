@@ -27,8 +27,8 @@ const POLAR_VECTOR_DESCRIPTIONS: EquationsVectorDescription[] = [
     symbolProperty: VectorAdditionSymbols.dStringProperty,
     tandemNameSymbol: 'd',
     xyComponents: Vector2.createPolar( 5, 0 ),
-    vectorTail: new Vector2( 5, 5 ),
-    baseVectorTail: new Vector2( 35, 15 )
+    vectorTailPosition: new Vector2( 5, 5 ),
+    baseVectorTailPosition: new Vector2( 35, 15 )
   },
 
   // e
@@ -36,8 +36,8 @@ const POLAR_VECTOR_DESCRIPTIONS: EquationsVectorDescription[] = [
     symbolProperty: VectorAdditionSymbols.eStringProperty,
     tandemNameSymbol: 'e',
     xyComponents: Vector2.createPolar( 8, toRadians( 45 ) ),
-    vectorTail: new Vector2( 15, 5 ),
-    baseVectorTail: new Vector2( 35, 5 )
+    vectorTailPosition: new Vector2( 15, 5 ),
+    baseVectorTailPosition: new Vector2( 35, 5 )
   }
 ];
 

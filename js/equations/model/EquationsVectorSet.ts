@@ -29,8 +29,8 @@ export type EquationsVectorDescription = {
   symbolProperty: TReadOnlyProperty<string>; // symbol for the vector used in the user interface
   tandemNameSymbol: string; // symbol for the vector used in tandem names
   xyComponents: Vector2;
-  vectorTail: Vector2;
-  baseVectorTail: Vector2;
+  vectorTailPosition: Vector2;
+  baseVectorTailPosition: Vector2;
 };
 
 type SelfOptions = EmptySelfOptions;
@@ -92,9 +92,9 @@ export default class EquationsVectorSet extends VectorSet {
       const vectorDescription = vectorDescriptions[ i ];
 
       const vector = new EquationsVector(
-        vectorDescription.vectorTail,
+        vectorDescription.vectorTailPosition,
         vectorDescription.xyComponents,
-        vectorDescription.baseVectorTail,
+        vectorDescription.baseVectorTailPosition,
         this,
         graph,
         selectedVectorProperty,
