@@ -206,7 +206,7 @@
         "value": "Components Display Style"
       },
       "accessibleHelpText": {
-        "value": "Choose whether and where to display vector x,y components."
+        "value": "Choose whether and where to display vector x y components."
       }
     },
     "invisibleRadioButton": {
