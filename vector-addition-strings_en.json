@@ -343,7 +343,7 @@
         "value": "Base vector {{symbol}}, x component"
       },
       "accessibleHelpText": {
-        "value": "Choose the horizontal component of base vector {{symbol}}."
+        "value": "Choose horizontal component of base vector {{symbol}}."
       }
     },
     "baseVectorYComponentPicker": {
@@ -351,7 +351,7 @@
         "value": "Base vector {{symbol}}, y component"
       },
       "accessibleHelpText": {
-        "value": "Choose the vertical component of base vector {{symbol}}."
+        "value": "Choose vertical component of base vector {{symbol}}."
       }
     },
     "baseVectorMagnitudePicker": {
@@ -359,15 +359,15 @@
         "value": "Base vector {{symbol}}, magnitude"
       },
       "accessibleHelpText": {
-        "value": "Choose the magnitude of base vector {{symbol}}."
+        "value": "Choose magnitude of base vector {{symbol}}."
       }
     },
     "baseVectorAnglePicker": {
       "accessibleName": {
-        "value": "Base vector {{symbol}}, angle"
+        "value": "Base vector {{symbol}}, direction"
       },
       "accessibleHelpText": {
-        "value": "Choose the angle of base vector {{symbol}}."
+        "value": "Choose direction of base vector {{symbol}}, in degrees from positive x axis."
       }
     },
     "coefficientPicker": {
