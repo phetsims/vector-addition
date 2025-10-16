@@ -25,12 +25,14 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 // initial coefficient and range
 const COEFFICIENT_RANGE = new Range( -5, 5 );
 
 type SelfOptions = {
   coefficient?: number; // initial value for coefficientProperty
+  baseVectorTandem: Tandem;
 };
 
 type EquationsVectorOptions = SelfOptions &
@@ -78,7 +80,7 @@ export default class EquationsVector extends Vector {
       coordinateSnapMode: options.coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
       tandemNameSymbol: options.tandemNameSymbol,
-      tandem: options.tandem.createTandem( `${this.tandemNameSymbol}BaseVector` )
+      tandem: options.baseVectorTandem
     };
     if ( options.coordinateSnapMode === 'cartesian' ) {
       this.baseVector = new CartesianBaseVector( baseVectorTailPosition, baseVectorXYComponents,

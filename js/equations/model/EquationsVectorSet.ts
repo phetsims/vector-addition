@@ -103,7 +103,8 @@ export default class EquationsVectorSet extends VectorSet {
           coordinateSnapMode: providedOptions.coordinateSnapMode,
           vectorColorPalette: providedOptions.vectorColorPalette,
           tandemNameSymbol: vectorDescription.tandemNameSymbol,
-          tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` )
+          tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ),
+          baseVectorTandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}BaseVector` )
         } );
 
       this.allVectors.push( vector );
