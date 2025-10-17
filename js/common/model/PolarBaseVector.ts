@@ -26,6 +26,7 @@ import Property from '../../../../axon/js/Property.js';
 import Vector from './Vector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -73,7 +74,9 @@ export default class PolarBaseVector extends BaseVector {
     Multilink.multilink(
       [ this.magnitudeProperty, this.angleProperty ],
       ( magnitude, angle ) => {
-        this.xyComponentsProperty.value = Vector2.createPolar( magnitude, toRadians( angle ) );
+        if ( !isSettingPhetioStateProperty.value ) {
+          this.xyComponentsProperty.value = Vector2.createPolar( magnitude, toRadians( angle ) );
+        }
       } );
   }
 

@@ -73,6 +73,7 @@ export default class ComponentVector extends RootVector {
     // Must be disposed.
     const updateComponentMultilink = Multilink.multilink(
       [ componentVectorStyleProperty, parentVector.tailPositionProperty, parentVector.tipPositionProperty ],
+      //TODO https://github.com/phetsims/vector-addition/issues/258 isSettingPhetioStateProperty guard?
       () => this.updateComponent()
     );
 
@@ -129,7 +130,6 @@ export default class ComponentVector extends RootVector {
         this.setTailXY( parentTail.x, this.projectionYOffset );
         this.setTipXY( parentTip.x, this.projectionYOffset );
       }
-
     }
     else if ( this.componentType === 'yComponent' ) {
 

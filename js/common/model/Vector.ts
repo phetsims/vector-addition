@@ -21,7 +21,6 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -158,12 +157,11 @@ export default class Vector extends RootVector {
     this.accessibleSymbolProperty = options.accessibleSymbolProperty || RichText.getAccessibleStringProperty( options.symbolProperty );
     this.tandemNameSymbol = options.tandemNameSymbol;
 
-    // When the scene's origin changes, update the tail position. unlink is required on dispose.
-    const updateTailPosition = ( newModelViewTransform: ModelViewTransform2, oldModelViewTransform: ModelViewTransform2 ) => {
+    // When the scene's origin changes, update the tail position.
+    this.graph.modelViewTransformProperty.lazyLink( ( newModelViewTransform, oldModelViewTransform ) => {
       const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
       this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailPositionView ) );
-    };
-    this.graph.modelViewTransformProperty.lazyLink( updateTailPosition );
+    } );
   }
 
   /**

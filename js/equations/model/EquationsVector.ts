@@ -26,6 +26,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 // initial coefficient and range
 const COEFFICIENT_RANGE = new Range( -5, 5 );
@@ -94,7 +95,9 @@ export default class EquationsVector extends Vector {
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
     Multilink.multilink( [ this.baseVector.xyComponentsProperty, this.coefficientProperty ],
       ( xyComponents, coefficient ) => {
-        this.xyComponentsProperty.value = xyComponents.timesScalar( coefficient );
+        if ( !isSettingPhetioStateProperty.value ) {
+          this.xyComponentsProperty.value = xyComponents.timesScalar( coefficient );
+        }
       } );
   }
 

@@ -25,6 +25,7 @@ import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -50,7 +51,9 @@ export default class SumVector extends ResultantVector {
       // When the vector changes, update the sum calculation. Must be disposed.
       const addedVectorMultilink = Multilink.multilink(
         [ addedVector.xyComponentsProperty, addedVector.isOnGraphProperty ], () => {
-          this.updateSum( vectorSet.activeVectors );
+          if ( !isSettingPhetioStateProperty.value ) {
+            this.updateSum( vectorSet.activeVectors );
+          }
         } );
 
       // Clean up when the vector is removed.
