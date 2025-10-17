@@ -12,15 +12,42 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import Vector from '../../common/model/Vector.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import ExploreVectorSet from '../../common/model/ExploreVectorSet.js';
-import Graph from '../../common/model/Graph.js';
-import Property from '../../../../axon/js/Property.js';
-import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
+import { ExploreVectorDescription } from '../../common/model/ExploreVectorSet.js';
+
+// Properties common to all vectors in this scene.
+const TAIL_POSITION = Vector2.ZERO;
+
+// Describes the non-resultant vectors in the vector set for the Cartesian scene.
+const CARTESIAN_VECTOR_DESCRIPTIONS: ExploreVectorDescription[] = [
+
+  // a
+  {
+    symbolProperty: VectorAdditionSymbols.aStringProperty,
+    tandemNameSymbol: 'a',
+    tailPosition: TAIL_POSITION,
+    xyComponents: new Vector2( 6, 8 )
+  },
+
+  // b
+  {
+    symbolProperty: VectorAdditionSymbols.bStringProperty,
+    tandemNameSymbol: 'b',
+    tailPosition: TAIL_POSITION,
+    xyComponents: new Vector2( 8, 6 )
+  },
+
+  // c
+  {
+    symbolProperty: VectorAdditionSymbols.cStringProperty,
+    tandemNameSymbol: 'c',
+    tailPosition: TAIL_POSITION,
+    xyComponents: new Vector2( 0, -10 )
+  }
+];
 
 export default class Explore2DCartesianScene extends ExploreScene {
 
@@ -32,54 +59,11 @@ export default class Explore2DCartesianScene extends ExploreScene {
       'twoDimensional',
       'cartesian',
       VectorAdditionColors.EXPLORE_2D_CARTESIAN_COLOR_PALETTE,
-      createAllVectors,
+      CARTESIAN_VECTOR_DESCRIPTIONS,
       componentVectorStyleProperty,
       tandem
     );
   }
-}
-
-/**
- * Creates vectors a, b, c.
- */
-function createAllVectors( vectorSet: ExploreVectorSet,
-                           graph: Graph,
-                           selectedVectorProperty: Property<Vector | null>,
-                           componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                           coordinateSnapMode: CoordinateSnapMode,
-                           parentTandem: Tandem ): Vector[] {
-
-  const tailPosition = Vector2.ZERO;
-
-  return [
-
-    // a
-    new Vector( tailPosition, new Vector2( 6, 8 ), vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-      symbolProperty: VectorAdditionSymbols.aStringProperty,
-      coordinateSnapMode: coordinateSnapMode,
-      vectorColorPalette: vectorSet.vectorColorPalette,
-      tandem: parentTandem.createTandem( 'aVector' ),
-      tandemNameSymbol: 'a'
-    } ),
-
-    // b
-    new Vector( tailPosition, new Vector2( 8, 6 ), vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-      symbolProperty: VectorAdditionSymbols.bStringProperty,
-      coordinateSnapMode: coordinateSnapMode,
-      vectorColorPalette: vectorSet.vectorColorPalette,
-      tandem: parentTandem.createTandem( 'bVector' ),
-      tandemNameSymbol: 'b'
-    } ),
-
-    // c
-    new Vector( tailPosition, new Vector2( 0, -10 ), vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-      symbolProperty: VectorAdditionSymbols.cStringProperty,
-      coordinateSnapMode: coordinateSnapMode,
-      vectorColorPalette: vectorSet.vectorColorPalette,
-      tandem: parentTandem.createTandem( 'cVector' ),
-      tandemNameSymbol: 'c'
-    } )
-  ];
 }
 
 vectorAddition.register( 'Explore2DCartesianScene', Explore2DCartesianScene );

@@ -12,15 +12,43 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import Vector from '../../common/model/Vector.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
-import Graph from '../../common/model/Graph.js';
-import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
-import Property from '../../../../axon/js/Property.js';
-import ExploreVectorSet from '../../common/model/ExploreVectorSet.js';
+import { ExploreVectorDescription } from '../../common/model/ExploreVectorSet.js';
+
+// Properties common to all vectors in this scene.
+const TAIL_POSITION = Vector2.ZERO;
+const XY_COMPONENTS = new Vector2( 0, 5 ); // vertical vector
+
+// Describes the non-resultant vectors in the vector set for the horizontal scene.
+const VERTICAL_VECTOR_DESCRIPTIONS: ExploreVectorDescription[] = [
+
+  // d
+  {
+    symbolProperty: VectorAdditionSymbols.dStringProperty,
+    tandemNameSymbol: 'd',
+    tailPosition: TAIL_POSITION,
+    xyComponents: XY_COMPONENTS
+  },
+
+  // e
+  {
+    symbolProperty: VectorAdditionSymbols.eStringProperty,
+    tandemNameSymbol: 'e',
+    tailPosition: TAIL_POSITION,
+    xyComponents: XY_COMPONENTS
+  },
+
+  // f
+  {
+    symbolProperty: VectorAdditionSymbols.fStringProperty,
+    tandemNameSymbol: 'f',
+    tailPosition: TAIL_POSITION,
+    xyComponents: XY_COMPONENTS
+  }
+];
 
 export default class Explore1DVerticalScene extends ExploreScene {
 
@@ -34,55 +62,11 @@ export default class Explore1DVerticalScene extends ExploreScene {
       'vertical',
       'cartesian',
       VectorAdditionColors.EXPLORE_1D_VERTICAL_COLOR_PALETTE,
-      createAllVectors,
+      VERTICAL_VECTOR_DESCRIPTIONS,
       componentVectorStyleProperty,
       tandem
     );
   }
-}
-
-/**
- * Creates vectors d, e, f.
- */
-function createAllVectors( vectorSet: ExploreVectorSet,
-                           graph: Graph,
-                           selectedVectorProperty: Property<Vector | null>,
-                           componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                           coordinateSnapMode: CoordinateSnapMode,
-                           parentTandem: Tandem ): Vector[] {
-
-  const tailPosition = Vector2.ZERO;
-  const xyComponents = new Vector2( 0, 5 ); // vertical vector
-
-  return [
-
-    // d
-    new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-      symbolProperty: VectorAdditionSymbols.dStringProperty,
-      coordinateSnapMode: coordinateSnapMode,
-      vectorColorPalette: vectorSet.vectorColorPalette,
-      tandem: parentTandem.createTandem( 'dVector' ),
-      tandemNameSymbol: 'd'
-    } ),
-
-    // e
-    new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-      symbolProperty: VectorAdditionSymbols.eStringProperty,
-      coordinateSnapMode: coordinateSnapMode,
-      vectorColorPalette: vectorSet.vectorColorPalette,
-      tandem: parentTandem.createTandem( 'eVector' ),
-      tandemNameSymbol: 'e'
-    } ),
-
-    // f
-    new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-      symbolProperty: VectorAdditionSymbols.fStringProperty,
-      coordinateSnapMode: coordinateSnapMode,
-      vectorColorPalette: vectorSet.vectorColorPalette,
-      tandem: parentTandem.createTandem( 'fVector' ),
-      tandemNameSymbol: 'f'
-    } )
-  ];
 }
 
 vectorAddition.register( 'Explore1DVerticalScene', Explore1DVerticalScene );

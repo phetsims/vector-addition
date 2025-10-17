@@ -16,8 +16,16 @@ import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { CreateAllExploreVectorsFunction } from './ExploreScene.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+
+// Describes a non-resultant vector for the Explore 1D and Explore 2D screens.
+export type ExploreVectorDescription = {
+  symbolProperty: TReadOnlyProperty<string>; // symbol for the vector used in the user interface
+  tandemNameSymbol: string; // symbol for the vector used in tandem names
+  tailPosition: Vector2;
+  xyComponents: Vector2;
+};
 
 type SelfOptions = EmptySelfOptions;
 
@@ -32,19 +40,32 @@ export default class ExploreVectorSet extends VectorSet {
   // Number of vectors that are on the graph, and therefore contributing to the sum.
   public numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
-  public constructor(
-    graph: Graph,
-    selectedVectorProperty: Property<Vector | null>,
-    componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-    coordinateSnapMode: CoordinateSnapMode,
-    createAllVectors: CreateAllExploreVectorsFunction,
-    providedOptions: ExploreVectorSetOptions
-  ) {
+  public constructor( graph: Graph,
+                      selectedVectorProperty: Property<Vector | null>,
+                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                      coordinateSnapMode: CoordinateSnapMode,
+                      vectorDescriptions: ExploreVectorDescription[],
+                      providedOptions: ExploreVectorSetOptions ) {
+
     const options = providedOptions;
 
     super( graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
-    this.allVectors = createAllVectors( this, graph, selectedVectorProperty, componentVectorStyleProperty, coordinateSnapMode, options.tandem );
+    this.allVectors = [];
+
+    // Create the individual vectors.
+    for ( let i = 0; i < vectorDescriptions.length; i++ ) {
+      const vectorDescription = vectorDescriptions[ i ];
+      const vector = new Vector( vectorDescription.tailPosition, vectorDescription.xyComponents, this, graph,
+        selectedVectorProperty, componentVectorStyleProperty, {
+          symbolProperty: vectorDescription.symbolProperty,
+          coordinateSnapMode: coordinateSnapMode,
+          vectorColorPalette: this.vectorColorPalette,
+          tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ),
+          tandemNameSymbol: vectorDescription.tandemNameSymbol
+        } );
+      this.allVectors.push( vector );
+    }
 
     this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
       () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );

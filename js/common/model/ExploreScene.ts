@@ -16,7 +16,7 @@ import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Vector from './Vector.js';
-import ExploreVectorSet from './ExploreVectorSet.js';
+import ExploreVectorSet, { ExploreVectorDescription } from './ExploreVectorSet.js';
 import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 
@@ -38,7 +38,7 @@ export default class ExploreScene extends VectorAdditionScene {
                          graphOrientation: GraphOrientation,
                          coordinateSnapMode: CoordinateSnapMode,
                          vectorColorPalette: VectorColorPalette,
-                         createAllVectors: CreateAllExploreVectorsFunction,
+                         vectorDescriptions: ExploreVectorDescription[],
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          tandem: Tandem ) {
 
@@ -50,11 +50,12 @@ export default class ExploreScene extends VectorAdditionScene {
       tandem: tandem
     } );
 
-    this.vectorSet = new ExploreVectorSet( this.graph, this.selectedVectorProperty, componentVectorStyleProperty, coordinateSnapMode, createAllVectors, {
-      coordinateSnapMode: coordinateSnapMode,
-      vectorColorPalette: vectorColorPalette,
-      tandem: tandem.createTandem( 'vectorSet' )
-    } );
+    this.vectorSet = new ExploreVectorSet( this.graph, this.selectedVectorProperty, componentVectorStyleProperty,
+      coordinateSnapMode, vectorDescriptions, {
+        coordinateSnapMode: coordinateSnapMode,
+        vectorColorPalette: vectorColorPalette,
+        tandem: tandem.createTandem( 'vectorSet' )
+      } );
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
