@@ -50,12 +50,11 @@ export default class ExploreScene extends VectorAdditionScene {
       tandem: tandem
     } );
 
-    this.vectorSet = new ExploreVectorSet( this.graph, this.selectedVectorProperty, componentVectorStyleProperty,
-      coordinateSnapMode, vectorDescriptions, {
-        coordinateSnapMode: coordinateSnapMode,
-        vectorColorPalette: vectorColorPalette,
-        tandem: tandem.createTandem( 'vectorSet' )
-      } );
+    this.vectorSet = new ExploreVectorSet( this.graph, this.selectedVectorProperty, componentVectorStyleProperty, vectorDescriptions, {
+      coordinateSnapMode: coordinateSnapMode,
+      vectorColorPalette: vectorColorPalette,
+      tandem: tandem.createTandem( 'vectorSet' )
+    } );
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );

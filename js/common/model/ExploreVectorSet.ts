@@ -16,7 +16,6 @@ import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
 // Describes a non-resultant vector for the Explore 1D and Explore 2D screens.
@@ -43,7 +42,6 @@ export default class ExploreVectorSet extends VectorSet {
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      coordinateSnapMode: CoordinateSnapMode,
                       vectorDescriptions: ExploreVectorDescription[],
                       providedOptions: ExploreVectorSetOptions ) {
 
@@ -59,7 +57,7 @@ export default class ExploreVectorSet extends VectorSet {
       const vector = new Vector( vectorDescription.tailPosition, vectorDescription.xyComponents, this, graph,
         selectedVectorProperty, componentVectorStyleProperty, {
           symbolProperty: vectorDescription.symbolProperty,
-          coordinateSnapMode: coordinateSnapMode,
+          coordinateSnapMode: options.coordinateSnapMode,
           vectorColorPalette: this.vectorColorPalette,
           tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ),
           tandemNameSymbol: vectorDescription.tandemNameSymbol
