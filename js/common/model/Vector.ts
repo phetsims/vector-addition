@@ -40,6 +40,7 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 import Graph from './Graph.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 // Minimum time to animate a vector to a point, in seconds.
 const MIN_ANIMATION_TIME = 0.9;
@@ -159,8 +160,10 @@ export default class Vector extends RootVector {
 
     // When the scene's origin changes, update the tail position.
     this.graph.modelViewTransformProperty.lazyLink( ( newModelViewTransform, oldModelViewTransform ) => {
-      const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
-      this.tailPositionProperty.value = newModelViewTransform.viewToModelPosition( tailPositionView );
+      if ( !isSettingPhetioStateProperty.value ) {
+        const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
+        this.tailPositionProperty.value = newModelViewTransform.viewToModelPosition( tailPositionView );
+      }
     } );
   }
 

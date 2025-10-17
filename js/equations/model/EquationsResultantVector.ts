@@ -21,6 +21,7 @@ import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -49,7 +50,11 @@ export default class EquationsResultantVector extends ResultantVector {
     this.equationTypeProperty = equationTypeProperty;
 
     // When the equation type changes, update the result.
-    equationTypeProperty.lazyLink( () => this.update( vectorSet.activeVectors ) );
+    equationTypeProperty.lazyLink( () => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.update( vectorSet.activeVectors );
+      }
+    } );
 
     // When any vector's xy-components change, update the result.
     const vectorAddedListener = ( vector: Vector ) => vector.xyComponentsProperty.link( () => this.update( vectorSet.activeVectors ) );

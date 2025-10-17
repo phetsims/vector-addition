@@ -50,7 +50,7 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
     this.modelViewTransformProperty = modelViewTransformProperty;
     this.vectorNode = vectorNode;
 
-    // Move the tip to match the vector model. unlink is required on dispose.
+    // Move the tip to match the vector model.
     tipPositionViewProperty.lazyLink( tipPositionView => this.updateTipPosition( tipPositionView ) );
   }
 

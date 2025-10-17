@@ -22,6 +22,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 // the closest the user can drag the origin to the edge of the graph, in model units
 const ORIGIN_DRAG_MARGIN = 5;
@@ -98,7 +99,11 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     } ) );
 
     // Update the origin position.
-    positionProperty.lazyLink( position => graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( position ) ) );
+    positionProperty.lazyLink( position => {
+      if ( !isSettingPhetioStateProperty.value ) {
+        graph.moveOriginToPoint( graph.modelViewTransformProperty.value.viewToModelPosition( position ) );
+      }
+    } );
 
     // Observe when the model view transform changes to update the position of the circle.
     graph.modelViewTransformProperty.link( modelViewTransform => {
