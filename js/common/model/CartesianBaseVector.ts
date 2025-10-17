@@ -22,6 +22,7 @@ import Property from '../../../../axon/js/Property.js';
 import Vector from './Vector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -58,12 +59,18 @@ export default class CartesianBaseVector extends BaseVector {
       tandem: options.tandem.createTandem( 'yComponentProperty' )
     } );
 
-    // Observe when the component NumberProperties change and update the components to match.
+    // When x-component changes, update xy-components.
     this.xComponentProperty.link( xComponent => {
-      this.xyComponentsProperty.value = new Vector2( xComponent, this.yComponent );
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.xyComponentsProperty.value = new Vector2( xComponent, this.yComponent );
+      }
     } );
+
+    // When y-component changes, update xy-components.
     this.yComponentProperty.link( yComponent => {
-      this.xyComponentsProperty.value = new Vector2( this.xComponent, yComponent );
+      if ( !isSettingPhetioStateProperty.value ) {
+        this.xyComponentsProperty.value = new Vector2( this.xComponent, yComponent );
+      }
     } );
   }
 

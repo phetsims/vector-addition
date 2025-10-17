@@ -24,6 +24,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector from '../model/Vector.js';
 import Property from '../../../../axon/js/Property.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 export default class ResultantVectorNode extends VectorNode {
 
@@ -56,8 +57,10 @@ export default class ResultantVectorNode extends VectorNode {
     // Making a selected resultant vector invisible clears activeVectorProperty.
     // See https://github.com/phetsims/vector-addition/issues/112.
     resultantVectorVisibleProperty.link( resultantVectorVisible => {
-      if ( !resultantVectorVisible && selectedVectorProperty.value === resultantVector ) {
-        selectedVectorProperty.value = null;
+      if ( !isSettingPhetioStateProperty.value ) {
+        if ( !resultantVectorVisible && selectedVectorProperty.value === resultantVector ) {
+          selectedVectorProperty.value = null;
+        }
       }
     } );
 
