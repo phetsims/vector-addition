@@ -25,6 +25,7 @@ export default class ExploreScene extends VectorAdditionScene {
   public readonly vectorSet: VectorSet;
 
   // The complete set of vectors for this scene, allocated when the sim starts.
+  //TODO https://github.com/phetsims/vector-addition/issues/258 Move allVectors to ExploreVectorSet, like other screens.
   public readonly allVectors: Vector[];
 
   // Number of vectors that are on the graph, and therefore contributing to the sum.
