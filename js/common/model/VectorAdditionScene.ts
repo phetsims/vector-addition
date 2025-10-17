@@ -25,6 +25,7 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 
 type SelfOptions = {
   graphOptions: StrictOmit<GraphOptions, 'tandem'>;
@@ -71,8 +72,12 @@ export default class VectorAdditionScene extends PhetioObject {
       tandem: options.tandem.createTandem( 'graph' )
     }, options.graphOptions ) );
 
-    //TODO https://github.com/phetsims/vector-addition/issues/258 PhET-iO instrumentation
-    this.selectedVectorProperty = new Property<Vector | null>( null );
+    this.selectedVectorProperty = new Property<Vector | null>( null, {
+      phetioValueType: NullableIO( Vector.VectorIO ),
+      tandem: options.tandem.createTandem( 'selectedVectorProperty' ),
+      phetioDocumentation: 'The selected vector on the graph.',
+      phetioReadOnly: true
+    } );
   }
 
   public reset(): void {
