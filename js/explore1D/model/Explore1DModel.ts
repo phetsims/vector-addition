@@ -44,6 +44,7 @@ export default class Explore1DModel extends VectorAdditionModel {
 
     this.verticalScene = new Explore1DVerticalScene( this.componentVectorStyleProperty, graphBounds, scenesTandem.createTandem( 'verticalScene' ) );
 
+    //TODO https://github.com/phetsims/vector-addition/issues/339 sceneProperty is duplicated in every VectorAdditionModel subclass
     this.sceneProperty = new Property( this.horizontalScene, {
       validValues: [ this.horizontalScene, this.verticalScene ],
       tandem: tandem.createTandem( 'sceneProperty' ),
