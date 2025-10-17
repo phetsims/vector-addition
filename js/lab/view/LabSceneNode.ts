@@ -16,6 +16,7 @@ import LabScene from '../model/LabScene.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import LabViewProperties from './LabViewProperties.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 
 export default class LabSceneNode extends VectorAdditionSceneNode {
 
@@ -36,6 +37,14 @@ export default class LabSceneNode extends VectorAdditionSceneNode {
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
       tandem: tandem.createTandem( 'vectorToolbox' )
     } ) );
+
+    // After PhET-iO state has been restored, register all active vectors to build their view.
+    if ( Tandem.PHET_IO_ENABLED ) {
+      phetioStateSetEmitter.addListener( () => {
+        scene.vectorSets.forEach( vectorSet =>
+          vectorSet.activeVectors.forEach( activeVector => this.registerVector( activeVector, vectorSet ) ) );
+      } );
+    }
   }
 }
 

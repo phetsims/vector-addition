@@ -17,6 +17,7 @@ import Explore2DViewProperties from './Explore2DViewProperties.js';
 import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 
 export default class Explore2DSceneNode extends VectorAdditionSceneNode {
 
@@ -38,6 +39,13 @@ export default class Explore2DSceneNode extends VectorAdditionSceneNode {
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
       tandem: tandem.createTandem( 'vectorToolbox' )
     } ) );
+
+    // After PhET-iO state has been restored, register all active vectors to build their view.
+    if ( Tandem.PHET_IO_ENABLED ) {
+      phetioStateSetEmitter.addListener( () => {
+        scene.vectorSet.activeVectors.forEach( activeVector => this.registerVector( activeVector, scene.vectorSet ) );
+      } );
+    }
   }
 }
 

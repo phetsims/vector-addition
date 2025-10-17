@@ -1,25 +1,11 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * LabVectorToolboxSlot is a slot in the vector toolbox for the 'Explore 1D' and 'Explore 2D' screens.
- *
- * A slot creates a Vector when the icon is clicked.
- *
- * Slots can differ in:
- *  - Icon colors and sizes
- *  - Infinite slot versus only one vector per slot
- *  - Having symbols versus not having symbols
- *  - Icon components and initial xy-components (e.g. on Explore 1D the initial vectors are horizontal/vertical
- *    while on Explore 2D the vectors are 45 degrees)
- *
- * Implementation of creation of Vectors:
- *  1. Once the icon is clicked, a Vector is made.
- *  2. A call to the VectorAdditionSceneNode is made, passing the created Vector. The Scene Node then creates the subsequent views
- *     for the Vector (VectorNode and VectorComponentNode), layering the views correctly and forwarding the event.
- *  3. Once the Vector indicates the Vector was dropped outside the VectorAdditionScene, the slot will then animate the Vector and
- *     dispose the vector, signaling to the VectorAdditionSceneNode to dispose of the views.
+ * LabVectorToolboxSlot is a slot in the vector toolbox for the 'Lab' screen. In the Labs screen, each slot
+ * corresponds to a vector set, and multiple vectors for that vector set can be dragged to and from the slot.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -95,21 +81,14 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       alignBounds: new Bounds2( 0, 0, ICON_WIDTH, iconNode.height )
     } ) );
 
-    //----------------------------------------------------------------------------------------
-    // Create the label of the slot
-    //----------------------------------------------------------------------------------------
-
+    // Add the label to the slot, always visible.
     this.addChild( new ArrowOverSymbolNode( vectorSet.symbolProperty ) );
 
     //----------------------------------------------------------------------------------------
-    // Creation of Vectors via pointer (See 'Implementation' documentation above)
+    // Dragging a vector out of the slot.
     //----------------------------------------------------------------------------------------
 
     this.addInputListener( SoundDragListener.createForwardingListener( event => {
-
-      //----------------------------------------------------------------------------------------
-      // Step 1: When the icon is clicked, create a new Vector
-      //----------------------------------------------------------------------------------------
 
       // Find where the icon was clicked relative to the scene node, in view coordinates.
       const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
@@ -129,21 +108,23 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       // Add to activeVectors, so that it is included in the sum calculation.
       vectorSet.activeVectors.push( vector );
 
-      //----------------------------------------------------------------------------------------
-      // Step 2: A call to the Scene Node is made, passing the created Vector to create the subsequent views
-      //----------------------------------------------------------------------------------------
-
+      // Tell sceneNode to create the view for the vector.
       sceneNode.registerVector( vector, vectorSet, event );
+    } ) );
 
-      // Hide the icon when we've reached the numberOfVectors limit
+    //----------------------------------------------------------------------------------------
+    // Manage the things that happen when the vector is added to or removed from activeVectors.
+    //----------------------------------------------------------------------------------------
+
+    // Hide the icon and disable focus when all vectors have left the toolbox.
+    vectorSet.activeVectors.lengthProperty.link( () => {
       const slotIsEmpty = ( vectorSet.activeVectors.lengthProperty.value === vectorSet.allVectors.length );
       iconNode.visible = !slotIsEmpty;
       this.focusable = !slotIsEmpty;
+    } );
 
-      //----------------------------------------------------------------------------------------
-      // Step 3: Once the Vector indicates the Vector was dropped outside the VectorAdditionScene, animate and
-      // dispose the Vector, signaling to the VectorAdditionSceneNode to dispose of the views.
-      //----------------------------------------------------------------------------------------
+    // When a vector is added to the activeVectors, add the listener that handles animating it back to the toolbox.
+    vectorSet.activeVectors.addItemAddedListener( vector => {
 
       const animateVectorBackListener = ( animateBack: boolean ) => {
         if ( animateBack ) {
@@ -165,14 +146,12 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       // Clean up when the vector is removed.
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === vector ) {
-          iconNode.visible = true;
-          this.focusable = true;
           vector.animateBackProperty.unlink( animateVectorBackListener );
           vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };
       vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
-    } ) );
+    } );
   }
 }
 

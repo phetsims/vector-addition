@@ -1,11 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/vector-addition/issues/258 Lots of duplication with LabVectorToolboxSlot, but important differences!
 /**
  * ExploreVectorToolboxSlot is a slot in the vector toolbox for the 'Explore 1D' and 'Explore 2D' screens.
- * In this toolbox, there is 1 instance of each vector, and those vectors exist for the lifetime
- * of the sim. Dragging a vector out of the toolbox added it to the vector set and created the
- * view. Dragging a vector back to the toolbox removes it from the vector set and disposes the view.
+ * In these screens, a slot manages 1 vector instance that is draggable to and from the toolbox.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -87,10 +84,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       alignBounds: new Bounds2( 0, 0, ICON_MAGNITUDE, iconNode.height )
     } ) );
 
-    //----------------------------------------------------------------------------------------
-    // Create the label of the slot, which is always visible.
-    //----------------------------------------------------------------------------------------
-
+    // Add the label to the slot, always visible.
     this.addChild( new ArrowOverSymbolNode( vector.symbolProperty ) );
 
     //----------------------------------------------------------------------------------------
@@ -98,11 +92,6 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     //----------------------------------------------------------------------------------------
 
     this.addInputListener( SoundDragListener.createForwardingListener( event => {
-
-      //----------------------------------------------------------------------------------------
-      // Step 1: When the icon is clicked, move the vector to vectorSet, so that it participates
-      // in calculation of the sum.
-      //----------------------------------------------------------------------------------------
 
       // Find where the icon was clicked relative to the scene node, in view coordinates.
       const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
@@ -116,49 +105,55 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       // Add to activeVectors, so that it is included in the sum calculation.
       vectorSet.activeVectors.push( vector );
 
-      //----------------------------------------------------------------------------------------
-      // Step 2: Tell sceneNode to create the view for the vector.
-      //----------------------------------------------------------------------------------------
-
+      // Tell sceneNode to create the view for the vector.
       sceneNode.registerVector( vector, vectorSet, event );
-
-      // Hide the icon.
-      iconNode.visible = false;
-      this.focusable = false;
-
-      //----------------------------------------------------------------------------------------
-      // Step 3: When the vector is dropped outside the graph, animate back to the slot, and
-      // remove the vector from vectorSet, signaling to sceneNode to dispose of the view.
-      //----------------------------------------------------------------------------------------
-
-      const animateVectorBackListener = ( animateBack: boolean ) => {
-        if ( animateBack ) {
-
-          // Get the model position of the icon node.
-          const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
-
-          // Animate the vector to its icon in the panel, then remove it from activeVectors.
-          vector.animateToPoint( iconPosition, iconComponents, () => {
-            vectorSet.activeVectors.remove( vector );
-            vector.reset();
-            //TODO https://github.com/phetsims/vector-addition/issues/258 animateBackProperty is being set in animateBackProperty listener
-            vector.animateBackProperty.value = false;
-          } );
-        }
-      };
-      vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
-
-      // Clean up when the vector is removed from activeVectors.
-      const vectorRemovedListener = ( removedVector: Vector ) => {
-        if ( removedVector === vector ) {
-          iconNode.visible = true;
-          this.focusable = true;
-          vector.animateBackProperty.unlink( animateVectorBackListener );
-          vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
-        }
-      };
-      vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
     } ) );
+
+    //----------------------------------------------------------------------------------------
+    // Manage the things that happen when the vector is added to or removed from activeVectors.
+    //----------------------------------------------------------------------------------------
+
+    const animateVectorBackListener = ( animateBack: boolean ) => {
+      if ( animateBack ) {
+
+        // Get the model position of the icon node.
+        const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
+
+        // Animate the vector to its icon in the panel, then remove it from activeVectors.
+        vector.animateToPoint( iconPosition, iconComponents, () => {
+          vectorSet.activeVectors.remove( vector );
+          vector.reset();
+          //TODO https://github.com/phetsims/vector-addition/issues/258 animateBackProperty is being set in animateBackProperty listener
+          vector.animateBackProperty.value = false;
+        } );
+      }
+    };
+
+    // When the vector is added to activeVectors...
+    vectorSet.activeVectors.addItemAddedListener( addedVector => {
+      if ( addedVector === vector ) {
+
+        // Hide the icon and disable focus.
+        iconNode.visible = false;
+        this.focusable = false;
+
+        // Add the listener to animate the vector back to the toolbox.
+        vector.animateBackProperty.link( animateVectorBackListener );
+      }
+    } );
+
+    // When the vector is removed from activeVectors...
+    vectorSet.activeVectors.addItemRemovedListener( addedVector => {
+      if ( addedVector === vector ) {
+
+        // Show the icon and enable focus.
+        iconNode.visible = true;
+        this.focusable = true;
+
+        // Remnove the listener to animate the vector back to the toolbox.
+        vector.animateBackProperty.unlink( animateVectorBackListener );
+      }
+    } );
   }
 }
 
