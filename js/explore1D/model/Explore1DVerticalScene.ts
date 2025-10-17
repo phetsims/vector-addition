@@ -15,10 +15,12 @@ import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import Vector from '../../common/model/Vector.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import VectorSet from '../../common/model/VectorSet.js';
-import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
+import Graph from '../../common/model/Graph.js';
+import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
+import Property from '../../../../axon/js/Property.js';
+import ExploreVectorSet from '../../common/model/ExploreVectorSet.js';
 
 export default class Explore1DVerticalScene extends ExploreScene {
 
@@ -42,7 +44,12 @@ export default class Explore1DVerticalScene extends ExploreScene {
 /**
  * Creates vectors d, e, f.
  */
-function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, parentTandem: Tandem ): Vector[] {
+function createAllVectors( vectorSet: ExploreVectorSet,
+                           graph: Graph,
+                           selectedVectorProperty: Property<Vector | null>,
+                           componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                           coordinateSnapMode: CoordinateSnapMode,
+                           parentTandem: Tandem ): Vector[] {
 
   const tailPosition = Vector2.ZERO;
   const xyComponents = new Vector2( 0, 5 ); // vertical vector
@@ -50,27 +57,27 @@ function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, com
   return [
 
     // d
-    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
+    new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.dStringProperty,
-      coordinateSnapMode: scene.coordinateSnapMode,
+      coordinateSnapMode: coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
       tandem: parentTandem.createTandem( 'dVector' ),
       tandemNameSymbol: 'd'
     } ),
 
     // e
-    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
+    new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.eStringProperty,
-      coordinateSnapMode: scene.coordinateSnapMode,
+      coordinateSnapMode: coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
       tandem: parentTandem.createTandem( 'eVector' ),
       tandemNameSymbol: 'e'
     } ),
 
     // f
-    new Vector( tailPosition, xyComponents, vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
+    new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.fStringProperty,
-      coordinateSnapMode: scene.coordinateSnapMode,
+      coordinateSnapMode: coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
       tandem: parentTandem.createTandem( 'fVector' ),
       tandemNameSymbol: 'f'

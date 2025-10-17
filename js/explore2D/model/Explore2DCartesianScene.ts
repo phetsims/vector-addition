@@ -15,10 +15,12 @@ import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import Vector from '../../common/model/Vector.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import VectorSet from '../../common/model/VectorSet.js';
-import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import ExploreVectorSet from '../../common/model/ExploreVectorSet.js';
+import Graph from '../../common/model/Graph.js';
+import Property from '../../../../axon/js/Property.js';
+import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 
 export default class Explore2DCartesianScene extends ExploreScene {
 
@@ -40,34 +42,39 @@ export default class Explore2DCartesianScene extends ExploreScene {
 /**
  * Creates vectors a, b, c.
  */
-function createAllVectors( scene: VectorAdditionScene, vectorSet: VectorSet, componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, parentTandem: Tandem ): Vector[] {
+function createAllVectors( vectorSet: ExploreVectorSet,
+                           graph: Graph,
+                           selectedVectorProperty: Property<Vector | null>,
+                           componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                           coordinateSnapMode: CoordinateSnapMode,
+                           parentTandem: Tandem ): Vector[] {
 
   const tailPosition = Vector2.ZERO;
 
   return [
 
     // a
-    new Vector( tailPosition, new Vector2( 6, 8 ), vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
+    new Vector( tailPosition, new Vector2( 6, 8 ), vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.aStringProperty,
-      coordinateSnapMode: scene.coordinateSnapMode,
+      coordinateSnapMode: coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
       tandem: parentTandem.createTandem( 'aVector' ),
       tandemNameSymbol: 'a'
     } ),
 
     // b
-    new Vector( tailPosition, new Vector2( 8, 6 ), vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
+    new Vector( tailPosition, new Vector2( 8, 6 ), vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.bStringProperty,
-      coordinateSnapMode: scene.coordinateSnapMode,
+      coordinateSnapMode: coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
       tandem: parentTandem.createTandem( 'bVector' ),
       tandemNameSymbol: 'b'
     } ),
 
     // c
-    new Vector( tailPosition, new Vector2( 0, -10 ), vectorSet, scene.graph, scene.selectedVectorProperty, componentVectorStyleProperty, {
+    new Vector( tailPosition, new Vector2( 0, -10 ), vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
       symbolProperty: VectorAdditionSymbols.cStringProperty,
-      coordinateSnapMode: scene.coordinateSnapMode,
+      coordinateSnapMode: coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
       tandem: parentTandem.createTandem( 'cVector' ),
       tandemNameSymbol: 'c'

@@ -19,8 +19,8 @@ export default class Explore1DScreenSummaryContent extends ScreenSummaryContent 
   public constructor( model: Explore1DModel ) {
 
     const numberOfVectorsProperty = new DerivedProperty(
-      [ model.sceneProperty, model.horizontalScene.numberOfVectorsOnGraphProperty, model.verticalScene.numberOfVectorsOnGraphProperty ],
-      scene => scene.numberOfVectorsOnGraphProperty.value );
+      [ model.sceneProperty, model.horizontalScene.vectorSet.numberOfVectorsOnGraphProperty, model.verticalScene.vectorSet.numberOfVectorsOnGraphProperty ],
+      scene => scene.vectorSet.numberOfVectorsOnGraphProperty.value );
 
     const sceneNameStringProperty = new DerivedStringProperty(
       [ model.sceneProperty, model.horizontalScene.sceneNameStringProperty, model.verticalScene.sceneNameStringProperty ],

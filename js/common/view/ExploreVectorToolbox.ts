@@ -35,7 +35,7 @@ export default class ExploreVectorToolbox extends VectorToolbox {
 
     // Create a slot for each vector.
     const panelSlots: LabVectorToolboxSlot[] = [];
-    scene.allVectors.forEach( vector => {
+    scene.vectorSet.allVectors.forEach( vector => {
       panelSlots.push( new ExploreVectorToolboxSlot( vector, scene.vectorSet, scene.graph.modelViewTransformProperty,
         scene.graph.orientation, sceneNode, options.iconVectorComponents, options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
     } );

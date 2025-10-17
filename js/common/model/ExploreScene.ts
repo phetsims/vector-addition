@@ -15,29 +15,30 @@ import VectorColorPalette from './VectorColorPalette.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorSet from './VectorSet.js';
 import Vector from './Vector.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import ExploreVectorSet from './ExploreVectorSet.js';
+import Graph from './Graph.js';
+import Property from '../../../../axon/js/Property.js';
+
+// Function to create all vectors for a scene in the 'Explore 1D' and 'Explore 2D' screens.
+export type CreateAllExploreVectorsFunction = ( vectorSet: ExploreVectorSet,
+                                                graph: Graph,
+                                                selectedVectorProperty: Property<Vector | null>,
+                                                componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                                                coordinateSnapMode: CoordinateSnapMode,
+                                                parentTandem: Tandem ) => Vector[];
 
 export default class ExploreScene extends VectorAdditionScene {
 
   // This scene has one vector set.
-  public readonly vectorSet: VectorSet;
-
-  // The complete set of vectors for this scene, allocated when the sim starts.
-  //TODO https://github.com/phetsims/vector-addition/issues/258 Move allVectors to ExploreVectorSet, like other screens.
-  public readonly allVectors: Vector[];
-
-  // Number of vectors that are on the graph, and therefore contributing to the sum.
-  //TODO https://github.com/phetsims/vector-addition/issues/258 Move to ExploreVectorSet, like LabVectorSet.
-  public numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
+  public readonly vectorSet: ExploreVectorSet;
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
                          graphBounds: Bounds2,
                          graphOrientation: GraphOrientation,
                          coordinateSnapMode: CoordinateSnapMode,
                          vectorColorPalette: VectorColorPalette,
-                         createAllVectors: ( scene: VectorAdditionScene, vectorSet: VectorSet, componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, parentTandem: Tandem ) => Vector[],
+                         createAllVectors: CreateAllExploreVectorsFunction,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          tandem: Tandem ) {
 
@@ -49,7 +50,7 @@ export default class ExploreScene extends VectorAdditionScene {
       tandem: tandem
     } );
 
-    this.vectorSet = new VectorSet( this.graph, this.selectedVectorProperty, componentVectorStyleProperty, {
+    this.vectorSet = new ExploreVectorSet( this.graph, this.selectedVectorProperty, componentVectorStyleProperty, coordinateSnapMode, createAllVectors, {
       coordinateSnapMode: coordinateSnapMode,
       vectorColorPalette: vectorColorPalette,
       tandem: tandem.createTandem( 'vectorSet' )
@@ -57,17 +58,11 @@ export default class ExploreScene extends VectorAdditionScene {
 
     // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
-
-    this.allVectors = createAllVectors( this, this.vectorSet, componentVectorStyleProperty, this.vectorSet.tandem );
-
-    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
-      () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );
   }
 
   public override reset(): void {
     super.reset();
     this.vectorSet.reset();
-    this.allVectors.forEach( vector => vector.reset() );
   }
 
   public override erase(): void {
