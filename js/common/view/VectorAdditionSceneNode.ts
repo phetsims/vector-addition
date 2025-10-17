@@ -52,7 +52,8 @@ export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>
 export default class VectorAdditionSceneNode extends Node {
 
   // Public for pdomOrder at ScreenView level.
-  public readonly graphNode: GraphNode;
+  public readonly graphNode: Node;
+  public readonly originManipulator: Node;
   public readonly vectorSetNodesParent: Node;
   public readonly vectorValuesAccordionBox: Node;
   public vectorToolbox: Node | null;
@@ -82,13 +83,16 @@ export default class VectorAdditionSceneNode extends Node {
 
     super( options );
 
-    //========================================================================================
+    this.vectorSets = scene.vectorSets;
+    this.vectorToolbox = null;
 
-    // Create one and only GraphNode
-    this.graphNode = new GraphNode( scene.graph, viewProperties.gridVisibleProperty, scene.selectedVectorProperty,
+    // Graph
+    const graphNode = new GraphNode( scene.graph, viewProperties.gridVisibleProperty, scene.selectedVectorProperty,
       options.tandem.createTandem( 'graphNode' ) );
+    this.graphNode = graphNode;
+    this.originManipulator = graphNode.originManipulator;
 
-    // Create the one and only 'Vector Values' accordion box
+    // 'Vector Values' accordion box
     this.vectorValuesAccordionBox = new VectorValuesAccordionBox( scene.selectedVectorProperty, scene.graph.bounds, {
       expandedProperty: viewProperties.vectorValuesAccordionBoxExpandedProperty,
       centerX: scene.graph.viewBounds.centerX,
@@ -96,19 +100,37 @@ export default class VectorAdditionSceneNode extends Node {
       tandem: options.tandem.createTandem( 'vectorValuesAccordionBox' )
     } );
 
-    //----------------------------------------------------------------------------------------
-    // Create containers for each and every type of Vector to handle z-layering of all vector types.
-
+    // A layer for each VectorSet
+    affirm( resultantVectorVisibleProperties.length === scene.vectorSets.length, 'resultantVectorVisibleProperties length mismatch.' );
     this.vectorSetNodesParent = new Node();
+    this.vectorSetNodes = [];
+    scene.vectorSets.forEach( ( vectorSet, index ) => {
 
-    // Add the children in the correct z-order
+      const vectorSetNode = new VectorSetNode(
+        vectorSet,
+        scene.graph.modelViewTransformProperty,
+        scene.selectedVectorProperty,
+        resultantVectorVisibleProperties[ index ],
+        viewProperties.valuesVisibleProperty,
+        viewProperties.anglesVisibleProperty,
+        scene.graph.boundsProperty,
+        componentVectorStyleProperty,
+        // There is nothing interesting under here for PhET-iO, so we decided to uninstrument. If it needs to be
+        // instrumented in the future, use options.tandem.createTandem( `${vectorSet.tandem.name}Node` ).
+        Tandem.OPT_OUT );
+
+      this.vectorSetNodesParent.addChild( vectorSetNode );
+      this.vectorSetNodes.push( vectorSetNode );
+    } );
+
+    // Add the children in the correct z-order.
     this.setChildren( [
       this.graphNode,
       this.vectorValuesAccordionBox,
       this.vectorSetNodesParent
     ] );
 
-    // Add an eraser button if necessary
+    // Optional eraser button
     this.eraserButton = null;
     if ( options.includeEraser ) {
 
@@ -141,31 +163,6 @@ export default class VectorAdditionSceneNode extends Node {
         this.eraserButton!.enabled = ( numberOfVectors !== 0 );
       } );
     }
-
-    // a layer for each VectorSet
-    affirm( resultantVectorVisibleProperties.length === scene.vectorSets.length, 'resultantVectorVisibleProperties length mismatch.' );
-    this.vectorSetNodes = [];
-    scene.vectorSets.forEach( ( vectorSet, index ) => {
-
-      const vectorSetNode = new VectorSetNode(
-        vectorSet,
-        scene.graph.modelViewTransformProperty,
-        scene.selectedVectorProperty,
-        resultantVectorVisibleProperties[ index ],
-        viewProperties.valuesVisibleProperty,
-        viewProperties.anglesVisibleProperty,
-        scene.graph.boundsProperty,
-        componentVectorStyleProperty,
-        // There is nothing interesting under here for PhET-iO, so we decided to uninstrument. If it needs to be
-        // instrumented in the future, use options.tandem.createTandem( `${vectorSet.tandem.name}Node` ).
-        Tandem.OPT_OUT );
-
-      this.vectorSetNodesParent.addChild( vectorSetNode );
-      this.vectorSetNodes.push( vectorSetNode );
-    } );
-
-    this.vectorSets = scene.vectorSets;
-    this.vectorToolbox = null;
 
     this.addLinkedElement( scene );
   }

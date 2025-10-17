@@ -150,8 +150,8 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       graphControlPanel,
       cartesianSceneNode.baseVectorsAccordionBox,
       polarSceneNode.baseVectorsAccordionBox,
-      cartesianSceneNode.graphNode.originManipulator,
-      polarSceneNode.graphNode.originManipulator,
+      cartesianSceneNode.originManipulator,
+      polarSceneNode.originManipulator,
       sceneRadioButtonGroup,
       this.resetAllButton
     ];

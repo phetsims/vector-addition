@@ -135,8 +135,8 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     // Control Area focus order
     this.pdomControlAreaNode.pdomOrder = [
       graphControlPanel,
-      cartesianSceneNode.graphNode.originManipulator,
-      polarSceneNode.graphNode.originManipulator,
+      cartesianSceneNode.originManipulator,
+      polarSceneNode.originManipulator,
       sceneRadioButtonGroup,
       this.resetAllButton
     ];

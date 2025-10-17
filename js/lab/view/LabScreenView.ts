@@ -133,8 +133,8 @@ export default class LabScreenView extends VectorAdditionScreenView {
     this.pdomControlAreaNode.pdomOrder = [
       graphControlPanel,
       sceneRadioButtonGroup,
-      cartesianSceneNode.graphNode.originManipulator,
-      polarSceneNode.graphNode.originManipulator,
+      cartesianSceneNode.originManipulator,
+      polarSceneNode.originManipulator,
       this.resetAllButton
     ];
   }
