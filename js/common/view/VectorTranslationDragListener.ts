@@ -116,11 +116,11 @@ export class VectorTranslationDragListener extends SoundDragListener {
 
     if ( !this.vector.isOnGraphProperty.value ) {
       // Allow translation to anywhere if it isn't on the graph.
-      this.vector.moveToTailPosition( tailPositionModel );
+      this.vector.tailPositionProperty.value = tailPositionModel;
     }
     else {
       // Update the model tail position, subject to symmetric rounding, and fit inside the graph bounds.
-      this.vector.moveTailToPosition( tailPositionModel );
+      this.vector.moveTailToPositionWithInvariants( tailPositionModel );
     }
   }
 }

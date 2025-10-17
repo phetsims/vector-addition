@@ -60,7 +60,7 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
   private updateTipPosition( tipPositionView: Vector2 ): void {
     affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(), 'Cannot drag tip when animating back' );
     const tipPositionModel = this.vector.tail.plus( this.modelViewTransformProperty.value.viewToModelDelta( tipPositionView ) );
-    this.vector.moveTipToPosition( tipPositionModel );
+    this.vector.moveTipToPositionWithInvariants( tipPositionModel );
     this.vectorNode.doAccessibleObjectResponseScaleRotate();
   }
 }

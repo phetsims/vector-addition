@@ -199,14 +199,6 @@ export default abstract class RootVector extends PhetioObject {
   }
 
   /**
-   * Moves the vector to the specified tail position.
-   * This keeps the magnitude constant, and (as a side effect) changes the tip position.
-   */
-  public moveToTailPosition( position: Vector2 ): void {
-    this.tailPositionProperty.value = position;
-  }
-
-  /**
    * Sets the tail position. This keeps the tip position constant, and (as a side effect) changes magnitude.
    */
   public setTailXY( x: number, y: number ): void {
@@ -214,7 +206,7 @@ export default abstract class RootVector extends PhetioObject {
     // Keep a reference to the original tip
     const tip = this.tip;
 
-    this.moveToTailPosition( new Vector2( x, y ) );
+    this.tailPositionProperty.value = new Vector2( x, y );
 
     // Set the tip back
     this.setTip( tip );

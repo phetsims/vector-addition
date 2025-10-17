@@ -160,7 +160,7 @@ export default class Vector extends RootVector {
     // When the scene's origin changes, update the tail position.
     this.graph.modelViewTransformProperty.lazyLink( ( newModelViewTransform, oldModelViewTransform ) => {
       const tailPositionView = oldModelViewTransform.modelToViewPosition( this.tail );
-      this.moveToTailPosition( newModelViewTransform.viewToModelPosition( tailPositionView ) );
+      this.tailPositionProperty.value = newModelViewTransform.viewToModelPosition( tailPositionView );
     } );
   }
 
@@ -193,7 +193,7 @@ export default class Vector extends RootVector {
    *  - Vector tip must be rounded to ensure the magnitude of the vector is an integer
    *  - Vector tip must be rounded to ensure the vector angle is a multiple of POLAR_ANGLE_INTERVAL
    */
-  protected setTipWithInvariants( tipPosition: Vector2 ): void {
+  protected setTipPositionWithInvariants( tipPosition: Vector2 ): void {
 
     affirm( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
@@ -255,7 +255,7 @@ export default class Vector extends RootVector {
    *    See https://docs.google.com/document/d/1opnDgqIqIroo8VK0CbOyQ5608_g11MSGZXnFlI8k5Ds/edit?ts=5ced51e9#
    *  - Vector tail doesn't have to be on an exact model coordinate, but should when not snapping to other vectors
    */
-  private setTailWithInvariants( tailPosition: Vector2 ): void {
+  private setTailPositionWithInvariants( tailPosition: Vector2 ): void {
 
     affirm( !this.inProgressAnimation, 'this.inProgressAnimation must be false' );
 
@@ -283,41 +283,41 @@ export default class Vector extends RootVector {
 
         // Snap tail to other vector's tails
         if ( vector.tail.distance( tailPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-          this.moveToTailPosition( vector.tail );
+          this.tailPositionProperty.value = vector.tail;
           return;
         }
 
         // Snap tail to other vector's tip
         if ( vector.tip.distance( tailPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-          this.moveToTailPosition( vector.tip );
+          this.tailPositionProperty.value = vector.tip;
           return;
         }
 
         // Snap tip to other vector's tail
         if ( vector.tail.distance( tipPositionOnGraph ) < POLAR_SNAP_DISTANCE ) {
-          this.moveToTailPosition( vector.tail.minus( this.xyComponents ) );
+          this.tailPositionProperty.value = vector.tail.minus( this.xyComponents );
           return;
         }
       }
     }
 
-    this.moveToTailPosition( tailPositionOnGraph.roundedSymmetric() );
+    this.tailPositionProperty.value = tailPositionOnGraph.roundedSymmetric();
   }
 
   /**
    * Moves the tip to this position but ensures it satisfies invariants for polar and Cartesian mode.
    */
-  public moveTipToPosition( tipPosition: Vector2 ): void {
-    this.setTipWithInvariants( tipPosition );
+  public moveTipToPositionWithInvariants( tipPosition: Vector2 ): void {
+    this.setTipPositionWithInvariants( tipPosition );
   }
 
   /**
    * Moves the tail to this position but ensures it satisfies invariants for polar and Cartesian mode.
    */
-  public moveTailToPosition( tailPosition: Vector2 ): void {
+  public moveTailToPositionWithInvariants( tailPosition: Vector2 ): void {
 
     // Ensure that the tail satisfies invariants for polar/Cartesian mode
-    this.setTailWithInvariants( tailPosition );
+    this.setTailPositionWithInvariants( tailPosition );
 
     // For a vector that can be removed from the graph...
     if ( this.isRemovableFromGraph ) {
@@ -389,7 +389,7 @@ export default class Vector extends RootVector {
     this.isOnGraphProperty.value = true;
 
     // Ensure dropped tail position satisfies invariants
-    this.setTailWithInvariants( tailPosition );
+    this.setTailPositionWithInvariants( tailPosition );
 
     // When the vector is first dropped, it is selected.
     this.selectedVectorProperty.value = this;

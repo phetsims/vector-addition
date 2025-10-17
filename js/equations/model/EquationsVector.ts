@@ -73,7 +73,7 @@ export default class EquationsVector extends Vector {
     } );
 
     // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.
-    this.setTipWithInvariants( this.tip );
+    this.setTipPositionWithInvariants( this.tip );
 
     // Instantiate a base vector.
     const baseVectorOptions = {
