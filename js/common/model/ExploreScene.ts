@@ -29,6 +29,7 @@ export default class ExploreScene extends VectorAdditionScene {
   public readonly allVectors: Vector[];
 
   // Number of vectors that are on the graph, and therefore contributing to the sum.
+  //TODO https://github.com/phetsims/vector-addition/issues/258 Move to ExploreVectorSet, like LabVectorSet.
   public numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
   protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,

@@ -39,6 +39,9 @@ export default class LabVectorSet extends VectorSet {
   public readonly accessibleSymbolProperty: TReadOnlyProperty<string>;
   public readonly tandemNameSymbol: string;
 
+  // Number of vectors that are on the graph, and therefore contributing to the sum.
+  public numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
+
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
                       symbolProperty: TReadOnlyProperty<string>,
@@ -68,6 +71,9 @@ export default class LabVectorSet extends VectorSet {
     // Create vector instances.
     this.allVectors = createAllVectors( this, graph, selectedVectorProperty, options.coordinateSnapMode,
       componentVectorStyleProperty, initialXYComponents, options.tandem.createTandem( 'allVectors' ) );
+
+    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
+      () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );
   }
 
   public override reset(): void {
