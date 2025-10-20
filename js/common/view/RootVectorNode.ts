@@ -16,12 +16,10 @@ import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import { optionize4 } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
-import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import RootVector from '../model/RootVector.js';
@@ -50,7 +48,7 @@ type SelfOptions = {
 export type RootVectorNodeOptions = SelfOptions &
   PickOptional<NodeOptions, 'tandem' | 'tandemNameSuffix' | 'visibleProperty' | 'isDisposable' | 'accessibleName' | 'accessibleHelpText'>;
 
-export default class RootVectorNode extends InteractiveHighlighting( Node ) {
+export default class RootVectorNode extends Node {
 
   protected readonly arrowNode: ArrowNode | DashedArrowNode;
   protected readonly labelNode: VectorLabelNode;
@@ -62,7 +60,7 @@ export default class RootVectorNode extends InteractiveHighlighting( Node ) {
                          selectedVectorProperty: TReadOnlyProperty<RootVector | null>,
                          providedOptions?: RootVectorNodeOptions ) {
 
-    const options = optionize4<RootVectorNodeOptions, SelfOptions, NodeOptions>()( {}, AccessibleDraggableOptions, {
+    const options = optionize<RootVectorNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
       arrowType: 'solid',
