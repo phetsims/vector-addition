@@ -15,7 +15,7 @@ import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-co
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
+import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 import Vector from '../model/Vector.js';
@@ -152,10 +152,14 @@ export default class VectorNode extends RootVectorNode {
         .lineTo( -headHeight, -headWidth / 2 )
         .lineTo( -headHeight, headWidth / 2 )
         .close();
-      const headNode = new Path( headShape, {
+      const headNode = new Path( headShape, combineOptions<PathOptions>( {
         stroke: phet.chipper.queryParameters.dev ? 'red' : null,
-        cursor: 'pointer'
-      } );
+        cursor: 'pointer',
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.tip.accessibleNameStringProperty, {
+          symbol: vector.accessibleSymbolProperty
+        } ),
+        accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.tip.accessibleHelpTextStringProperty
+      }, AccessibleDraggableOptions ) );
       this.addChild( headNode );
 
       // The vector can be scaled and rotated by dragging its head.
@@ -224,6 +228,7 @@ export default class VectorNode extends RootVectorNode {
       // dispose of things that are related to optional scale/rotate
       disposeScaleRotate = () => {
         headNode.removeInputListener( scaleRotateDragListener );
+        headNode.dispose();
         vector.xyComponentsProperty.unlink( xyComponentsListener );
         scaleRotateDragListener.dispose();
       };

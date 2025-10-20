@@ -111,6 +111,7 @@ export default class RootVectorNode extends Node {
       } );
 
     this.disposeRootVectorNode = () => {
+      this.arrowNode.dispose();
       this.labelNode.dispose();
       updateMultilink.dispose();
     };
