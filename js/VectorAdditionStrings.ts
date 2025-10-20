@@ -208,17 +208,20 @@ type StringsType = {
       'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'vectorNode': {
-      'accessibleObjectResponseTailStringProperty': LocalizedStringProperty;
-      'accessibleObjectResponseTipStringProperty': LocalizedStringProperty;
+      'body': {
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      };
+      'tip': {
+        'accessibleHelpTextStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+      }
     };
     'equationsVectorNode': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'baseVectorNode': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-      'accessibleHelpTextStringProperty': LocalizedStringProperty;
     }
   }
 };

@@ -290,9 +290,11 @@ export default class VectorNode extends RootVectorNode {
    * Queues an accessible object response when the vector has been translated.
    */
   public doAccessibleObjectResponseTranslate(): void {
-    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.accessibleObjectResponseTailStringProperty, {
+    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty, {
       tailX: this.vector.tailX,
-      tailY: this.vector.tailY
+      tailY: this.vector.tailY,
+      tipX: this.vector.tipX,
+      tipY: this.vector.tipY
     } ) );
   }
 
@@ -300,7 +302,7 @@ export default class VectorNode extends RootVectorNode {
    * Queues an accessible object response when the vector has been scaled or rotated.
    */
   public doAccessibleObjectResponseScaleRotate(): void {
-    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.accessibleObjectResponseTipStringProperty, {
+    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseStringProperty, {
       tipX: this.vector.tipX,
       tipY: this.vector.tipY
     } ) );

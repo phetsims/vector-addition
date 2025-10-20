@@ -46,7 +46,6 @@ export default class BaseVectorNode extends VectorNode {
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorNode.accessibleNameStringProperty, {
         symbol: baseVector.accessibleSymbolProperty
       } ),
-      accessibleHelpText: VectorAdditionStrings.a11y.baseVectorNode.accessibleHelpTextStringProperty,
       tandemNameSuffix: 'BaseVectorNode'
     }, providedOptions );
 

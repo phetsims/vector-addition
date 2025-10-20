@@ -42,11 +42,8 @@ import Graph from './Graph.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
-// Minimum time to animate a vector to a point, in seconds.
-const MIN_ANIMATION_TIME = 0.9;
-
 // Speed of animating a vector to a point, in model coordinates per second.
-const ANIMATION_SPEED = 1600;
+const ANIMATION_SPEED = 75;
 
 // interval spacing of vector angle (in degrees) when vector is in polar mode
 const POLAR_ANGLE_INTERVAL = VectorAdditionConstants.POLAR_ANGLE_INTERVAL;
@@ -359,7 +356,7 @@ export default class Vector extends RootVector {
     const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
 
     this.inProgressAnimation = new Animation( {
-      duration: _.max( [ MIN_ANIMATION_TIME, this.tail.distance( tailPosition ) / ANIMATION_SPEED ] ),
+      duration: this.tail.distance( tailPosition ) / ANIMATION_SPEED,
       targets: [ {
         property: this.tailPositionProperty,
         easing: Easing.QUADRATIC_IN_OUT,
