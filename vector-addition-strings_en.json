@@ -400,7 +400,7 @@
         "value": "Vector Set {{symbol}}"
       },
       "accessibleHelpText": {
-        "value": "Add vector from set {{symbol}} to graph area."
+        "value": "Add vectors from set {{symbol}} to graph area."
       },
       "accessibleObjectResponse": {
         "value": "vector {{symbol}} added to graph area"
