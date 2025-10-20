@@ -39,8 +39,8 @@ const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConst
 } );
 
 // offsets for vector shadow in view coordinates
-const SHADOW_OFFSET_X = 3.2;
-const SHADOW_OFFSET_Y = 2.1;
+const SHADOW_X_OFFSET = 3.2;
+const SHADOW_Y_OFFSET = 2.1;
 
 type SelfOptions = EmptySelfOptions;
 export type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
@@ -234,8 +234,8 @@ export default class VectorNode extends RootVectorNode {
         vectorShadowNode.visible = ( !animateBack && !isOnGraph );
         vectorShadowNode.resetTransform();
         if ( !isOnGraph && vectorShadowNode.getBounds().isValid() ) {
-          vectorShadowNode.left = this.arrowNode.left + SHADOW_OFFSET_X;
-          vectorShadowNode.top = this.arrowNode.top + SHADOW_OFFSET_Y;
+          vectorShadowNode.left = this.arrowNode.left + SHADOW_X_OFFSET;
+          vectorShadowNode.top = this.arrowNode.top + SHADOW_Y_OFFSET;
         }
         const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( xyComponents );
         vectorShadowNode.setTip( tipDeltaPosition.x, tipDeltaPosition.y );
