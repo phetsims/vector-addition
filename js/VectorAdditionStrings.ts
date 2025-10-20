@@ -209,10 +209,12 @@ type StringsType = {
     };
     'vectorNode': {
       'body': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
       };
       'tip': {
+        'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
       }
