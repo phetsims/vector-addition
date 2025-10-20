@@ -205,10 +205,6 @@ export default class VectorAdditionConstants {
   public static readonly VECTOR_TOUCH_AREA_DILATION = 3;
   public static readonly VECTOR_MOUSE_AREA_DILATION = 3;
 
-  // dilation of vector head pointer areas, for vectors that can be scales/rotated
-  public static readonly VECTOR_HEAD_TOUCH_AREA_DILATION = 8;
-  public static readonly VECTOR_HEAD_MOUSE_AREA_DILATION = 6;
-
   // Interval spacing of vector angle (in degrees) when vector is in polar mode
   public static readonly POLAR_ANGLE_INTERVAL = 5;
 

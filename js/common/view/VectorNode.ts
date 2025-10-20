@@ -9,13 +9,10 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import Shape from '../../../../kite/js/Shape.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
-import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
 import Vector from '../model/Vector.js';
@@ -25,7 +22,6 @@ import VectorAngleNode from './VectorAngleNode.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { VectorTranslationDragListener } from './VectorTranslationDragListener.js';
-import VectorScaleRotateDragListener from './VectorScaleRotateDragListener.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -33,6 +29,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Property from '../../../../axon/js/Property.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorTipNode from './VectorTipNode.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -115,18 +112,11 @@ export default class VectorNode extends RootVectorNode {
     this.setChildren( [ vectorShadowNode, this.arrowNode, angleNode, this.labelNode ] );
 
     //----------------------------------------------------------------------------------------
-    // Handle vector translation
+    // Handle vector transformation
     //----------------------------------------------------------------------------------------
 
-    this.translationDragListener = new VectorTranslationDragListener(
-      vector,
-      selectedVectorProperty,
-      graphBoundsProperty,
-      this,
-      vectorShadowNode,
-      modelViewTransformProperty,
-      cursor
-    );
+    this.translationDragListener = new VectorTranslationDragListener( vector, this, vectorShadowNode,
+      modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty, cursor );
 
     // The vector can be translated by dragging the arrow or the label. removeInputListener is required on dispose.
     this.arrowNode.addInputListener( this.translationDragListener );
@@ -139,98 +129,17 @@ export default class VectorNode extends RootVectorNode {
       this.translationDragListener.dispose();
     };
 
+    // Optional scaling and rotation by dragging the vector tip.
     let disposeScaleRotate: () => void;
     if ( vector.isTipDraggable ) {
 
-      //----------------------------------------------------------------------------------------
-      // Handle vector scaling & rotation
-      //----------------------------------------------------------------------------------------
-
-      // Create an invisible triangle at the head of the vector.
-      const headShape = new Shape()
-        .moveTo( 0, 0 )
-        .lineTo( -headHeight, -headWidth / 2 )
-        .lineTo( -headHeight, headWidth / 2 )
-        .close();
-      const headNode = new Path( headShape, combineOptions<PathOptions>( {
-        stroke: phet.chipper.queryParameters.dev ? 'red' : null,
-        cursor: 'pointer',
-        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.tip.accessibleNameStringProperty, {
-          symbol: vector.accessibleSymbolProperty
-        } ),
-        accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.tip.accessibleHelpTextStringProperty
-      }, AccessibleDraggableOptions ) );
-      this.addChild( headNode );
-
-      // The vector can be scaled and rotated by dragging its head.
-      const scaleRotateDragListener = new VectorScaleRotateDragListener(
-        vector,
-        selectedVectorProperty,
-        this,
-        headNode,
-        modelViewTransformProperty
-      );
-      headNode.addInputListener( scaleRotateDragListener );
-
-      //----------------------------------------------------------------------------------------
-      // Transform the head and its pointer areas when the xy-components change.
-      //----------------------------------------------------------------------------------------
-
-      // Pointer area shapes for the head, in 3 different sizes.
-      // A pair of these is used, based on the magnitude of the vector and whether its head is scale.
-      // See below and https://github.com/phetsims/vector-addition/issues/240#issuecomment-544682818
-      const largeMouseAreaShape = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
-      const largeTouchAreaShape = headShape.getOffsetShape( VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
-      const mediumMouseAreaShape = createDilatedHead( headWidth, headHeight, VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
-      const mediumTouchAreaShape = createDilatedHead( headWidth, headHeight, VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
-      const SMALL_HEAD_SCALE = 0.65; // determined empirically
-      const smallMouseAreaShape = createDilatedHead( headWidth, SMALL_HEAD_SCALE * headHeight, VectorAdditionConstants.VECTOR_HEAD_MOUSE_AREA_DILATION );
-      const smallTouchAreaShape = createDilatedHead( headWidth, SMALL_HEAD_SCALE * headHeight, VectorAdditionConstants.VECTOR_HEAD_TOUCH_AREA_DILATION );
-
-      // When the vector changes, transform the head and adjust its pointer areas. unlinked is required when disposed.
-      const xyComponentsListener = ( xyComponents: Vector2 ) => {
-
-        // Adjust pointer areas. See https://github.com/phetsims/vector-addition/issues/240#issuecomment-544682818
-        const SHORT_MAGNITUDE = 3;
-        if ( xyComponents.magnitude <= SHORT_MAGNITUDE ) {
-
-          // We have a 'short' vector, so adjust the head's pointer areas so that the tail can still be grabbed.
-          const viewComponents = modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
-          const viewMagnitude = viewComponents.magnitude;
-          const maxHeadHeight = fractionalHeadHeight * viewMagnitude;
-
-          if ( headHeight > maxHeadHeight ) {
-
-            // head is scaled (see ArrowNode fractionalHeadHeight), use small pointer areas
-            headNode.mouseArea = smallMouseAreaShape;
-            headNode.touchArea = smallTouchAreaShape;
-          }
-          else {
-
-            // head is not scaled, use medium pointer areas
-            headNode.mouseArea = mediumMouseAreaShape;
-            headNode.touchArea = mediumTouchAreaShape;
-          }
-        }
-        else {
-
-          // We have a 'long' vector, so use the large pointer areas.
-          headNode.mouseArea = largeMouseAreaShape;
-          headNode.touchArea = largeTouchAreaShape;
-        }
-
-        // Transform the invisible head to match the position and angle of the actual vector.
-        headNode.translation = modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
-        headNode.rotation = -xyComponents.angle;
-      };
-      vector.xyComponentsProperty.link( xyComponentsListener );
+      const tipNode = new VectorTipNode( this, modelViewTransformProperty, selectedVectorProperty,
+        headWidth, headHeight, fractionalHeadHeight );
+      this.addChild( tipNode );
 
       // dispose of things that are related to optional scale/rotate
       disposeScaleRotate = () => {
-        headNode.removeInputListener( scaleRotateDragListener );
-        headNode.dispose();
-        vector.xyComponentsProperty.unlink( xyComponentsListener );
-        scaleRotateDragListener.dispose();
+        tipNode.dispose();
       };
     }
 
@@ -308,31 +217,6 @@ export default class VectorNode extends RootVectorNode {
       tipY: this.vector.tipY
     } ) );
   }
-
-  /**
-   * Queues an accessible object response when the vector has been scaled or rotated.
-   */
-  public doAccessibleObjectResponseScaleRotate(): void {
-    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseStringProperty, {
-      tipX: this.vector.tipX,
-      tipY: this.vector.tipY
-    } ) );
-  }
-}
-
-/**
- * Creates a dilated shape for the vector's head.  The head is pointing to the right.
- */
-function createDilatedHead( headWidth: number, headHeight: number, dilation: number ): Shape {
-
-  // Starting from the upper left and moving clockwise
-  return new Shape()
-    .moveTo( -headHeight, -headHeight / 2 - dilation )
-    .lineTo( 0, -dilation )
-    .lineTo( dilation, 0 )
-    .lineTo( 0, dilation )
-    .lineTo( -headHeight, headWidth / 2 + dilation )
-    .close();
 }
 
 vectorAddition.register( 'VectorNode', VectorNode );

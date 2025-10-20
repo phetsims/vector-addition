@@ -11,33 +11,31 @@ import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js'
 import vectorAddition from '../../vectorAddition.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector from '../model/Vector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import VectorNode from './VectorNode.js';
+import VectorTipNode from './VectorTipNode.js';
 
 export default class VectorScaleRotateDragListener extends SoundDragListener {
 
   private readonly vector: Vector;
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
-  private readonly vectorNode: VectorNode;
+  private readonly tipNode: VectorTipNode;
 
   public constructor( vector: Vector,
-                      selectedVectorProperty: Property<Vector | null>,
-                      vectorNode: VectorNode,
-                      headNode: Node,
-                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2> ) {
+                      tipNode: VectorTipNode,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      selectedVectorProperty: Property<Vector | null> ) {
 
     // Position of the tip of the vector, relative to the tail, in view coordinates.
     const tipPositionViewProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents ) );
 
     super( {
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
-      targetNode: headNode,
+      targetNode: tipNode,
       positionProperty: tipPositionViewProperty,
       start: () => {
         affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
@@ -48,7 +46,7 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
 
     this.vector = vector;
     this.modelViewTransformProperty = modelViewTransformProperty;
-    this.vectorNode = vectorNode;
+    this.tipNode = tipNode;
 
     // Move the tip to match the vector model.
     tipPositionViewProperty.lazyLink( tipPositionView => this.updateTipPosition( tipPositionView ) );
@@ -61,7 +59,7 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
     affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(), 'Cannot drag tip when animating back' );
     const tipPositionModel = this.vector.tail.plus( this.modelViewTransformProperty.value.viewToModelDelta( tipPositionView ) );
     this.vector.moveTipToPositionWithInvariants( tipPositionModel );
-    this.vectorNode.doAccessibleObjectResponseScaleRotate();
+    this.tipNode.doAccessibleObjectResponse();
   }
 }
 

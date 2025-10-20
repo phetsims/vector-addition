@@ -28,11 +28,11 @@ export class VectorTranslationDragListener extends SoundDragListener {
   private readonly vectorNode: VectorNode;
 
   public constructor( vector: Vector,
-                      selectedVectorProperty: Property<Vector | null>,
-                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       vectorNode: VectorNode,
                       vectorShadowNode: Node,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      selectedVectorProperty: Property<Vector | null>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       cursor: string ) {
 
     // Create a Property for the position of the tail of the vector.
