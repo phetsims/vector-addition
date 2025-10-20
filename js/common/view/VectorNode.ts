@@ -118,11 +118,15 @@ export default class VectorNode extends RootVectorNode {
 
     this.translationDragListener = new VectorTranslationDragListener( vector, this, vectorShadowNode,
       modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty, cursor );
+
+    // The vector can be translated by dragging the arrow or the label. removeInputListener is required on dispose.
     this.arrowNode.addInputListener( this.translationDragListener );
+    this.labelNode.addInputListener( this.translationDragListener );
 
     // dispose of things related to vector translation
     const disposeTranslate = () => {
       this.arrowNode.removeInputListener( this.translationDragListener );
+      this.labelNode.removeInputListener( this.translationDragListener );
       this.translationDragListener.dispose();
     };
 
