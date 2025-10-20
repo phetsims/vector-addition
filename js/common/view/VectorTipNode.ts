@@ -120,6 +120,12 @@ export default class VectorTipNode extends Path {
     };
     vector.xyComponentsProperty.link( xyComponentsListener ); // Must be unlinked in dispose.
 
+    this.focusedProperty.lazyLink( focussed => {
+      if ( focussed ) {
+        this.doAccessibleObjectResponse();
+      }
+    } );
+
     this.disposeVectorTipNode = () => {
       this.removeInputListener( scaleRotateDragListener );
       scaleRotateDragListener.dispose();

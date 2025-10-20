@@ -178,6 +178,12 @@ export default class VectorNode extends RootVectorNode {
     };
     this.vector.animateBackProperty.lazyLink( animateBackListener );
 
+    this.arrowNode.focusedProperty.lazyLink( focussed => {
+      if ( focussed ) {
+        this.doAccessibleObjectResponseTranslate();
+      }
+    } );
+
     this.disposeVectorNode = () => {
 
       // Dispose of nodes
