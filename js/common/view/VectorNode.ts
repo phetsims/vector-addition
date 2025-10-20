@@ -31,6 +31,8 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Property from '../../../../axon/js/Property.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -63,10 +65,14 @@ export default class VectorNode extends RootVectorNode {
 
       // RootVectorNodeOptions
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>(
-        {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+        {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, AccessibleDraggableOptions, {
           cursor: 'move',
           fill: vector.vectorColorPalette.vectorFillProperty,
-          stroke: vector.vectorColorPalette.vectorStrokeProperty
+          stroke: vector.vectorColorPalette.vectorStrokeProperty,
+          accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.body.accessibleNameStringProperty, {
+            symbol: vector.accessibleSymbolProperty
+          } ),
+          accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.body.accessibleHelpTextStringProperty
         } )
     }, providedOptions );
 

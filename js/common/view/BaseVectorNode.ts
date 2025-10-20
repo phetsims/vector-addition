@@ -41,10 +41,10 @@ export default class BaseVectorNode extends VectorNode {
       // VectorNodeOptions
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS, {
         fill: vectorColorPalette.baseVectorFillProperty,
-        stroke: vectorColorPalette.baseVectorStrokeProperty
-      } ),
-      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorNode.accessibleNameStringProperty, {
-        symbol: baseVector.accessibleSymbolProperty
+        stroke: vectorColorPalette.baseVectorStrokeProperty,
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorNode.accessibleNameStringProperty, {
+          symbol: baseVector.accessibleSymbolProperty
+        } )
       } ),
       tandemNameSuffix: 'BaseVectorNode'
     }, providedOptions );
