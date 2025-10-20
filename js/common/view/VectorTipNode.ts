@@ -23,12 +23,13 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Property from '../../../../axon/js/Property.js';
 import VectorNode from './VectorNode.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 
 // xy-dilation of vector tip pointer areas
 const MOUSE_AREA_DILATION = 6;
 const TOUCH_AREA_DILATION = 8;
 
-export default class VectorTipNode extends Path {
+export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
   private readonly vector: Vector;
   private readonly disposeVectorTipNode: () => void;
