@@ -70,7 +70,8 @@ export default class VectorNode extends RootVectorNode {
             symbol: vector.accessibleSymbolProperty
           } ),
           accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.body.accessibleHelpTextStringProperty
-        } )
+        } ),
+      arrowHasInteractiveHighlight: true
     }, providedOptions );
 
     // To improve readability

@@ -26,6 +26,7 @@ import RootVector from '../model/RootVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import VectorLabelNode from './VectorLabelNode.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 
 // Used to prevent vector label from going off-screen. This is the magnitude of a vector that fills the
 // graph along a diagonal, minus the margin that constrains dragging of the vector's tail.
@@ -43,6 +44,7 @@ export type RootVectorArrowNodeOptions = ArrowNodeOptions | DashedArrowNodeOptio
 type SelfOptions = {
   arrowType?: ArrowType;
   arrowOptions?: RootVectorArrowNodeOptions;
+  arrowHasInteractiveHighlight?: boolean;
 };
 
 export type RootVectorNodeOptions = SelfOptions &
@@ -67,6 +69,7 @@ export default class RootVectorNode extends Node {
       arrowOptions: {
         cursor: 'move'
       },
+      arrowHasInteractiveHighlight: false,
       phetioVisiblePropertyInstrumented: false,
       tandemNameSuffix: 'VectorNode'
     }, providedOptions );
@@ -79,7 +82,9 @@ export default class RootVectorNode extends Node {
     const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( rootVector.xyComponents );
 
     if ( options.arrowType === 'solid' ) {
-      this.arrowNode = new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions );
+      this.arrowNode = options.arrowHasInteractiveHighlight ?
+                       new ( InteractiveHighlighting( ArrowNode ) )( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions ) :
+                       new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions );
     }
     else {
       this.arrowNode = new DashedArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions );
