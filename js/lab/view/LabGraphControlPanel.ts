@@ -73,7 +73,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     // Sum checkbox for vector set 1, with vector symbol and color determined by the selected scene.
     const sum1Checkbox = new SumCheckbox( viewProperties.sum1VisibleProperty, {
       sumSymbolProperty: sum1SymbolProperty,
-      accessibleSumSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
+      accessibleSumSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
         symbol: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
         subscript: RichText.getAccessibleStringProperty( vectorSet1SymbolProperty )
       } ),
@@ -99,7 +99,7 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     // Sum checkbox for vector set 2, with vector symbol and color determined by the selected scene.
     const sum2Checkbox = new SumCheckbox( viewProperties.sum2VisibleProperty, {
       sumSymbolProperty: sum2SymbolProperty,
-      accessibleSumSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolWithSubscriptDescriptionStringProperty, {
+      accessibleSumSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
         symbol: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
         subscript: RichText.getAccessibleStringProperty( vectorSet2SymbolProperty )
       } ),

@@ -119,9 +119,9 @@ function createAllVectors( vectorSet: LabVectorSet,
       symbolProperty: new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
 
       // e.g. 'v sub 3'
-      accessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.indexedVectorPatternStringProperty, {
+      accessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
         symbol: vectorSet.accessibleSymbolProperty,
-        index: i
+        subscript: i
       } ),
       coordinateSnapMode: coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,

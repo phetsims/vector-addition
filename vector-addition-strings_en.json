@@ -332,7 +332,7 @@
         "value": "For vector {{coefficient}} {{symbol}}: magnitude is {{magnitude}}; direction is {{direction}} degrees from positive x axis; x component is {{xComponent}}; y component is {{yComponent}}."
       }
     },
-    "symbolWithSubscriptDescription": {
+    "symbolSubSubscript": {
       "value": "{{symbol}} sub {{subscript}}"
     },
     "signedRadioButton": {
@@ -340,9 +340,6 @@
     },
     "unsignedRadioButton": {
       "value": "unsigned, 0 to 360 degrees"
-    },
-    "indexedVectorPattern": {
-      "value": "{{symbol}} sub {{index}}"
     },
     "baseVectorXComponentPicker": {
       "accessibleName": {

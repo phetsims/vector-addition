@@ -175,10 +175,9 @@ type StringsType = {
       'accessibleParagraphBaseVectorStringProperty': LocalizedStringProperty;
       'accessibleParagraphCoefficientVectorStringProperty': LocalizedStringProperty;
     };
-    'symbolWithSubscriptDescriptionStringProperty': LocalizedStringProperty;
+    'symbolSubSubscriptStringProperty': LocalizedStringProperty;
     'signedRadioButtonStringProperty': LocalizedStringProperty;
     'unsignedRadioButtonStringProperty': LocalizedStringProperty;
-    'indexedVectorPatternStringProperty': LocalizedStringProperty;
     'baseVectorXComponentPicker': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
