@@ -44,6 +44,9 @@ export type RootVectorArrowNodeOptions = ArrowNodeOptions | DashedArrowNodeOptio
 type SelfOptions = {
   arrowType?: ArrowType;
   arrowOptions?: RootVectorArrowNodeOptions;
+
+  // Whether this.arrowNode will have an interactive highlight. Subclass VectorNode adds drag listeners to
+  // this.arrowNode for changing the vector's position.
   arrowHasInteractiveHighlight?: boolean;
 };
 
