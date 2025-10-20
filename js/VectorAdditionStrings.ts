@@ -172,6 +172,8 @@ type StringsType = {
     };
     'vectorValuesAccordionBox': {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
+      'accessibleParagraphBaseVectorStringProperty': LocalizedStringProperty;
+      'accessibleParagraphCoefficientVectorStringProperty': LocalizedStringProperty;
     };
     'symbolWithSubscriptDescriptionStringProperty': LocalizedStringProperty;
     'signedRadioButtonStringProperty': LocalizedStringProperty;

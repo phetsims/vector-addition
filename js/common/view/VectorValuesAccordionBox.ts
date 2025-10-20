@@ -26,11 +26,10 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import { VectorValuesAccessibleParagraphProperty } from './VectorValuesAccessibleParagraphProperty.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -189,52 +188,13 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       this.accessibleParagraphStringProperty && this.accessibleParagraphStringProperty.dispose();
       this.accessibleParagraphStringProperty = null;
       if ( selectedVector ) {
-        this.accessibleParagraphStringProperty = new SelectedVectorAccessibleParagraphStringProperty( selectedVector );
-        this.setAccessibleParagraph( this.accessibleParagraphStringProperty );
+        this.accessibleParagraphStringProperty = new VectorValuesAccessibleParagraphProperty( selectedVector );
+        vectorQuantitiesHBox.setAccessibleParagraph( this.accessibleParagraphStringProperty );
       }
     } );
 
     // When the accordion box is expanded or collapsed, cancel interactions.
     this.expandedProperty.lazyLink( () => this.interruptSubtreeInput() );
-  }
-}
-
-/**
- * SelectedVectorAccessibleParagraphStringProperty is the accessible paragraph that describes the vector that is
- * currently selected.
- */
-class SelectedVectorAccessibleParagraphStringProperty extends PatternStringProperty<{
-  symbol: TReadOnlyProperty<string>;
-  magnitude: TReadOnlyProperty<string>;
-  direction: TReadOnlyProperty<string>;
-  xComponent: TReadOnlyProperty<string>;
-  yComponent: TReadOnlyProperty<string>;
-}> {
-  public constructor( selectedVector: Vector ) {
-
-    const magnitudeProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
-      () => toFixed( selectedVector.magnitude, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const directionProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
-      () => toFixed( selectedVector.getAngleDegrees() || 0, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const xComponentProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
-      xyComponents => toFixed( xyComponents.x, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-    const yComponentProperty = new DerivedProperty( [ selectedVector.xyComponentsProperty ],
-      xyComponents => toFixed( xyComponents.y, VectorAdditionConstants.VECTOR_VALUE_DECIMAL_PLACES ) );
-
-    super( VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphStringProperty, {
-      symbol: selectedVector.accessibleSymbolProperty,
-      magnitude: magnitudeProperty,
-      direction: directionProperty,
-      xComponent: xComponentProperty,
-      yComponent: yComponentProperty
-    } );
-
-    this.disposeEmitter.addListener( () => {
-      magnitudeProperty.dispose();
-      directionProperty.dispose();
-      xComponentProperty.dispose();
-      yComponentProperty.dispose();
-    } );
   }
 }
 
