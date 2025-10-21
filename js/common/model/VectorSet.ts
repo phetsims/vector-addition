@@ -98,6 +98,20 @@ export default class VectorSet extends PhetioObject {
     const offsetStart = ( modelHeadWidth / 2 ) + axisSpacing;
     const offsetDelta = modelHeadWidth;
 
+    // Default function to create the resultant vector, which default to a SumVector.
+    const createResultantVector = ( tailPosition: Vector2,
+                                    vectorSet: VectorSet,
+                                    symbolProperty: TReadOnlyProperty<string>,
+                                    tandemNameSymbol: string,
+                                    tandem: Tandem ): ResultantVector =>
+      new SumVector( tailPosition, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
+        symbolProperty: symbolProperty,
+        coordinateSnapMode: providedOptions.coordinateSnapMode,
+        vectorColorPalette: providedOptions.vectorColorPalette,
+        tandemNameSymbol: tandemNameSymbol,
+        tandem: tandem
+      } );
+
     const options = optionize<VectorSetOptions, SelfOptions, PhetioObjectOptions>()( {
 
       // SelfOptions
@@ -105,18 +119,7 @@ export default class VectorSet extends PhetioObject {
       projectionYOffsetStart: -offsetStart,
       projectionXOffsetDelta: -offsetDelta,
       projectionYOffsetDelta: -offsetDelta,
-      createResultantVector: ( tailPosition: Vector2,
-                               vectorSet: VectorSet,
-                               symbolProperty: TReadOnlyProperty<string>,
-                               tandemNameSymbol: string,
-                               tandem: Tandem ): SumVector =>
-        new SumVector( tailPosition, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-          symbolProperty: symbolProperty,
-          coordinateSnapMode: options.coordinateSnapMode,
-          vectorColorPalette: options.vectorColorPalette,
-          tandemNameSymbol: tandemNameSymbol,
-          tandem: tandem
-        } ),
+      createResultantVector: createResultantVector,
       resultantTailPosition: graph.bounds.center,
       resultantProjectionXOffset: offsetStart,
       resultantProjectionYOffset: offsetStart,

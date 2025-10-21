@@ -23,6 +23,7 @@ import Graph from '../../common/model/Graph.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { EquationType } from './EquationType.js';
 import BaseVector from '../../common/model/BaseVector.js';
+import ResultantVector from '../../common/model/ResultantVector.js';
 
 // Describes a non-resultant vector for the Equations screen.
 export type EquationsVectorDescription = {
@@ -54,19 +55,22 @@ export default class EquationsVectorSet extends VectorSet {
                       resultantTandemNameSymbol: string,
                       providedOptions: EquationsVectorSetOptions ) {
 
+    // Function to create the resultant vector.
+    const createResultantVector = ( tailPosition: Vector2,
+                                    vectorSet: VectorSet,
+                                    symbolProperty: TReadOnlyProperty<string>,
+                                    tandemNameSymbol: string,
+                                    tandem: Tandem ): ResultantVector =>
+      new EquationsResultantVector( tailPosition, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, equationTypeProperty, {
+        symbolProperty: symbolProperty,
+        coordinateSnapMode: providedOptions.coordinateSnapMode,
+        vectorColorPalette: providedOptions.vectorColorPalette,
+        tandemNameSymbol: tandemNameSymbol,
+        tandem: tandem
+      } );
+
     const options = optionize<EquationsVectorSetOptions, SelfOptions, VectorSetOptions>()( {
-      createResultantVector: ( tailPosition: Vector2,
-                               vectorSet: VectorSet,
-                               symbolProperty: TReadOnlyProperty<string>,
-                               tandemNameSymbol: string,
-                               tandem: Tandem ) =>
-        new EquationsResultantVector( tailPosition, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, equationTypeProperty, {
-          symbolProperty: symbolProperty,
-          coordinateSnapMode: providedOptions.coordinateSnapMode,
-          vectorColorPalette: providedOptions.vectorColorPalette,
-          tandemNameSymbol: tandemNameSymbol,
-          tandem: tandem
-        } ),
+      createResultantVector: createResultantVector,
       resultantTailPosition: new Vector2( 25, 5 ),
 
       // offsets for resultant component vectors with ComponentVectorStyle 'projection'
