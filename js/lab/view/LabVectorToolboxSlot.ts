@@ -59,7 +59,7 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
     // Label for the slot, always visible.
     const arrowOverSymbolNode = new ArrowOverSymbolNode( vectorSet.symbolProperty );
 
-    super( vectorSet, modelViewTransformProperty, sceneNode, iconNode, iconViewComponents, {
+    super( vectorSet.allVectors, vectorSet.activeVectors, modelViewTransformProperty, sceneNode, iconNode, iconViewComponents, {
       children: [ alignBox, arrowOverSymbolNode ],
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
         symbol: vectorSet.accessibleSymbolProperty
@@ -94,13 +94,6 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
       // Tell sceneNode to create the view for the vector.
       sceneNode.registerVector( vector, vectorSet, event );
     } ) );
-
-    // Hide the icon and disable focus when all vectors have left the toolbox.
-    vectorSet.activeVectors.lengthProperty.link( () => {
-      const slotIsEmpty = ( vectorSet.activeVectors.lengthProperty.value === vectorSet.allVectors.length );
-      iconNode.visible = !slotIsEmpty;
-      this.focusable = !slotIsEmpty;
-    } );
   }
 }
 
