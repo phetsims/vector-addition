@@ -13,7 +13,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import vectorAddition from '../../vectorAddition.js';
-import Vector from '../../common/model/Vector.js';
 import ArrowOverSymbolNode from '../../common/view/ArrowOverSymbolNode.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
@@ -58,13 +57,18 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
     // Label for the slot, always visible.
     const arrowOverSymbolNode = new ArrowOverSymbolNode( vectorSet.symbolProperty );
 
+    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
+    const iconModelComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents
+      .normalized().timesScalar( ICON_MAGNITUDE ) );
+
     super(
       vectorSet.allVectors,
       () => vectorSet.getFirstAvailableVector(),
       vectorSet,
       modelViewTransformProperty,
       sceneNode,
-      iconNode, {
+      iconNode,
+      iconModelComponents, {
         children: [ alignBox, arrowOverSymbolNode ],
         accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
           symbol: vectorSet.accessibleSymbolProperty
@@ -75,44 +79,6 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
         tagName: 'button',
         tandem: tandem
       } );
-
-    //----------------------------------------------------------------------------------------
-    // Manage the things that happen when the vector is added to or removed from activeVectors.
-    //----------------------------------------------------------------------------------------
-
-    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
-    const iconComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents
-      .normalized().timesScalar( ICON_MAGNITUDE ) );
-
-    // When a vector is added to the activeVectors, add the listener that handles animating it back to the toolbox.
-    vectorSet.activeVectors.addItemAddedListener( vector => {
-
-      const animateVectorBackListener = ( animateBack: boolean ) => {
-        if ( animateBack ) {
-
-          // Get the model position of the icon node.
-          const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
-
-          // Animate the vector to its icon in the panel.
-          vector.animateToPoint( iconPosition, iconComponents, () => {
-            vectorSet.activeVectors.remove( vector );
-            vector.reset();
-            //TODO https://github.com/phetsims/vector-addition/issues/258 Why is this needed? Without it, fails the 2nd time that a vector is activated.
-            vector.animateBackProperty.value = false;
-          } );
-        }
-      };
-      vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
-
-      // Clean up when the vector is removed.
-      const vectorRemovedListener = ( removedVector: Vector ) => {
-        if ( removedVector === vector ) {
-          vector.animateBackProperty.unlink( animateVectorBackListener );
-          vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
-        }
-      };
-      vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
-    } );
   }
 }
 

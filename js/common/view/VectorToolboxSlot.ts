@@ -19,6 +19,7 @@ import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js'
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Vector from '../model/Vector.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -32,6 +33,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
                          modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                          sceneNode: VectorAdditionSceneNode,
                          iconNode: Node,
+                         iconModelComponents: Vector2,
                          providedOptions: VectorToolboxSlotOptions ) {
 
     const options = optionize<VectorToolboxSlotOptions, SelfOptions, HBoxOptions>()( {
@@ -73,6 +75,39 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       const slotIsEmpty = _.every( vectors, vector => vectorSet.activeVectors.includes( vector ) );
       iconNode.visible = !slotIsEmpty;
       this.focusable = !slotIsEmpty;
+    } );
+
+    // When a vector from this slot is added to activeVectors, add the listener that handles animating it back to the slot.
+    vectorSet.activeVectors.addItemAddedListener( vector => {
+      if ( vectors.includes( vector ) ) {
+
+        const animateVectorBackListener = ( animateBack: boolean ) => {
+          if ( animateBack ) {
+
+            // Get the model position of the icon node.
+            const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
+
+            // Animate the vector to its icon in the panel.
+            vector.animateToPoint( iconPosition, iconModelComponents, () => {
+              vectorSet.activeVectors.remove( vector );
+              vector.reset();
+              //TODO https://github.com/phetsims/vector-addition/issues/258 Why is this needed? Without it, fails the 2nd time that a vector is activated.
+              //TODO https://github.com/phetsims/vector-addition/issues/258 animateBackProperty is being set in animateBackProperty listener!
+              vector.animateBackProperty.value = false;
+            } );
+          }
+        };
+        vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
+
+        // Clean up when the vector is removed from activeVectors.
+        const vectorRemovedListener = ( removedVector: Vector ) => {
+          if ( removedVector === vector ) {
+            vector.animateBackProperty.unlink( animateVectorBackListener );
+            vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
+          }
+        };
+        vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
+      }
     } );
   }
 }

@@ -62,13 +62,17 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
     // Label for the slot, always visible.
     const arrowOverSymbolNode = new ArrowOverSymbolNode( vector.symbolProperty );
 
+    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
+    const iconModelComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_MAGNITUDE ) );
+
     super(
       [ vector ],
       () => vector,
       vectorSet,
       modelViewTransformProperty,
       sceneNode,
-      iconNode, {
+      iconNode,
+      iconModelComponents, {
         children: [ alignBox, arrowOverSymbolNode ],
         accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleNameStringProperty, {
           symbol: vector.accessibleSymbolProperty
@@ -78,47 +82,6 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
         } ),
         tandem: tandem
       } );
-
-    //----------------------------------------------------------------------------------------
-    // Manage the things that happen when the vector is added to or removed from activeVectors.
-    //----------------------------------------------------------------------------------------
-
-    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
-    const iconComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_MAGNITUDE ) );
-
-    const animateVectorBackListener = ( animateBack: boolean ) => {
-      if ( animateBack ) {
-
-        // Get the model position of the icon node.
-        const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
-
-        // Animate the vector to its icon in the panel, then remove it from activeVectors.
-        vector.animateToPoint( iconPosition, iconComponents, () => {
-          vectorSet.activeVectors.remove( vector );
-          vector.reset();
-          //TODO https://github.com/phetsims/vector-addition/issues/258 animateBackProperty is being set in animateBackProperty listener
-          vector.animateBackProperty.value = false;
-        } );
-      }
-    };
-
-    // When the vector is added to activeVectors...
-    vectorSet.activeVectors.addItemAddedListener( addedVector => {
-      if ( addedVector === vector ) {
-
-        // Add the listener to animate the vector back to the toolbox.
-        vector.animateBackProperty.link( animateVectorBackListener );
-      }
-    } );
-
-    // When the vector is removed from activeVectors...
-    vectorSet.activeVectors.addItemRemovedListener( addedVector => {
-      if ( addedVector === vector ) {
-
-        // Remnove the listener to animate the vector back to the toolbox.
-        vector.animateBackProperty.unlink( animateVectorBackListener );
-      }
-    } );
   }
 }
 
