@@ -37,27 +37,6 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
                       sceneNode: VectorAdditionSceneNode,
                       tandem: Tandem ) {
 
-    super(
-      vectorSet,
-      () => vectorSet.getFirstAvailableVector(),
-      modelViewTransformProperty,
-      sceneNode, {
-        isDisposable: false,
-        spacing: 5,
-        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
-          symbol: vectorSet.accessibleSymbolProperty
-        } ),
-        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleHelpTextStringProperty, {
-          symbol: vectorSet.accessibleSymbolProperty
-        } ),
-        tagName: 'button',
-        tandem: tandem
-      } );
-
-    //----------------------------------------------------------------------------------------
-    // Create the icon
-    //----------------------------------------------------------------------------------------
-
     // Get the components in view coordinates.
     const iconViewComponents = modelViewTransformProperty.value.modelToViewDelta( iconVectorComponents );
 
@@ -69,30 +48,41 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
     iconNode.mouseArea = iconNode.localBounds.dilatedXY( ICON_POINTER_DILATION.x, ICON_POINTER_DILATION.y );
     iconNode.touchArea = iconNode.localBounds.dilatedXY( ICON_POINTER_DILATION.x, ICON_POINTER_DILATION.y );
 
-    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
-    const iconComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents
-      .normalized().timesScalar( ICON_MAGNITUDE ) );
-
     // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
     // has the same effective width regardless of the initial xy-components. This ensures that
     // the label of the slot is in the same place regardless of the icon size.
-    this.addChild( new AlignBox( iconNode, {
+    const alignBox = new AlignBox( iconNode, {
       alignBounds: new Bounds2( 0, 0, ICON_WIDTH, iconNode.height )
-    } ) );
+    } );
 
-    // Add the label to the slot, always visible.
-    this.addChild( new ArrowOverSymbolNode( vectorSet.symbolProperty ) );
+    // Label for the slot, always visible.
+    const arrowOverSymbolNode = new ArrowOverSymbolNode( vectorSet.symbolProperty );
+
+    super(
+      vectorSet.allVectors,
+      () => vectorSet.getFirstAvailableVector(),
+      vectorSet,
+      modelViewTransformProperty,
+      sceneNode,
+      iconNode, {
+        children: [ alignBox, arrowOverSymbolNode ],
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
+          symbol: vectorSet.accessibleSymbolProperty
+        } ),
+        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleHelpTextStringProperty, {
+          symbol: vectorSet.accessibleSymbolProperty
+        } ),
+        tagName: 'button',
+        tandem: tandem
+      } );
 
     //----------------------------------------------------------------------------------------
     // Manage the things that happen when the vector is added to or removed from activeVectors.
     //----------------------------------------------------------------------------------------
 
-    // Hide the icon and disable focus when all vectors have left the toolbox.
-    vectorSet.activeVectors.lengthProperty.link( () => {
-      const slotIsEmpty = ( vectorSet.activeVectors.lengthProperty.value === vectorSet.allVectors.length );
-      iconNode.visible = !slotIsEmpty;
-      this.focusable = !slotIsEmpty;
-    } );
+    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
+    const iconComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents
+      .normalized().timesScalar( ICON_MAGNITUDE ) );
 
     // When a vector is added to the activeVectors, add the listener that handles animating it back to the toolbox.
     vectorSet.activeVectors.addItemAddedListener( vector => {

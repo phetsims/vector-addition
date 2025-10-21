@@ -18,6 +18,7 @@ import vectorAddition from '../../vectorAddition.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Vector from '../model/Vector.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -25,10 +26,12 @@ export type VectorToolboxSlotOptions = SelfOptions & WithRequired<HBoxOptions, '
 
 export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
-  protected constructor( vectorSet: VectorSet,
-                         getNextVector: () => Vector | null,
+  protected constructor( vectors: Vector[], // vectors in the slot
+                         getNextVector: () => Vector | null, // Gets the next available vector in the slot.
+                         vectorSet: VectorSet,
                          modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                          sceneNode: VectorAdditionSceneNode,
+                         iconNode: Node,
                          providedOptions: VectorToolboxSlotOptions ) {
 
     const options = optionize<VectorToolboxSlotOptions, SelfOptions, HBoxOptions>()( {
@@ -64,6 +67,13 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       // Tell sceneNode to create the view for the vector.
       sceneNode.registerVector( vector, vectorSet, event );
     } ) );
+
+    // Hide the icon and disable focus when all vectors have left the toolbox.
+    vectorSet.activeVectors.lengthProperty.link( () => {
+      const slotIsEmpty = _.every( vectors, vector => vectorSet.activeVectors.includes( vector ) );
+      iconNode.visible = !slotIsEmpty;
+      this.focusable = !slotIsEmpty;
+    } );
   }
 }
 
