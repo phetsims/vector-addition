@@ -12,27 +12,24 @@
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
-import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import vectorAddition from '../../vectorAddition.js';
 import Vector from '../../common/model/Vector.js';
 import ArrowOverSymbolNode from '../../common/view/ArrowOverSymbolNode.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LabVectorSet from '../model/LabVectorSet.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
 
 const ICON_WIDTH = 35; // Effective width of the vector icon.
 const ICON_MAGNITUDE = 57; // Magnitude of the vector icon.
 const ICON_POINTER_DILATION = new Vector2( 10, 10 );
 
-export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox ) {
+export default class LabVectorToolboxSlot extends VectorToolboxSlot {
 
   public constructor( vectorSet: LabVectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
@@ -40,28 +37,29 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
                       sceneNode: VectorAdditionSceneNode,
                       tandem: Tandem ) {
 
-    super( {
-      isDisposable: false,
-      spacing: 5,
-      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
-        symbol: vectorSet.accessibleSymbolProperty
-      } ),
-      accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleHelpTextStringProperty, {
-        symbol: vectorSet.accessibleSymbolProperty
-      } ),
-      tagName: 'button',
-      tandem: tandem
-    } );
-
-    // convenience reference
-    const modelViewTransform = modelViewTransformProperty.value;
+    super(
+      vectorSet,
+      () => vectorSet.getFirstAvailableVector(),
+      modelViewTransformProperty,
+      sceneNode, {
+        isDisposable: false,
+        spacing: 5,
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
+          symbol: vectorSet.accessibleSymbolProperty
+        } ),
+        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleHelpTextStringProperty, {
+          symbol: vectorSet.accessibleSymbolProperty
+        } ),
+        tagName: 'button',
+        tandem: tandem
+      } );
 
     //----------------------------------------------------------------------------------------
     // Create the icon
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.modelToViewDelta( iconVectorComponents );
+    const iconViewComponents = modelViewTransformProperty.value.modelToViewDelta( iconVectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorToolboxIcon( iconViewComponents,
@@ -72,7 +70,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     iconNode.touchArea = iconNode.localBounds.dilatedXY( ICON_POINTER_DILATION.x, ICON_POINTER_DILATION.y );
 
     // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
-    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
+    const iconComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents
       .normalized().timesScalar( ICON_MAGNITUDE ) );
 
     // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
@@ -84,33 +82,6 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
 
     // Add the label to the slot, always visible.
     this.addChild( new ArrowOverSymbolNode( vectorSet.symbolProperty ) );
-
-    //----------------------------------------------------------------------------------------
-    // Dragging a vector out of the slot.
-    //----------------------------------------------------------------------------------------
-
-    this.addInputListener( SoundDragListener.createForwardingListener( event => {
-
-      // Get the first available vector in the toolbox slot.
-      const vector = vectorSet.getFirstAvailableVector()!;
-      affirm( vector, 'Expected vector to be defined.' );
-      vector.reset();
-
-      // Find where the icon was clicked relative to the scene node, in view coordinates.
-      const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
-
-      // Convert the view coordinates of where the icon was clicked into model coordinates.
-      const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
-
-      // Calculate where the tail position is relative to the scene node.
-      vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
-
-      // Add to activeVectors, so that it is included in the sum calculation.
-      vectorSet.activeVectors.push( vector );
-
-      // Tell sceneNode to create the view for the vector.
-      sceneNode.registerVector( vector, vectorSet, event );
-    } ) );
 
     //----------------------------------------------------------------------------------------
     // Manage the things that happen when the vector is added to or removed from activeVectors.

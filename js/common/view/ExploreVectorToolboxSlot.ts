@@ -9,10 +9,7 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
-import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import vectorAddition from '../../vectorAddition.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import Vector from '../model/Vector.js';
@@ -25,11 +22,12 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { GraphOrientation } from '../model/GraphOrientation.js';
+import VectorToolboxSlot from './VectorToolboxSlot.js';
 
 // Magnitude of the vector icon.
 const ICON_MAGNITUDE = 35;
 
-export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( HBox ) {
+export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
 
   public constructor( vector: Vector,
                       vectorSet: VectorSet,
@@ -38,28 +36,26 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
                       sceneNode: VectorAdditionSceneNode,
                       iconVectorComponents: Vector2,
                       tandem: Tandem ) {
-    super( {
-      isDisposable: false,
-      spacing: 5,
-      tagName: 'button',
-      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleNameStringProperty, {
-        symbol: vector.accessibleSymbolProperty
-      } ),
-      accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleHelpTextStringProperty, {
-        symbol: vector.accessibleSymbolProperty
-      } ),
-      tandem: tandem
-    } );
-
-    // convenience reference
-    const modelViewTransform = modelViewTransformProperty.value;
+    super(
+      vectorSet,
+      () => vector,
+      modelViewTransformProperty,
+      sceneNode, {
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleNameStringProperty, {
+          symbol: vector.accessibleSymbolProperty
+        } ),
+        accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleHelpTextStringProperty, {
+          symbol: vector.accessibleSymbolProperty
+        } ),
+        tandem: tandem
+      } );
 
     //----------------------------------------------------------------------------------------
     // Create the icon
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.modelToViewDelta( iconVectorComponents );
+    const iconViewComponents = modelViewTransformProperty.value.modelToViewDelta( iconVectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorToolboxIcon( iconViewComponents,
@@ -74,7 +70,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     iconNode.touchArea = iconNode.localBounds.dilatedXY( iconPointerAreaDilation.x, iconPointerAreaDilation.y );
 
     // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
-    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_MAGNITUDE ) );
+    const iconComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_MAGNITUDE ) );
 
     // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
     // has the same effective width regardless of the initial xy-components. This ensures that
@@ -85,30 +81,6 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
 
     // Add the label to the slot, always visible.
     this.addChild( new ArrowOverSymbolNode( vector.symbolProperty ) );
-
-    //----------------------------------------------------------------------------------------
-    // Dragging the vector out of the slot.
-    //----------------------------------------------------------------------------------------
-
-    this.addInputListener( SoundDragListener.createForwardingListener( event => {
-
-      vector.reset();
-
-      // Find where the icon was clicked relative to the scene node, in view coordinates.
-      const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
-
-      // Convert the view coordinates of where the icon was clicked into model coordinates.
-      const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
-
-      // Calculate where the tail position is relative to the scene node.
-      vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
-
-      // Add to activeVectors, so that it is included in the sum calculation.
-      vectorSet.activeVectors.push( vector );
-
-      // Tell sceneNode to create the view for the vector.
-      sceneNode.registerVector( vector, vectorSet, event );
-    } ) );
 
     //----------------------------------------------------------------------------------------
     // Manage the things that happen when the vector is added to or removed from activeVectors.
