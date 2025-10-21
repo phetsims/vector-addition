@@ -15,18 +15,7 @@ import VectorColorPalette from './VectorColorPalette.js';
 import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Vector from './Vector.js';
 import ExploreVectorSet, { ExploreVectorDescription } from './ExploreVectorSet.js';
-import Graph from './Graph.js';
-import Property from '../../../../axon/js/Property.js';
-
-// Function to create all vectors for a scene in the 'Explore 1D' and 'Explore 2D' screens.
-export type CreateAllExploreVectorsFunction = ( vectorSet: ExploreVectorSet,
-                                                graph: Graph,
-                                                selectedVectorProperty: Property<Vector | null>,
-                                                componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                                                coordinateSnapMode: CoordinateSnapMode,
-                                                parentTandem: Tandem ) => Vector[];
 
 export default class ExploreScene extends VectorAdditionScene {
 
