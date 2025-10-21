@@ -75,7 +75,7 @@ export default class EquationsVectorSet extends VectorSet {
 
       resultantSymbolProperty: resultantSymbolProperty,
       resultantTandemNameSymbol: resultantTandemNameSymbol,
-      activeVectorsInstrumented: false
+      activeVectorsInstrumented: false // All vectors are always on the graph in the Equations screen.
     }, providedOptions );
 
     super( graph, selectedVectorProperty, componentVectorStyleProperty, options );
