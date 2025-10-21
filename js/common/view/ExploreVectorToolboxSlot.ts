@@ -10,7 +10,6 @@
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import vectorAddition from '../../vectorAddition.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import Vector from '../model/Vector.js';
@@ -67,7 +66,9 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
     const iconComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents
       .normalized().timesScalar( ICON_MAGNITUDE ) );
 
-    super( [ vector ], vectorSet.activeVectors, modelViewTransformProperty, sceneNode, iconNode, iconComponents, {
+    const getNextVector = () => vector;
+
+    super( [ vector ], getNextVector, vectorSet, modelViewTransformProperty, sceneNode, iconNode, iconComponents, {
       children: [ alignBox, arrowOverSymbolNode ],
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleNameStringProperty, {
         symbol: vector.accessibleSymbolProperty
@@ -77,28 +78,6 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
       } ),
       tandem: tandem
     } );
-
-    // convenience reference
-    const xyComponents = vector.xyComponentsProperty.value;
-
-    // Dragging the vector out of the slot.
-    this.addInputListener( SoundDragListener.createForwardingListener( event => {
-
-      // Find where the icon was clicked relative to the scene node, in view coordinates.
-      const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
-
-      // Convert the view coordinates of where the icon was clicked into model coordinates.
-      const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
-
-      // Calculate where the tail position is relative to the scene node.
-      vector.tailPositionProperty.value = vectorCenterModel.minus( xyComponents.timesScalar( 0.5 ) );
-
-      // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
-      vectorSet.activeVectors.push( vector );
-
-      // Tell sceneNode to create the view for the vector.
-      sceneNode.registerVector( vector, vectorSet, event );
-    } ) );
   }
 }
 

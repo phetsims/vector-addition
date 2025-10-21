@@ -17,7 +17,9 @@ import Vector from '../model/Vector.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
-import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import VectorSet from '../model/VectorSet.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -26,7 +28,8 @@ export type VectorToolboxSlotOptions = SelfOptions & WithRequired<HBoxOptions, '
 export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
   protected constructor( vectors: Vector[], // vectors in this slot
-                         activeVectors: ObservableArray<Vector>,
+                         getNextVector: () => Vector | null, // Gets the next vector to be dragged out of the slot.
+                         vectorSet: VectorSet,
                          modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                          sceneNode: VectorAdditionSceneNode,
                          iconNode: Node,
@@ -43,15 +46,38 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
     super( options );
 
+    // Dragging the vector out of the slot.
+    this.addInputListener( SoundDragListener.createForwardingListener( event => {
+
+      // Find where the icon was clicked relative to the scene node, in view coordinates.
+      const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
+
+      // Convert the view coordinates of where the icon was clicked into model coordinates.
+      const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
+
+      const vector = getNextVector()!;
+      affirm( vector, 'Expected vector to be defined.' );
+      vector.reset();
+
+      // Calculate where the tail position is relative to the scene node.
+      vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
+
+      // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
+      vectorSet.activeVectors.push( vector );
+
+      // Tell sceneNode to create the view for the vector.
+      sceneNode.registerVector( vector, vectorSet, event );
+    } ) );
+
     // Hide the icon and disable focus when all vectors have left the toolbox.
-    activeVectors.lengthProperty.link( () => {
-      const slotIsEmpty = _.every( vectors, vector => activeVectors.includes( vector ) );
+    vectorSet.activeVectors.lengthProperty.link( () => {
+      const slotIsEmpty = _.every( vectors, vector => vectorSet.activeVectors.includes( vector ) );
       iconNode.visible = !slotIsEmpty;
       this.focusable = !slotIsEmpty;
     } );
 
     // When a vector is added to activeVectors, add the listener that handles animating it back to the toolbox.
-    activeVectors.addItemAddedListener( vector => {
+    vectorSet.activeVectors.addItemAddedListener( vector => {
 
       const animateVectorBackListener = ( animateBack: boolean ) => {
         if ( animateBack ) {
@@ -61,7 +87,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
           // Animate the vector to its icon in the panel.
           vector.animateToPoint( iconPosition, iconComponents, () => {
-            activeVectors.remove( vector );
+            vectorSet.activeVectors.remove( vector );
             vector.reset();
             //TODO https://github.com/phetsims/vector-addition/issues/258 Why is this needed? Without it, fails the 2nd time that a vector is activated.
             vector.animateBackProperty.value = false;
@@ -74,10 +100,10 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       const vectorRemovedListener = ( removedVector: Vector ) => {
         if ( removedVector === vector ) {
           vector.animateBackProperty.unlink( animateVectorBackListener );
-          activeVectors.removeItemRemovedListener( vectorRemovedListener );
+          vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
         }
       };
-      activeVectors.addItemRemovedListener( vectorRemovedListener );
+      vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
     } );
   }
 }

@@ -16,10 +16,8 @@ import vectorAddition from '../../vectorAddition.js';
 import ArrowOverSymbolNode from '../../common/view/ArrowOverSymbolNode.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import LabVectorSet from '../model/LabVectorSet.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
@@ -59,7 +57,9 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
     // Label for the slot, always visible.
     const arrowOverSymbolNode = new ArrowOverSymbolNode( vectorSet.symbolProperty );
 
-    super( vectorSet.allVectors, vectorSet.activeVectors, modelViewTransformProperty, sceneNode, iconNode, iconViewComponents, {
+    const getNextVector = () => vectorSet.getFirstAvailableVector();
+
+    super( vectorSet.allVectors, getNextVector, vectorSet, modelViewTransformProperty, sceneNode, iconNode, iconViewComponents, {
       children: [ alignBox, arrowOverSymbolNode ],
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
         symbol: vectorSet.accessibleSymbolProperty
@@ -69,31 +69,6 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
       } ),
       tandem: tandem
     } );
-
-    // Dragging a vector out of the slot.
-    this.addInputListener( SoundDragListener.createForwardingListener( event => {
-
-      // Find where the icon was clicked relative to the scene node, in view coordinates.
-      const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
-
-      // Convert the view coordinates of where the icon was clicked into model coordinates.
-      const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
-
-      // Calculate where the tail position is relative to the scene node.
-      const vectorTailPosition = vectorCenterModel.minus( initialXYComponents.timesScalar( 0.5 ) );
-
-      // Get the first available vector in the toolbox slot.
-      const vector = vectorSet.getFirstAvailableVector()!;
-      affirm( vector, 'Expected vector to be defined.' );
-      vector.reset();
-      vector.tailPositionProperty.value = vectorTailPosition;
-
-      // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
-      vectorSet.activeVectors.push( vector );
-
-      // Tell sceneNode to create the view for the vector.
-      sceneNode.registerVector( vector, vectorSet, event );
-    } ) );
   }
 }
 
