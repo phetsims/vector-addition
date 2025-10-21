@@ -102,7 +102,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       // Calculate where the tail position is relative to the scene node.
       vector.tailPositionProperty.value = vectorCenterModel.minus( xyComponents.timesScalar( 0.5 ) );
 
-      // Add to activeVectors, so that it is included in the sum calculation.
+      // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
       vectorSet.activeVectors.push( vector );
 
       // Tell sceneNode to create the view for the vector.
