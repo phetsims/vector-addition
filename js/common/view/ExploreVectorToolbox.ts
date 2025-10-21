@@ -6,6 +6,7 @@
  * @author Brandon Li
  */
 
+import optionize from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from './VectorToolbox.js';
 import LabVectorToolboxSlot from '../../lab/view/LabVectorToolboxSlot.js';
@@ -15,7 +16,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ExploreScene from '../model/ExploreScene.js';
 
 type SelfOptions = {
-  iconVectorComponents: Vector2;
+  iconVectorComponents?: Vector2 | null;
 };
 
 type Explore1DVectorToolboxOptions = SelfOptions & VectorToolboxOptions;
@@ -26,14 +27,17 @@ export default class ExploreVectorToolbox extends VectorToolbox {
                       sceneNode: VectorAdditionSceneNode,
                       providedOptions: Explore1DVectorToolboxOptions ) {
 
-    const options = providedOptions;
+    const options = optionize<Explore1DVectorToolboxOptions, SelfOptions, VectorToolboxOptions>()( {
+
+      // SelfOptions
+      iconVectorComponents: null
+    }, providedOptions );
 
     // Create a slot for each vector.
     const panelSlots: LabVectorToolboxSlot[] = [];
     scene.vectorSet.allVectors.forEach( vector => {
       panelSlots.push( new ExploreVectorToolboxSlot( vector, scene.vectorSet, scene.graph.modelViewTransformProperty,
-        sceneNode, options.iconVectorComponents, scene.graph.orientation,
-        options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
+        scene.graph.orientation, sceneNode, options.iconVectorComponents, options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
     } );
 
     super( panelSlots, options );

@@ -71,6 +71,10 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     iconNode.mouseArea = iconNode.localBounds.dilatedXY( ICON_POINTER_DILATION.x, ICON_POINTER_DILATION.y );
     iconNode.touchArea = iconNode.localBounds.dilatedXY( ICON_POINTER_DILATION.x, ICON_POINTER_DILATION.y );
 
+    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
+    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
+      .normalized().timesScalar( ICON_MAGNITUDE ) );
+
     // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
     // has the same effective width regardless of the initial xy-components. This ensures that
     // the label of the slot is in the same place regardless of the icon size.
@@ -84,10 +88,6 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     //----------------------------------------------------------------------------------------
     // Dragging a vector out of the slot.
     //----------------------------------------------------------------------------------------
-
-    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
-    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents
-      .normalized().timesScalar( ICON_MAGNITUDE ) );
 
     this.addInputListener( SoundDragListener.createForwardingListener( event => {
 
@@ -114,7 +114,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     } ) );
 
     //----------------------------------------------------------------------------------------
-    // Manage the things that happen when a vector is added to or removed from activeVectors.
+    // Manage the things that happen when the vector is added to or removed from activeVectors.
     //----------------------------------------------------------------------------------------
 
     // Hide the icon and disable focus when all vectors have left the toolbox.
