@@ -41,6 +41,9 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
         affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
           'VectorScaleRotateDragListener should be removed when the vector is animating back.' );
         selectedVectorProperty.value = vector;
+      },
+      end: () => {
+        this.tipNode.doAccessibleObjectResponse();
       }
     } );
 
@@ -59,7 +62,6 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
     affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(), 'Cannot drag tip when animating back' );
     const tipPositionModel = this.vector.tail.plus( this.modelViewTransformProperty.value.viewToModelDelta( tipPositionView ) );
     this.vector.moveTipToPositionWithInvariants( tipPositionModel );
-    this.tipNode.doAccessibleObjectResponse();
   }
 }
 
