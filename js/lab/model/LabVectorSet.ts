@@ -31,7 +31,7 @@ type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions, 'resultant
 
 export default class LabVectorSet extends VectorSet {
 
-  // The complete set of vectors for this vector set, allocated when the sim starts.
+  // The complete set of non-resultant vectors for this vector set, allocated when the sim starts.
   // Ordered by increasing vector index, e.g. v1, v2, v3,...
   public readonly allVectors: Vector[];
 

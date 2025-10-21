@@ -33,7 +33,7 @@ type ExploreVectorSetOptions = SelfOptions &
 
 export default class ExploreVectorSet extends VectorSet {
 
-  // The complete set of vectors for this scene, allocated when the sim starts.
+  // The complete set of non-resultant vectors for this vector set, allocated when the sim starts.
   public readonly allVectors: Vector[];
 
   // Number of vectors that are on the graph, and therefore contributing to the sum.

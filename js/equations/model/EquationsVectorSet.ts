@@ -42,8 +42,7 @@ export default class EquationsVectorSet extends VectorSet {
   // Symbols that appear in the equations on the radio buttons in EquationTypeRadioButtonGroup.
   public readonly equationSymbolProperties: TReadOnlyProperty<string>[];
 
-  // We need to know about EquationsVector instances, a specialization of Vector.
-  // We can use a regular array (instead of ObservableArray) because the set of vectors is static in this screen.
+  // The complete set of non-resultant and non-base vectors for this vector set, allocated when the sim starts.
   public readonly allVectors: EquationsVector[];
 
   public constructor( graph: Graph,
