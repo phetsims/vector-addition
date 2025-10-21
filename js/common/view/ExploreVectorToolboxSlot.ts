@@ -36,7 +36,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       graphOrientation: GraphOrientation,
                       sceneNode: VectorAdditionSceneNode,
-                      iconVectorComponents: Vector2 | null,
+                      iconVectorComponents: Vector2,
                       tandem: Tandem ) {
     super( {
       isDisposable: false,
@@ -53,14 +53,13 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
 
     // convenience reference
     const modelViewTransform = modelViewTransformProperty.value;
-    const xyComponents = vector.xyComponentsProperty.value;
 
     //----------------------------------------------------------------------------------------
     // Create the icon
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.modelToViewDelta( iconVectorComponents || xyComponents );
+    const iconViewComponents = modelViewTransform.modelToViewDelta( iconVectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorToolboxIcon( iconViewComponents,
@@ -93,6 +92,8 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
 
     this.addInputListener( SoundDragListener.createForwardingListener( event => {
 
+      vector.reset();
+
       // Find where the icon was clicked relative to the scene node, in view coordinates.
       const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
 
@@ -100,7 +101,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
       const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
       // Calculate where the tail position is relative to the scene node.
-      vector.tailPositionProperty.value = vectorCenterModel.minus( xyComponents.timesScalar( 0.5 ) );
+      vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
 
       // Add to activeVectors, so that it is included in the sum calculation.
       vectorSet.activeVectors.push( vector );

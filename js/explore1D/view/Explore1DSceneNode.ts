@@ -17,6 +17,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 
 export default class Explore1DSceneNode extends VectorAdditionSceneNode {
 
@@ -33,6 +34,7 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
 
     // Add the vector toolbox.
     this.addVectorToolbox( new ExploreVectorToolbox( scene, this, {
+      iconVectorComponents: ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 1, 0 ) : new Vector2( 0, 1 ),
       ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18,
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,

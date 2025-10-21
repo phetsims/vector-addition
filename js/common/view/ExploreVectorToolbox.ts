@@ -6,7 +6,6 @@
  * @author Brandon Li
  */
 
-import optionize from '../../../../phet-core/js/optionize.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from './VectorToolbox.js';
 import LabVectorToolboxSlot from '../../lab/view/LabVectorToolboxSlot.js';
@@ -16,7 +15,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import ExploreScene from '../model/ExploreScene.js';
 
 type SelfOptions = {
-  iconVectorComponents?: Vector2 | null;
+  iconVectorComponents: Vector2;
 };
 
 type Explore1DVectorToolboxOptions = SelfOptions & VectorToolboxOptions;
@@ -27,11 +26,7 @@ export default class ExploreVectorToolbox extends VectorToolbox {
                       sceneNode: VectorAdditionSceneNode,
                       providedOptions: Explore1DVectorToolboxOptions ) {
 
-    const options = optionize<Explore1DVectorToolboxOptions, SelfOptions, VectorToolboxOptions>()( {
-
-      // SelfOptions
-      iconVectorComponents: null
-    }, providedOptions );
+    const options = providedOptions;
 
     // Create a slot for each vector.
     const panelSlots: LabVectorToolboxSlot[] = [];

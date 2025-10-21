@@ -36,7 +36,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
 
   public constructor( vectorSet: LabVectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
-                      initialXYComponents: Vector2,
+                      iconVectorComponents: Vector2,
                       sceneNode: VectorAdditionSceneNode,
                       tandem: Tandem ) {
 
@@ -61,7 +61,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.modelToViewDelta( initialXYComponents );
+    const iconViewComponents = modelViewTransform.modelToViewDelta( iconVectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorToolboxIcon( iconViewComponents,
@@ -91,6 +91,11 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
 
     this.addInputListener( SoundDragListener.createForwardingListener( event => {
 
+      // Get the first available vector in the toolbox slot.
+      const vector = vectorSet.getFirstAvailableVector()!;
+      affirm( vector, 'Expected vector to be defined.' );
+      vector.reset();
+
       // Find where the icon was clicked relative to the scene node, in view coordinates.
       const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
 
@@ -98,13 +103,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
       // Calculate where the tail position is relative to the scene node.
-      const vectorTailPosition = vectorCenterModel.minus( initialXYComponents.timesScalar( 0.5 ) );
-
-      // Get the first available vector in the toolbox slot.
-      const vector = vectorSet.getFirstAvailableVector()!;
-      affirm( vector, 'Expected vector to be defined.' );
-      vector.reset();
-      vector.tailPositionProperty.value = vectorTailPosition;
+      vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
 
       // Add to activeVectors, so that it is included in the sum calculation.
       vectorSet.activeVectors.push( vector );
