@@ -78,7 +78,6 @@ export class VectorTranslationDragListener extends SoundDragListener {
             this.vectorNode.doAccessibleObjectResponseTranslate();
           }
           else {
-            this.vectorNode.doAccessibleObjectResponseOffGrid();
 
             // Animate the vector back to the toolbox.
             vector.animateBackProperty.value = true;
