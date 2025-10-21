@@ -113,41 +113,46 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     // Manage the things that happen when the vector is added to or removed from activeVectors.
     //----------------------------------------------------------------------------------------
 
-    // Hide the icon and disable focus when all vectors have left the toolbox.
-    vectorSet.activeVectors.lengthProperty.link( () => {
-      const slotIsEmpty = vectorSet.activeVectors.includes( vector );
-      iconNode.visible = !slotIsEmpty;
-      this.focusable = !slotIsEmpty;
+    const animateVectorBackListener = ( animateBack: boolean ) => {
+      if ( animateBack ) {
+
+        // Get the model position of the icon node.
+        const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
+
+        // Animate the vector to its icon in the panel, then remove it from activeVectors.
+        vector.animateToPoint( iconPosition, iconComponents, () => {
+          vectorSet.activeVectors.remove( vector );
+          vector.reset();
+          //TODO https://github.com/phetsims/vector-addition/issues/258 animateBackProperty is being set in animateBackProperty listener
+          vector.animateBackProperty.value = false;
+        } );
+      }
+    };
+
+    // When the vector is added to activeVectors...
+    vectorSet.activeVectors.addItemAddedListener( addedVector => {
+      if ( addedVector === vector ) {
+
+        // Hide the icon and disable focus.
+        iconNode.visible = false;
+        this.focusable = false;
+
+        // Add the listener to animate the vector back to the toolbox.
+        vector.animateBackProperty.link( animateVectorBackListener );
+      }
     } );
 
-    // When a vector is added to the activeVectors, add the listener that handles animating it back to the toolbox.
-    vectorSet.activeVectors.addItemAddedListener( vector => {
+    // When the vector is removed from activeVectors...
+    vectorSet.activeVectors.addItemRemovedListener( addedVector => {
+      if ( addedVector === vector ) {
 
-      const animateVectorBackListener = ( animateBack: boolean ) => {
-        if ( animateBack ) {
+        // Show the icon and enable focus.
+        iconNode.visible = true;
+        this.focusable = true;
 
-          // Get the model position of the icon node.
-          const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
-
-          // Animate the vector to its icon in the panel.
-          vector.animateToPoint( iconPosition, iconComponents, () => {
-            vectorSet.activeVectors.remove( vector );
-            vector.reset();
-            //TODO https://github.com/phetsims/vector-addition/issues/258 Why is this needed? Without it, fails the 2nd time that a vector is activated.
-            vector.animateBackProperty.value = false;
-          } );
-        }
-      };
-      vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
-
-      // Clean up when the vector is removed.
-      const vectorRemovedListener = ( removedVector: Vector ) => {
-        if ( removedVector === vector ) {
-          vector.animateBackProperty.unlink( animateVectorBackListener );
-          vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
-        }
-      };
-      vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
+        // Remnove the listener to animate the vector back to the toolbox.
+        vector.animateBackProperty.unlink( animateVectorBackListener );
+      }
     } );
   }
 }
