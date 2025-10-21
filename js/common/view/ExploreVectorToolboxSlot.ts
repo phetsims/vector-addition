@@ -67,7 +67,7 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
     const iconComponents = modelViewTransformProperty.value.viewToModelDelta( iconViewComponents
       .normalized().timesScalar( ICON_MAGNITUDE ) );
 
-    super( [ vector ], vectorSet.activeVectors, modelViewTransformProperty, sceneNode, iconNode, iconComponents, {
+    super( vectorSet, modelViewTransformProperty, sceneNode, iconNode, iconComponents, {
       children: [ alignBox, arrowOverSymbolNode ],
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleNameStringProperty, {
         symbol: vector.accessibleSymbolProperty
@@ -99,6 +99,13 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
       // Tell sceneNode to create the view for the vector.
       sceneNode.registerVector( vector, vectorSet, event );
     } ) );
+
+    // Hide the icon and disable focus when all vectors have left the toolbox.
+    vectorSet.activeVectors.lengthProperty.link( () => {
+      const slotIsEmpty = vectorSet.activeVectors.includes( vector );
+      iconNode.visible = !slotIsEmpty;
+      this.focusable = !slotIsEmpty;
+    } );
   }
 }
 
