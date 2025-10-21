@@ -213,6 +213,7 @@ type StringsType = {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
         'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseOffGridStringProperty': LocalizedStringProperty;
       };
       'tip': {
         'accessibleNameStringProperty': LocalizedStringProperty;

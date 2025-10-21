@@ -224,6 +224,13 @@ export default class VectorNode extends RootVectorNode {
       tipY: this.vector.tipY
     } ) );
   }
+
+  /**
+   * Queues an accessible object response indicating that the vector is off the grid.
+   */
+  public doAccessibleObjectResponseOffGrid(): void {
+    this.addAccessibleObjectResponse( VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseOffGridStringProperty );
+  }
 }
 
 vectorAddition.register( 'VectorNode', VectorNode );
