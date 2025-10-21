@@ -78,7 +78,6 @@ export default class VectorSet extends PhetioObject {
   public readonly activeVectors: ObservableArray<Vector>;
 
   public readonly vectorColorPalette: VectorColorPalette;
-  private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
   public readonly projectionXOffsetStart: number;
   public readonly projectionYOffsetStart: number;
@@ -140,7 +139,6 @@ export default class VectorSet extends PhetioObject {
     } );
 
     this.vectorColorPalette = options.vectorColorPalette;
-    this.componentVectorStyleProperty = componentVectorStyleProperty;
 
     this.projectionXOffsetStart = options.projectionXOffsetStart;
     this.projectionYOffsetStart = options.projectionYOffsetStart;
