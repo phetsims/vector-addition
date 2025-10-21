@@ -106,7 +106,7 @@ export default class LabVectorToolboxSlot extends InteractiveHighlighting( HBox 
       vector.reset();
       vector.tailPositionProperty.value = vectorTailPosition;
 
-      // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
+      // Add to activeVectors, so that it is included in the sum calculation.
       vectorSet.activeVectors.push( vector );
 
       // Tell sceneNode to create the view for the vector.
