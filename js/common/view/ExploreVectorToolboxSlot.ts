@@ -34,9 +34,9 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
   public constructor( vector: Vector,
                       vectorSet: VectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
-                      graphOrientation: GraphOrientation,
                       sceneNode: VectorAdditionSceneNode,
-                      iconVectorComponents: Vector2 | null,
+                      iconVectorComponents: Vector2,
+                      graphOrientation: GraphOrientation,
                       tandem: Tandem ) {
     super( {
       isDisposable: false,
@@ -60,7 +60,7 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     //----------------------------------------------------------------------------------------
 
     // Get the components in view coordinates.
-    const iconViewComponents = modelViewTransform.modelToViewDelta( iconVectorComponents || xyComponents );
+    const iconViewComponents = modelViewTransform.modelToViewDelta( iconVectorComponents );
 
     // Create the icon.
     const iconNode = VectorAdditionIconFactory.createVectorToolboxIcon( iconViewComponents,
@@ -73,9 +73,6 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
                                     new Vector2( 15, 10 );
     iconNode.mouseArea = iconNode.localBounds.dilatedXY( iconPointerAreaDilation.x, iconPointerAreaDilation.y );
     iconNode.touchArea = iconNode.localBounds.dilatedXY( iconPointerAreaDilation.x, iconPointerAreaDilation.y );
-
-    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
-    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_MAGNITUDE ) );
 
     // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
     // has the same effective width regardless of the initial xy-components. This ensures that
@@ -90,6 +87,9 @@ export default class ExploreVectorToolboxSlot extends InteractiveHighlighting( H
     //----------------------------------------------------------------------------------------
     // Dragging the vector out of the slot.
     //----------------------------------------------------------------------------------------
+
+    // Get the components in model coordinates of the icon. Used to animate the vector to the icon components.
+    const iconComponents = modelViewTransform.viewToModelDelta( iconViewComponents.normalized().timesScalar( ICON_MAGNITUDE ) );
 
     this.addInputListener( SoundDragListener.createForwardingListener( event => {
 
