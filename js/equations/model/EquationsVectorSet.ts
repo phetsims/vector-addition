@@ -121,14 +121,10 @@ export default class EquationsVectorSet extends VectorSet {
     } );
   }
 
-  /**
-   * We are not calling super.reset() because the default behavior is to erase all vectors - that is, remove
-   * them from this.activeVectors, returning them to the toolbox. In the Equations screen, there is no toolbox,
-   * and all vectors are always active.
-   */
   public override reset(): void {
     this.allVectors.forEach( vector => vector.reset() );
-    // Do not call super.reset -- see note above!
+    // Do not call super.reset. The default behavior is to erase all vectors - that is, remove them from this.activeVectors,
+    // returning them to the toolbox. In the Equations screen, there is no toolbox, and all vectors are always active.
   }
 
   /**
