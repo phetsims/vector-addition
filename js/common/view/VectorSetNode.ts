@@ -30,6 +30,7 @@ import BaseVectorNode from './BaseVectorNode.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 
 export default class VectorSetNode extends Node {
 
@@ -106,6 +107,13 @@ export default class VectorSetNode extends Node {
     } );
 
     this.addLinkedElement( vectorSet );
+
+    // After PhET-iO state has been restored, register all active vectors to build their view.
+    if ( Tandem.PHET_IO_ENABLED ) {
+      phetioStateSetEmitter.addListener( () => {
+        vectorSet.activeVectors.forEach( activeVector => this.registerVector( activeVector ) );
+      } );
+    }
   }
 
   /**
