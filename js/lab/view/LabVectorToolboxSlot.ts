@@ -1,5 +1,6 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
+//TODO https://github.com/phetsims/vector-addition/issues/258 Duplication with ExploreVectorToolboxSlot.
 /**
  * LabVectorToolboxSlot is a slot in the vector toolbox for the 'Lab' screen. In the Labs screen, each slot
  * corresponds to a vector set, and multiple vectors for that vector set can be dragged to and from the slot.
