@@ -120,9 +120,6 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
             vector.animateToPoint( iconPosition, iconModelComponents, () => {
               vectorSet.activeVectors.remove( vector );
               vector.reset();
-              //TODO https://github.com/phetsims/vector-addition/issues/258 Why is this needed? Without it, fails the 2nd time that a vector is activated.
-              //TODO https://github.com/phetsims/vector-addition/issues/258 animateBackProperty is being set in animateBackProperty listener!
-              vector.animateBackProperty.value = false;
             } );
           }
         };
@@ -131,6 +128,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
         // Clean up when the vector is removed from activeVectors.
         const vectorRemovedListener = ( removedVector: Vector ) => {
           if ( removedVector === vector ) {
+            vector.animateBackProperty.value = false;
             vector.animateBackProperty.unlink( animateVectorBackListener );
             vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
           }
