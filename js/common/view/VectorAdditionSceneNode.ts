@@ -21,7 +21,6 @@
  */
 
 import optionize from '../../../../phet-core/js/optionize.js';
-import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -37,14 +36,12 @@ import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import VectorAdditionColors from '../VectorAdditionColors.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import VectorAdditionEraserButton from './VectorAdditionEraserButton.js';
 
 type SelfOptions = {
-  includeEraser?: boolean; // Indicates if an EraserButton should be included
+  includeEraserButton?: boolean; // Indicates if an EraserButton should be included
 };
 
 export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
@@ -74,7 +71,7 @@ export default class VectorAdditionSceneNode extends Node {
     const options = optionize<SceneNodeOptions, SelfOptions, NodeOptions>()( {
 
       // SelfOptions
-      includeEraser: true,
+      includeEraserButton: true,
 
       // NodeOptions
       isDisposable: false,
@@ -132,31 +129,21 @@ export default class VectorAdditionSceneNode extends Node {
 
     // Optional eraser button
     this.eraserButton = null;
-    if ( options.includeEraser ) {
+    if ( options.includeEraserButton ) {
+      console.log( 'includeEraserButton' );
 
       const numberOfVectorsOnGraphProperties = _.map( scene.vectorSets, vectorSet => vectorSet.numberOfVectorsOnGraphProperty );
-      const eraserButtonTandem = options.tandem.createTandem( 'eraserButton' );
+      const numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( numberOfVectorsOnGraphProperties,
+        () => _.sumBy( numberOfVectorsOnGraphProperties, numberOfVectorsOnGraphProperties => numberOfVectorsOnGraphProperties.value ) );
 
-      this.eraserButton = new EraserButton( {
+      this.eraserButton = new VectorAdditionEraserButton( numberOfVectorsOnGraphProperty, {
         listener: () => {
           this.interruptSubtreeInput(); // cancel all interactions for the scene
           scene.erase();
         },
-        enabledProperty: DerivedProperty.deriveAny( numberOfVectorsOnGraphProperties, () => {
-          const numberOfVectorsOnGraph = _.sumBy( numberOfVectorsOnGraphProperties, numberOfVectorsOnGraphProperties => numberOfVectorsOnGraphProperties.value );
-          return ( numberOfVectorsOnGraph !== 0 );
-        }, {
-          tandem: eraserButtonTandem.createTandem( 'enabledProperty' ),
-          phetioValueType: BooleanIO
-        } ),
-        baseColor: VectorAdditionColors.eraserButtonBaseColorProperty,
         right: scene.graph.viewBounds.maxX,
         top: scene.graph.viewBounds.maxY + 15,
-        touchAreaXDilation: 7,
-        touchAreaYDilation: 7,
-        accessibleName: VectorAdditionStrings.a11y.eraserButton.accessibleNameStringProperty,
-        accessibleContextResponse: VectorAdditionStrings.a11y.eraserButton.accessibleContextResponseStringProperty,
-        tandem: eraserButtonTandem
+        tandem: options.tandem.createTandem( 'eraserButton' )
       } );
       this.addChild( this.eraserButton );
       this.eraserButton.moveToBack();

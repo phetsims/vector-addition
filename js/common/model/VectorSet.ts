@@ -171,7 +171,6 @@ export default abstract class VectorSet extends PhetioObject {
 
   public reset(): void {
     this.erase();
-    this.allVectors.forEach( vector => vector.reset() );
   }
 
   /**
@@ -179,6 +178,7 @@ export default abstract class VectorSet extends PhetioObject {
    */
   public erase(): void {
     this.activeVectors.clear();
+    this.allVectors.forEach( vector => vector.reset() );
   }
 }
 

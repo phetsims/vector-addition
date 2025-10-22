@@ -46,7 +46,7 @@ export default class EquationsSceneNode extends VectorAdditionSceneNode {
                       tandem: Tandem ) {
 
     super( scene, sceneProperty, [ viewProperties.sumVisibleProperty ], viewProperties, componentVectorStyleProperty, {
-      includeEraser: false,
+      includeEraserButton: false,
       tandem: tandem
     } );
 

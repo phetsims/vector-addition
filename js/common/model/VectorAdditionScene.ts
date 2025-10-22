@@ -81,17 +81,17 @@ export default class VectorAdditionScene extends PhetioObject {
   }
 
   public reset(): void {
-    // Subclasses are responsible for resetting VectorSet instances that were added to this.vectorSets.
     this.graph.reset();
     this.selectedVectorProperty.reset();
+    this.vectorSets.forEach( vectorSet => vectorSet.reset() );
   }
 
   /**
    * Erases vectors from the scene.
    */
   public erase(): void {
-    // Subclasses are responsible for erasing VectorSet instances that were added to this.vectorSets.
     this.selectedVectorProperty.reset();
+    this.vectorSets.forEach( vectorSet => vectorSet.erase() );
   }
 
   /**

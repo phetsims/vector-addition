@@ -164,6 +164,12 @@ export default class Vector extends RootVector {
     } );
   }
 
+  public override reset(): void {
+    super.reset();
+    this.isOnGraphProperty.reset();
+    this.animateBackProperty.reset();
+  }
+
   /**
    * See RootVector.getLabelDisplayData for details.
    */
