@@ -45,7 +45,6 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
         accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleHelpTextStringProperty, {
           symbol: vectorSet.accessibleSymbolProperty
         } ),
-        tagName: 'button',
         tandem: tandem
       } );
   }

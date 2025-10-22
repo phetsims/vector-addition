@@ -6,7 +6,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import VectorSet from '../model/VectorSet.js';
@@ -23,6 +22,7 @@ import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   iconMouseDilation: Vector2;
@@ -31,7 +31,7 @@ type SelfOptions = {
   symbolProperty: TReadOnlyProperty<string>;
 };
 
-export type VectorToolboxSlotOptions = SelfOptions & WithRequired<HBoxOptions, 'tandem'>;
+export type VectorToolboxSlotOptions = SelfOptions & PickRequired<HBoxOptions, 'tandem' | 'accessibleName' | 'accessibleHelpText'>;
 
 export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
