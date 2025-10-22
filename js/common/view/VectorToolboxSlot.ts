@@ -25,8 +25,8 @@ import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
-  iconMouseDilation: Vector2;
-  iconTouchDilation: Vector2;
+  mouseAreaDilation: Vector2;
+  touchAreaDilation: Vector2;
   iconEffectiveWidth: number;
   symbolProperty: TReadOnlyProperty<string>;
 };
@@ -49,10 +49,6 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     // Create the vector icon.
     const iconNode = VectorAdditionIconFactory.createVectorToolboxIcon( iconViewComponents, vectorSet.vectorColorPalette );
 
-    // Make iconNode easier to grab.
-    iconNode.mouseArea = iconNode.localBounds.dilatedXY( providedOptions.iconMouseDilation.x, providedOptions.iconMouseDilation.y );
-    iconNode.touchArea = iconNode.localBounds.dilatedXY( providedOptions.iconTouchDilation.x, providedOptions.iconTouchDilation.y );
-
     // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
     // has the same effective width regardless of the initial icon's xy-components. This ensures that
     // the label of the slot is in the same place regardless of the icon size.
@@ -69,11 +65,16 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       isDisposable: false,
       children: [ alignBox, arrowOverSymbolNode ],
       excludeInvisibleChildrenFromBounds: false,
+      cursor: 'move',
       spacing: 5,
       tagName: 'button'
     }, providedOptions );
 
     super( options );
+
+    // Make the vector easier to grab.
+    this.mouseArea = this.localBounds.dilatedXY( providedOptions.mouseAreaDilation.x, providedOptions.mouseAreaDilation.y );
+    this.touchArea = this.localBounds.dilatedXY( providedOptions.touchAreaDilation.x, providedOptions.touchAreaDilation.y );
 
     // Drag a vector out of the slot.
     this.addInputListener( SoundDragListener.createForwardingListener( event => {

@@ -19,13 +19,16 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
 
-const ICON_POINTER_DILATION = new Vector2( 10, 10 );
+// xy-components for the vector icons, in model coordinates.
+const ICON_XY_COMPONENTS = new Vector2( 3.2, 2.5 );
+
+// Use identical dilation for mouseArea and touchArea.
+const POINTER_AREA_DILATION = new Vector2( 10, 10 );
 
 export default class LabVectorToolboxSlot extends VectorToolboxSlot {
 
   public constructor( vectorSet: LabVectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
-                      iconModelComponents: Vector2,
                       sceneNode: VectorAdditionSceneNode,
                       tandem: Tandem ) {
     super(
@@ -34,10 +37,10 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
       vectorSet,
       modelViewTransformProperty,
       sceneNode,
-      iconModelComponents, {
+      ICON_XY_COMPONENTS, {
         iconEffectiveWidth: 45,
-        iconMouseDilation: ICON_POINTER_DILATION,
-        iconTouchDilation: ICON_POINTER_DILATION,
+        mouseAreaDilation: POINTER_AREA_DILATION,
+        touchAreaDilation: POINTER_AREA_DILATION,
         symbolProperty: vectorSet.symbolProperty,
         accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorSetButton.accessibleNameStringProperty, {
           symbol: vectorSet.accessibleSymbolProperty

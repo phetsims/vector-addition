@@ -30,11 +30,11 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
                       graphOrientation: GraphOrientation,
                       tandem: Tandem ) {
 
-    // Make the iconNode easier to grab. Use identical dilation for mouseArea and touchArea.
+    // Make the vector easier to grab. Use identical dilation for mouseArea and touchArea.
     // See https://github.com/phetsims/vector-addition/issues/250
-    const iconPointerAreaDilation = ( graphOrientation === 'horizontal' ) ? new Vector2( 10, 15 ) :
-                                    ( graphOrientation === 'vertical' ) ? new Vector2( 20, 5 ) :
-                                    new Vector2( 15, 10 );
+    const pointerAreaDilation = ( graphOrientation === 'horizontal' ) ? new Vector2( 10, 10 ) :
+                                ( graphOrientation === 'vertical' ) ? new Vector2( 10, 5 ) :
+                                new Vector2( 10, 10 );
     super(
       [ vector ],
       () => vector,
@@ -43,8 +43,8 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
       sceneNode,
       iconModelComponents, {
         iconEffectiveWidth: 35,
-        iconMouseDilation: iconPointerAreaDilation,
-        iconTouchDilation: iconPointerAreaDilation,
+        mouseAreaDilation: pointerAreaDilation,
+        touchAreaDilation: pointerAreaDilation,
         symbolProperty: vector.symbolProperty,
         accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorButton.accessibleNameStringProperty, {
           symbol: vector.accessibleSymbolProperty
