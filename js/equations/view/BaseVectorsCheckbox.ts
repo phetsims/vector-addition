@@ -9,13 +9,14 @@
 import Property from '../../../../axon/js/Property.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import VectorAdditionCheckbox from '../../common/view/VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
-export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
+export default class BaseVectorsCheckbox extends Checkbox {
 
   public constructor( baseVectorsVisibleProperty: Property<boolean>,
                       vectorColorPalette: VectorColorPalette,
@@ -27,11 +28,13 @@ export default class BaseVectorsCheckbox extends VectorAdditionCheckbox {
       lineWidth: VectorAdditionConstants.BASE_VECTOR_ARROW_OPTIONS.lineWidth
     } );
 
-    super( baseVectorsVisibleProperty, icon, {
+    const options = combineOptions<CheckboxOptions>( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
       accessibleName: VectorAdditionStrings.a11y.baseVectorsCheckbox.accessibleNameStringProperty,
       accessibleHelpText: VectorAdditionStrings.a11y.baseVectorsCheckbox.accessibleHelpTextStringProperty,
       tandem: tandem
     } );
+
+    super( baseVectorsVisibleProperty, icon, options );
   }
 }
 

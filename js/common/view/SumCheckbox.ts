@@ -13,12 +13,11 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorAdditionCheckbox, { VectorAdditionCheckboxOptions } from './VectorAdditionCheckbox.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 import TColor from '../../../../scenery/js/util/TColor.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
@@ -26,6 +25,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 
 type SelfOptions = {
 
@@ -45,21 +45,22 @@ type SelfOptions = {
 };
 
 export type SumCheckboxOptions = SelfOptions &
-  PickOptional<VectorAdditionCheckboxOptions, 'accessibleName'> &
-  PickRequired<VectorAdditionCheckboxOptions, 'tandem'>;
+  PickOptional<CheckboxOptions, 'accessibleName'> &
+  PickRequired<CheckboxOptions, 'tandem'>;
 
-export default class SumCheckbox extends VectorAdditionCheckbox {
+export default class SumCheckbox extends Checkbox {
 
   public constructor( sumVisibleProperty: Property<boolean>, providedOptions: SumCheckboxOptions ) {
 
-    const options = optionize<SumCheckboxOptions, SelfOptions, VectorAdditionCheckboxOptions>()( {
+    const options = optionize4<SumCheckboxOptions, SelfOptions, CheckboxOptions>()(
+      {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
 
       // SelfOptions
       sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
       accessibleSumSymbolProperty: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
       alignGroup: new AlignGroup(),
 
-      // VectorAdditionCheckboxOptions
+      // CheckboxOptions
       accessibleName: VectorAdditionStrings.a11y.sumCheckbox.accessibleNameStringProperty // "Vector Sum"
     }, providedOptions );
 

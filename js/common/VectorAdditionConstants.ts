@@ -26,6 +26,7 @@ import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import { NumberPickerOptions } from '../../../sun/js/NumberPicker.js';
 import affirm from '../../../perennial-alias/js/browser-and-node/affirm.js';
+import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 
 const PANEL_X_MARGIN = 9;
 const PANEL_Y_MARGIN = 10;
@@ -86,7 +87,14 @@ export default class VectorAdditionConstants {
   //----------------------------------------------------------------------------------------
   // Checkboxes
 
-  public static readonly CHECKBOX_BOX_WIDTH = 18;
+  public static readonly CHECKBOX_OPTIONS: CheckboxOptions = {
+    isDisposable: false,
+    boxWidth: 18,
+    mouseAreaXDilation: 5,
+    mouseAreaYDilation: 3,
+    touchAreaXDilation: 5,
+    touchAreaYDilation: 3
+  };
 
   //----------------------------------------------------------------------------------------
   // NumberPickers
