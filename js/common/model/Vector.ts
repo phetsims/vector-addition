@@ -365,11 +365,11 @@ export default class Vector extends RootVector {
       duration: this.tail.distance( tailPosition ) / ANIMATION_SPEED,
       targets: [ {
         property: this.tailPositionProperty,
-        easing: Easing.QUADRATIC_IN_OUT,
+        easing: Easing.LINEAR,
         to: tailPosition
       }, {
         property: this.xyComponentsProperty,
-        easing: Easing.QUADRATIC_IN_OUT,
+        easing: Easing.LINEAR,
         to: finalComponents
       } ]
     } ).start();
