@@ -2,8 +2,10 @@
 
 /**
  * LabVectorToolbox is a specialization of VectorToolbox for the 'Lab' screen.
+ * This toolbox manages 2 vector sets, and supports dragging multiple vectors out of the toolbox for each vector set.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -13,6 +15,9 @@ import LabVectorToolboxSlot from './LabVectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabScene from '../model/LabScene.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+
+const ICON_VECTOR_COMPONENTS = new Vector2( 3.2, 2.5 );
 
 type SelfOptions = EmptySelfOptions;
 
@@ -34,11 +39,11 @@ export default class LabVectorToolbox extends VectorToolbox {
     const slots = [
 
       // vector set 1
-      new LabVectorToolboxSlot( scene.vectorSet1, scene.graph.modelViewTransformProperty, scene.initialXYComponents,
+      new LabVectorToolboxSlot( scene.vectorSet1, scene.graph.modelViewTransformProperty, ICON_VECTOR_COMPONENTS,
         sceneNode, options.tandem.createTandem( `${scene.vectorSet1.tandemNameSymbol}Slot` ) ),
 
       // vector set 2
-      new LabVectorToolboxSlot( scene.vectorSet2, scene.graph.modelViewTransformProperty, scene.initialXYComponents,
+      new LabVectorToolboxSlot( scene.vectorSet2, scene.graph.modelViewTransformProperty, ICON_VECTOR_COMPONENTS,
         sceneNode, options.tandem.createTandem( `${scene.vectorSet2.tandemNameSymbol}Slot` ) )
     ];
 

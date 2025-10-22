@@ -33,7 +33,7 @@ export default class Explore2DSceneNode extends VectorAdditionSceneNode {
 
     // Add the vector toolbox.
     this.addVectorToolbox( new ExploreVectorToolbox( scene, this, {
-      iconVectorComponents: new Vector2( 1, 1 ),
+      iconModelComponents: new Vector2( 1.75, 1.75 ),
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
       tandem: tandem.createTandem( 'vectorToolbox' )

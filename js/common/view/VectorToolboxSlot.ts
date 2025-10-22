@@ -13,15 +13,23 @@ import VectorSet from '../model/VectorSet.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Vector from '../model/Vector.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  iconMouseDilation: Vector2;
+  iconTouchDilation: Vector2;
+  iconEffectiveWidth: number;
+  symbolProperty: TReadOnlyProperty<string>;
+};
 
 export type VectorToolboxSlotOptions = SelfOptions & WithRequired<HBoxOptions, 'tandem'>;
 
@@ -32,14 +40,35 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
                          vectorSet: VectorSet,
                          modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                          sceneNode: VectorAdditionSceneNode,
-                         iconNode: Node,
                          iconModelComponents: Vector2,
                          providedOptions: VectorToolboxSlotOptions ) {
+
+    // Get the icon's xy-components in view coordinates.
+    const iconViewComponents = modelViewTransformProperty.value.modelToViewDelta( iconModelComponents );
+
+    // Create the vector icon.
+    const iconNode = VectorAdditionIconFactory.createVectorToolboxIcon( iconViewComponents, vectorSet.vectorColorPalette );
+
+    // Make iconNode easier to grab.
+    iconNode.mouseArea = iconNode.localBounds.dilatedXY( providedOptions.iconMouseDilation.x, providedOptions.iconMouseDilation.y );
+    iconNode.touchArea = iconNode.localBounds.dilatedXY( providedOptions.iconTouchDilation.x, providedOptions.iconTouchDilation.y );
+
+    // Create a fixed-size box for the icon. The icon is placed in an AlignBox to ensure the icon
+    // has the same effective width regardless of the initial icon's xy-components. This ensures that
+    // the label of the slot is in the same place regardless of the icon size.
+    const alignBox = new AlignBox( iconNode, {
+      alignBounds: new Bounds2( 0, 0, providedOptions.iconEffectiveWidth, iconNode.height )
+    } );
+
+    // Label for the slot, always visible.
+    const arrowOverSymbolNode = new ArrowOverSymbolNode( providedOptions.symbolProperty );
 
     const options = optionize<VectorToolboxSlotOptions, SelfOptions, HBoxOptions>()( {
 
       // HBoxOptions
       isDisposable: false,
+      children: [ alignBox, arrowOverSymbolNode ],
+      excludeInvisibleChildrenFromBounds: false,
       spacing: 5,
       tagName: 'button'
     }, providedOptions );

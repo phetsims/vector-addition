@@ -176,13 +176,9 @@ const VectorAdditionIconFactory = {
    * Creates an icon that appears in a slot of the vector toolbox.
    * @param xyComponents - vector xy-components (in view coordinates)
    * @param vectorColorPalette - color palette for this icon's vector
-   * @param arrowLength
    */
-  createVectorToolboxIcon( xyComponents: Vector2, vectorColorPalette: VectorColorPalette, arrowLength: number ): Node {
-
-    const arrowComponents = xyComponents.normalized().timesScalar( arrowLength );
-
-    return new ArrowNode( 0, 0, arrowComponents.x, arrowComponents.y,
+  createVectorToolboxIcon( xyComponents: Vector2, vectorColorPalette: VectorColorPalette ): Node {
+    return new ArrowNode( 0, 0, xyComponents.x, xyComponents.y,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         cursor: 'move',
         fill: vectorColorPalette.vectorFillProperty,

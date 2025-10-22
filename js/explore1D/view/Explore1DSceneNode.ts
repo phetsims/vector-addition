@@ -33,7 +33,7 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
 
     // Add the vector toolbox.
     this.addVectorToolbox( new ExploreVectorToolbox( scene, this, {
-      iconVectorComponents: ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 1, 0 ) : new Vector2( 0, 1 ),
+      iconModelComponents: ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 2.5, 0 ) : new Vector2( 0, 2.5 ),
       ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18,
       left: sceneRadioButtonGroup.left,
       bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
