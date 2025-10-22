@@ -130,7 +130,6 @@ export default class VectorAdditionSceneNode extends Node {
     // Optional eraser button
     this.eraserButton = null;
     if ( options.includeEraserButton ) {
-      console.log( 'includeEraserButton' );
 
       const numberOfVectorsOnGraphProperties = _.map( scene.vectorSets, vectorSet => vectorSet.numberOfVectorsOnGraphProperty );
       const numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( numberOfVectorsOnGraphProperties,
