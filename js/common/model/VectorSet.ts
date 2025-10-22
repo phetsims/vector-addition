@@ -69,9 +69,15 @@ type SelfOptions = {
 
 export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class VectorSet extends PhetioObject {
+export default abstract class VectorSet extends PhetioObject {
 
   public readonly resultantVector: ResultantVector;
+
+  // The complete set of non-resultant vectors for this vector set, allocated when the sim starts.
+  public abstract readonly allVectors: Vector[];
+
+  // Number of vectors that are on the graph, and therefore contributing to the sum.
+  public abstract readonly numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
   // Vectors that are active - that is, not in the toolbox. This array changes as vectors are dragged to/from the
   // toolbox. Active vectors with isOnGraphProperty.value === true contribute to the resultant vector.
@@ -165,7 +171,7 @@ export default class VectorSet extends PhetioObject {
 
   public reset(): void {
     this.erase();
-    this.resultantVector.reset();
+    this.allVectors.forEach( vector => vector.reset() );
   }
 
   /**

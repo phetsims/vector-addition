@@ -37,7 +37,7 @@ export default class ExploreVectorSet extends VectorSet {
   public readonly allVectors: Vector[];
 
   // Number of vectors that are on the graph, and therefore contributing to the sum.
-  public numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
+  public readonly numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
@@ -67,11 +67,6 @@ export default class ExploreVectorSet extends VectorSet {
 
     this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
       () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );
-  }
-
-  public override reset(): void {
-    super.reset();
-    this.allVectors.forEach( vector => vector.reset() );
   }
 }
 

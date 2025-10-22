@@ -20,7 +20,6 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Multilink from '../../../../axon/js/Multilink.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
@@ -42,6 +41,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 type SelfOptions = {
   includeEraser?: boolean; // Indicates if an EraserButton should be included
@@ -134,11 +134,21 @@ export default class VectorAdditionSceneNode extends Node {
     this.eraserButton = null;
     if ( options.includeEraser ) {
 
+      const numberOfVectorsOnGraphProperties = _.map( scene.vectorSets, vectorSet => vectorSet.numberOfVectorsOnGraphProperty );
+      const eraserButtonTandem = options.tandem.createTandem( 'eraserButton' );
+
       this.eraserButton = new EraserButton( {
         listener: () => {
           this.interruptSubtreeInput(); // cancel all interactions for the scene
           scene.erase();
         },
+        enabledProperty: DerivedProperty.deriveAny( numberOfVectorsOnGraphProperties, () => {
+          const numberOfVectorsOnGraph = _.sumBy( numberOfVectorsOnGraphProperties, numberOfVectorsOnGraphProperties => numberOfVectorsOnGraphProperties.value );
+          return ( numberOfVectorsOnGraph !== 0 );
+        }, {
+          tandem: eraserButtonTandem.createTandem( 'enabledProperty' ),
+          phetioValueType: BooleanIO
+        } ),
         baseColor: VectorAdditionColors.eraserButtonBaseColorProperty,
         right: scene.graph.viewBounds.maxX,
         top: scene.graph.viewBounds.maxY + 15,
@@ -146,22 +156,10 @@ export default class VectorAdditionSceneNode extends Node {
         touchAreaYDilation: 7,
         accessibleName: VectorAdditionStrings.a11y.eraserButton.accessibleNameStringProperty,
         accessibleContextResponse: VectorAdditionStrings.a11y.eraserButton.accessibleContextResponseStringProperty,
-        tandem: options.tandem.createTandem( 'eraserButton' ),
-        phetioEnabledPropertyInstrumented: false // sim controls this.
+        tandem: eraserButtonTandem
       } );
       this.addChild( this.eraserButton );
       this.eraserButton.moveToBack();
-
-      // Disable the eraser button when the number of vectors on the graph is zero, that is, when all vector sets
-      // contain no vectors. This is a bit more complicated than it should be, but it was added late in the
-      // development process.
-      //TODO https://github.com/phetsims/vector-addition/issues/258 This is not quite correct. It should be disabled
-      //  when there are no activeVectors with isOnGraphProperty.value === true.
-      const lengthProperties = _.map( scene.vectorSets, vectorSet => vectorSet.activeVectors.lengthProperty );
-      Multilink.multilinkAny( lengthProperties, () => {
-        const numberOfVectors = _.sumBy( lengthProperties, lengthProperty => lengthProperty.value );
-        this.eraserButton!.enabled = ( numberOfVectors !== 0 );
-      } );
     }
 
     this.addLinkedElement( scene );

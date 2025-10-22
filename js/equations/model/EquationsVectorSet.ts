@@ -24,6 +24,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import { EquationType } from './EquationType.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import ResultantVector from '../../common/model/ResultantVector.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 // Describes a non-resultant vector for the Equations screen.
 export type EquationsVectorDescription = {
@@ -45,6 +46,9 @@ export default class EquationsVectorSet extends VectorSet {
 
   // The complete set of non-resultant and non-base vectors for this vector set, allocated when the sim starts.
   public readonly allVectors: EquationsVector[];
+
+  // Number of vectors that are on the graph, and therefore contributing to the sum.
+  public readonly numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
@@ -119,6 +123,9 @@ export default class EquationsVectorSet extends VectorSet {
     this.activeVectors.lengthProperty.lazyLink( () => {
       throw new Error( 'Active vectors cannot be added or removed after startup in the Equations screen.' );
     } );
+
+    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
+      () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );
   }
 
   public override reset(): void {
