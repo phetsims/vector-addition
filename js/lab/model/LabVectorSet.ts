@@ -22,8 +22,6 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
-import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -45,13 +43,43 @@ export default class LabVectorSet extends VectorSet<Vector> {
 
     const accessibleSymbolProperty = RichText.getAccessibleStringProperty( symbolProperty );
 
+    // Creates the complete set of non-resultant vectors for the vector set.
+    const createAllVectors = ( vectorSet: VectorSet<Vector> ): Vector[] => {
+
+      const tailPosition = new Vector2( 0, 0 );
+
+      const vectors: Vector[] = [];
+
+      // Iterate from 1 so that tandem names have 1-based indices.
+      for ( let i = 1; i <= VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET; i++ ) {
+        const vector = new Vector( tailPosition, initialXYComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
+
+          // e.g. 'v<sub>3</sub>'
+          symbolProperty: new DerivedProperty( [ symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
+
+          // e.g. 'v sub 3'
+          accessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
+            symbol: accessibleSymbolProperty,
+            subscript: i
+          } ),
+          coordinateSnapMode: providedOptions.coordinateSnapMode,
+          vectorColorPalette: vectorSet.vectorColorPalette,
+
+          // e.g. 'v3Vector'
+          tandem: providedOptions.tandem.createTandem( `${tandemNameSymbol}${i}Vector` ),
+
+          // e.g. 'v3'
+          tandemNameSymbol: `${tandemNameSymbol}${i}`
+        } );
+        vectors.push( vector );
+      }
+      return vectors;
+    };
+
     const options = optionize<LabVectorSetOptions, SelfOptions, VectorSetOptions<Vector>>()( {
 
-      // Creates the complete set of non-resultant vectors for the vector set.
-      createAllVectors: ( vectorSet: VectorSet<Vector> ): Vector[] =>
-        createAllVectors( vectorSet, graph, selectedVectorProperty, options.coordinateSnapMode,
-        componentVectorStyleProperty, initialXYComponents, symbolProperty, accessibleSymbolProperty,
-          tandemNameSymbol, options.tandem.createTandem( 'allVectors' ) ),
+      // VectorSetOptions
+      createAllVectors: createAllVectors,
 
       // Resultant (sum) vector is labeled with 's' and the vector set symbol subscript.
       resultantSymbolProperty: new DerivedProperty(
@@ -82,50 +110,6 @@ export default class LabVectorSet extends VectorSet<Vector> {
     }
     return availableVector;
   }
-}
-
-/**
- * Creates all vectors related to a vector set.
- */
-function createAllVectors( vectorSet: VectorSet<Vector>,
-                           graph: Graph,
-                           selectedVectorProperty: Property<Vector | null>,
-                           coordinateSnapMode: CoordinateSnapMode,
-                           componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                           xyComponents: Vector2,
-                           symbolProperty: TReadOnlyProperty<string>,
-                           accessibleSymbolProperty: TReadOnlyProperty<string>,
-                           tandemNameSymbol: string,
-                           parentTandem: Tandem ): Vector[] {
-
-  const tailPosition = new Vector2( 0, 0 );
-
-  const vectors: Vector[] = [];
-
-  // Iterate from 1 so that tandem names have 1-based indices.
-  for ( let i = 1; i <= VectorAdditionConstants.LAB_VECTORS_PER_VECTOR_SET; i++ ) {
-    const vector = new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
-
-      // e.g. 'v<sub>3</sub>'
-      symbolProperty: new DerivedProperty( [ symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
-
-      // e.g. 'v sub 3'
-      accessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
-        symbol: accessibleSymbolProperty,
-        subscript: i
-      } ),
-      coordinateSnapMode: coordinateSnapMode,
-      vectorColorPalette: vectorSet.vectorColorPalette,
-
-      // e.g. 'v3Vector'
-      tandem: parentTandem.createTandem( `${tandemNameSymbol}${i}Vector` ),
-
-      // e.g. 'v3'
-      tandemNameSymbol: `${tandemNameSymbol}${i}`
-    } );
-    vectors.push( vector );
-  }
-  return vectors;
 }
 
 vectorAddition.register( 'LabVectorSet', LabVectorSet );
