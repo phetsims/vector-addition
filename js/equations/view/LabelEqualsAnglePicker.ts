@@ -82,9 +82,7 @@ export default class LabelEqualsAnglePicker extends Node {
         accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleHelpTextStringProperty, {
           symbol: vectorAccessibleSymbolProperty
         } ),
-        phetioVisiblePropertyInstrumented: false,
-        phetioEnabledPropertyInstrumented: false,
-        tandem: Tandem.OPT_OUT
+        tandem: Tandem.OPT_OUT // because the parent Node is instrumented and decides which LabelEqualsNumberPicker is visible.
       } );
 
     // Unsigned [0,360]
@@ -111,9 +109,7 @@ export default class LabelEqualsAnglePicker extends Node {
         accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorAnglePicker.accessibleHelpTextStringProperty, {
           symbol: vectorAccessibleSymbolProperty
         } ),
-        phetioVisiblePropertyInstrumented: false,
-        phetioEnabledPropertyInstrumented: false,
-        tandem: Tandem.OPT_OUT
+        tandem: Tandem.OPT_OUT // because the parent Node is instrumented and decides which LabelEqualsNumberPicker is visible.
       } );
 
     super( {

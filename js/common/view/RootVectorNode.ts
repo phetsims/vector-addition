@@ -51,7 +51,7 @@ type SelfOptions = {
 };
 
 export type RootVectorNodeOptions = SelfOptions &
-  PickOptional<NodeOptions, 'tandem' | 'tandemNameSuffix' | 'visibleProperty' | 'isDisposable' | 'accessibleName' | 'accessibleHelpText'>;
+  PickOptional<NodeOptions, 'tandem' | 'visibleProperty' | 'isDisposable' | 'accessibleName' | 'accessibleHelpText'>;
 
 export default class RootVectorNode extends Node {
 
@@ -72,9 +72,7 @@ export default class RootVectorNode extends Node {
       arrowOptions: {
         cursor: 'move'
       },
-      arrowHasInteractiveHighlight: false,
-      phetioVisiblePropertyInstrumented: false,
-      tandemNameSuffix: 'VectorNode'
+      arrowHasInteractiveHighlight: false
     }, providedOptions );
 
     //----------------------------------------------------------------------------------------

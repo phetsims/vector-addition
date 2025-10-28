@@ -45,8 +45,7 @@ export default class BaseVectorNode extends VectorNode {
         accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorNode.accessibleNameStringProperty, {
           symbol: baseVector.accessibleSymbolProperty
         } )
-      } ),
-      tandemNameSuffix: 'BaseVectorNode'
+      } )
     }, providedOptions );
 
     super( baseVector, modelViewTransformProperty, selectedVectorProperty, valuesVisibleProperty, anglesVisibleProperty,
