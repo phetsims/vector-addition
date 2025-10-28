@@ -58,6 +58,7 @@ export default class VectorAdditionScene extends PhetioObject {
 
       // PhetioObjectOptions
       isDisposable: false,
+      phetioState: false, // because VectorAdditionSceneIO implements reference-type serialization.
       phetioType: VectorAdditionScene.VectorAdditionSceneIO
     }, providedOptions );
 
