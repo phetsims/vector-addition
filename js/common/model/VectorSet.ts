@@ -1,13 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorSet is the model for a related set of vectors, and contains:
- *
- *  - an array of vectors
- *  - a resultant vector, derived from those vectors
- *  - a color palette that is common to all vectors in the vector set
- *
- * A scene can support multiple VectorSets. For example, the Lab screen has 2 VectorSets per scene.
+ * VectorSet is the base class for all vector sets. It is a related set of vectors, from which a resultant vector is
+ * derived.
  *
  * @author Brandon Li
  */
@@ -90,10 +85,10 @@ export default abstract class VectorSet extends PhetioObject {
   public readonly resultantProjectionXOffset: number;
   public readonly resultantProjectionYOffset: number;
 
-  public constructor( graph: Graph,
-                      selectedVectorProperty: Property<Vector | null>,
-                      componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                      providedOptions: VectorSetOptions ) {
+  protected constructor( graph: Graph,
+                         selectedVectorProperty: Property<Vector | null>,
+                         componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
+                         providedOptions: VectorSetOptions ) {
 
     // Compute values for the options that are related to ComponentVectorStyle 'projection'.
     // See https://github.com/phetsims/vector-addition/issues/225
