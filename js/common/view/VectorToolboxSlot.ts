@@ -37,7 +37,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
   protected constructor( vectors: Vector[], // vectors in the slot
                          getNextVector: () => Vector | null, // Gets the next available vector in the slot.
-                         vectorSet: VectorSet,
+                         vectorSet: VectorSet<Vector>,
                          modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                          sceneNode: VectorAdditionSceneNode,
                          iconModelComponents: Vector2,

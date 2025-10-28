@@ -23,7 +23,7 @@ import VectorToolboxSlot from './VectorToolboxSlot.js';
 export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
 
   public constructor( vector: Vector,
-                      vectorSet: VectorSet,
+                      vectorSet: VectorSet<Vector>,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       sceneNode: VectorAdditionSceneNode,
                       iconModelComponents: Vector2,

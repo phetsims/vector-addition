@@ -19,7 +19,6 @@ import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector, { VectorOptions } from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
-import EquationsVectorSet from './EquationsVectorSet.js';
 import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
@@ -27,6 +26,7 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import VectorSet from '../../common/model/VectorSet.js';
 
 // initial coefficient and range
 const COEFFICIENT_RANGE = new Range( -5, 5 );
@@ -47,7 +47,7 @@ export default class EquationsVector extends Vector {
   public constructor( tailPosition: Vector2,
                       baseVectorTailPosition: Vector2,
                       baseVectorXYComponents: Vector2,
-                      vectorSet: EquationsVectorSet,
+                      vectorSet: VectorSet<Vector>,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,

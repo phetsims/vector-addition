@@ -26,8 +26,19 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
-type SelfOptions = {
+type SelfOptions<V extends Vector> = {
+
+  // Creates the complete set of non-resultant vectors for this vector set.
+  createAllVectors: ( vectorSet: VectorSet<V> ) => V[];
+
+  // Creates the resultant vector for this vector set.
+  createResultantVector?: ( tailPosition: Vector2,
+                            vectorSet: VectorSet<V>,
+                            symbolProperty: TReadOnlyProperty<string>,
+                            tandemNameSymbol: string,
+                            tandem: Tandem ) => ResultantVector;
 
   coordinateSnapMode: CoordinateSnapMode;
   vectorColorPalette: VectorColorPalette;
@@ -37,13 +48,6 @@ type SelfOptions = {
   projectionYOffsetStart?: number;
   projectionXOffsetDelta?: number;
   projectionYOffsetDelta?: number;
-
-  // Creates the resultant vector for this VectorSet.
-  createResultantVector?: ( tailPosition: Vector2,
-                            vectorSet: VectorSet,
-                            symbolProperty: TReadOnlyProperty<string>,
-                            tandemNameSymbol: string,
-                            tandem: Tandem ) => ResultantVector;
 
   // initial value of resultantVector.tailPositionProperty
   resultantTailPosition?: Vector2;
@@ -62,17 +66,17 @@ type SelfOptions = {
   activeVectorsInstrumented?: boolean;
 };
 
-export type VectorSetOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+export type VectorSetOptions<V extends Vector> = SelfOptions<V> & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default abstract class VectorSet extends PhetioObject {
+export default class VectorSet<V extends Vector> extends PhetioObject {
 
   public readonly resultantVector: ResultantVector;
 
   // The complete set of non-resultant vectors for this vector set, allocated when the sim starts.
-  public abstract readonly allVectors: Vector[];
+  public readonly allVectors: V[];
 
   // Number of vectors that are on the graph, and therefore contributing to the sum.
-  public abstract readonly numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
+  public readonly numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
   // Vectors that are active - that is, not in the toolbox. This array changes as vectors are dragged to/from the
   // toolbox. Active vectors with isOnGraphProperty.value === true contribute to the resultant vector.
@@ -88,7 +92,7 @@ export default abstract class VectorSet extends PhetioObject {
   protected constructor( graph: Graph,
                          selectedVectorProperty: Property<Vector | null>,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
-                         providedOptions: VectorSetOptions ) {
+                         providedOptions: VectorSetOptions<V> ) {
 
     // Compute values for the options that are related to ComponentVectorStyle 'projection'.
     // See https://github.com/phetsims/vector-addition/issues/225
@@ -101,7 +105,7 @@ export default abstract class VectorSet extends PhetioObject {
 
     // Default function to create the resultant vector, which default to a SumVector.
     const createResultantVector = ( tailPosition: Vector2,
-                                    vectorSet: VectorSet,
+                                    vectorSet: VectorSet<V>,
                                     symbolProperty: TReadOnlyProperty<string>,
                                     tandemNameSymbol: string,
                                     tandem: Tandem ): ResultantVector =>
@@ -113,7 +117,7 @@ export default abstract class VectorSet extends PhetioObject {
         tandem: tandem
       } );
 
-    const options = optionize<VectorSetOptions, SelfOptions, PhetioObjectOptions>()( {
+    const options = optionize<VectorSetOptions<V>, SelfOptions<V>, PhetioObjectOptions>()( {
 
       // SelfOptions
       projectionXOffsetStart: -offsetStart,
@@ -135,14 +139,16 @@ export default abstract class VectorSet extends PhetioObject {
 
     super( options );
 
+    this.vectorColorPalette = options.vectorColorPalette;
+
+    this.allVectors = options.createAllVectors( this );
+
     this.activeVectors = createObservableArray( {
       tandem: options.activeVectorsInstrumented ? options.tandem.createTandem( 'activeVectors' ) : Tandem.OPT_OUT,
       phetioFeatured: true,
       phetioType: createObservableArray.ObservableArrayIO( Vector.VectorIO ),
       phetioDocumentation: 'Vectors that are not in the toolbox.'
     } );
-
-    this.vectorColorPalette = options.vectorColorPalette;
 
     this.projectionXOffsetStart = options.projectionXOffsetStart;
     this.projectionYOffsetStart = options.projectionYOffsetStart;
@@ -162,6 +168,9 @@ export default abstract class VectorSet extends PhetioObject {
         this.activeVectors.get( i ).setProjectionOffsets( xOffset, yOffset );
       }
     } );
+
+    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
+      () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );
   }
 
   public reset(): void {

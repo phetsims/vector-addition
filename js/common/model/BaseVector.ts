@@ -29,7 +29,7 @@ export default class BaseVector extends Vector {
 
   protected constructor( tailPosition: Vector2,
                          xyComponents: Vector2,
-                         vectorSet: VectorSet,
+                         vectorSet: VectorSet<Vector>,
                          graph: Graph,
                          selectedVectorProperty: Property<Vector | null>,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,

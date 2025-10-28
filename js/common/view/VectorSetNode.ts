@@ -34,7 +34,7 @@ import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.j
 
 export default class VectorSetNode extends Node {
 
-  public readonly vectorSet: VectorSet;
+  public readonly vectorSet: VectorSet<Vector>;
 
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
   private readonly selectedVectorProperty: Property<Vector | null>;
@@ -43,7 +43,7 @@ export default class VectorSetNode extends Node {
   private readonly graphBoundsProperty: TReadOnlyProperty<Bounds2>;
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
-  public constructor( vectorSet: VectorSet,
+  public constructor( vectorSet: VectorSet<Vector>,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       selectedVectorProperty: Property<Vector | null>,
                       resultantVectorVisibleProperty: TReadOnlyProperty<boolean>,

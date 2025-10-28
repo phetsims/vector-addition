@@ -26,9 +26,9 @@ import EquationAccordionBox from './EquationAccordionBox.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorSet from '../../common/model/VectorSet.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import Property from '../../../../axon/js/Property.js';
+import EquationsVectorSet from '../model/EquationsVectorSet.js';
 
 export default class EquationsSceneNode extends VectorAdditionSceneNode {
 
@@ -91,7 +91,7 @@ export default class EquationsSceneNode extends VectorAdditionSceneNode {
   /**
    * Adds a base vector Node to the scene.
    */
-  private addBaseVectorNode( vectorSet: VectorSet, baseVector: BaseVector, baseVectorsVisibleProperty: Property<boolean> ): void {
+  private addBaseVectorNode( vectorSet: EquationsVectorSet, baseVector: BaseVector, baseVectorsVisibleProperty: Property<boolean> ): void {
     this.getVectorSetNode( vectorSet ).addBaseVectorNode( baseVector, baseVectorsVisibleProperty, vectorSet.vectorColorPalette );
   }
 }

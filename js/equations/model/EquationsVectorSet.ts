@@ -24,7 +24,7 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import { EquationType } from './EquationType.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import ResultantVector from '../../common/model/ResultantVector.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // Describes a non-resultant vector for the Equations screen.
 export type EquationsVectorDescription = {
@@ -37,18 +37,12 @@ export type EquationsVectorDescription = {
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationsVectorSetOptions = SelfOptions & VectorSetOptions;
+type EquationsVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions<EquationsVector>, 'createAllVectors'>;
 
-export default class EquationsVectorSet extends VectorSet {
+export default class EquationsVectorSet extends VectorSet<EquationsVector> {
 
   // Symbols that appear in the equations on the radio buttons in EquationTypeRadioButtonGroup.
   public readonly equationSymbolProperties: TReadOnlyProperty<string>[];
-
-  // The complete set of non-resultant and non-base vectors for this vector set, allocated when the sim starts.
-  public readonly allVectors: EquationsVector[];
-
-  // Number of vectors that are on the graph, and therefore contributing to the sum.
-  public readonly numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
 
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
@@ -59,9 +53,27 @@ export default class EquationsVectorSet extends VectorSet {
                       resultantTandemNameSymbol: string,
                       providedOptions: EquationsVectorSetOptions ) {
 
-    // Function to create the resultant vector.
+    // Creates the complete set of non-resultant vectors for the vector set.
+    const createAllVectors = ( vectorSet: VectorSet<EquationsVector> ): EquationsVector[] =>
+      vectorDescriptions.map( vectorDescription => new EquationsVector(
+        vectorDescription.vectorTailPosition,
+        vectorDescription.baseVectorTailPosition,
+        vectorDescription.baseVectorXYComponents,
+        vectorSet,
+        graph,
+        selectedVectorProperty,
+        componentVectorStyleProperty, {
+          symbolProperty: vectorDescription.symbolProperty,
+          coordinateSnapMode: providedOptions.coordinateSnapMode,
+          vectorColorPalette: vectorSet.vectorColorPalette,
+          tandemNameSymbol: vectorDescription.tandemNameSymbol,
+          tandem: providedOptions.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ),
+          baseVectorTandem: providedOptions.tandem.createTandem( `${vectorDescription.tandemNameSymbol}BaseVector` )
+        } ) );
+
+    // Creates the resultant vector.
     const createResultantVector = ( tailPosition: Vector2,
-                                    vectorSet: VectorSet,
+                                    vectorSet: VectorSet<EquationsVector>,
                                     symbolProperty: TReadOnlyProperty<string>,
                                     tandemNameSymbol: string,
                                     tandem: Tandem ): ResultantVector =>
@@ -73,14 +85,14 @@ export default class EquationsVectorSet extends VectorSet {
         tandem: tandem
       } );
 
-    const options = optionize<EquationsVectorSetOptions, SelfOptions, VectorSetOptions>()( {
+    const options = optionize<EquationsVectorSetOptions, SelfOptions, VectorSetOptions<EquationsVector>>()( {
+
+      // VectorSetOptions
+      createAllVectors: createAllVectors,
       createResultantVector: createResultantVector,
       resultantTailPosition: new Vector2( 25, 5 ),
-
-      // offsets for resultant component vectors with ComponentVectorStyle 'projection'
       resultantProjectionXOffset: 0.5,
       resultantProjectionYOffset: 0.5,
-
       resultantSymbolProperty: resultantSymbolProperty,
       resultantTandemNameSymbol: resultantTandemNameSymbol,
       activeVectorsInstrumented: false // All vectors are always on the graph in the Equations screen.
@@ -88,44 +100,18 @@ export default class EquationsVectorSet extends VectorSet {
 
     super( graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
-    this.equationSymbolProperties = [];
-    this.allVectors = [];
+    // All vectors are always active in the Equations screen.
+    this.allVectors.forEach( vector => this.activeVectors.push( vector ) );
 
-    // Create the individual vectors.
-    for ( let i = 0; i < vectorDescriptions.length; i++ ) {
+    // All non-resultant vectors appear in the equations.
+    this.equationSymbolProperties = this.allVectors.map( vector => vector.symbolProperty );
 
-      const vectorDescription = vectorDescriptions[ i ];
-
-      const vector = new EquationsVector(
-        vectorDescription.vectorTailPosition,
-        vectorDescription.baseVectorTailPosition,
-        vectorDescription.baseVectorXYComponents,
-        this,
-        graph,
-        selectedVectorProperty,
-        componentVectorStyleProperty, {
-          symbolProperty: vectorDescription.symbolProperty,
-          coordinateSnapMode: providedOptions.coordinateSnapMode,
-          vectorColorPalette: providedOptions.vectorColorPalette,
-          tandemNameSymbol: vectorDescription.tandemNameSymbol,
-          tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ),
-          baseVectorTandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}BaseVector` )
-        } );
-
-      this.allVectors.push( vector );
-      this.activeVectors.push( vector );
-      this.equationSymbolProperties.push( vectorDescription.symbolProperty );
-    }
-
-    // The resultant vector symbol ('c' or 'f') appears in the equations, so add it.
+    // The resultant vector symbol ('c' or 'f') also appears in the equations, so add it.
     this.equationSymbolProperties.push( this.resultantVector.symbolProperty );
 
     this.activeVectors.lengthProperty.lazyLink( () => {
       throw new Error( 'Active vectors cannot be added or removed after startup in the Equations screen.' );
     } );
-
-    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
-      () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );
   }
 
   public override reset(): void {

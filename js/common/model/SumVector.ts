@@ -34,7 +34,7 @@ type SumVectorOptions = SelfOptions & ResultantVectorOptions;
 export default class SumVector extends ResultantVector {
 
   public constructor( tailPosition: Vector2,
-                      vectorSet: VectorSet,
+                      vectorSet: VectorSet<Vector>,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,

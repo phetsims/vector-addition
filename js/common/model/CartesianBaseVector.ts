@@ -36,7 +36,7 @@ export default class CartesianBaseVector extends BaseVector {
 
   public constructor( tailPosition: Vector2,
                       xyComponents: Vector2,
-                      vectorSet: VectorSet,
+                      vectorSet: VectorSet<Vector>,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,

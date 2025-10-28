@@ -14,7 +14,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector from '../../common/model/Vector.js';
 import vectorAddition from '../../vectorAddition.js';
 import { EquationType } from './EquationType.js';
-import VectorSet from '../../common/model/VectorSet.js';
 import ResultantVector, { ResultantVectorOptions } from '../../common/model/ResultantVector.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Graph from '../../common/model/Graph.js';
@@ -22,6 +21,8 @@ import Property from '../../../../axon/js/Property.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import EquationsVector from './EquationsVector.js';
+import VectorSet from '../../common/model/VectorSet.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -32,7 +33,7 @@ export default class EquationsResultantVector extends ResultantVector {
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
 
   public constructor( tailPosition: Vector2,
-                      vectorSet: VectorSet,
+                      vectorSet: VectorSet<EquationsVector>,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,

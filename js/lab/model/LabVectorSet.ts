@@ -27,16 +27,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 
 type SelfOptions = EmptySelfOptions;
 
-type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions, 'resultantTandemNameSymbol'>;
+type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions<Vector>, 'createAllVectors' | 'resultantTandemNameSymbol'>;
 
-export default class LabVectorSet extends VectorSet {
-
-  // The complete set of non-resultant vectors for this vector set, allocated when the sim starts.
-  // Ordered by increasing vector index, e.g. v1, v2, v3,...
-  public readonly allVectors: Vector[];
-
-  // Number of vectors that are on the graph, and therefore contributing to the sum.
-  public readonly numberOfVectorsOnGraphProperty: TReadOnlyProperty<number>;
+export default class LabVectorSet extends VectorSet<Vector> {
 
   public readonly symbolProperty: TReadOnlyProperty<string>;
   public readonly accessibleSymbolProperty: TReadOnlyProperty<string>;
@@ -50,10 +43,17 @@ export default class LabVectorSet extends VectorSet {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions: LabVectorSetOptions ) {
 
-    const options = optionize<LabVectorSetOptions, SelfOptions, VectorSetOptions>()( {
+    const accessibleSymbolProperty = RichText.getAccessibleStringProperty( symbolProperty );
 
-      // VectorSetOptions
-      // Resultant (sum) vectors are labeled with 's' and the vector set symbol subscript.
+    const options = optionize<LabVectorSetOptions, SelfOptions, VectorSetOptions<Vector>>()( {
+
+      // Creates the complete set of non-resultant vectors for the vector set.
+      createAllVectors: ( vectorSet: VectorSet<Vector> ): Vector[] =>
+        createAllVectors( vectorSet, graph, selectedVectorProperty, options.coordinateSnapMode,
+        componentVectorStyleProperty, initialXYComponents, symbolProperty, accessibleSymbolProperty,
+          tandemNameSymbol, options.tandem.createTandem( 'allVectors' ) ),
+
+      // Resultant (sum) vector is labeled with 's' and the vector set symbol subscript.
       resultantSymbolProperty: new DerivedProperty(
         [ VectorAdditionSymbols.sStringProperty, symbolProperty ],
         ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` ),
@@ -65,15 +65,8 @@ export default class LabVectorSet extends VectorSet {
     super( graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
     this.symbolProperty = symbolProperty;
-    this.accessibleSymbolProperty = RichText.getAccessibleStringProperty( symbolProperty );
+    this.accessibleSymbolProperty = accessibleSymbolProperty;
     this.tandemNameSymbol = tandemNameSymbol;
-
-    // Create vector instances.
-    this.allVectors = createAllVectors( this, graph, selectedVectorProperty, options.coordinateSnapMode,
-      componentVectorStyleProperty, initialXYComponents, options.tandem.createTandem( 'allVectors' ) );
-
-    this.numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( this.allVectors.map( vector => vector.isOnGraphProperty ),
-      () => this.allVectors.filter( vector => vector.isOnGraphProperty.value ).length );
   }
 
   /**
@@ -94,12 +87,15 @@ export default class LabVectorSet extends VectorSet {
 /**
  * Creates all vectors related to a vector set.
  */
-function createAllVectors( vectorSet: LabVectorSet,
+function createAllVectors( vectorSet: VectorSet<Vector>,
                            graph: Graph,
                            selectedVectorProperty: Property<Vector | null>,
                            coordinateSnapMode: CoordinateSnapMode,
                            componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                            xyComponents: Vector2,
+                           symbolProperty: TReadOnlyProperty<string>,
+                           accessibleSymbolProperty: TReadOnlyProperty<string>,
+                           tandemNameSymbol: string,
                            parentTandem: Tandem ): Vector[] {
 
   const tailPosition = new Vector2( 0, 0 );
@@ -111,21 +107,21 @@ function createAllVectors( vectorSet: LabVectorSet,
     const vector = new Vector( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
 
       // e.g. 'v<sub>3</sub>'
-      symbolProperty: new DerivedProperty( [ vectorSet.symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
+      symbolProperty: new DerivedProperty( [ symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
 
       // e.g. 'v sub 3'
       accessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
-        symbol: vectorSet.accessibleSymbolProperty,
+        symbol: accessibleSymbolProperty,
         subscript: i
       } ),
       coordinateSnapMode: coordinateSnapMode,
       vectorColorPalette: vectorSet.vectorColorPalette,
 
       // e.g. 'v3Vector'
-      tandem: parentTandem.createTandem( `${vectorSet.tandemNameSymbol}${i}Vector` ),
+      tandem: parentTandem.createTandem( `${tandemNameSymbol}${i}Vector` ),
 
       // e.g. 'v3'
-      tandemNameSymbol: `${vectorSet.tandemNameSymbol}${i}`
+      tandemNameSymbol: `${tandemNameSymbol}${i}`
     } );
     vectors.push( vector );
   }
