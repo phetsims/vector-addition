@@ -29,8 +29,13 @@ type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions<Vector>, 'c
 
 export default class LabVectorSet extends VectorSet<Vector> {
 
+  // Symbol uses in the visual interface for this vector set, localized.
   public readonly symbolProperty: TReadOnlyProperty<string>;
+
+  // Symbol used in accessible descriptions for this vector set, localized.
   public readonly accessibleSymbolProperty: TReadOnlyProperty<string>;
+
+  // Symbol used to create tandem names for PhET-iO Elements related to this vector set, not localized.
   public readonly tandemNameSymbol: string;
 
   public constructor( graph: Graph,
