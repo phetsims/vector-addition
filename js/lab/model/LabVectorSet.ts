@@ -47,6 +47,7 @@ export default class LabVectorSet extends VectorSet<Vector> {
                       providedOptions: LabVectorSetOptions ) {
 
     const accessibleSymbolProperty = RichText.getAccessibleStringProperty( symbolProperty );
+    const allVectorsParentTandem = providedOptions.tandem.createTandem( 'allVectors' );
 
     // Creates the complete set of non-resultant vectors for the vector set.
     const createAllVectors = ( vectorSet: VectorSet<Vector> ): Vector[] => {
@@ -71,7 +72,7 @@ export default class LabVectorSet extends VectorSet<Vector> {
           vectorColorPalette: vectorSet.vectorColorPalette,
 
           // e.g. 'v3Vector'
-          tandem: providedOptions.tandem.createTandem( `${tandemNameSymbol}${i}Vector` ),
+          tandem: allVectorsParentTandem.createTandem( `${tandemNameSymbol}${i}Vector` ),
 
           // e.g. 'v3'
           tandemNameSymbol: `${tandemNameSymbol}${i}`
