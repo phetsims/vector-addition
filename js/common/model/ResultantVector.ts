@@ -15,12 +15,12 @@ import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorSet from './VectorSet.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Graph from './Graph.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 type SelfOptions = {
   isDefinedPropertyInstrumented?: boolean; // whether to instrument isDefinedProperty
@@ -32,7 +32,7 @@ export type ResultantVectorOptions = SelfOptions &
 export default class ResultantVector extends Vector {
 
   // Whether the resultant vector is defined.
-  public readonly isDefinedProperty: Property<boolean>;
+  public readonly isDefinedProperty: TReadOnlyProperty<boolean>;
 
   protected constructor( tailPosition: Vector2,
                          xyComponents: Vector2,
@@ -57,31 +57,11 @@ export default class ResultantVector extends Vector {
     super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
     // Resultant vector is defined if there is at least one vector on the graph.
-    const isDefined = () => vectorSet.activeVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0;
-
-    this.isDefinedProperty = new BooleanProperty( isDefined(), {
-      tandem: options.isDefinedPropertyInstrumented ? options.tandem.createTandem( 'isDefinedProperty' ) : Tandem.OPT_OUT,
-      phetioReadOnly: true
-    } );
-
-    // Update isDefinedProperty as vector are added and removed.
-    const vectorAddedListener = ( addedVector: Vector ) => {
-
-      const isOnGraphListener = () => {
-        this.isDefinedProperty.value = isDefined();
-      };
-      addedVector.isOnGraphProperty.link( isOnGraphListener );
-
-      const vectorRemovedListener = ( removedVector: Vector ) => {
-        if ( removedVector === addedVector ) {
-          addedVector.isOnGraphProperty.unlink( isOnGraphListener );
-          vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
-        }
-      };
-      vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );
-    };
-    vectorSet.activeVectors.forEach( vector => vectorAddedListener( vector ) );
-    vectorSet.activeVectors.addItemAddedListener( vectorAddedListener );
+    this.isDefinedProperty = DerivedProperty.deriveAny( vectorSet.allVectors.map( vector => vector.isOnGraphProperty ),
+      () => vectorSet.allVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0, {
+      tandem: options.tandem.createTandem( 'isDefinedProperty' ),
+      phetioValueType: BooleanIO
+      } );
   }
 }
 
