@@ -127,7 +127,7 @@ export default class Vector extends RootVector {
       isOnGraphPropertyInstrumented: true,
 
       // RootVectorOptions
-      isDisposable: false // For PhET-iO, all Vectors are instantiated at startup and exist for the lifetime of the sim.
+      phetioState: false // because VectorIO implements reference-type serialization.
     }, providedOptions );
 
     super( tailPosition, xyComponents, options );

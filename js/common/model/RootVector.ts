@@ -60,7 +60,7 @@ type SelfOptions = {
   anglePropertyInstrumented?: boolean; // whether to instrument the angleProperty
 };
 
-export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem' | 'tandemNameSuffix' | 'isDisposable'>;
+export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem' | 'phetioState'>;
 
 export default abstract class RootVector extends PhetioObject {
 
@@ -98,7 +98,7 @@ export default abstract class RootVector extends PhetioObject {
       anglePropertyInstrumented: true,
 
       // PhetioObjectOptions
-      phetioState: false,
+      isDisposable: false, // For PhET-iO, all RootVectors and their subclasses are instantiated at startup.
       tandem: Tandem.OPTIONAL,
       tandemNameSuffix: 'Vector'
     }, providedOptions );
