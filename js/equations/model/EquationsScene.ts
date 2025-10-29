@@ -54,7 +54,8 @@ export default class EquationsScene extends VectorAdditionScene {
 
     this.equationTypeProperty = new StringUnionProperty( 'addition', {
       validValues: EquationTypeValues,
-      tandem: tandem.createTandem( 'equationTypeProperty' )
+      tandem: tandem.createTandem( 'equationTypeProperty' ),
+      phetioFeatured: true
     } );
 
     this.vectorSet = new EquationsVectorSet( this.graph, this.selectedVectorProperty, this.equationTypeProperty,

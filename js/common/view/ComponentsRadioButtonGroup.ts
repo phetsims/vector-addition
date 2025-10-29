@@ -61,6 +61,7 @@ export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGr
       accessibleName: VectorAdditionStrings.a11y.componentsRadioButtonGroup.accessibleNameStringProperty,
       accessibleHelpText: VectorAdditionStrings.a11y.componentsRadioButtonGroup.accessibleHelpTextStringProperty,
       tandem: tandem,
+      phetioVisiblePropertyInstrumented: false,
 
       // These options are a bit of a hack to implement a 2x2 grid.
       // Values were set empirically to make the vertical and horizontal spacing look the same.

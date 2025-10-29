@@ -50,13 +50,15 @@ export default class CartesianBaseVector extends BaseVector {
     this.xComponentProperty = new NumberProperty( this.xComponent, {
       numberType: 'Integer',
       range: VectorAdditionConstants.XY_COMPONENT_RANGE,
-      tandem: options.tandem.createTandem( 'xComponentProperty' )
+      tandem: options.tandem.createTandem( 'xComponentProperty' ),
+      phetioFeatured: true
     } );
 
     this.yComponentProperty = new NumberProperty( this.yComponent, {
       numberType: 'Integer',
       range: VectorAdditionConstants.XY_COMPONENT_RANGE,
-      tandem: options.tandem.createTandem( 'yComponentProperty' )
+      tandem: options.tandem.createTandem( 'yComponentProperty' ),
+      phetioFeatured: true
     } );
 
     // When x-component changes, update xy-components.

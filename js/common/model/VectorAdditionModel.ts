@@ -39,7 +39,8 @@ export default class VectorAdditionModel implements TModel {
     this.componentVectorStyleProperty = new StringUnionProperty( 'invisible', {
       validValues: ComponentVectorStyleValues,
       tandem: options.componentVectorStylePropertyInstrumented ? options.tandem.createTandem( 'componentVectorStyleProperty' ) : Tandem.OPT_OUT,
-      phetioDocumentation: 'The representation (style) used to display component vectors.'
+      phetioDocumentation: 'The representation (style) used to display component vectors.',
+      phetioFeatured: true
     } );
   }
 

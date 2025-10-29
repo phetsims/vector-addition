@@ -110,12 +110,18 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
             new HBox( {
               spacing: LABEL_DISPLAY_SPACING,
               children: [ magnitudeSymbolNode, magnitudeDisplay ],
-              tandem: options.tandem.createTandem( 'magnitudeDisplay' )
+              tandem: options.tandem.createTandem( 'magnitudeDisplay' ),
+              visiblePropertyOptions: {
+                phetioFeatured: true
+              }
             } ),
             new HBox( {
               spacing: LABEL_DISPLAY_SPACING,
               children: [ angleSymbolNode, angleDisplay ],
-              tandem: options.tandem.createTandem( 'angleDisplay' )
+              tandem: options.tandem.createTandem( 'angleDisplay' ),
+              visiblePropertyOptions: {
+                phetioFeatured: true
+              }
             } )
           ]
         } ),
@@ -125,12 +131,18 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
             new HBox( {
               spacing: LABEL_DISPLAY_SPACING,
               children: [ xComponentSymbolNode, xComponentDisplay ],
-              tandem: options.tandem.createTandem( 'xComponentDisplay' )
+              tandem: options.tandem.createTandem( 'xComponentDisplay' ),
+              visiblePropertyOptions: {
+                phetioFeatured: true
+              }
             } ),
             new HBox( {
               spacing: LABEL_DISPLAY_SPACING,
               children: [ yComponentSymbolNode, yComponentDisplay ],
-              tandem: options.tandem.createTandem( 'yComponentDisplay' )
+              tandem: options.tandem.createTandem( 'yComponentDisplay' ),
+              visiblePropertyOptions: {
+                phetioFeatured: true
+              }
             } )
           ]
         } )
@@ -148,7 +160,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       yComponentSymbolNode.setCoefficient( coefficient );
     };
 
-    // Update when selected vector changes.
+    // Update when the selected vector changes.
     selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
 
       if ( selectedVector !== null ) {

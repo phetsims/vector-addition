@@ -56,6 +56,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       accessibleName: VectorAdditionStrings.a11y.originManipulator.accessibleNameStringProperty,
       accessibleHelpText: VectorAdditionStrings.a11y.originManipulator.accessibleHelpTextStringProperty,
       tandem: tandem,
+      phetioFeatured: true,
       phetioInputEnabledPropertyInstrumented: true
     }, AccessibleDraggableOptions );
 
@@ -70,6 +71,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     const positionProperty = new Vector2Property( Vector2.ZERO, {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioDocumentation: 'Position of the origin manipulator in view coordinates, relative to the top-left corner of the graph.',
+      phetioFeatured: true,
       phetioReadOnly: true
     } );
 

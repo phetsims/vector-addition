@@ -38,6 +38,7 @@ export default class EquationsModel extends VectorAdditionModel {
     this.sceneProperty = new Property( this.cartesianScene, {
       validValues: [ this.cartesianScene, this.polarScene ],
       tandem: tandem.createTandem( 'sceneProperty' ),
+      phetioFeatured: true,
       phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
     } );
   }

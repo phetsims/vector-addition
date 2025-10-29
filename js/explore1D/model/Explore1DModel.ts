@@ -47,6 +47,7 @@ export default class Explore1DModel extends VectorAdditionModel {
     this.sceneProperty = new Property( this.horizontalScene, {
       validValues: [ this.horizontalScene, this.verticalScene ],
       tandem: tandem.createTandem( 'sceneProperty' ),
+      phetioFeatured: true,
       phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
     } );
   }

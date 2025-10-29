@@ -127,6 +127,7 @@ export default class Vector extends RootVector {
       isOnGraphPropertyInstrumented: true,
 
       // RootVectorOptions
+      phetioFeatured: true,
       phetioState: false // because VectorIO implements reference-type serialization.
     }, providedOptions );
 
@@ -142,7 +143,8 @@ export default class Vector extends RootVector {
 
     this.isOnGraphProperty = new BooleanProperty( options.isOnGraph, {
       tandem: options.isOnGraphPropertyInstrumented ? options.tandem.createTandem( 'isOnGraphProperty' ) : Tandem.OPT_OUT,
-      phetioReadOnly: true
+      phetioReadOnly: true,
+      phetioFeatured: true
     } );
 
     this.inProgressAnimation = null;

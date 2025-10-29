@@ -60,7 +60,7 @@ type SelfOptions = {
   anglePropertyInstrumented?: boolean; // whether to instrument the angleProperty
 };
 
-export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem' | 'phetioState'>;
+export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem' | 'phetioFeatured' | 'phetioState'>;
 
 export default abstract class RootVector extends PhetioObject {
 
@@ -107,11 +107,13 @@ export default abstract class RootVector extends PhetioObject {
 
     this.xyComponentsProperty = new Vector2Property( xyComponents, {
       tandem: options.tandem.createTandem( 'xyComponentsProperty' ),
+      phetioFeatured: true,
       phetioReadOnly: true
     } );
 
     this.tailPositionProperty = new Vector2Property( tailPosition, {
       tandem: options.tandem.createTandem( 'tailPositionProperty' ),
+      phetioFeatured: true,
       phetioReadOnly: true
     } );
 
@@ -119,20 +121,23 @@ export default abstract class RootVector extends PhetioObject {
       [ this.tailPositionProperty, this.xyComponentsProperty ],
       ( tailPosition, xyComponents ) => tailPosition.plus( xyComponents ), {
         tandem: options.tandem.createTandem( 'tipPositionProperty' ),
-        phetioValueType: Vector2.Vector2IO
+        phetioValueType: Vector2.Vector2IO,
+        phetioFeatured: true
       } );
 
     this._magnitudeProperty = new DerivedProperty( [ this.xyComponentsProperty ], xyComponents => xyComponents.magnitude, {
       tandem: options.magnitudePropertyInstrumented ? options.tandem.createTandem( 'magnitudeProperty' ) : Tandem.OPT_OUT,
-      phetioValueType: NumberIO
+      phetioValueType: NumberIO,
+      phetioFeatured: true
     } );
 
     this._angleProperty = new DerivedProperty( [ this.xyComponentsProperty ],
-        xyComponents => xyComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : xyComponents.angle, {
-      tandem: options.anglePropertyInstrumented ? options.tandem.createTandem( 'angleProperty' ) : Tandem.OPT_OUT,
-      phetioValueType: NullableIO( NumberIO ),
-      units: 'radians'
-    } );
+      xyComponents => xyComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : xyComponents.angle, {
+        tandem: options.anglePropertyInstrumented ? options.tandem.createTandem( 'angleProperty' ) : Tandem.OPT_OUT,
+        phetioValueType: NullableIO( NumberIO ),
+        units: 'radians',
+        phetioFeatured: true
+      } );
 
     this.vectorColorPalette = options.vectorColorPalette;
   }

@@ -59,8 +59,9 @@ export default class ResultantVector extends Vector {
     // Resultant vector is defined if there is at least one vector on the graph.
     this.isDefinedProperty = DerivedProperty.deriveAny( vectorSet.allVectors.map( vector => vector.isOnGraphProperty ),
       () => vectorSet.allVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0, {
-      tandem: options.tandem.createTandem( 'isDefinedProperty' ),
-      phetioValueType: BooleanIO
+        tandem: options.tandem.createTandem( 'isDefinedProperty' ),
+        phetioValueType: BooleanIO,
+        phetioFeatured: true
       } );
   }
 }

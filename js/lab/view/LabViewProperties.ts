@@ -28,11 +28,13 @@ export default class LabViewProperties extends VectorAdditionViewProperties {
     } );
 
     this.sum1VisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'sum1VisibleProperty' )
+      tandem: tandem.createTandem( 'sum1VisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.sum2VisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'sum2VisibleProperty' )
+      tandem: tandem.createTandem( 'sum2VisibleProperty' ),
+      phetioFeatured: true
     } );
   }
 

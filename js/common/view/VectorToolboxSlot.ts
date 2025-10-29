@@ -67,7 +67,11 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       excludeInvisibleChildrenFromBounds: false,
       cursor: 'move',
       spacing: 5,
-      tagName: 'button'
+      tagName: 'button',
+      phetioFeatured: true,
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
     }, providedOptions );
 
     super( options );

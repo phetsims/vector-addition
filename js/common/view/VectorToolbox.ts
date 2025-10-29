@@ -54,7 +54,10 @@ export default class VectorToolbox extends Panel {
         yMargin: 10,
         fill: Color.WHITE,
         stroke: Color.BLACK,
-        accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.availableVectorsStringProperty
+        accessibleHeading: VectorAdditionStrings.a11y.accessibleHeadings.availableVectorsStringProperty,
+        visiblePropertyOptions: {
+          phetioFeatured: true
+        }
       }, providedOptions );
 
     // Create the container for the slots in a vertical alignment

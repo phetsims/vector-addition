@@ -34,6 +34,7 @@ export default class HorizontalVerticalSceneRadioButtonGroup<T extends VectorAdd
 
         // RectangularRadioButtonGroupOptions
         isDisposable: false,
+        phetioVisiblePropertyInstrumented: true,
         accessibleName: VectorAdditionStrings.a11y.horizontalVerticalSceneRadioButtonGroup.accessibleNameStringProperty,
         accessibleHelpText: VectorAdditionStrings.a11y.horizontalVerticalSceneRadioButtonGroup.accessibleHelpTextStringProperty
       }, providedOptions );

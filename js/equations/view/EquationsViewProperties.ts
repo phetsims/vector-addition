@@ -34,19 +34,23 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
     } );
 
     this.equationAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'equationAccordionBoxExpandedProperty' )
+      tandem: tandem.createTandem( 'equationAccordionBoxExpandedProperty' ),
+      phetioFeatured: true
     } );
 
     this.sumVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'sumVisibleProperty' )
+      tandem: tandem.createTandem( 'sumVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.baseVectorsAccordionBoxExpandedProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'baseVectorsAccordionBoxExpandedProperty' )
+      tandem: tandem.createTandem( 'baseVectorsAccordionBoxExpandedProperty' ),
+      phetioFeatured: true
     } );
 
     this.baseVectorsVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'baseVectorsVisibleProperty' )
+      tandem: tandem.createTandem( 'baseVectorsVisibleProperty' ),
+      phetioFeatured: true
     } );
   }
 

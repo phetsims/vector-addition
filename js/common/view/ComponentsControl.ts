@@ -54,7 +54,12 @@ export default class ComponentsControl extends VBox {
       children: [ componentsText, radioButtonsAlignBox ],
       align: 'center',
       spacing: VectorAdditionConstants.GRAPH_CONTROL_PANEL_Y_SPACING,
-      tandem: tandem
+      tandem: tandem,
+      phetioFeatured: true,
+      phetioVisiblePropertyInstrumented: true,
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
     } );
   }
 }

@@ -58,7 +58,8 @@ export default class PolarBaseVector extends BaseVector {
     this.magnitudeProperty = new NumberProperty( this.magnitude, {
       numberType: 'Integer',
       range: VectorAdditionConstants.MAGNITUDE_RANGE,
-      tandem: options.tandem.createTandem( 'magnitudeProperty' )
+      tandem: options.tandem.createTandem( 'magnitudeProperty' ),
+      phetioFeatured: true
     } );
 
     const initialAngle = this.angle!;
@@ -67,7 +68,8 @@ export default class PolarBaseVector extends BaseVector {
       numberType: 'Integer',
       range: VectorAdditionConstants.SIGNED_ANGLE_RANGE,
       units: '\u00B0', // degrees
-      tandem: options.tandem.createTandem( 'angleProperty' )
+      tandem: options.tandem.createTandem( 'angleProperty' ),
+      phetioFeatured: true
     } );
 
     // Observe when the angle or magnitude changes, and update the components to match.

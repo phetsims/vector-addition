@@ -77,6 +77,7 @@ export default class VectorAdditionScene extends PhetioObject {
       phetioValueType: NullableIO( Vector.VectorIO ),
       tandem: options.tandem.createTandem( 'selectedVectorProperty' ),
       phetioDocumentation: 'The selected vector on the graph.',
+      phetioFeatured: true,
       phetioReadOnly: true
     } );
   }

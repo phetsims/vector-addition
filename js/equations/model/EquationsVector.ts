@@ -69,7 +69,8 @@ export default class EquationsVector extends Vector {
 
     this.coefficientProperty = new NumberProperty( options.coefficient, {
       range: COEFFICIENT_RANGE,
-      tandem: options.tandem.createTandem( 'coefficientProperty' )
+      tandem: options.tandem.createTandem( 'coefficientProperty' ),
+      phetioFeatured: true
     } );
 
     // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.

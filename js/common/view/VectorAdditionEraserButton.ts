@@ -33,7 +33,8 @@ export default class VectorAdditionEraserButton extends EraserButton {
       enabledProperty: new DerivedProperty( [ numberOfVectorsOnGraphProperty ],
         numberOfVectorsOnGraph => ( numberOfVectorsOnGraph !== 0 ), {
           tandem: providedOptions.tandem.createTandem( 'enabledProperty' ),
-          phetioValueType: BooleanIO
+          phetioValueType: BooleanIO,
+          phetioFeatured: true
         } ),
       baseColor: VectorAdditionColors.eraserButtonBaseColorProperty,
       touchAreaXDilation: 7,

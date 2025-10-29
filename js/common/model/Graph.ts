@@ -74,6 +74,7 @@ export default class Graph extends PhetioObject {
       phetioValueType: Bounds2.Bounds2IO,
       tandem: options.tandem.createTandem( 'boundsProperty' ),
       phetioDocumentation: 'Bounds of the scene, in model coordinates.',
+      phetioFeatured: true,
       phetioReadOnly: true
     } );
     this.boundsProperty = this._boundsProperty;

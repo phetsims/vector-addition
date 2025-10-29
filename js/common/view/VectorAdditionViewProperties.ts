@@ -46,21 +46,25 @@ export default class VectorAdditionViewProperties {
     }, providedOptions );
 
     this.valuesVisibleProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'valuesVisibleProperty' )
+      tandem: options.tandem.createTandem( 'valuesVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.anglesVisibleProperty = new BooleanProperty( false, {
       tandem: options.anglesVisiblePropertyInstrumented ?
               options.tandem.createTandem( 'anglesVisibleProperty' ) :
-              Tandem.OPT_OUT
+              Tandem.OPT_OUT,
+      phetioFeatured: true
     } );
 
     this.gridVisibleProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'gridVisibleProperty' )
+      tandem: options.tandem.createTandem( 'gridVisibleProperty' ),
+      phetioFeatured: true
     } );
 
     this.vectorValuesAccordionBoxExpandedProperty = new BooleanProperty( true, {
-      tandem: options.tandem.createTandem( 'vectorValuesAccordionBoxExpandedProperty' )
+      tandem: options.tandem.createTandem( 'vectorValuesAccordionBoxExpandedProperty' ),
+      phetioFeatured: true
     } );
   }
 

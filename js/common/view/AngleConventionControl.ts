@@ -43,7 +43,8 @@ export default class AngleConventionControl extends PreferencesControl {
       labelNode: labelText,
       controlNode: radioButtonGroup,
       descriptionNode: descriptionText,
-      tandem: tandem
+      tandem: tandem,
+      phetioFeatured: true
     } ) );
   }
 }

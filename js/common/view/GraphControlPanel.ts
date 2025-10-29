@@ -27,7 +27,10 @@ export default class GraphControlPanel extends Panel {
       {}, VectorAdditionConstants.PANEL_OPTIONS, {
 
         // PanelOptions
-        isDisposable: false
+        isDisposable: false,
+        visiblePropertyOptions: {
+          phetioFeatured: true
+        }
       }, providedOptions );
 
     // Make the panel a fixed width
