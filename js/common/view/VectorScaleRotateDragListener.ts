@@ -30,7 +30,7 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       selectedVectorProperty: Property<Vector | null> ) {
 
-    // Position of the tip of the vector, relative to the tail, in view coordinates.
+    // Position of the vector tip, relative to the tail, in view coordinates.
     const tipPositionViewProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents ) );
 
     super( {
