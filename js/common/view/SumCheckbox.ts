@@ -69,12 +69,12 @@ export default class SumCheckbox extends Checkbox {
       vectorSymbol: options.accessibleSumSymbolProperty
     } );
 
-    // "Vector {{vectorSymbol}} shown in graph area."
+    // "Vector {{vectorSymbol}} visibility enabled."
     options.accessibleContextResponseChecked = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
       vectorSymbol: options.accessibleSumSymbolProperty
     } );
 
-    // "Vector {{vectorSymbol}} hidden in graph area."
+    // "Vector {{vectorSymbol}} visibility disabled."
     options.accessibleContextResponseUnchecked = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
       vectorSymbol: options.accessibleSumSymbolProperty
     } );
