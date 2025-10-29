@@ -145,7 +145,6 @@ export default class VectorSet<V extends Vector> extends PhetioObject {
 
     this.activeVectors = createObservableArray( {
       tandem: options.activeVectorsInstrumented ? options.tandem.createTandem( 'activeVectors' ) : Tandem.OPT_OUT,
-      phetioFeatured: true,
       phetioType: createObservableArray.ObservableArrayIO( Vector.VectorIO ),
       phetioDocumentation: 'Vectors that are not in the toolbox.'
     } );
