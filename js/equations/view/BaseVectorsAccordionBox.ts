@@ -1,6 +1,5 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/vector-addition/issues/258 Address layout when pickers are made invisible via PhET-iO.
 /**
  * BaseVectorsAccordionBox appears on the right side of the 'Equations' screen. It contains pickers for modifying the
  * base vectors, and a checkbox to show/hide the base vectors.
@@ -40,6 +39,7 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import BaseVector from '../../common/model/BaseVector.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label
@@ -91,7 +91,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
         // x-component
         const xSymbolStringProperty = new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
-                                        ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` );
+          ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` );
         const xLabeledPicker = new LabelEqualsNumberPicker(
           cartesianBaseVector.xComponentProperty,
           VectorAdditionConstants.XY_COMPONENT_RANGE,
@@ -134,7 +134,13 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         rows.push( new HBox( {
           align: 'origin',
           spacing: X_SPACING,
-          children: [ xLabeledPicker, yLabeledPicker ]
+          children: [ xLabeledPicker, yLabeledPicker ],
+
+          // For PhET-iO, keep the layout from changing when pickers are hidden.
+          excludeInvisibleChildrenFromBounds: false,
+
+          // For PhET-iO, hide the entire HBox if both pickers are hidden.
+          visibleProperty: DerivedProperty.or( [ xLabeledPicker.visibleProperty, yLabeledPicker.visibleProperty ] )
         } ) );
       }
       else {
@@ -166,7 +172,13 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         rows.push( new HBox( {
           align: 'origin',
           spacing: X_SPACING,
-          children: [ magnitudeLabeledPicker, anglePicker ]
+          children: [ magnitudeLabeledPicker, anglePicker ],
+
+          // For PhET-iO, keep the layout from changing when pickers are hidden.
+          excludeInvisibleChildrenFromBounds: false,
+
+          // For PhET-iO, hide the entire HBox if both pickers are hidden.
+          visibleProperty: DerivedProperty.or( [ magnitudeLabeledPicker.visibleProperty, anglePicker.visibleProperty ] )
         } ) );
       }
     } );
