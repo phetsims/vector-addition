@@ -8,15 +8,13 @@
 
 export const EquationTypeValues = [
 
-  // Adding two vectors to get a third. Shown as 'a + b = c' or 'd + e = f'
+  // Adding two vectors to get a third vector, e.g. 'a + b = c'
   'addition',
 
-  // Subtracting a vector from another to get a third. Shown as 'a - b = c' or 'd - e = f'
+  // Subtracting a vector from another vector to get a third vector, e.g. 'a - b = c'
   'subtraction',
 
-  // Negating the sum of two vectors to get a third.
-  // Derived from '-( a + b ) = c', simplified to 'a + b + c = 0'
-  // Shown as 'a + b + c = 0' or 'd + e + f = 0'
+  // Negating the sum of two vectors to get a third vector, e.g. 'a + b = -c', simplified to 'a + b + c = 0'
   'negation'
 
 ] as const;
