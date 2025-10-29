@@ -45,22 +45,22 @@ export default class EquationsSumCheckbox extends Checkbox {
 
     const options = combineOptions<CheckboxOptions>( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
-        vectorSymbol: accessibleSymbolProperty
+        symbol: accessibleSymbolProperty
       } ),
 
-      // "Show or hide vector {{vectorSymbol}}."
+      // "Show or hide vector {{symbol}}."
       accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
-        vectorSymbol: accessibleSymbolProperty
+        symbol: accessibleSymbolProperty
       } ),
 
-      // "Vector {{vectorSymbol}} visibility enabled."
+      // "Vector {{symbol}} visibility enabled."
       accessibleContextResponseChecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
-        vectorSymbol: accessibleSymbolProperty
+        symbol: accessibleSymbolProperty
       } ),
 
-      // "Vector {{vectorSymbol}} visibility disabled."
+      // "Vector {{symbol}} visibility disabled."
       accessibleContextResponseUnchecked: new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
-        vectorSymbol: accessibleSymbolProperty
+        symbol: accessibleSymbolProperty
       } ),
       tandem: tandem
     } );

@@ -64,19 +64,19 @@ export default class SumCheckbox extends Checkbox {
       accessibleName: VectorAdditionStrings.a11y.sumCheckbox.accessibleNameStringProperty // "Vector Sum"
     }, providedOptions );
 
-    // "Show or hide vector {{vectorSymbol}}."
+    // "Show or hide vector {{symbol}}."
     options.accessibleHelpText = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {
-      vectorSymbol: options.accessibleSumSymbolProperty
+      symbol: options.accessibleSumSymbolProperty
     } );
 
-    // "Vector {{vectorSymbol}} visibility enabled."
+    // "Vector {{symbol}} visibility enabled."
     options.accessibleContextResponseChecked = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseCheckedStringProperty, {
-      vectorSymbol: options.accessibleSumSymbolProperty
+      symbol: options.accessibleSumSymbolProperty
     } );
 
-    // "Vector {{vectorSymbol}} visibility disabled."
+    // "Vector {{symbol}} visibility disabled."
     options.accessibleContextResponseUnchecked = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleContextResponseUncheckedStringProperty, {
-      vectorSymbol: options.accessibleSumSymbolProperty
+      symbol: options.accessibleSumSymbolProperty
     } );
 
     const textNode = new Text( VectorAdditionStrings.sumStringProperty, {
