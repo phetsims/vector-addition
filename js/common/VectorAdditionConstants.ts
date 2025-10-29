@@ -256,8 +256,8 @@ export default class VectorAdditionConstants {
 
   //----------------------------------------------------------------------------------------
   // Core Description
-  public static readonly VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES = 2;
-  public static readonly VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES = 2;
+  public static readonly VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES = 1;
+  public static readonly VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES = 1;
 }
 
 // See https://github.com/phetsims/vector-addition/issues/127
