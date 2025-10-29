@@ -253,6 +253,11 @@ export default class VectorAdditionConstants {
   public static readonly AXIS_LABEL_FONT = new PhetFont( 18 );
   public static readonly CHECKBOX_FONT = new PhetFont( 16 );
   public static readonly TITLE_FONT = new PhetFont( 16 );
+
+  //----------------------------------------------------------------------------------------
+  // Core Description
+  public static readonly VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES = 2;
+  public static readonly VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES = 2;
 }
 
 // See https://github.com/phetsims/vector-addition/issues/127

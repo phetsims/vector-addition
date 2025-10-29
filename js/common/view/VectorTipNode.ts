@@ -24,6 +24,8 @@ import Property from '../../../../axon/js/Property.js';
 import VectorNode from './VectorNode.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 
 // xy-dilation of vector tip pointer areas
 const MOUSE_AREA_DILATION = 6;
@@ -144,8 +146,8 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
    */
   public doAccessibleObjectResponse(): void {
     this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseStringProperty, {
-      tipX: this.vector.tipX,
-      tipY: this.vector.tipY
+      tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
+      tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
     } ) );
   }
 }

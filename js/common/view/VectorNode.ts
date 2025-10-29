@@ -30,6 +30,7 @@ import Property from '../../../../axon/js/Property.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorTipNode from './VectorTipNode.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -181,7 +182,7 @@ export default class VectorNode extends RootVectorNode {
 
     this.arrowNode.focusedProperty.lazyLink( focussed => {
       if ( focussed ) {
-        this.doAccessibleObjectResponseTranslate();
+        this.doAccessibleObjectResponse();
       }
     } );
 
@@ -216,12 +217,12 @@ export default class VectorNode extends RootVectorNode {
   /**
    * Queues an accessible object response when the vector has been translated.
    */
-  public doAccessibleObjectResponseTranslate(): void {
+  public doAccessibleObjectResponse(): void {
     this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty, {
-      tailX: this.vector.tailX,
-      tailY: this.vector.tailY,
-      tipX: this.vector.tipX,
-      tipY: this.vector.tipY
+      tailX: toFixedNumber( this.vector.tailX, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
+      tailY: toFixedNumber( this.vector.tailY, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
+      tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
+      tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
     } ) );
   }
 }

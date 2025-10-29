@@ -57,7 +57,7 @@ export class VectorTranslationDragListener extends SoundDragListener {
           'VectorTranslationDragListener should be removed when the vector is animating back.' );
 
         if ( vector.isOnGraphProperty.value ) {
-          this.vectorNode.doAccessibleObjectResponseTranslate();
+          this.vectorNode.doAccessibleObjectResponse();
         }
         else {
 
@@ -74,7 +74,7 @@ export class VectorTranslationDragListener extends SoundDragListener {
               .minus( vector.xyComponents.timesScalar( 0.5 ) );
             const shadowTailPosition = vector.tail.plus( shadowOffset );
             vector.dropOntoGraph( shadowTailPosition );
-            this.vectorNode.doAccessibleObjectResponseTranslate();
+            this.vectorNode.doAccessibleObjectResponse();
           }
           else {
 
