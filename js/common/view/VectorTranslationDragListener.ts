@@ -35,9 +35,8 @@ export class VectorTranslationDragListener extends SoundDragListener {
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       cursor: string ) {
 
-    // Create a Property for the position of the tail of the vector.
-    const tailPositionProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewPosition(
-      vector.tail ) );
+    // Create a Property for the position of the vector tail.
+    const tailPositionProperty = new Vector2Property( modelViewTransformProperty.value.modelToViewPosition( vector.tail ) );
 
     super( {
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
