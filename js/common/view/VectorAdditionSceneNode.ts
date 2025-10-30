@@ -120,6 +120,10 @@ export default class VectorAdditionSceneNode extends Node {
       this.vectorSetNodes.push( vectorSetNode );
     } );
 
+    // Selecting a vector moves its VectorSetNode to the front, which implicitly changes the pdomOrder.
+    // So explicitly set a fixed pdomOrder for the VectorSetNodes.
+    this.vectorSetNodesParent.pdomOrder = this.vectorSetNodes;
+
     // Add the children in the correct z-order.
     this.setChildren( [
       this.graphNode,

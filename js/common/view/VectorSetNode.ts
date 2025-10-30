@@ -31,10 +31,13 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class VectorSetNode extends Node {
 
   public readonly vectorSet: VectorSet<Vector>;
+  private readonly vectorNodes: VectorNode[]; // non-resultant VectorNodes
+  private readonly resultantVectorNode: ResultantVectorNode;
 
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
   private readonly selectedVectorProperty: Property<Vector | null>;
@@ -84,6 +87,8 @@ export default class VectorSetNode extends Node {
     } );
 
     this.vectorSet = vectorSet;
+    this.vectorNodes = [];
+    this.resultantVectorNode = resultantVectorNode;
 
     this.modelViewTransformProperty = modelViewTransformProperty;
     this.selectedVectorProperty = selectedVectorProperty;
@@ -129,6 +134,14 @@ export default class VectorSetNode extends Node {
     const vectorNode = new VectorNode( vector, this.modelViewTransformProperty, this.selectedVectorProperty,
       this.valuesVisibleProperty, this.anglesVisibleProperty, this.graphBoundsProperty );
 
+    // Add to this.vectorNodes, and sort in the same order as vectorSet.allVectors.
+    this.vectorNodes.push( vectorNode );
+    this.vectorNodes.sort( ( vectorNode1, vectorNode2 ) =>
+      this.vectorSet.allVectors.indexOf( vectorNode1.vector ) - this.vectorSet.allVectors.indexOf( vectorNode2.vector ) );
+
+    // Update the pdomOrder.
+    this.pdomOrder = [ ...this.vectorNodes, this.resultantVectorNode ];
+
     const xComponentVectorNode = new ComponentVectorNode( vector.xComponentVector,
       this.modelViewTransformProperty,
       this.selectedVectorProperty,
@@ -173,6 +186,16 @@ export default class VectorSetNode extends Node {
       const vectorRemovedListener = ( removedVector: Vector ) => {
 
         if ( removedVector === vector ) {
+
+          // Remove vectorNode from this.vectorNodes.
+          const index = this.vectorNodes.indexOf( vectorNode );
+          affirm( index !== -1, 'VectorNode not found in this.vectorNodes' );
+          this.vectorNodes.splice( index, 1 );
+
+          //TODO https://github.com/phetsims/vector-addition/issues/290 Move focus to another VectorNode or back to toolbox slot.
+
+          // Update the pdomOrder.
+          this.pdomOrder = [ ...this.vectorNodes, this.resultantVectorNode ];
 
           // dispose the Nodes that were created
           xComponentVectorNode.dispose();
