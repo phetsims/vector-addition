@@ -243,7 +243,8 @@ export default class VectorSetNode extends Node {
   }
 
   /**
-   * Updates the focus order for interactive Nodes in this VectorSetNode.
+   * Updates the focus order for interactive Nodes in this VectorSetNode. We need to explicitly set the focus order
+   * because a vector selected with the pointer is moved to the front, which changes the implicit focus order.
    * See https://github.com/phetsims/vector-addition/issues/338.
    */
   private updatePDOMOrder(): void {
