@@ -38,6 +38,7 @@ export default class VectorSetNode extends Node {
   public readonly vectorSet: VectorSet<Vector>;
   private readonly vectorNodes: VectorNode[]; // non-resultant VectorNodes
   private readonly resultantVectorNode: ResultantVectorNode;
+  private readonly baseVectorNodes: BaseVectorNode[];
 
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
   private readonly selectedVectorProperty: Property<Vector | null>;
@@ -89,6 +90,7 @@ export default class VectorSetNode extends Node {
     this.vectorSet = vectorSet;
     this.vectorNodes = [];
     this.resultantVectorNode = resultantVectorNode;
+    this.baseVectorNodes = [];
 
     this.modelViewTransformProperty = modelViewTransformProperty;
     this.selectedVectorProperty = selectedVectorProperty;
@@ -136,11 +138,8 @@ export default class VectorSetNode extends Node {
 
     // Add to this.vectorNodes, and sort in the same order as vectorSet.allVectors.
     this.vectorNodes.push( vectorNode );
-    this.vectorNodes.sort( ( vectorNode1, vectorNode2 ) =>
-      this.vectorSet.allVectors.indexOf( vectorNode1.vector ) - this.vectorSet.allVectors.indexOf( vectorNode2.vector ) );
 
-    // Update the pdomOrder.
-    this.pdomOrder = [ ...this.vectorNodes, this.resultantVectorNode ];
+    this.updatePDOMOrder();
 
     const xComponentVectorNode = new ComponentVectorNode( vector.xComponentVector,
       this.modelViewTransformProperty,
@@ -194,8 +193,7 @@ export default class VectorSetNode extends Node {
 
           //TODO https://github.com/phetsims/vector-addition/issues/290 Move focus to another VectorNode or back to toolbox slot.
 
-          // Update the pdomOrder.
-          this.pdomOrder = [ ...this.vectorNodes, this.resultantVectorNode ];
+          this.updatePDOMOrder();
 
           // dispose the Nodes that were created
           xComponentVectorNode.dispose();
@@ -226,6 +224,9 @@ export default class VectorSetNode extends Node {
         tandem: this.tandem.createTandem( `${baseVector.tandemNameSymbol}BaseVectorNode` )
       } );
     this.addChild( baseVectorNode );
+    this.baseVectorNodes.push( baseVectorNode );
+
+    this.updatePDOMOrder();
 
     // When the base vector becomes selected, move it (and the entire vector set) to the front.
     // unlink is unnecessary because VectorSetNode exists for the lifetime of the sim.
@@ -239,6 +240,18 @@ export default class VectorSetNode extends Node {
         baseVectorNode.moveToFront();
       }
     } );
+  }
+
+  /**
+   * Updates the focus order for interactive Nodes in this VectorSetNode.
+   * See https://github.com/phetsims/vector-addition/issues/338.
+   */
+  private updatePDOMOrder(): void {
+
+    // Sort the VectorNodes in the same order as vectorSet.allVectors.
+    const sortedVectorNodes = _.sortBy( this.vectorNodes, vectorNode => this.vectorSet.allVectors.indexOf( vectorNode.vector ) );
+
+    this.pdomOrder = [ ...sortedVectorNodes, this.resultantVectorNode, ...this.baseVectorNodes ];
   }
 }
 
