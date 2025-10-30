@@ -43,7 +43,6 @@ export default class VectorAdditionScreenView extends ScreenView {
       bottom: this.layoutBounds.maxY - VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
-    this.addChild( this.resetAllButton );
   }
 
   public reset(): void {
