@@ -38,6 +38,8 @@ export default class VectorSetNode extends Node {
   public readonly vectorSet: VectorSet<Vector>;
   private readonly vectorNodes: VectorNode[]; // non-resultant VectorNodes
   private readonly resultantVectorNode: ResultantVectorNode;
+
+  // Nodes for base vectors.  Note that the order of this array determines pdomOrder of vectors in the view.
   private readonly baseVectorNodes: BaseVectorNode[];
 
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;

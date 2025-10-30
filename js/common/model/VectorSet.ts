@@ -73,6 +73,7 @@ export default class VectorSet<V extends Vector> extends PhetioObject {
   public readonly resultantVector: ResultantVector;
 
   // The complete set of non-resultant vectors for this vector set, allocated when the sim starts.
+  // Note that the order of this array determines pdomOrder of vectors in the view.
   public readonly allVectors: V[];
 
   // Number of vectors that are on the graph, and therefore contributing to the sum.
