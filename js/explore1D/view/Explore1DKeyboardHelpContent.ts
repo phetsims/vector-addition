@@ -11,6 +11,7 @@ import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboar
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import vectorAddition from '../../vectorAddition.js';
 import MoveDraggableItemsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/MoveDraggableItemsKeyboardHelpSection.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore1DKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -18,7 +19,9 @@ export default class Explore1DKeyboardHelpContent extends TwoColumnKeyboardHelpC
 
     // Sections in the left column.
     const leftSections = [
-      new MoveDraggableItemsKeyboardHelpSection()
+      new MoveDraggableItemsKeyboardHelpSection( {
+        headingStringProperty: VectorAdditionStrings.keyboardHelpDialog.moveGraphOriginStringProperty
+      } )
     ];
 
     // Sections in the right column.

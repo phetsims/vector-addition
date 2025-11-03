@@ -36,6 +36,9 @@ type StringsType = {
   'angleConventionDescriptionStringProperty': LocalizedStringProperty;
   'signedRangeStringProperty': LocalizedStringProperty;
   'unsignedRangeStringProperty': LocalizedStringProperty;
+  'keyboardHelpDialog': {
+    'moveGraphOriginStringProperty': LocalizedStringProperty;
+  };
   'a11y': {
     'explore1DScreen': {
       'screenButtonsHelpTextStringProperty': LocalizedStringProperty;
