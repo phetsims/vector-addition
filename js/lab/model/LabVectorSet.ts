@@ -48,8 +48,7 @@ export default class LabVectorSet extends VectorSet<Vector> {
 
     const accessibleSymbolProperty = RichText.getAccessibleStringProperty( symbolProperty );
 
-    // Group all non-resultant vectors under 'allVectors' in the PhET-iO tree. This is different from other screens,
-    // because there are more vectors in the Lab screen.
+    // Group all non-resultant vectors under 'allVectors' in the PhET-iO tree.
     const allVectorsParentTandem = providedOptions.tandem.createTandem( 'allVectors' );
 
     // Creates the complete set of non-resultant vectors for the vector set.

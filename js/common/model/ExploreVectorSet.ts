@@ -38,6 +38,9 @@ export default class ExploreVectorSet extends VectorSet<Vector> {
                       vectorDescriptions: ExploreVectorDescription[],
                       providedOptions: ExploreVectorSetOptions ) {
 
+    // Group all non-resultant vectors under 'allVectors' in the PhET-iO tree.
+    const allVectorsParentTandem = providedOptions.tandem.createTandem( 'allVectors' );
+
     // Creates the complete set of non-resultant vectors for the vector set.
     const createAllVectors = ( vectorSet: ExploreVectorSet ): Vector[] =>
       vectorDescriptions.map( vectorDescription => new Vector( vectorDescription.tailPosition, vectorDescription.xyComponents,
@@ -45,7 +48,7 @@ export default class ExploreVectorSet extends VectorSet<Vector> {
           symbolProperty: vectorDescription.symbolProperty,
           coordinateSnapMode: options.coordinateSnapMode,
           vectorColorPalette: vectorSet.vectorColorPalette,
-          tandem: options.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ),
+          tandem: allVectorsParentTandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ),
           tandemNameSymbol: vectorDescription.tandemNameSymbol
         } ) );
 

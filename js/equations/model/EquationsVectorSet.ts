@@ -53,6 +53,9 @@ export default class EquationsVectorSet extends VectorSet<EquationsVector> {
                       resultantTandemNameSymbol: string,
                       providedOptions: EquationsVectorSetOptions ) {
 
+    // Group all non-resultant vectors under 'allVectors' in the PhET-iO tree.
+    const allVectorsParentTandem = providedOptions.tandem.createTandem( 'allVectors' );
+
     // Creates the complete set of non-resultant vectors for the vector set.
     const createAllVectors = ( vectorSet: VectorSet<EquationsVector> ): EquationsVector[] =>
       vectorDescriptions.map( vectorDescription => new EquationsVector(
@@ -67,8 +70,8 @@ export default class EquationsVectorSet extends VectorSet<EquationsVector> {
           coordinateSnapMode: providedOptions.coordinateSnapMode,
           vectorColorPalette: vectorSet.vectorColorPalette,
           tandemNameSymbol: vectorDescription.tandemNameSymbol,
-          tandem: providedOptions.tandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ),
-          baseVectorTandem: providedOptions.tandem.createTandem( `${vectorDescription.tandemNameSymbol}BaseVector` )
+          tandem: allVectorsParentTandem.createTandem( `${vectorDescription.tandemNameSymbol}Vector` ),
+          baseVectorTandem: allVectorsParentTandem.createTandem( `${vectorDescription.tandemNameSymbol}BaseVector` )
         } ) );
 
     // Creates the resultant vector.
