@@ -198,7 +198,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     this.vector.animateBackProperty.lazyLink( animateBackListener );
 
     this.focusedProperty.lazyLink( focussed => {
-      if ( focussed ) {
+      if ( focussed && vector.isOnGraphProperty.value ) {
         this.doAccessibleObjectResponse();
       }
     } );
