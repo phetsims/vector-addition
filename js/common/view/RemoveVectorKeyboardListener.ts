@@ -17,7 +17,7 @@ export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKe
 
   // Keystrokes and metadata
   public static readonly HOTKEY_DATA = new HotkeyData( {
-    keys: [ 'escape', 'delete' ],
+    keys: [ 'delete', 'backspace' ],
     repoName: vectorAddition.name,
     keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.removeVectorFromGraphStringProperty
   } );
