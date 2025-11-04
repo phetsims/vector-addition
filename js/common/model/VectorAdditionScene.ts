@@ -42,7 +42,7 @@ export default class VectorAdditionScene extends PhetioObject {
   public readonly coordinateSnapMode: CoordinateSnapMode;
 
   // the vectorSets for this scene
-  public readonly vectorSets: VectorSet<Vector>[];
+  public readonly vectorSets: VectorSet[];
 
   // the graph for this scene
   public readonly graph: Graph;

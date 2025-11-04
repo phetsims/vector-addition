@@ -27,7 +27,7 @@ type SelfOptions = EmptySelfOptions;
 
 type LabVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions<Vector>, 'createAllVectors' | 'resultantTandemNameSymbol'>;
 
-export default class LabVectorSet extends VectorSet<Vector> {
+export default class LabVectorSet extends VectorSet {
 
   // Symbol uses in the visual interface for this vector set, localized.
   public readonly symbolProperty: TReadOnlyProperty<string>;
@@ -52,7 +52,7 @@ export default class LabVectorSet extends VectorSet<Vector> {
     const allVectorsParentTandem = providedOptions.tandem.createTandem( 'allVectors' );
 
     // Creates the complete set of non-resultant vectors for the vector set.
-    const createAllVectors = ( vectorSet: VectorSet<Vector> ): Vector[] => {
+    const createAllVectors = ( vectorSet: VectorSet ): Vector[] => {
 
       const tailPosition = new Vector2( 0, 0 );
 

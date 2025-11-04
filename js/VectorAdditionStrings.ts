@@ -38,6 +38,7 @@ type StringsType = {
   'unsignedRangeStringProperty': LocalizedStringProperty;
   'keyboardHelpDialog': {
     'moveGraphOriginStringProperty': LocalizedStringProperty;
+    'addVectorToGraphStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'explore1DScreen': {

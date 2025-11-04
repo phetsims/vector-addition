@@ -59,7 +59,7 @@ export default class VectorAdditionSceneNode extends Node {
   // a layer for each VectorSet
   private readonly vectorSetNodes: VectorSetNode[];
 
-  private readonly vectorSets: VectorSet<Vector>[];
+  private readonly vectorSets: VectorSet[];
 
   protected constructor( scene: VectorAdditionScene,
                          sceneProperty: TReadOnlyProperty<VectorAdditionScene>,
@@ -158,7 +158,7 @@ export default class VectorAdditionSceneNode extends Node {
   /**
    * Gets the VectorSetNode associated with a VectorSet.
    */
-  protected getVectorSetNode( vectorSet: VectorSet<Vector> ): VectorSetNode {
+  protected getVectorSetNode( vectorSet: VectorSet ): VectorSetNode {
 
     affirm( this.vectorSets.length === this.vectorSetNodes.length, 'Expected a node for every vector set.' );
     const index = this.vectorSets.indexOf( vectorSet );
@@ -176,7 +176,7 @@ export default class VectorAdditionSceneNode extends Node {
    * @param vectorSet - the VectorSet the vector belongs to
    * @param [forwardingEvent] - see VectorSetNode
    */
-  public registerVector( vector: Vector, vectorSet: VectorSet<Vector>, forwardingEvent?: PressListenerEvent ): void {
+  public registerVector( vector: Vector, vectorSet: VectorSet, forwardingEvent?: PressListenerEvent ): void {
     this.getVectorSetNode( vectorSet ).registerVector( vector, forwardingEvent );
   }
 

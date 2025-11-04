@@ -30,7 +30,7 @@ type SelfOptions = EmptySelfOptions;
 type ExploreVectorSetOptions = SelfOptions &
   PickRequired<VectorSetOptions<Vector>, 'coordinateSnapMode' | 'vectorColorPalette' | 'tandem'>;
 
-export default class ExploreVectorSet extends VectorSet<Vector> {
+export default class ExploreVectorSet extends VectorSet {
 
   public constructor( graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,

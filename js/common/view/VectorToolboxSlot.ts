@@ -37,7 +37,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
   protected constructor( vectors: Vector[], // vectors in the slot
                          getNextVector: () => Vector | null, // Gets the next available vector in the slot.
-                         vectorSet: VectorSet<Vector>,
+                         vectorSet: VectorSet,
                          modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                          sceneNode: VectorAdditionSceneNode,
                          iconModelComponents: Vector2,
@@ -80,7 +80,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     this.mouseArea = this.localBounds.dilatedXY( providedOptions.mouseAreaDilation.x, providedOptions.mouseAreaDilation.y );
     this.touchArea = this.localBounds.dilatedXY( providedOptions.touchAreaDilation.x, providedOptions.touchAreaDilation.y );
 
-    // Drag a vector out of the slot.
+    // Drag a vector out of the slot using the pointer.
     this.addInputListener( SoundDragListener.createForwardingListener( event => {
 
       // Get the first available vector in the toolbox slot.

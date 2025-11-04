@@ -47,7 +47,7 @@ export default class EquationsVector extends Vector {
   public constructor( tailPosition: Vector2,
                       baseVectorTailPosition: Vector2,
                       baseVectorXYComponents: Vector2,
-                      vectorSet: VectorSet<Vector>,
+                      vectorSet: VectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,

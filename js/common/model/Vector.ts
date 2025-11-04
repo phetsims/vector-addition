@@ -85,7 +85,7 @@ export default class Vector extends RootVector {
   private readonly coordinateSnapMode: CoordinateSnapMode;
 
   // the vector set that the vector belongs to
-  protected readonly vectorSet: VectorSet<Vector>;
+  protected readonly vectorSet: VectorSet;
 
   // indicates whether the vector is on the graph
   public readonly isOnGraphProperty: Property<boolean>;
@@ -111,7 +111,7 @@ export default class Vector extends RootVector {
 
   public constructor( tailPosition: Vector2,
                       xyComponents: Vector2,
-                      vectorSet: VectorSet<Vector>,
+                      vectorSet: VectorSet,
                       graph: Graph,
                       selectedVectorProperty: Property<Vector | null>,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,

@@ -68,7 +68,7 @@ type SelfOptions<V extends Vector> = {
 
 export type VectorSetOptions<V extends Vector> = SelfOptions<V> & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-export default class VectorSet<V extends Vector> extends PhetioObject {
+export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
 
   public readonly resultantVector: ResultantVector;
 

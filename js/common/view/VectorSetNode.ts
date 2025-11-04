@@ -35,7 +35,7 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class VectorSetNode extends Node {
 
-  public readonly vectorSet: VectorSet<Vector>;
+  public readonly vectorSet: VectorSet;
   private readonly vectorNodes: VectorNode[]; // non-resultant VectorNodes
   private readonly resultantVectorNode: ResultantVectorNode;
 
@@ -49,7 +49,7 @@ export default class VectorSetNode extends Node {
   private readonly graphBoundsProperty: TReadOnlyProperty<Bounds2>;
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
-  public constructor( vectorSet: VectorSet<Vector>,
+  public constructor( vectorSet: VectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       selectedVectorProperty: Property<Vector | null>,
                       resultantVectorVisibleProperty: TReadOnlyProperty<boolean>,
