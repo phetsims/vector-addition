@@ -196,9 +196,17 @@ export default class VectorSetNode extends Node {
           affirm( index !== -1, 'VectorNode not found in this.vectorNodes' );
           this.vectorNodes.splice( index, 1 );
 
-          //TODO https://github.com/phetsims/vector-addition/issues/329 Move focus to another VectorNode or back to toolbox slot.
-
           this.updatePDOMOrder();
+
+          // Move focus to the first element in the pdomOrder for the VectorSet.
+          // If the pdomOrder is empty, move focus to the toolbox slot that vector was in.
+          const nextVectorNode = _.find( this.pdomOrder, element => element !== null );
+          if ( nextVectorNode ) {
+            nextVectorNode.focus();
+          }
+          else {
+            //TODO https://github.com/phetsims/vector-addition/issues/329 Move focus to toolbox slot.
+          }
 
           // dispose the Nodes that were created
           xComponentVectorNode.dispose();
