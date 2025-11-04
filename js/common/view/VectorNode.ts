@@ -34,6 +34,7 @@ import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import { DescriptionResponseAlertBehavior } from '../../../../scenery/js/accessibility/pdom/ParallelDOM.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -192,7 +193,9 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
     this.focusedProperty.lazyLink( focussed => {
       if ( focussed ) {
-        this.doAccessibleObjectResponse();
+        // Because the VectorNode gets focus immediately after it is added to the graph, queue this response so
+        // it does not interrupt the response indicating that the vector has been added to the graph.
+        this.doAccessibleObjectResponse( 'queue' );
       }
     } );
 
@@ -227,13 +230,15 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   /**
    * Queues an accessible object response when the vector has been translated.
    */
-  public doAccessibleObjectResponse(): void {
+  public doAccessibleObjectResponse( alertBehavior: DescriptionResponseAlertBehavior = 'interrupt' ): void {
     this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty, {
       tailX: toFixedNumber( this.vector.tailX, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tailY: toFixedNumber( this.vector.tailY, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
       tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
-    } ) );
+    } ), {
+      alertBehavior: alertBehavior
+    } );
   }
 }
 
