@@ -126,10 +126,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
             const iconPosition = modelViewTransformProperty.value.viewToModelBounds( sceneNode.boundsOf( iconNode ) ).center;
 
             // Animate the vector to its icon in the panel.
-            vector.animateToPoint( iconPosition, iconModelComponents, () => {
-              vectorSet.activeVectors.remove( vector );
-              vector.reset();
-            } );
+            vector.animateToPoint( iconPosition, iconModelComponents, () => vector.returnToToolbox() );
           }
         };
         vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed

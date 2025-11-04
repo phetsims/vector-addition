@@ -31,6 +31,7 @@ import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibilit
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import VectorTipNode from './VectorTipNode.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -144,6 +145,8 @@ export default class VectorNode extends RootVectorNode {
         tipNode.dispose();
       };
     }
+
+    this.addInputListener( new RemoveVectorKeyboardListener( vector ) );
 
     //----------------------------------------------------------------------------------------
     // Appearance

@@ -39,6 +39,7 @@ type StringsType = {
   'keyboardHelpDialog': {
     'moveGraphOriginStringProperty': LocalizedStringProperty;
     'addVectorToGraphStringProperty': LocalizedStringProperty;
+    'removeVectorFromGraphStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'explore1DScreen': {

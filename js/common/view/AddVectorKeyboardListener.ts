@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * AddVectorKeyboardListener moves a vector from a toolbox slot to the graph using the keyboard.
+ * AddVectorKeyboardListener moves a vector from the toolbox to the graph, using the keyboard.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -433,6 +433,14 @@ export default class Vector extends RootVector {
   }
 
   /**
+   * Immediately returns this vector to its slot in the toolbox.
+   */
+  public returnToToolbox(): void {
+    this.vectorSet.activeVectors.remove( this );
+    this.reset();
+  }
+
+  /**
    * VectorIO handles PhET-iO serialization of Vector instances. Since all Vector instances are static instances,
    * it implements 'Reference type serialization', as described in the Serialization section of
    * https://github.com/phetsims/phet-io/blob/main/doc/phet-io-instrumentation-technical-guide.md#serialization
