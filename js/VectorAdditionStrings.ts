@@ -231,7 +231,9 @@ type StringsType = {
     };
     'baseVectorNode': {
       'accessibleNameStringProperty': LocalizedStringProperty;
-    }
+    };
+    'vectorAddedToGraphAreaStringProperty': LocalizedStringProperty;
+    'vectorRemovedFromGraphAreaStringProperty': LocalizedStringProperty;
   }
 };
 

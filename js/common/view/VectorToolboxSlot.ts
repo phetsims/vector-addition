@@ -105,7 +105,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     } ) );
 
     // Add a vector to the graph using the keyboard.
-    this.addInputListener( new AddVectorKeyboardListener( getNextVector, vectorSet, sceneNode, graphBoundsProperty ) );
+    this.addInputListener( new AddVectorKeyboardListener( getNextVector, vectorSet, sceneNode, this, graphBoundsProperty ) );
 
     // When the slot is empty...
     vectorSet.activeVectors.lengthProperty.link( () => {

@@ -12,6 +12,8 @@ import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import VectorNode from './VectorNode.js';
 
 export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
@@ -22,11 +24,14 @@ export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKe
     keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.removeVectorFromGraphStringProperty
   } );
 
-  public constructor( vector: Vector ) {
+  public constructor( vector: Vector, vectorNode: VectorNode ) {
     super( {
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ RemoveVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `keysPressed=${keysPressed}` );
+        vectorNode.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorRemovedFromGraphAreaStringProperty, {
+          symbol: vector.accessibleSymbolProperty.value
+        } ) );
         vector.returnToToolbox();
       }
     } );

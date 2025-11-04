@@ -448,6 +448,12 @@
       "accessibleName": {
         "value": "Base Vector {{symbol}}"
       }
+    },
+    "vectorAddedToGraphArea": {
+      "value": "Vector {{symbol}} added to graph area."
+    },
+    "vectorRemovedFromGraphArea": {
+      "value": "Vector {{symbol}} removed from graph area."
     }
   }
 }
