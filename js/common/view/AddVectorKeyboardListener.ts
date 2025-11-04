@@ -16,8 +16,6 @@ import VectorSet from '../model/VectorSet.js';
 import Vector from '../model/Vector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import VectorToolboxSlot from './VectorToolboxSlot.js';
 
 export default class AddVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
@@ -31,7 +29,6 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
   public constructor( getNextVector: () => Vector | null,
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
-                      vectorToolboxSlot: VectorToolboxSlot,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2> ) {
     super( {
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ AddVectorKeyboardListener.HOTKEY_DATA ] ),
@@ -54,10 +51,6 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
 
           // Add the vector to activeVectors, so it contributes to the resultant vector.
           vectorSet.activeVectors.push( vector );
-
-          vectorToolboxSlot.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorAddedToGraphAreaStringProperty, {
-            symbol: vector.accessibleSymbolProperty.value
-          } ) );
 
           // Notify the sceneNode to create the view for the vector.
           sceneNode.registerVector( vector, vectorSet );

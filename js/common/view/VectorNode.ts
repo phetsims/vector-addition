@@ -34,7 +34,7 @@ import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import { DescriptionResponseAlertBehavior } from '../../../../scenery/js/accessibility/pdom/ParallelDOM.js';
+import Utterance from '../../../../utterance-queue/js/Utterance.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -54,6 +54,12 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   public readonly vector: Vector;
   private readonly translationDragListener: DragListener;
   private readonly disposeVectorNode: () => void;
+
+  // We need to use a separate utterance queue for the doAccessibleObjectResponse method because it was interrupting
+  // important context responses ('Vector added to graph area', 'Vector removed from graph area') that occur way over
+  // in VectorSetNode. It seems backwards to have to use a separate queue for the thing doing the interrupting, but
+  // that's currently the recommended pattern.
+  private readonly objectResponseUtterance = new Utterance();
 
   public constructor( vector: Vector,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
@@ -132,7 +138,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     this.addInputListener( selectVectorKeyboardListener );
 
     // Listener to remove the vector from the graph and return it to the toolbox.
-    const removeVectorKeyboardListener = new RemoveVectorKeyboardListener( vector, this );
+    const removeVectorKeyboardListener = new RemoveVectorKeyboardListener( vector );
     this.addInputListener( removeVectorKeyboardListener );
 
     // Dispose of things related to vector translation.
@@ -193,9 +199,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
     this.focusedProperty.lazyLink( focussed => {
       if ( focussed ) {
-        // Because the VectorNode gets focus immediately after it is added to the graph, queue this response so
-        // it does not interrupt the response indicating that the vector has been added to the graph.
-        this.doAccessibleObjectResponse( 'queue' );
+        this.doAccessibleObjectResponse();
       }
     } );
 
@@ -230,15 +234,14 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   /**
    * Queues an accessible object response when the vector has been translated.
    */
-  public doAccessibleObjectResponse( alertBehavior: DescriptionResponseAlertBehavior = 'interrupt' ): void {
-    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty, {
+  public doAccessibleObjectResponse(): void {
+    this.objectResponseUtterance.alert = StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty, {
       tailX: toFixedNumber( this.vector.tailX, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tailY: toFixedNumber( this.vector.tailY, VectorAdditionConstants.VECTOR_TAIL_DESCRIPTION_DECIMAL_PLACES ),
       tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
       tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
-    } ), {
-      alertBehavior: alertBehavior
     } );
+    this.addAccessibleObjectResponse( this.objectResponseUtterance, { alertBehavior: 'queue' } );
   }
 }
 

@@ -32,6 +32,8 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class VectorSetNode extends Node {
 
@@ -113,6 +115,22 @@ export default class VectorSetNode extends Node {
         yResultantComponentVectorNode.moveToFront();
         resultantVectorNode.moveToFront();
       }
+    } );
+
+    // Context response when a vector is added to or removed from the graph area.
+    this.vectorSet.allVectors.forEach( vector => {
+      vector.isOnGraphProperty.lazyLink( isOnGraph => {
+        if ( isOnGraph ) {
+          this.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorAddedToGraphAreaStringProperty, {
+            symbol: vector.accessibleSymbolProperty.value
+          } ) );
+        }
+        else {
+          this.addAccessibleContextResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorRemovedFromGraphAreaStringProperty, {
+            symbol: vector.accessibleSymbolProperty.value
+          } ) );
+        }
+      } );
     } );
 
     this.addLinkedElement( vectorSet );
