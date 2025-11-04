@@ -167,6 +167,8 @@ export default class VectorSetNode extends Node {
       vectorNode.forwardEvent( forwardingEvent );
     }
 
+    //TODO https://github.com/phetsims/vector-addition/issues/329 Move focus to vectorNode.arrowNode.
+
     // When the vector becomes selected, move it and its components to the front.
     // unlink is required when the vector is removed.
     const selectedVectorListener = ( selectedVector: Vector | null ) => {
@@ -193,7 +195,7 @@ export default class VectorSetNode extends Node {
           affirm( index !== -1, 'VectorNode not found in this.vectorNodes' );
           this.vectorNodes.splice( index, 1 );
 
-          //TODO https://github.com/phetsims/vector-addition/issues/290 Move focus to another VectorNode or back to toolbox slot.
+          //TODO https://github.com/phetsims/vector-addition/issues/329 Move focus to another VectorNode or back to toolbox slot.
 
           this.updatePDOMOrder();
 
