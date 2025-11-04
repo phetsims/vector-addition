@@ -94,6 +94,12 @@ export default class LabVectorSet extends VectorSet {
         [ VectorAdditionSymbols.sStringProperty, symbolProperty ],
         ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` ),
 
+      // Resultant (sum) vector description contains no markup, e.g 's sub v'.
+      resultantAccessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
+        symbol: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
+        subscript: RichText.getAccessibleStringProperty( symbolProperty )
+      } ),
+
       //  Symbol for the resultant (sum) vector used in tandem names - 'su', 'sv', etc.
       resultantTandemNameSymbol: `s${tandemNameSymbol}`
     }, providedOptions );

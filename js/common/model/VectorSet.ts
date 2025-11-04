@@ -27,6 +27,7 @@ import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 type SelfOptions<V extends Vector> = {
 
@@ -37,6 +38,7 @@ type SelfOptions<V extends Vector> = {
   createResultantVector?: ( tailPosition: Vector2,
                             vectorSet: VectorSet<V>,
                             symbolProperty: TReadOnlyProperty<string>,
+                            accessibleSymbolProperty: TReadOnlyProperty<string>,
                             tandemNameSymbol: string,
                             tandem: Tandem ) => ResultantVector;
 
@@ -58,6 +60,7 @@ type SelfOptions<V extends Vector> = {
 
   // Symbol for the resultant vector used in the visual interface.
   resultantSymbolProperty?: TReadOnlyProperty<string>;
+  resultantAccessibleSymbolProperty?: TReadOnlyProperty<string>;
 
   // Symbol for the resultant vector used in tandem names.
   resultantTandemNameSymbol?: string;
@@ -108,10 +111,12 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
     const createResultantVector = ( tailPosition: Vector2,
                                     vectorSet: VectorSet<V>,
                                     symbolProperty: TReadOnlyProperty<string>,
+                                    accessibleSymbolProperty: TReadOnlyProperty<string>,
                                     tandemNameSymbol: string,
                                     tandem: Tandem ): ResultantVector =>
       new SumVector( tailPosition, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
         symbolProperty: symbolProperty,
+        accessibleSymbolProperty: accessibleSymbolProperty,
         coordinateSnapMode: providedOptions.coordinateSnapMode,
         vectorColorPalette: providedOptions.vectorColorPalette,
         tandemNameSymbol: tandemNameSymbol,
@@ -130,6 +135,7 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
       resultantProjectionXOffset: offsetStart,
       resultantProjectionYOffset: offsetStart,
       resultantSymbolProperty: VectorAdditionSymbols.sStringProperty,
+      resultantAccessibleSymbolProperty: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
       resultantTandemNameSymbol: 's',
       activeVectorsInstrumented: true,
 
@@ -155,7 +161,8 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
     this.resultantProjectionXOffset = options.resultantProjectionXOffset;
     this.resultantProjectionYOffset = options.resultantProjectionYOffset;
 
-    this.resultantVector = options.createResultantVector( options.resultantTailPosition, this, options.resultantSymbolProperty,
+    this.resultantVector = options.createResultantVector( options.resultantTailPosition, this,
+      options.resultantSymbolProperty, options.resultantAccessibleSymbolProperty,
       options.resultantTandemNameSymbol, options.tandem.createTandem( `${options.resultantTandemNameSymbol}Vector` ) );
     this.resultantVector.setProjectionOffsets( options.resultantProjectionXOffset, options.resultantProjectionYOffset );
 
