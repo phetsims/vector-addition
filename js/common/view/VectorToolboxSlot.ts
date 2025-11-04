@@ -23,6 +23,7 @@ import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import AddVectorKeyboardListener from './AddVectorKeyboardListener.js';
 
 type SelfOptions = {
   mouseAreaDilation: Vector2;
@@ -103,6 +104,9 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       // Tell sceneNode to create the view for the vector.
       sceneNode.registerVector( vector, vectorSet, event );
     } ) );
+
+    // Add a vector to the graph using the keyboard.
+    this.addInputListener( new AddVectorKeyboardListener( getNextVector, vectorSet, sceneNode ) );
 
     // Hide the icon and disable focus when all vectors have left the toolbox.
     vectorSet.activeVectors.lengthProperty.link( () => {
