@@ -141,6 +141,7 @@ export default class VectorSetNode extends Node {
     // Add to this.vectorNodes, and sort in the same order as vectorSet.allVectors.
     this.vectorNodes.push( vectorNode );
 
+    // Insert vectorNode into the pdomOrder at the correct position.
     this.updatePDOMOrder();
 
     const xComponentVectorNode = new ComponentVectorNode( vector.xComponentVector,
@@ -196,6 +197,7 @@ export default class VectorSetNode extends Node {
           affirm( index !== -1, 'VectorNode not found in this.vectorNodes' );
           this.vectorNodes.splice( index, 1 );
 
+          // Update the pdomOrder to remove the deleted vectorNode.
           this.updatePDOMOrder();
 
           // Move focus to the first element in the pdomOrder for the VectorSet.
@@ -208,7 +210,8 @@ export default class VectorSetNode extends Node {
             //TODO https://github.com/phetsims/vector-addition/issues/329 Move focus to toolbox slot.
           }
 
-          // dispose the Nodes that were created
+          // dispose the Nodes that were created when vector was registered.
+          // Do this AFTER updating the pdomOrder, or there will be trouble.
           xComponentVectorNode.dispose();
           yComponentVectorNode.dispose();
           vectorNode.dispose();
@@ -239,6 +242,7 @@ export default class VectorSetNode extends Node {
     this.addChild( baseVectorNode );
     this.baseVectorNodes.push( baseVectorNode );
 
+    // Insert baseVectorNode into the pdomOrder at the correct position.
     this.updatePDOMOrder();
 
     // When the base vector becomes selected, move it (and the entire vector set) to the front.
