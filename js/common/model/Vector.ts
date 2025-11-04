@@ -438,6 +438,14 @@ export default class Vector extends RootVector {
   public returnToToolbox(): void {
     this.vectorSet.activeVectors.remove( this );
     this.reset();
+    this.selectedVectorProperty.value = null;
+  }
+
+  /**
+   * Makes this vector the selected vector.
+   */
+  public select(): void {
+    this.selectedVectorProperty.value = this;
   }
 
   /**

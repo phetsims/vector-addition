@@ -41,8 +41,9 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
           // See https://github.com/phetsims/vector-addition/issues/329#issuecomment-3469430200.
           vector.tailPositionProperty.value = Vector2.ZERO;
 
-          // Put the vector on the graph.
+          // Put the vector on the graph and select it.
           vector.isOnGraphProperty.value = true;
+          vector.select();
 
           // Add the vector to activeVectors, so it contributes to the resultant vector.
           vectorSet.activeVectors.push( vector );
