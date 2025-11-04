@@ -40,6 +40,7 @@ type StringsType = {
     'moveGraphOriginStringProperty': LocalizedStringProperty;
     'addVectorToGraphStringProperty': LocalizedStringProperty;
     'removeVectorFromGraphStringProperty': LocalizedStringProperty;
+    'selectVectorStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'explore1DScreen': {

@@ -32,6 +32,7 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import VectorTipNode from './VectorTipNode.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
+import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -146,6 +147,10 @@ export default class VectorNode extends RootVectorNode {
       };
     }
 
+    // Listener to make the focused vector the selected vector.
+    this.addInputListener( new SelectVectorKeyboardListener( vector ) );
+
+    // Listener to remove the vector from the graph and return it to the toolbox.
     this.addInputListener( new RemoveVectorKeyboardListener( vector ) );
 
     //----------------------------------------------------------------------------------------
