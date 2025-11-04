@@ -107,10 +107,10 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     // Add a vector to the graph using the keyboard.
     this.addInputListener( new AddVectorKeyboardListener( getNextVector, vectorSet, sceneNode, graphBoundsProperty ) );
 
-    // Hide the icon and disable focus when all vectors have left the toolbox.
+    // When the slot is empty...
     vectorSet.activeVectors.lengthProperty.link( () => {
       const slotIsEmpty = _.every( vectors, vector => vectorSet.activeVectors.includes( vector ) );
-      iconNode.visible = !slotIsEmpty;
+      iconNode.opacity = slotIsEmpty ? 0 : 1; // Workaround: hiding the icon causes the size of the focus highlight to change.
       this.pickable = !slotIsEmpty;
     } );
 
