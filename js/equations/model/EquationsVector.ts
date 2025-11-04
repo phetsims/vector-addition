@@ -27,17 +27,21 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import VectorSet from '../../common/model/VectorSet.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 // initial coefficient and range
 const COEFFICIENT_RANGE = new Range( -5, 5 );
 
 type SelfOptions = {
-  coefficient?: number; // initial value for coefficientProperty
   baseVectorTandem: Tandem;
 };
 
 type EquationsVectorOptions = SelfOptions &
-  StrictOmit<VectorOptions, 'isRemovableFromGraph' | 'isTipDraggable' | 'isOnGraph' | 'isOnGraphPropertyInstrumented'>;
+  StrictOmit<VectorOptions, 'isRemovableFromGraph' | 'isTipDraggable' | 'isOnGraph' | 'isOnGraphPropertyInstrumented' | 'accessibleSymbolProperty'> &
+  PickRequired<VectorOptions, 'symbolProperty'>;
 
 export default class EquationsVector extends Vector {
 
@@ -53,25 +57,30 @@ export default class EquationsVector extends Vector {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       providedOptions: EquationsVectorOptions ) {
 
+    const coefficientProperty = new NumberProperty( 1, {
+      range: COEFFICIENT_RANGE,
+      tandem: providedOptions.tandem.createTandem( 'coefficientProperty' ),
+      phetioFeatured: true
+    } );
+
+    const accessibleSymbolProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsVectorNode.accessibleNameStringProperty, {
+      coefficient: coefficientProperty,
+      symbol: RichText.getAccessibleStringProperty( providedOptions.symbolProperty )
+    } );
+
     const options = optionize<EquationsVectorOptions, SelfOptions, VectorOptions>()( {
 
-      // SelfOptions
-      coefficient: 1,
-
       // VectorOptions
+      accessibleSymbolProperty: accessibleSymbolProperty,
       isRemovableFromGraph: false, // Equations vectors are not removable from the graph
       isTipDraggable: false, // Equations vectors are not draggable by the tip
       isOnGraph: true, // Equations vectors are always on the graph
       isOnGraphPropertyInstrumented: false // Equations vectors are always on the graph
     }, providedOptions );
 
-    super( tailPosition, baseVectorXYComponents.timesScalar( options.coefficient ), vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
+    super( tailPosition, baseVectorXYComponents.timesScalar( coefficientProperty.value ), vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
-    this.coefficientProperty = new NumberProperty( options.coefficient, {
-      range: COEFFICIENT_RANGE,
-      tandem: options.tandem.createTandem( 'coefficientProperty' ),
-      phetioFeatured: true
-    } );
+    this.coefficientProperty = coefficientProperty;
 
     // Set the tip to itself to ensure Invariants for Polar/Cartesian is satisfied.
     this.setTipPositionWithInvariants( this.tip );
