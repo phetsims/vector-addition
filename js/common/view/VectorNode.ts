@@ -33,6 +33,7 @@ import VectorTipNode from './VectorTipNode.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -47,7 +48,7 @@ const SHADOW_Y_OFFSET = 2.1;
 type SelfOptions = EmptySelfOptions;
 export type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 
-export default class VectorNode extends RootVectorNode {
+export default class VectorNode extends InteractiveHighlighting( RootVectorNode ) {
 
   public readonly vector: Vector;
   private readonly translationDragListener: DragListener;

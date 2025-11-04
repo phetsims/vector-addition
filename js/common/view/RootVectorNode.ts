@@ -26,7 +26,6 @@ import RootVector from '../model/RootVector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
 import VectorLabelNode from './VectorLabelNode.js';
-import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 
 // Used to prevent vector label from going off-screen. This is the magnitude of a vector that fills the
 // graph along a diagonal, minus the margin that constrains dragging of the vector's tail.
@@ -59,11 +58,13 @@ export default class RootVectorNode extends Node {
   protected readonly labelNode: VectorLabelNode;
   private readonly disposeRootVectorNode: () => void;
 
-  protected constructor( rootVector: RootVector,
-                         modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
-                         valuesVisibleProperty: TReadOnlyProperty<boolean>,
-                         selectedVectorProperty: TReadOnlyProperty<RootVector | null>,
-                         providedOptions?: RootVectorNodeOptions ) {
+  // While this is a base class and should technically be protected, it must be public so that we can apply the
+  // InteractiveHighlight trait in subclass VectorNode.
+  public constructor( rootVector: RootVector,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      valuesVisibleProperty: TReadOnlyProperty<boolean>,
+                      selectedVectorProperty: TReadOnlyProperty<RootVector | null>,
+                      providedOptions?: RootVectorNodeOptions ) {
 
     const options = optionize<RootVectorNodeOptions, SelfOptions, NodeOptions>()( {
 
@@ -84,7 +85,7 @@ export default class RootVectorNode extends Node {
 
     if ( options.arrowType === 'solid' ) {
       this.arrowNode = options.arrowHasInteractiveHighlight ?
-                       new ( InteractiveHighlighting( ArrowNode ) )( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions ) :
+                       new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions ) :
                        new ArrowNode( 0, 0, tipDeltaPosition.x, tipDeltaPosition.y, options.arrowOptions );
     }
     else {
