@@ -55,14 +55,17 @@ export default class SumCheckbox extends Checkbox {
     const options = optionize4<SumCheckboxOptions, SelfOptions, CheckboxOptions>()(
       {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
 
-      // SelfOptions
-      sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
-      accessibleSumSymbolProperty: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
-      alignGroup: new AlignGroup(),
+        // SelfOptions
+        sumSymbolProperty: VectorAdditionSymbols.sStringProperty,
+        accessibleSumSymbolProperty: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
+        alignGroup: new AlignGroup()
+      }, providedOptions );
 
-      // CheckboxOptions
-      accessibleName: VectorAdditionStrings.a11y.sumCheckbox.accessibleNameStringProperty // "Vector Sum"
-    }, providedOptions );
+    // "Vector Sum, {{symbol}}"
+    options.accessibleName = options.accessibleName ||
+                             new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleNameStringProperty, {
+                               symbol: options.accessibleSumSymbolProperty
+                             } );
 
     // "Show or hide vector {{symbol}}."
     options.accessibleHelpText = new PatternStringProperty( VectorAdditionStrings.a11y.sumCheckbox.accessibleHelpTextStringProperty, {

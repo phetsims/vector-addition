@@ -186,10 +186,10 @@
     },
     "sumCheckbox": {
       "accessibleName": {
-        "value": "Vector Sum"
+        "value": "Vector Sum, {{symbol}}"
       },
       "accessibleHelpText": {
-        "value": "Show or hide vector {{symbol}}."
+        "value": "Show or hide vector sum {{symbol}}, if it is defined."
       },
       "accessibleContextResponseChecked": {
         "value": "Vector {{symbol}} visibility enabled."
@@ -200,7 +200,7 @@
     },
     "labSumCheckbox": {
       "accessibleName": {
-        "value": "Vector Sum for Set {{vectorSetSymbol}}"
+        "value": "Vector Sum for Set {{vectorSetSymbol}}, {{sumSymbol}}"
       }
     },
     "equationsSumCheckbox": {

@@ -70,13 +70,13 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
           {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
             cursor: 'move',
             fill: vector.vectorColorPalette.vectorFillProperty,
-            stroke: vector.vectorColorPalette.vectorStrokeProperty,
-            accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.body.accessibleNameStringProperty, {
-              symbol: vector.accessibleSymbolProperty
-            } ),
-            accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.body.accessibleHelpTextStringProperty
+            stroke: vector.vectorColorPalette.vectorStrokeProperty
           } ),
-        arrowHasInteractiveHighlight: true
+        arrowHasInteractiveHighlight: true,
+        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.body.accessibleNameStringProperty, {
+          symbol: vector.accessibleSymbolProperty
+        } ),
+        accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.body.accessibleHelpTextStringProperty
       }, providedOptions );
 
     // To improve readability
