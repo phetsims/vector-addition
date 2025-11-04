@@ -25,7 +25,6 @@ import { EquationType } from './EquationType.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import ResultantVector from '../../common/model/ResultantVector.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 // Describes a non-resultant vector for the Equations screen.
 export type EquationsVectorDescription = {
@@ -100,7 +99,6 @@ export default class EquationsVectorSet extends VectorSet<EquationsVector> {
       resultantProjectionXOffset: 0.5,
       resultantProjectionYOffset: 0.5,
       resultantSymbolProperty: resultantSymbolProperty,
-      resultantAccessibleSymbolProperty: RichText.getAccessibleStringProperty( resultantSymbolProperty ),
       resultantTandemNameSymbol: resultantTandemNameSymbol,
       activeVectorsInstrumented: false // All vectors are always on the graph in the Equations screen.
     }, providedOptions );

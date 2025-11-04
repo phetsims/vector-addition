@@ -60,7 +60,9 @@ type SelfOptions<V extends Vector> = {
 
   // Symbol for the resultant vector used in the visual interface.
   resultantSymbolProperty?: TReadOnlyProperty<string>;
-  resultantAccessibleSymbolProperty?: TReadOnlyProperty<string>;
+
+  // Symbol for the resultant vector used in interactive descriptions. Computed from resultantSymbolProperty if null.
+  resultantAccessibleSymbolProperty?: TReadOnlyProperty<string> | null;
 
   // Symbol for the resultant vector used in tandem names.
   resultantTandemNameSymbol?: string;
@@ -135,7 +137,7 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
       resultantProjectionXOffset: offsetStart,
       resultantProjectionYOffset: offsetStart,
       resultantSymbolProperty: VectorAdditionSymbols.sStringProperty,
-      resultantAccessibleSymbolProperty: RichText.getAccessibleStringProperty( VectorAdditionSymbols.sStringProperty ),
+      resultantAccessibleSymbolProperty: null,
       resultantTandemNameSymbol: 's',
       activeVectorsInstrumented: true,
 
@@ -145,6 +147,9 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
     }, providedOptions );
 
     super( options );
+
+    options.resultantAccessibleSymbolProperty = options.resultantAccessibleSymbolProperty ||
+                                                RichText.getAccessibleStringProperty( options.resultantSymbolProperty );
 
     this.vectorColorPalette = options.vectorColorPalette;
 
