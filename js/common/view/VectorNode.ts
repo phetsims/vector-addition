@@ -9,7 +9,7 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
@@ -61,21 +61,22 @@ export default class VectorNode extends RootVectorNode {
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions?: VectorNodeOptions ) {
 
-    const options = optionize<VectorNodeOptions, SelfOptions, RootVectorNodeOptions>()( {
+    const options = optionize4<VectorNodeOptions, SelfOptions, RootVectorNodeOptions>()(
+      {}, AccessibleDraggableOptions, {
 
-      // RootVectorNodeOptions
-      arrowOptions: combineOptions<RootVectorArrowNodeOptions>(
-        {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, AccessibleDraggableOptions, {
-          cursor: 'move',
-          fill: vector.vectorColorPalette.vectorFillProperty,
-          stroke: vector.vectorColorPalette.vectorStrokeProperty,
-          accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.body.accessibleNameStringProperty, {
-            symbol: vector.accessibleSymbolProperty
+        // RootVectorNodeOptions
+        arrowOptions: combineOptions<RootVectorArrowNodeOptions>(
+          {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
+            cursor: 'move',
+            fill: vector.vectorColorPalette.vectorFillProperty,
+            stroke: vector.vectorColorPalette.vectorStrokeProperty,
+            accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.body.accessibleNameStringProperty, {
+              symbol: vector.accessibleSymbolProperty
+            } ),
+            accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.body.accessibleHelpTextStringProperty
           } ),
-          accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.body.accessibleHelpTextStringProperty
-        } ),
-      arrowHasInteractiveHighlight: true
-    }, providedOptions );
+        arrowHasInteractiveHighlight: true
+      }, providedOptions );
 
     // To improve readability
     const headWidth = options.arrowOptions.headWidth!;
@@ -119,18 +120,24 @@ export default class VectorNode extends RootVectorNode {
     // Handle vector transformation
     //----------------------------------------------------------------------------------------
 
+    // Listener to translate the vector when it is dragged.
     this.translationDragListener = new VectorTranslationDragListener( vector, this, vectorShadowNode,
       modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty, cursor );
+    this.addInputListener( this.translationDragListener );
 
-    // The vector can be translated by dragging the arrow or the label. removeInputListener is required on dispose.
-    this.arrowNode.addInputListener( this.translationDragListener );
-    this.labelNode.addInputListener( this.translationDragListener );
+    // Listener to select this vector. Being selected is different from having focus.
+    const selectVectorKeyboardListener = new SelectVectorKeyboardListener( vector );
+    this.addInputListener( selectVectorKeyboardListener );
 
-    // dispose of things related to vector translation
+    // Listener to remove the vector from the graph and return it to the toolbox.
+    const removeVectorKeyboardListener = new RemoveVectorKeyboardListener( vector );
+    this.addInputListener( removeVectorKeyboardListener );
+
+    // Dispose of things related to vector translation.
     const disposeTranslate = () => {
-      this.arrowNode.removeInputListener( this.translationDragListener );
-      this.labelNode.removeInputListener( this.translationDragListener );
       this.translationDragListener.dispose();
+      selectVectorKeyboardListener.dispose();
+      removeVectorKeyboardListener.dispose();
     };
 
     // Optional scaling and rotation by dragging the vector tip.
@@ -141,17 +148,11 @@ export default class VectorNode extends RootVectorNode {
         headWidth, headHeight, fractionalHeadHeight );
       this.addChild( tipNode );
 
-      // dispose of things that are related to optional scale/rotate
+      // Dispose of things that are related to optional scale/rotate.
       disposeScaleRotate = () => {
         tipNode.dispose();
       };
     }
-
-    // Listener to make the focused vector the selected vector.
-    this.addInputListener( new SelectVectorKeyboardListener( vector ) );
-
-    // Listener to remove the vector from the graph and return it to the toolbox.
-    this.addInputListener( new RemoveVectorKeyboardListener( vector ) );
 
     //----------------------------------------------------------------------------------------
     // Appearance

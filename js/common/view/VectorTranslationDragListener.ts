@@ -24,8 +24,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 export class VectorTranslationDragListener extends SoundDragListener {
 
   private readonly vector: Vector;
-  private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
   private readonly vectorNode: VectorNode;
+  private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
 
   public constructor( vector: Vector,
                       vectorNode: VectorNode,
@@ -86,8 +86,8 @@ export class VectorTranslationDragListener extends SoundDragListener {
     } );
 
     this.vector = vector;
-    this.modelViewTransformProperty = modelViewTransformProperty;
     this.vectorNode = vectorNode;
+    this.modelViewTransformProperty = modelViewTransformProperty;
 
     // Translate when the vector's tail position changes.
     tailPositionProperty.lazyLink( tailPositionView => {
