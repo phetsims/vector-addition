@@ -112,11 +112,11 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   // Label background on vectors
 
   public static readonly selectedVectorLabelBackgroundFillProperty = new ProfileColorProperty( vectorAddition, 'selectedVectorLabelBackgroundFill', {
-    default: 'rgba( 240, 240, 100, 0.8 )' // yellow
+    default: 'rgb( 240, 240, 100 )' // yellow
   } );
 
   public static readonly selectedVectorLabelBackgroundStrokeProperty = new ProfileColorProperty( vectorAddition, 'selectedVectorLabelBackgroundStroke', {
-    default: 'rgba( 151, 151, 23, 0.8 )' // darker yellow
+    default: 'rgb( 151, 151, 23 )' // darker yellow
   } );
 
   public static readonly unselectedVectorLabelBackgroundFillProperty = new ProfileColorProperty( vectorAddition, 'unselectedVectorLabelBackgroundFill', {
@@ -124,7 +124,7 @@ public static readonly graphTickLineColorProperty = new ProfileColorProperty( ve
   } );
 
   public static readonly unselectedVectorLabelBackgroundStrokeProperty = new ProfileColorProperty( vectorAddition, 'unselectedVectorLabelBackgroundStroke', {
-    default: 'rgba( 215, 215, 215, 0.5 )' // slightly darker transparent gray
+    default: 'rgb( 215, 215, 215 )' // slightly darker gray
   } );
 
   //----------------------------------------------------------------------------------------
