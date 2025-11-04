@@ -18,6 +18,7 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import VectorToolboxSlot from '../../common/view/VectorToolboxSlot.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 // xy-components for the vector icons, in model coordinates.
 const ICON_XY_COMPONENTS = new Vector2( 3.2, 2.5 );
@@ -29,6 +30,7 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
 
   public constructor( vectorSet: LabVectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       sceneNode: VectorAdditionSceneNode,
                       tandem: Tandem ) {
     super(
@@ -36,6 +38,7 @@ export default class LabVectorToolboxSlot extends VectorToolboxSlot {
       () => vectorSet.getFirstAvailableVector(),
       vectorSet,
       modelViewTransformProperty,
+      graphBoundsProperty,
       sceneNode,
       ICON_XY_COMPONENTS, {
         iconEffectiveWidth: 45,

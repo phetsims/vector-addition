@@ -13,8 +13,9 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorSet from '../model/VectorSet.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector from '../model/Vector.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 export default class AddVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
@@ -25,7 +26,10 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
     keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.addVectorToGraphStringProperty
   } );
 
-  public constructor( getNextVector: () => Vector | null, vectorSet: VectorSet, sceneNode: VectorAdditionSceneNode ) {
+  public constructor( getNextVector: () => Vector | null,
+                      vectorSet: VectorSet,
+                      sceneNode: VectorAdditionSceneNode,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2> ) {
     super( {
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ AddVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
@@ -37,9 +41,9 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
         if ( vector ) {
           vector.reset();
 
-          // The initial position of every vector is at the origin.
+          // The initial position of every vector is at the visual center of the graph.
           // See https://github.com/phetsims/vector-addition/issues/329#issuecomment-3469430200.
-          vector.tailPositionProperty.value = Vector2.ZERO;
+          vector.tailPositionProperty.value = graphBoundsProperty.value.center;
 
           // Put the vector on the graph and select it.
           vector.isOnGraphProperty.value = true;

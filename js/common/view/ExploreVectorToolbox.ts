@@ -31,8 +31,8 @@ export default class ExploreVectorToolbox extends VectorToolbox {
 
     // Create a slot for each vector in the vector set.
     const panelSlots = scene.vectorSet.allVectors.map( vector => new ExploreVectorToolboxSlot( vector, scene.vectorSet,
-      scene.graph.modelViewTransformProperty, sceneNode, options.iconModelComponents, scene.graph.orientation,
-      options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
+      scene.graph.modelViewTransformProperty, scene.graph.boundsProperty, sceneNode, options.iconModelComponents,
+      scene.graph.orientation, options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
 
     super( panelSlots, options );
   }

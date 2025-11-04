@@ -19,12 +19,14 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { GraphOrientation } from '../model/GraphOrientation.js';
 import VectorToolboxSlot from './VectorToolboxSlot.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
 
   public constructor( vector: Vector,
                       vectorSet: VectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       sceneNode: VectorAdditionSceneNode,
                       iconModelComponents: Vector2,
                       graphOrientation: GraphOrientation,
@@ -40,6 +42,7 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
       () => vector,
       vectorSet,
       modelViewTransformProperty,
+      graphBoundsProperty,
       sceneNode,
       iconModelComponents, {
         iconEffectiveWidth: 35,

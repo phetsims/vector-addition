@@ -40,6 +40,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
                          getNextVector: () => Vector | null, // Gets the next available vector in the slot.
                          vectorSet: VectorSet,
                          modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                         graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                          sceneNode: VectorAdditionSceneNode,
                          iconModelComponents: Vector2,
                          providedOptions: VectorToolboxSlotOptions ) {
@@ -106,7 +107,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     } ) );
 
     // Add a vector to the graph using the keyboard.
-    this.addInputListener( new AddVectorKeyboardListener( getNextVector, vectorSet, sceneNode ) );
+    this.addInputListener( new AddVectorKeyboardListener( getNextVector, vectorSet, sceneNode, graphBoundsProperty ) );
 
     // Hide the icon and disable focus when all vectors have left the toolbox.
     vectorSet.activeVectors.lengthProperty.link( () => {
