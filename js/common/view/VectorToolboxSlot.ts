@@ -15,7 +15,6 @@ import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Vector from '../model/Vector.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
@@ -84,26 +83,25 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
     // Drag a vector out of the slot using the pointer.
     this.addInputListener( SoundDragListener.createForwardingListener( event => {
+      const vector = getNextVector();
+      if ( vector ) {
+        vector.reset();
 
-      // Get the first available vector in the toolbox slot.
-      const vector = getNextVector()!;
-      affirm( vector, 'Expected vector to be defined.' );
-      vector.reset();
+        // Find where the icon was clicked relative to the scene node, in view coordinates.
+        const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
 
-      // Find where the icon was clicked relative to the scene node, in view coordinates.
-      const vectorCenterView = sceneNode.globalToLocalPoint( event.pointer.point );
+        // Convert the view coordinates of where the icon was clicked into model coordinates.
+        const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
-      // Convert the view coordinates of where the icon was clicked into model coordinates.
-      const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
+        // Calculate where the tail position is relative to the scene node.
+        vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
 
-      // Calculate where the tail position is relative to the scene node.
-      vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
+        // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
+        vectorSet.activeVectors.push( vector );
 
-      // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
-      vectorSet.activeVectors.push( vector );
-
-      // Tell sceneNode to create the view for the vector.
-      sceneNode.registerVector( vector, vectorSet, event );
+        // Tell sceneNode to create the view for the vector.
+        sceneNode.registerVector( vector, vectorSet, event );
+      }
     } ) );
 
     // Add a vector to the graph using the keyboard.
@@ -113,7 +111,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     vectorSet.activeVectors.lengthProperty.link( () => {
       const slotIsEmpty = _.every( vectors, vector => vectorSet.activeVectors.includes( vector ) );
       iconNode.visible = !slotIsEmpty;
-      this.focusable = !slotIsEmpty;
+      this.pickable = !slotIsEmpty;
     } );
 
     // When a vector from this slot is added to activeVectors, add the listener that handles animating it back to the slot.

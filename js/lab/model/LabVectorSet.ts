@@ -109,14 +109,7 @@ export default class LabVectorSet extends VectorSet {
    * Gets the first available vector that is not active.
    */
   public getFirstAvailableVector(): Vector | null {
-    let availableVector: Vector | null = null;
-    for ( let i = 0; i < this.allVectors.length && availableVector === null; i++ ) {
-      const vector = this.allVectors[ i ];
-      if ( !this.activeVectors.includes( vector ) ) {
-        availableVector = vector;
-      }
-    }
-    return availableVector;
+    return _.find( this.allVectors, vector => !this.activeVectors.includes( vector ) ) || null;
   }
 }
 

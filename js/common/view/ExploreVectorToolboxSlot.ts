@@ -37,9 +37,13 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
     const pointerAreaDilation = ( graphOrientation === 'horizontal' ) ? new Vector2( 10, 10 ) :
                                 ( graphOrientation === 'vertical' ) ? new Vector2( 10, 5 ) :
                                 new Vector2( 10, 10 );
+
+    // Gets the next vector from the toolbox. Since there is only one vector in this slot, it's either that vector or null.
+    const getNextVector = () => vectorSet.activeVectors.includes( vector ) ? null : vector;
+
     super(
       [ vector ],
-      () => vector,
+      getNextVector,
       vectorSet,
       modelViewTransformProperty,
       graphBoundsProperty,
