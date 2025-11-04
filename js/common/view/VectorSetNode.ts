@@ -167,7 +167,8 @@ export default class VectorSetNode extends Node {
       vectorNode.forwardEvent( forwardingEvent );
     }
 
-    //TODO https://github.com/phetsims/vector-addition/issues/329 Move focus to vectorNode.arrowNode.
+    // Move focus to the new vectorNode.
+    vectorNode.focus();
 
     // When the vector becomes selected, move it and its components to the front.
     // unlink is required when the vector is removed.
