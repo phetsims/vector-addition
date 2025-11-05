@@ -45,17 +45,13 @@ export class VectorTranslationDragListener extends SoundDragListener {
       positionProperty: tailPositionProperty,
 
       start: () => {
-        affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
-          'VectorTranslationDragListener should be removed when the vector is animating back.' );
+        affirm( !vector.isAnimating(), `VectorTranslationDragListener should be removed when vector ${vector.accessibleSymbolProperty.value} is animating back.` );
         if ( vector.isOnGraphProperty.value ) {
           selectedVectorProperty.value = vector;
         }
       },
 
       end: () => {
-        affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
-          'VectorTranslationDragListener should be removed when the vector is animating back.' );
-
         if ( vector.isOnGraphProperty.value ) {
           this.vectorNode.doAccessibleObjectResponse();
         }
