@@ -220,7 +220,7 @@ export default class VectorSetNode extends Node {
 
           // Move focus to the first element in the pdomOrder for the VectorSet.
           // If the pdomOrder is empty, move focus to the toolbox slot that vector was in.
-          const nextVectorNode = _.find( this.pdomOrder, element => element !== null );
+          const nextVectorNode = _.find( this.pdomOrder, element => ( element !== null ) && element.focusable );
           if ( nextVectorNode ) {
             nextVectorNode.focus();
           }

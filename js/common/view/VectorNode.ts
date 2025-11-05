@@ -151,11 +151,11 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     };
 
     // Optional scaling and rotation by dragging the vector tip.
+    let tipNode: VectorTipNode;
     let disposeScaleRotate: () => void;
-    let disableScaleRotate: () => void;
     if ( vector.isTipDraggable ) {
 
-      const tipNode = new VectorTipNode( this, modelViewTransformProperty, headWidth, headHeight, fractionalHeadHeight );
+      tipNode = new VectorTipNode( this, modelViewTransformProperty, headWidth, headHeight, fractionalHeadHeight );
       this.addChild( tipNode );
 
       // Listener to scale/rotate by dragging the vector's tip.
@@ -166,12 +166,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       // Dispose of things that are related to scale/rotate.
       disposeScaleRotate = () => {
         tipNode.dispose();
-      };
-
-      // Disables interaction related to scale/rotate.
-      disableScaleRotate = () => {
-        tipNode.removeInputListener( scaleRotateDragListener );
-        tipNode.cursor = null;
+        scaleRotateDragListener.dispose();
       };
     }
 
@@ -204,11 +199,16 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     const animateBackListener = ( animateBack: boolean ) => {
       if ( animateBack ) {
         this.interruptSubtreeInput();
-        this.removeInputListener( this.translationDragListener );
-        this.removeInputListener( selectVectorKeyboardListener );
-        removeVectorKeyboardListener && this.removeInputListener( removeVectorKeyboardListener );
-        disableScaleRotate();
+
+        // Make the body non-interactive.
         this.cursor = null;
+        this.pickable = false;
+        this.focusable = false;
+
+        // Make the tip non-interactive.
+        tipNode.cursor = null;
+        tipNode.pickable = false;
+        tipNode.focusable = false;
       }
     };
     this.vector.animateBackProperty.lazyLink( animateBackListener );
