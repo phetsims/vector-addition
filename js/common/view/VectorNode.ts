@@ -35,7 +35,7 @@ import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import VectorScaleRotateDragListener from './VectorScaleRotateDragListener.js';
+import ScaleRotateVectorDragListener from './ScaleRotateVectorDragListener.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 
 // options for the vector shadow
@@ -163,14 +163,14 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       this.addChild( tipNode );
 
       // Listener to scale/rotate by dragging the vector's tip.
-      const scaleRotateDragListener = new VectorScaleRotateDragListener( vector, tipNode, modelViewTransformProperty,
+      const scaleRotateVectorDragListener = new ScaleRotateVectorDragListener( vector, tipNode, modelViewTransformProperty,
         selectedVectorProperty );
-      tipNode.addInputListener( scaleRotateDragListener );
+      tipNode.addInputListener( scaleRotateVectorDragListener );
 
       // Dispose of things that are related to scale/rotate.
       disposeScaleRotate = () => {
         tipNode.dispose();
-        scaleRotateDragListener.dispose();
+        scaleRotateVectorDragListener.dispose();
       };
     }
 

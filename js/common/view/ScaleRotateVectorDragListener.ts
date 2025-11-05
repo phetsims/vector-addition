@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * VectorScaleRotateDragListener scales and rotates a vector by dragging its head with the pointer.
+ * ScaleRotateVectorDragListener scales and rotates a vector by dragging its head with the pointer.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -19,7 +19,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import VectorTipNode from './VectorTipNode.js';
 
-export default class VectorScaleRotateDragListener extends SoundDragListener {
+export default class ScaleRotateVectorDragListener extends SoundDragListener {
 
   private readonly vector: Vector;
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
@@ -39,7 +39,7 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
       positionProperty: tipPositionViewProperty,
       start: () => {
         affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
-          'VectorScaleRotateDragListener should be removed when the vector is animating back.' );
+          'ScaleRotateVectorDragListener should be removed when the vector is animating back.' );
         selectedVectorProperty.value = vector;
       },
       end: () => {
@@ -64,4 +64,4 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
   }
 }
 
-vectorAddition.register( 'VectorScaleRotateDragListener', VectorScaleRotateDragListener );
+vectorAddition.register( 'ScaleRotateVectorDragListener', ScaleRotateVectorDragListener );
