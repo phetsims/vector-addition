@@ -374,7 +374,7 @@ export default class Vector extends RootVector {
         easing: Easing.LINEAR,
         to: finalComponents
       } ]
-    } ).start();
+    } );
 
     // Called when the animation finishes naturally
     const finishListener = () => {
@@ -383,6 +383,8 @@ export default class Vector extends RootVector {
       finishCallback();
     };
     this.inProgressAnimation.finishEmitter.addListener( finishListener );
+
+    this.inProgressAnimation.start();
   }
 
   /**
