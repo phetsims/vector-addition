@@ -12,6 +12,7 @@ import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
@@ -24,6 +25,7 @@ export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKe
 
   public constructor( vector: Vector ) {
     super( {
+      tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ RemoveVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `keysPressed=${keysPressed}` );
