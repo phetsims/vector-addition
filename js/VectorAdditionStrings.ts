@@ -207,12 +207,10 @@ type StringsType = {
     'vectorButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'vectorSetButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
       'accessibleHelpTextStringProperty': LocalizedStringProperty;
-      'accessibleObjectResponseStringProperty': LocalizedStringProperty;
     };
     'vectorNode': {
       'body': {
