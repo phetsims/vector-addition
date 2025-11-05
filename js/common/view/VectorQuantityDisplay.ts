@@ -30,6 +30,7 @@ import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import { AngleConvention } from '../model/AngleConvention.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class VectorQuantityDisplay extends NumberDisplay {
 
@@ -105,7 +106,11 @@ export default class VectorQuantityDisplay extends NumberDisplay {
 
       // Observe when the selected vector changes and update the number display value if and only if the
       // selected vector exists. unlink is required when selected vector changes.
-      selectedVector && selectedVector.xyComponentsProperty.link( xyComponentsListener );
+      if ( selectedVector ) {
+        affirm( !selectedVector.xyComponentsProperty.hasListener( xyComponentsListener ),
+          `vector ${selectedVector.accessibleSymbolProperty.value} xyComponentsProperty already has xyComponentsListener.` );
+        selectedVector.xyComponentsProperty.link( xyComponentsListener );
+      }
     } );
 
     VectorAdditionPreferences.instance.angleConventionProperty.link( () => xyComponentsListener() );

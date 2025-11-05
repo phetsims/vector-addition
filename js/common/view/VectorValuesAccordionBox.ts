@@ -30,6 +30,7 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { VectorValuesAccessibleParagraphProperty } from './VectorValuesAccessibleParagraphProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -154,7 +155,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       children: [ noVectorSelectedText, vectorQuantitiesHBox ]
     } );
 
-    const updateCoefficient = ( coefficient: number ) => {
+    const coefficientListener = ( coefficient: number ) => {
       magnitudeSymbolNode.setCoefficient( coefficient );
       xComponentSymbolNode.setCoefficient( coefficient );
       yComponentSymbolNode.setCoefficient( coefficient );
@@ -181,13 +182,15 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       }
 
       if ( selectedVector && selectedVector instanceof EquationsVector ) {
-        selectedVector.coefficientProperty.link( updateCoefficient ); // unlink required when selected vector changes
+        affirm( !selectedVector.coefficientProperty.hasListener( coefficientListener ),
+          `vector ${selectedVector.accessibleSymbolProperty.value} coefficientProperty already has coefficientListener.` );
+        selectedVector.coefficientProperty.link( coefficientListener ); // unlink required when selected vector changes
       }
 
       if ( oldSelectedVector && oldSelectedVector instanceof EquationsVector ) {
-        oldSelectedVector.coefficientProperty.unlink( updateCoefficient );
+        oldSelectedVector.coefficientProperty.unlink( coefficientListener );
         // reset
-        updateCoefficient( ( selectedVector && selectedVector instanceof EquationsVector ) ? selectedVector.coefficientProperty.value : 1 );
+        coefficientListener( ( selectedVector && selectedVector instanceof EquationsVector ) ? selectedVector.coefficientProperty.value : 1 );
       }
     } );
 

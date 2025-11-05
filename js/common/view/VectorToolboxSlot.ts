@@ -23,6 +23,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AddVectorKeyboardListener from './AddVectorKeyboardListener.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = {
   mouseAreaDilation: Vector2;
@@ -128,6 +129,8 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
             vector.animateToPoint( iconPosition, iconModelComponents, () => vector.returnToToolbox() );
           }
         };
+        affirm( !vector.animateBackProperty.hasListener( animateVectorBackListener ),
+          `vector ${vector.accessibleSymbolProperty.value} animateBackProperty already has animateVectorBackListener.` );
         vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
 
         // Clean up when the vector is removed from activeVectors.
