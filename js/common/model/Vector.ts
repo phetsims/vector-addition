@@ -378,7 +378,8 @@ export default class Vector extends RootVector {
 
     // Called when the animation finishes naturally
     const finishListener = () => {
-      this.inProgressAnimation!.finishEmitter.removeListener( finishListener );
+      affirm( this.inProgressAnimation !== null, 'inProgressAnimation should not be null.' );
+      this.inProgressAnimation.finishEmitter.removeListener( finishListener );
       this.inProgressAnimation = null;
       finishCallback();
     };
