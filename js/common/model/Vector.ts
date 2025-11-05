@@ -168,6 +168,11 @@ export default class Vector extends RootVector {
 
   public override reset(): void {
     super.reset();
+    if ( this.inProgressAnimation ) {
+      this.inProgressAnimation.stop();
+      this.inProgressAnimation.dispose();
+      this.inProgressAnimation = null;
+    }
     this.isOnGraphProperty.reset();
     this.animateBackProperty.reset();
   }
