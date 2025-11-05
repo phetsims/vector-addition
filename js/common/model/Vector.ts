@@ -438,7 +438,11 @@ export default class Vector extends RootVector {
    * Immediately returns this vector to its slot in the toolbox.
    */
   public returnToToolbox(): void {
-    this.vectorSet.activeVectors.remove( this );
+
+    // Test before remove, in case eraserButton was pressed while animating to toolbox.
+    if ( this.vectorSet.activeVectors.includes( this ) ) {
+      this.vectorSet.activeVectors.remove( this );
+    }
     this.reset();
     this.selectedVectorProperty.value = null;
   }
