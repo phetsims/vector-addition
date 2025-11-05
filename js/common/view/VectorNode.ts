@@ -138,14 +138,17 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     this.addInputListener( selectVectorKeyboardListener );
 
     // Listener to remove the vector from the graph and return it to the toolbox.
-    const removeVectorKeyboardListener = new RemoveVectorKeyboardListener( vector );
-    this.addInputListener( removeVectorKeyboardListener );
+    let removeVectorKeyboardListener = null;
+    if ( vector.isRemovableFromGraph ) {
+      removeVectorKeyboardListener = new RemoveVectorKeyboardListener( vector );
+      this.addInputListener( removeVectorKeyboardListener );
+    }
 
     // Dispose of things related to vector translation.
     const disposeTranslate = () => {
       this.translationDragListener.dispose();
       selectVectorKeyboardListener.dispose();
-      removeVectorKeyboardListener.dispose();
+      removeVectorKeyboardListener && removeVectorKeyboardListener.dispose();
     };
 
     // Optional scaling and rotation by dragging the vector tip.
