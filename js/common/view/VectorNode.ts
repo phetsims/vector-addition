@@ -36,6 +36,7 @@ import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import VectorScaleRotateDragListener from './VectorScaleRotateDragListener.js';
+import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -131,6 +132,9 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     this.translationDragListener = new VectorTranslationDragListener( vector, this, vectorShadowNode,
       modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty );
     this.addInputListener( this.translationDragListener );
+
+    const moveVectorKeyboardListener = new MoveVectorKeyboardListener( vector );
+    this.addInputListener( moveVectorKeyboardListener );
 
     // Listener to select this vector. Being selected is different from having focus.
     const selectVectorKeyboardListener = new SelectVectorKeyboardListener( vector );
