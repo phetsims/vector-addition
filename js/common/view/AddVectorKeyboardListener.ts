@@ -35,7 +35,7 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ AddVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
-        phet.log && phet.log( `keysPressed=${keysPressed}` );
+        phet.log && phet.log( `AddVectorKeyboardListener: keysPressed=${keysPressed}` );
 
         // Get the next vector from the toolbox.
         const vector = getNextVector();

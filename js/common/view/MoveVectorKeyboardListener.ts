@@ -28,7 +28,7 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ MoveVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
-        phet.log && phet.log( `keysPressed=${keysPressed}` );
+        phet.log && phet.log( `MoveVectorKeyboardListener: keysPressed=${keysPressed}` );
         let dx = 0;
         let dy = 0;
         if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {

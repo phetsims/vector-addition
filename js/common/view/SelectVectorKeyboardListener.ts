@@ -26,7 +26,7 @@ export default class SelectVectorKeyboardListener extends KeyboardListener<OneKe
     super( {
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ SelectVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
-        phet.log && phet.log( `keysPressed=${keysPressed}` );
+        phet.log && phet.log( `SelectVectorKeyboardListener: keysPressed=${keysPressed}` );
         vector.select();
       }
     } );

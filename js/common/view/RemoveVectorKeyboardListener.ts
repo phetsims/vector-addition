@@ -28,7 +28,7 @@ export default class RemoveVectorKeyboardListener extends KeyboardListener<OneKe
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ RemoveVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
-        phet.log && phet.log( `keysPressed=${keysPressed}` );
+        phet.log && phet.log( `RemoveVectorKeyboardListener: keysPressed=${keysPressed}` );
         vector.returnToToolbox();
       }
     } );
