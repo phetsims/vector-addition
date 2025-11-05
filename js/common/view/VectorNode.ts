@@ -21,7 +21,7 @@ import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } fro
 import VectorAngleNode from './VectorAngleNode.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { VectorTranslationDragListener } from './VectorTranslationDragListener.js';
+import { MoveVectorDragListener } from './MoveVectorDragListener.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -54,7 +54,7 @@ export type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 export default class VectorNode extends InteractiveHighlighting( RootVectorNode ) {
 
   public readonly vector: Vector;
-  private readonly translationDragListener: DragListener;
+  private readonly moveVectorDragListener: DragListener;
   private readonly disposeVectorNode: () => void;
 
   // We need to use a separate utterance queue for the doAccessibleObjectResponse method because it was interrupting
@@ -129,9 +129,9 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     //----------------------------------------------------------------------------------------
 
     // Listener to translate the vector when it is dragged.
-    this.translationDragListener = new VectorTranslationDragListener( vector, this, vectorShadowNode,
+    this.moveVectorDragListener = new MoveVectorDragListener( vector, this, vectorShadowNode,
       modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty );
-    this.addInputListener( this.translationDragListener );
+    this.addInputListener( this.moveVectorDragListener );
 
     const moveVectorKeyboardListener = new MoveVectorKeyboardListener( vector );
     this.addInputListener( moveVectorKeyboardListener );
@@ -149,7 +149,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
     // Dispose of things related to vector translation.
     const disposeTranslate = () => {
-      this.translationDragListener.dispose();
+      this.moveVectorDragListener.dispose();
       selectVectorKeyboardListener.dispose();
       removeVectorKeyboardListener && removeVectorKeyboardListener.dispose();
     };
@@ -248,7 +248,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
    * Forwards an event to translationDragListener. Used for dragging vectors out of the toolbox.
    */
   public forwardEvent( event: PressListenerEvent ): void {
-    this.translationDragListener.press( event, this );
+    this.moveVectorDragListener.press( event, this );
   }
 
   /**

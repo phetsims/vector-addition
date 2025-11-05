@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * VectorTranslationDragListener translates a vector by dragging it with the pointer.
+ * MoveVectorDragListener translates a vector by dragging it with the pointer.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -21,7 +21,7 @@ import VectorNode from './VectorNode.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 
-export class VectorTranslationDragListener extends SoundDragListener {
+export class MoveVectorDragListener extends SoundDragListener {
 
   private readonly vector: Vector;
   private readonly vectorNode: VectorNode;
@@ -117,4 +117,4 @@ export class VectorTranslationDragListener extends SoundDragListener {
   }
 }
 
-vectorAddition.register( 'VectorTranslationDragListener', VectorTranslationDragListener );
+vectorAddition.register( 'MoveVectorDragListener', MoveVectorDragListener );
