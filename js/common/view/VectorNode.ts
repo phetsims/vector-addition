@@ -37,6 +37,7 @@ import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicin
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import ScaleRotateVectorDragListener from './ScaleRotateVectorDragListener.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
+import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListener.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -128,19 +129,20 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     // Handle vector transformation
     //----------------------------------------------------------------------------------------
 
-    // Listener to translate the vector when it is dragged.
+    // Pointer drag listener to move the vector.
     this.moveVectorDragListener = new MoveVectorDragListener( vector, this, vectorShadowNode,
       modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty );
     this.addInputListener( this.moveVectorDragListener );
 
+    // Keyboard listener to move the vector.
     const moveVectorKeyboardListener = new MoveVectorKeyboardListener( vector );
     this.addInputListener( moveVectorKeyboardListener );
 
-    // Listener to select this vector. Being selected is different from having focus.
+    // keyboard listener to select the vector. Being selected is different from having focus.
     const selectVectorKeyboardListener = new SelectVectorKeyboardListener( vector );
     this.addInputListener( selectVectorKeyboardListener );
 
-    // Listener to remove the vector from the graph and return it to the toolbox.
+    // Keyboard listener to remove the vector from the graph and return it to the toolbox.
     let removeVectorKeyboardListener = null;
     if ( vector.isRemovableFromGraph ) {
       removeVectorKeyboardListener = new RemoveVectorKeyboardListener( vector );
@@ -162,15 +164,20 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       tipNode = new VectorTipNode( this, modelViewTransformProperty, headWidth, headHeight, fractionalHeadHeight );
       this.addChild( tipNode );
 
-      // Listener to scale/rotate by dragging the vector's tip.
+      // Pointer drag listener to scale/rotate by dragging the vector's tip.
       const scaleRotateVectorDragListener = new ScaleRotateVectorDragListener( vector, tipNode, modelViewTransformProperty,
         selectedVectorProperty );
       tipNode.addInputListener( scaleRotateVectorDragListener );
+
+      // Keyboard listener to scale/rotate by moving the vector's tip.
+      const scaleRotateVectorKeyboardListener = new ScaleRotateVectorKeyboardListener( vector );
+      tipNode.addInputListener( scaleRotateVectorKeyboardListener );
 
       // Dispose of things that are related to scale/rotate.
       disposeScaleRotate = () => {
         tipNode.dispose();
         scaleRotateVectorDragListener.dispose();
+        scaleRotateVectorKeyboardListener.dispose();
       };
     }
 
