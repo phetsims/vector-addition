@@ -39,7 +39,6 @@ export class MoveVectorDragListener extends SoundDragListener {
 
     super( {
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
-      targetNode: vectorNode,
       positionProperty: tailPositionProperty,
 
       start: () => {
