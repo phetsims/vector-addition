@@ -357,8 +357,8 @@ export default class Vector extends RootVector {
    */
   public animateToPoint( point: Vector2, finalComponents: Vector2, finishCallback: () => void ): void {
 
-    affirm( !this.inProgressAnimation, 'Animation is already in progress.' );
-    affirm( !this.isOnGraphProperty.value, 'Cannot animate when the vector is on the graph.' );
+    affirm( !this.inProgressAnimation, `Animation is already in progress for vector ${this.accessibleSymbolProperty.value}` );
+    affirm( !this.isOnGraphProperty.value, `Cannot animate when vector ${this.accessibleSymbolProperty.value} is on the graph.` );
 
     // Calculate the tail position to animate to
     const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
@@ -394,8 +394,8 @@ export default class Vector extends RootVector {
    */
   public dropOntoGraph( tailPosition: Vector2 ): void {
 
-    affirm( !this.isOnGraphProperty.value, 'Vector is already on the graph.' );
-    affirm( !this.inProgressAnimation, 'Cannot drop vector when it is animating.' );
+    affirm( !this.isOnGraphProperty.value, `Vector ${this.accessibleSymbolProperty.value} is already on the graph.` );
+    affirm( !this.inProgressAnimation, `Cannot drop vector ${this.accessibleSymbolProperty.value} when it is animating.` );
 
     this.isOnGraphProperty.value = true;
 
@@ -411,8 +411,8 @@ export default class Vector extends RootVector {
    */
   public popOffOfGraph(): void {
 
-    affirm( this.isOnGraphProperty.value, 'Attempted pop off graph when vector was already off.' );
-    affirm( !this.inProgressAnimation, 'Cannot pop vector off graph when it is animating.' );
+    affirm( this.isOnGraphProperty.value, `Attempted pop off graph when vector ${this.accessibleSymbolProperty.value} was already off.` );
+    affirm( !this.inProgressAnimation, `Cannot pop vector ${this.accessibleSymbolProperty.value} off graph when it is animating.` );
 
     this.isOnGraphProperty.value = false;
     this.selectedVectorProperty.value = null;
@@ -439,7 +439,8 @@ export default class Vector extends RootVector {
    * Immediately returns this vector to its slot in the toolbox.
    */
   public returnToToolbox(): void {
-    affirm( this.isRemovableFromGraph, 'returnToToolbox was called for a vector that cannot be removed from the graph.' );
+    affirm( this.isRemovableFromGraph,
+      `returnToToolbox was called for vector ${this.accessibleSymbolProperty.value} that cannot be removed from the graph.` );
 
     // Test before remove, in case eraserButton was pressed while animating to toolbox.
     if ( this.vectorSet.activeVectors.includes( this ) ) {

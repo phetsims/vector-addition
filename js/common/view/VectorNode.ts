@@ -35,6 +35,7 @@ import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
+import VectorScaleRotateDragListener from './VectorScaleRotateDragListener.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -153,15 +154,25 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
     // Optional scaling and rotation by dragging the vector tip.
     let disposeScaleRotate: () => void;
+    let disableScaleRotate: () => void;
     if ( vector.isTipDraggable ) {
 
-      const tipNode = new VectorTipNode( this, modelViewTransformProperty, selectedVectorProperty,
-        headWidth, headHeight, fractionalHeadHeight );
+      const tipNode = new VectorTipNode( this, modelViewTransformProperty, headWidth, headHeight, fractionalHeadHeight );
       this.addChild( tipNode );
 
-      // Dispose of things that are related to optional scale/rotate.
+      // Listener to scale/rotate by dragging the vector's tip.
+      const scaleRotateDragListener = new VectorScaleRotateDragListener( vector, tipNode, modelViewTransformProperty,
+        selectedVectorProperty );
+      tipNode.addInputListener( scaleRotateDragListener );
+
+      // Dispose of things that are related to scale/rotate.
       disposeScaleRotate = () => {
         tipNode.dispose();
+      };
+
+      // Disables interaction related to scale/rotate.
+      disableScaleRotate = () => {
+        tipNode.removeInputListener( scaleRotateDragListener );
       };
     }
 
@@ -194,8 +205,10 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     const animateBackListener = ( animateBack: boolean ) => {
       if ( animateBack ) {
         this.interruptSubtreeInput();
-        this.pickable = false;
-        this.cursor = 'default';
+        this.removeInputListener( this.translationDragListener );
+        this.removeInputListener( selectVectorKeyboardListener );
+        removeVectorKeyboardListener && this.removeInputListener( removeVectorKeyboardListener );
+        disableScaleRotate();
       }
     };
     this.vector.animateBackProperty.lazyLink( animateBackListener );

@@ -16,11 +16,9 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import Vector from '../model/Vector.js';
-import VectorScaleRotateDragListener from './VectorScaleRotateDragListener.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Property from '../../../../axon/js/Property.js';
 import VectorNode from './VectorNode.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
@@ -38,7 +36,6 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
   public constructor( vectorNode: VectorNode,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
-                      selectedVectorProperty: Property<Vector | null>,
                       tipWidth: number,
                       tipHeight: number,
                       fractionalTipHeight: number ) {
@@ -63,11 +60,6 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     super( tipShape, options );
 
     this.vector = vector;
-
-    // The vector can be scaled and rotated by dragging its tip.  Must be disposed.
-    const scaleRotateDragListener = new VectorScaleRotateDragListener( vector, this, modelViewTransformProperty,
-      selectedVectorProperty );
-    this.addInputListener( scaleRotateDragListener );
 
     //----------------------------------------------------------------------------------------
     // Transform the tip and its pointer areas when the xy-components change.
@@ -130,8 +122,6 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     } );
 
     this.disposeVectorTipNode = () => {
-      this.removeInputListener( scaleRotateDragListener );
-      scaleRotateDragListener.dispose();
       vector.xyComponentsProperty.unlink( xyComponentsListener );
     };
   }
