@@ -439,6 +439,7 @@ export default class Vector extends RootVector {
    * Immediately returns this vector to its slot in the toolbox.
    */
   public returnToToolbox(): void {
+    affirm( this.isRemovableFromGraph, 'returnToToolbox was called for a vector that cannot be removed from the graph.' );
 
     // Test before remove, in case eraserButton was pressed while animating to toolbox.
     if ( this.vectorSet.activeVectors.includes( this ) ) {
