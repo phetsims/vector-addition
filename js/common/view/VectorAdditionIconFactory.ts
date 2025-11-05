@@ -180,7 +180,6 @@ const VectorAdditionIconFactory = {
   createVectorToolboxIcon( xyComponents: Vector2, vectorColorPalette: VectorColorPalette ): Node {
     return new ArrowNode( 0, 0, xyComponents.x, xyComponents.y,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-        cursor: 'move',
         fill: vectorColorPalette.vectorFillProperty,
         stroke: vectorColorPalette.vectorStrokeProperty
       } ) );

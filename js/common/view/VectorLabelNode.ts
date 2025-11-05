@@ -63,7 +63,6 @@ export default class VectorLabelNode extends Node {
     } );
 
     super( {
-      cursor: 'move',
       children: [ backgroundRectangle, vectorLabelContent ],
       interruptSubtreeOnInvisible: false
     } );

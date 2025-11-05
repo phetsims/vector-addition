@@ -74,9 +74,9 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       {}, AccessibleDraggableOptions, {
 
         // RootVectorNodeOptions
+        cursor: 'move',
         arrowOptions: combineOptions<RootVectorArrowNodeOptions>(
           {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
-            cursor: 'move',
             fill: vector.vectorColorPalette.vectorFillProperty,
             stroke: vector.vectorColorPalette.vectorStrokeProperty
           } ),
@@ -94,8 +94,6 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     affirm( headWidth !== undefined, 'Expected headHeight to be defined.' );
     const fractionalHeadHeight = options.arrowOptions.fractionalHeadHeight!;
     affirm( fractionalHeadHeight !== undefined, 'Expected fractionalHeadHeight to be defined.' );
-    const cursor = options.arrowOptions.cursor!;
-    affirm( cursor, 'Expected cursor to be defined.' );
 
     super( vector,
       modelViewTransformProperty,
@@ -131,7 +129,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
     // Listener to translate the vector when it is dragged.
     this.translationDragListener = new VectorTranslationDragListener( vector, this, vectorShadowNode,
-      modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty, cursor );
+      modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty );
     this.addInputListener( this.translationDragListener );
 
     // Listener to select this vector. Being selected is different from having focus.
@@ -173,6 +171,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       // Disables interaction related to scale/rotate.
       disableScaleRotate = () => {
         tipNode.removeInputListener( scaleRotateDragListener );
+        tipNode.cursor = null;
       };
     }
 
@@ -209,6 +208,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
         this.removeInputListener( selectVectorKeyboardListener );
         removeVectorKeyboardListener && this.removeInputListener( removeVectorKeyboardListener );
         disableScaleRotate();
+        this.cursor = null;
       }
     };
     this.vector.animateBackProperty.lazyLink( animateBackListener );

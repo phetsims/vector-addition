@@ -50,7 +50,7 @@ type SelfOptions = {
 };
 
 export type RootVectorNodeOptions = SelfOptions &
-  PickOptional<NodeOptions, 'tandem' | 'visibleProperty' | 'isDisposable' | 'accessibleName' | 'accessibleHelpText'>;
+  PickOptional<NodeOptions, 'tandem' | 'cursor' | 'visibleProperty' | 'isDisposable' | 'accessibleName' | 'accessibleHelpText'>;
 
 export default class RootVectorNode extends Node {
 
@@ -70,9 +70,7 @@ export default class RootVectorNode extends Node {
 
       // SelfOptions
       arrowType: 'solid',
-      arrowOptions: {
-        cursor: 'move'
-      },
+      arrowOptions: {},
       arrowHasInteractiveHighlight: false
     }, providedOptions );
 
