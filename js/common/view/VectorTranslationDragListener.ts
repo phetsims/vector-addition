@@ -109,8 +109,6 @@ export class VectorTranslationDragListener extends SoundDragListener {
    * Updates the model vector's tail position. Called when the vector is being translated.
    */
   private updateTailPosition( tailPositionView: Vector2 ): void {
-    affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
-      `Cannot drag tail when vector ${this.vector.accessibleSymbolProperty.value} is animating back` );
 
     const tailPositionModel = this.modelViewTransformProperty.value.viewToModelPosition( tailPositionView );
 

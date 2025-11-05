@@ -59,8 +59,6 @@ export default class VectorScaleRotateDragListener extends SoundDragListener {
    * Updates the model vector's tail position. Called when the vector is being rotated or scaled.
    */
   private updateTipPosition( tipPositionView: Vector2 ): void {
-    affirm( !this.vector.animateBackProperty.value && !this.vector.isAnimating(),
-      `Cannot drag tip when vector ${this.vector.accessibleSymbolProperty.value} is animating back` );
     const tipPositionModel = this.vector.tail.plus( this.modelViewTransformProperty.value.viewToModelDelta( tipPositionView ) );
     this.vector.moveTipToPositionWithInvariants( tipPositionModel );
   }
