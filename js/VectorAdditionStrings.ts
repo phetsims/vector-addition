@@ -237,7 +237,6 @@ type StringsType = {
     'vectorRemovedFromGraphAreaStringProperty': LocalizedStringProperty;
     'keyboardHelpDialog': {
       'vectors': {
-        'addToGraphDescriptionStringProperty': LocalizedStringProperty;
         'removeFromGraphDescriptionStringProperty': LocalizedStringProperty;
         'selectDescriptionStringProperty': LocalizedStringProperty;
         'moveDescriptionStringProperty': LocalizedStringProperty;
