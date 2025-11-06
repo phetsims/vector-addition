@@ -79,9 +79,9 @@ function createCurrentDetailsStringProperty( scene: EquationsScene ): TReadOnlyP
   // Options shared by all PatternStringProperty instances herein.
   const patternStringPropertyOptions = {
     coefficient1: vectorSet.allVectors[ 0 ].coefficientProperty,
-    symbol1: vectorSet.allVectors[ 0 ].accessibleSymbolProperty,
+    symbol1: vectorSet.baseVectors[ 0 ].accessibleSymbolProperty,
     coefficient2: vectorSet.allVectors[ 1 ].coefficientProperty,
-    symbol2: vectorSet.allVectors[ 1 ].accessibleSymbolProperty,
+    symbol2: vectorSet.baseVectors[ 1 ].accessibleSymbolProperty,
     symbol3: vectorSet.resultantVector.accessibleSymbolProperty
   };
 
