@@ -90,7 +90,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         affirm( cartesianBaseVector instanceof CartesianBaseVector, 'Expected instance of CartesianBaseVector.' );
 
         // x-component
-        const xSymbolStringProperty = new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
+        const xSymbolStringProperty = new DerivedStringProperty(
+          [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
           ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` );
         const xLabeledPicker = new LabelEqualsNumberPicker(
           cartesianBaseVector.xComponentProperty,
@@ -110,10 +111,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
           } );
 
         // y-component
-        const ySymbolStringProperty = cartesianBaseVector.symbolProperty ?
-                                      new DerivedStringProperty( [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
-                                        ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` ) :
-                                      null;
+        const ySymbolStringProperty = new DerivedStringProperty(
+          [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
+          ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` );
         const yLabeledPicker = new LabelEqualsNumberPicker(
           cartesianBaseVector.yComponentProperty,
           VectorAdditionConstants.XY_COMPONENT_RANGE,
