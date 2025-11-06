@@ -6,15 +6,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
-import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListener.js';
-import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
+import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 
 export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
 

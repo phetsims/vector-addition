@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
-import VectorAdditionScene from './VectorAdditionScene.js';
-import { GraphOrientation } from './GraphOrientation.js';
-import VectorColorPalette from './VectorColorPalette.js';
-import vectorAddition from '../../vectorAddition.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import ExploreVectorSet, { ExploreVectorDescription } from './ExploreVectorSet.js';
+import { GraphOrientation } from './GraphOrientation.js';
+import VectorAdditionScene from './VectorAdditionScene.js';
+import VectorColorPalette from './VectorColorPalette.js';
 
 export default class ExploreScene extends VectorAdditionScene {
 

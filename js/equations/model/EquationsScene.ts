@@ -11,19 +11,19 @@
  * @author Brandon Li
  */
 
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
+import Graph from '../../common/model/Graph.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsVectorSet, { EquationsVectorDescription } from './EquationsVectorSet.js';
 import { EquationType, EquationTypeValues } from './EquationType.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Graph from '../../common/model/Graph.js';
 
 export default class EquationsScene extends VectorAdditionScene {
 

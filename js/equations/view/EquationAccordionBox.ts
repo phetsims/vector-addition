@@ -8,7 +8,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -22,10 +26,6 @@ import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType, EquationTypeValues } from '../model/EquationType.js';
 import EquationTypeNode from './EquationTypeNode.js';
 import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 
 const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 

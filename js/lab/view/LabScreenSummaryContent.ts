@@ -6,14 +6,14 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import vectorAddition from '../../vectorAddition.js';
-import LabModel from '../model/LabModel.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import LabModel from '../model/LabModel.js';
 
 export default class LabScreenSummaryContent extends ScreenSummaryContent {
 

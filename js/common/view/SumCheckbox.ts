@@ -6,26 +6,26 @@
  * @author Brandon Li
  */
 
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import TColor from '../../../../scenery/js/util/TColor.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import TColor from '../../../../scenery/js/util/TColor.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import { optionize4 } from '../../../../phet-core/js/optionize.js';
-import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import HStrut from '../../../../scenery/js/nodes/HStrut.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
+import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
+import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
 type SelfOptions = {
 

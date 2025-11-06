@@ -6,17 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
 import { ExploreVectorDescription } from '../../common/model/ExploreVectorSet.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 // Properties common to all vectors in this scene.
 const TAIL_POSITION = Vector2.ZERO;

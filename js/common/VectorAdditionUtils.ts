@@ -6,8 +6,8 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import VectorAdditionConstants from './VectorAdditionConstants.js';
 import affirm from '../../../perennial-alias/js/browser-and-node/affirm.js';
+import VectorAdditionConstants from './VectorAdditionConstants.js';
 
 /**
  * Converts a signed angle to an unsigned angle, in degrees.

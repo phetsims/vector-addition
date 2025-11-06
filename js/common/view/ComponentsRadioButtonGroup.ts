@@ -7,15 +7,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import vectorAddition from '../../vectorAddition.js';
-import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
 export default class ComponentsRadioButtonGroup extends RectangularRadioButtonGroup<ComponentVectorStyle> {
 

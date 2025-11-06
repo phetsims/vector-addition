@@ -17,11 +17,11 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const COLOR = Color.BLACK;
 const ARROWHEAD_WIDTH = 8;  // the arrowhead width (before rotation)

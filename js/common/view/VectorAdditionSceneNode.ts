@@ -20,25 +20,25 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import Vector from '../model/Vector.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorSet from '../model/VectorSet.js';
 import GraphNode from './GraphNode.js';
-import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
-import VectorToolbox from './VectorToolbox.js';
-import VectorSetNode from './VectorSetNode.js';
-import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionEraserButton from './VectorAdditionEraserButton.js';
+import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
+import VectorSetNode from './VectorSetNode.js';
+import VectorToolbox from './VectorToolbox.js';
+import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
 
 type SelfOptions = {
 

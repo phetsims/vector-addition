@@ -7,16 +7,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import vectorAddition from '../../vectorAddition.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import Property from '../../../../axon/js/Property.js';
-import Vector from '../model/Vector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import vectorAddition from '../../vectorAddition.js';
+import Vector from '../model/Vector.js';
 import VectorTipNode from './VectorTipNode.js';
 
 export default class ScaleRotateVectorDragListener extends SoundDragListener {

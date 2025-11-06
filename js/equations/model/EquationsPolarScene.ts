@@ -6,17 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EquationsScene from './EquationsScene.js';
-import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import { EquationsVectorDescription } from './EquationsVectorSet.js';
-import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import EquationsScene from './EquationsScene.js';
+import { EquationsVectorDescription } from './EquationsVectorSet.js';
 
 // Describes the non-resultant vectors for the polar scene.
 // See https://github.com/phetsims/vector-addition/issues/227

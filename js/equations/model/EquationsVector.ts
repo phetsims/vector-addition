@@ -10,27 +10,27 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import Graph from '../../common/model/Graph.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector, { VectorOptions } from '../../common/model/Vector.js';
-import vectorAddition from '../../vectorAddition.js';
-import Graph from '../../common/model/Graph.js';
-import Property from '../../../../axon/js/Property.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import VectorSet from '../../common/model/VectorSet.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 // initial coefficient and range
 const COEFFICIENT_RANGE = new Range( -5, 5 );

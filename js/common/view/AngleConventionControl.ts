@@ -7,19 +7,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import PreferencesControl, { PreferencesControlOptions } from '../../../../joist/js/preferences/PreferencesControl.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
 import PreferencesDialogConstants from '../../../../joist/js/preferences/PreferencesDialogConstants.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import { AngleConvention } from '../model/AngleConvention.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import AquaRadioButtonGroup, { AquaRadioButtonGroupItem } from '../../../../sun/js/AquaRadioButtonGroup.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import { AngleConvention } from '../model/AngleConvention.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 const RADIO_BUTTON_LABEL_OPTIONS = {
   font: new PhetFont( 16 ),

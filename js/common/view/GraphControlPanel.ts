@@ -9,11 +9,11 @@
  */
 
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 

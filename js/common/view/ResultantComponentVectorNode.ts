@@ -12,19 +12,19 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import vectorAddition from '../../vectorAddition.js';
 import ComponentVector from '../model/ComponentVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
+import ResultantVector from '../model/ResultantVector.js';
+import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentVectorNode, { ComponentVectorNodeOptions } from './ComponentVectorNode.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import ResultantVector from '../model/ResultantVector.js';
-import Property from '../../../../axon/js/Property.js';
-import Vector from '../model/Vector.js';
 
 type SelfOptions = EmptySelfOptions;
 type SumComponentVectorNodeOptions = SelfOptions & ComponentVectorNodeOptions;

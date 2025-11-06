@@ -6,17 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
-import VectorAdditionScene from '../model/VectorAdditionScene.js';
-import vectorAddition from '../../vectorAddition.js';
 import Property from '../../../../axon/js/Property.js';
-import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import VectorColorPalette from '../model/VectorColorPalette.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
+import VectorColorPalette from '../model/VectorColorPalette.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
 type SelfOptions = EmptySelfOptions;
 

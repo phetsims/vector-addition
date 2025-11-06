@@ -13,6 +13,7 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -26,7 +27,6 @@ import Vector from '../model/Vector.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
-import Property from '../../../../axon/js/Property.js';
 
 // offset of the label
 const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;

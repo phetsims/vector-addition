@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import VectorSet, { VectorSetOptions } from './VectorSet.js';
-import vectorAddition from '../../vectorAddition.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from './ComponentVectorStyle.js';
-import Vector from './Vector.js';
-import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
+import vectorAddition from '../../vectorAddition.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import Graph from './Graph.js';
+import Vector from './Vector.js';
+import VectorSet, { VectorSetOptions } from './VectorSet.js';
 
 // Describes a non-resultant vector for the Explore 1D and Explore 2D screens.
 export type ExploreVectorDescription = {

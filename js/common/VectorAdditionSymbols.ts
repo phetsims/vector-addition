@@ -7,10 +7,10 @@
  */
 
 import StringProperty from '../../../axon/js/StringProperty.js';
-import vectorAddition from '../vectorAddition.js';
-import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import MathSymbolFont from '../../../scenery-phet/js/MathSymbolFont.js';
 import MathSymbols from '../../../scenery-phet/js/MathSymbols.js';
+import vectorAddition from '../vectorAddition.js';
+import VectorAdditionStrings from '../VectorAdditionStrings.js';
 
 export default class VectorAdditionSymbols {
 

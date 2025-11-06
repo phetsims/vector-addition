@@ -9,20 +9,20 @@
  */
 
 import { ObservableArray } from '../../../../axon/js/createObservableArray.js';
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import Vector from '../../common/model/Vector.js';
-import vectorAddition from '../../vectorAddition.js';
-import { EquationType } from './EquationType.js';
-import ResultantVector, { ResultantVectorOptions } from '../../common/model/ResultantVector.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import Graph from '../../common/model/Graph.js';
-import Property from '../../../../axon/js/Property.js';
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
-import EquationsVector from './EquationsVector.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import Graph from '../../common/model/Graph.js';
+import ResultantVector, { ResultantVectorOptions } from '../../common/model/ResultantVector.js';
+import Vector from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
+import vectorAddition from '../../vectorAddition.js';
+import EquationsVector from './EquationsVector.js';
+import { EquationType } from './EquationType.js';
 
 type SelfOptions = EmptySelfOptions;
 

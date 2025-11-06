@@ -6,13 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
-import vectorAddition from '../../vectorAddition.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = EmptySelfOptions;
 

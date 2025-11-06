@@ -12,6 +12,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import AlignBox, { AlignBoxXAlign, AlignBoxYAlign } from '../../../../scenery/js/layout/nodes/AlignBox.js';
@@ -19,7 +20,6 @@ import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 type SelfOptions = {
   columns?: number; // number of columns

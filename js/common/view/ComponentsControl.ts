@@ -8,17 +8,17 @@
  * @author Brandon Li
  */
 
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import ComponentsRadioButtonGroup from './ComponentsRadioButtonGroup.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 const MAX_WIDTH = VectorAdditionConstants.GRAPH_CONTROL_PANEL_CONTENT_WIDTH;
 

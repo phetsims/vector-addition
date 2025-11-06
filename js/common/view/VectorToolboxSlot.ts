@@ -6,25 +6,25 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
-import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import VectorSet from '../model/VectorSet.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
-import { optionize4 } from '../../../../phet-core/js/optionize.js';
-import vectorAddition from '../../vectorAddition.js';
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import Vector from '../model/Vector.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
-import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import AddVectorKeyboardListener from './AddVectorKeyboardListener.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import AccessibleInteractiveOptions from '../../../../scenery-phet/js/accessibility/AccessibleInteractiveOptions.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
+import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
+import vectorAddition from '../../vectorAddition.js';
+import Vector from '../model/Vector.js';
+import VectorSet from '../model/VectorSet.js';
+import AddVectorKeyboardListener from './AddVectorKeyboardListener.js';
+import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
+import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 
 type SelfOptions = {
   mouseAreaDilation: Vector2;

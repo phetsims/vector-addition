@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
-import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
-import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
-import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
-import VectorSet from '../model/VectorSet.js';
-import Vector from '../model/Vector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
+import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
+import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import Vector from '../model/Vector.js';
+import VectorSet from '../model/VectorSet.js';
+import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 
 export default class AddVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 

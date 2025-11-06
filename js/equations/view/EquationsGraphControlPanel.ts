@@ -7,10 +7,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentsControl from '../../common/view/ComponentsControl.js';
@@ -18,12 +21,9 @@ import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/G
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import EquationsViewProperties from './EquationsViewProperties.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import EquationsScene from '../model/EquationsScene.js';
 import EquationsSumCheckbox from './EquationsSumCheckbox.js';
+import EquationsViewProperties from './EquationsViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 

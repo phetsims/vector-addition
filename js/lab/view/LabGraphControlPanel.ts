@@ -7,12 +7,20 @@
  *  @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentsControl from '../../common/view/ComponentsControl.js';
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
@@ -20,17 +28,9 @@ import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import LabScene from '../model/LabScene.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import LabScene from '../model/LabScene.js';
 import LabViewProperties from './LabViewProperties.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 type SelfOptions = EmptySelfOptions;
 

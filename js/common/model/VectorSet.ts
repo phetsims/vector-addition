@@ -8,26 +8,26 @@
  */
 
 import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import { CoordinateSnapMode } from './CoordinateSnapMode.js';
+import Graph from './Graph.js';
+import ResultantVector from './ResultantVector.js';
 import SumVector from './SumVector.js';
 import Vector from './Vector.js';
 import VectorColorPalette from './VectorColorPalette.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import ResultantVector from './ResultantVector.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Graph from './Graph.js';
-import Property from '../../../../axon/js/Property.js';
-import { CoordinateSnapMode } from './CoordinateSnapMode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 type SelfOptions<V extends Vector> = {
 

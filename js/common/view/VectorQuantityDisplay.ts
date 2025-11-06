@@ -18,19 +18,19 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import Range from '../../../../dot/js/Range.js';
-import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
-import vectorAddition from '../../vectorAddition.js';
-import Vector from '../model/Vector.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import { VectorQuantity } from './VectorQuantity.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
-import { AngleConvention } from '../model/AngleConvention.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Range from '../../../../dot/js/Range.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
+import vectorAddition from '../../vectorAddition.js';
+import { AngleConvention } from '../model/AngleConvention.js';
+import Vector from '../model/Vector.js';
+import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import { VectorQuantity } from './VectorQuantity.js';
 
 export default class VectorQuantityDisplay extends NumberDisplay {
 

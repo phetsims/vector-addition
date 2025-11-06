@@ -7,18 +7,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import vectorAddition from '../../vectorAddition.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Explore2DViewProperties from '../../explore2D/view/Explore2DViewProperties.js';
-import ExploreScene from '../../common/model/ExploreScene.js';
+import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = EmptySelfOptions;
 

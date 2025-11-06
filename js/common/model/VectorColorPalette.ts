@@ -7,10 +7,10 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Property from '../../../../axon/js/Property.js';
 
 type VectorColorProperty = TReadOnlyProperty<Color | string | null>;
 

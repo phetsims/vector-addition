@@ -12,28 +12,28 @@
  * @author Brandon Li
  */
 
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import BaseVector from '../model/BaseVector.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Vector from '../model/Vector.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorSet from '../model/VectorSet.js';
+import BaseVectorNode from './BaseVectorNode.js';
 import ComponentVectorNode from './ComponentVectorNode.js';
 import ResultantComponentVectorNode from './ResultantComponentVectorNode.js';
 import ResultantVectorNode from './ResultantVectorNode.js';
 import VectorNode from './VectorNode.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import BaseVectorNode from './BaseVectorNode.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Property from '../../../../axon/js/Property.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorToolboxSlot from './VectorToolboxSlot.js';
 
 export default class VectorSetNode extends Node {

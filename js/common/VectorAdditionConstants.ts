@@ -10,23 +10,23 @@
 
 import Bounds2 from '../../../dot/js/Bounds2.js';
 import Range from '../../../dot/js/Range.js';
+import { CreditsData } from '../../../joist/js/CreditsNode.js';
+import { PreferencesControlOptions } from '../../../joist/js/preferences/PreferencesControl.js';
 import ScreenView from '../../../joist/js/ScreenView.js';
+import affirm from '../../../perennial-alias/js/browser-and-node/affirm.js';
 import { combineOptions } from '../../../phet-core/js/optionize.js';
+import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import Color from '../../../scenery/js/util/Color.js';
+import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
 import { RectangularRadioButtonGroupOptions } from '../../../sun/js/buttons/RectangularRadioButtonGroup.js';
+import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
+import { NumberPickerOptions } from '../../../sun/js/NumberPicker.js';
+import { PanelOptions } from '../../../sun/js/Panel.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionColors from './VectorAdditionColors.js';
 import VectorAdditionQueryParameters from './VectorAdditionQueryParameters.js';
 import { RootVectorArrowNodeOptions } from './view/RootVectorNode.js';
-import { PreferencesControlOptions } from '../../../joist/js/preferences/PreferencesControl.js';
-import { AccordionBoxOptions } from '../../../sun/js/AccordionBox.js';
-import { CreditsData } from '../../../joist/js/CreditsNode.js';
-import { ArrowNodeOptions } from '../../../scenery-phet/js/ArrowNode.js';
-import { PanelOptions } from '../../../sun/js/Panel.js';
-import { NumberPickerOptions } from '../../../sun/js/NumberPicker.js';
-import affirm from '../../../perennial-alias/js/browser-and-node/affirm.js';
-import { CheckboxOptions } from '../../../sun/js/Checkbox.js';
 
 const PANEL_X_MARGIN = 9;
 const PANEL_Y_MARGIN = 10;

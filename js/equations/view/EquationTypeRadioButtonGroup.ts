@@ -7,22 +7,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import RectangularRadioButtonGroup, { RectangularRadioButtonGroupItem, RectangularRadioButtonGroupOptions } from '../../../../sun/js/buttons/RectangularRadioButtonGroup.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
-import { EquationType } from '../model/EquationType.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
+import { EquationType } from '../model/EquationType.js';
 
 type SelfOptions = EmptySelfOptions;
 

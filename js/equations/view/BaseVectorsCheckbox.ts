@@ -7,14 +7,14 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionIconFactory from '../../common/view/VectorAdditionIconFactory.js';
 import vectorAddition from '../../vectorAddition.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
 
 export default class BaseVectorsCheckbox extends Checkbox {
 

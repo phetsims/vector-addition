@@ -9,22 +9,22 @@
  * @author Brandon Li
  */
 
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import BaseVector from '../../common/model/BaseVector.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import Graph from '../../common/model/Graph.js';
+import ResultantVector from '../../common/model/ResultantVector.js';
+import Vector from '../../common/model/Vector.js';
 import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsResultantVector from './EquationsResultantVector.js';
 import EquationsVector from './EquationsVector.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Property from '../../../../axon/js/Property.js';
-import Vector from '../../common/model/Vector.js';
-import Graph from '../../common/model/Graph.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import { EquationType } from './EquationType.js';
-import BaseVector from '../../common/model/BaseVector.js';
-import ResultantVector from '../../common/model/ResultantVector.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 
 // Describes a non-resultant vector for the Equations screen.
 export type EquationsVectorDescription = {

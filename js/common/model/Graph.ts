@@ -11,14 +11,14 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { GraphOrientation } from './GraphOrientation.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 const MODEL_TO_VIEW_SCALE = 14.5;
 

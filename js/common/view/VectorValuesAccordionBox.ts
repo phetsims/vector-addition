@@ -9,9 +9,17 @@
  * @author Brandon Li
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
@@ -20,17 +28,9 @@ import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from './FixedSizeAccordionBox.js';
-import VectorSymbolNode from './VectorSymbolNode.js';
 import VectorQuantityDisplay from './VectorQuantityDisplay.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
-import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
+import VectorSymbolNode from './VectorSymbolNode.js';
 import { VectorValuesAccessibleParagraphProperty } from './VectorValuesAccessibleParagraphProperty.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;

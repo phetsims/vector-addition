@@ -6,22 +6,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
-import vectorAddition from '../../vectorAddition.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import Vector from '../../common/model/Vector.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import Graph from '../../common/model/Graph.js';
-import Property from '../../../../axon/js/Property.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import Graph from '../../common/model/Graph.js';
+import Vector from '../../common/model/Vector.js';
+import VectorSet, { VectorSetOptions } from '../../common/model/VectorSet.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = EmptySelfOptions;
 

@@ -8,22 +8,22 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import vectorAddition from '../../vectorAddition.js';
-import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
-import Vector from '../model/Vector.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import VectorNode from './VectorNode.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
+import Path, { PathOptions } from '../../../../scenery/js/nodes/Path.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import VectorNode from './VectorNode.js';
 
 // xy-dilation of vector tip pointer areas
 const MOUSE_AREA_DILATION = 6;

@@ -7,10 +7,15 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentsControl from '../../common/view/ComponentsControl.js';
@@ -19,12 +24,7 @@ import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Explore2DViewProperties from './Explore2DViewProperties.js';
-import ExploreScene from '../../common/model/ExploreScene.js';
 
 type SelfOptions = EmptySelfOptions;
 

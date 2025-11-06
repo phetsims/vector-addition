@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import EraserButton, { EraserButtonOptions } from '../../../../scenery-phet/js/buttons/EraserButton.js';
-import vectorAddition from '../../vectorAddition.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import VectorAdditionColors from '../VectorAdditionColors.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import EraserButton, { EraserButtonOptions } from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorAdditionColors from '../VectorAdditionColors.js';
 
 type SelfOptions = EmptySelfOptions;
 

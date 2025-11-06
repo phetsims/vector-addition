@@ -14,21 +14,21 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import BaseVector from '../../common/model/BaseVector.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from '../model/EquationsScene.js';
-import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
-import EquationsViewProperties from './EquationsViewProperties.js';
-import EquationAccordionBox from './EquationAccordionBox.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import BaseVector from '../../common/model/BaseVector.js';
-import Property from '../../../../axon/js/Property.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
+import BaseVectorsAccordionBox from './BaseVectorsAccordionBox.js';
+import EquationAccordionBox from './EquationAccordionBox.js';
+import EquationsViewProperties from './EquationsViewProperties.js';
 
 export default class EquationsSceneNode extends VectorAdditionSceneNode {
 

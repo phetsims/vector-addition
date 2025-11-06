@@ -10,15 +10,15 @@ import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js'
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsModel from '../model/EquationsModel.js';
 import EquationsGraphControlPanel from './EquationsGraphControlPanel.js';
 import EquationsSceneNode from './EquationsSceneNode.js';
-import EquationsViewProperties from './EquationsViewProperties.js';
-import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import EquationsScreenSummaryContent from './EquationsScreenSummaryContent.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import EquationsViewProperties from './EquationsViewProperties.js';
 
 export default class EquationsScreenView extends VectorAdditionScreenView {
 

@@ -13,19 +13,19 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import vectorAddition from '../../vectorAddition.js';
 import { CoordinateSnapMode } from './CoordinateSnapMode.js';
+import Graph, { GraphOptions } from './Graph.js';
 import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import Graph, { GraphOptions } from './Graph.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
-import IOType from '../../../../tandem/js/types/IOType.js';
-import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 
 type SelfOptions = {
   graphOptions: StrictOmit<GraphOptions, 'tandem'>;

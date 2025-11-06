@@ -7,15 +7,15 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import vectorAddition from '../../vectorAddition.js';
 import Explore1DHorizontalScene from './Explore1DHorizontalScene.js';
 import Explore1DVerticalScene from './Explore1DVerticalScene.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import ExploreScene from '../../common/model/ExploreScene.js';
 
 export default class Explore1DModel extends VectorAdditionModel {
 

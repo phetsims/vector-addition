@@ -9,18 +9,18 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Vector, { VectorOptions } from './Vector.js';
-import vectorAddition from '../../vectorAddition.js';
-import Property from '../../../../axon/js/Property.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import VectorSet from './VectorSet.js';
-import Graph from './Graph.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from './ComponentVectorStyle.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import vectorAddition from '../../vectorAddition.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import Graph from './Graph.js';
+import Vector, { VectorOptions } from './Vector.js';
+import VectorSet from './VectorSet.js';
 
 type SelfOptions = {
   isDefinedPropertyInstrumented?: boolean; // whether to instrument isDefinedProperty

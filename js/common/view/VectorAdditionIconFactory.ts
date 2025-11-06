@@ -8,10 +8,12 @@
  */
 
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Screen from '../../../../joist/js/Screen.js';
 import ScreenIcon from '../../../../joist/js/ScreenIcon.js';
 import Shape from '../../../../kite/js/Shape.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import interleave from '../../../../phet-core/js/interleave.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
@@ -21,6 +23,7 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
+import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Spacer from '../../../../scenery/js/nodes/Spacer.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
@@ -32,13 +35,10 @@ import { GraphOrientation } from '../model/GraphOrientation.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
 import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import CurvedArrowNode from './CurvedArrowNode.js';
 import DashedArrowNode, { DashedArrowNodeOptions } from './DashedArrowNode.js';
-import { toRadians } from '../../../../dot/js/util/toRadians.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
 
 const SCREEN_ICON_WIDTH = 70;
 const SCREEN_ICON_HEIGHT = SCREEN_ICON_WIDTH / Screen.HOME_SCREEN_ICON_ASPECT_RATIO; // w/h = ratio <=> h = w/ratio

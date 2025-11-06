@@ -8,20 +8,20 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import vectorAddition from '../../vectorAddition.js';
+import { AngleConvention } from '../model/AngleConvention.js';
 import Vector from '../model/Vector.js';
+import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import CurvedArrowNode from './CurvedArrowNode.js';
-import VectorAdditionPreferences from '../model/VectorAdditionPreferences.js';
-import { AngleConvention } from '../model/AngleConvention.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import { toRadians } from '../../../../dot/js/util/toRadians.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 
 // maximum radius of the curved arrow - the radius is changed to keep the curved arrow smaller than the vector.
 const MAX_CURVED_ARROW_RADIUS = 25;

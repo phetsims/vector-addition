@@ -7,17 +7,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
-import Vector from '../model/Vector.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import LocalizedStringProperty from '../../../../chipper/js/browser/LocalizedStringProperty.js';
-import BaseVector from '../model/BaseVector.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import BaseVector from '../model/BaseVector.js';
+import Vector from '../model/Vector.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 export class VectorValuesAccessibleParagraphProperty extends PatternStringProperty<IntentionalAny> {
 

@@ -11,24 +11,24 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import Node from '../../../../scenery/js/nodes/Node.js';
-import vectorAddition from '../../vectorAddition.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Range from '../../../../dot/js/Range.js';
-import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VectorAdditionUtils.js';
-import Property from '../../../../axon/js/Property.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
-import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../dot/js/Range.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionPreferences from '../../common/model/VectorAdditionPreferences.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/VectorAdditionUtils.js';
+import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 
 export default class LabelEqualsAnglePicker extends Node {
 

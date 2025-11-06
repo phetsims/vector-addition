@@ -10,17 +10,17 @@
  * @author Brandon Li
  */
 
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import LabVectorSet from './LabVectorSet.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 // Lab Graphs have the 'default' graph bounds
 const LAB_GRAPH_BOUNDS = VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS;

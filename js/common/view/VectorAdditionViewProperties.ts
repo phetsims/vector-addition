@@ -10,11 +10,11 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Disposable from '../../../../axon/js/Disposable.js';
 import Property from '../../../../axon/js/Property.js';
-import vectorAddition from '../../vectorAddition.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = {
   anglesVisiblePropertyInstrumented?: boolean;

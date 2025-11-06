@@ -7,13 +7,13 @@
  */
 
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionModel from '../model/VectorAdditionModel.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = EmptySelfOptions;
 

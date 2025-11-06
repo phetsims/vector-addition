@@ -8,12 +8,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import Vector2 from '../../../../dot/js/Vector2.js';
+import vectorAddition from '../../vectorAddition.js';
+import ExploreScene from '../model/ExploreScene.js';
+import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from './VectorToolbox.js';
-import vectorAddition from '../../vectorAddition.js';
-import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import ExploreScene from '../model/ExploreScene.js';
 
 type SelfOptions = {
   iconModelComponents: Vector2;

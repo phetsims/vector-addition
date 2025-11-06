@@ -6,20 +6,20 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import VectorNode, { VectorNodeOptions } from './VectorNode.js';
-import vectorAddition from '../../vectorAddition.js';
-import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import BaseVector from '../model/BaseVector.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import VectorColorPalette from '../model/VectorColorPalette.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Vector from '../model/Vector.js';
 import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import BaseVector from '../model/BaseVector.js';
+import Vector from '../model/Vector.js';
+import VectorColorPalette from '../model/VectorColorPalette.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
+import VectorNode, { VectorNodeOptions } from './VectorNode.js';
 
 type SelfOptions = EmptySelfOptions;
 

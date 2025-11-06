@@ -7,19 +7,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import { GraphOrientation } from '../model/GraphOrientation.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { GraphOrientation } from '../model/GraphOrientation.js';
 import VectorToolboxSlot from './VectorToolboxSlot.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
 

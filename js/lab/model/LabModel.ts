@@ -9,11 +9,11 @@
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
-import vectorAddition from '../../vectorAddition.js';
-import LabScene from './LabScene.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
+import vectorAddition from '../../vectorAddition.js';
 import LabCartesianScene from './LabCartesianScene.js';
 import LabPolarScene from './LabPolarScene.js';
+import LabScene from './LabScene.js';
 
 export default class LabModel extends VectorAdditionModel {
 

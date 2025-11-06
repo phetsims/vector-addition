@@ -6,17 +6,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
-import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import Explore1DViewProperties from './Explore1DViewProperties.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
+import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
+import vectorAddition from '../../vectorAddition.js';
+import Explore1DViewProperties from './Explore1DViewProperties.js';
 
 export default class Explore1DSceneNode extends VectorAdditionSceneNode {
 

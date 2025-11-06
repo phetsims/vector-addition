@@ -20,20 +20,20 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorColorPalette from './VectorColorPalette.js';
-import { AngleConvention } from './AngleConvention.js';
-import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import { signedToUnsignedDegrees } from '../VectorAdditionUtils.js';
-import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import { signedToUnsignedDegrees } from '../VectorAdditionUtils.js';
+import { AngleConvention } from './AngleConvention.js';
+import VectorColorPalette from './VectorColorPalette.js';
 
 export type LabelDisplayData = {
 

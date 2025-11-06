@@ -10,11 +10,11 @@ import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import Tandem from '../../../tandem/js/Tandem.js';
 import VectorAdditionColors from '../common/VectorAdditionColors.js';
 import VectorAdditionIconFactory from '../common/view/VectorAdditionIconFactory.js';
+import VectorAdditionKeyboardHelpContent from '../common/view/VectorAdditionKeyboardHelpContent.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import Explore1DModel from './model/Explore1DModel.js';
 import Explore1DScreenView from './view/Explore1DScreenView.js';
-import VectorAdditionKeyboardHelpContent from '../common/view/VectorAdditionKeyboardHelpContent.js';
 
 export default class Explore1DScreen extends Screen<Explore1DModel, Explore1DScreenView> {
 

@@ -6,23 +6,23 @@
  * @author Martin Veillette
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
-import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
-import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionColors from '../VectorAdditionColors.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
-import Graph from '../model/Graph.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
+import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import Graph from '../model/Graph.js';
+import VectorAdditionColors from '../VectorAdditionColors.js';
 
 // the closest the user can drag the origin to the edge of the graph, in model units
 const ORIGIN_DRAG_MARGIN = 5;

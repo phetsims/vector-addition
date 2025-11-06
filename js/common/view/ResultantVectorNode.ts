@@ -11,20 +11,20 @@
  * @author Brandon Li
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import vectorAddition from '../../vectorAddition.js';
+import ResultantVector from '../model/ResultantVector.js';
+import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 import VectorNode, { VectorNodeOptions } from './VectorNode.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import affirm, { isAffirmEnabled } from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import ResultantVector from '../model/ResultantVector.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Vector from '../model/Vector.js';
-import Property from '../../../../axon/js/Property.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 export default class ResultantVectorNode extends VectorNode {
 

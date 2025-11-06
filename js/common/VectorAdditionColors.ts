@@ -7,11 +7,11 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import Color from '../../../scenery/js/util/Color.js';
 import ProfileColorProperty from '../../../scenery/js/util/ProfileColorProperty.js';
 import vectorAddition from '../vectorAddition.js';
 import VectorColorPalette from './model/VectorColorPalette.js';
-import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 
 // Colors that are used in more than one VectorColorPalette.
 const VECTOR_FILL_BLUE = 'rgb( 64, 150, 242 )'; // blue

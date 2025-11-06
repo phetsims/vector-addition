@@ -6,19 +6,19 @@
  * @author Martin Veillette
  */
 
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import HorizontalVerticalSceneRadioButtonGroup from '../../common/view/HorizontalVerticalSceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Explore1DModel from '../model/Explore1DModel.js';
 import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DSceneNode from './Explore1DSceneNode.js';
-import HorizontalVerticalSceneRadioButtonGroup from '../../common/view/HorizontalVerticalSceneRadioButtonGroup.js';
 import Explore1DScreenSummaryContent from './Explore1DScreenSummaryContent.js';
 import Explore1DViewProperties from './Explore1DViewProperties.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 

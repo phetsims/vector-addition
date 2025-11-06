@@ -8,12 +8,12 @@
 
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
-import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
+import vectorAddition from '../../vectorAddition.js';
 import Explore2DCartesianScene from './Explore2DCartesianScene.js';
 import { Explore2DPolarScene } from './Explore2DPolarScene.js';
-import ExploreScene from '../../common/model/ExploreScene.js';
 
 export default class Explore2DModel extends VectorAdditionModel {
 

@@ -6,13 +6,13 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import vectorAddition from '../../vectorAddition.js';
-import Explore1DModel from '../model/Explore1DModel.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
+import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import Explore1DModel from '../model/Explore1DModel.js';
 
 export default class Explore1DScreenSummaryContent extends ScreenSummaryContent {
 

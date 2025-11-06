@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import WithRequired from '../../../../phet-core/js/types/WithRequired.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
+import NumberPicker, { NumberPickerOptions } from '../../../../sun/js/NumberPicker.js';
+import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 
 export class LabelEqualsNumberPicker extends HBox {

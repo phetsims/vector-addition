@@ -7,19 +7,19 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
-import vectorAddition from '../../vectorAddition.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Vector from '../model/Vector.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Property from '../../../../axon/js/Property.js';
-import VectorNode from './VectorNode.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import vectorAddition from '../../vectorAddition.js';
+import Vector from '../model/Vector.js';
+import VectorNode from './VectorNode.js';
 
 export class MoveVectorDragListener extends SoundDragListener {
 

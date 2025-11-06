@@ -6,6 +6,9 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -13,13 +16,10 @@ import NumberPicker from '../../../../sun/js/NumberPicker.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType } from '../model/EquationType.js';
 import CoefficientPicker from './CoefficientPicker.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 const TEXT_OPTIONS = {
   font: VectorAdditionConstants.INTERACTIVE_EQUATION_FONT

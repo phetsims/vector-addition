@@ -6,12 +6,12 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import SceneryPhetStrings from '../../../../scenery-phet/js/SceneryPhetStrings.js';
-import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class GraphOriginKeyboardHelpSection extends KeyboardHelpSection {
 

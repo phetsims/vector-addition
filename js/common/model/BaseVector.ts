@@ -9,16 +9,16 @@
  * @author Brandon Li
  */
 
-import Vector2 from '../../../../dot/js/Vector2.js';
-import vectorAddition from '../../vectorAddition.js';
-import Vector, { VectorOptions } from './Vector.js';
-import VectorSet from './VectorSet.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import Graph from './Graph.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import vectorAddition from '../../vectorAddition.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import Graph from './Graph.js';
+import Vector, { VectorOptions } from './Vector.js';
+import VectorSet from './VectorSet.js';
 
 type SelfOptions = EmptySelfOptions;
 

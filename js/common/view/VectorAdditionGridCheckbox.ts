@@ -7,12 +7,12 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
+import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import GridCheckbox, { GridCheckboxOptions } from '../../../../scenery-phet/js/GridCheckbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import { combineOptions } from '../../../../phet-core/js/optionize.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 export default class VectorAdditionGridCheckbox extends GridCheckbox {
 

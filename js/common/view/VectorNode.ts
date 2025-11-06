@@ -7,37 +7,37 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { combineOptions, EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ArrowNode, { ArrowNodeOptions } from '../../../../scenery-phet/js/ArrowNode.js';
+import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListener.js';
 import Color from '../../../../scenery/js/util/Color.js';
+import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
-import VectorAngleNode from './VectorAngleNode.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { MoveVectorDragListener } from './MoveVectorDragListener.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Property from '../../../../axon/js/Property.js';
-import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import VectorTipNode from './VectorTipNode.js';
-import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
-import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
-import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
-import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
-import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import ScaleRotateVectorDragListener from './ScaleRotateVectorDragListener.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
+import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
+import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
+import ScaleRotateVectorDragListener from './ScaleRotateVectorDragListener.js';
 import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListener.js';
+import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
+import VectorAngleNode from './VectorAngleNode.js';
+import VectorTipNode from './VectorTipNode.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {

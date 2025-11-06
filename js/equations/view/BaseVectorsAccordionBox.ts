@@ -14,8 +14,11 @@
  * @author Brandon Li
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { EmptySelfOptions, optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -24,22 +27,19 @@ import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import AccordionBox, { AccordionBoxOptions } from '../../../../sun/js/AccordionBox.js';
+import BaseVector from '../../common/model/BaseVector.js';
 import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import { CoordinateSnapMode } from '../../common/model/CoordinateSnapMode.js';
 import PolarBaseVector from '../../common/model/PolarBaseVector.js';
+import VectorColorPalette from '../../common/model/VectorColorPalette.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import VectorSymbolNode from '../../common/view/VectorSymbolNode.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import BaseVectorsCheckbox from './BaseVectorsCheckbox.js';
-import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 import LabelEqualsAnglePicker from './LabelEqualsAnglePicker.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import VectorColorPalette from '../../common/model/VectorColorPalette.js';
-import BaseVector from '../../common/model/BaseVector.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
 
 const LABEL_MAX_WIDTH = 30; // maxWidth for picker labels, determined empirically
 const X_SPACING = 11; // horizontal spacing between the left NumberPicker and the right label

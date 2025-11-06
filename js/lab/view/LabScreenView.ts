@@ -9,15 +9,15 @@
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
+import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import LabModel from '../model/LabModel.js';
 import LabGraphControlPanel from './LabGraphControlPanel.js';
 import LabSceneNode from './LabSceneNode.js';
-import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
 import LabScreenSummaryContent from './LabScreenSummaryContent.js';
 import LabViewProperties from './LabViewProperties.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 

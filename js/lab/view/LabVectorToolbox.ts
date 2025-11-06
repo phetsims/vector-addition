@@ -9,12 +9,12 @@
  */
 
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
-import LabVectorToolboxSlot from './LabVectorToolboxSlot.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabScene from '../model/LabScene.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
+import LabVectorToolboxSlot from './LabVectorToolboxSlot.js';
 
 type SelfOptions = EmptySelfOptions;
 

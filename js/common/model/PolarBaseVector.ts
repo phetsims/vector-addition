@@ -11,22 +11,22 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import vectorAddition from '../../vectorAddition.js';
-import BaseVector, { BaseVectorOptions } from './BaseVector.js';
-import VectorSet from './VectorSet.js';
+import Property from '../../../../axon/js/Property.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { toDegrees } from '../../../../dot/js/util/toDegrees.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import { toRadians } from '../../../../dot/js/util/toRadians.js';
-import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
-import Graph from './Graph.js';
-import Property from '../../../../axon/js/Property.js';
-import Vector from './Vector.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from './ComponentVectorStyle.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import BaseVector, { BaseVectorOptions } from './BaseVector.js';
+import { ComponentVectorStyle } from './ComponentVectorStyle.js';
+import Graph from './Graph.js';
+import Vector from './Vector.js';
+import VectorSet from './VectorSet.js';
 
 type SelfOptions = EmptySelfOptions;
 

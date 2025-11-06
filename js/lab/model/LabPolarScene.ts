@@ -6,16 +6,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
-import LabScene from './LabScene.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import VectorAdditionColors from '../../common/VectorAdditionColors.js';
+import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
-import VectorAdditionColors from '../../common/VectorAdditionColors.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import LabScene from './LabScene.js';
 
 export default class LabPolarScene extends LabScene {
 
