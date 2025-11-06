@@ -14,7 +14,7 @@ import vectorAddition from '../../vectorAddition.js';
 
 export default class Explore1DViewProperties extends VectorAdditionViewProperties {
 
-  // whether the sum vector is visible
+  // Whether the sum vector is visible. Shared by both scenes in this screen.
   public readonly sumVisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
