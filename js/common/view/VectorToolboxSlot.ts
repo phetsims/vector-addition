@@ -75,7 +75,8 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
         phetioFeatured: true,
         visiblePropertyOptions: {
           phetioFeatured: true
-        }
+        },
+        phetioInputEnabledPropertyInstrumented: true
       }, providedOptions );
 
     super( options );
