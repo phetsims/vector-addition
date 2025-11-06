@@ -9,7 +9,7 @@
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import vectorAddition from '../../vectorAddition.js';
-import MoveGraphOriginKeyboardHelpSection from './MoveGraphOriginKeyboardHelpSection.js';
+import GraphOriginKeyboardHelpSection from './GraphOriginKeyboardHelpSection.js';
 
 export default class VectorAdditionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
@@ -21,7 +21,7 @@ export default class VectorAdditionKeyboardHelpContent extends TwoColumnKeyboard
     const leftSections = [
 
       // Move Graph Origin
-      new MoveGraphOriginKeyboardHelpSection()
+      new GraphOriginKeyboardHelpSection()
     ];
 
     // Sections in the right column.
