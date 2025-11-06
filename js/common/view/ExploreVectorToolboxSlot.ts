@@ -19,7 +19,7 @@ import { GraphOrientation } from '../model/GraphOrientation.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
-import { VectorToolboxSlot } from './VectorToolboxSlot.js';
+import VectorToolboxSlot from './VectorToolboxSlot.js';
 
 export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
 

@@ -34,7 +34,7 @@ import ComponentVectorNode from './ComponentVectorNode.js';
 import ResultantComponentVectorNode from './ResultantComponentVectorNode.js';
 import ResultantVectorNode from './ResultantVectorNode.js';
 import VectorNode from './VectorNode.js';
-import { VectorToolboxSlot } from './VectorToolboxSlot.js';
+import VectorToolboxSlot from './VectorToolboxSlot.js';
 
 export default class VectorSetNode extends Node {
 

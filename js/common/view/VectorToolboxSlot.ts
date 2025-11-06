@@ -35,7 +35,7 @@ type SelfOptions = {
 
 export type VectorToolboxSlotOptions = SelfOptions & PickRequired<HBoxOptions, 'tandem' | 'accessibleName' | 'accessibleHelpText'>;
 
-export class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
+export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
   protected constructor( vectors: Vector[], // vectors in the slot
                          getNextVector: () => Vector | null, // Gets the next available vector in the slot.
