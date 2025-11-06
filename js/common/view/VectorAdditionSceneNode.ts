@@ -41,7 +41,12 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionEraserButton from './VectorAdditionEraserButton.js';
 
 type SelfOptions = {
-  includeEraserButton?: boolean; // Indicates if an EraserButton should be included
+
+  // Indicates if an EraserButton should be included
+  includeEraserButton?: boolean;
+
+  // Creates an optional VectorToolbox.
+  createVectorToolbox?: ( ( sceneNode: VectorAdditionSceneNode ) => VectorToolbox ) | null;
 };
 
 export type SceneNodeOptions = SelfOptions & PickRequired<NodeOptions, 'tandem'>;
@@ -53,8 +58,8 @@ export default class VectorAdditionSceneNode extends Node {
   public readonly originManipulator: Node;
   public readonly vectorSetNodesParent: Node;
   public readonly vectorValuesAccordionBox: Node;
-  public vectorToolbox: Node | null;
-  public eraserButton: Node | null;
+  public readonly vectorToolbox: Node | null;
+  public readonly eraserButton: Node | null;
 
   // a layer for each VectorSet
   private readonly vectorSetNodes: VectorSetNode[];
@@ -72,6 +77,7 @@ export default class VectorAdditionSceneNode extends Node {
 
       // SelfOptions
       includeEraserButton: true,
+      createVectorToolbox: null,
 
       // NodeOptions
       isDisposable: false,
@@ -132,7 +138,6 @@ export default class VectorAdditionSceneNode extends Node {
     ] );
 
     // Optional eraser button
-    this.eraserButton = null;
     if ( options.includeEraserButton ) {
 
       const numberOfVectorsOnGraphProperties = _.map( scene.vectorSets, vectorSet => vectorSet.numberOfVectorsOnGraphProperty );
@@ -150,6 +155,18 @@ export default class VectorAdditionSceneNode extends Node {
       } );
       this.addChild( this.eraserButton );
       this.eraserButton.moveToBack();
+    }
+    else {
+      this.eraserButton = null;
+    }
+
+    // Optional vector toolbox.
+    if ( options.createVectorToolbox ) {
+      this.vectorToolbox = options.createVectorToolbox( this );
+      this.addChild( this.vectorToolbox );
+    }
+    else {
+      this.vectorToolbox = null;
     }
 
     this.addLinkedElement( scene );
@@ -178,16 +195,6 @@ export default class VectorAdditionSceneNode extends Node {
    */
   public registerVector( vector: Vector, vectorSet: VectorSet, forwardingEvent?: PressListenerEvent ): void {
     this.getVectorSetNode( vectorSet ).registerVector( vector, forwardingEvent );
-  }
-
-  /**
-   * Adds a VectorToolbox to the scene.
-   */
-  public addVectorToolbox( vectorToolbox: VectorToolbox ): void {
-    affirm( !this.vectorToolbox, 'addVectorToolbox can only be called once.' );
-    this.vectorToolbox = vectorToolbox;
-    this.addChild( this.vectorToolbox );
-    this.vectorToolbox.moveToBack();
   }
 }
 

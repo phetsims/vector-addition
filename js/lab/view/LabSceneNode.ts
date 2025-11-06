@@ -27,15 +27,15 @@ export default class LabSceneNode extends VectorAdditionSceneNode {
                       tandem: Tandem ) {
 
     super( scene, sceneProperty, [ viewProperties.sum1VisibleProperty, viewProperties.sum2VisibleProperty ], viewProperties, componentVectorStyleProperty, {
+
+      // This screen has a vector toolbox.
+      createVectorToolbox: sceneNode => new LabVectorToolbox( scene, sceneNode, {
+        left: sceneRadioButtonGroup.left,
+        bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
+        tandem: tandem.createTandem( 'vectorToolbox' )
+      } ),
       tandem: tandem
     } );
-
-    // Add the vector toolbox.
-    this.addVectorToolbox( new LabVectorToolbox( scene, this, {
-      left: sceneRadioButtonGroup.left,
-      bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
-      tandem: tandem.createTandem( 'vectorToolbox' )
-    } ) );
   }
 }
 

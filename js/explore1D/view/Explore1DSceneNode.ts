@@ -28,17 +28,17 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
                       tandem: Tandem ) {
 
     super( scene, sceneProperty, [ viewProperties.sumVisibleProperty ], viewProperties, componentVectorStyleProperty, {
+
+      // This screen has a vector toolbox.
+      createVectorToolbox: sceneNode => new ExploreVectorToolbox( scene, sceneNode, {
+        iconModelComponents: ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 2.5, 0 ) : new Vector2( 0, 2.5 ),
+        ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18,
+        left: sceneRadioButtonGroup.left,
+        bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
+        tandem: tandem.createTandem( 'vectorToolbox' )
+      } ),
       tandem: tandem
     } );
-
-    // Add the vector toolbox.
-    this.addVectorToolbox( new ExploreVectorToolbox( scene, this, {
-      iconModelComponents: ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 2.5, 0 ) : new Vector2( 0, 2.5 ),
-      ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18,
-      left: sceneRadioButtonGroup.left,
-      bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
-      tandem: tandem.createTandem( 'vectorToolbox' )
-    } ) );
   }
 }
 

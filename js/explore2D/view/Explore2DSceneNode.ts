@@ -28,16 +28,16 @@ export default class Explore2DSceneNode extends VectorAdditionSceneNode {
                       tandem: Tandem ) {
 
     super( scene, sceneProperty, [ viewProperties.sumVisibleProperty ], viewProperties, componentVectorStyleProperty, {
+
+      // This screen has a vector toolbox.
+      createVectorToolbox: sceneNode => new ExploreVectorToolbox( scene, sceneNode, {
+        iconModelComponents: new Vector2( 1.75, 1.75 ),
+        left: sceneRadioButtonGroup.left,
+        bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
+        tandem: tandem.createTandem( 'vectorToolbox' )
+      } ),
       tandem: tandem
     } );
-
-    // Add the vector toolbox.
-    this.addVectorToolbox( new ExploreVectorToolbox( scene, this, {
-      iconModelComponents: new Vector2( 1.75, 1.75 ),
-      left: sceneRadioButtonGroup.left,
-      bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
-      tandem: tandem.createTandem( 'vectorToolbox' )
-    } ) );
   }
 }
 
