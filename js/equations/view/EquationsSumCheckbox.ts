@@ -39,9 +39,8 @@ export default class EquationsSumCheckbox extends Checkbox {
                       polarScene: EquationsScene,
                       tandem: Tandem ) {
 
-    const accessibleSymbolProperty = new DerivedStringProperty( [ sceneProperty ], scene => {
-      return scene.vectorSet.resultantVector.accessibleSymbolProperty.value;
-    } );
+    const accessibleSymbolProperty = new DerivedStringProperty( [ sceneProperty ],
+      scene => scene.vectorSet.resultantVector.accessibleSymbolProperty.value );
 
     const options = combineOptions<CheckboxOptions>( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
