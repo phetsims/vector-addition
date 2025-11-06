@@ -12,6 +12,7 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import LocalizedStringProperty from '../../../../chipper/js/browser/LocalizedStringProperty.js';
 import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
+import EquationsVector from '../../equations/model/EquationsVector.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import BaseVector from '../model/BaseVector.js';
@@ -39,6 +40,19 @@ export class VectorValuesAccessibleParagraphProperty extends PatternStringProper
       // A base vector in the Equation screen.
       patternStringProperty = VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphBaseVectorStringProperty;
       patternStringPropertyOptions = {
+        symbol: vector.accessibleSymbolProperty,
+        magnitude: magnitudeProperty,
+        direction: directionProperty,
+        xComponent: xComponentProperty,
+        yComponent: yComponentProperty
+      };
+    }
+    else if ( vector instanceof EquationsVector ) {
+
+      // A vector that has a coefficient in the Equations screen.
+      patternStringProperty = VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphCoefficientVectorStringProperty;
+      patternStringPropertyOptions = {
+        coefficient: vector.coefficientProperty,
         symbol: vector.accessibleSymbolProperty,
         magnitude: magnitudeProperty,
         direction: directionProperty,
