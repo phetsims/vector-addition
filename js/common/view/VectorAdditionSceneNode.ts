@@ -87,7 +87,6 @@ export default class VectorAdditionSceneNode extends Node {
     super( options );
 
     this.vectorSets = scene.vectorSets;
-    this.vectorToolbox = null;
 
     // Graph
     const graphNode = new GraphNode( scene.graph, viewProperties.gridVisibleProperty, scene.selectedVectorProperty,
