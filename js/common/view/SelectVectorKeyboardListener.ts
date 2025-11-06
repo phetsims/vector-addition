@@ -19,7 +19,8 @@ export default class SelectVectorKeyboardListener extends KeyboardListener<OneKe
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'space' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.selectVectorStringProperty
+    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.selectVectorStringProperty,
+    keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.selectDescriptionStringProperty
   } );
 
   public constructor( vector: Vector ) {

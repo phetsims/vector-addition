@@ -23,24 +23,18 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
     const rows = [
 
       // Remove from graph
-      KeyboardHelpSectionRow.fromHotkeyData( RemoveVectorKeyboardListener.HOTKEY_DATA, {
-        pdomLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.removeFromGraphDescriptionStringProperty
-      } ),
+      KeyboardHelpSectionRow.fromHotkeyData( RemoveVectorKeyboardListener.HOTKEY_DATA ),
 
       // Select
-      KeyboardHelpSectionRow.fromHotkeyData( SelectVectorKeyboardListener.HOTKEY_DATA, {
-        pdomLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.selectDescriptionStringProperty
-      } ),
+      KeyboardHelpSectionRow.fromHotkeyData( SelectVectorKeyboardListener.HOTKEY_DATA ),
 
       // Move
       KeyboardHelpSectionRow.fromHotkeyData( MoveVectorKeyboardListener.HOTKEY_DATA, {
-        pdomLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.moveDescriptionStringProperty,
         icon: KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon()
       } ),
 
       // Scale and rotate via tip
       KeyboardHelpSectionRow.fromHotkeyData( ScaleRotateVectorKeyboardListener.HOTKEY_DATA, {
-        pdomLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.scaleRotateDescriptionStringProperty,
         icon: KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon()
       } )
     ];
