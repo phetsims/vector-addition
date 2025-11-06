@@ -41,6 +41,9 @@ type EquationsVectorSetOptions = SelfOptions & StrictOmit<VectorSetOptions<Equat
 
 export default class EquationsVectorSet extends VectorSet<EquationsVector> {
 
+  // The complete set of base vectors.
+  public readonly baseVectors: BaseVector[];
+
   // Symbols that appear in the equations on the radio buttons in EquationTypeRadioButtonGroup.
   public readonly equationSymbolProperties: TReadOnlyProperty<string>[];
 
@@ -105,6 +108,8 @@ export default class EquationsVectorSet extends VectorSet<EquationsVector> {
 
     super( graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
+    this.baseVectors = this.allVectors.map( vector => vector.baseVector );
+
     // All vectors are always active in the Equations screen.
     this.allVectors.forEach( vector => this.activeVectors.push( vector ) );
 
@@ -123,13 +128,6 @@ export default class EquationsVectorSet extends VectorSet<EquationsVector> {
     this.allVectors.forEach( vector => vector.reset() );
     // Do not call super.reset. The default behavior is to erase all vectors - that is, remove them from this.activeVectors,
     // returning them to the toolbox. In the Equations screen, there is no toolbox, and all vectors are always active.
-  }
-
-  /**
-   * Gets all base vectors.
-   */
-  public getBaseVectors(): BaseVector[] {
-    return this.allVectors.map( vector => vector.baseVector );
   }
 }
 
