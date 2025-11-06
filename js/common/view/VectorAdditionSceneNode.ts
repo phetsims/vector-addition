@@ -58,7 +58,7 @@ export default class VectorAdditionSceneNode extends Node {
   public readonly originManipulator: Node;
   public readonly vectorSetNodesParent: Node;
   public readonly vectorValuesAccordionBox: Node;
-  public readonly vectorToolbox: Node | null;
+  public readonly vectorToolbox: VectorToolbox | null;
   public readonly eraserButton: Node | null;
 
   // a layer for each VectorSet
@@ -87,6 +87,35 @@ export default class VectorAdditionSceneNode extends Node {
     super( options );
 
     this.vectorSets = scene.vectorSets;
+
+    // Optional vector toolbox.
+    if ( options.createVectorToolbox ) {
+      this.vectorToolbox = options.createVectorToolbox( this );
+    }
+    else {
+      this.vectorToolbox = null;
+    }
+
+    // Optional eraser button
+    if ( options.includeEraserButton ) {
+
+      const numberOfVectorsOnGraphProperties = _.map( scene.vectorSets, vectorSet => vectorSet.numberOfVectorsOnGraphProperty );
+      const numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( numberOfVectorsOnGraphProperties,
+        () => _.sumBy( numberOfVectorsOnGraphProperties, numberOfVectorsOnGraphProperties => numberOfVectorsOnGraphProperties.value ) );
+
+      this.eraserButton = new VectorAdditionEraserButton( numberOfVectorsOnGraphProperty, {
+        listener: () => {
+          this.interruptSubtreeInput(); // cancel all interactions for the scene
+          scene.erase();
+        },
+        right: scene.graph.viewBounds.maxX,
+        top: scene.graph.viewBounds.maxY + 15,
+        tandem: options.tandem.createTandem( 'eraserButton' )
+      } );
+    }
+    else {
+      this.eraserButton = null;
+    }
 
     // Graph
     const graphNode = new GraphNode( scene.graph, viewProperties.gridVisibleProperty, scene.selectedVectorProperty,
@@ -129,44 +158,14 @@ export default class VectorAdditionSceneNode extends Node {
     // So explicitly set a fixed pdomOrder for the VectorSetNodes.
     this.vectorSetNodesParent.pdomOrder = this.vectorSetNodes;
 
-    // Add the children in the correct z-order.
-    this.setChildren( [
-      this.graphNode,
-      this.vectorValuesAccordionBox,
-      this.vectorSetNodesParent
-    ] );
-
-    // Optional eraser button
-    if ( options.includeEraserButton ) {
-
-      const numberOfVectorsOnGraphProperties = _.map( scene.vectorSets, vectorSet => vectorSet.numberOfVectorsOnGraphProperty );
-      const numberOfVectorsOnGraphProperty = DerivedProperty.deriveAny( numberOfVectorsOnGraphProperties,
-        () => _.sumBy( numberOfVectorsOnGraphProperties, numberOfVectorsOnGraphProperties => numberOfVectorsOnGraphProperties.value ) );
-
-      this.eraserButton = new VectorAdditionEraserButton( numberOfVectorsOnGraphProperty, {
-        listener: () => {
-          this.interruptSubtreeInput(); // cancel all interactions for the scene
-          scene.erase();
-        },
-        right: scene.graph.viewBounds.maxX,
-        top: scene.graph.viewBounds.maxY + 15,
-        tandem: options.tandem.createTandem( 'eraserButton' )
-      } );
-      this.addChild( this.eraserButton );
-      this.eraserButton.moveToBack();
-    }
-    else {
-      this.eraserButton = null;
-    }
-
-    // Optional vector toolbox.
-    if ( options.createVectorToolbox ) {
-      this.vectorToolbox = options.createVectorToolbox( this );
-      this.addChild( this.vectorToolbox );
-    }
-    else {
-      this.vectorToolbox = null;
-    }
+    // Add children in the correct z-order.
+    const children = [];
+    this.vectorToolbox && children.push( this.vectorToolbox );
+    this.eraserButton && children.push( this.eraserButton );
+    children.push( this.graphNode );
+    children.push( this.vectorValuesAccordionBox );
+    children.push( this.vectorSetNodesParent );
+    this.setChildren( children );
 
     this.addLinkedElement( scene );
   }
