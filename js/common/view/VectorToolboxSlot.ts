@@ -12,7 +12,7 @@ import VectorSet from '../model/VectorSet.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import { optionize4 } from '../../../../phet-core/js/optionize.js';
 import vectorAddition from '../../vectorAddition.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import Vector from '../model/Vector.js';
@@ -24,6 +24,7 @@ import ArrowOverSymbolNode from './ArrowOverSymbolNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import AddVectorKeyboardListener from './AddVectorKeyboardListener.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import AccessibleInteractiveOptions from '../../../../scenery-phet/js/accessibility/AccessibleInteractiveOptions.js';
 
 type SelfOptions = {
   mouseAreaDilation: Vector2;
@@ -61,20 +62,21 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     // Label for the slot, always visible.
     const arrowOverSymbolNode = new ArrowOverSymbolNode( providedOptions.symbolProperty );
 
-    const options = optionize<VectorToolboxSlotOptions, SelfOptions, HBoxOptions>()( {
+    const options = optionize4<VectorToolboxSlotOptions, SelfOptions, HBoxOptions>()(
+      {}, AccessibleInteractiveOptions, {
 
-      // HBoxOptions
-      isDisposable: false,
-      children: [ alignBox, arrowOverSymbolNode ],
-      excludeInvisibleChildrenFromBounds: false,
-      cursor: 'move',
-      spacing: 5,
-      tagName: 'button',
-      phetioFeatured: true,
-      visiblePropertyOptions: {
-        phetioFeatured: true
-      }
-    }, providedOptions );
+        // HBoxOptions
+        isDisposable: false,
+        children: [ alignBox, arrowOverSymbolNode ],
+        excludeInvisibleChildrenFromBounds: false,
+        cursor: 'move',
+        spacing: 5,
+        tagName: 'button',
+        phetioFeatured: true,
+        visiblePropertyOptions: {
+          phetioFeatured: true
+        }
+      }, providedOptions );
 
     super( options );
 

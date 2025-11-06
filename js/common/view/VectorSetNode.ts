@@ -34,6 +34,7 @@ import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.j
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorToolboxSlot from './VectorToolboxSlot.js';
 
 export default class VectorSetNode extends Node {
 
@@ -50,6 +51,9 @@ export default class VectorSetNode extends Node {
   private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
   private readonly graphBoundsProperty: TReadOnlyProperty<Bounds2>;
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
+
+  // Focus moves here when all vectors have been removed from this VectorSetNode.
+  private vectorToolboxSlot: Node | null;
 
   public constructor( vectorSet: VectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
@@ -95,6 +99,7 @@ export default class VectorSetNode extends Node {
     this.vectorNodes = [];
     this.resultantVectorNode = resultantVectorNode;
     this.baseVectorNodes = [];
+    this.vectorToolboxSlot = null;
 
     this.modelViewTransformProperty = modelViewTransformProperty;
     this.selectedVectorProperty = selectedVectorProperty;
@@ -218,15 +223,8 @@ export default class VectorSetNode extends Node {
           // Update the pdomOrder to remove the deleted vectorNode.
           this.updatePDOMOrder();
 
-          // Move focus to the first element in the pdomOrder for the VectorSet.
-          // If the pdomOrder is empty, move focus to the toolbox slot that vector was in.
-          const nextVectorNode = _.find( this.pdomOrder, element => ( element !== null ) && element.focusable );
-          if ( nextVectorNode ) {
-            nextVectorNode.focus();
-          }
-          else {
-            //TODO https://github.com/phetsims/vector-addition/issues/329 Move focus to toolbox slot.
-          }
+          // Moves focus to another Node.
+          this.moveFocus();
 
           // dispose the Nodes that were created when vector was registered.
           // Do this AFTER updating the pdomOrder, or there will be trouble.
@@ -288,6 +286,41 @@ export default class VectorSetNode extends Node {
     const sortedVectorNodes = _.sortBy( this.vectorNodes, vectorNode => this.vectorSet.allVectors.indexOf( vectorNode.vector ) );
 
     this.pdomOrder = [ ...sortedVectorNodes, this.resultantVectorNode, ...this.baseVectorNodes ];
+  }
+
+  /**
+   * Sets the vector toolbox slot that this vector set is associate with.
+   */
+  public setVectorToolboxSlot( vectorToolboxSlot: VectorToolboxSlot ): void {
+    affirm( this.vectorToolboxSlot === null, 'vectorToolboxSlot already set' );
+    this.vectorToolboxSlot = vectorToolboxSlot;
+  }
+
+  /**
+   * Moves focus to the first element in the pdomOrder for the VectorSet.
+   * If the pdomOrder is empty, move focus to the toolbox slot that the vector was in.
+   */
+  private moveFocus(): void {
+    affirm( this.vectorToolboxSlot !== null, 'vectorToolboxSlot is required for moveFocus.' );
+
+    // Find the next VectorNode in the pdomOrder. This is complicated, so each condition is explained.
+    const nextVectorNode = _.find( this.pdomOrder, element =>
+      // pdomOrder may have contain null elements.
+      ( element !== null ) &&
+      // pdomOrder may have invisible elements.
+      element.visible &&
+      // pdomOrder may have non-focusable elements, like a VectorNode that is animating to the toolbox.
+      element.focusable &&
+      // ResultantVectorNode is a subclass of VectorNode, but its not defined if there are no other vectors on the graph
+      !( element instanceof ResultantVectorNode )
+    );
+
+    if ( nextVectorNode ) {
+      nextVectorNode.focus();
+    }
+    else {
+      this.vectorToolboxSlot.focus();
+    }
   }
 }
 

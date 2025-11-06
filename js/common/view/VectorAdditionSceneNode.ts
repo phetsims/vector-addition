@@ -168,6 +168,19 @@ export default class VectorAdditionSceneNode extends Node {
     this.setChildren( children );
 
     this.addLinkedElement( scene );
+
+    // If a VectorToolbox was created, connect each VectorSetNode to a slot in the VectorToolbox, so that focus returns
+    // to that slot when all vectors have been removed from the VectorSetNode. For the Explore 1D and Explore 2D screens,
+    // we have 1 vector set and 3 slots, where each slot contains 1 vector from that ector set. So this will associate
+    // the VectorSetNode with the first slot.
+    if ( this.vectorToolbox ) {
+      const vectorToolbox = this.vectorToolbox;
+      affirm( scene.vectorSets.length <= vectorToolbox.slots.length, 'There are more VectorSets than VectorToolboxSlots.' );
+      scene.vectorSets.forEach( ( vectorSet, index ) => {
+        const vectorSetNode = this.getVectorSetNode( vectorSet );
+        vectorSetNode.setVectorToolboxSlot( vectorToolbox.slots[ index ] );
+      } );
+    }
   }
 
   /**
