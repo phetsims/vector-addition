@@ -461,7 +461,7 @@
     "keyboardHelpDialog": {
       "vectors": {
         "removeFromGraphDescription": {
-          "value": "Remove from graph area with delete or backspace key."
+          "value": "Remove from graph area with delete or backspace keys."
         },
         "selectDescription": {
           "value": "Select with space key."
