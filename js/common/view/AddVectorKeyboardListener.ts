@@ -16,7 +16,6 @@ import VectorSet from '../model/VectorSet.js';
 import Vector from '../model/Vector.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 
 export default class AddVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
@@ -30,10 +29,8 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
   public constructor( getNextVector: () => Vector | null,
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
-                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
-                      tandem: Tandem ) {
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2> ) {
     super( {
-      tandem: tandem,
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ AddVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `AddVectorKeyboardListener: keysPressed=${keysPressed}` );
