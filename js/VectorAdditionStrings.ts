@@ -38,10 +38,12 @@ type StringsType = {
   'unsignedRangeStringProperty': LocalizedStringProperty;
   'keyboardHelpDialog': {
     'graphOriginStringProperty': LocalizedStringProperty;
+    'vectorsStringProperty': LocalizedStringProperty;
     'addVectorToGraphStringProperty': LocalizedStringProperty;
     'removeVectorFromGraphStringProperty': LocalizedStringProperty;
     'selectVectorStringProperty': LocalizedStringProperty;
     'moveVectorStringProperty': LocalizedStringProperty;
+    'scaleRotateVectorStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'explore1DScreen': {
@@ -233,6 +235,15 @@ type StringsType = {
     };
     'vectorAddedToGraphAreaStringProperty': LocalizedStringProperty;
     'vectorRemovedFromGraphAreaStringProperty': LocalizedStringProperty;
+    'keyboardHelpDialog': {
+      'vectors': {
+        'addToGraphDescriptionStringProperty': LocalizedStringProperty;
+        'removeFromGraphDescriptionStringProperty': LocalizedStringProperty;
+        'selectDescriptionStringProperty': LocalizedStringProperty;
+        'moveDescriptionStringProperty': LocalizedStringProperty;
+        'scaleRotateDescriptionStringProperty': LocalizedStringProperty;
+      }
+    }
   }
 };
 

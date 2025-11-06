@@ -10,17 +10,19 @@ import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboar
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import vectorAddition from '../../vectorAddition.js';
 import GraphOriginKeyboardHelpSection from './GraphOriginKeyboardHelpSection.js';
+import VectorsKeyboardHelpSection from './VectorsKeyboardHelpSection.js';
 
 export default class VectorAdditionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
   public constructor() {
 
-    //TODO https://github.com/phetsims/vector-addition/issues/329 Section for vectors.
-
     // Sections in the left column.
     const leftSections = [
 
-      // Move Graph Origin
+      // Vectors
+      new VectorsKeyboardHelpSection(),
+
+      // Graph Origin
       new GraphOriginKeyboardHelpSection()
     ];
 
