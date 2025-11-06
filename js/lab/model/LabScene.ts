@@ -35,7 +35,7 @@ export default class LabScene extends VectorAdditionScene {
   public readonly initialXYComponents: Vector2;
 
   /**
-   * @param sceneNameStringProperty
+   * @param accessibleSceneNameStringProperty
    * @param coordinateSnapMode - coordinateSnapMode for the scene
    * @param initialXYComponents - initial xy-components for all vectors in the scene
    * @param symbol1Property - symbol for vector set 1
@@ -47,7 +47,7 @@ export default class LabScene extends VectorAdditionScene {
    * @param componentVectorStyleProperty
    * @param tandem
    */
-  protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+  protected constructor( accessibleSceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
                          initialXYComponents: Vector2,
                          symbol1Property: TReadOnlyProperty<string>,
@@ -59,7 +59,7 @@ export default class LabScene extends VectorAdditionScene {
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          tandem: Tandem ) {
 
-    super( sceneNameStringProperty, coordinateSnapMode, {
+    super( accessibleSceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
         bounds: LAB_GRAPH_BOUNDS
       },

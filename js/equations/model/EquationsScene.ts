@@ -33,7 +33,7 @@ export default class EquationsScene extends VectorAdditionScene {
   // This scene has one vector set.
   public readonly vectorSet: EquationsVectorSet;
 
-  protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+  protected constructor( accessibleSceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          vectorColorPalette: VectorColorPalette,
@@ -42,7 +42,7 @@ export default class EquationsScene extends VectorAdditionScene {
                          resultantTandemNameSymbol: string,
                          tandem: Tandem ) {
 
-    super( sceneNameStringProperty, coordinateSnapMode, {
+    super( accessibleSceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
         bounds: VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS,
 

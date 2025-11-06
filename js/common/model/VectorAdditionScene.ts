@@ -35,8 +35,8 @@ type VectorAdditionSceneOptions = SelfOptions & PickRequired<PhetioObjectOptions
 
 export default class VectorAdditionScene extends PhetioObject {
 
-  // The scene's name, as used in interactive descriptions.
-  public readonly sceneNameStringProperty: TReadOnlyProperty<string>;
+  // The scene's name, as used in interactive descriptions. It does not appear in the visual UI.
+  public readonly accessibleSceneNameStringProperty: TReadOnlyProperty<string>;
 
   // coordinate snap mode for the scene, Cartesian or polar
   public readonly coordinateSnapMode: CoordinateSnapMode;
@@ -50,7 +50,7 @@ export default class VectorAdditionScene extends PhetioObject {
   // The selected vector. A scene has at most one selected vector. If null, there is no selected vector.
   public readonly selectedVectorProperty: Property<Vector | null>;
 
-  protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+  protected constructor( accessibleSceneNameStringProperty: TReadOnlyProperty<string>,
                          coordinateSnapMode: CoordinateSnapMode,
                          providedOptions: VectorAdditionSceneOptions ) {
 
@@ -64,7 +64,7 @@ export default class VectorAdditionScene extends PhetioObject {
 
     super( options );
 
-    this.sceneNameStringProperty = sceneNameStringProperty;
+    this.accessibleSceneNameStringProperty = accessibleSceneNameStringProperty;
     this.coordinateSnapMode = coordinateSnapMode;
 
     this.vectorSets = [];

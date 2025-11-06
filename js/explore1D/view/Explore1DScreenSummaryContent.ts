@@ -22,13 +22,13 @@ export default class Explore1DScreenSummaryContent extends ScreenSummaryContent 
       [ model.sceneProperty, model.horizontalScene.vectorSet.numberOfVectorsOnGraphProperty, model.verticalScene.vectorSet.numberOfVectorsOnGraphProperty ],
       scene => scene.vectorSet.numberOfVectorsOnGraphProperty.value );
 
-    const sceneNameStringProperty = new DerivedStringProperty(
-      [ model.sceneProperty, model.horizontalScene.sceneNameStringProperty, model.verticalScene.sceneNameStringProperty ],
-      scene => scene.sceneNameStringProperty.value );
+    const accessibleSceneNameStringProperty = new DerivedStringProperty(
+      [ model.sceneProperty, model.horizontalScene.accessibleSceneNameStringProperty, model.verticalScene.accessibleSceneNameStringProperty ],
+      scene => scene.accessibleSceneNameStringProperty.value );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.explore1DScreen.screenSummary.currentDetailsStringProperty, {
       numberOfVectors: numberOfVectorsProperty,
-      sceneName: sceneNameStringProperty
+      sceneName: accessibleSceneNameStringProperty
     } );
 
     super( {

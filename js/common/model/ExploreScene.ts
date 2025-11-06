@@ -22,7 +22,7 @@ export default class ExploreScene extends VectorAdditionScene {
   // This scene has one vector set.
   public readonly vectorSet: ExploreVectorSet;
 
-  protected constructor( sceneNameStringProperty: TReadOnlyProperty<string>,
+  protected constructor( accessibleSceneNameStringProperty: TReadOnlyProperty<string>,
                          graphBounds: Bounds2,
                          graphOrientation: GraphOrientation,
                          coordinateSnapMode: CoordinateSnapMode,
@@ -31,7 +31,7 @@ export default class ExploreScene extends VectorAdditionScene {
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          tandem: Tandem ) {
 
-    super( sceneNameStringProperty, coordinateSnapMode, {
+    super( accessibleSceneNameStringProperty, coordinateSnapMode, {
       graphOptions: {
         bounds: graphBounds,
         orientation: graphOrientation

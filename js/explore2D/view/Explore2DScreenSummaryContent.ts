@@ -22,13 +22,13 @@ export default class Explore2DScreenSummaryContent extends ScreenSummaryContent 
       [ model.sceneProperty, model.cartesianScene.vectorSet.numberOfVectorsOnGraphProperty, model.polarScene.vectorSet.numberOfVectorsOnGraphProperty ],
       scene => scene.vectorSet.numberOfVectorsOnGraphProperty.value );
 
-    const sceneNameStringProperty = new DerivedStringProperty(
-      [ model.sceneProperty, model.cartesianScene.sceneNameStringProperty, model.polarScene.sceneNameStringProperty ],
-      scene => scene.sceneNameStringProperty.value );
+    const accessibleSceneNameStringProperty = new DerivedStringProperty(
+      [ model.sceneProperty, model.cartesianScene.accessibleSceneNameStringProperty, model.polarScene.accessibleSceneNameStringProperty ],
+      scene => scene.accessibleSceneNameStringProperty.value );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.explore2DScreen.screenSummary.currentDetailsStringProperty, {
       numberOfVectors: numberOfVectorsProperty,
-      sceneName: sceneNameStringProperty
+      sceneName: accessibleSceneNameStringProperty
     } );
 
     super( {
