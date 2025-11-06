@@ -10,11 +10,11 @@ import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
-import { optionize4 } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
+import ParallelDOM from '../../../../scenery/js/accessibility/pdom/ParallelDOM.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
@@ -35,7 +35,7 @@ type SelfOptions = {
 
 export type VectorToolboxSlotOptions = SelfOptions & PickRequired<HBoxOptions, 'tandem' | 'accessibleName' | 'accessibleHelpText'>;
 
-export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
+export class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
   protected constructor( vectors: Vector[], // vectors in the slot
                          getNextVector: () => Vector | null, // Gets the next available vector in the slot.
@@ -62,21 +62,22 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     // Label for the slot, always visible.
     const arrowOverSymbolNode = new ArrowOverSymbolNode( providedOptions.symbolProperty );
 
-    const options = optionize4<VectorToolboxSlotOptions, SelfOptions, HBoxOptions>()(
-      {}, AccessibleDraggableOptions, {
+    const options = optionize<VectorToolboxSlotOptions, SelfOptions, HBoxOptions>()( {
 
-        // HBoxOptions
-        isDisposable: false,
-        children: [ alignBox, arrowOverSymbolNode ],
-        excludeInvisibleChildrenFromBounds: false,
-        cursor: 'move',
-        spacing: 5,
-        phetioFeatured: true,
-        visiblePropertyOptions: {
-          phetioFeatured: true
-        },
-        phetioInputEnabledPropertyInstrumented: true
-      }, providedOptions );
+      // HBoxOptions
+      isDisposable: false,
+      children: [ alignBox, arrowOverSymbolNode ],
+      excludeInvisibleChildrenFromBounds: false,
+      tagName: 'button',
+      accessibleHelpTextBehavior: ParallelDOM.HELP_TEXT_AFTER_CONTENT,
+      cursor: 'move',
+      spacing: 5,
+      phetioFeatured: true,
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      },
+      phetioInputEnabledPropertyInstrumented: true
+    }, providedOptions );
 
     super( options );
 

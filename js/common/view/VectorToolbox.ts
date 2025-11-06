@@ -18,7 +18,7 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import VectorToolboxSlot from './VectorToolboxSlot.js';
+import { VectorToolboxSlot } from './VectorToolboxSlot.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'center' | 'bottom';
