@@ -38,8 +38,8 @@ export default class ScaleRotateVectorDragListener extends SoundDragListener {
       targetNode: tipNode,
       positionProperty: tipPositionViewProperty,
       start: () => {
-        affirm( !vector.animateBackProperty.value && !vector.isAnimating(),
-          'ScaleRotateVectorDragListener should be removed when the vector is animating back.' );
+        affirm( !vector.animateToToolboxProperty.value && !vector.isAnimating(),
+          'ScaleRotateVectorDragListener should be removed when the vector is animating to the toolbox.' );
         selectedVectorProperty.value = vector;
       },
       end: () => {

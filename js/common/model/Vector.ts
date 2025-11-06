@@ -94,7 +94,7 @@ export default class Vector extends RootVector {
   private animation: Animation | null;
 
   // indicates if the vector should be animated back to the toolbox
-  public readonly animateBackProperty: Property<boolean>;
+  public readonly animateToToolboxProperty: Property<boolean>;
 
   // the vector's x and y component vectors
   public readonly xComponentVector: ComponentVector;
@@ -148,7 +148,7 @@ export default class Vector extends RootVector {
     } );
 
     this.animation = null;
-    this.animateBackProperty = new BooleanProperty( false );
+    this.animateToToolboxProperty = new BooleanProperty( false );
 
     this.xComponentVector = new ComponentVector( this, componentVectorStyleProperty, 'xComponent' );
     this.yComponentVector = new ComponentVector( this, componentVectorStyleProperty, 'yComponent' );
@@ -174,7 +174,7 @@ export default class Vector extends RootVector {
       this.animation = null;
     }
     this.isOnGraphProperty.reset();
-    this.animateBackProperty.reset();
+    this.animateToToolboxProperty.reset();
   }
 
   /**

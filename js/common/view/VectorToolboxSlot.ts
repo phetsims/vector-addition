@@ -121,7 +121,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     vectorSet.activeVectors.addItemAddedListener( vector => {
       if ( vectors.includes( vector ) ) {
 
-        const animateVectorBackListener = ( animateBack: boolean ) => {
+        const animateToToolboxListener = ( animateBack: boolean ) => {
           if ( animateBack ) {
 
             // Get the model position of the icon node.
@@ -131,15 +131,15 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
             vector.animateToPoint( iconPosition, iconModelComponents, () => vector.returnToToolbox() );
           }
         };
-        affirm( !vector.animateBackProperty.hasListener( animateVectorBackListener ),
-          `vector ${vector.accessibleSymbolProperty.value} animateBackProperty already has animateVectorBackListener.` );
-        vector.animateBackProperty.link( animateVectorBackListener ); // unlink required when vector is removed
+        affirm( !vector.animateToToolboxProperty.hasListener( animateToToolboxListener ),
+          `vector ${vector.accessibleSymbolProperty.value} animateToToolboxProperty already has animateToToolboxListener.` );
+        vector.animateToToolboxProperty.link( animateToToolboxListener ); // unlink required when vector is removed
 
         // Clean up when the vector is removed from activeVectors.
         const vectorRemovedListener = ( removedVector: Vector ) => {
           if ( removedVector === vector ) {
-            vector.animateBackProperty.value = false;
-            vector.animateBackProperty.unlink( animateVectorBackListener );
+            vector.animateToToolboxProperty.value = false;
+            vector.animateToToolboxProperty.unlink( animateToToolboxListener );
             vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
           }
         };

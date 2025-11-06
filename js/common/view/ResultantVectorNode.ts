@@ -65,9 +65,9 @@ export default class ResultantVectorNode extends VectorNode {
     } );
 
     // Double check that the vector node never animates back to the toolbox.
-    isAffirmEnabled() && resultantVector.animateBackProperty.link( animateBack => {
-      if ( animateBack ) {
-        affirm( false, 'ResultantVectorNode instances never animated back' );
+    isAffirmEnabled() && resultantVector.animateToToolboxProperty.link( animateToToolbox => {
+      if ( animateToToolbox ) {
+        affirm( false, 'ResultantVectorNode instances never animated to the toolbox.' );
       }
     } );
 

@@ -72,7 +72,7 @@ export class MoveVectorDragListener extends SoundDragListener {
           else {
 
             // Animate the vector back to the toolbox.
-            vector.animateBackProperty.value = true;
+            vector.animateToToolboxProperty.value = true;
           }
         }
       }

@@ -187,9 +187,9 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
     // Update the appearance of the vector's shadow. Must be disposed.
     const shadowMultilink = Multilink.multilink(
-      [ vector.isOnGraphProperty, vector.xyComponentsProperty, this.vector.animateBackProperty ],
-      ( isOnGraph, xyComponents, animateBack ) => {
-        vectorShadowNode.visible = ( !animateBack && !isOnGraph );
+      [ vector.isOnGraphProperty, this.vector.animateToToolboxProperty, vector.xyComponentsProperty ],
+      ( isOnGraph, animateToToolbox, xyComponents ) => {
+        vectorShadowNode.visible = ( !isOnGraph && !animateToToolbox );
         vectorShadowNode.resetTransform();
         if ( !isOnGraph && vectorShadowNode.getBounds().isValid() ) {
           vectorShadowNode.left = this.arrowNode.left + SHADOW_X_OFFSET;
@@ -222,7 +222,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
         tipNode.focusable = false;
       }
     };
-    this.vector.animateBackProperty.lazyLink( animateBackListener );
+    this.vector.animateToToolboxProperty.lazyLink( animateBackListener );
 
     this.focusedProperty.lazyLink( focused => {
       if ( focused && vector.isOnGraphProperty.value ) {
@@ -242,7 +242,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       // Dispose of appearance-related listeners
       shadowMultilink.dispose();
       selectedVectorProperty.unlink( selectedVectorListener );
-      this.vector.animateBackProperty.unlink( animateBackListener );
+      this.vector.animateToToolboxProperty.unlink( animateBackListener );
     };
   }
 
