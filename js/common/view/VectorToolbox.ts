@@ -16,9 +16,9 @@ import Color from '../../../../scenery/js/util/Color.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
-import LabVectorToolboxSlot from '../../lab/view/LabVectorToolboxSlot.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import VectorToolboxSlot from './VectorToolboxSlot.js';
 
 type HorizontalAlign = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'center' | 'bottom';
@@ -35,7 +35,9 @@ export type VectorToolboxOptions = SelfOptions & NodeTranslationOptions & PickRe
 
 export default class VectorToolbox extends Panel {
 
-  protected constructor( panelSlots: LabVectorToolboxSlot[], providedOptions: VectorToolboxOptions ) {
+  public readonly slots: VectorToolboxSlot[];
+
+  protected constructor( slots: VectorToolboxSlot[], providedOptions: VectorToolboxOptions ) {
 
     const options = optionize4<VectorToolboxOptions, SelfOptions, PanelOptions>()(
       {}, VectorAdditionConstants.PANEL_OPTIONS, {
@@ -63,7 +65,7 @@ export default class VectorToolbox extends Panel {
     // Create the container for the slots in a vertical alignment
     const slotsContainer = new VBox( {
       spacing: options.ySpacing,
-      children: panelSlots
+      children: slots
     } );
 
     // Align the slots in a AlignBox to ensure sizing/alignment is correct
@@ -76,6 +78,8 @@ export default class VectorToolbox extends Panel {
     } );
 
     super( fixedSizeSlotsContainer, options );
+
+    this.slots = slots;
   }
 }
 
