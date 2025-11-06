@@ -461,16 +461,16 @@
     "keyboardHelpDialog": {
       "vectors": {
         "removeFromGraphDescription": {
-          "value": "Remove vector from graph area with backspace or delete key."
+          "value": "Remove from graph area with backspace or delete key."
         },
         "selectDescription": {
-          "value": "Select vector with space."
+          "value": "Select with space."
         },
         "moveDescription": {
-          "value": "Move vector with arrow keys or W, A, S, D keys."
+          "value": "Move with arrow keys or W, A, S, or D keys."
         },
         "scaleRotateDescription": {
-          "value": "Scale and rotate vector via tip with arrow keys or W, A, S, D keys."
+          "value": "Scale and rotate via tip with arrow keys or W, A, S, or D keys."
         }
       }
     }
