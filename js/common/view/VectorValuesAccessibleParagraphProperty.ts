@@ -53,7 +53,7 @@ export class VectorValuesAccessibleParagraphProperty extends PatternStringProper
       patternStringProperty = VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleParagraphCoefficientVectorStringProperty;
       patternStringPropertyOptions = {
         coefficient: vector.coefficientProperty,
-        symbol: vector.accessibleSymbolProperty,
+        symbol: vector.baseVector.accessibleSymbolProperty,
         magnitude: magnitudeProperty,
         direction: directionProperty,
         xComponent: xComponentProperty,
