@@ -90,8 +90,8 @@ export default class Vector extends RootVector {
   // indicates whether the vector is on the graph
   public readonly isOnGraphProperty: Property<boolean>;
 
-  // {Animation|null} Animates tailPositionProperty to move the vector back to the toolbox.
-  private tailPositionAnimation: Animation | null;
+  // {Animation|null} Animates the vector back to the toolbox.
+  private animation: Animation | null;
 
   // indicates if the vector should be animated back to the toolbox
   public readonly animateBackProperty: Property<boolean>;
@@ -147,7 +147,7 @@ export default class Vector extends RootVector {
       phetioFeatured: true
     } );
 
-    this.tailPositionAnimation = null;
+    this.animation = null;
     this.animateBackProperty = new BooleanProperty( false );
 
     this.xComponentVector = new ComponentVector( this, componentVectorStyleProperty, 'xComponent' );
@@ -168,10 +168,10 @@ export default class Vector extends RootVector {
 
   public override reset(): void {
     super.reset();
-    if ( this.tailPositionAnimation ) {
-      this.tailPositionAnimation.stop();
-      this.tailPositionAnimation.dispose();
-      this.tailPositionAnimation = null;
+    if ( this.animation ) {
+      this.animation.stop();
+      this.animation.dispose();
+      this.animation = null;
     }
     this.isOnGraphProperty.reset();
     this.animateBackProperty.reset();
@@ -208,7 +208,7 @@ export default class Vector extends RootVector {
    */
   protected setTipPositionWithInvariants( tipPosition: Vector2 ): void {
 
-    affirm( !this.tailPositionAnimation, 'this.inProgressAnimation must be false' );
+    affirm( !this.animation, 'this.inProgressAnimation must be false' );
 
     // Flag to get the tip point that satisfies invariants (to be calculated below)
     let tipPositionWithInvariants: Vector2;
@@ -270,7 +270,7 @@ export default class Vector extends RootVector {
    */
   private setTailPositionWithInvariants( tailPosition: Vector2 ): void {
 
-    affirm( !this.tailPositionAnimation, 'this.inProgressAnimation must be false' );
+    affirm( !this.animation, 'this.inProgressAnimation must be false' );
 
     const constrainedTailBounds = this.getConstrainedTailBounds();
 
@@ -362,35 +362,38 @@ export default class Vector extends RootVector {
    */
   public animateToPoint( point: Vector2, finalComponents: Vector2, finishCallback: () => void ): void {
 
-    affirm( !this.tailPositionAnimation, `Animation is already in progress for vector ${this.accessibleSymbolProperty.value}` );
+    affirm( !this.animation, `Animation is already in progress for vector ${this.accessibleSymbolProperty.value}` );
     affirm( !this.isOnGraphProperty.value, `Cannot animate when vector ${this.accessibleSymbolProperty.value} is on the graph.` );
 
     // Calculate the tail position to animate to
     const tailPosition = point.minus( finalComponents.timesScalar( 0.5 ) );
 
-    this.tailPositionAnimation = new Animation( {
+    this.animation = new Animation( {
       duration: this.tail.distance( tailPosition ) / ANIMATION_SPEED,
-      targets: [ {
-        property: this.tailPositionProperty,
-        easing: Easing.LINEAR,
-        to: tailPosition
-      }, {
-        property: this.xyComponentsProperty,
-        easing: Easing.LINEAR,
-        to: finalComponents
-      } ]
+      targets: [
+        {
+          property: this.tailPositionProperty,
+          easing: Easing.LINEAR,
+          to: tailPosition
+        },
+        {
+          property: this.xyComponentsProperty,
+          easing: Easing.LINEAR,
+          to: finalComponents
+        }
+      ]
     } );
 
     // Called when the animation finishes naturally
     const finishListener = () => {
-      affirm( this.tailPositionAnimation !== null, 'inProgressAnimation should not be null.' );
-      this.tailPositionAnimation.finishEmitter.removeListener( finishListener );
-      this.tailPositionAnimation = null;
+      affirm( this.animation !== null, 'inProgressAnimation should not be null.' );
+      this.animation.finishEmitter.removeListener( finishListener );
+      this.animation = null;
       finishCallback();
     };
-    this.tailPositionAnimation.finishEmitter.addListener( finishListener );
+    this.animation.finishEmitter.addListener( finishListener );
 
-    this.tailPositionAnimation.start();
+    this.animation.start();
   }
 
   /**
@@ -400,7 +403,7 @@ export default class Vector extends RootVector {
   public dropOntoGraph( tailPosition: Vector2 ): void {
 
     affirm( !this.isOnGraphProperty.value, `Vector ${this.accessibleSymbolProperty.value} is already on the graph.` );
-    affirm( !this.tailPositionAnimation, `Cannot drop vector ${this.accessibleSymbolProperty.value} when it is animating.` );
+    affirm( !this.animation, `Cannot drop vector ${this.accessibleSymbolProperty.value} when it is animating.` );
 
     this.isOnGraphProperty.value = true;
 
@@ -417,7 +420,7 @@ export default class Vector extends RootVector {
   public popOffOfGraph(): void {
 
     affirm( this.isOnGraphProperty.value, `Attempted pop off graph when vector ${this.accessibleSymbolProperty.value} was already off.` );
-    affirm( !this.tailPositionAnimation, `Cannot pop vector ${this.accessibleSymbolProperty.value} off graph when it is animating.` );
+    affirm( !this.animation, `Cannot pop vector ${this.accessibleSymbolProperty.value} off graph when it is animating.` );
 
     this.isOnGraphProperty.value = false;
     this.selectedVectorProperty.value = null;
@@ -437,7 +440,7 @@ export default class Vector extends RootVector {
    * Returns true when the Vector is animating.
    */
   public isAnimating(): boolean {
-    return this.tailPositionAnimation !== null;
+    return this.animation !== null;
   }
 
   /**
