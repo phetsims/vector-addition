@@ -14,10 +14,10 @@ import vectorAddition from '../../vectorAddition.js';
 
 export default class LabViewProperties extends VectorAdditionViewProperties {
 
-  // Whether the sum vector for vector set 1 is visible. Shared by both scenes in this screen.
+  // Whether the sum vector for vector set 1 (su or sp) is visible. Shared by both scenes in this screen.
   public readonly sum1VisibleProperty: Property<boolean>;
 
-  // Whether the sum vector for vector set 2 is visible. Shared by both scenes in this screen.
+  // Whether the sum vector for vector set 2 (sv or sq) is visible. Shared by both scenes in this screen.
   public readonly sum2VisibleProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
