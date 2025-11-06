@@ -20,23 +20,26 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
 
   public constructor( model: EquationsModel ) {
 
-    affirm( model.cartesianScene.vectorSet.baseVectors.length === 2, 'Unexpected number of base vectors in cartesianScene.' );
-    affirm( model.polarScene.vectorSet.baseVectors.length === 2, 'Unexpected number of base vectors in polarScene.' );
+    const cartesianBaseVectors = model.cartesianScene.vectorSet.baseVectors;
+    const polarBaseVectors = model.polarScene.vectorSet.baseVectors;
+
+    affirm( cartesianBaseVectors.length === 2, 'Unexpected number of base vectors in cartesianScene.' );
+    affirm( polarBaseVectors.length === 2, 'Unexpected number of base vectors in polarScene.' );
 
     // Control Area description
     const controlAreaStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty, {
 
       symbol1: new DerivedStringProperty( [
           model.sceneProperty,
-          model.cartesianScene.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty,
-          model.polarScene.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty
+          cartesianBaseVectors[ 0 ].accessibleSymbolProperty,
+          polarBaseVectors[ 0 ].accessibleSymbolProperty
         ],
         scene => scene.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty.value ),
 
       symbol2: new DerivedStringProperty( [
           model.sceneProperty,
-          model.cartesianScene.vectorSet.baseVectors[ 1 ].accessibleSymbolProperty,
-          model.polarScene.vectorSet.baseVectors[ 1 ].accessibleSymbolProperty
+          cartesianBaseVectors[ 1 ].accessibleSymbolProperty,
+          polarBaseVectors[ 1 ].accessibleSymbolProperty
         ],
         scene => scene.vectorSet.baseVectors[ 1 ].accessibleSymbolProperty.value ),
 
