@@ -20,11 +20,32 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
 
   public constructor( model: EquationsModel ) {
 
+    affirm( model.cartesianScene.vectorSet.allVectors.length === 2, 'Unexpected number of vectors in cartesianScene.' );
+    affirm( model.polarScene.vectorSet.allVectors.length === 2, 'Unexpected number of vectors in polarScene.' );
+
     // Control Area description
     const controlAreaStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty, {
-      symbol1: new DerivedStringProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 0 ].accessibleSymbolProperty.value ),
-      symbol2: new DerivedStringProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 1 ].accessibleSymbolProperty.value ),
-      symbol3: new DerivedStringProperty( [ model.sceneProperty ], scene => scene.vectorSet.resultantVector.accessibleSymbolProperty.value )
+
+      symbol1: new DerivedStringProperty( [
+          model.sceneProperty,
+          model.cartesianScene.vectorSet.allVectors[ 0 ].accessibleSymbolProperty,
+          model.polarScene.vectorSet.allVectors[ 0 ].accessibleSymbolProperty
+        ],
+        scene => scene.vectorSet.allVectors[ 0 ].accessibleSymbolProperty.value ),
+
+      symbol2: new DerivedStringProperty( [
+          model.sceneProperty,
+          model.cartesianScene.vectorSet.allVectors[ 1 ].accessibleSymbolProperty,
+          model.polarScene.vectorSet.allVectors[ 1 ].accessibleSymbolProperty
+        ],
+        scene => scene.vectorSet.allVectors[ 1 ].accessibleSymbolProperty.value ),
+
+      symbol3: new DerivedStringProperty( [
+          model.sceneProperty,
+          model.cartesianScene.vectorSet.resultantVector.accessibleSymbolProperty,
+          model.polarScene.vectorSet.resultantVector.accessibleSymbolProperty
+        ],
+        scene => scene.vectorSet.resultantVector.accessibleSymbolProperty.value )
     } );
 
     // Current Details description
