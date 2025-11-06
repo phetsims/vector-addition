@@ -115,8 +115,8 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     };
     vector.xyComponentsProperty.link( xyComponentsListener ); // Must be unlinked in dispose.
 
-    this.focusedProperty.lazyLink( focussed => {
-      if ( focussed ) {
+    this.focusedProperty.lazyLink( focused => {
+      if ( focused ) {
         this.doAccessibleObjectResponse();
       }
     } );
