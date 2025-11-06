@@ -30,9 +30,10 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
   public constructor( getNextVector: () => Vector | null,
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
-                      graphBoundsProperty: TReadOnlyProperty<Bounds2> ) {
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      tandem: Tandem ) {
     super( {
-      tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
+      tandem: tandem,
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ AddVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `AddVectorKeyboardListener: keysPressed=${keysPressed}` );
