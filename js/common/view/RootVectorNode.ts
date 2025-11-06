@@ -156,7 +156,9 @@ export default class RootVectorNode extends Node {
    * Updates the label positioning, called when the vector is changing or the value checkbox is clicked.
    * This can be overridden if the positioning isn't appropriate (e.g. component nodes have different positioning)
    */
-  protected updateLabelPositioning( rootVector: RootVector, modelViewTransform: ModelViewTransform2, valuesVisible: boolean ): void {
+  protected updateLabelPositioning( rootVector: RootVector,
+                                    modelViewTransform: ModelViewTransform2,
+                                    valuesVisible: boolean ): void {
 
     // Reset the rotation
     this.labelNode.setRotation( 0 );

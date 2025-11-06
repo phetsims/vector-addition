@@ -168,7 +168,8 @@ export default class ComponentVectorNode extends RootVectorNode {
   /**
    * Updates the label positioning of the vector component. Vector components have a unique label positioning.
    */
-  protected override updateLabelPositioning( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
+  protected override updateLabelPositioning( componentVector: ComponentVector,
+                                             modelViewTransform: ModelViewTransform2,
                                              valuesVisible: boolean ): void {
 
     // If the magnitude of the componentVector is 0, then position the label node on the 'tail'
