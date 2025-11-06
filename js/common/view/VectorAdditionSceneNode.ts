@@ -183,9 +183,9 @@ export default class VectorAdditionSceneNode extends Node {
   /**
    * Adds a VectorToolbox to the scene.
    */
-  public addVectorToolbox( vectorCreatorPanel: VectorToolbox ): void {
+  public addVectorToolbox( vectorToolbox: VectorToolbox ): void {
     affirm( !this.vectorToolbox, 'addVectorToolbox can only be called once.' );
-    this.vectorToolbox = vectorCreatorPanel;
+    this.vectorToolbox = vectorToolbox;
     this.addChild( this.vectorToolbox );
     this.vectorToolbox.moveToBack();
   }
