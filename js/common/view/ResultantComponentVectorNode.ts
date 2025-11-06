@@ -60,21 +60,20 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
     // Update when the resultant vector becomes visible or defined.
     Multilink.multilink(
       [ resultantVectorVisibleProperty, resultantVector.isDefinedProperty ],
-      () => this.updateComponentVector( componentVector,
-        modelViewTransformProperty.value,
-        componentVectorStyleProperty.value,
-        selectedVectorProperty.value === componentVector.parentVector )
+      () => this.updateComponentVectorNode( componentVector, selectedVectorProperty.value,
+        modelViewTransformProperty.value, componentVectorStyleProperty.value )
     );
   }
 
   /**
-   * Handles visibility of xy-component vectors.
+   * Overrides to handle visibility of the resultant vector's xy-component vectors.
    */
-  protected override updateComponentVector(
-    componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
-    componentVectorStyle: ComponentVectorStyle, isParentVectorSelected: boolean ): void {
+  protected override updateComponentVectorNode( componentVector: ComponentVector,
+                                                selectedVector: Vector | null,
+                                                modelViewTransform: ModelViewTransform2,
+                                                componentVectorStyle: ComponentVectorStyle ): void {
 
-    super.updateComponentVector( componentVector, modelViewTransform, componentVectorStyle, isParentVectorSelected );
+    super.updateComponentVectorNode( componentVector, selectedVector, modelViewTransform, componentVectorStyle );
 
     const resultantVector = componentVector.parentVector as ResultantVector;
     affirm( resultantVector instanceof ResultantVector, 'expected an instance of ResultantVector' );

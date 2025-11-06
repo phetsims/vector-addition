@@ -73,23 +73,15 @@ export default class ComponentVectorNode extends RootVectorNode {
     } );
     this.addChild( this.leaderLinesPath );
 
-    //----------------------------------------------------------------------------------------
-    // Create a multilink to observe:
-    //  - componentVectorStyleProperty - to determine visibility (i.e. components shouldn't be visible on INVISIBLE)
-    //      and to draw lines for ComponentVectorStyle 'projection'
-    //  - isOnGraphProperty - components shouldn't be visible if the vector isn't on the graph
-    //  - xyComponentsProperty - to update the leader lines drawings positions
-    //
-    // dispose is required.
-    const componentVectorMultilink = Multilink.multilink(
-      [ componentVectorStyleProperty, selectedVectorProperty,
-        componentVector.isOnGraphProperty, componentVector.xyComponentsProperty ],
-      ( componentVectorStyle, selectedVector ) => {
-
-        this.updateComponentVector( componentVector,
-          modelViewTransformProperty.value,
-          componentVectorStyle,
-          selectedVector === componentVector.parentVector );
+    const componentVectorMultilink = Multilink.multilink( [
+        selectedVectorProperty,
+        modelViewTransformProperty,
+        componentVectorStyleProperty,
+        componentVector.isOnGraphProperty,
+        componentVector.xyComponentsProperty
+      ],
+      ( selectedVector, modelViewTransform, componentVectorStyle, isOnGraph, xyComponents ) => {
+        this.updateComponentVectorNode( componentVector, selectedVector, modelViewTransform, componentVectorStyle );
       } );
 
     // Highlight the component vector's label when its parent vector is selected.
@@ -113,14 +105,14 @@ export default class ComponentVectorNode extends RootVectorNode {
   }
 
   /**
-   * Updates the component vector node:
-   *  - Draws leader lines when componentVectorStyle is ON_AXIS
-   *  - Determines visibility (i.e. components shouldn't be visible on INVISIBLE)
+   * Updates how the component vector is displayed.
    */
-  protected updateComponentVector( componentVector: ComponentVector, modelViewTransform: ModelViewTransform2,
-                                   componentVectorStyle: ComponentVectorStyle, isParentVectorSelected: boolean ): void {
+  protected updateComponentVectorNode( componentVector: ComponentVector,
+                                       selectedVector: Vector | null,
+                                       modelViewTransform: ModelViewTransform2,
+                                       componentVectorStyle: ComponentVectorStyle ): void {
 
-    // Component vectors are visible when it isn't INVISIBLE, and it is on the graph.
+    // Component vectors are visible when they are on the graph and style is not 'invisible'.
     this.visible = componentVector.isOnGraphProperty.value && ( componentVectorStyle !== 'invisible' );
 
     if ( componentVectorStyle === 'projection' ) {
@@ -158,11 +150,15 @@ export default class ComponentVectorNode extends RootVectorNode {
         .moveToPoint( tipPosition )
         .lineToPoint( parentTipPosition );
 
-      if ( isParentVectorSelected ) {
+      if ( selectedVector && componentVector.parentVector === selectedVector ) {
+
+        // The parent vector is selected, so the leader lines should look selected.
         this.leaderLinesPath.stroke = VectorAdditionColors.leaderLinesSelectedStrokeProperty;
         this.leaderLinesPath.lineDash = SELECTED_LEADER_LINES_DASH;
       }
       else {
+
+        // The parent vector is not selected, so the leader lines should not look selected.
         this.leaderLinesPath.stroke = VectorAdditionColors.leaderLinesUnselectedStrokeProperty;
         this.leaderLinesPath.lineDash = UNSELECTED_LEADER_LINES_DASH;
       }
