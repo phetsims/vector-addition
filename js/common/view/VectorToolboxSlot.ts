@@ -13,7 +13,7 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import { optionize4 } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import AccessibleInteractiveOptions from '../../../../scenery-phet/js/accessibility/AccessibleInteractiveOptions.js';
+import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import SoundDragListener from '../../../../scenery-phet/js/SoundDragListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
@@ -63,7 +63,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
     const arrowOverSymbolNode = new ArrowOverSymbolNode( providedOptions.symbolProperty );
 
     const options = optionize4<VectorToolboxSlotOptions, SelfOptions, HBoxOptions>()(
-      {}, AccessibleInteractiveOptions, {
+      {}, AccessibleDraggableOptions, {
 
         // HBoxOptions
         isDisposable: false,
@@ -71,7 +71,6 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
         excludeInvisibleChildrenFromBounds: false,
         cursor: 'move',
         spacing: 5,
-        tagName: 'button',
         phetioFeatured: true,
         visiblePropertyOptions: {
           phetioFeatured: true
@@ -116,6 +115,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
       const slotIsEmpty = _.every( vectors, vector => vectorSet.activeVectors.includes( vector ) );
       iconNode.opacity = slotIsEmpty ? 0 : 1; // Workaround: hiding the icon causes the size of the focus highlight to change.
       this.pickable = !slotIsEmpty;
+      this.focusable = !slotIsEmpty;
     } );
 
     // When a vector from this slot is added to activeVectors, add the listener that handles animating it back to the slot.
