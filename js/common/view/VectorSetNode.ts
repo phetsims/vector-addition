@@ -74,6 +74,7 @@ export default class VectorSetNode extends Node {
 
     const xResultantComponentVectorNode = new ResultantComponentVectorNode(
       resultantVector.xComponentVector,
+      resultantVector,
       modelViewTransformProperty,
       selectedVectorProperty,
       componentVectorStyleProperty,
@@ -82,6 +83,7 @@ export default class VectorSetNode extends Node {
 
     const yResultantComponentVectorNode = new ResultantComponentVectorNode(
       resultantVector.yComponentVector,
+      resultantVector,
       modelViewTransformProperty,
       selectedVectorProperty,
       componentVectorStyleProperty,

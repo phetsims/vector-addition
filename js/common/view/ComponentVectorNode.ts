@@ -12,6 +12,7 @@
  * @author Brandon Li
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
@@ -58,7 +59,9 @@ export default class ComponentVectorNode extends RootVectorNode {
       arrowType: 'dashed',
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: componentVector.vectorColorPalette.componentFillProperty
-      } )
+      } ),
+      visibleProperty: new DerivedProperty( [ componentVectorStyleProperty, componentVector.isOnGraphProperty ],
+        ( componentVectorStyle, isOnGraph ) => ( componentVectorStyle !== 'invisible' ) && isOnGraph )
     }, providedOptions );
 
     super( componentVector, modelViewTransformProperty, valuesVisibleProperty, selectedVectorProperty, options );
@@ -107,13 +110,10 @@ export default class ComponentVectorNode extends RootVectorNode {
   /**
    * Updates how the component vector is displayed.
    */
-  protected updateComponentVectorNode( componentVector: ComponentVector,
-                                       selectedVector: Vector | null,
-                                       modelViewTransform: ModelViewTransform2,
-                                       componentVectorStyle: ComponentVectorStyle ): void {
-
-    // Component vectors are visible when they are on the graph and style is not 'invisible'.
-    this.visible = componentVector.isOnGraphProperty.value && ( componentVectorStyle !== 'invisible' );
+  private updateComponentVectorNode( componentVector: ComponentVector,
+                                     selectedVector: Vector | null,
+                                     modelViewTransform: ModelViewTransform2,
+                                     componentVectorStyle: ComponentVectorStyle ): void {
 
     if ( componentVectorStyle === 'projection' ) {
       this.labelNode.visible = ( componentVector.magnitude !== 0 );
