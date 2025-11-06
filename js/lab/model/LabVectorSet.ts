@@ -11,7 +11,6 @@ import vectorAddition from '../../vectorAddition.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import VectorAdditionSymbols from '../../common/VectorAdditionSymbols.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import Vector from '../../common/model/Vector.js';
@@ -22,6 +21,7 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../../common/model/Graph.js';
 import Property from '../../../../axon/js/Property.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -63,7 +63,7 @@ export default class LabVectorSet extends VectorSet {
         const vector = new Vector( tailPosition, initialXYComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, {
 
           // e.g. 'v<sub>3</sub>'
-          symbolProperty: new DerivedProperty( [ symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
+          symbolProperty: new DerivedStringProperty( [ symbolProperty ], symbol => `${symbol}<sub>${i}</sub>` ),
 
           // e.g. 'v sub 3'
           accessibleSymbolProperty: new PatternStringProperty( VectorAdditionStrings.a11y.symbolSubSubscriptStringProperty, {
@@ -90,7 +90,7 @@ export default class LabVectorSet extends VectorSet {
       createAllVectors: createAllVectors,
 
       // Resultant (sum) vector is labeled with 's' and the vector set symbol subscript.
-      resultantSymbolProperty: new DerivedProperty(
+      resultantSymbolProperty: new DerivedStringProperty(
         [ VectorAdditionSymbols.sStringProperty, symbolProperty ],
         ( sString, vectorSetSymbol ) => `${sString}<sub>${vectorSetSymbol}</sub>` ),
 

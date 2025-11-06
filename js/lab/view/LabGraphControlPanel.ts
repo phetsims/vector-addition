@@ -60,11 +60,13 @@ export default class LabGraphControlPanel extends GraphControlPanel {
     );
 
     // Sum symbol for vector set 1 is based on the selected scene and dynamic string dependencies.
-    const sum1SymbolProperty = new DerivedProperty( [ VectorAdditionSymbols.sStringProperty, vectorSet1SymbolProperty ],
+    const sum1SymbolProperty = new DerivedStringProperty(
+      [ VectorAdditionSymbols.sStringProperty, vectorSet1SymbolProperty ],
       ( sString, subscriptString ) => `${sString}<sub>${subscriptString}</sub>` );
 
     // Sum symbol for vector set 2 is based on the selected scene and dynamic string dependencies.
-    const sum2SymbolProperty = new DerivedProperty( [ VectorAdditionSymbols.sStringProperty, vectorSet2SymbolProperty ],
+    const sum2SymbolProperty = new DerivedStringProperty(
+      [ VectorAdditionSymbols.sStringProperty, vectorSet2SymbolProperty ],
       ( sString, subscriptString ) => `${sString}<sub>${subscriptString}</sub>` );
 
     // To left-align vector icons for the 2 sum checkboxes.

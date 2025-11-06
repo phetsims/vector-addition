@@ -11,10 +11,10 @@ import vectorAddition from '../../vectorAddition.js';
 import EquationsModel from '../model/EquationsModel.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import EquationsScene from '../model/EquationsScene.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 
 export default class EquationsScreenSummaryContent extends ScreenSummaryContent {
 
@@ -22,15 +22,15 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
 
     // Control Area description
     const controlAreaStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty, {
-      symbol1: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 0 ].accessibleSymbolProperty.value ),
-      symbol2: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 1 ].accessibleSymbolProperty.value ),
-      symbol3: new DerivedProperty( [ model.sceneProperty ], scene => scene.vectorSet.resultantVector.accessibleSymbolProperty.value )
+      symbol1: new DerivedStringProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 0 ].accessibleSymbolProperty.value ),
+      symbol2: new DerivedStringProperty( [ model.sceneProperty ], scene => scene.vectorSet.allVectors[ 1 ].accessibleSymbolProperty.value ),
+      symbol3: new DerivedStringProperty( [ model.sceneProperty ], scene => scene.vectorSet.resultantVector.accessibleSymbolProperty.value )
     } );
 
     // Current Details description
     const cartesianCurrentDetailsStringProperty = createCurrentDetailsStringProperty( model.cartesianScene );
     const polarCurrentDetailsStringProperty = createCurrentDetailsStringProperty( model.polarScene );
-    const currentDetailsStringProperty = new DerivedProperty(
+    const currentDetailsStringProperty = new DerivedStringProperty(
       [ model.sceneProperty, cartesianCurrentDetailsStringProperty, polarCurrentDetailsStringProperty ],
       ( scene, cartesianCurrentDetailsString, polarCurrentDetailsString ) =>
         ( scene === model.cartesianScene ) ? cartesianCurrentDetailsString : polarCurrentDetailsString );
@@ -70,7 +70,7 @@ function createCurrentDetailsStringProperty( scene: EquationsScene ): TReadOnlyP
   const negationStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsNegationStringProperty,
     patternStringPropertyOptions );
 
-  return new DerivedProperty(
+  return new DerivedStringProperty(
     [ scene.equationTypeProperty, additionStringProperty, subtractionStringProperty, negationStringProperty ],
     ( equationType, additionString, subtractionString, negationString ) =>
       equationType === 'addition' ? additionString :

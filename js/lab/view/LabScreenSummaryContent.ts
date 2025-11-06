@@ -29,10 +29,10 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
       ( scene, numberOfCartesianVectors, numberOfPolarVectors ) =>
         ( scene.coordinateSnapMode === 'cartesian' ? numberOfCartesianVectors : numberOfPolarVectors ) );
 
-    const vectorSet1SymbolProperty = new DerivedProperty( [ model.sceneProperty ],
+    const vectorSet1SymbolProperty = new DerivedStringProperty( [ model.sceneProperty ],
       scene => scene.vectorSet1.symbolProperty.value );
 
-    const vectorSet2SymbolProperty = new DerivedProperty( [ model.sceneProperty ],
+    const vectorSet2SymbolProperty = new DerivedStringProperty( [ model.sceneProperty ],
       scene => scene.vectorSet2.symbolProperty.value );
 
     const accessibleSceneNameStringProperty = new DerivedStringProperty(
