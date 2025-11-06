@@ -39,7 +39,7 @@ export default class LabelEqualsAnglePicker extends Node {
                       tandem: Tandem ) {
 
     const angleSymbolStringProperty = new DerivedStringProperty( [ vectorSymbolProperty ],
-      baseVectorSymbol => `${VectorAdditionSymbols.THETA}<sub>${baseVectorSymbol}</sub>` );
+      vectorSymbol => `${VectorAdditionSymbols.THETA}<sub>${vectorSymbol}</sub>` );
 
     const unsignedAngleDegreesProperty = new NumberProperty( signedToUnsignedDegrees( signedAngleDegreesProperty.value ), {
       range: VectorAdditionConstants.UNSIGNED_ANGLE_RANGE
