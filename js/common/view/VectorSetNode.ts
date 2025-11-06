@@ -313,7 +313,7 @@ export default class VectorSetNode extends Node {
       element.visible &&
       // pdomOrder may have non-focusable elements, like a VectorNode that is animating to the toolbox.
       element.focusable &&
-      // ResultantVectorNode is a subclass of VectorNode, but its not defined if there are no other vectors on the graph
+      // ResultantVectorNode is a subclass of VectorNode, but it is not defined if there are no other vectors on the graph.
       !( element instanceof ResultantVectorNode )
     );
 
