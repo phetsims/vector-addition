@@ -1,0 +1,31 @@
+// Copyright 2025, University of Colorado Boulder
+
+/**
+ * MoveGraphOriginKeyboardHelpSection is the keyboard-help section that describes how to move the graph origin.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ */
+
+import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
+import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
+import SceneryPhetStrings from '../../../../scenery-phet/js/SceneryPhetStrings.js';
+import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import vectorAddition from '../../vectorAddition.js';
+
+export default class MoveGraphOriginKeyboardHelpSection extends KeyboardHelpSection {
+
+  public constructor() {
+
+    // Move
+    const moveRow = KeyboardHelpSectionRow.labelWithIcon(
+      SceneryPhetStrings.keyboardHelpDialog.moveStringProperty,
+      KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon(), {
+        labelInnerContent: SceneryPhetStrings.a11y.keyboardHelpDialog.draggableItems.moveDescriptionStringProperty
+      } );
+
+    super( VectorAdditionStrings.keyboardHelpDialog.moveGraphOriginStringProperty, [ moveRow ] );
+  }
+}
+
+vectorAddition.register( 'MoveGraphOriginKeyboardHelpSection', MoveGraphOriginKeyboardHelpSection );

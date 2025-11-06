@@ -1,8 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
-//TODO https://github.com/phetsims/vector-addition/issues/308 Address duplication across screens.
 /**
- * Explore1DKeyboardHelpContent is the content for the keyboard-help dialog in the 'Explore 1D' screen.
+ * VectorAdditionKeyboardHelpContent is the content for the keyboard-help dialog in all screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,22 +9,25 @@
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import vectorAddition from '../../vectorAddition.js';
-import MoveDraggableItemsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/MoveDraggableItemsKeyboardHelpSection.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import MoveGraphOriginKeyboardHelpSection from './MoveGraphOriginKeyboardHelpSection.js';
 
-export default class Explore1DKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
+export default class VectorAdditionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
   public constructor() {
 
+    //TODO https://github.com/phetsims/vector-addition/issues/329 Section for vectors.
+
     // Sections in the left column.
     const leftSections = [
-      new MoveDraggableItemsKeyboardHelpSection( {
-        headingStringProperty: VectorAdditionStrings.keyboardHelpDialog.moveGraphOriginStringProperty
-      } )
+
+      // Move Graph Origin
+      new MoveGraphOriginKeyboardHelpSection()
     ];
 
     // Sections in the right column.
     const rightSections = [
+
+      // Basic Actions
       new BasicActionsKeyboardHelpSection( {
         withCheckboxContent: true
       } )
@@ -37,4 +39,4 @@ export default class Explore1DKeyboardHelpContent extends TwoColumnKeyboardHelpC
   }
 }
 
-vectorAddition.register( 'Explore1DKeyboardHelpContent', Explore1DKeyboardHelpContent );
+vectorAddition.register( 'VectorAdditionKeyboardHelpContent', VectorAdditionKeyboardHelpContent );

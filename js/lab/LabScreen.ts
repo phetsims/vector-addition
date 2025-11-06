@@ -14,7 +14,7 @@ import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import LabModel from './model/LabModel.js';
 import LabScreenView from './view/LabScreenView.js';
-import LabKeyboardHelpContent from './view/LabKeyboardHelpContent.js';
+import VectorAdditionKeyboardHelpContent from '../common/view/VectorAdditionKeyboardHelpContent.js';
 
 export default class LabScreen extends Screen<LabModel, LabScreenView> {
 
@@ -25,7 +25,7 @@ export default class LabScreen extends Screen<LabModel, LabScreenView> {
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createLabScreenIcon(),
       screenButtonsHelpText: VectorAdditionStrings.a11y.labScreen.screenButtonsHelpTextStringProperty,
-      createKeyboardHelpNode: () => new LabKeyboardHelpContent(),
+      createKeyboardHelpNode: () => new VectorAdditionKeyboardHelpContent(),
       tandem: tandem
     };
 

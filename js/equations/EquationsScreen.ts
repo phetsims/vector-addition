@@ -14,7 +14,7 @@ import vectorAddition from '../vectorAddition.js';
 import VectorAdditionStrings from '../VectorAdditionStrings.js';
 import EquationsModel from './model/EquationsModel.js';
 import EquationsScreenView from './view/EquationsScreenView.js';
-import EquationsKeyboardHelpContent from './view/EquationsKeyboardHelpContent.js';
+import VectorAdditionKeyboardHelpContent from '../common/view/VectorAdditionKeyboardHelpContent.js';
 
 export default class EquationsScreen extends Screen<EquationsModel, EquationsScreenView> {
 
@@ -25,7 +25,7 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createEquationsScreenIcon(),
       screenButtonsHelpText: VectorAdditionStrings.a11y.equationsScreen.screenButtonsHelpTextStringProperty,
-      createKeyboardHelpNode: () => new EquationsKeyboardHelpContent(),
+      createKeyboardHelpNode: () => new VectorAdditionKeyboardHelpContent(),
       tandem: tandem
     };
 
