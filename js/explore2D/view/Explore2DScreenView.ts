@@ -120,14 +120,14 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     this.pdomPlayAreaNode.pdomOrder = [
 
       // Cartesian scene
-      cartesianSceneNode.vectorToolbox,
       cartesianGraphAreaHeading,
+      cartesianSceneNode.vectorToolbox,
       cartesianSceneNode.eraserButton,
       cartesianSceneNode.vectorValuesAccordionBox,
 
       // polar scene
-      polarSceneNode.vectorToolbox,
       polarGraphAreaHeading,
+      polarSceneNode.vectorToolbox,
       polarSceneNode.eraserButton,
       polarSceneNode.vectorValuesAccordionBox
     ];
