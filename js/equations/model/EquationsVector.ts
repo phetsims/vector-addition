@@ -15,7 +15,7 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -122,9 +122,9 @@ export default class EquationsVector extends Vector {
    * See RootVector.getLabelDisplayData for details.
    */
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
-    return combineOptions<LabelDisplayData>( super.getLabelDisplayData( valuesVisible ), {
-      coefficient: this.coefficientProperty.value
-    } );
+    const labelDisplayData = super.getLabelDisplayData( valuesVisible );
+    labelDisplayData.coefficient = this.coefficientProperty.value;
+    return labelDisplayData;
   }
 }
 
