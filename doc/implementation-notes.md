@@ -192,3 +192,13 @@ _Equations_ screen:
 * Vectors cannot be rotated or scaled via direct manipulation. They must be indirectly rotated/scaled using the spinners
   for base vectors and equations.
 
+## Core Description
+
+Screen summary descriptions are found in a class per screen: Explore1DScreenSummaryContent, Explore2DScreenSummaryContent, 
+LabScreenSummaryContent, and EquationsScreenSummaryContent.
+
+To identify other code related to core description, search for options that are related to description - `accessibleName`, `accessibleHelpText`,
+`accessibleObjectResponse`, `accessibleContextResponse`, etc.
+
+## PhET-iO
+
