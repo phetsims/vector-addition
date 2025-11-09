@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * LabScreenSummaryContent is the description screen summary for the 'Lab' screen.
+ * EquationsScreenSummaryContent is the description screen summary for the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -10,14 +10,32 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsScene from '../model/EquationsScene.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class EquationsScreenSummaryContent extends ScreenSummaryContent {
 
   public constructor( sceneProperty: TReadOnlyProperty<EquationsScene>, scenes: EquationsScene[] ) {
+
+    // Verify that every scene has exactly 2 base vectors and 2 non-base vectors, because we'll be indexing these arrays.
+    affirm( _.every( scenes, scene => scene.vectorSet.baseVectors.length === 2 ), 'Unexpected number of baseVectors.' );
+    affirm( _.every( scenes, scene => scene.vectorSet.allVectors.length === 2 ), 'Unexpected number of allVectors.' );
+
+    // DerivedProperties that appear in the description sections.
+    const equationTypeProperty = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.equationTypeProperty ) ],
+      () => sceneProperty.value.equationTypeProperty.value );
+
+    const coefficient1Property = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.allVectors[ 0 ].coefficientProperty ) ],
+      () => sceneProperty.value.vectorSet.allVectors[ 0 ].coefficientProperty.value );
+
+    const coefficient2Property = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.allVectors[ 1 ].coefficientProperty ) ],
+      () => sceneProperty.value.vectorSet.allVectors[ 1 ].coefficientProperty.value );
 
     const accessibleSymbol1Property = DerivedStringProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty ) ],
@@ -39,12 +57,31 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
     } );
 
     // Current Details description
-    const cartesianCurrentDetailsStringProperty = createCurrentDetailsStringProperty( scenes[ 0 ] );
-    const polarCurrentDetailsStringProperty = createCurrentDetailsStringProperty( scenes[ 1 ] );
-    const currentDetailsStringProperty = new DerivedStringProperty(
-      [ sceneProperty, cartesianCurrentDetailsStringProperty, polarCurrentDetailsStringProperty ],
-      ( scene, cartesianCurrentDetailsString, polarCurrentDetailsString ) =>
-        ( scene === scenes[ 0 ] ) ? cartesianCurrentDetailsString : polarCurrentDetailsString );
+    const currentDetailsStringProperty = DerivedStringProperty.deriveAny( [
+        sceneProperty,
+        equationTypeProperty,
+        coefficient1Property,
+        coefficient2Property,
+        accessibleSymbol1Property,
+        accessibleSymbol2Property,
+        accessibleSymbol3Property
+      ],
+      () => {
+
+        // Note that all of these string patterns must have the same placeholders.
+        const patternStringProperty = ( equationTypeProperty.value === 'addition' ) ?
+                                      VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsAdditionStringProperty :
+                                      ( equationTypeProperty.value === 'subtraction' ) ?
+                                      VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsSubtractionStringProperty :
+                                      VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsNegationStringProperty;
+        return StringUtils.fillIn( patternStringProperty, {
+          coefficient1: coefficient1Property.value,
+          symbol1: accessibleSymbol1Property.value,
+          coefficient2: coefficient2Property.value,
+          symbol2: accessibleSymbol2Property.value,
+          symbol3: accessibleSymbol3Property.value
+        } );
+      } );
 
     super( {
       playAreaContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.playAreaStringProperty,
@@ -53,40 +90,6 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
       interactionHintContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.interactionHintStringProperty
     } );
   }
-}
-
-/**
- * Creates the current details for a scene.
- */
-function createCurrentDetailsStringProperty( scene: EquationsScene ): TReadOnlyProperty<string> {
-
-  const vectorSet = scene.vectorSet;
-  affirm( vectorSet.allVectors.length === 2, 'Expected vectorSet to have 2 vectors.' );
-
-  // Options shared by all PatternStringProperty instances herein.
-  const patternStringPropertyOptions = {
-    coefficient1: vectorSet.allVectors[ 0 ].coefficientProperty,
-    symbol1: vectorSet.baseVectors[ 0 ].accessibleSymbolProperty,
-    coefficient2: vectorSet.allVectors[ 1 ].coefficientProperty,
-    symbol2: vectorSet.baseVectors[ 1 ].accessibleSymbolProperty,
-    symbol3: vectorSet.resultantVector.accessibleSymbolProperty
-  };
-
-  const additionStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsAdditionStringProperty,
-    patternStringPropertyOptions );
-
-  const subtractionStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsSubtractionStringProperty,
-    patternStringPropertyOptions );
-
-  const negationStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.currentDetailsNegationStringProperty,
-    patternStringPropertyOptions );
-
-  return new DerivedStringProperty(
-    [ scene.equationTypeProperty, additionStringProperty, subtractionStringProperty, negationStringProperty ],
-    ( equationType, additionString, subtractionString, negationString ) =>
-      equationType === 'addition' ? additionString :
-      equationType === 'subtraction' ? subtractionString :
-      negationString );
 }
 
 vectorAddition.register( 'EquationsScreenSummaryContent', EquationsScreenSummaryContent );
