@@ -211,6 +211,12 @@ To identify other code related to core description, search for options that are 
 
 ## PhET-iO
 
+All vectors in the model are allocated at startup. They are instrumented and grouped under `allVectors` in the PhET-iO tree. Most vector 
+Properties are `phetioReadOnly: true` because making them editable via PhET-iO was considered too costly. So use the simulation
+to configure vectors.
+[](url)
+All vectors in the view are allocated dynamically, so they are not instrumented.
+
 `VectorAdditionScene.VectorAdditionSceneIO` is a custom IOType that implements reference-type serialization for the selected scene, `sceneProperty`.
 
 `Vector.VectorIO` is a custom IOType that implements reference-type serialization for vectors.  
