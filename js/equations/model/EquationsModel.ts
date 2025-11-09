@@ -19,6 +19,7 @@ export default class EquationsModel extends VectorAdditionModel {
 
   public readonly cartesianScene: EquationsScene;
   public readonly polarScene: EquationsScene;
+  public readonly scenes: EquationsScene[];
 
   // The selected scene
   public readonly sceneProperty: Property<EquationsScene>;
@@ -35,8 +36,10 @@ export default class EquationsModel extends VectorAdditionModel {
 
     this.polarScene = new EquationsPolarScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) );
 
+    this.scenes = [ this.cartesianScene, this.polarScene ];
+
     this.sceneProperty = new Property( this.cartesianScene, {
-      validValues: [ this.cartesianScene, this.polarScene ],
+      validValues: this.scenes,
       tandem: tandem.createTandem( 'sceneProperty' ),
       phetioFeatured: true,
       phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
@@ -44,8 +47,7 @@ export default class EquationsModel extends VectorAdditionModel {
   }
 
   public override reset(): void {
-    this.cartesianScene.reset();
-    this.polarScene.reset();
+    this.scenes.forEach( scene => scene.reset() );
     this.sceneProperty.reset();
     super.reset();
   }

@@ -47,8 +47,7 @@ export default class LabModel extends VectorAdditionModel {
   }
 
   public override reset(): void {
-    this.cartesianScene.reset();
-    this.polarScene.reset();
+    this.scenes.forEach( scene => scene.reset() );
     this.sceneProperty.reset();
     super.reset();
   }

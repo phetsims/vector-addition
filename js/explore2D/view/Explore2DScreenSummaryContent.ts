@@ -12,19 +12,20 @@ import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js'
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import Explore2DModel from '../model/Explore2DModel.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import ExploreScene from '../../common/model/ExploreScene.js';
 
 export default class Explore2DScreenSummaryContent extends ScreenSummaryContent {
 
-  public constructor( model: Explore2DModel ) {
+  public constructor( sceneProperty: TReadOnlyProperty<ExploreScene>, scenes: ExploreScene[] ) {
 
-    const numberOfVectorsProperty = new DerivedProperty(
-      [ model.sceneProperty, model.cartesianScene.vectorSet.numberOfVectorsOnGraphProperty, model.polarScene.vectorSet.numberOfVectorsOnGraphProperty ],
-      scene => scene.vectorSet.numberOfVectorsOnGraphProperty.value );
+    const numberOfVectorsProperty = DerivedProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.numberOfVectorsOnGraphProperty ) ],
+      () => sceneProperty.value.vectorSet.numberOfVectorsOnGraphProperty.value );
 
-    const accessibleSceneNameStringProperty = new DerivedStringProperty(
-      [ model.sceneProperty, model.cartesianScene.accessibleSceneNameStringProperty, model.polarScene.accessibleSceneNameStringProperty ],
-      scene => scene.accessibleSceneNameStringProperty.value );
+    const accessibleSceneNameStringProperty = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.accessibleSceneNameStringProperty ) ],
+      () => sceneProperty.value.accessibleSceneNameStringProperty.value );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.explore2DScreen.screenSummary.currentDetailsStringProperty, {
       numberOfVectors: numberOfVectorsProperty,

@@ -28,7 +28,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
   public constructor( model: EquationsModel, tandem: Tandem ) {
 
     super( model, {
-      screenSummaryContent: new EquationsScreenSummaryContent( model ),
+      screenSummaryContent: new EquationsScreenSummaryContent( model.sceneProperty, model.scenes ),
       tandem: tandem
     } );
 

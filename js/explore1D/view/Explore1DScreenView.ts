@@ -28,7 +28,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
   public constructor( model: Explore1DModel, tandem: Tandem ) {
 
     super( model, {
-      screenSummaryContent: new Explore1DScreenSummaryContent( model ),
+      screenSummaryContent: new Explore1DScreenSummaryContent( model.sceneProperty, model.scenes ),
       tandem: tandem
     } );
 

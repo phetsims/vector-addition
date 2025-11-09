@@ -21,6 +21,7 @@ export default class Explore1DModel extends VectorAdditionModel {
 
   public readonly horizontalScene: Explore1DHorizontalScene;
   public readonly verticalScene: Explore1DVerticalScene;
+  public readonly scenes: ExploreScene[];
 
   // The selected scene
   public readonly sceneProperty: Property<ExploreScene>;
@@ -44,8 +45,10 @@ export default class Explore1DModel extends VectorAdditionModel {
 
     this.verticalScene = new Explore1DVerticalScene( this.componentVectorStyleProperty, graphBounds, scenesTandem.createTandem( 'verticalScene' ) );
 
+    this.scenes = [ this.horizontalScene, this.verticalScene ];
+
     this.sceneProperty = new Property( this.horizontalScene, {
-      validValues: [ this.horizontalScene, this.verticalScene ],
+      validValues: this.scenes,
       tandem: tandem.createTandem( 'sceneProperty' ),
       phetioFeatured: true,
       phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
@@ -53,8 +56,7 @@ export default class Explore1DModel extends VectorAdditionModel {
   }
 
   public override reset(): void {
-    this.horizontalScene.reset();
-    this.verticalScene.reset();
+    this.scenes.forEach( scene => scene.reset() );
     this.sceneProperty.reset();
     super.reset();
   }

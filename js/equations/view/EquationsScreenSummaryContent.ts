@@ -13,51 +13,38 @@ import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import EquationsModel from '../model/EquationsModel.js';
 import EquationsScene from '../model/EquationsScene.js';
 
 export default class EquationsScreenSummaryContent extends ScreenSummaryContent {
 
-  public constructor( model: EquationsModel ) {
+  public constructor( sceneProperty: TReadOnlyProperty<EquationsScene>, scenes: EquationsScene[] ) {
 
-    const cartesianBaseVectors = model.cartesianScene.vectorSet.baseVectors;
-    const polarBaseVectors = model.polarScene.vectorSet.baseVectors;
+    const accessibleSymbol1Property = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty ) ],
+      () => sceneProperty.value.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty.value );
 
-    affirm( cartesianBaseVectors.length === 2, 'Unexpected number of base vectors in cartesianScene.' );
-    affirm( polarBaseVectors.length === 2, 'Unexpected number of base vectors in polarScene.' );
+    const accessibleSymbol2Property = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.baseVectors[ 1 ].accessibleSymbolProperty ) ],
+      () => sceneProperty.value.vectorSet.baseVectors[ 1 ].accessibleSymbolProperty.value );
+
+    const accessibleSymbol3Property = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet.resultantVector.accessibleSymbolProperty ) ],
+      () => sceneProperty.value.vectorSet.resultantVector.accessibleSymbolProperty.value );
 
     // Control Area description
     const controlAreaStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.equationsScreen.screenSummary.controlAreaStringProperty, {
-
-      symbol1: new DerivedStringProperty( [
-          model.sceneProperty,
-          cartesianBaseVectors[ 0 ].accessibleSymbolProperty,
-          polarBaseVectors[ 0 ].accessibleSymbolProperty
-        ],
-        scene => scene.vectorSet.baseVectors[ 0 ].accessibleSymbolProperty.value ),
-
-      symbol2: new DerivedStringProperty( [
-          model.sceneProperty,
-          cartesianBaseVectors[ 1 ].accessibleSymbolProperty,
-          polarBaseVectors[ 1 ].accessibleSymbolProperty
-        ],
-        scene => scene.vectorSet.baseVectors[ 1 ].accessibleSymbolProperty.value ),
-
-      symbol3: new DerivedStringProperty( [
-          model.sceneProperty,
-          model.cartesianScene.vectorSet.resultantVector.accessibleSymbolProperty,
-          model.polarScene.vectorSet.resultantVector.accessibleSymbolProperty
-        ],
-        scene => scene.vectorSet.resultantVector.accessibleSymbolProperty.value )
+      symbol1: accessibleSymbol1Property,
+      symbol2: accessibleSymbol2Property,
+      symbol3: accessibleSymbol3Property
     } );
 
     // Current Details description
-    const cartesianCurrentDetailsStringProperty = createCurrentDetailsStringProperty( model.cartesianScene );
-    const polarCurrentDetailsStringProperty = createCurrentDetailsStringProperty( model.polarScene );
+    const cartesianCurrentDetailsStringProperty = createCurrentDetailsStringProperty( scenes[ 0 ] );
+    const polarCurrentDetailsStringProperty = createCurrentDetailsStringProperty( scenes[ 1 ] );
     const currentDetailsStringProperty = new DerivedStringProperty(
-      [ model.sceneProperty, cartesianCurrentDetailsStringProperty, polarCurrentDetailsStringProperty ],
+      [ sceneProperty, cartesianCurrentDetailsStringProperty, polarCurrentDetailsStringProperty ],
       ( scene, cartesianCurrentDetailsString, polarCurrentDetailsString ) =>
-        ( scene === model.cartesianScene ) ? cartesianCurrentDetailsString : polarCurrentDetailsString );
+        ( scene === scenes[ 0 ] ) ? cartesianCurrentDetailsString : polarCurrentDetailsString );
 
     super( {
       playAreaContent: VectorAdditionStrings.a11y.equationsScreen.screenSummary.playAreaStringProperty,

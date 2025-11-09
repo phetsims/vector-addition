@@ -19,6 +19,7 @@ export default class Explore2DModel extends VectorAdditionModel {
 
   public readonly cartesianScene: Explore2DCartesianScene;
   public readonly polarScene: Explore2DPolarScene;
+  public readonly scenes: ExploreScene[];
 
   // The selected scene
   public readonly sceneProperty: Property<ExploreScene>;
@@ -35,8 +36,10 @@ export default class Explore2DModel extends VectorAdditionModel {
 
     this.polarScene = new Explore2DPolarScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) );
 
+    this.scenes = [ this.cartesianScene, this.polarScene ];
+
     this.sceneProperty = new Property( this.cartesianScene, {
-      validValues: [ this.cartesianScene, this.polarScene ],
+      validValues: this.scenes,
       tandem: tandem.createTandem( 'sceneProperty' ),
       phetioFeatured: true,
       phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
@@ -44,8 +47,7 @@ export default class Explore2DModel extends VectorAdditionModel {
   }
 
   public override reset(): void {
-    this.cartesianScene.reset();
-    this.polarScene.reset();
+    this.scenes.forEach( scene => scene.reset() );
     this.sceneProperty.reset();
     super.reset();
   }
