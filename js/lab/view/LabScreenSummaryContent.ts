@@ -10,41 +10,41 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
-import RichText from '../../../../scenery/js/nodes/RichText.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
-import LabModel from '../model/LabModel.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import LabScene from '../model/LabScene.js';
 
 export default class LabScreenSummaryContent extends ScreenSummaryContent {
 
-  public constructor( model: LabModel ) {
+  public constructor( sceneProperty: TReadOnlyProperty<LabScene>, scenes: LabScene[] ) {
 
-    const vectorSet1SizeProperty = new DerivedProperty(
-      [ model.sceneProperty, model.cartesianScene.vectorSet1.numberOfVectorsOnGraphProperty, model.polarScene.vectorSet1.numberOfVectorsOnGraphProperty ],
-      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) =>
-        ( scene.coordinateSnapMode === 'cartesian' ? numberOfCartesianVectors : numberOfPolarVectors ) );
+    const vectorSet1SizeProperty = DerivedProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet1.numberOfVectorsOnGraphProperty ) ],
+      () => sceneProperty.value.vectorSet1.numberOfVectorsOnGraphProperty.value );
 
-    const vectorSet2SizeProperty = new DerivedProperty(
-      [ model.sceneProperty, model.cartesianScene.vectorSet2.numberOfVectorsOnGraphProperty, model.polarScene.vectorSet2.numberOfVectorsOnGraphProperty ],
-      ( scene, numberOfCartesianVectors, numberOfPolarVectors ) =>
-        ( scene.coordinateSnapMode === 'cartesian' ? numberOfCartesianVectors : numberOfPolarVectors ) );
+    const vectorSet2SizeProperty = DerivedProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet2.numberOfVectorsOnGraphProperty ) ],
+      () => sceneProperty.value.vectorSet2.numberOfVectorsOnGraphProperty.value );
 
-    const vectorSet1SymbolProperty = new DerivedStringProperty( [ model.sceneProperty ],
-      scene => scene.vectorSet1.symbolProperty.value );
+    const vectorSet1AccessibleSymbolProperty = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet1.accessibleSymbolProperty ) ],
+      () => sceneProperty.value.vectorSet1.accessibleSymbolProperty.value );
 
-    const vectorSet2SymbolProperty = new DerivedStringProperty( [ model.sceneProperty ],
-      scene => scene.vectorSet2.symbolProperty.value );
+    const vectorSet2AccessibleSymbolProperty = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.vectorSet1.accessibleSymbolProperty ) ],
+      () => sceneProperty.value.vectorSet2.accessibleSymbolProperty.value );
 
-    const accessibleSceneNameStringProperty = new DerivedStringProperty(
-      [ model.sceneProperty, model.cartesianScene.accessibleSceneNameStringProperty, model.polarScene.accessibleSceneNameStringProperty ],
-      scene => scene.accessibleSceneNameStringProperty.value );
+    const sceneAccessibleNameStringProperty = DerivedStringProperty.deriveAny(
+      [ sceneProperty, ...scenes.map( scene => scene.accessibleSceneNameStringProperty ) ],
+      () => sceneProperty.value.accessibleSceneNameStringProperty.value );
 
     const currentDetailsStringProperty = new PatternStringProperty( VectorAdditionStrings.a11y.labScreen.screenSummary.currentDetailsStringProperty, {
       vectorSet1Size: vectorSet1SizeProperty,
-      vectorSet1Symbol: RichText.getAccessibleStringProperty( vectorSet1SymbolProperty ),
+      vectorSet1Symbol: vectorSet1AccessibleSymbolProperty,
       vectorSet2Size: vectorSet2SizeProperty,
-      vectorSet2Symbol: RichText.getAccessibleStringProperty( vectorSet2SymbolProperty ),
-      sceneName: accessibleSceneNameStringProperty
+      vectorSet2Symbol: vectorSet2AccessibleSymbolProperty,
+      sceneName: sceneAccessibleNameStringProperty
     } );
 
     super( {

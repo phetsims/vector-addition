@@ -27,7 +27,7 @@ export default class LabScreenView extends VectorAdditionScreenView {
   public constructor( model: LabModel, tandem: Tandem ) {
 
     super( model, {
-      screenSummaryContent: new LabScreenSummaryContent( model ),
+      screenSummaryContent: new LabScreenSummaryContent( model.sceneProperty, model.scenes ),
       tandem: tandem
     } );
 

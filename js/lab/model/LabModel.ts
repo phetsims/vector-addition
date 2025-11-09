@@ -19,6 +19,7 @@ export default class LabModel extends VectorAdditionModel {
 
   public readonly cartesianScene: LabCartesianScene;
   public readonly polarScene: LabPolarScene;
+  public readonly scenes: LabScene[];
 
   // The selected scene
   public readonly sceneProperty: Property<LabScene>;
@@ -35,8 +36,10 @@ export default class LabModel extends VectorAdditionModel {
 
     this.polarScene = new LabPolarScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) );
 
+    this.scenes = [ this.cartesianScene, this.polarScene ];
+
     this.sceneProperty = new Property( this.cartesianScene, {
-      validValues: [ this.cartesianScene, this.polarScene ],
+      validValues: this.scenes,
       tandem: tandem.createTandem( 'sceneProperty' ),
       phetioFeatured: true,
       phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
