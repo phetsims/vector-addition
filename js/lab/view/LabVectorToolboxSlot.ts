@@ -28,18 +28,18 @@ const POINTER_AREA_DILATION = new Vector2( 10, 10 );
 
 export default class LabVectorToolboxSlot extends VectorToolboxSlot {
 
-  public constructor( vectorSet: LabVectorSet,
+  public constructor( sceneNode: VectorAdditionSceneNode,
+                      vectorSet: LabVectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
-                      sceneNode: VectorAdditionSceneNode,
                       tandem: Tandem ) {
     super(
+      sceneNode,
       vectorSet.allVectors,
       () => vectorSet.getFirstAvailableVector(),
       vectorSet,
       modelViewTransformProperty,
       graphBoundsProperty,
-      sceneNode,
       ICON_XY_COMPONENTS, {
         iconEffectiveWidth: 45,
         mouseAreaDilation: POINTER_AREA_DILATION,

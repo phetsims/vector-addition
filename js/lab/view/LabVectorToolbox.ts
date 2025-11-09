@@ -13,8 +13,11 @@ import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import LabScene from '../model/LabScene.js';
 import LabVectorToolboxSlot from './LabVectorToolboxSlot.js';
+import LabVectorSet from '../model/LabVectorSet.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -22,8 +25,11 @@ type LabVectorToolboxOptions = SelfOptions & StrictOmit<VectorToolboxOptions, 'y
 
 export default class LabVectorToolbox extends VectorToolbox {
 
-  public constructor( scene: LabScene,
-                      sceneNode: VectorAdditionSceneNode,
+  public constructor( sceneNode: VectorAdditionSceneNode,
+                      vectorSet1: LabVectorSet,
+                      vectorSet2: LabVectorSet,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions: LabVectorToolboxOptions ) {
 
     const options = optionize<LabVectorToolboxOptions, SelfOptions, VectorToolboxOptions>()( {
@@ -36,12 +42,12 @@ export default class LabVectorToolbox extends VectorToolbox {
     const slots = [
 
       // vector set 1
-      new LabVectorToolboxSlot( scene.vectorSet1, scene.graph.modelViewTransformProperty,
-        scene.graph.boundsProperty, sceneNode, options.tandem.createTandem( `${scene.vectorSet1.tandemNameSymbol}Slot` ) ),
+      new LabVectorToolboxSlot( sceneNode, vectorSet1, modelViewTransformProperty, graphBoundsProperty,
+        options.tandem.createTandem( `${vectorSet1.tandemNameSymbol}Slot` ) ),
 
       // vector set 2
-      new LabVectorToolboxSlot( scene.vectorSet2, scene.graph.modelViewTransformProperty,
-        scene.graph.boundsProperty, sceneNode, options.tandem.createTandem( `${scene.vectorSet2.tandemNameSymbol}Slot` ) )
+      new LabVectorToolboxSlot( sceneNode, vectorSet2, modelViewTransformProperty, graphBoundsProperty,
+        options.tandem.createTandem( `${vectorSet2.tandemNameSymbol}Slot` ) )
     ];
 
     super( slots, options );

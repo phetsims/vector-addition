@@ -30,7 +30,8 @@ export default class Explore2DSceneNode extends VectorAdditionSceneNode {
     super( scene, sceneProperty, [ viewProperties.sumVisibleProperty ], viewProperties, componentVectorStyleProperty, {
 
       // This screen has a vector toolbox.
-      createVectorToolbox: sceneNode => new ExploreVectorToolbox( scene, sceneNode, {
+      createVectorToolbox: sceneNode => new ExploreVectorToolbox( sceneNode, scene.vectorSet,
+        scene.graph.modelViewTransformProperty, scene.graph.boundsProperty, scene.graph.orientation, {
         iconModelComponents: new Vector2( 1.75, 1.75 ),
         left: sceneRadioButtonGroup.left,
         bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,

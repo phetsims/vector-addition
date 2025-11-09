@@ -10,10 +10,14 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import vectorAddition from '../../vectorAddition.js';
-import ExploreScene from '../model/ExploreScene.js';
 import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from './VectorToolbox.js';
+import ExploreVectorSet from '../model/ExploreVectorSet.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import { GraphOrientation } from '../model/GraphOrientation.js';
 
 type SelfOptions = {
   iconModelComponents: Vector2;
@@ -23,16 +27,19 @@ type Explore1DVectorToolboxOptions = SelfOptions & VectorToolboxOptions;
 
 export default class ExploreVectorToolbox extends VectorToolbox {
 
-  public constructor( scene: ExploreScene,
-                      sceneNode: VectorAdditionSceneNode,
+  public constructor( sceneNode: VectorAdditionSceneNode,
+                      vectorSet: ExploreVectorSet,
+                      modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
+                      graphBoundsProperty: TReadOnlyProperty<Bounds2>,
+                      graphOrientation: GraphOrientation,
                       providedOptions: Explore1DVectorToolboxOptions ) {
 
     const options = providedOptions;
 
     // Create a slot for each vector in the vector set.
-    const panelSlots = scene.vectorSet.allVectors.map( vector => new ExploreVectorToolboxSlot( vector, scene.vectorSet,
-      scene.graph.modelViewTransformProperty, scene.graph.boundsProperty, sceneNode, options.iconModelComponents,
-      scene.graph.orientation, options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
+    const panelSlots = vectorSet.allVectors.map( vector => new ExploreVectorToolboxSlot( sceneNode, vector, vectorSet,
+      modelViewTransformProperty, graphBoundsProperty, options.iconModelComponents,
+      graphOrientation, options.tandem.createTandem( `${vector.tandemNameSymbol}Slot` ) ) );
 
     super( panelSlots, options );
   }

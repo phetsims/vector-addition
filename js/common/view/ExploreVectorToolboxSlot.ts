@@ -23,11 +23,11 @@ import VectorToolboxSlot from './VectorToolboxSlot.js';
 
 export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
 
-  public constructor( vector: Vector,
+  public constructor( sceneNode: VectorAdditionSceneNode,
+                      vector: Vector,
                       vectorSet: VectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
-                      sceneNode: VectorAdditionSceneNode,
                       iconModelComponents: Vector2,
                       graphOrientation: GraphOrientation,
                       tandem: Tandem ) {
@@ -42,12 +42,12 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
     const getNextVector = () => vectorSet.activeVectors.includes( vector ) ? null : vector;
 
     super(
+      sceneNode,
       [ vector ],
       getNextVector,
       vectorSet,
       modelViewTransformProperty,
       graphBoundsProperty,
-      sceneNode,
       iconModelComponents, {
         iconEffectiveWidth: 35,
         mouseAreaDilation: pointerAreaDilation,

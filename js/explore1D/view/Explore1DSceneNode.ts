@@ -30,7 +30,8 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
     super( scene, sceneProperty, [ viewProperties.sumVisibleProperty ], viewProperties, componentVectorStyleProperty, {
 
       // This screen has a vector toolbox.
-      createVectorToolbox: sceneNode => new ExploreVectorToolbox( scene, sceneNode, {
+      createVectorToolbox: sceneNode => new ExploreVectorToolbox( sceneNode, scene.vectorSet,
+        scene.graph.modelViewTransformProperty, scene.graph.boundsProperty, scene.graph.orientation, {
         iconModelComponents: ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 2.5, 0 ) : new Vector2( 0, 2.5 ),
         ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18,
         left: sceneRadioButtonGroup.left,

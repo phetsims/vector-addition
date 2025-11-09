@@ -37,12 +37,12 @@ export type VectorToolboxSlotOptions = SelfOptions & PickRequired<HBoxOptions, '
 
 export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
-  protected constructor( vectors: Vector[], // vectors in the slot
+  protected constructor( sceneNode: VectorAdditionSceneNode,
+                         vectors: Vector[], // vectors in the slot
                          getNextVector: () => Vector | null, // Gets the next available vector in the slot.
                          vectorSet: VectorSet,
                          modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                          graphBoundsProperty: TReadOnlyProperty<Bounds2>,
-                         sceneNode: VectorAdditionSceneNode,
                          iconModelComponents: Vector2,
                          providedOptions: VectorToolboxSlotOptions ) {
 

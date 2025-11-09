@@ -29,7 +29,8 @@ export default class LabSceneNode extends VectorAdditionSceneNode {
     super( scene, sceneProperty, [ viewProperties.sum1VisibleProperty, viewProperties.sum2VisibleProperty ], viewProperties, componentVectorStyleProperty, {
 
       // This screen has a vector toolbox.
-      createVectorToolbox: sceneNode => new LabVectorToolbox( scene, sceneNode, {
+      createVectorToolbox: sceneNode => new LabVectorToolbox( sceneNode, scene.vectorSet1, scene.vectorSet2,
+        scene.graph.modelViewTransformProperty, scene.graph.boundsProperty, {
         left: sceneRadioButtonGroup.left,
         bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
         tandem: tandem.createTandem( 'vectorToolbox' )
