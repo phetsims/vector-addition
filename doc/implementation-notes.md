@@ -192,6 +192,16 @@ _Equations_ screen:
 * Vectors cannot be rotated or scaled via direct manipulation. They must be indirectly rotated/scaled using the spinners
   for base vectors and equations.
 
+## Alternative Input (Keyboard)
+
+The most interesting keyboard input is related to vectors, and involves these classes:
+* `AddVectorKeyboardListener` moves a vector from the toolbox to the graph.
+* `RemoveVectorKeyboardListener` moves a vector from the graph to the toolbox.
+* `MoveVectorKeyboardListener` translates a vector on the graph.
+* `ScaleRotateKeyboardListener` scales and rotates a vector on the graph.
+
+Moving the graph origin is done via an input listener in `OriginManipulator` that handles all forms of input.
+
 ## Core Description
 
 Screen summary descriptions are found in a class per screen: Explore1DScreenSummaryContent, Explore2DScreenSummaryContent, 
@@ -201,4 +211,11 @@ To identify other code related to core description, search for options that are 
 `accessibleObjectResponse`, `accessibleContextResponse`, etc.
 
 ## PhET-iO
+
+`VectorAdditionScene.VectorAdditionSceneIO` is a custom IOType that implements reference-type serialization for the selected scene, `sceneProperty`.
+
+`Vector.VectorIO` is a custom IOType that implements reference-type serialization for vectors.  
+It is used in scenes for `selectedVectorProperty: Property<Vector | null>`, and in vector sets for `activeVectors: ObservableArray<Vector>`.
+
+There are no dynamic PhET-iO elements in this sim, and therefore no uses of `PhetioGroup` or `PhetioCapsule`.
 
