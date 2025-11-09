@@ -93,6 +93,6 @@ In the Polar scene:
 
 The _Equations_ screen has a couple of differences in how the student manipulates vectors:
 
-* Vectors are pre-populated on the scene; the student does not add and remove vectors.
-* Vectors can be moved directly on the scene, but their other properties (scale, rotation) must be changed using spinners.
+* Vectors are pre-populated on the graph; the student does not add and remove vectors.
+* Vectors can be moved directly, but xy-components, magnitude, and direction must be changed indirectly using spinners.
 
