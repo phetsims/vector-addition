@@ -76,9 +76,13 @@ export default abstract class RootVector extends PhetioObject {
   // the color palette used to render the vector
   public readonly vectorColorPalette: VectorColorPalette;
 
+  // This Property was introduced for the PhET-iO API only. Do not use this Property ANYWHERE.
+  // Listeners to xyComponentsProperty will get a stale value.
   // Subclass PolarBaseVector defines magnitudeProperty, so make this private with an underscore prefix.
   private readonly _magnitudeProperty: TReadOnlyProperty<number>;
 
+  // This Property was introduced for the PhET-iO API only. Do not use this Property ANYWHERE.
+  // Listeners to xyComponentsProperty will get a stale value.
   // Subclass PolarBaseVector defines angleProperty, so make this private with an underscore prefix.
   private readonly _angleProperty: TReadOnlyProperty<number | null>;
 
@@ -125,19 +129,18 @@ export default abstract class RootVector extends PhetioObject {
         phetioFeatured: true
       } );
 
-    this._magnitudeProperty = new DerivedProperty( [ this.xyComponentsProperty ], xyComponents => xyComponents.magnitude, {
+    this._magnitudeProperty = new DerivedProperty( [ this.xyComponentsProperty ], () => this.magnitude, {
       tandem: options.magnitudePropertyInstrumented ? options.tandem.createTandem( 'magnitudeProperty' ) : Tandem.OPT_OUT,
       phetioValueType: NumberIO,
       phetioFeatured: true
     } );
 
-    this._angleProperty = new DerivedProperty( [ this.xyComponentsProperty ],
-      xyComponents => xyComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : xyComponents.angle, {
-        tandem: options.anglePropertyInstrumented ? options.tandem.createTandem( 'angleProperty' ) : Tandem.OPT_OUT,
-        phetioValueType: NullableIO( NumberIO ),
-        units: 'radians',
-        phetioFeatured: true
-      } );
+    this._angleProperty = new DerivedProperty( [ this.xyComponentsProperty ], () => this.angle, {
+      tandem: options.anglePropertyInstrumented ? options.tandem.createTandem( 'angleProperty' ) : Tandem.OPT_OUT,
+      phetioValueType: NullableIO( NumberIO ),
+      units: 'radians',
+      phetioFeatured: true
+    } );
 
     this.vectorColorPalette = options.vectorColorPalette;
   }
@@ -288,7 +291,7 @@ export default abstract class RootVector extends PhetioObject {
    * Gets the vector magnitude.
    */
   public get magnitude(): number {
-    return this._magnitudeProperty.value;
+    return this.xyComponentsProperty.value.magnitude;
   }
 
   /**
@@ -296,8 +299,7 @@ export default abstract class RootVector extends PhetioObject {
    * The value is in the range (-pi,pi], and null when the vector has 0 magnitude.
    */
   public get angle(): number | null {
-    // return this.xyComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : this.xyComponents.angle;
-    return this._angleProperty.value;
+    return this.xyComponents.equalsEpsilon( Vector2.ZERO, 1e-7 ) ? null : this.xyComponents.angle;
   }
 
   /**
