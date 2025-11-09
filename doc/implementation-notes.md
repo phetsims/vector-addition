@@ -21,13 +21,10 @@ In addition to this document, you are encouraged to read:
 ... that you'll see used throughout the code.
 
 * _component_ is a scalar, while _component vector_ is a vector
-* _coordinate snap mode_ refers to which vector quantities will snap to integer values,
-  see [CoordinateSnapMode](https://github.com/phetsims/vector-addition/blob/main/js/common/model/CoordinateSnapMode.ts)
-* _component vector style_ refers to the representation used to display component vectors,
-  see [ComponentVectorStyle](https://github.com/phetsims/vector-addition/blob/main/js/common/model/ComponentVectorStyle.ts)
-* _creator panel_ and _toolbox_ are synonyms for the UI component that creates vectors
-* _graph orientation_ is horizontal, vertical, or two-dimensional,
-  see [GraphOrientation](https://github.com/phetsims/vector-addition/blob/main/js/common/model/GraphOrientation.ts)
+* _coordinate snap mode_ refers to which vector quantities will snap to integer values, see `CoordinateSnapMode`
+* _component vector style_ refers to the representation used to display component vectors, see `ComponentVectorStyle`
+* _toolbox_ is the panel-like container that vectors are dragged to and from
+* _graph orientation_ is horizontal, vertical, or two-dimensional, see `GraphOrientation`
 
 ## General Considerations
 
@@ -38,16 +35,15 @@ PhET simulations.
 
 The transform between model and view coordinate frames can be found
 in [VectorAdditionScene](https://github.com/phetsims/vector-addition/blob/main/js/common/model/Graph.ts),
-where `modelViewTransformProperty` is derived from the scene's bounds, and changes when the scene's origin is moved.
+where `modelViewTransformProperty` is derived from the scene's bounds, and changes when the graph's origin is moved.
 This transform inverts the mapping of y-axis values; +y is down in view (scenery) coordinates, up in model coordinates.
 
 ### Memory Management
 
-The dynamic objects in the sim are the vectors, and their model and view classes implement `dispose`. On the model side,
-that includes [RootVector](https://github.com/phetsims/vector-addition/blob/main/js/common/model/RootVector.ts) and its
-subclasses; on the view
-side, [RootVectorNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/RootVectorNode.ts) and its
-subclasses.
+To meet the needs of PhET-iO, all vectors in the model are created at startup. (This was a major change in the 1.1 release,
+as the implementation previously created vectors dynamically, as they were dragged to/from the toolbox.)
+
+For the view, `RootVectorNode` and its subclasses are created and disposed dynamically, as vectors are dragged to/from the toolbox.
 
 All other objects are instantiated at startup, and exist for the lifetime of the sim. They are created
 with `isDisposable: false`, or have a `dispose` method that looks like this:
@@ -56,18 +52,6 @@ with `isDisposable: false`, or have a `dispose` method that looks like this:
 public dispose(): void {
   Disposable.assertNotDisposable();
 }
-```
-
-Calls to methods that add observers (`link`, `multilink`, `addListener`,...) typically have a comment when when they 
-need to be deregistered on dispose. For example:
-
-```ts
-// Highlight the component vector's label when its parent vector is selected.
-// unlink is required on dispose.
-const selectedVectorListener = ( selectedVector: Vector | null ) => {
-  this.labelNode.setHighlighted( selectedVector === componentVector.parentVector );
-};
-scene.selectedVectorProperty.link( selectedVectorListener );
 ```
 
 ### Query Parameters
@@ -82,40 +66,27 @@ The implementation makes heavy use of `affirm` to verify pre/post assumptions an
 performs type-checking for almost all function arguments via `affirm`. If you are making modifications to this sim, do
 so with `affirm` enabled via the `ea` query parameter.
 
-### Creator Pattern
+### Vector Management
 
-This sim uses the Creator pattern to dynamically create and dispose of vectors. For an overview of this pattern,
-see [Creator](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md#creator-with-drag-forwarding)
-in the [_PhET Software Design
-Patterns_](https://github.com/phetsims/phet-info/blob/main/doc/phet-software-design-patterns.md). Here's how that
-pattern is implemented in this sim:
+`VectorSet` is a set of related vectors, all of which are instantiated at startup. Vectors that are on the graph or in the
+process of dragging are in the VectorSet's `activeVectors` ObservableArray.  Vectors in the set that are on the graph contribute 
+to the computation of a resultant vector.
 
-A [VectorSet](https://github.com/phetsims/vector-addition/blob/main/js/common/model/VectorSet.ts) is a set of related
-vectors. The vectors in the set contribute to a sum vector, and share the
-same [VectorColorPalette](https://github.com/phetsims/vector-addition/blob/main/js/common/model/VectorColorPalette.ts).
+`VectorToolbox` is a panel-like container, with one or more "slots" that vectors are dragged to and from.
+The _Explore 1D_ and _Explore 2D_ screens each have 1 vector set, with a slot in the toolbox for each vector in that set.
+The _Lab_ screen has 2 vector sets, with 1 slot in the toolbox for each vector set, allowing the user to 
+drag multiple (10) vectors to/from each slot.
 
-[VectorToolbox](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanel.ts) is the
-vector "toolbox". It contains
-one [LabVectorToolboxSlot](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorCreatorPanelSlot.ts)
-for each `VectorSet`, with each slot being represented by an icon in the toolbox. Each `VectorSet` also has an
-associated [VectorSetNode](https://github.com/phetsims/vector-addition/blob/main/js/common/view/VectorSetNode.ts), which
-manages creation and layering of Nodes related to vectors in the set.
+_Adding a vector_: When slot in the toolbox is pressed, the next available vector for that slot is added to `activeVectors`,
+and registered with the view. The view delegates creation of the vector's view to `VectorSetNode` (see `registerVector`).
 
-_Adding a vector_: When a vector icon in the toolbox is clicked,
-`LabVectorToolboxSlot` creates a new vector and adds it to the associated `VectorSet`. It then delegates creation of the
-vector's view to `VectorSetNode` (see `registerVector`).
-
-_Removing a vector_: When a vector is added, `LabVectorToolboxSlot`
-creates closures that handle disposing of the vector when it's returned to the slot (see `animateVectorBackListener`) or
-when the `VectorSet`
-associated with the slot is cleared by pressing the eraser button or Reset All button (
-see `removeVectorListener`). `VectorSetNode` similarly creates a closure that observers the `VectorSet` and removes
-Nodes associated with a vector that is removed.
+_Removing a vector_: When a vector is returned to the toolbox (by dragging, erase button, or Reset All button), it is removed
+from `activeVectors`.  The view is notified and Nodes associated with the vector are disposed.
 
 ### Scenes
 
-A scene consists of a graph and its vector set(s). In the model, see VectorAdditionScene and its subclasses, 
-and `sceneProperty`. In the view, see VectorAdditionSceneNode and its subclasses.
+A scene consists of a graph and its vector set(s). In the model, see `VectorAdditionScene` and its subclasses, 
+and `sceneProperty`. In the view, see   VectorAdditionSceneNode` and its subclasses.
 
 The _Explore 1D_ screen has horizontal and vertical scenes, while the other screens have Cartesian and polar scenes.
 
