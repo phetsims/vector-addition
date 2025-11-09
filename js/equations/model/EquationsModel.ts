@@ -6,50 +6,39 @@
  * @author Brandon Li
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
-import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsCartesianScene from './EquationsCartesianScene.js';
 import EquationsPolarScene from './EquationsPolarScene.js';
 import EquationsScene from './EquationsScene.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
-export default class EquationsModel extends VectorAdditionModel {
+export default class EquationsModel extends VectorAdditionModel<EquationsScene> {
 
+  // Specific scenes are needed in some view code.
   public readonly cartesianScene: EquationsScene;
   public readonly polarScene: EquationsScene;
-  public readonly scenes: EquationsScene[];
-
-  // The selected scene
-  public readonly sceneProperty: Property<EquationsScene>;
 
   public constructor( tandem: Tandem ) {
 
     super( {
+      createScenes: ( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, scenesTandem: Tandem ) => {
+        return [
+          new EquationsCartesianScene( componentVectorStyleProperty, scenesTandem.createTandem( 'cartesianScene' ) ),
+          new EquationsPolarScene( componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) )
+        ];
+      },
       tandem: tandem
     } );
 
-    const scenesTandem = tandem.createTandem( 'scenes' );
+    this.cartesianScene = this.scenes[ 0 ];
+    affirm( this.cartesianScene instanceof EquationsCartesianScene, 'invalid scene type' );
 
-    this.cartesianScene = new EquationsCartesianScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'cartesianScene' ) );
-
-    this.polarScene = new EquationsPolarScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) );
-
-    this.scenes = [ this.cartesianScene, this.polarScene ];
-
-    this.sceneProperty = new Property( this.cartesianScene, {
-      validValues: this.scenes,
-      tandem: tandem.createTandem( 'sceneProperty' ),
-      phetioFeatured: true,
-      phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
-    } );
-  }
-
-  public override reset(): void {
-    this.scenes.forEach( scene => scene.reset() );
-    this.sceneProperty.reset();
-    super.reset();
+    this.polarScene = this.scenes[ 1 ];
+    affirm( this.polarScene instanceof EquationsPolarScene, 'invalid scene type' );
   }
 }
 

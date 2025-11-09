@@ -6,50 +6,39 @@
  * @author Martin Veillette
  */
 
-import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
-import VectorAdditionScene from '../../common/model/VectorAdditionScene.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabCartesianScene from './LabCartesianScene.js';
 import LabPolarScene from './LabPolarScene.js';
 import LabScene from './LabScene.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
-export default class LabModel extends VectorAdditionModel {
+export default class LabModel extends VectorAdditionModel<LabScene> {
 
-  public readonly cartesianScene: LabCartesianScene;
-  public readonly polarScene: LabPolarScene;
-  public readonly scenes: LabScene[];
-
-  // The selected scene
-  public readonly sceneProperty: Property<LabScene>;
+  // Specific scenes are needed in some view code.
+  public readonly cartesianScene: LabScene;
+  public readonly polarScene: LabScene;
 
   public constructor( tandem: Tandem ) {
 
     super( {
+      createScenes: ( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, scenesTandem: Tandem ) => {
+        return [
+          new LabCartesianScene( componentVectorStyleProperty, scenesTandem.createTandem( 'cartesianScene' ) ),
+          new LabPolarScene( componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) )
+        ];
+      },
       tandem: tandem
     } );
 
-    const scenesTandem = tandem.createTandem( 'scenes' );
+    this.cartesianScene = this.scenes[ 0 ];
+    affirm( this.cartesianScene instanceof LabCartesianScene, 'invalid scene type' );
 
-    this.cartesianScene = new LabCartesianScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'cartesianScene' ) );
-
-    this.polarScene = new LabPolarScene( this.componentVectorStyleProperty, scenesTandem.createTandem( 'polarScene' ) );
-
-    this.scenes = [ this.cartesianScene, this.polarScene ];
-
-    this.sceneProperty = new Property( this.cartesianScene, {
-      validValues: this.scenes,
-      tandem: tandem.createTandem( 'sceneProperty' ),
-      phetioFeatured: true,
-      phetioValueType: VectorAdditionScene.VectorAdditionSceneIO
-    } );
-  }
-
-  public override reset(): void {
-    this.scenes.forEach( scene => scene.reset() );
-    this.sceneProperty.reset();
-    super.reset();
+    this.polarScene = this.scenes[ 1 ];
+    affirm( this.polarScene instanceof LabPolarScene, 'invalid scene type' );
   }
 }
 

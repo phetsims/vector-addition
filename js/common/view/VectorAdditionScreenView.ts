@@ -7,15 +7,16 @@
  */
 
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionModel from '../model/VectorAdditionModel.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
-type SelfOptions = EmptySelfOptions;
+type SelfOptions = {
+  resetModel: () => void;
+};
 
 export type VectorAdditionScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;
 
@@ -24,7 +25,7 @@ export default class VectorAdditionScreenView extends ScreenView {
   // Must be added to the scenegraph and pdomOrder by subclass.
   protected readonly resetAllButton: Node;
 
-  protected constructor( model: VectorAdditionModel, providedOptions: VectorAdditionScreenViewOptions ) {
+  protected constructor( providedOptions: VectorAdditionScreenViewOptions ) {
 
     const options = optionize<VectorAdditionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
@@ -36,7 +37,7 @@ export default class VectorAdditionScreenView extends ScreenView {
 
     this.resetAllButton = new ResetAllButton( {
       listener: () => {
-        model.reset();
+        options.resetModel();
         this.reset();
       },
       right: this.layoutBounds.maxX - VectorAdditionConstants.SCREEN_VIEW_X_MARGIN,
