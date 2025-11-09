@@ -204,8 +204,8 @@ Moving the graph origin is done via an input listener in `OriginManipulator` tha
 
 ## Core Description
 
-Screen summary descriptions are found in a class per screen: Explore1DScreenSummaryContent, Explore2DScreenSummaryContent, 
-LabScreenSummaryContent, and EquationsScreenSummaryContent.
+Screen summary descriptions are implemented in a class per screen: `Explore1DScreenSummaryContent`, `Explore2DScreenSummaryContent`, 
+`LabScreenSummaryContent`, and `EquationsScreenSummaryContent`.
 
 To identify other code related to core description, search for options that are related to description - `accessibleName`, `accessibleHelpText`,
 `accessibleObjectResponse`, `accessibleContextResponse`, etc.
