@@ -117,9 +117,9 @@ Nodes associated with a vector that is removed.
 A scene consists of a graph and its vector set(s). In the model, see VectorAdditionScene and its subclasses, 
 and `sceneProperty`. In the view, see VectorAdditionSceneNode and its subclasses.
 
-The _Explore 1D_ screen has horizontal and vertical scenes, while the other screens have Cartesian and Polar scenes.
+The _Explore 1D_ screen has horizontal and vertical scenes, while the other screens have Cartesian and polar scenes.
 
-In all screens, switch between scenes using the radio buttons that are located at the bottom-right of the ScreenView.
+In all screens, switch between scenes using the radio buttons that are located at the bottom-right of the UI.
 
 ## Vectors: Model and View
 
@@ -127,8 +127,7 @@ The implementation of most of this sim is relatively straightforward, and should
 familiar with PhET sim development.
 
 The part that is most interesting is the implementation of vectors. Source code documentation describes things well, so
-we won't repeat that information here. We'll summarize the structure of the class hierarchies, mention a couple of "
-gotchas", and then it's up to you to explore the source code.
+we won't repeat that information here. We'll summarize the structure of the class hierarchies, mention a couple of "gotchas",and then it's up to you to explore the source code.
 
 The model class hierarchy for vectors is shown below. Note the distinction between interactive and non-interactive
 vectors.
@@ -151,7 +150,8 @@ vectors.
 
 ```
 RootVectorNode (abstract base class)
-  VectorNode (interactive) 
+  VectorNode (interactive)
+    BaseVectorNode
     ResultantVectorNode
   ComponentVectorNode (not interactive)
     ResultantComponentVectorNode 
@@ -160,13 +160,14 @@ RootVectorNode (abstract base class)
 These class hierarchies make sense, and feel natural when you work with them. But there are a couple of things to be
 aware of (the "gotchas" mentioned above):
 
-* Classes in both hierarchies have a bit too much knowledge of their associated `VectorSet` and `VectorAdditionScene`. This increases
-  coupling, and (depending on what you need to change) can make it difficult to change `VectorSet`
-  or `VectorAdditionScene` without affecting vector classes. For further discussion,
-  see https://github.com/phetsims/vector-addition/issues/234.
+* Classes in both hierarchies have a bit too much knowledge of their associated `VectorSet`. This increases
+  coupling, and (depending on what you need to change) can make it difficult to change `VectorSet` without affecting
+  vector classes. For further discussion, see https://github.com/phetsims/vector-addition/issues/234. (Note that
+  this was a pain point and major cost for the 1.1 release, where coupling was greatly introduced but not eliminated.
+  See https://github.com/phetsims/vector-addition/issues/332.)
 
 * Model classes handle some responsibilities that arguably belong in view classes, and this contributes to the coupling
-  mentioned above. For example, the `getLabelContent` method found throughout the model class is responsible for
+  mentioned above. For example, the `getLabelDisplayData` method found throughout the model class is responsible for
   assembling a vector's label. The model rightly contains the information that appears in a label. But the information
   that appears in the label depends on the state of the view, so assembling that information should be a responsibility
   of the view.
@@ -178,14 +179,12 @@ similarities and differences between the screens.
 
 The _Explore 2D_ screen can be thought of as the "prototypical" screen. It has these features:
 
-* There are 2 scenes, one for each snap mode (Cartesian and Polar).
+* There are 2 scenes, one for each snap mode (Cartesian and polar).
 * Each scene has 1 vector set, and therefore 1 sum vector.
 * Vectors in the Cartesian scene are labeled a&#8407;, b&#8407;, c&#8407;.
-* Vectors in the Polar scene are labeled d&#8407;, e&#8407;, f&#8407;.
-* One instance of each vector can be created via direct manipulation. Drag out of the toolbox to create, drag back to
-  the toolbox to delete.
-* Vectors can be transformed via direct manipulation. Drag a vector's tail to translate; drag a vector's head to scale
-  and rotate.
+* Vectors in the polar scene are labeled d&#8407;, e&#8407;, f&#8407;.
+* One instance of each vector can be dragged to/from the toolbox via direct manipulation.
+* Vectors can be transformed via direct manipulation. Drag a vector's tail to translate. Drag a vector's head to scale and rotate.
 * Sum vectors can only be translated via direct manipulation. By definition, their magnitude and angle depend on the
   other vectors in the vector set.
 * Selecting a vector moves it to the front, highlights it, and displays its associated values in the "Vector Values"
@@ -199,7 +198,7 @@ The other screens can be described in terms of their differences from the _Explo
 
 _Explore 1D_ screen:
 
-* Scenes are based on graph orientation (horizontal and vertical), rather than snap mode (Cartesian and Polar).
+* Scenes are based on graph orientation (horizontal and vertical), rather than snap mode (Cartesian and polar).
 * Vectors can be translated and scaled via direct manipulation, but not rotated.
 * Component vectors are not displayed.
 * Vector angles are not displayed.
@@ -207,19 +206,18 @@ _Explore 1D_ screen:
 _Lab_ screen:
 
 * Each scene has 2 vector sets, and therefore 2 sum vectors.
-* For each vector set, 10 vectors can be created via direct manipulation.
-* Vectors are not labeled uniquely. They are generically labeled as v&#8407; and s&#8407;, with only one such label
-  visible at a time.
+* For each vector set, 10 vectors can be dragged to/from the toolbox.
+* Vectors are labeled uniquely using their vector set symbol and an index, for example v&#8407<sub>2</sub>.
 * In the view, all vectors in a set are in the same layer. Selecting any vector in a set moves the entire set to the
   front.
 
 _Equations_ screen:
 
 * Base vectors are provided, and you can change their values using spinners.
-* Each vector set has one vector (c&#8407; or f&#8407;) whose computation depends on which equation is selected, see
+* Each vector set has one resultant vector (c&#8407; or f&#8407;) whose computation depends on which equation is selected, see
   [EquationType](https://github.com/phetsims/vector-addition/blob/main/js/equations/model/EquationTypes.ts).
 * Equation coefficients can be changed using spinners.
-* Vectors cannot be added to or removed from the scene.
+* Vectors cannot be added to or removed from the graph.
 * Vectors cannot be rotated or scaled via direct manipulation. They must be indirectly rotated/scaled using the spinners
   for base vectors and equations.
 
