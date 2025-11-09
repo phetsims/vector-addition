@@ -62,9 +62,8 @@ parameters are documented in
 
 ### Assertions
 
-The implementation makes heavy use of `affirm` to verify pre/post assumptions and perform type checking. This sim
-performs type-checking for almost all function arguments via `affirm`. If you are making modifications to this sim, do
-so with `affirm` enabled via the `ea` query parameter.
+The implementation makes heavy use of `affirm` to verify pre/post assumptions in methods and functions. 
+If you are making modifications to this sim, do so with `affirm` enabled via the `ea` query parameter.
 
 ### Vector Management
 
