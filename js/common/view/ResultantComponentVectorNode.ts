@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View for the x-component or y-component of the resultant vector.
+ * ResultantComponentVectorNode is the view for the x-component vector or y-component vector of a resultant vector.
  *
  * Extends ComponentVectorNode but adds the following functionality:
  *  - a distinct appearance
@@ -27,7 +27,8 @@ import ComponentVectorNode, { ComponentVectorNodeOptions } from './ComponentVect
 import { RootVectorArrowNodeOptions } from './RootVectorNode.js';
 
 type SelfOptions = EmptySelfOptions;
-type SumComponentVectorNodeOptions = SelfOptions & ComponentVectorNodeOptions;
+
+type ResultantComponentVectorNodeOptions = SelfOptions & ComponentVectorNodeOptions;
 
 export default class ResultantComponentVectorNode extends ComponentVectorNode {
 
@@ -38,11 +39,11 @@ export default class ResultantComponentVectorNode extends ComponentVectorNode {
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       resultantVectorVisibleProperty: TReadOnlyProperty<boolean>,
-                      providedOptions?: SumComponentVectorNodeOptions ) {
+                      providedOptions?: ResultantComponentVectorNodeOptions ) {
 
     affirm( componentVector.parentVector === resultantVector, 'componentVector does not belong to resultantVector.' );
 
-    const options = optionize<SumComponentVectorNodeOptions, SelfOptions, ComponentVectorNodeOptions>()( {
+    const options = optionize<ResultantComponentVectorNodeOptions, SelfOptions, ComponentVectorNodeOptions>()( {
 
       // ComponentVectorNodeOptions
       isDisposable: false,

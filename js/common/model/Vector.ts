@@ -63,7 +63,7 @@ type SelfOptions = {
   tandemNameSymbol: string; // symbol for this vector used in tandem names
 
   // optional
-  accessibleSymbolProperty?: TReadOnlyProperty<string> | null; // the symbol used to describe the vector in interactive description
+  accessibleSymbolProperty?: TReadOnlyProperty<string> | null; // the symbol used to describe the vector in interactive descriptions
   isTipDraggable?: boolean; // flag indicating if the tip can be dragged
   isRemovableFromGraph?: boolean; // flag indicating if the vector can be removed from the graph
   isOnGraph?: boolean; // initial value of isOnGraphProperty

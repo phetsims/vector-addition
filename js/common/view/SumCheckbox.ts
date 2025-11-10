@@ -29,14 +29,14 @@ import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
 
 type SelfOptions = {
 
-  // Fill and stroke from the vector icon.
+  // Fill and stroke for the vector icon.
   vectorIconFill: TColor;
   vectorIconStroke: TColor;
 
   // Symbol for the sum vector that is shown in the visual UI.
   sumSymbolProperty?: TReadOnlyProperty<string>;
 
-  // Description of the sum vector in the non-visual UI.
+  // Symbol uses in descriptions of the sum vector in the non-visual UI.
   accessibleSumSymbolProperty?: TReadOnlyProperty<string>;
 
   // Use this if you have multiple Sum checkboxes and want to align their vectorIcons.
