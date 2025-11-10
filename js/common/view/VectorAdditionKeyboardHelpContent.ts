@@ -14,13 +14,13 @@ import VectorsKeyboardHelpSection from './VectorsKeyboardHelpSection.js';
 
 export default class VectorAdditionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
-  public constructor() {
+  public constructor( includeScaleRotate = true ) {
 
     // Sections in the left column.
     const leftSections = [
 
       // Vectors
-      new VectorsKeyboardHelpSection(),
+      new VectorsKeyboardHelpSection( includeScaleRotate ),
 
       // Graph Origin
       new GraphOriginKeyboardHelpSection()

@@ -25,7 +25,7 @@ export default class EquationsScreen extends Screen<EquationsModel, EquationsScr
       backgroundColorProperty: VectorAdditionColors.screenBackgroundColorProperty,
       homeScreenIcon: VectorAdditionIconFactory.createEquationsScreenIcon(),
       screenButtonsHelpText: VectorAdditionStrings.a11y.equationsScreen.screenButtonsHelpTextStringProperty,
-      createKeyboardHelpNode: () => new VectorAdditionKeyboardHelpContent(),
+      createKeyboardHelpNode: () => new VectorAdditionKeyboardHelpContent( false /* includeScaleRotate */ ),
       tandem: tandem
     };
 

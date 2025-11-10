@@ -19,7 +19,7 @@ import VectorValuesKeyboardShortcut from './VectorValuesKeyboardShortcut.js';
 
 export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
 
-  public constructor() {
+  public constructor( includeScaleRotate: boolean ) {
 
     const rows = [
 
@@ -32,16 +32,18 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
       // Move
       KeyboardHelpSectionRow.fromHotkeyData( MoveVectorKeyboardListener.HOTKEY_DATA, {
         icon: KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon()
-      } ),
-
-      // Scale and rotate via tip
-      KeyboardHelpSectionRow.fromHotkeyData( ScaleRotateVectorKeyboardListener.HOTKEY_DATA, {
-        icon: KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon()
-      } ),
-
-      // Read values
-      KeyboardHelpSectionRow.fromHotkeyData( VectorValuesKeyboardShortcut.HOTKEY_DATA )
+      } )
     ];
+
+    // Scale and rotate via tip
+    if ( includeScaleRotate ) {
+      rows.push( KeyboardHelpSectionRow.fromHotkeyData( ScaleRotateVectorKeyboardListener.HOTKEY_DATA, {
+        icon: KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon()
+      } ) );
+    }
+
+    // Read values
+    rows.push( KeyboardHelpSectionRow.fromHotkeyData( VectorValuesKeyboardShortcut.HOTKEY_DATA ) );
 
     super( VectorAdditionStrings.keyboardHelpDialog.vectorsStringProperty, rows, {
       textMaxWidth: 300,
