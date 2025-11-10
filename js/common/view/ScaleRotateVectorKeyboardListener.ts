@@ -93,10 +93,9 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
           // Constrain magnitude to integer.
           magnitude = toFixedNumber( magnitude, 0 );
 
-          // Skip over zero.
+          // Do not allow magnitude to go to zero.
           if ( magnitude === 0 ) {
-            magnitude = vector.magnitude;
-            angle = vector.angle + Math.PI;
+            magnitude = 1;
           }
 
           // Convert to Cartesian coordinates.
