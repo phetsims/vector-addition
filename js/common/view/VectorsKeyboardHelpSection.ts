@@ -15,6 +15,7 @@ import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListener.js';
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
+import VectorValuesKeyboardShortcut from './VectorValuesKeyboardShortcut.js';
 
 export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
 
@@ -36,7 +37,10 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
       // Scale and rotate via tip
       KeyboardHelpSectionRow.fromHotkeyData( ScaleRotateVectorKeyboardListener.HOTKEY_DATA, {
         icon: KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon()
-      } )
+      } ),
+
+      // Read values
+      KeyboardHelpSectionRow.fromHotkeyData( VectorValuesKeyboardShortcut.HOTKEY_DATA )
     ];
 
     super( VectorAdditionStrings.keyboardHelpDialog.vectorsStringProperty, rows, {

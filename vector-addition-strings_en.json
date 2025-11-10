@@ -75,7 +75,7 @@
     "value": "Scale and rotate via tip"
   },
   "keyboardHelpDialog.vectorValues": {
-    "value": "Read vector values"
+    "value": "Read values"
   },
   "a11y": {
     "explore1DScreen": {
@@ -476,7 +476,7 @@
           "value": "Scale and rotate via tip with arrow keys or W, A, S, or D keys."
         },
         "vectorValuesDescription": {
-          "value": "Read vector values with V key."
+          "value": "Read values with V key."
         }
       }
     }
