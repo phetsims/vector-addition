@@ -319,7 +319,7 @@ const VectorAdditionIconFactory = {
       } ) );
 
     // x and y, Cartesian coordinates
-    const xyArrowOptions = {
+    const xyArrowOptions: ArrowNodeOptions = {
       fill: Color.BLACK,
       tailWidth: 1,
       headWidth: 6,
