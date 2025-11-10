@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Factory for creating the various icons that appear in the sim.
+ * VectorAdditionIconFactory is a set of factory methods for creating the various icons that appear in the sim.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -44,7 +44,11 @@ const SCREEN_ICON_WIDTH = 70;
 const SCREEN_ICON_HEIGHT = SCREEN_ICON_WIDTH / Screen.HOME_SCREEN_ICON_ASPECT_RATIO; // w/h = ratio <=> h = w/ratio
 const RADIO_BUTTON_ICON_SIZE = 45;
 
-const VectorAdditionIconFactory = {
+export default class VectorAdditionIconFactory {
+
+  private constructor() {
+    // Not intended for instantiation.
+  }
 
   //========================================================================================
   // Screen icons, see https://github.com/phetsims/vector-addition/issues/76
@@ -53,7 +57,7 @@ const VectorAdditionIconFactory = {
   /**
    * Creates the icon for the 'Explore 1D' Screen.
    */
-  createExplore1DScreenIcon(): ScreenIcon {
+  public static createExplore1DScreenIcon(): ScreenIcon {
 
     const arrowNodeOptions = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
       fill: VectorAdditionColors.EXPLORE_1D_HORIZONTAL_COLOR_PALETTE.vectorFillProperty,
@@ -73,12 +77,12 @@ const VectorAdditionIconFactory = {
     } );
 
     return createScreenIcon( [ vBox ] );
-  },
+  }
 
   /**
    * Creates the icon for the 'Explore 2D' Screen.
    */
-  createExplore2DScreenIcon(): ScreenIcon {
+  public static createExplore2DScreenIcon(): ScreenIcon {
 
     const vector = new Vector2( SCREEN_ICON_WIDTH, -SCREEN_ICON_HEIGHT * 0.8 );
     const colorPalette = VectorAdditionColors.EXPLORE_2D_POLAR_COLOR_PALETTE;
@@ -98,12 +102,12 @@ const VectorAdditionIconFactory = {
     const yComponentNode = new DashedArrowNode( vector.x, 0, vector.x, vector.y, dashedArrowNodeOptions );
 
     return createScreenIcon( [ xComponentNode, yComponentNode, vectorNode ] );
-  },
+  }
 
   /**
    * Creates the icon for the 'Lab' Screen.
    */
-  createLabScreenIcon(): ScreenIcon {
+  public static createLabScreenIcon(): ScreenIcon {
 
     // {Vector2[]} the tip positions of the group 1 (blue) arrows (aligned tip to tail)
     const group1TipPositions = [
@@ -133,12 +137,12 @@ const VectorAdditionIconFactory = {
       } ) );
 
     return createScreenIcon( group2ArrowNodes.concat( group1ArrowNodes ) );
-  },
+  }
 
   /**
    * Creates the icon for the 'Equations' Screen.
    */
-  createEquationsScreenIcon(): ScreenIcon {
+  public static createEquationsScreenIcon(): ScreenIcon {
 
     // {Vector2[]} the tip positions of the vectors on the icon (vectors are aligned tip to tail)
     const tipPositions = [
@@ -166,7 +170,7 @@ const VectorAdditionIconFactory = {
       } ) ) );
 
     return createScreenIcon( arrowNodes );
-  },
+  }
 
   //========================================================================================
   // VectorToolbox icons
@@ -177,13 +181,13 @@ const VectorAdditionIconFactory = {
    * @param xyComponents - vector xy-components (in view coordinates)
    * @param vectorColorPalette - color palette for this icon's vector
    */
-  createVectorToolboxIcon( xyComponents: Vector2, vectorColorPalette: VectorColorPalette ): Node {
+  public static createVectorToolboxIcon( xyComponents: Vector2, vectorColorPalette: VectorColorPalette ): Node {
     return new ArrowNode( 0, 0, xyComponents.x, xyComponents.y,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
         fill: vectorColorPalette.vectorFillProperty,
         stroke: vectorColorPalette.vectorStrokeProperty
       } ) );
-  },
+  }
 
   //========================================================================================
   // Checkbox icons (i.e. sum icon, angle icon)
@@ -192,7 +196,7 @@ const VectorAdditionIconFactory = {
   /**
    * Creates a vector icon that points to the right, used with various checkboxes.
    */
-  createVectorIcon( vectorLength: number, providedOptions?: ArrowNodeOptions ): Node {
+  public static createVectorIcon( vectorLength: number, providedOptions?: ArrowNodeOptions ): Node {
 
     const options = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
       fill: Color.BLACK,
@@ -201,12 +205,12 @@ const VectorAdditionIconFactory = {
     }, providedOptions );
 
     return new ArrowNode( 0, 0, vectorLength, 0, options );
-  },
+  }
 
   /**
    * Creates the icon that appears next to the checkbox that toggles the 'Angle' visibility
    */
-  createAngleIcon(): Node {
+  public static createAngleIcon(): Node {
 
     // values determined empirically
     const wedgeLength = 20;
@@ -233,7 +237,7 @@ const VectorAdditionIconFactory = {
     return new Node( {
       children: [ wedgeNode, curvedArrowNode, thetaNode ]
     } );
-  },
+  }
 
   //========================================================================================
   // ComponentVectorStyle icons, used on Components radio buttons
@@ -242,7 +246,7 @@ const VectorAdditionIconFactory = {
   /**
    * Creates the icons that go on the Components radio buttons, based on a component style
    */
-  createComponentStyleRadioButtonIcon( componentVectorStyle: ComponentVectorStyle ): Node {
+  public static createComponentStyleRadioButtonIcon( componentVectorStyle: ComponentVectorStyle ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE; // size of the icon (square)
 
@@ -297,7 +301,7 @@ const VectorAdditionIconFactory = {
       maxWidth: iconSize,
       maxHeight: iconSize
     } );
-  },
+  }
 
   //=========================================================================================================
   // CoordinateSnapMode icons, used on scene radio buttons,
@@ -307,7 +311,7 @@ const VectorAdditionIconFactory = {
   /**
    * Creates the icon for the Cartesian scene radio button.
    */
-  createCartesianSceneIcon( vectorColorPalette: VectorColorPalette ): Node {
+  public static createCartesianSceneIcon( vectorColorPalette: VectorColorPalette ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
 
@@ -333,12 +337,12 @@ const VectorAdditionIconFactory = {
       maxWidth: iconSize,
       maxHeight: iconSize
     } );
-  },
+  }
 
   /**
    * Creates the icon for the Polar scene radio button.
    */
-  createPolarSceneIcon( vectorColorPalette: VectorColorPalette ): Node {
+  public static createPolarSceneIcon( vectorColorPalette: VectorColorPalette ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
     const arcRadius = 30; // arc radius of the curved arrow
@@ -363,7 +367,7 @@ const VectorAdditionIconFactory = {
       maxWidth: iconSize,
       maxHeight: iconSize
     } );
-  },
+  }
 
   //================================================================================================
   // GraphOrientation icons (horizontal/vertical), used on scene radio buttons in Explore 1D screen
@@ -372,7 +376,7 @@ const VectorAdditionIconFactory = {
   /**
    * Creates the icon used on the radio buttons on 'Explore 1D' screen that toggles the graph orientation.
    */
-  createGraphOrientationIcon( graphOrientation: GraphOrientation ): Node {
+  public static createGraphOrientationIcon( graphOrientation: GraphOrientation ): Node {
 
     affirm( _.includes( [ 'horizontal', 'vertical' ], graphOrientation ), `invalid graphOrientation: ${graphOrientation}` );
 
@@ -385,7 +389,7 @@ const VectorAdditionIconFactory = {
         maxWidth: iconSize,
         maxHeight: iconSize
       } ) );
-  },
+  }
 
   //========================================================================================
   // EquationType icons, used on radio buttons in Equations screen
@@ -396,7 +400,7 @@ const VectorAdditionIconFactory = {
    * @param equationType
    * @param vectorSymbolProperties - symbols on the buttons (the last symbol is the resultant vector's symbol)
    */
-  createEquationTypeIcon( equationType: EquationType, vectorSymbolProperties: TReadOnlyProperty<string>[] ): Node {
+  public static createEquationTypeIcon( equationType: EquationType, vectorSymbolProperties: TReadOnlyProperty<string>[] ): Node {
 
     let children: Node[] = [];
 
@@ -433,7 +437,7 @@ const VectorAdditionIconFactory = {
       align: 'origin' // so that text baselines are aligned
     } );
   }
-};
+}
 
 //========================================================================================
 // Helper functions
@@ -500,4 +504,3 @@ function createEyeCloseIcon( iconSize: number ): Node {
 }
 
 vectorAddition.register( 'VectorAdditionIconFactory', VectorAdditionIconFactory );
-export default VectorAdditionIconFactory;
