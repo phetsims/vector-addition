@@ -44,8 +44,6 @@ export default class ExploreScene extends VectorAdditionScene {
       vectorColorPalette: vectorColorPalette,
       tandem: tandem.createTandem( 'vectorSet' )
     } );
-
-    // Add the one and only vector set
     this.vectorSets.push( this.vectorSet );
   }
 

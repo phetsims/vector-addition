@@ -42,7 +42,10 @@ type SelfOptions<V extends Vector> = {
                             tandemNameSymbol: string,
                             tandem: Tandem ) => ResultantVector;
 
+  // Whether vectors in this vector set snap to Cartesian or polar coordinates.
   coordinateSnapMode: CoordinateSnapMode;
+
+  // Color palette for vectors in this vector set.
   vectorColorPalette: VectorColorPalette;
 
   // Offsets for primary component vectors in ComponentVectorStyle 'projection'
@@ -67,7 +70,8 @@ type SelfOptions<V extends Vector> = {
   // Symbol for the resultant vector used in tandem names.
   resultantTandemNameSymbol?: string;
 
-  // Whether to PhET-iO instrument the activeVectors observable array.
+  // Whether to instrument the activeVectors observable array. In the Equations screen, activeVectors is not
+  // interesting and does not need to be stateful, because all vectors are always active.
   activeVectorsInstrumented?: boolean;
 };
 
@@ -75,6 +79,7 @@ export type VectorSetOptions<V extends Vector> = SelfOptions<V> & PickRequired<P
 
 export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
 
+  // A vector set has one resultant vector, derived from the vectors that are on the graph.
   public readonly resultantVector: ResultantVector;
 
   // The complete set of non-resultant vectors for this vector set, allocated when the sim starts.
@@ -88,8 +93,10 @@ export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
   // toolbox. Active vectors with isOnGraphProperty.value === true contribute to the resultant vector.
   public readonly activeVectors: ObservableArray<Vector>;
 
+  // Color palette for vectors in this vector set.
   public readonly vectorColorPalette: VectorColorPalette;
 
+  // Offsets for ComponentVectorStyle 'projection'.
   public readonly projectionXOffsetStart: number;
   public readonly projectionYOffsetStart: number;
   public readonly resultantProjectionXOffset: number;

@@ -30,15 +30,19 @@ export type DashedArrowNodeOptions = SelfOptions & PickOptional<NodeOptions, 'cu
 
 export default class DashedArrowNode extends Node {
 
+  // Tail and tip xy-coordinates.
   private _tailX: number;
   private _tailY: number;
   private _tipX: number;
   private _tipY: number;
 
+  // Properties of the head.
   private readonly headHeight: number;
   private readonly headWidth: number;
   private readonly isHeadDynamic: boolean;
   private readonly fractionalHeadHeight: number;
+
+  // Separate nodes for the tail and head so that they can be styled separately.
   private readonly tailNode: Path;
   private readonly headNode: Path;
 

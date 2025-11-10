@@ -28,6 +28,8 @@ import Vector from './Vector.js';
 import VectorSet from './VectorSet.js';
 
 type SelfOptions = {
+
+  // Options that are propagated to the scene's Graph instance.
   graphOptions: StrictOmit<GraphOptions, 'tandem'>;
 };
 

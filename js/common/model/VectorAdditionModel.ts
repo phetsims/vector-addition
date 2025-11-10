@@ -20,8 +20,12 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 
 type SelfOptions<S extends VectorAdditionScene> = {
-  componentVectorStylePropertyInstrumented?: boolean;
+
+  // Creates the scenes for the model.
   createScenes: ( componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>, scenesTandem: Tandem ) => S[];
+
+  // Whether to instrument componentVectorStyleProperty.
+  componentVectorStylePropertyInstrumented?: boolean;
 };
 
 export type VectorAdditionModelOptions<S extends VectorAdditionScene> = SelfOptions<S> & PickRequired<PhetioObjectOptions, 'tandem'>;

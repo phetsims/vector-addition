@@ -143,7 +143,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       const parentTipPosition = modelViewTransform.modelToViewDelta( componentVector.parentTip
         .minus( componentVector.tail ) );
 
-      // Create new shape for the leader lines
+      // Create the new shape for the leader lines.
       this.leaderLinesPath.shape = new Shape()
         .moveToPoint( Vector2.ZERO )
         .lineToPoint( parentTailPosition )

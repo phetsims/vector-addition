@@ -1,15 +1,14 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * RootVector is the root class for vector models, for all types of vectors.
- * It is abstract and intended to be subclassed.
+ * RootVector is the abstract base class for vector models, for all types of vectors.
  *
  * For an overview of the class hierarchy, see
  * https://github.com/phetsims/vector-addition/blob/main/doc/implementation-notes.md
  *
  * Responsibilities are:
  *  - tip and tail position Properties
- *  - components (x and y as scalars, or in other words the actual vector <x, y>)
+ *  - xy-components
  *  - vector color palette
  *  - abstract method for label information, see getLabelDisplayData
  *
@@ -55,7 +54,11 @@ export type LabelDisplayData = {
 };
 
 type SelfOptions = {
+
+  // required
   vectorColorPalette: VectorColorPalette; // color palette for this vector
+
+  // optional
   magnitudePropertyInstrumented?: boolean; // whether to instrument the magnitudeProperty
   anglePropertyInstrumented?: boolean; // whether to instrument the angleProperty
 };

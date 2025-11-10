@@ -39,7 +39,7 @@ export default class ComponentsControl extends VBox {
     const componentsRadioButtonGroup = new ComponentsRadioButtonGroup( componentVectorStyleProperty,
       tandem.createTandem( 'componentsRadioButtonGroup' ) );
 
-    // Some trickery to get the dynamic layout of componentsRadioButtonGroup to behave as desired, and do the right thing
+    // Some trickery to get the dynamic layout of componentsRadioButtonGroup to behave as desired and do the right thing
     // for the corner case where all buttons are hidden. See https://github.com/phetsims/vector-addition/issues/299.
     const radioButtonsAlignBox = new AlignBox( componentsRadioButtonGroup );
     componentsRadioButtonGroup.localBoundsProperty.link( localBounds => {

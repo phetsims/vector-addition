@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Enumeration of the possible orientations of a graph.
+ * GraphOrientation is an enumeration of the possible graph orientations.
  *
  * @author Martin Veillette
  */

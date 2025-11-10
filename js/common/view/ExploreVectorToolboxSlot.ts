@@ -28,7 +28,7 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
                       vectorSet: VectorSet,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
-                      iconModelComponents: Vector2,
+                      iconModelComponents: Vector2, // xy-components of the vector icon, in model coordinates
                       graphOrientation: GraphOrientation,
                       tandem: Tandem ) {
 

@@ -2,6 +2,7 @@
 
 /**
  * AngleConvention enumerates the conventions for display angle values.
+ * The user can change the angle convention in Preferences > Simulation.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

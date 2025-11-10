@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Graph is the graph for a scene.
+ * Graph is the graph for a scene. Its bounds (x-axis and y-axis ranges) can be changed by moving the origin.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -23,7 +23,11 @@ import { GraphOrientation } from './GraphOrientation.js';
 const MODEL_TO_VIEW_SCALE = 14.5;
 
 type SelfOptions = {
+
+  // required
   bounds: Bounds2; // initial value of boundsProperty
+
+  // optional
   orientation?: GraphOrientation;
   bottomLeft?: Vector2; // bottom left corner of the graph, in view coordinates
 };

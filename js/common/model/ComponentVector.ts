@@ -11,7 +11,7 @@
  *    - Updates its tail position/components based on a parent vector's changing tail/tip
  *    - Updates its tail position based on the component style Property
  *
- * Positioning for the x and y components are slightly different. Label content for component vectors are unique.
+ * Positioning for the x and y components is slightly different. Label content for component vectors are unique.
  *
  * @author Brandon Li
  */

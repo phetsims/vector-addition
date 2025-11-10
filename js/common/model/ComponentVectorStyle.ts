@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * Enumeration of the possible 'styles' to display component vectors.
+ * ComponentVectorStyle is an enumeration of the possible 'styles' to display component vectors.
  *
  * @author Brandon Li
  */

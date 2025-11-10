@@ -1,16 +1,15 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View for an arrow that is curved. Used in various other views throughout the sim.
+ * CurvedArrowNode is the view for an arrow that is curved, used to display a vector angle.
  *
  * A solution using `SCENERY-PHET/CurvedArrowShape` was investigated, but it was inappropriate for use in this sim.
  * See https://github.com/phetsims/vector-addition/blob/main/doc/images/CurvedArrowNode-notes.png for an explanation.
  *
- * ## Other functionality:
- *  - The Arrowhead turns invisible when the angle becomes too small (i.e. the triangle is larger than the arc)
+ * Other functionality:
+ *  - The arrowhead turns invisible when the angle becomes too small (i.e. the triangle is larger than the arc)
  *  - The arrow is assumed to start at 0 rad.
- *  - Contains methods to change the radius
- *  - Contains methods to change the angle
+ *  - Has methods to change the radius and angle.
  *
  * @author Brandon Li
  */

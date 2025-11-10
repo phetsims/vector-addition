@@ -23,7 +23,10 @@ import Vector, { VectorOptions } from './Vector.js';
 import VectorSet from './VectorSet.js';
 
 type SelfOptions = {
-  isDefinedPropertyInstrumented?: boolean; // whether to instrument isDefinedProperty
+
+  // Whether to instrument isDefinedProperty. It is not relevant in the Equations screen because vectors that
+  // contribute to the resultant vector are always on the graph.
+  isDefinedPropertyInstrumented?: boolean;
 };
 
 export type ResultantVectorOptions = SelfOptions &

@@ -1,8 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * FixedSizeAccordionBox is the base class for a specialized version of AccordionBox that doesn't change size
- * when expanded versus collapsed.
+ * FixedSizeAccordionBox is the base class for a specialized version of AccordionBox whose size is the same
+ * when expanded and collapsed.
  *
  * @author Brandon Li
  */
@@ -19,7 +19,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 type SelfOptions = {
-  // Fixed dimensions of the content. If actual content is larger, it will be scaled to fit.
+  // Fixed dimensions of the content. If the actual content is larger, it will be scaled to fit.
   contentFixedSize: Dimension2;
 };
 

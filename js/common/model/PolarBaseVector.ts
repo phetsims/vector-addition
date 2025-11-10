@@ -34,6 +34,7 @@ type PolarBaseVectorOptions = SelfOptions & BaseVectorOptions;
 
 export default class PolarBaseVector extends BaseVector {
 
+  // Magnitude and angle of the vector, which can be changed in the Equations screen's polar scene.
   public readonly magnitudeProperty: NumberProperty;
   public readonly angleProperty: NumberProperty;
 
@@ -72,7 +73,7 @@ export default class PolarBaseVector extends BaseVector {
       phetioFeatured: true
     } );
 
-    // Observe when the angle or magnitude changes, and update the components to match.
+    // Observe when the magnitude or angle changes, and update the xy-components to match.
     Multilink.multilink(
       [ this.magnitudeProperty, this.angleProperty ],
       ( magnitude, angle ) => {

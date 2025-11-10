@@ -58,7 +58,7 @@ const TICK_LABEL_Y_OFFSET = 15; // from y = 0, view units
 
 export default class GraphNode extends Node {
 
-  // Public for pdomOrder at ScreenView level.
+  // Public for setting pdomOrder at ScreenView level.
   public readonly originManipulator: Node;
 
   public constructor( graph: Graph, gridVisibilityProperty: Property<boolean>, selectedVectorProperty: Property<Vector | null>, tandem: Tandem ) {
@@ -142,7 +142,7 @@ class MajorAndMinorGridLines extends Node {
  */
 
 type GridLinesSelfOptions = {
-  spacing?: number;
+  spacing?: number; // spacing between grid line in model units.
 };
 
 type GridLinesOptions = GridLinesSelfOptions & PickRequired<PathOptions, 'lineWidth' | 'stroke'>;

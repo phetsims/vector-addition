@@ -30,7 +30,7 @@ type CartesianBaseVectorOptions = SelfOptions & BaseVectorOptions;
 
 export default class CartesianBaseVector extends BaseVector {
 
-  // The x and y components of the vector
+  // x and y components of the vector, which can be changed in the Equations screen's Cartesian scene.
   public readonly xComponentProperty: NumberProperty;
   public readonly yComponentProperty: NumberProperty;
 

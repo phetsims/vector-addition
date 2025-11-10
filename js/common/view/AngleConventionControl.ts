@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * AngleConventionControl.ts is the control in the Preferences dialog for choosing the convention used to
+ * AngleConventionControl is the control in the Preferences dialog for choosing the convention used to
  * display angle values.
  *
  * @author Chris Malley (PixelZoom, Inc.)

@@ -2,7 +2,7 @@
 
 /**
  * ExploreVectorToolbox is a specialization of VectorToolbox for the 'Explore 1D' and 'Explore 2D' screens.
- * This toolbox supports 1 vectors set, and each slot contains 1 vector instance from that vector set.
+ * This toolbox supports 1 vector set, and each slot contains 1 vector instance from that vector set.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -20,7 +20,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import { GraphOrientation } from '../model/GraphOrientation.js';
 
 type SelfOptions = {
-  iconModelComponents: Vector2;
+  iconModelComponents: Vector2; // xy-components of the vector icon, in model coordinates
 };
 
 type Explore1DVectorToolboxOptions = SelfOptions & VectorToolboxOptions;

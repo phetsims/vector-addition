@@ -2,7 +2,7 @@
 
 /**
  * VectorAdditionPreferences is the model for sim-specific preferences, accessed via the Preferences dialog.
- * Preferences are implemented as a singleton. They are global, and affect all screens.
+ * Preferences are implemented as a singleton. They are global and affect all screens.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
