@@ -29,7 +29,6 @@ import StringProperty from '../../../../axon/js/StringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import HBox, { HBoxOptions } from '../../../../scenery/js/layout/nodes/HBox.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
@@ -91,17 +90,10 @@ export default class VectorSymbolNode extends HBox {
 
     this.updateVectorSymbolNode = () => {
 
-      // Auto format the coefficient
-      let coefficient = null;
-      if ( this.coefficient === -1 ) {
-        coefficient = MathSymbols.UNARY_MINUS;
-      }
-      else if ( this.coefficient !== 1 && this.coefficient !== null ) {
-        coefficient = `${this.coefficient}`;
-      }
-
       // Set the coefficient and symbol text to match our properties
-      coefficient && coefficientText.setString( coefficient );
+      if ( this.coefficient !== null ) {
+        coefficientText.setString( this.coefficient );
+      }
       if ( this.symbolProperty ) {
         if ( symbolNode instanceof ArrowOverSymbolNode ) {
           symbolNode.setSymbolProperty( this.symbolProperty );
@@ -114,7 +106,7 @@ export default class VectorSymbolNode extends HBox {
       // Add the pieces that are relevant for the current configuration.
       const children = [];
       this.includeAbsoluteValueBars && children.push( leftBar );
-      coefficient && children.push( coefficientText );
+      ( this.coefficient !== null ) && children.push( coefficientText );
       this.symbolProperty && children.push( symbolNode );
       this.includeAbsoluteValueBars && children.push( rightBar );
       this.setChildren( children );
