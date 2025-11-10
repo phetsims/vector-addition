@@ -51,7 +51,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
         let dy = 0;
         if ( vector.coordinateSnapMode === 'cartesian' ) {
 
-          // For Cartesian scenes, snap to integer xy-coordinates.
+          // For Cartesian scenes, snap to xy-coordinates.
           if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
             dx = -DX;
           }
