@@ -440,8 +440,11 @@
         "accessibleHelpText": {
           "value": "Move to change position of vector tip."
         },
-        "accessibleObjectResponse": {
+        "accessibleObjectResponseCartesian": {
           "value": "tip at {{tipX}} {{tipY}}"
+        },
+        "accessibleObjectResponsePolar": {
+          "value": "magnitude {{magnitude}}, direction {{angle}} degrees"
         }
       }
     },

@@ -225,7 +225,8 @@ type StringsType = {
       'tip': {
         'accessibleNameStringProperty': LocalizedStringProperty;
         'accessibleHelpTextStringProperty': LocalizedStringProperty;
-        'accessibleObjectResponseStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponseCartesianStringProperty': LocalizedStringProperty;
+        'accessibleObjectResponsePolarStringProperty': LocalizedStringProperty;
       }
     };
     'equationsVectorNode': {

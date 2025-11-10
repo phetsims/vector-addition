@@ -135,10 +135,18 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
    * Queues an accessible object response when the vector has been scaled or rotated.
    */
   public doAccessibleObjectResponse(): void {
-    this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseStringProperty, {
-      tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
-      tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
-    } ) );
+    if ( this.vector.coordinateSnapMode === 'cartesian' ) {
+      this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponseCartesianStringProperty, {
+        tipX: toFixedNumber( this.vector.tipX, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES ),
+        tipY: toFixedNumber( this.vector.tipY, VectorAdditionConstants.VECTOR_TIP_DESCRIPTION_DECIMAL_PLACES )
+      } ) );
+    }
+    else {
+      this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty, {
+        magnitude: toFixedNumber( this.vector.magnitude, 1 ),
+        angle: toFixedNumber( this.vector.getAngleDegrees()!, 1 )
+      } ) );
+    }
   }
 }
 
