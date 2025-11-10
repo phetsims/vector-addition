@@ -29,8 +29,8 @@ import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import RootVectorNode, { RootVectorArrowNodeOptions, RootVectorNodeOptions } from './RootVectorNode.js';
 
-// offset of the label
-const COMPONENT_LABEL_OFFSET = VectorAdditionConstants.VECTOR_LABEL_OFFSET;
+// offset of the label, in model coordinates
+const COMPONENT_LABEL_OFFSET = 0.45;
 
 // Line dash for leader lines, displayed when component vectors are projected onto axes
 const SELECTED_LEADER_LINES_DASH: number[] = [];

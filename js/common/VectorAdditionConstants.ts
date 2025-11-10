@@ -206,9 +206,6 @@ export default class VectorAdditionConstants {
       lineWidth: 1.5
     } );
 
-  // offset of a label from its vector, in model coordinates
-  public static readonly VECTOR_LABEL_OFFSET = 0.45;
-
   // dilation of vector (arrow) pointer areas
   public static readonly VECTOR_TOUCH_AREA_DILATION = 3;
   public static readonly VECTOR_MOUSE_AREA_DILATION = 3;

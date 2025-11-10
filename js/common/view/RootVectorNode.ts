@@ -47,6 +47,9 @@ type SelfOptions = {
   // Whether this.arrowNode will have an interactive highlight. Subclass VectorNode adds drag listeners to
   // this.arrowNode for changing the vector's position.
   arrowHasInteractiveHighlight?: boolean;
+
+  // offset the vector label, in model coordinates
+  labelOffset?: number;
 };
 
 export type RootVectorNodeOptions = SelfOptions &
@@ -56,6 +59,7 @@ export default class RootVectorNode extends Node {
 
   protected readonly arrowNode: ArrowNode | DashedArrowNode;
   protected readonly labelNode: VectorLabelNode;
+  private readonly labelOffset: number;
   private readonly disposeRootVectorNode: () => void;
 
   // While this is a base class and should technically be protected, it must be public so that we can apply the
@@ -71,12 +75,15 @@ export default class RootVectorNode extends Node {
       // SelfOptions
       arrowType: 'solid',
       arrowOptions: {},
-      arrowHasInteractiveHighlight: false
+      arrowHasInteractiveHighlight: false,
+      labelOffset: 0.5
     }, providedOptions );
 
     //----------------------------------------------------------------------------------------
 
     super( options );
+
+    this.labelOffset = options.labelOffset;
 
     // Define a vector node in which the tail position (view coordinates) is (0, 0). Get the tip position in view coordinates.
     const tipDeltaPosition = modelViewTransformProperty.value.modelToViewDelta( rootVector.xyComponents );
@@ -201,7 +208,7 @@ export default class RootVectorNode extends Node {
     }
 
     // Create an offset that is perpendicular to the vector
-    const offset = Vector2.createPolar( VectorAdditionConstants.VECTOR_LABEL_OFFSET + labelSize, modelAngle + Math.PI / 2 + yFlip );
+    const offset = Vector2.createPolar( this.labelOffset + labelSize, modelAngle + Math.PI / 2 + yFlip );
 
     // Position the label
     this.labelNode.center = RootVectorNode.computeLabelCenter( rootVector, modelViewTransform, offset );
