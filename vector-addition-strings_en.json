@@ -444,7 +444,7 @@
     },
     "equationsVectorNode": {
       "accessibleName": {
-        "value": "{{coefficient}} times base vector {{symbol}}"
+        "value": "{{coefficient}} {{symbol}}"
       }
     },
     "baseVectorNode": {
