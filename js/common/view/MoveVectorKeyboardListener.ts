@@ -13,6 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
+import VectorNode from './VectorNode.js';
 
 export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
@@ -24,7 +25,7 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
     keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.moveDescriptionStringProperty
   } );
 
-  public constructor( vector: Vector ) {
+  public constructor( vector: Vector, vectorNode: VectorNode ) {
     super( {
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ MoveVectorKeyboardListener.HOTKEY_DATA ] ),
@@ -46,6 +47,7 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
           dy = -1;
         }
         vector.moveTailToPositionWithInvariants( vector.tail.plusXY( dx, dy ) );
+        vectorNode.doAccessibleObjectResponse();
       }
     } );
   }

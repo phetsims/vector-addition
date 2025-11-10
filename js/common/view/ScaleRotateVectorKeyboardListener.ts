@@ -13,6 +13,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
+import VectorTipNode from './VectorTipNode.js';
 
 export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
@@ -24,7 +25,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
     keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.scaleRotateDescriptionStringProperty
   } );
 
-  public constructor( vector: Vector ) {
+  public constructor( vector: Vector, tipNode: VectorTipNode ) {
     super( {
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ ScaleRotateVectorKeyboardListener.HOTKEY_DATA ] ),
@@ -46,6 +47,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
           dy = -1;
         }
         vector.moveTipToPositionWithInvariants( vector.tip.plusXY( dx, dy ) );
+        tipNode.doAccessibleObjectResponse();
       }
     } );
   }

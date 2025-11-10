@@ -135,7 +135,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     this.addInputListener( this.moveVectorDragListener );
 
     // Keyboard listener to move the vector.
-    const moveVectorKeyboardListener = new MoveVectorKeyboardListener( vector );
+    const moveVectorKeyboardListener = new MoveVectorKeyboardListener( vector, this );
     this.addInputListener( moveVectorKeyboardListener );
 
     // keyboard listener to select the vector. Being selected is different from having focus.
@@ -170,7 +170,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       tipNode.addInputListener( scaleRotateVectorDragListener );
 
       // Keyboard listener to scale/rotate by moving the vector's tip.
-      const scaleRotateVectorKeyboardListener = new ScaleRotateVectorKeyboardListener( vector );
+      const scaleRotateVectorKeyboardListener = new ScaleRotateVectorKeyboardListener( vector, tipNode );
       tipNode.addInputListener( scaleRotateVectorKeyboardListener );
 
       // Dispose of things that are related to scale/rotate.
