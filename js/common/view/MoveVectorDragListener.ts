@@ -24,7 +24,6 @@ import VectorNode from './VectorNode.js';
 export class MoveVectorDragListener extends SoundDragListener {
 
   private readonly vector: Vector;
-  private readonly vectorNode: VectorNode;
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
 
   public constructor( vector: Vector,
@@ -50,7 +49,7 @@ export class MoveVectorDragListener extends SoundDragListener {
 
       end: () => {
         if ( vector.isOnGraphProperty.value ) {
-          this.vectorNode.doAccessibleObjectResponse();
+          vectorNode.doAccessibleObjectResponse();
         }
         else {
 
@@ -67,7 +66,7 @@ export class MoveVectorDragListener extends SoundDragListener {
               .minus( vector.xyComponents.timesScalar( 0.5 ) );
             const shadowTailPosition = vector.tail.plus( shadowOffset );
             vector.dropOntoGraph( shadowTailPosition );
-            this.vectorNode.doAccessibleObjectResponse();
+            vectorNode.doAccessibleObjectResponse();
           }
           else {
 
@@ -79,7 +78,6 @@ export class MoveVectorDragListener extends SoundDragListener {
     } );
 
     this.vector = vector;
-    this.vectorNode = vectorNode;
     this.modelViewTransformProperty = modelViewTransformProperty;
 
     // Translate when the vector's tail position changes.
