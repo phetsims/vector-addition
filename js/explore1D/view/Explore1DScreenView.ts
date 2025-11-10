@@ -10,7 +10,7 @@ import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
-import HorizontalVerticalSceneRadioButtonGroup from '../../common/view/HorizontalVerticalSceneRadioButtonGroup.js';
+import HorizontalVerticalSceneRadioButtonGroup from './HorizontalVerticalSceneRadioButtonGroup.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
