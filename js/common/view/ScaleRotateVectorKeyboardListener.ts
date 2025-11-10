@@ -75,12 +75,12 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
 
           if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
             if ( vector.angle !== null ) {
-              angle = vector.angle + DELTA_ANGLE;
+              angle = vector.angle - DELTA_ANGLE;
             }
           }
           else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
             if ( vector.angle !== null ) {
-              angle = vector.angle - DELTA_ANGLE;
+              angle = vector.angle + DELTA_ANGLE;
             }
           }
           else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
