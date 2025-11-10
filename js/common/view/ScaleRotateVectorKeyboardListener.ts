@@ -32,6 +32,11 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
       fireOnHold: true,
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `ScaleRotateVectorKeyboardListener: keysPressed=${keysPressed}` );
+
+        // Scaling and rotating a vector selects it.
+        vector.select();
+
+        // Scale and rotate the vector.
         let dx = 0;
         let dy = 0;
         if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {

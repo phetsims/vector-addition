@@ -32,6 +32,11 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
       fireOnHold: true,
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `MoveVectorKeyboardListener: keysPressed=${keysPressed}` );
+
+        // Moving a vector selects it.
+        vector.select();
+
+        // Move the vector.
         let dx = 0;
         let dy = 0;
         if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
