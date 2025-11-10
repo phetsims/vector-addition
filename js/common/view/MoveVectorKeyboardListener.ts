@@ -52,6 +52,8 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
           dy = -1;
         }
         vector.moveTailToPositionWithInvariants( vector.tail.plusXY( dx, dy ) );
+
+        // Describe the new position of the vector.
         vectorNode.doAccessibleObjectResponse();
       }
     } );
