@@ -99,6 +99,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
             angle = vector.angle + Math.PI;
           }
 
+          // Convert to Cartesian coordinates.
           const xyComponents = Vector2.createPolar( magnitude, angle );
           const tipPosition = new Vector2( vector.tail.x + xyComponents.x, vector.tail.y + xyComponents.y );
           vector.moveTipToPositionWithInvariants( tipPosition );
