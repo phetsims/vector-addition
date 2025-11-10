@@ -14,6 +14,16 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorTipNode from './VectorTipNode.js';
+import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import { toRadians } from '../../../../dot/js/util/toRadians.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+
+const DX = 1;
+const DY = 1;
+const DELTA_MAGNITUDE = 1;
+const DELTA_ANGLE = toRadians( VectorAdditionConstants.POLAR_ANGLE_INTERVAL );
 
 export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
@@ -39,19 +49,60 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
         // Scale and rotate the vector.
         let dx = 0;
         let dy = 0;
-        if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
-          dx = -1;
+        if ( vector.coordinateSnapMode === 'cartesian' ) {
+
+          // For Cartesian scenes, snap to integer xy-coordinates.
+          if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
+            dx = -DX;
+          }
+          else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
+            dx = DX;
+          }
+          else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
+            dy = DY;
+          }
+          else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
+            dy = -DY;
+          }
+          vector.moveTipToPositionWithInvariants( vector.tip.plusXY( dx, dy ) );
         }
-        else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
-          dx = 1;
+        else {
+
+          // For polar scenes, snap to magnitude and angle (in degrees).
+          let magnitude = vector.magnitude;
+          let angle = vector.angle!; // in radians
+          affirm( vector.angle !== null, 'angle should be defined' );
+
+          if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
+            if ( vector.angle !== null ) {
+              angle = vector.angle + DELTA_ANGLE;
+            }
+          }
+          else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
+            if ( vector.angle !== null ) {
+              angle = vector.angle - DELTA_ANGLE;
+            }
+          }
+          else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
+            magnitude = vector.magnitude + DELTA_MAGNITUDE;
+          }
+          else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
+            magnitude = vector.magnitude - DELTA_MAGNITUDE;
+          }
+
+          // Constrain magnitude to integer.
+          magnitude = toFixedNumber( magnitude, 0 );
+
+          // Skip over zero.
+          if ( magnitude === 0 ) {
+            magnitude = vector.magnitude;
+            angle = vector.angle + Math.PI;
+          }
+
+          const xyComponents = Vector2.createPolar( magnitude, angle );
+          const tipPosition = new Vector2( vector.tail.x + xyComponents.x, vector.tail.y + xyComponents.y );
+          vector.moveTipToPositionWithInvariants( tipPosition );
         }
-        else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
-          dy = 1;
-        }
-        else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
-          dy = -1;
-        }
-        vector.moveTipToPositionWithInvariants( vector.tip.plusXY( dx, dy ) );
         tipNode.doAccessibleObjectResponse();
       }
     } );

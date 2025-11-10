@@ -82,7 +82,7 @@ export default class Vector extends RootVector {
 
   private readonly graph: Graph;
   private readonly selectedVectorProperty: Property<Vector | null>;
-  private readonly coordinateSnapMode: CoordinateSnapMode;
+  public readonly coordinateSnapMode: CoordinateSnapMode;
 
   // the vector set that the vector belongs to
   protected readonly vectorSet: VectorSet;
