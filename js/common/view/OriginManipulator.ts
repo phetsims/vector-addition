@@ -68,7 +68,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( graph.boundsProperty.value.eroded( ORIGIN_DRAG_MARGIN ) );
 
     // Create a Property to track the view's origin in view coordinates
-    const positionProperty = new Vector2Property( Vector2.ZERO, {
+    const positionProperty = new Vector2Property( graph.modelViewTransformProperty.value.modelToViewPosition( Vector2.ZERO ), {
       tandem: tandem.createTandem( 'positionProperty' ),
       phetioDocumentation: 'Position of the origin manipulator in view coordinates, relative to the top-left corner of the graph.',
       phetioFeatured: true,
@@ -90,7 +90,6 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     // Drag support for pointer and keyboard input, with sound.
     this.addInputListener( new SoundRichDragListener( {
       positionProperty: positionProperty,
-      translateNode: false,
       dragBoundsProperty: new Property( restrictedGraphViewBounds ),
       end: () => addGraphBoundsResponse(),
       tandem: tandem,
@@ -107,7 +106,7 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
       }
     } );
 
-    // Observe when the model view transform changes to update the position of the circle.
+    // When the modelViewTransform changes, move this manipulator to the new origin of the graph.
     graph.modelViewTransformProperty.link( modelViewTransform => {
       this.center = modelViewTransform.modelToViewPosition( Vector2.ZERO );
     } );
