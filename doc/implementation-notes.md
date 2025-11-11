@@ -23,7 +23,7 @@ In addition to this document, you are encouraged to read:
 * _component_ is a scalar, while _component vector_ is a vector
 * _coordinate snap mode_ refers to which vector quantities will snap to integer values, see `CoordinateSnapMode`
 * _component vector style_ refers to the representation used to display component vectors, see `ComponentVectorStyle`
-* _toolbox_ is the panel-like container that vectors are dragged to and from
+* _toolbox_ is the panel-like container that vectors are dragged to and from, see `VectorToolbox` and its subclasses
 * _graph orientation_ is horizontal, vertical, or two-dimensional, see `GraphOrientation`
 
 ## General Considerations
@@ -33,7 +33,7 @@ PhET simulations.
 
 ### Coordinate Transforms
 
-The transform between model and view coordinate frames can be found in VectorAdditionScene,
+The transform between model and view coordinate frames can be found in `VectorAdditionScene`,
 where `modelViewTransformProperty` is derived from the scene's bounds, and changes when the graph's origin is moved.
 This transform inverts the mapping of y-axis values; +y is down in view (scenery) coordinates, up in model coordinates.
 
