@@ -34,18 +34,19 @@ PhET simulations.
 ### Coordinate Transforms
 
 The transform between model and view coordinate frames can be found in `VectorAdditionScene`,
-where `modelViewTransformProperty` is derived from the scene's bounds, and changes when the graph's origin is moved.
-This transform inverts the mapping of y-axis values; +y is down in view (scenery) coordinates, up in model coordinates.
+where `modelViewTransformProperty` is derived from the graph's bounds (x-axis range and y-axis range), and changes when the graph's origin is moved.
+This transform inverts the mapping of y-axis values; +y is _up_ in model coordinates, while +y is _down_ in view (scenery) coordinates.
 
 ### Memory Management
 
-To meet the needs of PhET-iO, all vectors in the model are created at startup. (This was a major change in the 1.1 release,
-as the implementation previously created vectors dynamically, as they were dragged to/from the toolbox.)
+To meet the needs of PhET-iO, all vectors in the model are created at startup and exist for the lifetime of the sim.
+(This was a major change in the 1.1 release, as the implementation previously created and disposed vectors dynamically, 
+when they were dragged from/to the toolbox.)
 
 For the view, `RootVectorNode` and its subclasses are created and disposed dynamically, as vectors are dragged to/from the toolbox.
 
-All other objects are instantiated at startup, and exist for the lifetime of the sim. They are created
-with `isDisposable: false`, or have a `dispose` method that looks like this:
+All other objects are instantiated at startup, and exist for the lifetime of the sim. They can be identified by looking for
+option `isDisposable: false`, or for a `dispose` method that looks like this:
 
 ```ts
 public dispose(): void {
@@ -56,8 +57,7 @@ public dispose(): void {
 ### Query Parameters
 
 Query parameters are used to enable sim-specific features, mainly for debugging and testing. Sim-specific query
-parameters are documented in
-[VectorAdditionQueryParameters](https://github.com/phetsims/vector-addition/blob/main/js/common/VectorAdditionQueryParameters.ts).
+parameters can be found in `VectorAdditionQueryParameters`.
 
 ### Assertions
 
@@ -67,26 +67,28 @@ If you are making modifications to this sim, do so with `affirm` enabled via the
 ### Vector Management
 
 `VectorSet` is a set of related vectors, all of which are instantiated at startup. Vectors that are on the graph or in the
-process of dragging are in the VectorSet's `activeVectors` ObservableArray.  Vectors in the set that are on the graph contribute 
-to the computation of a resultant vector.
+process of dragging are in the VectorSet's `activeVectors` ObservableArray. Each vector set also has a resultant vector,
+and vectors that are on the graph contribute to the derivation of the resultant vector.
 
 `VectorToolbox` is a panel-like container, with one or more "slots" that vectors are dragged to and from.
 The _Explore 1D_ and _Explore 2D_ screens each have 1 vector set, with a slot in the toolbox for each vector in that set.
 The _Lab_ screen has 2 vector sets, with 1 slot in the toolbox for each vector set, allowing the user to 
-drag multiple (10) vectors to/from each slot.
+drag multiple vectors to/from each slot.
 
 _Adding a vector_: When slot in the toolbox is pressed, the next available vector for that slot is added to `activeVectors`,
 and registered with the view. The view delegates creation of the vector's view to `VectorSetNode` (see `registerVector`).
 
 _Removing a vector_: When a vector is returned to the toolbox (by dragging, erase button, or Reset All button), it is removed
-from `activeVectors`.  The view is notified and Nodes associated with the vector are disposed.
+from `activeVectors`.  The view is notified and Nodes associated with that vector are disposed.
 
 ### Scenes
 
-A scene consists of a graph and its vector set(s). In the model, see `VectorAdditionScene` and its subclasses, 
-and `sceneProperty`. In the view, see   VectorAdditionSceneNode` and its subclasses.
+A scene consists of a graph and one or more vector sets. In the model, see `VectorAdditionScene` and its subclasses, 
+and `sceneProperty`. In the view, see `VectorAdditionSceneNode` and its subclasses.
 
-The _Explore 1D_ screen has horizontal and vertical scenes, while the other screens have Cartesian and polar scenes.
+The _Explore 1D_ screen has horizontal and vertical scenes, where the vectors are constrained to either the 
+horizontal or vertical dimension. The other screens have Cartesian and polar scenesm, where vectors snap to 
+either Cartesian or polar coordinates.
 
 In all screens, switch between scenes using the radio buttons that are located at the bottom-right of the UI.
 
@@ -96,19 +98,20 @@ The implementation of most of this sim is relatively straightforward, and should
 familiar with PhET sim development.
 
 The part that is most interesting is the implementation of vectors. Source code documentation describes things well, so
-we won't repeat that information here. We'll summarize the structure of the class hierarchies, mention a couple of "gotchas",and then it's up to you to explore the source code.
+we won't repeat that information here. We'll summarize the structure of the class hierarchies, mention a couple of "gotchas",
+and then it's up to you to explore the source code.
 
 The model class hierarchy for vectors is shown below. Note the distinction between interactive and non-interactive
 vectors.
 
 ``` 
-RootVector (abstract root class)
+RootVector (abstract base class)
   Vector (interactive)
-    BaseVector (abstract bass class)
+    BaseVector (bass class)
       CartesianBaseVector (has mutable x and y components)
       PolarBaseVector (has mutable magnitude and angle)
     EquationsVector (adds functionality for Equations screen)
-    ResultantVector
+    ResultantVector (base class)
       SumVector
       EquationsResultantVector
   ComponentVector (not interactive)
@@ -118,7 +121,7 @@ The view class hierarchy for vectors is shown below. Again, note the distinction
 vectors.
 
 ```
-RootVectorNode (abstract base class)
+RootVectorNode (base class)
   VectorNode (interactive)
     BaseVectorNode
     ResultantVectorNode
@@ -132,7 +135,7 @@ aware of (the "gotchas" mentioned above):
 * Classes in both hierarchies have a bit too much knowledge of their associated `VectorSet`. This increases
   coupling, and (depending on what you need to change) can make it difficult to change `VectorSet` without affecting
   vector classes. For further discussion, see https://github.com/phetsims/vector-addition/issues/234. (Note that
-  this was a pain point and major cost for the 1.1 release, where coupling was greatly introduced but not eliminated.
+  this was a pain point and major cost for the 1.1 release, where coupling was greatly reduced but not eliminated.
   See https://github.com/phetsims/vector-addition/issues/332.)
 
 * Model classes handle some responsibilities that arguably belong in view classes, and this contributes to the coupling
@@ -141,7 +144,7 @@ aware of (the "gotchas" mentioned above):
   that appears in the label depends on the state of the view, so assembling that information should be a responsibility
   of the view.
 
-## Screen differences
+## Screen Differences
 
 If you're in the position of having to maintain or enhance this sim, it helps to have a birds-eye view of the
 similarities and differences between the screens.
@@ -192,18 +195,36 @@ _Equations_ screen:
 
 ## Alternative Input (Keyboard)
 
-The most interesting keyboard input is related to vectors, and involves these classes:
+Alternative Input features were added in the 1.1 release. We'll describe only the sim-specific support for alternative input here. 
+Other support is provided by common code.
+
+Keyboard input for the toolbox involves these classes:
+
 * `AddVectorKeyboardListener` moves a vector from the toolbox to the graph.
+
+Keyboard input for vectors via the keyboard involves these classes:
+
 * `RemoveVectorKeyboardListener` moves a vector from the graph to the toolbox.
 * `MoveVectorKeyboardListener` translates a vector on the graph.
 * `ScaleRotateKeyboardListener` scales and rotates a vector on the graph.
+* `VectorValuesKeyboardShortcut` reads quantities associated with the selected vector.
 
 Moving the graph origin is done via an input listener in `OriginManipulator` that handles all forms of input.
 
+The keyboard-help dialog is similar for all screens, and is implemented in `VectorAdditionKeyboardHelpContent`. 
+
 ## Core Description
+
+Core Description features were added in the 1.1 release. 
 
 Screen summary descriptions are implemented in a class per screen: `Explore1DScreenSummaryContent`, `Explore2DScreenSummaryContent`, 
 `LabScreenSummaryContent`, and `EquationsScreenSummaryContent`.
+
+`VectorNode` and `VectorTipNode` have a `doAccessibleObjectResponse` method that is interesting, and is called by 
+various input listeners in response to user interactions.
+
+`VectorValuesAccessibleParagraphProperty` implements the accessible paragraph that describes the contents of the
+"Vector Values" accordion box.
 
 To identify other code related to core description, search for options that are related to description - `accessibleName`, `accessibleHelpText`,
 `accessibleObjectResponse`, `accessibleContextResponse`, etc.
@@ -213,13 +234,14 @@ To identify other code related to core description, search for options that are 
 All vectors in the model are allocated at startup. They are instrumented and grouped under `allVectors` in the PhET-iO tree. Most vector 
 Properties are `phetioReadOnly: true` because making them editable via PhET-iO was considered too costly. So use the simulation
 to configure vectors.
-[](url)
-All vectors in the view are allocated dynamically, so they are not instrumented.
 
-`VectorAdditionScene.VectorAdditionSceneIO` is a custom IOType that implements reference-type serialization for the selected scene, `sceneProperty`.
+All vectors in the view (`VectorNode` and `ComponentVectorNode`) are allocated dynamically, so they are not instrumented.
+
+`VectorAdditionScene.VectorAdditionSceneIO` is a custom IOType that implements reference-type serialization for the selected scene.
+See VectorAdditionModel `sceneProperty`.
 
 `Vector.VectorIO` is a custom IOType that implements reference-type serialization for vectors.  
-It is used in scenes for `selectedVectorProperty: Property<Vector | null>`, and in vector sets for `activeVectors: ObservableArray<Vector>`.
+See VectorAdditionScene `selectedVectorProperty: Property<Vector | null>` and VectorSet `activeVectors: ObservableArray<Vector>`.
 
 There are no dynamic PhET-iO elements in this sim, and therefore no uses of `PhetioGroup` or `PhetioCapsule`.
 
