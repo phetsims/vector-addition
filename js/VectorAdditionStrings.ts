@@ -187,6 +187,9 @@ type StringsType = {
       'accessibleParagraphBaseVectorStringProperty': LocalizedStringProperty;
       'accessibleParagraphCoefficientVectorStringProperty': LocalizedStringProperty;
     };
+    'equationAccordionBox': {
+      'accessibleHelpTextCollapsedStringProperty': LocalizedStringProperty;
+    };
     'symbolSubSubscriptStringProperty': LocalizedStringProperty;
     'signedRadioButtonStringProperty': LocalizedStringProperty;
     'unsignedRadioButtonStringProperty': LocalizedStringProperty;
