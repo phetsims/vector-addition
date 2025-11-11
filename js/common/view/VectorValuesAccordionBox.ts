@@ -1,9 +1,9 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorValuesAccordionBox displays the selected vector's magnitude, angle, x component, and y component.
- * When collapsed, it displays 'Vector Values'. When expanded, it either displays 'select a vector' (if no
- * vector is selected) or it displays the selected vector's attributes (magnitude, angle, xy-components).
+ * VectorValuesAccordionBox displays a vector's magnitude, angle, x component, and y component.
+ * When collapsed, it displays 'Vector Values'. When expanded, it either displays the selected vector's
+ * attributes, or 'No vector selected' if no vector is selected.
  *
  * @author Martin Veillette
  * @author Brandon Li
@@ -46,6 +46,8 @@ type VectorValuesAccordionBoxOptions = SelfOptions & StrictOmit<FixedSizeAccordi
 
 export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
+  // For core description, the accessible paragraph for this accordion box describes the selected vector.
+  // For there is no selected vector, the accessible paragraph is set to null.
   private accessibleParagraphStringProperty: TReadOnlyProperty<string> | null;
 
   public constructor( selectedVectorProperty: TReadOnlyProperty<Vector | null>,
@@ -67,7 +69,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       maxWidth: 450
     } );
 
-    // 'No vector selected', displayed when accordion box is expanded and no vector is selected.
+    // 'No vector selected', displayed when the accordion box is expanded and no vector is selected.
     const noVectorSelectedText = new Text( VectorAdditionStrings.noVectorSelectedStringProperty, {
       visibleProperty: new DerivedProperty( [ selectedVectorProperty ], selectedVector => selectedVector === null ),
       font: VectorAdditionConstants.TITLE_FONT,
@@ -75,77 +77,82 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       accessibleParagraph: VectorAdditionStrings.noVectorSelectedStringProperty
     } );
 
-    // Labels and displays for the vector quantities.
+    // Magnitude
     const magnitudeSymbolNode = new VectorSymbolNode( {
       includeAbsoluteValueBars: true,
       maxWidth: MAGNITUDE_LABEL_MAX_WIDTH
     } );
-    const magnitudeDisplay = new VectorQuantityDisplay( 'magnitude', selectedVectorProperty, graphBounds );
+    const magnitudeQuantityDisplay = new VectorQuantityDisplay( 'magnitude', selectedVectorProperty, graphBounds );
+    const magnitudeDisplay = new HBox( {
+      spacing: LABEL_DISPLAY_SPACING,
+      children: [ magnitudeSymbolNode, magnitudeQuantityDisplay ],
+      tandem: options.tandem.createTandem( 'magnitudeDisplay' ),
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
+    } );
 
+    // Angle
     const angleSymbolNode = new RichText( VectorAdditionSymbols.THETA, {
       font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,
       maxWidth: ANGLE_LABEL_MAX_WIDTH
     } );
-    const angleDisplay = new VectorQuantityDisplay( 'angle', selectedVectorProperty, graphBounds );
+    const angleQuantityDisplay = new VectorQuantityDisplay( 'angle', selectedVectorProperty, graphBounds );
+    const angleDisplay = new HBox( {
+      spacing: LABEL_DISPLAY_SPACING,
+      children: [ angleSymbolNode, angleQuantityDisplay ],
+      tandem: options.tandem.createTandem( 'angleDisplay' ),
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
+    } );
 
+    // x-component
     const xComponentSymbolNode = new VectorSymbolNode( {
       showVectorArrow: false,
       maxWidth: COMPONENT_LABEL_MAX_WIDTH
     } );
-    const xComponentDisplay = new VectorQuantityDisplay( 'xComponent', selectedVectorProperty, graphBounds );
+    const xComponentQuantityDisplay = new VectorQuantityDisplay( 'xComponent', selectedVectorProperty, graphBounds );
+    const xComponentDisplay = new HBox( {
+      spacing: LABEL_DISPLAY_SPACING,
+      children: [ xComponentSymbolNode, xComponentQuantityDisplay ],
+      tandem: options.tandem.createTandem( 'xComponentDisplay' ),
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
+    } );
 
+    // y-component
     const yComponentSymbolNode = new VectorSymbolNode( {
       showVectorArrow: false,
       maxWidth: COMPONENT_LABEL_MAX_WIDTH
     } );
-    const yComponentDisplay = new VectorQuantityDisplay( 'yComponent', selectedVectorProperty, graphBounds );
+    const yComponentQuantityDisplay = new VectorQuantityDisplay( 'yComponent', selectedVectorProperty, graphBounds );
+    const yComponentDisplay = new HBox( {
+      spacing: LABEL_DISPLAY_SPACING,
+      children: [ yComponentSymbolNode, yComponentQuantityDisplay ],
+      tandem: options.tandem.createTandem( 'yComponentDisplay' ),
+      visiblePropertyOptions: {
+        phetioFeatured: true
+      }
+    } );
 
     // Layout for the labels and displays.
     const vectorQuantitiesHBox = new HBox( {
       visibleProperty: new DerivedProperty( [ selectedVectorProperty ], selectedVector => selectedVector !== null ),
       spacing: 40,
       children: [
+
+        // magnitude and angle
         new HBox( {
           spacing: 20,
-          children: [
-            new HBox( {
-              spacing: LABEL_DISPLAY_SPACING,
-              children: [ magnitudeSymbolNode, magnitudeDisplay ],
-              tandem: options.tandem.createTandem( 'magnitudeDisplay' ),
-              visiblePropertyOptions: {
-                phetioFeatured: true
-              }
-            } ),
-            new HBox( {
-              spacing: LABEL_DISPLAY_SPACING,
-              children: [ angleSymbolNode, angleDisplay ],
-              tandem: options.tandem.createTandem( 'angleDisplay' ),
-              visiblePropertyOptions: {
-                phetioFeatured: true
-              }
-            } )
-          ]
+          children: [ magnitudeDisplay, angleDisplay ]
         } ),
+
+        // x-component and y-component
         new HBox( {
           spacing: 20,
-          children: [
-            new HBox( {
-              spacing: LABEL_DISPLAY_SPACING,
-              children: [ xComponentSymbolNode, xComponentDisplay ],
-              tandem: options.tandem.createTandem( 'xComponentDisplay' ),
-              visiblePropertyOptions: {
-                phetioFeatured: true
-              }
-            } ),
-            new HBox( {
-              spacing: LABEL_DISPLAY_SPACING,
-              children: [ yComponentSymbolNode, yComponentDisplay ],
-              tandem: options.tandem.createTandem( 'yComponentDisplay' ),
-              visiblePropertyOptions: {
-                phetioFeatured: true
-              }
-            } )
-          ]
+          children: [ xComponentDisplay, yComponentDisplay ]
         } )
       ]
     } );
