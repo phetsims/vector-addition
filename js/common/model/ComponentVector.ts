@@ -44,6 +44,7 @@ export default class ComponentVector extends RootVector {
   private projectionXOffset: number;
   private projectionYOffset: number;
 
+  // Disposes of things that are specific to this class.
   private readonly disposeComponentVector: () => void;
 
   /**

@@ -60,6 +60,8 @@ export default class RootVectorNode extends Node {
   protected readonly arrowNode: ArrowNode | DashedArrowNode;
   protected readonly labelNode: VectorLabelNode;
   private readonly labelOffset: number;
+
+  // Disposes of things that are specific to this class.
   private readonly disposeRootVectorNode: () => void;
 
   // While this is a base class and should technically be protected, it must be public so that we can apply the

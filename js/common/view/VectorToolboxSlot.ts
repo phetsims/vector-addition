@@ -2,6 +2,7 @@
 
 /**
  * VectorToolboxSlot is the base class for a slot in a vector toolbox.
+ * A slot contains one or more vectors. Clicking on a slot moves a vector out of the toolbox.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

@@ -44,6 +44,7 @@ export default class ComponentVectorNode extends RootVectorNode {
   // leader lines, displayed when component vectors are projected onto axes
   private readonly leaderLinesPath: Path;
 
+  // Disposes of things that are specific to this class.
   private readonly disposeComponentVectorNode: () => void;
 
   public constructor( componentVector: ComponentVector,

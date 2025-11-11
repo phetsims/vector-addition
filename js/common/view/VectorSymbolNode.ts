@@ -50,9 +50,12 @@ type VectorSymbolNodeOptions = SelfOptions & PickOptional<HBoxOptions, 'spacing'
 
 export default class VectorSymbolNode extends HBox {
 
+  // See SelfOptions for documentation of these properties.
   private symbolProperty: TReadOnlyProperty<string> | null;
   private coefficient: number | null;
   private includeAbsoluteValueBars: boolean;
+
+  // Updates this Node when a setter method is called.
   private readonly updateVectorSymbolNode: () => void;
 
   public constructor( providedOptions?: VectorSymbolNodeOptions ) {

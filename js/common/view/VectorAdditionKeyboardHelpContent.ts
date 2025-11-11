@@ -14,6 +14,10 @@ import VectorsKeyboardHelpSection from './VectorsKeyboardHelpSection.js';
 
 export default class VectorAdditionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
+  /**
+   * @param includeScaleRotate - whether to include the "Scale and rotate..." row in the keyboard-help section
+   *                             for vectors. This is omitted for the Equations screen.
+   */
   public constructor( includeScaleRotate = true ) {
 
     // Sections in the left column.

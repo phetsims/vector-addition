@@ -55,6 +55,7 @@ export default class VectorAngleNode extends Node {
   // displays the angle value in degrees
   private readonly angleText: Text;
 
+  // Disposes of things that are specific to this class.
   private readonly disposeVectorAngleNode: () => void;
 
   public constructor( vector: Vector,

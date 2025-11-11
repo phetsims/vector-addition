@@ -15,7 +15,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 
 type SelfOptions = {
-  resetModel: () => void;
+  resetModel: () => void; // Called by resetAllButton to reset the model.
 };
 
 export type VectorAdditionScreenViewOptions = SelfOptions & PickRequired<ScreenViewOptions, 'tandem' | 'screenSummaryContent'>;

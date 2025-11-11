@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorToolbox is a Panel that contains 'slots' that can be clicked on to create new vectors.
+ * VectorToolbox is a Panel that contains 'slots' that can be clicked on to move vectors out of the toolbox.
  *
  * @author Martin Veillette
  * @author Brandon Li

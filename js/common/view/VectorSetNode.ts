@@ -38,18 +38,34 @@ import VectorToolboxSlot from './VectorToolboxSlot.js';
 
 export default class VectorSetNode extends Node {
 
+  // The associated vector set
   public readonly vectorSet: VectorSet;
-  private readonly vectorNodes: VectorNode[]; // non-resultant VectorNodes
+
+  // Non-resultant VectorNode for active vectors
+  private readonly vectorNodes: VectorNode[];
+
+  // Node for the vector set's resultant vector.
   private readonly resultantVectorNode: ResultantVectorNode;
 
   // Nodes for base vectors.  Note that the order of this array determines pdomOrder of vectors in the view.
   private readonly baseVectorNodes: BaseVectorNode[];
 
+  // Transform between model and view coordinates.
   private readonly modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>;
+
+  // Vector that is currently selected on the graph, null means no vector is selected.
   private readonly selectedVectorProperty: Property<Vector | null>;
+
+  // Whether the magnitude is visible in the vector's label.
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
+
+  // Whether the angle is visible.
   private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
+
+  // The bound of the graph - it's x-axis range and y-axis range.
   private readonly graphBoundsProperty: TReadOnlyProperty<Bounds2>;
+
+  // Style for drawing component vectors.
   private readonly componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>;
 
   // Focus moves here when all vectors have been removed from this VectorSetNode.

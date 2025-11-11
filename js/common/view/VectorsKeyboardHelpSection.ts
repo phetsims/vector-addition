@@ -19,6 +19,9 @@ import VectorValuesKeyboardShortcut from './VectorValuesKeyboardShortcut.js';
 
 export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
 
+  /**
+   * @param includeScaleRotate - whether to include the "Scale and rotate..." row, omitted for the Equations screen.
+   */
   public constructor( includeScaleRotate: boolean ) {
 
     const rows = [

@@ -31,7 +31,10 @@ const TOUCH_AREA_DILATION = 8;
 
 export default class VectorTipNode extends InteractiveHighlighting( Path ) {
 
+  // The associated vector model element.
   private readonly vector: Vector;
+
+  // Disposes of things that are specific to this class.
   private readonly disposeVectorTipNode: () => void;
 
   public constructor( vectorNode: VectorNode,

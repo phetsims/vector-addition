@@ -1,7 +1,8 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * VectorLabelNode is the label that appears on a vector.  It may show only the vector's symbol, or the vector's magnitude.
+ * VectorLabelNode is the label that appears on a vector that is shown on the graph.
+ * It may be only the vector's symbol, or it may be the symbol and magnitude.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -26,13 +27,25 @@ const Y_MARGIN = 3;
 
 export default class VectorLabelNode extends Node {
 
+  // Vector to be labeled.
   private readonly rootVector: RootVector;
+
+  // Whether magnitude is visible in the label.
   private readonly valuesVisibleProperty: TReadOnlyProperty<boolean>;
+
+  // Background behind the label text, so that it's easier to see on the graph.
   private readonly backgroundRectangle: Rectangle;
+
+  // Symbol for the vector.
   private readonly vectorSymbolNode: VectorSymbolNode;
+
+  // Magnitude of the vector.
   private readonly vectorMagnitudeText: Text;
+
+  // All parts of the label except the background rectangle.
   private readonly vectorLabelContent: HBox;
 
+  // Disposes of things that are specific to this class.
   private readonly disposeVectorLabelNode: () => void;
 
   public constructor( rootVector: RootVector,

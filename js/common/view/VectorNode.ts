@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * View for the vectors that are dragged onto the graph.
+ * VectorNode is the view for the vectors that are dragged onto the graph.
  *
  * @author Martin Veillette
  * @author Chris Malley (PixelZoom, Inc.)
@@ -55,15 +55,20 @@ export type VectorNodeOptions = SelfOptions & RootVectorNodeOptions;
 
 export default class VectorNode extends InteractiveHighlighting( RootVectorNode ) {
 
+  // The associated vector model element.
   public readonly vector: Vector;
+
+  // Drag listener for moving the vector with the pointer, for drag forwarding.
   private readonly moveVectorDragListener: DragListener;
-  private readonly disposeVectorNode: () => void;
 
   // We need to use a separate utterance queue for the doAccessibleObjectResponse method because it was interrupting
   // important context responses ('Vector added to graph area', 'Vector removed from graph area') that occur way over
   // in VectorSetNode. It seems backwards to have to use a separate queue for the thing doing the interrupting, but
   // that's currently the recommended pattern.
   private readonly objectResponseUtterance = new Utterance();
+
+  // Disposes of things that are specific to this class.
+  private readonly disposeVectorNode: () => void;
 
   public constructor( vector: Vector,
                       modelViewTransformProperty: TReadOnlyProperty<ModelViewTransform2>,
@@ -265,7 +270,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   }
 
   /**
-   * Queues an accessible object response when the vector has been translated.
+   * Queues an accessible object response when the vector has been moved.
    */
   public doAccessibleObjectResponse(): void {
     this.objectResponseUtterance.alert = StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty, {

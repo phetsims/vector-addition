@@ -2,7 +2,7 @@
 
 /**
  * VectorAdditionViewProperties is the base class for view-specific Properties for the sim. It contains Properties
- * that all screens have in common.
+ * that all screens have in common.  Each screen has its own subclass of VectorAdditionScreenView.
  *
  * @author Brandon Li
  */
@@ -17,6 +17,8 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = {
+
+  // Whether to instrument anglesVisibleProperty, which is not exposed in the UI for the Explore 1D screen.
   anglesVisiblePropertyInstrumented?: boolean;
 };
 
