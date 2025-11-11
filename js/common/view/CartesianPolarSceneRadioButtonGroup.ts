@@ -17,6 +17,7 @@ import VectorAdditionScene from '../model/VectorAdditionScene.js';
 import VectorColorPalette from '../model/VectorColorPalette.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionIconFactory from './VectorAdditionIconFactory.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -57,7 +58,9 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
         tandemName: 'polarRadioButton',
         options: {
           accessibleName: VectorAdditionStrings.a11y.polarRadioButton.accessibleNameStringProperty,
-          accessibleHelpText: VectorAdditionStrings.a11y.polarRadioButton.accessibleHelpTextStringProperty
+          accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.polarRadioButton.accessibleHelpTextStringProperty, {
+            polarAngleInterval: VectorAdditionConstants.POLAR_ANGLE_INTERVAL
+          } )
         }
       }
     ];
