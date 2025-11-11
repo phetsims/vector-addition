@@ -30,6 +30,7 @@ type EquationsResultantVectorOptions = SelfOptions & StrictOmit<ResultantVectorO
 
 export default class EquationsResultantVector extends ResultantVector {
 
+  // Selected equation type determines how the resultant vector is derived.
   private readonly equationTypeProperty: TReadOnlyProperty<EquationType>;
 
   public constructor( tailPosition: Vector2,

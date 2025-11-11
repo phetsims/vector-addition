@@ -19,22 +19,27 @@ export default class LabScreenSummaryContent extends ScreenSummaryContent {
 
   public constructor( sceneProperty: TReadOnlyProperty<LabScene>, scenes: LabScene[] ) {
 
+    // Number of vectors on the graph that belong to vector set 1.
     const vectorSet1SizeProperty = DerivedProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.vectorSet1.numberOfVectorsOnGraphProperty ) ],
       () => sceneProperty.value.vectorSet1.numberOfVectorsOnGraphProperty.value );
 
+    // Number of vectors on the graph that belong to vector set 2.
     const vectorSet2SizeProperty = DerivedProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.vectorSet2.numberOfVectorsOnGraphProperty ) ],
       () => sceneProperty.value.vectorSet2.numberOfVectorsOnGraphProperty.value );
 
+    // Symbol for vector set 1.
     const vectorSet1AccessibleSymbolProperty = DerivedStringProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.vectorSet1.accessibleSymbolProperty ) ],
       () => sceneProperty.value.vectorSet1.accessibleSymbolProperty.value );
 
+    // Symbol for vector set 2.
     const vectorSet2AccessibleSymbolProperty = DerivedStringProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.vectorSet1.accessibleSymbolProperty ) ],
       () => sceneProperty.value.vectorSet2.accessibleSymbolProperty.value );
 
+    // Name of the selected scene.
     const sceneAccessibleNameStringProperty = DerivedStringProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.accessibleSceneNameStringProperty ) ],
       () => sceneProperty.value.accessibleSceneNameStringProperty.value );

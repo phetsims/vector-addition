@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * Explore2DCartesianScene is the Cartesian-coordinates scene in the 'Explore 2D' screen, with vectors 'a', 'b', and 'c'.
+ * Explore2DCartesianScene is the Cartesian scene in the 'Explore 2D' screen, with vectors 'a', 'b', and 'c'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

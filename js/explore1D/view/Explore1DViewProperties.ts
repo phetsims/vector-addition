@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * Explore1DViewProperties is the set of view-specific Properties for the 'Explore 1D' screen.
+ * Explore1DViewProperties is the set of Properties that are specific to the view for the 'Explore 1D' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

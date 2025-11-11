@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * LabCartesianScene is the Cartesian-coordinates scene in the 'Lab' screen, with vector sets 'u' and 'v'.
+ * LabCartesianScene is the Cartesian scene in the 'Lab' screen, with vector sets 'u' and 'v'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

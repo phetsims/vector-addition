@@ -19,10 +19,12 @@ export default class Explore2DScreenSummaryContent extends ScreenSummaryContent 
 
   public constructor( sceneProperty: TReadOnlyProperty<ExploreScene>, scenes: ExploreScene[] ) {
 
+    // Number of vectors on the graph.
     const numberOfVectorsProperty = DerivedProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.vectorSet.numberOfVectorsOnGraphProperty ) ],
       () => sceneProperty.value.vectorSet.numberOfVectorsOnGraphProperty.value );
 
+    // Name of the selected scene.
     const accessibleSceneNameStringProperty = DerivedStringProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.accessibleSceneNameStringProperty ) ],
       () => sceneProperty.value.accessibleSceneNameStringProperty.value );

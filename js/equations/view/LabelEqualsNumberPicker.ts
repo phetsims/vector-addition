@@ -2,6 +2,7 @@
 
 /**
  * LabelEqualsNumberPicker is a label (Node), equals sign (Text), and a NumberPicker, with horizontal layout.
+ * It is used for one vector quantity in the 'Base Vectors' accordion box in the 'Equations' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -25,6 +26,7 @@ export class LabelEqualsNumberPicker extends HBox {
   public constructor( numberProperty: Property<number>,
                       numberRange: Range,
                       labelNode: Node,
+                      // Options propagated to NumberPicker.
                       numberPickerOptions: WithRequired<NumberPickerOptions, 'tandem'> ) {
 
     const equalsSign = new Text( MathSymbols.EQUAL_TO, {

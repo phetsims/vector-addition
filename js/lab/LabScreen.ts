@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * The 'Lab' screen. Conforms to the contract specified in joist/Screen.
+ * The 'Lab' screen.
  *
  * @author Martin Veillette
  */

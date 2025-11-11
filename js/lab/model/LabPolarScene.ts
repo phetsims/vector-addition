@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * LabPolarScene is the Cartesian-coordinates scene in the 'Lab' screen, with vector sets 'p' and 'q'.
+ * LabPolarScene is the polar scene in the 'Lab' screen, with vector sets 'p' and 'q'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

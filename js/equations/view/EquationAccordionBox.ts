@@ -2,7 +2,7 @@
 
 /**
  * EquationAccordionBox is the accordion box labeled 'Equation' in the 'Equations' screen.
- * It allows the user to select the form of the equation, and change the coefficients of the vectors.
+ * It allows the user to select the equation type and change the coefficients of the vectors.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -12,11 +12,10 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import Node, { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from '../../common/view/FixedSizeAccordionBox.js';
@@ -26,12 +25,14 @@ import EquationsVectorSet from '../model/EquationsVectorSet.js';
 import { EquationType, EquationTypeValues } from '../model/EquationType.js';
 import EquationTypeNode from './EquationTypeNode.js';
 import EquationTypeRadioButtonGroup from './EquationTypeRadioButtonGroup.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const TEXT_OPTIONS = { font: VectorAdditionConstants.EQUATION_FONT };
 
 type SelfOptions = EmptySelfOptions;
 
-type EquationAccordionBoxOptions = SelfOptions & StrictOmit<FixedSizeAccordionBoxOptions, 'contentFixedSize'>;
+type EquationAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
+  PickRequired<FixedSizeAccordionBoxOptions, 'tandem' | 'expandedProperty'>;
 
 export default class EquationAccordionBox extends FixedSizeAccordionBox {
 

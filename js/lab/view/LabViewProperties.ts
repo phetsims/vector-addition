@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * LabViewProperties is the set of view-specific Properties for the 'Lab' screen.
+ * LabViewProperties is the set of Properties that are specific to the view for the 'Lab' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

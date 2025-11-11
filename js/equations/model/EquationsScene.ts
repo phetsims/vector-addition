@@ -27,7 +27,7 @@ import { EquationType, EquationTypeValues } from './EquationType.js';
 
 export default class EquationsScene extends VectorAdditionScene {
 
-  // Which of the 3 equation types is currently selected.
+  // Selected equation type determines how the resultant vector is derived.
   public readonly equationTypeProperty: StringUnionProperty<EquationType>;
 
   // This scene has one vector set.

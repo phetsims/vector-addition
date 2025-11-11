@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * Explore2DViewProperties is the set of view-specific Properties for the 'Explore 2D' screen.
+ * Explore2DViewProperties is the set of Properties that are specific to the view for the 'Explore 2D' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

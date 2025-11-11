@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * LabSceneNode displays a scene for the 'Explore 2D' screen.
+ * LabSceneNode displays a scene for the 'Lab' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

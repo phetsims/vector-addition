@@ -6,7 +6,8 @@
  * This is more complicated than NumberPickers for other vector quantities because we must support the 'Angle Convention'
  * preference. Attempting to support that with a single NumberPicker was complicated and buggy, because the NumberPicker's
  * Property and range would have to map between signed and unsigned values, and because the mapping between signed
- * and unsigned ranges is not straightforward.
+ * and unsigned ranges is not straightforward.  So this implementation creates 2 LabelEqualsNumberPicker instances,
+ * and makes one of them visible based on the 'Angle Convention' preference.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

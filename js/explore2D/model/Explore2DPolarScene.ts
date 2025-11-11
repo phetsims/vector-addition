@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * Explore2DPolarScene is the polar-coordinates scene in the 'Explore 2D' screen, with vectors 'd', 'e', and 'f'.
+ * Explore2DPolarScene is the polar scene in the 'Explore 2D' screen, with vectors 'd', 'e', and 'f'.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

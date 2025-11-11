@@ -22,7 +22,7 @@ import Explore1DViewProperties from './Explore1DViewProperties.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
-  // view-specific Properties
+  // Properties that are specific to the view.
   private readonly viewProperties: Explore1DViewProperties;
 
   public constructor( model: Explore1DModel, tandem: Tandem ) {

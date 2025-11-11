@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * The 'Explore 2D' screen. Conforms to the contract specified in joist/Screen.
+ * The 'Explore 2D' screen.
  *
  * @author Martin Veillette
  */

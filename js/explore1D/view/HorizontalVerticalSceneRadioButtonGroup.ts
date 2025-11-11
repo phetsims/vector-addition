@@ -22,11 +22,11 @@ type SelfOptions = EmptySelfOptions;
 type CartesianPolarRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions &
   PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
-export default class HorizontalVerticalSceneRadioButtonGroup<T extends VectorAdditionScene> extends RectangularRadioButtonGroup<T> {
+export default class HorizontalVerticalSceneRadioButtonGroup<S extends VectorAdditionScene> extends RectangularRadioButtonGroup<S> {
 
-  public constructor( sceneProperty: Property<T>,
-                      horizontalScene: T,
-                      verticalScene: T,
+  public constructor( sceneProperty: Property<S>,
+                      horizontalScene: S,
+                      verticalScene: S,
                       providedOptions: CartesianPolarRadioButtonGroupOptions ) {
 
     const options = optionize4<CartesianPolarRadioButtonGroupOptions, SelfOptions, RectangularRadioButtonGroupOptions>()(
@@ -39,7 +39,7 @@ export default class HorizontalVerticalSceneRadioButtonGroup<T extends VectorAdd
         accessibleHelpText: VectorAdditionStrings.a11y.horizontalVerticalSceneRadioButtonGroup.accessibleHelpTextStringProperty
       }, providedOptions );
 
-    const items: RectangularRadioButtonGroupItem<T>[] = [
+    const items: RectangularRadioButtonGroupItem<S>[] = [
       {
         value: horizontalScene,
         createNode: () => VectorAdditionIconFactory.createGraphOrientationIcon( 'horizontal' ),

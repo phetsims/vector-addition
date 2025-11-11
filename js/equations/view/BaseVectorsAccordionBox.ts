@@ -4,12 +4,10 @@
  * BaseVectorsAccordionBox appears on the right side of the 'Equations' screen. It contains pickers for modifying the
  * base vectors, and a checkbox to show/hide the base vectors.
  *
- * 'Is a' relationship with AccordionBox but adds the following functionality:
+ * BaseVectorsAccordionBox extends AccordionBox with the following added features:
  *  - allow users to change the components of the Vectors on Cartesian mode (via numberPicker)
  *  - allow users to change the angle and the magnitude of the Vectors on polar mode (via numberPicker)
  *  - allow users to toggle the visibility of the Base Vectors (via checkbox)
- *
- * This AccordionBox is not meant to be disposed.
  *
  * @author Brandon Li
  */

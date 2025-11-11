@@ -1,8 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * EquationsVector is a specialization of Vector for the 'Equations' screen.  It adds mutable coefficient and base vector.
- * Instances exist for the lifetime of the sim and do not need to be disposed.
+ * EquationsVector is a specialization of Vector for the 'Equations' screen. It adds mutable coefficient and base vector.
  *
  * @author Brandon Li
  * @author Chris Malley (PixelZoom, Inc.)
@@ -45,7 +44,10 @@ type EquationsVectorOptions = SelfOptions &
 
 export default class EquationsVector extends Vector {
 
+  // Coefficient applied to this vector, which also appears in the equation that derives the resultant vector.
   public readonly coefficientProperty: NumberProperty;
+
+  // Base vector that is multiplied by the coefficient to derive this vector.
   public readonly baseVector: BaseVector;
 
   public constructor( tailPosition: Vector2,

@@ -7,9 +7,9 @@
  *
  * ComponentVectors are not selectable.
  *
- * 'Is a' relationship with RootVector but adds the following functionality:
- *    - Updates its tail position/components based on a parent vector's changing tail/tip
- *    - Updates its tail position based on the component style Property
+ * ComponentVectors extends RootVector with the following added features:
+ * - Updates its tail position/components based on a parent vector's changing tail/tip
+ * - Updates its tail position based on the component style Property
  *
  * Positioning for the x and y components is slightly different. Label content for component vectors are unique.
  *

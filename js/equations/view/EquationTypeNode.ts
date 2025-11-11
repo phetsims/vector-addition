@@ -63,8 +63,7 @@ export default class EquationTypeNode extends Node {
           symbol: vector.accessibleSymbolProperty
         } ),
         accessibleHelpText: VectorAdditionStrings.a11y.coefficientPicker.accessibleHelpTextStringProperty,
-        tandem: options.tandem.createTandem( `${vector.tandemNameSymbol}CoefficientPicker` ),
-        phetioVisiblePropertyInstrumented: false
+        tandem: options.tandem.createTandem( `${vector.tandemNameSymbol}CoefficientPicker` )
       } );
       equationChildren.push( coefficientPicker );
 

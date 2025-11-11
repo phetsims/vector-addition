@@ -3,7 +3,7 @@
 /**
  * EquationsSceneNode is a VectorAdditionSceneNode that is specific to the 'Equations' screen.
  *
- * 'Is A' relationship with VectorAdditionSceneNode but adds:
+ * EquationsSceneNode extends VectorAdditionSceneNode with the following features:
  *  - a RectangularRadioButtonGroup for EquationType
  *  - a Coefficient Selector Panel for each member of EquationType
  *  - a BaseVectorAccordionBox

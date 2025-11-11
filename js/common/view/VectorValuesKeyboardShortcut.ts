@@ -2,7 +2,7 @@
 
 /**
  * VectorValuesKeyboardShortcut reads the vector values for the vector that has focus.
- * This is the same information that is displayed in the "Vector Values" accordion box.
+ * This is the same information displayed in the "Vector Values" accordion box.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

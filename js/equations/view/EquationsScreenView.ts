@@ -22,7 +22,7 @@ import EquationsViewProperties from './EquationsViewProperties.js';
 
 export default class EquationsScreenView extends VectorAdditionScreenView {
 
-  // view-specific Properties
+  // Properties that are specific to the view.
   private readonly viewProperties: EquationsViewProperties;
 
   public constructor( model: EquationsModel, tandem: Tandem ) {

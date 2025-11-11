@@ -6,7 +6,7 @@
  *
  * Displays a single vector quantity (i.e. magnitude etc.) of a single selected vector that is on the specified graph.
  *
- * 'Is a' relationship with NumberDisplay but adds:
+ * 'VectorQuantityDisplay extends NumberDisplay with the following additional features:
  *  - Functionality to change the selected vector without having to recreate the number display;
  *    NumberDisplays don't support the ability to change the NumberProperty of the panel.
  *    Recreating new NumberDisplays every time the selected vector changes is costly. This creates the number Property

@@ -4,8 +4,8 @@
  * LabScene is the base class for scenes in the 'Lab' screen.
  *
  * Characteristics of a LabScene are:
- *  - it snaps to either Cartesian or polar coordinates
  *  - it has 2 vector sets
+ *  - vectors snap to either Cartesian or polar coordinates
  *
  * @author Brandon Li
  */

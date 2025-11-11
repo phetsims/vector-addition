@@ -21,7 +21,7 @@ import LabViewProperties from './LabViewProperties.js';
 
 export default class LabScreenView extends VectorAdditionScreenView {
 
-  // view-specific Properties
+  // Properties that are specific to the view.
   private readonly viewProperties: LabViewProperties;
 
   public constructor( model: LabModel, tandem: Tandem ) {
