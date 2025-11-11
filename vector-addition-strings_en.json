@@ -201,7 +201,7 @@
         "value": "Vector Sum, {{symbol}}"
       },
       "accessibleHelpText": {
-        "value": "Show or hide vector sum {{symbol}}, if defined."
+        "value": "Show or hide vector {{symbol}}, if defined."
       },
       "accessibleContextResponseChecked": {
         "value": "Vector {{symbol}} visibility enabled."
