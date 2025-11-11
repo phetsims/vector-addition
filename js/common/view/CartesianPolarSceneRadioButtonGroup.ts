@@ -45,7 +45,7 @@ export default class CartesianPolarSceneRadioButtonGroup<T extends VectorAdditio
     const items: RectangularRadioButtonGroupItem<T>[] = [
       {
         value: cartesianScene,
-        createNode: () => VectorAdditionIconFactory.createCartesianSceneIcon( cartesianColorPalette, 'triangle' ),
+        createNode: () => VectorAdditionIconFactory.createCartesianSceneIcon( cartesianColorPalette ),
         tandemName: 'cartesianRadioButton',
         options: {
           accessibleName: VectorAdditionStrings.a11y.cartesianRadioButton.accessibleNameStringProperty,
