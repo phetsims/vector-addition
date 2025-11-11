@@ -44,7 +44,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
         phet.log && phet.log( `ScaleRotateVectorKeyboardListener: keysPressed=${keysPressed}` );
 
         // Scaling and rotating a vector selects it.
-        vector.select();
+        vector.setSelected( true );
 
         // Scale and rotate the vector.
         let dx = 0;

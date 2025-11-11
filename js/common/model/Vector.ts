@@ -459,10 +459,22 @@ export default class Vector extends RootVector {
   }
 
   /**
-   * Makes this vector the selected vector.
+   * Determines whether this vector is selected.
    */
-  public select(): void {
-    this.selectedVectorProperty.value = this;
+  public setSelected( selected: boolean ): void {
+    if ( selected ) {
+      this.selectedVectorProperty.value = this;
+    }
+    else if ( this.selectedVectorProperty.value === this ) {
+      this.selectedVectorProperty.value = null;
+    }
+  }
+
+  /**
+   * Determines whether this vector is selected.
+   */
+  public getSelected(): boolean {
+    return this.selectedVectorProperty.value === this;
   }
 
   /**

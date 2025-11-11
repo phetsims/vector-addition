@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * SelectVectorKeyboardListener makes the vector the selected vector, using the keyboard.
+ * SelectVectorKeyboardListener selects or deselects the vector, using the keyboard.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -28,7 +28,9 @@ export default class SelectVectorKeyboardListener extends KeyboardListener<OneKe
       keyStringProperties: HotkeyData.combineKeyStringProperties( [ SelectVectorKeyboardListener.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `SelectVectorKeyboardListener: keysPressed=${keysPressed}` );
-        vector.select();
+
+        // Toggle selection.
+        vector.setSelected( !vector.getSelected() );
       }
     } );
   }

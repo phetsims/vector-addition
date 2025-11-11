@@ -47,7 +47,7 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
 
           // Put the vector on the graph and select it.
           vector.isOnGraphProperty.value = true;
-          vector.select();
+          vector.setSelected( true );
 
           // Add the vector to activeVectors, so it contributes to the resultant vector.
           vectorSet.activeVectors.push( vector );

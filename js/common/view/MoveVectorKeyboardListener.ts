@@ -34,7 +34,7 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
         phet.log && phet.log( `MoveVectorKeyboardListener: keysPressed=${keysPressed}` );
 
         // Moving a vector selects it.
-        vector.select();
+        vector.setSelected( true );
 
         // Move the vector.
         let dx = 0;

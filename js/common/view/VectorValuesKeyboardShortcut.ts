@@ -38,7 +38,7 @@ export default class VectorValuesKeyboardShortcut extends KeyboardListener<OneKe
 
         // Using this shortcut selects the vector.
         // See https://github.com/phetsims/vector-addition/issues/362#issuecomment-3517721350.
-        vector.select();
+        vector.setSelected( true );
 
         // Describe what the Vector Values' accordion box is displaying.
         vectorNode.addAccessibleObjectResponse( accessibleParagraphProperty.value );
