@@ -33,8 +33,7 @@ PhET simulations.
 
 ### Coordinate Transforms
 
-The transform between model and view coordinate frames can be found
-in [VectorAdditionScene](https://github.com/phetsims/vector-addition/blob/main/js/common/model/Graph.ts),
+The transform between model and view coordinate frames can be found in VectorAdditionScene,
 where `modelViewTransformProperty` is derived from the scene's bounds, and changes when the graph's origin is moved.
 This transform inverts the mapping of y-axis values; +y is down in view (scenery) coordinates, up in model coordinates.
 
