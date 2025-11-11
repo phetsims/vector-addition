@@ -341,6 +341,9 @@
       "accessibleName": {
         "value": "Erase all vectors"
       },
+      "accessibleHelpText": {
+        "value": "Remove all vectors from graph area."
+      },
       "accessibleContextResponse": {
         "value": "Graph area cleared"
       }

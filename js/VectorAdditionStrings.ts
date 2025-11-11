@@ -178,6 +178,7 @@ type StringsType = {
     };
     'eraserButton': {
       'accessibleNameStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextStringProperty': LocalizedStringProperty;
       'accessibleContextResponseStringProperty': LocalizedStringProperty;
     };
     'vectorValuesAccordionBox': {
