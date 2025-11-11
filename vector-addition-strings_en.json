@@ -352,6 +352,9 @@
       "accessibleParagraph": {
         "value": "For vector {{symbol}}: magnitude is {{magnitude}}; direction is {{direction}} degrees from positive x axis; x component is {{xComponent}}; y component is {{yComponent}}."
       },
+      "accessibleHelpTextCollapsed": {
+        "value": "Show magnitude, direction, and components of selected vector."
+      },
       "accessibleParagraphBaseVector": {
         "value": "For base vector {{symbol}}: magnitude is {{magnitude}}; direction is {{direction}} degrees from positive x axis; x component is {{xComponent}}; y component is {{yComponent}}."
       },

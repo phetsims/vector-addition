@@ -16,7 +16,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import StrictOmit from '../../../../phet-core/js/types/StrictOmit.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
@@ -31,6 +30,8 @@ import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from './FixedSize
 import VectorQuantityDisplay from './VectorQuantityDisplay.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import { VectorValuesAccessibleParagraphProperty } from './VectorValuesAccessibleParagraphProperty.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -42,7 +43,8 @@ const COMPONENT_LABEL_MAX_WIDTH = 35;
 
 type SelfOptions = EmptySelfOptions;
 
-type VectorValuesAccordionBoxOptions = SelfOptions & StrictOmit<FixedSizeAccordionBoxOptions, 'contentFixedSize'>;
+type VectorValuesAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
+  PickRequired<FixedSizeAccordionBoxOptions, 'tandem' | 'expandedProperty'>;
 
 export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
@@ -60,7 +62,8 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       contentFixedSize: new Dimension2( 500, 45 ),
       contentAlign: 'center',
       contentXSpacing: 5,
-      titleXSpacing: 15
+      titleXSpacing: 15,
+      accessibleHelpTextCollapsed: VectorAdditionStrings.a11y.vectorValuesAccordionBox.accessibleHelpTextCollapsedStringProperty
     }, providedOptions );
 
     // 'Vector Values' title

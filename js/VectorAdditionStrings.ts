@@ -183,6 +183,7 @@ type StringsType = {
     };
     'vectorValuesAccordionBox': {
       'accessibleParagraphStringProperty': LocalizedStringProperty;
+      'accessibleHelpTextCollapsedStringProperty': LocalizedStringProperty;
       'accessibleParagraphBaseVectorStringProperty': LocalizedStringProperty;
       'accessibleParagraphCoefficientVectorStringProperty': LocalizedStringProperty;
     };
