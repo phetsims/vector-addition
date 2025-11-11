@@ -287,12 +287,12 @@
     },
     "horizontalRadioButton": {
       "accessibleName": {
-        "value": "Horizontal 1-D scene"
+        "value": "Horizontal scene"
       }
     },
     "verticalRadioButton": {
       "accessibleName": {
-        "value": "Vertical 1-D scene"
+        "value": "Vertical scene"
       }
     },
     "equationTypeRadioButtonGroup": {
