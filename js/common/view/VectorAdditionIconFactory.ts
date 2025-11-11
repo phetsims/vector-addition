@@ -310,8 +310,10 @@ export default class VectorAdditionIconFactory {
 
   /**
    * Creates the icon for the Cartesian scene radio button.
+   * Supports 2 component vector styles that we tried out during.
    */
-  public static createCartesianSceneIcon( vectorColorPalette: VectorColorPalette ): Node {
+  public static createCartesianSceneIcon( vectorColorPalette: VectorColorPalette,
+                                          componentVectorStyle: 'triangle' | 'parallelogram' ): Node {
 
     const iconSize = RADIO_BUTTON_ICON_SIZE;
 
@@ -323,14 +325,14 @@ export default class VectorAdditionIconFactory {
       } ) );
 
     // x and y, Cartesian coordinates
-    const xyArrowOptions: ArrowNodeOptions = {
-      fill: Color.BLACK,
-      tailWidth: 1,
-      headWidth: 6,
-      headHeight: 6
-    };
-    const xNode = new ArrowNode( 0, 0, iconSize, 0, xyArrowOptions );
-    const yNode = new ArrowNode( iconSize, 0, iconSize, -iconSize, xyArrowOptions );
+    const xyArrowOptions = combineOptions<DashedArrowNodeOptions>(
+      {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
+        fill: vectorColorPalette.vectorFillProperty
+      } );
+    const xNode = new DashedArrowNode( 0, 0, iconSize, 0, xyArrowOptions );
+    const yNode = ( componentVectorStyle === 'triangle' ) ?
+                  new DashedArrowNode( iconSize, 0, iconSize, -iconSize, xyArrowOptions ) :
+                  new DashedArrowNode( 0, 0, 0, -iconSize, xyArrowOptions );
 
     return new Node( {
       children: [ vectorNode, xNode, yNode ],
