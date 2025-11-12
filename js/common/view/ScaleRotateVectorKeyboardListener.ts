@@ -119,7 +119,7 @@ function computeTipPositionPolar( vector: Vector, keysPressed: OneKeyStroke ): V
 
   // Do not allow magnitude to go to zero.
   if ( magnitude === 0 ) {
-    magnitude = 1;
+    magnitude = DELTA_MAGNITUDE;
   }
 
   // Convert to Cartesian coordinates.
