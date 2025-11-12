@@ -67,44 +67,31 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
 function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke ): Vector2 {
   affirm( vector.coordinateSnapMode === 'cartesian', 'wrong coordinateSnapMode' );
 
-  // Compute the new xy-components.
-  let x = vector.tip.x;
-  let y = vector.tip.y;
+  // Compute delta for xy-components.
+  let dx = 0;
+  let dy = 0;
   if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
-    x -= DX;
-
-    // Skip over (0,0).
-    if ( x === vector.tail.x && vector.yComponent === 0 ) {
-      x = vector.tail.x - DX;
-    }
+    dx = -DX;
   }
   else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
-    x += DX;
-
-    // Skip over (0,0).
-    if ( x === vector.tail.x && vector.yComponent === 0 ) {
-      x = vector.tail.x + DX;
-    }
+    dx = DX;
   }
   else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
-    y += DY;
-
-    // Skip over (0,0).
-    if ( vector.xComponent === 0 && y === vector.tail.y ) {
-      y = vector.tail.y + DY;
-    }
+    dy = DY;
   }
   else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
-    y -= DY;
+    dy = -DY;
+  }
 
-    // Skip over (0,0).
-    if ( vector.xComponent === 0 && y === vector.tail.y ) {
-      y = vector.tail.y - DY;
-    }
+  const tipPosition = vector.tip.plusXY( dx, dy );
+
+  // Skip over zero-magnitude vector.
+  if ( tipPosition.equals( vector.tail ) ) {
+    tipPosition.setXY( vector.tail.x + dx, vector.tail.y + dy );
   }
 
   // Return the new tip position.
-  return new Vector2( x, y );
+  return tipPosition;
 }
 
 /**
