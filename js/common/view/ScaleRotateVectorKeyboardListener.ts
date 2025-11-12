@@ -67,23 +67,23 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
 function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke ): Vector2 {
 
   // Compute delta for xy-components.
-  let dx = 0;
-  let dy = 0;
+  let x = vector.tip.x;
+  let y = vector.tip.y;
   if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
-    dx = -DX;
+    x -= DX;
   }
   else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
-    dx = DX;
+    x += DX;
   }
   else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
-    dy = DY;
+    y += DY;
   }
   else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
-    dy = -DY;
+    y -= DY;
   }
 
   // Return the new tip position.
-  return vector.tip.plusXY( dx, dy );
+  return new Vector2( x, y );
 }
 
 /**
@@ -97,19 +97,19 @@ function computeTipPositionPolar( vector: Vector, keysPressed: OneKeyStroke ): V
 
   if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
     if ( vector.angle !== null ) {
-      angle = vector.angle - DELTA_ANGLE;
+      angle -= DELTA_ANGLE;
     }
   }
   else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
     if ( vector.angle !== null ) {
-      angle = vector.angle + DELTA_ANGLE;
+      angle += DELTA_ANGLE;
     }
   }
   else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
-    magnitude = vector.magnitude + DELTA_MAGNITUDE;
+    magnitude += DELTA_MAGNITUDE;
   }
   else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
-    magnitude = vector.magnitude - DELTA_MAGNITUDE;
+    magnitude -= DELTA_MAGNITUDE;
   }
 
   // Constrain magnitude to integer.
