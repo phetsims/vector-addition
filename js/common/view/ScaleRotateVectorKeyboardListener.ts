@@ -67,7 +67,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
 function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke ): Vector2 {
   affirm( vector.coordinateSnapMode === 'cartesian', 'wrong coordinateSnapMode' );
 
-  // Compute delta for xy-components.
+  // Compute the new xy-components.
   let x = vector.tip.x;
   let y = vector.tip.y;
   if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
