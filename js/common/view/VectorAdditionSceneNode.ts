@@ -39,6 +39,7 @@ import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import VectorSetNode from './VectorSetNode.js';
 import VectorToolbox from './VectorToolbox.js';
 import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = {
 
@@ -107,6 +108,11 @@ export default class VectorAdditionSceneNode extends Node {
         listener: () => {
           this.interruptSubtreeInput(); // cancel all interactions for the scene
           scene.erase();
+
+          // Add context response here instead of via options.accessibleContextResponse so that this response happens
+          // last and is not interrupted by the responses caused by removing each vector.
+          // See https://github.com/phetsims/vector-addition/issues/369
+          this.eraserButton!.addAccessibleContextResponse( VectorAdditionStrings.a11y.eraserButton.accessibleContextResponseStringProperty.value );
         },
         right: scene.graph.viewBounds.maxX,
         top: scene.graph.viewBounds.maxY + 15,
