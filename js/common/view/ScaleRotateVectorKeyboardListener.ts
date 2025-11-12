@@ -65,6 +65,7 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
  * Computes the new tip position for Cartesian scenes, which snap to xy-components.
  */
 function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke ): Vector2 {
+  affirm( vector.coordinateSnapMode === 'cartesian', 'wrong coordinateSnapMode' );
 
   // Compute delta for xy-components.
   let x = vector.tip.x;
@@ -90,6 +91,7 @@ function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke 
  * Computes the new tip position for polar scenes, which snap to magnitude and angle in degrees.
  */
 function computeTipPositionPolar( vector: Vector, keysPressed: OneKeyStroke ): Vector2 {
+  affirm( vector.coordinateSnapMode === 'polar', 'wrong coordinateSnapMode' );
 
   let magnitude = vector.magnitude;
   let angle = vector.angle!; // in radians
