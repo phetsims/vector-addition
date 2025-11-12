@@ -43,72 +43,88 @@ export default class ScaleRotateVectorKeyboardListener extends KeyboardListener<
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `ScaleRotateVectorKeyboardListener: keysPressed=${keysPressed}` );
 
-        // Scaling and rotating a vector selects it.
+        // Select the vector.
         vector.setSelected( true );
 
-        // Scale and rotate the vector.
-        let dx = 0;
-        let dy = 0;
-        if ( vector.coordinateSnapMode === 'cartesian' ) {
+        // Compute the new tip position.
+        const tipPosition = ( vector.coordinateSnapMode === 'cartesian' ) ?
+                            computeTipPositionCartesian( vector, keysPressed ) :
+                            computeTipPositionPolar( vector, keysPressed );
 
-          // For Cartesian scenes, snap to xy-coordinates.
-          if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
-            dx = -DX;
-          }
-          else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
-            dx = DX;
-          }
-          else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
-            dy = DY;
-          }
-          else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
-            dy = -DY;
-          }
-          vector.moveTipToPositionWithInvariants( vector.tip.plusXY( dx, dy ) );
-        }
-        else {
-
-          // For polar scenes, snap to magnitude and angle (in degrees).
-          let magnitude = vector.magnitude;
-          let angle = vector.angle!; // in radians
-          affirm( vector.angle !== null, 'angle should be defined' );
-
-          if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
-            if ( vector.angle !== null ) {
-              angle = vector.angle - DELTA_ANGLE;
-            }
-          }
-          else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
-            if ( vector.angle !== null ) {
-              angle = vector.angle + DELTA_ANGLE;
-            }
-          }
-          else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
-            magnitude = vector.magnitude + DELTA_MAGNITUDE;
-          }
-          else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
-            magnitude = vector.magnitude - DELTA_MAGNITUDE;
-          }
-
-          // Constrain magnitude to integer.
-          magnitude = toFixedNumber( magnitude, 0 );
-
-          // Do not allow magnitude to go to zero.
-          if ( magnitude === 0 ) {
-            magnitude = 1;
-          }
-
-          // Convert to Cartesian coordinates.
-          const xyComponents = Vector2.createPolar( magnitude, angle );
-          const tipPosition = new Vector2( vector.tail.x + xyComponents.x, vector.tail.y + xyComponents.y );
-          vector.moveTipToPositionWithInvariants( tipPosition );
-        }
+        // Move the tip to the new position.
+        vector.moveTipToPositionWithInvariants( tipPosition );
 
         // Describe the new position of the vector tip.
         tipNode.doAccessibleObjectResponse();
       }
     } );
   }
+}
+
+/**
+ * Computes the new tip position for Cartesian scenes, which snap to xy-components.
+ */
+function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke ): Vector2 {
+
+  // Compute delta for xy-components.
+  let dx = 0;
+  let dy = 0;
+  if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
+    dx = -DX;
+  }
+  else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
+    dx = DX;
+  }
+  else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
+    dy = DY;
+  }
+  else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
+    dy = -DY;
+  }
+
+  // Return the new tip position.
+  return vector.tip.plusXY( dx, dy );
+}
+
+/**
+ * Computes the new tip position for polar scenes, which snap to magnitude and angle in degrees.
+ */
+function computeTipPositionPolar( vector: Vector, keysPressed: OneKeyStroke ): Vector2 {
+
+  let magnitude = vector.magnitude;
+  let angle = vector.angle!; // in radians
+  affirm( vector.angle !== null, 'angle should be defined' );
+
+  if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
+    if ( vector.angle !== null ) {
+      angle = vector.angle - DELTA_ANGLE;
+    }
+  }
+  else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
+    if ( vector.angle !== null ) {
+      angle = vector.angle + DELTA_ANGLE;
+    }
+  }
+  else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
+    magnitude = vector.magnitude + DELTA_MAGNITUDE;
+  }
+  else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
+    magnitude = vector.magnitude - DELTA_MAGNITUDE;
+  }
+
+  // Constrain magnitude to integer.
+  magnitude = toFixedNumber( magnitude, 0 );
+
+  // Do not allow magnitude to go to zero.
+  if ( magnitude === 0 ) {
+    magnitude = 1;
+  }
+
+  // Convert to Cartesian coordinates.
+  const xyComponents = Vector2.createPolar( magnitude, angle );
+
+  // Return the new tip position.
+  return new Vector2( vector.tail.x + xyComponents.x, vector.tail.y + xyComponents.y );
 }
 
 vectorAddition.register( 'ScaleRotateVectorKeyboardListener', ScaleRotateVectorKeyboardListener );
