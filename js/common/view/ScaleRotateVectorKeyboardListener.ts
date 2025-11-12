@@ -72,15 +72,35 @@ function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke 
   let y = vector.tip.y;
   if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
     x -= DX;
+
+    // Skip over (0,0).
+    if ( x === vector.tail.x && vector.yComponent === 0 ) {
+      x = vector.tail.x - DX;
+    }
   }
   else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
     x += DX;
+
+    // Skip over (0,0).
+    if ( x === vector.tail.x && vector.yComponent === 0 ) {
+      x = vector.tail.x + DX;
+    }
   }
   else if ( keysPressed === 'arrowUp' || keysPressed === 'w' ) {
     y += DY;
+
+    // Skip over (0,0).
+    if ( vector.xComponent === 0 && y === vector.tail.y ) {
+      y = vector.tail.y + DY;
+    }
   }
   else if ( keysPressed === 'arrowDown' || keysPressed === 's' ) {
     y -= DY;
+
+    // Skip over (0,0).
+    if ( vector.xComponent === 0 && y === vector.tail.y ) {
+      y = vector.tail.y - DY;
+    }
   }
 
   // Return the new tip position.
