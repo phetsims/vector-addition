@@ -36,7 +36,7 @@ export default class PolarBaseVector extends BaseVector {
 
   // Magnitude and angle of the vector, which can be changed in the Equations screen's polar scene.
   public readonly magnitudeProperty: NumberProperty;
-  public readonly angleProperty: NumberProperty;
+  public readonly angleDegreesProperty: NumberProperty;
 
   public constructor( tailPosition: Vector2,
                       xyComponents: Vector2,
@@ -49,8 +49,8 @@ export default class PolarBaseVector extends BaseVector {
     const options = optionize<PolarBaseVectorOptions, SelfOptions, BaseVectorOptions>()( {
 
       // BaseVectorOptions
-      magnitudePropertyInstrumented: false, // because this class defines its own magnitudeProperty
-      anglePropertyInstrumented: false // because this class defines its own angleProperty
+      magnitudePropertyInstrumented: false, // because this class defines its own PhET-iO Element named magnitudeProperty
+      angleDegreesPropertyInstrumented: false // because this class defines its own PhET-iO Element named angleDegreesProperty
     }, providedOptions );
     affirm( options.coordinateSnapMode === 'polar', `invalid coordinateSnapMode: ${options.coordinateSnapMode}` );
 
@@ -65,27 +65,27 @@ export default class PolarBaseVector extends BaseVector {
 
     const initialAngle = this.angle!;
     affirm( initialAngle !== null, 'expected this.angle to be non-null' );
-    this.angleProperty = new NumberProperty( toFixedNumber( toDegrees( initialAngle ), 0 ), {
+    this.angleDegreesProperty = new NumberProperty( toFixedNumber( toDegrees( initialAngle ), 0 ), {
       numberType: 'Integer',
       range: VectorAdditionConstants.SIGNED_ANGLE_RANGE,
       units: '\u00B0', // degrees
-      tandem: options.tandem.createTandem( 'angleProperty' ),
+      tandem: options.tandem.createTandem( 'angleDegreesProperty' ),
       phetioFeatured: true
     } );
 
     // Observe when the magnitude or angle changes, and update the xy-components to match.
     Multilink.multilink(
-      [ this.magnitudeProperty, this.angleProperty ],
-      ( magnitude, angle ) => {
+      [ this.magnitudeProperty, this.angleDegreesProperty ],
+      ( magnitude, angleDegrees ) => {
         if ( !isSettingPhetioStateProperty.value ) {
-          this.xyComponentsProperty.value = Vector2.createPolar( magnitude, toRadians( angle ) );
+          this.xyComponentsProperty.value = Vector2.createPolar( magnitude, toRadians( angleDegrees ) );
         }
       } );
   }
 
   public override reset(): void {
     this.magnitudeProperty.reset();
-    this.angleProperty.reset();
+    this.angleDegreesProperty.reset();
     super.reset();
   }
 }

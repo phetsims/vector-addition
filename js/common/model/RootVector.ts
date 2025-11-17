@@ -59,8 +59,8 @@ type SelfOptions = {
   vectorColorPalette: VectorColorPalette; // color palette for this vector
 
   // optional
-  magnitudePropertyInstrumented?: boolean; // whether to instrument the magnitudeProperty
-  anglePropertyInstrumented?: boolean; // whether to instrument the angleProperty
+  magnitudePropertyInstrumented?: boolean; // whether to instrument _magnitudeProperty
+  angleDegreesPropertyInstrumented?: boolean; // whether to instrument _angleDegreesProperty
 };
 
 export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem' | 'phetioFeatured' | 'phetioState'>;
@@ -86,8 +86,9 @@ export default abstract class RootVector extends PhetioObject {
 
   // This Property was introduced for the PhET-iO API only. Do not use this Property ANYWHERE.
   // Listeners to xyComponentsProperty will get a stale value.
-  // Subclass PolarBaseVector defines angleProperty, so make this private with an underscore prefix.
-  private readonly _angleProperty: TReadOnlyProperty<number | null>;
+  // Subclass PolarBaseVector defines angleDegreesProperty, so make this private with an underscore prefix.
+  private readonly _angleRadiansProperty: TReadOnlyProperty<number | null>;
+  private readonly _angleDegreesProperty: TReadOnlyProperty<number | null>;
 
   /**
    * @param tailPosition - initial tail position of the vector
@@ -102,7 +103,7 @@ export default abstract class RootVector extends PhetioObject {
 
       // SelfOptions
       magnitudePropertyInstrumented: true,
-      anglePropertyInstrumented: true,
+      angleDegreesPropertyInstrumented: true,
 
       // PhetioObjectOptions
       isDisposable: false, // For PhET-iO, all RootVectors and their subclasses are instantiated at startup.
@@ -138,12 +139,21 @@ export default abstract class RootVector extends PhetioObject {
       phetioFeatured: true
     } );
 
-    this._angleProperty = new DerivedProperty( [ this.xyComponentsProperty ], () => this.angle, {
-      tandem: options.anglePropertyInstrumented ? options.tandem.createTandem( 'angleProperty' ) : Tandem.OPT_OUT,
-      phetioValueType: NullableIO( NumberIO ),
-      units: 'radians',
-      phetioFeatured: true
-    } );
+    this._angleRadiansProperty = new DerivedProperty( [ this.xyComponentsProperty ],
+      () => this.angle, {
+        tandem: options.tandem.createTandem( 'angleRadiansProperty' ),
+        phetioValueType: NullableIO( NumberIO ),
+        units: 'radians',
+        phetioFeatured: true
+      } );
+
+    this._angleDegreesProperty = new DerivedProperty( [ this._angleRadiansProperty ],
+      angleRadians => ( angleRadians === null ) ? null : toDegrees( angleRadians ), {
+        tandem: options.angleDegreesPropertyInstrumented ? options.tandem.createTandem( 'angleDegreesProperty' ) : Tandem.OPT_OUT,
+        phetioValueType: NullableIO( NumberIO ),
+        units: '\u00B0', // degrees symbol
+        phetioFeatured: true
+      } );
 
     this.vectorColorPalette = options.vectorColorPalette;
   }
