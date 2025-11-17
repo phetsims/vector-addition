@@ -18,7 +18,7 @@ export default class VectorAdditionPreferencesNode extends VBox {
   public constructor( preferences: VectorAdditionPreferences, tandem: Tandem ) {
 
     const angleConventionControl = new AngleConventionControl( preferences.angleConventionProperty,
-      tandem.createTandem( 'initialCoefficientControl' ) );
+      tandem.createTandem( 'angleConventionControl' ) );
 
     super( {
       isDisposable: false,
