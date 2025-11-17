@@ -44,7 +44,8 @@ export default class AngleConventionControl extends PreferencesControl {
       controlNode: radioButtonGroup,
       descriptionNode: descriptionText,
       tandem: tandem,
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioVisiblePropertyInstrumented: false // see https://github.com/phetsims/vector-addition/issues/385
     } ) );
   }
 }
