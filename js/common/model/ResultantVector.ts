@@ -64,7 +64,8 @@ export default class ResultantVector extends Vector {
       () => vectorSet.allVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0, {
         tandem: options.tandem.createTandem( 'isDefinedProperty' ),
         phetioValueType: BooleanIO,
-        phetioFeatured: true
+        phetioFeatured: true,
+        phetioDocumentation: 'true when there is at least one vector on the graph area that contributes to the derivation of this vector. false if there are no vectors on the graph area.'
       } );
   }
 }
