@@ -27,14 +27,11 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
 
   public constructor( model: Explore2DModel, tandem: Tandem ) {
 
-    super( {
+    super( model.sceneProperty, {
       resetModel: () => model.reset(),
       screenSummaryContent: new Explore2DScreenSummaryContent( model.sceneProperty, model.scenes ),
       tandem: tandem
     } );
-
-    // Cancel interactions when switching scenes.
-    model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
     this.viewProperties = new ExploreViewProperties( tandem.createTandem( 'viewProperties' ) );
 

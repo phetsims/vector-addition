@@ -27,14 +27,11 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
 
   public constructor( model: EquationsModel, tandem: Tandem ) {
 
-    super( {
+    super( model.sceneProperty, {
       resetModel: () => model.reset(),
       screenSummaryContent: new EquationsScreenSummaryContent( model.sceneProperty, model.scenes ),
       tandem: tandem
     } );
-
-    // Cancel interactions when switching scenes.
-    model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
     this.viewProperties = new EquationsViewProperties( tandem.createTandem( 'viewProperties' ) );
 

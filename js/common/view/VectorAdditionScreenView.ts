@@ -13,6 +13,8 @@ import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.j
 import Node from '../../../../scenery/js/nodes/Node.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import VectorAdditionScene from '../model/VectorAdditionScene.js';
 
 type SelfOptions = {
   resetModel: () => void; // Called by resetAllButton to reset the model.
@@ -25,7 +27,7 @@ export default class VectorAdditionScreenView extends ScreenView {
   // Must be added to the scenegraph and pdomOrder by subclass.
   protected readonly resetAllButton: Node;
 
-  protected constructor( providedOptions: VectorAdditionScreenViewOptions ) {
+  protected constructor( sceneProperty: TReadOnlyProperty<VectorAdditionScene>, providedOptions: VectorAdditionScreenViewOptions ) {
 
     const options = optionize<VectorAdditionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
 
@@ -44,6 +46,9 @@ export default class VectorAdditionScreenView extends ScreenView {
       bottom: this.layoutBounds.maxY - VectorAdditionConstants.SCREEN_VIEW_Y_MARGIN,
       tandem: options.tandem.createTandem( 'resetAllButton' )
     } );
+
+    // Cancel interactions when switching scenes.
+    sceneProperty.lazyLink( () => this.interruptSubtreeInput() );
   }
 
   public reset(): void {
