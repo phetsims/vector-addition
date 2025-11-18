@@ -17,10 +17,8 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
   // whether the EquationAccordionBox is expanded
   public readonly equationAccordionBoxExpandedProperty: Property<boolean>;
 
-  // Whether the resultant vector is visible. The resultant vector is not always a sum in the Equations screen, so
-  // calling this sumVisibleProperty is a bit incorrect. But the design team wanted to keep the name sumVisibleProperty
-  // to match other screens.
-  public readonly sumVisibleProperty: Property<boolean>;
+  // Whether the resultant vector is visible.
+  public readonly resultantVectorVisibleProperty: Property<boolean>;
 
   // whether the BaseVectorsAccordionBox is expanded
   public readonly baseVectorsAccordionBoxExpandedProperty: Property<boolean>;
@@ -38,10 +36,10 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
       phetioFeatured: true
     } );
 
-    this.sumVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'sumVisibleProperty' ),
+    this.resultantVectorVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'resultantVectorVisibleProperty' ),
       phetioFeatured: true,
-      phetioDocumentation: 'Whether vectors c and f are visible.'
+      phetioDocumentation: 'Whether the resultant vector (c or f) is visible.'
     } );
 
     this.baseVectorsAccordionBoxExpandedProperty = new BooleanProperty( false, {
@@ -57,7 +55,7 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
 
   public override reset(): void {
     this.equationAccordionBoxExpandedProperty.reset();
-    this.sumVisibleProperty.reset();
+    this.resultantVectorVisibleProperty.reset();
     this.baseVectorsAccordionBoxExpandedProperty.reset();
     this.baseVectorsVisibleProperty.reset();
     super.reset();

@@ -40,9 +40,8 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
 
     const options = providedOptions;
 
-    // Resultant vector 'c' or 'f'.  While not really correct in the Equations screen, the design team wanted to call
-    // this 'sumCheckbox' to match the other screens.
-    const sumCheckbox = new EquationsSumCheckbox( viewProperties.sumVisibleProperty, sceneProperty, cartesianScene, polarScene,
+    // Resultant vector 'c' or 'f'.
+    const sumCheckbox = new EquationsSumCheckbox( viewProperties.resultantVectorVisibleProperty, sceneProperty, cartesianScene, polarScene,
       options.tandem.createTandem( 'sumCheckbox' ) );
 
     // Values

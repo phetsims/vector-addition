@@ -45,7 +45,7 @@ export default class EquationsSceneNode extends VectorAdditionSceneNode {
                       equationsAlignGroup: AlignGroup, // used to make all interactive equations the same size
                       tandem: Tandem ) {
 
-    super( scene, sceneProperty, [ viewProperties.sumVisibleProperty ], viewProperties, componentVectorStyleProperty, {
+    super( scene, sceneProperty, [ viewProperties.resultantVectorVisibleProperty ], viewProperties, componentVectorStyleProperty, {
       includeEraserButton: false,
       tandem: tandem
     } );
