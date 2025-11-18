@@ -195,7 +195,7 @@ _Equations_ screen:
 
 ## Alternative Input (Keyboard)
 
-Alternative Input features were added in the 1.1 release. We'll describe only the sim-specific support for alternative input here. 
+Alternative Input features were added in the 1.2 release. We'll describe only the sim-specific support for alternative input here. 
 Other support is provided by common code.
 
 Keyboard input for the toolbox involves these classes:
@@ -215,7 +215,7 @@ The keyboard-help dialog is similar for all screens, and is implemented in `Vect
 
 ## Core Description
 
-Core Description features were added in the 1.1 release. 
+Core Description features were added in the 1.2 release. 
 
 Screen summary descriptions are implemented in a class per screen: `Explore1DScreenSummaryContent`, `Explore2DScreenSummaryContent`, 
 `LabScreenSummaryContent`, and `EquationsScreenSummaryContent`.
