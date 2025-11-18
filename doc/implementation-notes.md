@@ -209,7 +209,7 @@ Keyboard input for vectors via the keyboard involves the following classes, whic
 * `SelectVectorKeyboardListener` selects or deselects the vector.
 * `MoveVectorKeyboardListener` translates the vector, and selects it as a side-effect.
 * `ScaleRotateVectorKeyboardListener` scales and rotates the vector, and selects it as a side-effect.
-* `ReadVectorValuesKeyboardShortcut` reads quantities associated with the vector, and selects it as a side-effect.
+* `CheckVectorValuesKeyboardShortcut` reads quantities associated with the vector, and selects it as a side-effect.
 * `RemoveVectorKeyboardListener` moves the vector from the graph to the toolbox.
 
 Moving the graph origin is done via `GraphOriginDragListener`, which handles both pointer and keyboard input.
