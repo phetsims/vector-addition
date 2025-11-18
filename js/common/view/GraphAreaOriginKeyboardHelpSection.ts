@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * GraphOriginKeyboardHelpSection is the keyboard-help section that describes how to move the graph origin.
+ * GraphAreaOriginKeyboardHelpSection is the keyboard-help section that describes how to move the graph origin.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -13,11 +13,13 @@ import SceneryPhetStrings from '../../../../scenery-phet/js/SceneryPhetStrings.j
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
-export default class GraphOriginKeyboardHelpSection extends KeyboardHelpSection {
+export default class GraphAreaOriginKeyboardHelpSection extends KeyboardHelpSection {
 
   public constructor() {
 
     // Move
+    // Note that we are not using MoveDraggableItemsKeyboardHelpSection because a Shift modifier is not needed for the
+    // origin, and MoveDraggableItemsKeyboardHelpSection has no way to omit the keyboard help for the Shift modifier.
     const moveRow = KeyboardHelpSectionRow.labelWithIcon(
       SceneryPhetStrings.keyboardHelpDialog.moveStringProperty,
       KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon(), {
@@ -28,4 +30,4 @@ export default class GraphOriginKeyboardHelpSection extends KeyboardHelpSection 
   }
 }
 
-vectorAddition.register( 'GraphOriginKeyboardHelpSection', GraphOriginKeyboardHelpSection );
+vectorAddition.register( 'GraphAreaOriginKeyboardHelpSection', GraphAreaOriginKeyboardHelpSection );
