@@ -241,7 +241,7 @@ export default class VectorSetNode extends Node {
           // Update the pdomOrder to remove the deleted vectorNode.
           this.updatePDOMOrder();
 
-          // Moves focus to another Node.
+          // Moves focus to another vector or back to the toolbox slot if there are no more vectors.
           this.moveFocus();
 
           // dispose the Nodes that were created when vector was registered.
