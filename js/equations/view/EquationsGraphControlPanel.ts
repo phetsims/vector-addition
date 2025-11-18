@@ -41,8 +41,8 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const options = providedOptions;
 
     // Resultant vector 'c' or 'f'.
-    const sumCheckbox = new ResultantVectorCheckbox( viewProperties.resultantVectorVisibleProperty, sceneProperty, cartesianScene, polarScene,
-      options.tandem.createTandem( 'sumCheckbox' ) );
+    const resultantVectorCheckbox = new ResultantVectorCheckbox( viewProperties.resultantVectorVisibleProperty, sceneProperty, cartesianScene, polarScene,
+      options.tandem.createTandem( 'resultantVectorCheckbox' ) );
 
     // Values
     const valuesCheckbox = new ValuesCheckbox( viewProperties.valuesVisibleProperty,
@@ -63,7 +63,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
       children: [
 
         // Checkboxes
-        sumCheckbox,
+        resultantVectorCheckbox,
         valuesCheckbox,
         anglesCheckbox,
         gridCheckbox,
