@@ -8,24 +8,27 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
+import VectorAdditionViewProperties, { VectorAdditionViewPropertiesOptions } from './VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+
+type ExploreViewPropertiesOptions = SelfOptions & VectorAdditionViewPropertiesOptions;
 
 export default class ExploreViewProperties extends VectorAdditionViewProperties {
 
   // Whether the sum vector (s) is visible. Shared by both scenes in this screen.
   public readonly sumVisibleProperty: Property<boolean>;
 
-  public constructor( tandem: Tandem ) {
+  public constructor( providedOptions: ExploreViewPropertiesOptions ) {
 
-    super( {
-      anglesVisiblePropertyInstrumented: false,
-      tandem: tandem
-    } );
+    const options = providedOptions;
+
+    super( options );
 
     this.sumVisibleProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'sumVisibleProperty' ),
+      tandem: options.tandem.createTandem( 'sumVisibleProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'Whether the vector sum (s) is visible when it is defined.'
     } );

@@ -23,7 +23,6 @@ export default class LabViewProperties extends VectorAdditionViewProperties {
   public constructor( tandem: Tandem ) {
 
     super( {
-      anglesVisiblePropertyInstrumented: false,
       tandem: tandem
     } );
 

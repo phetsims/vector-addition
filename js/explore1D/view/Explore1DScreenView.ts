@@ -33,7 +33,10 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
       tandem: tandem
     } );
 
-    this.viewProperties = new ExploreViewProperties( tandem.createTandem( 'viewProperties' ) );
+    this.viewProperties = new ExploreViewProperties( {
+      anglesVisiblePropertyInstrumented: false,
+      tandem: tandem.createTandem( 'viewProperties' )
+    } );
 
     const graphViewBounds = model.verticalScene.graph.viewBounds;
 
