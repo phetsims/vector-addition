@@ -26,10 +26,7 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
 
     const rows = [
 
-      // Remove from graph
-      KeyboardHelpSectionRow.fromHotkeyData( RemoveVectorKeyboardListener.HOTKEY_DATA ),
-
-      // Select
+      // Select or deselect
       KeyboardHelpSectionRow.fromHotkeyData( SelectVectorKeyboardListener.HOTKEY_DATA ),
 
       // Move
@@ -45,8 +42,11 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
       } ) );
     }
 
-    // Read values
+    // Read vector values
     rows.push( KeyboardHelpSectionRow.fromHotkeyData( VectorValuesKeyboardShortcut.HOTKEY_DATA ) );
+
+    // Remove from graph area
+    rows.push( KeyboardHelpSectionRow.fromHotkeyData( RemoveVectorKeyboardListener.HOTKEY_DATA ) );
 
     super( VectorAdditionStrings.keyboardHelpDialog.vectorsStringProperty, rows, {
       textMaxWidth: 300,
