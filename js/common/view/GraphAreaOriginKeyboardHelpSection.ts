@@ -26,6 +26,7 @@ export default class GraphAreaOriginKeyboardHelpSection extends KeyboardHelpSect
         labelInnerContent: SceneryPhetStrings.a11y.keyboardHelpDialog.draggableItems.moveDescriptionStringProperty
       } );
 
+    // 'Graph Area Origin' title
     super( VectorAdditionStrings.keyboardHelpDialog.graphAreaOriginStringProperty, [ moveRow ] );
   }
 }

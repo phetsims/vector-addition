@@ -48,6 +48,7 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
     // Remove from graph area
     rows.push( KeyboardHelpSectionRow.fromHotkeyData( RemoveVectorKeyboardListener.HOTKEY_DATA ) );
 
+    // 'Vectors' title
     super( VectorAdditionStrings.keyboardHelpDialog.vectorsStringProperty, rows, {
       textMaxWidth: 300,
       isDisposable: false
