@@ -490,7 +490,7 @@
           "value": "Scale and rotate via tip with arrow keys or W, A, S, or D keys."
         },
         "checkVectorValuesDescription": {
-          "value": "Read vector values with V key."
+          "value": "Read vector values with {{modifierKey}} plus C key."
         }
       }
     }

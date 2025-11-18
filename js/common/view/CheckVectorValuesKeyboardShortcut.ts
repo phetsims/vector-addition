@@ -15,6 +15,8 @@ import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import { VectorValuesAccessibleParagraphProperty } from './VectorValuesAccessibleParagraphProperty.js';
 import VectorNode from './VectorNode.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
+import TextKeyNode from '../../../../scenery-phet/js/keyboard/TextKeyNode.js';
 
 export default class CheckVectorValuesKeyboardShortcut extends KeyboardListener<OneKeyStroke[]> {
 
@@ -23,7 +25,10 @@ export default class CheckVectorValuesKeyboardShortcut extends KeyboardListener<
     keys: [ 'alt+c' ],
     repoName: vectorAddition.name,
     keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.checkVectorValuesStringProperty,
-    keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.checkVectorValuesDescriptionStringProperty
+    keyboardHelpDialogPDOMLabelStringProperty:
+      new PatternStringProperty( VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.checkVectorValuesDescriptionStringProperty, {
+        modifierKey: TextKeyNode.getAltKeyString()
+      } )
   } );
 
   public constructor( vector: Vector, vectorNode: VectorNode ) {
