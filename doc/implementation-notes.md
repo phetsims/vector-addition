@@ -193,7 +193,7 @@ _Equations_ screen:
 * Vectors cannot be rotated or scaled via direct manipulation. They must be indirectly rotated/scaled using the spinners
   for base vectors and equations.
 
-## Alternative Input (Keyboard)
+## Alternative Input
 
 Alternative Input features were added in the 1.2 release. We'll describe only the sim-specific support for alternative input here. 
 Other support is provided by common code.
