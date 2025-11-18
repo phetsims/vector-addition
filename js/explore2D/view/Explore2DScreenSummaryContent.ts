@@ -3,6 +3,9 @@
 /**
  * Explore2DScreenSummaryContent is the description screen summary for the 'Explore 2D' screen.
  *
+ * Note: While this looks very similar to Explore1DScreenSummaryContent, it uses different descriptions strings,
+ * and the scenes have different names.
+ *
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
