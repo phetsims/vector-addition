@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * EquationsSumCheckbox is the checkbox for the resultant vector in the graph control panel for the 'Equations' screen.
+ * ResultantVectorCheckbox is the checkbox for the resultant vector in the graph control panel for the 'Equations' screen.
  * It changes its label and vector color depending on which scene is selected.
  *
  * Note that "sum" is somewhat incorrect in this screen, because the computation of vectors 'c' and 'f' depends
@@ -31,7 +31,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsScene from '../model/EquationsScene.js';
 
-export default class EquationsSumCheckbox extends Checkbox {
+export default class ResultantVectorCheckbox extends Checkbox {
 
   public constructor( resultantVectorVisibleProperty: Property<boolean>,
                       sceneProperty: TReadOnlyProperty<EquationsScene>,
@@ -111,4 +111,4 @@ export default class EquationsSumCheckbox extends Checkbox {
   }
 }
 
-vectorAddition.register( 'EquationsSumCheckbox', EquationsSumCheckbox );
+vectorAddition.register( 'ResultantVectorCheckbox', ResultantVectorCheckbox );

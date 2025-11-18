@@ -22,7 +22,7 @@ import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from '../model/EquationsScene.js';
-import EquationsSumCheckbox from './EquationsSumCheckbox.js';
+import ResultantVectorCheckbox from './ResultantVectorCheckbox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -41,7 +41,7 @@ export default class EquationsGraphControlPanel extends GraphControlPanel {
     const options = providedOptions;
 
     // Resultant vector 'c' or 'f'.
-    const sumCheckbox = new EquationsSumCheckbox( viewProperties.resultantVectorVisibleProperty, sceneProperty, cartesianScene, polarScene,
+    const sumCheckbox = new ResultantVectorCheckbox( viewProperties.resultantVectorVisibleProperty, sceneProperty, cartesianScene, polarScene,
       options.tandem.createTandem( 'sumCheckbox' ) );
 
     // Values
