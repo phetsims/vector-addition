@@ -233,9 +233,10 @@ To identify other code related to core description, search for options that are 
 
 All vectors in the model are allocated at startup. They are instrumented and grouped under `allVectors` in the PhET-iO tree. Most vector 
 Properties are `phetioReadOnly: true` because making them editable via PhET-iO was considered too costly. So use the simulation
-to configure vectors.
+to configure vectors.  For more about vector instantiation in the view, see VectorSetOptions `createAllVectors` and `createResultantVector`.
 
-All vectors in the view (`VectorNode` and `ComponentVectorNode`) are allocated dynamically, so they are not instrumented.
+All vectors in the view (`VectorNode` and `ComponentVectorNode`) are allocated dynamically, so they are not instrumented. For more about
+vector instantiation in the view, see VectorSetNode's `registerVector` method and its usage.
 
 `VectorAdditionScene.VectorAdditionSceneIO` is a custom IOType that implements reference-type serialization for the selected scene.
 See VectorAdditionModel `sceneProperty`.
