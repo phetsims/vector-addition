@@ -18,12 +18,12 @@ import Explore1DModel from '../model/Explore1DModel.js';
 import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DSceneNode from './Explore1DSceneNode.js';
 import Explore1DScreenSummaryContent from './Explore1DScreenSummaryContent.js';
-import Explore1DViewProperties from '../../common/view/Explore1DViewProperties.js';
+import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 
   // Properties that are specific to the view.
-  private readonly viewProperties: Explore1DViewProperties;
+  private readonly viewProperties: ExploreViewProperties;
 
   public constructor( model: Explore1DModel, tandem: Tandem ) {
 
@@ -36,7 +36,7 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
     // Cancel interactions when switching scenes.
     model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
-    this.viewProperties = new Explore1DViewProperties( tandem.createTandem( 'viewProperties' ) );
+    this.viewProperties = new ExploreViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     const graphViewBounds = model.verticalScene.graph.viewBounds;
 

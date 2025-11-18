@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * Explore1DViewProperties is the set of Properties that are specific to the view for the 'Explore 1D' screen.
+ * ExploreViewProperties is the set of Properties that are specific to the view for the 'Explore 1D' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -12,7 +12,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 
-export default class Explore1DViewProperties extends VectorAdditionViewProperties {
+export default class ExploreViewProperties extends VectorAdditionViewProperties {
 
   // Whether the sum vector (s) is visible. Shared by both scenes in this screen.
   public readonly sumVisibleProperty: Property<boolean>;
@@ -37,4 +37,4 @@ export default class Explore1DViewProperties extends VectorAdditionViewPropertie
   }
 }
 
-vectorAddition.register( 'Explore1DViewProperties', Explore1DViewProperties );
+vectorAddition.register( 'ExploreViewProperties', ExploreViewProperties );

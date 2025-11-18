@@ -18,12 +18,12 @@ import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DSceneNode from './Explore2DSceneNode.js';
 import Explore2DScreenSummaryContent from './Explore2DScreenSummaryContent.js';
-import Explore1DViewProperties from '../../common/view/Explore1DViewProperties.js';
+import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 
   // Properties that are specific to the view.
-  private readonly viewProperties: Explore1DViewProperties;
+  private readonly viewProperties: ExploreViewProperties;
 
   public constructor( model: Explore2DModel, tandem: Tandem ) {
 
@@ -36,7 +36,7 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
     // Cancel interactions when switching scenes.
     model.sceneProperty.link( () => this.interruptSubtreeInput() );
 
-    this.viewProperties = new Explore1DViewProperties( tandem.createTandem( 'viewProperties' ) );
+    this.viewProperties = new ExploreViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     // Control for the graph, at upper right
     const graphControlPanel = new Explore2DGraphControlPanel(

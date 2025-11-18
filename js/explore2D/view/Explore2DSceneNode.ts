@@ -16,13 +16,13 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore1DViewProperties from '../../common/view/Explore1DViewProperties.js';
+import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 
 export default class Explore2DSceneNode extends VectorAdditionSceneNode {
 
   public constructor( scene: ExploreScene,
                       sceneProperty: TReadOnlyProperty<ExploreScene>,
-                      viewProperties: Explore1DViewProperties,
+                      viewProperties: ExploreViewProperties,
                       componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                       sceneRadioButtonGroup: Node, // for layout
                       tandem: Tandem ) {

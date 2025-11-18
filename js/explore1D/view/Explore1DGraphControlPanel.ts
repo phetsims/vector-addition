@@ -17,7 +17,7 @@ import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/G
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
-import Explore1DViewProperties from '../../common/view/Explore1DViewProperties.js';
+import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 
 type SelfOptions = EmptySelfOptions;
@@ -29,7 +29,7 @@ export default class Explore1DGraphControlPanel extends GraphControlPanel {
   public constructor( sceneProperty: TReadOnlyProperty<ExploreScene>,
                       horizontalScene: ExploreScene,
                       verticalScene: ExploreScene,
-                      viewProperties: Explore1DViewProperties,
+                      viewProperties: ExploreViewProperties,
                       providedOptions: Explore1DGraphControlPanelOptions ) {
 
     const options = providedOptions;
