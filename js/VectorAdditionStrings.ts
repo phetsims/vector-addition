@@ -37,7 +37,7 @@ type StringsType = {
   'signedRangeStringProperty': LocalizedStringProperty;
   'unsignedRangeStringProperty': LocalizedStringProperty;
   'keyboardHelpDialog': {
-    'graphOriginStringProperty': LocalizedStringProperty;
+    'graphAreaOriginStringProperty': LocalizedStringProperty;
     'vectorsStringProperty': LocalizedStringProperty;
     'addVectorToGraphStringProperty': LocalizedStringProperty;
     'removeFromGraphAreaStringProperty': LocalizedStringProperty;

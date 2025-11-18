@@ -26,7 +26,7 @@ export default class VectorAdditionKeyboardHelpContent extends TwoColumnKeyboard
       // Vectors
       new VectorsKeyboardHelpSection( includeScaleRotate ),
 
-      // Graph Origin
+      // Graph Area Origin
       new GraphOriginKeyboardHelpSection()
     ];
 
