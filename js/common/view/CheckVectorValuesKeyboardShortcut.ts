@@ -20,10 +20,10 @@ export default class CheckVectorValuesKeyboardShortcut extends KeyboardListener<
 
   // Keystrokes and metadata
   public static readonly HOTKEY_DATA = new HotkeyData( {
-    keys: [ 'v' ],
+    keys: [ 'alt+c' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.readVectorValuesStringProperty,
-    keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.readVectorValuesDescriptionStringProperty
+    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.checkVectorValuesStringProperty,
+    keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.checkVectorValuesDescriptionStringProperty
   } );
 
   public constructor( vector: Vector, vectorNode: VectorNode ) {

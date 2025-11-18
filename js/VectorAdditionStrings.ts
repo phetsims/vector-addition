@@ -44,7 +44,7 @@ type StringsType = {
     'selectOrDeselectStringProperty': LocalizedStringProperty;
     'moveVectorStringProperty': LocalizedStringProperty;
     'scaleRotateVectorStringProperty': LocalizedStringProperty;
-    'readVectorValuesStringProperty': LocalizedStringProperty;
+    'checkVectorValuesStringProperty': LocalizedStringProperty;
   };
   'a11y': {
     'explore1DScreen': {
@@ -248,7 +248,7 @@ type StringsType = {
         'selectOrDeselectDescriptionStringProperty': LocalizedStringProperty;
         'moveDescriptionStringProperty': LocalizedStringProperty;
         'scaleRotateDescriptionStringProperty': LocalizedStringProperty;
-        'readVectorValuesDescriptionStringProperty': LocalizedStringProperty;
+        'checkVectorValuesDescriptionStringProperty': LocalizedStringProperty;
       }
     }
   }
