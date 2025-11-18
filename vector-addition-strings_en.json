@@ -65,8 +65,8 @@
   "keyboardHelpDialog.removeVectorFromGraph": {
     "value": "Remove from graph"
   },
-  "keyboardHelpDialog.selectVector": {
-    "value": "Select"
+  "keyboardHelpDialog.selectOrDeselect": {
+    "value": "Select or deselect"
   },
   "keyboardHelpDialog.moveVector": {
     "value": "Move"
@@ -480,8 +480,8 @@
         "removeFromGraphDescription": {
           "value": "Remove from graph area with delete or backspace keys."
         },
-        "selectDescription": {
-          "value": "Select with space key."
+        "selectOrDeselectDescription": {
+          "value": "Select or deselect with space key."
         },
         "moveDescription": {
           "value": "Move with arrow keys or W, A, S, or D keys."

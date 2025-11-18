@@ -41,7 +41,7 @@ type StringsType = {
     'vectorsStringProperty': LocalizedStringProperty;
     'addVectorToGraphStringProperty': LocalizedStringProperty;
     'removeVectorFromGraphStringProperty': LocalizedStringProperty;
-    'selectVectorStringProperty': LocalizedStringProperty;
+    'selectOrDeselectStringProperty': LocalizedStringProperty;
     'moveVectorStringProperty': LocalizedStringProperty;
     'scaleRotateVectorStringProperty': LocalizedStringProperty;
     'vectorValuesStringProperty': LocalizedStringProperty;
@@ -245,7 +245,7 @@ type StringsType = {
     'keyboardHelpDialog': {
       'vectors': {
         'removeFromGraphDescriptionStringProperty': LocalizedStringProperty;
-        'selectDescriptionStringProperty': LocalizedStringProperty;
+        'selectOrDeselectDescriptionStringProperty': LocalizedStringProperty;
         'moveDescriptionStringProperty': LocalizedStringProperty;
         'scaleRotateDescriptionStringProperty': LocalizedStringProperty;
         'vectorValuesDescriptionStringProperty': LocalizedStringProperty;
