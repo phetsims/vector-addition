@@ -1,5 +1,5 @@
 {
-  "comment": "# vector-addition 1.2.0-dev.6 Mon Nov 10 2025 12:41:00 GMT-0700 (Mountain Standard Time)",
+  "comment": "# vector-addition 1.2.0-dev.7 Tue Nov 18 2025 16:25:25 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "1a4637cfff70e7e8b0844dc43848a86ae89b4cf5",
     "branch": "main"
@@ -13,7 +13,7 @@
     "branch": "main"
   },
   "chipper": {
-    "sha": "787d697d0309c4ef38ac81ea20e9155825fa25b2",
+    "sha": "6570817fc34c4a6a76cca45c757c2e335108c6ac",
     "branch": "main"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "main"
   },
   "joist": {
-    "sha": "527c859b64a16512cfadef62dbdb5b042ba035fe",
+    "sha": "90e58f64ed1ab5e888e6f59524aea28e58f389d6",
     "branch": "main"
   },
   "kite": {
@@ -29,7 +29,7 @@
     "branch": "main"
   },
   "perennial-alias": {
-    "sha": "8507ff9eda89a713ed937d4286f09cae46c8eeab",
+    "sha": "1cd022b1ae0288e8c0bca97c3825ddfb8f8d1780",
     "branch": "main"
   },
   "phet-core": {
@@ -37,11 +37,11 @@
     "branch": "main"
   },
   "phet-io": {
-    "sha": "89d92c80e150301649af4c24fab25a79fca96f33",
+    "sha": "c12ba32f5a03413c8f84e9d70728878b18e16b9e",
     "branch": "main"
   },
   "phet-io-sim-specific": {
-    "sha": "162b49920f3f8e98d79a615f86033177f24cd7c5",
+    "sha": "4b86fde9c49ee985da06fb86410a37ec2c62981c",
     "branch": "main"
   },
   "phet-io-wrappers": {
@@ -61,11 +61,11 @@
     "branch": "main"
   },
   "scenery": {
-    "sha": "cbe3bf34bb9fe223b6adfa3339add2a65bf994f3",
+    "sha": "a4259ecae69716a91cfd0769e88c4da65869fd7b",
     "branch": "main"
   },
   "scenery-phet": {
-    "sha": "2bc3b1b54dd1a2a33f8c69d551d3d87194b23e0f",
+    "sha": "550b2a8ec53cdf4b6b373ab0afeb622a35e8aa3a",
     "branch": "main"
   },
   "sherpa": {
@@ -73,11 +73,11 @@
     "branch": "main"
   },
   "studio": {
-    "sha": "2483052a884f57ec325d81c35e673df6a789de1d",
+    "sha": "0802550723b40d908127f2f1bff6bcde137ec05c",
     "branch": "main"
   },
   "sun": {
-    "sha": "73af576404b9afd5c86e4bbefd93d7938366ea65",
+    "sha": "4453354dd9ab0531938daaeef372239a22e9fe8b",
     "branch": "main"
   },
   "tambo": {
@@ -93,11 +93,11 @@
     "branch": "main"
   },
   "utterance-queue": {
-    "sha": "0e66523e7eacf9bab1f1a9987d91d887067317a1",
+    "sha": "59d9482d013886c8560f6e5702385a6f776c4c97",
     "branch": "main"
   },
   "vector-addition": {
-    "sha": "b3dee393ee8648d945fff4b1444ea5bea1340172",
+    "sha": "36128aef7db7fcde786dc73f172c6605438e62c1",
     "branch": "main"
   }
 }
