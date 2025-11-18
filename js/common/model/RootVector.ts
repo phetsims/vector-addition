@@ -84,6 +84,7 @@ export default abstract class RootVector extends PhetioObject {
   // Subclass PolarBaseVector defines magnitudeProperty, so make this private with an underscore prefix.
   private readonly _magnitudeProperty: TReadOnlyProperty<number>;
 
+  // See https://github.com/phetsims/vector-addition/issues/380.
   // This Property was introduced for the PhET-iO API only. Do not use this Property ANYWHERE.
   // Listeners to xyComponentsProperty will get a stale value.
   // Subclass PolarBaseVector defines angleDegreesProperty, so make this private with an underscore prefix.
