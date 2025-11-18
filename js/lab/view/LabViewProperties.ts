@@ -29,12 +29,14 @@ export default class LabViewProperties extends VectorAdditionViewProperties {
 
     this.sum1VisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'sum1VisibleProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioDocumentation: 'Whether the vector sum for vector set 1 (s<sub>u</sub> or s<sub>p</sub>) is visible when it is defined.'
     } );
 
     this.sum2VisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'sum2VisibleProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioDocumentation: 'Whether the vector sum for vector set 2 (s<sub>v</sub> or s<sub>q</sub>) is visible when it is defined.'
     } );
   }
 

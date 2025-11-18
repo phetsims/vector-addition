@@ -40,7 +40,8 @@ export default class EquationsViewProperties extends VectorAdditionViewPropertie
 
     this.sumVisibleProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'sumVisibleProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioDocumentation: 'Whether vectors c and f are visible.'
     } );
 
     this.baseVectorsAccordionBoxExpandedProperty = new BooleanProperty( false, {

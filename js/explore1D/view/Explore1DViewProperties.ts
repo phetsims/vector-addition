@@ -26,7 +26,8 @@ export default class Explore1DViewProperties extends VectorAdditionViewPropertie
 
     this.sumVisibleProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'sumVisibleProperty' ),
-      phetioFeatured: true
+      phetioFeatured: true,
+      phetioDocumentation: 'Whether the vector sum (s) is visible when it is defined.'
     } );
   }
 
