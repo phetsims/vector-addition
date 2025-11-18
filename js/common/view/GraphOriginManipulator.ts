@@ -7,7 +7,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -15,7 +14,6 @@ import { combineOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import AccessibleDraggableOptions from '../../../../scenery-phet/js/accessibility/grab-drag/AccessibleDraggableOptions.js';
 import ShadedSphereNode, { ShadedSphereNodeOptions } from '../../../../scenery-phet/js/ShadedSphereNode.js';
-import SoundRichDragListener from '../../../../scenery-phet/js/SoundRichDragListener.js';
 import InteractiveHighlighting from '../../../../scenery/js/accessibility/voicing/InteractiveHighlighting.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -23,6 +21,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Graph from '../model/Graph.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
+import GraphOriginDragListener from './GraphOriginDragListener.js';
 
 // the closest the user can drag the origin to the edge of the graph, in model units
 const ORIGIN_DRAG_MARGIN = 5;
@@ -65,7 +64,7 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
     this.touchArea = Shape.circle( 0, 0, diameter );
 
     // Create a dragBounds to constrain the drag
-    const restrictedGraphViewBounds = modelViewTransform.modelToViewBounds( graph.boundsProperty.value.eroded( ORIGIN_DRAG_MARGIN ) );
+    const erodedGraphBounds = modelViewTransform.modelToViewBounds( graph.boundsProperty.value.eroded( ORIGIN_DRAG_MARGIN ) );
 
     // Create a Property to track the view's origin in view coordinates
     const positionProperty = new Vector2Property( graph.modelViewTransformProperty.value.modelToViewPosition( Vector2.ZERO ), {
@@ -88,17 +87,9 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
     };
 
     // Drag support for pointer and keyboard input, with sound.
-    const dragDelta = modelViewTransform.modelToViewDeltaX( 1 );
-    this.addInputListener( new SoundRichDragListener( {
-      positionProperty: positionProperty,
-      dragBoundsProperty: new Property( restrictedGraphViewBounds ),
+    this.addInputListener( new GraphOriginDragListener( positionProperty, erodedGraphBounds, modelViewTransform, {
       end: () => addGraphBoundsResponse(),
-      tandem: tandem,
-      keyboardDragListenerOptions: {
-        dragDelta: dragDelta,
-        shiftDragDelta: dragDelta,
-        moveOnHoldInterval: 100
-      }
+      tandem: tandem
     } ) );
 
     // Update the origin position.
