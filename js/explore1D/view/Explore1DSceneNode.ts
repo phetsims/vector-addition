@@ -16,7 +16,7 @@ import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore1DViewProperties from './Explore1DViewProperties.js';
+import Explore1DViewProperties from '../../common/view/Explore1DViewProperties.js';
 
 export default class Explore1DSceneNode extends VectorAdditionSceneNode {
 

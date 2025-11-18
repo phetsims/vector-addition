@@ -24,7 +24,7 @@ import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import Explore2DViewProperties from './Explore2DViewProperties.js';
+import Explore1DViewProperties from '../../common/view/Explore1DViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 
@@ -36,7 +36,7 @@ export default class Explore2DGraphControlPanel extends GraphControlPanel {
                       cartesianScene: ExploreScene,
                       polarScene: ExploreScene,
                       componentVectorStyleProperty: StringUnionProperty<ComponentVectorStyle>,
-                      viewProperties: Explore2DViewProperties,
+                      viewProperties: Explore1DViewProperties,
                       providedOptions: Explore2DGraphControlPanelOptions ) {
 
     const options = providedOptions;

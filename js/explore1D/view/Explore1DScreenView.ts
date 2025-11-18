@@ -18,7 +18,7 @@ import Explore1DModel from '../model/Explore1DModel.js';
 import Explore1DGraphControlPanel from './Explore1DGraphControlPanel.js';
 import Explore1DSceneNode from './Explore1DSceneNode.js';
 import Explore1DScreenSummaryContent from './Explore1DScreenSummaryContent.js';
-import Explore1DViewProperties from './Explore1DViewProperties.js';
+import Explore1DViewProperties from '../../common/view/Explore1DViewProperties.js';
 
 export default class Explore1DScreenView extends VectorAdditionScreenView {
 

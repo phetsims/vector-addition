@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * Explore2DViewProperties is the set of Properties that are specific to the view for the 'Explore 2D' screen.
+ * Explore1DViewProperties is the set of Properties that are specific to the view for the 'Explore 1D' screen.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
@@ -9,10 +9,10 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import VectorAdditionViewProperties from '../../common/view/VectorAdditionViewProperties.js';
+import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import vectorAddition from '../../vectorAddition.js';
 
-export default class Explore2DViewProperties extends VectorAdditionViewProperties {
+export default class Explore1DViewProperties extends VectorAdditionViewProperties {
 
   // Whether the sum vector (s) is visible. Shared by both scenes in this screen.
   public readonly sumVisibleProperty: Property<boolean>;
@@ -37,4 +37,4 @@ export default class Explore2DViewProperties extends VectorAdditionViewPropertie
   }
 }
 
-vectorAddition.register( 'Explore2DViewProperties', Explore2DViewProperties );
+vectorAddition.register( 'Explore1DViewProperties', Explore1DViewProperties );
