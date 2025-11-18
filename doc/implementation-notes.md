@@ -193,32 +193,35 @@ _Equations_ screen:
 * Vectors cannot be rotated or scaled via direct manipulation. They must be indirectly rotated/scaled using the spinners
   for base vectors and equations.
 
-## Alternative Input (Keyboard)
+## Alternative Input
 
-Alternative Input features were added in the 1.1 release. We'll describe only the sim-specific support for alternative input here. 
+Alternative Input features were added in the 1.2 release. We'll describe only the sim-specific support for alternative input here. 
 Other support is provided by common code.
+
+Focus order is implemented in each ScreenView subclass. See `pdomPlayAreaNode.pdomOrder` and `controlAreaNode.pdomOrder`. 
 
 Keyboard input for the toolbox involves these classes:
 
 * `AddVectorKeyboardListener` moves a vector from the toolbox to the graph.
 
-Keyboard input for vectors via the keyboard involves these classes:
+Keyboard input for vectors via the keyboard involves the following classes, which operate on the vector that has focus.
 
-* `RemoveVectorKeyboardListener` moves a vector from the graph to the toolbox.
-* `MoveVectorKeyboardListener` translates a vector on the graph.
-* `ScaleRotateVectorKeyboardListener` scales and rotates a vector on the graph.
-* `ReadVectorValuesKeyboardShortcut` reads quantities associated with the selected vector.
+* `SelectVectorKeyboardListener` selects or deselects the vector.
+* `MoveVectorKeyboardListener` translates the vector, and selects it as a side-effect.
+* `ScaleRotateVectorKeyboardListener` scales and rotates the vector, and selects it as a side-effect.
+* `ReadVectorValuesKeyboardShortcut` reads quantities associated with the vector, and selects it as a side-effect.
+* `RemoveVectorKeyboardListener` moves the vector from the graph to the toolbox.
 
-Moving the graph origin is done via an input listener in `GraphOriginManipulator` that handles all forms of input.
+Moving the graph origin is done via `GraphOriginDragListener`, which handles both pointer and keyboard input.
 
 The keyboard-help dialog is similar for all screens, and is implemented in `VectorAdditionKeyboardHelpContent`. 
+Sim-specific sections include `VectorsKeyboardHelpSection` and `GraphAreaOriginKeyboardHelpSection`.
 
 ## Core Description
 
-Core Description features were added in the 1.1 release. 
+Core Description features were added in the 1.2 release. 
 
-Screen summary descriptions are implemented in a class per screen: `Explore1DScreenSummaryContent`, `Explore2DScreenSummaryContent`, 
-`LabScreenSummaryContent`, and `EquationsScreenSummaryContent`.
+Screen summary descriptions are implemented in `ExploreScreenSummaryContent`, `LabScreenSummaryContent`, and `EquationsScreenSummaryContent`.
 
 `VectorNode` and `VectorTipNode` have a `doAccessibleObjectResponse` method that is interesting, and is called by 
 various input listeners in response to user interactions.
@@ -233,9 +236,10 @@ To identify other code related to core description, search for options that are 
 
 All vectors in the model are allocated at startup. They are instrumented and grouped under `allVectors` in the PhET-iO tree. Most vector 
 Properties are `phetioReadOnly: true` because making them editable via PhET-iO was considered too costly. So use the simulation
-to configure vectors.
+to configure vectors.  For more about vector instantiation in the view, see VectorSetOptions `createAllVectors` and `createResultantVector`.
 
-All vectors in the view (`VectorNode` and `ComponentVectorNode`) are allocated dynamically, so they are not instrumented.
+All vectors in the view (`VectorNode` and `ComponentVectorNode`) are allocated dynamically, so they are not instrumented. For more about
+vector instantiation in the view, see VectorSetNode's `registerVector` method and its usage.
 
 `VectorAdditionScene.VectorAdditionSceneIO` is a custom IOType that implements reference-type serialization for the selected scene.
 See VectorAdditionModel `sceneProperty`.
