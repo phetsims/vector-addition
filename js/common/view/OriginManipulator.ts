@@ -88,13 +88,15 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
     };
 
     // Drag support for pointer and keyboard input, with sound.
+    const dragDelta = modelViewTransform.modelToViewDeltaX( 1 );
     this.addInputListener( new SoundRichDragListener( {
       positionProperty: positionProperty,
       dragBoundsProperty: new Property( restrictedGraphViewBounds ),
       end: () => addGraphBoundsResponse(),
       tandem: tandem,
       keyboardDragListenerOptions: {
-        dragDelta: modelViewTransform.modelToViewDeltaX( 1 ),
+        dragDelta: dragDelta,
+        shiftDragDelta: dragDelta,
         moveOnHoldInterval: 100
       }
     } ) );
