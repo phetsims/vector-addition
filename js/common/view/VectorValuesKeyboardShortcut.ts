@@ -22,8 +22,8 @@ export default class VectorValuesKeyboardShortcut extends KeyboardListener<OneKe
   public static readonly HOTKEY_DATA = new HotkeyData( {
     keys: [ 'v' ],
     repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.vectorValuesStringProperty,
-    keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.vectorValuesDescriptionStringProperty
+    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.readVectorValuesStringProperty,
+    keyboardHelpDialogPDOMLabelStringProperty: VectorAdditionStrings.a11y.keyboardHelpDialog.vectors.readVectorValuesDescriptionStringProperty
   } );
 
   public constructor( vector: Vector, vectorNode: VectorNode ) {
