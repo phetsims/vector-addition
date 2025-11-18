@@ -1,8 +1,8 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * ReadVectorValuesKeyboardShortcut reads the vector values for the vector that has focus.
- * This is the same information displayed in the "Vector Values" accordion box.
+ * ReadVectorValuesKeyboardShortcut reads the vector values for the vector that has focus. The class name designates
+ * this as a "shortcut" because the information can also be accessed via the "Vector Values" accordion box.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
