@@ -26,7 +26,7 @@ import Vector from '../model/Vector.js';
 import VectorAdditionColors from '../VectorAdditionColors.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
 import VectorAdditionSymbols from '../VectorAdditionSymbols.js';
-import OriginManipulator from './OriginManipulator.js';
+import GraphOriginManipulator from './GraphOriginManipulator.js';
 
 // grid
 const MAJOR_GRID_LINE_WIDTH = 1.5; // view units
@@ -85,7 +85,7 @@ export default class GraphNode extends Node {
       children.push( new YAxisNode( graph, graphViewBounds ) );
     }
 
-    const originManipulator = new OriginManipulator( graph, tandem.createTandem( 'originManipulator' ) );
+    const originManipulator = new GraphOriginManipulator( graph, tandem.createTandem( 'originManipulator' ) );
     children.push( originManipulator );
 
     super( {

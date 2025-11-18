@@ -209,7 +209,7 @@ Keyboard input for vectors via the keyboard involves these classes:
 * `ScaleRotateVectorKeyboardListener` scales and rotates a vector on the graph.
 * `ReadVectorValuesKeyboardShortcut` reads quantities associated with the selected vector.
 
-Moving the graph origin is done via an input listener in `OriginManipulator` that handles all forms of input.
+Moving the graph origin is done via an input listener in `GraphOriginManipulator` that handles all forms of input.
 
 The keyboard-help dialog is similar for all screens, and is implemented in `VectorAdditionKeyboardHelpContent`. 
 

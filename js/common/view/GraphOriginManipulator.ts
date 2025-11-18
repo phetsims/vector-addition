@@ -1,7 +1,7 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * OriginManipulator shows the origin on the graph, and can be dragged to reposition the origin.
+ * GraphOriginManipulator shows the origin on the graph, and can be dragged to reposition the origin.
  *
  * @author Martin Veillette
  */
@@ -30,7 +30,7 @@ const ORIGIN_DRAG_MARGIN = 5;
 // origin
 const ORIGIN_DIAMETER = 0.8; // in model coordinates
 
-export default class OriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
+export default class GraphOriginManipulator extends InteractiveHighlighting( ShadedSphereNode ) {
 
   public constructor( graph: Graph, tandem: Tandem ) {
 
@@ -122,4 +122,4 @@ export default class OriginManipulator extends InteractiveHighlighting( ShadedSp
   }
 }
 
-vectorAddition.register( 'OriginManipulator', OriginManipulator );
+vectorAddition.register( 'GraphOriginManipulator', GraphOriginManipulator );
