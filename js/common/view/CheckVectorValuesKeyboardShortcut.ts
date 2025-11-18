@@ -3,6 +3,7 @@
 /**
  * CheckVectorValuesKeyboardShortcut reads the vector values for the vector that has focus. The class name designates
  * this as a "shortcut" because the information can also be accessed via the "Vector Values" accordion box.
+ * As a side effect, it also selects the vector.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

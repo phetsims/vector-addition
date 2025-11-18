@@ -2,6 +2,7 @@
 
 /**
  * ScaleRotateVectorKeyboardListener scales and rotates a vector on the graph, using the keyboard.
+ * As a side effect, it also selects the vector.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */
