@@ -1,4 +1,4 @@
-// Copyright 2019-2025, University of Colorado Boulder
+// Copyright 2025, University of Colorado Boulder
 
 /**
  * GraphOriginDragListener is the drag listener for moving the graph's origin. It handles pointer and keyboard input.
