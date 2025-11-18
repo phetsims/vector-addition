@@ -38,7 +38,7 @@ import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListen
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 import VectorAngleNode from './VectorAngleNode.js';
 import VectorTipNode from './VectorTipNode.js';
-import VectorValuesKeyboardShortcut from './VectorValuesKeyboardShortcut.js';
+import ReadVectorValuesKeyboardShortcut from './ReadVectorValuesKeyboardShortcut.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {
@@ -156,15 +156,15 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     }
 
     // Keyboard shortcut for reading the vector values.
-    const vectorValuesKeyboardShortcut = new VectorValuesKeyboardShortcut( vector, this );
-    this.addInputListener( vectorValuesKeyboardShortcut );
+    const readVectorValuesKeyboardShortcut = new ReadVectorValuesKeyboardShortcut( vector, this );
+    this.addInputListener( readVectorValuesKeyboardShortcut );
 
     // Dispose of things related to vector translation.
     const disposeTranslate = () => {
       this.moveVectorDragListener.dispose();
       selectVectorKeyboardListener.dispose();
       removeVectorKeyboardListener && removeVectorKeyboardListener.dispose();
-      vectorValuesKeyboardShortcut.dispose();
+      readVectorValuesKeyboardShortcut.dispose();
     };
 
     // Optional scaling and rotation by dragging the vector tip.

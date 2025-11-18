@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * SelectVectorKeyboardListener selects or deselects the vector, using the keyboard.
+ * SelectVectorKeyboardListener selects or deselects the vector that has focus, using the keyboard.
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

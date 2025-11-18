@@ -1,7 +1,7 @@
 // Copyright 2025, University of Colorado Boulder
 
 /**
- * VectorValuesKeyboardShortcut reads the vector values for the vector that has focus.
+ * ReadVectorValuesKeyboardShortcut reads the vector values for the vector that has focus.
  * This is the same information displayed in the "Vector Values" accordion box.
  *
  * @author Chris Malley (PixelZoom, Inc.)
@@ -16,7 +16,7 @@ import Vector from '../model/Vector.js';
 import { VectorValuesAccessibleParagraphProperty } from './VectorValuesAccessibleParagraphProperty.js';
 import VectorNode from './VectorNode.js';
 
-export default class VectorValuesKeyboardShortcut extends KeyboardListener<OneKeyStroke[]> {
+export default class ReadVectorValuesKeyboardShortcut extends KeyboardListener<OneKeyStroke[]> {
 
   // Keystrokes and metadata
   public static readonly HOTKEY_DATA = new HotkeyData( {
@@ -32,7 +32,7 @@ export default class VectorValuesKeyboardShortcut extends KeyboardListener<OneKe
     const accessibleParagraphProperty = new VectorValuesAccessibleParagraphProperty( vector );
 
     super( {
-      keyStringProperties: HotkeyData.combineKeyStringProperties( [ VectorValuesKeyboardShortcut.HOTKEY_DATA ] ),
+      keyStringProperties: HotkeyData.combineKeyStringProperties( [ ReadVectorValuesKeyboardShortcut.HOTKEY_DATA ] ),
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `VectorValuesKeyboardShortcut: keysPressed=${keysPressed}` );
 
@@ -47,4 +47,4 @@ export default class VectorValuesKeyboardShortcut extends KeyboardListener<OneKe
   }
 }
 
-vectorAddition.register( 'VectorValuesKeyboardShortcut', VectorValuesKeyboardShortcut );
+vectorAddition.register( 'ReadVectorValuesKeyboardShortcut', ReadVectorValuesKeyboardShortcut );

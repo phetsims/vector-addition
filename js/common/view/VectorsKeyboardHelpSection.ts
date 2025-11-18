@@ -15,7 +15,7 @@ import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListener.js';
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
-import VectorValuesKeyboardShortcut from './VectorValuesKeyboardShortcut.js';
+import ReadVectorValuesKeyboardShortcut from './ReadVectorValuesKeyboardShortcut.js';
 
 export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
 
@@ -43,7 +43,7 @@ export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
     }
 
     // Read vector values
-    rows.push( KeyboardHelpSectionRow.fromHotkeyData( VectorValuesKeyboardShortcut.HOTKEY_DATA ) );
+    rows.push( KeyboardHelpSectionRow.fromHotkeyData( ReadVectorValuesKeyboardShortcut.HOTKEY_DATA ) );
 
     // Remove from graph area
     rows.push( KeyboardHelpSectionRow.fromHotkeyData( RemoveVectorKeyboardListener.HOTKEY_DATA ) );
