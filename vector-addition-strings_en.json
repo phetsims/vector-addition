@@ -62,8 +62,8 @@
   "keyboardHelpDialog.addVectorToGraph": {
     "value": "Add vector to graph"
   },
-  "keyboardHelpDialog.removeVectorFromGraph": {
-    "value": "Remove from graph"
+  "keyboardHelpDialog.removeFromGraphArea": {
+    "value": "Remove from graph area"
   },
   "keyboardHelpDialog.selectOrDeselect": {
     "value": "Select or deselect"

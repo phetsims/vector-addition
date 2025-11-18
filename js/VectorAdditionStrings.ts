@@ -40,7 +40,7 @@ type StringsType = {
     'graphOriginStringProperty': LocalizedStringProperty;
     'vectorsStringProperty': LocalizedStringProperty;
     'addVectorToGraphStringProperty': LocalizedStringProperty;
-    'removeVectorFromGraphStringProperty': LocalizedStringProperty;
+    'removeFromGraphAreaStringProperty': LocalizedStringProperty;
     'selectOrDeselectStringProperty': LocalizedStringProperty;
     'moveVectorStringProperty': LocalizedStringProperty;
     'scaleRotateVectorStringProperty': LocalizedStringProperty;
