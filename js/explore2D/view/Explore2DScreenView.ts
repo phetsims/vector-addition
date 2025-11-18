@@ -59,8 +59,9 @@ export default class Explore2DScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'sceneRadioButtonGroup' )
       } );
 
-    // Node for each scene.
+    // Group scenes under a parent tandem.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
+
     const cartesianSceneNode = new Explore2DSceneNode(
       model.cartesianScene,
       model.sceneProperty,

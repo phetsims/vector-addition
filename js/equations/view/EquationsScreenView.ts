@@ -71,7 +71,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       matchVertical: true
     } );
 
-    // Node for each scene.
+    // Group scenes under a parent tandem.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
 
     const cartesianSceneNode = new EquationsSceneNode(

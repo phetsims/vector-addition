@@ -58,8 +58,9 @@ export default class LabScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'sceneRadioButtonGroup' )
       } );
 
-    // Node for each scene.
+    // Group scenes under a parent tandem.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
+
     const cartesianSceneNode = new LabSceneNode(
       model.cartesianScene,
       model.sceneProperty,

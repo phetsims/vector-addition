@@ -58,8 +58,9 @@ export default class Explore1DScreenView extends VectorAdditionScreenView {
         tandem: tandem.createTandem( 'sceneRadioButtonGroup' )
       } );
 
-    // Node for each scene.
+    // Group scenes under a parent tandem.
     const sceneNodesTandem = tandem.createTandem( 'sceneNodes' );
+
     const horizonalSceneNode = new Explore1DSceneNode(
       model.horizontalScene,
       model.sceneProperty,
