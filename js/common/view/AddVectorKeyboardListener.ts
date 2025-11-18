@@ -8,30 +8,21 @@
 
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import HotkeyData from '../../../../scenery/js/input/HotkeyData.js';
 import type { OneKeyStroke } from '../../../../scenery/js/input/KeyDescriptor.js';
 import KeyboardListener from '../../../../scenery/js/listeners/KeyboardListener.js';
 import vectorAddition from '../../vectorAddition.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorSet from '../model/VectorSet.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 
 export default class AddVectorKeyboardListener extends KeyboardListener<OneKeyStroke[]> {
 
-  // Keystrokes and metadata
-  public static readonly HOTKEY_DATA = new HotkeyData( {
-    keys: [ 'space', 'enter' ],
-    repoName: vectorAddition.name,
-    keyboardHelpDialogLabelStringProperty: VectorAdditionStrings.keyboardHelpDialog.addVectorToGraphStringProperty
-  } );
-
   public constructor( getNextVector: () => Vector | null,
                       vectorSet: VectorSet,
                       sceneNode: VectorAdditionSceneNode,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2> ) {
     super( {
-      keyStringProperties: HotkeyData.combineKeyStringProperties( [ AddVectorKeyboardListener.HOTKEY_DATA ] ),
+      keys: [ 'space', 'enter' ],
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `AddVectorKeyboardListener: keysPressed=${keysPressed}` );
 

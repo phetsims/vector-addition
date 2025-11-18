@@ -59,9 +59,6 @@
   "keyboardHelpDialog.vectors": {
     "value": "Vectors"
   },
-  "keyboardHelpDialog.addVectorToGraph": {
-    "value": "Add vector to graph"
-  },
   "keyboardHelpDialog.removeFromGraphArea": {
     "value": "Remove from graph area"
   },
