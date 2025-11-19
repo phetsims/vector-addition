@@ -109,9 +109,9 @@ export default class VectorAdditionSceneNode extends Node {
           this.interruptSubtreeInput(); // cancel all interactions for the scene
           scene.erase();
 
+          //TODO https://github.com/phetsims/sun/issues/957 accessibleContextResponse should be specified in VectorAdditionEraserButton options.
           // Add context response here instead of via options.accessibleContextResponse so that this response happens
           // last and is not interrupted by the responses caused by removing each vector.
-          // See https://github.com/phetsims/vector-addition/issues/369
           // TODO: CM: Would it be preferable to call this.addAccessibleContextResponse instead of on the button? see https://github.com/phetsims/vector-addition/issues/376
           this.eraserButton!.addAccessibleContextResponse( VectorAdditionStrings.a11y.eraserButton.accessibleContextResponseStringProperty.value );
         },
