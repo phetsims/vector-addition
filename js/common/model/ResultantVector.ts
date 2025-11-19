@@ -51,6 +51,7 @@ export default class ResultantVector extends Vector {
       isDefinedPropertyInstrumented: true,
 
       // VectorOptions
+      isDisposable: false,
       isRemovableFromGraph: false, // Resultant vectors are not removable from the graph.
       isTipDraggable: false, // Resultant vectors are not draggable by the tip.
       isOnGraph: true, // Resultant vectors are always on the graph.

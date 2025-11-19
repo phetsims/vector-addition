@@ -63,7 +63,8 @@ type SelfOptions = {
   angleDegreesPropertyInstrumented?: boolean; // whether to instrument _angleDegreesProperty
 };
 
-export type RootVectorOptions = SelfOptions & PickOptional<PhetioObjectOptions, 'tandem' | 'phetioFeatured' | 'phetioState'>;
+export type RootVectorOptions = SelfOptions &
+  PickOptional<PhetioObjectOptions, 'tandem' | 'phetioFeatured' | 'phetioState' | 'isDisposable'>;
 
 export default abstract class RootVector extends PhetioObject {
 

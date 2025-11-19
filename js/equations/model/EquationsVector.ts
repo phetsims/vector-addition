@@ -73,6 +73,7 @@ export default class EquationsVector extends Vector {
     const options = optionize<EquationsVectorOptions, SelfOptions, VectorOptions>()( {
 
       // VectorOptions
+      isDisposable: false,
       accessibleSymbolProperty: accessibleSymbolProperty,
       isRemovableFromGraph: false, // Equations vectors are not removable from the graph
       isTipDraggable: false, // Equations vectors are not draggable by the tip
