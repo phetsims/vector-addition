@@ -134,7 +134,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     // Handle vector transformation
     //----------------------------------------------------------------------------------------
 
-    // Pointer drag listener to move the vector.
+    // Pointer listener to move the vector.
     this.moveVectorDragListener = new MoveVectorDragListener( vector, this, vectorShadowNode,
       modelViewTransformProperty, selectedVectorProperty, graphBoundsProperty );
     this.addInputListener( this.moveVectorDragListener );
@@ -143,7 +143,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     const moveVectorKeyboardListener = new MoveVectorKeyboardListener( vector, this );
     this.addInputListener( moveVectorKeyboardListener );
 
-    // keyboard listener to select the vector. Being selected is different from having focus.
+    // Keyboard listener to select the vector.
     const selectVectorKeyboardListener = new SelectVectorKeyboardListener( vector );
     this.addInputListener( selectVectorKeyboardListener );
 
@@ -158,38 +158,23 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     const checkVectorValuesKeyboardShortcut = new CheckVectorValuesKeyboardShortcut( vector, this );
     this.addInputListener( checkVectorValuesKeyboardShortcut );
 
-    // Dispose of things related to vector translation.
-    const disposeTranslate = () => {
-      this.moveVectorDragListener.dispose();
-      moveVectorKeyboardListener.dispose();
-      selectVectorKeyboardListener.dispose();
-      removeVectorKeyboardListener && removeVectorKeyboardListener.dispose();
-      checkVectorValuesKeyboardShortcut.dispose();
-    };
-
     // Optional scaling and rotation by dragging the vector tip.
     let tipNode: VectorTipNode;
-    let disposeScaleRotate: () => void;
+    let scaleRotateVectorDragListener: ScaleRotateVectorDragListener;
+    let scaleRotateVectorKeyboardListener: ScaleRotateVectorKeyboardListener;
     if ( vector.isTipDraggable ) {
 
       tipNode = new VectorTipNode( this, modelViewTransformProperty, headWidth, headHeight, fractionalHeadHeight );
       this.addChild( tipNode );
 
       // Pointer drag listener to scale/rotate by dragging the vector's tip.
-      const scaleRotateVectorDragListener = new ScaleRotateVectorDragListener( vector, tipNode, modelViewTransformProperty,
+      scaleRotateVectorDragListener = new ScaleRotateVectorDragListener( vector, tipNode, modelViewTransformProperty,
         selectedVectorProperty );
       tipNode.addInputListener( scaleRotateVectorDragListener );
 
       // Keyboard listener to scale/rotate by moving the vector's tip.
-      const scaleRotateVectorKeyboardListener = new ScaleRotateVectorKeyboardListener( vector, tipNode );
+      scaleRotateVectorKeyboardListener = new ScaleRotateVectorKeyboardListener( vector, tipNode );
       tipNode.addInputListener( scaleRotateVectorKeyboardListener );
-
-      // Dispose of things that are related to scale/rotate.
-      disposeScaleRotate = () => {
-        tipNode.dispose();
-        scaleRotateVectorDragListener.dispose();
-        scaleRotateVectorKeyboardListener.dispose();
-      };
     }
 
     //----------------------------------------------------------------------------------------
@@ -249,12 +234,18 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
       // Dispose of nodes
       angleNode.dispose();
+      tipNode && tipNode.dispose();
 
-      // Dispose of transform handling
-      disposeTranslate();
-      disposeScaleRotate();
+      // Dispose of input listeners.
+      this.moveVectorDragListener.dispose();
+      moveVectorKeyboardListener.dispose();
+      selectVectorKeyboardListener.dispose();
+      removeVectorKeyboardListener && removeVectorKeyboardListener.dispose();
+      checkVectorValuesKeyboardShortcut.dispose();
+      scaleRotateVectorDragListener && scaleRotateVectorDragListener.dispose();
+      scaleRotateVectorKeyboardListener && scaleRotateVectorKeyboardListener.dispose();
 
-      // Dispose of appearance-related listeners
+      // Dispose of Property listeners
       shadowMultilink.dispose();
       selectedVectorProperty.unlink( selectedVectorListener );
       this.vector.animateToToolboxProperty.unlink( animateBackListener );
