@@ -258,6 +258,8 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
       shadowMultilink.dispose();
       selectedVectorProperty.unlink( selectedVectorListener );
       this.vector.animateToToolboxProperty.unlink( animateBackListener );
+
+      this.objectResponseUtterance.dispose();
     };
   }
 
