@@ -78,6 +78,10 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
                       graphBoundsProperty: TReadOnlyProperty<Bounds2>,
                       providedOptions?: VectorNodeOptions ) {
 
+    const accessibleNameProperty = new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.body.accessibleNameStringProperty, {
+      symbol: vector.accessibleSymbolProperty
+    } );
+
     const options = optionize4<VectorNodeOptions, SelfOptions, RootVectorNodeOptions>()(
       {}, AccessibleDraggableOptions, {
 
@@ -89,9 +93,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
             stroke: vector.vectorColorPalette.vectorStrokeProperty
           } ),
         arrowHasInteractiveHighlight: true,
-        accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.body.accessibleNameStringProperty, {
-          symbol: vector.accessibleSymbolProperty
-        } ),
+        accessibleName: accessibleNameProperty,
         accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.body.accessibleHelpTextStringProperty
       }, providedOptions );
 
@@ -103,14 +105,11 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     const fractionalHeadHeight = options.arrowOptions.fractionalHeadHeight!;
     affirm( fractionalHeadHeight !== undefined, 'Expected fractionalHeadHeight to be defined.' );
 
-    super( vector,
-      modelViewTransformProperty,
+    // Show vector value (magnitude) only when 'Values' is checked and the vector is on the graph.
+    // See https://github.com/phetsims/vector-addition/issues/330.
+    const valuesVisibleIfOnGraphProperty = DerivedProperty.and( [ valuesVisibleProperty, vector.isOnGraphProperty ] );
 
-      // Show vector value (magnitude) only when 'Values' is checked and the vector is on the graph.
-      // See https://github.com/phetsims/vector-addition/issues/330.
-      DerivedProperty.and( [ valuesVisibleProperty, vector.isOnGraphProperty ] ),
-      selectedVectorProperty,
-      options );
+    super( vector, modelViewTransformProperty, valuesVisibleIfOnGraphProperty, selectedVectorProperty, options );
 
     this.vector = vector;
 
@@ -162,6 +161,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     // Dispose of things related to vector translation.
     const disposeTranslate = () => {
       this.moveVectorDragListener.dispose();
+      moveVectorKeyboardListener.dispose();
       selectVectorKeyboardListener.dispose();
       removeVectorKeyboardListener && removeVectorKeyboardListener.dispose();
       checkVectorValuesKeyboardShortcut.dispose();
@@ -242,6 +242,10 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
     } );
 
     this.disposeVectorNode = () => {
+
+      // Dispose of Properties.
+      accessibleNameProperty.dispose();
+      valuesVisibleIfOnGraphProperty.dispose();
 
       // Dispose of nodes
       angleNode.dispose();
