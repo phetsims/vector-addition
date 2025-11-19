@@ -51,12 +51,14 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       .lineTo( -tipHeight, tipWidth / 2 )
       .close();
 
+    const accessibleNameProperty = new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.tip.accessibleNameStringProperty, {
+      symbol: vector.accessibleSymbolProperty
+    } );
+
     const options = combineOptions<PathOptions>( {
       stroke: phet.chipper.queryParameters.dev ? 'red' : null,
       cursor: 'pointer',
-      accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.vectorNode.tip.accessibleNameStringProperty, {
-        symbol: vector.accessibleSymbolProperty
-      } ),
+      accessibleName: accessibleNameProperty,
       accessibleHelpText: VectorAdditionStrings.a11y.vectorNode.tip.accessibleHelpTextStringProperty
     }, AccessibleDraggableOptions );
 
@@ -125,6 +127,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     } );
 
     this.disposeVectorTipNode = () => {
+      accessibleNameProperty.dispose();
       vector.xyComponentsProperty.unlink( xyComponentsListener );
     };
   }
