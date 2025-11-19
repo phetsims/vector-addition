@@ -50,6 +50,7 @@ export class LabelEqualsNumberPicker extends HBox {
     const numberPickerParent = new Node( { children: [ numberPicker ] } );
 
     super( {
+      isDisposable: false,
       align: 'origin',
       spacing: 3, // space around the equals sign
       children: [ labelNode, equalsSign, numberPickerParent ],

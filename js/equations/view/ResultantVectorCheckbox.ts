@@ -39,6 +39,9 @@ export default class ResultantVectorCheckbox extends Checkbox {
       scene => scene.vectorSet.resultantVector.accessibleSymbolProperty.value );
 
     const options = combineOptions<CheckboxOptions>( {}, VectorAdditionConstants.CHECKBOX_OPTIONS, {
+
+      // CheckboxOptions
+      isDisposable: false,
       accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.equationsSumCheckbox.accessibleNameStringProperty, {
         symbol: accessibleSymbolProperty
       } ),

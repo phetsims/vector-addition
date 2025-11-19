@@ -114,6 +114,7 @@ export default class LabelEqualsAnglePicker extends Node {
       } );
 
     super( {
+      isDisposable: false,
       children: [ signedAngleLabeledPicker, unsignedAngleLabeledPicker ],
       enabledProperty: new EnabledProperty( true, {
         tandem: tandem.createTandem( 'enabledProperty' )
