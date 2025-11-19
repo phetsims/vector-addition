@@ -62,7 +62,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
   private readonly moveVectorDragListener: DragListener;
 
   // We need to use a separate utterance queue for the doAccessibleObjectResponse method because it was interrupting
-  // important context responses ('Vector added to graph area', 'Vector removed from graph area') that occur way over
+  // important context responses ('Vector added to graph area', 'Vector removed from graph area') that occur over
   // in VectorSetNode. It seems backwards to have to use a separate queue for the thing doing the interrupting, but
   // that's currently the recommended pattern.
   private readonly objectResponseUtterance = new Utterance();
