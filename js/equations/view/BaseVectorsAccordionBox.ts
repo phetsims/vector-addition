@@ -85,8 +85,9 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
       if ( coordinateSnapMode === 'cartesian' ) {
 
-        // type cast not needed after affirm. // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+        // TODO: CM: Recommendation: type cast not needed after affirming instanceof, see https://github.com/phetsims/vector-addition/issues/376
         const cartesianBaseVector = baseVector as CartesianBaseVector;
+
         affirm( cartesianBaseVector instanceof CartesianBaseVector, 'Expected instance of CartesianBaseVector.' );
 
         // x-component

@@ -29,7 +29,7 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
   public constructor( vector: Vector, vectorNode: VectorNode ) {
     super( {
       tandem: Tandem.OPT_OUT, // View is created dynamically and is not PhET-iO instrumented.
-      keyStringProperties: HotkeyData.combineKeyStringProperties( [ MoveVectorKeyboardListener.HOTKEY_DATA ] ), // combine? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+      keyStringProperties: HotkeyData.combineKeyStringProperties( [ MoveVectorKeyboardListener.HOTKEY_DATA ] ),
       fireOnHold: true,
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `MoveVectorKeyboardListener: keysPressed=${keysPressed}` );
@@ -38,6 +38,7 @@ export default class MoveVectorKeyboardListener extends KeyboardListener<OneKeyS
         vector.setSelected( true );
 
         // Move the vector.
+        // TODO: CM: Suggestion: This code is a near-duplicate of code in ScaleRotateVectorKeyboardListener. Should we share it? See https://github.com/phetsims/vector-addition/issues/376
         let dx = 0;
         let dy = 0;
         if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {

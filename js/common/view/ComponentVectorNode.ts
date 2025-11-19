@@ -137,7 +137,7 @@ export default class ComponentVectorNode extends RootVectorNode {
 
       // Since the leader lines are a child of this view, the origin of the view is at the tail of the component
       // vector. Get the tip position relative to the tail of the component vector (which is the components)
-      // TODO: SR: do you need the origin to get from components to tip, see https://github.com/phetsims/vector-addition/issues/376
+      // TODO: CM: Question: something is confusing here since the tip position should add the origin, I'm not sure where that is accommodated or if this is misnamed?, see https://github.com/phetsims/vector-addition/issues/376
       const tipPosition = modelViewTransform.modelToViewDelta( componentVector.xyComponents );
 
       // Get the parent tail position relative to the origin of the view (the tail of the component vector)

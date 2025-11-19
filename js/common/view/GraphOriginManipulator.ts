@@ -76,7 +76,6 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
     } );
 
     // Adds an accessible object response that describes the graph's bounds.
-    // this is a better name than doResponse // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     const addGraphBoundsResponse = () => {
       const graphBounds = graph.boundsProperty.value;
       const response = StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {

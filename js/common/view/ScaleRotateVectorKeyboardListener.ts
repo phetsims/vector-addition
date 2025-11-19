@@ -69,7 +69,7 @@ function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke 
   affirm( vector.coordinateSnapMode === 'cartesian', 'wrong coordinateSnapMode' );
 
   // Compute delta for xy-components.
-  // TODO: SR, near duplicate of another spot in the code, see https://github.com/phetsims/vector-addition/issues/376
+  // TODO: CM: Suggestion: This code is a near-duplicate of code in MoveVectorKeyboardListener. Should we share it? See https://github.com/phetsims/vector-addition/issues/376
   let dx = 0;
   let dy = 0;
   if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
