@@ -95,7 +95,7 @@ export default class EquationsScreenView extends VectorAdditionScreenView {
       sceneNodesTandem.createTandem( 'polarSceneNode' ) );
 
     // Graph Area heading for the Cartesian scene.
-    // duplicated code fragment 33 LOC // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+    // TODO: CM: Recommendation: It is acceptable to have this copied code, but perhaps good to call out with NOTE: this is duplicated with ..., see https://github.com/phetsims/vector-addition/issues/376
     const cartesianGraphAreaHeading = new Node( {
       pdomOrder: [
         cartesianSceneNode.graphNode,

@@ -47,7 +47,7 @@ export default class LabelEqualsAnglePicker extends Node {
     } );
 
     // Keep the signed and unsigned angle Properties synchronized.
-    // review: a better way? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+    // TODO: CM: A better way? see https://github.com/phetsims/vector-addition/issues/376
     let isSetting = false;
     signedAngleDegreesProperty.lazyLink( signedAngle => {
       if ( !isSetting ) {
@@ -94,7 +94,6 @@ export default class LabelEqualsAnglePicker extends Node {
       // 0 and 360 are the same value, and signedToUnsignedDegrees maps both to 0. Since that is done throughout the
       // UI, we must limit the range.max here to 355.  It would be nicer if NumberPicker could wrap around between
       // 0 and 355, but that is not directly supported, and attempts to make it work were buggy, brittle, and too clever.
-      // would it help for the model to be on the interval -infinity to +infinity, and the view UI is the only place we bound it? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
       new Range( 0, 360 - VectorAdditionConstants.POLAR_ANGLE_INTERVAL ),
       new RichText( angleSymbolStringProperty, {
         font: VectorAdditionConstants.EQUATION_SYMBOL_FONT,

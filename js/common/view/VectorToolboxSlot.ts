@@ -147,7 +147,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
           if ( removedVector === vector ) {
             vector.animateToToolboxProperty.value = false;
             vector.animateToToolboxProperty.unlink( animateToToolboxListener );
-            vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener ); // TODO sr check memory leak // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+            vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
           }
         };
         vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );

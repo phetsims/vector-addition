@@ -107,11 +107,9 @@ export default class EquationsVector extends Vector {
 
     // Observe when the base vector changes, or when the coefficient Property changes and update the vector.
     Multilink.multilink( [ this.baseVector.xyComponentsProperty, this.coefficientProperty ],
-      ( xyComponents, coefficient ) => {
+      ( baseVectorXYComponents, coefficient ) => {
         if ( !isSettingPhetioStateProperty.value ) {
-
-          // how does this update when not setting phet-io state? Is it instrumented separately? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
-          this.xyComponentsProperty.value = xyComponents.timesScalar( coefficient );
+          this.xyComponentsProperty.value = baseVectorXYComponents.timesScalar( coefficient );
         }
       } );
   }
@@ -128,7 +126,10 @@ export default class EquationsVector extends Vector {
    */
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
     const labelDisplayData = super.getLabelDisplayData( valuesVisible );
-    labelDisplayData.coefficient = this.coefficientProperty.value; // will this get stale? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+
+    // TODO: CM: Question: Will this become stale? It seems like it plucks a value of the coefficientProperty at one moment in time. and I can't tell if it is recomputed when the coefficientProperty changes. see https://github.com/phetsims/vector-addition/issues/376
+    labelDisplayData.coefficient = this.coefficientProperty.value;
+
     return labelDisplayData;
   }
 }

@@ -109,8 +109,6 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       }
       else {
 
-        // TODO: SR should test these // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
-
         // We have a 'long' vector, so use the large pointer areas.
         this.mouseArea = largeMouseAreaShape;
         this.touchArea = largeTouchAreaShape;
