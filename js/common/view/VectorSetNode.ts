@@ -249,6 +249,7 @@ export default class VectorSetNode extends Node {
           xComponentVectorNode.dispose();
           yComponentVectorNode.dispose();
           vectorNode.dispose();
+          vectorAndComponentsNode.dispose();
 
           // remove listeners
           this.vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
