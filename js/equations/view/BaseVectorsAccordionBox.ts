@@ -10,6 +10,7 @@
  *  - allow users to toggle the visibility of the Base Vectors (via checkbox)
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -84,6 +85,7 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
 
       if ( coordinateSnapMode === 'cartesian' ) {
 
+        // type cast not needed after affirm. // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
         const cartesianBaseVector = baseVector as CartesianBaseVector;
         affirm( cartesianBaseVector instanceof CartesianBaseVector, 'Expected instance of CartesianBaseVector.' );
 

@@ -62,7 +62,7 @@ export default class VectorSetNode extends Node {
   // Whether the angle is visible.
   private readonly anglesVisibleProperty: TReadOnlyProperty<boolean>;
 
-  // The bound of the graph - it's x-axis range and y-axis range.
+  // The bound of the graph - its x-axis range and y-axis range.
   private readonly graphBoundsProperty: TReadOnlyProperty<Bounds2>;
 
   // Style for drawing component vectors.
@@ -330,6 +330,8 @@ export default class VectorSetNode extends Node {
       element.visible &&
       // pdomOrder may have non-focusable elements, like a VectorNode that is animating to the toolbox.
       element.focusable &&
+
+      // didn't understand this part of the predicate // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
       // ResultantVectorNode is a subclass of VectorNode, but it is not defined if there are no other vectors on the graph.
       !( element instanceof ResultantVectorNode )
     );

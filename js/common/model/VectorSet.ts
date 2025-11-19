@@ -77,6 +77,7 @@ type SelfOptions<V extends Vector> = {
 
 export type VectorSetOptions<V extends Vector> = SelfOptions<V> & PickRequired<PhetioObjectOptions, 'tandem'>;
 
+// TODO: Why is it a phetio object? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
 export default class VectorSet<V extends Vector = Vector> extends PhetioObject {
 
   // A vector set has one resultant vector, derived from the vectors that are on the graph.

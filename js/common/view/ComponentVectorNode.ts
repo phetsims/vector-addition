@@ -4,7 +4,7 @@
  * View for a ComponentVector
  *
  * Extends RootVectorNode but add the following functionality:
- *  - determines visibility by the component style (i.e. should be invisible on ComponentVectorStyle.INVISIBLE)
+ *  - determines visibility by the component style (i.e. should be 'invisible', see ComponentVectorStyle)
  *  - draws lines for ComponentVectorStyle 'projection'
  *  - custom label positioning
  *  - distinct appearance
@@ -137,6 +137,7 @@ export default class ComponentVectorNode extends RootVectorNode {
 
       // Since the leader lines are a child of this view, the origin of the view is at the tail of the component
       // vector. Get the tip position relative to the tail of the component vector (which is the components)
+      // TODO: SR: do you need the origin to get from components to tip, see https://github.com/phetsims/vector-addition/issues/376
       const tipPosition = modelViewTransform.modelToViewDelta( componentVector.xyComponents );
 
       // Get the parent tail position relative to the origin of the view (the tail of the component vector)

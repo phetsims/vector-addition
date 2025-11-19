@@ -31,7 +31,11 @@ export default class ExploreScene extends VectorAdditionScene {
                          componentVectorStyleProperty: TReadOnlyProperty<ComponentVectorStyle>,
                          tandem: Tandem ) {
 
-    super( accessibleSceneNameStringProperty, coordinateSnapMode, {
+    super( accessibleSceneNameStringProperty, coordinateSnapMode,
+
+
+      // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376 suggestion: can these be required everywhere? Or is it nice to have them required in ExploreScene and in the options in the super?
+      {
       graphOptions: {
         bounds: graphBounds,
         orientation: graphOrientation

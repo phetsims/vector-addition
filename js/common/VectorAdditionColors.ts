@@ -47,7 +47,7 @@ export default class VectorAdditionColors {
     default: Color.grayColor( 225 )
   } );
 
-public static readonly graphTickLineColorProperty = new ProfileColorProperty( vectorAddition, 'graphTickLineColor', {
+  public static readonly graphTickLineColorProperty = new ProfileColorProperty( vectorAddition, 'graphTickLineColor', {
     default: Color.BLACK
   } );
 

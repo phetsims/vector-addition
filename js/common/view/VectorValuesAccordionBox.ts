@@ -7,6 +7,7 @@
  *
  * @author Martin Veillette
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -181,6 +182,8 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
         // Update labels (angle label is the same)
         magnitudeSymbolNode.setSymbolProperty( vectorSymbolProperty );
+
+        // TODO: Does this leak DerivedStringProperty instances? We reallocate them each link // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
         xComponentSymbolNode.setSymbolProperty( new DerivedStringProperty(
           [ vectorSymbolProperty, VectorAdditionSymbols.xStringProperty ],
           ( vectorSymbol, xString ) => `${vectorSymbol}<sub>${xString}</sub>`
@@ -213,6 +216,8 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       this.accessibleParagraphStringProperty && this.accessibleParagraphStringProperty.dispose();
       this.accessibleParagraphStringProperty = null;
       if ( selectedVector ) {
+
+        // TODO: Does this leak? It allocates a new Property each time link is called back. // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
         this.accessibleParagraphStringProperty = new VectorValuesAccessibleParagraphProperty( selectedVector );
         vectorQuantitiesHBox.setAccessibleParagraph( this.accessibleParagraphStringProperty );
       }

@@ -61,7 +61,7 @@ export default class EquationsResultantVector extends ResultantVector {
     // When any vector's xy-components change, update the result.
     const vectorAddedListener = ( vector: Vector ) => vector.xyComponentsProperty.link( () => this.update( vectorSet.activeVectors ) );
     vectorSet.activeVectors.forEach( vector => vectorAddedListener( vector ) );
-    vectorSet.activeVectors.addItemAddedListener( vectorAddedListener );
+    vectorSet.activeVectors.addItemAddedListener( vectorAddedListener ); // do we need remove listener?
   }
 
   /**

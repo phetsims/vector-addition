@@ -51,7 +51,7 @@ export default class EquationsPolarScene extends EquationsScene {
       VectorAdditionColors.EQUATIONS_POLAR_COLOR_PALETTE,
       POLAR_VECTOR_DESCRIPTIONS,
       VectorAdditionSymbols.fStringProperty,
-      'f',
+      'f', // // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
       tandem
     );
   }

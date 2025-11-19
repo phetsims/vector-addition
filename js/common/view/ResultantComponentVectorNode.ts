@@ -9,6 +9,7 @@
  *  - disables the ability to take the resultant vector off of the graph
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';

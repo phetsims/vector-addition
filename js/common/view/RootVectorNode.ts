@@ -143,7 +143,7 @@ export default class RootVectorNode extends Node {
 
     // See https://github.com/phetsims/vector-addition/issues/252 and
     // https://github.com/phetsims/vector-addition/issues/302
-    this.arrowNode.visible = ( rootVector.magnitude > VectorAdditionConstants.ZERO_THRESHOLD );
+    this.arrowNode.visible = rootVector.magnitude > VectorAdditionConstants.ZERO_THRESHOLD;
 
     // Since the tail is defined at (0, 0) for the vector, the vector must be translated.
     this.translation = modelViewTransform.modelToViewPosition( rootVector.tail );
@@ -227,7 +227,7 @@ export default class RootVectorNode extends Node {
   public static computeLabelCenter( vector: RootVector, modelViewTransform: ModelViewTransform2, offset: Vector2 ): Vector2 {
 
     // Create a vector parallel to rootVector that determines where the label will be placed.
-    let labelVector = null;
+    let labelVector;
     if ( vector.xyComponents.magnitude < MAX_LABEL_VECTOR_MAGNITUDE ) {
       labelVector = vector.xyComponents;
     }

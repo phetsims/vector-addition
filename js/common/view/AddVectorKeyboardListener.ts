@@ -22,6 +22,7 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
                       sceneNode: VectorAdditionSceneNode,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2> ) {
     super( {
+      // not from a hotkey? // TODO: CM: Other cases identify a hotkey for this, which allows us to document for the keyboard help dialog, should we do so here as well? see https://github.com/phetsims/vector-addition/issues/376
       keys: [ 'space', 'enter' ],
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `AddVectorKeyboardListener: keysPressed=${keysPressed}` );
@@ -38,7 +39,7 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
 
           // Put the vector on the graph and select it.
           vector.isOnGraphProperty.value = true;
-          vector.setSelected( true );
+          vector.setSelected( true ); // how is focus transferred? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
 
           // Add the vector to activeVectors, so it contributes to the resultant vector.
           vectorSet.activeVectors.push( vector );

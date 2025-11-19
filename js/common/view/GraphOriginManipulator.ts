@@ -4,6 +4,7 @@
  * GraphOriginManipulator shows the origin on the graph, and can be dragged to reposition the origin.
  *
  * @author Martin Veillette
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -75,6 +76,7 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
     } );
 
     // Adds an accessible object response that describes the graph's bounds.
+    // this is a better name than doResponse // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     const addGraphBoundsResponse = () => {
       const graphBounds = graph.boundsProperty.value;
       const response = StringUtils.fillIn( VectorAdditionStrings.a11y.originManipulator.accessibleObjectResponseStringProperty.value, {
@@ -105,6 +107,7 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
     } );
 
     // When the origin manipulator gets focus, add an accessible object response.
+    // Is this because it does not have enough information in its name? What happens when the name is said on focus? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     this.focusedProperty.link( focused => {
       if ( focused ) {
         addGraphBoundsResponse();

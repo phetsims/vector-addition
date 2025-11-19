@@ -222,7 +222,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
     this.focusedProperty.lazyLink( focused => {
       if ( focused && vector.isOnGraphProperty.value ) {
-        this.doAccessibleObjectResponse();
+        this.doAccessibleObjectResponse(); // does this interfere with reading accessible name on focus? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
       }
     } );
 
@@ -268,6 +268,7 @@ export default class VectorNode extends InteractiveHighlighting( RootVectorNode 
 
   /**
    * Queues an accessible object response when the vector has been moved.
+   * TODO: CM: Would it be nice to rename this to "addAccessibleObjectResponse"?, see https://github.com/phetsims/vector-addition/issues/376
    */
   public doAccessibleObjectResponse(): void {
     this.objectResponseUtterance.alert = StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.body.accessibleObjectResponseStringProperty, {

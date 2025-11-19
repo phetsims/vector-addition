@@ -69,6 +69,7 @@ function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke 
   affirm( vector.coordinateSnapMode === 'cartesian', 'wrong coordinateSnapMode' );
 
   // Compute delta for xy-components.
+  // TODO: SR, near duplicate of another spot in the code, see https://github.com/phetsims/vector-addition/issues/376
   let dx = 0;
   let dy = 0;
   if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
@@ -87,6 +88,7 @@ function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke 
   const tipPosition = vector.tip.plusXY( dx, dy );
 
   // Skip over zero-magnitude vector.
+  // so you cannot go from +5 to -5 because you cannot pass through 0? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
   if ( tipPosition.equals( vector.tail ) ) {
     tipPosition.setXY( vector.tail.x + dx, vector.tail.y + dy );
   }
