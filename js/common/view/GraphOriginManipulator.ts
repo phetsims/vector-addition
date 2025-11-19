@@ -106,7 +106,6 @@ export default class GraphOriginManipulator extends InteractiveHighlighting( Sha
     } );
 
     // When the origin manipulator gets focus, add an accessible object response.
-    // Is this because it does not have enough information in its name? What happens when the name is said on focus? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     this.focusedProperty.link( focused => {
       if ( focused ) {
         addGraphBoundsResponse();

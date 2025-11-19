@@ -66,7 +66,6 @@ type SelfOptions = {
 export type RootVectorOptions = SelfOptions &
   PickOptional<PhetioObjectOptions, 'tandem' | 'phetioFeatured' | 'phetioState' | 'isDisposable'>;
 
-// why phetioobject? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
 export default abstract class RootVector extends PhetioObject {
 
   // the vector's xy-components

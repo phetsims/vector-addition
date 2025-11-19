@@ -154,7 +154,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     else {
       this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty, {
         magnitude: toFixedNumber( this.vector.magnitude, 1 ),
-        angle: toFixedNumber( this.vector.getAngleDegrees()!, 1 ) // TODO: Is this always degrees? Or sometimes radians? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+        angle: toFixedNumber( this.vector.getAngleDegrees()!, 1 )
       } ) );
     }
   }

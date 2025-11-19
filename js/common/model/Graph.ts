@@ -34,7 +34,6 @@ type SelfOptions = {
 
 export type GraphOptions = SelfOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
-// TODO: SR: see https://github.com/phetsims/vector-addition/issues/376 TODO: Why extends PhetioObject?
 export default class Graph extends PhetioObject {
 
   // orientation of the graph

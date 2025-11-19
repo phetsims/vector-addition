@@ -19,7 +19,10 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 // Properties common to all vectors in this scene.
-const TAIL_POSITION = Vector2.ZERO; // TODO: make sure never mutated? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+const TAIL_POSITION = Vector2.ZERO;
+
+// TODO: CM: Question: Due to the difficulty of inspection to make sure this is never accidentally mutated, and the fact
+// that it is shared to multiple clients, should we make this an ImmutableVector2? see https://github.com/phetsims/vector-addition/issues/376
 const XY_COMPONENTS = new Vector2( 5, 0 ); // horizontal vector
 
 // Describes the non-resultant vectors in the vector set for the horizontal scene.
