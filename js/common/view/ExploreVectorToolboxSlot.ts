@@ -36,7 +36,7 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
     // See https://github.com/phetsims/vector-addition/issues/250
     const pointerAreaDilation = ( graphOrientation === 'horizontal' ) ? new Vector2( 10, 10 ) :
                                 ( graphOrientation === 'vertical' ) ? new Vector2( 10, 5 ) :
-                                new Vector2( 10, 10 ); // fallback case not used? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+                                new Vector2( 10, 10 ); // TODO: SR: fallback case not used? see https://github.com/phetsims/vector-addition/issues/376
 
     // Gets the next vector from the toolbox. Since there is only one vector in this slot, it's either that vector or null.
     const getNextVector = () => vectorSet.activeVectors.includes( vector ) ? null : vector;
@@ -49,7 +49,7 @@ export default class ExploreVectorToolboxSlot extends VectorToolboxSlot {
       modelViewTransformProperty,
       graphBoundsProperty,
       iconModelComponents, {
-        iconEffectiveWidth: 35, // effective? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+        iconEffectiveWidth: 35, // TODO: SR: what does effective mean here? see https://github.com/phetsims/vector-addition/issues/376
         mouseAreaDilation: pointerAreaDilation,
         touchAreaDilation: pointerAreaDilation,
         symbolProperty: vector.symbolProperty,

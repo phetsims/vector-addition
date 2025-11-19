@@ -66,7 +66,7 @@ export class MoveVectorDragListener extends SoundDragListener {
               .minus( vector.xyComponents.timesScalar( 0.5 ) ); // shadow offset is 0.5? maybe add a constant // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
             const shadowTailPosition = vector.tail.plus( shadowOffset );
             vector.dropOntoGraph( shadowTailPosition );
-            vectorNode.doAccessibleObjectResponse(); // rename add* // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+            vectorNode.doAccessibleObjectResponse();
           }
           else {
 

@@ -23,7 +23,6 @@ export default class VectorAdditionSymbols {
   public static readonly yStringProperty = MathSymbolFont.createDerivedProperty( VectorAdditionStrings.symbol.yStringProperty );
 
   // Vector symbols are not localized. See https://github.com/phetsims/vector-addition/issues/10.
-  // what is createDerivedProperty? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
   public static readonly aStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'a' ) );
   public static readonly bStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'b' ) );
   public static readonly cStringProperty = MathSymbolFont.createDerivedProperty( new StringProperty( 'c' ) );

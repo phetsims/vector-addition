@@ -4,7 +4,7 @@
  * GraphOriginManipulator shows the origin on the graph, and can be dragged to reposition the origin.
  *
  * @author Martin Veillette
- * @author Chris // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
