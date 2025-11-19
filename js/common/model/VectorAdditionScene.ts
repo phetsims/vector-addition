@@ -30,6 +30,7 @@ import VectorSet from './VectorSet.js';
 
 type SelfOptions = {
 
+  // TODO: CM: Would some call sites read a little bit better if this was changed from a required option to a top-level constructor parameter? see https://github.com/phetsims/vector-addition/issues/376
   // Options that are propagated to the scene's Graph instance.
   graphOptions: StrictOmit<GraphOptions, 'tandem'>;
 };
@@ -44,7 +45,7 @@ export default class VectorAdditionScene extends PhetioObject {
   // coordinate snap mode for the scene, Cartesian or polar
   public readonly coordinateSnapMode: CoordinateSnapMode;
 
-  // the vectorSets for this scene
+  // the vectorSets for this scene, added by the subclass
   public readonly vectorSets: VectorSet[];
 
   // the graph for this scene
@@ -70,7 +71,6 @@ export default class VectorAdditionScene extends PhetioObject {
     this.accessibleSceneNameStringProperty = accessibleSceneNameStringProperty;
     this.coordinateSnapMode = coordinateSnapMode;
 
-    // where do these come from? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     this.vectorSets = [];
 
     this.graph = new Graph( combineOptions<GraphOptions>( {

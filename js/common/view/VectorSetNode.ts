@@ -331,7 +331,9 @@ export default class VectorSetNode extends Node {
       // pdomOrder may have non-focusable elements, like a VectorNode that is animating to the toolbox.
       element.focusable &&
 
-      // didn't understand this part of the predicate // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+      // TODO: CM: I understand why we would not want to "find" a resultant vector node, but the comment below
+      // seems to be describing another reason for being in the predicate, so I'm confused, see https://github.com/phetsims/vector-addition/issues/376
+
       // ResultantVectorNode is a subclass of VectorNode, but it is not defined if there are no other vectors on the graph.
       !( element instanceof ResultantVectorNode )
     );

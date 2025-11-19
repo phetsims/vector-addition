@@ -30,6 +30,8 @@ import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 type SelfOptions = {
   mouseAreaDilation: Vector2;
   touchAreaDilation: Vector2;
+
+  // The width of an AlignBox bounds, so that the icon and label are aligned consistently regardless of icon size.
   iconEffectiveWidth: number;
   symbolProperty: TReadOnlyProperty<string>;
 };
@@ -99,7 +101,8 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
         const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
         // Calculate where the tail position is relative to the scene node.
-        vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) ); // is 0.5 the shadow offset? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+        // TODO: CM: Suggestion: document the reason for subtracting half the xy-components. See https://github.com/phetsims/vector-addition/issues/376
+        vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
 
         // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
         vectorSet.activeVectors.push( vector );
@@ -122,8 +125,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
     // When a vector from this slot is added to activeVectors, add the listener that handles animating it back to the slot.
     vectorSet.activeVectors.addItemAddedListener( vector => {
-
-      // When would it not include vector? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+      
       if ( vectors.includes( vector ) ) {
 
         const animateToToolboxListener = ( animateBack: boolean ) => {
