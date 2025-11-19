@@ -222,6 +222,7 @@ export default class Vector extends RootVector {
       tipPositionWithInvariants = tipPositionOnGraph.roundedSymmetric();
     }
     else {
+      // TODO: Commented out code // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
       // this.coordinateSnapMode === 'polar''
 
       const xyComponents = tipPosition.minus( this.tail );
@@ -270,6 +271,7 @@ export default class Vector extends RootVector {
    */
   private setTailPositionWithInvariants( tailPosition: Vector2 ): void {
 
+    // Can we trigger this code with an animation on? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     affirm( !this.animation, 'this.inProgressAnimation must be false' );
 
     const constrainedTailBounds = this.getConstrainedTailBounds();

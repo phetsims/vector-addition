@@ -165,6 +165,8 @@ export default class VectorAdditionIconFactory {
     // resultant vector
     arrowNodes.push( new ArrowNode( startTail.x, startTail.y, lastTip.x, lastTip.y,
       combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.RESULTANT_VECTOR_ARROW_OPTIONS, {
+
+        // how does colorPalette relate to the color file? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
         fill: colorPalette.sumFillProperty,
         stroke: colorPalette.sumStrokeProperty
       } ) ) );

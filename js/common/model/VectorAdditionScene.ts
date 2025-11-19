@@ -10,6 +10,7 @@
  *   - Creating the scene.
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import Property from '../../../../axon/js/Property.js';
@@ -69,6 +70,7 @@ export default class VectorAdditionScene extends PhetioObject {
     this.accessibleSceneNameStringProperty = accessibleSceneNameStringProperty;
     this.coordinateSnapMode = coordinateSnapMode;
 
+    // where do these come from? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     this.vectorSets = [];
 
     this.graph = new Graph( combineOptions<GraphOptions>( {

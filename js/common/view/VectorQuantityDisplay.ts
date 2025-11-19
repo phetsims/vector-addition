@@ -98,6 +98,7 @@ export default class VectorQuantityDisplay extends NumberDisplay {
         VectorAdditionPreferences.instance.angleConventionProperty.value );
     };
 
+    // Feels like a DynamicProperty would work well here? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     // Observe when the scene's selected vector changes and update the xyComponents link.
     selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
 

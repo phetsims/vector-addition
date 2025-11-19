@@ -61,6 +61,7 @@ export default class ResultantVector extends Vector {
     super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
     // Resultant vector is defined if there is at least one vector on the graph.
+    // TODO: Consider uninstrumenting? Is it necessary for the phet-io api? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     this.isDefinedProperty = DerivedProperty.deriveAny( vectorSet.allVectors.map( vector => vector.isOnGraphProperty ),
       () => vectorSet.allVectors.filter( vector => vector.isOnGraphProperty.value ).length > 0, {
         tandem: options.tandem.createTandem( 'isDefinedProperty' ),

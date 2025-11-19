@@ -72,6 +72,8 @@ function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke 
   let dx = 0;
   let dy = 0;
   if ( keysPressed === 'arrowLeft' || keysPressed === 'a' ) {
+
+    // in another file DX and dy are hardcoded // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     dx = -DX;
   }
   else if ( keysPressed === 'arrowRight' || keysPressed === 'd' ) {
@@ -87,6 +89,7 @@ function computeTipPositionCartesian( vector: Vector, keysPressed: OneKeyStroke 
   const tipPosition = vector.tip.plusXY( dx, dy );
 
   // Skip over zero-magnitude vector.
+  // so you cannot go from +5 to -5 because you cannot pass through 0? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
   if ( tipPosition.equals( vector.tail ) ) {
     tipPosition.setXY( vector.tail.x + dx, vector.tail.y + dy );
   }

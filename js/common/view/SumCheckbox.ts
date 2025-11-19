@@ -118,6 +118,7 @@ export default class SumCheckbox extends Checkbox {
     } );
 
     // Wrap in a Node so that space does not get introduced between elements when the checkbox layout is stretched.
+    // is that true? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     const content = new Node( {
       children: [ labelAndIconNode ]
     } );

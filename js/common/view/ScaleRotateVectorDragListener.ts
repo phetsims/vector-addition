@@ -60,7 +60,7 @@ export default class ScaleRotateVectorDragListener extends SoundDragListener {
    */
   private updateTipPosition( tipPositionView: Vector2 ): void {
     const tipPositionModel = this.vector.tail.plus( this.modelViewTransformProperty.value.viewToModelDelta( tipPositionView ) );
-    this.vector.moveTipToPositionWithInvariants( tipPositionModel );
+    this.vector.moveTipToPositionWithInvariants( tipPositionModel ); // with invariants? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
   }
 }
 

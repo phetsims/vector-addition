@@ -63,6 +63,7 @@ export default class ResultantVectorCheckbox extends Checkbox {
       tandem: tandem
     } );
 
+    // what is getAccessibleStringProperty? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     const cSymbolNode = new ArrowOverSymbolNode( RichText.getAccessibleStringProperty( VectorAdditionSymbols.cStringProperty ), {
       visibleProperty: new DerivedProperty( [ sceneProperty ], scene => scene === cartesianScene ),
       maxWidth: 95 // determined empirically

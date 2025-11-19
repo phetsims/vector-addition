@@ -63,10 +63,10 @@ export class MoveVectorDragListener extends SoundDragListener {
 
             // Drop the vector where the shadow was positioned.
             const shadowOffset = modelViewTransformProperty.value.viewToModelDelta( vectorShadowNode.center )
-              .minus( vector.xyComponents.timesScalar( 0.5 ) );
+              .minus( vector.xyComponents.timesScalar( 0.5 ) ); // shadow offset is 0.5? maybe add a constant // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
             const shadowTailPosition = vector.tail.plus( shadowOffset );
             vector.dropOntoGraph( shadowTailPosition );
-            vectorNode.doAccessibleObjectResponse();
+            vectorNode.doAccessibleObjectResponse(); // rename add* // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
           }
           else {
 

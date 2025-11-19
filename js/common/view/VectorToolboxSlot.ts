@@ -99,7 +99,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
         const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
         // Calculate where the tail position is relative to the scene node.
-        vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
+        vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) ); // is 0.5 the shadow offset? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
 
         // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
         vectorSet.activeVectors.push( vector );
@@ -122,6 +122,8 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
     // When a vector from this slot is added to activeVectors, add the listener that handles animating it back to the slot.
     vectorSet.activeVectors.addItemAddedListener( vector => {
+
+      // When would it not include vector? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
       if ( vectors.includes( vector ) ) {
 
         const animateToToolboxListener = ( animateBack: boolean ) => {
@@ -143,7 +145,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
           if ( removedVector === vector ) {
             vector.animateToToolboxProperty.value = false;
             vector.animateToToolboxProperty.unlink( animateToToolboxListener );
-            vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener );
+            vectorSet.activeVectors.removeItemRemovedListener( vectorRemovedListener ); // TODO sr check memory leak // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
           }
         };
         vectorSet.activeVectors.addItemRemovedListener( vectorRemovedListener );

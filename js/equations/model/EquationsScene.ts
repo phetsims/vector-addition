@@ -9,6 +9,7 @@
  *  - it has a Property to select the equation type (addition/subtraction/negation) per scene
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';

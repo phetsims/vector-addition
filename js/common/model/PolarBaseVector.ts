@@ -56,6 +56,7 @@ export default class PolarBaseVector extends BaseVector {
 
     super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
+    // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376 How does this relate to the magnitudePropertyInstrumented one above?
     this.magnitudeProperty = new NumberProperty( this.magnitude, {
       numberType: 'Integer',
       range: VectorAdditionConstants.MAGNITUDE_RANGE,
@@ -68,7 +69,7 @@ export default class PolarBaseVector extends BaseVector {
     this.angleDegreesProperty = new NumberProperty( toFixedNumber( toDegrees( initialAngle ), 0 ), {
       numberType: 'Integer',
       range: VectorAdditionConstants.SIGNED_ANGLE_RANGE,
-      units: '\u00B0', // degrees
+      units: '\u00B0', // degrees // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376 do we have common code units for this? If not, why not?
       tandem: options.tandem.createTandem( 'angleDegreesProperty' ),
       phetioFeatured: true
     } );

@@ -61,6 +61,7 @@ export default class CartesianBaseVector extends BaseVector {
       phetioFeatured: true
     } );
 
+    // TODO: SR, Is this a 2-way binding? see https://github.com/phetsims/vector-addition/issues/376
     // When x-component changes, update xy-components.
     this.xComponentProperty.link( xComponent => {
       if ( !isSettingPhetioStateProperty.value ) {

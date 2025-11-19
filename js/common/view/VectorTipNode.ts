@@ -109,6 +109,8 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       }
       else {
 
+        // TODO: SR should test these // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+
         // We have a 'long' vector, so use the large pointer areas.
         this.mouseArea = largeMouseAreaShape;
         this.touchArea = largeTouchAreaShape;
@@ -118,7 +120,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       this.translation = modelViewTransformProperty.value.modelToViewDelta( vector.xyComponents );
       this.rotation = -xyComponents.angle;
     };
-    vector.xyComponentsProperty.link( xyComponentsListener ); // Must be unlinked in dispose.
+    vector.xyComponentsProperty.link( xyComponentsListener ); // Must be unlinked in dispose. // Want to try disposer? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
 
     this.focusedProperty.lazyLink( focused => {
       if ( focused ) {
@@ -150,7 +152,7 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
     else {
       this.addAccessibleObjectResponse( StringUtils.fillIn( VectorAdditionStrings.a11y.vectorNode.tip.accessibleObjectResponsePolarStringProperty, {
         magnitude: toFixedNumber( this.vector.magnitude, 1 ),
-        angle: toFixedNumber( this.vector.getAngleDegrees()!, 1 )
+        angle: toFixedNumber( this.vector.getAngleDegrees()!, 1 ) // TODO: Is this always degrees? Or sometimes radians? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
       } ) );
     }
   }

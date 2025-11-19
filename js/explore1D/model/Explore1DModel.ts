@@ -27,10 +27,12 @@ export default class Explore1DModel extends VectorAdditionModel<ExploreScene> {
   public constructor( tandem: Tandem ) {
 
     // Origin is at the center.
-    const graphBounds = new Bounds2( -VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width / 2,
+    const graphBounds = new Bounds2(
+      -VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width / 2,
       -VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height / 2,
       VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.width / 2,
-      VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height / 2 );
+      VectorAdditionConstants.DEFAULT_GRAPH_BOUNDS.height / 2
+    );
 
     super( {
       componentVectorStylePropertyInstrumented: false,

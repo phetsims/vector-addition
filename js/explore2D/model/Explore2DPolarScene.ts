@@ -2,6 +2,7 @@
 
 /**
  * Explore2DPolarScene is the polar scene in the 'Explore 2D' screen, with vectors 'd', 'e', and 'f'.
+ * do scenes remember their own state? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
  *
  * @author Chris Malley (PixelZoom, Inc.)
  */

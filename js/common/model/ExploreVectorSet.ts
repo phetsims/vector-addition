@@ -55,6 +55,7 @@ export default class ExploreVectorSet extends VectorSet {
     const options = optionize<ExploreVectorSetOptions, SelfOptions, VectorSetOptions<Vector>>()( {
 
       // VectorSetOptions
+      // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376 TODO: Why not create them, then pass them up?
       createAllVectors: createAllVectors
     }, providedOptions );
 

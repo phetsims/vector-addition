@@ -22,6 +22,7 @@ type SelfOptions = EmptySelfOptions;
 type CartesianPolarRadioButtonGroupOptions = SelfOptions & NodeTranslationOptions &
   PickRequired<RectangularRadioButtonGroupOptions, 'tandem'>;
 
+// do we need s? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
 export default class HorizontalVerticalSceneRadioButtonGroup<S extends VectorAdditionScene> extends RectangularRadioButtonGroup<S> {
 
   public constructor( sceneProperty: Property<S>,

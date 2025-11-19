@@ -109,6 +109,8 @@ export default class EquationsVector extends Vector {
     Multilink.multilink( [ this.baseVector.xyComponentsProperty, this.coefficientProperty ],
       ( xyComponents, coefficient ) => {
         if ( !isSettingPhetioStateProperty.value ) {
+
+          // how does this update when not setting phet-io state? Is it instrumented separately? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
           this.xyComponentsProperty.value = xyComponents.timesScalar( coefficient );
         }
       } );
@@ -126,7 +128,7 @@ export default class EquationsVector extends Vector {
    */
   public override getLabelDisplayData( valuesVisible: boolean ): LabelDisplayData {
     const labelDisplayData = super.getLabelDisplayData( valuesVisible );
-    labelDisplayData.coefficient = this.coefficientProperty.value;
+    labelDisplayData.coefficient = this.coefficientProperty.value; // will this get stale? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     return labelDisplayData;
   }
 }

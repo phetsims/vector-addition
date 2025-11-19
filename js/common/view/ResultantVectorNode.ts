@@ -9,6 +9,7 @@
  *  - disables the ability to take the resultant vector off of the graph
  *
  * @author Brandon Li
+ * @author Chris Malley (PixelZoom, Inc.)
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
@@ -56,6 +57,7 @@ export default class ResultantVectorNode extends VectorNode {
 
     // Making a selected resultant vector invisible clears activeVectorProperty.
     // See https://github.com/phetsims/vector-addition/issues/112.
+    // What if it has focus when made invisible? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     resultantVectorVisibleProperty.link( resultantVectorVisible => {
       if ( !isSettingPhetioStateProperty.value ) {
         if ( !resultantVectorVisible && selectedVectorProperty.value === resultantVector ) {

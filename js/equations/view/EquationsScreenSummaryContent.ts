@@ -25,6 +25,7 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
     affirm( _.every( scenes, scene => scene.vectorSet.allVectors.length === 2 ), 'Unexpected number of allVectors.' );
 
     // DerivedProperties that appear in the description sections.
+    // DynamicProperty? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     const equationTypeProperty = DerivedStringProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.equationTypeProperty ) ],
       () => sceneProperty.value.equationTypeProperty.value );
@@ -57,6 +58,7 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
     } );
 
     // Current Details description
+    // deriveAny not needed since we know the exact number of args // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
     const currentDetailsStringProperty = DerivedStringProperty.deriveAny( [
         sceneProperty,
         equationTypeProperty,
