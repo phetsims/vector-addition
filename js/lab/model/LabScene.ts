@@ -104,7 +104,7 @@ export default class LabScene extends VectorAdditionScene {
         projectionXOffsetDelta: offsetDelta,
         projectionYOffsetDelta: offsetDelta,
 
-        resultantTailPosition: new Vector2( 28, 10 ), // is this an initial value? // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+        resultantTailPosition: new Vector2( 28, 10 ),
 
         // resultant (sum) component vectors are spaced so that they don't overlap with vectorSet1
         resultantProjectionXOffset: this.vectorSet1.resultantProjectionXOffset + modelHeadWidth,
