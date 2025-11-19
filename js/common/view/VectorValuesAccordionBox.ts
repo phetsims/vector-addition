@@ -183,7 +183,7 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
         // Update labels (angle label is the same)
         magnitudeSymbolNode.setSymbolProperty( vectorSymbolProperty );
 
-        // TODO: Does this leak DerivedStringProperty instances? We reallocate them each link // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376
+        // TODO: CM: Does this leak DerivedStringProperty instances? We reallocate them each link callback, see https://github.com/phetsims/vector-addition/issues/390
         xComponentSymbolNode.setSymbolProperty( new DerivedStringProperty(
           [ vectorSymbolProperty, VectorAdditionSymbols.xStringProperty ],
           ( vectorSymbol, xString ) => `${vectorSymbol}<sub>${xString}</sub>`
