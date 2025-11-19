@@ -35,7 +35,10 @@ type PolarBaseVectorOptions = SelfOptions & BaseVectorOptions;
 export default class PolarBaseVector extends BaseVector {
 
   // Magnitude and angle of the vector, which can be changed in the Equations screen's polar scene.
+  // NOTE: Do not confuse with this._magnitudeProperty which is defined in the parent class and exists at runtime
   public readonly magnitudeProperty: NumberProperty;
+
+  // NOTE: Do not confuse with this._angleDegreesProperty which is defined in the parent class and exists at runtime
   public readonly angleDegreesProperty: NumberProperty;
 
   public constructor( tailPosition: Vector2,
@@ -56,7 +59,6 @@ export default class PolarBaseVector extends BaseVector {
 
     super( tailPosition, xyComponents, vectorSet, graph, selectedVectorProperty, componentVectorStyleProperty, options );
 
-    // TODO: SR: see https://github.com/phetsims/vector-addition/issues/376 How does this relate to the magnitudePropertyInstrumented one above?
     this.magnitudeProperty = new NumberProperty( this.magnitude, {
       numberType: 'Integer',
       range: VectorAdditionConstants.MAGNITUDE_RANGE,
