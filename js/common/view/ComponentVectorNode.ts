@@ -54,6 +54,9 @@ export default class ComponentVectorNode extends RootVectorNode {
                       valuesVisibleProperty: TReadOnlyProperty<boolean>,
                       providedOptions?: ComponentVectorNodeOptions ) {
 
+    const visibleProperty = new DerivedProperty( [ componentVectorStyleProperty, componentVector.isOnGraphProperty ],
+      ( componentVectorStyle, isOnGraph ) => ( componentVectorStyle !== 'invisible' ) && isOnGraph );
+
     const options = optionize<ComponentVectorNodeOptions, SelfOptions, RootVectorNodeOptions>()( {
 
       // RootVectorNodeOptions
@@ -61,8 +64,7 @@ export default class ComponentVectorNode extends RootVectorNode {
       arrowOptions: combineOptions<RootVectorArrowNodeOptions>( {}, VectorAdditionConstants.COMPONENT_VECTOR_ARROW_OPTIONS, {
         fill: componentVector.vectorColorPalette.componentFillProperty
       } ),
-      visibleProperty: new DerivedProperty( [ componentVectorStyleProperty, componentVector.isOnGraphProperty ],
-        ( componentVectorStyle, isOnGraph ) => ( componentVectorStyle !== 'invisible' ) && isOnGraph )
+      visibleProperty: visibleProperty
     }, providedOptions );
 
     super( componentVector, modelViewTransformProperty, valuesVisibleProperty, selectedVectorProperty, options );
@@ -96,6 +98,7 @@ export default class ComponentVectorNode extends RootVectorNode {
     selectedVectorProperty.link( selectedVectorListener );
 
     this.disposeComponentVectorNode = () => {
+      visibleProperty.dispose();
       componentVectorMultilink.dispose();
       if ( selectedVectorProperty.hasListener( selectedVectorListener ) ) {
         selectedVectorProperty.unlink( selectedVectorListener );
