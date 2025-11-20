@@ -30,8 +30,8 @@ import VectorSet from './VectorSet.js';
 
 type SelfOptions = {
 
-  // TODO: CM: Would some call sites read a little bit better if this was changed from a required option to a top-level constructor parameter? see https://github.com/phetsims/vector-addition/issues/376
   // Options that are propagated to the scene's Graph instance.
+  // This is an option so that the caller can override one or more default values.
   graphOptions: StrictOmit<GraphOptions, 'tandem'>;
 };
 
