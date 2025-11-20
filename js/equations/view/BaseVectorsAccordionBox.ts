@@ -145,6 +145,8 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         } ) );
       }
       else {
+
+        // TODO: CM: Affirm first then type cas is not needed, see https://github.com/phetsims/vector-addition/issues/376
         const polarBaseVector = baseVector as PolarBaseVector;
         affirm( polarBaseVector instanceof PolarBaseVector, 'Expected instance of PolarBaseVector.' );
 

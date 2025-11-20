@@ -336,6 +336,7 @@ export default abstract class RootVector extends PhetioObject {
   /**
    * Gets the angle of the vector in degrees as a string, using the specified angle convention (signed or unsigned).
    * If the vector has zero magnitude, the empty string is returned.
+   * TODO: CM: Unused, see https://github.com/phetsims/vector-addition/issues/376
    */
   public getAngleDegreesString( angleConvention: AngleConvention ): string {
     let angleDegreesString = '';
