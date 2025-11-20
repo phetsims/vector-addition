@@ -8,9 +8,9 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import VectorAdditionViewProperties, { VectorAdditionViewPropertiesOptions } from './VectorAdditionViewProperties.js';
-import vectorAddition from '../../vectorAddition.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionViewProperties, { VectorAdditionViewPropertiesOptions } from './VectorAdditionViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 

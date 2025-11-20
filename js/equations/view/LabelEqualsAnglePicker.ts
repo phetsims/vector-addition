@@ -13,6 +13,7 @@
  */
 
 import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js';
+import EnabledProperty from '../../../../axon/js/EnabledProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -29,7 +30,6 @@ import { signedToUnsignedDegrees, unsignedToSignedDegrees } from '../../common/V
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { LabelEqualsNumberPicker } from './LabelEqualsNumberPicker.js';
-import EnabledProperty from '../../../../axon/js/EnabledProperty.js';
 
 export default class LabelEqualsAnglePicker extends Node {
 

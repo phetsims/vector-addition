@@ -6,17 +6,17 @@
  * @author Martin Veillette
  */
 
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import ExploreScene from '../../common/model/ExploreScene.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import vectorAddition from '../../vectorAddition.js';
 import Explore1DHorizontalScene from './Explore1DHorizontalScene.js';
 import Explore1DVerticalScene from './Explore1DVerticalScene.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class Explore1DModel extends VectorAdditionModel<ExploreScene> {
 

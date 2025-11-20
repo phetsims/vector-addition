@@ -8,16 +8,16 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import vectorAddition from '../../vectorAddition.js';
+import ExploreVectorSet from '../model/ExploreVectorSet.js';
+import { GraphOrientation } from '../model/GraphOrientation.js';
 import ExploreVectorToolboxSlot from './ExploreVectorToolboxSlot.js';
 import VectorAdditionSceneNode from './VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from './VectorToolbox.js';
-import ExploreVectorSet from '../model/ExploreVectorSet.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import { GraphOrientation } from '../model/GraphOrientation.js';
 
 type SelfOptions = {
   iconModelComponents: Vector2; // xy-components of the vector icon, in model coordinates

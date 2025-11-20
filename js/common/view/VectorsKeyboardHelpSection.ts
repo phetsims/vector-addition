@@ -11,11 +11,11 @@ import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/Keybo
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import CheckVectorValuesKeyboardShortcut from './CheckVectorValuesKeyboardShortcut.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
 import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListener.js';
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
-import CheckVectorValuesKeyboardShortcut from './CheckVectorValuesKeyboardShortcut.js';
 
 export default class VectorsKeyboardHelpSection extends KeyboardHelpSection {
 

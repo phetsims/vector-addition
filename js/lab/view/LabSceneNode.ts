@@ -31,10 +31,10 @@ export default class LabSceneNode extends VectorAdditionSceneNode {
       // This screen has a vector toolbox.
       createVectorToolbox: sceneNode => new LabVectorToolbox( sceneNode, scene.vectorSet1, scene.vectorSet2,
         scene.graph.modelViewTransformProperty, scene.graph.boundsProperty, {
-        left: sceneRadioButtonGroup.left,
-        bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
-        tandem: tandem.createTandem( 'vectorToolbox' )
-      } ),
+          left: sceneRadioButtonGroup.left,
+          bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
+          tandem: tandem.createTandem( 'vectorToolbox' )
+        } ),
       tandem: tandem
     } );
   }

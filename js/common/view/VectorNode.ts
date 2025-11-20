@@ -29,6 +29,7 @@ import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
+import CheckVectorValuesKeyboardShortcut from './CheckVectorValuesKeyboardShortcut.js';
 import { MoveVectorDragListener } from './MoveVectorDragListener.js';
 import MoveVectorKeyboardListener from './MoveVectorKeyboardListener.js';
 import RemoveVectorKeyboardListener from './RemoveVectorKeyboardListener.js';
@@ -38,7 +39,6 @@ import ScaleRotateVectorKeyboardListener from './ScaleRotateVectorKeyboardListen
 import SelectVectorKeyboardListener from './SelectVectorKeyboardListener.js';
 import VectorAngleNode from './VectorAngleNode.js';
 import VectorTipNode from './VectorTipNode.js';
-import CheckVectorValuesKeyboardShortcut from './CheckVectorValuesKeyboardShortcut.js';
 
 // options for the vector shadow
 const SHADOW_OPTIONS = combineOptions<ArrowNodeOptions>( {}, VectorAdditionConstants.VECTOR_ARROW_OPTIONS, {

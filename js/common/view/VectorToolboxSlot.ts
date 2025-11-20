@@ -125,7 +125,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
 
     // When a vector from this slot is added to activeVectors, add the listener that handles animating it back to the slot.
     vectorSet.activeVectors.addItemAddedListener( vector => {
-      
+
       if ( vectors.includes( vector ) ) {
 
         const animateToToolboxListener = ( animateBack: boolean ) => {

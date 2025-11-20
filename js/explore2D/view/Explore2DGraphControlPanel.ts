@@ -19,12 +19,12 @@ import VectorAdditionColors from '../../common/VectorAdditionColors.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import AnglesCheckbox from '../../common/view/AnglesCheckbox.js';
 import ComponentsControl from '../../common/view/ComponentsControl.js';
+import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 import GraphControlPanel, { GraphControlPanelOptions } from '../../common/view/GraphControlPanel.js';
 import SumCheckbox from '../../common/view/SumCheckbox.js';
 import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 
 type SelfOptions = EmptySelfOptions;
 

@@ -11,6 +11,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import CartesianPolarSceneRadioButtonGroup from '../../common/view/CartesianPolarSceneRadioButtonGroup.js';
+import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 import VectorAdditionScreenView from '../../common/view/VectorAdditionScreenView.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
@@ -18,7 +19,6 @@ import Explore2DModel from '../model/Explore2DModel.js';
 import Explore2DGraphControlPanel from './Explore2DGraphControlPanel.js';
 import Explore2DSceneNode from './Explore2DSceneNode.js';
 import Explore2DScreenSummaryContent from './Explore2DScreenSummaryContent.js';
-import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 
 export default class Explore2DScreenView extends VectorAdditionScreenView {
 

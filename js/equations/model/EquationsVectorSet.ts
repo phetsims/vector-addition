@@ -13,6 +13,7 @@ import Property from '../../../../axon/js/Property.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVector from '../../common/model/BaseVector.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
@@ -24,7 +25,6 @@ import vectorAddition from '../../vectorAddition.js';
 import EquationsResultantVector from './EquationsResultantVector.js';
 import EquationsVector from './EquationsVector.js';
 import { EquationType } from './EquationType.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // Describes a non-resultant vector for the Equations screen.
 export type EquationsVectorDescription = {

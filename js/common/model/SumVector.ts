@@ -45,9 +45,9 @@ export default class SumVector extends ResultantVector {
 
     // When a vector is added or removed from the graph, or xy-components change, update the sum.
     Multilink.multilinkAny( [
-        ...vectorSet.allVectors.map( vector => vector.isOnGraphProperty ),
-        ...vectorSet.allVectors.map( vector => vector.xyComponentsProperty )
-      ], () => {
+      ...vectorSet.allVectors.map( vector => vector.isOnGraphProperty ),
+      ...vectorSet.allVectors.map( vector => vector.xyComponentsProperty )
+    ], () => {
       this.xyComponentsProperty.value = computeSum( vectorSet.allVectors );
     } );
   }

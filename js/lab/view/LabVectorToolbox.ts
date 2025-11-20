@@ -8,17 +8,17 @@
  * @author Chris Malley (PixelZoom, Inc.)
  */
 
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import VectorToolbox, { VectorToolboxOptions } from '../../common/view/VectorToolbox.js';
 import vectorAddition from '../../vectorAddition.js';
-import LabVectorToolboxSlot from './LabVectorToolboxSlot.js';
 import LabVectorSet from '../model/LabVectorSet.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Bounds2 from '../../../../dot/js/Bounds2.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
+import LabVectorToolboxSlot from './LabVectorToolboxSlot.js';
 
 type SelfOptions = EmptySelfOptions;
 

@@ -29,6 +29,7 @@ import { PressListenerEvent } from '../../../../scenery/js/listeners/PressListen
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import vectorAddition from '../../vectorAddition.js';
+import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import { ComponentVectorStyle } from '../model/ComponentVectorStyle.js';
 import Vector from '../model/Vector.js';
 import VectorAdditionScene from '../model/VectorAdditionScene.js';
@@ -39,7 +40,6 @@ import VectorAdditionViewProperties from './VectorAdditionViewProperties.js';
 import VectorSetNode from './VectorSetNode.js';
 import VectorToolbox from './VectorToolbox.js';
 import VectorValuesAccordionBox from './VectorValuesAccordionBox.js';
-import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 
 type SelfOptions = {
 

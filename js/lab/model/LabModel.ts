@@ -6,15 +6,15 @@
  * @author Martin Veillette
  */
 
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import VectorAdditionModel from '../../common/model/VectorAdditionModel.js';
 import vectorAddition from '../../vectorAddition.js';
 import LabCartesianScene from './LabCartesianScene.js';
 import LabPolarScene from './LabPolarScene.js';
 import LabScene from './LabScene.js';
-import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
-import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class LabModel extends VectorAdditionModel<LabScene> {
 

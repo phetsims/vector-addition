@@ -14,9 +14,9 @@ import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js
 import ExploreScene from '../../common/model/ExploreScene.js';
 import VectorAdditionConstants from '../../common/VectorAdditionConstants.js';
 import ExploreVectorToolbox from '../../common/view/ExploreVectorToolbox.js';
+import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 import VectorAdditionSceneNode from '../../common/view/VectorAdditionSceneNode.js';
 import vectorAddition from '../../vectorAddition.js';
-import ExploreViewProperties from '../../common/view/ExploreViewProperties.js';
 
 export default class Explore1DSceneNode extends VectorAdditionSceneNode {
 
@@ -32,12 +32,12 @@ export default class Explore1DSceneNode extends VectorAdditionSceneNode {
       // This screen has a vector toolbox.
       createVectorToolbox: sceneNode => new ExploreVectorToolbox( sceneNode, scene.vectorSet,
         scene.graph.modelViewTransformProperty, scene.graph.boundsProperty, scene.graph.orientation, {
-        iconModelComponents: ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 2.5, 0 ) : new Vector2( 0, 2.5 ),
-        ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18,
-        left: sceneRadioButtonGroup.left,
-        bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
-        tandem: tandem.createTandem( 'vectorToolbox' )
-      } ),
+          iconModelComponents: ( scene.graph.orientation === 'horizontal' ) ? new Vector2( 2.5, 0 ) : new Vector2( 0, 2.5 ),
+          ySpacing: ( scene.graph.orientation === 'horizontal' ) ? 32 : 18,
+          left: sceneRadioButtonGroup.left,
+          bottom: sceneRadioButtonGroup.top - VectorAdditionConstants.SPACE_BELOW_VECTOR_TOOLBOX,
+          tandem: tandem.createTandem( 'vectorToolbox' )
+        } ),
       tandem: tandem
     } );
   }

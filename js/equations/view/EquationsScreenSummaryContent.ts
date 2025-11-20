@@ -10,11 +10,11 @@ import DerivedStringProperty from '../../../../axon/js/DerivedStringProperty.js'
 import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
+import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
 import EquationsScene from '../model/EquationsScene.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 
 export default class EquationsScreenSummaryContent extends ScreenSummaryContent {
 

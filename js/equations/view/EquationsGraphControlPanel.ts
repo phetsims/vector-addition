@@ -22,8 +22,8 @@ import ValuesCheckbox from '../../common/view/ValuesCheckbox.js';
 import VectorAdditionGridCheckbox from '../../common/view/VectorAdditionGridCheckbox.js';
 import vectorAddition from '../../vectorAddition.js';
 import EquationsScene from '../model/EquationsScene.js';
-import ResultantVectorCheckbox from './ResultantVectorCheckbox.js';
 import EquationsViewProperties from './EquationsViewProperties.js';
+import ResultantVectorCheckbox from './ResultantVectorCheckbox.js';
 
 type SelfOptions = EmptySelfOptions;
 
