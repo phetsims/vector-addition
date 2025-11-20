@@ -222,8 +222,7 @@ export default class Vector extends RootVector {
       tipPositionWithInvariants = tipPositionOnGraph.roundedSymmetric();
     }
     else {
-      // TODO: CM: Commented out code, safe to remove? see https://github.com/phetsims/vector-addition/issues/376
-      // this.coordinateSnapMode === 'polar''
+      // coordinateSnapMode is 'polar'
 
       const xyComponents = tipPosition.minus( this.tail );
 
