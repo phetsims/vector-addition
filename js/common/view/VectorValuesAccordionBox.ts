@@ -168,26 +168,36 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       yComponentSymbolNode.setCoefficient( coefficient );
     };
 
-    // Update when the selected vector changes.
+    // Update symbols to match the selected vector.
+    let xComponentSymbolProperty: TReadOnlyProperty<string> | null = null;
+    let yComponentSymbolProperty: TReadOnlyProperty<string> | null = null;
     selectedVectorProperty.link( ( selectedVector, oldSelectedVector ) => {
+
+      // Dispose of previous symbol Properties, if any.
+      xComponentSymbolProperty && xComponentSymbolProperty.dispose();
+      yComponentSymbolProperty && yComponentSymbolProperty.dispose();
 
       if ( selectedVector !== null ) {
 
-        // Get the vector symbol
+        // Get the vector symbol.
         const vectorSymbolProperty = selectedVector.symbolProperty;
 
-        // Update labels (angle label is the same)
+        // Update magnitude label.
         magnitudeSymbolNode.setSymbolProperty( vectorSymbolProperty );
 
-        // TODO: CM: Does this leak DerivedStringProperty instances? We reallocate them each link callback, see https://github.com/phetsims/vector-addition/issues/390
-        xComponentSymbolNode.setSymbolProperty( new DerivedStringProperty(
+        // Update x-component label.
+        xComponentSymbolProperty = new DerivedStringProperty(
           [ vectorSymbolProperty, VectorAdditionSymbols.xStringProperty ],
           ( vectorSymbol, xString ) => `${vectorSymbol}<sub>${xString}</sub>`
-        ) );
-        yComponentSymbolNode.setSymbolProperty( new DerivedStringProperty(
+        );
+        xComponentSymbolNode.setSymbolProperty( xComponentSymbolProperty );
+
+        // Update y-component label.
+        yComponentSymbolProperty = new DerivedStringProperty(
           [ vectorSymbolProperty, VectorAdditionSymbols.yStringProperty ],
           ( vectorSymbol, yString ) => `${vectorSymbol}<sub>${yString}</sub>`
-        ) );
+        );
+        yComponentSymbolNode.setSymbolProperty( yComponentSymbolProperty );
       }
 
       if ( selectedVector && selectedVector instanceof EquationsVector ) {
