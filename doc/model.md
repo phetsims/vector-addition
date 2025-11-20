@@ -10,15 +10,15 @@ There are 2 "scenes", which constrain vectors to 1 dimension. Selection of the s
 
 In the horizontal scene:
 
-* 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
-* the y component of all vectors is zero
-* the sum is a&#8407; + b&#8407; + c&#8407; = s&#8407;
+* 3 vectors can be created, labeled `a`, `b`, and `c`.
+* The y component of all vectors is zero.
+* The sum is `a` + `b` + `c` = `s`
 
 In the vertical scene:
 
-* 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
-* the x component of all vectors is zero
-* the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407;
+* 3 vectors can be created, labeled `d`, `e`, and `f`
+* The x component of all vectors is zero.
+* The sum is `d` + `e` + `f` = `s`
 
 To manipulate vectors:
 
@@ -36,16 +36,16 @@ of the scene is controlled by the radio buttons at the lower-right of the screen
 
 In the Cartesian scene:
 
-* 3 vectors can be created, labeled a&#8407;, b&#8407;, and c&#8407;
-* vector x and y components snap to integer values
-* the sum is a&#8407; + b&#8407; + c&#8407; = s&#8407;
+* 3 vectors can be created, labeled `a`, `b`, and `c`
+* Vector x and y components snap to integer values
+* The sum is `a` + `b` + `c` = `s`
 
-In the Polar scene:
+In the polar scene:
 
-* 3 vectors can be created, labeled d&#8407;, e&#8407;, and f&#8407;
-* vector magnitude snaps to integer values
-* vector angle snaps to 5-degree intervals
-* the sum is d&#8407; + e&#8407; + f&#8407; = s&#8407;
+* 3 vectors can be created, labeled `d`, `e`, and `f`
+* Vector magnitude snaps to integer values
+* Vector angle snaps to 5-degree intervals
+* the sum is `d` + `e` + `f` = `s`
 
 To manipulate vectors:
 
@@ -58,9 +58,10 @@ To manipulate vectors:
 
 The _Lab_ screen is similar to the _Explore 2D_ screen, with these differences:
 
-* Each scene has 2 sets of vectors (blue and red for Cartesian, purple and green for Polar.)
-* 10 vectors can be created for each set of vectors.
-* The sum for a set of n vectors is v&#8407;<sub>1</sub> + v&#8407;<sub>2</sub> + ... + v&#8407;<sub>n</sub> = s&#8407;
+* The Cartesian scene has 2 vector sets, `u` and `v`.
+* The polar scene has 2 vector sets, `p` and `q`.
+* 10 vectors can be created for each vector set.
+* The sum for a set of n vectors is (for example) `v`<sub>1</sub> + `v`<sub>2</sub> + ... + `v`<sub>n</sub> = `s`<sub>v</sub>
 
 ## Equations screen
 
@@ -69,27 +70,27 @@ _Lab_ screens, it has Cartesian and Polar scenes.
 
 In the Cartesian scene:
 
-* the scene shows vectors labeled a&#8407;, b&#8407;, and c&#8407;
-* base vectors are provided for a&#8407; and b&#8407;
+* The scene shows vectors labeled `a`, `b`, and `c`.
+* Base vectors are provided for `a` and `b`
 * x and y components can be changed for base vectors; range is [-10,10], integers
-* coefficients can be changed for a&#8407; and b&#8407;; range is [-5,5], integers
-* vector c&#8407; is derived based on the selection of one of these equations:
-  * a&#8407; + b&#8407; = c&#8407;
-  * a&#8407; - b&#8407; = c&#8407;
-  * a&#8407; + b&#8407; + c&#8407; = 0
+* Coefficients can be changed for `a` and `b`; range is [-5,5], integers
+* Vector `c` is derived based on the selection of one of these equations:
+  * `a` + `b` = `c`
+  * `a` - `b` = `c`
+  * `a` + `b` + `c` = 0
 
 In the Polar scene:
 
-* the scene shows vectors labeled d&#8407;, e&#8407;, and f&#8407;
-* base vectors are provided for d&#8407; and e&#8407;
-* magnitude and angle can be changed for base vectors
-* base vector magnitude range is [-10,10], integers
-* base vector angle range is [-180,180] degrees, in 5-degree intervals
-* coefficients can be changed for d&#8407; and e&#8407;; range is [-5,5], integers
-* vector f&#8407; is derived based on the selection of one of these equations:
-  * d&#8407; + e&#8407; = f&#8407;
-  * d&#8407; - e&#8407; = f&#8407;
-  * d&#8407; + e&#8407; + f&#8407; = 0
+* The scene shows vectors labeled `d`, `e`, and `f`.
+* Base vectors are provided for `d` and `e`.
+* Magnitude and angle can be changed for base vectors.
+* Base vector magnitude range is [-10,10], integers.
+* Base vector angle range is [-180,180] degrees, in 5-degree intervals.
+* Coefficients can be changed for `d` and `e`; range is [-5,5], integers.
+* Vector `f` is derived based on the selection of one of these equations:
+  * `d` + `e` = `f`
+  * `d` - `e` = `f`
+  * `d` + `e` + `f` = 0
 
 The _Equations_ screen has a couple of differences in how the student manipulates vectors:
 
