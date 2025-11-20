@@ -58,8 +58,7 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
     } );
 
     // Current Details description
-    // TODO: CM: Minor recommendation: deriveAny not needed since we know the exact number of args, see https://github.com/phetsims/vector-addition/issues/376
-    const currentDetailsStringProperty = DerivedStringProperty.deriveAny( [
+    const currentDetailsStringProperty = new DerivedStringProperty( [
         sceneProperty,
         equationTypeProperty,
         coefficient1Property,
