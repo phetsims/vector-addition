@@ -3,6 +3,11 @@
 /**
  * Base class for the top-level view of each screen.
  *
+ * NOTE: This sim has a significant amount of duplicated code in the subclasses of VectorAdditionScreenView.
+ * There are subtle differences between screens that make it tricky to factor out the duplication. And the duplication
+ * makes the scene graph structure and pdomOrder more obvious and straightforward. So this is duplication that we are
+ * willing to live with.
+ *
  * @author Martin Veillette
  */
 
