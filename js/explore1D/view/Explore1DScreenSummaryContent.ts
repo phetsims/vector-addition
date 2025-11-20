@@ -19,8 +19,9 @@ export default class Explore1DScreenSummaryContent extends ScreenSummaryContent 
 
   public constructor( sceneProperty: TReadOnlyProperty<ExploreScene>, scenes: ExploreScene[] ) {
 
+    //TODO https://github.com/phetsims/vector-addition/issues/400 Consider DynamicProperty for numberOfVectorsProperty and accessibleSceneNameStringProperty
+
     // Number of vectors on the graph.
-    // TODO: CM: Question: Consider DynamicProperty? see https://github.com/phetsims/vector-addition/issues/376
     const numberOfVectorsProperty = DerivedProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.vectorSet.numberOfVectorsOnGraphProperty ) ],
       () => sceneProperty.value.vectorSet.numberOfVectorsOnGraphProperty.value );

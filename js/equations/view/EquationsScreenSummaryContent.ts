@@ -24,8 +24,9 @@ export default class EquationsScreenSummaryContent extends ScreenSummaryContent 
     affirm( _.every( scenes, scene => scene.vectorSet.baseVectors.length === 2 ), 'Unexpected number of baseVectors.' );
     affirm( _.every( scenes, scene => scene.vectorSet.allVectors.length === 2 ), 'Unexpected number of allVectors.' );
 
+    //TODO https://github.com/phetsims/vector-addition/issues/400 Consider whether DynamicProperty for the DerivedProperties below.
+
     // DerivedProperties that appear in the description sections.
-    // TODO: CM: Consider whether DynamicProperty may be suitable here, see https://github.com/phetsims/vector-addition/issues/376
     const equationTypeProperty = DerivedStringProperty.deriveAny(
       [ sceneProperty, ...scenes.map( scene => scene.equationTypeProperty ) ],
       () => sceneProperty.value.equationTypeProperty.value );
