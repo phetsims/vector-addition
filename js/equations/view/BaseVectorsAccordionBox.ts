@@ -84,18 +84,14 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
     baseVectors.forEach( baseVector => {
 
       if ( coordinateSnapMode === 'cartesian' ) {
-
-        // TODO: CM: Recommendation: type cast not needed after affirming instanceof, see https://github.com/phetsims/vector-addition/issues/376
-        const cartesianBaseVector = baseVector as CartesianBaseVector;
-
-        affirm( cartesianBaseVector instanceof CartesianBaseVector, 'Expected instance of CartesianBaseVector.' );
+        affirm( baseVector instanceof CartesianBaseVector, 'Expected instance of CartesianBaseVector.' );
 
         // x-component
         const xSymbolStringProperty = new DerivedStringProperty(
-          [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
+          [ baseVector.symbolProperty, VectorAdditionSymbols.xStringProperty ],
           ( baseVectorSymbol, xString ) => `${baseVectorSymbol}<sub>${xString}</sub>` );
         const xLabeledPicker = new LabelEqualsNumberPicker(
-          cartesianBaseVector.xComponentProperty,
+          baseVector.xComponentProperty,
           VectorAdditionConstants.XY_COMPONENT_RANGE,
           new VectorSymbolNode( {
             symbolProperty: xSymbolStringProperty,
@@ -103,20 +99,20 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             maxWidth: LABEL_MAX_WIDTH
           } ), {
             accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorXComponentPicker.accessibleNameStringProperty, {
-              symbol: cartesianBaseVector.accessibleSymbolProperty
+              symbol: baseVector.accessibleSymbolProperty
             } ),
             accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorXComponentPicker.accessibleHelpTextStringProperty, {
-              symbol: cartesianBaseVector.accessibleSymbolProperty
+              symbol: baseVector.accessibleSymbolProperty
             } ),
             tandem: pickersTandem.createTandem( `${baseVector.tandemNameSymbol}xPicker` )
           } );
 
         // y-component
         const ySymbolStringProperty = new DerivedStringProperty(
-          [ cartesianBaseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
+          [ baseVector.symbolProperty, VectorAdditionSymbols.yStringProperty ],
           ( baseVectorSymbol, yString ) => `${baseVectorSymbol}<sub>${yString}</sub>` );
         const yLabeledPicker = new LabelEqualsNumberPicker(
-          cartesianBaseVector.yComponentProperty,
+          baseVector.yComponentProperty,
           VectorAdditionConstants.XY_COMPONENT_RANGE,
           new VectorSymbolNode( {
             symbolProperty: ySymbolStringProperty,
@@ -124,10 +120,10 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
             maxWidth: LABEL_MAX_WIDTH
           } ), {
             accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorYComponentPicker.accessibleNameStringProperty, {
-              symbol: cartesianBaseVector.accessibleSymbolProperty
+              symbol: baseVector.accessibleSymbolProperty
             } ),
             accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorYComponentPicker.accessibleHelpTextStringProperty, {
-              symbol: cartesianBaseVector.accessibleSymbolProperty
+              symbol: baseVector.accessibleSymbolProperty
             } ),
             tandem: pickersTandem.createTandem( `${baseVector.tandemNameSymbol}yPicker` )
           } );
@@ -145,32 +141,29 @@ export default class BaseVectorsAccordionBox extends AccordionBox {
         } ) );
       }
       else {
-
-        // TODO: CM: Affirm first then type cas is not needed, see https://github.com/phetsims/vector-addition/issues/376
-        const polarBaseVector = baseVector as PolarBaseVector;
-        affirm( polarBaseVector instanceof PolarBaseVector, 'Expected instance of PolarBaseVector.' );
+        affirm( baseVector instanceof PolarBaseVector, 'Expected instance of PolarBaseVector.' );
 
         // Magnitude
         const magnitudeLabeledPicker = new LabelEqualsNumberPicker(
-          polarBaseVector.magnitudeProperty,
+          baseVector.magnitudeProperty,
           VectorAdditionConstants.MAGNITUDE_RANGE,
           new VectorSymbolNode( {
-            symbolProperty: polarBaseVector.symbolProperty,
+            symbolProperty: baseVector.symbolProperty,
             includeAbsoluteValueBars: true,
             maxWidth: LABEL_MAX_WIDTH
           } ), {
             accessibleName: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorMagnitudePicker.accessibleNameStringProperty, {
-              symbol: polarBaseVector.accessibleSymbolProperty
+              symbol: baseVector.accessibleSymbolProperty
             } ),
             accessibleHelpText: new PatternStringProperty( VectorAdditionStrings.a11y.baseVectorMagnitudePicker.accessibleHelpTextStringProperty, {
-              symbol: polarBaseVector.accessibleSymbolProperty
+              symbol: baseVector.accessibleSymbolProperty
             } ),
             tandem: pickersTandem.createTandem( `${baseVector.tandemNameSymbol}MagnitudePicker` )
           } );
 
         // Angle
-        const anglePicker = new LabelEqualsAnglePicker( polarBaseVector.angleDegreesProperty, polarBaseVector.symbolProperty,
-          polarBaseVector.accessibleSymbolProperty, LABEL_MAX_WIDTH, pickersTandem.createTandem( `${baseVector.tandemNameSymbol}AnglePicker` ) );
+        const anglePicker = new LabelEqualsAnglePicker( baseVector.angleDegreesProperty, baseVector.symbolProperty,
+          baseVector.accessibleSymbolProperty, LABEL_MAX_WIDTH, pickersTandem.createTandem( `${baseVector.tandemNameSymbol}AnglePicker` ) );
 
         rows.push( new HBox( {
           align: 'origin',
