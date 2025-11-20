@@ -62,12 +62,11 @@ export default class PolarBaseVector extends BaseVector {
 
     this.magnitudeProperty = new NumberProperty( this.magnitude, {
       numberType: 'Integer',
-      range: VectorAdditionConstants.MAGNITUDE_RANGE,
+      range: VectorAdditionConstants.MAGNITUDE_RANGE, // zero magnitude is allowed for a base vector
       tandem: options.tandem.createTandem( 'magnitudeProperty' ),
       phetioFeatured: true
     } );
 
-    // TODO: CM: Question: Is it therefore disallowed to constructor a PolarBaseVector with a zero magnitude? see https://github.com/phetsims/vector-addition/issues/376
     const initialAngle = this.angle!;
     affirm( initialAngle !== null, 'expected this.angle to be non-null' );
     this.angleDegreesProperty = new NumberProperty( toFixedNumber( toDegrees( initialAngle ), 0 ), {
