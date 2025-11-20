@@ -1,8 +1,11 @@
 // Copyright 2019-2025, University of Colorado Boulder
 
 /**
- * RootVector is the abstract base class for all vector model classes. It is named RootVector because BaseVector
- * has another meaning in this simulation - see BaseVector.ts.
+ * RootVector is the abstract base class for all vector model classes. It is conceptually the most fundamental class
+ * in the vector class hierarchy. It is named RootVector (versus BaseVector) for 2 reasons:
+ *
+ * 1. In OO programming, the topmost class in an inheritance hierarchy is often referred to as the "root" class.
+ * 2. The term "base vector" has another meaning in this simulation - see BaseVector.ts.
  *
  * For an overview of the class hierarchy, see
  * https://github.com/phetsims/vector-addition/blob/main/doc/implementation-notes.md
