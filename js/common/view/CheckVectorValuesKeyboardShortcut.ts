@@ -50,6 +50,10 @@ export default class CheckVectorValuesKeyboardShortcut extends KeyboardListener<
         vectorNode.addAccessibleObjectResponse( accessibleParagraphProperty.value );
       }
     } );
+
+    this.disposeEmitter.addListener( () => {
+      accessibleParagraphProperty.dispose();
+    } );
   }
 }
 
