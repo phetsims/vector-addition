@@ -80,7 +80,6 @@ export class VectorValuesAccessibleParagraphProperty extends PatternStringProper
       directionProperty.dispose();
       xComponentProperty.dispose();
       yComponentProperty.dispose();
-      patternStringProperty.dispose();
     } );
   }
 }
