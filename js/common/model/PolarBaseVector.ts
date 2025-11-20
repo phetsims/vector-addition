@@ -19,6 +19,7 @@ import { toRadians } from '../../../../dot/js/util/toRadians.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { degreesUnit } from '../../../../scenery-phet/js/units/degreesUnit.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionConstants from '../VectorAdditionConstants.js';
@@ -72,9 +73,7 @@ export default class PolarBaseVector extends BaseVector {
     this.angleDegreesProperty = new NumberProperty( toFixedNumber( toDegrees( initialAngle ), 0 ), {
       numberType: 'Integer',
       range: VectorAdditionConstants.SIGNED_ANGLE_RANGE,
-
-      // TODO: CM: see https://github.com/phetsims/vector-addition/issues/376 Should this use scenery-phet/js/units/degreesUnit.ts ?
-      units: '\u00B0', // degrees
+      units: degreesUnit,
       tandem: options.tandem.createTandem( 'angleDegreesProperty' ),
       phetioFeatured: true
     } );

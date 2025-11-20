@@ -28,6 +28,8 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PickOptional from '../../../../phet-core/js/types/PickOptional.js';
+import { degreesUnit } from '../../../../scenery-phet/js/units/degreesUnit.js';
+import { radiansUnit } from '../../../../scenery-phet/js/units/radiansUnit.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
@@ -149,7 +151,7 @@ export default abstract class RootVector extends PhetioObject {
       () => this.angle, {
         tandem: options.tandem.createTandem( 'angleRadiansProperty' ),
         phetioValueType: NullableIO( NumberIO ),
-        units: 'radians',
+        units: radiansUnit,
         phetioFeatured: true
       } );
 
@@ -157,7 +159,7 @@ export default abstract class RootVector extends PhetioObject {
       angleRadians => ( angleRadians === null ) ? null : toDegrees( angleRadians ), {
         tandem: options.angleDegreesPropertyInstrumented ? options.tandem.createTandem( 'angleDegreesProperty' ) : Tandem.OPT_OUT,
         phetioValueType: NullableIO( NumberIO ),
-        units: '\u00B0', // degrees symbol
+        units: degreesUnit,
         phetioFeatured: true
       } );
 
