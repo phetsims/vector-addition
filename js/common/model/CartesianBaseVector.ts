@@ -61,7 +61,7 @@ export default class CartesianBaseVector extends BaseVector {
       phetioFeatured: true
     } );
 
-    // TODO: CM. Question: Is this a 2-way binding? If so, where is the other direction handled? see https://github.com/phetsims/vector-addition/issues/376
+    // TODO: CM. Question: Is this a 2-way binding? If so, where is the other direction handled? see https://github.com/phetsims/vector-addition/issues/396
     // When x-component changes, update xy-components.
     this.xComponentProperty.link( xComponent => {
       if ( !isSettingPhetioStateProperty.value ) {
