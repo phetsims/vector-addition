@@ -216,8 +216,6 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
       this.accessibleParagraphStringProperty && this.accessibleParagraphStringProperty.dispose();
       this.accessibleParagraphStringProperty = null;
       if ( selectedVector ) {
-
-        // TODO: CM: Does this leak? It allocates a new Property each time link is called back, see https://github.com/phetsims/vector-addition/issues/376
         this.accessibleParagraphStringProperty = new VectorValuesAccessibleParagraphProperty( selectedVector );
         vectorQuantitiesHBox.setAccessibleParagraph( this.accessibleParagraphStringProperty );
       }
