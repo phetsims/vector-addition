@@ -22,7 +22,7 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
                       sceneNode: VectorAdditionSceneNode,
                       graphBoundsProperty: TReadOnlyProperty<Bounds2> ) {
     super( {
-      // not from a hotkey? // TODO: CM: Question: Other cases identify a hotkey for this, which allows us to document for the keyboard help dialog, should we do so here as well? see https://github.com/phetsims/vector-addition/issues/376
+      //TODO https://github.com/phetsims/vector-addition/issues/373 keys will be replaced by activateOnClick: true
       keys: [ 'space', 'enter' ],
       fire: ( event, keysPressed ) => {
         phet.log && phet.log( `AddVectorKeyboardListener: keysPressed=${keysPressed}` );
