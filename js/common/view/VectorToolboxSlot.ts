@@ -100,8 +100,7 @@ export default class VectorToolboxSlot extends InteractiveHighlighting( HBox ) {
         // Convert the view coordinates of where the icon was clicked into model coordinates.
         const vectorCenterModel = modelViewTransformProperty.value.viewToModelPosition( vectorCenterView );
 
-        // Calculate where the tail position is relative to the scene node.
-        // TODO: CM: Suggestion: document the reason for subtracting half the xy-components. See https://github.com/phetsims/vector-addition/issues/376
+        // Set the tail position such that the pointer cursor ends up at the center of the vector.
         vector.tailPositionProperty.value = vectorCenterModel.minus( vector.xyComponents.timesScalar( 0.5 ) );
 
         // Add to activeVectors, so that it is included in the sum calculation when dropped on the graph.
