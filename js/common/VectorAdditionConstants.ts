@@ -40,8 +40,7 @@ export default class VectorAdditionConstants {
   }
 
   //----------------------------------------------------------------------------------------
-  // Credits are shared by vector-addition-main.js and its derivatives (vector-addition-equations-main.js)
-  // See https://github.com/phetsims/vector-addition/issues/98
+  // Credits are shared by vector-addition and vector-addition-equations.
 
   public static readonly CREDITS: CreditsData = {
     leadDesign: 'Michael Dubson, Amy Rouinfar, Matthew Blackman',
