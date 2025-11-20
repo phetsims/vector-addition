@@ -324,17 +324,19 @@ export default class VectorSetNode extends Node {
 
     // Find the next VectorNode in the pdomOrder. This is complicated, so each condition is explained.
     const nextVectorNode = _.find( this.pdomOrder, element =>
+
       // pdomOrder may have contain null elements.
       ( element !== null ) &&
+
       // pdomOrder may have invisible elements.
       element.visible &&
+
       // pdomOrder may have non-focusable elements, like a VectorNode that is animating to the toolbox.
       element.focusable &&
 
-      // TODO: CM: I understand why we would not want to "find" a resultant vector node, but the comment below
-      // seems to be describing another reason for being in the predicate, so I'm confused, see https://github.com/phetsims/vector-addition/issues/376
-
-      // ResultantVectorNode is a subclass of VectorNode, but it is not defined if there are no other vectors on the graph.
+      // We do not want to move focus to a ResultantVectorNode because it is last in the pdomOrder for a vector set.
+      // So if we get to a resultant vector, that means there are no other vectors on the graph, the resultant vector
+      // will be undefined, and it will therefore not be visible or focusable.
       !( element instanceof ResultantVectorNode )
     );
 
