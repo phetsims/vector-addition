@@ -49,10 +49,6 @@ type VectorValuesAccordionBoxOptions = SelfOptions & NodeTranslationOptions &
 
 export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
-  // For core description, the accessible paragraph for this accordion box describes the selected vector.
-  // For there is no selected vector, the accessible paragraph is set to null.
-  private accessibleParagraphStringProperty: TReadOnlyProperty<string> | null;
-
   public constructor( selectedVectorProperty: TReadOnlyProperty<Vector | null>,
                       graphBounds: Bounds2,
                       providedOptions: VectorValuesAccordionBoxOptions ) {
@@ -209,16 +205,21 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
     super( titleText, expandedContent, options );
 
-    this.accessibleParagraphStringProperty = null;
-
     // Set the accessible paragraph that describes the selected vector.
+    let accessibleParagraphStringProperty: TReadOnlyProperty<string> | null = null;
     selectedVectorProperty.link( selectedVector => {
-      this.accessibleParagraphStringProperty && this.accessibleParagraphStringProperty.dispose();
-      this.accessibleParagraphStringProperty = null;
+
+      // Dispose of the accessible paragraph for the previous vector, if any.
+      accessibleParagraphStringProperty && accessibleParagraphStringProperty.dispose();
+      accessibleParagraphStringProperty = null;
+
+      // If a vector is selected, create the accessible paragraph to describe it.
       if ( selectedVector ) {
-        this.accessibleParagraphStringProperty = new VectorValuesAccessibleParagraphProperty( selectedVector );
-        vectorQuantitiesHBox.setAccessibleParagraph( this.accessibleParagraphStringProperty );
+        accessibleParagraphStringProperty = new VectorValuesAccessibleParagraphProperty( selectedVector );
       }
+
+      // Set the accessible paragraph for the vector quantities HBox.
+      vectorQuantitiesHBox.setAccessibleParagraph( accessibleParagraphStringProperty );
     } );
 
     // When the accordion box is expanded or collapsed, cancel interactions.
