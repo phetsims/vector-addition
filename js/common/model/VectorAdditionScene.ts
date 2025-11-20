@@ -88,6 +88,8 @@ export default class VectorAdditionScene extends PhetioObject {
 
   public reset(): void {
     this.graph.reset();
+
+    // TODO: CM: Question: Some other reset functions in the sim call erase(). Should we do that here too? If not, can we document why not? See https://github.com/phetsims/vector-addition/issues/376
     this.selectedVectorProperty.reset();
     this.vectorSets.forEach( vectorSet => vectorSet.reset() );
   }
