@@ -100,6 +100,8 @@ export default class ComponentVectorNode extends RootVectorNode {
     this.disposeComponentVectorNode = () => {
       visibleProperty.dispose();
       componentVectorMultilink.dispose();
+
+      // TODO: CM: Why do we need a guard on this hasListener check? Does dispose get called multiple times somehow? See https://github.com/phetsims/vector-addition/issues/376
       if ( selectedVectorProperty.hasListener( selectedVectorListener ) ) {
         selectedVectorProperty.unlink( selectedVectorListener );
       }
