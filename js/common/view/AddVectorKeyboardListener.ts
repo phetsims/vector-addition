@@ -32,8 +32,6 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
 
         if ( vector ) {
 
-          // TODO: CM: Question: I cannot find where in the following code focus is actually set to the newly added vector. How does that happen? see https://github.com/phetsims/vector-addition/issues/376
-
           vector.reset();
 
           // The initial position of every vector is at the visual center of the graph.
@@ -47,7 +45,7 @@ export default class AddVectorKeyboardListener extends KeyboardListener<OneKeySt
           // Add the vector to activeVectors, so it contributes to the resultant vector.
           vectorSet.activeVectors.push( vector );
 
-          // Notify the sceneNode to create the view for the vector.
+          // Notify the sceneNode to create an associated vector node and give it focus.
           sceneNode.registerVector( vector, vectorSet );
         }
       }
