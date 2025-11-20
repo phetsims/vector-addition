@@ -21,15 +21,15 @@ import RichText from '../../../../scenery/js/nodes/RichText.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BaseVector from '../../common/model/BaseVector.js';
-import CartesianBaseVector from '../../common/model/CartesianBaseVector.js';
 import { ComponentVectorStyle } from '../../common/model/ComponentVectorStyle.js';
 import Graph from '../../common/model/Graph.js';
-import PolarBaseVector from '../../common/model/PolarBaseVector.js';
 import { LabelDisplayData } from '../../common/model/RootVector.js';
 import Vector, { VectorOptions } from '../../common/model/Vector.js';
 import VectorSet from '../../common/model/VectorSet.js';
 import vectorAddition from '../../vectorAddition.js';
 import VectorAdditionStrings from '../../VectorAdditionStrings.js';
+import CartesianBaseVector from './CartesianBaseVector.js';
+import PolarBaseVector from './PolarBaseVector.js';
 
 // initial coefficient and range
 const COEFFICIENT_RANGE = new Range( -5, 5 );
