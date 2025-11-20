@@ -119,7 +119,6 @@ export default class VectorTipNode extends InteractiveHighlighting( Path ) {
       this.rotation = -xyComponents.angle;
     };
 
-    // TODO: CM: Suggestion: some sites like this one could simplify by using the link(value,{disposer:...}) pattern. Not blocking and not necessary, see see https://github.com/phetsims/vector-addition/issues/376
     vector.xyComponentsProperty.link( xyComponentsListener ); // Must be unlinked in dispose.
 
     this.focusedProperty.lazyLink( focused => {
