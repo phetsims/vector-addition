@@ -105,7 +105,7 @@ The model class hierarchy for vectors is shown below. Note the distinction betwe
 vectors.
 
 ``` 
-RootVector (abstract base class)
+RootVector (abstract base class, the "root" of the vector class hierarchy)
   Vector (interactive)
     BaseVector (bass class)
       CartesianBaseVector (has mutable x and y components)
