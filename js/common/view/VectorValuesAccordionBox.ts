@@ -17,8 +17,10 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import affirm from '../../../../perennial-alias/js/browser-and-node/affirm.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import EquationsVector from '../../equations/model/EquationsVector.js';
@@ -31,8 +33,6 @@ import FixedSizeAccordionBox, { FixedSizeAccordionBoxOptions } from './FixedSize
 import VectorQuantityDisplay from './VectorQuantityDisplay.js';
 import VectorSymbolNode from './VectorSymbolNode.js';
 import { VectorValuesAccessibleParagraphProperty } from './VectorValuesAccessibleParagraphProperty.js';
-import { NodeTranslationOptions } from '../../../../scenery/js/nodes/Node.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 // Spacing between the label and number display.
 const LABEL_DISPLAY_SPACING = 7;
@@ -175,7 +175,9 @@ export default class VectorValuesAccordionBox extends FixedSizeAccordionBox {
 
       // Dispose of previous symbol Properties, if any.
       xComponentSymbolProperty && xComponentSymbolProperty.dispose();
+      xComponentSymbolProperty = null;
       yComponentSymbolProperty && yComponentSymbolProperty.dispose();
+      yComponentSymbolProperty = null;
 
       if ( selectedVector !== null ) {
 
